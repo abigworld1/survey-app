@@ -1,0 +1,10 @@
+[Unit]
+Description=Run survey-app daily
+
+[Timer]
+# 毎日 06:00（サーバーのタイムゾーン）。必要なら OnCalendar を変更。
+OnCalendar=*-*-* 06:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,25 @@
+# ── 既存の Open WebUI / vLLM の docker-compose.yml に、この service を追記する例 ──
+# ポイント: survey-app を vLLM と同じネットワークに載せれば、ポート公開なしで
+#           http://vllm:8000/v1 を内部名で叩けます（最も安全）。
+#
+# services:
+#   vllm:            # 既存（例）
+#     ...
+#   open-webui:      # 既存（例）
+#     ...
+
+services:
+  survey-app:
+    build:
+      context: ..            # repo ルート（このファイルの1つ上）
+      dockerfile: deploy/Dockerfile
+    environment:
+      - LLM_BASE_URL=http://vllm:8000/v1   # 既存 vLLM の service 名:ポートに合わせる
+      - LLM_API_KEY=dummy
+      # - LLM_MODEL=RedHatAI/gemma-4-26B-A4B-it-FP8-Dynamic  # 固定したい場合のみ
+    volumes:
+      - ..:/app                # 生成HTMLをホスト側 repo に書き出す（その後 git push）
+    networks:
+      - default                # vLLM と同じネットワークに合わせること
+    # 常駐させず、systemd timer から `docker compose run --rm survey-app` で起動する想定
+    profiles: ["manual"]

@@ -1,0 +1,21 @@
+# 購読設定（自分専用）。username ごとに keywords / k / sources を指定する。
+#  - username: 公開URL（/survey-app/<username>/）になります。実名・PIIは入れないこと。
+#  - keywords: ソース横断の検索語。OR 検索されます。
+#  - k:        1日に生成するページ数の上限（安全のため最大 20）。
+#  - sources:  arxiv / openalex / semanticscholar / dblp から選択。
+subscriptions:
+  - username: mapf
+    keywords:
+      - "multi-agent path finding"
+      - "MAPF"
+      - "conflict-based search"
+    k: 5
+    sources: [arxiv, semanticscholar, openalex]
+
+  - username: mapd-warehouse
+    keywords:
+      - "multi-agent pickup and delivery"
+      - "warehouse robotics"
+      - "automated warehouse"
+    k: 5
+    sources: [arxiv, openalex]

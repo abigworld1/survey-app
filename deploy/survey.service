@@ -1,0 +1,14 @@
+[Unit]
+Description=survey-app daily paper summarization
+Wants=network-online.target
+After=network-online.target docker.service
+
+[Service]
+Type=oneshot
+# 必要に応じてパスやユーザーを調整
+User=hirayama
+Environment=REPO_DIR=/home/hirayama/survey-app
+Environment=COMPOSE=/home/hirayama/survey-app
+# GIT_REMOTE はトークンを含むため、ここではなく EnvironmentFile で渡すのが安全
+EnvironmentFile=-/home/hirayama/survey-app/.env
+ExecStart=/usr/bin/env bash /home/hirayama/survey-app/deploy/run-and-publish.sh
