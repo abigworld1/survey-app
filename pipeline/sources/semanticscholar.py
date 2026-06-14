@@ -4,6 +4,8 @@
 環境変数 S2_API_KEY があればヘッダに付ける。
 """
 import os
+import time
+import urllib.error
 import urllib.parse
 
 from ..schema import Paper
@@ -20,7 +22,17 @@ def search(keywords, limit=25):
     headers = {}
     if os.environ.get("S2_API_KEY"):
         headers["x-api-key"] = os.environ["S2_API_KEY"]
-    data = http_get(ENDPOINT + "?" + q, headers=headers, timeout=40, min_interval=1.2)
+    # S2 は一時的に 429 を返すことがある（"wait and try again"）→ 指数バックオフで数回リトライ
+    data = None
+    for attempt in range(3):
+        try:
+            data = http_get(ENDPOINT + "?" + q, headers=headers, timeout=40, min_interval=1.2)
+            break
+        except urllib.error.HTTPError as e:
+            if e.code == 429 and attempt < 2:
+                time.sleep(3 * (attempt + 1))  # 3s, 6s
+            else:
+                raise
     out = []
     for p in data.get("data") or []:
         ext = p.get("externalIds") or {}
