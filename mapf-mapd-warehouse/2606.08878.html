@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PerspectiveGap: A Benchmark for Multi-Agent Orchestration Prompting | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">survey-app トップ</a></nav>
+  <h1>PerspectiveGap: A Benchmark for Multi-Agent Orchestration Prompting</h1>
+  <div class="meta">Youran Sun, Xingyu Ren, Kejia Zhang, Xinpeng Liu, Jiaxuan Guo<br>arxiv ・ 2026-06-07 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.08878v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.08878v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="tldr"><strong>一言で:</strong> マルチエージェント・オーケストレーションにおいて、各サブエージェントに適切な情報境界を定義・配分する能力を評価するベンチマーク「PerspectiveGap」を提案する。110のシナリオと27の商用モデルを用いた実験により、最高性能のGPT-5.5でも合格率は62.0%に留まり、全体平均のリーク率は246.5%と極めて高いことが示された。これは、LLMが役割固有のコンテキスト境界を維持する能力が、コーディング能力などの既存能力とは独立した困難な課題であることを示唆している。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>本研究は、マルチエージェント・オーケストレーションにおける「オーケストレーション・プロンプティング」能力、すなわち各役割に必要な情報を適切に定義・配分する能力を測定するベンチマーク「PerspectiveGap」を提案している。既存のベンチマークがエージェントの実行能力や対話中の信念追跡に焦点を当てているのに対し、本研究はエージェント間の相互作用を開始する前段階で生成される「プロンプト（指示書）」そのものの質を直接評価する。評価対象は、役割と情報の断片を割り当てる「role-fragment assignment」と、自由形式でプロンプトを記述する「free-form prompt writing」の2形式である。シナリオは2〜6の役割と7〜13の情報断片で構成され、各役割には業務に必要な断片のみを割り当てる「need-only rule」が適用される。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、実世界のエンジニアリング経験に基づき、最小限の役割とオーバーヘッドで効用を最大化する「Prompt Economy」原則に従った10種類のトポロジーと110のシナリオからなるベンチマークを構築した。第二に、LLMジャッジに頼らず、ユニグラム・バイグラム・トリグラムのフィンガープリントを用いた決定論的なスコアラーを開発し、情報の包含と不要な情報の排除を厳密に判定する手法を確立した。第三に、27の商用モデルの広範な評価を通じて、オーケストレーション能力がコーディング能力とは独立した特有の能力であることを明らかにした。最後に、情報漏洩（leakage）やコンテキストの欠落といった、マルチエージェント設計における具体的な失敗モードを体系化した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>ベンチマークは、10の役割・受け渡しパターン（トポロジー）と100のドメインインスタンス、および110のシナリオで構成される。オーケストレーションの工数は、役割数 $R$ とハンドオフ維持コスト $H$ を用いて $R + wH$ （$w$ は重み）と定義される。評価指標には、全ての境界を維持した際の $Strict\ pass$、および $Net\ match\ score$ が用いられる。プロンプトの評価には、断片のフレーズを用いた決定論的スコアラーを使用し、包含閾値を $0.7$ 以上、漏洩閾値を $0.3$ 未満と非対称に設定することで、自然な接続詞を許容しつつ誤った情報のコピーを検知する。また、難易度とエラーの関係を $\text{Strict pass} \approx \text{Net match score}^k$ （$k \approx 2$）という多項式近似を用いてモデル化している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>27の商用モデルを用いた実験の結果、全体平均の合格率は $14.9\%$ と低迷し、最高性能のGPT-5.5でも $62.0\%$ であった。次点のdeepseek-v4-proは $32.0\%$ であり、モデル間で顕著な性能差が確認された。情報漏洩の分析では、GPT-5.5の $\text{Distractor leakage}$ は2.3%と低いものの、$\text{Overall leakage}$ は49.1%に達しており、全モデル平均の $\text{Overall leakage}$ は246.5%という極めて高い値を示した。また、Claude 3 Opusは高いコーディング能力を持つ一方で、オーケストレーション能力には弱点を示すことが確認された。さらに、役割数が増えるほど難易度が上昇する傾向も実験的に示されている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究により、現在のLLMはサブエージェントの視点に立って情報の境界を制御することが極めて困難であることが示された。主な失敗モードとして、不要な情報を渡す「Distractor leakage」、役割外の情報を露出させる「Out-of-role information leakage」、共有コンテキストを欠落させる「Dropped shared context」、成果物の所有権を混同する「Artifact ownership and handoff confusion」、および指示の配置ミスである「Bootstrap paradox」が特定された。本ベンチマークの限界として、全てのオーケストレーションパターンを網羅しているわけではないこと、および決定論的スコアラーが、高品質な言い換え（paraphrase）を誤って低評価にする可能性があることが挙げられる。しかし、生成されたプロンプトが人間による検証なしに信頼できるわけではないという重要な知見を提供している。</p></section>
+
+  <h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>PerspectiveGap: A Benchmark for Multi-Agent Orchestration Prompting</h3><p>PerspectiveGapは、マルチエージェントシステムにおいて各サブエージェントが必要とする情報を適切に定義・配分する「オーケストレーション・プロンプティング」能力を評価するためのベンチマークである。本ベンチマークは、実世界のエンジニアリング経験に基づき「Prompt Economy」原則（最小限の役割とオーバーヘッドで効用を最大化するループ中心の構成）に従って構築された10種類のトポロジーと、110のシナリオで構成されている。評価タスクは、役割と情報の断片を割り当てる「role-fragment assignment」と、自由形式でプロンプトを記述する「free-form prompt writing」の2形式が用意されている。27の商用モデルを用いた実験では、GPT-5.5が平均合格率 62.0%（全体平均は 14.9%）を記録して他を圧倒した一方、Claude 3 Opus（本文中ではOpus 4.7と表記）はコーディング能力が高いにもかかわらずオーケストレーション能力に弱点を示すなど、モデル間で顕著な差が見られた。また、全体平均のリーク率（シナリオあたりの情報漏洩イベント数）が 246.5% と非常に高く、GPT-5.5 でさえ 49.1% であることから、現在のLLMにとってマルチエージェントの役割分担と情報制御は依然として極めて困難な課題であることが示されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究では、マルチエージェント・オーケストレーションにおけるプロンプト設計能力を評価するためのベンチマーク「PerspectiveGap」を提案している。このベンチマークは、各役割が持つべき情報の境界線や非対称なコンテキストの理解を測定することを目的としており、110のシナリオ（2〜6の役割、7〜13の情報断片で構成）から成る。評価タスクは、各役割に必要な断片のIDを出力する「役割-断片割り当て（role-fragment assignment）」と、実際のプロンプトを生成する「自由形式のプロンプト記述（free-form prompt writing）」の2種類で、後者は必要な情報の包含と不要な情報（distractorを含む）の排除をルールベースのスコアラーで判定する。実験では27の商用モデルを評価した結果、平均合格率は $14.9\%$ と低迷しており、最高性能のGPT-5.5でも $62.0\%$ に留まり、次点のdeepseek-v4-pro（$32.0\%$）と大きな開きがあることが示された。また、平均的な情報漏洩率（leakage rate）は $246.5\%$ と極めて高く、オーケストレーション能力はコーディング能力とは独立した特有の能力であることが示唆されている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>既存のマルチエージェント研究は、CAMELやAutoGenのように役割分担されたLLM間の協調や、ルーティング・計画・批判といったオーケストレーションのパターンに焦点を当ててきたが、これらは主に実行段階の評価に留まっている。AgentBenchやToolLLMのような既存のベンチマークは、与えられた指示やツールに基づくエージェントの実行能力を測定するものであり、SOTOPIA-TOMのような心の理論（ToM）に基づく研究も、対話中の信念追跡や行動選択を評価対象としている。これに対し、本研究が提案するPerspectiveGapは、エージェントが相互作用を開始する前段階において、メインエージェントが各役割のコンテキスト境界やハンドオフ契約を維持した適切な指示（role-specific instructions）を生成できるかという「オーケストレーション・プロンプティング」の能力を評価する。また、HiddenBenchやSilo-Benchが示すような、分散情報下での推論失敗やMASTが指摘する役割の混乱といった「相互作用後の失敗」の診断とは異なり、本手法は各エージェントの初期情報境界を決定付ける「プロンプトというアーティファクト」そのものを直接評価する点に独自性がある。これにより、下流タスクの成功率から間接的に推論するのではなく、生成されたプロンプトが情報を正しく割り当てられているかを直接的に検証することが可能となる。</p></section>
+<section class="secsum"><h3>3 PerspectiveGap Benchmark Design</h3><p>PerspectiveGapは、マルチエージェントのオーケストレーションにおける情報の境界維持能力を測定するベンチマークであり、10種類の役割と受け渡し（role-and-handoff）パターンからなるトポロジー、ドメイン固有のインスタンス、およびレンダリングされたシナリオで構成される。各シナリオは、役割リスト、シャッフルされた情報断片、および「各役割にはその業務に必要な断片のみを割り当てる」という「need-only rule」に基づく参照割り当て（reference assignment）から成る。評価は、役割と断片の構造的なマッピングを問う「Role-fragment assignment」と、最終的なサブエージェント用プロンプトを作成する「Free-form prompt writing」の2つの形式で行われ、各シナリオにはモデルの判断力を試すためのディストラクター（distractor）断片が1つ含まれる。主要な評価指標は、すべての境界が完全に維持されているかを判定する $Strict\ pass$ であり、これに加えて $Net\ match\ score$、および $Required\ coverage$、$Boundary\ precision$、$Overall\ leakage$、$Distractor\ leakage$ といった診断用指標が用いられる。特にプロンプト作成の評価では、LLMジャッジではなく、断片を区別するユニグラム・バイグラム・トリグラムのフレーズから構成されるフィンガープリントを用いた決定論的なスコアラーを使用しており、包含閾値を $0.7$ 以上、漏洩閾値を $0.3$ 未満と非対称に設定することで、自然な接続詞を許容しつつ誤った情報のコピーを厳密に検知する。公開されているデータセットは、10のトポロジー、100のドメインインスタンス、および110のシナリオを含んでいる。</p></section>
+<section class="secsum"><h3>4 The Prompt Economy Framing</h3><p>本セクションでは、マルチエージェント・オーケストレーションにおける設計指針として「Prompt Economy（プロンプト経済）」という概念を提唱している。オーケストレーションの工数は、役割を定義するロールプロンプトの数 $R$ と、情報の受け渡しを規定するハンドオフ・プロトコルの維持コスト $H$ を用いて、プロンプト工数は $R + wH$ （$w$ はハンドオフ維持の重み）と近似される。設計の目標は単にエージェント数を増やすことではなく、役割の再利用性を高めることで、プロンプトの維持コストを抑えつつ価値を累積させることにある。具体的には、アクターとクリティックのペアによるループ構造のように、少数のプロンプトで反復的な実行が可能な「ループ中心設計」が効率的である。PerspectiveGapベンチマークは、この設計思想に基づき、6つの基本トポロジーと4つのプール変体（計10種類）で構成され、役割とハンドオフの複雑性が評価されるよう設計されている。</p></section>
+<section class="secsum"><h3>5 Experiments</h3><p>27の商用モデルを対象に、110のシナリオを用いてマルチエージェント・オーケストレーションの性能を評価した結果、GPT-5.5が62.0%という極めて高いスコアを記録し、2位のdeepseek-v4-pro（32.0%）を大きく引き離した。評価指標の整合性については、厳格な合格判定である $\text{Strict pass}$ と部分点を与える $\text{Net match score}$ の関係を分析しており、$\text{Net match score}$ が $\text{Strict pass}$ と最も強い線形相関を持つことを示した。両者の非線形な関係は、シナリオ内の難易度が高い部分の割合を $f$、エラー確率を $p$ とした理想的なエラーモデルを用いて、$\text{Strict pass} \approx \text{Net match score}^k$ という多項式近似（$k \approx 2$ で相関係数 0.942）によって説明可能である。情報漏洩（Information leakage）の分析では、GPT-5.5の $\text{Distractor leakage}$ が2.3%と低い一方で、$\text{Overall leakage}$ は49.1%に達しており、全モデルの平均では $\text{Overall leakage}$ が246.5%に及ぶことが示された。また、シナリオ内のロール数が増えるほど難易度が上昇する傾向にあるが、4ロールのビンのみ特定のトポロジーの影響で例外的な挙動を示す。さらに、few-shot、distractor数、scratchpad、reasoning effortを用いたアブレーション研究により、標準的なプロンプティング手法や推論時の介入が性能に与える影響を検証している。</p></section>
+<section class="secsum"><h3>6 Common Failure Modes</h3><p>マルチエージェント・オーケストレーションにおける主な失敗モードとして、まず、メインエージェントがサブエージェントの役割に不要なヒントを渡してしまう「Distractor leakage」と、特定の役割にのみ開示すべき情報を誤って共有し、報酬ハッキングを誘発する「Out-of-role information leakage」が挙げられる。実験結果（Table 5）では、GPT-5.5のDistractor leakageが2.3%と低い一方で、全体的な漏洩率（overall leakage）は49.1%に達しており、モデルが役割固有の情報境界を維持できていない実態が示されている。また、アーティファクトの所有権を混同し、指示と対象ファイルを誤認する「Artifact ownership and handoff confusion」により、ファイルプロトコルが崩壊する問題も確認された（Table 6）。一方で、必要な共有コンテキストを欠落させる「Dropped shared context」も発生しており、レビュー担当者等の役割において欠落率が $17.3\%$ から $44.9\%$ に及ぶことが報告されている（Table 7）。さらに、指示がアーティファクト内に埋め込まれて読み取れない、あるいは不要な禁止事項を提示するといった制御フローの誤りである「Bootstrap paradox」も存在し、これらは総じてモデルがサブエージェントの視点に立って推論できていないという共通の限界を示している。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>本研究では、マルチエージェント・オーケストレーションにおいて、LLMが役割固有のプロンプトを適切に記述できるかを評価するベンチマーク「PerspectiveGap」を提案した。このベンチマークは、プロンプト作成コストが固定される一方で、役割の反復的な呼び出しによって利益が増大する「Prompt Economy」の原則に基づいた、10種類のループ中心的なトポロジーで構成されている。110のシナリオと27の商用モデルを用いた実験の結果、現在のモデルは、必要な情報が明示的に存在する場合であっても、必要最小限の情報のみを割り当てる「need-only rule」に従うことが困難であることが示された。失敗の具体的内容は、不要な情報の混入（distractors）、役割外情報の露出、共有コンテキストの欠落、成果物の所有権の混同、およびサブエージェントが参照不可能な位置への指示の配置など多岐にわたる。特に、Claude 3 Opusのようなコーディング能力に優れたモデルですら失敗が見られることから、オーケストレーション・プロンプティングは既存のコーディング能力とは異なる独立した能力であることが示唆された。結論として、生成されたサブエージェント用プロンプトは、人間による検証なしに役割固有の情報境界を維持できるとは限らず、依然として脆弱な中間ステップである。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>PerspectiveGapは10種類のトポロジーと100個のドメインインスタンスをカバーしているが、すべてのマルチエージェント・オーケストレーション・パターンを網羅しているわけではなく、今後の拡張の余地がある。本ベンチマークは、サブエージェントが実際に実行するダウンストリームの振る舞いではなく、コンテキストや制約を割り当てるための「ハンドオフ・アーティファクト」としてのプロンプト自体を評価対象としており、これはドメインごとに個別の実行環境や成功基準を定義せずに評価を行うための意図的な設計である。役割とフラグメントのマッピングは「必要時のみ（need-only）」ルールに基づいて作成され、5名の著者による内部監査は行われているものの、外部アノテーターとの一致度（inter-annotator agreement）については検証されていない。また、プロンプトの記述を評価するスコアラーは、LLMを用いない決定論的な手法を採用しているが、フラグメント固有の表面的な証拠が失われた高品質な言い換え（paraphrase）を誤って低評価にする可能性があるという限界がある。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>文書構造解析に基づく検索・質問応答・RAG の論文サーベイ | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.7; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; margin:0 0 4px; }
+  .sub { color:#9a9a9a; font-size:13px; margin-bottom:24px; }
+  ul { list-style:none; padding:0; margin:0; }
+  li { padding:14px 0; border-bottom:1px solid #2a2a2a; }
+  li a { color:#7cc6ff; text-decoration:none; font-size:1.02rem; }
+  .meta { color:#9a9a9a; font-size:12.5px; margin-top:4px; }
+  footer { margin-top:40px; color:#888; font-size:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="../index.html">← survey-app トップ</a></nav>
+  <h1>文書構造解析に基づく検索・質問応答・RAG</h1>
+  <div class="sub">3 本のサーベイ</div>
+  <ul><li><a href="2606.13680.html">Learning to Reason by Analogy via Retrieval-Augmented Reinforcement Fine-Tuning</a><div class="meta">2026-06-11 ・ 本研究は、表面的な類似性ではなく推論の構造的類似性（類推）に基づいてコンテキストを検索し、強化学習（RLVR）を通じて方策モデルを微調整する「Retrieval-Augmented Reinforcement Fine-Tuning (RA-RFT)」を提案する。従来のRAGが知識集約型であるのに対し、RA-RFTは推論の「足場（scaffolding）」を提供する類推的なデモンストレーションを検索し、モデルがそれらを探索プロセスで効果的に活用する方法を学習させる。数学的推論ベンチマークにおいて、Qwen3-1.7BでAIME 2025の精度をGRPOに対し$+7.1$ポイント向上させるなど、顕著な性能改善を達成した。</div></li>
+<li><a href="2606.13647.html">SkMTEB: Slovak Massive Text Embedding Benchmark and Model Adaptation</a><div class="meta">2026-06-11 ・ 低リソース言語であるスロバキア語を対象とした初の包括的な埋め込みベンチマーク「SkMTEB」を提案し、31のデータセットを用いて既存モデルを評価した。Multilingual E5をベースに、語彙のトリミング（Vocabulary Trimming）とファインチューニングを組み合わせることで、パラメータ数を大幅に削減しつつ商用APIに匹敵する性能を持つ軽量モデル $e5\text{-}sk\text{-}small$ および $e5\text{-}sk\text{-}large$ を開発した。</div></li>
+<li><a href="2606.13550.html">Uncertainty-Aware Hybrid Retrieval for Long-Document RAG</a><div class="meta">2026-06-11 ・ 長文RAGにおける検索粒度のトレードオフ（粗いチャンクはノイズが多く、細かいチャンクは検索漏れのリスクがある）を解決するため、追加学習を必要としない不確実性考慮型ハイブリッド検索フレームワーク「UMG-RAG」および、細粒度ヒットを親チャンクへ昇格させる「UMGP-RAG」を提案する。既存のDense/Sparseリトリーバを複数の粒度におけるエキスパートとして扱い、スコア分布のエントロピーからクエリ固有の信頼度を推定して適応的に融合することで、軽量かつ高精度なコンテキスト構築を実現する。</div></li>
+</ul>
+  <footer>AIによる自動生成・要約です（誤りを含む可能性があります）。最終更新: 2026-06-14</footer>
+</div>
+</body>
+</html>

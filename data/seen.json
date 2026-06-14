@@ -1,96 +1,60 @@
 {
-  "mapd-warehouse": {
-    "arxiv:2604.00428": {
+  "doc-structure-rag": {
+    "arxiv:2606.13550": {
       "added": "2026-06-14",
       "basis": "fulltext(arxiv)",
-      "date": "2026-04-01",
+      "date": "2026-06-11",
       "engine": "llm:gemma-4-26b",
-      "file": "mapd-warehouse/2604.00428.html",
-      "title": "Certificate-Driven Closed-Loop Multi-Agent Path Finding with Inheritable Factorization",
-      "tldr": "有限ホライゾンでの閉ループMAPFにおいて、衝突のない暫定解（certificate）とその総コスト（fleet budget）を導入することで、実行可能性の保証と、時間経過を超えて維持可能なグループ分解（inheritable factorization）を両立させたCDCBSを提案する。"
+      "file": "doc-structure-rag/2606.13550.html",
+      "title": "Uncertainty-Aware Hybrid Retrieval for Long-Document RAG",
+      "tldr": "長文RAGにおける検索粒度のトレードオフ（粗いチャンクはノイズが多く、細かいチャンクは検索漏れのリスクがある）を解決するため、追加学習を必要としない不確実性考慮型ハイブリッド検索フレームワーク「UMG-RAG」および、細粒度ヒットを親チャンクへ昇格させる「UMGP-RAG」を提案する。既存のDense/Sparseリトリーバを複数の粒度におけるエキスパートとして扱い、スコア分布のエントロピーからクエリ固有の信頼度を推定して適応的に融合することで、軽量かつ高精度なコンテキスト構築を実現する。"
     },
-    "arxiv:2604.07970": {
+    "arxiv:2606.13647": {
       "added": "2026-06-14",
       "basis": "fulltext(arxiv)",
-      "date": "2026-04-09",
+      "date": "2026-06-11",
       "engine": "llm:gemma-4-26b",
-      "file": "mapd-warehouse/2604.07970.html",
-      "title": "Karma Mechanisms for Decentralised, Cooperative Multi Agent Path Finding",
-      "tldr": "大規模なロボットシステム向けに、エージェントの過去の協力履歴を人工クレジット「Karma」として記録し、分散的な二者間交渉を通じて衝突を解決する、公平性と効率性を両立したMAPFフレームワークを提案する。"
+      "file": "doc-structure-rag/2606.13647.html",
+      "title": "SkMTEB: Slovak Massive Text Embedding Benchmark and Model Adaptation",
+      "tldr": "低リソース言語であるスロバキア語を対象とした初の包括的な埋め込みベンチマーク「SkMTEB」を提案し、31のデータセットを用いて既存モデルを評価した。Multilingual E5をベースに、語彙のトリミング（Vocabulary Trimming）とファインチューニングを組み合わせることで、パラメータ数を大幅に削減しつつ商用APIに匹敵する性能を持つ軽量モデル $e5\\text{-}sk\\text{-}small$ および $e5\\text{-}sk\\text{-}large$ を開発した。"
     },
-    "arxiv:2605.01153": {
+    "arxiv:2606.13680": {
       "added": "2026-06-14",
       "basis": "fulltext(arxiv)",
-      "date": "2026-05-01",
+      "date": "2026-06-11",
       "engine": "llm:gemma-4-26b",
-      "file": "mapd-warehouse/2605.01153.html",
-      "title": "Toward a Unified Framework for Collaborative Design of Human-AI Interaction",
-      "tldr": "マルチモーダルAIにおける意図解釈、説明可能性、ユーザーの主体性を統合し、AIの推論プロセスを可視化・修正可能にすることで、人間とAIの共適応的な協調を実現する設計フレームワークを提案している。"
-    },
-    "arxiv:2605.07835": {
-      "added": "2026-06-14",
-      "basis": "fulltext(arxiv)",
-      "date": "2026-05-08",
-      "engine": "llm:gemma-4-26b",
-      "file": "mapd-warehouse/2605.07835.html",
-      "title": "Many-to-Many Multi-Agent Pickup and Delivery",
-      "tldr": "同一SKUが複数の場所に存在するMany-to-Many MAPD問題を定義し、エージェント、タスク、開始地点、配送地点の4次元割り当てを解くM2Mアルゴリズムを提案。既存のLNS-PBSと比較して、特に高密度な在庫環境において最大38.8%のスループット向上を達成した。"
-    },
-    "arxiv:2606.05669": {
-      "added": "2026-06-14",
-      "basis": "fulltext(arxiv)",
-      "date": "2026-06-04",
-      "engine": "llm:gemma-4-26b",
-      "file": "mapd-warehouse/2606.05669.html",
-      "title": "Dynamic Multi-Agent Pickup and Delivery in Robotic Cellular Warehousing Systems",
-      "tldr": "ロボット細胞型倉庫システム（RCWS）において、実行中に注文内容（SKU）が動的に追加される「Dynamic-MAPD」問題を初めて定式化し、イベント駆動型のトークンパッシングを用いた2つの再計画アルゴリズムを提案することで、総フロータイムを大幅に削減した。"
+      "file": "doc-structure-rag/2606.13680.html",
+      "title": "Learning to Reason by Analogy via Retrieval-Augmented Reinforcement Fine-Tuning",
+      "tldr": "本研究は、表面的な類似性ではなく推論の構造的類似性（類推）に基づいてコンテキストを検索し、強化学習（RLVR）を通じて方策モデルを微調整する「Retrieval-Augmented Reinforcement Fine-Tuning (RA-RFT)」を提案する。従来のRAGが知識集約型であるのに対し、RA-RFTは推論の「足場（scaffolding）」を提供する類推的なデモンストレーションを検索し、モデルがそれらを探索プロセスで効果的に活用する方法を学習させる。数学的推論ベンチマークにおいて、Qwen3-1.7BでAIME 2025の精度をGRPOに対し$+7.1$ポイント向上させるなど、顕著な性能改善を達成した。"
     }
   },
-  "mapf": {
-    "arxiv:2605.16855": {
-      "added": "2026-06-14",
-      "basis": "fulltext(arxiv)",
-      "date": "2026-05-16",
-      "engine": "llm:gemma-4-26b",
-      "file": "mapf/2605.16855.html",
-      "title": "Lifelong LaCAM with Local Guidance for Lifelong MAPF",
-      "tldr": "Lifelong MAPFにおいて、LaCAMに局所的な時空間ガイダンスを統合したLLLGを提案し、高密度環境下でのスループット向上と計算時間の劇的な削減を両立した。"
-    },
-    "arxiv:2605.20929": {
-      "added": "2026-06-14",
-      "basis": "fulltext(arxiv)",
-      "date": "2026-05-20",
-      "engine": "llm:gemma-4-26b",
-      "file": "mapf/2605.20929.html",
-      "title": "STEAM: A Training-Free Congestion-Aware Enhancement Framework for Decentralized Multi-Agent Path Finding",
-      "tldr": "学習済みの分散型MAPFポリシーを一切変更せず、テスト時に混雑回避のガイダンスを注入することで成功率を最大60%向上させる、学習不要（training-free）な強化フレームワークSTEAMを提案する。"
-    },
-    "arxiv:2606.03735": {
-      "added": "2026-06-14",
-      "basis": "fulltext(arxiv)",
-      "date": "2026-06-02",
-      "engine": "llm:gemma-4-26b",
-      "file": "mapf/2606.03735.html",
-      "title": "On dynamic multi-agent pathfinding methods: review, simulations and modifications",
-      "tldr": "動的障害物と部分観測性が混在するマルチエージェント経路計画（D-MAPF）において、オフラインの幾何学的テンプレート生成とオンラインの時間的適応を分離した新手法A**を提案し、既存手法と比較評価した。"
-    },
-    "arxiv:2606.04746": {
-      "added": "2026-06-14",
-      "basis": "fulltext(arxiv)",
-      "date": "2026-06-03",
-      "engine": "llm:gemma-4-26b",
-      "file": "mapf/2606.04746.html",
-      "title": "CADENCE: Predicting Realized MAPF Execution Time Beyond Sum of Costs",
-      "tldr": "MAPFの標準的な指標であるSum of Costs (SoC) では物理ロボットの実行時間を正確に予測できない課題に対し、基本動作負荷と相互作用構造を階層的に取り入れた特徴量ラダーを提案し、実機実験を通じて実行時間の予測精度を大幅に向上させた。"
-    },
+  "mapf-mapd-warehouse": {
     "arxiv:2606.06686": {
       "added": "2026-06-14",
       "basis": "fulltext(arxiv)",
       "date": "2026-06-04",
       "engine": "llm:gemma-4-26b",
-      "file": "mapf/2606.06686.html",
+      "file": "mapf-mapd-warehouse/2606.06686.html",
       "title": "On the Hardness of Optimal Motion on Trees",
-      "tldr": "木構造におけるMulti-Agent Path Finding (MAPF) および Pebble Motion on Trees (PMT) の最適化問題について、ラベル付きおよび2色付きのバリエーションにおけるNP困難性を、Stack Rearrangement (SR) 問題からの帰着を通じて解明した研究である。"
+      "tldr": "本論文は、木構造におけるマルチエージェント経路探索（MAPF）の計算複雑性を解明し、距離（distance）、メイクスパン（makespan）、フロータイム（flowtime）の全指標において、エージェントが区別される「labeled」および2色以上の「colored」ケースがNP困難であることを証明した。特に、数十年間未解決であった木構造上のPebble Motion問題の困難性を、Stack Rearrangement (SR) 問題からの帰着を通じて解決し、極めて単純な「subdivided stars」構造においても困難性が成立することを示した。"
+    },
+    "arxiv:2606.08878": {
+      "added": "2026-06-14",
+      "basis": "fulltext(arxiv)",
+      "date": "2026-06-07",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2606.08878.html",
+      "title": "PerspectiveGap: A Benchmark for Multi-Agent Orchestration Prompting",
+      "tldr": "マルチエージェント・オーケストレーションにおいて、各サブエージェントに適切な情報境界を定義・配分する能力を評価するベンチマーク「PerspectiveGap」を提案する。110のシナリオと27の商用モデルを用いた実験により、最高性能のGPT-5.5でも合格率は62.0%に留まり、全体平均のリーク率は246.5%と極めて高いことが示された。これは、LLMが役割固有のコンテキスト境界を維持する能力が、コーディング能力などの既存能力とは独立した困難な課題であることを示唆している。"
+    },
+    "arxiv:2606.10087": {
+      "added": "2026-06-14",
+      "basis": "fulltext(arxiv)",
+      "date": "2026-06-08",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2606.10087.html",
+      "title": "CodeAlchemy: Synthetic Code Rewriting at Scale",
+      "tldr": "CodeAlchemyは、5つの合成データ生成戦略（CodeEnhance, CodeQA, CodeDev, CodeDialogue, CodeTrace）を用いて、15言語にわたる500Bトークン以上の高品質なコードデータと350Bの推論トークンを生成するフレームワークである。これにより、3Bパラメータの小規模モデルでありながら、HumanEvalで83.5%を達成し、27Bや32Bといった大規模な最先端モデルを凌駕する性能を実現した。"
     }
   }
 }

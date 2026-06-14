@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CodeAlchemy: Synthetic Code Rewriting at Scale | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">survey-app トップ</a></nav>
+  <h1>CodeAlchemy: Synthetic Code Rewriting at Scale</h1>
+  <div class="meta">Ankit Gupta, Aditya Prasad, Rameswar Panda<br>arxiv ・ 2026-06-08 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.10087v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.10087v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="tldr"><strong>一言で:</strong> CodeAlchemyは、5つの合成データ生成戦略（CodeEnhance, CodeQA, CodeDev, CodeDialogue, CodeTrace）を用いて、15言語にわたる500Bトークン以上の高品質なコードデータと350Bの推論トークンを生成するフレームワークである。これにより、3Bパラメータの小規模モデルでありながら、HumanEvalで83.5%を達成し、27Bや32Bといった大規模な最先端モデルを凌駕する性能を実現した。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>本研究は、公開ソースコードの品質不足、タスクの多様性の欠如、および実行セマンティクスの学習不足という課題に対処することを目的としている。既存のコード事前学習データはノイズが多く、品質向上策もPythonに限定されるなどの制約があった。CodeAlchemyは、コードの書き換え、QA生成、実務的タスクの生成、対話型拡張、および実行トレースの付与という多角的なアプローチにより、意味的に豊かな学習データを大規模に構築する。また、既存のベンチマークでは評価困難な、実務的な開発能力（DevEval）と実行予測能力（TraceEval）を測定するための新規ベンチマークも提案している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、15言語・5,000のライブラリにわたる1.3M件の実行トレースを含む、過去最大規模のコード実行データセットを構築した。第二に、CodeEnhanceによる低品質コードの品質向上、CodeQAによるアルゴリズム理解の促進、CodeDevによる実務タスクの生成、CodeTraceによる実行セマンティクスの学習という、補完的な5つの戦略を提案した。第三に、Claude Sonnet 4.5などの最先端モデルでも困難な、実行予測や開発タスクを評価するDevEvalおよびTraceEvalを導入した。最後に、3Bパラメータのモデルで、HumanEval 83.5%、MBPP 63.2%という、10倍以上の規模を持つモデルを上回る驚異的な性能を実証した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>CodeAlchemyは以下の5つの戦略で構成される。CodeEnhanceでは、gpt-oss-20bを用いてファイルを0-10でスコアリングし、低品質なファイル（スコア4-6）を書き換えて品質を8程度まで向上させる。CodeQAでは、5つのテンプレートに基づき22M件のQAペアを生成し、サンドボックスで正当性を検証する。CodeDevでは、12.6Mのソースから12のカテゴリにわたるプロンプトを生成し、MutationやCrossoverを用いて難易度を調整した265Mのペアを作成する。CodeDialogueはこれらを多ターン対話へ拡張する。CodeTraceでは、14言語・5Kライブラリの環境下で、プログラムに15-25個のトレース放出ポイント（`TRACE:&lt;TYPE&gt;:&lt;LOC&gt;:&lt;STATE&gt;`）を挿入するインストルメンテーションを行い、1.3Mの（コード, トレース）ペアを構築する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>3Bパラメータのモデルを用いた実験により、各手法の有効性を検証した。HumanEvalにおいて、CodeEnhanceによる標準化は性能を向上させるが、MBPPのような多様な命名規則を要するタスクでは性能を低下させるため、Raw codeを20%混合するMix3構成が最適であることが示された。また、CodeDevに推論トレースを組み込むことで、HumanEvalのスコアが$32.3$から$36.0$へ向上した。提案ベンチマークでは、DevEvalにおいて8.09%の勝率、TraceEvalにおいて15.36 ROUGE-2を記録した。さらに、データ生成にgemma-3-4b-itのような比較的小規模なモデルを用いることで、過度な標準化を避け、MBPP+で$52.1$を記録するなど、多様性の確保が重要であることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究は、合成データによる大規模なコード学習の有効性を証明したが、いくつかの限界も存在する。CodeTraceは実行セマンティクスを捉える強力な手法であるが、ソフトウェアエコシステムの全容を完全に網羅できているわけではない。また、現在の生成プロセスは単一ファイルに特化しており、実用的なコーディングエージェントに不可欠な、マルチファイルのリファクタリング、依存関係管理、複雑なデバッグワークフローといったリポジトリレベルのタスク（SWE-benchのような課題）には対応できていない。今後の課題として、これらの複雑なワークフローへの拡張が挙げられる。</p></section>
+
+  <h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>CodeAlchemy: Synthetic Code Rewriting at Scale</h3><p>CodeAlchemyは、公開されているソースコードを意味的に豊かな学習データへと変換する、5つの戦略（CodeEnhance, CodeQA, CodeDev, CodeDialogue, CodeTrace）を用いた合成データ生成フレームワークである。本手法では、15言語にわたる3つのコーパスから500B以上のトークンと350Bの推論トークンを生成しており、特にCodeTraceでは14言語・5Kのライブラリにわたる1.3M以上のファイルを実行・計測することで、制御フローや状態追跡、ライブラリ知識を捉えたデータを作成している。新たに提案されたベンチマークであるDevEval（開発者タスク）およびTraceEval（実行予測）において、Claude Sonnet 4.5がTraceEvalでExact Match 5.6%に留まるなど、既存の最先端モデルにおける意味理解の欠如が示された。本研究で構築された3Bパラメータのモデルは、HumanEvalで83.5%、MBPPで63.2%を達成し、DevEvalで8.09%の勝率、TraceEvalで15.36 ROUGE-2を記録しており、27BのGemma-3や32BのGranite-4.0といった10倍以上の規模を持つ最先端モデルを凌駕する性能を示している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>CodeAlchemyは、公開ソースコードの品質不足、タスクの多様性の欠如、および実行セマンティクスの学習不足という課題を解決するために提案された、多角的な合成データ生成パイプラインである。本手法は、LLMによるスコアリングを用いて低品質なコード（スコア6以下）を検出し、ユニットテストやドキュメントを付与して品質を向上させるCodeEnhance、5つのテンプレートに基づき22M件のQAペアを生成するCodeQA、デバッグやリファクタリング等の実務的なタスクを生成するCodeDev、およびそれらを多ターン対話へと拡張したCodeDialogueで構成される。さらに、14言語・5Kライブラリに対応したサンドボックス環境を用いて、1.3M件の実行トレースを生成するCodeTraceを導入しており、これにより制御フローや状態遷移といった実行セマンティクスを学習可能にする。本パイプラインは、15言語にわたる500Bトークンおよび350Bの推論トークンを生成する。評価においては、実務能力を測るDevEvalと、実行予測能力を測るTraceEvalという2つの新規ベンチマークを導入しており、Claude Sonnet 4.5がTraceEvalでExact Match 5.6%という低い精度を示すことから、既存モデルのセマンティック理解における限界を明らかにしている。</p></section>
+<section class="secsum"><h3>2 Method</h3><p>CodeAlchemyは、15言語にわたる3つのコードコーパスから、合成データを用いてコードの品質と理解力を向上させる大規模なデータ生成フレームワークである。まず、CodeEnhanceでは、gpt-oss-20bを用いてstack-eduのファイルを0-10でスコアリングし、品質が低い（bin 4-6）45.7M個のファイルをgpt-oss-20bで書き換えることで、元のスコアに関わらず品質を8程度まで向上させた。次に、CodeQAでは、5つのQAテンプレートに基づき、ソースコードのアルゴリズムパターンを反映した22M個のQAペアを生成し、サンドボックス実行により正当性を検証している。CodeDevでは、12.6Mのソースファイルから12のタスクカテゴリにわたるプロンプトを生成し、MutationやCrossoverなどの戦略を用いて難易度を向上させた265M個のペアを作成した。さらに、CodeTraceでは、プログラムの実行状態を捉えるために、15-25個のトレース放出ポイント（`TRACE:&lt;TYPE&gt;:&lt;LOC&gt;:&lt;STATE&gt;`）を挿入するインストルメンテーションを行い、1.3M個の（コード, トレース）ペアを構築した。評価指標として、開発者タスク向けのDevEvalではClaude 4.5 Sonnetをリファレンスとし、gpt-oss-20bをジャッジとしてWin %を測定し、実行トレース予測のTraceEvalではExact MatchおよびROUGE-2を用いてモデルのメンタル実行能力を評価している。</p></section>
+<section class="secsum"><h3>3 Experiments</h3><p>本セクションでは、3Bパラメータのベースモデルに対し、CodeAlchemyの各構成要素の有効性を10の調査質問（RQ）を通じて体系的に検証している。実験では、HumanEval、MBPP、CruxEval、および新規ベンチマークであるDevEval、TraceEvalなどの標準的なコーディングベンチマークを用いて評価を行っている。RQ1およびRQ3の結果から、CodeEnhanceによるコードの標準化はHumanEvalのスコアを向上させる一方で、MBPPのような多様な命名規則を必要とするタスクでは性能を著しく低下させるため、Raw codeを一定割合（Mix3では20%）混合することが、性能のバランスを保つ上で不可欠であることが示された。RQ4では、600Bトークンの学習において、均質なデータの繰り返し学習よりも、多様なスタイルを持つMix1のような混合データによる1エポックの学習の方が、HumanEvalで$46.3$（vs Rawの$31.1$）を記録するなど高い有用性を示した。また、RQ5では、CodeDevに推論トレース（reasoning traces）を組み込むことで、HumanEvalが$32.3$から$36.0$へ向上するなど、複雑な問題解決能力が強化されることが確認された。さらにRQ7では、データ生成に使用するモデルの能力について、大規模モデルによる過度な標準化を避けるため、gemma-3-4b-itのような比較的小規模なモデルを用いた方が、MBPP+で$52.1$を記録するなど、多様性の観点から優れた結果をもたらすという興味深い知見が得られた。</p></section>
+<section class="secsum"><h3>4 Related Work</h3><p>既存のコード事前学習データはノイズが多く低品質なファイルに偏っているが、SwallowCode-v2やNemotron-Pretraining-Code-v2といった先行研究は、品質向上をPythonに限定したり、言語間の書き換えを限定的な範囲に留めたりする制約があった。これに対し、CodeAlchemyは品質スコアリングと書き換え（CodeEnhance）、およびソースコードに根ざしたQA生成（CodeQA）を導入し、15言語にわたる多様な合成データ生成を実現している。また、実行トレースを利用した学習手法においても、既存研究が玩具的な文法や単一のPython関数に限定されていたのに対し、CodeTraceは14言語・5,000のライブラリにわたる1.3Mの現実的なファイルを対象とし、制御フローや状態遷移、API挙動を含む構造化されたイベントを捕捉する。指示チューニング用データに関しては、MagicoderやEpiCoderなどの先行研究がPython中心であったのに対し、CodeDevは15言語で62Mのタスク・応答ペア（207B tokens）を生成し、難易度の進化とフィルタリングを適用している。評価指標については、HumanEvalやBigCodeBenchといった既存のベンチマークでは捉えきれない、実用的なマルチ言語開発タスクを対象としたDevEval、および実行予測を対象としたTraceEvalを提案している。ただし、本手法はSWE-benchのようなリポジトリレベルのタスクは対象外としており、これは今後の課題である。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>CodeAlchemyは、5つの補完的な戦略を用いて850Bトークン以上の合成データを生成するフレームワークであり、5,000のライブラリと14の言語にわたる1.3Mのトレース済みファイルを含む、過去最大規模のコード実行データセットを構築している。この手法で学習した3Bパラメータのモデルは、HumanEvalで83.5%、MBPPで63.2%の精度を達成し、10倍以上の規模を持つ最先端モデルを凌駕する性能を示した。一方で、新たに提案されたベンチマークでは、Claude Sonnet 4.5の実行予測におけるExact Matchがわずか5.6%に留まるなど、既存モデルの課題も明らかになった。本研究の限界として、CodeTraceがソフトウェアエコシステムの全容を網羅できていない点や、現在は単一ファイル生成に特化しており、実用的なエージェント的コーディングに必要なマルチファイルのリファクタリングや依存関係管理、デバッグといった複雑なワークフローに対応できていない点が挙げられる。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+  </footer>
+</div>
+</body>
+</html>
