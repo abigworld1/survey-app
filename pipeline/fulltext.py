@@ -330,6 +330,16 @@ def _norm_h(s):
     return re.sub(r"\s+", " ", (s or "").lower()).strip()
 
 
+def _is_opening(h):
+    """論文本文の開始（Abstract / Introduction / 「1 ...」）らしい見出しか。"""
+    hl = h.lower()
+    return (
+        "abstract" in hl
+        or "introduction" in hl
+        or bool(re.match(r"^1(?:\b|\.|\s)", h.strip()))
+    )
+
+
 def _build_sections(lines, title=""):
     """(size,bold,text) の読み順行リストを、見出しで (見出し, 本文) に区切る。
 
@@ -357,6 +367,19 @@ def _build_sections(lines, title=""):
             cur[1].append(txt)
     if cur:
         raw.append(cur)
+
+    # 前付け（タイトル・著者・所属）を除去: 最初の「冒頭見出し」(Abstract/Introduction/1.)以降だけ採用。
+    start_idx = next((i for i, (h, _p) in enumerate(raw) if _is_opening(h)), None)
+    if start_idx is None:
+        return []  # 冒頭見出しが見つからない → 呼び出し側で 本文(i/n) にフォールバック
+    pre_text = re.sub(
+        r"[ \t]{2,}", " ",
+        " ".join(p for (_h, parts) in raw[:start_idx] for p in parts),
+    ).strip()
+    raw = raw[start_idx:]
+    # 前付けに十分な本文（≒Abstract本体）があり、先頭節がAbstractでなければ Abstract として補完
+    if len(pre_text) >= 200 and "abstract" not in raw[0][0].lower():
+        raw = [("Abstract", [pre_text])] + raw
 
     tnorm = _norm_h(title)
     out = []
