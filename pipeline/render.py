@@ -58,6 +58,7 @@ def render_paper_page(tpl_dir, paper, summary):
         "links": " ・ ".join(links),
         "sections": sections_html,
         "engine": _esc(summary.get("_engine", "")),
+        "basis": "本文(arXiv)" if summary.get("_basis", "").startswith("fulltext") else "アブストラクト",
         "generated": _today(),
     }
     return render_template(_read(os.path.join(tpl_dir, "paper.html")), ctx)

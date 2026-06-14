@@ -19,6 +19,7 @@ import yaml
 
 from . import render, sources
 from .dedup import dedup, load_seen, save_seen
+from .fulltext import fetch_arxiv_fulltext
 from .schema import Paper
 from .summarize import Summarizer
 from .util import slugify
@@ -98,7 +99,10 @@ def main(argv=None):
                 break
             pid = slugify(p.paper_id(), fallback="paper")
             rel = f"{uslug}/{pid}.html"
-            summary = summarizer.summarize(p)
+            # arXiv 論文は本文(HTML)を取得して要約に使う（取れなければ abstract にフォールバック）
+            fulltext = "" if args.offline else fetch_arxiv_fulltext(p.arxiv_id)
+            summary = summarizer.summarize(p, fulltext=fulltext)
+            print(f"    {pid}: 本文 {len(fulltext)}字 / 根拠 {summary.get('_basis')}")
             if not args.dry_run:
                 os.makedirs(os.path.join(ROOT, uslug), exist_ok=True)
                 with open(os.path.join(ROOT, rel), "w", encoding="utf-8") as f:
@@ -110,6 +114,7 @@ def main(argv=None):
                 "added": today,
                 "tldr": summary.get("tldr", ""),
                 "engine": summary.get("_engine", ""),
+                "basis": summary.get("_basis", ""),
             }
             produced += 1
             print(f"  + {rel}")
