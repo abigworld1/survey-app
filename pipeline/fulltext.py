@@ -239,17 +239,119 @@ def _sections_from_text(text):
     return [(f"本文 ({i + 1}/{n})", c) for i, c in enumerate(chunks)]
 
 
-def fetch_arxiv_pdf_text(arxiv_id):
-    """arXiv の PDF から本文テキスト（HTML版が無い古い論文向け）。PyMuPDF が必要。"""
-    if not arxiv_id:
-        return ""
+def _download_pdf(url, min_interval=0.5):
+    """URL から PDF バイト列を取得（PDFでなければ None）。"""
+    if not url:
+        return None
     try:
-        data = http_get(ARXIV_PDF + arxiv_id, timeout=60, min_interval=3.0, expect="bytes")
+        data = http_get(url, timeout=60, min_interval=min_interval, expect="bytes")
     except Exception:
-        return ""
-    if not data[:5].startswith(b"%PDF"):
-        return ""
-    return _pdf_to_text(data)
+        return None
+    return data if data[:5].startswith(b"%PDF") else None
+
+
+# 見出しに現れやすい語（フォント検出の補助）
+_SECTION_WORDS = (
+    "introduction", "related work", "background", "preliminar", "problem",
+    "method", "approach", "algorithm", "framework", "model", "architecture",
+    "experiment", "evaluation", "setup", "result", "analysis", "ablation",
+    "discussion", "limitation", "conclusion", "future work",
+)
+
+
+def _is_heading(txt, size, bold, body_size):
+    """本文より大きい/太字で、見出しらしい短い行か。"""
+    if len(txt) < 3 or len(txt) > 90 or len(txt.split()) > 12:
+        return False
+    strong = (size >= body_size + 0.6) or (bold and size >= body_size - 0.1)
+    if not strong:
+        return False
+    hl = txt.lower()
+    # 図表・式・アルゴリズムのキャプション/フロートは見出しにしない
+    if re.match(r"^(figure|fig\.?|table|tab\.?|algorithm|equation|eq\.?)\s*\d", hl):
+        return False
+    numbered = bool(re.match(r"^\d+(?:\.\d+)*\.?\s+\S", txt))
+    known = any(w in hl for w in _SECTION_WORDS)
+    titleish = (txt == txt.upper()) or txt[:1].isupper()
+    return numbered or known or (titleish and size >= body_size + 0.6)
+
+
+def _pdf_headings(data):
+    """PDFのフォント情報から見出しらしい行テキストを返す。PyMuPDF 必要。"""
+    try:
+        import fitz
+    except Exception:
+        return []
+    try:
+        doc = fitz.open(stream=data, filetype="pdf")
+    except Exception:
+        return []
+    spans, weight = [], {}
+    for page in doc:
+        try:
+            d = page.get_text("dict")
+        except Exception:
+            continue
+        for block in d.get("blocks", []):
+            for line in block.get("lines", []):
+                ss = line.get("spans", [])
+                if not ss:
+                    continue
+                txt = "".join(s.get("text", "") for s in ss).strip()
+                if not txt:
+                    continue
+                s0 = ss[0]
+                size = round(float(s0.get("size", 0)), 1)
+                font = str(s0.get("font", "")).lower()
+                bold = bool(int(s0.get("flags", 0)) & 16) or "bold" in font or "black" in font
+                spans.append((size, bold, txt))
+                weight[size] = weight.get(size, 0) + len(txt)
+    doc.close()
+    if not weight:
+        return []
+    body_size = max(weight, key=weight.get)  # 文字数最頻 = 本文サイズ
+    return [t for (size, bold, t) in spans if _is_heading(t, size, bold, body_size)]
+
+
+def _split_flat_by_headings(flat, headings):
+    """フラット本文を、見出し文字列の出現位置で分割。見出しが2未満なら []。"""
+    low = flat.lower()
+    positions, cursor = [], 0
+    for h in headings:
+        hn = re.sub(r"\s+", " ", h).strip()
+        if len(hn) < 3:
+            continue
+        idx = low.find(hn.lower(), cursor)
+        if idx < 0:
+            idx = low.find(hn.lower())
+        if idx < 0:
+            continue
+        positions.append((idx, hn))
+        cursor = idx + len(hn)
+    positions.sort()
+    if len(positions) < 2:
+        return []
+    out = []
+    for j, (idx, h) in enumerate(positions):
+        end = positions[j + 1][0] if j + 1 < len(positions) else len(flat)
+        body = flat[idx + len(h):end].strip()
+        if any(d in h.lower() for d in _DENY_HEADINGS):
+            continue
+        if len(body) < MIN_SECTION_CHARS:
+            continue
+        out.append((h[:120], body[:PER_SECTION_MAX]))
+        if len(out) >= MAX_SECTIONS:
+            break
+    return out
+
+
+def _sections_from_pdf(data):
+    """PDF をフォントベース見出し検出で分割。不十分なら 本文(i/n) に自動フォールバック。"""
+    flat = _pdf_to_text(data)
+    if not flat:
+        return []
+    secs = _split_flat_by_headings(flat, _pdf_headings(data))
+    return secs if secs else _sections_from_text(flat)
 
 
 def fetch_sections(paper):
@@ -258,11 +360,18 @@ def fetch_sections(paper):
         secs = fetch_arxiv_sections(paper.arxiv_id)
         if secs:
             return secs, "fulltext(arxiv)"
-        # 古い arXiv は HTML 版が無い → PDF から本文を取る
-        txt = fetch_arxiv_pdf_text(paper.arxiv_id)
-        if txt:
-            return _sections_from_text(txt), "fulltext(arxiv-pdf)"
-    pdf_text = fetch_oa_pdf_text(paper)
-    if pdf_text:
-        return _sections_from_text(pdf_text), "fulltext(oa-pdf)"
+        # 古い arXiv は HTML 版が無い → PDF をフォントベースで分割
+        data = _download_pdf(ARXIV_PDF + paper.arxiv_id, min_interval=3.0)
+        if data:
+            secs = _sections_from_pdf(data)
+            if secs:
+                return secs, "fulltext(arxiv-pdf)"
+    # 非arXiv の OA PDF
+    url = paper.pdf_url or _unpaywall_pdf_url(paper.doi)
+    if url:
+        data = _download_pdf(url)
+        if data:
+            secs = _sections_from_pdf(data)
+            if secs:
+                return secs, "fulltext(oa-pdf)"
     return [], "abstract"
