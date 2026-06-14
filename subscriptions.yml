@@ -30,3 +30,9 @@ subscriptions:
       - "Evidence Retrieval"
     k: 3
     sources: [arxiv, semanticscholar, openalex]
+
+  # 手動追加用（日次cronは触らない）。任意のPDF/URL/arXiv IDを add_paper で追加する。
+  - username: reading
+    label: 個別に読んだ論文
+    manual: true
+

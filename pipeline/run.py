@@ -125,6 +125,13 @@ def main(argv=None):
             continue
         uslug = slugify(user, fallback="user")
         display = sub.get("label") or user
+        # manual フィールド（手動追加 add_paper 用）は自動取得しない。indexだけ更新。
+        if sub.get("manual"):
+            print(f"\n=== {display} (slug={uslug}) [manual] ===")
+            seen.setdefault(uslug, {})
+            if not args.dry_run:
+                render.render_user_index(TPL, ROOT, uslug, display, seen[uslug])
+            continue
         k = max(1, min(int(sub.get("k", 5)), MAX_K))
         print(f"\n=== {display} (slug={uslug}, k={k}) ===")
 

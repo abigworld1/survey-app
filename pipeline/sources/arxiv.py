@@ -16,6 +16,29 @@ def _build_query(keywords):
     return " OR ".join(terms) if terms else "all:multi-agent path finding"
 
 
+def fetch_meta(arxiv_id):
+    """arXiv ID 単体のメタデータ(Paper)を取得。失敗時 None。"""
+    try:
+        q = urllib.parse.urlencode({"id_list": arxiv_id, "max_results": 1})
+        xml = http_get(ENDPOINT + "?" + q, timeout=30, min_interval=3.0, expect="text")
+        e = ET.fromstring(xml).find(ATOM + "entry")
+        if e is None:
+            return None
+        authors = [a.findtext(ATOM + "name") for a in e.findall(ATOM + "author")]
+        return Paper(
+            source="arxiv",
+            title=" ".join((e.findtext(ATOM + "title") or "").split()),
+            abstract=(e.findtext(ATOM + "summary") or "").strip(),
+            authors=[a for a in authors if a],
+            published=(e.findtext(ATOM + "published") or "")[:10],
+            url=(e.findtext(ATOM + "id") or "").strip(),
+            arxiv_id=arxiv_id,
+            doi=e.findtext(ARXIV + "doi") or "",
+        )
+    except Exception:
+        return None
+
+
 def search(keywords, limit=25):
     q = urllib.parse.urlencode(
         {

@@ -36,6 +36,7 @@ def _basis_label(basis):
     return {
         "fulltext(arxiv)": "本文(arXiv)",
         "fulltext(oa-pdf)": "本文(OA-PDF)",
+        "fulltext(pdf)": "本文(PDF)",
         "fulltext": "本文",
     }.get(basis, "アブストラクト")
 
@@ -119,10 +120,11 @@ def render_global_index(tpl_dir, root, subs, seen, slugify):
         uslug = slugify(username, fallback="user")
         display = sub.get("label") or username
         useen = seen.get(uslug, {})
+        kw = ", ".join(sub.get("keywords", []))
+        meta = (f"キーワード: {_esc(kw)} ・ {len(useen)}本" if kw else f"{len(useen)}本")
         cards += (
             f'<div class="card"><h3><a href="{_esc(uslug)}/index.html">{_esc(display)}</a></h3>'
-            f'<div class="meta">キーワード: {_esc(", ".join(sub.get("keywords", [])))}'
-            f" ・ {len(useen)}本</div></div>\n"
+            f'<div class="meta">{meta}</div></div>\n'
         )
         recent.extend(useen.values())
     recent.sort(key=lambda v: (v.get("added", ""), v.get("date", "")), reverse=True)
