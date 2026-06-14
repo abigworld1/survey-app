@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>LaCAM: Search-Based Algorithm for Quick Multi-Agent Pathfinding | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">survey-app トップ</a></nav>
+  <h1>LaCAM: Search-Based Algorithm for Quick Multi-Agent Pathfinding</h1>
+  <div class="meta">Keisuke Okumura<br>arxiv ・ 2022-11-24 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2211.13432v1" target="_blank" rel="noopener">原典</a></div>
+  <div class="tldr"><strong>一言で:</strong> LaCAM (Lazy Constraints Addition Search for MAPF) は、完全性を備えつつ、数百から10,000規模のエージェントが存在する大規模なマルチエージェント経路探索（MAPF）問題を高速に解くための2層構造の探索アルゴリズムである。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路探索（MAPF）は、グラフ $G = (V, E)$ 上の $n$ 個のエージェント $A = \{1, \dots, n\}$ に対し、各エージェントが開始地点 $s_i$ から目標地点 $g_i$ へ到達する、衝突のない経路集合を求める問題である。本研究が対象とするのは、vertex conflict ($\pi_i[t] = \pi_j[t]$) および swap conflict ($\pi_i[t] = \pi_j[t+1] \land \pi_i[t+1] = \pi_j[t]$) を回避し、解の質として sum-of-costs (SOC) $\sum_{i \in A} T_i$ を最小化することを目指す。既存のサブオプティマルな手法では、高密度な環境や大規模なエージェント数において、30秒のタイムアウト内に解を導出できない課題があった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文の主な貢献は、高レベルの構成（configuration）探索と低レベルの制約探索を組み合わせ、制約を遅延的に適用することで探索効率を劇的に向上させた LaCAM を提案した点にある。LaCAM は、理論的な完全性を維持しながら、10,000規模のエージェントに対しても30秒以内で解を導出できる極めて高いスケーラビリティを実現した。また、既存の最先端な非最適アルゴリズム（PP, OD, EECBS, LNS2 等）と比較して、成功率、計画時間、および解の品質の観点で同等以上の性能を示すことを実証した。さらに、構成生成に PIBT などの既存手法を組み込むことで、積極的な協調（aggressive coordination）を可能にする新しい探索フレームワークを提示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LaCAM は、高レベル探索と低レベル探索の2層構造を採用している。高レベル探索は、スタックを用いた深さ優先探索（DFS）スタイルで全エージェントの位置のタプルである configuration の列を探索し、各ノードは制約木（constraint tree）を保持する。低レベル探索は、幅優先探索（BFS）を用いて、エージェント $i$ が現在の頂点 $v$ から隣接頂点 $u \in \text{neigh}(v) \cup \{v\}$ へ移動するという「正の制約」を順次生成する。低レベルの探索深度が $|A|$ に達した際、生成された制約を満たす新しい構成を `get new config` 関数（PIBT 等）を用いて決定し、高レベルの `Open` リストへ追加する。この際、高レベルの探索空間 $O(|V|^{|A|})$ に対して、制約を遅延的に適用することで実質的な分岐係数を抑制している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価実験では、PP, OD, PIBT, PIBT+, EECBS, LNS2 の6つのアルゴリズムを比較対象とした。32 $\times$ 32 グリッド、障害物密度20%、400エージェントの `random-32-32-20` ベンチマークにおいて、既存手法がタイムアウトする中で、LaCAM は中央値1秒で全てのインスタンスを解決した。10,000エージェント規模の `warehouse-20-40-10-2-2` インスタンスにおいても、全てのケースを30秒以内に解決し、高いスケーラビリティを実証した。解の質については、PIBT+ と比較して高密度な状況下で優れた SOC を記録した。一方で、狭い通路でのすれ違いが必要な敵対的インスタンスでは、DFS 形式の探索が類似した構成に捕まり、エージェント数の増加に伴い探索回数が劇的に増大するという限界も確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>LaCAM の高速性の鍵は、高レベルノードにおいて初期状態では後続ノードを1つのみ生成し、必要に応じて制約を追加する「遅延評価（lazy manner）」により、膨大な分岐係数を抑制している点にある。また、構成生成器として PIBT を用いることで、従来の $A^*$ 変種よりも積極的な協調を実現できている。今後の課題として、幅優先探索の導入による makespan の最適化や、大規模インスタンスに対する漸近的最適性（asymptotic optimality）を持つバージョンの開発が挙げられる。さらに、低レベル探索におけるより効果的な制約追加手法や、構成生成器の設計改善が、敵対的インスタンスにおける探索の停滞を克服するために重要である。</p></section>
+
+  <h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Keisuke Okumura</h3><p>本論文では、マルチエージェント経路探索（MAPF）において、数百台以上のエージェントが存在する大規模な設定でも高速に解を導出可能な、完全性を備えた新しいアルゴリズムである LaCAM (Lazy Constraints Addition Search for MAPF) を提案している。LaCAMは2段階の探索構造を採用しており、下位レベルではエージェントの位置に関する制約を探索し、上位レベルではその制約に従いながら全エージェントの位置のシーケンスを探索する。網羅的な実験の結果、LaCAMは成功率、計画時間、および解の品質（sum-of-costs）のすべての観点において、既存の最先端な非最適（sub-optimal）MAPFアルゴリズムと同等、あるいはそれ以上の性能を示すことが確認された。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>本論文では、大規模かつリアルタイム性が求められるマルチエージェント経路計画（MAPF）問題に対し、探索効率を劇的に向上させた「Lazy Constraints Addition Search (LaCAM)」を提案している。LaCAMは、全エージェントの配置のタプルである「configuration」を探索するハイレベルな探索と、次回のconfigurationにおけるエージェントの移動制約を探索するローレベルな探索からなる2層構造のアルゴリズムであり、ハイレベルの探索においてローレベルの制約を遅延的に（lazy manner）適用することで探索コストを削減している。理論的には完全性（completeness）を備えており、解が存在する場合は必ず解を返し、存在しない場合はその旨を報告する。実験では、1491 $\times$ 656の広大なグリッドや10,000規模の大量のエージェント、高密度な環境を含む多様なインスタンスにおいて、極めて短時間での解法を実証している。具体的には、32 $\times$ 32グリッドで障害物密度20%の400エージェントのベンチマークにおいて、既存のサブオプティマルな手法の多くが30秒のタイムアウトで失敗する中、LaCAMは中央値1秒で全てのインスタンスを解決した。</p></section>
+<section class="secsum"><h3>Preliminaries</h3><p>Multi-Agent Pathfinding (MAPF) は、グラフ $G = (V, E)$ 上の $n$ 個のエージェント $A = \{1, \dots, n\}$ に対し、各エージェント $i$ が開始地点 $s_i$ から目標地点 $g_i$ へ到達する一連の経路 $\pi_i = (\pi_i[0], \pi_i[1], \dots, \pi_i[T])$ を割り当てる問題である。各時刻 $t$ において、エージェントは隣接頂点または現在の頂点に留まることができ、$\pi_i[t+1] \in \text{neigh}(\pi_i[t]) \cup \{\pi_i[t]\}$ を満たす必要がある。解は、同一時刻に同じ頂点に位置する vertex conflict ($\pi_i[t] = \pi_j[t]$) および、エージェントが互いの位置を入れ替える swap conflict ($\pi_i[t] = \pi_j[t+1] \land \pi_i[t+1] = \pi_j[t]$) が存在しない conflict-free な経路集合である。本稿では、各エージェントが目標に到達して留まり始める最短時刻 $T_i$ の総和である sum-of-costs (SOC) $\sum_{i \in A} T_i$ を解の質を評価する指標として用いる。また、全エージェントの位置のタプルを configuration と定義し、隣接する configuration 間の遷移が conflict-free であることを接続の条件としている。</p></section>
+<section class="secsum"><h3>Algorithm</h3><p>LaCAMは、高レベル探索と低レベル探索の2層構造を持つマルチエージェント経路計画（MAPF）のための探索ベースのアルゴリズムである。高レベル探索は、スタックを用いた深さ優先探索（DFS）スタイルで構成（configuration）の列を探索し、各ノードは制約木（constraint tree）を保持する。低レベル探索は幅優先探索（BFS）を用いて制約木を構築し、エージェント $i$ が現在の頂点 $v$ から隣接頂点 $u \in \text{neigh}(v) \cup \{v\}$ へ移動するという制約を順次生成する。低レベルの探索深度がエージェント数 $|A|$ に達するまで制約を割り当て、生成された制約を満たす新しい構成を `get new config` 関数（PIBTなどの既存MAPFアルゴリズムを応用可能）によって決定し、高レベルの `Open` リストへ追加する。本手法は、高レベルの探索空間が $O(|V|^{|A|})$、低レベルの構成生成が $O(\Delta^{|A|})$ であることから、解が存在するMAPFインスタンスに対して完全性（completeness）を持つ。実験では、PIBTを構成生成に用いることで、複雑な小規模インスタンスにおいて既存の $A^*$ や LNS2 よりも高速に解を導出できることが示されている。</p></section>
+<section class="secsum"><h3>Evaluation</h3><p>LaCAMの評価実験では、PP、OD、PIBT、PIBT+、EECBS、LNS2の6つのサブオプティマルなMAPFアルゴリズムをベースラインとして、小規模な複雑なインスタンス、MAPFベンチマーク、敵対的インスタンス、最大10,000エージェントの拡張性、および実装設計の検証が行われた。MAPFベンチマークにおいて、LaCAMはPP、OD、EECBS、LNS2と比較して成功率と実行時間の両面で優位性を示し、特に400エージェントの`random-32-32-20`のような困難なシナリオでも解を導出できた。解の質（SOC）については、短いプランニングホライゾンを用いる性質上、PPやLNS2に劣るものの、PIBT+と比較して高密度な状況下ではより優れたSOCを記録した。一方で、狭い通路でエージェントがすれ違う必要がある敵対的インスタンスでは、エージェント数の増加に伴い探索回数が劇的に増大し、DFS形式の探索が類似した構成に捕まることでタイムアウトに至るという限界が示された。拡張性テストでは、`warehouse-20-40-10-2-2`において10,000エージェントの条件下でも全てのインスタンスを解き、実行時間は最大でも30秒以内という極めて高いスケーラビリティを実証した。また、設計の検証により、再挿入（reinsert）操作がSOCを改善すること、およびPIBTによる後続構成生成がLaCAMの優れた性能の鍵であることを明らかにした。</p></section>
+<section class="secsum"><h3>Related Work</h3><p>MAPF（Multi-Agent Pathfinding）のアルゴリズムは、エージェント間で結合して解を探索する探索ベース、SAT等の問題に帰着させるコンパイルベース、個別に順次計画する優先度付き計画、およびアドホックな規則に従うルールベースの4種に分類される。LaCAMは探索ベースの手法に属するが、構成生成においてはPIBTのような優先度付き計画やルールベースの手法も活用する。既存の主要なアルゴリズムは、高レベルで負の制約（どのエージェントがいつどこを使えないか）を探索し、低レベルで単一エージェントの経路探索を行う2レベル探索構造を持つが、LaCAMは制約を低レベルで扱い、実装では「誰がいつどこにいるべきか」を指定する正の制約を用いる。この正の制約の利用はCBS (Li et al. 2019) 等で見られるが、LaCAMにおいて負の制約を用いる場合と比較して、低レベルの探索空間を劇的に縮小できる利点がある。また、LaCAMは高レベルでの後続ノード生成時に、衝突判定のみを行う従来の $A^*$ 変種とは異なり、構成生成器として他のMAPFアルゴリズムを用いることで積極的な協調（aggressive coordination）を実現している。さらに、制約の追加手法は、全エージェントの行動ではなく単一エージェントの行動に対応する後続ノードを生成する $A^*$ with operator decomposition (Standley 2010) の仕組みに部分的に影響を受けている。</p></section>
+<section class="secsum"><h3>Conclusion and Discussion</h3><p>本論文では、完全性と高速性を両立した新しい探索ベースのMAPFアルゴリズムであるLaCAMを提案している。LaCAMの高速性の要因は、従来のA*が1つのノードから $O(\Delta|A|)$ 個の構成を生成し分岐係数が膨大になるのに対し、高レベルノードにおいて初期状態では後続ノードを1つのみ生成し、必要に応じて遅延評価（lazy manner）で追加生成することで、実質的な分岐係数を抑制している点にある。実験では、他の最先端の劣最適ソルバーが対応できない複雑で高密度なシナリオにおいても極めて短時間で解を導出し、10,000エージェントの規模でも数十秒で解くスケーラビリティを示した。今後の展望として、幅優先探索の導入によるmakespan最適化や、大規模インスタンスに対して実用的な漸近的最適性（asymptotic optimality）を持つバージョンの開発が挙げられている。また、低レベル探索における効果的な制約の追加や、構成生成器（configuration generator）の設計改善が、現在の限界を克服するための重要な研究課題として示されている。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+  </footer>
+</div>
+</body>
+</html>
