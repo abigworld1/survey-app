@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Priority Inheritance with Backtracking for Iterative Multi-agent Path Finding | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">survey-app トップ</a></nav>
+  <h1>Priority Inheritance with Backtracking for Iterative Multi-agent Path Finding</h1>
+  <div class="meta">Keisuke Okumura, Manao Machida, Xavier Défago, Yasumasa Tamura<br>arxiv ・ 2019-01-31 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/1901.11282v5" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.1016/j.artint.2022.103752" target="_blank" rel="noopener">DOI</a></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、自動倉庫などの実環境における継続的なマルチエージェント経路計画（MAPF）に対応するため、新しい劣最適アルゴリズムであるPriority Inheritance with Backtracking (PIBT) を提案している。PIBTは適応的な優先順位付けを用いることで、数百規模のエージェントに対しても即座に実行可能な解を生成できる。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>本研究は、エージェントが継続的に移動し続ける「ライフロング（lifelong）」なMAPFシナリオにおいて、スケーラビリティと予測可能な計算時間を両立する手法を対象としている。従来のオフライン最適解を求める手法は計算負荷が高すぎるため、オンラインで反復的に実行可能な、スケーラブルな劣最適アルゴリズムが求められている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>新しいMAPFアルゴリズムであるPIBTを提案し、その理論的な完遂性（すべてのエージェントが有限時間内に目的地に到達すること）を証明した。また、実機ロボットを用いたデモンストレーションを含む実験を通じて、既存手法と比較して実行時間と解の質の双方で優れていることを示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>PIBTは、複数のエージェントの隣接する移動に焦点を当てるための適応的な優先順位付けスキームに基づいている。エージェント間の衝突を避けつつ、優先順位を動的に継承（Inheritance）させ、必要に応じてバックトラッキングを行うことで、グラフ上での移動を制御する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>様々なシナリオを用いた実験により、PIBTの有効性を検証している。数百規模のエージェントが存在する場合でも、PIBTはほぼ即座に許容可能な解を生成し、他の既存手法では解けない大規模なインスタンスも解決可能であることを示した。さらに、自動倉庫での荷物搬送を模した反復シナリオにおいて、既存手法よりも実行時間と解の質の両面で優れた性能を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>PIBTは、隣接するノードのペアが単純なサイクルに属するグラフ（例：二重連結グラフ）において、エージェントの数がいくつであっても有限時間内に目的地へ到達することを保証している。この特性により、複雑な環境下でも高い信頼性を持って動作することが期待される。</p></section>
+
+  
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: アブストラクト ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+  </footer>
+</div>
+</body>
+</html>
