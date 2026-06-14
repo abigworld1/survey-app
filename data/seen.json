@@ -58,12 +58,12 @@
     },
     "doi:10.1016/j.artint.2022.103752": {
       "added": "2026-06-14",
-      "basis": "abstract",
+      "basis": "fulltext(arxiv-pdf)",
       "date": "2019-01-31",
       "engine": "llm:gemma-4-26b",
       "file": "mapf-mapd-warehouse/priority-inheritance-with-backtracking-for-iterative-multi-agent-path-finding.html",
       "title": "Priority Inheritance with Backtracking for Iterative Multi-agent Path Finding",
-      "tldr": "本論文は、自動倉庫などの実用的な環境で求められる、反復的なマルチエージェント経路計画（MAPF）問題を解決するための新しい劣最適アルゴリズム「Priority Inheritance with Backtracking (PIBT)」を提案している。PIBTは、エージェントの数に関わらず、適切なグラフ構造下で有限時間内に全エージェントが目的地に到達することを保証する。実験では、数百規模のエージェントが存在する大規模なケースや実ロボットを用いた検証において、既存手法を上回る実行速度と解の品質を示している。"
+      "tldr": "Lifelong MAPF/MAPDを解決するための、優先度継承（Priority Inheritance）とバックトラッキングを組み合わせた新しい劣最適アルゴリズム「PIBT」を提案する。PIBTは、低優先度エージェントが移動を妨げる場合に高優先度エージェントの優先度を一時的に継承させることでデッドロックを防ぎ、有効な移動先がない場合にバックトラッキングを行うことで、大規模なエージェント数でも高速かつ安全な経路生成を可能にする。"
     }
   },
   "reading": {}
