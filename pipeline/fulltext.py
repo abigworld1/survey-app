@@ -303,15 +303,11 @@ def _pdf_lines_in_order(data):
             d = page.get_text("dict")
         except Exception:
             continue
-        width = float(page.rect.width) or 1.0
-        blocks = [b for b in d.get("blocks", []) if b.get("lines")]
-
-        def _order(b):
-            x0, y0, x1, _y1 = b["bbox"]
-            col = 0 if (x0 + x1) / 2 < width / 2 else 1  # 左列→右列
-            return (col, round(y0))
-
-        for b in sorted(blocks, key=_order):
+        # PDF のコンテンツストリーム順（自然な読み順）をそのまま使う。
+        # 段組を中心xで並べ替えるとフルWidthのタイトル/ABSTRACTが誤判定され順序が崩れるため。
+        for b in d.get("blocks", []):
+            if not b.get("lines"):
+                continue
             for ln in b["lines"]:
                 ss = ln.get("spans", [])
                 if not ss:
