@@ -20,7 +20,7 @@ import yaml
 
 from . import render, sources
 from .dedup import dedup, load_seen, save_seen
-from .fulltext import fetch_fulltext
+from .fulltext import fetch_sections
 from .schema import Paper
 from .summarize import Summarizer
 from .util import slugify
@@ -121,13 +121,13 @@ def main(argv=None):
                 break
             pid = slugify(p.paper_id(), fallback="paper")
             rel = f"{uslug}/{pid}.html"
-            # 本文(arXiv HTML / OA PDF)を取得して要約に使う（取れなければ abstract にフォールバック）
+            # 本文をセクション分割して多段要約（取れなければ abstract にフォールバック）
             if args.offline:
-                fulltext, basis = "", "abstract"
+                fsections, basis = [], "abstract"
             else:
-                fulltext, basis = fetch_fulltext(p)
-            summary = summarizer.summarize(p, fulltext=fulltext, basis=basis)
-            print(f"    {pid}: 本文 {len(fulltext)}字 / 根拠 {summary.get('_basis')}")
+                fsections, basis = fetch_sections(p)
+            print(f"    {pid}: {len(fsections)}セクション / 根拠 {basis}")
+            summary = summarizer.summarize(p, sections=fsections, basis=basis)
             if not args.dry_run:
                 os.makedirs(os.path.join(ROOT, uslug), exist_ok=True)
                 with open(os.path.join(ROOT, rel), "w", encoding="utf-8") as f:

@@ -120,10 +120,7 @@ def fetch_oa_pdf_text(paper):
 
 
 def fetch_fulltext(paper):
-    """本文取得のオーケストレータ。(text, basis) を返す。
-
-    優先順: arXiv HTML > OA PDF > なし(abstract)。
-    """
+    """本文取得のオーケストレータ（フラット版）。(text, basis) を返す。"""
     if paper.arxiv_id:
         t = fetch_arxiv_fulltext(paper.arxiv_id)
         if t:
@@ -132,3 +129,129 @@ def fetch_fulltext(paper):
     if t:
         return t, "fulltext(oa-pdf)"
     return "", "abstract"
+
+
+# ---- セクション単位の本文取得（多段要約用） ----
+
+# 主要セクションだけで分割する（h3以下の定義/証明/補題は親セクションに含める）
+SPLIT_HEADING_TAGS = {"h1", "h2"}
+SECTION_SKIP_TAGS = {"script", "style", "noscript", "math", "table"}
+# 本文でない見出し（参考文献・謝辞・arXivのUI・前文等）は落とす
+_DENY_HEADINGS = (
+    "reference", "bibliography", "acknowledg", "instructions for reporting",
+    "report issue", "github issue", "back to", "why html", "download pdf",
+    "appendix", "(前文)",
+)
+PER_SECTION_MAX = int(os.environ.get("SECTION_MAX_CHARS", "14000"))
+MAX_SECTIONS = int(os.environ.get("MAX_SECTIONS", "14"))
+MIN_SECTION_CHARS = 150
+
+
+class _SectionParser(HTMLParser):
+    """h1〜h6 の見出しを境界に (見出し, 本文) のリストを作る。"""
+
+    def __init__(self):
+        super().__init__()
+        self.sections = []
+        self._heading = "(前文)"
+        self._parts = []
+        self._in_heading = False
+        self._hbuf = []
+        self._skip = 0
+
+    def handle_starttag(self, tag, attrs):
+        if tag in SECTION_SKIP_TAGS:
+            self._skip += 1
+        elif tag in SPLIT_HEADING_TAGS and self._skip == 0:
+            self._flush()
+            self._in_heading = True
+            self._hbuf = []
+
+    def handle_endtag(self, tag):
+        if tag in SECTION_SKIP_TAGS and self._skip:
+            self._skip -= 1
+        elif tag in SPLIT_HEADING_TAGS and self._in_heading:
+            self._in_heading = False
+            self._heading = " ".join(self._hbuf).strip() or "Section"
+
+    def handle_data(self, data):
+        if self._skip:
+            return
+        t = data.strip()
+        if not t:
+            return
+        (self._hbuf if self._in_heading else self._parts).append(t)
+
+    def _flush(self):
+        text = re.sub(r"[ \t]{2,}", " ", " ".join(self._parts)).strip()
+        if text:
+            self.sections.append((self._heading, text))
+        self._heading = ""
+        self._parts = []
+
+    def result(self):
+        self._flush()
+        return self.sections
+
+
+def _clean_sections(sections):
+    out = []
+    for heading, text in sections:
+        hl = heading.lower()
+        if any(d in hl for d in _DENY_HEADINGS):
+            continue
+        if len(text) < MIN_SECTION_CHARS:
+            continue
+        out.append((heading[:120], text[:PER_SECTION_MAX]))
+        if len(out) >= MAX_SECTIONS:
+            break
+    return out
+
+
+def fetch_arxiv_sections(arxiv_id):
+    if not arxiv_id:
+        return []
+    try:
+        html = http_get(ARXIV_HTML + arxiv_id, timeout=40, min_interval=3.0, expect="text")
+    except Exception:
+        return []
+    parser = _SectionParser()
+    try:
+        parser.feed(html)
+    except Exception:
+        return []
+    return _clean_sections(parser.result())
+
+
+_TEXT_HEADING_RE = re.compile(r"(?m)^\s*(\d{1,2}(?:\.\d{1,2})*\.?\s+[A-Z][A-Za-z0-9 ,\-:]{2,60})\s*$")
+
+
+def _sections_from_text(text):
+    """PDF 等のプレーンテキストを見出しらしい行で分割。無ければサイズで分割。"""
+    idxs = [m.start() for m in _TEXT_HEADING_RE.finditer(text)]
+    out = []
+    if len(idxs) >= 3:
+        bounds = idxs + [len(text)]
+        for i in range(len(idxs)):
+            chunk = text[bounds[i]:bounds[i + 1]]
+            head = chunk.split("\n", 1)[0].strip()[:120]
+            body = chunk[len(head):].strip()
+            if len(body) >= MIN_SECTION_CHARS:
+                out.append((head, body[:PER_SECTION_MAX]))
+    if not out:
+        step = PER_SECTION_MAX
+        for i in range(0, min(len(text), step * MAX_SECTIONS), step):
+            out.append((f"Part {i // step + 1}", text[i:i + step]))
+    return out[:MAX_SECTIONS]
+
+
+def fetch_sections(paper):
+    """(sections, basis) を返す。sections=[(heading, text)]。取れなければ ([], 'abstract')。"""
+    if paper.arxiv_id:
+        secs = fetch_arxiv_sections(paper.arxiv_id)
+        if secs:
+            return secs, "fulltext(arxiv)"
+    pdf_text = fetch_oa_pdf_text(paper)
+    if pdf_text:
+        return _sections_from_text(pdf_text), "fulltext(oa-pdf)"
+    return [], "abstract"

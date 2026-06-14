@@ -47,6 +47,16 @@ def render_paper_page(tpl_dir, paper, summary):
             f'<section class="qa"><h2>{_esc(heading)}</h2>'
             f"<p>{_multiline(summary.get(key, ''))}</p></section>\n"
         )
+    # セクション別の詳細要約（多段要約のときのみ）
+    secsum = summary.get("sections") or []
+    detail_html = ""
+    if secsum:
+        detail_html = '<h2 class="secs-title">セクション別の詳細要約</h2>\n'
+        for s in secsum:
+            detail_html += (
+                f'<section class="secsum"><h3>{_esc(s.get("heading", ""))}</h3>'
+                f"<p>{_multiline(s.get('summary', ''))}</p></section>\n"
+            )
     links = []
     if paper.url:
         links.append(f'<a href="{_esc(paper.url)}" target="_blank" rel="noopener">原典</a>')
@@ -65,6 +75,7 @@ def render_paper_page(tpl_dir, paper, summary):
         "source": _esc(paper.source),
         "links": " ・ ".join(links),
         "sections": sections_html,
+        "sections_detail": detail_html,
         "engine": _esc(summary.get("_engine", "")),
         "basis": _basis_label(summary.get("_basis", "")),
         "generated": _today(),
