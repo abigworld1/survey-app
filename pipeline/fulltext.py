@@ -279,8 +279,16 @@ def _is_heading(txt, size, bold, body_size):
     return numbered or known or (titleish and size >= body_size + 0.6)
 
 
-def _pdf_headings(data):
-    """PDFのフォント情報から見出しらしい行テキストを返す。PyMuPDF 必要。"""
+def _mode_size(lines):
+    """行リストから本文サイズ（文字数で最頻のフォントサイズ）を返す。"""
+    w = {}
+    for size, _bold, txt in lines:
+        w[size] = w.get(size, 0) + len(txt)
+    return max(w, key=w.get) if w else 0
+
+
+def _pdf_lines_in_order(data):
+    """PDF を読み順（2段組対応）で (size, bold, text) の行リストにする。NFKC 正規化。"""
     try:
         import fitz
     except Exception:
@@ -289,15 +297,23 @@ def _pdf_headings(data):
         doc = fitz.open(stream=data, filetype="pdf")
     except Exception:
         return []
-    spans, weight = [], {}
+    lines = []
     for page in doc:
         try:
             d = page.get_text("dict")
         except Exception:
             continue
-        for block in d.get("blocks", []):
-            for line in block.get("lines", []):
-                ss = line.get("spans", [])
+        width = float(page.rect.width) or 1.0
+        blocks = [b for b in d.get("blocks", []) if b.get("lines")]
+
+        def _order(b):
+            x0, y0, x1, _y1 = b["bbox"]
+            col = 0 if (x0 + x1) / 2 < width / 2 else 1  # 左列→右列
+            return (col, round(y0))
+
+        for b in sorted(blocks, key=_order):
+            for ln in b["lines"]:
+                ss = ln.get("spans", [])
                 if not ss:
                     continue
                 txt = unicodedata.normalize(
@@ -309,54 +325,49 @@ def _pdf_headings(data):
                 size = round(float(s0.get("size", 0)), 1)
                 font = str(s0.get("font", "")).lower()
                 bold = bool(int(s0.get("flags", 0)) & 16) or "bold" in font or "black" in font
-                spans.append((size, bold, txt))
-                weight[size] = weight.get(size, 0) + len(txt)
+                lines.append((size, bold, txt))
     doc.close()
-    if not weight:
-        return []
-    body_size = max(weight, key=weight.get)  # 文字数最頻 = 本文サイズ
-    return [t for (size, bold, t) in spans if _is_heading(t, size, bold, body_size)]
+    return lines
 
 
-def _split_flat_by_headings(flat, headings):
-    """フラット本文を、見出し文字列の出現位置で分割。見出しが2未満なら []。"""
-    low = flat.lower()
-    positions, cursor = [], 0
-    for h in headings:
-        hn = re.sub(r"\s+", " ", h).strip()
-        if len(hn) < 3:
-            continue
-        idx = low.find(hn.lower(), cursor)
-        if idx < 0:
-            idx = low.find(hn.lower())
-        if idx < 0:
-            continue
-        positions.append((idx, hn))
-        cursor = idx + len(hn)
-    positions.sort()
-    if len(positions) < 2:
+def _build_sections(lines):
+    """(size,bold,text) の読み順行リストを、見出しで (見出し, 本文) に区切る。
+
+    短すぎる節（タイトル断片など）は直前に統合し、References 以降は打ち切る。
+    """
+    if not lines:
         return []
+    body_size = _mode_size(lines)
+    raw, cur = [], None
+    for size, bold, txt in lines:
+        if _is_heading(txt, size, bold, body_size):
+            if cur:
+                raw.append(cur)
+            cur = [txt, []]
+        elif cur is not None:
+            cur[1].append(txt)
+    if cur:
+        raw.append(cur)
+
     out = []
-    for j, (idx, h) in enumerate(positions):
-        end = positions[j + 1][0] if j + 1 < len(positions) else len(flat)
-        body = flat[idx + len(h):end].strip()
-        if any(d in h.lower() for d in _DENY_HEADINGS):
-            continue
+    for heading, parts in raw:
+        if any(d in heading.lower() for d in _DENY_HEADINGS):
+            break  # References/謝辞/付録 以降は打ち切り
+        body = re.sub(r"[ \t]{2,}", " ", " ".join(parts)).strip()
         if len(body) < MIN_SECTION_CHARS:
+            if out:  # 短い断片は直前の節に吸収（謝罪要約の発生を防ぐ）
+                out[-1] = (out[-1][0], (out[-1][1] + " " + body).strip()[:PER_SECTION_MAX])
             continue
-        out.append((h[:120], body[:PER_SECTION_MAX]))
+        out.append((heading[:120], body[:PER_SECTION_MAX]))
         if len(out) >= MAX_SECTIONS:
             break
     return out
 
 
 def _sections_from_pdf(data):
-    """PDF をフォントベース見出し検出で分割。不十分なら 本文(i/n) に自動フォールバック。"""
-    flat = _pdf_to_text(data)
-    if not flat:
-        return []
-    secs = _split_flat_by_headings(flat, _pdf_headings(data))
-    return secs if secs else _sections_from_text(flat)
+    """PDF を読み順にたどり、フォント見出しでセクション化。<2見出しなら 本文(i/n) に。"""
+    secs = _build_sections(_pdf_lines_in_order(data))
+    return secs if len(secs) >= 2 else _sections_from_text(_pdf_to_text(data))
 
 
 def fetch_sections(paper):
