@@ -13,6 +13,7 @@ import argparse
 import datetime
 import json
 import os
+import re
 import shutil
 import sys
 
@@ -35,6 +36,25 @@ def _fulltext_score(p):
     if p.doi:
         return 1
     return 0
+
+
+def _keyword_patterns(keywords):
+    """キーワードを単語境界マッチ用の正規表現に（'RAG' が 'storage' に誤マッチしない）。"""
+    return [
+        re.compile(r"\b" + re.escape(w.lower().strip()) + r"\b")
+        for w in keywords
+        if w and w.strip()
+    ]
+
+
+def _relevance(paper, patterns):
+    """キーワード適合度。タイトル一致=3点、アブストラクト一致=1点。"""
+    title = (paper.title or "").lower()
+    abstract = (paper.abstract or "").lower()
+    return sum(
+        (3 if pt.search(title) else 0) + (1 if pt.search(abstract) else 0)
+        for pt in patterns
+    )
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TPL = os.path.join(ROOT, "templates")
@@ -111,10 +131,20 @@ def main(argv=None):
         papers = dedup(gather(sub, args.offline))
         useen = seen.setdefault(uslug, {})
         fresh = [p for p in papers if p.key() not in useen]
-        # 本文が取れる論文を優先、同点は新しい順
-        fresh.sort(key=lambda p: (_fulltext_score(p), p.published or ""), reverse=True)
-        picked = fresh[:k]
-        print(f"  候補 {len(papers)} / 新規 {len(fresh)} / 採用 {len(picked)}")
+        kw_pats = _keyword_patterns(sub.get("keywords", []))
+        # 採用順: 関連度 → 本文の取りやすさ → 新しさ。適合0は不足時のみ補充。
+        ranked = sorted(
+            fresh,
+            key=lambda p: (_relevance(p, kw_pats), _fulltext_score(p), p.published or ""),
+            reverse=True,
+        )
+        relevant = [p for p in ranked if _relevance(p, kw_pats) > 0]
+        picked = relevant[:k]
+        if len(picked) < k:
+            picked += [p for p in ranked if _relevance(p, kw_pats) == 0][: k - len(picked)]
+        print(
+            f"  候補 {len(papers)} / 新規 {len(fresh)} / 関連 {len(relevant)} / 採用 {len(picked)}"
+        )
 
         for p in picked:
             if produced >= args.limit:
@@ -127,7 +157,7 @@ def main(argv=None):
                 fsections, basis = [], "abstract"
             else:
                 fsections, basis = fetch_sections(p)
-            print(f"    {pid}: {len(fsections)}セクション / 根拠 {basis}")
+            print(f"    {pid}: 関連度{_relevance(p, kw_pats)} / {len(fsections)}セクション / 根拠 {basis}")
             summary = summarizer.summarize(p, sections=fsections, basis=basis)
             if not args.dry_run:
                 os.makedirs(os.path.join(ROOT, uslug), exist_ok=True)
