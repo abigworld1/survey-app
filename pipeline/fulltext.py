@@ -98,7 +98,7 @@ def _pdf_to_text(data):
         return ""
     try:
         doc = fitz.open(stream=data, filetype="pdf")
-        parts = [page.get_text() for page in doc]
+        parts = [page.get_text("text", sort=True) for page in doc]  # 読み順で抽出
         doc.close()
     except Exception:
         return ""
@@ -224,26 +224,19 @@ def fetch_arxiv_sections(arxiv_id):
     return _clean_sections(parser.result())
 
 
-_TEXT_HEADING_RE = re.compile(r"(?m)^\s*(\d{1,2}(?:\.\d{1,2})*\.?\s+[A-Z][A-Za-z0-9 ,\-:]{2,60})\s*$")
-
-
 def _sections_from_text(text):
-    """PDF 等のプレーンテキストを見出しらしい行で分割。無ければサイズで分割。"""
-    idxs = [m.start() for m in _TEXT_HEADING_RE.finditer(text)]
-    out = []
-    if len(idxs) >= 3:
-        bounds = idxs + [len(text)]
-        for i in range(len(idxs)):
-            chunk = text[bounds[i]:bounds[i + 1]]
-            head = chunk.split("\n", 1)[0].strip()[:120]
-            body = chunk[len(head):].strip()
-            if len(body) >= MIN_SECTION_CHARS:
-                out.append((head, body[:PER_SECTION_MAX]))
-    if not out:
-        step = PER_SECTION_MAX
-        for i in range(0, min(len(text), step * MAX_SECTIONS), step):
-            out.append((f"Part {i // step + 1}", text[i:i + step]))
-    return out[:MAX_SECTIONS]
+    """PDF 等のプレーンテキストを読み順に一定サイズで分割する。
+
+    PDF からの見出し検出は（2段組などで）不安定なので行わず、読み順のまま
+    一定サイズのチャンクに分け、クリーンなラベル「本文 (i/n)」を付ける。
+    """
+    text = (text or "").strip()
+    if not text:
+        return []
+    size = max(3000, PER_SECTION_MAX // 2)  # 1チャンク約7000字
+    chunks = [text[i:i + size] for i in range(0, len(text), size)][:MAX_SECTIONS]
+    n = len(chunks)
+    return [(f"本文 ({i + 1}/{n})", c) for i, c in enumerate(chunks)]
 
 
 def fetch_arxiv_pdf_text(arxiv_id):
