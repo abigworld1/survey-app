@@ -326,17 +326,30 @@ def _pdf_lines_in_order(data):
     return lines
 
 
-def _build_sections(lines):
+def _norm_h(s):
+    return re.sub(r"\s+", " ", (s or "").lower()).strip()
+
+
+def _build_sections(lines, title=""):
     """(size,bold,text) の読み順行リストを、見出しで (見出し, 本文) に区切る。
 
-    短すぎる節（タイトル断片など）は直前に統合し、References 以降は打ち切る。
+    大見出し（本文+1.5pt以上）が3つ以上あれば、それだけを章の区切りに使い、太字同サイズの
+    小見出しは親章の本文に内包する（章単位）。論文タイトルと一致する節は除外。References 以降は打ち切り。
     """
     if not lines:
         return []
     body_size = _mode_size(lines)
+    cand = [(s, b, t) for (s, b, t) in lines if _is_heading(t, s, b, body_size)]
+    use_big = sum(1 for s, _b, _t in cand if s >= body_size + 1.5) >= 3
+
+    def _is_boundary(size, bold, txt):
+        if not _is_heading(txt, size, bold, body_size):
+            return False
+        return size >= body_size + 1.5 if use_big else True
+
     raw, cur = [], None
     for size, bold, txt in lines:
-        if _is_heading(txt, size, bold, body_size):
+        if _is_boundary(size, bold, txt):
             if cur:
                 raw.append(cur)
             cur = [txt, []]
@@ -345,13 +358,17 @@ def _build_sections(lines):
     if cur:
         raw.append(cur)
 
+    tnorm = _norm_h(title)
     out = []
     for heading, parts in raw:
         if any(d in heading.lower() for d in _DENY_HEADINGS):
             break  # References/謝辞/付録 以降は打ち切り
+        hn = _norm_h(heading)
+        # 論文タイトルと一致/前方一致する節（タイトルブロック）は除外
+        if tnorm and len(hn) >= 8 and (hn == tnorm or tnorm.startswith(hn) or hn.startswith(tnorm)):
+            continue
         body = re.sub(r"[ \t]{2,}", " ", " ".join(parts)).strip()
-        # ほぼ空（タイトル直後の著者行など）だけ捨てる。実セクションは短くても見出し名を残す。
-        if len(body) < 40:
+        if len(body) < 40:  # ほぼ空（著者行など）だけ捨てる
             continue
         out.append((heading[:120], body[:PER_SECTION_MAX]))
         if len(out) >= MAX_SECTIONS:
@@ -359,9 +376,9 @@ def _build_sections(lines):
     return out
 
 
-def _sections_from_pdf(data):
+def _sections_from_pdf(data, title=""):
     """PDF を読み順にたどり、フォント見出しでセクション化。<2見出しなら 本文(i/n) に。"""
-    secs = _build_sections(_pdf_lines_in_order(data))
+    secs = _build_sections(_pdf_lines_in_order(data), title)
     return secs if len(secs) >= 2 else _sections_from_text(_pdf_to_text(data))
 
 
@@ -374,7 +391,7 @@ def fetch_sections(paper):
         # 古い arXiv は HTML 版が無い → PDF をフォントベースで分割
         data = _download_pdf(ARXIV_PDF + paper.arxiv_id, min_interval=3.0)
         if data:
-            secs = _sections_from_pdf(data)
+            secs = _sections_from_pdf(data, paper.title)
             if secs:
                 return secs, "fulltext(arxiv-pdf)"
     # 非arXiv の OA PDF
@@ -382,7 +399,7 @@ def fetch_sections(paper):
     if url:
         data = _download_pdf(url)
         if data:
-            secs = _sections_from_pdf(data)
+            secs = _sections_from_pdf(data, paper.title)
             if secs:
                 return secs, "fulltext(oa-pdf)"
     return [], "abstract"
