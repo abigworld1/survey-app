@@ -66,8 +66,16 @@ def main(argv=None):
     src.add_argument("--pdf", help="ローカルPDFのパス")
     src.add_argument("--url", help="PDF の URL")
     ap.add_argument("--title", default="", help="タイトル（PDFで自動取得できない場合に指定）")
-    ap.add_argument("--field", default=DEFAULT_FIELD, help="出力先フィールドのスラッグ（既定 reading）")
+    # 追加先フィールド（指定なしは reading）。--mapf / --rag はショートカット。
+    dest = ap.add_mutually_exclusive_group()
+    dest.add_argument("--mapf", dest="field", action="store_const",
+                      const="mapf-mapd-warehouse", help="MAPF/MAPD/倉庫 分野に追加")
+    dest.add_argument("--rag", dest="field", action="store_const",
+                      const="doc-structure-rag", help="文書構造解析/RAG 分野に追加")
+    dest.add_argument("--field", default=None,
+                      help="任意のフィールドスラッグに追加（既定: reading = 個別に読んだ論文）")
     args = ap.parse_args(argv)
+    field = args.field or DEFAULT_FIELD
 
     if args.arxiv:
         paper, sections, basis = _from_arxiv(args.arxiv)
@@ -87,7 +95,7 @@ def main(argv=None):
     print(f"要約エンジン: {summarizer.engine}")
     summary = summarizer.summarize(paper, sections=sections, basis=basis)
 
-    uslug = slugify(args.field, fallback="reading")
+    uslug = slugify(field, fallback="reading")
     pid = slugify(args.title or paper.title or paper.paper_id(), fallback="paper")
     rel = f"{uslug}/{pid}.html"
     os.makedirs(os.path.join(ROOT, uslug), exist_ok=True)
@@ -107,9 +115,11 @@ def main(argv=None):
         "basis": summary.get("_basis", ""),
     }
     subs = _load_subs()
+    if uslug not in {slugify(s.get("username", "")) for s in subs}:
+        print(f"  [note] '{uslug}' は subscriptions.yml に無いため、トップ一覧には出ません（ページは生成されます）。")
     label = next(
         (s.get("label") for s in subs if slugify(s.get("username", "")) == uslug), None
-    ) or args.field
+    ) or field
     render.render_user_index(TPL, ROOT, uslug, label, useen)
     render.render_global_index(TPL, ROOT, subs, seen, slugify)
     save_seen(SEEN, seen)
