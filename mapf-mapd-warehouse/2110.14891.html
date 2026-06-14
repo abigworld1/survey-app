@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Integrated Task Assignment and Path Planning for Capacitated Multi-Agent Pickup and Delivery | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">survey-app トップ</a></nav>
+  <h1>Integrated Task Assignment and Path Planning for Capacitated Multi-Agent Pickup and Delivery</h1>
+  <div class="meta">Zhe Chen, Javier Alonso-Mora, Xiaoshan Bai, Daniel D. Harabor, Peter James Stuckey<br>IEEE Robotics and Automation Letters ・ 2021-07-01 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/a143a30c68ec2795b0988c0efabf052b0ef6ff0a" target="_blank" rel="noopener">原典</a> ・ <a href="https://repository.tudelft.nl/islandora/object/uuid%3A9e5cc563-580e-43b8-8874-40f96f4f0537/datastream/OBJ/download" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/LRA.2021.3074883" target="_blank" rel="noopener">DOI</a></div>
+  <div class="tldr"><strong>一言で:</strong> 容量制限付きマルチエージェント・ピックアップ＆デリバリー（Capacitated MAPD）問題に対し、タスク割り当て（TA）と経路計画（MAPF）を統合して解く手法を提案する。提案手法は、実際の衝突回避コストを考慮した限界増分コスト（Marginal-cost）に基づくタスク選択と、Large Neighbourhood Search (LNS) を用いたAnytime改善戦略を組み合わせることで、従来の逐次的な手法よりも優れた総移動遅延（TTD）を実現する。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>本研究は、複数のロボットが各タスクの開始地点から目標地点へ運搬を行う、容量制限付きマルチエージェント・ピックアップ＆デリバリー（Capacitated MAPD）問題を対象としている。従来のMAPD手法は、TAとMAPFを逐次的に解くことが多く、TAの段階で実際の経路コストではなく下限推定値を用いるため、計画時のコストが想定を大幅に上回る課題があった。本研究では、エージェントが一度に複数のタスクを運搬できる容量制限 $C$ を考慮しつつ、タスク割り当てと衝突回避経路計画を統合的に扱う。目的関数は、全タスクの輸送遅延の総和である Total Travel Delay (TTD) を最小化することであり、式(1) $f = \sum_{i \in P} (a(g_i) - (r_i + t(s_i, g_i)))$ として定義される。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、TAとMAPFを結合して解くための新しいヒューリスティックおよびメタヒューリスティックな改善戦略を導入した点にある。具体的には、優先度付き計画（Prioritised Planning）を用いて実際の衝突回避コストを評価する周辺コスト割り当て（marginal-cost assignment）手法を提案している。さらに、相対的後悔（Relative Regret）に基づくタスク選択アルゴリズム RMCA を導入し、より先読み効果のある割り当てを可能にした。また、LNSの概念を用いたAnytime Improvement Strategy により、制限時間内で解を破壊・修復することで割り当て空間を反復的に探索し、解の質を大幅に向上させる手法を確立した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、まずタスク割り当てを巡回セールスマン問題（TSP）として定式化し、その後、衝突のない経路を計画する。タスク選択アルゴリズムとして、各ロボット $k$ の現在の経路 $o_k$ に対し、タスク $i$ を挿入する際の限界増分コスト $\min \{t((o_k \oplus q_1 s_i) \oplus q_2 g_i) - t(o_k)\}$ を最小化する組み合わせを選択する MCA を用いる。さらに、最良と二番目に良いロボットの限界コストの比を用いる相対的後悔 $i^* = \arg \max_{i \in P_u} t((o_{k^*_2} \oplus p_1 s_i) \oplus p_2 g_i) / t((o_{k^*_1} \oplus q_1 s_i) \oplus q_2 g_i)$ に基づく RMCA を採用する。経路計画には Space-Time A* を用い、割り当て済みのタスクを一部破壊（Destroy）して RMCA で再割り当て（Re-assign）する LNS ベースの改善戦略を適用する。ただし、優先順位付き計画に基づいているため、完全性（Completeness）が保証されないという限界がある。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>$21 \times 35$ の倉庫マップを用いた数値シミュレーションにより、提案手法の有効性を検証している。One-shot実験では、容量 $Cap=1$ ではデカップル版が優れるが、$Cap=3$ 以上では RMCA(r) が最も優れた性能を示すことが確認された。Lifelong設定における評価では、タスクが継続的に到着する環境下で、RMCA(r) が TPTS や CENTRAL と比較して TTD を有意に（$t$-test, 有意水準 $0.1$）改善することを示した。また、Anytime改善戦略の比較実験（25インスタンス、各500タスク）では、destroy worst が最も優れた性能を示し、destroy random も大規模な近傍探索において競争力を持つことが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、TTD の最小化を通じてエージェントを早期にアイドル状態にすることで、システム全体の総スループット向上に寄与する。これは、Lifelong 設定においては Makespan の最小化よりも適したアプローチである。実験結果から、絶対後悔に基づく RMCA(a) はタスク割り当ての偏りにより性能が低下する一方、相対的後悔に基づく RMCA(r) は高い堅牢性を持つことが示された。今後の課題として、エージェントのルートをより精緻化するための anytime improvement 戦略の拡張や、経路計画におけるアルゴリズムの完全性（completeness）の向上が挙げられている。</p></section>
+
+  <h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>本文 (1/7)</h3><p>本研究は、複数のロボットが各タスクの開始地点から目標地点へ運搬を行う、容量制限付きマルチエージェント・ピックアップ＆デリバリー（Capacitated MAPD）問題を対象としている。従来のMAPD手法は、タスク割り当て（TA）と経路計画（MAPF）を逐次的に解くことが多く、TAの段階で実際の経路コストではなく下限推定値を用いるため、計画時のコストが想定を大幅に上回る課題があった。これに対し、提案手法はTAとMAPFを結合して解くアプローチであり、周辺コスト割り当て（marginal-cost assignment）ヒューリスティックと、Large Neighbourhood Search（LNS）に基づくメタヒューリスティックな改善戦略を導入している。具体的には、優先度付き計画（prioritised planning）を用いて割り当てコストを評価し、LNSによって解を破壊・修復することで、割り当て空間を反復的に探索する。数値シミュレーションの結果、提案手法は既存の最良の準最適手法であるTPTSと比較して、効率的かつタイムリーな解を提供し、有意な改善を示すことが確認された。また、各エージェントが一度に複数のタスクを運搬できる容量制限付きの拡張モデルについても検討されている。</p></section>
+<section class="secsum"><h3>本文 (2/7)</h3><p>本研究では、容量制限のあるマルチエージェント・ピックアップ＆デリバリー（MAPD）問題において、タスク割り当て（TA）と衝突回避経路計画（MAPF）を統合的に扱う手法を提案している。提案手法であるTA-Hybridは、まずタスク割り当てを巡回セールスマン問題（TSP）として定式化して既存のソルバーで解き、その後、Conflict Based Search (CBS) に基づくアルゴリズムを用いて衝突のない経路を計画する。関連研究として、CBSを拡張して割り当て探索木を探索する最適解法CBS-TAが挙げられるが、これはスケーラビリティに課題があり、オフライン動作かつエージェントによる複数アイテムの同時搬送を許容しない。問題の定式化において、経路計画は $\sigma_{ijk} \in \{0, 1\}$ （エージェント $k$ が地点 $i$ から $j$ へ移動するか否か）およびタスク割り当ては $\mu_{ik} \in \{0, 1\}$ （エージェント $k$ がタスク $i$ を担当するか否か）として定義される。また、各タスク $i$ のピックアップ地点 $s_i$ とドロップオフ地点 $g_i$ におけるエージェント $k$ の荷物保持数 $n_k$ の変化は、ピックアップ時に $n_k(a(s_i) + 1) = n_k(a(s_i)) + 1$、ドロップオフ時に $n_k(a(g_i) + 1) = n_k(a(g_i)) - 1$ と記述される。最終的な目的は、全タスクの搬送における総移動遅延（TTD）を最小化することである。</p></section>
+<section class="secsum"><h3>本文 (3/7)</h3><p>本セクションでは、容量制限のあるマルチエージェント・ピックアップ＆デリバリー（CAPACITATED MAPD）問題を、タスク割り当てと経路計画を同時に行う最適化問題として定式化している。目的関数は、全タスクの輸送遅延の総和（Total Travel Delay, TTD）を最小化することであり、式(1) $f = \sum_{i \in P} (a(g_i) - (r_i + t(s_i, g_i)))$ で定義される。制約条件として、各ロボットの積載容量 $C$ の遵守（式(9) $n_k(t) \le C$）、タスクのリリース時刻 $r_i$ 以降の回収（式(7) $r_i \le a(s_i)$）、およびロボット間の衝突回避（式(10), (11)）が課されている。提案手法であるAlgorithm 1は、未割当タスク集合 $P_u$ が空になるまで、潜在的な割り当てを格納したヒープ $H$ から最適なタスク・ロボットのペア $p_{aik}$ を選択し、割り当て集合 $A$ を更新しながら、Space-Time A*を用いた経路計画を逐次的に行う。Algorithm 2は、特定のロボットの経路更新に伴い、他の潜在的な割り当てにおいて衝突が発生した場合に、その経路を再計画してヒープを更新するプロセスを記述している。この手法は、タスク割り当ての順序によって経路計画の優先順位が決定される点に特徴があるが、優先順位付き計画（Prioritized Planning）に基づいているため、完全性（Completeness）が保証されないという限界を持つ。</p></section>
+<section class="secsum"><h3>本文 (4/7)</h3><p>本セクションでは、容量制限のあるマルチエージェント・ピックアップ＆デリバリー（MAPD）問題に対し、タスク割り当てと経路計画を統合した手法が提案されている。タスク割り当てアルゴリズムであるMarginal-cost Based Task Selection (MCA) は、各ロボット $k \in \mathcal{R}$ の現在の割り当て $a_k$ と経路 $o_k$ に対し、タスク $i$ を挿入する際の限界増分コスト $\min \{t((o_k \oplus q_1 s_i) \oplus q_2 g_i) - t(o_k)\}$ を最小化するロボット $k^*$ と挿入位置 $(q_1, q_2)$ を選択する。さらに、Regret-based MCA (RMCA) では、最良のロボットと二番目に良いロボットの限界コストの比を用いる相対的後悔（Relative Regret） $i^* = \arg \max_{i \in P_u} t((o_{k^*_2} \oplus p_1 s_i) \oplus p_2 g_i) / t((o_{k^*_1} \oplus q_1 s_i) \oplus q_2 g_i)$ に基づき、より先読み効果のあるタスク選択を行う。また、Large Neighbourhood Search (LNS) の概念を用いたAnytime Improvement Strategyにより、割り当て済みのタスクを一部破壊（Destroy）してRMCAで再割り当て（Re-assign）することで、制限時間内で解の改善を試みる。実験では $21 \times 35$ の倉庫マップを用い、静的障害物、通路、タスクの起点・終点、ロボットの初期位置が定義された環境で評価が行われている。</p></section>
+<section class="secsum"><h3>本文 (5/7)</h3><p>本セクションでは、容量制限のあるマルチエージェント・ピックアップ＆デリバリー（Capacitated MAPD）問題に対し、タスク割り当てと経路計画を統合した手法の有効性を検証するOne-shot実験の結果が示されている。実験では、タスク割り当て後に経路計画を行うデカップル版（MCA-pbs, RMCA(r)-pbs）と、割り当てと経路計画を同時に行う結合版（MCA, RMCA）を比較しており、相対的なTTD（Time-to-Delivery）を評価指標としている。結果として、容量 $Cap=1$ ではデカップル版が優れるが、$Cap=3$ 以上ではエージェント数が増加するにつれて、相対後悔（relative regret）に基づくRMCA(r)が最も優れた性能を示すことが確認された。一方で、絶対後悔に基づくRMCA(a)は、タスク割り当ての偏りにより遅延が大きく変動するため、性能が著しく低下する。計算時間に関しては、デカップル版が高速であるものの、結合版も他のアルゴリズムと比較して競争力のある実行時間を維持している。また、RMCA(r)に対し、3種類の破壊戦略（DR, DW, DM）を用いたAnytime改善手法を適用する実験も行われている。</p></section>
+<section class="secsum"><h3>本文 (6/7)</h3><p>本セクションでは、Lifelong設定におけるRMCA(r)の性能評価が示されている。実験では、タスクが継続的に到着する環境下で、RMCA(r)がTPTSやCENTRALと比較して、Total Travel Delay (TTD) を最適化しつつ、MakespanにおいてもCENTRALに近い優れた結果を得られることが示された。特に、TTDの最小化はエージェントを早期にアイドル状態にすることでシステム全体の総スループット向上に寄与し、Makespanの最小化よりもLifelong設定に適していると論じられている。統計的有意性の検証として、正規化されたTTD（$\text{TTD} \cdot N_a / (N_t \cdot f)$）および正規化されたMakespan（$\text{makespan} \cdot N_a \cdot f / N_t$）に対して$t$-test（有意水準 $0.1$）を実施した結果、RMCA(r)はCENTRALおよびTPTSに対して有意な改善を示した。また、Anytime改善戦略において、destroy random、destroy worst、destroy multipleの3手法を比較した実験（25インスタンス、各500タスク）では、destroy worstが最も優れた性能を示し、destroy randomが大規模な近傍探索において競争力を持つことが確認された。</p></section>
+<section class="secsum"><h3>本文 (7/7)</h3><p>本研究で提案された MCA および RMCA は、各ロボットが複数の荷物を同時に運搬可能な容量制限付きマルチエージェント・ピックアップ＆デリバリー問題において、タスク割り当てと経路計画を同時に実行する。この手法は、マルチタスク・マルチロボット割り当てプロセスを導くために、実際の衝突回避コスト（real collision-free costs）を利用することで実現されている。また、新たに導入された anytime improvement 戦略によって、解の質が大幅に向上することが確認された。今後の課題として、エージェントのルートを精緻化するための anytime improvement 戦略の拡張や、経路計画におけるアルゴリズムの完全性（completeness）の向上に取り組むことが挙げられている。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-15
+  </footer>
+</div>
+</body>
+</html>

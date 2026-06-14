@@ -18,6 +18,15 @@
       "title": "CQC-RAG: Robust Retrieval-Augmented Generation via Cross-Query Consistency",
       "tldr": "RAGの脆弱性であるクエリの構文変化への感度と、ノイズによるハルシネーションを解決するため、「意味的に等価だが構文が異なるクエリ間では、正解は高い信頼性を維持するが、誤答は不安定になる」という仮説に基づき、クエリ書き換えとクロスクエリ一貫性検証を行うCQC-RAGを提案する。"
     },
+    "doi:10.1038/s41598-026-50062-8": {
+      "added": "2026-06-15",
+      "basis": "abstract",
+      "date": "2026-05-01",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/doi-71bb8aede7a8.html",
+      "title": "DC-RAG: a dual-channel retrieval-augmented generation framework for audit analysis.",
+      "tldr": "提供された情報からは不明。"
+    },
     "doi:10.3390/ai7050161": {
       "added": "2026-06-14",
       "basis": "abstract",
@@ -26,6 +35,24 @@
       "file": "doc-structure-rag/doi-5ad69eb67717.html",
       "title": "TechDocRAG: Relation-Preserving Retrieval-Augmented Generation (RAG) for Technical Documents",
       "tldr": "技術文書特有の構造（条項、表、図、手順など）を維持したまま検索を行う、TechDocRAGというフレームワークを提案する。従来のRAGが文書を独立したチャンクに平坦化してしまう問題を解決し、要素間の関係性を保持することで、正確な根拠追跡を可能にする。実験では、既存のベースラインと比較して大幅な精度向上を達成している。"
+    },
+    "doi:10.48550/arxiv.2510.07233": {
+      "added": "2026-06-15",
+      "basis": "fulltext(arxiv-pdf)",
+      "date": "2025-10-08",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2510.07233.html",
+      "title": "LAD-RAG: Layout-aware Dynamic RAG for Visually-Rich Document Understanding",
+      "tldr": "視覚的に豊かな文書（VRD）の質問応答において、レイアウト構造やページ間の依存関係を保持するために、記号的な文書グラフとニューラルインデックスを組み合わせた動的なRAGフレームワーク「LAD-RAG」を提案する。LLMエージェントがグラフとベクトル空間を動的に探索することで、top-$k$の調整なしに平均90%以上の完全再現率（perfect recall）を達成し、既存のベースラインを最大20%上回る検索性能を実現した。"
+    },
+    "title:ft rag a fine grained retrieval augmented generation framework for complex table reasoning": {
+      "added": "2026-06-15",
+      "basis": "fulltext(oa-pdf)",
+      "date": "2026-05-02",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/t-75be55a85153.html",
+      "title": "FT-RAG: A Fine-grained Retrieval-Augmented Generation Framework for Complex Table Reasoning",
+      "tldr": "表形式データの検索粒度が粗いという従来のRAGの課題に対し、表をセル単位（cell groups）に分解し、Subject（主体）、Attribute（属性）、Temporal（時間）の3次元で構造化した「SAT-Graph」を構築する細粒度フレームワーク「FT-RAG」を提案する。本手法は、グラフ上の階層的な探索と、取得した構造化データに基づくテキスト文脈の動的な融合により、複雑なマルチテーブル推論を実現する。"
     }
   },
   "mapf-mapd-warehouse": {
@@ -46,6 +73,15 @@
       "file": "mapf-mapd-warehouse/graph-attention-guided-search-for-dense-multi-agent-pathfinding.html",
       "title": "Graph Attention-Guided Search for Dense Multi-Agent Pathfinding",
       "tldr": "高密度なマルチエージェント経路探索（MAPF）において、グラフアテンションを用いたニューラル方策MAGAT+を最先端の探索アルゴリズムLaCAMに統合したハイブリッドフレームワーク「LaGAT」を提案する。事前学習とマップ特化型のファインチューニング、およびデッドロック検出メカニズムを組み合わせることで、従来の探索ベースの手法や学習ベースの手法の双方を上回る解の質を実現している。"
+    },
+    "arxiv:2605.13296": {
+      "added": "2026-06-15",
+      "basis": "fulltext(arxiv)",
+      "date": "2026-05-13",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2605.13296.html",
+      "title": "Discrete Diffusion for Complex and Congested Multi-Agent Path Finding with Sparse Social Attention",
+      "tldr": "複雑かつ混雑したマルチエージェント経路探索（MAPF）において、離散デノイジング拡散確率モデル（D3PM）とLarge Neighborhood Search 2（LNS2）を統合したハイブリッドフレームワーク「DiffLNS」を提案する。D3PMを用いて、エキスパートのデモンストレーションから学習した時空間的な協調アクション軌跡の事前分布をサンプリングし、LNS2の高品質なウォームスタートとして利用することで、高密度環境下での成功率を大幅に向上させる。"
     },
     "arxiv:2605.20929": {
       "added": "2026-06-14",
@@ -82,6 +118,24 @@
       "file": "mapf-mapd-warehouse/priority-inheritance-with-backtracking-for-iterative-multi-agent-path-finding.html",
       "title": "Priority Inheritance with Backtracking for Iterative Multi-agent Path Finding",
       "tldr": "数百台以上のエージェントが継続的に稼働するLifelong MAPF/MAPD環境向けに、動的な優先順位継承とバックトラッキングを組み合わせたスケーラブルな準最適アルゴリズム「Priority Inheritance with Backtracking (PIBT)」を提案する。PIBTは、二連結グラフ等の条件下で全エージェントの目的地到達（reachability）を理論的に保証し、1,000体規模の大規模インスタンスにおいても数秒以内という極めて高速な計算を実現する。"
+    },
+    "doi:10.1109/lra.2021.3074883": {
+      "added": "2026-06-15",
+      "basis": "fulltext(arxiv-pdf)",
+      "date": "2021-07-01",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2110.14891.html",
+      "title": "Integrated Task Assignment and Path Planning for Capacitated Multi-Agent Pickup and Delivery",
+      "tldr": "容量制限付きマルチエージェント・ピックアップ＆デリバリー（Capacitated MAPD）問題に対し、タスク割り当て（TA）と経路計画（MAPF）を統合して解く手法を提案する。提案手法は、実際の衝突回避コストを考慮した限界増分コスト（Marginal-cost）に基づくタスク選択と、Large Neighbourhood Search (LNS) を用いたAnytime改善戦略を組み合わせることで、従来の逐次的な手法よりも優れた総移動遅延（TTD）を実現する。"
+    },
+    "doi:10.1109/lra.2024.3471389": {
+      "added": "2026-06-15",
+      "basis": "abstract",
+      "date": "2024-11-01",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/doi-926dfa8a42b0.html",
+      "title": "Anytime Multi-Task Multi-Agent Pickup and Delivery Under Energy Constraint",
+      "tldr": "本論文は、エージェントのエネルギー制約と、エージェントの現在位置に関わらずタスクを割り当て可能な「Anytime Task Allocation」を導入した、新しいマルチタスクMAPD（Multi-Agent Pickup and Delivery）アルゴリズムを提案しています。提案手法は、従来のマルチタスクMAPDと比較して、広範なエージェント数においてメイクスパン（完了時間）を $5 - 19 \\%$ 短縮することに成功しています。"
     }
   },
   "reading": {}

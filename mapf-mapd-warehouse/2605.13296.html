@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Discrete Diffusion for Complex and Congested Multi-Agent Path Finding with Sparse Social Attention | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">survey-app トップ</a></nav>
+  <h1>Discrete Diffusion for Complex and Congested Multi-Agent Path Finding with Sparse Social Attention</h1>
+  <div class="meta">Yuanzhe Wang, Tian Zhi, Zihang Wei, Hongguang Wang, Jiaming Guo, Yang Zhao, Zisheng Liu, Shiyu Quan, Xing Hu, Zidong Du, Yunji Chen<br>arxiv ・ 2026-05-13 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2605.13296v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.13296v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="tldr"><strong>一言で:</strong> 複雑かつ混雑したマルチエージェント経路探索（MAPF）において、離散デノイジング拡散確率モデル（D3PM）とLarge Neighborhood Search 2（LNS2）を統合したハイブリッドフレームワーク「DiffLNS」を提案する。D3PMを用いて、エキスパートのデモンストレーションから学習した時空間的な協調アクション軌跡の事前分布をサンプリングし、LNS2の高品質なウォームスタートとして利用することで、高密度環境下での成功率を大幅に向上させる。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>本研究は、LNS2などの修復ベースのMAPF手法において、初期解の質が成功率や収束速度に決定的な影響を与えるという課題に対処するものである。従来の学習ベースの手法は高密度環境での厳密な制約充足に課題があり、一方で連続空間向けの拡散モデルはMAPFの離散的な衝突制約への対応が不十分であった。DiffLNSは、離散的な結合アクションテンソル $\mathbf{x} \in \mathcal{A}^{N \times T}$ 上で動作する離散拡散モデルを導入し、多様かつ協調的な初期計画（drafts）を生成する。これにより、生成的な多様性と、古典的な修復アルゴリズムによる厳密な制約充足の両立を目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、D3PMをLNS2の初期化器として統合し、エキスパートの行動から協調的な時空間事前分布を学習するハイブリッドフレームワークを提案した。第二に、計算コストを抑えつつ衝突に関わるエージェント間の相互作用を効率的にモデル化する「拡散認識型スパース・ソーシャル・アテンション（diffusion-aware sparse social attention）」を導入した。第三に、最大96エージェントのデータで学習したモデルが、推論時に最大312エージェントまでスケールし、20の複雑な設定において平均成功率95.8%を達成することを示した。これは最強のベースラインであるLNS2+RLを9.6ポイント上回る性能である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>DiffLNSは、D3PMによる構造化された初期解生成とLNS2による局所的な修復を組み合わせる。D3PMは、離散変数 $x_0$ を $T$ ステップのマルコフ連鎖 $q(x_t | x_{t-1}) = \prod_{i=1}^n q(x_{t,i} | x_{t-1,i})$ で破壊するモデルであり、学習時は変分下界 $\mathcal{L}_{\text{vlb}}$ とクリーン状態予測 $\mathcal{L}_{\text{ce}}$、および補助損失 $\mathcal{L}_{\text{aux}}$ を組み合わせた $\mathcal{L} = \mathcal{L}_{\text{vlb}} + \lambda \mathcal{L}_{\text{aux}}$ を最小化する。核となるSparse Social Attentionは、拡散ステップ $t$ における推定軌跡の近接度 $\min_{t&#x27; \in [0, T]} \text{dist}(\hat{x}_{i,t&#x27;}, \hat{x}_{j,t&#x27;})$ に基づき、動的な近傍 $\mathcal{N}_i(t)$ を構築する。デノイザーはエージェント間でパラメータを共有し、置換等変性 $\text{Denoiser}(\mathbf{P}\mathbf{x}) = \mathbf{P}\text{Denoiser}(\mathbf{x})$ を備える。生成された複数のドラフトは、最短経路での補完等の前処理を経てLNS2に渡され、最も低いSum of Costs (SOC) を持つ解が選択される。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>POGEMAで生成された5つの環境（Small Random, Medium Maze, Medium Room, Medium Warehouse, Large Maze）を用い、LNS2、LNS2+RL、HMAGAT、LaCAM3と比較実験を行った。20の複雑かつ混雑した設定において、DiffLNSは平均成功率（SR）95.8%を達成し、LNS2+RLを9.6ポイント上回った。アブレーション研究では、Sparse Social AttentionがDense Attentionと比較して、より少ない生成候補数で高いSRを実現し、実行時間を約12%削減することを確認した。また、最大96エージェントでの学習が、推論時の最大312エージェントのシナリオまで汎化できることも実証された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>DiffLNSは、離散拡散モデルがマルチエージェント意思決定における構造化された反復生成器として機能し、下流のプランニングに対して有用な共同事前分布を提供できることを示した。しかし、いくつかの限界も存在する。単純なインスタンスにおいては、提案手法を用いずともLNS2のみで十分な性能が得られること、マップサイズの変化に伴う分布シフトの影響を受ける可能性があること、そして極めて困難なケースにおいて限られたリペア予算内では完全に解決できない場合があることが挙げられる。</p></section>
+
+  <h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Discrete Diffusion for Complex and Congested Multi-Agent Path Finding with Sparse Social Attention</h3><p>本研究では、複雑かつ混雑したマルチエージェント経路探索（MAPF）において、離散的なデノイジング拡散確率モデル（D3PM）とLNS2（Large Neighborhood Search）を統合したハイブリッドフレームワーク「DiffLNS」を提案している。DiffLNSは、エキスパートのデモンストレーションから学習したスパースなソーシャルアテンション（sparse social attention）を用いて、時空間的な協調アクション軌跡の事前分布を学習し、カテゴリカルなアクション空間上で直接動作することで、MAPFのアクション構造を維持したまま多様な初期計画（drafts）をサンプリングする。これらのサンプリングされた計画は、LNS2のウォームスタートとして機能し、ハードなMAPF制約下で未完了の軌跡の補完と残存する衝突の解消を行う。実験では、最大96エージェントのインスタンスのみで学習したにもかかわらず、推論時には最大312エージェントのシナリオまで汎化できることが示された。20の複雑かつ混雑した設定において、DiffLNSは平均成功率95.8%を達成し、最強のベースラインを9.6ポイント上回る性能を示している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究では、LNS2（Large Neighborhood Search 2）などの修復ベースのMAPF手法において、初期解の質が成功率や収束速度に大きく影響するという課題に対し、離散拡散モデルを用いたハイブリッドフレームワーク「DiffLNS」を提案している。DiffLNSは、離散デノイジング拡散確率モデル（D3PM）を初期化器として統合しており、エキスパートのデモンストレーションから協調的なマルチエージェント行動軌跡の時空間的な事前分布を学習する。モデルの核となる手法として、現在のデノイジング状態から局所的な近傍を動的に構築する「拡散認識型スパース・ソーシャル・アテンション（diffusion-aware sparse social attention）」を導入しており、これにより衝突に関わるエージェント間の相互作用に計算資源を集中させつつ、不要な相互作用のモデリングを削減している。推論時には、D3PMが生成した複数の多様なドラフト候補をLNS2で独立に修復し、最適な実行可能解を選択する並列化可能な設計となっている。実験では、最大96エージェントのデータで学習したモデルが最大312エージェントまでスケールすることを示し、20の複雑かつ混雑した設定において、強力なベースラインであるLNS2+RLを平均成功率で9.6ポイント上回る95.8%の平均成功率を達成した。</p></section>
+<section class="secsum"><h3>2 Preliminaries</h3><p>Multi-Agent Path Finding (MAPF) は、共有グラフ $\mathcal{M}$ 上で、エージェント集合 $\mathcal{A}$ の各個体が開始地点 $s_i$ から目標地点 $g_i$ まで衝突を回避して移動する経路を求める問題であり、解の質は全エージェントの経路コストの総和である Sum of Costs (SOC) で評価される。本研究の基盤となる Discrete Denoising Diffusion Probabilistic Model (D3PM) は、離散変数 $x_0$ を $T$ ステップの順方向マルコフ連鎖によって段階的に破壊するモデルであり、1ステップの遷移はパラメータ $\mathbf{Q}_t$ を用いて $q(x_t | x_{t-1}) = \prod_{i=1}^n q(x_{t,i} | x_{t-1,i})$ と定義される。学習時は、変分下界とクリーン状態の予測項を組み合わせた目的関数 $\mathcal{L}_{VLB} + \mathcal{L}_{ce}$ を最小化し、推論時には $x_T \sim q(x_T)$ から学習された逆遷移を用いて逐次的にサンプリングを行う。また、比較対象となる LNS2 は、優先度付き計画法 (PP) と SIPPS を用いて初期解を構築した後、エージェントのサブセットを選択して再計画を繰り返す Large Neighborhood Search アルゴリズムであるが、その性能は初期解の衝突構造に強く依存するという特性を持つ。</p></section>
+<section class="secsum"><h3>3 Methodology</h3><p>DiffLNSは、離散拡散モデル（D3PM）による構造化された初期解生成と、LNS2による局所的な修復を組み合わせたハイブリッドなMAPFフレームワークである。初期化フェーズでは、エージェント数 $N$、計画ホライゾン $T$、行動集合 $\mathcal{A} = \{\text{stay, up, down, left, right}\}$ からなる離散的な結合アクションテンソル $\mathbf{x} \in \mathcal{A}^{N \times T}$ を生成し、D3PMが時空間的な事前分布を学習することで、LNS2が修復しやすい高品質なドラフトを提供する。拡散モデルの核となるSparse Social Attentionは、全エージェント間の密なアテンションを避け、拡散ステップ $t$ における推定軌跡の近接度 $\min_{t&#x27; \in [0, T]} \text{dist}(\hat{x}_{i,t&#x27;}, \hat{x}_{j,t&#x27;})$ に基づいて動的な近傍 $\mathcal{N}_i(t)$ を構築し、計算コストを抑えつつ衝突に関わる局所的な相互作用をモデル化する。学習目的関数は、エキスパートの分布への適合を目指す $\mathcal{L}_{\text{vlb}}$ に、ゴール到達や衝突削減のための補助損失 $\mathcal{L}_{\text{aux}}$ を加えた $\mathcal{L} = \mathcal{L}_{\text{vlb}} + \lambda \mathcal{L}_{\text{aux}}$ で定義される。また、デノイザーはエージェント間でパラメータを共有し、置換等変性 $\text{Denoiser}(\mathbf{P}\mathbf{x}) = \mathbf{P}\text{Denoiser}(\mathbf{x})$ を備えているため、推論時には学習時よりも多いエージェント数へのスケーリングが可能である。最終的な解は、生成された複数のドラフトに対し、ゴール到達後の冗長な動きを削除し最短経路で補完する前処理を施した後、LNS2で修復を行い、最も低い合計コスト（SOC）を持つものを選択する。</p></section>
+<section class="secsum"><h3>4 Experiments</h3><p>本実験では、提案手法であるDiffLNSを、LNS2、LNS2+RL、HMAGAT、およびLaCAM3といった強力なリペアベース、学習強化型、および古典的なanytimeソルバーと比較している。評価はPOGEMAで生成された5つの環境（Small Random, Medium Maze, Medium Room, Medium Warehouse, Large Maze）を用い、成功率（SR）、成功時の平均コスト（SOC）、および平均実行時間を指標としている。実験結果として、DiffLNSは20の評価設定すべてにおいて全ベースラインと同等以上のSRを達成し、平均SRは95.8%（LNS2+RLに対し9.6ポイント向上）に達しており、特に迷路や倉庫のような混雑した環境で高い堅牢性を示した。初期化の比較実験では、単一の拡散生成初期化を用いるだけでも、LNS2の公式初期化と比較して、特に密な環境においてリペア成功率を向上させることが確認された。アブレーション研究では、提案するSparse Social Attentionが、全対全のDense Attentionと比較して、より少ない生成候補数で高いSRを実現し、実行時間も約12%削減できることが示された。限界として、単純なインスタンスではLNS2のみで十分であること、マップサイズの変化による分布シフトの影響、および限られたリペア予算内では極めて困難なケースを完全に解決できないことが挙げられている。</p></section>
+<section class="secsum"><h3>5 Related Work</h3><p>従来のMAPFソルバーは、CBSやLaCAMのような組合せ探索、あるいは初期解を部分的に再計画するLNS（Large Neighborhood Search）といった手法が主流であるが、LNSにおける初期解の質と多様性を直接的に向上させる研究は限定的である。学習ベースの手法（PRIMAL, DHC, RAILGUN等）は、グラフやトークンベースのアーキテクチャを用いて協調を学習し推論効率に優れるものの、高密度な環境下で厳密な制約を満たすことが困難という課題がある。一方、拡散モデルを用いた生成的な計画手法は、連続的な状態空間における軌道生成には広く適用されているが、グリッドベースのMAPFが要求する離散的な頂点・エッジの衝突制約への対応が不十分である。本研究では、離散的な結合アクションテンソル上で拡散モデルを定式化することで、マルチモーダルな生成的事前分布を提供し、それをLNS2のウォームスタートとして利用することで、生成的な多様性と古典的な修復アルゴリズムによる制約充足の両立を図っている。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、D3PMをLNS2の学習済み初期化器として利用するハイブリッドMAPFフレームワーク「DiffLNS」を提案した。DiffLNSは、離散拡散過程を通じて共同アクションプランをモデル化し、MAPFインスタンスを条件として構造化された修復シードを生成することで、従来の修復のみに焦点を当てた手法から初期化の質へと重点を移している。生成されたドラフトは、それ自体ですべてのハード制約を満たす必要はなく、下流のLNS2による修復をより堅牢にするための協調的な時空間的事前分布として機能する。拡散認識型の疎なソーシャルアテンション（sparse social attention）とマルチサンプル修復を組み合わせることで、高密度かつ混雑した設定においても、競争力のある解の質を維持しつつ修復成功率を向上させている。本結果は、離散拡散モデルがマルチエージェント意思決定における構造化された反復生成器として機能し、下流のプランニングや制御に対して有用な共同事前分布を提供できることを示唆している。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-15
+  </footer>
+</div>
+</body>
+</html>
