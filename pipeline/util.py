@@ -38,6 +38,8 @@ def http_get(url, headers=None, timeout=30, min_interval=0.0, expect="json"):
         raw = r.read()
     if expect == "json":
         return json.loads(raw.decode("utf-8"))
+    if expect == "bytes":
+        return raw
     return raw.decode("utf-8", "replace")
 
 

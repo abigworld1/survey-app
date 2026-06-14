@@ -13,16 +13,28 @@ import argparse
 import datetime
 import json
 import os
+import shutil
 import sys
 
 import yaml
 
 from . import render, sources
 from .dedup import dedup, load_seen, save_seen
-from .fulltext import fetch_arxiv_fulltext
+from .fulltext import fetch_fulltext
 from .schema import Paper
 from .summarize import Summarizer
 from .util import slugify
+
+
+def _fulltext_score(p):
+    """本文の取りやすさで採用を優先する（arXiv > OA-PDF候補 > DOIあり > なし）。"""
+    if p.arxiv_id:
+        return 3
+    if p.pdf_url:
+        return 2
+    if p.doi:
+        return 1
+    return 0
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TPL = os.path.join(ROOT, "templates")
@@ -62,6 +74,7 @@ def main(argv=None):
     ap.add_argument("--offline", action="store_true", help="ネット未使用・サンプル＋スタブ要約")
     ap.add_argument("--stub", action="store_true", help="論文は取得するが要約はスタブ")
     ap.add_argument("--dry-run", action="store_true", help="生成・seen更新を行わない")
+    ap.add_argument("--reset", action="store_true", help="既存ページとseenを消してから再生成（本文版へ作り直し）")
     ap.add_argument("--limit", type=int, default=MAX_PAGES_PER_RUN, help="今回の総生成ページ上限")
     args = ap.parse_args(argv)
 
@@ -74,6 +87,14 @@ def main(argv=None):
     print(f"要約エンジン: {summarizer.engine}")
 
     seen = load_seen(SEEN)
+    if args.reset:
+        if not args.dry_run:
+            for sub in subs:
+                d = os.path.join(ROOT, slugify(sub.get("username", ""), fallback="user"))
+                if os.path.isdir(d):
+                    shutil.rmtree(d)
+        seen = {}
+        print("reset: seen を初期化" + ("" if args.dry_run else " ＋ 既存ページ削除"))
     today = datetime.date.today().isoformat()
     produced = 0
 
@@ -89,7 +110,8 @@ def main(argv=None):
         papers = dedup(gather(sub, args.offline))
         useen = seen.setdefault(uslug, {})
         fresh = [p for p in papers if p.key() not in useen]
-        fresh.sort(key=lambda p: p.published or "", reverse=True)
+        # 本文が取れる論文を優先、同点は新しい順
+        fresh.sort(key=lambda p: (_fulltext_score(p), p.published or ""), reverse=True)
         picked = fresh[:k]
         print(f"  候補 {len(papers)} / 新規 {len(fresh)} / 採用 {len(picked)}")
 
@@ -99,9 +121,12 @@ def main(argv=None):
                 break
             pid = slugify(p.paper_id(), fallback="paper")
             rel = f"{uslug}/{pid}.html"
-            # arXiv 論文は本文(HTML)を取得して要約に使う（取れなければ abstract にフォールバック）
-            fulltext = "" if args.offline else fetch_arxiv_fulltext(p.arxiv_id)
-            summary = summarizer.summarize(p, fulltext=fulltext)
+            # 本文(arXiv HTML / OA PDF)を取得して要約に使う（取れなければ abstract にフォールバック）
+            if args.offline:
+                fulltext, basis = "", "abstract"
+            else:
+                fulltext, basis = fetch_fulltext(p)
+            summary = summarizer.summarize(p, fulltext=fulltext, basis=basis)
             print(f"    {pid}: 本文 {len(fulltext)}字 / 根拠 {summary.get('_basis')}")
             if not args.dry_run:
                 os.makedirs(os.path.join(ROOT, uslug), exist_ok=True)

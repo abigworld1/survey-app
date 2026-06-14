@@ -98,8 +98,9 @@ class Summarizer:
             print(f"  [warn] /models 取得失敗、デフォルトモデルを使用: {e!r}")
         return DEFAULT_MODEL
 
-    def summarize(self, paper, fulltext=""):
-        basis = "fulltext(arxiv)" if fulltext else "abstract"
+    def summarize(self, paper, fulltext="", basis=None):
+        if basis is None:
+            basis = "fulltext" if fulltext else "abstract"
         if self.stub:
             return self._stub(paper, basis)
         try:

@@ -37,6 +37,10 @@ def search(keywords, limit=25):
             ((w.get("primary_location") or {}).get("source") or {}).get("display_name")
             or ""
         )
+        # OA の直リンク（あれば本文取得の候補に使う）
+        oa = w.get("open_access") or {}
+        best = w.get("best_oa_location") or {}
+        pdf = best.get("pdf_url") or oa.get("oa_url") or ""
         out.append(
             Paper(
                 source="openalex",
@@ -46,6 +50,7 @@ def search(keywords, limit=25):
                 published=(w.get("publication_date") or "")[:10],
                 venue=venue,
                 url=w.get("id", ""),
+                pdf_url=pdf,
                 doi=(w.get("doi") or "").replace("https://doi.org/", ""),
             )
         )

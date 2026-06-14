@@ -32,6 +32,14 @@ def _today():
     return datetime.date.today().isoformat()
 
 
+def _basis_label(basis):
+    return {
+        "fulltext(arxiv)": "本文(arXiv)",
+        "fulltext(oa-pdf)": "本文(OA-PDF)",
+        "fulltext": "本文",
+    }.get(basis, "アブストラクト")
+
+
 def render_paper_page(tpl_dir, paper, summary):
     sections_html = ""
     for key, heading in SECTIONS:
@@ -58,7 +66,7 @@ def render_paper_page(tpl_dir, paper, summary):
         "links": " ・ ".join(links),
         "sections": sections_html,
         "engine": _esc(summary.get("_engine", "")),
-        "basis": "本文(arXiv)" if summary.get("_basis", "").startswith("fulltext") else "アブストラクト",
+        "basis": _basis_label(summary.get("_basis", "")),
         "generated": _today(),
     }
     return render_template(_read(os.path.join(tpl_dir, "paper.html")), ctx)

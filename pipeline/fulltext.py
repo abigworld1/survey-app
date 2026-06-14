@@ -66,3 +66,69 @@ def fetch_arxiv_fulltext(arxiv_id):
     text = re.sub(r"[ \t]{2,}", " ", text).strip()
     text = _strip_references(text)
     return text[:MAX_CHARS].strip()
+
+
+# ---- Phase 2: 非arXiv の OA(オープンアクセス) 論文を PDF から本文化 ----
+
+EMAIL = "hirayama.h77@gmail.com"
+
+
+def _unpaywall_pdf_url(doi):
+    """Unpaywall で OA の PDF 直リンクを引く（無ければ ''）。"""
+    if not doi:
+        return ""
+    try:
+        data = http_get(
+            f"https://api.unpaywall.org/v2/{doi}?email={EMAIL}",
+            timeout=20,
+            min_interval=0.5,
+        )
+    except Exception:
+        return ""
+    loc = data.get("best_oa_location") or {}
+    return loc.get("url_for_pdf") or loc.get("url") or ""
+
+
+def _pdf_to_text(data):
+    """PDF バイト列からテキスト抽出。PyMuPDF 未導入なら ''（依存はオプション）。"""
+    try:
+        import fitz  # PyMuPDF
+    except Exception:
+        return ""
+    try:
+        doc = fitz.open(stream=data, filetype="pdf")
+        parts = [page.get_text() for page in doc]
+        doc.close()
+    except Exception:
+        return ""
+    text = re.sub(r"[ \t]{2,}", " ", "\n".join(parts)).strip()
+    return _strip_references(text)[:MAX_CHARS].strip()
+
+
+def fetch_oa_pdf_text(paper):
+    """OA の PDF（paper.pdf_url か Unpaywall 経由）から本文を返す。取れなければ ''。"""
+    url = paper.pdf_url or _unpaywall_pdf_url(paper.doi)
+    if not url:
+        return ""
+    try:
+        data = http_get(url, timeout=60, min_interval=0.5, expect="bytes")
+    except Exception:
+        return ""
+    if not data[:5].startswith(b"%PDF"):  # HTML ランディング等は弾く
+        return ""
+    return _pdf_to_text(data)
+
+
+def fetch_fulltext(paper):
+    """本文取得のオーケストレータ。(text, basis) を返す。
+
+    優先順: arXiv HTML > OA PDF > なし(abstract)。
+    """
+    if paper.arxiv_id:
+        t = fetch_arxiv_fulltext(paper.arxiv_id)
+        if t:
+            return t, "fulltext(arxiv)"
+    t = fetch_oa_pdf_text(paper)
+    if t:
+        return t, "fulltext(oa-pdf)"
+    return "", "abstract"
