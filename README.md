@@ -7,7 +7,7 @@
 公開先: **https://abigworld1.github.io/survey-app/**
 
 ```
-取得(arXiv/Semantic Scholar/OpenAlex) → 名寄せ → 関連度順に採用 → 本文取得(arXiv HTML/OA PDF)
+取得(arXiv/Semantic Scholar/OpenAlex) → 名寄せ → 重要論文2本＋新着論文1本を採用 → 本文取得(arXiv HTML/OA PDF)
   → セクション分割 → 各セクションをLLM要約 → 落合フォーマット合成 → HTML生成 → git push → GitHub Pages
 ```
 
@@ -20,7 +20,8 @@
 
 ### 1. 毎日の自動更新（cron）
 
-`subscriptions.yml` の各分野について、毎日 *k* 本の新着関連論文を要約して公開します。
+`subscriptions.yml` の各分野について、毎日 *k* 本の関連論文を要約して公開します。
+既定の `k: 3` では、被引用数を主指標にした重要論文を2本、投稿日が新しい新着論文を1本採用します。
 sankaku01 では user cron に登録済みで、追加操作は不要です（毎朝 6:00）。
 
 手動で1回まわす場合:
@@ -110,7 +111,8 @@ python3 -m venv .venv
 
 1. **取得**: 各 `sources` から候補を集める（arXiv は新着順、他はキーワード検索）。
 2. **名寄せ**: DOI / arXiv ID / 正規化タイトルで重複排除（`pipeline/dedup.py`）。
-3. **採用**: `関連度 → 本文の取りやすさ → 新しさ` の順。
+3. **採用**: `k: 3` では重要論文2本＋新着論文1本を採用。
+   重要論文は `関連度 → 被引用数 → 本文の取りやすさ → 新しさ` の順、新着論文は `関連度 → 本文の取りやすさ → 新しさ` の順。
    関連度＝キーワードのタイトル一致(×3)＋アブストラクト一致(×1)。略語は単語境界判定（`RAG`が`storage`に誤マッチしない）。
    適合0の論文は原則除外（*k* 本に満たない時のみ補充）。
 4. **本文取得**: arXiv HTML を優先（`arxiv.org/html/<id>`）。無ければ OA PDF（Unpaywall/OpenAlex → PyMuPDF）。取れなければ abstract。

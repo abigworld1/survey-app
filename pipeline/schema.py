@@ -17,6 +17,7 @@ class Paper:
     pdf_url: str = ""
     arxiv_id: str = ""
     doi: str = ""
+    citations: int = 0  # 被引用数（OpenAlex/Semantic Scholar 由来。重要度の指標）
 
     def key(self):
         """名寄せ用の安定キー。DOI > arXiv ID > 正規化タイトル の優先順。"""

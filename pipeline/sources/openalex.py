@@ -17,11 +17,12 @@ def _reconstruct_abstract(inv):
     return " ".join(pos[i] for i in sorted(pos))
 
 
-def search(keywords, limit=25):
+def search(keywords, limit=25, mode="recent"):
+    sort = "cited_by_count:desc" if mode == "important" else "publication_date:desc"
     q = urllib.parse.urlencode(
         {
             "search": " ".join(keywords),
-            "sort": "publication_date:desc",
+            "sort": sort,
             "per-page": min(limit, 50),
             # mailto を付けると OpenAlex の "polite pool" になり安定する
             "mailto": "hirayama.h77@gmail.com",
@@ -52,6 +53,7 @@ def search(keywords, limit=25):
                 url=w.get("id", ""),
                 pdf_url=pdf,
                 doi=(w.get("doi") or "").replace("https://doi.org/", ""),
+                citations=int(w.get("cited_by_count") or 0),
             )
         )
     return out

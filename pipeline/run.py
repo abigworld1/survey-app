@@ -56,6 +56,65 @@ def _relevance(paper, patterns):
         for pt in patterns
     )
 
+
+def _citations(paper):
+    """被引用数。取れないソースは 0 として扱う。"""
+    try:
+        return int(paper.citations or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
+def _important_quota(k):
+    """1本は新着枠として残し、最大2本を重要論文枠にする。"""
+    if k <= 1:
+        return 0
+    return min(2, k - 1)
+
+
+def _rank_recent(papers, patterns):
+    """新着枠: 関連度 → 本文の取りやすさ → 新しさ。"""
+    return sorted(
+        papers,
+        key=lambda p: (_relevance(p, patterns), _fulltext_score(p), p.published or ""),
+        reverse=True,
+    )
+
+
+def _rank_important(papers, patterns):
+    """重要枠: 関連度 → 被引用数 → 本文の取りやすさ → 新しさ。"""
+    return sorted(
+        papers,
+        key=lambda p: (
+            _relevance(p, patterns),
+            _citations(p),
+            _fulltext_score(p),
+            p.published or "",
+        ),
+        reverse=True,
+    )
+
+
+def _take_ranked(ranked, patterns, limit, used):
+    """関連ありを優先し、不足時のみ関連度0も補充する。"""
+    if limit <= 0:
+        return []
+    picked = []
+    for require_relevant in (True, False):
+        for p in ranked:
+            key = p.key()
+            if key in used:
+                continue
+            if require_relevant and _relevance(p, patterns) <= 0:
+                continue
+            if not require_relevant and _relevance(p, patterns) > 0:
+                continue
+            picked.append(p)
+            used.add(key)
+            if len(picked) >= limit:
+                return picked
+    return picked
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TPL = os.path.join(ROOT, "templates")
 DATA = os.path.join(ROOT, "data")
@@ -63,7 +122,7 @@ SEEN = os.path.join(DATA, "seen.json")
 
 # 安全上限（暴走・肥大化の防止）
 MAX_K = 20                  # 1購読あたり1日に生成する最大ページ数
-FETCH_CAP = 40              # 各ソースから取得する最大件数
+FETCH_CAP = 40              # 各ソース・各採用モードから取得する最大件数
 MAX_PAGES_PER_RUN = 100     # 1回の実行で生成する総ページ数の上限
 
 
@@ -78,13 +137,13 @@ def load_sample():
         return [Paper(**p) for p in json.load(f)]
 
 
-def gather(sub, offline):
+def gather(sub, offline, mode="recent"):
     if offline:
         return load_sample()
     papers = []
     for src in sub.get("sources") or ["arxiv"]:
-        got = sources.search_source(src, sub["keywords"], FETCH_CAP)
-        print(f"  {src}: {len(got)} 件")
+        got = sources.search_source(src, sub["keywords"], FETCH_CAP, mode=mode)
+        print(f"  {src}/{mode}: {len(got)} 件")
         papers += got
     return papers
 
@@ -135,22 +194,34 @@ def main(argv=None):
         k = max(1, min(int(sub.get("k", 5)), MAX_K))
         print(f"\n=== {display} (slug={uslug}, k={k}) ===")
 
-        papers = dedup(gather(sub, args.offline))
+        recent_papers = dedup(gather(sub, args.offline, mode="recent"))
+        important_papers = dedup(gather(sub, args.offline, mode="important"))
+        papers = dedup(important_papers + recent_papers)
         useen = seen.setdefault(uslug, {})
-        fresh = [p for p in papers if p.key() not in useen]
+        fresh_recent = [p for p in recent_papers if p.key() not in useen]
+        fresh_important = [p for p in important_papers if p.key() not in useen]
+        fresh_all = [p for p in papers if p.key() not in useen]
         kw_pats = _keyword_patterns(sub.get("keywords", []))
-        # 採用順: 関連度 → 本文の取りやすさ → 新しさ。適合0は不足時のみ補充。
-        ranked = sorted(
-            fresh,
-            key=lambda p: (_relevance(p, kw_pats), _fulltext_score(p), p.published or ""),
-            reverse=True,
+        important_quota = _important_quota(k)
+        recent_quota = k - important_quota
+        used = set()
+        picked = []
+        # 重要枠: 分野内での被引用数が高い論文を優先。新着枠: 投稿日が新しい論文を優先。
+        picked += _take_ranked(
+            _rank_important(fresh_important, kw_pats), kw_pats, important_quota, used
         )
-        relevant = [p for p in ranked if _relevance(p, kw_pats) > 0]
-        picked = relevant[:k]
+        picked += _take_ranked(
+            _rank_recent(fresh_recent, kw_pats), kw_pats, recent_quota, used
+        )
+        # 片方の枠が不足した場合は、全候補から重要度順に補充して k 本に近づける。
         if len(picked) < k:
-            picked += [p for p in ranked if _relevance(p, kw_pats) == 0][: k - len(picked)]
+            picked += _take_ranked(
+                _rank_important(fresh_all, kw_pats), kw_pats, k - len(picked), used
+            )
+        relevant = [p for p in fresh_all if _relevance(p, kw_pats) > 0]
         print(
-            f"  候補 {len(papers)} / 新規 {len(fresh)} / 関連 {len(relevant)} / 採用 {len(picked)}"
+            f"  候補 {len(papers)} / 新規 {len(fresh_all)} / 関連 {len(relevant)} / "
+            f"採用 {len(picked)} (重要枠 {important_quota}, 新着枠 {recent_quota})"
         )
 
         for p in picked:
@@ -164,7 +235,10 @@ def main(argv=None):
                 fsections, basis = [], "abstract"
             else:
                 fsections, basis = fetch_sections(p)
-            print(f"    {pid}: 関連度{_relevance(p, kw_pats)} / {len(fsections)}セクション / 根拠 {basis}")
+            print(
+                f"    {pid}: 関連度{_relevance(p, kw_pats)} / 被引用{_citations(p)} / "
+                f"{len(fsections)}セクション / 根拠 {basis}"
+            )
             summary = summarizer.summarize(p, sections=fsections, basis=basis)
             if not args.dry_run:
                 os.makedirs(os.path.join(ROOT, uslug), exist_ok=True)

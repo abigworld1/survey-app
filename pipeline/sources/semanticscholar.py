@@ -12,10 +12,10 @@ from ..schema import Paper
 from ..util import http_get
 
 ENDPOINT = "https://api.semanticscholar.org/graph/v1/paper/search"
-FIELDS = "title,abstract,year,publicationDate,venue,authors,externalIds,url,openAccessPdf"
+FIELDS = "title,abstract,year,publicationDate,venue,authors,externalIds,url,openAccessPdf,citationCount"
 
 
-def search(keywords, limit=25):
+def search(keywords, limit=25, mode="recent"):
     q = urllib.parse.urlencode(
         {"query": " ".join(keywords), "limit": min(limit, 100), "fields": FIELDS}
     )
@@ -49,6 +49,9 @@ def search(keywords, limit=25):
                 pdf_url=(p.get("openAccessPdf") or {}).get("url", "") or "",
                 arxiv_id=ext.get("ArXiv", "") or "",
                 doi=ext.get("DOI", "") or "",
+                citations=int(p.get("citationCount") or 0),
             )
         )
+    if mode == "important":
+        out.sort(key=lambda p: p.citations, reverse=True)
     return out

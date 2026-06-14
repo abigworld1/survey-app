@@ -11,7 +11,9 @@ from ..util import http_get
 ENDPOINT = "https://dblp.org/search/publ/api"
 
 
-def search(keywords, limit=25):
+def search(keywords, limit=25, mode="recent"):
+    if mode == "important":
+        return []
     q = urllib.parse.urlencode(
         {"q": " ".join(keywords), "format": "json", "h": min(limit, 100)}
     )

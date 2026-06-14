@@ -39,7 +39,9 @@ def fetch_meta(arxiv_id):
         return None
 
 
-def search(keywords, limit=25):
+def search(keywords, limit=25, mode="recent"):
+    if mode == "important":
+        return []
     q = urllib.parse.urlencode(
         {
             "search_query": _build_query(keywords),
