@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lifelong LaCAM with Local Guidance for Lifelong MAPF | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← このユーザーの一覧</a> ・ <a href="../index.html">survey-app トップ</a></nav>
+  <h1>Lifelong LaCAM with Local Guidance for Lifelong MAPF</h1>
+  <div class="meta">Tomoki Arita, Keisuke Okumura<br>arxiv ・ 2026-05-16 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2605.16855v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.16855v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="tldr"><strong>一言で:</strong> Lifelong MAPF (LMAPF) において、局所的なガイダンス（Local Guidance）を組み込んだ LaCAM を、後退ホライゾン（Receding Horizon）フレームワークへと拡張した手法 LLLG を提案する。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>高密度な環境下での LMAPF において、エージェントの衝突や渋滞を回避しつつ、リアルタイム性と高いスループットを両立させるためのプランナーである。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>One-shot MAPF で有効だった局所ガイダンスを LMAPF に適用するための、ウィンドウ化された後退ホライゾン計画と、前ステップの解を用いたガイダンスのウォームスタート手法を確立した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LaCAM の構成ベース探索に、時空間的な衝突回避情報を与える局所ガイダンスを統合し、各タイムステップで前ステップの解の末尾からガイダンスを再利用するウィンドウ化された計画手法を採用している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>複数のベンチマークマップ（random, warehouse, empty 等）を用いた実験により、RHCR や WPPL などの既存手法を上回るスループットを達成し、10,000 エージェント規模でも実用的な計算速度を維持することを示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>ガイダンスの窓幅や計画ホライゾンを大きくしても、将来のタスクが未知である LMAPF の性質上、効果には収穫逓減が見られる。また、Anytime Refinement が必ずしもスループット向上に直結しない可能性が示唆されている。</p></section>
+<section class="qa"><h2>次に読むべき論文は？</h2><p>将来のタスク割り当てや目標分布の予測情報を計画に組み込むこと、および LMAPF のスループット向上に直接寄与するコスト関数の設計が今後の課題である。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+  </footer>
+</div>
+</body>
+</html>

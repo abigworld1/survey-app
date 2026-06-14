@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>On the Hardness of Optimal Motion on Trees | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← このユーザーの一覧</a> ・ <a href="../index.html">survey-app トップ</a></nav>
+  <h1>On the Hardness of Optimal Motion on Trees</h1>
+  <div class="meta">Tzvika Geft<br>arxiv ・ 2026-06-04 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.06686v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.06686v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="tldr"><strong>一言で:</strong> 木構造におけるマルチエージェント経路計画（MAPF）およびPebble Motion（PM）の最適化問題について、ラベル付き・色付きの双方のバリエーション、および距離・makespan・flowtimeの全目的関数においてNP困難であることを証明した。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>木グラフ上でのエージェントの移動最適化問題。具体的には、個別のエージェントを扱う「ラベル付き」ケースと、同じ色のエージェントを区別しない「色付き（k-colored）」ケース、およびそれらの標準的な最適化指標（総移動距離、makespan、flowtime）を対象としている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>数十年間未解決であった木構造上のPebble Motion問題の複雑性を解決した。また、2色（k=2）のMAPFが木上でNP困難であることを初めて示した。さらに、これら全ての困難性の根源として「Stack Rearrangement（スタック再配置）」問題のNP困難性を提示し、統一的なフレームワークを構築した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>Stack Rearrangement（SR）問題からの帰着を用いた。SR問題のNP困難性を証明した上で、SRの構成を「細分化されたスターグラフ（subdivided stars）」や「最大次数3の櫛状木（comb-like trees）」へ変換することで、MAPFの各目的関数への帰着を確立した。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>提供された情報には、実験的な数値検証やシミュレーションによる検証結果は含まれておらず、計算量理論的な帰着（Reduction）による証明のみが記述されている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の結果は、木構造における計算の限界（tractability barrier）を明確にした。色付きのケースでは2色で困難性が現れ、次数については最大次数3で困難性が現れるという、タイトな境界条件を特定している。また、最短経路の下限値が達成可能かどうかの判定は多項式時間で可能であることも示唆されている。</p></section>
+<section class="qa"><h2>次に読むべき論文は？</h2><p>NP困難性と多項式時間解法の間の正確な境界（閾値）の特定。具体的には、スタックの深さ、木の最大次数、または分岐頂点の数をさらに減らした条件下での複雑性の解明が挙げられている。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+  </footer>
+</div>
+</body>
+</html>

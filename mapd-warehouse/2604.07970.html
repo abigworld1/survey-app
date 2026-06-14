@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Karma Mechanisms for Decentralised, Cooperative Multi Agent Path Finding | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← このユーザーの一覧</a> ・ <a href="../index.html">survey-app トップ</a></nav>
+  <h1>Karma Mechanisms for Decentralised, Cooperative Multi Agent Path Finding</h1>
+  <div class="meta">Kevin Riehl, Julius Schlapbach, Anastasios Kouvelas, Michail A. Makridis<br>arxiv ・ 2026-04-09 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2604.07970v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2604.07970v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="tldr"><strong>一言で:</strong> 分散型MAPFにおいて、エージェントの過去の協力行動を「Karma（カルマ）」という非譲渡性のクレジットで管理し、衝突解決時の交渉プロセスに組み込むことで、全体の効率を維持しつつエージェント間の負担の不均衡を解消する手法を提案している。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>大規模なロボット倉庫などの環境における、分散型かつ協調的なマルチエージェント経路計画（MAPF）における公平性と効率性の両立を目指した研究である。既存の分散型手法では、特定の個体に再計画の負担が集中し、サービス時間の格差が生じる課題があった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>過去の協力履歴をフィードバック信号として利用する「Karmaメカニズム」を提案した。これにより、グローバルな優先順位構造を持たず、限定的な通信環境下でも、エージェント間の再計画コストの分散（不平等）を大幅に低減できることを示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>衝突が発生した際、エージェント間でバイラテラルな交渉を行い、再計画の責任を決定する。交渉の判断基準として、現在の経路コストの増加分（Δ）に、蓄積されたKarma残高（k）と設計パラメータ（τ）を組み合わせた式を用い、協力的なエージェントが優先的に回避されるよう設計されている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>ロボット倉庫における、運動学的制約（向きの制約）を持つライフロングなマルチエージェント・ピックアップ＆デリバリー（MAPD）シナリオのシミュレーションで評価した。トークンパッシング、利己的交渉、利他的交渉と比較検証を行った。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>Karmaメカニズムは、平均的なタスク完了時間や効率において既存の利己的・利他的な交渉手法と同等の性能を維持しながら、タスクごとのサービス時間の分散（ばらつき）を抑制することに成功した。パラメータτの調整により、効率と公平性のトレードオフを制御可能である。</p></section>
+<section class="qa"><h2>次に読むべき論文は？</h2><p>Karmaメカニズムの安定性、収束性、および性能限界の理論的解析が必要である。また、Karmaの支払いルールの違い（ピア・ツー・ピア型か社会全体への支払い型か）や、残高の上下限の設定、再分配スキームの影響についても調査の余地がある。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CADENCE: Predicting Realized MAPF Execution Time Beyond Sum of Costs | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← このユーザーの一覧</a> ・ <a href="../index.html">survey-app トップ</a></nav>
+  <h1>CADENCE: Predicting Realized MAPF Execution Time Beyond Sum of Costs</h1>
+  <div class="meta">Abhishek S, Badrikanath Praharaj, Sreeram MV<br>arxiv ・ 2026-06-03 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.04746v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.04746v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="tldr"><strong>一言で:</strong> MAPFの標準的な評価指標であるSum of Costs (SoC) は、実機での実行時間を正確に予測するには不十分であり、計画段階で算出可能な「基本動作の負担（primitive motion burden）」を考慮することで予測精度が大幅に向上する。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路計画（MAPF）において、オフラインで生成された計画が物理ロボット上で実際に完了するまでの時間（wall-clock completion time）を、実行前にどの程度予測できるかを調査した研究である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>実機を用いた実行時間コーパスの構築、実行時間を予測するための3層（SoC、基本動作負担、相互作用を考慮した調整構造）の予測因子分解、およびそれらの予測能力の検証を行った。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>7台の差動駆動ロボットを用いた7×7のワークセル上で、15のシナリオからなる120の計画を480回実行し、リッジ回帰モデルと混合効果モデルを用いて、SoCに各種特徴量を加えた際の予測誤差（MAE, RMSE）の変化を評価した。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>リッジ回帰および混合効果モデルの両方において、基本動作負担（旋回数、連続移動、停止・開始の遷移など）を追加することで、SoCのみの場合と比較してMAEが約48.6%〜59.8%改善することを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>基本動作負担は実行時間を予測する上で最も信頼性の高い追加信号であるが、相互作用を考慮した特徴量（依存関係の深さなど）の寄与については、現在のデータセットでは統計的な確証が不十分である。</p></section>
+<section class="qa"><h2>次に読むべき論文は？</h2><p>提供された情報からは不明</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+  </footer>
+</div>
+</body>
+</html>

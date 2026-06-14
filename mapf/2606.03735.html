@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>On dynamic multi-agent pathfinding methods: review, simulations and modifications | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← このユーザーの一覧</a> ・ <a href="../index.html">survey-app トップ</a></nav>
+  <h1>On dynamic multi-agent pathfinding methods: review, simulations and modifications</h1>
+  <div class="meta">Gabriel Fejziaj, Salama Hassona, Wieslaw Marszalek<br>arxiv ・ 2026-06-02 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.03735v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.03735v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="tldr"><strong>一言で:</strong> 動的障害物、部分観測性、エージェント間の衝突が存在するD-MAPF環境において、オフラインの幾何学的経路生成とオンラインの時間的適応を分離した新アルゴリズムA**を提案し、既存手法と比較検証した。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>動的障害物が現れたり消えたりし、エージェントが限定的な視界しか持たない「動的マルチエージェント経路計画（D-MAPF）」問題を対象としている。エージェント間の衝突回避には優先順位付き計画（Prioritized Planning）を用い、共通の予約テーブルで調整を行う。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>幾何学的な候補経路（テンプレート）を事前に生成し、オンラインでSpace-Time A*を用いてそれらに再接続する新しい手法A**を提案した。また、D-MAPFのベンチマーク用シミュレーションフレームワークと、部分観測性を強制する視覚フィルタを構築した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>A**は、ペナルティ付き2D A*を用いて多様な幾何学的テンプレートを事前に生成する。再計画時には、現在の位置からテンプレート上の各点へSpace-Time A*を用いて「ブリッジ（接続路）」を計算し、テンプレートの「テイル（残りの経路）」と結合して最適な経路を選択する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>MovingAIのベンチマークマップを含む8種類のマップ、1〜10体のエージェント、100回の試行を用いて、Dijkstra, D* Lite, STA*, WHCA*, M*と比較した。評価指標として、総コスト(SoC)、メイクスパン、計算時間、失敗率を用いた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>A**は多くの設定で最小のSoCを達成したが、再計画の計算コストが非常に高い。WHCA*は失敗率が最も低く、安定性と計算時間のバランスに優れている。DijkstraやD* Liteは高速だが、動的な環境下での経路品質（SoC）に課題がある。</p></section>
+<section class="qa"><h2>次に読むべき論文は？</h2><p>提供された情報からは不明</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+  </footer>
+</div>
+</body>
+</html>

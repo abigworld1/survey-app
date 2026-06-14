@@ -32,18 +32,18 @@
   <h1>Many-to-Many Multi-Agent Pickup and Delivery</h1>
   <div class="meta">Ethan Schneider, Jingkai Chen, Tianyi Gu, Kunlei Lian, Seth Hutchinson, Sonia Chernova<br>arxiv ・ 2026-05-08 ・ source: arxiv</div>
   <div class="links"><a href="http://arxiv.org/abs/2605.07835v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.07835v1" target="_blank" rel="noopener">PDF</a></div>
-  <div class="tldr"><strong>一言で:</strong> 従来の1対1のMAPDに対し、SKUに基づき複数の場所から回収・配送が可能な「Many-to-Many MAPD」問題を解決する新アルゴリズムM2Mを提案する。</div>
-  <section class="qa"><h2>どんなもの？</h2><p>自動倉庫における、アイテム（SKU）が複数の場所に存在する状況下での、多対多のピックアップ・デリバリー問題に取り組んでいる。これは、従来のMAPDよりも複雑な4次元の割り当て問題（NP困難）として定式化される。</p></section>
-<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>Many-to-Many MAPD問題を解決するためのアルゴリズム「M2M」および、SKUの分布を目的関数に組み込んだ「M2M-wSKU」を提案した。これにより、より現実的な倉庫環境におけるタスク完了効率の向上を実現している。</p></section>
-<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>タスク完了時間の最小化を目指すM2Mと、SKUの分布を考慮するM2M-wSKUの2つのバリアントを提案している。これらは、アイテムが複数の場所に存在する柔軟な割り当てを可能にする手法である。</p></section>
-<section class="qa"><h2>どうやって有効だと検証した？</h2><p>8時間の倉庫運用シミュレーションを通じて、既存の最先端手法と比較検証を行っている。異なる環境や在庫密度において、M2Mは平均して最大22,000タスク多く完了することを示した。</p></section>
-<section class="qa"><h2>議論はある？（限界・課題）</h2><p>アブストラクトからは不明。</p></section>
-<section class="qa"><h2>次に読むべき論文は？</h2><p>アブストラクトからは不明。</p></section>
+  <div class="tldr"><strong>一言で:</strong> 在庫の保管場所が複数存在する「Many-to-Many MAPD」問題を解決するための、LNS（Large Neighborhood Search）を用いた新しいアルゴリズムM2Mを提案する。従来の1対1の割り当て手法と比較して、高密度な在庫環境下でも高いタスクスループットを維持できる。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>自動倉庫において、同一SKU（在庫管理単位）が複数の場所に存在する「Many-to-Many Multi-Agent Pickup and Delivery (M2M-MAPD)」問題を扱う。これはエージェント、タスク、複数の開始地点、複数の終了地点を同時に決定する必要があるNP困難な4次元割当問題である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>4次元割当問題を効率的に解くためのM2Mアルゴリズムを提案し、SKUの空間分布を考慮したM2M-wSKUバリアントも導入した。実験により、高密度な在庫環境において既存のSOTA（LNS-PBS）を大幅に上回るタスク完了数（最大22,000タスク増）を達成したことを示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、コストテンソルを分解して計算負荷を抑えた手法で初期のサブオプティマルな割当を生成する。次に、Shaw Removalによる破壊とM2M Repairによる修復を繰り返すLNSメタヒューリスティクスを用い、Metropolis基準で解を改善する。経路計画にはPriority Based Search (PBS) を使用する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>3種類の倉庫レイアウトと3段階の在庫密度（30%, 60%, 90%）を用いた8時間のシミュレーションを実施した。LNS-PBSをベースラインとして比較し、スループット、計算時間、スケーラビリティの観点から評価を行った。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>M2Mは、在庫密度が高まると性能が低下するLNS-PBSに対し、高い堅牢性を示す。一方で、SKU分布を考慮したM2M-wSKUは、計算コストに見合うほどのスループット向上には寄与しないことが示唆された。</p></section>
+<section class="qa"><h2>次に読むべき論文は？</h2><p>エージェント数、タスク数、および環境サイズに対するスケーラビリティのさらなる向上を目指す。</p></section>
 
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
   </footer>
 </div>
 </body>

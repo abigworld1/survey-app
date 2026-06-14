@@ -32,18 +32,18 @@
   <h1>Dynamic Multi-Agent Pickup and Delivery in Robotic Cellular Warehousing Systems</h1>
   <div class="meta">Cheng Ren, Ming Li, Xinping Guan, George Q. Huang<br>arxiv ・ 2026-06-04 ・ source: arxiv</div>
   <div class="links"><a href="http://arxiv.org/abs/2606.05669v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.05669v1" target="_blank" rel="noopener">PDF</a></div>
-  <div class="tldr"><strong>一言で:</strong> ロボット細胞型倉庫システム（RCWS）において、実行中の注文に新しいSKUが追加される「内部注文進化」を考慮した、動的なマルチエージェント・ピックアップ＆デリバリー（MAPD）問題を提案する。</div>
-  <section class="qa"><h2>どんなもの？</h2><p>従来の静的なMAPDとは異なり、注文の実行中にタスクが動的に変化する実環境の倉庫運用をモデル化している。ロボットが複数のSKUを順次回収するプロセスにおける、動的なタスク追加への対応を目的としている。</p></section>
-<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>注文の進化を考慮した動的MAPD問題を初めて定式化した。また、トークンパッシング・パラダイムに基づき、局所的な再計画を行う「Dynamic Token Passing」と、アイドルロボットによる支援を可能にする「Cooperative Token Passing」の2つのアルゴリズムを提案した。</p></section>
-<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>Dynamic Token Passingでは、注文更新時に注文分解と優先度ベースのトークンスケジューリングを用いて局所的な再計画を行う。Cooperative Token Passingでは、これに加えてアイドル状態のロボットが新しく追加されたピックアップ作業を機動的に支援する仕組みを導入している。</p></section>
-<section class="qa"><h2>どうやって有効だと検証した？</h2><p>RCWS環境におけるシミュレーション実験を通じて、提案手法が静的な手法や非協力的なベースラインと比較して、注文のフロータイム（処理時間）を大幅に削減できることを示した。</p></section>
-<section class="qa"><h2>議論はある？（限界・課題）</h2><p>アブストラクトからは不明。</p></section>
-<section class="qa"><h2>次に読むべき論文は？</h2><p>アブストラクトからは不明。</p></section>
+  <div class="tldr"><strong>一言で:</strong> ロボット細胞型倉庫システム（RCWS）において、実行中の注文に新しい商品（SKU）が追加される「動的な注文進化」を考慮した、新しいDynamic-MAPD問題を定式化し、イベント駆動型の再計画アルゴリズムを提案する。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>従来のMAPDはタスクが静的であることを前提としていたが、本研究は注文実行中にSKUが追加される動的な状況を扱う。これにより、ロボットが現在の位置から効率的にルートを再構成し、デッドラインを守りつつ衝突を回避する手法を模索する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>実行中の注文進化を考慮したDynamic-MAPD問題を初めて定式化した。また、注文更新時に即座に再計画を行うDynamic-TPと、待機中のロボットが追加分を分担するCooperative-TPという2つのイベント駆動型アルゴリズムを提案した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>トークンパッシング（TP）パラダイムを拡張し、注文更新イベントをトリガーに再計画を行う。Dynamic-TPは優先度付きキューを用いて緊急度の高い注文から順に、A*探索を用いて現在の位置からの最短経路を計算する。Cooperative-TPは、待機ロボットによる分担が全体の完了時間を短縮できる場合にのみ、追加SKUの割り当てを行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>RCWS環境のシミュレーション（60×60および40×80グリッド）において、既存のTPおよびTP-Appendと比較検証した。結果として、提案手法は特にCooperative-TPにおいて、注文のフロータイムを大幅に削減し、動的な負荷増大に対しても高い堅牢性を示すことを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>Cooperative-TPはフロータイムを最小化する一方で、待機ロボットの評価コストが増えるため、ロボット数が増加すると計算時間が線形に増加するトレードオフがある。しかし、最大構成でも応答時間は1秒未満であり、実用的なリアルタイム要件を満たしている。</p></section>
+<section class="qa"><h2>次に読むべき論文は？</h2><p>より豊かな動的注文パターンの調査、異種ロボットシステムの検討、および実環境への実装が今後の課題である。</p></section>
 
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-13
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
   </footer>
 </div>
 </body>

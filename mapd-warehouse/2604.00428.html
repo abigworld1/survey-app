@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Certificate-Driven Closed-Loop Multi-Agent Path Finding with Inheritable Factorization | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← このユーザーの一覧</a> ・ <a href="../index.html">survey-app トップ</a></nav>
+  <h1>Certificate-Driven Closed-Loop Multi-Agent Path Finding with Inheritable Factorization</h1>
+  <div class="meta">Jiarui Li, Runyu Zhang, Gioele Zardini<br>arxiv ・ 2026-04-01 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2604.00428v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2604.00428v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="tldr"><strong>一言で:</strong> クローズドループMAPFにおいて、衝突のない「証明書（Certificate）」と「フリート予算（Fleet Budget）」を導入することで、有限ホライゾン計画の短視眼的な問題を解決し、計算資源が限られた状況でも解の品質と完備性を保証するフレームワークを提案している。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>従来のクローズドループMAPF（特にACCBS）は、計算予算の制限により短い計画ホライゾンで終了してしまい、解の品質が低下したり、エージェント間の構成的な構造（Factorization）を十分に活用できないという課題があった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>衝突のないフォールバック計画として機能する「証明書軌道」と、それに関連する「フリート予算」の概念を導入した。これにより、クローズドループの更新を証明書の改善に限定することで完備性を確保し、予算に基づいた継承可能な分解（Inheritable Factorization）を可能にした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>証明書を更新する際、新しい計画が現在の証明書のコストを改善する場合のみ受け入れるフィルタリング機構を導入した。また、フリート予算を用いてエージェントの到達可能領域を制限することで、タイムステップを跨いで利用可能なグローバルな分解手法を開発し、これをACCBSに適用したCDCBSを提案した。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>ベンチマークマップを用いた実験により、提案手法であるCDCBSは、特にエージェント密度が高い設定において、従来のACCBSよりも一貫して高い解の品質を達成することを示した。また、提案された分解手法が実効的なグループサイズを大幅に削減することも確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本フレームワークはACCBSに特化したものではなく、証明書ベースの仕組み自体は他のクローズドループMAPFアルゴリズムにも一般的に適用可能である。</p></section>
+<section class="qa"><h2>次に読むべき論文は？</h2><p>提供された情報からは不明</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+  </footer>
+</div>
+</body>
+</html>
