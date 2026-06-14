@@ -47,6 +47,7 @@ SYNTH_SYSTEM = (
     "以下に与える『各セクションの日本語要約』だけを根拠に、6項目を詳しく作成してください。"
     "各項目は4〜8文で、具体的な手法名・アルゴリズム・実験設定・数値・前提・限界を含めること。"
     "セクション要約に書かれていない事実は創作しないこと。\n"
+    "数式やLaTeXコマンド（バックスラッシュ \\ で始まる記号）は使わず、日本語の言葉や通常の記法で書くこと。\n"
     "出力は次のキーを持つ JSON オブジェクトのみ（コードフェンスや前後の文章を付けない）:\n"
     "  tldr, what, contribution, method, validation, discussion, next"
 )
@@ -63,20 +64,23 @@ ABSTRACT_SYSTEM = (
 
 
 def _extract_json(text):
-    """モデル出力から最初の JSON オブジェクトを取り出す（コードフェンス等に耐性）。"""
+    """モデル出力から JSON オブジェクトを取り出す。
+
+    コードフェンス除去 + 最初の{〜最後の}を採用。LaTeX 等の不正な \\ エスケープ
+    （\\mathcal, \\sqrt など）で json.loads が落ちるので、修復して再試行する。
+    """
     text = re.sub(r"```(?:json)?", "", text).strip()
     start = text.find("{")
-    if start < 0:
+    end = text.rfind("}")
+    if start < 0 or end <= start:
         raise ValueError("no json object in output")
-    depth = 0
-    for i in range(start, len(text)):
-        if text[i] == "{":
-            depth += 1
-        elif text[i] == "}":
-            depth -= 1
-            if depth == 0:
-                return json.loads(text[start : i + 1])
-    raise ValueError("unbalanced json in output")
+    candidate = text[start : end + 1]
+    try:
+        return json.loads(candidate)
+    except json.JSONDecodeError:
+        # JSON として無効なバックスラッシュ（\\" \\\\ \\/ \\b \\f \\n \\r \\t \\uXXXX 以外）を \\\\ に置換
+        fixed = re.sub(r'\\(?!["\\/bfnrtu]|u[0-9a-fA-F]{4})', r"\\\\", candidate)
+        return json.loads(fixed)
 
 
 class Summarizer:
