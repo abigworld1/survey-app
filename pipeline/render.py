@@ -36,6 +36,7 @@ def _basis_label(basis):
     return {
         "fulltext(arxiv)": "本文(arXiv)",
         "fulltext(oa-pdf)": "本文(OA-PDF)",
+        "fulltext(arxiv-pdf)": "本文(arXiv PDF)",
         "fulltext(pdf)": "本文(PDF)",
         "fulltext": "本文",
     }.get(basis, "アブストラクト")

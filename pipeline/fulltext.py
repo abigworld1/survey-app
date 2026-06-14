@@ -11,6 +11,7 @@ from html.parser import HTMLParser
 from .util import http_get
 
 ARXIV_HTML = "https://arxiv.org/html/"
+ARXIV_PDF = "https://arxiv.org/pdf/"
 SKIP_TAGS = {"script", "style", "noscript"}
 # 32k コンテキストに対する入力上限（おおよそ 1.4万〜1.6万トークン相当）。環境変数で調整可。
 MAX_CHARS = int(os.environ.get("FULLTEXT_MAX_CHARS", "50000"))
@@ -245,12 +246,29 @@ def _sections_from_text(text):
     return out[:MAX_SECTIONS]
 
 
+def fetch_arxiv_pdf_text(arxiv_id):
+    """arXiv の PDF から本文テキスト（HTML版が無い古い論文向け）。PyMuPDF が必要。"""
+    if not arxiv_id:
+        return ""
+    try:
+        data = http_get(ARXIV_PDF + arxiv_id, timeout=60, min_interval=3.0, expect="bytes")
+    except Exception:
+        return ""
+    if not data[:5].startswith(b"%PDF"):
+        return ""
+    return _pdf_to_text(data)
+
+
 def fetch_sections(paper):
     """(sections, basis) を返す。sections=[(heading, text)]。取れなければ ([], 'abstract')。"""
     if paper.arxiv_id:
         secs = fetch_arxiv_sections(paper.arxiv_id)
         if secs:
             return secs, "fulltext(arxiv)"
+        # 古い arXiv は HTML 版が無い → PDF から本文を取る
+        txt = fetch_arxiv_pdf_text(paper.arxiv_id)
+        if txt:
+            return _sections_from_text(txt), "fulltext(arxiv-pdf)"
     pdf_text = fetch_oa_pdf_text(paper)
     if pdf_text:
         return _sections_from_text(pdf_text), "fulltext(oa-pdf)"

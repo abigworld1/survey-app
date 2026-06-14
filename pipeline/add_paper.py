@@ -18,7 +18,7 @@ import yaml
 
 from . import render
 from .dedup import load_seen, save_seen
-from .fulltext import _pdf_to_text, _sections_from_text, fetch_arxiv_sections
+from .fulltext import _pdf_to_text, _sections_from_text, fetch_sections
 from .schema import Paper
 from .sources import arxiv as arxiv_src
 from .summarize import Summarizer
@@ -39,7 +39,9 @@ def _from_arxiv(raw):
     aid = raw.rsplit("/abs/", 1)[-1].replace("arxiv:", "").replace("arXiv:", "").strip()
     paper = arxiv_src.fetch_meta(aid) or Paper(source="arxiv", title=aid, arxiv_id=aid)
     paper.arxiv_id = aid
-    return paper, fetch_arxiv_sections(aid), "fulltext(arxiv)"
+    # HTML → PDF(古い論文) → abstract の順で本文取得（基準も実態に合わせて返す）
+    sections, basis = fetch_sections(paper)
+    return paper, sections, basis
 
 
 def _from_pdf_bytes(data, title, url=""):
