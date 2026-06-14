@@ -354,9 +354,8 @@ def _build_sections(lines):
         if any(d in heading.lower() for d in _DENY_HEADINGS):
             break  # References/謝辞/付録 以降は打ち切り
         body = re.sub(r"[ \t]{2,}", " ", " ".join(parts)).strip()
-        if len(body) < MIN_SECTION_CHARS:
-            if out:  # 短い断片は直前の節に吸収（謝罪要約の発生を防ぐ）
-                out[-1] = (out[-1][0], (out[-1][1] + " " + body).strip()[:PER_SECTION_MAX])
+        # ほぼ空（タイトル直後の著者行など）だけ捨てる。実セクションは短くても見出し名を残す。
+        if len(body) < 40:
             continue
         out.append((heading[:120], body[:PER_SECTION_MAX]))
         if len(out) >= MAX_SECTIONS:
