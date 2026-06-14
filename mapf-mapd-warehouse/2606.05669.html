@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Dynamic Multi-Agent Pickup and Delivery in Robotic Cellular Warehousing Systems | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">survey-app トップ</a></nav>
+  <h1>Dynamic Multi-Agent Pickup and Delivery in Robotic Cellular Warehousing Systems</h1>
+  <div class="meta">Cheng Ren, Ming Li, Xinping Guan, George Q. Huang<br>arxiv ・ 2026-06-04 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.05669v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.05669v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="tldr"><strong>一言で:</strong> ロボット・セルラー倉庫システム（RCWS）において、注文実行中にSKUが動的に追加される「Dynamic MAPD」問題を定式化し、イベント駆動型のトークン・パッシングに基づく2つの再計画アルゴリズム（Dynamic-TPおよびCooperative-TP）を提案する。提案手法は、注文の更新イベントに応じてロボットの経路を逐次的に再計画することで、衝突回避を維持しながらオーダーのフロータイムを大幅に削減する。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>本研究は、ロボット・セルラー倉庫システム（RCWS）における、実行中の注文内容（SKU）が変化する「Dynamic Multi-Agent Pickup and Delivery (Dynamic-MAPD)」問題を扱う。従来のMAPDは単一のピックアップ・デリバリー地点を想定しているが、RCWSでは1つの注文に複数のSKUが含まれるマルチゴール型の性質を持つ。本研究では、注文の動的な進化（internal order evolution）を考慮し、時刻 $t$ において確率 $p_{upd}$ でタスクが拡張されるモデルを導入している。これにより、従来の静的なMAPDでは対応できない、リアルタイムなタスク構造の変化への適応を目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文の主な貢献は、実行中のオーダーに対してSKUが動的に追加される状況を体系的に扱った初のDynamic-MAPD問題の定式化である。提案手法として、注文の追加に伴う分解と優先度ベースのスケジューリングを行う「Dynamic Token Passing (Dynamic-TP)」と、アイドル状態のロボットが新規タスクを支援する「Cooperative Token Passing (Cooperative-TP)」の2つのイベント駆動型オンライン再計画アルゴリズムを開発した。これにより、デッドロックフリー性を維持しつつ、システム全体の効率を向上させる枠組みを提供している。シミュレーションを通じて、提案手法が既存のベースラインと比較してオーダーのフロータイムを大幅に削減できることを実証した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>システムは $W \times H$ の矩形グリッドグラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 上でモデル化され、各タスク $j \in \mathcal{J}$ は回収アイテム集合 $\mathcal{L}_j$ を持つ。Dynamic-TPでは、デッドラインまでの残り時間 $T_{rem} = T_{deadline} - T_{current}$ に基づく優先度付きキューを用い、A*探索による経路再計画を行う。Cooperative-TPでは、アイドルロボット $r_{idle}$ が追加アイテムを回収する推定時間 $T_{coop}$ と、元のロボット $r_{bound}$ が全アイテムを回収する推定時間 $T_{baseline}$ を比較し、$\max(T_{r_{bound}, rem}, T_{coop}) &lt; T_{baseline}$ を満たす場合に協調を行う。計算量は、単一の再計画が $O(N)$（$N$ はノード数）であり、Cooperative-TPでは $I$ 個のアイドルロボットを評価するため $O(I \cdot N)$ となる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>RubikCell構造を持つRCWS環境において、セルサイズ $10 \times 10$ および $20 \times 20$ の設定でシミュレーション実験を行った。更新確率 $p$ と追加SKU数 $k$ を変化させ、Dynamic-TP (D-TP)、Cooperative-TP (C-TP)、Token Passing (TP)、TP-Append (TP-A) を比較した。$20 \times 20$ レイアウト、 $p=0.5, k=3$ の条件下において、C-TPはD-TPの $114.5$ に対し $76.3$ という大幅なフロータイム削減を達成した。計算時間については、D-TPはロボット数に依存せず $10\text{--}20\text{ ms}$ で安定しており、C-TPはロボット数が $10$ から $50$ に増えると $15\text{ ms}$ から $150\text{ ms}$ へ増加するが、いずれも $1\text{ s}$ 未満でありリアルタイム性を維持している。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、動的なタスク追加に対して高い適応性を示すが、Cooperative-TPにおいてはアイドルロボットの数が増えるほど計算コストが増大するというトレードオフが存在する。実験結果は、動的強度が大きいほど協調型アルゴリズムの優位性が顕著になることを示唆している。今後の課題として、より複雑な動的注文パターンの調査、異種ロボット（heterogeneous robot）システムへの拡張、および実環境への実装が挙げられている。本研究は、密なグリッドグラフ上での時空間的な衝突回避が必要な、高度なマルチロボット協調環境における実用的なフレームワークを提示している。</p></section>
+
+  <h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Dynamic Multi-Agent Pickup and Delivery in Robotic Cellular Warehousing Systems</h3><p>本研究では、注文の実行中に新しいSKUが追加される「内部的な注文の進化（internal order evolution）」を考慮した、初の動的なマルチエージェント・ピックアップ＆デリバリー（Dynamic MAPD）問題を定式化している。提案手法はトークン・パッシング・パラダイムに基づいた2つのイベント駆動型オンライン再計画アルゴリズムで構成される。第一の「Dynamic Token Passing」は、注文の追加に伴う分解と優先度ベースのトークン・スケジューリングを通じて、衝突回避を維持しつつ局所的な再計画を行う。第二の「Cooperative Token Passing」は、アイドル状態のロボットが新たに追加されたピックアップ作業を適宜支援することを可能にし、システム全体の効率を向上させる。RCWS環境におけるシミュレーション実験の結果、提案手法は静的な手法や非協力的なベースラインと比較して、注文のフロータイム（order flowtime）を大幅に削減できることが示された。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究では、ロボット・セルラー倉庫システム（RCWS）における、実行中に注文内容（SKUの追加）が変化する「Dynamic Multi-Agent Pickup and Delivery (Dynamic-MAPD)」問題を定式化している。従来のMAPDは、各エージェントが単一のピックアップ地点とデリバリー地点を持つことを想定しているが、RCWSでは1つの注文に複数のSKUが含まれるため、ロボットは複数の目的地を順次訪問するマルチゴール型のMAPD問題となる。本論文では、注文の動的な変化に対応するため、イベント駆動型の更新を扱う「Dynamic Token Passing (Dynamic-TP)」アルゴリズムを提案しており、これはトークンを取得したロボットが現在位置からルートを再計画する手法である。さらに、アイドル状態のロボットが進行中の注文に追加されたSKUを支援することを可能にする「Cooperative Token Passing (Coop-TP)」アルゴリズムを開発し、動的なタスク構造下での効率的な協調を実現している。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>MAPD（Multi-Agent Pickup and Delivery）の研究は、主にロボットによるモバイル・フルフィルメント・システム（RMFS）を背景としており、容量制限のあるMAPDや、棚の移動を伴うダブルデック型MAPD、人間との協調作業などが提案されてきた。R2G（Robot-to-Goods）設定においては、MaらによるToken PassingおよびTask Swapsアルゴリズムがベンチマークとなっており、さらにエネルギー消費、再充電、分散協調、タスクの期限（deadline）、外部エージェントの存在、実行遅延といった現実的な制約を考慮した拡張研究が進められている。また、複数の目的地を巡るmulti-goal MAPDや、ペイロード制約下で複数のタスクを扱うmulti-task設定も研究されており、大規模環境向けにLarge Neighborhood SearchやTSPベースのオンラインアルゴリズムが適用されている。これらに対し、車両経路問題（VRP）は衝突回避を明示的に考慮せず、疎な道路ネットワークを対象とするのに対し、MAPDは密なグリッドグラフ上で時空間的な衝突を回避する緊密なマルチロボット協調を必要とする点で異なる。既存研究において、実行中のオーダーに対してSKUが動的に追加される状況を体系的に扱ったものはなく、本研究ではDynamic-MAPD問題を定義し、オーダーの動的な変化にリアルタイムで適応する2つのイベント駆動型Token-passingアルゴリズムを提案する。</p></section>
+<section class="secsum"><h3>III Dynamic MAPD Problem Formulation</h3><p>本セクションでは、ロボット・セルラー倉庫システム（RCWS）における動的なマルチエージェント・ピックアップ＆デリバリー（Dynamic MAPD）問題の定式化が述べられている。システムは $W \times H$ の矩形グリッドグラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ でモデル化され、各頂点 $v \in \mathcal{V}$ には製品を格納するモジュール $m \in \mathcal{M}$ が配置されている。ロボット集合 $\mathcal{R}$ の各エージェント $r$ はペイロード容量 $c_r$ を持ち、時刻 $t$ における位置 $p_r(t)$ と実行パス $\pi_r(t)$ を持つ。タスク $j \in \mathcal{J}$ は、回収すべきアイテムの集合 $\mathcal{L}_j$ を持ち、実行中に新たなアイテムが追加される動的な性質を持つ。具体的には、時刻 $t$ において確率 $p_{upd}$ でタスクが拡張され、追加アイテム数 $n_{new}$ が空間分布に従って決定されることで、タスク集合は $\mathcal{L}_j^{new} = \mathcal{L}_j \cup \mathcal{L}_{j, new}$ と更新される。問題の目的は、各タスクの完了時刻 $C_j$（全アイテムの回収とパッキングステーションへの配送完了時刻）の総和 $\sum_{j \in \mathcal{J}} C_j$ を最小化することであり、これには移動の実現可能性、衝突回避（頂点およびエッジの入れ替え衝突）、およびデッドライン $D_j$ の遵守（$C_j \le D_j$）という制約が含まれる。また、緊急度を示す指標として、デッドラインまでの残り時間 $D_j - t$ が導入されている。</p></section>
+<section class="secsum"><h3>IV Event-Triggered Token Passing</h3><p>本セクションでは、動的なMAPD問題に対処するため、従来のToken Passing (TP) 方式を拡張したイベント駆動型のメカニズムを提案している。提案手法は、注文の更新イベントをトリガーとして、共有トークンを用いてロボットの経路を逐次的に再計画するもので、デッドロックフリー性と完全性を維持しつつ、以下の2つの実行モードを提供する。<br><br>1. **Dynamic-TP (Binding Mode)**: 各注文は一度割り当てられると特定のロボットに固定される。注文更新時には、デッドラインまでの残り時間 $T_{rem} = T_{deadline} - T_{current}$ に基づく優先度付きキューを用いて、緊急度の高い注文から順にトークンを取得し、A*探索を用いた $Path1$（完全な経路）または $Path2$（安全な終点までの部分経路）による再計画を行う。<br>2. **Cooperative-TP (Cooperative Mode)**: 待機中のアイドルロボットが、新規追加されたアイテムの回収を支援できるか検討する。協力の条件は、アイドルロボット $r_{idle}$ が追加アイテムを回収して配送ステーションに届ける推定時間 $T_{coop}$ と、元のロボット $r_{bound}$ が全アイテムを回収する推定時間 $T_{baseline}$ を比較し、$\max(T_{r_{bound}, rem}, T_{coop}) &lt; T_{baseline}$ を満たすことである。<br><br>計算量については、グリッドグラフのノード数を $N$ とすると、単一の再計画の複雑さは $O(N)$ である。Dynamic-TPの更新イベントあたりの計算量は $O(N)$ であるのに対し、Cooperative-TPでは $I$ 個のアイドルロボットを評価するため $O(I \cdot N)$ となる。</p></section>
+<section class="secsum"><h3>V Simulation Results</h3><p>本研究では、RubikCell構造を持つグリッドベースのロボット細胞型倉庫システム（RCWS）において、動的なSKU更新が発生する環境下でのタスク計画手法を評価している。実験は2種類のセルサイズ（$10 \times 10$ および $20 \times 20$）を用い、更新確率 $p$ と追加SKU数 $k$ を変化させ、平均オーダーフロータイムを指標として、提案手法であるDynamic-TP (D-TP) とCooperative-TP (C-TP)、およびベースラインであるToken Passing (TP) とTP-Append (TP-A) を比較した。実験結果として、すべての戦略において $p$ および $k$ の増加に伴いフロータイムが単調増加するが、C-TPは他の手法と比較して一貫して最小のフロータイムを達成し、特に動的強度が大きい場合にその優位性が顕著になることが示された。具体的には、$20 \times 20$ レイアウトで $p=0.5, k=3$ の条件下において、C-TPはD-TPの $114.5$ に対し $76.3$ という大幅なフロータイム削減を実現している。計算量に関しては、D-TPの更新時実行時間はロボット数に依存せず約 $10\text{--}20\text{ ms}$ で安定しているのに対し、C-TPはアイドルロボットの候補評価を行うため、ロボット数が $10$ から $50$ に増えるにつれて実行時間が約 $15\text{ ms}$ から $150\text{ ms}$ へと増加するトレードオフが存在するが、いずれも $1\text{ s}$ 未満であり実用的なリアルタイム性を維持している。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本論文は、ロボット・セルラー・ウェアハウジング・システム（RCWS）において、実行中に動的に発生する注文の追加を明示的にモデル化した「Dynamic-MAPD」問題を提案している。この問題に対し、注文更新時に適時かつ一貫した再計画を可能にする、イベント駆動型のトークン・パッシング（token passing）フレームワークを開発した。提案手法には、ロボットが現在位置から直接ルートを更新できる「Dynamic-TP」と、アイドル状態のロボットを活用して新規アイテムに対応する協調拡張版の2種類が含まれる。今後の展望として、より複雑な動的注文パターンの調査、異種ロボット（heterogeneous robot）システムの検討、および実環境への実装が挙げられている。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+  </footer>
+</div>
+</body>
+</html>

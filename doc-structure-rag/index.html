@@ -27,9 +27,9 @@
   <nav><a href="../index.html">← survey-app トップ</a></nav>
   <h1>文書構造解析に基づく検索・質問応答・RAG</h1>
   <div class="sub">3 本のサーベイ</div>
-  <ul><li><a href="2606.13680.html">Learning to Reason by Analogy via Retrieval-Augmented Reinforcement Fine-Tuning</a><div class="meta">2026-06-11 ・ 本研究は、表面的な類似性ではなく推論の構造的類似性（類推）に基づいてコンテキストを検索し、強化学習（RLVR）を通じて方策モデルを微調整する「Retrieval-Augmented Reinforcement Fine-Tuning (RA-RFT)」を提案する。従来のRAGが知識集約型であるのに対し、RA-RFTは推論の「足場（scaffolding）」を提供する類推的なデモンストレーションを検索し、モデルがそれらを探索プロセスで効果的に活用する方法を学習させる。数学的推論ベンチマークにおいて、Qwen3-1.7BでAIME 2025の精度をGRPOに対し$+7.1$ポイント向上させるなど、顕著な性能改善を達成した。</div></li>
-<li><a href="2606.13647.html">SkMTEB: Slovak Massive Text Embedding Benchmark and Model Adaptation</a><div class="meta">2026-06-11 ・ 低リソース言語であるスロバキア語を対象とした初の包括的な埋め込みベンチマーク「SkMTEB」を提案し、31のデータセットを用いて既存モデルを評価した。Multilingual E5をベースに、語彙のトリミング（Vocabulary Trimming）とファインチューニングを組み合わせることで、パラメータ数を大幅に削減しつつ商用APIに匹敵する性能を持つ軽量モデル $e5\text{-}sk\text{-}small$ および $e5\text{-}sk\text{-}large$ を開発した。</div></li>
-<li><a href="2606.13550.html">Uncertainty-Aware Hybrid Retrieval for Long-Document RAG</a><div class="meta">2026-06-11 ・ 長文RAGにおける検索粒度のトレードオフ（粗いチャンクはノイズが多く、細かいチャンクは検索漏れのリスクがある）を解決するため、追加学習を必要としない不確実性考慮型ハイブリッド検索フレームワーク「UMG-RAG」および、細粒度ヒットを親チャンクへ昇格させる「UMGP-RAG」を提案する。既存のDense/Sparseリトリーバを複数の粒度におけるエキスパートとして扱い、スコア分布のエントロピーからクエリ固有の信頼度を推定して適応的に融合することで、軽量かつ高精度なコンテキスト構築を実現する。</div></li>
+  <ul><li><a href="2606.13438.html">CQC-RAG: Robust Retrieval-Augmented Generation via Cross-Query Consistency</a><div class="meta">2026-06-11 ・ RAGの脆弱性であるクエリの構文変化への感度と、ノイズによるハルシネーションを解決するため、「意味的に等価だが構文が異なるクエリ間では、正解は高い信頼性を維持するが、誤答は不安定になる」という仮説に基づき、クエリ書き換えとクロスクエリ一貫性検証を行うCQC-RAGを提案する。</div></li>
+<li><a href="2606.12903.html">X-MADAM-RAG: Diagnosing and Handling Chinese-English Evidence Conflict in Retrieval-Augmented Generation</a><div class="meta">2026-06-11 ・ 多言語RAGにおける中国語と英語の証拠衝突を診断するためのベンチマーク $X\text{-RAMDocs-ZHEN}$ と、解釈可能なパイプライン $X\text{-MADAM-RAG}$ を提案する。実験の結果、提案手法は制御された条件下で高い精度を達成するが、回答テンプレートを排除した自然言語ストレス・テストでは性能が大幅に低下し、文書レベルの抽出プロセスが主要なボトルネックであることが明らかになった。</div></li>
+<li><a href="doi-5ad69eb67717.html">TechDocRAG: Relation-Preserving Retrieval-Augmented Generation (RAG) for Technical Documents</a><div class="meta">2026-05-06 ・ 技術文書特有の構造（条項、表、図、手順など）を維持したまま検索を行う、TechDocRAGというフレームワークを提案する。従来のRAGが文書を独立したチャンクに平坦化してしまう問題を解決し、要素間の関係性を保持することで、正確な根拠追跡を可能にする。実験では、既存のベースラインと比較して大幅な精度向上を達成している。</div></li>
 </ul>
   <footer>AIによる自動生成・要約です（誤りを含む可能性があります）。最終更新: 2026-06-14</footer>
 </div>

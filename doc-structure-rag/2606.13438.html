@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CQC-RAG: Robust Retrieval-Augmented Generation via Cross-Query Consistency | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">survey-app トップ</a></nav>
+  <h1>CQC-RAG: Robust Retrieval-Augmented Generation via Cross-Query Consistency</h1>
+  <div class="meta">Yanjia Sun, Sifan Liu, Jie Shao<br>arxiv ・ 2026-06-11 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.13438v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.13438v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="tldr"><strong>一言で:</strong> RAGの脆弱性であるクエリの構文変化への感度と、ノイズによるハルシネーションを解決するため、「意味的に等価だが構文が異なるクエリ間では、正解は高い信頼性を維持するが、誤答は不安定になる」という仮説に基づき、クエリ書き換えとクロスクエリ一貫性検証を行うCQC-RAGを提案する。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>従来のRAGは、クエリの構文変化によって検索性能が $15\% \text{--} 20\%$、場合によっては $40\%$ 以上も低下するという脆弱性を抱えている。また、検索された無関係なドキュメントが推論を妨害し、ハルシネーションを引き起こす課題も存在する。既存のSelf-Consistency等の手法は、トークンレベルのサンプリングによる多様性に依存しており、クエリの定式化への感度への対処や、偏った証拠によって強化された誤答を識別する能力に限界がある。本研究は、これらの課題に対し、クエリの多様な視点から回答の信頼性を評価する新たなアプローチを提示する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、正解と誤答の信頼性の振る舞いの違いに着目した「Cross-Query Consistency Hypothesis（交差クエリ一貫性仮説）」の提唱である。この仮説に基づき、外部の教師信号や検索範囲の拡大を必要とせず、自己評価が可能なフレームワークであるCQC-RAGを開発した。CQC-RAGは、クエリの書き換えによって多様な推論コンテキストを構築し、複数のコンテキスト間における回答の安定性を評価することで、ハルシネーションを効果的に排除する。実験では、TriviaQAにおいて $+4.76\text{ pp}$、MuSiQueにおいて $+9.12\text{ pp}$ のEM向上を達成するなど、既存のマルチクエリ手法を上回る堅牢性を実証した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>CQC-RAGは、まず元のクエリ $q_0$ に対して、意味的等価性を保ちつつ構文的多様性を最大化する書き換えを行い、パラフレーズ集合 $\mathcal{Q} = \{q_0, q_1, \dots, q_n\}$ を生成する。書き換えには、固有名詞を固定するハード制約と、語彙的摂動、構文的再構築、語用論的様式変化というソフト制約が用いられる。各クエリ $q_i$ に対してリランカーを用いて構築されたコンテキスト $c_i$ とのペア $(q_i, c_i)$ を用い、証拠スパン $e_{i,j}$ と回答 $a_{i,j}$ のタプルを生成する。最終的な回答選択では、検証モデルのロジットから正規化されたスコア $\text{val}(a, e)$ を用い、以下の式で定義される適応的なペナルティ付き平均スコア $S(a, e)$ を算出する：<br>$$ S(a, e) = \text{mean}(\text{val}(a, e)) - \lambda \cdot \text{std}(\text{val}(a, e)) $$<br>ここで、$\lambda$ は分散によるペナルティを制御する係数である。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>TriviaQA、PopQA、HotpotQA、MuSiQueの4つのベンチマークを用いて評価を行った。実験設定では、推論モデルにQwen3-8B、評価モデルにMistral-7B-Instruct-v0.2を使用し、クエリ書き換えの $temperature$ は $0.7$、推論は $temperature=0$ とした。結果として、CQC-RAGはTriviaQAでEMが $+10.47$ ポイント、MuSiQueで $+20.32$ ポイント向上し、既存のSelf-CertaintyやDMQR-RAGを上回るSOTAを達成した。アブレーション解析では、証拠に基づいたプロトコルの欠如がTriviaQAのEMを $15.92$ ポイント低下させることが示された。また、クロスクエリ検証はMuSiQueにおいてEMを $1.50$ ポイント、F1を $2.29$ ポイント改善させた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>CQC-RAGは、検索ノイズや偏った証拠が増幅されやすい複雑なマルチホップシナリオにおいて、特に顕著な効果を発揮する。しかし、HotpotQAにおいてはDMQR-RAGに次ぐ2位に留まるという限界が確認された。これは、同データセットが文書タイトルへの依存度が高い性質を持っており、内容レベルの構文変更を行う本手法の書き換えでは、タイトルレベルの検索信号を十分に変化させられなかったことが原因であると分析されている。今後は、検索信号の多様性をさらに高めるための検討が必要である。</p></section>
+
+  <h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>CQC-RAG: Robust Retrieval-Augmented Generation via Cross-Query Consistency</h3><p>本研究は、検索結果の変動や無関係なドキュメントによるハルシネーションを防ぐため、「意味的に等価だが構文的に異なるクエリ間では、正解は高い信頼性を維持するが、ノイズに起因する誤答は信頼性が不安定になる」という「Cross-Query Consistency Hypothesis」を提案している。提案手法であるCQC-RAGは、元の質問を意味を保持したまま多様なクエリへと書き換え、共有ドキュメントプールをリランクしてクエリごとに条件付けられた推論コンテキストを構築する。その後、証拠に基づいたプロトコルを用いて「回答と証拠のペア」を抽出し、複数のコンテキスト間における回答の信頼性の安定性に基づいて最終的な回答を選択する。このフレームワークは外部の教師信号や検索範囲の拡大を必要とせず、自己評価が可能である点が特徴である。4つのオープンドメインQAベンチマークを用いた実験の結果、TriviaQAにおいて $+4.76\text{ pp}$、MuSiQueにおいて $+9.12\text{ pp}$ のEM（Exact Match）向上を達成し、既存のマルチクエリ手法を上回る堅牢性を実証した。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>RAG（Retrieval-Augmented Generation）は、クエリの構文変化によって検索性能が $15\% \text{--} 20\%$、極端な場合には $40\%$ 以上も低下する脆弱性や、無関係な文書が推論を妨害しハルシネーションを引き起こす課題を抱えている。既存のSelf-Consistency等の手法は、トークンレベルのサンプリングによる多様性注入に依存しており、クエリの定式化への感度への対処や、偏った証拠によって強化された誤答を識別する能力に限界がある。本研究では、正解は意味的に等価だが構文が異なるクエリ間でも高い信頼性を維持する一方、ノイズに起因する誤答は信頼性が変動するという「Cross-Query Consistency Hypothesis」を提唱する。提案手法であるCQC-RAGは、クエリ書き換えによって多様なクエリを生成し、共通の文書プールを各クエリに対してリランクすることで、異なる優先順位を持つ推論コンテキストを構築する。最終的な回答選択では、モデルのロジットに基づき、各クエリ視点における回答の平均信頼度が高く、かつ分散が低い（high mean and low variance）ものを選択することで、外部の教師信号なしに自己評価を行う。TriviaQAやMuSiQueを用いた実験の結果、CQC-RAGはSelf-ConsistencyやSpeculative RAGといった既存手法を大幅に上回る性能を示し、検索コストを増大させることなく、クロスクエリの一貫性によってハルシネーションを効果的に排除できることが実証された。</p></section>
+<section class="secsum"><h3>2. Related Work</h3><p>本研究は、RAGシステムの堅牢性向上と回答の信頼性評価の交差点に位置しており、既存研究の限界を克服することを目指している。既存のクエリ最適化手法（Rewrite-Retrieve-ReadやAdaptive-RAGなど）は、検索の精度向上や情報の網羅性を目的としてクエリの書き換えや統合を行うが、これらは検索バイアスを解消できず、推論のための制御可能な多様性を注入できていない。また、Self-ConsistencyやSpeculative RAGに代表される回答選択手法は、単一のクエリに依存した証拠に基づいた推論の繰り返しに留まっており、ノイズを含む証拠が優先された場合に誤った回答が確信を持って生成される問題を解決できない。これに対し、本研究が提案するCQC-RAGは、単一のクエリ条件下の証拠ビューを超え、複数のクエリ間で一貫性を検証する「cross-query consistency」を導入することで、回答の信頼性を判別する新たな軸を提供する。</p></section>
+<section class="secsum"><h3>3. Methodology</h3><p>CQC-RAGは、クエリの書き換えを通じて「クロス・クエリ一貫性（Cross-Query Consistency）」を利用し、RAGの堅牢性を高めるフレームワークである。まず、ユーザーの元のクエリ $q_0$ に対して、意味的な等価性を厳密に保ちつつ構文的な多様性を最大化する書き換えを行い、パラフレーズ集合 $\mathcal{Q} = \{q_0, q_1, \dots, q_n\}$ を生成する。この際、固有名詞を固定するハード制約と、語彙的摂動、構文的再構築、語用論的様式変化というソフト制約を組み合わせることで、同一の文書プールから異なる文書順序（推論コンテキスト $c_i$）を導出する。各クエリ $q_i$ に対して、リランカーを用いて構築されたコンテキスト $c_i$ とのペア $(q_i, c_i)$ を用いて、根拠となる証拠スパン $e_{i,j}$ と回答 $a_{i,j}$ のタプルを並列に生成する。最終的な回答の選択には、回答と証拠のペア $(a, e)$ に対する一貫性スコア $S(a, e)$ を用い、以下の式で定義される適応的なペナルティ付き平均スコアを算出する：<br>$$ S(a, e) = \text{mean}(\text{val}(a, e)) - \lambda \cdot \text{std}(\text{val}(a, e)) $$<br>ここで、$\text{val}(a, e)$ は検証モデルのロジット $\text{logit}(\text{&quot;Yes&quot;})$ と $\text{logit}(\text{&quot;No&quot;})$ から正規化された検証スコアであり、$\lambda$ は分散によるペナルティを制御する係数である。本手法は、単一のクエリに依存するノイズやバイアスを、多様なクエリ視点からの検証を通じて減衰させることを目的としている。</p></section>
+<section class="secsum"><h3>4. Experiments</h3><p>本研究では、クエリの書き換えとクロスクエリの一貫性検証を用いる堅牢なRAG手法であるCQC-RAGを提案し、TriviaQA、PopQA、HotpotQA、MuSiQueの4つのベンチマークで評価を行っています。実験では、Qwen3-8Bを推論モデル、Mistral-7B-Instruct-v0.2を評価モデルとして使用し、クエリ書き換えには $temperature=0.7$、推論には $temperature=0$（greedy decoding）を適用しています。結果として、CQC-RAGはTriviaQAでEMが $+10.47$ ポイント、MuSiQueで $+20.32$ ポイント向上するなど、標準的なRAGやSelf-Certainty、DMQR-RAGといった既存のマルチパス手法を上回るSOTAを達成しました。アブレーション解析により、特に「証拠に基づいたプロトコル（Evidence-grounded Protocol）」の欠如がTriviaQAのEMを $15.92$ ポイント低下させるなど、証拠抽出を伴う推論の重要性が示されました。また、クロスクエリ検証（Cross-query Evaluation）は、特に複数の証拠断片を検証する必要があるMuSiQueにおいて、EMを $1.50$ ポイント、F1を $2.29$ ポイント改善させる効果が確認されました。一方で、HotpotQAにおいてのみDMQR-RAGに次ぐ2位となった限界があり、これは同データセットが文書タイトルへの依存度が高く、内容レベルの構文変更を行う本手法の書き換えではタイトルレベルの検索信号を十分に変化させられなかったことに起因すると分析されています。</p></section>
+<section class="secsum"><h3>5. Conclusion</h3><p>本研究では、単一のクエリ形式やノイズの多い根拠に基づくRAGの信頼性限界を解決するため、「Cross-Query Consistency Hypothesis（交差クエリ一貫性仮説）」を提案している。この仮説は、真に適切な根拠に基づく正解は、意味的に等価で構文的に異なる複数のクエリ間でも安定した確信度を維持するのに対し、ノイズに起因するハルシネーションはクエリに依存した偽の証拠パターンに左右されるため、確信度が不安定になるというものである。これに基づき、追加の検索コストを増大させずに、クエリレベルの多様性注入と交差クエリ一貫性の評価を組み合わせた、学習不要なフレームワークであるCQC-RAGを開発した。CQC-RAGは、元の質問を意味を保持したまま複数のバリアントに書き換え、リランキングを通じてクエリごとの推論コンテキストを構築し、それらのコンテキスト間での確信度の安定性に基づいて回答を選択する。オープンドメインQAベンチマークを用いた実験の結果、CQC-RAGは代表的なマルチパスRAGのベースラインと比較して回答の信頼性を向上させ、特に検索ノイズや偏った証拠が増幅されやすい複雑なマルチホップシナリオにおいて顕著な効果を示した。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+  </footer>
+</div>
+</body>
+</html>

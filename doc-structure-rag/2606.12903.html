@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>X-MADAM-RAG: Diagnosing and Handling Chinese-English Evidence Conflict in Retrieval-Augmented Generation | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">survey-app トップ</a></nav>
+  <h1>X-MADAM-RAG: Diagnosing and Handling Chinese-English Evidence Conflict in Retrieval-Augmented Generation</h1>
+  <div class="meta">Yongqi Kang, Yu Fu, Yong Zhao<br>arxiv ・ 2026-06-11 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.12903v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.12903v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="tldr"><strong>一言で:</strong> 多言語RAGにおける中国語と英語の証拠衝突を診断するためのベンチマーク $X\text{-RAMDocs-ZHEN}$ と、解釈可能なパイプライン $X\text{-MADAM-RAG}$ を提案する。実験の結果、提案手法は制御された条件下で高い精度を達成するが、回答テンプレートを排除した自然言語ストレス・テストでは性能が大幅に低下し、文書レベルの抽出プロセスが主要なボトルネックであることが明らかになった。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>本研究は、多言語RAGにおいて中国語と英語の検索結果が互いに矛盾する「証拠の衝突（evidence conflict）」が発生した際の、モデルの振る舞いと対処法を調査している。既存のFaithEvalやRAGCheckerといった意味論的な忠実度評価とは異なり、中英間の証拠が「一致（agree）」「不一致（disagree）」「参照言語の逆転（reverse）」のいずれかになるよう制御された設定を用いる。評価対象として、RAMDocsから派生した300の事例と534の証拠ドキュメント（中英各50%）からなる $X\text{-RAMDocs-ZHEN}$ ベンチマークを構築した。このベンチマークは、エンティティ、日付、数値の不一致を網羅しており、情報漏洩を防ぐために正解や条件ラベルを隠蔽した設計となっている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一の貢献は、中英間の証拠衝突を精密に診断するために設計された、制御されたリーク防止型ベンチマーク $X\text{-RAMDocs-ZHEN}$ の提案である。第二に、文書ごとの抽出、証拠の修復、決定論的なグルーピング、衝突を考慮した集約からなる解釈可能なパイプライン $X\text{-MADAM-RAG}$ を提案した。実験を通じて、既存のシングルコール・ベースラインを上回る性能を示す一方で、回答の定型句に依存する脆弱性を特定した。これにより、多言語RAGにおけるハルシネーションの主要な原因が、集約段階ではなく文書レベルの抽出段階にあることを示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法 $X\text{-MADAM-RAG}$ は、以下の4つの主要ステップからなるパイプラインである。まず、抽出エージェントが各証拠文書から独立して候補を抽出する。次に、抽出に失敗した場合にパース済みフィールド等から候補を補完する「ラベルに依存しない修復（label-blind repair）」を行う。その後、正規化された候補を決定論的にグルーピングし、単一グループなら回答、複数なら衝突の列挙、ゼロなら棄権を出力する。最後に、衝突を認識した集約を行う。評価には、特権的なメタデータを使用する Oracle diagnostic、修復を除去した no-repair、決定論的グルーピングをモデルベースに置き換えた no-grouping のアブレーション解析が用いられる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>$Qwen2.5\text{-}7B\text{-}Instruct$ を用い、NVIDIA RTX 4090 上で $\text{temperature} = 0$ の決定論的デコーディングを用いて実験を行った。元のベンチマークにおいて、$X\text{-MADAM-RAG}$ は strict accuracy $0.9667$、conflict-aware success $0.9767$ を達成し、evidence-normalized RAGと比較して strict accuracy を $0.0767$ 向上させた。また、unsupported-candidate rate を $0.1067$ から $0.0200$ へと大幅に低下させた。一方で、回答テンプレートを排除した Naturalized Stress Test では、rule-only 抽出器の精度が $1.0000$ から $0.0000$ へ低下する中、$X\text{-MADAM-RAG}$ も $0.3000$ まで低下し、素朴なベースラインを下回る結果となった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>$X\text{-MADAM-RAG}$ は、repair や決定論的な grouping が性能向上に寄与することを示したが、本手法は汎用的なハルシネーション検出器ではなく、制御された衝突の診断ツールとして位置付けられる。ストレス・テストにおける性能低下と、Oracle が $1.0000$ を維持した事実から、ボトルネックは集約ではなく文書レベルの抽出（extraction）にあることが特定された。本研究の限界として、データが RAMDocs 由来の制御されたスニペットであること、単一モデルへの依存、および自動的な語彙指標による評価であることが挙げられる。今後の課題は、自然な検索環境への適用と、より堅牢な文書レベルの抽出手法の開発である。</p></section>
+
+  <h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>X-MADAM-RAG: Diagnosing and Handling
+Chinese-English Evidence Conflict in Retrieval-Augmented Generation</h3><p>本研究では、多言語RAGにおいて中国語と英語の検索結果が互いに矛盾する「証拠の衝突（evidence conflict）」を扱うため、RAMDocsから派生した制御されたベンチマーク $X\text{-RAMDocs-ZHEN}$ を提案している。このベンチマークは、単一言語の支持、二言語間の合意、衝突方向の反転、およびオプションのノイズを含む計6つの条件下で構成される300の事例を含んでいる。提案手法である $X\text{-MADAM-RAG}$ は、文書ごとの候補抽出、可視証拠の修復、決定論的な候補グルーピング、および衝突を考慮した集約という4つのステップからなる解釈可能なパイプラインである。実験の結果、$Qwen2.5\text{-}7B\text{-}Instruct$ を用いた元のベンチマークにおいて、$X\text{-MADAM-RAG}$ は strict accuracy $0.9667$、conflict-aware success $0.9767$ を達成し、証拠正規化を行うシングルコール・ベースラインを上回った。しかし、明示的な回答テンプレートを除去した自然言語的なストレス・テストでは、ルールベースの抽出法が精度 $0.0000$ に低下する一方で、$X\text{-MADAM-RAG}$ も strict accuracy $0.3000$ まで低下し、素朴なベースラインを下回るという限界が示された。この結果は、文書レベルの抽出プロセスが主要なボトルネックであることを示唆しており、本手法が汎用的な幻覚検出ではなく、制御された証拠衝突の診断ツールとして位置付けられることを明らかにしている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、多言語RAGにおいて中国語と英語の検索結果が異なる回答を支持する場合の、モデルの振る舞いと対処法を調査している。著者らは、6つの均衡された証拠条件を持つ、情報漏洩に配慮した中国語・英語証拠衝突ベンチマーク $\text{X-RAMDocs-ZHEN v0.1}$ を構築した。提案手法である $\text{X-MADAM-RAG}$ は、ドキュメントごとの候補抽出、ラベルに依存しない修復（label-blind repair）、決定論的なグルーピング、および衝突を認識した集約を行う解釈可能なパイプラインである。実験の結果、$\text{X-MADAM-RAG}$ は単一呼び出しのLLMベースラインを大幅に上回るが、テンプレートを排除した自然なストレス環境下では、ルールベースの抽出が崩壊するのと同様に、$\text{X-MADAM-RAG}$ もベースラインを下回る性能低下を示した。この結果から、ドキュメントレベルでの抽出の堅牢性が、多言語RAGにおける主要なボトルネックであることが特定された。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>既存のRAGにおける忠実性（faithfulness）やハルシネーションの診断研究には、FaithEvalやFaithfulRAG、RAGChecker、RefCheckerといった、パラメータ知識と文脈の衝突や事実レベルの不一致を扱う手法が存在する。本研究は、これら開かれた意味論的な忠実度評価とは異なり、中国語と英語の証拠間の衝突を制御し、自動的な語彙指標を用いて回答候補の振る舞いを診断する点に特徴がある。知識の衝突（knowledge conflict）に関する先行研究であるRAMDocsやMADAM-RAGの設計を基盤としつつ、本研究では中国語と英語の証拠が「一致（agree）」「不一致（disagree）」「参照言語の逆転（reverse）」のいずれかになるよう制御したクロスリンガルな設定を導入している。手法面では、MADAM-RAGのような分解型アプローチを踏襲しつつ、ドキュメントレベルの抽出後に決定論的な候補グルーピングを行うことで、各段階の独立した検証を可能にしている。これにより、検索ノイズから衝突の方向性を分離し、多言語・クロスリンガルRAGにおける言語間の回答レベルの不一致を特定することを目指している。</p></section>
+<section class="secsum"><h3>3 X-RAMDocs-ZHEN Benchmark</h3><p>X-RAMDocs-ZHENベンチマークは、中英間の証拠の不一致を診断するタスクを目的としており、RAMDocsから派生した300のサンプルと534の証拠ドキュメント（中英各50%）で構成されています。本ベンチマークは、エンティティ（144件）、日付（101件）、数値（55件）の不一致を網羅しており、6つの均衡のとれた証拠条件（Evidence Conditions）の下で、システムが証拠に基づいた候補の保持、不一致の認識、および根拠の追跡可能性を維持できるかを評価します。データ漏洩を防ぐため、標準的な手法には質問、可視的な証拠テキスト、証拠ID、言語タグのみが提供され、正解や条件ラベルなどのメタデータは評価時のみ使用される設計となっています。また、テンプレートに依存した表面的な回答を排除するために、回答候補の文字列とメタデータを保持したまま決定論的に変換を行う「Naturalized Stress Test」も構築されており、モデルが「the answer is」等の定型句に依存していないかを検証可能です。なお、ドキュメントレベルのメタデータにアクセスできる「Oracle diagnostic」は、展開不可能な上限値分析（upper-bound analysis）として定義されています。</p></section>
+<section class="secsum"><h3>4 Methods</h3><p>X-MADAM-RAGは、証拠間の言語的な不一致を解消するために、文書レベルの抽出、可視証拠の修復、候補の正規化、決定論的なグルーピング、および衝突を考慮した集約の5段階で構成されるパイプラインである。各証拠文書は、質問、証拠ID、言語タグ、および可視テキストのみを受け取る抽出エージェントによって独立して処理され、抽出に失敗した場合は、非公開メタデータにアクセスせず、パース済みフィールドや生出力から候補を補完する修復モジュールが機能する。正規化された候補は決定論的にグルーピングされ、単一のグループが得られれば直接回答を、複数のグループが得られれば衝突の列挙を、グループが得られなければ棄権を出力する。評価には、抽出段階を特権的なメタデータで置き換える Oracle diagnostic、修復段階を除去した no-repair、および決定論的グルーピングをモデルベースの判断に置き換えた no-grouping のアブレーションが用いられる。比較対象のベースラインとして、全証拠を連結する naive RAG、言語ごとに証拠を整理する evidence-normalized RAG、およびテンプレート依存性を測定するための rule-only extractor が設定されている。</p></section>
+<section class="secsum"><h3>5 Experimental Setup</h3><p>本実験では、LLMとして Qwen2.5-7B-Instruct を用い、決定論的デコーディング（$\text{temperature} = 0$）、bfloat16 精度、SDPA attention を用いて NVIDIA RTX 4090 上で推論を行っている。評価データセットは、元の 300 サンプルのベンチマークと、100 サンプルの自然化されたストレス・サブセットの 2 種類であり、コンポーネントの切除実験（ablation study）は元のベンチマークのみで実施される。評価指標には 5 つの自動指標が用いられ、正解率（Strict accuracy）、矛盾検知と参照保持を評価する Conflict-aware success、矛盾の予測精度を測る Conflict F1、矛盾の明示的表現を測る Conflict awareness、および根拠に基づかない候補の割合を測る Unsupported-candidate rate が定義されている。なお、これらの指標は意味的含意や事実検証、人間による判断を代替するものではない。統計的な比較においては、シード値 13 の 1,000 回のブートストラップ再サンプリングを行い、探索的な対検定（paired sign tests）を実施している。</p></section>
+<section class="secsum"><h3>6 Results and Analysis</h3><p>元の制御ベンチマーク（300サンプル）において、X-MADAM-RAGは展開可能なLLM手法の中で最高性能を示し、evidence-normalized RAGと比較してstrict accuracyを $0.0767$ 向上させ、unsupported-candidate rateを $0.1067$ から $0.0200$ へと大幅に低下させた。アブレーション解析では、repairコンポーネントの無効化がstrict accuracyを $0.9667$ から $0.8033$ へと最も大きく低下させ、決定論的なグルーピングをモデルによる衝突判定に置き換えることも性能劣化を招くことが示された。しかし、自然言語化されたストレス・テスト（100サンプル）では、rule-only抽出器のstrict accuracyが $1.0000$ から $0.0000$ へ、X-MADAM-RAGも $0.9667$ から $0.3000$ へと大幅に低下した。この結果は、元のベンチマークの成功が意味的な抽出能力ではなく表面的なテンプレート依存であったことを示しており、oracle（privileged supported_answerメタデータを使用）が両設定で $1.0000$ を維持していることから、自然言語化された表現下ではドキュメントレベルの抽出が主要なボトルネックであることが特定された。したがって、現在のX-MADAMは自然言語化された言い回しに対して脆弱であり、集約の複雑さを増すよりもドキュメントレベルの抽出精度を向上させることが急務であるという限界が示されている。</p></section>
+<section class="secsum"><h3>7 Discussion and Limitations</h3><p>X-MADAM-RAGは、既存のベンチマークにおいて最も強力なデプロイ可能なLLM手法であり、その内部コンポーネントであるrepair（可視的な証拠から欠落した候補を復元する）や、監査性と性能を向上させる決定論的なgroupingが有効であることを示している。しかし、ルールベース手法が完璧な結果を示すことから、元のベンチマークはテンプレートの規則性が高く、X-RAMDocs-ZHEN v0.1は汎用的な堅牢性ベンチマークではなく、証拠の衝突挙動を診断するための制御されたツールとして理解すべきである。自然言語化されたストレス・テストにおいて、X-MADAM-RAGは単一呼び出しのベースラインを下回る性能劣化を示す一方、oracleは完璧な結果を維持することから、ボトルネックはgroupingやaggregationではなく、抽出（extraction）段階にあることが特定された。本研究の限界として、使用されたデータが自然に検索された多言語の文章ではなくRAMDocsから派生した制御されたスニペットであること、実験がQwen2.5-7B-Instructという単一のモデルに依存していること、評価指標が人間による意味的な判断ではなく自動的な語彙診断に基づいていることが挙げられる。したがって、本研究の主張は制御された中英間の証拠衝突の診断に限定されており、広範なハルシネーション検出や自然な検索に対する堅牢性を保証するものではない。</p></section>
+<section class="secsum"><h3>8 Conclusion</h3><p>本研究では、RAGにおける中英間の証拠矛盾を診断するための制御されたリーク防止型ベンチマークである X-RAMDocs-ZHEN を提案し、それに基づき、文書ごとの抽出、可視的な証拠修復、決定論的な候補グルーピング、および矛盾を考慮した集約からなる解釈可能なパイプラインである X-MADAM-RAG を検討した。実験の結果、元の制御されたベンチマークにおいて X-MADAM-RAG は単一呼び出しの LLM ベースラインを上回り、アブレーション解析により「修復」と「決定論的なグルーピング」が性能向上に寄与することが確認された。しかし、ルールベースの抽出器が完全な性能を達成したことは、データセットに強いテンプレートの規則性が存在することを示唆している。明示的なルールの手がかりを除去した自然なストレス・テストでは、X-MADAM-RAG の性能が単一呼び出しのベースラインを下回る一方で、特権的なオラクル（privileged oracle）は完全な性能を維持したため、文書レベルの抽出における堅牢性が未解決の主要な課題であることが明らかになった。今後の展望として、自然な検索環境での評価、完全な人間による監査、追加のモデルや言語への適用、およびより堅牢な文書レベルの抽出と意味的な候補検証手法の開発が挙げられる。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+  </footer>
+</div>
+</body>
+</html>

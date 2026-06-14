@@ -1,60 +1,60 @@
 {
   "doc-structure-rag": {
-    "arxiv:2606.13550": {
+    "arxiv:2606.12903": {
       "added": "2026-06-14",
       "basis": "fulltext(arxiv)",
       "date": "2026-06-11",
       "engine": "llm:gemma-4-26b",
-      "file": "doc-structure-rag/2606.13550.html",
-      "title": "Uncertainty-Aware Hybrid Retrieval for Long-Document RAG",
-      "tldr": "長文RAGにおける検索粒度のトレードオフ（粗いチャンクはノイズが多く、細かいチャンクは検索漏れのリスクがある）を解決するため、追加学習を必要としない不確実性考慮型ハイブリッド検索フレームワーク「UMG-RAG」および、細粒度ヒットを親チャンクへ昇格させる「UMGP-RAG」を提案する。既存のDense/Sparseリトリーバを複数の粒度におけるエキスパートとして扱い、スコア分布のエントロピーからクエリ固有の信頼度を推定して適応的に融合することで、軽量かつ高精度なコンテキスト構築を実現する。"
+      "file": "doc-structure-rag/2606.12903.html",
+      "title": "X-MADAM-RAG: Diagnosing and Handling Chinese-English Evidence Conflict in Retrieval-Augmented Generation",
+      "tldr": "多言語RAGにおける中国語と英語の証拠衝突を診断するためのベンチマーク $X\\text{-RAMDocs-ZHEN}$ と、解釈可能なパイプライン $X\\text{-MADAM-RAG}$ を提案する。実験の結果、提案手法は制御された条件下で高い精度を達成するが、回答テンプレートを排除した自然言語ストレス・テストでは性能が大幅に低下し、文書レベルの抽出プロセスが主要なボトルネックであることが明らかになった。"
     },
-    "arxiv:2606.13647": {
+    "arxiv:2606.13438": {
       "added": "2026-06-14",
       "basis": "fulltext(arxiv)",
       "date": "2026-06-11",
       "engine": "llm:gemma-4-26b",
-      "file": "doc-structure-rag/2606.13647.html",
-      "title": "SkMTEB: Slovak Massive Text Embedding Benchmark and Model Adaptation",
-      "tldr": "低リソース言語であるスロバキア語を対象とした初の包括的な埋め込みベンチマーク「SkMTEB」を提案し、31のデータセットを用いて既存モデルを評価した。Multilingual E5をベースに、語彙のトリミング（Vocabulary Trimming）とファインチューニングを組み合わせることで、パラメータ数を大幅に削減しつつ商用APIに匹敵する性能を持つ軽量モデル $e5\\text{-}sk\\text{-}small$ および $e5\\text{-}sk\\text{-}large$ を開発した。"
+      "file": "doc-structure-rag/2606.13438.html",
+      "title": "CQC-RAG: Robust Retrieval-Augmented Generation via Cross-Query Consistency",
+      "tldr": "RAGの脆弱性であるクエリの構文変化への感度と、ノイズによるハルシネーションを解決するため、「意味的に等価だが構文が異なるクエリ間では、正解は高い信頼性を維持するが、誤答は不安定になる」という仮説に基づき、クエリ書き換えとクロスクエリ一貫性検証を行うCQC-RAGを提案する。"
     },
-    "arxiv:2606.13680": {
+    "doi:10.3390/ai7050161": {
       "added": "2026-06-14",
-      "basis": "fulltext(arxiv)",
-      "date": "2026-06-11",
+      "basis": "abstract",
+      "date": "2026-05-06",
       "engine": "llm:gemma-4-26b",
-      "file": "doc-structure-rag/2606.13680.html",
-      "title": "Learning to Reason by Analogy via Retrieval-Augmented Reinforcement Fine-Tuning",
-      "tldr": "本研究は、表面的な類似性ではなく推論の構造的類似性（類推）に基づいてコンテキストを検索し、強化学習（RLVR）を通じて方策モデルを微調整する「Retrieval-Augmented Reinforcement Fine-Tuning (RA-RFT)」を提案する。従来のRAGが知識集約型であるのに対し、RA-RFTは推論の「足場（scaffolding）」を提供する類推的なデモンストレーションを検索し、モデルがそれらを探索プロセスで効果的に活用する方法を学習させる。数学的推論ベンチマークにおいて、Qwen3-1.7BでAIME 2025の精度をGRPOに対し$+7.1$ポイント向上させるなど、顕著な性能改善を達成した。"
+      "file": "doc-structure-rag/doi-5ad69eb67717.html",
+      "title": "TechDocRAG: Relation-Preserving Retrieval-Augmented Generation (RAG) for Technical Documents",
+      "tldr": "技術文書特有の構造（条項、表、図、手順など）を維持したまま検索を行う、TechDocRAGというフレームワークを提案する。従来のRAGが文書を独立したチャンクに平坦化してしまう問題を解決し、要素間の関係性を保持することで、正確な根拠追跡を可能にする。実験では、既存のベースラインと比較して大幅な精度向上を達成している。"
     }
   },
   "mapf-mapd-warehouse": {
-    "arxiv:2606.06686": {
+    "arxiv:2605.20929": {
+      "added": "2026-06-14",
+      "basis": "fulltext(arxiv)",
+      "date": "2026-05-20",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2605.20929.html",
+      "title": "STEAM: A Training-Free Congestion-Aware Enhancement Framework for Decentralized Multi-Agent Path Finding",
+      "tldr": "STEAMは、学習済みの分散型MAPF（Multi-Agent Path Finding）ポリシーに対し、再学習やアーキテクチャの変更を一切行わずに、テスト時の実行プロセスのみで混雑回避ガイダンスを注入するトレーニングフリーな強化フレームワークである。空間的・時間的・局所的な3つのレベルで混雑を検出し、cost-to-goマップの修正やロジット補正を行うことで、成功率を最大60%向上させつつ、計算オーバーヘッドを最小限に抑える。"
+    },
+    "arxiv:2606.04746": {
+      "added": "2026-06-14",
+      "basis": "fulltext(arxiv)",
+      "date": "2026-06-03",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2606.04746.html",
+      "title": "CADENCE: Predicting Realized MAPF Execution Time Beyond Sum of Costs",
+      "tldr": "従来のMAPF（Multi-Agent Path Finding）におけるSum of Costs (SoC) は、物理ロボットの実際の実行時間（wall-clock time）を正確に予測できない。本研究は、SoCに加えて「原始的な運動負荷（primitive motion burden）」と「相互作用を考慮した調整構造（interaction-aware coordination structure）」を導入するCADENCEを提案し、7台の差動駆動ロボットを用いた実機実験により、特に運動負荷の追加が予測精度を大幅に向上させることを示した。"
+    },
+    "arxiv:2606.05669": {
       "added": "2026-06-14",
       "basis": "fulltext(arxiv)",
       "date": "2026-06-04",
       "engine": "llm:gemma-4-26b",
-      "file": "mapf-mapd-warehouse/2606.06686.html",
-      "title": "On the Hardness of Optimal Motion on Trees",
-      "tldr": "本論文は、木構造におけるマルチエージェント経路探索（MAPF）の計算複雑性を解明し、距離（distance）、メイクスパン（makespan）、フロータイム（flowtime）の全指標において、エージェントが区別される「labeled」および2色以上の「colored」ケースがNP困難であることを証明した。特に、数十年間未解決であった木構造上のPebble Motion問題の困難性を、Stack Rearrangement (SR) 問題からの帰着を通じて解決し、極めて単純な「subdivided stars」構造においても困難性が成立することを示した。"
-    },
-    "arxiv:2606.08878": {
-      "added": "2026-06-14",
-      "basis": "fulltext(arxiv)",
-      "date": "2026-06-07",
-      "engine": "llm:gemma-4-26b",
-      "file": "mapf-mapd-warehouse/2606.08878.html",
-      "title": "PerspectiveGap: A Benchmark for Multi-Agent Orchestration Prompting",
-      "tldr": "マルチエージェント・オーケストレーションにおいて、各サブエージェントに適切な情報境界を定義・配分する能力を評価するベンチマーク「PerspectiveGap」を提案する。110のシナリオと27の商用モデルを用いた実験により、最高性能のGPT-5.5でも合格率は62.0%に留まり、全体平均のリーク率は246.5%と極めて高いことが示された。これは、LLMが役割固有のコンテキスト境界を維持する能力が、コーディング能力などの既存能力とは独立した困難な課題であることを示唆している。"
-    },
-    "arxiv:2606.10087": {
-      "added": "2026-06-14",
-      "basis": "fulltext(arxiv)",
-      "date": "2026-06-08",
-      "engine": "llm:gemma-4-26b",
-      "file": "mapf-mapd-warehouse/2606.10087.html",
-      "title": "CodeAlchemy: Synthetic Code Rewriting at Scale",
-      "tldr": "CodeAlchemyは、5つの合成データ生成戦略（CodeEnhance, CodeQA, CodeDev, CodeDialogue, CodeTrace）を用いて、15言語にわたる500Bトークン以上の高品質なコードデータと350Bの推論トークンを生成するフレームワークである。これにより、3Bパラメータの小規模モデルでありながら、HumanEvalで83.5%を達成し、27Bや32Bといった大規模な最先端モデルを凌駕する性能を実現した。"
+      "file": "mapf-mapd-warehouse/2606.05669.html",
+      "title": "Dynamic Multi-Agent Pickup and Delivery in Robotic Cellular Warehousing Systems",
+      "tldr": "ロボット・セルラー倉庫システム（RCWS）において、注文実行中にSKUが動的に追加される「Dynamic MAPD」問題を定式化し、イベント駆動型のトークン・パッシングに基づく2つの再計画アルゴリズム（Dynamic-TPおよびCooperative-TP）を提案する。提案手法は、注文の更新イベントに応じてロボットの経路を逐次的に再計画することで、衝突回避を維持しながらオーダーのフロータイムを大幅に削減する。"
     }
   }
 }

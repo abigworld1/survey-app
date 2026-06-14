@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CADENCE: Predicting Realized MAPF Execution Time Beyond Sum of Costs | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">survey-app トップ</a></nav>
+  <h1>CADENCE: Predicting Realized MAPF Execution Time Beyond Sum of Costs</h1>
+  <div class="meta">Abhishek S, Badrikanath Praharaj, Sreeram MV<br>arxiv ・ 2026-06-03 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.04746v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.04746v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="tldr"><strong>一言で:</strong> 従来のMAPF（Multi-Agent Path Finding）におけるSum of Costs (SoC) は、物理ロボットの実際の実行時間（wall-clock time）を正確に予測できない。本研究は、SoCに加えて「原始的な運動負荷（primitive motion burden）」と「相互作用を考慮した調整構造（interaction-aware coordination structure）」を導入するCADENCEを提案し、7台の差動駆動ロボットを用いた実機実験により、特に運動負荷の追加が予測精度を大幅に向上させることを示した。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>本研究は、オフラインで計算されたMAPFの計画コスト（SoC）が、物理的なロボット実行時の実時間（wall-clock completion time）を必ずしも正確に予測できないという課題に取り組んでいる。物理実行時には、エージェントの行動順序の維持、ロボット間の先行制約、狭小空間での競合、および実行モニタによる停止・再開の遅延といった、スカラー値のSoCでは捉えきれない構造的な要因が影響を与える。著者らは、計画側の記述子を、(i) 標準的な $SoC$、(ii) 回転数や連続移動、停止・開始回数を含む「原始的な運動負荷」、(iii) ロボット間の先行制約数や混雑への露出度を含む「相互作用を考慮した調整構造」の3層に分解して定義した。これにより、実行前の段階で実際の完了時間をより高精度に予測することを目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、SoCに代わる、あるいはSoCを補完する実行時間予測のための新たな特徴量階層（feature ladder）を提案したことである。具体的には、旋回数や停止・再始動回数などの「原始的な運動負荷」が、SoCと実時間の乖離を埋める極めて強力な信号であることを実機実験を通じて明らかにした。また、Action Dependency Graph (ADG) に基づく「相互作用を考慮した調整構造」の有効性についても検証を行っている。実験の結果、SoCに運動負荷を加えることで、MAE（平均絶対誤差）で 48.6%–59.8%、RMSE（平方根平均二乗誤差）で 44.2%–61.4% の誤差削減を達成し、SoC単体よりも極めて高い予測精度を実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>実験には7台の差動駆動型 Pololu 3Pi+ ロボットを用い、Empty、Medium-Random、Bottleneckの3ファミリー、計15のシナリオからなるライブラリを構築した。各シナリオに対し、CBSH2-RTCによる最適計画1件、EECBSによる劣最適計画4件、LaCAM3による計画3件の計8種類の計画を生成し、計480回の試行データを用いた。実行システムには、ロボット間の依存関係が解消された後に次ステージを開始する「先行関係を遵守する連続エグゼキュータ」を採用している。予測モデルは、以下の4段階の「特徴量ラダー」で構成される。<br>1. $M_0$: $\text{SoC}$ のみを用いるモデル。<br>2. $M_1$: $M_0$ に $\text{makespan}$、旋回数、連続移動、停止・開始回数などの「原始的な運動負荷」を加えたモデル。<br>3. $M_2$: $M_1$ に、ADGから抽出した依存エッジ数、最長依存チェーンの深さ、混雑露出度などの「相互作用を考慮した調整構造」を加えたモデル。<br>評価にはリッジ回帰と混合効果モデルを用い、シナリオ単位の5分割ホールドアウト検証を実施した。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>480試行のハードウェア・コーパスを用いた評価の結果、SoCのみのモデル（$M_0$）では予測精度が不十分であることが示された。特に、SoCにプリミティブな動作負荷を加えたモデル（$M_1$）において顕著な精度向上が見られ、リッジ回帰ではMAEが $2.76\,\text{s}$ から $1.42\,\text{s}$ へと大幅に減少した。混合効果モデルにおいても、運動負荷の導入によりMAEが大幅に改善されることが確認された。一方で、相互作用を考慮した構造（$M_2$）を追加した場合、予測精度は方向性として改善するものの、現在のコーパス規模ではリッジ回帰の信頼区間がゼロを跨いでおり、混合効果モデルにおいてもシナリオレベルの区間が広いため、その効果の大きさについては確定的な結論を避けている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>CADENCEで提案された記述子は、ロボットが移動を開始する前のオフライン計画段階で計算可能であるため、計画のスコアリングやデプロイ時のスクリーニングに活用できる。しかし、本手法の予測値は使用するプラットフォームやエグゼキュータの特性に依存するため、異なるハードウェアや実行ポリシーへのスケール転送には別途検証が必要である。本研究の限界として、実験環境が7台のロボットと単一のエグゼキュータ、および15の限定的なシナリオに留まっている点が挙げられる。また、採用されたリッジ回帰や混合効果モデルは、予測性能の理論的上限を追求するものではなく、特徴量群の性質を検証するための解釈性を重視した設計となっている。</p></section>
+
+  <h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>CADENCE: Predicting Realized MAPF Execution Time Beyond Sum of Costs</h3><p>本研究は、従来のMAPF（Multi-Agent Path Finding）の評価指標である Sum of Costs (SoC) や makespan が、実際のロボット実行時の壁時計時間（wall-clock completion time）を十分に予測できないという課題に対し、実行前に予測可能な特徴量を用いた新たな予測手法 CADENCE を提案している。7台の差動駆動ロボットを用いた実機実験に基づき、SoC に加えて、makespan や旋回数、停止・再始動回数などの「原始的な運動負荷（primitive motion burden）」、および依存関係の深さや相互作用するロボット対などの「相互作用を考慮した調整構造（interaction-aware coordination structure）」の有効性を検証した。15のシナリオからなる480回の試行データを用いた評価の結果、SoC のみに primitive motion burden を加えることで、MAE（平均絶対誤差）で 48.6%–59.8%、RMSE（平方根平均二乗誤差）で 44.2%–61.4% の誤差削減が達成され、SoC 単体よりも極めて高い予測精度を示した。混合効果モデル（mixed-effects model）を用いた解析においても、primitive motion burden が最も信頼性の高い追加信号であることが示されており、実行時間の乖離の多くはロボットが動き出す前のオフライン計画の段階で捉えられることが明らかになった。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究は、オフラインで計算されたMAPF（Multi-Agent Path Finding）の計画コスト（Sum of Costs, SoC）が、物理的なロボット実行時の実時間（wall-clock time）を必ずしも正確に予測できないという課題に対し、実行時間の予測精度を向上させる手法を提案している。物理実行時には、エージェントの行動順序の維持、ロボット間の先行制約、狭小空間での競合、および実行モニタによる停止・再開の遅延といった要因が、スカラー値であるSoCでは捉えきれない構造的な影響を与える。著者らは、計画側の記述子を、(i) 標準的な $SoC$、(ii) 回転数や連続移動、停止・開始回数を含む「原始的な運動負荷（primitive motion burden）」、(iii) ロボット間の先行制約数や混雑への露出度を含む「相互作用を考慮した調整構造（interaction-aware coordination structure）」の3層に分解して定義した。Pololu 3Pi+を用いた実験では、シナリオレベルのホールドアウト検証により、原始的な運動負荷を導入することで、SoCのみの場合と比較してホールドアウト時の平均絶対誤差（MAE）を $2.76\,\text{s}$ から $1.42\,\text{s}$ へと大幅に削減できることを示した。さらに、相互作用を考慮した調整構造も、運動負荷に加えて一貫した予測信号の向上に寄与することが確認されている。</p></section>
+<section class="secsum"><h3>II Related Work and Positioning</h3><p>従来のMAPF評価は、Sum of Costs (SoC) や計画された makespan、プランナの実行時間といった「計画中心」の指標に依存しており、これらは探索アルゴリズムの比較には適しているが、物理ロボットによる実際の実行時間（realized execution time）を正確に予測するには不十分である。CBS などの最適解を求めるソルバが生成する計画であっても、ロボットの運動特性、先行制約、およびロボット間の相互作用構造が考慮されない限り、最小の SoC が必ずしも最小の実行時間を保証するわけではない。本研究は、シミュレーションではなく物理的なハードウェアスタックを用いて、SoC 以外の計画記述子が、実行前の段階で実際の wall-clock 完了時間の予測精度を向上させるかを検証する。具体的には、欠落している信号を「原始的な運動負荷（primitive motion burden）」と「相互作用を考慮した調整構造（interaction-aware coordination structure）」に分解し、これらがシナリオを跨いだ検証（scenario-held-out validation）において、SoC を超える予測価値を持つかを調査する。これにより、先行研究が示す依存グラフや遅延伝播の概念を、物理的なモーターダイナミクスや追従ノイズが存在する実環境へと拡張し、プラットフォーム固有のハードウェア転送結果としての知見を提供する。</p></section>
+<section class="secsum"><h3>III Study Design, Scenario Library, and Plan Corpus</h3><p>本研究では、7台の差動駆動型 Pololu 3Pi+ ロボットを用いた固定ワークセルにおいて、計画の質（Sum of Costs; SoC）ではなく、実行システムにおける実際の総完了時間（wall-clock completion time）を予測対象としている。シナリオライブラリは、障害物のない Empty、中程度の経路制約を持つ Medium-Random、および狭い通路に依存性が集中する Bottleneck の3つのファミリーからなる計15のシナリオで構成され、各シナリオの実行可能性は CBSH2-RTC を用いて検証されている。各シナリオに対して、CBSH2-RTC による最適参照計画1件、異なる重み設定を持つ EECBS による限定的劣最適計画4件、および LaCAM3 によるシード変更計画3件の計8種類の計画が生成される。この設計により、特定のプランナーの優劣を判定するのではなく、計画記述子（plan descriptors）を豊かにすることで、SoC 単独よりも実行時間を精度良く説明できるかを検証する構成となっている。</p></section>
+<section class="secsum"><h3>IV Execution System, Feature Ladder, and Held-Out Evaluation</h3><p>本研究では、MAPF（Multi-Agent Path Finding）の実行時間を予測するため、実行システム、特徴量、および評価手法を定義している。実行システムは、各ロボットの先行ステージおよび他ロボットからの依存関係が解消された後にのみ次ステージを開始する「先行関係を遵守する連続エグゼキュータ（precedence-faithful continuous executor）」を採用しており、グローバルなタイムステップによる同期ではなく、実時間の遅延や局所的な競合を反映する。予測モデルは、$\text{SoC}$（Sum of Costs）のみを用いるModel 1から、回転数や停止回数などの基本動作負荷を加えたModel 2、さらにAction Dependency Graph (ADG) から抽出した依存エッジ数や最長依存チェーンの深さ、混雑露出度（crowding exposure）などの相互作用負荷を加えたModel 3までの4段階の「特徴量ラダー（feature ladder）」で構成される。評価では、実時間の総実行時間をターゲットとし、シナリオの重複によるリークを防ぐため、同一シナリオに属する全計画を同一の訓練/テスト分割に含める「5分割シナリオ単位ホールドアウト検証」を実施している。実験では、リッジ回帰モデルと混合効果モデルの2つの推定器を用い、$\text{MAE}$ および $\text{RMSE}$ を指標として、各モデル階層における予測精度の向上を評価する。</p></section>
+<section class="secsum"><h3>V Results</h3><p>本セクションでは、480試行のハードウェア・コーパスを用い、特徴量の階層（$M_0$から$M_3$）に基づくリッジ回帰モデルと混合効果モデルによる、MAPFの実行時間予測性能の評価結果を報告している。実験の結果、Sum of Costs (SoC) のみのモデルでは予測精度が不十分であることが示され、特に混合効果モデルにおいてSoCのみのMAEは $s$、RMSEは $s$ と、ヌル・ベースラインに近い値にとどまった。最も顕著な精度向上は、SoCにプリミティブな動作負荷（$M_2$: ターン数、開始・停止回数、総経路長）を加えた際に得られ、リッジ回帰ではMAEが $s$ から $s$ へ、混合効果モデルではMAEが $s$ から $s$ へと大幅に減少した。さらに、相互作用を考慮した構造（$M_3$: ロボット間の依存関係数、依存チェーンの深さ、混雑曝露量）を追加することで、予測精度は方向性として改善するものの、現在のコーパス規模ではリッジ回帰の信頼区間がゼロを跨いでおり、混合効果モデルにおいてもシナリオレベルの区間が広いため、その効果の大きさについては確定的な結論を避けている。結論として、プリミティブな動作負荷はSoCと実際の実行時間の間の決定的な欠落層を埋める強力な信号であることが確認されたが、相互作用に関する信号の定量的評価には、より大規模なシナリオ・コーパスによる検証が必要である。</p></section>
+<section class="secsum"><h3>VI Discussion and Limitations</h3><p>CADENCEで提案された記述子は、ロボットが移動を開始する前のオフライン計画から計算可能であるため、従来のSum of Costs (SoC) よりも実際の実行時間に近い指標として、候補となる計画のスコアリングや選択、デプロイ時のスクリーニングに活用できる。しかし、本手法の予測値はプラットフォームやエグゼキュータに依存しており、より大規模なフリートや異なる実行ポリシーへのスケール転送には、別途ハードウェアによる検証が必要となる。本研究の限界として、実験は7台のロボットと単一の連続エグゼキュータという限定的な環境下で行われており、検証された15のシナリオ（Empty, Medium-Random, Bottleneck）も広範なベンチマークとしては不十分である。また、計画生成メニューを8つのスロットに固定したコーパス設計は、監査可能性と再現性を高めている一方で、あらゆるMAPFタスクやソルバーを網羅しているわけではない。さらに、採用されたリッジ回帰や混合効果モデルは、予測性能の理論的上限を追求するものではなく、特徴量群の性質を検証するための解釈性を重視した設計となっている。</p></section>
+<section class="secsum"><h3>VII Conclusion</h3><p>本研究は、標準的なMAPFの計画品質（SoC）だけでは、物理的なマルチロボット・ワークセルにおける実際の実行時間を予測するには不十分であり、実行前に計画側の構造的特徴を考慮する必要があることを結論付けている。7台のロボットを用いたハードウェアプラットフォーム上での検証により、SoCは重要な傾向を示すものの、実時間（wall-clock time）の完了時間を完全には説明できないことが明らかになった。最も顕著な追加信号は「プリミティブな運動負荷（primitive motion burden）」であり、計画側のmakespan、旋回（turns）、連続移動（consecutive moves）、および停止・再始動（start–stop transitions）をSoCに加えることで、リッジ回帰モデルにおけるMAEを $s$ から $s$ へ、混合効果モデルにおけるMAEを $s$ から $s$ へと、最も大きくかつ信頼性の高い改善を実現した。また、相互作用を考慮した調整構造（Interaction-aware coordination structure）も点推定値を改善させるが、現在のハードウェアデータセットでは、その信頼性や寄与の大きさは確定していない。以上の結果から、実行を意識したMAPFの評価においてはSoCのみに依存すべきではなく、ロボットが動き出す前の段階で、プリミティブな運動記述子を用いることが欠落した実行時間信号を捉える上で極めて有効であるという設計上の示唆が得られた。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+  </footer>
+</div>
+</body>
+</html>
