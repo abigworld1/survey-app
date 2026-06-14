@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Graph Attention-Guided Search for Dense Multi-Agent Pathfinding | survey-app</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">survey-app トップ</a></nav>
+  <h1>Graph Attention-Guided Search for Dense Multi-Agent Pathfinding</h1>
+  <div class="meta">Rishabh Jain, Keisuke Okumura, Michael Amir, Amanda Prorok<br>arxiv ・ 2025-10-20 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2510.17382v1" target="_blank" rel="noopener">原典</a></div>
+  <div class="tldr"><strong>一言で:</strong> 高密度なマルチエージェント経路探索（MAPF）において、グラフアテンションを用いたニューラル方策MAGAT+を最先端の探索アルゴリズムLaCAMに統合したハイブリッドフレームワーク「LaGAT」を提案する。事前学習とマップ特化型のファインチューニング、およびデッドロック検出メカニズムを組み合わせることで、従来の探索ベースの手法や学習ベースの手法の双方を上回る解の質を実現している。</div>
+  <section class="qa"><h2>どんなもの？</h2><p>本研究は、高密度な環境下でのマルチエージェント経路探索（MAPF）における、探索アルゴリズムと学習ベースの方策の統合問題を扱う。MAPFは、4連結グリッドグラフ上のエージェント集合 $\mathcal{A}$ が、衝突を回避しながら各々の目標地点 $g_a$ へ到達する問題であり、解の質は移動時間の総和である sum-of-costs (SoC) で評価される。既存の学習ベース手法はスケーラビリティや解の質において LaCAM 等の探索手法に劣り、逆に探索手法は高密度な環境での調整に課題があった。本研究は、軽量なニューラルヒューリスティックを探索のガイドとして用いることで、このパレート境界を打破することを目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、グラフアテンション機構を用いた改良型ニューラル方策 MAGAT+ を提案し、エージェント間の複雑な相互作用をモデリング可能にした。第二に、$\text{lacam}^3$ による専門家デモンストレーションを用いた事前学習と、ターゲットマップへのファインチューニングを組み合わせた学習戦略を導入した。第三に、ニューラルポリシーの不正確さに起因するデッドロックを回避するため、過去 $k$ ステップの状態履歴に基づく独自のデッドロック検出および PIBT へのフォールバック機構を開発した。これにより、高密度シナリオにおいて LaCAM の完全性を維持しつつ、解の質を大幅に向上させることに成功した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法 LaGAT は、MAGAT+ を LaCAM の優先順位決定プロセスに組み込む。MAGAT+ は CNN エンコーダ、3層の積層型 GNN、および MLP デコーダで構成され、エッジ特徴量 $\mathbf{e}_{ij} = [ \Delta x_{ij}, \Delta y_{ij}, d_{ij} ]^\top$ を用いてメッセージ伝播を行う。学習は、まず 21K の $\text{lacam}^3$ による軌跡データで事前学習を行い、次にターゲット環境のデータで微調整を行う。探索時は、MAGAT+ の予測確率に基づき PIBT の優先順位を決定するが、エージェントが位置および近傍状況 $\mathcal{N}_i$ が不変な状態を $k$ ステップ以内に再訪した場合、デッドロックと判定して PIBT の挙動に上書きし、探索ノードを再挿入する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>POGEMA ベンチマークを用い、Warehouse や Maze 等の 6 種類のマップにおいて、エージェント密度 $0.1$ から $0.5$ の範囲で評価を行った。比較対象として $\text{lacam}^3$、$MAPF\text{-}GPT$、$SSIL$、$SCRIMP$、$DCC$ を用いた。制限時間 $T=100$ における SoC を指標とした実験の結果、高密度環境において LaGAT は $\text{lacam}^3$ や $MAPF\text{-}GPT$ を大幅に上回る高品質な解を生成した。アブレーション解析により、事前学習とファインチューニングが成功率（solvability）の向上に、ニューラルガイダンスとデッドロック検出がコスト（solution cost）の削減に寄与することが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>LaGAT は、タスク特化型の微調整とデッドロック回避レイヤーにより、探索と学習のハイブリッドアプローチとしての信頼性を確立した。低密度環境の軌跡から学習した MAGAT+ が、教師モデルである LaCAM が予算内で解を見つけられない高密度環境においても、より高品質な状態へ探索を導くことが確認された。本手法は、障害物が多くエージェントが密集する環境で特に強力であるが、エージェントの通信・観測範囲を大きく超える広大なマップにおいては、局所的な方策に依存するため劣解を導く可能性があるという限界も示唆されている。</p></section>
+
+  <h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Graph Attention-Guided Search for Dense Multi-Agent Pathfinding</h3><p>本研究では、高密度なマルチエージェント経路探索（MAPF）問題において、グラフアテンション機構を用いたニューラルMAPF方策であるMAGATから導出された学習済みヒューリスティックを、最先端の探索アルゴリズムであるLaCAMに統合したハイブリッドフレームワーク「LaGAT」を提案している。従来の学習ガイド付き探索手法はMAPFにおいて性能が低い傾向にあったが、提案手法は強化されたMAGATアーキテクチャ、対象マップに対する事前学習・微調整（pre-train–then–fine-tune）戦略、および不完全なニューラルガイダンスを補完するためのデッドロック検出スキームを導入することで、高密度なシナリオにおいて純粋な探索ベースおよび学習ベースの手法の双方を上回る性能を実現している。実験の結果、適切に設計されたハイブリッド探索は、エージェント間の結合が強い困難な調整問題に対して強力な解決策となることが示されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、高密度なマルチエージェント経路探索（MAPF）において、探索と学習を組み合わせたハイブリッド手法である LaGAT を提案している。既存の学習ベースの手法は、スケーラビリティや解の質において LaCAM などの最先端の探索ベースのプランナーに大きく劣るという課題があったが、LaGAT は軽量なニューラルヒューリスティックである MAGAT+ を LaCAM に組み込むことで、既存の探索アルゴリズムが形成していたパレート境界を初めて超え、解の質において純粋な探索手法を凌駕することに成功した。MAGAT+ は、LaCAM の軌跡を模倣する事前学習と、対象マップ上での少量のデータを用いたファインチューニングによって訓練され、ニューラルネットワークの推論に伴う計算オーバーヘッドはあるものの、大幅な解の質の向上によってそれが正当化される。また、ニューラルポリシー特有の不正確さやデッドロックを回避するため、PIBT による衝突シールドおよび独自のデッドロック検出メカニズムを導入しており、高密度な設定において lacam3 を上回るリアルタイム性能を実現している。</p></section>
+<section class="secsum"><h3>2 Preliminaries</h3><p>本セクションでは、提案手法LaGATの基礎となるMAPF（Multi-Agent Pathfinding）の定式化と、関連する既存アルゴリズムについて述べている。MAPFは、4連結グリッドグラフ上のエージェント集合 $\mathcal{A}$ に対し、各エージェント $a$ に開始地点 $s_a$ と目標地点 $g_a$ を割り当て、頂点・エッジ衝突を回避しながら目標へ導く問題であり、解の質は各エージェントの移動時間の総和である sum-of-costs (SoC) で評価される。PIBTは、各エージェントの行動候補を $cost\text{-}to\text{-}go$（目標までの最短距離 $dist(v, g_a)$）に基づき昇順にソートして遷移可能な構成を生成する軽量な貪欲法であるが、デッドロック等の問題がある。LaCAMは、PIBTを探索のガイドとして利用し、制約 $\mathcal{C}$ を段階的に追加することで、指数関数的な計算量を抑えつつ構成の列を探索する完全なアルゴリズムである。また、MAGATは、近傍半径 $r$ 内の通信グラフ $\mathcal{G}$ 上でメッセージ伝播を行うGNNベースの分散型方策であり、メッセージ依存のアテンション機構を用いることで、エージェント間の相互作用を重み付けして捉え、高密度な環境への汎化性能を高めている。</p></section>
+<section class="secsum"><h3>3 LaGAT</h3><p>LaGATは、ニューラルポリシーをヒューリスティックとして活用する、マップ特化型の完全な探索ベースのMAPFソルバーである。提案手法であるMAGAT+は、CNNエンコーダ、3層の積層型GNN、およびMLPデコーダで構成され、エッジ特徴量 $\mathbf{e}_{ij} = [ \Delta x_{ij}, \Delta y_{ij}, d_{ij} ]^\top$ を用いてエッジ情報を統合することで、より豊かな相互作用モデリングを実現している。学習パイプラインでは、まず$\text{lacam}^3$を用いて収集した21Kの専門家デモンストレーションデータで事前学習を行い、その後、ターゲット環境のより高密度なインスタンスを用いてマップごとのファインチューニングを行う。探索フェーズでは、MAGAT+の予測確率に基づきPIBTの優先順位を決定的に決定するが、決定的なサンプリングに伴うデッドロックやライブロックを防ぐため、過去 $k$ ステップ以内にエージェントが同じ状態（位置および近傍状況 $\mathcal{N}_i$ が不変）を再訪したかを検知する「デッドロック検知メカニズム」を導入している。このメカニズムにより、問題のあるエージェントの出力をデフォルトのPIBT挙動に上書きして探索ノードを再挿入することで、LaCAMの完全性を維持しつつ、高密度な環境下での探索効率を向上させている。</p></section>
+<section class="secsum"><h3>4 Evaluation</h3><p>本研究では、提案手法であるLaGATの性能を、検索ベースの$lacam3$や、imitation learningに基づく$MAPF\text{-}GPT$、$SSIL$、およびreinforcement learningに基づく$SCRIMP$や$DCC$と比較評価している。POGEMAベンチマークを用い、WarehouseやMazeなどの6種類のマップにおいて、エージェント密度を$0.1$から$0.5$の範囲で変化させた実験を行った。評価指標として、初期解の品質および制限時間$T=100$における最終的な解の品質（sum-of-costs）を用いている。実験の結果、高密度な環境においてLaGATは$lacam3$や$MAPF\text{-}GPT$よりも大幅に高品質な初期解を生成し、最終的なパフォーマンスにおいても$lacam3$を凌駕することを示した。一方で、大規模かつ疎なマップ（ost003dなど）では$lacam3$が近最適解を生成する傾向にあるが、LaGATもLNS（Large Neighborhood Search）の活用により同等の性能に達している。アブレーション解析により、事前学習（pre-training）とファインチューニング（fine-tuning）は解の成功率（solvability）の向上に、ニューラルガイダンスとデッドロック検出を含む検索メカニズムは解のコスト（solution cost）の削減にそれぞれ不可欠であることが確認された。</p></section>
+<section class="secsum"><h3>5 Discussion</h3><p>本研究は、高密度かつ混雑したMAPF（Multi-Agent Pathfinding）シナリオにおいて、探索手法とニューラル方策を組み合わせる手法の有効性を論じている。提案手法であるLaGATは、汎用的な方策の事前学習後にタスク特化型の微調整（Fine-tuning）を行う戦略を採用しており、これによりマップの構造的特性に適合した高度な性能を実現している。また、ニューラル方策が引き起こすデッドロックやライブロックを過去の状態履歴から検出し、必要に応じて標準的なMAPF手法へフォールバックする修正レイヤーを導入することで、ハイブリッドアプローチとしての信頼性を担保している。学習面では、低密度環境で生成された準最適軌跡を用いて学習したMAGAT+が、教師モデルであるLaCAM3が予算内で解を見つけられない高密度環境においても、より高品質な状態を探索に導くことで、速度と品質のパレート境界を再定義している。LaGATの適用は、比較的小規模なマップ、障害物が豊富な環境、および高密度なエージェント配置において特に優位性を持つが、エージェントの通信・観測範囲を大きく超える広大なマップでは、局所的な方策ゆえに劣解を導く可能性があるという限界も示されている。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+  </footer>
+</div>
+</body>
+</html>
