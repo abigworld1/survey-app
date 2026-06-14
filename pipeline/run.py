@@ -104,8 +104,9 @@ def main(argv=None):
             print("[warn] username 無しの購読をスキップ")
             continue
         uslug = slugify(user, fallback="user")
+        display = sub.get("label") or user
         k = max(1, min(int(sub.get("k", 5)), MAX_K))
-        print(f"\n=== {user} (slug={uslug}, k={k}) ===")
+        print(f"\n=== {display} (slug={uslug}, k={k}) ===")
 
         papers = dedup(gather(sub, args.offline))
         useen = seen.setdefault(uslug, {})
@@ -145,7 +146,7 @@ def main(argv=None):
             print(f"  + {rel}")
 
         if not args.dry_run:
-            render.render_user_index(TPL, ROOT, uslug, user, useen)
+            render.render_user_index(TPL, ROOT, uslug, display, useen)
 
     if not args.dry_run:
         render.render_global_index(TPL, ROOT, subs, seen, slugify)

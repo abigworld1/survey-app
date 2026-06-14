@@ -1,21 +1,28 @@
-# 購読設定（自分専用）。username ごとに keywords / k / sources を指定する。
-#  - username: 公開URL（/survey-app/<username>/）になります。実名・PIIは入れないこと。
-#  - keywords: ソース横断の検索語。OR 検索されます。
+# 分野設定（自分専用）。分野ごとに username(URLスラッグ) / label(表示名) / keywords / k / sources を指定。
+#  - username: 公開URL（/survey-app/<username>/）になる ASCII スラッグ。実名・PIIは入れない。
+#  - label:    トップや一覧に表示される日本語の分野名。
+#  - keywords: ソース横断の検索語（OR検索）。
 #  - k:        1日に生成するページ数の上限（安全のため最大 20）。
 #  - sources:  arxiv / openalex / semanticscholar / dblp から選択。
 subscriptions:
-  - username: mapf
+  - username: mapf-mapd-warehouse
+    label: 自動倉庫におけるマルチエージェント計画・タスク形成最適化
     keywords:
-      - "multi-agent path finding"
-      - "MAPF"
-      - "conflict-based search"
-    k: 5
+      - "Multi-Agent Path Finding"
+      - "Multi-Agent Pickup and Delivery"
+      - "Task Formation"
+      - "Task Allocation and Path Planning"
+      - "Warehouse Robotics"
+    k: 3
     sources: [arxiv, semanticscholar, openalex]
 
-  - username: mapd-warehouse
+  - username: doc-structure-rag
+    label: 文書構造解析に基づく検索・質問応答・RAG
     keywords:
-      - "multi-agent pickup and delivery"
-      - "warehouse robotics"
-      - "automated warehouse"
-    k: 5
-    sources: [arxiv, openalex]
+      - "Document Structure Analysis"
+      - "PDF Layout Understanding"
+      - "Document Structure Graph"
+      - "Retrieval-Augmented Generation"
+      - "Evidence Retrieval"
+    k: 3
+    sources: [arxiv, semanticscholar, openalex]

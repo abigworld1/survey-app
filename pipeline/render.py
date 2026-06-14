@@ -115,11 +115,12 @@ def render_global_index(tpl_dir, root, subs, seen, slugify):
     cards = ""
     recent = []
     for sub in subs:
-        user = sub.get("username", "")
-        uslug = slugify(user, fallback="user")
+        username = sub.get("username", "")
+        uslug = slugify(username, fallback="user")
+        display = sub.get("label") or username
         useen = seen.get(uslug, {})
         cards += (
-            f'<div class="card"><h3><a href="{_esc(uslug)}/index.html">{_esc(user)}</a></h3>'
+            f'<div class="card"><h3><a href="{_esc(uslug)}/index.html">{_esc(display)}</a></h3>'
             f'<div class="meta">キーワード: {_esc(", ".join(sub.get("keywords", [])))}'
             f" ・ {len(useen)}本</div></div>\n"
         )
