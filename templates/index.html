@@ -32,6 +32,9 @@
   .badge-latest { display:inline-block; color:#121212; background:#d9b65f;
                   border-radius:999px; font-size:11px; font-weight:700;
                   line-height:1; padding:4px 7px; margin-right:8px; vertical-align:1px; }
+  .list-toolbar { display:flex; justify-content:flex-end; margin:-4px 0 10px; }
+  .list-toolbar select { background:#1a1a1a; color:#e8e8e8; border:1px solid #3a3a3a;
+                         border-radius:6px; padding:6px 9px; font:inherit; font-size:12.5px; }
   footer { margin-top:44px; color:#888; font-size:12px; }
   mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
 </style>
@@ -52,12 +55,50 @@
   <div class="cards">{{cards}}</div>
 
   <h2>最近の要約</h2>
-  <ul>{{recent}}</ul>
+  <div class="list-toolbar">
+    <select data-sort-control data-target="#paper-list" aria-label="並び替え">
+      <option value="added-desc">追加順（新しい順）</option>
+      <option value="published-desc">公開日（新しい順）</option>
+      <option value="published-asc">公開日（古い順）</option>
+      <option value="title-asc">タイトル順</option>
+    </select>
+  </div>
+  <ul id="paper-list" data-sort-list>{{recent}}</ul>
 
   <footer>
     ⚠ 各ページは AI による自動生成・要約です（誤りを含む可能性があります）。必ず原典をご確認ください。<br>
     最終更新: {{generated}}
   </footer>
 </div>
+<script>
+(function () {
+  function compareText(a, b, direction) {
+    var result = a.localeCompare(b, 'ja');
+    return direction === 'asc' ? result : -result;
+  }
+  function sortList(select) {
+    var list = document.querySelector(select.dataset.target);
+    if (!list) return;
+    var mode = select.value;
+    var items = Array.prototype.slice.call(list.querySelectorAll('li'));
+    items.sort(function (a, b) {
+      var result = 0;
+      if (mode === 'published-desc') result = compareText(a.dataset.published || '', b.dataset.published || '', 'desc');
+      else if (mode === 'published-asc') result = compareText(a.dataset.published || '', b.dataset.published || '', 'asc');
+      else if (mode === 'title-asc') result = compareText(a.dataset.title || '', b.dataset.title || '', 'asc');
+      else result = compareText(a.dataset.added || '', b.dataset.added || '', 'desc');
+      return result || (Number(a.dataset.original || 0) - Number(b.dataset.original || 0));
+    });
+    items.forEach(function (item) { list.appendChild(item); });
+    if (window.MathJax && window.MathJax.typesetPromise) window.MathJax.typesetPromise([list]);
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-sort-control]').forEach(function (select) {
+      select.addEventListener('change', function () { sortList(select); });
+      sortList(select);
+    });
+  });
+}());
+</script>
 </body>
 </html>

@@ -126,14 +126,19 @@ def render_paper_page(tpl_dir, paper, summary):
 
 def _list_items(entries, link_basename=False, highlight_added="", keywords=None):
     rows = ""
-    for it in entries:
+    for idx, it in enumerate(entries):
         tags = _matched_entry_keywords(it, keywords)
         href = os.path.basename(it["file"]) if link_basename else it["file"]
         latest = bool(highlight_added and it.get("added") == highlight_added)
         klass = ' class="latest"' if latest else ""
         badge = '<span class="badge-latest">New</span>' if latest else ""
+        added_sort = "|".join(_entry_sort_key(it))
+        title_sort = (it.get("title") or "").lower()
         rows += (
-            f"<li{klass}>{badge}<a href=\"{_esc(href)}\">{_esc(it['title'])}</a>"
+            f'<li{klass} data-added="{_esc(added_sort)}" '
+            f'data-published="{_esc(it.get("date", ""))}" '
+            f'data-title="{_esc(title_sort)}" data-original="{idx}">'
+            f'{badge}<a href="{_esc(href)}">{_esc(it["title"])}</a>'
             f"{_keyword_tags(tags)}"
             f'<div class="meta">{_esc(it.get("date", ""))} ・ {_esc(it.get("tldr", ""))}</div></li>\n'
         )
