@@ -16,6 +16,20 @@
   h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
   .meta { color:#9a9a9a; font-size:13px; }
   .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
   .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
           border-radius:6px; margin:18px 0 26px; }
   .qa { margin:0 0 20px; }
@@ -45,8 +59,11 @@
   <h1>LAD-RAG: Layout-aware Dynamic RAG for Visually-Rich Document Understanding</h1>
   <div class="meta">Zhivar Sourati, Zheng Wang, Marianne Menglin Liu, Yazhe Hu, Meng-Hao Guo, Sujeeth Bharadwaj, K. Han, Tao Sheng, Sujith Ravi, Morteza Dehghani, Dan Roth<br>arXiv.org ・ 2025-10-08 ・ source: semanticscholar</div>
   <div class="links"><a href="https://www.semanticscholar.org/paper/10129a668a2159fc5b421cc603369b16e45db38b" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.48550/arXiv.2510.07233" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip">公開日 2025-10-08</span><span class="chip">被引用 0</span><span class="chip basis-fulltext">本文(arXiv PDF)</span></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv PDF)を根拠に要約しています。</div>
+
   <div class="tldr"><strong>一言で:</strong> 視覚的に豊かな文書（VRD）の質問応答において、レイアウト構造やページ間の依存関係を保持するために、記号的な文書グラフとニューラルインデックスを組み合わせた動的なRAGフレームワーク「LAD-RAG」を提案する。LLMエージェントがグラフとベクトル空間を動的に探索することで、top-$k$の調整なしに平均90%以上の完全再現率（perfect recall）を達成し、既存のベースラインを最大20%上回る検索性能を実現した。</div>
-  <section class="qa"><h2>どんなもの？</h2><p>従来のRAGは、視覚的に豊かな文書（VRD）のコンテンツを孤立したチャンクとして扱うため、レイアウト情報の欠落、埋め込みへの過度な依存、および質問の複雑さに対応できない静的なtop-$k$検索という3つの課題を抱えている。特に、図表とキャプションの関係や、ページを跨ぐセクションの依存関係といった構造的情報を失うことが、マルチページ問題における精度低下を招いている。本研究は、これらの構造的・視覚的依存関係を明示的にモデル化し、クエリに応じて適応的に証拠を収集する手法を模索するものである。</p></section>
+<section class="qa"><h2>どんなもの？</h2><p>従来のRAGは、視覚的に豊かな文書（VRD）のコンテンツを孤立したチャンクとして扱うため、レイアウト情報の欠落、埋め込みへの過度な依存、および質問の複雑さに対応できない静的なtop-$k$検索という3つの課題を抱えている。特に、図表とキャプションの関係や、ページを跨ぐセクションの依存関係といった構造的情報を失うことが、マルチページ問題における精度低下を招いている。本研究は、これらの構造的・視覚的依存関係を明示的にモデル化し、クエリに応じて適応的に証拠を収集する手法を模索するものである。</p></section>
 <section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、レイアウトを考慮した動的なRAGフレームワークであるLAD-RAGの提案である。インジェクション段階において、標準的なニューラル埋め込みに加え、ヘッダーや図表のリンク、ページ間の依存関係を捉える「記号的文書グラフ（symbolic document graph）」を構築する手法を確立した。推論段階では、LLMエージェントがニューラルおよび記号的なインデックスを使い分ける動的な検索戦略を導入した。実験により、MMLongBench-Doc、LongDocURL、DUDE、MP-DocVQAの4つのベンチマークにおいて、同等のノイズレベルでベースラインを最大20%上回る再現率を達成し、低レイテンシで高いQA精度を実現できることを示した。</p></section>
 <section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LAD-RAGは、インジェクションと推論の2フェーズで構成される。インジェクションフェーズでは、GPT-4oを用いて各ページから要素（段落、図、表等）を抽出し、レイアウト位置や要約を含むノードを生成する。これらを継続的なメモリ $M$ を用いて接続し、構造的関係を保持するシンボリックなグラフ $\mathcal{G}$ と、ノード要約に基づくベクトルインデックス $\mathcal{E}$ の二重表現を構築する。推論フェーズでは、LLMエージェントが質問 $q$ に対し、以下の3つのツールを反復的に使用して証拠を収集する。<br>1. `NeuroSemanticSearch`: 埋め込み類似度に基づく検索。<br>2. `SymbolicGraphQuery`: グラフ構造への構造化クエリ。<br>3. `Contextualize`: Louvainコミュニティ検出を用いた近傍ノードの展開。<br>エージェントはコンテキスト窓の限界または最大ステップ数に達するまで、これらのツールを動的に選択・実行する。</p></section>
 <section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価はMMLongBench-Doc、LongDocURL、DUDE、MP-DocVQAの4つのベンチマークで行われた。検索性能は、正解ページ集合 $P$ がリトリーバーの返却集合 $\hat{P}$ に含まれるかを判定する Perfect Recall (PR) $\text{PR} = 1 \text{ if } P \subseteq \hat{P} \text{ else } 0$ と、無関係なページの割合を示す Irrelevant Pages Ratio (IPR) $\text{IPR} = \frac{|\hat{P} \setminus P|}{|\hat{P}|}$ で測定された。実験の結果、LAD-RAGはtop-$k$の調整なしで平均90%以上のPRを達成した。同等のIPRにおいて、MMLongBench-Docで約20%、LongDocURLで15%、DUDEおよびMP-DocVQAで10%のPR向上を示した。また、アブレーション研究により、`SymbolicGraphQuery` を欠くと同等のノイズレベルでの再現率が平均10%減少することが確認された。QA性能においても、Phi-3.5-Vision-4BやGPT-4o等の多様なLVLMを用い、マルチページ問題で既存のtop-$k$ベースラインに対し平均4〜18ポイントの精度向上を記録した。</p></section>

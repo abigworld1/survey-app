@@ -16,6 +16,20 @@
   h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
   .meta { color:#9a9a9a; font-size:13px; }
   .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
   .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
           border-radius:6px; margin:18px 0 26px; }
   .qa { margin:0 0 20px; }
@@ -45,18 +59,20 @@
   <h1>TechDocRAG: Relation-Preserving Retrieval-Augmented Generation (RAG) for Technical Documents</h1>
   <div class="meta">Seung‐Joon Lee, Myungryul Choi<br>AI ・ 2026-05-06 ・ source: openalex</div>
   <div class="links"><a href="https://openalex.org/W7160540146" target="_blank" rel="noopener">原典</a> ・ <a href="https://www.mdpi.com/2673-2688/7/5/161/pdf?version=1778069457" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.3390/ai7050161" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip">公開日 2026-05-06</span><span class="chip">被引用 0</span><span class="chip basis-abstract">アブストラクト</span></div>
+  <div class="source-notice abstract">本文未取得: アブストラクトのみを根拠にしています。詳細確認には原典を参照してください。</div>
+
   <div class="tldr"><strong>一言で:</strong> 技術文書特有の構造（条項、表、図、手順など）を維持したまま検索を行う、TechDocRAGというフレームワークを提案する。従来のRAGが文書を独立したチャンクに平坦化してしまう問題を解決し、要素間の関係性を保持することで、正確な根拠追跡を可能にする。実験では、既存のベースラインと比較して大幅な精度向上を達成している。</div>
-  <section class="qa"><h2>どんなもの？</h2><p>技術文書におけるRAGの課題は、回答の根拠が単一の文章ではなく、番号付き条項や図表、キャプションなどの複数の要素に分散している点にある。標準的なRAGパイプラインはこれらの要素を独立したチャンクとして平坦化するため、文書内の重要な関係性が失われてしまう。本研究は、これらの構造的関係を保持したまま検索・生成を行う手法を対象としている。</p></section>
+<section class="qa"><h2>どんなもの？</h2><p>技術文書におけるRAGの課題は、回答の根拠が単一の文章ではなく、番号付き条項や図表、キャプションなどの複数の要素に分散している点にある。標準的なRAGパイプラインはこれらの要素を独立したチャンクとして平坦化するため、文書内の重要な関係性が失われてしまう。本研究は、これらの構造的関係を保持したまま検索・生成を行う手法を対象としている。</p></section>
 <section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>文書を「不均一要素グラフ（heterogeneous element graph）」として表現する新しいフレームワークを導入した。各要素に対して「技術的識別子（technical identifiers）」、「意味的要約（semantic summaries）」、「生の根拠（raw evidence）」の3つの視点を整合させる手法を提案している。これにより、製品マニュアルやエンジニアリング文書における根拠のヒット率を大幅に改善した。</p></section>
 <section class="qa"><h2>技術や手法のキモはどこ？</h2><p>文書を要素グラフとして構築し、クエリ時には識別子を考慮したリコール、要約レベルのリランキング、そして生の根拠のバンドリングという段階的なプロセスを実行する。具体的には、各要素に対して以下の3つのビューを対応させる。<br>1. 技術的識別子（Technical identifiers）<br>2. 意味的要約（Semantic summaries）<br>3. 生の根拠（Raw evidence）<br>この多角的なアプローチにより、構造化された情報の検索精度を高めている。</p></section>
 <section class="qa"><h2>どうやって有効だと検証した？</h2><p>製品マニュアルやエンジニアリング文書、マルチモーダルな長いPDFを含む4つのベンチマーク（計7,500件以上のQAペア）を用いて評価を行った。TechDocRAGは、最強の平坦化ベースラインに対して平均エンドツーエンドスコアで20.3ポイント、最強の非平坦化ベースラインに対して9.3ポイント向上した。また、厳密な根拠のヒット率は0.510から0.942へと劇的に改善している。</p></section>
 <section class="qa"><h2>議論はある？（限界・課題）</h2><p>技術文書における信頼性の高いRAGは、単に多くの文章を検索することよりも、根拠の解釈可能性を支える「関係性の保持」に依存していることが示された。クエリのレイテンシは標準的なハイブリッド検索と同等であり、実用的な性能を示している。ただし、識別子が著しく破損した場合には感度が高く、精度が低下する傾向も確認されている。</p></section>
 
-  
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: アブストラクト ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+    情報源: アブストラクト ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-15
   </footer>
 </div>
 </body>

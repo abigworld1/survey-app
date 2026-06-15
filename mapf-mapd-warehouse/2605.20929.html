@@ -16,6 +16,20 @@
   h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
   .meta { color:#9a9a9a; font-size:13px; }
   .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
   .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
           border-radius:6px; margin:18px 0 26px; }
   .qa { margin:0 0 20px; }
@@ -45,8 +59,11 @@
   <h1>STEAM: A Training-Free Congestion-Aware Enhancement Framework for Decentralized Multi-Agent Path Finding</h1>
   <div class="meta">Mingyang Feng, Mengnuo Zhang, Shaoyuan Li, Xiang Yin<br>arxiv ・ 2026-05-20 ・ source: arxiv</div>
   <div class="links"><a href="http://arxiv.org/abs/2605.20929v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.20929v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip">公開日 2026-05-20</span><span class="chip">被引用 0</span><span class="chip basis-fulltext">本文(arXiv)</span></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+
   <div class="tldr"><strong>一言で:</strong> STEAMは、学習済みの分散型MAPF（Multi-Agent Path Finding）ポリシーに対し、再学習やアーキテクチャの変更を一切行わずに、テスト時の実行プロセスのみで混雑回避ガイダンスを注入するトレーニングフリーな強化フレームワークである。空間的・時間的・局所的な3つのレベルで混雑を検出し、cost-to-goマップの修正やロジット補正を行うことで、成功率を最大60%向上させつつ、計算オーバーヘッドを最小限に抑える。</div>
-  <section class="qa"><h2>どんなもの？</h2><p>分散型MAPFにおいて、学習ベースのポリシーは現在の局所観測 $\mathcal{O}_i(t)$ に基づいて行動を決定するが、将来の混雑やボトルネックを予測できないという課題がある。既存手法は固定された頂点重み $w(v)$ に基づくcost-to-goチャネル $c_i(t)$ に依存しており、他エージェントの動的な動きを考慮できない。本研究は、既存の分散型方策 $\pi_\theta$ を変更せず、テスト時に提供する $c_i(t)$ や行動ロジット $z_i(t)$ を調整することで、この問題を解決する。</p></section>
+<section class="qa"><h2>どんなもの？</h2><p>分散型MAPFにおいて、学習ベースのポリシーは現在の局所観測 $\mathcal{O}_i(t)$ に基づいて行動を決定するが、将来の混雑やボトルネックを予測できないという課題がある。既存手法は固定された頂点重み $w(v)$ に基づくcost-to-goチャネル $c_i(t)$ に依存しており、他エージェントの動的な動きを考慮できない。本研究は、既存の分散型方策 $\pi_\theta$ を変更せず、テスト時に提供する $c_i(t)$ や行動ロジット $z_i(t)$ を調整することで、この問題を解決する。</p></section>
 <section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、既存の分散型MAPFアルゴリズム（MAPF-GPTやPRIMAL2など）に対してプラグアンドプレイで適用可能な、policy-agnosticな強化メカニズムを提案したことである。STEAMは、最短経路のロールアウトを通じて将来の混雑ホットスポットを特定し、回避可能な混雑にはエージェント固有のcost-to-goマップの更新を、回避困難なボトルネックには時間的なlogit correctionを適用する。さらに、近傍エージェントの情報を利用した密度依存的な補正により、創発的な局所混雑も抑制する。実験では、高密度環境において成功率を最大60%向上させ、Out-of-Distributionな環境でも性能を改善することを示した。</p></section>
 <section class="qa"><h2>技術や手法のキモはどこ？</h2><p>STEAMは、混雑を3つのレベルで解決する。まず、現在のcost-to-goマップに基づく最短経路のロールアウトにより将来の衝突を予測する。1) 空間的解決：回避可能な混雑に対し、エージェント固有の重み関数 $w_i$ を更新してcost-to-goマップを修正する。2) 時間的解決：狭い通路等のボトルネックに対し、アクションのロジット $\text{logits}_i$ に衝突地点への進行を抑制する補正項 $\Delta \text{logits}_{i, \text{temp}}$ を加算し、エージェント間の遅延を促す。3) 局所的解決：近傍エージェントの修正済みマップに基づき、特定のアクションが引き起こす局所密度スコア $D_i(a)$ を推定し、ロジットに $\Delta \text{logits}_{i, \text{loc}}$ を適用する。最終的なロジットは $\text{logits}_i&#x27; = \text{logits}_i + \Delta \text{logits}_{i, \text{temp}} + \Delta \text{logits}_{i, \text{loc}}$ として算出される。</p></section>
 <section class="qa"><h2>どうやって有効だと検証した？</h2><p>PRIMAL2およびMAPF-GPTをベースラインとし、Random、Maze、Warehouseの3種類のマップを用いて検証を行った。Maze（エージェント数32〜160）やWarehouse（128〜192）といった高密度なシナリオにおいて、成功率、makespan、合計コスト、累積報酬を評価した。実験の結果、全ての環境で成功率が向上し、makespanや合計コストが減少した。特にMAPF-GPTにおいて、学習時とは異なるWarehouse環境（Out-of-Distribution）での性能が大幅に改善された。また、局所密度 $\text{Local Density} = \frac{1}{T \cdot |\mathcal{E}| \cdot N} \sum_{e \in \mathcal{E}} \sum_{t=1}^{T} \sum_{i=1}^{N} \text{count}(i, t, r)$ の分析により、STEAMがエージェントを混雑領域から分散させていることが定量的に示された。</p></section>
@@ -63,7 +80,7 @@
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-15
   </footer>
 </div>
 </body>

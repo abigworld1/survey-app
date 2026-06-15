@@ -16,6 +16,20 @@
   h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
   .meta { color:#9a9a9a; font-size:13px; }
   .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
   .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
           border-radius:6px; margin:18px 0 26px; }
   .qa { margin:0 0 20px; }
@@ -45,8 +59,11 @@
   <h1>Discrete Diffusion for Complex and Congested Multi-Agent Path Finding with Sparse Social Attention</h1>
   <div class="meta">Yuanzhe Wang, Tian Zhi, Zihang Wei, Hongguang Wang, Jiaming Guo, Yang Zhao, Zisheng Liu, Shiyu Quan, Xing Hu, Zidong Du, Yunji Chen<br>arxiv ・ 2026-05-13 ・ source: arxiv</div>
   <div class="links"><a href="http://arxiv.org/abs/2605.13296v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.13296v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip">公開日 2026-05-13</span><span class="chip">被引用 0</span><span class="chip basis-fulltext">本文(arXiv)</span></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+
   <div class="tldr"><strong>一言で:</strong> 複雑かつ混雑したマルチエージェント経路探索（MAPF）において、離散デノイジング拡散確率モデル（D3PM）とLarge Neighborhood Search 2（LNS2）を統合したハイブリッドフレームワーク「DiffLNS」を提案する。D3PMを用いて、エキスパートのデモンストレーションから学習した時空間的な協調アクション軌跡の事前分布をサンプリングし、LNS2の高品質なウォームスタートとして利用することで、高密度環境下での成功率を大幅に向上させる。</div>
-  <section class="qa"><h2>どんなもの？</h2><p>本研究は、LNS2などの修復ベースのMAPF手法において、初期解の質が成功率や収束速度に決定的な影響を与えるという課題に対処するものである。従来の学習ベースの手法は高密度環境での厳密な制約充足に課題があり、一方で連続空間向けの拡散モデルはMAPFの離散的な衝突制約への対応が不十分であった。DiffLNSは、離散的な結合アクションテンソル $\mathbf{x} \in \mathcal{A}^{N \times T}$ 上で動作する離散拡散モデルを導入し、多様かつ協調的な初期計画（drafts）を生成する。これにより、生成的な多様性と、古典的な修復アルゴリズムによる厳密な制約充足の両立を目指している。</p></section>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、LNS2などの修復ベースのMAPF手法において、初期解の質が成功率や収束速度に決定的な影響を与えるという課題に対処するものである。従来の学習ベースの手法は高密度環境での厳密な制約充足に課題があり、一方で連続空間向けの拡散モデルはMAPFの離散的な衝突制約への対応が不十分であった。DiffLNSは、離散的な結合アクションテンソル $\mathbf{x} \in \mathcal{A}^{N \times T}$ 上で動作する離散拡散モデルを導入し、多様かつ協調的な初期計画（drafts）を生成する。これにより、生成的な多様性と、古典的な修復アルゴリズムによる厳密な制約充足の両立を目指している。</p></section>
 <section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、D3PMをLNS2の初期化器として統合し、エキスパートの行動から協調的な時空間事前分布を学習するハイブリッドフレームワークを提案した。第二に、計算コストを抑えつつ衝突に関わるエージェント間の相互作用を効率的にモデル化する「拡散認識型スパース・ソーシャル・アテンション（diffusion-aware sparse social attention）」を導入した。第三に、最大96エージェントのデータで学習したモデルが、推論時に最大312エージェントまでスケールし、20の複雑な設定において平均成功率95.8%を達成することを示した。これは最強のベースラインであるLNS2+RLを9.6ポイント上回る性能である。</p></section>
 <section class="qa"><h2>技術や手法のキモはどこ？</h2><p>DiffLNSは、D3PMによる構造化された初期解生成とLNS2による局所的な修復を組み合わせる。D3PMは、離散変数 $x_0$ を $T$ ステップのマルコフ連鎖 $q(x_t | x_{t-1}) = \prod_{i=1}^n q(x_{t,i} | x_{t-1,i})$ で破壊するモデルであり、学習時は変分下界 $\mathcal{L}_{\text{vlb}}$ とクリーン状態予測 $\mathcal{L}_{\text{ce}}$、および補助損失 $\mathcal{L}_{\text{aux}}$ を組み合わせた $\mathcal{L} = \mathcal{L}_{\text{vlb}} + \lambda \mathcal{L}_{\text{aux}}$ を最小化する。核となるSparse Social Attentionは、拡散ステップ $t$ における推定軌跡の近接度 $\min_{t&#x27; \in [0, T]} \text{dist}(\hat{x}_{i,t&#x27;}, \hat{x}_{j,t&#x27;})$ に基づき、動的な近傍 $\mathcal{N}_i(t)$ を構築する。デノイザーはエージェント間でパラメータを共有し、置換等変性 $\text{Denoiser}(\mathbf{P}\mathbf{x}) = \mathbf{P}\text{Denoiser}(\mathbf{x})$ を備える。生成された複数のドラフトは、最短経路での補完等の前処理を経てLNS2に渡され、最も低いSum of Costs (SOC) を持つ解が選択される。</p></section>
 <section class="qa"><h2>どうやって有効だと検証した？</h2><p>POGEMAで生成された5つの環境（Small Random, Medium Maze, Medium Room, Medium Warehouse, Large Maze）を用い、LNS2、LNS2+RL、HMAGAT、LaCAM3と比較実験を行った。20の複雑かつ混雑した設定において、DiffLNSは平均成功率（SR）95.8%を達成し、LNS2+RLを9.6ポイント上回った。アブレーション研究では、Sparse Social AttentionがDense Attentionと比較して、より少ない生成候補数で高いSRを実現し、実行時間を約12%削減することを確認した。また、最大96エージェントでの学習が、推論時の最大312エージェントのシナリオまで汎化できることも実証された。</p></section>

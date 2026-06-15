@@ -16,6 +16,20 @@
   h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
   .meta { color:#9a9a9a; font-size:13px; }
   .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
   .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
           border-radius:6px; margin:18px 0 26px; }
   .qa { margin:0 0 20px; }
@@ -45,8 +59,11 @@
   <h1>LaCAM: Search-Based Algorithm for Quick Multi-Agent Pathfinding</h1>
   <div class="meta">Keisuke Okumura<br>arxiv ・ 2022-11-24 ・ source: arxiv</div>
   <div class="links"><a href="http://arxiv.org/abs/2211.13432v1" target="_blank" rel="noopener">原典</a></div>
+  <div class="paper-facts"><span class="chip">公開日 2022-11-24</span><span class="chip">被引用 0</span><span class="chip basis-fulltext">本文(arXiv PDF)</span></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv PDF)を根拠に要約しています。</div>
+
   <div class="tldr"><strong>一言で:</strong> LaCAM (Lazy Constraints Addition Search) は、完全性を備えつつ、数百から数万規模のエージェントが存在する大規模なマルチエージェント経路探索（MAPF）問題を高速に解決する2レベル探索アルゴリズムである。高レベルの構成（configuration）探索と、低レベルの制約（constraint）探索を分離し、制約を遅延的に適用することで探索空間の爆発を抑制している。</div>
-  <section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路探索（MAPF）は、グラフ $G = (V, E)$ 上の $n$ 個のエージェント $A = \{1, \dots, n\}$ が、各々の開始地点 $s_i$ から目標地点 $g_i$ へ衝突を回避しながら移動する経路 $\{\pi_1, \dots, \pi_n\}$ を求める問題である。回避すべき衝突には、同一時刻の頂点重複（vertex conflict: $\pi_i[t] = \pi_j[t]$）と、隣接時刻の入れ替わり（swap conflict: $\pi_i[t] = \pi_j[t+1] \land \pi_i[t+1] = \pi_j[t]$）がある。解の質は、各エージェントの目標到達時刻 $T_i$ の総和である sum-of-costs (SOC) $\sum_{i \in A} T_i$ で評価される。本研究は、大規模かつリアルタイム性が求められる環境において、既存のサブオプティマルな手法を凌駕する速度と成功率を実現することを目指している。</p></section>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路探索（MAPF）は、グラフ $G = (V, E)$ 上の $n$ 個のエージェント $A = \{1, \dots, n\}$ が、各々の開始地点 $s_i$ から目標地点 $g_i$ へ衝突を回避しながら移動する経路 $\{\pi_1, \dots, \pi_n\}$ を求める問題である。回避すべき衝突には、同一時刻の頂点重複（vertex conflict: $\pi_i[t] = \pi_j[t]$）と、隣接時刻の入れ替わり（swap conflict: $\pi_i[t] = \pi_j[t+1] \land \pi_i[t+1] = \pi_j[t]$）がある。解の質は、各エージェントの目標到達時刻 $T_i$ の総和である sum-of-costs (SOC) $\sum_{i \in A} T_i$ で評価される。本研究は、大規模かつリアルタイム性が求められる環境において、既存のサブオプティマルな手法を凌駕する速度と成功率を実現することを目指している。</p></section>
 <section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文の主な貢献は、完全性を維持しながら極めて高いスケーラビリティを実現するLaCAMアルゴリズムの提案である。LaCAMは、高レベル探索における分岐係数を実質的に抑制する「遅延的な制約適用」という新しいアプローチを導入している。実験により、400エージェントの高密度なベンチマークにおいて、既存手法がタイムアウトする中で中央値1秒という高速な解決能力を示すことを証明した。さらに、最大10,000エージェント規模の広大な環境においても、30秒以内に解を導出できる極めて高い拡張性を実証している。</p></section>
 <section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LaCAMは、高レベルの構成探索と低レベルの制約探索からなる2層構造を採用している。高レベル探索はスタックを用いた深さ優先探索（DFS）スタイルで行われ、全エージェントの位置のタプルである「構成（configuration）」の列を探索する。低レベル探索は幅優先探索（BFS）を用いて制約木を構築し、エージェント $i$ が現在の位置 $v$ から隣接頂点 $u \in \text{neigh}(v) \cup \{v\}$ へ移動するという正の制約を順次追加していく。新しい構成の生成（`get_new_config`）にはPIBTなどの既存アルゴリズムを応用したブラックボックス関数を用い、制約を満たしつつ目標に有望な構成を生成する。高レベルの探索空間は $O(|V|^{|A|})$、低レベルの接続構成は $O(\Delta^{|A|})$ であり、解が存在する場合には必ず解を返す完全性が保証されている。</p></section>
 <section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価実験では、PP、OD、PIBT、PIBT+、EECBS、LNS2といった既存のサブオプティマルなアルゴリズムを比較対象とした。MAPFベンチマークにおいて、特に障害物率20%の$32 \times 32$グリッド、エージェント数400の`random-32-32-20`シナリオにおいて、LaCAMは既存手法が失敗する中で成功率と実行時間の両面で優位性を示した。拡張性テストでは、`warehouse-20-40-10-2-2`において10,000エージェント規模のインスタンスをすべて30秒以内に解決した。一方で、幅1の通路でエージェントがすれ違う必要がある敵対的インスタンスでは、エージェント数の増加に伴いDFSが類似した構成に捕まり、探索回数が劇的に増大してタイムアウトするという限界も確認された。</p></section>
@@ -64,7 +81,7 @@
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+    情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-15
   </footer>
 </div>
 </body>

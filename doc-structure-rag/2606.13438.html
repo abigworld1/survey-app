@@ -16,6 +16,20 @@
   h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
   .meta { color:#9a9a9a; font-size:13px; }
   .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
   .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
           border-radius:6px; margin:18px 0 26px; }
   .qa { margin:0 0 20px; }
@@ -45,8 +59,11 @@
   <h1>CQC-RAG: Robust Retrieval-Augmented Generation via Cross-Query Consistency</h1>
   <div class="meta">Yanjia Sun, Sifan Liu, Jie Shao<br>arxiv ・ 2026-06-11 ・ source: arxiv</div>
   <div class="links"><a href="http://arxiv.org/abs/2606.13438v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.13438v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip">公開日 2026-06-11</span><span class="chip">被引用 0</span><span class="chip basis-fulltext">本文(arXiv)</span></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+
   <div class="tldr"><strong>一言で:</strong> RAGの脆弱性であるクエリの構文変化への感度と、ノイズによるハルシネーションを解決するため、「意味的に等価だが構文が異なるクエリ間では、正解は高い信頼性を維持するが、誤答は不安定になる」という仮説に基づき、クエリ書き換えとクロスクエリ一貫性検証を行うCQC-RAGを提案する。</div>
-  <section class="qa"><h2>どんなもの？</h2><p>従来のRAGは、クエリの構文変化によって検索性能が $15\% \text{--} 20\%$、場合によっては $40\%$ 以上も低下するという脆弱性を抱えている。また、検索された無関係なドキュメントが推論を妨害し、ハルシネーションを引き起こす課題も存在する。既存のSelf-Consistency等の手法は、トークンレベルのサンプリングによる多様性に依存しており、クエリの定式化への感度への対処や、偏った証拠によって強化された誤答を識別する能力に限界がある。本研究は、これらの課題に対し、クエリの多様な視点から回答の信頼性を評価する新たなアプローチを提示する。</p></section>
+<section class="qa"><h2>どんなもの？</h2><p>従来のRAGは、クエリの構文変化によって検索性能が $15\% \text{--} 20\%$、場合によっては $40\%$ 以上も低下するという脆弱性を抱えている。また、検索された無関係なドキュメントが推論を妨害し、ハルシネーションを引き起こす課題も存在する。既存のSelf-Consistency等の手法は、トークンレベルのサンプリングによる多様性に依存しており、クエリの定式化への感度への対処や、偏った証拠によって強化された誤答を識別する能力に限界がある。本研究は、これらの課題に対し、クエリの多様な視点から回答の信頼性を評価する新たなアプローチを提示する。</p></section>
 <section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、正解と誤答の信頼性の振る舞いの違いに着目した「Cross-Query Consistency Hypothesis（交差クエリ一貫性仮説）」の提唱である。この仮説に基づき、外部の教師信号や検索範囲の拡大を必要とせず、自己評価が可能なフレームワークであるCQC-RAGを開発した。CQC-RAGは、クエリの書き換えによって多様な推論コンテキストを構築し、複数のコンテキスト間における回答の安定性を評価することで、ハルシネーションを効果的に排除する。実験では、TriviaQAにおいて $+4.76\text{ pp}$、MuSiQueにおいて $+9.12\text{ pp}$ のEM向上を達成するなど、既存のマルチクエリ手法を上回る堅牢性を実証した。</p></section>
 <section class="qa"><h2>技術や手法のキモはどこ？</h2><p>CQC-RAGは、まず元のクエリ $q_0$ に対して、意味的等価性を保ちつつ構文的多様性を最大化する書き換えを行い、パラフレーズ集合 $\mathcal{Q} = \{q_0, q_1, \dots, q_n\}$ を生成する。書き換えには、固有名詞を固定するハード制約と、語彙的摂動、構文的再構築、語用論的様式変化というソフト制約が用いられる。各クエリ $q_i$ に対してリランカーを用いて構築されたコンテキスト $c_i$ とのペア $(q_i, c_i)$ を用い、証拠スパン $e_{i,j}$ と回答 $a_{i,j}$ のタプルを生成する。最終的な回答選択では、検証モデルのロジットから正規化されたスコア $\text{val}(a, e)$ を用い、以下の式で定義される適応的なペナルティ付き平均スコア $S(a, e)$ を算出する：<br>$$ S(a, e) = \text{mean}(\text{val}(a, e)) - \lambda \cdot \text{std}(\text{val}(a, e)) $$<br>ここで、$\lambda$ は分散によるペナルティを制御する係数である。</p></section>
 <section class="qa"><h2>どうやって有効だと検証した？</h2><p>TriviaQA、PopQA、HotpotQA、MuSiQueの4つのベンチマークを用いて評価を行った。実験設定では、推論モデルにQwen3-8B、評価モデルにMistral-7B-Instruct-v0.2を使用し、クエリ書き換えの $temperature$ は $0.7$、推論は $temperature=0$ とした。結果として、CQC-RAGはTriviaQAでEMが $+10.47$ ポイント、MuSiQueで $+20.32$ ポイント向上し、既存のSelf-CertaintyやDMQR-RAGを上回るSOTAを達成した。アブレーション解析では、証拠に基づいたプロトコルの欠如がTriviaQAのEMを $15.92$ ポイント低下させることが示された。また、クロスクエリ検証はMuSiQueにおいてEMを $1.50$ ポイント、F1を $2.29$ ポイント改善させた。</p></section>
@@ -63,7 +80,7 @@
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-15
   </footer>
 </div>
 </body>

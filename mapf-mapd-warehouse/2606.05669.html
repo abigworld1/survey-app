@@ -16,6 +16,20 @@
   h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
   .meta { color:#9a9a9a; font-size:13px; }
   .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
   .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
           border-radius:6px; margin:18px 0 26px; }
   .qa { margin:0 0 20px; }
@@ -45,8 +59,11 @@
   <h1>Dynamic Multi-Agent Pickup and Delivery in Robotic Cellular Warehousing Systems</h1>
   <div class="meta">Cheng Ren, Ming Li, Xinping Guan, George Q. Huang<br>arxiv ・ 2026-06-04 ・ source: arxiv</div>
   <div class="links"><a href="http://arxiv.org/abs/2606.05669v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.05669v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip">公開日 2026-06-04</span><span class="chip">被引用 0</span><span class="chip basis-fulltext">本文(arXiv)</span></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+
   <div class="tldr"><strong>一言で:</strong> ロボット・セルラー倉庫システム（RCWS）において、注文実行中にSKUが動的に追加される「Dynamic MAPD」問題を定式化し、イベント駆動型のトークン・パッシングに基づく2つの再計画アルゴリズム（Dynamic-TPおよびCooperative-TP）を提案する。提案手法は、注文の更新イベントに応じてロボットの経路を逐次的に再計画することで、衝突回避を維持しながらオーダーのフロータイムを大幅に削減する。</div>
-  <section class="qa"><h2>どんなもの？</h2><p>本研究は、ロボット・セルラー倉庫システム（RCWS）における、実行中の注文内容（SKU）が変化する「Dynamic Multi-Agent Pickup and Delivery (Dynamic-MAPD)」問題を扱う。従来のMAPDは単一のピックアップ・デリバリー地点を想定しているが、RCWSでは1つの注文に複数のSKUが含まれるマルチゴール型の性質を持つ。本研究では、注文の動的な進化（internal order evolution）を考慮し、時刻 $t$ において確率 $p_{upd}$ でタスクが拡張されるモデルを導入している。これにより、従来の静的なMAPDでは対応できない、リアルタイムなタスク構造の変化への適応を目指している。</p></section>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、ロボット・セルラー倉庫システム（RCWS）における、実行中の注文内容（SKU）が変化する「Dynamic Multi-Agent Pickup and Delivery (Dynamic-MAPD)」問題を扱う。従来のMAPDは単一のピックアップ・デリバリー地点を想定しているが、RCWSでは1つの注文に複数のSKUが含まれるマルチゴール型の性質を持つ。本研究では、注文の動的な進化（internal order evolution）を考慮し、時刻 $t$ において確率 $p_{upd}$ でタスクが拡張されるモデルを導入している。これにより、従来の静的なMAPDでは対応できない、リアルタイムなタスク構造の変化への適応を目指している。</p></section>
 <section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文の主な貢献は、実行中のオーダーに対してSKUが動的に追加される状況を体系的に扱った初のDynamic-MAPD問題の定式化である。提案手法として、注文の追加に伴う分解と優先度ベースのスケジューリングを行う「Dynamic Token Passing (Dynamic-TP)」と、アイドル状態のロボットが新規タスクを支援する「Cooperative Token Passing (Cooperative-TP)」の2つのイベント駆動型オンライン再計画アルゴリズムを開発した。これにより、デッドロックフリー性を維持しつつ、システム全体の効率を向上させる枠組みを提供している。シミュレーションを通じて、提案手法が既存のベースラインと比較してオーダーのフロータイムを大幅に削減できることを実証した。</p></section>
 <section class="qa"><h2>技術や手法のキモはどこ？</h2><p>システムは $W \times H$ の矩形グリッドグラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 上でモデル化され、各タスク $j \in \mathcal{J}$ は回収アイテム集合 $\mathcal{L}_j$ を持つ。Dynamic-TPでは、デッドラインまでの残り時間 $T_{rem} = T_{deadline} - T_{current}$ に基づく優先度付きキューを用い、A*探索による経路再計画を行う。Cooperative-TPでは、アイドルロボット $r_{idle}$ が追加アイテムを回収する推定時間 $T_{coop}$ と、元のロボット $r_{bound}$ が全アイテムを回収する推定時間 $T_{baseline}$ を比較し、$\max(T_{r_{bound}, rem}, T_{coop}) &lt; T_{baseline}$ を満たす場合に協調を行う。計算量は、単一の再計画が $O(N)$（$N$ はノード数）であり、Cooperative-TPでは $I$ 個のアイドルロボットを評価するため $O(I \cdot N)$ となる。</p></section>
 <section class="qa"><h2>どうやって有効だと検証した？</h2><p>RubikCell構造を持つRCWS環境において、セルサイズ $10 \times 10$ および $20 \times 20$ の設定でシミュレーション実験を行った。更新確率 $p$ と追加SKU数 $k$ を変化させ、Dynamic-TP (D-TP)、Cooperative-TP (C-TP)、Token Passing (TP)、TP-Append (TP-A) を比較した。$20 \times 20$ レイアウト、 $p=0.5, k=3$ の条件下において、C-TPはD-TPの $114.5$ に対し $76.3$ という大幅なフロータイム削減を達成した。計算時間については、D-TPはロボット数に依存せず $10\text{--}20\text{ ms}$ で安定しており、C-TPはロボット数が $10$ から $50$ に増えると $15\text{ ms}$ から $150\text{ ms}$ へ増加するが、いずれも $1\text{ s}$ 未満でありリアルタイム性を維持している。</p></section>
@@ -64,7 +81,7 @@
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-14
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-15
   </footer>
 </div>
 </body>
