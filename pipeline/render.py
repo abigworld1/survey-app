@@ -96,7 +96,7 @@ def _list_items(entries, link_basename=False, highlight_added=""):
         href = os.path.basename(it["file"]) if link_basename else it["file"]
         latest = bool(highlight_added and it.get("added") == highlight_added)
         klass = ' class="latest"' if latest else ""
-        badge = '<span class="badge-latest">前回更新</span>' if latest else ""
+        badge = '<span class="badge-latest">New</span>' if latest else ""
         rows += (
             f"<li{klass}>{badge}<a href=\"{_esc(href)}\">{_esc(it['title'])}</a>"
             f'<div class="meta">{_esc(it.get("date", ""))} ・ {_esc(it.get("tldr", ""))}</div></li>\n'
