@@ -42,6 +42,11 @@ def _basis_label(basis):
     }.get(basis, "アブストラクト")
 
 
+def _latest_added(entries):
+    dates = [e.get("added", "") for e in entries if e.get("added", "")]
+    return max(dates) if dates else ""
+
+
 def render_paper_page(tpl_dir, paper, summary):
     sections_html = ""
     for key, heading in SECTIONS:
@@ -85,12 +90,15 @@ def render_paper_page(tpl_dir, paper, summary):
     return render_template(_read(os.path.join(tpl_dir, "paper.html")), ctx)
 
 
-def _list_items(entries, link_basename=False):
+def _list_items(entries, link_basename=False, highlight_added=""):
     rows = ""
     for it in entries:
         href = os.path.basename(it["file"]) if link_basename else it["file"]
+        latest = bool(highlight_added and it.get("added") == highlight_added)
+        klass = ' class="latest"' if latest else ""
+        badge = '<span class="badge-latest">前回更新</span>' if latest else ""
         rows += (
-            f'<li><a href="{_esc(href)}">{_esc(it["title"])}</a>'
+            f"<li{klass}>{badge}<a href=\"{_esc(href)}\">{_esc(it['title'])}</a>"
             f'<div class="meta">{_esc(it.get("date", ""))} ・ {_esc(it.get("tldr", ""))}</div></li>\n'
         )
     return rows
@@ -104,7 +112,7 @@ def render_user_index(tpl_dir, root, uslug, username, useen):
         "username": _esc(username),
         "count": str(len(entries)),
         # 同ディレクトリ内なのでファイル名だけの相対リンク
-        "items": _list_items(entries, link_basename=True),
+        "items": _list_items(entries, link_basename=True, highlight_added=_latest_added(entries)),
         "generated": _today(),
     }
     out = render_template(_read(os.path.join(tpl_dir, "user_index.html")), ctx)
@@ -116,11 +124,16 @@ def render_user_index(tpl_dir, root, uslug, username, useen):
 def render_global_index(tpl_dir, root, subs, seen, slugify):
     cards = ""
     recent = []
+    latest_auto_dates = []
     for sub in subs:
         username = sub.get("username", "")
         uslug = slugify(username, fallback="user")
         display = sub.get("label") or username
         useen = seen.get(uslug, {})
+        if not sub.get("manual"):
+            latest = _latest_added(useen.values())
+            if latest:
+                latest_auto_dates.append(latest)
         kw = ", ".join(sub.get("keywords", []))
         meta = (f"キーワード: {_esc(kw)} ・ {len(useen)}本" if kw else f"{len(useen)}本")
         cards += (
@@ -129,9 +142,10 @@ def render_global_index(tpl_dir, root, subs, seen, slugify):
         )
         recent.extend(useen.values())
     recent.sort(key=lambda v: (v.get("added", ""), v.get("date", "")), reverse=True)
+    latest_auto_added = max(latest_auto_dates) if latest_auto_dates else ""
     ctx = {
         "cards": cards,
-        "recent": _list_items(recent[:30], link_basename=False),
+        "recent": _list_items(recent[:30], link_basename=False, highlight_added=latest_auto_added),
         "generated": _today(),
     }
     out = render_template(_read(os.path.join(tpl_dir, "index.html")), ctx)

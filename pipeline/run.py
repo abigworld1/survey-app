@@ -158,6 +158,7 @@ def main(argv=None):
     ap.add_argument("--stub", action="store_true", help="論文は取得するが要約はスタブ")
     ap.add_argument("--dry-run", action="store_true", help="生成・seen更新を行わない")
     ap.add_argument("--reset", action="store_true", help="既存ページとseenを消してから再生成（本文版へ作り直し）")
+    ap.add_argument("--render-indexes-only", action="store_true", help="取得・要約をせず既存seenから一覧HTMLだけ再生成")
     ap.add_argument("--limit", type=int, default=MAX_PAGES_PER_RUN, help="今回の総生成ページ上限")
     args = ap.parse_args(argv)
 
@@ -166,10 +167,22 @@ def main(argv=None):
         print("subscriptions.yml に購読がありません。")
         return 1
 
+    seen = load_seen(SEEN)
+    if args.render_indexes_only:
+        for sub in subs:
+            user = (sub.get("username") or "").strip()
+            if not user:
+                continue
+            uslug = slugify(user, fallback="user")
+            display = sub.get("label") or user
+            render.render_user_index(TPL, ROOT, uslug, display, seen.get(uslug, {}))
+        render.render_global_index(TPL, ROOT, subs, seen, slugify)
+        print("完了: 一覧HTMLを再生成")
+        return 0
+
     summarizer = Summarizer(stub=args.offline or args.stub)
     print(f"要約エンジン: {summarizer.engine}")
 
-    seen = load_seen(SEEN)
     if args.reset:
         if not args.dry_run:
             for sub in subs:

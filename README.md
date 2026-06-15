@@ -39,6 +39,7 @@ git add -A && git commit -m "update" && git push origin main
 | `--offline` | ネット/LLM 不要。サンプル＋スタブ要約で動作確認 |
 | `--stub` | 論文は実際に取得し、要約だけスタブ |
 | `--dry-run` | 取得・要約はするが、ファイル生成と `seen` 更新をしない |
+| `--render-indexes-only` | 取得・要約をせず、既存の `seen` から一覧HTMLだけ再生成 |
 | `--limit N` | 今回生成する総ページ数の上限 |
 
 ### 2. 読みたい論文を手動で追加（`add_paper`）
