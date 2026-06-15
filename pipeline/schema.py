@@ -18,6 +18,7 @@ class Paper:
     arxiv_id: str = ""
     doi: str = ""
     citations: int = 0  # 被引用数（OpenAlex/Semantic Scholar 由来。重要度の指標）
+    matched_keywords: list = field(default_factory=list)
 
     def key(self):
         """名寄せ用の安定キー。DOI > arXiv ID > 正規化タイトル の優先順。"""

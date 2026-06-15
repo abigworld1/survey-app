@@ -51,6 +51,35 @@ def _entry_sort_key(entry):
     return (entry.get("added_at") or entry.get("added", ""), entry.get("date", ""))
 
 
+def _keyword_tags(keywords):
+    items = [str(k).strip() for k in (keywords or []) if str(k).strip()]
+    if not items:
+        return ""
+    return '<div class="tags">' + "".join(
+        f'<span class="tag">{_esc(k)}</span>' for k in items
+    ) + "</div>"
+
+
+def _matched_entry_keywords(entry, keywords):
+    if entry.get("matched_keywords"):
+        return entry.get("matched_keywords", [])
+    text = f"{entry.get('title', '')} {entry.get('tldr', '')}".lower()
+    out = []
+    for kw in keywords or []:
+        word = str(kw or "").strip()
+        if not word:
+            continue
+        if re.search(r"\b" + re.escape(word.lower()) + r"\b", text):
+            out.append(word)
+    return out
+
+
+def _entry_with_keywords(entry, keywords):
+    item = dict(entry)
+    item["matched_keywords"] = _matched_entry_keywords(item, keywords)
+    return item
+
+
 def render_paper_page(tpl_dir, paper, summary):
     sections_html = ""
     for key, heading in SECTIONS:
@@ -85,6 +114,7 @@ def render_paper_page(tpl_dir, paper, summary):
         "published": _esc(paper.published),
         "source": _esc(paper.source),
         "links": " ・ ".join(links),
+        "keyword_tags": _keyword_tags(getattr(paper, "matched_keywords", [])),
         "sections": sections_html,
         "sections_detail": detail_html,
         "engine": _esc(summary.get("_engine", "")),
@@ -94,27 +124,34 @@ def render_paper_page(tpl_dir, paper, summary):
     return render_template(_read(os.path.join(tpl_dir, "paper.html")), ctx)
 
 
-def _list_items(entries, link_basename=False, highlight_added=""):
+def _list_items(entries, link_basename=False, highlight_added="", keywords=None):
     rows = ""
     for it in entries:
+        tags = _matched_entry_keywords(it, keywords)
         href = os.path.basename(it["file"]) if link_basename else it["file"]
         latest = bool(highlight_added and it.get("added") == highlight_added)
         klass = ' class="latest"' if latest else ""
         badge = '<span class="badge-latest">New</span>' if latest else ""
         rows += (
             f"<li{klass}>{badge}<a href=\"{_esc(href)}\">{_esc(it['title'])}</a>"
+            f"{_keyword_tags(tags)}"
             f'<div class="meta">{_esc(it.get("date", ""))} ・ {_esc(it.get("tldr", ""))}</div></li>\n'
         )
     return rows
 
 
-def render_user_index(tpl_dir, root, uslug, username, useen):
+def render_user_index(tpl_dir, root, uslug, username, useen, keywords=None):
     entries = sorted(useen.values(), key=_entry_sort_key, reverse=True)
     ctx = {
         "username": _esc(username),
         "count": str(len(entries)),
         # 同ディレクトリ内なのでファイル名だけの相対リンク
-        "items": _list_items(entries, link_basename=True, highlight_added=_latest_added(entries)),
+        "items": _list_items(
+            entries,
+            link_basename=True,
+            highlight_added=_latest_added(entries),
+            keywords=keywords,
+        ),
         "generated": _today(),
     }
     out = render_template(_read(os.path.join(tpl_dir, "user_index.html")), ctx)
@@ -142,7 +179,7 @@ def render_global_index(tpl_dir, root, subs, seen, slugify):
             f'<div class="card"><h3><a href="{_esc(uslug)}/index.html">{_esc(display)}</a></h3>'
             f'<div class="meta">{meta}</div></div>\n'
         )
-        recent.extend(useen.values())
+        recent.extend(_entry_with_keywords(v, sub.get("keywords", [])) for v in useen.values())
     recent.sort(key=_entry_sort_key, reverse=True)
     latest_auto_added = max(latest_auto_dates) if latest_auto_dates else ""
     ctx = {

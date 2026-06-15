@@ -83,10 +83,9 @@ def main(argv=None):
         print(f"削除: {info.get('file')}  ({info.get('title', '')[:60]})")
 
     subs = _load_subs()
-    label = next(
-        (s.get("label") for s in subs if slugify(s.get("username", "")) == uslug), None
-    ) or field
-    render.render_user_index(TPL, ROOT, uslug, label, useen)
+    sub = next((s for s in subs if slugify(s.get("username", "")) == uslug), {})
+    label = sub.get("label") or field
+    render.render_user_index(TPL, ROOT, uslug, label, useen, sub.get("keywords", []))
     render.render_global_index(TPL, ROOT, subs, seen, slugify)
     save_seen(SEEN, seen)
     print("公開: git add -A && git commit -m 'remove paper' && git push origin main")

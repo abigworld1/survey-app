@@ -12,6 +12,7 @@
 import argparse
 import datetime
 import os
+import re
 import sys
 
 import yaml
@@ -33,6 +34,20 @@ DEFAULT_FIELD = "reading"
 def _load_subs():
     with open(os.path.join(ROOT, "subscriptions.yml"), encoding="utf-8") as f:
         return (yaml.safe_load(f) or {}).get("subscriptions", [])
+
+
+def _matched_keywords(paper, keywords):
+    title = (paper.title or "").lower()
+    abstract = (paper.abstract or "").lower()
+    out = []
+    for kw in keywords:
+        word = (kw or "").strip()
+        if not word:
+            continue
+        pt = re.compile(r"\b" + re.escape(word.lower()) + r"\b")
+        if pt.search(title) or pt.search(abstract):
+            out.append(word)
+    return out
 
 
 def _from_arxiv(raw):
@@ -98,6 +113,10 @@ def main(argv=None):
     summary = summarizer.summarize(paper, sections=sections, basis=basis)
 
     uslug = slugify(field, fallback="reading")
+    subs = _load_subs()
+    sub = next((s for s in subs if slugify(s.get("username", "")) == uslug), {})
+    matched_keywords = _matched_keywords(paper, sub.get("keywords", []))
+    paper.matched_keywords = matched_keywords
     pid = slugify(args.title or paper.title or paper.paper_id(), fallback="paper")
     rel = f"{uslug}/{pid}.html"
     os.makedirs(os.path.join(ROOT, uslug), exist_ok=True)
@@ -117,14 +136,14 @@ def main(argv=None):
         "tldr": summary.get("tldr", ""),
         "engine": summary.get("_engine", ""),
         "basis": summary.get("_basis", ""),
+        "matched_keywords": matched_keywords,
     }
-    subs = _load_subs()
     if uslug not in {slugify(s.get("username", "")) for s in subs}:
         print(f"  [note] '{uslug}' は subscriptions.yml に無いため、トップ一覧には出ません（ページは生成されます）。")
     label = next(
         (s.get("label") for s in subs if slugify(s.get("username", "")) == uslug), None
     ) or field
-    render.render_user_index(TPL, ROOT, uslug, label, useen)
+    render.render_user_index(TPL, ROOT, uslug, label, useen, sub.get("keywords", []))
     render.render_global_index(TPL, ROOT, subs, seen, slugify)
     save_seen(SEEN, seen)
 

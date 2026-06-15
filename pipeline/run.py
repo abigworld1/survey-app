@@ -57,6 +57,21 @@ def _relevance(paper, patterns):
     )
 
 
+def _matched_keywords(paper, keywords):
+    """タイトルまたはアブストラクトに一致した購読キーワードを返す。"""
+    title = (paper.title or "").lower()
+    abstract = (paper.abstract or "").lower()
+    out = []
+    for kw in keywords:
+        word = (kw or "").strip()
+        if not word:
+            continue
+        pt = re.compile(r"\b" + re.escape(word.lower()) + r"\b")
+        if pt.search(title) or pt.search(abstract):
+            out.append(word)
+    return out
+
+
 def _citations(paper):
     """被引用数。取れないソースは 0 として扱う。"""
     try:
@@ -175,7 +190,9 @@ def main(argv=None):
                 continue
             uslug = slugify(user, fallback="user")
             display = sub.get("label") or user
-            render.render_user_index(TPL, ROOT, uslug, display, seen.get(uslug, {}))
+            render.render_user_index(
+                TPL, ROOT, uslug, display, seen.get(uslug, {}), sub.get("keywords", [])
+            )
         render.render_global_index(TPL, ROOT, subs, seen, slugify)
         print("完了: 一覧HTMLを再生成")
         return 0
@@ -206,7 +223,7 @@ def main(argv=None):
             print(f"\n=== {display} (slug={uslug}) [manual] ===")
             seen.setdefault(uslug, {})
             if not args.dry_run:
-                render.render_user_index(TPL, ROOT, uslug, display, seen[uslug])
+                render.render_user_index(TPL, ROOT, uslug, display, seen[uslug], sub.get("keywords", []))
             continue
         k = max(1, min(int(sub.get("k", 5)), MAX_K))
         print(f"\n=== {display} (slug={uslug}, k={k}) ===")
@@ -218,7 +235,8 @@ def main(argv=None):
         fresh_recent = [p for p in recent_papers if p.key() not in useen]
         fresh_important = [p for p in important_papers if p.key() not in useen]
         fresh_all = [p for p in papers if p.key() not in useen]
-        kw_pats = _keyword_patterns(sub.get("keywords", []))
+        keywords = sub.get("keywords", [])
+        kw_pats = _keyword_patterns(keywords)
         important_quota = _important_quota(k)
         recent_quota = k - important_quota
         used = set()
@@ -266,6 +284,8 @@ def main(argv=None):
             if not fsections and not _has_abstract(p):
                 print("      [skip] 本文もアブストラクトも取得できないため生成しません")
                 continue
+            matched_keywords = _matched_keywords(p, keywords)
+            p.matched_keywords = matched_keywords
             summary = summarizer.summarize(p, sections=fsections, basis=basis)
             if not args.dry_run:
                 os.makedirs(os.path.join(ROOT, uslug), exist_ok=True)
@@ -279,6 +299,7 @@ def main(argv=None):
                 "tldr": summary.get("tldr", ""),
                 "engine": summary.get("_engine", ""),
                 "basis": summary.get("_basis", ""),
+                "matched_keywords": matched_keywords,
             }
             produced += 1
             produced_for_sub += 1
@@ -287,7 +308,7 @@ def main(argv=None):
             print(f"  [warn] 生成可能な候補が不足: {produced_for_sub}/{k} ページ")
 
         if not args.dry_run:
-            render.render_user_index(TPL, ROOT, uslug, display, useen)
+            render.render_user_index(TPL, ROOT, uslug, display, useen, keywords)
 
     if not args.dry_run:
         render.render_global_index(TPL, ROOT, subs, seen, slugify)
