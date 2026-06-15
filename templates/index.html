@@ -32,9 +32,13 @@
   .badge-latest { display:inline-block; color:#121212; background:#d9b65f;
                   border-radius:999px; font-size:11px; font-weight:700;
                   line-height:1; padding:4px 7px; margin-right:8px; vertical-align:1px; }
-  .list-toolbar { display:flex; justify-content:flex-end; margin:-4px 0 10px; }
-  .list-toolbar select { background:#1a1a1a; color:#e8e8e8; border:1px solid #3a3a3a;
-                         border-radius:6px; padding:6px 9px; font:inherit; font-size:12.5px; }
+  .list-toolbar { display:flex; justify-content:space-between; gap:10px; margin:-4px 0 10px; }
+  .list-toolbar input, .list-toolbar select { background:#1a1a1a; color:#e8e8e8;
+                         border:1px solid #3a3a3a; border-radius:6px; padding:6px 9px;
+                         font:inherit; font-size:12.5px; }
+  .list-toolbar input { flex:1 1 260px; min-width:0; }
+  .list-empty { display:none; color:#9a9a9a; font-size:13px; padding:12px 0; }
+  .list-empty.show { display:block; }
   footer { margin-top:44px; color:#888; font-size:12px; }
   mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
 </style>
@@ -56,6 +60,7 @@
 
   <h2>最近の要約</h2>
   <div class="list-toolbar">
+    <input type="search" data-search-control data-target="#paper-list" placeholder="検索" aria-label="検索">
     <select data-sort-control data-target="#paper-list" aria-label="並び替え">
       <option value="added-desc">追加順（新しい順）</option>
       <option value="published-desc">公開日（新しい順）</option>
@@ -63,6 +68,7 @@
       <option value="title-asc">タイトル順</option>
     </select>
   </div>
+  <div class="list-empty" data-empty-for="#paper-list">一致する論文はありません。</div>
   <ul id="paper-list" data-sort-list>{{recent}}</ul>
 
   <footer>
@@ -92,10 +98,27 @@
     items.forEach(function (item) { list.appendChild(item); });
     if (window.MathJax && window.MathJax.typesetPromise) window.MathJax.typesetPromise([list]);
   }
+  function filterList(input) {
+    var list = document.querySelector(input.dataset.target);
+    if (!list) return;
+    var query = input.value.trim().toLowerCase();
+    var visible = 0;
+    list.querySelectorAll('li').forEach(function (item) {
+      var match = !query || (item.dataset.search || '').indexOf(query) !== -1;
+      item.hidden = !match;
+      if (match) visible += 1;
+    });
+    var empty = document.querySelector('[data-empty-for="' + input.dataset.target + '"]');
+    if (empty) empty.classList.toggle('show', visible === 0);
+  }
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('[data-sort-control]').forEach(function (select) {
       select.addEventListener('change', function () { sortList(select); });
       sortList(select);
+    });
+    document.querySelectorAll('[data-search-control]').forEach(function (input) {
+      input.addEventListener('input', function () { filterList(input); });
+      filterList(input);
     });
   });
 }());

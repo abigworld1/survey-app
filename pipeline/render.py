@@ -134,10 +134,19 @@ def _list_items(entries, link_basename=False, highlight_added="", keywords=None)
         badge = '<span class="badge-latest">New</span>' if latest else ""
         added_sort = "|".join(_entry_sort_key(it))
         title_sort = (it.get("title") or "").lower()
+        search_text = " ".join(
+            [
+                it.get("title", ""),
+                it.get("date", ""),
+                it.get("tldr", ""),
+                " ".join(tags),
+            ]
+        ).lower()
         rows += (
             f'<li{klass} data-added="{_esc(added_sort)}" '
             f'data-published="{_esc(it.get("date", ""))}" '
-            f'data-title="{_esc(title_sort)}" data-original="{idx}">'
+            f'data-title="{_esc(title_sort)}" data-search="{_esc(search_text)}" '
+            f'data-original="{idx}">'
             f'{badge}<a href="{_esc(href)}">{_esc(it["title"])}</a>'
             f"{_keyword_tags(tags)}"
             f'<div class="meta">{_esc(it.get("date", ""))} ・ {_esc(it.get("tldr", ""))}</div></li>\n'
