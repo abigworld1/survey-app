@@ -16,7 +16,7 @@ subscriptions:
       - "Task Formation"
       - "Task Allocation and Path Planning"
       - "Warehouse Robotics"
-    k: 3
+    k: 2
     sources: [arxiv, semanticscholar, openalex]
 
   - username: doc-structure-rag
@@ -28,11 +28,10 @@ subscriptions:
       - "Retrieval-Augmented Generation"
       - "RAG"
       - "Evidence Retrieval"
-    k: 3
+    k: 2
     sources: [arxiv, semanticscholar, openalex]
 
   # 手動追加用（日次cronは触らない）。任意のPDF/URL/arXiv IDを add_paper で追加する。
   - username: reading
     label: 個別に読んだ論文
     manual: true
-
