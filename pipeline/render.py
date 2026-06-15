@@ -42,6 +42,26 @@ def _basis_label(basis):
     }.get(basis, "アブストラクト")
 
 
+def _selection_label(kind, fallback=""):
+    return {
+        "important": "重要論文",
+        "recent": "新着論文",
+        "fallback": "補充候補",
+        "manual": "手動追加",
+    }.get(kind or "", fallback or "")
+
+
+def _basis_quality(basis):
+    return "fulltext" if str(basis or "").startswith("fulltext") else "abstract"
+
+
+def _as_int(v, default=0):
+    try:
+        return int(v)
+    except (TypeError, ValueError):
+        return default
+
+
 def _latest_added(entries):
     dates = [e.get("added", "") for e in entries if e.get("added", "")]
     return max(dates) if dates else ""
@@ -58,6 +78,93 @@ def _keyword_tags(keywords):
     return '<div class="tags">' + "".join(
         f'<span class="tag">{_esc(k)}</span>' for k in items
     ) + "</div>"
+
+
+def _chip(text, klass=""):
+    cls = f' class="chip {klass}"' if klass else ' class="chip"'
+    return f"<span{cls}>{_esc(text)}</span>"
+
+
+def _class_token(s):
+    return re.sub(r"[^a-z0-9_-]+", "-", str(s or "").lower()).strip("-")
+
+
+def _reading_value_label(value):
+    score = _as_int(value, 0)
+    return f"読む価値 {score}/5" if score else ""
+
+
+def _entry_reason_chips(entry):
+    chips = []
+    selection = _selection_label(entry.get("selection"), entry.get("selection_label", ""))
+    if selection:
+        chips.append(_chip(selection, f"selection-{_class_token(entry.get('selection', ''))}"))
+    if entry.get("citations") is not None:
+        chips.append(_chip(f"被引用 {_as_int(entry.get('citations'))}"))
+    if entry.get("relevance") is not None:
+        chips.append(_chip(f"関連度 {_as_int(entry.get('relevance'))}"))
+    basis = entry.get("basis", "")
+    if basis:
+        quality = _basis_quality(basis)
+        chips.append(_chip(_basis_label(basis), f"basis-{quality}"))
+    rv = _reading_value_label(entry.get("reading_value"))
+    if rv:
+        chips.append(_chip(rv, "reading-value"))
+    if not chips:
+        return ""
+    return '<div class="reason-chips">' + "".join(chips) + "</div>"
+
+
+def _paper_facts(paper, summary):
+    chips = []
+    selection = getattr(paper, "selection_label", "") or _selection_label(
+        getattr(paper, "selection_type", "")
+    )
+    if selection:
+        chips.append(_chip(selection, f"selection-{_class_token(getattr(paper, 'selection_type', ''))}"))
+    chips.append(_chip(f"公開日 {paper.published or '-'}"))
+    chips.append(_chip(f"被引用 {_as_int(getattr(paper, 'citations', 0))}"))
+    relevance = getattr(paper, "relevance_score", None)
+    if relevance is not None:
+        chips.append(_chip(f"関連度 {_as_int(relevance)}"))
+    basis = summary.get("_basis", "")
+    chips.append(_chip(_basis_label(basis), f"basis-{_basis_quality(basis)}"))
+    rv = _reading_value_label(summary.get("_reading_value"))
+    if rv:
+        chips.append(_chip(rv, "reading-value"))
+    reason = (summary.get("_reading_value_reason") or "").strip()
+    reason_html = f'<div class="rating-reason">{_esc(reason)}</div>' if reason else ""
+    return '<div class="paper-facts">' + "".join(chips) + reason_html + "</div>"
+
+
+def _source_notice(summary):
+    basis = summary.get("_basis", "")
+    if _basis_quality(basis) == "fulltext":
+        return (
+            '<div class="source-notice fulltext">'
+            f"本文取得済み: {_basis_label(basis)}を根拠に要約しています。"
+            "</div>"
+        )
+    return (
+        '<div class="source-notice abstract">'
+        "本文未取得: アブストラクトのみを根拠にしています。詳細確認には原典を参照してください。"
+        "</div>"
+    )
+
+
+def _latest_report_link(root):
+    run_dir = os.path.join(root, "data", "runs")
+    try:
+        names = sorted(
+            n for n in os.listdir(run_dir)
+            if re.match(r"\d{4}-\d{2}-\d{2}\.html$", n)
+        )
+    except OSError:
+        return ""
+    if not names:
+        return ""
+    href = "data/runs/" + names[-1]
+    return f'<div class="report-link"><a href="{_esc(href)}">最新実行レポート</a></div>'
 
 
 def _matched_entry_keywords(entry, keywords):
@@ -137,6 +244,8 @@ def render_paper_page(tpl_dir, paper, summary):
         "source": _esc(paper.source),
         "links": " ・ ".join(links),
         "keyword_tags": _keyword_tags(getattr(paper, "matched_keywords", [])),
+        "paper_facts": _paper_facts(paper, summary),
+        "source_notice": _source_notice(summary),
         "sections": sections_html,
         "sections_detail": detail_html,
         "engine": _esc(summary.get("_engine", "")),
@@ -158,24 +267,37 @@ def _list_items(entries, link_basename=False, highlight_added="", keywords=None,
         added_sort = "|".join(_entry_sort_key(it))
         title_sort = (it.get("title") or "").lower()
         author_html = f'<div class="authors">{_esc(authors)}</div>' if authors else ""
+        reason_html = _entry_reason_chips(it)
+        item_id = it.get("file", href)
+        reading_value = _as_int(it.get("reading_value"), 0)
         search_text = " ".join(
             [
                 it.get("title", ""),
                 authors,
                 it.get("date", ""),
                 it.get("tldr", ""),
+                it.get("selection_label", ""),
+                _selection_label(it.get("selection")),
                 " ".join(tags),
             ]
         ).lower()
         rows += (
             f'<li{klass} data-added="{_esc(added_sort)}" '
             f'data-published="{_esc(it.get("date", ""))}" '
+            f'data-value="{reading_value}" data-item-id="{_esc(item_id)}" '
             f'data-title="{_esc(title_sort)}" data-search="{_esc(search_text)}" '
             f'data-original="{idx}">'
             f'{badge}<a href="{_esc(href)}">{_esc(it["title"])}</a>'
             f"{author_html}"
+            f"{reason_html}"
             f"{_keyword_tags(tags)}"
-            f'<div class="meta">{_esc(it.get("date", ""))} ・ {_esc(it.get("tldr", ""))}</div></li>\n'
+            f'<div class="meta">{_esc(it.get("date", ""))} ・ {_esc(it.get("tldr", ""))}</div>'
+            '<div class="paper-actions" aria-label="論文操作">'
+            '<button type="button" data-state-button="read">既読</button>'
+            '<button type="button" data-state-button="want">あとで</button>'
+            '<button type="button" data-state-button="favorite">★</button>'
+            '<button type="button" data-state-button="hidden">非表示</button>'
+            '</div></li>\n'
         )
     return rows
 
@@ -231,6 +353,7 @@ def render_global_index(tpl_dir, root, subs, seen, slugify):
             highlight_added=latest_auto_added,
             root=root,
         ),
+        "report_link": _latest_report_link(root),
         "generated": _today(),
     }
     out = render_template(_read(os.path.join(tpl_dir, "index.html")), ctx)

@@ -76,6 +76,18 @@ _MARK_RE = re.compile(
     r"(?im)^[ \t]*@@[ \t]*(tldr|what|contribution|method|validation|discussion)[ \t]*@@[ \t]*$"
 )
 
+READING_VALUE_SYSTEM = (
+    "あなたは計算機科学の研究者が読む論文を選別するアシスタントです。\n"
+    + _INJECTION_NOTE + "\n"
+    "与えられた論文メタデータと日本語要約だけを根拠に、この分野の研究者が読む価値を1〜5で評価してください。"
+    "5は必読級、4は優先して読む、3は関連があれば読む、2は必要時のみ、1は読む優先度が低い、です。"
+    "新規性、実験の具体性、被引用数、本文要約の充実度、分野キーワードとの近さを考慮してください。"
+    "出力は必ず次の形式にしてください。\n@@SCORE@@\n1〜5の整数\n@@REASON@@\n30〜80字の日本語理由"
+)
+
+_SCORE_RE = re.compile(r"@@SCORE@@\s*([1-5])", re.I)
+_REASON_RE = re.compile(r"@@REASON@@\s*(.+)", re.I | re.S)
+
 
 def _parse_marked(text):
     """@@KEY@@ 区切りのテキストを dict に。1つも取れなければ ValueError。"""
@@ -86,6 +98,35 @@ def _parse_marked(text):
     if not out:
         raise ValueError("no @@KEY@@ markers in output")
     return out
+
+
+def _summary_blob(summary):
+    parts = []
+    for key in _KEYS:
+        val = (summary.get(key) or "").strip()
+        if val:
+            parts.append(f"{key}: {val}")
+    for sec in summary.get("sections") or []:
+        val = (sec.get("summary") or "").strip()
+        if val:
+            parts.append(f"{sec.get('heading', '')}: {val}")
+    return "\n".join(parts)
+
+
+def _parse_rating(text):
+    m = _SCORE_RE.search(text or "")
+    if m:
+        score = int(m.group(1))
+    else:
+        m = re.search(r"\b([1-5])\b", text or "")
+        score = int(m.group(1)) if m else 3
+    reason = ""
+    m = _REASON_RE.search(text or "")
+    if m:
+        reason = m.group(1).strip().splitlines()[0].strip()
+    if not reason:
+        reason = "要約内容とメタデータに基づく暫定評価。"
+    return max(1, min(5, score)), reason[:120]
 
 
 class Summarizer:
@@ -147,6 +188,49 @@ class Summarizer:
             except Exception as e:
                 print(f"  [warn] 多段要約に失敗、abstract単発にフォールバック: {e!r}")
         return self._summarize_abstract(paper, "abstract")
+
+    def rate_reading_value(self, paper, summary, basis):
+        """要約後に、この分野の研究者が読む価値を1〜5で評価する。"""
+        if self.stub:
+            score, reason = self._heuristic_reading_value(paper, summary, basis)
+            return {"_reading_value": score, "_reading_value_reason": reason}
+        try:
+            content = self._chat(
+                READING_VALUE_SYSTEM,
+                "論文メタデータ:\n"
+                f"Title: {paper.title}\n"
+                f"Authors: {', '.join(paper.authors[:8])}\n"
+                f"Venue/Source: {paper.venue or paper.source}\n"
+                f"Date: {paper.published}\n"
+                f"Citations: {paper.citations}\n"
+                f"Basis: {basis}\n"
+                f"Matched keywords: {', '.join(getattr(paper, 'matched_keywords', []) or [])}\n\n"
+                f"日本語要約:\n{_summary_blob(summary)[:5000]}",
+                max_tokens=220,
+            )
+            score, reason = _parse_rating(content)
+        except Exception as e:
+            print(f"      [warn] 読む価値評価に失敗、ヒューリスティックで補完: {e!r}")
+            score, reason = self._heuristic_reading_value(paper, summary, basis)
+        return {"_reading_value": score, "_reading_value_reason": reason}
+
+    def _heuristic_reading_value(self, paper, summary, basis):
+        score = 2
+        try:
+            citations = int(paper.citations or 0)
+        except (TypeError, ValueError):
+            citations = 0
+        if citations >= 100:
+            score += 2
+        elif citations >= 20:
+            score += 1
+        if str(basis or "").startswith("fulltext"):
+            score += 1
+        if len(_summary_blob(summary)) >= 900:
+            score += 1
+        score = max(1, min(5, score))
+        reason = "被引用数、本文取得状況、要約量から推定した暫定評価。"
+        return score, reason
 
     def _summarize_multi(self, paper, sections, basis):
         sec_sums = []

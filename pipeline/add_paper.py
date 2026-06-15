@@ -50,6 +50,10 @@ def _matched_keywords(paper, keywords):
     return out
 
 
+def _source_quality(basis):
+    return "fulltext" if str(basis or "").startswith("fulltext") else "abstract"
+
+
 def _from_arxiv(raw):
     aid = raw.rsplit("/abs/", 1)[-1].replace("arxiv:", "").replace("arXiv:", "").strip()
     paper = arxiv_src.fetch_meta(aid) or Paper(source="arxiv", title=aid, arxiv_id=aid)
@@ -117,6 +121,13 @@ def main(argv=None):
     sub = next((s for s in subs if slugify(s.get("username", "")) == uslug), {})
     matched_keywords = _matched_keywords(paper, sub.get("keywords", []))
     paper.matched_keywords = matched_keywords
+    summary.update(summarizer.rate_reading_value(paper, summary, basis))
+    paper.selection_type = "manual"
+    paper.selection_label = "手動追加"
+    paper.relevance_score = len(matched_keywords)
+    paper.source_quality = _source_quality(summary.get("_basis", basis))
+    paper.reading_value = summary.get("_reading_value", "")
+    paper.reading_value_reason = summary.get("_reading_value_reason", "")
     pid = slugify(args.title or paper.title or paper.paper_id(), fallback="paper")
     rel = f"{uslug}/{pid}.html"
     os.makedirs(os.path.join(ROOT, uslug), exist_ok=True)
@@ -138,6 +149,13 @@ def main(argv=None):
         "engine": summary.get("_engine", ""),
         "basis": summary.get("_basis", ""),
         "matched_keywords": matched_keywords,
+        "selection": "manual",
+        "selection_label": "手動追加",
+        "citations": paper.citations,
+        "relevance": len(matched_keywords),
+        "source_quality": _source_quality(summary.get("_basis", basis)),
+        "reading_value": summary.get("_reading_value", ""),
+        "reading_value_reason": summary.get("_reading_value_reason", ""),
     }
     if uslug not in {slugify(s.get("username", "")) for s in subs}:
         print(f"  [note] '{uslug}' は subscriptions.yml に無いため、トップ一覧には出ません（ページは生成されます）。")

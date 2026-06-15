@@ -22,6 +22,13 @@
   li a { color:#7cc6ff; text-decoration:none; font-size:1.02rem; }
   .authors { color:#b0b0b0; font-size:12.5px; margin-top:3px; }
   .meta { color:#9a9a9a; font-size:12.5px; margin-top:4px; }
+  .reason-chips { display:flex; flex-wrap:wrap; gap:5px; margin:6px 0 0; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:1px 7px; font-size:11px; line-height:1.45; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
   .tags { display:flex; flex-wrap:wrap; gap:5px; margin:5px 0 0; }
   .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
          border-radius:999px; padding:1px 7px; font-size:11px; line-height:1.45; }
@@ -33,8 +40,16 @@
                          border:1px solid #3a3a3a; border-radius:6px; padding:6px 9px;
                          font:inherit; font-size:12.5px; }
   .list-toolbar input { flex:1 1 260px; min-width:0; }
+  .list-toolbar label { color:#b8b8b8; font-size:12.5px; display:flex; align-items:center; gap:5px; white-space:nowrap; }
   .list-empty { display:none; color:#9a9a9a; font-size:13px; padding:12px 0; }
   .list-empty.show { display:block; }
+  .paper-actions { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .paper-actions button { background:#1a1a1a; color:#cfd8dc; border:1px solid #3a3a3a;
+                          border-radius:6px; padding:3px 7px; font:inherit; font-size:11.5px; cursor:pointer; }
+  .paper-actions button.active { background:#263238; border-color:#7ec699; color:#a7dfb8; }
+  li.state-read > a { color:#9bb4c8; }
+  li.state-read .meta { color:#777; }
+  li.user-hidden { opacity:0.45; }
   footer { margin-top:40px; color:#888; font-size:12px; }
   mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
 </style>
@@ -57,8 +72,10 @@
       <option value="added-desc">追加順（新しい順）</option>
       <option value="published-desc">公開日（新しい順）</option>
       <option value="published-asc">公開日（古い順）</option>
+      <option value="reading-value-desc">読む価値順</option>
       <option value="title-asc">タイトル順</option>
     </select>
+    <label><input type="checkbox" data-show-hidden-control data-target="#paper-list">非表示も表示</label>
   </div>
   <div class="list-empty" data-empty-for="#paper-list">一致する論文はありません。</div>
   <ul id="paper-list" data-sort-list></ul>
@@ -66,6 +83,34 @@
 </div>
 <script>
 (function () {
+  var STORAGE_KEY = 'paperSurveyStates';
+  function loadStates() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+    catch (e) { return {}; }
+  }
+  function saveStates(states) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(states));
+  }
+  function itemKey(item) {
+    return item.dataset.itemId || item.querySelector('a').getAttribute('href');
+  }
+  function applyState(item, state) {
+    state = state || {};
+    item.classList.toggle('state-read', !!state.read);
+    item.classList.toggle('state-want', !!state.want);
+    item.classList.toggle('state-favorite', !!state.favorite);
+    item.classList.toggle('user-hidden', !!state.hidden);
+    item.dataset.userHidden = state.hidden ? 'true' : 'false';
+    item.querySelectorAll('[data-state-button]').forEach(function (button) {
+      button.classList.toggle('active', !!state[button.dataset.stateButton]);
+    });
+  }
+  function applyAllStates(list) {
+    var states = loadStates();
+    list.querySelectorAll('li').forEach(function (item) {
+      applyState(item, states[itemKey(item)]);
+    });
+  }
   function compareText(a, b, direction) {
     var result = a.localeCompare(b, 'ja');
     return direction === 'asc' ? result : -result;
@@ -79,6 +124,7 @@
       var result = 0;
       if (mode === 'published-desc') result = compareText(a.dataset.published || '', b.dataset.published || '', 'desc');
       else if (mode === 'published-asc') result = compareText(a.dataset.published || '', b.dataset.published || '', 'asc');
+      else if (mode === 'reading-value-desc') result = Number(b.dataset.value || 0) - Number(a.dataset.value || 0);
       else if (mode === 'title-asc') result = compareText(a.dataset.title || '', b.dataset.title || '', 'asc');
       else result = compareText(a.dataset.added || '', b.dataset.added || '', 'desc');
       return result || (Number(a.dataset.original || 0) - Number(b.dataset.original || 0));
@@ -90,16 +136,38 @@
     var list = document.querySelector(input.dataset.target);
     if (!list) return;
     var query = input.value.trim().toLowerCase();
+    var showHidden = !!document.querySelector('[data-show-hidden-control][data-target="' + input.dataset.target + '"]:checked');
     var visible = 0;
     list.querySelectorAll('li').forEach(function (item) {
       var match = !query || (item.dataset.search || '').indexOf(query) !== -1;
-      item.hidden = !match;
-      if (match) visible += 1;
+      var hiddenByUser = item.dataset.userHidden === 'true';
+      var show = match && (!hiddenByUser || showHidden);
+      item.hidden = !show;
+      if (show) visible += 1;
     });
     var empty = document.querySelector('[data-empty-for="' + input.dataset.target + '"]');
     if (empty) empty.classList.toggle('show', visible === 0);
   }
   document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-sort-list]').forEach(function (list) {
+      applyAllStates(list);
+      list.querySelectorAll('[data-state-button]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          var item = button.closest('li');
+          var states = loadStates();
+          var key = itemKey(item);
+          var state = states[key] || {};
+          var name = button.dataset.stateButton;
+          state[name] = !state[name];
+          states[key] = state;
+          saveStates(states);
+          applyState(item, state);
+          document.querySelectorAll('[data-search-control][data-target="#' + list.id + '"]').forEach(function (input) {
+            filterList(input);
+          });
+        });
+      });
+    });
     document.querySelectorAll('[data-sort-control]').forEach(function (select) {
       select.addEventListener('change', function () { sortList(select); });
       sortList(select);
@@ -107,6 +175,13 @@
     document.querySelectorAll('[data-search-control]').forEach(function (input) {
       input.addEventListener('input', function () { filterList(input); });
       filterList(input);
+    });
+    document.querySelectorAll('[data-show-hidden-control]').forEach(function (control) {
+      control.addEventListener('change', function () {
+        document.querySelectorAll('[data-search-control][data-target="' + control.dataset.target + '"]').forEach(function (input) {
+          filterList(input);
+        });
+      });
     });
   });
 }());

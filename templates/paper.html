@@ -16,6 +16,17 @@
   h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
   .meta { color:#9a9a9a; font-size:13px; }
   .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
   .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
   .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
          border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
@@ -48,6 +59,8 @@
   <h1>{{title}}</h1>
   <div class="meta">{{authors}}<br>{{venue}} ・ {{published}} ・ source: {{source}}</div>
   <div class="links">{{links}}</div>
+  {{paper_facts}}
+  {{source_notice}}
   {{keyword_tags}}
   <div class="tldr"><strong>一言で:</strong> {{tldr}}</div>
   {{sections}}
