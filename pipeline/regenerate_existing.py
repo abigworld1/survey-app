@@ -10,6 +10,8 @@ import datetime
 import os
 import re
 import sys
+import time
+import urllib.error
 import urllib.parse
 
 import yaml
@@ -122,6 +124,82 @@ def _from_openalex(item):
     )
 
 
+def _read_existing_html(info):
+    rel = info.get("file", "")
+    if not rel:
+        return ""
+    root_abs = os.path.abspath(ROOT)
+    path = os.path.abspath(os.path.join(root_abs, rel))
+    if not (path == root_abs or path.startswith(root_abs + os.sep)):
+        return ""
+    try:
+        with open(path, encoding="utf-8") as f:
+            return f.read()
+    except OSError:
+        return ""
+
+
+def _strip_tags(value):
+    value = re.sub(r"<[^>]+>", "", value or "")
+    return value.strip()
+
+
+def _existing_paper(info):
+    text = _read_existing_html(info)
+    links = re.findall(r'<a href="([^"]+)"', text)
+    pdf_url = next((u for u in links if ".pdf" in u or "/pdf/" in u), "")
+    url = next((u for u in links if u != pdf_url), "")
+    doi_m = re.search(r"https?://doi\.org/([^\"<]+)", text)
+    doi = doi_m.group(1).strip() if doi_m else ""
+    arxiv_m = re.search(r"arxiv\.org/(?:abs|pdf)/([0-9][0-9.]+)(?:v\d+)?", text, re.I)
+    arxiv_id = arxiv_m.group(1) if arxiv_m else ""
+    if arxiv_id:
+        paper = arxiv_src.fetch_meta(arxiv_id)
+        if paper:
+            paper.pdf_url = paper.pdf_url or pdf_url or f"https://arxiv.org/pdf/{arxiv_id}"
+            return paper
+    meta = re.search(r'<div class="meta">(.*?)</div>', text, re.S)
+    authors = []
+    venue = ""
+    source = "existing"
+    if meta:
+        parts = meta.group(1).split("<br>", 1)
+        authors = [a.strip() for a in _strip_tags(parts[0]).split(",") if a.strip()]
+        if len(parts) > 1:
+            rest = _strip_tags(parts[1])
+            m = re.match(r"(.+?) ・ ([^・]+) ・ source: (.+)$", rest)
+            if m:
+                venue, _, source = (x.strip() for x in m.groups())
+    return Paper(
+        source=source,
+        title=info.get("title", ""),
+        authors=authors,
+        published=info.get("date", ""),
+        venue=venue,
+        url=url,
+        pdf_url=pdf_url,
+        doi=doi,
+        arxiv_id=arxiv_id,
+    )
+
+
+def _retry_fetch(fetch, value, label):
+    last = None
+    for attempt in range(4):
+        try:
+            return fetch(value)
+        except urllib.error.HTTPError as e:
+            last = e
+            if e.code not in {429, 500, 502, 503, 504} or attempt >= 3:
+                raise
+            wait = 5 * (attempt + 1)
+            print(f"      [retry] {label}: HTTP {e.code}、{wait}秒待機")
+            time.sleep(wait)
+        except Exception:
+            raise
+    raise last
+
+
 def _fetch_s2_by_doi(doi):
     q = urllib.parse.quote("DOI:" + doi, safe="")
     data = http_get(
@@ -180,7 +258,7 @@ def _resolve_paper(key, info):
         doi = key.split(":", 1)[1]
         for fetch in (_fetch_s2_by_doi, _fetch_openalex_by_doi):
             try:
-                paper = fetch(doi)
+                paper = _retry_fetch(fetch, doi, f"DOI {fetch.__name__}")
             except Exception as e:
                 print(f"      [warn] DOI取得失敗 {fetch.__name__}: {e!r}")
                 paper = None
@@ -189,12 +267,16 @@ def _resolve_paper(key, info):
     title = info.get("title") or key.removeprefix("title:")
     for fetch in (_search_s2_by_title, _search_openalex_by_title):
         try:
-            paper = fetch(title)
+            paper = _retry_fetch(fetch, title, f"タイトル検索 {fetch.__name__}")
         except Exception as e:
             print(f"      [warn] タイトル検索失敗 {fetch.__name__}: {e!r}")
             paper = None
         if paper:
             return paper
+    fallback = _existing_paper(info)
+    if fallback and (fallback.pdf_url or fallback.url or fallback.doi or fallback.arxiv_id):
+        print("      [note] 既存HTMLのリンクから再取得します")
+        return fallback
     return None
 
 
