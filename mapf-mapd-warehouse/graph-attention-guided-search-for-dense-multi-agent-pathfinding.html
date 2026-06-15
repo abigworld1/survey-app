@@ -59,9 +59,9 @@
   <h1>Graph Attention-Guided Search for Dense Multi-Agent Pathfinding</h1>
   <div class="meta">Rishabh Jain, Keisuke Okumura, Michael Amir, Amanda Prorok<br>arxiv ・ 2025-10-20 ・ source: arxiv</div>
   <div class="links"><a href="http://arxiv.org/abs/2510.17382v1" target="_blank" rel="noopener">原典</a></div>
-  <div class="paper-facts"><span class="chip">公開日 2025-10-20</span><span class="chip">被引用 0</span><span class="chip basis-fulltext">本文(arXiv)</span></div>
+  <div class="paper-facts"><span class="chip">公開日 2025-10-20</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip basis-fulltext">本文(arXiv)</span></div>
   <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
-
+<div class="tags"><span class="tag">MAPF</span></div>
   <div class="tldr"><strong>一言で:</strong> 高密度なマルチエージェント経路探索（MAPF）において、グラフアテンションを用いたニューラル方策MAGAT+を最先端の探索アルゴリズムLaCAMに統合したハイブリッドフレームワーク「LaGAT」を提案する。事前学習とマップ特化型のファインチューニング、およびデッドロック検出メカニズムを組み合わせることで、従来の探索ベースの手法や学習ベースの手法の双方を上回る解の質を実現している。</div>
 <section class="qa"><h2>どんなもの？</h2><p>本研究は、高密度な環境下でのマルチエージェント経路探索（MAPF）における、探索アルゴリズムと学習ベースの方策の統合問題を扱う。MAPFは、4連結グリッドグラフ上のエージェント集合 $\mathcal{A}$ が、衝突を回避しながら各々の目標地点 $g_a$ へ到達する問題であり、解の質は移動時間の総和である sum-of-costs (SoC) で評価される。既存の学習ベース手法はスケーラビリティや解の質において LaCAM 等の探索手法に劣り、逆に探索手法は高密度な環境での調整に課題があった。本研究は、軽量なニューラルヒューリスティックを探索のガイドとして用いることで、このパレート境界を打破することを目指している。</p></section>
 <section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、グラフアテンション機構を用いた改良型ニューラル方策 MAGAT+ を提案し、エージェント間の複雑な相互作用をモデリング可能にした。第二に、$\text{lacam}^3$ による専門家デモンストレーションを用いた事前学習と、ターゲットマップへのファインチューニングを組み合わせた学習戦略を導入した。第三に、ニューラルポリシーの不正確さに起因するデッドロックを回避するため、過去 $k$ ステップの状態履歴に基づく独自のデッドロック検出および PIBT へのフォールバック機構を開発した。これにより、高密度シナリオにおいて LaCAM の完全性を維持しつつ、解の質を大幅に向上させることに成功した。</p></section>

@@ -59,9 +59,9 @@
   <h1>X-MADAM-RAG: Diagnosing and Handling Chinese-English Evidence Conflict in Retrieval-Augmented Generation</h1>
   <div class="meta">Yongqi Kang, Yu Fu, Yong Zhao<br>arxiv ・ 2026-06-11 ・ source: arxiv</div>
   <div class="links"><a href="http://arxiv.org/abs/2606.12903v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.12903v1" target="_blank" rel="noopener">PDF</a></div>
-  <div class="paper-facts"><span class="chip">公開日 2026-06-11</span><span class="chip">被引用 0</span><span class="chip basis-fulltext">本文(arXiv)</span></div>
+  <div class="paper-facts"><span class="chip">公開日 2026-06-11</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip basis-fulltext">本文(arXiv)</span></div>
   <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
-
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
   <div class="tldr"><strong>一言で:</strong> 多言語RAGにおける中国語と英語の証拠衝突を診断するためのベンチマーク $X\text{-RAMDocs-ZHEN}$ と、解釈可能なパイプライン $X\text{-MADAM-RAG}$ を提案する。実験の結果、提案手法は制御された条件下で高い精度を達成するが、回答テンプレートを排除した自然言語ストレス・テストでは性能が大幅に低下し、文書レベルの抽出プロセスが主要なボトルネックであることが明らかになった。</div>
 <section class="qa"><h2>どんなもの？</h2><p>本研究は、多言語RAGにおいて中国語と英語の検索結果が互いに矛盾する「証拠の衝突（evidence conflict）」が発生した際の、モデルの振る舞いと対処法を調査している。既存のFaithEvalやRAGCheckerといった意味論的な忠実度評価とは異なり、中英間の証拠が「一致（agree）」「不一致（disagree）」「参照言語の逆転（reverse）」のいずれかになるよう制御された設定を用いる。評価対象として、RAMDocsから派生した300の事例と534の証拠ドキュメント（中英各50%）からなる $X\text{-RAMDocs-ZHEN}$ ベンチマークを構築した。このベンチマークは、エンティティ、日付、数値の不一致を網羅しており、情報漏洩を防ぐために正解や条件ラベルを隠蔽した設計となっている。</p></section>
 <section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一の貢献は、中英間の証拠衝突を精密に診断するために設計された、制御されたリーク防止型ベンチマーク $X\text{-RAMDocs-ZHEN}$ の提案である。第二に、文書ごとの抽出、証拠の修復、決定論的なグルーピング、衝突を考慮した集約からなる解釈可能なパイプライン $X\text{-MADAM-RAG}$ を提案した。実験を通じて、既存のシングルコール・ベースラインを上回る性能を示す一方で、回答の定型句に依存する脆弱性を特定した。これにより、多言語RAGにおけるハルシネーションの主要な原因が、集約段階ではなく文書レベルの抽出段階にあることを示した。</p></section>

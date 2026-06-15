@@ -59,9 +59,9 @@
   <h1>LAD-RAG: Layout-aware Dynamic RAG for Visually-Rich Document Understanding</h1>
   <div class="meta">Zhivar Sourati, Zheng Wang, Marianne Menglin Liu, Yazhe Hu, Meng-Hao Guo, Sujeeth Bharadwaj, K. Han, Tao Sheng, Sujith Ravi, Morteza Dehghani, Dan Roth<br>arXiv.org ・ 2025-10-08 ・ source: semanticscholar</div>
   <div class="links"><a href="https://www.semanticscholar.org/paper/10129a668a2159fc5b421cc603369b16e45db38b" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.48550/arXiv.2510.07233" target="_blank" rel="noopener">DOI</a></div>
-  <div class="paper-facts"><span class="chip">公開日 2025-10-08</span><span class="chip">被引用 0</span><span class="chip basis-fulltext">本文(arXiv PDF)</span></div>
+  <div class="paper-facts"><span class="chip">公開日 2025-10-08</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip basis-fulltext">本文(arXiv PDF)</span></div>
   <div class="source-notice fulltext">本文取得済み: 本文(arXiv PDF)を根拠に要約しています。</div>
-
+<div class="tags"><span class="tag">RAG</span></div>
   <div class="tldr"><strong>一言で:</strong> 視覚的に豊かな文書（VRD）の質問応答において、レイアウト構造やページ間の依存関係を保持するために、記号的な文書グラフとニューラルインデックスを組み合わせた動的なRAGフレームワーク「LAD-RAG」を提案する。LLMエージェントがグラフとベクトル空間を動的に探索することで、top-$k$の調整なしに平均90%以上の完全再現率（perfect recall）を達成し、既存のベースラインを最大20%上回る検索性能を実現した。</div>
 <section class="qa"><h2>どんなもの？</h2><p>従来のRAGは、視覚的に豊かな文書（VRD）のコンテンツを孤立したチャンクとして扱うため、レイアウト情報の欠落、埋め込みへの過度な依存、および質問の複雑さに対応できない静的なtop-$k$検索という3つの課題を抱えている。特に、図表とキャプションの関係や、ページを跨ぐセクションの依存関係といった構造的情報を失うことが、マルチページ問題における精度低下を招いている。本研究は、これらの構造的・視覚的依存関係を明示的にモデル化し、クエリに応じて適応的に証拠を収集する手法を模索するものである。</p></section>
 <section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、レイアウトを考慮した動的なRAGフレームワークであるLAD-RAGの提案である。インジェクション段階において、標準的なニューラル埋め込みに加え、ヘッダーや図表のリンク、ページ間の依存関係を捉える「記号的文書グラフ（symbolic document graph）」を構築する手法を確立した。推論段階では、LLMエージェントがニューラルおよび記号的なインデックスを使い分ける動的な検索戦略を導入した。実験により、MMLongBench-Doc、LongDocURL、DUDE、MP-DocVQAの4つのベンチマークにおいて、同等のノイズレベルでベースラインを最大20%上回る再現率を達成し、低レイテンシで高いQA精度を実現できることを示した。</p></section>

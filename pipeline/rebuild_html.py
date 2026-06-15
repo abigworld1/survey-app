@@ -91,7 +91,19 @@ def _safe_path(rel):
     return path
 
 
-def _rebuild_one(rel, info, dry_run=False):
+def _matched_keywords(title, tldr, keywords):
+    text = f"{title} {tldr}".lower()
+    out = []
+    for kw in keywords or []:
+        word = str(kw or "").strip()
+        if not word:
+            continue
+        if re.search(r"\b" + re.escape(word.lower()) + r"\b", text):
+            out.append(word)
+    return out
+
+
+def _rebuild_one(rel, info, keywords=None, dry_run=False):
     path = _safe_path(rel)
     text = _read(path)
     title = info.get("title") or _strip_tags(_find(r"<h1>(.*?)</h1>", text))
@@ -103,6 +115,7 @@ def _rebuild_one(rel, info, dry_run=False):
     links = _find(r'<div class="links">(.*?)</div>', text)
     basis = info.get("basis") or _old_footer_value(text, "basis") or "abstract"
     engine = info.get("engine") or _old_footer_value(text, "engine")
+    matched_keywords = info.get("matched_keywords") or _matched_keywords(title, tldr, keywords)
     paper = Paper(
         source=source,
         title=title,
@@ -111,7 +124,8 @@ def _rebuild_one(rel, info, dry_run=False):
         venue=venue,
         citations=info.get("citations", 0),
     )
-    paper.matched_keywords = info.get("matched_keywords", [])
+    paper.citations_known = "citations" in info
+    paper.matched_keywords = matched_keywords
     paper.selection_type = info.get("selection", "")
     paper.selection_label = info.get("selection_label", "")
     if info.get("relevance") is not None:
@@ -133,7 +147,7 @@ def _rebuild_one(rel, info, dry_run=False):
         "links": links,
         "paper_facts": render._paper_facts(paper, summary),
         "source_notice": render._source_notice(summary),
-        "keyword_tags": render._keyword_tags(info.get("matched_keywords", [])),
+        "keyword_tags": render._keyword_tags(matched_keywords),
         "tldr": tldr,
         "sections": body,
         "sections_detail": "",
@@ -156,12 +170,14 @@ def main(argv=None):
     rebuilt = 0
     skipped = 0
     for uslug, useen in seen.items():
+        sub = next((s for s in subs if slugify(s.get("username", "")) == uslug), {})
+        keywords = sub.get("keywords", [])
         for info in useen.values():
             rel = info.get("file", "")
             if not rel or os.path.basename(rel) == "index.html":
                 continue
             try:
-                _rebuild_one(rel, info, dry_run=args.dry_run)
+                _rebuild_one(rel, info, keywords=keywords, dry_run=args.dry_run)
                 rebuilt += 1
                 print(("確認" if args.dry_run else "再生成") + f": {rel}")
             except Exception as e:

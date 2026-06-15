@@ -59,9 +59,9 @@
   <h1>FT-RAG: A Fine-grained Retrieval-Augmented Generation Framework for Complex Table Reasoning</h1>
   <div class="meta">Zebin Guo, Weidong Geng, Ruichen Mao<br>ArXiv.org ・ 2026-05-02 ・ source: openalex</div>
   <div class="links"><a href="https://openalex.org/W7160457622" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.01495" target="_blank" rel="noopener">PDF</a></div>
-  <div class="paper-facts"><span class="chip">公開日 2026-05-02</span><span class="chip">被引用 0</span><span class="chip basis-fulltext">本文(OA-PDF)</span></div>
+  <div class="paper-facts"><span class="chip">公開日 2026-05-02</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip basis-fulltext">本文(OA-PDF)</span></div>
   <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
-
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
   <div class="tldr"><strong>一言で:</strong> 表形式データの検索粒度が粗いという従来のRAGの課題に対し、表をセル単位（cell groups）に分解し、Subject（主体）、Attribute（属性）、Temporal（時間）の3次元で構造化した「SAT-Graph」を構築する細粒度フレームワーク「FT-RAG」を提案する。本手法は、グラフ上の階層的な探索と、取得した構造化データに基づくテキスト文脈の動的な融合により、複雑なマルチテーブル推論を実現する。</div>
 <section class="qa"><h2>どんなもの？</h2><p>従来のRAGシステムは、表を単一の単位として扱うか、平坦なテキストに変換する粗粒度な戦略を採用しているため、セルレベルの精密な関係性や、表と周囲のテキストとの整合性を捉えきれず、複雑な推論や異種ドキュメント間の情報融合に限界がある。本研究は、表のセマンティクス理解が不十分であるという課題に対し、表をエントリレベルのセマンティック単位に分解して構造化グラフを構築するアプローチをとる。具体的には、テキストと表が混在する複雑な文書において、表のセル単位（entry-level）に焦点を当てた「Fine-grained Table-aware RAG」タスクを定義している。このタスクでは、質問 $Q_i = \langle q_i, f_i \rangle$ に対し、表のエントリ $e^* = (v, c, e, t, s, k, m)$ と、必要に応じてテキスト $p^*$ を検索し、最終的な回答 $A = \text{Inference}(Q, e^*, p^*)$ を生成することを目指す。</p></section>
 <section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、複雑な表形式推論に特化した細粒度フレームワーク「FT-RAG」の提案である。第一に、表を「cell groups」へと分解し、スキーマを考慮した階層的な「SAT-Graph」として構造化する手法を確立した。第二に、既存のベンチマークが単一の原子的な値の抽出に終始している限界を克服するため、複数の表にまたがる関連情報の検索と合成、および構成的な回答生成を必要とする新ベンチマーク「Multi-Table-RAG-Lib」を導入した。このベンチマークは、9,870個のQAペアから構成され、複雑なマルチホップ推論を評価可能である。第三に、実験を通じて、FT-RAGが既存の最先端手法を凌駕し、表レベルのHit Rateで23.5%、セルレベルのHit Rateで59.2%の向上、および正確な値の再現率（exact value accuracy recall）において62.2%の向上を達成することを示した。</p></section>

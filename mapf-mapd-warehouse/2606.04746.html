@@ -59,9 +59,9 @@
   <h1>CADENCE: Predicting Realized MAPF Execution Time Beyond Sum of Costs</h1>
   <div class="meta">Abhishek S, Badrikanath Praharaj, Sreeram MV<br>arxiv ・ 2026-06-03 ・ source: arxiv</div>
   <div class="links"><a href="http://arxiv.org/abs/2606.04746v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.04746v2" target="_blank" rel="noopener">PDF</a></div>
-  <div class="paper-facts"><span class="chip">公開日 2026-06-03</span><span class="chip">被引用 0</span><span class="chip basis-fulltext">本文(arXiv)</span></div>
+  <div class="paper-facts"><span class="chip">公開日 2026-06-03</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip basis-fulltext">本文(arXiv)</span></div>
   <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
-
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
   <div class="tldr"><strong>一言で:</strong> 従来のMAPF（Multi-Agent Path Finding）におけるSum of Costs (SoC) は、物理ロボットの実際の実行時間（wall-clock time）を正確に予測できない。本研究は、SoCに加えて「原始的な運動負荷（primitive motion burden）」と「相互作用を考慮した調整構造（interaction-aware coordination structure）」を導入するCADENCEを提案し、7台の差動駆動ロボットを用いた実機実験により、特に運動負荷の追加が予測精度を大幅に向上させることを示した。</div>
 <section class="qa"><h2>どんなもの？</h2><p>本研究は、オフラインで計算されたMAPFの計画コスト（SoC）が、物理的なロボット実行時の実時間（wall-clock completion time）を必ずしも正確に予測できないという課題に取り組んでいる。物理実行時には、エージェントの行動順序の維持、ロボット間の先行制約、狭小空間での競合、および実行モニタによる停止・再開の遅延といった、スカラー値のSoCでは捉えきれない構造的な要因が影響を与える。著者らは、計画側の記述子を、(i) 標準的な $SoC$、(ii) 回転数や連続移動、停止・開始回数を含む「原始的な運動負荷」、(iii) ロボット間の先行制約数や混雑への露出度を含む「相互作用を考慮した調整構造」の3層に分解して定義した。これにより、実行前の段階で実際の完了時間をより高精度に予測することを目指している。</p></section>
 <section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、SoCに代わる、あるいはSoCを補完する実行時間予測のための新たな特徴量階層（feature ladder）を提案したことである。具体的には、旋回数や停止・再始動回数などの「原始的な運動負荷」が、SoCと実時間の乖離を埋める極めて強力な信号であることを実機実験を通じて明らかにした。また、Action Dependency Graph (ADG) に基づく「相互作用を考慮した調整構造」の有効性についても検証を行っている。実験の結果、SoCに運動負荷を加えることで、MAE（平均絶対誤差）で 48.6%–59.8%、RMSE（平方根平均二乗誤差）で 44.2%–61.4% の誤差削減を達成し、SoC単体よりも極めて高い予測精度を実現した。</p></section>

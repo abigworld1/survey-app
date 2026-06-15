@@ -59,9 +59,9 @@
   <h1>Priority Inheritance with Backtracking for Iterative Multi-agent Path Finding</h1>
   <div class="meta">Keisuke Okumura, Manao Machida, Xavier Défago, Yasumasa Tamura<br>arxiv ・ 2019-01-31 ・ source: arxiv</div>
   <div class="links"><a href="http://arxiv.org/abs/1901.11282v5" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.1016/j.artint.2022.103752" target="_blank" rel="noopener">DOI</a></div>
-  <div class="paper-facts"><span class="chip">公開日 2019-01-31</span><span class="chip">被引用 0</span><span class="chip basis-fulltext">本文(arXiv PDF)</span></div>
+  <div class="paper-facts"><span class="chip">公開日 2019-01-31</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip basis-fulltext">本文(arXiv PDF)</span></div>
   <div class="source-notice fulltext">本文取得済み: 本文(arXiv PDF)を根拠に要約しています。</div>
-
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
   <div class="tldr"><strong>一言で:</strong> 数百台以上のエージェントが継続的に稼働するLifelong MAPF/MAPD環境向けに、動的な優先順位継承とバックトラッキングを組み合わせたスケーラブルな準最適アルゴリズム「Priority Inheritance with Backtracking (PIBT)」を提案する。PIBTは、二連結グラフ等の条件下で全エージェントの目的地到達（reachability）を理論的に保証し、1,000体規模の大規模インスタンスにおいても数秒以内という極めて高速な計算を実現する。</div>
 <section class="qa"><h2>どんなもの？</h2><p>本研究は、自動倉庫のようなエージェントが絶えず新しい目標を受け取るLifelong MAPF（Multi-Agent Path Finding）およびMAPD（Multi-Agent Pickup and Delivery）のシナリオに対応する、スケーラブルな経路計画手法を対象としている。従来のMAPFは、有向グラフ $G=(V, E)$ 上のエージェント集合 $A=\{a_1, \dots, a_n\}$ が、頂点衝突（$\pi_i[t] = \pi_j[t]$）およびスワップ衝突（$\pi_i[t] = \pi_j[t+1] \land \pi_i[t+1] = \pi_j[t]$）を回避しながら目標 $g_i$ へ到達する問題である。本研究では、特に計算コストが課題となる数百から数千規模のエージェントが存在する、オンラインかつ反復的な運用環境における効率的な解法を求めている。</p></section>
 <section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>提案手法PIBTは、優先順位付き計画とルールベースの手法を組み合わせ、動的な優先順位付けとバックトラッキングプロトコルを導入することで、既存の探索ベースやコンパイルベースの手法では困難な大規模・高頻度なタスク割り当てに対応する。理論面では、グラフのすべての隣接ノードのペアが単純なサイクルに属する場合（例：二重連結グラフ）において、エージェント数に関わらず全エージェントが有限時間内に目的地へ到達することを証明した。実験面では、1,000体のエージェントが存在する $530 \times 481$ の大規模グリッドマップにおいて、平均的な劣最適性を 1.5 未満に抑えつつ、5秒以内という極めて短い実行時間で解を導出できることを示した。さらに、自動倉庫を模したMAPDシナリオにおいて、実行時間と解の品質の両面で既存手法を上回る性能を実証した。</p></section>

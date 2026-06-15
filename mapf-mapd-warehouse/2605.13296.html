@@ -59,9 +59,9 @@
   <h1>Discrete Diffusion for Complex and Congested Multi-Agent Path Finding with Sparse Social Attention</h1>
   <div class="meta">Yuanzhe Wang, Tian Zhi, Zihang Wei, Hongguang Wang, Jiaming Guo, Yang Zhao, Zisheng Liu, Shiyu Quan, Xing Hu, Zidong Du, Yunji Chen<br>arxiv ・ 2026-05-13 ・ source: arxiv</div>
   <div class="links"><a href="http://arxiv.org/abs/2605.13296v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.13296v1" target="_blank" rel="noopener">PDF</a></div>
-  <div class="paper-facts"><span class="chip">公開日 2026-05-13</span><span class="chip">被引用 0</span><span class="chip basis-fulltext">本文(arXiv)</span></div>
+  <div class="paper-facts"><span class="chip">公開日 2026-05-13</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip basis-fulltext">本文(arXiv)</span></div>
   <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
-
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
   <div class="tldr"><strong>一言で:</strong> 複雑かつ混雑したマルチエージェント経路探索（MAPF）において、離散デノイジング拡散確率モデル（D3PM）とLarge Neighborhood Search 2（LNS2）を統合したハイブリッドフレームワーク「DiffLNS」を提案する。D3PMを用いて、エキスパートのデモンストレーションから学習した時空間的な協調アクション軌跡の事前分布をサンプリングし、LNS2の高品質なウォームスタートとして利用することで、高密度環境下での成功率を大幅に向上させる。</div>
 <section class="qa"><h2>どんなもの？</h2><p>本研究は、LNS2などの修復ベースのMAPF手法において、初期解の質が成功率や収束速度に決定的な影響を与えるという課題に対処するものである。従来の学習ベースの手法は高密度環境での厳密な制約充足に課題があり、一方で連続空間向けの拡散モデルはMAPFの離散的な衝突制約への対応が不十分であった。DiffLNSは、離散的な結合アクションテンソル $\mathbf{x} \in \mathcal{A}^{N \times T}$ 上で動作する離散拡散モデルを導入し、多様かつ協調的な初期計画（drafts）を生成する。これにより、生成的な多様性と、古典的な修復アルゴリズムによる厳密な制約充足の両立を目指している。</p></section>
 <section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、D3PMをLNS2の初期化器として統合し、エキスパートの行動から協調的な時空間事前分布を学習するハイブリッドフレームワークを提案した。第二に、計算コストを抑えつつ衝突に関わるエージェント間の相互作用を効率的にモデル化する「拡散認識型スパース・ソーシャル・アテンション（diffusion-aware sparse social attention）」を導入した。第三に、最大96エージェントのデータで学習したモデルが、推論時に最大312エージェントまでスケールし、20の複雑な設定において平均成功率95.8%を達成することを示した。これは最強のベースラインであるLNS2+RLを9.6ポイント上回る性能である。</p></section>

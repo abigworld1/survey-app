@@ -59,9 +59,9 @@
   <h1>Integrated Task Assignment and Path Planning for Capacitated Multi-Agent Pickup and Delivery</h1>
   <div class="meta">Zhe Chen, Javier Alonso-Mora, Xiaoshan Bai, Daniel D. Harabor, Peter James Stuckey<br>IEEE Robotics and Automation Letters ・ 2021-07-01 ・ source: semanticscholar</div>
   <div class="links"><a href="https://www.semanticscholar.org/paper/a143a30c68ec2795b0988c0efabf052b0ef6ff0a" target="_blank" rel="noopener">原典</a> ・ <a href="https://repository.tudelft.nl/islandora/object/uuid%3A9e5cc563-580e-43b8-8874-40f96f4f0537/datastream/OBJ/download" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/LRA.2021.3074883" target="_blank" rel="noopener">DOI</a></div>
-  <div class="paper-facts"><span class="chip">公開日 2021-07-01</span><span class="chip">被引用 0</span><span class="chip basis-fulltext">本文(arXiv PDF)</span></div>
+  <div class="paper-facts"><span class="chip">公開日 2021-07-01</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip basis-fulltext">本文(arXiv PDF)</span></div>
   <div class="source-notice fulltext">本文取得済み: 本文(arXiv PDF)を根拠に要約しています。</div>
-
+<div class="tags"><span class="tag">MAPF</span><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
   <div class="tldr"><strong>一言で:</strong> 容量制限付きマルチエージェント・ピックアップ＆デリバリー（Capacitated MAPD）問題に対し、タスク割り当て（TA）と経路計画（MAPF）を統合して解く手法を提案する。提案手法は、実際の衝突回避コストを考慮した限界増分コスト（Marginal-cost）に基づくタスク選択と、Large Neighbourhood Search (LNS) を用いたAnytime改善戦略を組み合わせることで、従来の逐次的な手法よりも優れた総移動遅延（TTD）を実現する。</div>
 <section class="qa"><h2>どんなもの？</h2><p>本研究は、複数のロボットが各タスクの開始地点から目標地点へ運搬を行う、容量制限付きマルチエージェント・ピックアップ＆デリバリー（Capacitated MAPD）問題を対象としている。従来のMAPD手法は、TAとMAPFを逐次的に解くことが多く、TAの段階で実際の経路コストではなく下限推定値を用いるため、計画時のコストが想定を大幅に上回る課題があった。本研究では、エージェントが一度に複数のタスクを運搬できる容量制限 $C$ を考慮しつつ、タスク割り当てと衝突回避経路計画を統合的に扱う。目的関数は、全タスクの輸送遅延の総和である Total Travel Delay (TTD) を最小化することであり、式(1) $f = \sum_{i \in P} (a(g_i) - (r_i + t(s_i, g_i)))$ として定義される。</p></section>
 <section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、TAとMAPFを結合して解くための新しいヒューリスティックおよびメタヒューリスティックな改善戦略を導入した点にある。具体的には、優先度付き計画（Prioritised Planning）を用いて実際の衝突回避コストを評価する周辺コスト割り当て（marginal-cost assignment）手法を提案している。さらに、相対的後悔（Relative Regret）に基づくタスク選択アルゴリズム RMCA を導入し、より先読み効果のある割り当てを可能にした。また、LNSの概念を用いたAnytime Improvement Strategy により、制限時間内で解を破壊・修復することで割り当て空間を反復的に探索し、解の質を大幅に向上させる手法を確立した。</p></section>

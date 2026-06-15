@@ -94,11 +94,14 @@ def _reading_value_label(value):
     return f"読む価値 {score}/5" if score else ""
 
 
-def _entry_reason_chips(entry):
+def _entry_reason_chips(entry, keywords=None):
     chips = []
     selection = _selection_label(entry.get("selection"), entry.get("selection_label", ""))
     if selection:
         chips.append(_chip(selection, f"selection-{_class_token(entry.get('selection', ''))}"))
+    kw_count = len([k for k in (keywords or []) if str(k).strip()])
+    if kw_count:
+        chips.append(_chip(f"キーワード一致 {kw_count}", "keyword-match"))
     if entry.get("citations") is not None:
         chips.append(_chip(f"被引用 {_as_int(entry.get('citations'))}"))
     if entry.get("relevance") is not None:
@@ -123,7 +126,11 @@ def _paper_facts(paper, summary):
     if selection:
         chips.append(_chip(selection, f"selection-{_class_token(getattr(paper, 'selection_type', ''))}"))
     chips.append(_chip(f"公開日 {paper.published or '-'}"))
-    chips.append(_chip(f"被引用 {_as_int(getattr(paper, 'citations', 0))}"))
+    kw_count = len([k for k in (getattr(paper, "matched_keywords", []) or []) if str(k).strip()])
+    if kw_count:
+        chips.append(_chip(f"キーワード一致 {kw_count}", "keyword-match"))
+    if getattr(paper, "citations_known", True):
+        chips.append(_chip(f"被引用 {_as_int(getattr(paper, 'citations', 0))}"))
     relevance = getattr(paper, "relevance_score", None)
     if relevance is not None:
         chips.append(_chip(f"関連度 {_as_int(relevance)}"))
@@ -267,7 +274,7 @@ def _list_items(entries, link_basename=False, highlight_added="", keywords=None,
         added_sort = "|".join(_entry_sort_key(it))
         title_sort = (it.get("title") or "").lower()
         author_html = f'<div class="authors">{_esc(authors)}</div>' if authors else ""
-        reason_html = _entry_reason_chips(it)
+        reason_html = _entry_reason_chips(it, tags)
         item_id = it.get("file", href)
         reading_value = _as_int(it.get("reading_value"), 0)
         search_text = " ".join(

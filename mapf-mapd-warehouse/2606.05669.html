@@ -59,9 +59,9 @@
   <h1>Dynamic Multi-Agent Pickup and Delivery in Robotic Cellular Warehousing Systems</h1>
   <div class="meta">Cheng Ren, Ming Li, Xinping Guan, George Q. Huang<br>arxiv ・ 2026-06-04 ・ source: arxiv</div>
   <div class="links"><a href="http://arxiv.org/abs/2606.05669v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.05669v1" target="_blank" rel="noopener">PDF</a></div>
-  <div class="paper-facts"><span class="chip">公開日 2026-06-04</span><span class="chip">被引用 0</span><span class="chip basis-fulltext">本文(arXiv)</span></div>
+  <div class="paper-facts"><span class="chip">公開日 2026-06-04</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip basis-fulltext">本文(arXiv)</span></div>
   <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
-
+<div class="tags"><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
   <div class="tldr"><strong>一言で:</strong> ロボット・セルラー倉庫システム（RCWS）において、注文実行中にSKUが動的に追加される「Dynamic MAPD」問題を定式化し、イベント駆動型のトークン・パッシングに基づく2つの再計画アルゴリズム（Dynamic-TPおよびCooperative-TP）を提案する。提案手法は、注文の更新イベントに応じてロボットの経路を逐次的に再計画することで、衝突回避を維持しながらオーダーのフロータイムを大幅に削減する。</div>
 <section class="qa"><h2>どんなもの？</h2><p>本研究は、ロボット・セルラー倉庫システム（RCWS）における、実行中の注文内容（SKU）が変化する「Dynamic Multi-Agent Pickup and Delivery (Dynamic-MAPD)」問題を扱う。従来のMAPDは単一のピックアップ・デリバリー地点を想定しているが、RCWSでは1つの注文に複数のSKUが含まれるマルチゴール型の性質を持つ。本研究では、注文の動的な進化（internal order evolution）を考慮し、時刻 $t$ において確率 $p_{upd}$ でタスクが拡張されるモデルを導入している。これにより、従来の静的なMAPDでは対応できない、リアルタイムなタスク構造の変化への適応を目指している。</p></section>
 <section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文の主な貢献は、実行中のオーダーに対してSKUが動的に追加される状況を体系的に扱った初のDynamic-MAPD問題の定式化である。提案手法として、注文の追加に伴う分解と優先度ベースのスケジューリングを行う「Dynamic Token Passing (Dynamic-TP)」と、アイドル状態のロボットが新規タスクを支援する「Cooperative Token Passing (Cooperative-TP)」の2つのイベント駆動型オンライン再計画アルゴリズムを開発した。これにより、デッドロックフリー性を維持しつつ、システム全体の効率を向上させる枠組みを提供している。シミュレーションを通じて、提案手法が既存のベースラインと比較してオーダーのフロータイムを大幅に削減できることを実証した。</p></section>

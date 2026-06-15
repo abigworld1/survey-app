@@ -59,9 +59,9 @@
   <h1>STEAM: A Training-Free Congestion-Aware Enhancement Framework for Decentralized Multi-Agent Path Finding</h1>
   <div class="meta">Mingyang Feng, Mengnuo Zhang, Shaoyuan Li, Xiang Yin<br>arxiv ・ 2026-05-20 ・ source: arxiv</div>
   <div class="links"><a href="http://arxiv.org/abs/2605.20929v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.20929v1" target="_blank" rel="noopener">PDF</a></div>
-  <div class="paper-facts"><span class="chip">公開日 2026-05-20</span><span class="chip">被引用 0</span><span class="chip basis-fulltext">本文(arXiv)</span></div>
+  <div class="paper-facts"><span class="chip">公開日 2026-05-20</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip basis-fulltext">本文(arXiv)</span></div>
   <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
-
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
   <div class="tldr"><strong>一言で:</strong> STEAMは、学習済みの分散型MAPF（Multi-Agent Path Finding）ポリシーに対し、再学習やアーキテクチャの変更を一切行わずに、テスト時の実行プロセスのみで混雑回避ガイダンスを注入するトレーニングフリーな強化フレームワークである。空間的・時間的・局所的な3つのレベルで混雑を検出し、cost-to-goマップの修正やロジット補正を行うことで、成功率を最大60%向上させつつ、計算オーバーヘッドを最小限に抑える。</div>
 <section class="qa"><h2>どんなもの？</h2><p>分散型MAPFにおいて、学習ベースのポリシーは現在の局所観測 $\mathcal{O}_i(t)$ に基づいて行動を決定するが、将来の混雑やボトルネックを予測できないという課題がある。既存手法は固定された頂点重み $w(v)$ に基づくcost-to-goチャネル $c_i(t)$ に依存しており、他エージェントの動的な動きを考慮できない。本研究は、既存の分散型方策 $\pi_\theta$ を変更せず、テスト時に提供する $c_i(t)$ や行動ロジット $z_i(t)$ を調整することで、この問題を解決する。</p></section>
 <section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、既存の分散型MAPFアルゴリズム（MAPF-GPTやPRIMAL2など）に対してプラグアンドプレイで適用可能な、policy-agnosticな強化メカニズムを提案したことである。STEAMは、最短経路のロールアウトを通じて将来の混雑ホットスポットを特定し、回避可能な混雑にはエージェント固有のcost-to-goマップの更新を、回避困難なボトルネックには時間的なlogit correctionを適用する。さらに、近傍エージェントの情報を利用した密度依存的な補正により、創発的な局所混雑も抑制する。実験では、高密度環境において成功率を最大60%向上させ、Out-of-Distributionな環境でも性能を改善することを示した。</p></section>
