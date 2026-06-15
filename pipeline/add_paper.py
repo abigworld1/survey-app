@@ -133,6 +133,7 @@ def main(argv=None):
         "date": paper.published,
         "added": added_at[:10],
         "added_at": added_at,
+        "authors": paper.authors,
         "tldr": summary.get("tldr", ""),
         "engine": summary.get("_engine", ""),
         "basis": summary.get("_basis", ""),

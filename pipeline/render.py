@@ -80,6 +80,28 @@ def _entry_with_keywords(entry, keywords):
     return item
 
 
+def _entry_authors(entry, root=None):
+    authors = entry.get("authors")
+    if isinstance(authors, list):
+        return ", ".join(str(a).strip() for a in authors if str(a).strip())
+    if authors:
+        return str(authors)
+    if not root or not entry.get("file"):
+        return ""
+    root_abs = os.path.abspath(root)
+    path = os.path.abspath(os.path.join(root_abs, entry.get("file", "")))
+    if not (path == root_abs or path.startswith(root_abs + os.sep)):
+        return ""
+    try:
+        text = _read(path)
+    except OSError:
+        return ""
+    m = re.search(r'<div class="meta">(.*?)<br>', text, re.S)
+    if not m:
+        return ""
+    return html.unescape(re.sub(r"<[^>]+>", "", m.group(1))).strip()
+
+
 def render_paper_page(tpl_dir, paper, summary):
     sections_html = ""
     for key, heading in SECTIONS:
@@ -124,10 +146,11 @@ def render_paper_page(tpl_dir, paper, summary):
     return render_template(_read(os.path.join(tpl_dir, "paper.html")), ctx)
 
 
-def _list_items(entries, link_basename=False, highlight_added="", keywords=None):
+def _list_items(entries, link_basename=False, highlight_added="", keywords=None, root=None):
     rows = ""
     for idx, it in enumerate(entries):
         tags = _matched_entry_keywords(it, keywords)
+        authors = _entry_authors(it, root)
         href = os.path.basename(it["file"]) if link_basename else it["file"]
         latest = bool(highlight_added and it.get("added") == highlight_added)
         klass = ' class="latest"' if latest else ""
@@ -137,6 +160,7 @@ def _list_items(entries, link_basename=False, highlight_added="", keywords=None)
         search_text = " ".join(
             [
                 it.get("title", ""),
+                authors,
                 it.get("date", ""),
                 it.get("tldr", ""),
                 " ".join(tags),
@@ -165,6 +189,7 @@ def render_user_index(tpl_dir, root, uslug, username, useen, keywords=None):
             link_basename=True,
             highlight_added=_latest_added(entries),
             keywords=keywords,
+            root=root,
         ),
         "generated": _today(),
     }
@@ -198,7 +223,12 @@ def render_global_index(tpl_dir, root, subs, seen, slugify):
     latest_auto_added = max(latest_auto_dates) if latest_auto_dates else ""
     ctx = {
         "cards": cards,
-        "recent": _list_items(recent[:30], link_basename=False, highlight_added=latest_auto_added),
+        "recent": _list_items(
+            recent[:30],
+            link_basename=False,
+            highlight_added=latest_auto_added,
+            root=root,
+        ),
         "generated": _today(),
     }
     out = render_template(_read(os.path.join(tpl_dir, "index.html")), ctx)

@@ -296,6 +296,7 @@ def main(argv=None):
                 "file": rel,
                 "date": p.published,
                 "added": today,
+                "authors": p.authors,
                 "tldr": summary.get("tldr", ""),
                 "engine": summary.get("_engine", ""),
                 "basis": summary.get("_basis", ""),
