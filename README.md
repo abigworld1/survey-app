@@ -116,6 +116,7 @@ python3 -m venv .venv
    関連度＝キーワードのタイトル一致(×3)＋アブストラクト一致(×1)。略語は単語境界判定（`RAG`が`storage`に誤マッチしない）。
    適合0の論文は原則除外（*k* 本に満たない時のみ補充）。
 4. **本文取得**: arXiv HTML を優先（`arxiv.org/html/<id>`）。無ければ OA PDF（Unpaywall/OpenAlex → PyMuPDF）。取れなければ abstract。
+   本文も abstract も取れない論文は、要約根拠が無いため生成せず次候補を試す。
 5. **多段要約**: 本文を主要セクション（Introduction / Methods / Experiments …）に分割し、
    各セクションを個別に詳しく要約 → それらを根拠に落合フォーマット5項目を合成（`pipeline/summarize.py`）。
 6. **生成**: 各ページに「落合5項目＋セクション別の詳細要約＋情報源・原典リンク・AI自動生成の注記」を出力。数式は MathJax で描画。

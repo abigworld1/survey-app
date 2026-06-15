@@ -115,6 +115,10 @@ def _take_ranked(ranked, patterns, limit, used):
                 return picked
     return picked
 
+
+def _has_abstract(paper):
+    return bool((paper.abstract or "").strip())
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TPL = os.path.join(ROOT, "templates")
 DATA = os.path.join(ROOT, "data")
@@ -218,15 +222,22 @@ def main(argv=None):
             picked += _take_ranked(
                 _rank_important(fresh_all, kw_pats), kw_pats, k - len(picked), used
             )
+        fallback = _take_ranked(
+            _rank_important(fresh_all, kw_pats), kw_pats, len(fresh_all), used
+        )
+        candidate_queue = picked + fallback
         relevant = [p for p in fresh_all if _relevance(p, kw_pats) > 0]
         print(
             f"  候補 {len(papers)} / 新規 {len(fresh_all)} / 関連 {len(relevant)} / "
             f"採用 {len(picked)} (重要枠 {important_quota}, 新着枠 {recent_quota})"
         )
 
-        for p in picked:
+        produced_for_sub = 0
+        for p in candidate_queue:
             if produced >= args.limit:
                 print("  [stop] 総ページ上限に到達")
+                break
+            if produced_for_sub >= k:
                 break
             pid = slugify(p.paper_id(), fallback="paper")
             rel = f"{uslug}/{pid}.html"
@@ -239,6 +250,9 @@ def main(argv=None):
                 f"    {pid}: 関連度{_relevance(p, kw_pats)} / 被引用{_citations(p)} / "
                 f"{len(fsections)}セクション / 根拠 {basis}"
             )
+            if not fsections and not _has_abstract(p):
+                print("      [skip] 本文もアブストラクトも取得できないため生成しません")
+                continue
             summary = summarizer.summarize(p, sections=fsections, basis=basis)
             if not args.dry_run:
                 os.makedirs(os.path.join(ROOT, uslug), exist_ok=True)
@@ -254,7 +268,10 @@ def main(argv=None):
                 "basis": summary.get("_basis", ""),
             }
             produced += 1
+            produced_for_sub += 1
             print(f"  + {rel}")
+        if produced < args.limit and produced_for_sub < min(k, len(fresh_all)):
+            print(f"  [warn] 生成可能な候補が不足: {produced_for_sub}/{k} ページ")
 
         if not args.dry_run:
             render.render_user_index(TPL, ROOT, uslug, display, useen)
