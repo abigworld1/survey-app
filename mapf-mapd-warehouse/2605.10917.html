@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Optimal and Scalable MAPF via Multi-Marginal Optimal Transport and Schrödinger Bridges | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Optimal and Scalable MAPF via Multi-Marginal Optimal Transport and Schrödinger Bridges</h1>
+  <div class="meta">Usman A. Khan, Joseph W. Durham<br>arxiv ・ 2026-05-11 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2605.10917v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.10917v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-05-11</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 5/5</span><div class="rating-reason">MAPFをMMOTとして定式化し、完全単模性（TU）の証明からシュレディンガー・ブリッジを用いたスケーラブルな近似まで、理論と実用の両面で極めて完成度が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 匿名マルチエージェント経路探索（MAPF）をマルコフ構造を持つマルチ・マージナル最適輸送（MMOT）として定式化し、完全単模性（TU）を利用して整数解を多項式時間で得る手法と、シュレディンガー・ブリッジ（SBP）を用いたエントロピー正則化によるスケーラブルな近似手法を提案している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、有限で連結なグラフ上におけるロボット群の匿名マルチエージェント経路探索（MAPF）を対象としている。MAPFを、パス空間上のマルコフ構造を持つマルチ・マージナル最適輸送（MMOT）問題として定式化し、ロボットの軌跡を分布 $\mathcal{P}$ として捉える。従来のMMOTは次元 $d$ に対して変数が指数関数的に増大する課題があるが、ロボットの運動のマルコフ性 $\mathcal{P}_{i_1, \dots, i_d} = \prod_{t=1}^{d-1} P_{i_t, i_{t+1}}$ を利用することで、変数の数を $O(|V|^d)$ から $O(d|V|^2)$ へと多項式オーダーに削減している。これにより、大規模なエージェント数や時間ステップに対しても計算可能な枠組みを構築している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、匿名設定におけるMAPFのMMOT定式化が、制約行列において完全単模性（Total Unimodularity; TU）を持つことを証明し、整数制約を明示的に課さずとも最小コストの整数輸送解が多項式時間で得られることを示した。第二に、シュレディンガー・ブリッジ（SBP）の枠組みを導入し、エントロピー正則化を用いた確率的緩和問題 $P2$ を構築した。第三に、この緩和解（シャドウ輸送）を用いてグラフの枝を削減（pruning）し、さらに線形化された目的関数 $P3$ を解くことで、計算複雑性を大幅に削減しつつ、最適解に近い準最適な整数解を得るスケーラブルなパイプラインを提案した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、MAPFを最小コスト輸送問題 $P1$ として線形計画法（LP）で定式化する。次に、エントロピー正則化を導入した問題 $P2$ を定義し、Sinkhornアルゴリズムを用いて高速に分数輸送解 $\bar{\pi}$ を求める。この $\bar{\pi}$ は、基準分布をギブスカーネル $K_{t,i} = \exp(-C_{t,i}/\epsilon)$ としたシュレディンガー・ブリッジ問題に対応する。最後に、$\bar{\pi}$ からの乖離をペナルティとする修正目的関数 $\min_{\pi} \sum_{i,j} c_{ij} \pi_{ij} + \sum_{i,j} \lambda_{ij} (\pi_{ij} - \bar{\pi}_{ij})$ を定義する。ここで $\lambda_{ij} = \frac{\epsilon}{\bar{\pi}_{ij} + \delta}$ であり、この線形化された問題 $P3$ を、$\bar{\pi}$ に基づいて枝を削減したグラフ上で解くことで、計算効率と整数性を両立させている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>障害物を含むグリッドグラフを用いた実験において、HiGHSおよびGurobiソルバーを用いて検証を行った。最適解を求める $P1$ の計算時間が $O(n^3)$ で増加するのに対し、提案する $P2 + P3$ パイプラインは $O(n)$ に近い線形スケーリングを実現した。頂点数 $n$ が $10^2$ から $10^4$ に増加する過程で、最大 $10^2$ 倍の高速化を達成しつつ、コスト差を $1\%$ 未満に抑えることに成功している。具体的には、正則化パラメータ $\epsilon = 0.1$ の設定において、$\mathcal{P}_1$ に対するコスト誤差を $1.2\%$ に留めながら高速化を実現している。また、枝削減手法により元のグラフの枝を約 $90\%$ 削減できることも示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、計算の実行可能性、滑らかさ、および最適性の間で柔軟なトレードオフを提供している。エントロピー正則化パラメータ $\epsilon$ を調整することで、解の性質を制御でき、$\epsilon \to \infty$ とすることで元の $P1$ を回収することも理論上可能である。限界として、メイクスパン（完了時間）の直接的な最小化は $P1$ の完全単模性を損なうため、本フレームワークではコスト設計を通じて間接的に制御する必要がある。しかし、提案された投影および枝刈り戦略は、ロボット密度 $\rho$ が増加するような複雑なシナリオにおいても、高いスケーラビリティと実用的な精度を維持できることが示唆されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Optimal and Scalable MAPF via Multi-Marginal Optimal Transport and Schrödinger Bridges</h3><p>本研究では、有限で連結なグラフ上においてロボット群が目標地点へ移動する匿名マルチエージェント経路探索（MAPF）を、マルコフ構造を持つ特殊なマルチ・マージナル最適輸送（MMOT）問題として定式化している。この定式化により、指数関数的なサイズを持つMMOTが、多項式サイズで解ける線形計画法（LP）へと帰着されることを示し、匿名設定において当該LPが実行可能かつ完全単模（totally unimodular）である条件を確立することで、時空間的に重複しない最小コストの整数輸送解が得られることを証明している。大規模問題への適応として、MAPF-MMOTをシュレディンガー・ブリッジ（Schrödinger bridges）を用いた確率的枠組みへと拡張し、これがMMOTのエントロピー正則化に対応し、Sinkhorn型アルゴリズムによる反復解法が可能であることを導いている。この確率的枠組みから得られる分数輸送（shadow transport）をテンプレートとして縮小されたLPを解くことで、計算複雑性を大幅に削減しつつ、準最適な整数輸送解を得る手法を提案している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究では、Multi-Agent Path Finding (MAPF) をパス空間上のマルコフ構造を持つ Multi-Marginal Optimal Transport (MMOT) として定式化することを提案している。匿名設定（anonymous setting）において、この MMOT は全単模（totally unimodular）な制約行列を持つ多項式サイズの線形計画法 (LP) として記述でき、実行可能多面体のすべての端点が整数解となることが保証される。さらに、Schrödinger bridge の枠組みを用いて MMOT にエントロピー正則化を導入することで、Sinkhorn アルゴリズムによる高速な反復計算が可能な確率的緩和手法である Sinkhorn-MAPF を構築している。この手法では、Gibbs カーネルを基準分布として選択することで、$\epsilon \to 0$ の極限において解がグラフ上の最小コストな測地線路へと収束する性質を利用し、高確率なパス（shadow transport）に基づいてグラフの枝を削減する。実験の結果、この枝削減手法は元のグラフの枝を約 $90\%$ 削減しながら、コストの劣化を抑えつつ、全単模構造を維持したままスケーラビリティを向上させることを示している。</p></section>
+<section class="secsum"><h3>2 Background and Problem Formulation</h3><p>本セクションでは、Multi-Marginal Optimal Transport (MMOT) の定義と、それを用いた Multi-Agent Path Finding (MAPF) の定式化が述べられている。MMOTは、複数の周辺分布 $\mu^{(1)}, \dots, \mu^{(d)}$ とコストテンソル $C$ が与えられたとき、$\sum_{i_1, \dots, i_d} \pi_{i_1, \dots, i_d} = 1$ かつ各次元の射影 $\pi^{(k)} = \mu^{(k)}$ を満たす結合分布 $\pi$ を最小コストで求める問題であり、離散的な設定では線形計画法として記述されるが、次元 $d$ に対して変数が指数関数的に増大するため、Sinkhorn反復などの凸緩和が研究されている。MAPFにおいては、グラフ $G=(V, E)$ 上のロボットの軌跡をパス空間上の分布 $\mathcal{P}$ として捉え、時刻 $t$ におけるロボットの位置を周辺分布 $\mu^{(t)}$ とすることで、全ロボットの集団運動を $d$ 次のテンソル $\mathcal{P}$ で表現する。このとき、ロボットの運動がマルコフ性を有することから、テンソルは $\mathcal{P}_{i_1, \dots, i_d} = \prod_{t=1}^{d-1} P_{i_t, i_{t+1}}$ という標準的な分解が可能であり、これにより自由変数の数が $O(|V|^d)$ から $O(d|V|^2)$ へと多項式オーダーに削減される。本定式化では、初期分布 $\mu^{(1)}$ と目標分布 $\mu^{(d)}$ を固定し、中間時刻の周辺分布 $\mu^{(t)}$ を自由変数として扱うことで、MMOTの枠組みでMAPFを解くことが可能となるが、確率的な解はロボットが分割されるような分数的な輸送（fractional transport）を許容する点が課題となる。</p></section>
+<section class="secsum"><h3>3 Integral and Optimal Solutions for MAPF</h3><p>本セクションでは、匿名MAPF（Multi-Agent Path Finding）をMulti-Marginal Optimal Transport (MMOT) として定式化した線形計画問題 $P1$ の理論的性質を論じている。まず、グラフの自己ループの存在や、エッジの移動が衝突に関わる頂点の占有に依存しないこと等の構造的仮定（Assumption 3.1）を置き、コストの加法性 $c_{t}(u, v) + c_{t+1}(v, w) = c_{t, t+1}(u, v, w)$ 等を定義する。Lemma 3.3およびTheorem 3.4により、制約行列が完全単模性（Total Unimodularity; TU）を持つことから、$P1$ は多項式時間で解けるだけでなく、最適解が整数値（$x_{t}(u, v) \in \{0, 1\}$）となり、衝突のない実行可能なロボット軌跡を最小コストで提供できることが示されている。さらに、コスト設計を通じて「振動の防止（No oscillations）」や「時間的緊急性（Temporal urgency）」などの望ましい性質を導入可能であり、Assumption 3.5に基づく指数関数的なコスト増大を用いることで、最小メイクスパン（Minimum makespan）を達成する輸送計画を導出できる（Lemma 3.6）。一方で、メイクスパンの直接的な最小化は $P1$ のTU性を損なうため、本研究では $P1$ のエントロピー緩和である問題 $P2$ を導入し、Sinkhornアルゴリズムを用いたスケーラブルな解法へと展開する。</p></section>
+<section class="secsum"><h3>4 MAPF and the Schrödinger Bridge Problem</h3><p>本セクションでは、マルチエージェント経路計画（MAPF）をシュレーディンガー・ブリッジ問題（SBP）として定式化し、その数学的性質を論じている。SBPは、基準となる拡散過程 $\mathbb{P}_{\text{ref}}$ に対する相対エントロピーを最小化しつつ、与えられた初期および終端の周辺分布を補間する連続的な軌跡の確率測度を求める問題であり、MAPFにおいては基準となるマルコフ・テンソル $\mathbb{P}_{\text{ref}} = \prod_{t=1}^T \prod_{i=1}^N \pi_{t,i}$ を用いて記述される。MAPFをSBPとして定式化すると、目的関数は輸送項と周辺分布項の和 $\sum_{t=1}^{T-1} D_{\text{KL}}(\mathbb{P}_t \| \mathbb{P}_{\text{ref},t}) + \sum_{t=1}^T D_{\text{KL}}(\mu_t \| \mu_{\text{ref},t})$ として分解され、基準分布をギブス形式 $K_{t,i} = \exp(-C_{t,i}/\epsilon)$ とすることで、Sinkhorn型の反復計算が可能となる。本研究では、MAPFのMMOT問題 $P1$ のエントロピー正則化版として、非負制約のみを課した凸緩和問題 $P2$ を導入しており、これにより分数的な（シャドウ）輸送計画が得られる。この $P2$ は厳密なSBPとは一致しない場合があるが、計算効率の高いスケーラブルな解法として、Sinkhorn反復を用いて分数的な輸送を構築した後に整数制約を課すアプローチの基礎となる。</p></section>
+<section class="secsum"><h3>5 Integral Projection of Sinkhorn-MAPF</h3><p>エントロピー正則化された輸送計画 $\pi_{P2}$ を、完全単模多面体上の整数解へと投影するために、$\pi_{P2}$ からの乖離をペナルティとする修正目的関数を最小化する問題 $P3$ を定義する。KLダイバージェンスによるペナルティは非線形となるため、動作点 $\bar{\pi}$ の周りで線形化を行うことで、目的関数を $\min_{\pi} \sum_{i,j} c_{ij} \pi_{ij} + \sum_{i,j} \lambda_{ij} (\pi_{ij} - \bar{\pi}_{ij})$ という線形形式へと導出する。ここで $\lambda_{ij} = \frac{\epsilon}{\bar{\pi}_{ij} + \delta}$ であり、$\delta &gt; 0$ は対数関数の定義域を保証するための定数、$\epsilon$ は正則化パラメータ、$\bar{\pi}_{ij}$ は $\pi_{P2}$ の要素である。得られる解 $\pi_{P3}$ は、まず凸最適化問題 $P2$ を高速に解いてシャドウ輸送 $\bar{\pi}$ を構築し、次に $\bar{\pi}$ の値に基づいて枝を削減（pruning）したグラフ上で $P3$ を線形計画法として解くという、スケーラブルな手順によって得られる。定数 $\epsilon$ を $\delta$ に依存せず大きく設定すると、$\pi_{P3}$ は $\bar{\pi}$ の平滑化効果を継承しやすくなるが、$\epsilon \to \infty$ とすることで $P2$ の接続性を断ち切り、元の $P1$ を回収することも可能である。</p></section>
+<section class="secsum"><h3>6 Computation Complexity</h3><p>問題 P1 における線形計画法（LP）は、次数が有界なグラフにおいて決定変数と制約が $O(n)$ となるため、内点法を用いることで入力データの符号化長を $L$ としたとき $O(L^3)$ の最悪計算量を持つ。一方、スケーラビリティ向上のために提案される P2 は、エントロピー正則化を用いた Sinkhorn 反復により解を求め、凸双対目的関数に対するブロック座標降下法と見なすことで線形収束が保証される。P3 は P2 のシャドウ輸送に基づきグラフを剪定（pruning）した上で元の LP を解く手法であり、変数の数は $O(n)$ であるが、実用上は $O(n)$ から $O(n^{1.5})$ の範囲にまで大幅に削減される。最悪計算量の理論値とは異なり、実証的な計算時間は P1 では $O(n^2)$、P2 + P3 のパイプラインでは $O(n^{1.5})$ 程度のスケーリングを示すことが実験により確認されている。</p></section>
+<section class="secsum"><h3>7 Experiments</h3><p>本実験では、障害物を含むグリッドグラフ上で、移動コスト $c_{uv}$、ターゲットでの待機コスト $c_{wait, target}$、非ターゲットでの待機コスト $c_{wait, non-target}$ を定義し、HiGHSおよびGurobiソルバーを用いて提案手法の有効性とスケーラビリティを検証している。実験結果として、$\mathcal{P}_1$（最小コスト輸送）の計算時間が $O(n^3)$ で増加するのに対し、提案する $\mathcal{P}_2 + \mathcal{P}_3$ パイプラインは $O(n)$ に近い線形スケーリングを実現しており、頂点数 $n$ が $10^2$ から $10^4$ に増加する過程で最大 $10^2$ 倍の高速化を達成しつつ、コスト差を $1\%$ 未満に抑えている。また、$\mathcal{P}_2$（Schrödinger bridge）に基づくグラフの枝の削減（pruning）は、名目コストに基づく手法よりも効果的であり、より少ない枝数で実行可能解を得られることが示された。$\mathcal{P}_2 + \mathcal{P}_3$ パイプラインの平均コスト誤差は正則化パラメータ $\epsilon$ に強く依存し、$\epsilon = 0.1$ の設定では、高速化を実現しながらも $\mathcal{P}_1$ に対するコスト誤差を $1.2\%$ に抑えることができる。</p></section>
+<section class="secsum"><h3>8 Conclusions</h3><p>本研究は、マルチエージェント経路探索（MAPF）を、マルチ・マージナル最適輸送（MMOT）、エントロピー正則化緩和、および線形計画法を統合した原理的なフレームワークとして定式化している。実行可能領域の多面体が完全単模性（total unimodularity）を持つことを示すことで、整数制約を明示的に課すことなく、多項式時間で整数輸送解を得る手法を確立した。さらに、シュレーディンガー・ブリッジ（Schrödinger bridges）を用いたエントロピー定式化を導入することで、MAPFに新たな確率論的視点を与え、問題規模を縮小するための構造的なガイダンスとスケーラブルな近似を実現している。提案手法では、投影および枝刈り（projection and pruning）戦略を用いることで、計算の実行可能性、滑らかさ、および最適性の間で柔軟なトレードオフが可能となる。実験結果では、最適解 $P_1$ に対するコスト劣化 $\frac{C(P_3) - C(P_1)}{C(P_1)}$ と保持されたエッジの割合の関係や、ロボット密度 $\rho$ の増加に伴う実行時間のスケーリングが示されており、提案する $P_2 + P_3$ のアプローチが $P_1$ に対して大幅な高速化を実現しつつ、限定的なコスト差に留まることが確認されている。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-16
+  </footer>
+</div>
+</body>
+</html>

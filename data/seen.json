@@ -2,131 +2,473 @@
   "doc-structure-rag": {
     "arxiv:2606.12903": {
       "added": "2026-06-14",
+      "authors": [
+        "Yongqi Kang",
+        "Yu Fu",
+        "Yong Zhao"
+      ],
       "basis": "fulltext(arxiv)",
+      "citations": 0,
       "date": "2026-06-11",
       "engine": "llm:gemma-4-26b",
       "file": "doc-structure-rag/2606.12903.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "多言語RAGにおける証拠衝突という実用的な課題に対し、制御されたベンチマークと解釈可能なパイプラインを提案しており、抽出の脆弱性を特定した分析が極めて有用。",
+      "regenerated": "2026-06-15",
+      "relevance": 8,
+      "source_quality": "fulltext",
       "title": "X-MADAM-RAG: Diagnosing and Handling Chinese-English Evidence Conflict in Retrieval-Augmented Generation",
-      "tldr": "多言語RAGにおける中国語と英語の証拠衝突を診断するためのベンチマーク $X\\text{-RAMDocs-ZHEN}$ と、解釈可能なパイプライン $X\\text{-MADAM-RAG}$ を提案する。実験の結果、提案手法は制御された条件下で高い精度を達成するが、回答テンプレートを排除した自然言語ストレス・テストでは性能が大幅に低下し、文書レベルの抽出プロセスが主要なボトルネックであることが明らかになった。"
+      "tldr": "多言語RAGにおける中国語と英語の証拠衝突問題を診断するため、制御されたベンチマーク $X\\text{-RAMDocs-ZHEN}$ と、解釈可能なパイプライン $X\\text{-MADAM-RAG}$ を提案する。実験の結果、提案手法は制御された条件下で高い精度を達成するが、テンプレートの規則性を排除したストレス・テストでは、文書レベルの抽出が主要なボトルネックとなり性能が大幅に低下することが明らかになった。"
+    },
+    "arxiv:2606.13249": {
+      "added": "2026-06-16",
+      "authors": [
+        "Seongjin Kim",
+        "Sungil Kim"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-11",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.13249.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "ドメイン特化型RAGにおけるマルチフィールド検索と、専門家不在下でのプロキシ評価手法の提案が極めて実用的。実装の具体性も高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Multi-Field Hybrid Retrieval-Augmented Generation for Maritime Accident Root Cause Analysis",
+      "tldr": "海難事故の根本原因分析（RCA）を自動化するため、韓国海事安全審判所（KMST）の判決報告書を「Summary」「Causes」「Disposition」の3つのフィールドに構造化した「マルチフィールド・ハイブリッドRAG」フレームワークを提案する。BM25と$bge\\text{-}m3$を用いたハイブリッド検索をReciprocal Rank Fusion (RRF) で統合し、専門家によるラベル不足をメタデータ駆動型のプロキシ評価で補完することで、LLM単体よりも高精度で根拠に基づいた構造化RCA生成を実現した。"
     },
     "arxiv:2606.13438": {
       "added": "2026-06-14",
+      "authors": [
+        "Yanjia Sun",
+        "Sifan Liu",
+        "Jie Shao"
+      ],
       "basis": "fulltext(arxiv)",
+      "citations": 0,
       "date": "2026-06-11",
       "engine": "llm:gemma-4-26b",
       "file": "doc-structure-rag/2606.13438.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "クエリの構文変化への脆弱性を「一貫性の分散」で解決する着眼点が鋭く、実験での大幅な精度向上も説得力がある。RAGの堅牢性を高める実用的な手法として読む価値が高い。",
+      "regenerated": "2026-06-15",
+      "relevance": 8,
+      "source_quality": "fulltext",
       "title": "CQC-RAG: Robust Retrieval-Augmented Generation via Cross-Query Consistency",
-      "tldr": "RAGの脆弱性であるクエリの構文変化への感度と、ノイズによるハルシネーションを解決するため、「意味的に等価だが構文が異なるクエリ間では、正解は高い信頼性を維持するが、誤答は不安定になる」という仮説に基づき、クエリ書き換えとクロスクエリ一貫性検証を行うCQC-RAGを提案する。"
+      "tldr": "CQC-RAGは、意味的に等価だが構文が異なる複数のクエリ間での回答の信頼性の安定性を利用する「Cross-Query Consistency Hypothesis」に基づいた、堅牢な検索拡張生成（RAG）フレームワークである。クエリの書き換えとリランキングを通じて多様な推論コンテキストを構築し、回答の平均信頼性と分散に基づくペナルティを組み合わせたスコアリングにより、外部の教師データなしでノイズに起因するハルシネーションを効果的に除去する。"
     },
     "doi:10.3390/ai7050161": {
       "added": "2026-06-14",
+      "authors": [
+        "Seungjoon Lee",
+        "Myung-Seok Choi"
+      ],
       "basis": "abstract",
+      "citations": 0,
       "date": "2026-05-06",
       "engine": "llm:gemma-4-26b",
       "file": "doc-structure-rag/doi-5ad69eb67717.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "技術文書特有の構造保持に焦点を当て、グラフ表現を用いた手法の新規性と、大幅な精度向上を示す実験結果の具体性が高く、実用的な価値も大きい。",
+      "regenerated": "2026-06-15",
+      "relevance": 8,
+      "source_quality": "abstract",
       "title": "TechDocRAG: Relation-Preserving Retrieval-Augmented Generation (RAG) for Technical Documents",
-      "tldr": "技術文書特有の構造（条項、表、図、手順など）を維持したまま検索を行う、TechDocRAGというフレームワークを提案する。従来のRAGが文書を独立したチャンクに平坦化してしまう問題を解決し、要素間の関係性を保持することで、正確な根拠追跡を可能にする。実験では、既存のベースラインと比較して大幅な精度向上を達成している。"
+      "tldr": "技術文書特有の構造（条項、表、図、手順など）を保持したまま検索を行う、TechDocRAGというフレームワークを提案する。従来のRAGが文書をフラットなチャンクに分割して関係性を破壊するのに対し、本手法は要素間の関係性を維持することで、正確な根拠追跡を可能にする。実験では、既存のベースラインと比較して大幅な精度向上を達成している。"
+    },
+    "doi:10.48550/arxiv.2501.00309": {
+      "added": "2026-06-16",
+      "authors": [
+        "Haoyu Han",
+        "Yu Wang",
+        "Harry Shomer",
+        "Kai Guo",
+        "Jiayuan Ding",
+        "Lei, Yongjia",
+        "Mahantesh Halappanavar",
+        "Ryan A. Rossi",
+        "Subhabrata Mukherjee",
+        "Xianfeng Tang",
+        "Qi He",
+        "Zhigang Hua",
+        "Bo Long",
+        "Tong Zhao",
+        "Neil Shah",
+        "Amin Javari",
+        "Yinglong Xia",
+        "Jiliang Tang"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 19,
+      "date": "2024-12-31",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/doi-b1b0c7fb216f.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "GraphRAGの概念を5つのコンポーネントで体系化した包括的なサーベイであり、多様なドメインへの拡張性と今後の課題提示が極めて有用。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Retrieval-Augmented Generation with Graphs (GraphRAG)",
+      "tldr": "本論文は、グラフ構造の持つノード・エッジ間の関係性や異種混合な情報を活用して、従来のRAGでは困難だった複雑な推論を可能にする「GraphRAG」に関する包括的なサーベイである。著者らは、GraphRAGをQuery Processor、Retriever、Organizer、Generator、Data Sourceの5つのコンポーネントからなるフレームワークとして定義し、知識グラフから科学、社会、インフラ、表形式データに至るまで、多様なドメインにおける設計と課題を体系化した。"
     },
     "doi:10.48550/arxiv.2510.07233": {
       "added": "2026-06-15",
-      "basis": "fulltext(arxiv-pdf)",
+      "authors": [
+        "Zhivar Sourati",
+        "Zheng Wang",
+        "Liu, Marianne Menglin",
+        "Y. Hu",
+        "Guo, Mengqing",
+        "Bharadwaj, Sujeeth",
+        "Kyu Young Han",
+        "Tao Sheng",
+        "Ravi, Sujith",
+        "Morteza Dehghani",
+        "Dan Roth"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
       "date": "2025-10-08",
       "engine": "llm:gemma-4-26b",
       "file": "doc-structure-rag/2510.07233.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG",
+        "Evidence Retrieval"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "VRDにおけるレイアウトとページ間依存をグラフ構造で扱う手法は新規性が高く、エージェントによる動的検索も実用的。実験結果も強力で、RAG研究者にとって価値が高い。",
+      "regenerated": "2026-06-15",
+      "relevance": 6,
+      "source_quality": "fulltext",
       "title": "LAD-RAG: Layout-aware Dynamic RAG for Visually-Rich Document Understanding",
-      "tldr": "視覚的に豊かな文書（VRD）の質問応答において、レイアウト構造やページ間の依存関係を保持するために、記号的な文書グラフとニューラルインデックスを組み合わせた動的なRAGフレームワーク「LAD-RAG」を提案する。LLMエージェントがグラフとベクトル空間を動的に探索することで、top-$k$の調整なしに平均90%以上の完全再現率（perfect recall）を達成し、既存のベースラインを最大20%上回る検索性能を実現した。"
+      "tldr": "視覚的に豊かな文書（VRD）において、レイアウト構造とページ間依存関係を保持する「記号的文書グラフ（symbolic document graph）」を構築し、LLMエージェントがニューラルおよび記号的インデックスを動的に使い分けることで、高い再現率と低レイテンシを両立したRAGフレームワークLAD-RAGを提案する。"
     },
     "title:ft rag a fine grained retrieval augmented generation framework for complex table reasoning": {
       "added": "2026-06-15",
-      "basis": "fulltext(oa-pdf)",
+      "authors": [
+        "Zebin Guo",
+        "Weidong Geng",
+        "Ruichen Mao"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
       "date": "2026-05-02",
       "engine": "llm:gemma-4-26b",
       "file": "doc-structure-rag/t-75be55a85153.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "表データをセル単位の「SATグラフ」として構造化する手法に高い新規性があり、新ベンチマークの構築やSOTAの達成も具体的で、RAG研究者にとって有用。",
+      "regenerated": "2026-06-15",
+      "relevance": 8,
+      "source_quality": "fulltext",
       "title": "FT-RAG: A Fine-grained Retrieval-Augmented Generation Framework for Complex Table Reasoning",
-      "tldr": "表形式データの検索粒度が粗いという従来のRAGの課題に対し、表をセル単位（cell groups）に分解し、Subject（主体）、Attribute（属性）、Temporal（時間）の3次元で構造化した「SAT-Graph」を構築する細粒度フレームワーク「FT-RAG」を提案する。本手法は、グラフ上の階層的な探索と、取得した構造化データに基づくテキスト文脈の動的な融合により、複雑なマルチテーブル推論を実現する。"
+      "tldr": "FT-RAGは、構造化された表データにおける粒度の粗さと意味理解の不足を解決するための、セルレベルの細粒度なRetrieval-Augmented Generationフレームワークである。表を「cell groups」に分解してSATグラフ（Subject, Attribute, Temporal）を構築し、構造的近傍拡張とマルチモーダル融合を用いることで、複雑な複数表の推論を実現する。"
     }
   },
   "mapf-mapd-warehouse": {
     "arxiv:2211.13432": {
       "added": "2026-06-14",
+      "authors": [
+        "Keisuke Okumura"
+      ],
       "basis": "fulltext(arxiv-pdf)",
+      "citations": 0,
       "date": "2022-11-24",
       "engine": "llm:gemma-4-26b",
       "file": "mapf-mapd-warehouse/lacam-search-based-algorithm-for-quick-multi-agent-pathfinding.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "reading_value": 5,
+      "reading_value_reason": "MAPFにおいて、完全性を維持しつつ1万エージェント規模を高速解決する手法は極めて新規性が高く、実用上の貢献も大きい。必読級の重要論文である。",
+      "regenerated": "2026-06-15",
+      "relevance": 1,
+      "source_quality": "fulltext",
       "title": "LaCAM: Search-Based Algorithm for Quick Multi-Agent Pathfinding",
-      "tldr": "LaCAM (Lazy Constraints Addition Search) は、完全性を備えつつ、数百から数万規模のエージェントが存在する大規模なマルチエージェント経路探索（MAPF）問題を高速に解決する2レベル探索アルゴリズムである。高レベルの構成（configuration）探索と、低レベルの制約（constraint）探索を分離し、制約を遅延的に適用することで探索空間の爆発を抑制している。"
+      "tldr": "LaCAM (lazy constraints addition search for MAPF) は、完全性を備えつつ、数百から10,000エージェント規模の大規模・高密度なマルチエージェント経路探索（MAPF）を高速に解決する2レベル探索アルゴリズムである。"
     },
     "arxiv:2510.17382": {
       "added": "2026-06-14",
+      "authors": [
+        "Rishabh Jain",
+        "Keisuke Okumura",
+        "Michael Amir",
+        "Amanda Prorok"
+      ],
       "basis": "fulltext(arxiv)",
+      "citations": 0,
       "date": "2025-10-20",
       "engine": "llm:gemma-4-26b",
       "file": "mapf-mapd-warehouse/graph-attention-guided-search-for-dense-multi-agent-pathfinding.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "探索と学習のハイブリッド化により、高密度MAPFのパレート境界を突破した点が極めて新規性が高い。デッドロック検出による完全性の維持も実用的で、研究価値が高い。",
+      "regenerated": "2026-06-15",
+      "relevance": 1,
+      "source_quality": "fulltext",
       "title": "Graph Attention-Guided Search for Dense Multi-Agent Pathfinding",
-      "tldr": "高密度なマルチエージェント経路探索（MAPF）において、グラフアテンションを用いたニューラル方策MAGAT+を最先端の探索アルゴリズムLaCAMに統合したハイブリッドフレームワーク「LaGAT」を提案する。事前学習とマップ特化型のファインチューニング、およびデッドロック検出メカニズムを組み合わせることで、従来の探索ベースの手法や学習ベースの手法の双方を上回る解の質を実現している。"
+      "tldr": "高密度なマルチエージェント経路探索（MAPF）において、グラフアテンションを用いたニューラル方策 $\\text{MAGAT}^+$ を探索アルゴリズム $\\text{LaCAM}$ に統合したハイブリッドフレームワーク $\\text{LaGAT}$ を提案する。事前学習とマップ特化型の微調整、およびデッドロック検出メカニズムを組み合わせることで、既存の探索ベース手法や学習ベース手法のパレート境界を突破し、高密度環境における解の質とリアルタイム性能を向上させている。"
+    },
+    "arxiv:2605.10917": {
+      "added": "2026-06-16",
+      "authors": [
+        "Usman A. Khan",
+        "Joseph W. Durham"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-05-11",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2605.10917.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "reading_value": 5,
+      "reading_value_reason": "MAPFをMMOTとして定式化し、完全単模性（TU）の証明からシュレディンガー・ブリッジを用いたスケーラブルな近似まで、理論と実用の両面で極めて完成度が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Optimal and Scalable MAPF via Multi-Marginal Optimal Transport and Schrödinger Bridges",
+      "tldr": "匿名マルチエージェント経路探索（MAPF）をマルコフ構造を持つマルチ・マージナル最適輸送（MMOT）として定式化し、完全単模性（TU）を利用して整数解を多項式時間で得る手法と、シュレディンガー・ブリッジ（SBP）を用いたエントロピー正則化によるスケーラブルな近似手法を提案している。"
+    },
+    "arxiv:2605.11469": {
+      "added": "2026-06-16",
+      "authors": [
+        "Riad Ahmed"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-05-12",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2605.11469.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "分散型MAPFの脆弱性を突き、学習レシピのみで頑健性を高める提案は新規性が高い。オンポリシーでのMACER適用に関する知見も実用的で価値がある。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Robust Multi-Agent Path Finding under Observation Attacks: A Principled Adversarial-Plus-Smoothing Training Recipe",
+      "tldr": "分散型マルチエージェント経路探索（MAPF）において、観測値への微小な摂動がチーム全体の停滞を招く脆弱性を克服するため、ネットワーク構造やデプロイメント・パイプラインを変更せずに頑健性を向上させる2段階の学習レシピ「Adv-PPO」および「Adv-PPO+MACER」を提案する。"
     },
     "arxiv:2605.13296": {
       "added": "2026-06-15",
+      "authors": [
+        "Yuanzhe Wang",
+        "Tian Zhi",
+        "Zihang Wei",
+        "Hongguang Wang",
+        "Jiaming Guo",
+        "Yang Zhao",
+        "Zisheng Liu",
+        "Shiyu Quan",
+        "Xing Hu",
+        "Zidong Du",
+        "Yunji Chen"
+      ],
       "basis": "fulltext(arxiv)",
+      "citations": 0,
       "date": "2026-05-13",
       "engine": "llm:gemma-4-26b",
       "file": "mapf-mapd-warehouse/2605.13296.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "離散拡散モデルをMAPFの初期解生成に用いる新規性と、Sparse Social Attentionによる計算効率・汎化性能の両立が示されており、実用的な価値が高い。",
+      "regenerated": "2026-06-15",
+      "relevance": 5,
+      "source_quality": "fulltext",
       "title": "Discrete Diffusion for Complex and Congested Multi-Agent Path Finding with Sparse Social Attention",
-      "tldr": "複雑かつ混雑したマルチエージェント経路探索（MAPF）において、離散デノイジング拡散確率モデル（D3PM）とLarge Neighborhood Search 2（LNS2）を統合したハイブリッドフレームワーク「DiffLNS」を提案する。D3PMを用いて、エキスパートのデモンストレーションから学習した時空間的な協調アクション軌跡の事前分布をサンプリングし、LNS2の高品質なウォームスタートとして利用することで、高密度環境下での成功率を大幅に向上させる。"
+      "tldr": "離散的なデノイジング拡散確率モデル（D3PM）を初期解生成器として統合し、Large Neighborhood Search 2（LNS2）による修復プロセスを強化するハイブリッドフレームワーク「DiffLNS」を提案する。Sparse Social Attentionを用いることで、混雑した環境下でも計算効率を維持しながら協調的な行動軌跡を学習し、最大312エージェントのシナリオにおいても高い成功率を実現する。"
     },
     "arxiv:2605.20929": {
       "added": "2026-06-14",
+      "authors": [
+        "Mingyang Feng",
+        "Mengnuo Zhang",
+        "Shaoyuan Li",
+        "Xiang Yin"
+      ],
       "basis": "fulltext(arxiv)",
+      "citations": 0,
       "date": "2026-05-20",
       "engine": "llm:gemma-4-26b",
       "file": "mapf-mapd-warehouse/2605.20929.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "再学習不要で既存の分散型MAPFを強化する実用的な枠組みであり、空間・時間・局所の3層でのアプローチが具体的で、性能向上も顕著であるため。",
+      "regenerated": "2026-06-15",
+      "relevance": 5,
+      "source_quality": "fulltext",
       "title": "STEAM: A Training-Free Congestion-Aware Enhancement Framework for Decentralized Multi-Agent Path Finding",
-      "tldr": "STEAMは、学習済みの分散型MAPF（Multi-Agent Path Finding）ポリシーに対し、再学習やアーキテクチャの変更を一切行わずに、テスト時の実行プロセスのみで混雑回避ガイダンスを注入するトレーニングフリーな強化フレームワークである。空間的・時間的・局所的な3つのレベルで混雑を検出し、cost-to-goマップの修正やロジット補正を行うことで、成功率を最大60%向上させつつ、計算オーバーヘッドを最小限に抑える。"
+      "tldr": "STEAMは、学習済みの分散型MAPF（Multi-Agent Path Finding）ポリシーを一切再学習・変更することなく、テスト時の実行プロセスに軽量な混雑回避ガイダンスを注入する、学習不要（training-free）かつ方策に依存しない（policy-agnostic）強化フレームワークである。"
     },
     "arxiv:2606.04746": {
       "added": "2026-06-14",
+      "authors": [
+        "Abhishek S",
+        "Badrikanath Praharaj",
+        "Sreeram MV"
+      ],
       "basis": "fulltext(arxiv)",
+      "citations": 0,
       "date": "2026-06-03",
       "engine": "llm:gemma-4-26b",
       "file": "mapf-mapd-warehouse/2606.04746.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "SoCでは捉えきれない実機実行時間を、運動負荷や相互作用構造から予測する提案は極めて実用的。実機実験による検証も具体的で、MAPFの実装研究者にとって価値が高い。",
+      "regenerated": "2026-06-15",
+      "relevance": 5,
+      "source_quality": "fulltext",
       "title": "CADENCE: Predicting Realized MAPF Execution Time Beyond Sum of Costs",
-      "tldr": "従来のMAPF（Multi-Agent Path Finding）におけるSum of Costs (SoC) は、物理ロボットの実際の実行時間（wall-clock time）を正確に予測できない。本研究は、SoCに加えて「原始的な運動負荷（primitive motion burden）」と「相互作用を考慮した調整構造（interaction-aware coordination structure）」を導入するCADENCEを提案し、7台の差動駆動ロボットを用いた実機実験により、特に運動負荷の追加が予測精度を大幅に向上させることを示した。"
+      "tldr": "MAPF（Multi-Agent Path Finding）において、従来のSum of Costs (SoC) では予測困難な実機実行時間（wall-clock completion time）を予測するため、CADENCE手法を提案する。本研究は、計画段階から取得可能な「primitive motion burden（旋回数や停止・再始動回数など）」と「interaction-aware coordination structure（依存関係の深さなど）」を特徴量として導入し、7台の差動駆動ロボットを用いた実機実験を通じて、SoCのみを用いるよりも大幅に予測精度が向上することを実証した。"
     },
     "arxiv:2606.05669": {
       "added": "2026-06-14",
+      "authors": [
+        "Cheng Ren",
+        "Ming Li",
+        "Xinping Guan",
+        "George Q. Huang"
+      ],
       "basis": "fulltext(arxiv)",
+      "citations": 0,
       "date": "2026-06-04",
       "engine": "llm:gemma-4-26b",
       "file": "mapf-mapd-warehouse/2606.05669.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "「注文の進化」という独自の動的MAPD問題を定式化した新規性が高い。提案手法の計算量や実験による性能改善も具体的で、実用的な価値がある。",
+      "regenerated": "2026-06-15",
+      "relevance": 5,
+      "source_quality": "fulltext",
       "title": "Dynamic Multi-Agent Pickup and Delivery in Robotic Cellular Warehousing Systems",
-      "tldr": "ロボット・セルラー倉庫システム（RCWS）において、注文実行中にSKUが動的に追加される「Dynamic MAPD」問題を定式化し、イベント駆動型のトークン・パッシングに基づく2つの再計画アルゴリズム（Dynamic-TPおよびCooperative-TP）を提案する。提案手法は、注文の更新イベントに応じてロボットの経路を逐次的に再計画することで、衝突回避を維持しながらオーダーのフロータイムを大幅に削減する。"
+      "tldr": "ロボット細胞型倉庫システム（RCWS）において、実行中の注文に新たなSKUが追加される「内部的な注文の進化」を考慮した、初のDynamic-MAPD問題を定式化し、イベント駆動型のトークン・パッシングに基づく2つの再計画アルゴリズム（Dynamic-TPおよびCooperative-TP）を提案する。"
     },
     "doi:10.1016/j.artint.2022.103752": {
       "added": "2026-06-14",
-      "basis": "fulltext(arxiv-pdf)",
-      "date": "2019-01-31",
+      "authors": [
+        "Keisuke Okumura",
+        "Manao Machida",
+        "Xavier Défago",
+        "Yasumasa Tamura"
+      ],
+      "basis": "abstract",
+      "citations": 111,
+      "date": "2022-07-03",
       "engine": "llm:gemma-4-26b",
       "file": "mapf-mapd-warehouse/priority-inheritance-with-backtracking-for-iterative-multi-agent-path-finding.html",
-      "title": "Priority Inheritance with Backtracking for Iterative Multi-agent Path Finding",
-      "tldr": "数百台以上のエージェントが継続的に稼働するLifelong MAPF/MAPD環境向けに、動的な優先順位継承とバックトラッキングを組み合わせたスケーラブルな準最適アルゴリズム「Priority Inheritance with Backtracking (PIBT)」を提案する。PIBTは、二連結グラフ等の条件下で全エージェントの目的地到達（reachability）を理論的に保証し、1,000体規模の大規模インスタンスにおいても数秒以内という極めて高速な計算を実現する。"
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "reading_value": 5,
+      "reading_value_reason": "MAPF分野で非常に高い被引用数を持ち、大規模・継続的環境への実用的な解決策を提案している。理論的証明と実機検証の両面を備えた必読級の論文である。",
+      "regenerated": "2026-06-15",
+      "relevance": 5,
+      "source_quality": "abstract",
+      "title": "Priority inheritance with backtracking for iterative multi-agent path finding",
+      "tldr": "本論文は、大規模かつ継続的なマルチエージェント経路計画（MAPF）に対応するための、新しい劣最適アルゴリズムであるPriority Inheritance with Backtracking (PIBT) を提案しています。PIBTは、エージェントの隣接する移動に焦点を当てた適応的な優先順位付けを用いることで、数百規模のエージェントが存在する環境でも、予測可能な計算時間で実行可能な解を即座に提供します。"
     },
     "doi:10.1109/lra.2021.3074883": {
       "added": "2026-06-15",
-      "basis": "fulltext(arxiv-pdf)",
-      "date": "2021-07-01",
+      "authors": [
+        "Zhe Chen",
+        "Javier Alonso–Mora",
+        "Xiaoshan Bai",
+        "Daniel Harabor",
+        "Peter J. Stuckey"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 185,
+      "date": "2021-04-22",
       "engine": "llm:gemma-4-26b",
       "file": "mapf-mapd-warehouse/2110.14891.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "reading_value": 5,
+      "reading_value_reason": "MAPDにおけるTAとMAPFの統合という重要課題に対し、実コストを用いた評価とLNSによる改善を提案しており、高い新規性と実用性、多数の引用数を持つ必読論文である。",
+      "regenerated": "2026-06-15",
+      "relevance": 7,
+      "source_quality": "fulltext",
       "title": "Integrated Task Assignment and Path Planning for Capacitated Multi-Agent Pickup and Delivery",
-      "tldr": "容量制限付きマルチエージェント・ピックアップ＆デリバリー（Capacitated MAPD）問題に対し、タスク割り当て（TA）と経路計画（MAPF）を統合して解く手法を提案する。提案手法は、実際の衝突回避コストを考慮した限界増分コスト（Marginal-cost）に基づくタスク選択と、Large Neighbourhood Search (LNS) を用いたAnytime改善戦略を組み合わせることで、従来の逐次的な手法よりも優れた総移動遅延（TTD）を実現する。"
+      "tldr": "容量制限付きマルチエージェント・ピックアップ＆デリバリー（Capacitated MAPD）問題に対し、タスク割り当て（TA）と経路計画（MAPF）を統合して解く手法を提案する。優先度付き計画（Prioritised Planning）を用いて実際の衝突回避コストを評価に用いることで、従来の逐次的な手法におけるコスト予測の乖離を解消し、特に容量制限がある環境において既存の最良の準最適手法であるTPTSを大幅に上回る性能を実現している。"
     },
     "doi:10.1109/lra.2024.3471389": {
       "added": "2026-06-15",
+      "authors": [
+        "Fumiya Kudo",
+        "Kai Cai"
+      ],
       "basis": "abstract",
+      "citations": 13,
       "date": "2024-11-01",
       "engine": "llm:gemma-4-26b",
       "file": "mapf-mapd-warehouse/doi-926dfa8a42b0.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "エネルギー制約とAnytime Task Allocationを統合した実用的な提案であり、メイクスパン短縮の実験結果も具体的で、MAPD分野の研究者にとって価値が高い。",
+      "regenerated": "2026-06-15",
+      "relevance": 7,
+      "source_quality": "abstract",
       "title": "Anytime Multi-Task Multi-Agent Pickup and Delivery Under Energy Constraint",
-      "tldr": "本論文は、エージェントのエネルギー制約と、エージェントの現在位置に関わらずタスクを割り当て可能な「Anytime Task Allocation」を導入した、新しいマルチタスクMAPD（Multi-Agent Pickup and Delivery）アルゴリズムを提案しています。提案手法は、従来のマルチタスクMAPDと比較して、広範なエージェント数においてメイクスパン（完了時間）を $5 - 19 \\%$ 短縮することに成功しています。"
+      "tldr": "本論文は、エージェントのエネルギー制約と、エージェントの現在位置に関わらずタスクを割り当て可能な「Anytime Task Allocation」を導入した、新しいマルチタスクMAPD（Multi-Agent Pickup and Delivery）問題を提案しています。提案手法は、従来のマルチタスクMAPDと比較して、幅広いエージェント数においてメイクスパンを $5 - 19 \\%$ 短縮することに成功しています。"
     }
   },
   "reading": {}

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Robust Multi-Agent Path Finding under Observation Attacks: A Principled Adversarial-Plus-Smoothing Training Recipe | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Robust Multi-Agent Path Finding under Observation Attacks: A Principled Adversarial-Plus-Smoothing Training Recipe</h1>
+  <div class="meta">Riad Ahmed<br>arxiv ・ 2026-05-12 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2605.11469v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.11469v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-05-12</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">分散型MAPFの脆弱性を突き、学習レシピのみで頑健性を高める提案は新規性が高い。オンポリシーでのMACER適用に関する知見も実用的で価値がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 分散型マルチエージェント経路探索（MAPF）において、観測値への微小な摂動がチーム全体の停滞を招く脆弱性を克服するため、ネットワーク構造やデプロイメント・パイプラインを変更せずに頑健性を向上させる2段階の学習レシピ「Adv-PPO」および「Adv-PPO+MACER」を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、POGEMAベンチマークに代表される局所的な観測に基づく分散型MAPFにおいて、エージェントの観測テンソル $\mathbf{o}_t$ に対する微小な攻撃（Observation Attacks）が、標準的なPPOを用いた共有ポリシーの成功率を $100\%$ から $0\%$ へと劇的に低下させる問題に対処する。攻撃モデルは、$\boldsymbol{\delta}_t \in \mathcal{B}_\epsilon(\mathbf{0})$ の範囲内での摂動を想定し、FGSMやPGDといった勾配ベースの攻撃から、ガウスノイズやチャネルドロップアウトなどのセンサーノイズまでを対象とする。既存の防御策はアーキテクチャの変更や事後的な平滑化（post-hoc smoothing）を必要とするが、本研究は学習目的関数のみを最適化する手法を模索している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、State-Adversarial PPO (SA-PPO) をマルチエージェント設定へ拡張し、平滑化正則化とロバストなチェックポイント選択を組み合わせた「Adv-PPO」を提案し、最悪ケースの成功率を $0\%$ から $73\%$ へ向上させた。第二に、ランダム化平滑化（Randomized Smoothing）の認証半径に基づく微分可能なヒンジ損失であるMACERを、オンポリシーの微調整ステップとして導入した「Adv-PPO+MACER」を提案し、クリーンな成功率を $98\%$ 維持したまま最悪ケースの成功率を $83\%$ まで引き上げた。また、強化学習において認証半径信号を事後的な蒸留として適用すると性能が崩壊する一方で、オンポリシーで統合することで頑健性が向上するという重要な知見を提示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、Adv-PPOとMACERを組み合わせた2層の学習レシピである。Adv-PPOでは、訓練時にFGSMやPGDで生成した摂動入力 $\tilde{s}$ を用いる「Training-time attacked inputs」、最悪ケースのKLダイバージェンスを最小化する「SA-PPO」、および一様ノイズによる「Local smoothness regularizer」の3要素をPPOの目的関数に導入する。次にAdv-PPO+MACERでは、ガウスノイズ $\epsilon \sim \mathcal{N}(0, \sigma^2 I)$ を用いた平滑化されたトップアクションの確率 $\hat{\mathbb{P}}(\text{argmax}_{\pi} \pi(a|s))$ が目標マージン $\gamma$ を下回る場合にペナルティを与えるMACER損失 $\mathcal{L}_{\text{MACER}}$ を用いる。この損失は、Adv-PPOの更新直後に小さな近接ステップ（proximal step）として適用される。モデル選択には、検証用攻撃セットにおける性能 $\mathcal{R}_{\text{adv}}$ が最大となる「Robust checkpoint selection」を採用している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>POGEMAベンチマーク（$8 \times 8$ グリッド、4エージェント設定）を用い、障害物密度 $0.1$、エージェント数 $10$、観測半径 $r=3$、ステップ数 $T=50$ の環境で実験を行った。全手法で共通の2層CNNバックボーン（$32$ および $64$ チャンネル）を使用し、Adv-PPOは攻撃予算 $\epsilon=0.1$、平滑化ペナルティ $\lambda=0.1$ で学習、Adv-PPO+MACERは学習率 $10^{-4}$ で微調整を行った。評価では、FGSM、PGD（$T=10$ ステップ）、ガウスノイズ、ソルト＆ペッパー、チャネルドロップアウトに対し、学習外のシードを用いて $100$ エピソードずつ実行した。結果として、Adv-PPO+MACERはクリーンな成功率を維持しつつ、最悪の攻撃下でも高い成功率を達成し、Adv-PPOと比較して平均的な攻撃成功率において $11.3 \pm 1.5\%$ の有意な改善を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の重要な発見は、平滑化信号の適用タイミングである。事後的な蒸留（post-hoc distillation）は高い訓練精度を示すものの、生徒モデルが教師モデルの未経験な状態を訪問することでデプロイ時に失敗する。対して、提案するオンポリシーのAdv-PPO+MACERは、現在の方策が生成する軌跡上で損失を計算するため、テスト時の状態分布に対して有効な信号を提供できる。また、Cohen-smoothed wrapperを適用するとMAPFの実用的な成功率が低下するため、認証半径はあくまで比較ツールとして扱うべきである。本手法の限界として、大規模なマップやエージェント数へのスケーラビリティ、および単一のランダム開始点に基づくPGD攻撃以外の、より強力な攻撃プロトコルに対する検証が今後の課題として挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Robust Multi-Agent Path Finding under Observation Attacks: A Principled Adversarial-Plus-Smoothing Training Recipe</h3><p>本研究では、分散型マルチエージェント経路探索（MAPF）において、エージェントの観測値への微小な摂動がチーム全体の停滞を招く問題に対し、ネットワーク構造やデプロイメントループを変更せずに頑健性を向上させる2つの学習手法を提案している。第一の手法であるAdv-PPOは、入力に対する最悪の摂動を想定して共有ポリシーを学習させ、敵対的摂動下での性能に基づいてチェックポイントを選択する。第二の手法であるAdv-PPO+MACERは、Adv-PPOのチェックポイントに対し、ランダム化平滑化（Randomized Smoothing）の認証半径に従う勾配を持つオンポリシーの平滑化項を用いて微調整を行う。POGEMAベンチマーク（4エージェント設定）を用いた実験では、標準的なPPOが攻撃下で著しく性能を低下させるのに対し、Adv-PPOは最悪ケースの成功コストをクリーンな状態の1%以内に抑え、Adv-PPO+MACERは3つの独立したシードにおいてクリーンな状態の1%未満にまで回復させることを示した。さらに、攻撃ごとの性能曲線や、平滑化されたポリシーのラッパーを対象とした認証済みアクション安定性（certified action-stability）の検証を通じて、提案手法の有効性を実証している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、局所的な観測に基づく分散型マルチエージェント経路探索（MAPF）において、観測への攻撃（Observation Attacks）に対する脆弱性を克服するための新たな学習手法を提案している。従来のPPOを用いた共有ポリシー手法は、POGEMAベンチマークにおいて、単一の符号勾配ステップによる攻撃を受けるだけで、最悪の攻撃条件下での成功率が $100\%$ から $0\%$ へと劇的に低下する脆弱性を持つ。これに対し、提案手法の第一案である Adv-PPO は、凍結された事前学習済みベースラインによる攻撃、State-Adversarial PPO に由来する正則化、および TRADES の精神に基づく局所的な平滑化項を組み合わせた学習レシピであり、クリーンな成功率を維持したまま、最悪の攻撃下での成功率を $0\%$ から $73\%$ へと向上させる。さらに、Adv-PPO に randomized smoothing の認定半径（certified-radius）境界の勾配を用いたオンポリシー項を導入した Adv-PPO+MACER は、クリーンな成功率を $98\%$ に保ちつつ、最悪の攻撃下での成功率を $83\%$ まで引き上げる。実験の結果、認定半径のヒンジ損失を事後的な蒸留ステップとして適用するとクリーンな成功率が崩壊するのに対し、オンポリシーで統合することで頑健性が向上するという、強化学習における認定半径信号の統合に関する重要な知見を得ている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>本研究は、分散型マルチエージェント経路探索（MAPF）における観測攻撃への耐性を目的としており、PRIMALやPOGEMAといった既存の分散型MAPFの枠組みをベースとしつつ、単一エージェント向けのSA-MDP（State-Adversarial MDP）の概念を共有ポリシーを持つマルチエージェント設定へと拡張している。手法としては、FGSMやPGDといった攻撃手法を評価に用いるほか、TRADESの考え方を踏襲した平滑化ペナルティ（smoothness penalty）と、微分可能な訓練損失であるMACER（MAximum CERtified Radius）をPPOに組み合わせて採用している。具体的には、TRADESが内側のKLダイバージェンス項を用いるのに対し、提案手法の平滑化ペナルティは内側のPGDステップを省略した一様ノイズによる相対的な手法である。また、訓練時の攻撃には、Pinto et al. (2017) のような動的な敵対者ではなく、Tessler et al. (2019) の知見に基づき、凍結された事前学習済みベースラインからの攻撃を利用している。本研究の脅威モデルは、Gleave et al. (2020) が扱う敵対的ポリシーによる攻撃とは異なり、共有された分散型ポリシーに対するエージェントごとの観測摂動に焦点を当てている。</p></section>
+<section class="secsum"><h3>3 Problem Formulation</h3><p>本研究は、POGEMA環境における部分観測型協調的MAPFを対象とし、エージェントの観測テンソル $\mathbf{o}_t$ に対して、攻撃者が摂動 $\boldsymbol{\delta}_t$ を加える脅威モデルを定義している。攻撃者の目的は、クリーンな入力に対する行動 $\mathbf{a}_t^*$ とのクロスエントロピーを最大化することであり、摂動は $\boldsymbol{\delta}_t \in \mathcal{B}_\epsilon(\mathbf{0})$ の範囲で、離散的な観測値の性質を考慮してクリッピング（$\text{clip}(\mathbf{o}_t + \boldsymbol{\delta}_t, \mathbf{0}, \mathbf{1})$）が行われる。具体的な攻撃手法として、勾配を利用するFGSMやPGD、および勾配を用いないガウスノイズ、ソルト＆ペッパーノイズ、チャネルドロップアウトなどのセンサーノイズが設定されている。評価指標には、攻撃下での平均成功率を示す「Empirical robustness」と、Randomized Smoothingを用いて、半径 $\sigma$ の範囲内で行動の $\text{argmax}$ が変化しないことを保証する「Certified action stability」の2つを用いる。本手法の防御策は、センサーとポリシーの間に前処理やアーキテクチャの変更を一切加えず、学習目的関数のみに集約されている。</p></section>
+<section class="secsum"><h3>4 Method</h3><p>提案手法は、Adv-PPOとMACERを組み合わせた「Adv-PPO+MACER」という2層の学習レシピである。まず、Adv-PPOは、訓練時にFGSMやPGDを用いて生成した摂動入力 $\tilde{s}$ を用いる「Training-time attacked inputs」、最悪ケースのKLダイバージェンスを最小化する「State-adversarial regularizer (SA-PPO)」、および平均的な滑らかさを保証する「Local smoothness regularizer」の3要素をPPOの目的関数に導入し、近傍の観測に対して一貫した行動をとる共有ポリシーを学習する。次に、Adv-PPO+MACERでは、ランダム化平滑化（Randomized Smoothing）に基づく証明可能な安定半径を最大化するため、微分可能なヒンジ損失であるMACERを導入する。MACERは、ガウスノイズ $\epsilon \sim \mathcal{N}(0, \sigma^2 I)$ を用いた平滑化されたトップアクションの確率 $\hat{\mathbb{P}}(\text{argmax}_{\pi} \pi(a|s))$ が目標マージン $\gamma$ を下回る場合にのみペナルティを与える $\mathcal{L}_{\text{MACER}}$ を計算し、学習の安定化のためにAdv-PPOの更新直後に小さな近接ステップ（proximal step）として適用される。実験設定において、モデルの選択はクリーンな報酬ではなく、検証用攻撃セットにおける性能 $\mathcal{R}_{\text{adv}}$ が最大となるチェックポイントを用いる「Robust checkpoint selection」を採用している。本手法は、教師モデルから生徒モデルへ蒸留するpost-hocな手法と比較して、展開時のクリーンな成功率を維持しつつ、ポリシーが実際に遭遇する状態分布に対して直接的に平滑化信号を与えるオンポリシーな学習を実現している。</p></section>
+<section class="secsum"><h3>5 Experimental Setup</h3><p>実験は、障害物密度 $0.1$、エージェント数 $10$、観測半径 $r=3$、ステップ数 $T=50$ の POGEMA 環境を用いて行われ、2層の CNN バックボーン（$32$ および $64$ チャンネル）を全手法で共通化することで、頑健性の差がモデル容量ではなく学習目的関数に起因することを保証している。ベースラインとして PPO を用い、提案手法である Adv-PPO は攻撃予算 $\epsilon=0.1$ および平滑化ペナルティ $\lambda=0.1$ を用いて学習し、Adv-PPO+MACER は最強の Adv-PPO チェックポイントから学習率 $10^{-4}$ で微調整を行う。評価プロトコルでは、FGSM、PGD（$T=10$ ステップ）、ガウスノイズ、ソルト・アンド・ペッパー、チャネルドロップアウトといった多様な攻撃設定に対し、学習に使用していない固定のシードプールを用いて $100$ エピソードずつ実行する。評価指標には、各設定における成功率の平均および最悪値に加え、Cohen smoothing を用いた信頼水準 $99.9\%$ での認証半径（$N=100$ の選択サンプル、$N=1000$ の推定サンプル）が用いられる。</p></section>
+<section class="secsum"><h3>6 Results</h3><p>POGEMAベンチマーク（$8 \times 8$ グリッド、4エージェント）を用いた評価において、提案手法であるAdv-PPO+MACER (Ours-2) は、クリーンな成功率をほぼ維持したまま、最悪の攻撃条件下でも高い成功率を達成しており、Adv-PPO (Ours-1) よりも平均的な攻撃成功率において有意な改善（$11.3 \pm 1.5\%$ の差）を示している。事後的な平滑化（post-hoc smoothing）を用いた手法は、認証されたアクション安定性（certified action-stability）において最大の半径 $\epsilon$ を示すものの、デプロイ時のクリーン成功率が $50\%$ を下回るため、実用的なポリシーとしては不適切であることが示された。Adv-PPO+MACERは、FGSMやPGD、ガウスノイズなどの異なる攻撃手法に対しても高い堅牢性を維持し、クリーン性能と堅牢性のトレードオフにおいて、既存のpost-hoc手法が陥る「高堅牢性・低クリーン性能」の領域を避け、右上の最適な領域に位置している。また、PGD攻撃における5回のマルチリスタートを用いた検証においても、Adv-PPO+MACERがPPOおよびAdv-PPOを上回る順位を維持しており、その堅牢性が攻撃探索の不備によるものではないことが確認されている。本実験の結果は、MACERによるヒンジ損失の導入が、単一の攻撃セルに依存せず、セル分布全体に対して正の効果をもたらすことを示唆している。</p></section>
+<section class="secsum"><h3>7 Discussion</h3><p>Table 1における事後的な蒸留（post-hoc distillation）は、高い訓練精度を示すものの、平滑化された生徒モデルが教師モデル（Adv-PPO）が未経験の状態を訪問することで、平滑化信号が機能せずデプロイ時に失敗するという課題がある。これに対し、提案するオンポリシーのAdv-PPO+MACERは、平滑化損失を現在の方策が生成する軌跡上で計算するため、テスト時にエージェントが遭遇する状態に対して常に有効な信号を提供できる。MACERの重み設定については、方策のエントロピーを数イテレーション以内に崩壊させるのではなく、探索を維持しつつ最悪ケースの成功率を向上させる適切な値が存在することを確認している。また、Table 1の認証半径（certified radius）は、デプロイ用の $\text{argmax}$ 方策ではなく Cohen-smoothed wrapper に属するものであり、wrapperを適用するとMAPFにおいては実用不可能なほど成功率が低下するため、これは訓練時の平滑化指標および手法間の比較ツールとして報告している。本研究の脅威モデルは、センサー誤差や検出ノイズなどの微小な画素単位の摂動を想定しており、最悪ケースの勾配攻撃に耐えうる方策は、Fig. 3が示す通り、これら非構造的なバリエーションに対しても頑健である。</p></section>
+<section class="secsum"><h3>8 Limitations</h3><p>本研究の限界として、まずスケーラビリティの課題が挙げられ、全ての実験結果は特定のグリッドサイズとエージェント数に基づいているため、より大規模なマップやチーム構成においても提案手法の利得が維持されるかは未検証である。次に、攻撃の強度に関する限界があり、使用された PGD 攻撃は単一のランダムな開始点からのステップに基づいている。そのため、より強力な攻撃プロトコルを適用した場合には報告された数値が低下する可能性があり、現在の結果が真のワーストケースを代表しているとは主張していない。</p></section>
+<section class="secsum"><h3>9 Conclusion</h3><p>POGEMAにおける標準的なPPOベースのMAPF方策は、微小な観測攻撃に対して成功率が著しく低下する問題がある。本研究では、ネットワーク構造やデプロイメント・パイプラインを変更せずにこれを解決する2つの学習手法を提案しており、まずAdv-PPOはSA-PPOを共有方策型マルチエージェントへ拡張し、平滑化正則化項とロバストなチェックポイント選択器を導入することで、最悪ケースの成功率を $0.00$ から $0.75$ へ向上させた。次にAdv-PPO+MACERは、MACERの認証半径ヒンジ損失を小さな重みを持つオンポリシー項として追加し、対応するエントロピーボーナスを併用することで、最悪ケースの成功率を $0.85$ まで引き上げた。また、事後的なMACER蒸留がデプロイ済み方策を崩壊させるという負の結果を報告し、提案するオンポリシー変種がなぜこれを回避できるかを解明している。これらの手法は、エージェントごとの局所観測以外のMAPF構造に依存しないため、SMACやMPEといった他の共有方策型分散型MARLベンチマークにも適用可能な汎用的なレシピである。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-16
+  </footer>
+</div>
+</body>
+</html>

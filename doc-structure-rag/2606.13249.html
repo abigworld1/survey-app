@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-Field Hybrid Retrieval-Augmented Generation for Maritime Accident Root Cause Analysis | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi-Field Hybrid Retrieval-Augmented Generation for Maritime Accident Root Cause Analysis</h1>
+  <div class="meta">Seongjin Kim, Sungil Kim<br>arxiv ・ 2026-06-11 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.13249v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.13249v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-11</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">ドメイン特化型RAGにおけるマルチフィールド検索と、専門家不在下でのプロキシ評価手法の提案が極めて実用的。実装の具体性も高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 海難事故の根本原因分析（RCA）を自動化するため、韓国海事安全審判所（KMST）の判決報告書を「Summary」「Causes」「Disposition」の3つのフィールドに構造化した「マルチフィールド・ハイブリッドRAG」フレームワークを提案する。BM25と$bge\text{-}m3$を用いたハイブリッド検索をReciprocal Rank Fusion (RRF) で統合し、専門家によるラベル不足をメタデータ駆動型のプロキシ評価で補完することで、LLM単体よりも高精度で根拠に基づいた構造化RCA生成を実現した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>海事事故の根本原因分析（RCA）は、過去の判決事例に基づく類推推論が不可欠であるが、判決報告書は専門的な法務・技術用語が混在し、情報が複数のフィールドに断片化しているため、手動での分析には多大な労力を要する。本研究は、この課題を「事例に基づく構造化生成（case-informed structured generation）」として定式化し、新しい事故シナリオに対して過去の類似事例を検索し、構造化されたRCAを出力する手法を開発した。対象データは、1971年から2025年までのKMSTの報告書13,329件であり、これらを「Summary（概要）」「Causes（原因）」「Disposition（処分）」の3つのフィールドを持つ「incident cards」として構造化した。本研究の目的は、単一のテキストブロックによる因果信号の希釈を防ぎ、専門領域における一貫した因果ナラティブと標準化されたタグの生成を実現することにある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、ドメイン固有の文書構造を考慮したマルチフィールド・ハイブリッド検索戦略の提案である。これにより、記述的なナラティブと技術的・法的推論を分離して検索することが可能となり、情報の希釈を防いで検索精度を向上させた。また、専門家による大規模なアノテーションが困難な実務上の制約に対し、メタデータから導出されたプロキシ関連性スコアを用いた再現可能な評価プロトコルを導入した。実験の結果、提案手法はベースラインと比較して$\text{NormRecall@100}$を0.18から0.55へと大幅に向上させ、LLM-as-a-judgeスコアも3.34から3.72へと改善した。さらに、LLM単体で見られる幻覚（hallucination）を抑制し、過去の判例に基づいた正確な技術的メカニズムの特定を可能にした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>タスクは、入力クエリ $q$ に対して証拠集合 $E$ を用い、原因ナラティブ $c$ とタグ集合 $t$ からなる構造化出力 $y = (c, t)$ を生成することと定義される。知識ベースは13,329件のカード（計37,007個のチャンク）で構成され、原因タグの付与には約2,400の辞書と800の正規表現を用いたルールベースの弱教師あり学習を採用し、97.6%のカバー率を達成している。検索フェーズでは、各フィールドにおいてBM25による疎検索と$bge\text{-}m3$による密検索を行い、Reciprocal Rank Fusion (RRF) を用いて以下の式で統合する：<br>$$RRFScore(d) = \sum_{r \in R} \frac{1}{k + r(d)}$$<br>ここで $k=60$ である。最終的な生成には$Qwen3\text{-}Next\text{-}80B\text{-}A3B\text{-}Instruct$を使用し、温度パラメータ $0.0$、厳格なJSONスキーマ、およびメタデータを利用することで、追跡可能性と構造的一貫性を担保している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価には、13,329件のカードを70%/15%/15%に分割したデータセットを用い、全文インデックスや単一フィールドインデックスを用いた手法と比較した。専門家ラベルの代替として、キーワードのIDF重み付きJaccard類似度 $J_{idf}$、事故種別 $A$、管轄権 $J$、時間的近接性 $T$ を組み合わせた代理指標 $RelScore = 0.4J_{idf} + 0.2A + 0.2J + 0.2T$ を定義し、$RelScore &gt; 0.5$ を擬似ゴールドセットとした。検索性能は$\text{NormRecall@100}$および$\text{nDCG@100}$で測定し、生成性能はROUGE-L、SBERTコサイン類似度、およびLLM-as-a-judge（1–5段階）で評価した。結果として、Dense検索においてマルチフィールド化により$\text{NormRecall}$が$0.1819$から$0.4981$へと$174\%$向上し、Hybrid retrievalでは$0.5463$に達した。生成タスクのJudge scoreもLLM単体から$11.5\%$向上した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究は、ドメイン固有のフィールドに基づいてRAGを構造化することが、下流の生成タスクを大幅に向上させることを示した。マルチフィールド戦略により、記述的情報と技術的・法的推論を分離することで、専門家の診断推論経路を効果的に再構成し、歴史的・因果的な先例に基づいたグラウンディングを実現している。一方で、本研究にはいくつかの限界も存在する。第一に、検索性能の評価がメタデータに基づくプロキシスコアに依存している点、第二に、原因タグの抽出がルールベースに依存している点、第三に、LLM-as-a-judgeがモデル依存のバイアスを孕む可能性がある点である。しかし、これらの手法は専門領域におけるゴールドスタンダードの欠如という実用的な課題に対処しており、現実的な制約下での比較基盤を提供している。今後の展望として、COLREGs（海上衝突予防規則）の統合や、グラフベースの推論による解釈性の拡張が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Multi-Field Hybrid Retrieval-Augmented Generation for Maritime Accident Root Cause Analysis</h3><p>本研究は、海難事故の根本原因分析（RCA）を自動化するために、多分野（multi-field）ハイブリッド検索拡張生成（RAG）フレームワークを提案している。1971年から2025年までの韓国海事安全審判所（KMST）の報告書13,329件を対象とし、生の審判記録を「Summary（概要）」「Causes（原因）」「Disposition（処分）」の3つのフィールドと階層的なL1/L2原因分類を持つ「incident cards」という構造化知識ベースに変換して利用する。検索戦略には、疎な（sparse）ランキングと密な（dense）ランキングをReciprocal Rank Fusion (RRF) によって融合させるフィールド認識型のハイブリッドアプローチを採用している。専門家による大規模なラベルが不足しているため、メタデータから導出されたプロキシ関連性スコアに基づき、天井正規化されたRecallおよびnDCGを用いて評価を行っている。実験の結果、提案手法はベースラインと比較してNormRecall@100を0.18から0.55へと大幅に向上させ、さらにLLMのみのベースラインと比較してLLM-as-a-judgeスコアを3.34から3.72へと改善し、根拠に基づいた一貫性のあるRCA生成を実現した。</p></section>
+<section class="secsum"><h3>I INTRODUCTION</h3><p>海事事故の根本原因分析（RCA）は、過去の判決事例に基づく類推推論が重要であるが、判決報告書は専門的な法務・技術用語が混在し、事故の経緯や原因、処分といった複数のフィールドに情報が断片化しているため、手動での合成には多大な労力を要する。本研究では、海事RCA支援を「事例に基づく構造化生成（case-informed structured generation）」として定式化し、新しい事故シナリオに対して過去の類似事例を検索し、それらに基づいた構造化されたRCA出力を生成する手法を提案する。具体的には、1971年から2025年までの13,329件のKMST（韓国海事安全審判所）判決事例からなる大規模な構造化知識ベースを構築し、階層的なL1/L2原因タグを導入している。提案手法は、文書を単一のテキストブロックとして扱うのではなく、複数のフィールド（Summary, Causes, Disposition）の多様な意味論を活用する「マルチフィールド・ハイブリッド検索戦略」を採用することで、検索精度を向上させている。また、専門家による評価のコスト問題を解決するため、メタデータ駆動型の再現可能な評価プロトコルを導入しており、LLMのみのベースラインと比較して構造化RCA生成の性能が大幅に向上することを示している。</p></section>
+<section class="secsum"><h3>II RELATED WORK</h3><p>本研究の関連研究では、まず安全に直結するシステムにおける根本原因分析（RCA）が、複数の要因の組み合わせを説明するプロセスであることが述べられ、海事分野の審判報告書を証拠コーパスとして扱う重要性が示されている。RAG（Retrieval-Augmented Generation）に関しては、記述的・因果的・結果的な多面的な類似性を捉える必要があり、BM25による疎な語彙マッチングと $BAAI/bge\text{-}m3$ 等の埋め込みを用いた密な検索を、Reciprocal Rank Fusion (RRF) によって統合するハイブリッド検索手法が挙げられている。本研究は、単一のテキストブロックによる因果信号の希釈を防ぐため、フィールド認識型インデックス（field-aware indexing）を活用する点で既存手法を拡張している。また、専門領域における大規模なアノテーションの困難さを克服するため、ルールベースのマッピングを用いて KMST L1/L2 原因タグを割り当てる弱監督学習の考え方を採用している。従来の海事事故テキストマイニング研究は、事故種別の予測や因果関係抽出などの識別的なタスクに限定されていたが、本フレームワークは、根拠となる先例を明示しつつ、一貫した因果ナラティブと標準化されたタグを生成する生成的なRCAを実現している。</p></section>
+<section class="secsum"><h3>III METHOD</h3><p>本手法は、海難事故の根本原因分析（RCA）を支援するために、事例に基づいた構造化生成タスクとして定式化されており、入力クエリ $q$ に対して知識ベースから取得された証拠集合 $E$ に基づき、原因ナラティブ $c$ と分類学に準拠したタグ集合 $t$ からなる構造化出力 $y = (c, t)$ を生成する。知識ベースは韓国海事安全審判所（KMST）の審判報告書から構築され、13,329件のカード（計37,007個のチャンク）が、Summary、Causes、Dispositionの3つの検索フィールドに分割して格納されている。原因タグの付与には、約2,400の辞書エントリと800の正規表現パターンを用いた弱教師あり学習に基づくルールベースのラベル付けを採用しており、97.6%（13,012件）のカバー率を達成している。検索フェーズでは、BM25による疎検索とbge-m3による密検索を各フィールドで組み合わせ、Reciprocal Rank Fusion (RRF) を用いて以下の式で6つのランキングを統合する：$RRFScore(d) = \sum_{r \in R} \frac{1}{k + r(d)}$、ここで $k=60$ である。最終的な生成段階では、Qwen3-Next-80B-A3B-Instructをデコーダとして用い、温度パラメータ $0.0$、厳格なJSONスキーマ、および各チャンクに付与されたケースIDとフィールド種別のメタデータを利用することで、追跡可能性と構造的一貫性を担保したRCAレポートを生成する。</p></section>
+<section class="secsum"><h3>IV EXPERIMENTS</h3><p>13,329件のカードを70%/15%/15%の割合で分割し、提案手法であるマルチフィールド・ハイブリッド検索を、全文インデックス、およびSummaryやCausesのみの単一フィールドインデックスを用いたBM25や$bge-m3$による検索と比較評価している。生成モデルには$Qwen3-Next-80B-A3B-Instruct$を使用し、検索コンテキストを用いないLLM-onlyの構成と比較することで、先例に基づく根拠付けの効果を検証している。検索の評価指標として、キーワードのIDF重み付きJaccard類似度 $J_{idf}$、事故種別 $A$、管轄権 $J$、時間的近接性 $T$ を用いた代理指標 $RelScore = 0.4J_{idf} + 0.2A + 0.2J + 0.2T$ を定義し、これに基づき $RelScore &gt; 0.5$ を擬似ゴールドセットとしている。検索性能は $NormRecall@100$ と $nDCG@100$ で測定し、生成性能は、正解となるCausesフィールドに対し、ROUGE-L、SBERTコサイン類似度、およびLLM-as-a-judgeによる1–5段階のスコアを用いて多角的に評価している。また、構造化タグの評価には、L1グループの完全一致精度に加え、L2要因に対するMicro-F1およびJaccardスコアを用いている。</p></section>
+<section class="secsum"><h3>V RESULTS</h3><p>検索結果の分析において、文書全体を一つのブロックとして扱う手法に対し、Summary, Causes, Dispositionといった各フィールドを個別にインデックスするマルチフィールド手法は、情報の希釈を防ぎ、検索の網羅性と精度を大幅に向上させる。具体的には、Dense検索において、Whole-document indexingの $\text{NormRecall} = 0.1819$ から、マルチフィールド化により $0.4981$ へと $174\%$ の相対的な向上を達成しており、特にDispositionフィールドの追加が $\text{nDCG}$ を $0.5336$ から $0.7512$ へと大きく改善させることが示された。また、BM25による語彙的一致とDense検索による意味的類似性を組み合わせたHybrid retrievalを用いることで、$\text{NormRecall}$ は $0.5463$ に達し、単一手法の限界を補完している。生成タスクの評価では、LLM単体ベースラインと比較してJudge scoreが $3.340$ から $3.723$ へと $11.5\%$ 向上しており、これは検索結果が事実の一貫性と主要な原因の網羅性を高めていることを示唆している。ケーススタディでは、LLM単体では「突然の衝撃」から構造的欠陥を推論したり、飲酒状態から誤った発火原因を導き出したりする幻覚（hallucination）が発生するのに対し、提案手法は過去の判例に基づいた診断的推論を行うことで、海図作成の失敗やプロパンガスの引火といった正確な技術的メカニズムを特定できることが確認された。</p></section>
+<section class="secsum"><h3>VI DISCUSSION AND LIMITATIONS</h3><p>本研究の実験結果は、ドメイン固有の文書フィールドに基づいてRAGアーキテクチャを構造化することが、下流の生成タスクを大幅に向上させることを示している。具体的には、記述的なナラティブ（$\text{Summary}$）を技術的・法的推論（$\text{Causes}$ および $\text{Disposition}$）から分離するマルチフィールド・ハイブリッド検索戦略により、専門家による診断推論経路を効果的に再構成し、語彙的な類似性だけでなく歴史的・因果的な先例に基づいたグラウンディングを実現している。また、密ベクトル検索と疎ベクトル検索の信号を融合させることで、語彙の不一致に対する堅牢性を確保しつつ、重要な規制・技術用語の精密な検索を可能にしている。一方で、本評価フレームワークには、大規模な専門家による関連性ラベルの欠如により検索性能をメタデータベースのプロキシスコアで測定している点や、階層的な原因タグがルールベースの抽出に依存している点、さらにLLM-as-a-judgeによる評価がモデル依存のバイアスを孕む可能性があるといった限界が存在する。しかし、これらのヒューリスティックなプロキシの採用は、専門的な行政ドメインにおけるゴールドスタンダードの欠如という実用的な課題に対処しており、現実的なデータ制約下での再現可能な比較基盤を提供している。</p></section>
+<section class="secsum"><h3>VII CONCLUSION</h3><p>本論文は、KMST（韓国海事安全技術院）の裁定報告書データセットを活用し、海事事故の根本原因分析（RCA）を行うためのマルチフィールド・ハイブリッドRAGフレームワークを提案している。手法として、過去の記録をフィールド認識型の「インシデントカード」へと構造化し、RRF（Reciprocal Rank Fusion）を用いてスパース検索とデンス検索の信号を融合することで、先例検索の精度を大幅に向上させている。専門領域における人間によるアノテーション済みゴールドスタンダードの欠如に対処するため、メタデータに基づく再現可能な評価プロキシを導入し、検索戦略の体系的かつ客観的な比較を可能にした。エンドツーエンドの実験の結果、提案手法はLLMのみのベースラインと比較して、より正確で構造化され、かつ先例に基づいたRCA生成を実現することが示された。今後の展望として、COLREGs（海上衝突予防規則）などの正式な法的規制の統合や、診断の深さと解釈性を拡張するためのグラフベースの推論の導入が挙げられている。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-16
+  </footer>
+</div>
+</body>
+</html>

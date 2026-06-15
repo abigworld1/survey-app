@@ -57,17 +57,18 @@
 <div class="wrap">
   <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
   <h1>TechDocRAG: Relation-Preserving Retrieval-Augmented Generation (RAG) for Technical Documents</h1>
-  <div class="meta">Seung‐Joon Lee, Myungryul Choi<br>AI ・ 2026-05-06 ・ source: openalex</div>
-  <div class="links"><a href="https://openalex.org/W7160540146" target="_blank" rel="noopener">原典</a> ・ <a href="https://www.mdpi.com/2673-2688/7/5/161/pdf?version=1778069457" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.3390/ai7050161" target="_blank" rel="noopener">DOI</a></div>
-  <div class="paper-facts"><span class="chip">公開日 2026-05-06</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip basis-abstract">アブストラクト</span></div>
+  <div class="meta">Seungjoon Lee, Myung-Seok Choi<br>Applied Informatics ・ 2026-05-06 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/060914a818f550a3cd0cf635580994e84ab35baa" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.3390/ai7050161" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip">公開日 2026-05-06</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-abstract">アブストラクト</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">技術文書特有の構造保持に焦点を当て、グラフ表現を用いた手法の新規性と、大幅な精度向上を示す実験結果の具体性が高く、実用的な価値も大きい。</div></div>
   <div class="source-notice abstract">本文未取得: アブストラクトのみを根拠にしています。詳細確認には原典を参照してください。</div>
 <div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
-  <div class="tldr"><strong>一言で:</strong> 技術文書特有の構造（条項、表、図、手順など）を維持したまま検索を行う、TechDocRAGというフレームワークを提案する。従来のRAGが文書を独立したチャンクに平坦化してしまう問題を解決し、要素間の関係性を保持することで、正確な根拠追跡を可能にする。実験では、既存のベースラインと比較して大幅な精度向上を達成している。</div>
-<section class="qa"><h2>どんなもの？</h2><p>技術文書におけるRAGの課題は、回答の根拠が単一の文章ではなく、番号付き条項や図表、キャプションなどの複数の要素に分散している点にある。標準的なRAGパイプラインはこれらの要素を独立したチャンクとして平坦化するため、文書内の重要な関係性が失われてしまう。本研究は、これらの構造的関係を保持したまま検索・生成を行う手法を対象としている。</p></section>
-<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>文書を「不均一要素グラフ（heterogeneous element graph）」として表現する新しいフレームワークを導入した。各要素に対して「技術的識別子（technical identifiers）」、「意味的要約（semantic summaries）」、「生の根拠（raw evidence）」の3つの視点を整合させる手法を提案している。これにより、製品マニュアルやエンジニアリング文書における根拠のヒット率を大幅に改善した。</p></section>
-<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>文書を要素グラフとして構築し、クエリ時には識別子を考慮したリコール、要約レベルのリランキング、そして生の根拠のバンドリングという段階的なプロセスを実行する。具体的には、各要素に対して以下の3つのビューを対応させる。<br>1. 技術的識別子（Technical identifiers）<br>2. 意味的要約（Semantic summaries）<br>3. 生の根拠（Raw evidence）<br>この多角的なアプローチにより、構造化された情報の検索精度を高めている。</p></section>
-<section class="qa"><h2>どうやって有効だと検証した？</h2><p>製品マニュアルやエンジニアリング文書、マルチモーダルな長いPDFを含む4つのベンチマーク（計7,500件以上のQAペア）を用いて評価を行った。TechDocRAGは、最強の平坦化ベースラインに対して平均エンドツーエンドスコアで20.3ポイント、最強の非平坦化ベースラインに対して9.3ポイント向上した。また、厳密な根拠のヒット率は0.510から0.942へと劇的に改善している。</p></section>
-<section class="qa"><h2>議論はある？（限界・課題）</h2><p>技術文書における信頼性の高いRAGは、単に多くの文章を検索することよりも、根拠の解釈可能性を支える「関係性の保持」に依存していることが示された。クエリのレイテンシは標準的なハイブリッド検索と同等であり、実用的な性能を示している。ただし、識別子が著しく破損した場合には感度が高く、精度が低下する傾向も確認されている。</p></section>
+  <div class="tldr"><strong>一言で:</strong> 技術文書特有の構造（条項、表、図、手順など）を保持したまま検索を行う、TechDocRAGというフレームワークを提案する。従来のRAGが文書をフラットなチャンクに分割して関係性を破壊するのに対し、本手法は要素間の関係性を維持することで、正確な根拠追跡を可能にする。実験では、既存のベースラインと比較して大幅な精度向上を達成している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>技術文書におけるRAGの課題である、情報の断片化と関係性の喪失に対処するための手法である。技術文書では、一つの回答の根拠が番号付き条項や図表、キャプションなどに分散して存在するため、単純なチャンク分割では文脈が失われる。本研究は、文書を「不均一な要素グラフ（heterogeneous element graph）」として表現することで、この問題の解決を図っている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>技術文書の構造を保持する「TechDocRAG」フレームワークの提案である。各要素に対して「技術的識別子（technical identifiers）」、「意味的要約（semantic summaries）」、「生の根拠（raw evidence）」の3つの視点から検索を行う仕組みを構築した。これにより、製品マニュアルやエンジニアリング文書における回答精度と、根拠のヒット率を劇的に向上させた。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>文書を不均一な要素グラフとして表現し、3つの検索ビューを整合させる手法を用いる。具体的には、識別子を意識したリコール（identifier-aware recall）から始まり、要約レベルでのリランキング、そして最終的に生の根拠を束ねる（raw evidence bundling）というプロセスで検索が進む。これにより、分散した情報を構造的に再構成して回答に利用する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>製品マニュアルやエンジニアリング文書、マルチモーダルPDFを含む4つのベンチマーク（計7,500件以上のQAペア）を用いて評価を行った。結果として、最強のフラットなベースラインに対し平均エンドツーエンドスコアで20.3ポイント、最強の非フラットなベースラインに対し9.3ポイントの向上を確認した。また、厳密な根拠のヒット率は0.510から0.942へと大幅に改善した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>技術文書における信頼性の高いRAGは、単に多くのパッセージを検索することよりも、根拠の解釈可能性を支える「関係性の保持」に依存していることが示唆された。堅牢性テストでは、関係性の喪失による性能低下は緩やかであったが、識別子の深刻な破損には敏感に反応することが分かった。クエリの遅延時間は、標準的なハイブリッド検索と同程度であり、実用性も示されている。</p></section>
+
 
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。

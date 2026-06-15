@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Retrieval-Augmented Generation with Graphs (GraphRAG) | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Retrieval-Augmented Generation with Graphs (GraphRAG)</h1>
+  <div class="meta">Haoyu Han, Yu Wang, Harry Shomer, Kai Guo, Jiayuan Ding, Lei, Yongjia, Mahantesh Halappanavar, Ryan A. Rossi, Subhabrata Mukherjee, Xianfeng Tang, Qi He, Zhigang Hua<br>arXiv (Cornell University) ・ 2024-12-31 ・ source: openalex</div>
+  <div class="links"><a href="https://openalex.org/W4406031095" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2501.00309" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2501.00309" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2024-12-31</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 19</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">GraphRAGの概念を5つのコンポーネントで体系化した包括的なサーベイであり、多様なドメインへの拡張性と今後の課題提示が極めて有用。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、グラフ構造の持つノード・エッジ間の関係性や異種混合な情報を活用して、従来のRAGでは困難だった複雑な推論を可能にする「GraphRAG」に関する包括的なサーベイである。著者らは、GraphRAGをQuery Processor、Retriever、Organizer、Generator、Data Sourceの5つのコンポーネントからなるフレームワークとして定義し、知識グラフから科学、社会、インフラ、表形式データに至るまで、多様なドメインにおける設計と課題を体系化した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のRAGは主にテキストや画像の1D/2D配列に基づく意味的・語彙的な類似性検索に依存しているが、GraphRAGはグラフ構造を利用することで、関係性に基づいた高度な知識取得を目指す。GraphRAGの設計における主要な差異として、(1) 統一的なベクトル表現が困難な情報の多様性、(2) エッジによる多ホップ推論を可能にする情報の相互依存性、(3) ドメインごとに異なる関係性が必要なドメイン固有性の3点が挙げられる。本研究は、これらに対処するための包括的なフレームワークを提案し、既存の知識グラフやドキュメントグラフに偏った研究を、科学、社会、インフラ、生物学、表形式データなど10以上のドメインへと拡張してレビューしている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文の主な貢献は、GraphRAGを「グラフ構築」「リトリーバー」「オーガナイザー」「ジェネレーター」「データソース」の5つの主要コンポーネントからなる統一的なフレームワークとして定義したことである。また、知識グラフ（KG）、ドキュメントグラフ、科学グラフ、ソーシャルグラフ、計画・推論グラフ、表形式グラフ、およびその他の未開拓ドメイン（インフラ、生物学、シーン）におけるGraphRAGの設計とベンチマークを体系化した。さらに、グラフ構築における粒度決定や、リトリーバーにおける記号的・ニューラル的知識の統合、生成器における構造情報の解釈といった、今後の研究における重要な課題と方向性を提示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>GraphRAGのフレームワークは、まずクエリ処理器 $\Omega_{\text{Processor}}$ が自然言語クエリ $Q$ を前処理して $\hat{Q} = \Omega_{\text{Processor}}(Q)$ を生成する。これには、エンティティ認識（NER）、関係抽出（RE）、クエリ分解、およびGQLへの変換などのプロセスが含まれる。リトリーバー $\Omega_{\text{Retriever}}$ では、シードエンティティ $\mathcal{V}_{\text{seed}}$ を起点とした探索ベース（BFS/DFS、PPR等）、サブグラフベース、ルールベース（SPARQL等）、あるいはGNNを用いたメッセージパッシングなどの手法が用いられる。オーガナイザー $\Omega_{\text{Organizer}}$ は、グラフ枝刈り（Graph Pruning）や再ランキング（Reranking）を通じて、情報の網羅性と簡潔性のバランスを取り、ジェネレーター $\Omega_{\text{Generator}}$ がLLMを用いて最終的な回答を生成する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>本論文は、特定の実験結果を報告するものではなく、広範な既存研究の体系的なレビューに基づいている。評価の枠組みとして、科学分野ではPDBbind v2016等のデータセット、ソーシャルグラフではユーザー・アイテム間の相互作用、計画・推論グラフではHugging Faceのツール群やRestBench、表形式データではRelBenchやDBInfer Benchmarkといった、各ドメインにおける代表的なベンチマークとデータセットが挙げられている。これらのリソースを通じて、GraphRAGがLLMのコンテキスト窓の制限克服や、マルチホップ推論、専門知識の補完において、従来のRAGよりも高い精度と解釈性を実現できることが示されている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>GraphRAGの今後の発展には、複数の重要な課題が存在する。グラフ構築においては、ノード・エッジの適切な粒度決定、エンティティの曖昧さ回避、および動的なグラフ更新の効率化が求められる。リトリーバーにおいては、記号的知識とニューラル的知識の整合性や、正確性・多様性・新規性のトレードオフの解決、さらには適応的な推論能力の獲得が不可欠である。また、システム全体として、スケーラビリティの確保に加え、グラフ特有の構造的脆弱性や隣接ノードを通じた情報漏洩といった、関係性に基づくリスク（信頼性、堅牢性、安全性、プライバシー）への対策が、今後の研究における重要な焦点となる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>本論文は、外部知識を活用して下流タスクの性能を向上させるRetrieval-Augmented Generation (RAG) において、ノードとエッジによって異種混合かつ関係性の高い情報を保持するグラフ構造を活用する「GraphRAG」に関する包括的なサーベイである。従来のRAGがニューラル埋め込み空間内でリトリーバーやジェネレータを統一的に設計できるのに対し、GraphRAGでは多様な形式やドメイン固有の関係性知識といったグラフ構造特有の性質が設計上の大きな課題となる。著者らは、Query Processor、Retriever、Organizer、Generator、およびData Sourceからなる包括的なGraphRAGフレームワークを提案している。さらに、ドメインごとに異なる関係性パターンに対応するため、各ドメインに特化したGraphRAG技術をレビューし、今後の研究課題や学際的な研究の方向性を議論している。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>GraphRAGは、グラフ構造データに含まれるノード間の関係性や異種混合な情報を活用することで、従来のRAG（テキストや画像の1D/2D配列に基づくもの）では困難であった複雑な推論や構造的特徴の把握を可能にする手法である。従来のRAGが主に意味的・語彙的な類似性検索に依存するのに対し、GraphRAGはGraph Neural Networks (GNNs) やグラフ探索（BFS, DFS, $A^*$ search等）、コミュニティ検出などのグラフ解析技術を用いることで、関係性に基づいた知識の取得を実現する。本論文では、GraphRAGの設計における3つの主要な差異として、(1) 情報形式の多様性（統一的なベクトル表現が困難で、エンティティ連結やグラフ探索が必要）、(2) 情報の相互依存性（独立したチャンクではなく、エッジによる多ホップ推論や構造的信号の活用が可能）、(3) ドメイン固有性（画像やテキストのような汎用的な不変単位がなく、ドメインごとに異なる関係性や設計が必要）を挙げている。著者らは、これらに対処するための包括的なフレームワークとして、query processor, retriever, organizer, generator, graph data sourceの5つの構成要素を提案している。さらに、知識グラフやドキュメントグラフに偏った既存研究の課題に対し、科学、社会、インフラ、生物学など10の異なるドメインにわたるGraphRAGの設計とベンチマークを体系化したサーベイを提供している。</p></section>
+<section class="secsum"><h3>A Holistic Framework of GraphRAG</h3><p>GraphRAGは、グラフ構造のデータソース $G$ を活用するために設計された包括的なフレームワークであり、クエリ処理器 $\Omega_{\text{Processor}}$、リトリーバー $\Omega_{\text{Retriever}}$、オーガナイザー $\Omega_{\text{Organizer}}$、ジェネレーター $\Omega_{\text{Generator}}$ の5つの主要コンポーネントで構成される。従来のRAGがテキストやグリッドデータを用いるのに対し、GraphRAGは関係性情報を扱うため、リトリーバーにおいてグラフ探索（Entity LinkingやBFS/DFS）やグラフニューラルネットワーク（GNNs）を用いたエンコーディングを用いる点が特徴である。クエリ処理器 $\Omega_{\text{Processor}}$ は、自然言語のクエリ $Q$ を前処理して $\hat{Q} = \Omega_{\text{Processor}}(Q)$ を生成し、これにはエンティティ認識（NER）、関係抽出（RE）、クエリ構造化（GQLへの変換など）、クエリ分解、クエリ拡張が含まれる。特にNERにおいては、単なる名称の特定に留まらず、グラフ内のノード型を認識することで、後続のリトリーバーが適切なノードを探索するための指針を与える。また、クエリ分解においては、複雑なタスクを論理的に関連した複数のサブクエリに分割することで、マルチステップの推論やプランニングを可能にしている。</p></section>
+<section class="secsum"><h3>Knowledge Graph</h3><p>知識グラフ（KG）は、エンティティとそれらを結ぶ定義済みの関係によって構成される構造化データベースであり、質問応答、事実確認、知識グラフ補完、サイバーセキュリティ分析などの多様なタスクに活用される。KGの構築手法には、WikiDataのような手動構築、ルールベース（ER/RE手法を用いるもの）、およびLLMを用いて文書からエンティティや関係を自動抽出するLLMベースの構築（GraphRAGなど）が存在する。GraphRAGにおける検索プロセスは、まずクエリからシードエンティティの集合 $\mathcal{V}_{\text{seed}}$ を特定する段階と、それに基づき事実やエンティティを検索する段階の2段階で構成される。検索手法には、シードエンティティからパスを辿る「探索ベース（Traversal-based）」、周囲のサブグラフを抽出する「サブグラフベース（Subgraph-based）」、SPARQL等のテンプレートを用いる「ルールベース（Rule-based）」、およびメッセージパッシングを行う「GNNベース（GNN-based）」がある。探索ベースの具体例として、Yasunagaらによる長さ2までのパス抽出や、LLMを用いて次に訪問すべきノードを決定する手法、あるいはPersonalized PageRank（PPR）を利用する手法などが挙げられる。</p></section>
+<section class="secsum"><h3>Document Graph</h3><p>ドキュメントグラフは、ハイパーリンクや引用、あるいは文やエンティティ間の意味的・構文的関係を用いて、文書間や文書内の異なる粒度の接続をモデル化する構造である。その構築手法には、ウェブページ間のリンクや外部知識グラフ（KG）を利用する「明示的構築（Explicit Construction）」と、単語間の共起、依存構造解析、AMR、あるいは埋め込みの類似性などを用いて意味的・構文的関係を抽出する「暗示的構築（Implicit Construction）」の2種類が存在する。エッジの構成は多様であり、単語間（Word-word）、単語と文（Word-Sentence）、文間（Sentence-Sentence）、文と文書（Sentence-document）、文書間（Document-document）といった階層的かつ異種混合的な（heterogeneous）グラフを形成する。GraphRAGにおける活用範囲は広く、多文書要約（MDS）、テキスト生成、文書検索、文書分類、質問応答（QA）、関係抽出などのタスクにおいて、LLMのコンテキスト窓の制限克服やマルチホップ推論の支援に寄与する。検索（Retriever）においては、事前に文書を絞り込む「Pre-Retrieval」、グラフ間の類似度を用いる手法、情報を段階的に辿る「Iterative Retriever」、グラフのトポロジーを利用する手法などが提案されている。さらに、計算効率や精度の向上のため、局所的なクラスタリング係数や類似度閾値に基づく「グラフ枝刈り（Graph Pruning）」や、GNNを用いた「再ランキング（Reranking）」といった整理（Organizer）技術も重要な役割を果たす。</p></section>
+<section class="secsum"><h3>Scientific Graph</h3><p>科学グラフ（Scientific Graph）は、創薬や生物医学などの分野で用いられるグラフ構造データであり、本セクションでは特に分子グラフと医学グラフに焦点を当てている。分子グラフは原子をノード、化学結合をエッジとして構造を捉え、SMILES（1D）、2D、3D（座標を含む）などの形式で表現される。GraphRAGは、LLMが直面する専門知識の不足やハルシネーション、科学的な妥当性の欠如といった課題に対し、外部知識データベースから関連するグラフを検索することで、分子生成、物性予測、医学的質問応答（QA）の精度と解釈性を向上させる。グラフの構築手法には、テキストからエンティティと関係性を抽出する手法、RDKit等を用いてSMILESから2Dグラフを生成する手法、およびPDBbind v2016等のデータセットを用いてタンパク質・リガンド間の相互作用を捉える3Dグラフ構築手法がある。リトリーバー（検索器）は、コサイン類似度を用いた類似性ベース、エンティティと関係性を結びつける知識グラフベース、PMINetのようなタンパク質・分子相互作用ネットワークを用いる深層学習ベースなどに分類される。最後に、オーガナイザー（整理器）は、検索された推論チェーンやエンティティ・関係性をクエリと統合するクエリベースの手法や、文脈の枝刈り（context pruning）を行う手法によって、LLMへの入力を最適化する役割を担う。</p></section>
+<section class="secsum"><h3>Social Graph</h3><p>本セクションでは、GraphRAGにおけるソーシャルグラフの活用について、アプリケーション、構築手法、リトリーバー、オーガナイザー、ジェネレーターの観点から詳述している。ソーシャルグラフは、エンティティ間の社会的関係（友人、フォロワー、購買行動、エージェント間の相互作用など）をモデル化したものであり、エンティティ属性予測、テキスト生成、推薦、質疑応答、フェイクニュース検出などのタスクに適用される。グラフ構築の根拠には、近接性（proximity-based）、役割（role-based）、パーソナライゼーション（personalization-based）の3つの論理があり、これに基づき「ユーザー間」「ユーザー・アイテム間」「アイテム間」「メタデータ」「エージェント間」の5種類の相互作用が定義される。リトリーバーには、IDベース、フィルタリングベース、社会的関係ベース、およびルールに基づく記号的検索と埋め込みに基づく神経的検索を組み合わせた「統合型ニューロ・シンボリック・リトリーバー」が存在する。オーガナイザーは、キーワード抽出、プロファイル要約、および階層的なグラフ集約・要約を用いて、LLMのコンテキスト制限を回避しつつ情報の密度を高める役割を担う。最終的なジェネレーターは、出力形式に応じてLLMベースのテキスト生成、または予測ベースの生成へと分岐する。</p></section>
+<section class="secsum"><h3>Planning and Reasoning Graph</h3><p>Planning and reasoning graphは、エンティティ（計画や推論のサブステップ）とそれらの論理的関係を示すエッジで構成され、GraphRAGにおける計画・推論タスクの基盤となる。主なタスクには、サブグラフ形式で手順を抽出するSequential Plan Retrieval、時間制約を考慮し効率を最適化するNaturalistic Asynchronous Planning、およびA*探索やMonte Carlo Tree Searchを用いたTool Usageなどが含まれる。グラフの構築には、リソース依存（入力と出力の一致）、時間的依存、包含的依存（階層構造）、因果的依存、類推的依存といった多様な依存関係が用いられる。リトリーバーはグラフ探索器として機能し、埋め込みベース（embedding-based）の手法や、報酬関数を用いるヒューリスティックベース（heuristic-based）の手法に分類される。既存の多くの手法では、推論ステップと統合された多段階の検索により精度が高いため、再ランキングを行うOrganizerの必要性は低い。データセットとしては、Hugging Faceのツール群を用いたリソース依存グラフや、RestBenchのようなAPI間のカテゴリ的・リソース的関係をモデル化したものが利用されている。</p></section>
+<section class="secsum"><h3>Tabular Graph</h3><p>表形式データ（Tabular data）をグラフ構造として表現する手法は、LLMによるシリアル化が引き起こす置換不変性（permutation invariance）の喪失や、複数テーブル間の主キー・外部キーによる関係性の活用困難、およびコンテキストウィンドウの制限といった課題を解決するために有効である。グラフ構築には、行をノードとする「Instance Graph」（ルールベースまたはKNN等の学習ベース）、特徴量をノードとする「Feature Graph」、両者を結ぶ「Instance-Feature graph」、セルをノードとする「Cell Graph」、さらには行や列をハイパーエッジとする「Tabular Hypergraph」などの多様な形式が存在する。また、リレーショナルデータベースに対応するため、複数のテーブルを直接結ぶ「Cross-table Graphs」も提案されており、これらは主キーや外部キーに基づきインスタンス間を接続する。タスクは、ノードレベル（分類・回帰）、リンクレベル（予測・補完）、グラフレベル（類似度予測）、Table QA、Table retrievalなど多岐にわたる。生成器（Generator）としては、GNNやGraph Transformerに加え、DeepFMやXGBoostなどの表形式予測器と融合させる手法や、LLMを適用する研究が進んでいる。評価用リソースには、Relational DBを対象としたRelBenchやDBInfer Benchmark、表形式の深層学習を扱うRTDLなどが挙げられる。</p></section>
+<section class="secsum"><h3>Other Domains</h3><p>本セクションでは、GraphRAGの研究が未開拓なインフラ、生物学、シーン（Scene）などのドメインにおける現状と可能性を概説している。インフラ分野では、電力、水、ガス、交通、通信ネットワークが対象となり、ノード（発電所、交差点、ルーター等）とエッジ（送電線、道路、論理パス等）のグラフ構造を用いて、流量予測、故障診断、脆弱性分析などのタスクが定義される。生物学分野のシングルセル解析では、scRNA-seqやscATAC-seq等のデータから、KNNグラフや、細胞・遺伝子・ピークをノードとする異種混合グラフ（Heterogeneous graph）を構築し、細胞型注釈やマルチオミクス解析を行う。シーングラフの領域では、物体間の空間的・意味的関係を記述するデータ構造を用い、G-RetrieverのようにJSONからサブグラフを抽出してLLMで推論を行う手法や、P-RAGのようにエージェントの軌跡をシーングラフ化して環境理解に役立てる手法が提案されている。総じて、これらのドメインにおける複雑な物理的・生物学的・空間的関係をグラフとして表現し、RAG技術を適用することで、インフラ管理の最適化や高度な推論が可能になると期待されている。</p></section>
+<section class="secsum"><h3>Challenges and Future Work</h3><p>GraphRAGの各コンポーネントにおける課題と将来の展望として、まずグラフ構築においては、ノード・エッジの粒度決定やエンティティの曖昧さ回避、マルチモーダルデータへの対応、および動的なグラフ更新の効率化が挙げられる。Retriever（検索器）では、記号的知識とニューラル的知識の区別、内部知識と外部知識の整合性、正確性・多様性・新規性のトレードオフ、および適応的な推論・計画能力の獲得が重要な課題である。Organizer（整理器）は、情報の網羅性と簡潔性のバランス、最適なデータ構造化、およびマルチモーダルなリソースの整列を担う。Generator（生成器）においては、LLMがグラフの構造情報を解釈するための適切なプロンプト形式や、トークン埋め込みへの構造的エンコーディングの統合が求められる。システム全体としては、スケーラビリティの確保に加え、信頼性（Reliability）、堅牢性（Robustness）、安全性（Safety）、プライバシー（Privacy）といった信頼性の確保が不可欠であり、特にグラフ特有の構造的脆弱性や、隣接ノードを通じた情報の漏洩といった関係性に基づくリスクへの対策が、今後の研究の重要な焦点となる。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本サーベイでは、グラフ構造の情報を統合することで検索拡張生成（RAG）を強化するGraphRAGの必要性と論理的根拠を提示し、既存手法のアーキテクチャを「グラフ構築（graph construction）」「リトリーバー（retriever）」「オーガナイザー（organizer）」「ジェネレーター（generator）」「データソース（data source）」の5つの主要コンポーネントからなる包括的なフレームワークとして統一的に定義した。各コンポーネントにおける代表的な技術をレビューするとともに、グラフ構造の多様性とドメイン特有の要件に対応するため、知識グラフ、ドキュメントグラフ、科学グラフ、ソーシャルグラフといった異なるドメインに最適化された設計についても検討を行っている。これにより、GraphRAGの柔軟性が広範なタスクの要求を満たし得ることを示した上で、今後の研究の境界を押し広げるための課題と機会についても議論している。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-16
+  </footer>
+</div>
+</body>
+</html>

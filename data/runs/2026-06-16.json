@@ -1,0 +1,152 @@
+{
+  "date": "2026-06-16",
+  "dry_run": false,
+  "engine": "llm:gemma-4-26b",
+  "fields": [
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2605.11469.html",
+          "id": "2605.11469",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2026-05-12",
+          "reading_value": 4,
+          "reading_value_reason": "分散型MAPFの脆弱性を突き、学習レシピのみで頑健性を高める提案は新規性が高い。オンポリシーでのMACER適用に関する知見も実用的で価値がある。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Robust Multi-Agent Path Finding under Observation Attacks: A Principled Adversarial-Plus-Smoothing Training Recipe"
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2605.10917.html",
+          "id": "2605.10917",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2026-05-11",
+          "reading_value": 5,
+          "reading_value_reason": "MAPFをMMOTとして定式化し、完全単模性（TU）の証明からシュレディンガー・ブリッジを用いたスケーラブルな近似まで、理論と実用の両面で極めて完成度が高い。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Optimal and Scalable MAPF via Multi-Marginal Optimal Transport and Schrödinger Bridges"
+        }
+      ],
+      "candidates_total": 42,
+      "fresh_total": 36,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 18,
+      "skipped": [],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 0,
+        "openalex/recent": 0,
+        "semanticscholar/important": 2,
+        "semanticscholar/recent": 2
+      }
+    },
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2606.13249.html",
+          "id": "2606.13249",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-06-11",
+          "reading_value": 4,
+          "reading_value_reason": "ドメイン特化型RAGにおけるマルチフィールド検索と、専門家不在下でのプロキシ評価手法の提案が極めて実用的。実装の具体性も高い。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Multi-Field Hybrid Retrieval-Augmented Generation for Maritime Accident Root Cause Analysis"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 19,
+          "file": "doc-structure-rag/doi-b1b0c7fb216f.html",
+          "id": "doi-b1b0c7fb216f",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2024-12-31",
+          "reading_value": 4,
+          "reading_value_reason": "GraphRAGの概念を5つのコンポーネントで体系化した包括的なサーベイであり、多様なドメインへの拡張性と今後の課題提示が極めて有用。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Retrieval-Augmented Generation with Graphs (GraphRAG)"
+        }
+      ],
+      "candidates_total": 156,
+      "fresh_total": 151,
+      "k": 2,
+      "label": "文書構造解析に基づく検索・質問応答・RAG",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 99,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-71bb8aede7a8",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-05-01",
+          "reasons": [
+            "本文もアブストラクトも取得できない"
+          ],
+          "relevance": 6,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "DC-RAG: a dual-channel retrieval-augmented generation framework for audit analysis."
+        }
+      ],
+      "slug": "doc-structure-rag",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 40,
+        "openalex/recent": 40,
+        "semanticscholar/important": 36,
+        "semanticscholar/recent": 36
+      }
+    }
+  ],
+  "generated_at": "2026-06-16T06:00:01"
+}
