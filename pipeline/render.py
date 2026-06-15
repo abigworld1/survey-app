@@ -47,6 +47,10 @@ def _latest_added(entries):
     return max(dates) if dates else ""
 
 
+def _entry_sort_key(entry):
+    return (entry.get("added_at") or entry.get("added", ""), entry.get("date", ""))
+
+
 def render_paper_page(tpl_dir, paper, summary):
     sections_html = ""
     for key, heading in SECTIONS:
@@ -105,9 +109,7 @@ def _list_items(entries, link_basename=False, highlight_added=""):
 
 
 def render_user_index(tpl_dir, root, uslug, username, useen):
-    entries = sorted(
-        useen.values(), key=lambda v: (v.get("added", ""), v.get("date", "")), reverse=True
-    )
+    entries = sorted(useen.values(), key=_entry_sort_key, reverse=True)
     ctx = {
         "username": _esc(username),
         "count": str(len(entries)),
@@ -141,7 +143,7 @@ def render_global_index(tpl_dir, root, subs, seen, slugify):
             f'<div class="meta">{meta}</div></div>\n'
         )
         recent.extend(useen.values())
-    recent.sort(key=lambda v: (v.get("added", ""), v.get("date", "")), reverse=True)
+    recent.sort(key=_entry_sort_key, reverse=True)
     latest_auto_added = max(latest_auto_dates) if latest_auto_dates else ""
     ctx = {
         "cards": cards,

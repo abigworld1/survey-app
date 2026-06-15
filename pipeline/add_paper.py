@@ -107,11 +107,13 @@ def main(argv=None):
     # seen 更新 → フィールドindex・全体index を再生成
     seen = load_seen(SEEN)
     useen = seen.setdefault(uslug, {})
+    added_at = datetime.datetime.now().isoformat(timespec="seconds")
     useen[paper.key()] = {
         "title": paper.title,
         "file": rel,
         "date": paper.published,
-        "added": datetime.date.today().isoformat(),
+        "added": added_at[:10],
+        "added_at": added_at,
         "tldr": summary.get("tldr", ""),
         "engine": summary.get("_engine", ""),
         "basis": summary.get("_basis", ""),
