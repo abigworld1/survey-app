@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Scaling Beyond Context: A Survey of Multimodal Retrieval-Augmented Generation for Document Understanding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Scaling Beyond Context: A Survey of Multimodal Retrieval-Augmented Generation for Document Understanding</h1>
+  <div class="meta">Sensen Gao, Shanshan Zhao, Xu Jiang, Lunhao Duan, Yong Xien Chng, Qing-Guo Chen, Weihua Luo, Kaifu Zhang, Jia-Wang Bian, Mingming Gong<br>arXiv.org ・ 2025-10-17 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/98affaee7c3f78479708b2e2cd77d241a29c70a5" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.48550/arXiv.2510.15253" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-10-17</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 7</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">マルチモーダルRAGという急速に発展する分野に対し、ドメイン・粒度・手法の観点から体系的な分類（Taxonomy）を提供しており、研究のロードマップとして非常に有用。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、テキスト、表、図、レイアウトが混在する視覚的に豊かな文書を理解するための「Multimodal RAG」に関する体系的なサーベイである。従来のOCRベースの手法や、コンテキスト制限（$128\text{K}$–$1\text{M}$トークン）を持つMLLMの限界を克服するため、ドメイン、検索モダリティ、粒度、およびハイブリッド拡張（グラフ・エージェント型）の観点から最新技術を分類・整理している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来の文書理解はOCRによるテキスト抽出に依存していたが、構造情報や視覚的な手がかりの欠落が課題であった。一方、ネイティブなマルチモーダル大規模言語モデル（MLLM）は、長大な文書を画像シーケンスとして扱う際に膨大なビジュアルトークン（$20\text{M}$–$200\text{M}$）を必要とし、コンテキスト制限による精度低下やハルシネーションを引き起こす。本研究は、これらの課題を解決するために外部知識を検索・統合するマルチモーダルRAGに焦点を当て、その技術的進展を網羅的に調査している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>著者らは、マルチモーダルRAGの複雑なエコシステムを理解するための包括的な分類法（taxonomy）を提案している。具体的には、Open-Domain/Closed-Domainのドメイン分類、Image-based/Image+Text-basedの検索モダリティ、およびPage/Element/Region-levelの検索粒度による体系化を行った。また、主要なデータセット、ベンチマーク、金融や科学分野などの応用事例、さらには産業界へのデプロイメントにおける課題を整理し、今後の研究ロードマップを提示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>RAGの基本プロセスとして、候補集合 $\mathcal{D}$ から関連ドキュメントを検索し、証拠に基づいて回答を生成する枠組みを定義している。検索プロセスでは、テキストエンコーダ $E_{\text{text}}$ と画像エンコーダ $E_{\text{vis}}$ を用いてクエリ $q$ とドキュメント $d \in \mathcal{D}$ を共通空間に写像し、類似度 $s(q, d)$ を算出する。検索戦略には、画像のみを用いる手法、信頼度 $c$ を用いて $s_{\text{joint}} = c \cdot s_{\text{vis}} + (1-c) \cdot s_{\text{text}}$ と統合する融合戦略、および union 戦略がある。さらに、最新手法として、ColPaliのようなImage-based手法、ViDoRAGのようなImage+Text-based手法、MG-RAGのような階層的インデックス、Graph-basedやAgent-based（HM-RAG）といったハイブリッドな拡張手法を分類している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>マルチモーダルな検索と融合戦略を評価するために、多様なベンチマークが整理されている。学術・実務領域をカバーするViDoReや、手動検証済みのVISR-BENCH、クロスドキュメント設定のM3DocVQA、VisDoMRAG、VDocRAGなどが挙げられる。また、大規模検索に特化したViDoSeek、PDF内の要素を紐付けるUniDoc-Bench、空間推論を目的としたBBox-DocVQAなど、特定の能力に特化した評価リソースも網羅されている。これらのリソースにより、モデルの検索精度や根拠の特定能力を体系的に比較することが可能となっている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>マルチモーダルRAGは、金融（MultiFinRAG）、科学（HiPerRAG, CollEX）、社会科学（Eurobarometerフレームワーク）などの専門領域で高い有用性を示している。しかし、今後の課題として、計算効率の向上、きめ細かな（fine-grained）マルチモーダル表現の構築、および実環境における堅牢性の確保が挙げられている。また、産業展開においては、実用的な制約や効率性のトレードオフ、セキュリティ、およびユーザー中心の評価といった社会技術的な側面への対応が必要である。本サーベイは、これらの課題解決が信頼性の高い文書AIを実現する鍵であると結論付けている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Scaling Beyond Context: A Survey of Multimodal Retrieval-Augmented Generation for Document Understanding</h3><p>本論文は、テキスト、表、図表、レイアウトが混在する文書の理解において、従来のOCRベースの手法（構造情報の欠落）やネイティブなマルチモーダル大規模言語モデル（MLLM）のコンテキストモデリングの限界を克服するための「Multimodal RAG」に関する体系的なサーベイである。著者らは、ドメイン、検索モダリティ、および粒度（granularity）に基づく分類法（taxonomy）を提案し、グラフ構造やエージェント型フレームワークを活用した最新の進展をレビューしている。また、主要なデータセット、ベンチマーク、アプリケーション、および産業界へのデプロイメントについてもまとめており、今後の研究のロードマップを提示している。現在の課題として、効率性、きめ細かな表現（fine-grained representation）、および堅牢性（robustness）の向上が挙げられている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>ドキュメント理解におけるマルチモーダルRAG（Retrieval-Augmented Generation）は、視覚的に豊かな文書（表、図、画像を含む）を扱うために不可欠な技術であり、従来のテキスト中心のOCR手法では捉えきれないクロスモーダルな手がかりや構造的意味を補完する役割を担う。既存のMLLMネイティブな手法は文書を画像シーケンスとして扱うが、現在のMLLMのコンテキスト制限（$128\text{K}$–$1\text{M}$トークン）に対し、マルチモーダルRAGのベンチマークでは$20\text{M}$–$200\text{M}$ものビジュアルトークンが必要となるため、長大な文書における精度低下やハルシネーションが課題となっている。これに対し、RAGは外部知識から関連するトップ$K$ページを検索することで解決を図り、近年ではページ内の表やチャートなどの細粒度なモデリング、グラフベースのインデックス、あるいはエージェントによるタスク分解や検証を組み合わせたハイブリッドなフレームワークへと進化している。本サーベイは、ドキュメント理解とマルチモーダルRAGの交差領域に焦点を当て、ドメイン、検索モダリティ、粒度、ハイブリッド拡張の観点から既存手法を体系的に分類するとともに、検索と生成の両面における評価指標やデータセットを網羅的に整理している。</p></section>
+<section class="secsum"><h3>2 Preliminary</h3><p>RAG（Retrieval-Augmented Generation）は、候補集合 $\mathcal{D}$ から関連するドキュメントページを検索し、その証拠に基づいて回答を生成するシステムであり、検索はクローズドドメインまたはオープンドメインで行われる。検索プロセスでは、テキストエンコーダ $E_{\text{text}}$ と画像エンコーダ $E_{\text{vis}}$ を用いてクエリ $q$ とドキュメント $d \in \mathcal{D}$ を共通の埋め込み空間に写像し、内積（または正規化によるコサイン類似度）を用いて類似度 $s(q, d)$ を算出する。検索戦略には、画像のみを用いる vision-only 検索、画像とテキストのスコアを信頼度 $c$ を用いて $s_{\text{joint}} = c \cdot s_{\text{vis}} + (1-c) \cdot s_{\text{text}}$ と統合する信頼度重み付きスコア融合、および各モダリティで独立に検索した結果の和集合をとる union 戦略がある。生成フェーズでは、選択されたコンテキスト $\mathcal{C} \subseteq \mathcal{D}$ と元のクエリ $q$ を条件として、ジェネレータが最終的な回答を出力する。なお、複数のページを統合する具体的なメカニズム（cross-attention や learned pooling など）は、本セクションでは抽象的なものとして扱われている。</p></section>
+<section class="secsum"><h3>3 Key Innovations and Methodologies</h3><p>本セクションでは、文書理解のためのマルチモーダルRAGにおける主要な技術革新を、ドメイン、モダリティ、粒度、およびハイブリッド手法の観点から分類している。まず、大規模コーパスから知識を構築するOpen-Domain RAGと、単一文書内の関連ページを抽出してコンテキスト制限や幻覚を抑制するClosed-Domain RAGに大別される。検索モダリティについては、VLMを用いてページを画像としてエンコードするImage-based手法（例：ColPali）と、OCRやVLMによる要約を活用してテキスト情報を統合するImage+Text-based手法（例：ViDoRAG）があり、後者は詳細なテキスト情報の欠落を補完できる。検索粒度は、従来のページ単位から、表や図、レイアウト要素を対象としたElement-levelやRegion-levelへと細分化が進んでおり、階層的インデックス（例：MG-RAG）等により精緻な根拠特定が可能となっている。さらに、マルチモーダルな要素間の関係性をノードとエッジで表現するGraph-based手法や、クエリの分解から証拠の検証までを自律的に行うAgent-based手法（例：HM-RAG）といったハイブリッドな拡張により、複雑な推論能力と信頼性の向上が図られている。</p></section>
+<section class="secsum"><h3>4 Dataset and Benchmark</h3><p>マルチモーダル文書理解におけるRAGのデータセットとベンチマークは、テキスト、表、チャート、スライドなどの視覚的に豊かなコンテンツで構成される。従来のデータセットはモデルの学習や評価に不可欠であるが、より多様で現実的なシナリオへの対応が課題となっており、これを受けて新たなベンチマークが開発されている。具体的には、学術・実務領域を網羅するViDoReや、手動検証済みの多様なタスクを持つVISR-BENCH、さらに単一文書の評価を超えてクロスドキュメントのオープンドメイン設定へ拡張したM3DocVQA、VisDoMRAG、VDocRAGなどが存在する。また、実世界に近い大規模検索に焦点を当てたViDoSeekや、PDF内のテキスト・表・図の証拠を紐付けたUniDoc-Bench、空間推論と証拠の局在化を目的としたBBox-DocVQAといった、特定の能力や用途に特化したベンチマークも提案されている。これらのリソースは、マルチモーダルな検索および融合戦略の体系的な比較を可能にするものである。</p></section>
+<section class="secsum"><h3>5 Application</h3><p>マルチモーダルRAGは、金融、科学研究、社会科学といった多様なドメインの文書理解において活用が進んでいる。金融分野では、テキスト、表、図を共同でモデリングする MultiFinRAG がレポートに対する質問応答能力を向上させており、FinRAGBench-V は証拠の追跡可能性を高めるための視覚的な引用（visual citation）に重点を置いたベンチマークを提供している。科学分野においては、数百万規模の研究論文に対してクロスモーダルな検索と推論を可能にする HiPerRAG や、マルチモーダルな科学コーパスの対話的な探索を支援する CollEX が提案されている。また、社会科学の領域では、Eurobarometer に基づくフレームワークがテキストとインフォグラフィックを統合することで、調査データの解釈性を向上させている。これらの応用事例は、マルチモーダルRAGが複雑な文書の理解と活用能力を強化することを示している。</p></section>
+<section class="secsum"><h3>6 Challenge, Critical Analysis and Industry Deployment</h3><p>本セクションでは、マルチモーダルRAGにおける今後の課題、批判的分析、および産業界への展開について概説されている。Appendix Dでは、効率性、学習パラダイム、粒度、およびセキュリティに焦点を当てた主要なオープンチャレンジと将来の方向性が示されている。Appendix Eでは、集約的なベンチマーク評価を超えた、根本的な限界や代表的な失敗事例に関する簡潔な批判的分析が提示されている。さらにAppendix Fでは、実用的な制約や効率性のトレードオフ、および代表的なオープンソースシステムに焦点を当てた、産業展開における考慮事項が論じられている。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>本サーベイは、文書理解におけるマルチモーダルRAG（Retrieval-Augmented Generation）の進展を、検索モダリティ、ドメイン設定、検索粒度、およびグラフベースやエージェント指向のアーキテクチャといった観点から体系的に概観している。金融、科学文献、社会分析などの広範なアプリケーションにおける主要なデータセットやベンチマークを整理し、視覚的に豊かな文書に対する理解力の向上を明らかにしている。一方で、計算効率、きめ細かなマルチモーダル表現の構築、および実環境へのデプロイにおける堅牢性の確保といった課題が依然として残されている。これらの課題解決が、信頼性と汎用性を備えた文書AIとしてのマルチモーダルRAGの発展において極めて重要であると結論付けている。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>本サーベイはマルチモーダルRAGによる文書理解を包括的に概説しているが、いくつかの限界が存在する。第一に、ユーザー中心の評価、システム統合、デプロイメントの拡張性といった実世界での運用における課題に関する分析が予備的な段階に留まっており、社会技術的な側面についてもさらなる探求が必要である。第二に、主要なデータセットやベンチマークは要約されているものの、データの品質、アノテーションの一貫性、ドメイン間転移性、およびモダリティ間での評価の整合性に関する体系的な調査が不足しており、これらが汎用性や実用性の理解を深める鍵となる。さらに、本分野は急速に進化する新興領域であるため、新たなデータセットやモデル、評価プロトコルの登場が継続的に状況を変化させている。これらの動的な性質に対応するため、本サーベイは定期的な更新を行うとともに、進行中の進展を追跡しコミュニティの協力を促進するためのオープンリポジトリを併用する予定である。</p></section>
+<section class="secsum"><h3>Ethics Statement</h3><p>本研究は既存文献のサーベイであり、新たなモデル、アルゴリズム、またはデータセットを導入するものではないため、サーベイ自体が新たなリスクを生じさせることはない。しかし、対象とするドキュメント理解のためのマルチモーダルRAG技術には、学習データに由来するバイアスや差別、およびモデルのハルシネーションによる誤情報の生成という潜在的なリスクが存在することを認めている。これらの倫理的課題への対処は、今後の研究における極めて重要な方向性であると強調している。なお、原稿の文法的な誤りを修正するためにAIアシスタント（ChatGPT）を使用しているが、研究の着想段階におけるAIの関与はない。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-17
+  </footer>
+</div>
+</body>
+</html>

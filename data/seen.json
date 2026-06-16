@@ -72,6 +72,29 @@
       "title": "CQC-RAG: Robust Retrieval-Augmented Generation via Cross-Query Consistency",
       "tldr": "CQC-RAGは、意味的に等価だが構文が異なる複数のクエリ間での回答の信頼性の安定性を利用する「Cross-Query Consistency Hypothesis」に基づいた、堅牢な検索拡張生成（RAG）フレームワークである。クエリの書き換えとリランキングを通じて多様な推論コンテキストを構築し、回答の平均信頼性と分散に基づくペナルティを組み合わせたスコアリングにより、外部の教師データなしでノイズに起因するハルシネーションを効果的に除去する。"
     },
+    "arxiv:2606.16661": {
+      "added": "2026-06-17",
+      "authors": [
+        "Nathanaël Langlois"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-15",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.16661.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "RAGの境界断片化問題に対し、学習不要かつモデルに依存しない適応的な拡張手法を提案しており、実用性と理論的堅牢性のバランスが非常に高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "SCAR: Semantic Continuity-Aware Retrieval for Efficient Context Expansion in RAG",
+      "tldr": "RAGにおける固定長チャンク分割による「境界断片化問題」を解決するため、クエリとの関連度と隣接チャンク間の意味的連続性を考慮して適応的にコンテキストを拡張する、学習不要な検索時ポリシー「SCAR (Semantic Continuity-Aware Retrieval)」を提案する。"
+    },
     "doi:10.3390/ai7050161": {
       "added": "2026-06-14",
       "authors": [
@@ -168,6 +191,38 @@
       "title": "LAD-RAG: Layout-aware Dynamic RAG for Visually-Rich Document Understanding",
       "tldr": "視覚的に豊かな文書（VRD）において、レイアウト構造とページ間依存関係を保持する「記号的文書グラフ（symbolic document graph）」を構築し、LLMエージェントがニューラルおよび記号的インデックスを動的に使い分けることで、高い再現率と低レイテンシを両立したRAGフレームワークLAD-RAGを提案する。"
     },
+    "doi:10.48550/arxiv.2510.15253": {
+      "added": "2026-06-17",
+      "authors": [
+        "Sensen Gao",
+        "Shanshan Zhao",
+        "Xu Jiang",
+        "Lunhao Duan",
+        "Yong Xien Chng",
+        "Qing-Guo Chen",
+        "Weihua Luo",
+        "Kaifu Zhang",
+        "Jia-Wang Bian",
+        "Mingming Gong"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 7,
+      "date": "2025-10-17",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2510.15253.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "マルチモーダルRAGという急速に発展する分野に対し、ドメイン・粒度・手法の観点から体系的な分類（Taxonomy）を提供しており、研究のロードマップとして非常に有用。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Scaling Beyond Context: A Survey of Multimodal Retrieval-Augmented Generation for Document Understanding",
+      "tldr": "本論文は、テキスト、表、図、レイアウトが混在する視覚的に豊かな文書を理解するための「Multimodal RAG」に関する体系的なサーベイである。従来のOCRベースの手法や、コンテキスト制限（$128\\text{K}$–$1\\text{M}$トークン）を持つMLLMの限界を克服するため、ドメイン、検索モダリティ、粒度、およびハイブリッド拡張（グラフ・エージェント型）の観点から最新技術を分類・整理している。"
+    },
     "title:ft rag a fine grained retrieval augmented generation framework for complex table reasoning": {
       "added": "2026-06-15",
       "authors": [
@@ -238,6 +293,34 @@
       "source_quality": "fulltext",
       "title": "Graph Attention-Guided Search for Dense Multi-Agent Pathfinding",
       "tldr": "高密度なマルチエージェント経路探索（MAPF）において、グラフアテンションを用いたニューラル方策 $\\text{MAGAT}^+$ を探索アルゴリズム $\\text{LaCAM}$ に統合したハイブリッドフレームワーク $\\text{LaGAT}$ を提案する。事前学習とマップ特化型の微調整、およびデッドロック検出メカニズムを組み合わせることで、既存の探索ベース手法や学習ベース手法のパレート境界を突破し、高密度環境における解の質とリアルタイム性能を向上させている。"
+    },
+    "arxiv:2605.07835": {
+      "added": "2026-06-17",
+      "authors": [
+        "Ethan Schneider",
+        "Jingkai Chen",
+        "Tianyi Gu",
+        "Kunlei Lian",
+        "Seth Hutchinson",
+        "Sonia Chernova"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-05-08",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2605.07835.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "従来の1対1制約を打破する「Many-to-Many」という新定義と、4次元コストテンソルを用いた具体的な解決策の提示に高い新規性がある。実験も高密度環境での優位性を明確に示しており、実用的な価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Many-to-Many Multi-Agent Pickup and Delivery",
+      "tldr": "従来の1対1のタスク割り当て制約を打破し、アイテムの保管場所が複数存在する「Many-to-Many Multi-Agent Pickup and Delivery (M2M-MAPD)」問題を定義・解決する研究。提案手法のM2Mは、Large Neighborhood Search (LNS) と Priority Based Search (PBS) を組み合わせることで、高密度な在庫環境下でも既存のSOTA手法（LNS-PBS）を凌駕する高いタスクスループットを達成した。"
     },
     "arxiv:2605.10917": {
       "added": "2026-06-16",
@@ -391,6 +474,29 @@
       "source_quality": "fulltext",
       "title": "Dynamic Multi-Agent Pickup and Delivery in Robotic Cellular Warehousing Systems",
       "tldr": "ロボット細胞型倉庫システム（RCWS）において、実行中の注文に新たなSKUが追加される「内部的な注文の進化」を考慮した、初のDynamic-MAPD問題を定式化し、イベント駆動型のトークン・パッシングに基づく2つの再計画アルゴリズム（Dynamic-TPおよびCooperative-TP）を提案する。"
+    },
+    "arxiv:2606.15797": {
+      "added": "2026-06-17",
+      "authors": [
+        "Pavel Surynek"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-14",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2606.15797.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "reading_value": 3,
+      "reading_value_reason": "UA-MAPFという新しい問題設定に対し、既存のコンパイルベース手法をUA-MDDを用いて容易に適応できることを示した点は有用。実験結果も具体的だが、手法自体の新規性は既存手法の拡張に留まる。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Unassigned Agents in Compilation-based Multi-agent Path Finding",
+      "tldr": "目的地を持つエージェント $\\mathcal{A}$ と、目的地を持たない未割り当てエージェント $\\mathcal{U}$ が混在するUA-MAPF問題を、コンパイルベースのSAT/SMTソルバーを用いて解く手法を提案している。未割り当てエージェントは、目的地への到達義務はないものの、他のエージェントの経路を妨げないよう移動させる必要がある。本研究は、MDD（Multi-valued Decision Diagram）をUA用に拡張したUA-MDDを用いることで、既存のSMT-CBSやNRF-SATといった高度なソルバーをUA-MAPFへ容易に適応できることを示した。"
     },
     "doi:10.1016/j.artint.2022.103752": {
       "added": "2026-06-14",

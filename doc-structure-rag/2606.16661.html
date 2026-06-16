@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SCAR: Semantic Continuity-Aware Retrieval for Efficient Context Expansion in RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>SCAR: Semantic Continuity-Aware Retrieval for Efficient Context Expansion in RAG</h1>
+  <div class="meta">Nathanaël Langlois<br>arxiv ・ 2026-06-15 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.16661v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.16661v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-15</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの境界断片化問題に対し、学習不要かつモデルに依存しない適応的な拡張手法を提案しており、実用性と理論的堅牢性のバランスが非常に高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGにおける固定長チャンク分割による「境界断片化問題」を解決するため、クエリとの関連度と隣接チャンク間の意味的連続性を考慮して適応的にコンテキストを拡張する、学習不要な検索時ポリシー「SCAR (Semantic Continuity-Aware Retrieval)」を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>RAG（Retrieval-Augmented Generation）において、標準的な再帰的文字分割などの手法を用いると、回答に必要な証拠が隣接するセグメント間で分断される「境界断片化問題（boundary fragmentation problem）」が発生する。既存のStatic WindowingやParent Retrievalは、論理的な連続性を保証できないだけでなく、無関係なノイズを混入させるため、トークン効率が悪くLLMの性能低下や推論コスト増大を招く。本研究は、検索されたチャンクのクエリ適合度と、隣接チャンクとの構造的な連続性を同時に評価することで、必要な文脈のみを動的に復元することを目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>提案手法SCARは、埋め込みモデルのスケールに依存しない「ほぼスケール不変な決定規則」を実現しており、同一のハイパーパラメータで異なるモデル（`text-embedding-3-large`, `BGE-large-en-v1.5`, `zembed-1`）へ転移可能である。実験では、境界断片化が発生した160件のクエリに対し、平均7.84チャンクで92.8%の再現率を達成し、静的ウィンドウ手法と比較してチャンク数を22.9%削減することに成功した。また、10-Kコーパスを用いたRAGAS評価において、生成の忠実度を維持しつつコンテキストトークンを27.1%削減し、コンテキスト精度を0.17から0.23へ向上させた。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>SCARは、検索されたチャンク $c$ と隣接候補 $c&#x27;$ の間の意味的不連続性を表す境界ペナルティを $P(c, c&#x27;) = 1 - \cos(e_c, e_{c&#x27;})$ と定義する。次に、候補 $c&#x27;$ の拡張スコアを $S_{exp}(c&#x27;, q) = \cos(e_{c&#x27;}, e_q) - \lambda P(c, c&#x27;)$ と定式化し、$\lambda$ によってペナルティの強度を制御する。拡張の実行は、相対的な閾値 $S_{exp}(c&#x27;, q) &gt; \tau \cdot \cos(e_c, e_q)$ に基づいて決定される。この相対的な閾値付けにより、拡張基準が検索チャンク自体のクエリ適合度 $\cos(e_c, e_q)$ に応じて変化する適応的な挙動が可能となり、埋め込みモデルの絶対的な類似度スケールに依存しない堅牢な決定（Scale robustness）を実現している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>RFC、GDPR、10-K、合併契約の4つのコーパスを用い、再帰的文字分割（サイズ600、オーバーラップ60）を適用した環境で評価を行った。`text-embedding-3-large` による $k$-NN 検索を用い、$\lambda=0.5, \tau=0.1$ の固定設定で、拡張半径 $r=1$ において実験を実施した。評価指標には $\text{Recall}@K$ と $\text{Chunk Efficiency}$ を用い、ペア・ブートストラップ検定（$B=10,000$）により統計的有意性（$p &lt; 0.001$）を確認した。また、GPT-4o-miniを用いたRAGASプロトコルにより、生成タスクにおける忠実度とコンテキスト精度の変化を検証した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>SCARは、構造的な連続性信号を利用することで、冗長な隣接コンテンツを抑制し、Window手法と比較してMicrosoft 10-Kコーパスでチャンク数を29.9%削減するなど高い効率性を示した。しかし、本手法には限界もあり、リトリーバーがそもそも上位 $k$ 個に正解をランク付けできなかった場合や、非隣接な証拠を回収できない点、および「ヘッダーから分離された表の値」のように隣接チャンクのクエリ関連性が極端に低い場合に拡張がスキップされる可能性がある。今後の展望として、学習ベースの連続性ペナルティの導入や、非隣接な論理的近傍への拡張、構造を考慮したチャンク構築手法との併用が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>SCAR: Semantic Continuity-Aware Retrieval for Efficient Context Expansion in RAG</h3><p>RAGにおける固定長チャンク分割による境界断片化問題を解決するため、本研究ではクエリと隣接チャンクの関連度と構造的連続性のペナルティを考慮して隣接チャンクを適応的に拡張する手法「SCAR (Semantic Continuity-Aware Retrieval)」を提案している。SCARは、各検索チャンクのクエリ関連度に基づいた相対的な拡張閾値を用いることで、埋め込みモデルの変更に対して再キャリブレーションを必要としない、ほぼスケール不変な決定規則を実現している。RFC、GDPR、10-K、合併契約の4つのコーパスを用いた実験では、境界断片化が発生した160件のクエリに対し、SCARは平均7.84チャンクで92.8%の再現率を達成し、静的ウィンドウ手法（10.16チャンク）と比較してチャンク数を22.9%削減することに成功した。この削減効果は、ペア・ブートストラップ検定（$B=10,000$）において高い統計的有意性（$p &lt; 0.001$, Cohen&#x27;s $d$ が大きい）を示している。また、提案手法は `text-embedding-3-large`、`BGE-large-en-v1.5`、`zembed-1` の3つのモデル間で同一のハイパーパラメータ設定で転移可能であり、10-KコーパスにおけるRAGAS評価では、生成の忠実度を維持しつつコンテキストトークンを27.1%削減できることが確認された。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>Retrieval-Augmented Generation (RAG) において、外部知識をLLMに提供する際の根本的なボトルネックとして、ドキュメントのチャンク分割（chunking）の問題が挙げられる。再帰的な文字分割（recursive character splitting）などの標準的な手法は、局所的な構造の整合性を優先するものの、静的なインデックスを作成するため、特定のクエリに必要な重要な証拠が隣接するセグメント間で分断される「境界断片化問題（boundary fragmentation problem）」を引き起こす。最適なチャンク分割はクエリに依存し、かつソースドキュメント固有の構造に制約されるため、段落を考慮した高度な分割手法であっても、実行時に発生する論理的な文脈の断絶を防ぐことは困難である。</p></section>
+<section class="secsum"><h3>2. Problem Statement</h3><p>複雑な構造を持つ文書において、回答に必要な証拠がインデックスの境界を跨いで分割される「Boundary Fragmentation」という問題が定義されている。これは、論理的な一単位が $c_1$ と $c_2$ に分かれている場合に、検索システムが $c_1$ のみを関連ありと判定し、結果として LLM に不完全な文脈が渡される現象を指す。既存の解決策である Static Windowing（常に $c_{i-1}, c_i, c_{i+1}$ を取得する手法）や Parent Retrieval（セクション全体を取得する手法）は、論理的な連続性を保証できないだけでなく、無関係なノイズをコンテキストに混入させるため、トークン効率が悪く、LLM の性能低下や推論コストの増大を招く。</p></section>
+<section class="secsum"><h3>3. Related Work</h3><p>境界断片化への既存アプローチは、インデックス作成時に意味的に連続した単位を構築する手法と、検索時に拡張を行う手法の2つに分類される。前者のインデックス作成時の一貫性確保手法には、語彙的結束性に基づく TextTiling、文埋め込みの類似度を用いる Max–Min semantic chunking、長文コンテキスト化された埋め込みを利用する Late Chunking、階層的な文グラフを用いる SentGraph などがあるが、これらは境界を固定するためクエリ固有の情報密度に適応できない。後者の検索時拡張手法には、固定スライディングウィンドウや Parent–Child Retrieval のような静的なヒューリスティック、FLARE や Self-RAG、DIVER のように LLM の呼び出しを繰り返す反復的手法、および SCARLet のような有用性を学習したリトリーバーが存在する。提案手法である SCAR は、クエリの関連性と構造的な連続性が共に正当化される場合にのみ適応的に拡張を行う、シングルショットかつ学習不要な検索時ポリシーであり、既存のいかなるインデックス作成時のチャンキング戦略とも直交的に組み合わせることが可能である。</p></section>
+<section class="secsum"><h3>4. Methodology: SCAR</h3><p>SCAR (Semantic Continuity-Aware Retrieval) は、実行時に断片化した論理的文脈を選択的に復元するための適応的な検索ポリシーである。まず、検索されたチャンク $c$ とその隣接候補 $c&#x27;$ の間の意味的な不連続性を定量化するため、境界ペナルティを $P(c, c&#x27;) = 1 - \cos(e_c, e_{c&#x27;})$ と定義する（ここで $e$ はチャンクの埋め込みベクトルである）。次に、候補 $c&#x27;$ の拡張スコアを $S_{exp}(c&#x27;, q) = \cos(e_{c&#x27;}, e_q) - \lambda P(c, c&#x27;)$ と定義し、$\lambda$ は連続性ペナルティの強度を制御するハイパーパラメータである。拡張の決定は、$S_{exp}(c&#x27;, q) &gt; \tau \cdot \cos(e_c, e_q)$ という相対的な閾値に基づいて行われ、$\tau$ は比率を制御するハイパーパラメータである。この定式化により、拡張の基準が検索されたチャンク自体のクエリ適合度 $\cos(e_c, e_q)$ に応じて変化する適応的な閾値付けが可能となり、かつ埋め込みモデルの類似度の絶対的なスケールに依存しない堅牢な決定（Scale robustness）が実現されている。</p></section>
+<section class="secsum"><h3>5. Experimental Setup</h3><p>本実験では、TCP仕様書、GDPR、Microsoftの10-K年次報告書、企業合併契約書の4つの多様なコーパスを用い、再帰的文字分割（ターゲットサイズ600文字、オーバーラップ60文字）と構造的階層メタデータを付与するContextual Prependingを用いて前処理を行っている。評価には `text-embedding-3-large` による3072次元の埋め込みとコサイン類似度を用いた $k$-NN 検索を使用し、LLM支援と専門家による検証を経て、単一チャンクで完結する Atomic Queries と、複数チャンクに跨る Boundary-Fragmented Queries を各コーパス80件ずつ作成した。主要な評価指標は、動的に拡張されたコンテキスト窓内で正解チャンクを回収できた割合を示す $\text{Recall}@K$ と、回収されたコンテキスト量あたりの性能を示す $\text{Chunk Efficiency} = \frac{\text{Recall}@K}{\text{average number of unique chunks retrieved per query}}$ である。比較対象のベースラインには、Top-$k$、近傍を常に取得する Window ($k$) および Window ($k, w$)、同一セクションを全て取得する Parent Retrieval、および Cross-Encoder Reranker が設定されている。SCARのハイパーパラメータである境界ペナルティの重みと相対閾値比は、全データセットで固定値 $\lambda=0.5, \tau=0.1$ を用い、拡張半径 $r=1$ において評価を行っている。</p></section>
+<section class="secsum"><h3>6. Results and Discussion</h3><p>SCARは、境界を跨いで断片化したクエリに対し、セマンティックな連続性を考慮した適応的なコンテキスト拡張を行う手法であり、静的なウィンドウ手法（Static Window）と比較して高い効率性を実現している。実験の結果、境界断片化クエリにおいてSCARは平均92.8%のRecallを達成しつつ、平均チャンク数を7.84個に抑えることで、Window手法（10.16個）に対し22.9%のコンテキスト削減を実現した。特にMicrosoft 10-Kコーパスでは、冗長な「隣接ノイズ」をフィルタリングすることで、Window手法と比較してチャンク数を29.9%削減（7.47 vs 10.65）することに成功している。アブレーション研究では、連続性ペナルティ $\lambda$ を導入することで、Recallを維持したままチャンク量を最大7.2%削減できることが示され、構造的な連続性信号が冗長な隣接コンテンツの抑制に寄与していることが確認された。また、クロスエンコーダ（bge-reranker-large）を用いたリランキング手法と比較しても、SCARは構造的な連続性に基づく推論を行うため、単なるポイントワイズなランキングよりも優れた効率性を示す。最終的な生成タスク（GPT-4o-miniを使用）においても、SCARはWindow手法と同等の忠実度（Faithfulness）を維持しながら、平均トークン数を27.1%削減（934 vs 1,281）し、コンテキスト精度（Context Precision）を0.17から0.23へと向上させた。</p></section>
+<section class="secsum"><h3>7. Conclusion</h3><p>SCARは、クエリと近傍チャンクの関連性と構造的な連続性ペナルティを天秤にかけ、相対的な閾値を用いてコンテキストを適応的に拡張する、学習不要な検索時ポリシーである。160個の境界断片化クエリを用いた実験では、静的なウィンドウ手法と比較して、Recallの低下を3.9ポイントに抑えつつ、チャンク量を22.9%削減することに成功した。また、10-Kコーパスを用いたRAGASによる評価では、コンテキスト量を27.1%削減しながらも忠実性（faithfulness）が維持されることが確認されている。本手法の限界として、リトリーバーが上位 $k$ 個にランク付けできなかった証拠や、非隣接な証拠は回収できない点、および「ヘッダーから分離された表の値」のように、隣接チャンク自体のクエリ関連性が極端に低い場合に拡張がスキップされる可能性がある点が挙げられる。今後の展望として、学習ベースの連続性ペナルティの導入や、非隣接な論理的近傍への拡張、および構造を考慮したチャンク構築手法との併用が示唆されている。</p></section>
+<section class="secsum"><h3>GenAI Usage Disclosure</h3><p>本研究の評価パイプラインには、dense chunk および query embedding を生成するために `text-embedding-3-large`、`BGE-large-en-v1.5`、および `zembed-3` といった生成AIコンポーネントが組み込まれている。320個のクエリからなる評価ベンチマークは、LLMを用いたクエリ生成パイプラインによってブートストラップされた後、専門家による手動検証とセクション5で詳述される3名の評価者による一致度調査を経て構築された。セクション6.7におけるダウンストリーム生成の評価では、LLM-as-judge（RAGAS）プロトコルに基づき、生成器として `GPT-4o-mini` が使用されている。また、文章の草案作成や推敲、解析時のコードリファクタリングの提案にも生成AIアシスタントが活用されたが、実験設計、ハイパーパラメータの選択、統計的手法、データセットのキュレーション、アノテーション手順、および最終的な科学的主張はすべて著者らによって策定・検証されている。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-17
+  </footer>
+</div>
+</body>
+</html>

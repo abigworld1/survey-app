@@ -1,0 +1,171 @@
+{
+  "date": "2026-06-17",
+  "dry_run": false,
+  "engine": "llm:gemma-4-26b",
+  "fields": [
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2606.15797.html",
+          "id": "2606.15797",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2026-06-14",
+          "reading_value": 3,
+          "reading_value_reason": "UA-MAPFという新しい問題設定に対し、既存のコンパイルベース手法をUA-MDDを用いて容易に適応できることを示した点は有用。実験結果も具体的だが、手法自体の新規性は既存手法の拡張に留まる。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Unassigned Agents in Compilation-based Multi-agent Path Finding"
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2605.07835.html",
+          "id": "2605.07835",
+          "matched_keywords": [
+            "Multi-Agent Pickup and Delivery",
+            "MAPD"
+          ],
+          "published": "2026-05-08",
+          "reading_value": 4,
+          "reading_value_reason": "従来の1対1制約を打破する「Many-to-Many」という新定義と、4次元コストテンソルを用いた具体的な解決策の提示に高い新規性がある。実験も高密度環境での優位性を明確に示しており、実用的な価値が高い。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Many-to-Many Multi-Agent Pickup and Delivery"
+        }
+      ],
+      "candidates_total": 42,
+      "fresh_total": 34,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 16,
+      "skipped": [],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 0,
+        "openalex/recent": 0,
+        "semanticscholar/important": 2,
+        "semanticscholar/recent": 2
+      }
+    },
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2606.16661.html",
+          "id": "2606.16661",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-06-15",
+          "reading_value": 4,
+          "reading_value_reason": "RAGの境界断片化問題に対し、学習不要かつモデルに依存しない適応的な拡張手法を提案しており、実用性と理論的堅牢性のバランスが非常に高い。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "SCAR: Semantic Continuity-Aware Retrieval for Efficient Context Expansion in RAG"
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 7,
+          "file": "doc-structure-rag/2510.15253.html",
+          "id": "2510.15253",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2025-10-17",
+          "reading_value": 4,
+          "reading_value_reason": "マルチモーダルRAGという急速に発展する分野に対し、ドメイン・粒度・手法の観点から体系的な分類（Taxonomy）を提供しており、研究のロードマップとして非常に有用。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "fulltext",
+          "title": "Scaling Beyond Context: A Survey of Multimodal Retrieval-Augmented Generation for Document Understanding"
+        }
+      ],
+      "candidates_total": 156,
+      "fresh_total": 149,
+      "k": 2,
+      "label": "文書構造解析に基づく検索・質問応答・RAG",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 95,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-71bb8aede7a8",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-05-01",
+          "reasons": [
+            "本文もアブストラクトも取得できない"
+          ],
+          "relevance": 6,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "DC-RAG: a dual-channel retrieval-augmented generation framework for audit analysis."
+        },
+        {
+          "basis": "abstract",
+          "citations": 11,
+          "id": "doi-e66b58c437d0",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2025-12-12",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "A Systematic Literature Review of Retrieval-Augmented Generation: Techniques, Metrics, and Challenges"
+        }
+      ],
+      "slug": "doc-structure-rag",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 40,
+        "openalex/recent": 40,
+        "semanticscholar/important": 36,
+        "semanticscholar/recent": 36
+      }
+    }
+  ],
+  "generated_at": "2026-06-17T06:00:01"
+}

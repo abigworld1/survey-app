@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Unassigned Agents in Compilation-based Multi-agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Unassigned Agents in Compilation-based Multi-agent Path Finding</h1>
+  <div class="meta">Pavel Surynek<br>arxiv ・ 2026-06-14 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.15797v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.15797v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-14</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">UA-MAPFという新しい問題設定に対し、既存のコンパイルベース手法をUA-MDDを用いて容易に適応できることを示した点は有用。実験結果も具体的だが、手法自体の新規性は既存手法の拡張に留まる。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 目的地を持つエージェント $\mathcal{A}$ と、目的地を持たない未割り当てエージェント $\mathcal{U}$ が混在するUA-MAPF問題を、コンパイルベースのSAT/SMTソルバーを用いて解く手法を提案している。未割り当てエージェントは、目的地への到達義務はないものの、他のエージェントの経路を妨げないよう移動させる必要がある。本研究は、MDD（Multi-valued Decision Diagram）をUA用に拡張したUA-MDDを用いることで、既存のSMT-CBSやNRF-SATといった高度なソルバーをUA-MAPFへ容易に適応できることを示した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、一部のエージェントに目的地が与えられない「Unassigned Agents in Multi-agent Path Finding (UA-MAPF)」という新しい問題設定を扱う。標準的なMAPFでは全エージェントが始点から終点への経路を必要とするが、UA-MAPFでは未割り当てエージェント $\mathcal{U}$ は目的地に到達する必要がなく、衝突回避のために必要に応じて移動するのみである。目的関数には、サービス完了時間の総和であるSST、全エージェントの移動回数の総和であるFUEL、移動する未割り当てエージェントの数であるNUA、および待機コストを考慮したFUEL+が定義される。本研究の焦点は、この問題をSATやSMTといった充足可能性問題に変換して解く「コンパイルベース」の手法への適応にある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のコンパイルベースのMAPF手法に対し、UA-MAPFを扱うための定式化と適応方法を提案した。具体的には、反例誘導型抽象化洗練（CEGAR）に基づくSMT-CBSおよび、非洗練抽象化（non-refined abstractions）を用いるNRF-SATをUA-MAPFへ適合させた。適応にあたっては、MDDの構築プロセスにおいて、未割り当てエージェントに対してゴールからの距離制約を適用しない「UA-MDD」を導入するだけで済むことを示した。これにより、コンパイルベース手法のモジュール性と適応性の高さ、および未割り当てエージェントの存在が制約の緩和に与える影響についての知見を提供した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MAPFをSATへ帰着させるため、Time Expanded Graph (TEG) を拡張したMDDを利用する。通常のMDDでは、頂点 $v$ が時刻 $t$ においてエージェント $i$ にとって到達可能である条件として $dist(s_i, v) \le t$ かつ $dist(v, g_i) \le T - t$ を用いて変数を制限する。しかし、目的地 $g_i$ を持たない未割り当てエージェントには後者の制約が適用できないため、開始地点からの距離 $dist(s_i, v) \le t$ のみに基づく「UA-MDD」を定義して使用する。ソルバーとしては、Glucose SATソルバーを基盤としたC++実装のSMT-CBSおよびNRF-SATを用い、NRF-SATではパス一貫性制約を省略してDAGを抽出する手法をとる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>AMD Ryzen 7 2700 (3.2GHz), 32GB RAMの環境下で、movingai.comの4つのマップ（empty-16-16, random-32-32-20, room-64-64-16, ost003d）を用いて実験を行った。各設定につき25回のランダム測定の平均値を評価指標としている。実験の結果、未割り当てエージェントの増加は、問題の緩和（制約の減少）とUA-MDDの巨大化という相反する影響を与えることが判明した。多くのマップでは、初期段階ではUA-MDDの増大による計算コストの増加が顕著だが、未割り当てエージェントの数が十分に大きくなると緩和効果が上回り、計算時間が減少する傾向が確認された。特にNRF-SATは、非精緻化抽象化により数式の巨大化を抑えられるため、SMT-CBSよりもUAの影響を受けにくい高い効率性を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>未割り当てエージェントの存在は、直感に反して計算量に複雑な影響を与える。エージェントの過半数が未割り当てになると緩和効果が上回り計算時間が減少するが、それまではUA-MDDのサイズ増大が支配的となる。例えば、小さなマップであるempty-16-16では、UA-MDDのサイズによる負の影響が軽微であるため、緩和効果が初期から現れるという特異な挙動が見られた。本研究により、コンパイルベースのMAPFソルバーは、MDDの生成ロジックをわずかに変更するだけでUA-MAPFへ容易に適応できることが実証された。今後の課題として、連続的な空間におけるMAPF問題へのUA-MAPFの導入が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Unassigned Agents in Compilation-based Multi-agent Path Finding</h3><p>本研究では、一部のエージェントには目的地が与えられ、残りのエージェントには目的地が与えられない「未割当エージェントが存在するMAPF（UA-MAPF）」という問題設定を扱う。UA-MAPFにおける未割当エージェントは、目的地に到達する必要はないものの、標準的なエージェントの経路を妨げないよう、必要に応じて移動させなければならないという特有の課題を持つ。著者らは、このUA-MAPFが、近年のコンパイルベースのMAPF手法を用いて定式化可能であることを示す。具体的には、反例誘導型抽象化洗練（CEGAR）に基づく SMT-CBS や、非洗練抽象化に基づく NRF-SAT といった、問題を充足可能性問題（SAT）として定式化する最新のソルバーを適応させる手法を提案している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>Multi-agent Path Finding (MAPF) は、無向グラフ上でエージェントが衝突を避けながら各々の始点から終点へ到達する経路を求める問題であるが、本論文では割り当てられたエージェントの集合 $\mathcal{A}$ に加え、目標を持たない未割り当てエージェントの集合 $\mathcal{U}$ を導入した Unassigned Agents MAPF (UA-MAPF) を扱う。UA-MAPF の目的関数には、割り当てられたエージェントのサービス完了時間の総和である Sum of Service Time (SST)、全エージェントの移動回数の総和である FUEL、移動する未割り当てエージェントの数である NUA、および待機コストを考慮した FUEL+ が定義される。本研究では、MAPF を SAT や MILP などの既存の形式に変換して解くコンパイルベースの手法に着目し、特に制約を意図的に省略する Lazy Compilation や、パス一貫性制約を省略して DAG を抽出する NRF-SAT のような非洗練抽象化（non-refined abstractions）の概念を UA-MAPF へ適応させる。具体的には、SMT-CBS および NRF-SAT ソルバーを UA-MAPF に適合させることで、コンパイルベース手法のモジュール性と適応性を実証する。実験評価を通じて、未割り当てエージェントの存在が制約の緩和に与える、直感に反する影響についての知見を提示している。</p></section>
+<section class="secsum"><h3>2 Time Expansion for Unassigned Agents</h3><p>MAPFをSATへ帰着させる手法として、Time Expanded Graph (TEG) と Multi-Valued Decision Diagram (MDD) が用いられる。TEGはグラフ $G=(V, E)$ とmakespan $T$ に対し、各時刻 $t \in \{0, \dots, T\}$ ごとに頂点のコピーを導入した有向非巡回グラフであり、エージェント $i$ が時刻 $t$ に頂点 $v$ にいることを示すために、Boolean変数 $x_{i,v,t}$ を定義する。しかし、TEGは到達不能な頂点まで変数として保持するため非効率であり、実用的な手法では、頂点 $v$ が時刻 $t$ においてエージェント $i$ にとって到達可能である条件、すなわち $dist(s_i, v) \le t$ かつ $dist(v, g_i) \le T - t$ を用いて変数を制限したMDDが利用される。MDD-SATアルゴリズムは、下限値 $T_{min} = \max_i dist(s_i, g_i)$ から開始して $T$ をインクリメントすることでmakespan最適性を保証するが、FUEL+コストの最適化には $T$ に加えてコストの境界値も増分させる手法が取られる。本研究が扱う「割り当てられていないエージェント (Unassigned Agents)」は、特定のゴールを持たないため、MDDのサイズ削減においてゴールからの距離に基づく制約（式2の後半部分）を適用できず、開始地点からの距離に基づく制約のみを適用した「UA-MDD」として定義される。</p></section>
+<section class="secsum"><h3>3 Experimental Evaluation</h3><p>本実験では、C++で実装された SMT-CBS および NRF-SAT ソルバーを用い、Glucose SAT ソルバーを基盤として未割り当てエージェント（UA）を含む UA-MAPF の性能を評価している。実験は AMD Ryzen 7 2700 (3.2GHz), 32GB RAM の環境下で、movingai.com ベンチマークの 4 つのマップ（empty-16-16, random-32-32-20, room-64-64-16, ost003d）を用いて行われ、各設定につき 25 回のランダム測定の平均値が算出されている。未割り当てエージェントの増加は、問題の緩和（relaxation）と、UA-MDD（Unassigned Agent Multi-valued Decision Diagrams）の巨大化という、相反する二つの影響をソルバーに与える。実験結果によれば、多くのマップにおいて、初期段階では UA-MDD の増大による計算コストの増加が顕著であるが、未割り当てエージェントの数が十分に大きくなると緩和効果が上回り、計算時間が減少する傾向が確認された。特に、小さなマップである empty-16-16 では UA-MDD のサイズによる負の影響が軽微であるため、緩和効果が初期から現れるという特異な挙動を示している。また、NRF-SAT は非精緻化抽象化（non-refined abstractions）によって数式の巨大化を緩和できるため、SMT-CBS よりも UA の影響を受けにくい高い効率性を示している。</p></section>
+<section class="secsum"><h3>4 Conclusion</h3><p>本研究では、割り当てられないエージェントが存在するマルチエージェント経路探索（UA-MAPF）のバリアントを調査し、既存のSATベースのソルバーである SMT-CBS および NRF-SAT を UA-MAPF へ適応させる手法を提案している。適応にあたっては、MDD（Multi-valued Decision Diagram）の代わりに UA-MDD を生成するように構成を変更するだけで済み、SATベースの手法のモジュール性と適応性の高さが示された。実験評価の結果、大規模なマップにおいては、割り当てられないエージェントの数が増えることが問題の緩和につながるという直感に反して、実行時間が長くなるという傾向が確認されたが、最終的にはエージェントの過半数が割り当てられない状態になると緩和の効果が上回る。今後の展望として、連続的な空間における MAPF 問題への UA-MAPF の導入が挙げられている。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-17
+  </footer>
+</div>
+</body>
+</html>
