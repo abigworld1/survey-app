@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation</h1>
+  <div class="meta">Zehang Wei, Jiaxin Dai, Jiamin Yan, Xiang Xiang<br>arxiv ・ 2026-06-16 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.17449v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.17449v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-16</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">M-RAGのハルシネーションに対し、エネルギーベースモデルとMCTSを組み合わせた動的介入手法は新規性が高く、評価指標の設計も非常に具体的で研究価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチモーダルRAG（M-RAG）におけるハルシネーションや追従性（sycophancy）を解決するため、変分自由エネルギー（VFE）と内部アテンション状態（ATLAS）を用いて介入を動的に制御するマルチエージェントフレームワーク「MODE-RAG」を提案する。本手法は、高リスクなクエリに対してのみMCTSを用いた因果推論や専門エージェントによる修正を行うことで、過剰修正による精度低下（介入のパラドックス）を防ぎつつ、堅牢性を大幅に向上させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、マルチモーダルRAG（M-RAG）において、知覚、検索、推論、生成のライフサイクル全般で発生する9種類のハルシネーション（クロスモーダルな幻覚、因果的捏造、追従性など）に対処することを目的としている。既存の自己検証メカニズムは、厳格すぎる制約による忠実な解釈の阻害や、介入不足によるモデルの誤情報への脆弱性といった「介入のパラドックス」に直面している。また、CLIP等のエンコーダの次元異方性により、従来の距離指標では潜在空間の診断が困難であるという課題がある。これに対し、本研究はエネルギーベースモデル（EBM）の原理に基づき、不確実性を体系的に診断する手法を模索している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、変分自由エネルギー（VFE）と内部アテンション状態（ATLAS）に基づく適応型ゲート「FE-Router」を備えた、階層的なエネルギーゲート型マルチエージェントフレームワーク「MODE-RAG」を提案した。第二に、視覚とテキストの衝突に対する堅牢性を厳密に測定するため、VFEを用いて多様体外れ値（manifold outliers）を抽出した新ベンチマーク「ModeVent」を構築した。第三に、MCTSを用いた因果的DAG構築や、ロジット摂動による追従性の抑制、さらにOverseerエージェントによる再帰的な検証メカニズムを統合した。これにより、複雑な多段階推論におけるハルシネーションを効果的に低減し、M-RAGシステムの構造的安定性を向上させた。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MODE-RAGは、FE-RouterがATLAS Probeを用いて予測分布の変分自由エネルギー $\text{VFE} = \sum_{i} [q(z_i) \text{E}_{q(z_i)}[E(z_i)] - \text{H}(q(z_i))]$ を計算し、閾値 $\tau$ を超えた場合にのみ専門エージェントを起動する。パイプラインは以下の5つのエージェントで構成される：1) Per-Agentが視覚情報から記号的トリプレット $\mathcal{T}$ を抽出する、2) Cor-AgentがJSON-Schema等でデータの整合性を維持する、3) Ret-Agentがマニホールド忠実度 $\exp(-\text{dist}(\text{context}, \mathcal{T}))$ に基づき矛盾する知識を排除する、4) Rea-AgentがUCT式 $UCT(s, a) = Q(s, a) + c \sqrt{\frac{\ln N(s)}{N(s, a)}}$ を用いたMCTSにより因果的DAGを構築する、5) Gen-Agentがロジット摂動を用いて回答を合成する。最後にOverseerが $\mathcal{T}$、DAG、自然言語の三重の一貫性を検証し、閾値 $\tau_{\text{fidelity}}$ を下回る場合はフォールバックを実行する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価には、MultiVentから派生したModeVentベンチマークを用いた。これはSigLIP/CLIP特徴量にグローバルな白色化を施した後、VFEスコアに基づき、高VFEの「manifold outliers」（500サンプル）と低VFEの「stable inliers」（500サンプル）からなる計1,000サンプルで構成される。実験ではDeepSeek-V3.2を用いて敵対的コンテキストを生成し、LLM-as-a-Judgeプロトコルにより、忠実度 $F \in [0, 5]$ と回復力 $R \in [0, 5]$ を測定した。結果、MODE-RAGはBaselineの平均Total Score 4.40から5.45へと+1.04向上させ、特にOutliersにおけるAttention Hijackingの抑制により+1.48の改善を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>MODE-RAGは、MCTSによる枝刈りとDead Man&#x27;s Switch機構により、Mode Collapseのような壊滅的な失敗を抑制し、スコア分布を高い領域へとシフトさせることに成功している。計算コストに関しては、1クエリあたりの平均処理時間がBaselineの18.5秒から26.2秒へと約1.42倍に増加するが、マルチエージェント構成による並列実行によって緩和が可能である。本手法は、不必要な介入を回避してLLMカーネル本来の精度を維持しつつ、視覚的証拠を無視するsycophancyや論理的捏造を抑制できる、信頼性の高いマルチモーダル推論のための堅牢な解決策を提供している。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation</h3><p>本研究では、マルチモーダル検索拡張生成（M-RAG）におけるクロスモーダルな幻覚、因果的捏造、および追従性（sycophancy）の問題を解決するため、変分自由エネルギー（VFE）と内部アテンション状態に基づき介入を動的に制御するマルチエージェントシステム「MODE-RAG」を提案している。このシステムは、高リスクなクエリを5つのステージ別エージェントにルーティングし、モンテカルロ木探索（MCTS）を用いた厳密な因果推論や、logit摂動による追従性の抑制を行う。さらに、フォーマットの安定性を確保するCorrectionエージェントと、事後的な事実検証を行うOverseerエージェントを導入することで、不適切な介入による生成精度の低下（介入のパラドックス）を防いでいる。評価手法として、MultiVentデータセットから派生した高難度サブセットである「ModeVent」を導入しており、実験の結果、MODE-RAGは幻覚率と論理的捏造を効果的に減少させ、M-RAGシステムの堅牢性を大幅に向上させることが示された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、マルチモーダルRAG（M-RAG）におけるハルシネーションを、知覚、検索、推論、生成の4つのライフサイクル段階における9つのタイプに分類し、それらを動的に緩和するマルチエージェントフレームワーク「MODE-RAG」を提案している。提案手法は、変分自由エネルギー（VFE）と内部アテンション状態（ATLAS）に基づく適応型ゲートである「FE-Router」を中核とし、低リスクなクエリによる過剰修正（over-correction）を防ぎつつ、高リスクなクエリに対してのみ、MCTS（モンテカルロ木探索）を用いた因果DAG（有向非巡回グラフ）構築を行う「Rea-Agent」などの専門エージェントを起動させる。具体的には、Per-Agentによる原子レベルの視覚的事実抽出、Ret-Agentによる「視覚優先」のクロスアライメント、およびOverseerによる再帰的なフォールバックループを通じて、視覚的証拠を無視する「sycophancy（追従性）」や論理的捏造を抑制する。評価においては、MultiVentデータセットから派生した「ModeVent」ベンチマークを構築し、VFEを用いて不確実性分布の極端な境界値にある500個の「manifold outliers（多様体外れ値）」と500個の安定サンプルを抽出することで、視覚とテキストの衝突に対する堅牢性を厳密に測定する。実験の結果、MODE-RAGは複雑な多段階推論におけるハルシネーションを大幅に低減し、高い堅牢性を実現することが示されている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>RAGは外部知識の統合によりLLMの知識不足を補うが、検索された情報の質に性能が依存し、特にマルチモーダル環境では視覚的証拠と矛盾するクロスモーダル・ハルシネーションを引き起こす課題がある。既存の自己検証メカニズムは、厳格すぎる制約による忠実な解釈の阻害や、介入不足によるモデルの追従性（sycophancy）や論理的逸脱を防げないといった「介入のパラドックス」に直面している。近年の動的検索手法として、モデルの不確実性に基づくDRAGINや、ドラフト・メモリを活用するSpeculative RAG、MemoRAGなどが提案されているが、CLIP等のエンコーダの次元異方性により、従来の距離指標では潜在空間の診断が困難である。本研究では、エネルギーベースモデル（EBM）やヘルムホルツ自由エネルギー（HFE）の原理に基づき、内部アテンション状態やパープレキシティを評価するATLASを活用することで、検索と知覚の段階における多様体外れ値（manifold outliers）の体系的な診断を目指す。最終的に、適応的なFE-Router内にATLASを組み込み、MCTSを用いて因果的有向非巡回グラフ（DAG）を構築することで、ステップごとの構造的論理整合性を確保し、M-RAGのライフサイクル全体でモデルの誤情報への脆弱性を抑制する。</p></section>
+<section class="secsum"><h3>3 Dataset</h3><p>本セクションでは、マルチモーダルRAG（M-RAG）システムの堅牢性を評価するための診断ベンチマークであるModeVentの構築手法が述べられている。構築プロセスは3段階で行われ、まずSigLIPおよびCLIPエンコーダを用いて特徴ベクトルを抽出し、ユークリッド距離が意味的相違を忠実に表すようグローバルな白色化変換を施した上で全サンプルを評価する。次に、各サンプルの平均VFE（Visual-Feature-Entropy）を計算し、これを視覚的シーンとユーザーの主張との間の不一致、すなわちモデルの認識論的不確実性のメカニズム的プロキシとして利用する。その後、VFEスコアに基づき全集団をランク付けし、最も高いVFEを持つ500サンプルを多様体外れ値（manifold outliers）、最も低い500サンプルを安定した内点（stable inliers）として選択することで、計1,000サンプルのベンチマークを構成する。ModeVentは、モデルが迎合（sycophancy）や因果的押し付けを受けやすい高VFEの境界事例と、マルチモーダルなクエリが整合している低VFEの安定したベースラインという、不確実性分布の両極端を対象としている。これにより、MODE-RAGのゲーティング機構が、不必要な介入を回避してLLMカーネル本来の精度を維持できるかを厳密に検証することが可能となる。</p></section>
+<section class="secsum"><h3>4 Methodology: The MODE-RAG Framework</h3><p>MODE-RAGは、マルチモーダル推論における介入パラドックスを解決するために提案された、階層的なエネルギーゲート型マルチエージェントフレームワークである。システムの入り口となるFE-Routerは、ATLAS Probeを用いて予測分布の変分自由エネルギー（VFE）を計算し、$\text{VFE} = \sum_{i} [q(z_i) \text{E}_{q(z_i)}[E(z_i)] - \text{H}(q(z_i))]$ の値が閾値 $\tau$ を超えた場合に、認識論的不確実性が高いと判断して専門的なエージェント・パイプラインを起動する。このパイプラインは5つのエージェントで構成され、Per-Agentが視覚情報から記号的なトリプレット $\mathcal{T}$ を抽出して「接地された真実のアンカー」を作成し、Cor-AgentがJSON-Schema等のプログラム的スキーマを用いてデータの整合性を維持する。Ret-Agentは、検索されたコンテキストと物理的不変量 $\mathcal{T}$ との距離に基づき、マニホールド忠実度を $\exp(-\text{dist}(\text{context}, \mathcal{T}))$ として評価することで、矛盾する知識を排除する。Rea-Agentは、モンテカルロ木探索（MCTS）を用いて因果的DAGを構築し、UCT式 $UCT(s, a) = Q(s, a) + c \sqrt{\frac{\ln N(s)}{N(s, a)}}$ に基づいて論理空間を探索する。最終的に、Gen-Agentがロジット摂動を用いて回答を合成し、PORAG駆動のOverseerがPer-Agentの $\mathcal{T}$、Rea-AgentのDAG、Gen-Agentの自然言語の間の三重の一貫性を検証し、閾値 $\tau_{\text{fidelity}}$ を下回る場合は再帰的なフォールバックメカニズムを実行する。</p></section>
+<section class="secsum"><h3>5 Experiments</h3><p>本研究では、ModeVentベンチマークを用いて、提案手法であるMODE-RAGの有効性を評価している。実験では、7つのRAGエラーカテゴリ（Attribute HijackingやInformation Sparsity等）をトリガーとして、9種類の出力側ハルシネーションを誘発する敵対的コンテキストをDeepSeek-V3.2を用いて生成し、Inliers（ドメイン内）とOutliers（ドメイン外）の2つの難易度レベルで評価を行った。評価指標には、DeepSeek-V3.2を用いたLLM-as-a-Judgeプロトコルを採用し、視覚的事実への忠実度を示すFidelity ($F \in [0, 5]$) と、情報抽出の完全性を示すResilience ($R \in [0, 5]$) の2軸で測定している。実験結果として、MODE-RAGはBaselineと比較して平均Total Scoreを4.40から5.45へと+1.04向上させ、特にOutliersにおけるAttention Hijackingを抑制することでTotal Scoreを+1.48改善した。また、MCTSによる枝刈りとDead Man&#x27;s Switch機構により、Mode Collapse等の壊滅的な失敗を抑制し、スコア分布を高い領域へとシフトさせている。計算コストに関しては、1クエリあたりの平均処理時間がBaselineの18.5秒からMODE-RAGの26.2秒へと約1.42倍に増加するものの、マルチエージェント構成による並列実行での緩和が可能であるとしている。</p></section>
+<section class="secsum"><h3>6 Conclusions</h3><p>本論文では、マルチモーダルRAGシステムにおける介入のパラドックスに対処するため、変分自由エネルギー（VFE）と内部アテンション状態（ATLAS）に基づくルーターを用いて介入を動的にゲート制御する、メカニズムに基づいたマルチエージェントフレームワーク「MODE-RAG」を提案している。本手法は、システムのライフサイクル全体におけるハルシネーションを9つの異なるタイプに分類し、因果推論のためのモンテカルロ木探索（MCTS）や、追従性（sycophancy）を抑制するためのロジット摂動を統合した特化型エージェントを用いることで、事実に基づいた根拠付けと論理的一貫性を確保する。さらに、多様体外れ値（manifold outliers）や複雑な視覚・テキスト間の矛盾に対するシステムの脆弱性を評価するためのターゲットベンチマーク「ModeVent」を導入した。実験結果により、MODE-RAGはハルシネーション率を効果的に低減させ、マルチモーダルRAG（M-RAG）システムの構造的安定性を向上させることが示されており、信頼性の高いマルチモーダル推論のための堅牢かつスケーラブルな解決策を提供している。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+  </footer>
+</div>
+</body>
+</html>

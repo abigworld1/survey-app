@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Should I Replan? Learning to Spot the Right Time in Robust MAPF Execution | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Should I Replan? Learning to Spot the Right Time in Robust MAPF Execution</h1>
+  <div class="meta">David Zahrádka, David Woller, Denisa Mužíková, Miroslav Kulich, Libor Přeučil<br>arxiv ・ 2026-04-28 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2604.25567v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2604.25567v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-04-28</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFの実行時における再計画のタイミングを、ADGの統計量を用いた回帰問題として定式化した点が独創的。実環境の遅延を考慮した実用的なアプローチである。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> エージェントの遅延が発生する実環境下のマルチエージェント経路計画（MAPF）において、Action Dependency Graph (ADG) の統計量に基づき、再計画（Replanning）によるコスト削減の期待値を予測する回帰モデルを提案する。提案手法は、動的障害物による遅延が発生した際に、再計画によって得られる潜在的な利益を高い精度で推定し、実行コストの増大を最大 $50\%$ まで低減できることを示した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、エージェントの予期せぬ遅延（intrusion）が発生する環境下での、頑健なマルチエージェント経路探索（MAPF）の実行において、再計画を行う最適なタイミングを決定する問題を扱う。従来のADG（Action Dependency Graph）を用いた実行手法は、衝突回避のためにエージェントに待機を強いることで、実行コスト（Sum of Costs, SOC）が増大する課題がある。再計画はコスト削減に有効だが、計算オーバーヘッドや、改善が見込めない場合でも再計算を繰り返す非効率性が問題となる。そこで著者らは、現在の実行状態から再計画によって得られるコスト削減の期待値を推定する「Replanning Prediction Problem (RPP)」を定式化した。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、ADGに基づき設計された18種類の特徴量を用いて、再計画の潜在的な利益を予測する回帰モデルを導入した点にある。このモデルは、再計画によるSOCの節約期待値 $y_t = \text{SOC}_{init} - \text{SOC}_{replan}(t)$ を予測し、閾値 $\tau$ を用いて再計画の実行可否を判断する。実験により、提案手法は動的障害物によるコスト増大の影響を、再計画によって達成可能な削減量の最大 $50\%$ まで低減できることを示した。また、特徴量重要度の分析を通じて、再計画の判断が静的な計画特性ではなく、観測された遅延やスラックの増加といった動的な指標に強く依存することを明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、ADGの状態から抽出された特徴量 $\mathbf{x}_t$ を入力とし、再計画の利益 $y_t$ を出力する全結合ニューラルネットワークを用いる。特徴量 $\mathcal{F}$ は、エージェントの進捗 $p_{i,t}$、計画期間 $d_{i,a}$ と実測期間 $d&#x27;_{i,a}$ の差、および将来の待ち時間を予測する `highest slack increase` など、18種類の指標で構成される。モデル構造は、3層の隠れ層（ユニット数 128, 64, 32）とReLU活性化関数を持つ。学習には、外れ値への耐性を高める `RobustScaler` による正規化と、平均絶対誤差（MAE）損失関数 $\text{MAE} = \frac{1}{N} \sum_{i=1}^{N} |y_i - \hat{y}_i|$ を採用している。最適化にはAdamオプティマイザとステップ減衰学習率を用い、5分割交差検証によってハイパーパラメータを調整する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、1-robust ECBSソルバーを用いて初期計画および再計画時の最適計画を生成し、動的障害物がランダムに現れるシミュレーション環境で評価を行った。使用マップは `random-32-32-20`、`room-32-32-4`、`arena` ($32 \times 32$)、`lab` ($16 \times 16$) の4種類であり、計20のインスタンスを用いて検証している。12,000件の実験データを用い、テストセットにおいて感度 $0.88$、特異度 $0.98$ を達成した。再計画が実行されたケースにおけるリカバリ率（潜在的な節約額に対する実測の節約額の割合）は $54\%$ に達し、計算オーバーヘッドを含めてもその効果が維持されることを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>実験結果から、動的障害物によるSOCの増加は一部のケースに集中しており、ランダムなタイミングでの再計画は計算コストを考慮すると有害な場合があることが示された。特徴量重要度の分析（Permutation Importance）により、意思決定は「総アクション遅延（total action delay）」、「最大アクション遅延（highest action delay）」、および「最大スラック増加量（highest slack increase）」の3つの指標に強く依存していることが判明した。これは、再計画の判断が静的なインスタンスの属性ではなく、観測された遅延とその伝播に起因することを示唆している。今後の課題として、複数回の再計画を伴う逐次的な意思決定への拡張や、大規模マップおよび部分観測モデルへの適用が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Should I Replan? Learning to Spot the Right Time in Robust MAPF Execution</h3><p>本研究は、エージェントの遅延による非同期が発生する実環境下のマルチエージェント経路計画（MAPF）において、再計画（Replanning）を行う最適なタイミングを決定する手法を提案している。従来の Action Dependency Graph (ADG) を用いた堅牢な実行手法は、衝突回避のためにエージェントの待機を強いることで実行コストが増大する課題がある。著者らは、現在の実行状態から再計画によって得られるコスト削減の期待値を推定するため、ADGに基づき設計された新たな特徴量を入力とし、全結合ニューラルネットワークを用いて推定を行う手法を導入した。提案手法は、新たに作成されたラベル付きデータセットを用いた実験により、遅延によるコスト増大の影響を、再計画によって達成可能な削減量の最大 $50\%$ まで低減できることを示している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究は、エージェントの予期せぬ遅延が発生する環境下での、頑健なマルチエージェント経路探索（MAPF）の実行において、再計画（replanning）を行う最適なタイミングを決定する手法を提案している。従来のMAPF-POSTやADG（Action Dependency Graph）のような頑健な実行手法は、衝突やデッドロックを防ぐためにアクション間の時間的先行関係を利用するが、大幅な遅延が生じた場合に元の計画を維持すると実行コストが増大する課題がある。再計画や再スケジューリング（rescheduling）はコスト削減に有効だが、計算オーバーヘッドや、改善が見込めない場合でも再計算を繰り返す非効率性が問題となる。そこで著者らは、ADGに実行状態や遅延の影響を捉える新たな指標を導入し、各アクションの期待実行時間、実測値、および他エージェントとの待ち時間を表すスラック（slack）などの統計量を算出するフレームワークを構築した。これらの統計量を特徴量としてニューラルネットワークを学習させることで、再計画によって得られる潜在的な利益（potential benefit）を予測し、再計画の実行可否を判断する。実験を通じて、提案手法が動的な障害物による影響を考慮しつつ、得られるコスト削減量の大部分を回収できることを示している。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>MAPFのロバストな実行手法には、全エージェントの完了を待つ Fully Synchronized Policy や、交差点でのみ同期を行う Minimal Communication Policy、軌道のホモトピー類を維持する RMTRACK などがある。MAPF-POST や ADG は、イベントやエージェントの行動を頂点、先行制約をエッジとする Temporal Network (TN) や Temporal Plan Graph (TPG) を用いて、先行するイベントや行動の完了後に次をスケジュールすることで安全性を確保する。また、遅延発生時の実行時間を最小化するために、交差点での進入順序を再スケジューリングする研究も進んでおり、Job Shop Scheduling Problem として定式化する手法や、SADG において混合整数線形計画法 (MILP) を用いて相互排他的なエッジを選択する手法、A* アルゴリズムを用いた Switchable Edge Search などが提案されている。機械学習 (ML) は、最適なプランニングアルゴリズムの選択や Large Neighborhood Search の効率化、強化学習による分散型ソルバーの構築など多方面で活用されているが、本研究では MAPF プランのロバストな実行中に再計画（replanning）を行うことの潜在的な利益を予測するために ML を用いる。</p></section>
+<section class="secsum"><h3>III Background &amp; Problem Formulation</h3><p>MAPFはグラフ $\mathcal{G} = (V, E)$ 上で動作するエージェント集合 $\mathcal{A}$ に対し、各エージェント $a$ の開始地点 $s_a$ と目標地点 $g_a$ を結ぶ一連のアクション $P_a = (a_{a,0}, a_{a,1}, \dots, a_{a,T_a})$ の集合 $\mathcal{P}$ を求める問題であり、本研究では全エージェントの総実行時間である Sum of Costs (SOC) $\sum_{a \in \mathcal{A}} T_a$ の最小化を目的とする。実行時には、アクション間の時間的依存関係を管理する Action Dependency Graph (ADG) $\mathcal{G}_{ADG} = (\mathcal{A}_{all}, \mathcal{E})$ が用いられ、これは単一エージェント内の前後関係を示す type 1 エッジと、エージェント間の依存関係を示す type 2 エッジからなる有向非巡回グラフである。本論文が定義する Replanning Prediction Problem (RPP) は、ADG 制御下の実行中に、ある時刻 $t$ で再計画を行うことが有益かどうかを予測する回帰問題であり、ADG 内の各種指標からなる特徴量ベクトル $\mathbf{x}_t$ を入力として、再計画による SOC の節約期待値 $y_t$ を予測する写像 $f: \mathbf{x}_t \to y_t$ の学習を目指す。回帰出力 $y_t$ は、外部乱れの影響を受けた初期計画の実行 SOC $\text{SOC}_{init}$ と、時刻 $t$ で再計画を行った場合の実行 SOC $\text{SOC}_{replan}(t)$ の差分 $y_t = \text{SOC}_{init} - \text{SOC}_{replan}(t)$ として定義され、閾値 $\tau$ を用いて $y_t &gt; \tau$ の場合に再計画を実行するという二値決定を行う。</p></section>
+<section class="secsum"><h3>IV Method</h3><p>本手法は、Robust MAPFの実行において再計画（Replanning）の最適なタイミングを特定する問題（RPP）に対し、ADG（Action Dependency Graph）の状態に基づく特徴量を用いた回帰モデルを提案している。特徴量 $\mathcal{F}$ は、MAPFインスタンスの特性、解の特性、および現在のADGの状態からなる18種類で構成され、エージェント $i$ の計画上の進捗 $p_{i,t}$ や、アクションの計画期間 $d_{i,a}$ と実際の期間 $d&#x27;_{i,a}$ の差、さらには将来の待ち時間を予測する `highest slack increase` などの遅延指標を包含する。学習データセットは、動的障害物による影響下で「再計画なし」の場合と「時刻 $t$ で再計画した場合」の実行コストの差を回帰ターゲット $y$ とすることで生成される。学習モデルには、3層の隠れ層（ユニット数 128, 64, 32、ReLU活性化関数）を持つ全結合ニューラルネットワークを採用し、外れ値への耐性を高めるために `RobustScaler` による正規化と平均絶対誤差（MAE）損失関数 $\text{MAE} = \frac{1}{N} \sum_{i=1}^{N} |y_i - \hat{y}_i|$ を用いて最適化を行う。モデルの訓練にはAdamオプティマイザとステップ減衰学習率が使用され、5分割交差検証によってチューニングが行われる。</p></section>
+<section class="secsum"><h3>V Experimental Setup</h3><p>本実験では、1-robust ECBSソルバーを用いて初期計画および再計画時の最適計画を生成し、中央集権的な実行サーバーとADG（Agent Dependency Graph）を備えたシミュレーション環境を用いて実行コストを測定している。環境には動的な障害物（intrusion）がランダムな頂点にランダムな時間出現し、エージェントがその頂点を通過しようとする際に遅延を引き起こす設定となっており、マルチスレッドによる確率的な誤差を軽減するため、各実験を3回繰り返して最小値を採用している。使用されたマップは、MovingAIデータセット由来の `random-32-32-20` および `room-32-32-4`、ならびに `arena` ($32 \times 32$) と `lab` ($16 \times 16$) の4種類であり、各マップに対してエージェント数を変えた計20インスタンスを生成している。データセットは $80:20$ の割合で訓練用とテスト用に分割され、モデル設計とハイパーパラメータ調整には $k=5$ の $k$-fold cross-validationが用いられている。学習プロセスでは、バッチサイズ $64$、最大エポック数 $100$、検証用分割比 $0.2$ が設定されており、検証損失が改善しない場合には早期終了（early stopping）が適用される。</p></section>
+<section class="secsum"><h3>VI Results &amp; Discussion</h3><p>本研究では、動的障害物による影響を検知して再計画（replanning）を行うRPP（Robust Planning Policy）の有効性を、12,000件の実験データを用いて評価している。実験の結果、動的障害物の導入により平均的なSum of Costs (SOC) は $\text{SOC}_{\text{init}}$ から $\text{SOC}_{\text{dyn}}$ へと増加するが、その影響は一部のケースに集中しており、ランダムなタイミングでの再計画は $\text{SOC}_{\text{dyn}}$ とほぼ同等のコストしか得られず、計算オーバーヘッドを考慮すると有害な場合すらあることが示された。提案モデルは、テストセットにおいて感度 $0.88$、特異度 $0.98$ を達成し、再計画による潜在的な節約額 $\Delta \text{SOC}$ を高い精度で予測できる。実測値としての $\text{SOC}$ 節約額 $\text{SOC}_{\text{realized}}$ を評価したところ、再計画が実行されたケースにおいて、潜在的な節約可能額の $54\%$ を回収するリカバリ率を達成し、計算オーバーヘッドを含めた場合でもその効果は維持された。特徴量の重要度（Permutation Importance）の分析により、再計画の判断は静的な計画特性ではなく、既に観測された「総アクション遅延（total action delay）」、「最大アクション遅延（highest action delay）」、および「最大スラック増加量（highest slack increase）」の3つの指標に強く依存していることが明らかになった。</p></section>
+<section class="secsum"><h3>VII Conclusions &amp; Future Work</h3><p>本研究では、観測不可能な動的障害物が存在するADG（Asynchronous Dependency Graph）制御下のMAPF実行において、いつ再計画を行うべきかを決定する「Replanning Prediction Problem (RPP)」を定式化した。18種類の特徴量を用いてADGを拡張したプランナーに依存しない回帰モデルを提案し、4つのマップを用いた実験により、ランダムな再計画は平均的な利益が少ない一方で、一部のケースでは大きな損失を回避できることを示した。学習済みモデルは、単一の再計画機会においてテストデータセット全体の利用可能な節約量の大部分を回収し、極端なケースでは実行コストの過半数を回収する一方で、偽陽性による損失は無視できる程度に抑えられている。特徴量重要度分析の結果、意思決定は主に観測されたアクションの遅延とその伝播（slackの増加）に起因しており、静的なインスタンスや計画の属性はほとんど寄与しないことが判明した。今後の展望として、複数回の再計画を伴う逐次的な意思決定への拡張、計画コストが支配的となる大規模マップへの適用、および複数の動的障害物や部分観測モデルを含むより豊かな妨害モデルへの拡張が挙げられる。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+  </footer>
+</div>
+</body>
+</html>

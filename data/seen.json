@@ -95,6 +95,32 @@
       "title": "SCAR: Semantic Continuity-Aware Retrieval for Efficient Context Expansion in RAG",
       "tldr": "RAGにおける固定長チャンク分割による「境界断片化問題」を解決するため、クエリとの関連度と隣接チャンク間の意味的連続性を考慮して適応的にコンテキストを拡張する、学習不要な検索時ポリシー「SCAR (Semantic Continuity-Aware Retrieval)」を提案する。"
     },
+    "arxiv:2606.17449": {
+      "added": "2026-06-18",
+      "authors": [
+        "Zehang Wei",
+        "Jiaxin Dai",
+        "Jiamin Yan",
+        "Xiang Xiang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-16",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.17449.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "M-RAGのハルシネーションに対し、エネルギーベースモデルとMCTSを組み合わせた動的介入手法は新規性が高く、評価指標の設計も非常に具体的で研究価値が高い。",
+      "relevance": 8,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation",
+      "tldr": "マルチモーダルRAG（M-RAG）におけるハルシネーションや追従性（sycophancy）を解決するため、変分自由エネルギー（VFE）と内部アテンション状態（ATLAS）を用いて介入を動的に制御するマルチエージェントフレームワーク「MODE-RAG」を提案する。本手法は、高リスクなクエリに対してのみMCTSを用いた因果推論や専門エージェントによる修正を行うことで、過剰修正による精度低下（介入のパラドックス）を防ぎつつ、堅牢性を大幅に向上させる。"
+    },
     "doi:10.3390/ai7050161": {
       "added": "2026-06-14",
       "authors": [
@@ -157,6 +183,33 @@
       "source_quality": "fulltext",
       "title": "Retrieval-Augmented Generation with Graphs (GraphRAG)",
       "tldr": "本論文は、グラフ構造の持つノード・エッジ間の関係性や異種混合な情報を活用して、従来のRAGでは困難だった複雑な推論を可能にする「GraphRAG」に関する包括的なサーベイである。著者らは、GraphRAGをQuery Processor、Retriever、Organizer、Generator、Data Sourceの5つのコンポーネントからなるフレームワークとして定義し、知識グラフから科学、社会、インフラ、表形式データに至るまで、多様なドメインにおける設計と課題を体系化した。"
+    },
+    "doi:10.48550/arxiv.2506.16035": {
+      "added": "2026-06-18",
+      "authors": [
+        "Vishesh Tripathi",
+        "Tanmay Odapally",
+        "Indraneel Das",
+        "Uday Allu",
+        "Biddwan Ahmed"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 6,
+      "date": "2025-06-19",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2506.16035.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "RAGのボトルネックであるチャンキングにLMMを用いた視覚的アプローチを導入しており、新規性と実用性が高い。評価手法も具体的で、研究者が注目すべき内容である。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Vision-Guided Chunking Is All You Need: Enhancing RAG with Multimodal Document Understanding",
+      "tldr": "従来のテキストベースのチャンキングが抱える、複雑な文書構造や複数ページにわたる表・図の断片化という課題に対し、大規模マルチモーダルモデル（LMM）を用いて視覚的文脈を保持しながらチャンクを生成する新しいマルチモーダル・ドキュメント・チャンキング手法を提案する。"
     },
     "doi:10.48550/arxiv.2510.07233": {
       "added": "2026-06-15",
@@ -294,6 +347,33 @@
       "title": "Graph Attention-Guided Search for Dense Multi-Agent Pathfinding",
       "tldr": "高密度なマルチエージェント経路探索（MAPF）において、グラフアテンションを用いたニューラル方策 $\\text{MAGAT}^+$ を探索アルゴリズム $\\text{LaCAM}$ に統合したハイブリッドフレームワーク $\\text{LaGAT}$ を提案する。事前学習とマップ特化型の微調整、およびデッドロック検出メカニズムを組み合わせることで、既存の探索ベース手法や学習ベース手法のパレート境界を突破し、高密度環境における解の質とリアルタイム性能を向上させている。"
     },
+    "arxiv:2604.25567": {
+      "added": "2026-06-18",
+      "authors": [
+        "David Zahrádka",
+        "David Woller",
+        "Denisa Mužíková",
+        "Miroslav Kulich",
+        "Libor Přeučil"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-04-28",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2604.25567.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "MAPFの実行時における再計画のタイミングを、ADGの統計量を用いた回帰問題として定式化した点が独創的。実環境の遅延を考慮した実用的なアプローチである。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Should I Replan? Learning to Spot the Right Time in Robust MAPF Execution",
+      "tldr": "エージェントの遅延が発生する実環境下のマルチエージェント経路計画（MAPF）において、Action Dependency Graph (ADG) の統計量に基づき、再計画（Replanning）によるコスト削減の期待値を予測する回帰モデルを提案する。提案手法は、動的障害物による遅延が発生した際に、再計画によって得られる潜在的な利益を高い精度で推定し、実行コストの増大を最大 $50\\%$ まで低減できることを示した。"
+    },
     "arxiv:2605.07835": {
       "added": "2026-06-17",
       "authors": [
@@ -400,6 +480,29 @@
       "source_quality": "fulltext",
       "title": "Discrete Diffusion for Complex and Congested Multi-Agent Path Finding with Sparse Social Attention",
       "tldr": "離散的なデノイジング拡散確率モデル（D3PM）を初期解生成器として統合し、Large Neighborhood Search 2（LNS2）による修復プロセスを強化するハイブリッドフレームワーク「DiffLNS」を提案する。Sparse Social Attentionを用いることで、混雑した環境下でも計算効率を維持しながら協調的な行動軌跡を学習し、最大312エージェントのシナリオにおいても高い成功率を実現する。"
+    },
+    "arxiv:2605.16855": {
+      "added": "2026-06-18",
+      "authors": [
+        "Tomoki Arita",
+        "Keisuke Okumura"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-05-16",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2605.16855.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "reading_value": 4,
+      "reading_value_reason": "LaCAMに局所ガイダンスとウォームスタートを導入し、LMAPFの計算量とスループットのトレードオフを劇的に改善しており、実用性が極めて高い。",
+      "relevance": 4,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Lifelong LaCAM with Local Guidance for Lifelong MAPF",
+      "tldr": "Lifelong Multi-Agent Pathfinding (LMAPF) において、構成ベースのソルバー LaCAM に局所的なガイダンス（Local Guidance）を導入し、再帰的ホライゾン（receding-horizon）フレームワークへと拡張した手法 LLLG を提案する。本手法は、前回の計画結果をウォームスタートとして利用することで、高密度な環境下での混雑緩和とスループットの向上を、リアルタイムな計算コストを維持しつつ実現する。"
     },
     "arxiv:2605.20929": {
       "added": "2026-06-14",

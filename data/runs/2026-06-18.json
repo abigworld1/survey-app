@@ -1,0 +1,170 @@
+{
+  "date": "2026-06-18",
+  "dry_run": false,
+  "engine": "llm:gemma-4-26b",
+  "fields": [
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2604.25567.html",
+          "id": "2604.25567",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2026-04-28",
+          "reading_value": 4,
+          "reading_value_reason": "MAPFの実行時における再計画のタイミングを、ADGの統計量を用いた回帰問題として定式化した点が独創的。実環境の遅延を考慮した実用的なアプローチである。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Should I Replan? Learning to Spot the Right Time in Robust MAPF Execution"
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2605.16855.html",
+          "id": "2605.16855",
+          "matched_keywords": [
+            "MAPF"
+          ],
+          "published": "2026-05-16",
+          "reading_value": 4,
+          "reading_value_reason": "LaCAMに局所ガイダンスとウォームスタートを導入し、LMAPFの計算量とスループットのトレードオフを劇的に改善しており、実用性が極めて高い。",
+          "relevance": 4,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Lifelong LaCAM with Local Guidance for Lifelong MAPF"
+        }
+      ],
+      "candidates_total": 40,
+      "fresh_total": 32,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 14,
+      "skipped": [],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 0,
+        "openalex/recent": 0,
+        "semanticscholar/important": 0,
+        "semanticscholar/recent": 0
+      }
+    },
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2606.17449.html",
+          "id": "2606.17449",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-06-16",
+          "reading_value": 4,
+          "reading_value_reason": "M-RAGのハルシネーションに対し、エネルギーベースモデルとMCTSを組み合わせた動的介入手法は新規性が高く、評価指標の設計も非常に具体的で研究価値が高い。",
+          "relevance": 8,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation"
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 6,
+          "file": "doc-structure-rag/2506.16035.html",
+          "id": "2506.16035",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2025-06-19",
+          "reading_value": 4,
+          "reading_value_reason": "RAGのボトルネックであるチャンキングにLMMを用いた視覚的アプローチを導入しており、新規性と実用性が高い。評価手法も具体的で、研究者が注目すべき内容である。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "fulltext",
+          "title": "Vision-Guided Chunking Is All You Need: Enhancing RAG with Multimodal Document Understanding"
+        }
+      ],
+      "candidates_total": 156,
+      "fresh_total": 150,
+      "k": 2,
+      "label": "文書構造解析に基づく検索・質問応答・RAG",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 95,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 11,
+          "id": "doi-e66b58c437d0",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2025-12-12",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 5,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "A Systematic Literature Review of Retrieval-Augmented Generation: Techniques, Metrics, and Challenges"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-71bb8aede7a8",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-05-01",
+          "reasons": [
+            "本文もアブストラクトも取得できない"
+          ],
+          "relevance": 6,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "DC-RAG: a dual-channel retrieval-augmented generation framework for audit analysis."
+        }
+      ],
+      "slug": "doc-structure-rag",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 40,
+        "openalex/recent": 40,
+        "semanticscholar/important": 0,
+        "semanticscholar/recent": 37
+      }
+    }
+  ],
+  "generated_at": "2026-06-18T06:00:01"
+}

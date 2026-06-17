@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lifelong LaCAM with Local Guidance for Lifelong MAPF | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Lifelong LaCAM with Local Guidance for Lifelong MAPF</h1>
+  <div class="meta">Tomoki Arita, Keisuke Okumura<br>arxiv ・ 2026-05-16 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2605.16855v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.16855v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-05-16</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">LaCAMに局所ガイダンスとウォームスタートを導入し、LMAPFの計算量とスループットのトレードオフを劇的に改善しており、実用性が極めて高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> Lifelong Multi-Agent Pathfinding (LMAPF) において、構成ベースのソルバー LaCAM に局所的なガイダンス（Local Guidance）を導入し、再帰的ホライゾン（receding-horizon）フレームワークへと拡張した手法 LLLG を提案する。本手法は、前回の計画結果をウォームスタートとして利用することで、高密度な環境下での混雑緩和とスループットの向上を、リアルタイムな計算コストを維持しつつ実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、エージェントがタスク完了後に新たな目標を継続的に受け取る Lifelong MAPF (LMAPF) 設定における、リアルタイムかつ高スループットな経路計画問題を対象としている。既存の RHCR フレームワークは、CBS/PBS スタイルの高レベルな分岐と再計画に依存するため、高密度な環境では計算コストが累積し性能が低下する課題がある。一方で、PIBT や LaCAM といった高速なサブオプティマル・ソルバーは、目標指向の動作が混雑を誘発し、スループットが低くなる傾向がある。本研究は、予測される高トラフィックなセルへの移動や過度な待機にペナルティを課すコスト設計に基づき、混雑を回避する LLLG を提案する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>提案手法 LLLG は、構成ベースの LaCAM に局所的なガイダンスを組み込み、LMAPF 設定へと拡張した点に貢献がある。具体的には、再帰的ホライゾンに基づくウィンドウ化された計画フレームワークを採用し、前回の解からガイダンスをウォームスタートすることで時空間的な手がかりを注入する。これにより、高密度かつ狭小な環境においても高いタスク完了スループットを維持しながら効果的にスケールすることが可能となった。実験では、ボトルネックのある `ht_chantry` インスタンスにおいて、RHCR に対してスループットを 81% 向上させつつ、実行時間を 96% 短縮するという顕著な成果を達成している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LLLG は、$\omega$ ステップの窓内で衝突数を最小化する局所的なガイダンスパス $\mathcal{P}_i$ を構築し、PIBT のコスト関数を $c(v) = (\mathbb{I}(v \notin \mathcal{P}_i), d(v, g_i), \epsilon_i)$ と拡張することで、ガイダンスに沿った移動を優先させる。計画には、探索を深さ $w$ で打ち切る windowed planning を採用し、前ステップの解の接尾辞 $\pi_{t-1}$ からガイダンスを初期化する $\text{LLLG}_{\Pi}$ というウォームスタート手法を導入している。また、$\text{LaCAM}^*$ を用いた anytime な最適化や、一部の経路を再計画する Large Neighborhood Search (LNS) を組み合わせることが可能である。LNS における経路コストは、目標未到達時に $c_{step}=1$、到達済みに $c_{step}=0$ と定義され、さらに近傍エージェントへの妨害を推定する hindrance を PIBT の順位付けに統合している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、800〜1,000 エージェント、500 ステップといった大規模な条件下で、RHCR、PIBT、LaCAM、Guided-PIBT、WPPL と比較評価を行った。結果として、LLLG は高密度シナリオにおいて RHCR と同等以上のスループットを維持しつつ、計算時間を約 10 倍高速化することに成功した。特に 1,000 体規模の倉庫マップにおいて、1 ステップあたり $20\text{ms}$ 以内の計算時間を維持しながら、PIBT に対して約 30% のスループット向上を達成している。また、分析により、ガイダンスのみを継承する $\text{LLLG}_{\Phi}$ よりも、前ステップの解を初期値とする $\text{LLLG}_{\Pi}$ の方が効果的であることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究は、有限ホライゾンの解そのものではなく、前ステップの解から得られる衝突のない短期的な予測を利用してローカルガイダンスをウォームスタートする設計の有効性を示した。しかし、プランニングホライゾンやガイダンスウィンドウのサイズを大きくしても、スループットの向上には収穫逓減が見られるという限界も確認されている。これは、LMAPF において将来のゴール割り当てが未知であるため、長期間のプランニングが将来的に無関係な予測の最適化に費やされる可能性があることに起因する。今後の課題として、予測可能なゴール分布などの追加情報の活用や、ライフロングなスループットと整合する anytime refinement 用のコスト評価手法の探索が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Lifelong LaCAM with Local Guidance for Lifelong MAPF</h3><p>本研究では、リアルタイムかつ劣最適解を許容するマルチエージェント経路計画（MAPF）において、構成ベースのソルバーである LaCAM に局所的なガイダンス（Local Guidance）を導入した手法を、継続的なタスク割り当てが発生する Lifelong MAPF (LMAPF) 設定へと拡張した LLLG を提案している。LLLG は、再帰的ホライゾン（receding-horizon）に基づくウィンドウ化された計画フレームワークを採用しており、各タイムステップにおいて前回の解からガイダンスをウォームスタートすることで、時空間的な手がかりをエージェントに注入する。この手法により、混雑の緩和や待機時間の削減が可能となり、高密度かつ狭小な環境においても高いタスク完了スループットを維持しながら効果的にスケールする。実験の結果、LLLG は既存のプランナーを凌駕し、リアルタイム LMAPF における最先端の性能を達成している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>Lifelong Multi-Agent Pathfinding (LMAPF) は、エージェントがタスク完了後に新たな目標を継続的に受け取る設定であり、衝突回避と長期的なスループットの維持、および実時間での計画策定が求められる。既存の RHCR フレームワークは、CBS/PBS スタイルのソルバーを用いた高レベルの分岐と再計画に依存するため、高密度な環境では計算コストが累積し、性能が著しく低下する課題がある。一方、PIBT や LaCAM は高密度下でも実行可能性を維持できる高速なサブオプティマル・ソルバーであるが、目標指向の動作が混雑を誘発するため、スループットが低い。本研究では、局所的なガイダンスを用いて混雑を緩和する Lifelong LaCAM with Local Guidance (LLLG) を提案しており、これは予測される高トラフィックなセルへの移動や過度な待機にペナルティを課し、迂回や時間シフトを推奨するコスト設計に基づいている。実験では、800 エージェント、500 ステップの条件下で評価されており、例えばボトルネックのある `ht_chantry` インスタンスにおいて、LLLG は RHCR に対してスループットを 81% 向上させつつ、実行時間を 96% 短縮することに成功している。</p></section>
+<section class="secsum"><h3>2 Preliminaries</h3><p>Lifelong Multi-Agent Pathfinding (LMAPF)は、無向グラフ上でエージェント群が各ステップで目標に到達するたびに新しい目標を割り当てられ、無限の衝突回避経路を生成する問題であり、評価指標として単位時間あたりのタスク完了数であるスループット $\text{throughput}$ が用いられる。本研究の手法は、各ステップで計画を再計算し最初の1ステップのみを実行する後退ホライゾン（Receding Horizon）方式を採用しており、計算効率化のために前ステップの計画結果を初期値として利用するウォームスタート（warm start）を導入している。一時点の計画（one-shot MAPF）には、高レベルな探索とPIBTによる遅延的な後続状態生成を組み合わせたLaCAMを使用し、PIBTでは目標までの最短距離 $d(v, g_i)$ とランダムなタイブレーク項 $\epsilon_i$ を用いた辞書式コスト $c(v) = (d(v, g_i), \epsilon_i)$ に基づいて移動を選択する。提案手法であるLG-LaCAMは、高密度環境での混雑を回避するため、$\omega$ ステップの窓内で衝突数を最小化する局所的なガイダンスパス $\mathcal{P}_i$ を構築し、PIBTのコスト関数を $c(v) = (\mathbb{I}(v \notin \mathcal{P}_i), d(v, g_i), \epsilon_i)$ と拡張することで、ガイダンスに沿った移動を優先させる。さらに、LaCAM$^*$を用いることで、初期の実行可能解を枝刈り付きの探索によって逐次改善するAnytimeな最適化が可能となっている。</p></section>
+<section class="secsum"><h3>3 Method</h3><p>Lifelong LaCAM with Local Guidance (LLLG)は、Lifelong MAPF (LMAPF) において、one-shot MAPFのLocal Guidance (LG) を活用する後退ホライゾン（receding-horizon）フレームワークである。LLLGは、計算コストを抑えつつ短期的な混雑を回避するため、高レベル探索を深さ $w$ で打ち切るwindowed planningを採用しており、探索が深さ $w$ に達した際に、ルートからそのノードまでの構成のバックトラックシーケンスを $w$-stepのwindowed planとして扱う。前ステップの計画情報を再利用する手法として、ルート構成において前ステップの解の接尾辞 $\pi_{t-1}$ からガイダンスを初期化する $\text{LLLG}_{\Pi}$ を提案しており、これが $\text{LLLG}_{\Phi}$ よりも効果的であることを示している。各ステップでは、初期の $w$-step計画に対し、時間制限内で探索を継続する $\text{LaCAM}^*$ や、一部のエージェントの経路を再計画する Large Neighborhood Search (LNS) を用いたanytime refinementが可能である。LNSにおける経路コストは、エージェントが目標に未到達なら $c_{step}=1$、到達済みなら $c_{step}=0$ と定義され、ヒューリスティックは目標到達前は $h$、到達後は $0$ とされる。さらに、PIBTの候補移動の順位付けに、近傍エージェントへの妨害を推定するhindranceを統合することで、短期間のブロックを軽減している。</p></section>
+<section class="secsum"><h3>4 Evaluation</h3><p>本実験では、MAPFベンチマークのマップを用い、スループット（実行タイムステップあたりの完了タスク平均数）と実行時間（実行タイムステップあたりの計算時間）を評価指標として、提案手法であるLLLG（Lifelong LaCAM with Local Guidance）の性能を検証している。比較対象として、RHCR、PIBT、LaCAM、Guided-PIBT、およびWPPLといった主要なLMAPF手法が用いられた。実験結果によれば、LLLGは高密度なシナリオにおいて、RHCRと同等以上のスループットを維持しつつ、計算時間は約10倍高速であり、PIBTベースの手法よりも一貫して優れた解を生成することが示された。特に、エージェント数が1,000体に達する大規模な倉庫マップのスケールアップ試験においても、LLLGは1ステップあたり $20\text{ms}$ 以内の計算時間を維持し、PIBTに対して約30%のスループット向上を達成している。設計の妥当性に関する分析では、前ステップの解を初期値として利用するウォームスタート（$\text{LLLG}_{\Pi}$）が、ガイダンスのみを継承する場合（$\text{LLLG}_{\Phi}$）よりも効果的であることが示された。また、ガイダンスの更新頻度についても、各ステップでオンラインに更新・洗練を行うことが、長期的なスループットの維持に不可欠であることが明らかになった。</p></section>
+<section class="secsum"><h3>5 Discussion</h3><p>本研究は、Lifelong MAPFにおいてローカルガイダンスを導入することで、リアルタイムの計算予算内でスループットを向上させ、密なボトルネックを緩和できることを示した。設計上の重要な選択として、有限ホライゾンの解そのものをウォームスタートするのではなく、前ステップの解から得られる衝突のない短期的な予測を利用してローカルガイダンスをウォームスタートする手法を採用している。実験的には、プランニングホライゾンおよびガイダンスウィンドウのサイズを大きくしても、スループットの向上には収穫逓減が見られ、飽和する傾向があることが確認された。この限界の要因として、LMAPFではタスク完了後の将来のゴール割り当てが未知であるため、長期間のプランニングが将来的に無関係となる予測の最適化に費やされる可能性が挙げられる。今後の課題として、将来のゴール割り当てや予測可能なゴール分布といった追加情報の活用、およびライフロングなスループットとより整合する、anytime refinementのためのコスト評価手法の探索が示唆されている。</p></section>
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+  </footer>
+</div>
+</body>
+</html>
