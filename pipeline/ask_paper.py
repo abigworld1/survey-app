@@ -40,6 +40,8 @@ FOLLOWUP_CSS = """
   .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
   .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
             padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
   .bubble p { margin:0 0 0.65em; }
   .bubble p:last-child { margin-bottom:0; }
   .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
@@ -408,6 +410,12 @@ def _bubble_html(text):
         if not raw:
             flush_items()
             flush_para()
+            continue
+        h = re.match(r"^#{1,6}\s+(.+)$", raw)
+        if h:
+            flush_items()
+            flush_para()
+            blocks.append(f"<h3>{_inline_markdown(h.group(1).strip())}</h3>")
             continue
         m = re.match(r"^[*-]\s+(.*)$", raw)
         if m:
