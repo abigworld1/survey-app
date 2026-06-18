@@ -90,27 +90,28 @@ git add -A && git commit -m "add paper" && git push origin main
 ```bash
 cd ~/survey-app
 
-LLM_BASE_URL=http://localhost:8000/v1 LLM_API_KEY=dummy \
-  .venv/bin/python -m pipeline.ask_paper \
-  --mapf \
-  --slug priority-inheritance-with-backtracking-for-iterative-multi-agent-path-finding \
+./ask.py \
+  --paper "Priority Inheritance with Backtracking for Iterative Multi-agent Path Finding" \
   --question "PIBTはどの条件で完全性を保証している？"
-
-git add -A && git commit -m "add followup qa" && git push origin main
 ```
+
+`ask.py` は `LLM_BASE_URL=http://localhost:8000/v1` と `LLM_API_KEY=dummy` を既定で使い、対象HTMLを更新した後に
+`git add` / `git commit` / `git push origin main` まで自動で行います。
 
 主な指定:
 | 指定 | 意味 |
 |---|---|
+| `--paper "<title>"` | 論文タイトルで検索して対象HTMLを選ぶ |
 | `--mapf` / `--rag` / `--reading` | 対象分野 |
 | `--field <slug>` | 任意の分野スラッグ |
-| `--slug <slug>` | HTMLファイル名（`.html` なし）、seenキー、またはタイトルslug |
-| `--file <path>` | HTMLファイルを直接指定 |
 | `--question "..."` | 追記する質問。複数指定可 |
 | `--dry-run` | 回答だけ表示し、HTMLを書き換えない |
 | `--stub` | LLMを呼ばずスタブ回答で動作確認 |
+| `--no-push` | commitまで行い、pushしない |
+| `--message "..."` | commit messageを指定 |
 
 回答は対象HTMLに含まれる要約・セクション要約・既存の追加質問だけを根拠にします。根拠がない場合は不明と答えるようにしています。
+細かく対象を指定したい場合は、従来通り `python -m pipeline.ask_paper --file ...` も使えます。
 
 ### 4. 分野・キーワードの設定（`subscriptions.yml`）
 
