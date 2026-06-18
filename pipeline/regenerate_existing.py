@@ -30,6 +30,8 @@ TPL = os.path.join(ROOT, "templates")
 SEEN = os.path.join(ROOT, "data", "seen.json")
 
 S2_FIELDS = "title,abstract,year,publicationDate,venue,authors,externalIds,url,openAccessPdf,citationCount"
+FOLLOWUP_START = "<!-- followup-qa:start -->"
+FOLLOWUP_END = "<!-- followup-qa:end -->"
 
 
 def _load_subs():
@@ -187,6 +189,18 @@ def _read_existing_html(info):
             return f.read()
     except OSError:
         return ""
+
+
+def _extract_followups(info):
+    text = _read_existing_html(info)
+    if not text:
+        return ""
+    start = text.find(FOLLOWUP_START)
+    end = text.find(FOLLOWUP_END)
+    if start != -1 and end != -1 and end > start:
+        return text[start:end + len(FOLLOWUP_END)]
+    m = re.search(r'(<section class="followups"[\s\S]*?</section>)', text, re.I)
+    return m.group(1).strip() if m else ""
 
 
 def _strip_tags(value):
@@ -426,6 +440,9 @@ def main(argv=None):
 
         summary = summarizer.summarize(paper, sections=sections, basis=basis)
         summary.update(summarizer.rate_reading_value(paper, summary, basis))
+        followups = _extract_followups(info)
+        if followups:
+            summary["_followups_html"] = followups
 
         paper.selection_type = info.get("selection", "")
         paper.selection_label = info.get("selection_label", "")

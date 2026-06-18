@@ -305,6 +305,7 @@ def render_paper_page(tpl_dir, paper, summary):
         "source_notice": _source_notice(summary),
         "sections": sections_html,
         "sections_detail": detail_html,
+        "followups": summary.get("_followups_html", ""),
         "engine": _esc(summary.get("_engine", "")),
         "basis": _basis_label(summary.get("_basis", "")),
         "generated": _today(),

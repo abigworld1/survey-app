@@ -83,7 +83,36 @@ git add -A && git commit -m "add paper" && git push origin main
 - `--pdf` / `--url` は **PyMuPDF** が必要（導入済み）。`--arxiv` は不要。
 - `reading` 分野は日次 cron が触らないので、勝手に論文が増えることはありません。
 
-### 3. 分野・キーワードの設定（`subscriptions.yml`）
+### 3. 生成済みページに追加質問を追記（`ask_paper`）
+
+生成済みHTMLの内容をGemmaに読ませ、追加質問への回答をページ末尾の「追加質問」欄に対話形式で追記できます。
+
+```bash
+cd ~/survey-app
+
+LLM_BASE_URL=http://localhost:8000/v1 LLM_API_KEY=dummy \
+  .venv/bin/python -m pipeline.ask_paper \
+  --mapf \
+  --slug priority-inheritance-with-backtracking-for-iterative-multi-agent-path-finding \
+  --question "PIBTはどの条件で完全性を保証している？"
+
+git add -A && git commit -m "add followup qa" && git push origin main
+```
+
+主な指定:
+| 指定 | 意味 |
+|---|---|
+| `--mapf` / `--rag` / `--reading` | 対象分野 |
+| `--field <slug>` | 任意の分野スラッグ |
+| `--slug <slug>` | HTMLファイル名（`.html` なし）、seenキー、またはタイトルslug |
+| `--file <path>` | HTMLファイルを直接指定 |
+| `--question "..."` | 追記する質問。複数指定可 |
+| `--dry-run` | 回答だけ表示し、HTMLを書き換えない |
+| `--stub` | LLMを呼ばずスタブ回答で動作確認 |
+
+回答は対象HTMLに含まれる要約・セクション要約・既存の追加質問だけを根拠にします。根拠がない場合は不明と答えるようにしています。
+
+### 4. 分野・キーワードの設定（`subscriptions.yml`）
 
 自分専用なので直接編集します。`username` が公開URLのスラッグ、`label` が表示名です。
 ```yaml
@@ -103,7 +132,7 @@ subscriptions:
 ```
 分野やキーワードを変えたら `--reset` で作り直すと綺麗です。
 
-### 4. ローカルでの動作確認（ネット/LLM 不要）
+### 5. ローカルでの動作確認（ネット/LLM 不要）
 
 ```bash
 python3 -m venv .venv
