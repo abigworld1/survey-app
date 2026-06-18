@@ -121,6 +121,37 @@
       "title": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation",
       "tldr": "マルチモーダルRAG（M-RAG）におけるハルシネーションや追従性（sycophancy）を解決するため、変分自由エネルギー（VFE）と内部アテンション状態（ATLAS）を用いて介入を動的に制御するマルチエージェントフレームワーク「MODE-RAG」を提案する。本手法は、高リスクなクエリに対してのみMCTSを用いた因果推論や専門エージェントによる修正を行うことで、過剰修正による精度低下（介入のパラドックス）を防ぎつつ、堅牢性を大幅に向上させる。"
     },
+    "arxiv:2606.18381": {
+      "added": "2026-06-19",
+      "arxiv_id": "2606.18381",
+      "authors": [
+        "Amirhossein Abaskohi",
+        "Issam H. Laradji",
+        "Peter West",
+        "Giuseppe Carenini"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-16",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.18381.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.18381v1",
+      "reading_value": 4,
+      "reading_value_reason": "LLMによる要約やクラスタリングを介さず、学習済みアテンションを活用して階層構造を構築する手法は新規性が高い。検索効率と精度の両立も実験で示されている。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "SproutRAG: Attention-Guided Tree Search with Progressive Embeddings for Long-Document RAG",
+      "tldr": "SproutRAGは、学習済みの文間アテンションを利用して文レベルのチャンクを階層的な二分木構造へとボトムアップに構成する、アテンション誘導型の階層的RAGフレームワークである。外部LLMによる要約やクラスタリングに依存せず、Progressive Embeddingと階層的ビームサーチを用いることで、追加のLLM呼び出しなしに細粒度から広範な粒度までの多粒度な検索を実現する。4つのベンチマークにおいて、最強のベースラインと比較して情報効率（IE）を平均で $6.1\\%$ 向上させた。",
+      "url": "http://arxiv.org/abs/2606.18381v1",
+      "venue": ""
+    },
     "doi:10.3390/ai7050161": {
       "added": "2026-06-14",
       "authors": [
@@ -143,6 +174,36 @@
       "source_quality": "abstract",
       "title": "TechDocRAG: Relation-Preserving Retrieval-Augmented Generation (RAG) for Technical Documents",
       "tldr": "技術文書特有の構造（条項、表、図、手順など）を保持したまま検索を行う、TechDocRAGというフレームワークを提案する。従来のRAGが文書をフラットなチャンクに分割して関係性を破壊するのに対し、本手法は要素間の関係性を維持することで、正確な根拠追跡を可能にする。実験では、既存のベースラインと比較して大幅な精度向上を達成している。"
+    },
+    "doi:10.3390/bdcc9120320": {
+      "added": "2026-06-19",
+      "arxiv_id": "2508.06401",
+      "authors": [
+        "Andrew Brown",
+        "Muhammad Roman",
+        "Barry Devereux"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 12,
+      "date": "2025-12-12",
+      "doi": "10.3390/bdcc9120320",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/doi-e66b58c437d0.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://www.mdpi.com/2504-2289/9/12/320/pdf",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの最新動向を網羅した系統的レビューであり、LLMを用いた選別プロセスなど手法も現代的。研究の指針として非常に有用。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "A Systematic Literature Review of Retrieval-Augmented Generation: Techniques, Metrics, and Challenges",
+      "tldr": "2020年から2025年5月までのRAG（Retrieval-Augmented Generation）に関する高引用論文128件を対象とした、PRISMA 2020フレームワークに基づく系統的文献レビュー。RAGのアーキテクチャ、データセット、評価指標、および課題を体系化し、今後の研究の優先方向を提示する。",
+      "url": "https://openalex.org/W7114889968",
+      "venue": "Big Data and Cognitive Computing"
     },
     "doi:10.48550/arxiv.2501.00309": {
       "added": "2026-06-16",
@@ -481,6 +542,36 @@
       "title": "Discrete Diffusion for Complex and Congested Multi-Agent Path Finding with Sparse Social Attention",
       "tldr": "離散的なデノイジング拡散確率モデル（D3PM）を初期解生成器として統合し、Large Neighborhood Search 2（LNS2）による修復プロセスを強化するハイブリッドフレームワーク「DiffLNS」を提案する。Sparse Social Attentionを用いることで、混雑した環境下でも計算効率を維持しながら協調的な行動軌跡を学習し、最大312エージェントのシナリオにおいても高い成功率を実現する。"
     },
+    "arxiv:2605.16097": {
+      "added": "2026-06-19",
+      "arxiv_id": "2605.16097",
+      "authors": [
+        "Ning Zhou",
+        "Nikolai W. F. Bode",
+        "Edmund R. Hunt"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-05-15",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2605.16097.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2605.16097v1",
+      "reading_value": 4,
+      "reading_value_reason": "CT-TAPFという新問題を定式化し、既存のTAPFの限界を克服する手法を提案している。特に「task-conflict expansion dilemma」の発見は、統合計画における重要な知見である。",
+      "relevance": 2,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi-Agent Cooperative Transportation: Optimal and Efficient Task Allocation and Path Finding",
+      "tldr": "複数のエージェントが協力して大型物品を運搬する「Cooperative Transportation Task Allocation and Path Finding (CT-TAPF)」問題を新たに定式化し、最適解を得るためのCT-TCBSと、計算効率に優れた劣最適解ソルバーを提案する。",
+      "url": "http://arxiv.org/abs/2605.16097v1",
+      "venue": ""
+    },
     "arxiv:2605.16855": {
       "added": "2026-06-18",
       "authors": [
@@ -577,6 +668,34 @@
       "source_quality": "fulltext",
       "title": "Dynamic Multi-Agent Pickup and Delivery in Robotic Cellular Warehousing Systems",
       "tldr": "ロボット細胞型倉庫システム（RCWS）において、実行中の注文に新たなSKUが追加される「内部的な注文の進化」を考慮した、初のDynamic-MAPD問題を定式化し、イベント駆動型のトークン・パッシングに基づく2つの再計画アルゴリズム（Dynamic-TPおよびCooperative-TP）を提案する。"
+    },
+    "arxiv:2606.06686": {
+      "added": "2026-06-19",
+      "arxiv_id": "2606.06686",
+      "authors": [
+        "Tzvika Geft"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-04",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2606.06686.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.06686v1",
+      "reading_value": 5,
+      "reading_value_reason": "数十年来の未解決問題であった木構造上のPMTの複雑性を、SR問題への帰着という新手法で解決した。境界の特定も極めてタイトであり、MAPF研究者にとって必読の重要論文である。",
+      "relevance": 2,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "On the Hardness of Optimal Motion on Trees",
+      "tldr": "本論文は、木構造におけるマルチエージェント経路探索（MAPF）およびPebble Motion on Trees (PMT) の計算複雑性を解明した研究である。Stack Rearrangement (SR) 問題からの帰着を用いる新しいフレームワークを提案し、距離、makespan、flowtimeの各目的関数において、labeledおよび2-coloredのバリエーションが、極めて単純な「subdivided stars」や最大次数3の木においてもNP困難であることを証明した。これにより、数十年にわたるPMTの複雑性に関する未解決問題を解決し、計算の困難性が生じる境界（tractability threshold）を特定した。",
+      "url": "http://arxiv.org/abs/2606.06686v1",
+      "venue": ""
     },
     "arxiv:2606.15797": {
       "added": "2026-06-17",

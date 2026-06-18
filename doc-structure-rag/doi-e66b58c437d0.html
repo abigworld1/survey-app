@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A Systematic Literature Review of Retrieval-Augmented Generation: Techniques, Metrics, and Challenges | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>A Systematic Literature Review of Retrieval-Augmented Generation: Techniques, Metrics, and Challenges</h1>
+  <div class="meta">Andrew Brown, Muhammad Roman, Barry Devereux<br>採択先: Big Data and Cognitive Computing ・ 2025-12-12 ・ source: openalex</div>
+  <div class="links"><a href="https://openalex.org/W7114889968" target="_blank" rel="noopener">原典</a> ・ <a href="https://www.mdpi.com/2504-2289/9/12/320/pdf" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.3390/bdcc9120320" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Big Data and Cognitive Computing</span><span class="chip">公開日 2025-12-12</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 12</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">アブストラクト</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの最新動向を網羅した系統的レビューであり、LLMを用いた選別プロセスなど手法も現代的。研究の指針として非常に有用。</div></div>
+  <div class="source-notice fulltext">本文取得済み: アブストラクトを根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 2020年から2025年5月までのRAG（Retrieval-Augmented Generation）に関する高引用論文128件を対象とした、PRISMA 2020フレームワークに基づく系統的文献レビュー。RAGのアーキテクチャ、データセット、評価指標、および課題を体系化し、今後の研究の優先方向を提示する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、LLMの課題である事実の幻覚（hallucination）、知識の陳腐化、およびドメイン特化型クエリへの対応力を改善する手法であるRAGに関する包括的なレビューである。RAGは、事前学習によるパラメータメモリと、推論時に外部コーパスから取得する非パラメータメモリを組み合わせることで、モデルの重みに蓄えられた意味的な汎化性能を維持しつつ、出力を最新の知識に接地（grounding）させる。分析の基準点（baseline）として、Lewis et al. による Dense Passage Retriever と sequence-to-sequence generator を組み合わせたオリジナルのRAGアーキテクチャを採用している。対象範囲は、2020年から2025年5月までに発表された、RAGまたは類似の検索ベースのシステムに関する影響力の高い研究である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究は、RAGの構成要素であるRetrieval Mechanism、Chunking Mechanism、Vector Space Encoder、Generation Modelを詳細にカタログ化している。4721件の記録から、厳格な基準に基づき128件の主要論文を抽出・分析した。研究分野の分布として、知識集約型タスク（27.34%）、オープンドメイン質問応答（15.62%）、ソフトウェア工学（10.16%）、医療分野（8.59%）といったドメイン別の傾向を明らかにした。これにより、NLP研究者やエンジニアに対し、堅牢でスケーラブルなRAGシステム構築のための指針と、手法上のギャップ、および今後の研究の優先方向を提供している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>PRISMA 2020ガイドラインに準拠し、Identification、Screening、Inclusionの3段階で構成される体系的なレビューを実施した。検索対象はACM Digital Library、IEEE Xplore、Scopus、ScienceDirect、DBLPの5つの主要データベースである。論文の選別には引用数によるフィルタリングを用い、2025年刊行論文は15件以上、2024年以前の論文は30件以上の引用を必須条件とした。スクリーニング工程では、2名の査読者による独立した作業に加え、`deepseek-ai/DeepSeek-R1-Distill-Llama-70B` を用いた多数決によるLLM支援を導入している。データ抽出には、RAGフレームワークを用いた自動抽出と人間による検証を組み合わせる手法を採用した。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>4721件の初期記録から、重複や基準外の文献を除去するプロセスを経て、最終的に128件の研究を分析対象として抽出した。除外された16件のフルテキスト論文については、RAG以外が主眼であるもの（$n=7$）、RAGが補助的な構成要素に留まるもの（$n=7$）、生成型検索（Generative Retrieval）など概念が異なるもの（$n=2$）と詳細に分類し、選別の妥当性を確保している。また、2025年の論文については、引用数の少なさに起因するバイアスを軽減するため、引用数の閾値を低く設定する調整を行っている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本レビューでは、RAGの有効性と限界に関する実証的証拠を提示しているが、データ抽出プロセスにおける特有の課題も指摘されている。具体的には、RAG特有のハルシネーションのリスクや、検索された文脈（context）内に必要な情報が欠落している可能性が挙げられる。文献の年次分布を見ると、2024年に顕著な増加が見られるが、2025年のデータは調査時点での未完了な数値である点に注意が必要である。今後の研究においては、特定ドメインへの集中だけでなく、抽出された手法のギャップを埋めるためのスケーラビリティと堅牢性の向上が求められる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>A Systematic Literature Review of Retrieval-Augmented Generation: Techniques, Metrics, and Challenges</h3><p>本研究は、2020年から2025年5月までに発表された高引用論文を対象に、Retrieval-Augmented Generation (RAG) に関する系統的な文献レビューを行ったものである。RAGは、ニューラルなリトリーバーと生成言語モデルを結合することで、モデルの重みに蓄えられた意味的な汎化性能を維持しつつ、出力を最新かつ非パラメトリックなメモリに接地（grounding）させる手法として定義される。PRISMA 2020フレームワークに基づき、ACM Digital LibraryやIEEE Xploreなどの主要データベースから抽出された128件の論文を対象に、データセット、アーキテクチャ、評価手法、およびRAGの有効性と限界に関する実証的証拠をカタログ化している。分析においては、引用数の少なさに起因するバイアスを軽減するため、2025年に発表された論文に対しては引用数の閾値を低く設定する調整が行われている。本レビューは、現在の研究動向を明らかにするとともに、手法上のギャップを特定し、今後の研究の優先方向を提示することを目的としている。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>Retrieval-Augmented Generation (RAG) は、事前学習によるパラメータメモリと、推論時に外部コーパスから取得する非パラメータメモリを組み合わせることで、LLMの課題である事実の幻覚（hallucination）や知識の陳腐化、ドメイン特化型クエリへの対応力を改善する手法である。本研究は、PRISMA 2020声明に基づき、2020年から2025年5月までに発表された影響力の高い128件の研究を対象とした系統的文献レビューであり、Semantic Scholarの引用統計を用いて選別を行っている。レビューの基準点（baseline）として、Lewis et al. による Dense Passage Retriever と sequence-to-sequence generator を組み合わせたオリジナルのRAGアーキテクチャを採用し、各変種をこの基準と比較して特徴付けしている。本稿は、データセット、アーキテクチャ、評価指標、および未解決の課題を体系化することで、NLP研究者とエンジニア双方に対し、より堅牢でスケーラブルなRAGシステムの構築に向けた指針を提供することを目的としている。</p></section>
+<section class="secsum"><h3>II Methodology</h3><p>本研究のメソドロジーは、PRISMA 2020ガイドラインに準拠した体系的な文献レビューであり、Identification、Screening、Inclusionの3段階で構成されています。検索対象はACM Digital Library、IEEE Xplore、Scopus、ScienceDirect、およびDBLPの5つのリソースであり、2020年1月から2025年5月までに発表された、RAGまたは類似の検索ベースのシステムに関する研究に限定しています。採択基準には引用数によるフィルタリングが含まれており、2025年刊行論文は15件以上、2024年以前の論文は30件以上の引用が必須条件となっています。スクリーニング工程では、2名の査読者が独立して実施するほか、意思決定の補助として `deepseek-ai/DeepSeek-R1-Distill-Llama-70B` を用いた多数決によるLLM支援も導入されています。データ抽出においては、RAGの構成要素（Retrieval Mechanism, Chunking Mechanism, Vector Space Encoder, Generation Model）やドメイン、使用データセット、評価指標などを詳細に記録しており、抽出の正確性を担保するためにRAGフレームワークを用いた自動抽出と人間による検証を組み合わせています。ただし、データ抽出プロセスにおける課題として、RAG特有のハルシネーションのリスクや、検索された文脈内に必要な情報が欠落している可能性が挙げられています。</p></section>
+<section class="secsum"><h3>III Results</h3><p>本研究では、4721件の記録から重複や基準外の文献を除去した結果、最終的に128件の研究を分析対象として抽出した。除外された16件のフルテキスト論文については、主要な焦点がRAG以外であるもの（$n=7$）、RAGが補助的な構成要素に留まり実質的な分析が欠如しているもの（$n=7$）、および生成型検索（Generative Retrieval）のようにRAGとは概念的に異なるパラダイムに焦点を当てたもの（$n=2$）に分類されている。文献の年次分布は2020年から2023年にかけて増加傾向にあり、2024年に顕著な増加が見られるが、2025年の数値は調査時点での未完了なデータであることを考慮する必要がある。研究分野のドメイン別分布では、知識集約型タスクが27.34%と最も多く、次いでオープンドメイン質問応答（ODQA）が15.62%、ソフトウェア工学が10.16%、医療分野が8.59%となっており、特定の領域への集中と多様なニッチ分野の存在が示されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: アブストラクト ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-19
+  </footer>
+</div>
+</body>
+</html>

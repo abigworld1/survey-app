@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SproutRAG: Attention-Guided Tree Search with Progressive Embeddings for Long-Document RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>SproutRAG: Attention-Guided Tree Search with Progressive Embeddings for Long-Document RAG</h1>
+  <div class="meta">Amirhossein Abaskohi, Issam H. Laradji, Peter West, Giuseppe Carenini<br>採択先: 未取得 ・ 2026-06-16 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.18381v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.18381v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-16</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">LLMによる要約やクラスタリングを介さず、学習済みアテンションを活用して階層構造を構築する手法は新規性が高い。検索効率と精度の両立も実験で示されている。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> SproutRAGは、学習済みの文間アテンションを利用して文レベルのチャンクを階層的な二分木構造へとボトムアップに構成する、アテンション誘導型の階層的RAGフレームワークである。外部LLMによる要約やクラスタリングに依存せず、Progressive Embeddingと階層的ビームサーチを用いることで、追加のLLM呼び出しなしに細粒度から広範な粒度までの多粒度な検索を実現する。4つのベンチマークにおいて、最強のベースラインと比較して情報効率（IE）を平均で $6.1\%$ 向上させた。</div>
+<section class="qa"><h2>どんなもの？</h2><p>長文ドキュメントにおけるRAG（Retrieval-Augmented Generation）において、従来の固定長チャンキングやLLMによる要約・クラスタリングが抱える「情報の欠落」や「高い推論コスト」という課題に対処する手法である。既存の階層的手法であるRAPTORは要約に依存し、GraphRAGはエンティティ抽出の成否に依存するが、SproutRAGはTransformerの学習済みアテンション信号を直接利用する。これにより、文間の意味的な共関連性を保持したまま、計算コストを抑えた階層的な検索構造を構築する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、LLMによる明示的な要約プロセスを排除し、アテンション重みの学習を通じて文書の構造を捉える階層的RAGフレームワークを提案した点にある。具体的には、各レイヤーとヘッドのアテンションを学習可能な重み $\alpha_{l,h}$ で集約する手法を導入し、意味的に一貫した二分木を構築する。また、内部ノードに子ノードの埋め込みを結合したProgressive Embeddingを保持させることで、階層的なビームサーチによる多粒度検索を可能にした。実験では、科学、法律、オープンドメインの4つのベンチマークにおいて、情報効率（IE）を平均 $6.1\%$ 向上させ、高い検索精度と効率のバランスを実証した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>オフラインのインデックス作成時、各レイヤー $l$ とヘッド $h$ のアテンション行列 $A_{l,h}$ に対し、学習可能な重み $\alpha_{l,h}$ を用いた加重平均 $\bar{A} = \sum_{l,h} \alpha_{l,h} A_{l,h}$ を計算する。次に、対称化されたスコア $S_{i,j} = \frac{\bar{A}_{i,j} + \bar{A}_{j,i}}{2}$ に基づき、単一連結法（single-linkage）を用いて相互アテンションが最も高いペアを結合し、二分木を構築する。内部ノードの埋め込みは、子ノード $c_1, c_2$ の Progressive Embedding $e_{p} = \text{concat}(e_{c_1}, e_{c_2})$ として定義される。オンライン検索では、クエリ $q$ と各ノードのコサイン類似度を用い、ビーム幅 $k$ に基づいてルートから階層的なビームサーチを行い、類似度が閾値 $\tau$ を超えるノード集合 $\mathcal{C} = \{n \in \mathcal{N} \mid \text{sim}(q, e_n) &gt; \tau\}$ を抽出する。学習には、対照学習による検索目的関数 $\mathcal{L}_{\text{ret}}$ と、構造目的関数 $\mathcal{L}_{\text{str}} = -\sum_{(i,j) \in \mathcal{P}} \log \bar{A}_{i,j}$ を組み合わせた共同目的関数 $\mathcal{L} = \mathcal{L}_{\text{ret}} + \lambda \mathcal{L}_{\text{str}}$ を用いる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>SCI-DOCS、LegalBench-RAG、Dragonball、MS MARCOの4つのベンチマークを用いて、Recall、Precision、および情報効率（IE）を@1, @3, @5の平均で評価した。Dragonballでは最強のベースラインに対し $IE$ を $8.06$ ポイント向上させるなど、優れた性能を示した。エンドツーエンドの回答生成性能においても、GraphRAGやREFRAGを上回る性能と効率のバランスを達成した。実行時のコストとして、クエリあたりのオンライントークン使用量は $4.38\text{K}$、レイテンシは $193\text{ ms}$ を記録している。アブレーション研究により、学習済みアテンションの統合、学習された集約重み $\alpha$、内部ノードの検索、およびビーム幅 $k=4$ の設定が性能維持に不可欠であることが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、LLMによるフィルタリングなしで精緻な証拠と広範な文脈の両立を実現したが、いくつかの限界がある。第一に、現在の構造は二分木に限定されているため、多対多の依存関係を捉えるための多分岐木への拡張が必要である。第二に、アテンション集約重みの学習に事前のトレーニングコストを要する。第三に、オフラインで構築された固定的なツリーを用いるため、クエリごとに証拠を再構成するような動的な検索には対応できない。今後の展望として、平均プーリングに代わるゲート付き構成関数の検討や、複雑なマルチホップ検索に向けた動的な木への適応、クエリ依存型の探索ポリシーの探求が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>SproutRAG : Attention-Guided Tree Search with Progressive Embeddings for Long-Document RAG</h3><p>SproutRAGは、文レベルのチャンクを学習済みの文間アテンションを用いて、段階的に大きくなる意味的に一貫した単位へと構成する、アテンション誘導型の階層的RAGフレームワークである。本手法は、外部LLMによるチャンク分割や、情報損失を伴う要約、固定的なコンテキスト拡張に依存せず、どのAttention headや層が文書の構造を最もよく捉えるかを学習することで、追加のLLM呼び出しなしにマルチグラニュラリティ（多粒度）な検索を実現する。検索時には、階層的なビームサーチを用いることで、フラットな検索では困難な複数文にわたる関連性を、異なる粒度で捉えることが可能となる。モデルは、埋め込み表現とツリー構造の両方を改善する共同目的関数を用いてエンドツーエンドで学習される。科学、法律、オープンドメインを含む4つのベンチマークを用いた実験の結果、SproutRAGは最強のベースラインと比較して、情報効率（Information Efficiency, IE）を平均で $6.1\%$ 向上させた。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>SproutRAGは、長文ドキュメントにおける文レベルのチャンクを、学習済みの注意機構を用いてバイナリツリー構造へとボトムアップに構築する階層的RAGフレームワークである。従来の階層的手法（RAPTOR等）がクラスタリングや要約に依存し情報の欠落を招くのに対し、本手法はTransformerの各ヘッドおよびレイヤーにおける文間アテンションを学習可能なスカラー重みで集約することで、近接バイアスを回避しつつ意味的な共関連性を反映したツリー構造を実現する。各内部ノードは、その部分木を構成的に表現する「Progressive Embedding」を保持しており、これにより階層的なビームサーチを通じて、細粒度なリーフから広範な部分木まで、複数の意味的粒度での検索が可能となる。本手法は、検索時における外部LLMの呼び出しを一切必要とせず、検索品質とツリー構造を同時に最適化するエンドツーエンドの共同学習目標を用いて訓練される。科学、法律、オープンドメインの4つのベンチマークを用いた評価では、証拠が複数の段落に分散しているケースにおいて特に有効であり、最強のベースラインと比較して情報効率（Information Efficiency, IE）を平均で $6.1\%$ 向上させた。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>既存のRAG手法は、固定長分割などのルールベースのチャンキングから、Late-ChunkingやLLMを用いたMeta-Chunking、あるいは命題単位のDense X Retrievalといった、意味的境界を考慮した適応的な手法へと進化している。ReflectiveRAGのような自己反省型ループや、文間のアテンションを利用してチャンクを拡張するSAKI-RAGも存在するが、これらは検索単位のフラットな構造を維持しているか、推論時にLLMによるフィルタリングを必要とする。階層的アプローチとしては、RAPTORのようにクラスタリングとLLMによる要約を用いて木構造を構築する手法や、GraphRAGのようにエンティティと関係性に依存するグラフベースの手法があるが、前者は詳細情報の欠落、後者はエンティティ抽出の成否に依存するという課題がある。これに対し、提案手法であるSproutRAGは、文レベルのチャンクに対してアテンションに基づいた二分木を構築し、組成的な内部ノードを持つことで、LLMの推論コストをかけずに文間の依存関係を保持したまま、全ノードに対する共同検索を可能にしている。</p></section>
+<section class="secsum"><h3>3 SproutRAG</h3><p>SproutRAGは、フラットなチャンク検索の代わりに、SLLMから得られる文レベルの埋め込みとアテンション信号を用いた階層的なバイナリツリーによる検索手法を提案している。オフラインインデックス作成時、各レイヤー $l$ とヘッド $h$ のアテンション行列 $A_{l,h}$ に対して学習可能な重み $\alpha_{l,h}$ を用いた加重平均 $\bar{A} = \sum_{l,h} \alpha_{l,h} A_{l,h}$ を計算し、対称化された相互関係スコア $S_{i,j} = \frac{\bar{A}_{i,j} + \bar{A}_{j,i}}{2}$ に基づいて、相互アテンションが最も高いノードペアをボトムアップに結合することでツリーを構築する。内部ノードの埋め込みは、子ノード $c_1, c_2$ の progressive embedding $e_{p} = \text{concat}(e_{c_1}, e_{c_2})$ として定義され、単一連結法（single-linkage）により長距離のセマンティックな接続を維持する。オンライン検索では、クエリ埋め込み $q$ と各ノードのコサイン類似度を用いて、ルートから階層的なビームサーチを行い、ビーム幅 $k$ に基づいて上位 $k$ 個のノードを保持しながら探索を進める。最終的な候補集合 $\mathcal{C}$ は、探索中に訪問したノードのうち類似度が閾値 $\tau$ を超えるもの $\mathcal{C} = \{n \in \mathcal{N} \mid \text{sim}(q, e_n) &gt; \tau\}$ で構成される。学習フェーズでは、対照学習による検索目的関数 $\mathcal{L}_{\text{ret}}$ と、正例内の文ペアの相互アテンションを強化する構造目的関数 $\mathcal{L}_{\text{str}} = -\sum_{(i,j) \in \mathcal{P}} \log \bar{A}_{i,j}$ を組み合わせた、$\mathcal{L} = \mathcal{L}_{\text{ret}} + \lambda \mathcal{L}_{\text{str}}$ という共同目的関数を用いて最適化を行う。</p></section>
+<section class="secsum"><h3>4 Experiments and Results</h3><p>SproutRAGの実験では、SCI-DOCS、LegalBench-RAG、Dragonball、MS MARCOの4つのベンチマークを用いて、検索性能およびHotpotQA、WebQuestions、Dragonballを用いたエンドツーエンドの回答生成性能を評価している。検索指標としてRecall、Precision、および情報効率（Information Efficiency, $IE$）を用い、各指標は@1, @3, @5の平均で報告されている。実験結果において、SproutRAGはすべてのデータセットで最高の$IE$を達成し、Dragonballでは最強のベースラインに対し$IE$を8.06ポイント向上させるなど、高いRecallとPrecisionのトレードオフを実現している。エンドツーエンドの評価では、PageIndexのような手法に比べ計算コストは高いものの、GraphRAGやREFRAG等の手法を上回る性能と効率のバランスを示し、クエリあたりのオンライントークン使用量は4.38K、レイテンシは193 msを記録した。アブレーション研究により、学習済みSLLMのAttentionとEmbeddingを統合する目的関数、および学習されたAttention集約重み $\alpha$、内部ノードの検索、ビーム幅 $k=4$ の設定が、精緻な証拠と広範な文脈のバランスを保つために不可欠であることが示された。</p></section>
+<section class="secsum"><h3>5 Conclusion and Future Work</h3><p>本研究では、文レベルのチャンクを学習済みの木構造へと組織化し、多粒度な検索を可能にするアテンション誘導型階層的RAGフレームワークであるSproutRAGを提案した。本手法は、固定的なチャンク境界や推論時のLLMによるフィルタリングに頼らず、学習済みのSLLMアテンション集約を用いて検索に特化した階層構造を構築し、推論時には階層的ビームサーチによって文レベルのリーフから内部ノード、広範な部分木までから証拠を選択することで、精緻な精度と文脈的な一貫性の両立を実現している。ベンチマーク評価の結果、SproutRAGは検索情報の効率を平均で $6.1\%$ 向上させ、オンラインでのトークン消費量とレイテンシを大幅に抑えつつ、LLMを多用するシステムに近い性能と効率のトレードオフを実現した。今後の課題として、平均プーリングに代わるゲート付きまたはアテンションベースのノード構成関数の検討や、複雑なマルチホップ検索に向けた動的な木への適応、あるいはクエリ依存型の探索ポリシーの探求が挙げられる。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>SproutRAGは、推論時にLLMによるフィルタリングを必要とせずに多粒度な検索を実現しているが、いくつかの限界が存在する。第一に、現在の階層構造は二分木（binary tree）として構築されているため、複数の文が同時に一つの意味的単位を形成する場合の多対多の依存関係を十分に捉えきれず、多分岐木（multi-branch trees）の導入が望まれる。第二に、SLLMおよびアテンション集約重みの学習のために事前のトレーニング段階が必要であり、既存のリトリーバーをそのまま利用する場合と比較してコストが高くなる。第三に、ツリーの構築がオフラインで行われ検索時には固定されるため、クエリごとに証拠を再構成する必要があるような、クエリ特有の関連性に依存する柔軟な検索には対応できない。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-19
+  </footer>
+</div>
+</body>
+</html>

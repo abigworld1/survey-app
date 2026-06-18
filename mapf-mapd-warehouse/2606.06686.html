@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>On the Hardness of Optimal Motion on Trees | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>On the Hardness of Optimal Motion on Trees</h1>
+  <div class="meta">Tzvika Geft<br>採択先: 未取得 ・ 2026-06-04 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.06686v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.06686v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-04</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 5/5</span><div class="rating-reason">数十年来の未解決問題であった木構造上のPMTの複雑性を、SR問題への帰着という新手法で解決した。境界の特定も極めてタイトであり、MAPF研究者にとって必読の重要論文である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、木構造におけるマルチエージェント経路探索（MAPF）およびPebble Motion on Trees (PMT) の計算複雑性を解明した研究である。Stack Rearrangement (SR) 問題からの帰着を用いる新しいフレームワークを提案し、距離、makespan、flowtimeの各目的関数において、labeledおよび2-coloredのバリエーションが、極めて単純な「subdivided stars」や最大次数3の木においてもNP困難であることを証明した。これにより、数十年にわたるPMTの複雑性に関する未解決問題を解決し、計算の困難性が生じる境界（tractability threshold）を特定した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、グラフ上のエージェント移動問題、特に木構造（Trees）における最適化問題の複雑性を対象としている。対象となる問題は、個々のエージェントが識別される「labeled」ケースと、エージェントが色によってグループ化される「$k$-colored」ケースである。最適化の指標としては、全エージェントの到着完了時刻の最大値であるmakespan $\max_i T_i$、到着時刻の総和であるflowtime $\sum_i T_i$、および全移動距離の総和であるtotal distanceを検討している。特に、木におけるtotal distanceの最適化は、隣接する空き頂点へペブルを移動させるPebble Motion on Trees (PMT) と等価である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文の主な貢献は、Stack Rearrangement (SR) 問題を基盤とした、木構造における様々な移動問題の困難性を一括して証明するフレームワークの提示である。具体的には、labeled PMTおよび2-colored PMTが、距離、makespan、flowtimeのすべての標準的な目的関数においてNP困難であることを示した。これにより、unlabeled（1-colored）ケースがネットワークフローにより多項式時間で解けるのに対し、2-coloredが困難となる境界を特定した。また、PMTのNP困難性を、深さ3のsubdivided starsや最大次数3の木といった極めて制約の強いグラフクラスにおいて証明した点は、既存の2Dグリッド上での結果を大幅に強化するものである。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>困難性の証明には、Stack Rearrangement (SR) 問題からの帰着が用いられている。まず、Labeled Stack Rearrangement (LSR) がMinimum Feedback Arc Set (MFAS) 問題からNP困難であることを示し、これを用いてPMTへの帰着を行う。LSRの各スタックをパスとして扱い、スタックの深さに応じた長さのパスを構成することで、LSRの再配置回数 $k$ とPMTの移動コスト $D + 2k$（$D$ は最短経路距離の総和）の間の関係を導出している。また、2-colored SRの困難性は3-Partition問題からの帰着により証明されており、各アイテムが最大1回しか移動できない制約下での構成が用いられている。MAPFのflowtimeの証明では、再配置の順序が指標に与える影響を制御するために、ゲートエージェントとパディングエージェントを用いた特殊な構成を導入している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>提案された手法により、以下の条件下でのNP困難性が検証されている。第一に、PMTにおいて、(i) 深さ3のsubdivided stars、または (ii) 最大次数3の木という非常に単純な構造においても、labeledおよび2-coloredのケースでNP困難性が成立することが示された。第二に、MAPFのmakespanについては、LSRの解が $m$ 手であればmakespanが $2m+1$ 以下となる帰着により、NP困難性が導かれている。第三に、flowtimeについても、2-colored SRからの帰着、およびlabeledケースにおけるパディングエージェントを用いた構成により、NP困難性が証明されている。さらに、Lemma $\tilde{4.3}$ により、PMTの解が最短経路の下界を達成する場合、移動を連続的な最短経路移動として再構成できることが示され、依存グラフ上のサイクル検出を用いることで、木上のlabeled PMTにおける下界達成可能性が多項式時間で判定可能であることが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の結果は、木構造における移動問題の計算複雑性の境界をタイトに特定している。ラベルなし（1-colored）の場合は多項式時間で解けるが、2色以上のカラーバリアントではNP困難になるという境界が明確になった。また、最大次数が3で困難となり、次数2（パス構造）では効率的に解けるという点も、問題の構造的性質を浮き彫りにしている。2Dグリッド上では下界達成可能性問題自体がNP困難であるのに対し、木構造では多項式時間で判定可能であるという発見は、木特有の性質を示唆している。今後の課題として、木の深さ、最大次数、分岐頂点数などのパラメータをさらに削減し、NP困難性と多項式時間解法の正確な境界を特定することが挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>On the Hardness of Optimal Motion on Trees</h3><p>本論文は、木構造におけるマルチエージェント経路探索（MAPF）の複雑性を、距離、メイクスパン、フロータイムの標準的な目的関数および、エージェントが区別される「labeled」と、色が同じなら入れ替え可能な「colored」のバリエーションにわたって解明するフレームワークを提示している。著者らは、木構造におけるlabeled MAPFおよび2-colored MAPFが、これらすべての目的関数においてNP困難であることを証明した。特に、一度に一つのペブルを隣接する空き頂点へ移動させ、総移動回数を最小化する古典的なPebble Motion問題の木構造における複雑性を、数十年の未解決問題を経て解決した。これらの困難性は、スタック内のアイテムを最適に並べ替える「Stack Rearrangement」問題のNP困難性を証明することで導出されており、この手法を用いることで、非常に単純な木構造である「subdivided stars」においても困難性が成立することを示している。また、colored Pebble Motionについても、2色という最小の条件下で、任意のグラフクラスにおける初の困難性結果（tightな結果）を与えている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、グラフ上のPebble Motion (PMG) およびその並列版であるMulti-Agent Path Finding (MAPF) において、木構造（Trees）上での最適解を求める問題の計算複雑性を解明している。具体的には、エージェントが個別に識別される「labeled」ケースと、チームごとに識別される「$k$-colored」ケースを対象とし、最適化指標としてmakespan（全エージェントの到着完了時間）、flowtime（到着時間の総和）、およびtotal distance（全エージェントの移動距離の総和）を検討している。著者らは、Stack Rearrangement (SR) 問題からの帰着を用いるフレームワークを提案し、全ての検討対象となる指標およびラベル付き・色付きの全てのバリエーションが、極めて単純な木構造である「subdivided stars（中心頂点から複数のパスが伸びる構造）」においてNP困難であることを証明した。特に、2-coloredのケースは、unlabeled（1-colored）の場合がネットワークフローへの帰着により多項式時間で解けることに対し、NP困難となる境界（tractability threshold）を特定している。また、labeled PMTのNP困難性は、最大次数3の櫛状の木（comb-like trees）においても成立することを示し、既存の2Dグリッド上での結果を強化している。</p></section>
+<section class="secsum"><h3>2 Problem Definitions and Notation</h3><p>本セクションでは、グラフ上でのエージェント移動に関する諸問題の定義がなされている。Pebble Motion on Graphs (PMG) は、連結無向グラフ $G=(V, E)$ 上の $k$ 個のラベル付きエージェント（pebbles）を、隣接する空き頂点へ移動させることで、初期配置 $\mathcal{C}_{start}$ から目標配置 $\mathcal{C}_{target}$ へと最小手数で遷移させる問題である。グラフ $G$ が木である場合は Pebble Motion on Trees (PMT) と呼ばれ、Multi-Agent Path Finding (MAPF) は、エージェントが待機または移動を選択できる離散時間モデルにおいて、頂点衝突やエッジ衝突を回避しつつ目標に到達する経路集合を求める問題として定義される。MAPFの最適化指標には、最大完了時刻である makespan $\max_i T_i$、完了時刻の総和である flowtime $\sum_i T_i$、および全エージェントの総移動距離が用いられ、木における total distance 最適化は PMT と等価である。また、スタックの容量 $d_j$ を持つ複数のスタック間でオブジェクトを pop-and-push する Labeled Stack Rearrangement (LSR) も定義されており、これら全ての問題において、オブジェクトを色クラスに分割し、目標位置に指定された色のオブジェクトが到達すればよいとする colored variant が導入されている。</p></section>
+<section class="secsum"><h3>3 Hardness of Stack Rearrangement</h3><p>本セクションでは、他の問題への帰着の基礎となるStack Rearrangement (SR) の困難性が示されている。まず、Labeled Stack Rearrangement (LSR) は、スタックの深さが3に制限された場合でもNP困難であることが、Minimum Feedback Arc Set (MFAS) 問題からの帰着により証明されている。この帰着では、グラフの頂点 $v \in V$ に対してオブジェクト $v$ を、辺 $(u, v) \in E$ に対してオブジェクト $u_{start}$ と $v_{target}$ を割り当て、頂点のトポロジカル順序がオブジェクトの移動順序に対応するように構成することで、MFASの解のサイズとLSRの追加移動回数の関係を $n + |E| - |F|$（$F$ はフィードバック弧集合）として導いている。次に、2-colored SR（アイテムに2色の属性がある場合）についても、各アイテムが最大1回しか移動しないという制約下での決定問題がNP困難であることが、3-Partition問題からの帰着により示されている。この構成では、3-Partitionの各整数 $a_i$ に対して、赤色アイテムを含むアイテムスタック $S_i$ と、青色アイテムを含むチェックポイントスタック $C_i$ を作成し、アイテムが1回のみ移動できる条件下では、チェックポイントスタックをクリアする過程でアイテムスタックの赤色ターゲット容量を管理することが、3-Partitionの各トリプルが合計 $B$ になることと等価であることを利用している。</p></section>
+<section class="secsum"><h3>4 Hardness of distance-optimal motion</h3><p>本セクションでは、Stack Rearrangement (LSR) 問題から Pebble Motion on Trees (PMT) 問題への帰着を通じて、PMT の計算困難性を証明している。定理 4.1 により、PMT は (i) 深さ 3 の細分されたスターグラフ、または (ii) 最大次数 3 の木に制限された場合でも NP 困難であることが示された。帰着において、LSR の各スタックをパスとして扱い、スタックの深さに応じた長さのパスとして構成することで、LSR の再配置（relocation）の有無と、PMT の移動コストが最短経路距離の総和 $D = \sum_{p \in \text{pebbles}} \text{dist}(\text{start}_p, \text{goal}_p)$ に対して $2k$ の追加コスト（$k$ は再配置数）を伴うかどうかの判定問題が結び付けられる。具体的には、LSR で $k$ 回の再配置で解けることは、PMT でコスト $D + 2k$ 以内で解けることと等価である。また、2色付きの PMT (2-colored PMT) についても、2色付き LSR からの帰着により、同様にスターグラフや最大次数 3 の木において NP 困難であることが示されている。この証明には、ペブルの移動を最短経路に沿った「原子的な（atomic）」移動の集合として再構成できることを示す補題 4.3 が重要な役割を果たしている。</p></section>
+<section class="secsum"><h3>5 Hardness of time-optimal objectives</h3><p>本セクションでは、木構造（特に深さ3の細分されたスターグラフ）におけるMAPFのmakespanおよびflowtimeの最適化問題がNP困難であることを証明している。まず、makespanについては、スタック深さ3のLSR（Labeled Stack Reconfiguration）問題からの帰着により、LSRの解が$m$手であれば、対応するMAPFのmakespanが$2m+1$以下となることを示し、NP困難性を導いている。次に、2色（2-colored）MAPFのflowtimeについては、2-colored SR問題からの帰着を用い、SRの再配置（relocation）が$m$回であれば、flowtimeが$\sum_{v \in \mathcal{V}_{target}} (d(v, \text{target}(v)) + 1) + 2m$となることを利用してNP困難性を示している。ラベル付き（labeled）MAPFのflowtimeについては、再配置の順序がflowtimeに与える影響を制御するため、ゲートエージェントとパディングエージェントを用いた特殊な構成を導入している。この構成では、再配置が$m$回以下であればflowtimeが$F_{min} + 2m$以下となる一方、再配置が$m$回を超えると、パディングエージェントの遅延によりflowtimeが$F_{min} + 2(m+1)$以上となるように設計されており、これによりLSR問題のNP困難性がMAPFのflowtime問題へ帰着される。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究は、スタックベースの動作が様々な運動調整問題における困難性の共通の源泉であることを示し、木構造上でのペブル動作（Pebble Motion on Trees; PMT）の複雑性に関する長年の問題を解決した。提案されたフレームワークは、距離、メイクスパン、フロータイムといった異なる目的関数に対して同一の還元構造を適用可能であり、木のような制約の強い設定における困難性証明の再利用可能な基盤となる。結果は、ラベルなしの動作が効率的に解けるのに対し、2色以上のカラーバリアントでは困難になる点や、最大次数が 3 で困難になり次数 2（パス構造）では効率的に解ける点など、自然な境界においてタイトである。また、Lemma $\tilde{4.3}$ により、PMTの解が最短経路の下界を達成する場合、各ペブルの移動を連続的な最短経路移動として並べ替えることが可能であり、依存グラフ上のサイクル検出を用いることで、木上のラベル付きPMTにおいてこの下界の達成可能性を多項式時間で判定できることを示した。これは、2Dグリッド上では同様の下界達成可能性問題が NP困難であることと比較して特筆すべき性質であり、今後は木の深さ、最大次数、分岐頂点数などのパラメータを削減することで、NP困難性と多項式時間解法の正確な境界を特定することが課題である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-19
+  </footer>
+</div>
+</body>
+</html>

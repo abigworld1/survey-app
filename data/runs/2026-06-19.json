@@ -1,0 +1,157 @@
+{
+  "date": "2026-06-19",
+  "dry_run": false,
+  "engine": "llm:gemma-4-26b",
+  "fields": [
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2606.06686.html",
+          "id": "2606.06686",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2026-06-04",
+          "reading_value": 5,
+          "reading_value_reason": "数十年来の未解決問題であった木構造上のPMTの複雑性を、SR問題への帰着という新手法で解決した。境界の特定も極めてタイトであり、MAPF研究者にとって必読の重要論文である。",
+          "relevance": 2,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "On the Hardness of Optimal Motion on Trees",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2605.16097.html",
+          "id": "2605.16097",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2026-05-15",
+          "reading_value": 4,
+          "reading_value_reason": "CT-TAPFという新問題を定式化し、既存のTAPFの限界を克服する手法を提案している。特に「task-conflict expansion dilemma」の発見は、統合計画における重要な知見である。",
+          "relevance": 2,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Multi-Agent Cooperative Transportation: Optimal and Efficient Task Allocation and Path Finding",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 42,
+      "fresh_total": 30,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 11,
+      "skipped": [],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 0,
+        "openalex/recent": 0,
+        "semanticscholar/important": 2,
+        "semanticscholar/recent": 2
+      }
+    },
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2606.18381.html",
+          "id": "2606.18381",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-06-16",
+          "reading_value": 4,
+          "reading_value_reason": "LLMによる要約やクラスタリングを介さず、学習済みアテンションを活用して階層構造を構築する手法は新規性が高い。検索効率と精度の両立も実験で示されている。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "SproutRAG: Attention-Guided Tree Search with Progressive Embeddings for Long-Document RAG",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(ar5iv)",
+          "citations": 12,
+          "file": "doc-structure-rag/doi-e66b58c437d0.html",
+          "id": "doi-e66b58c437d0",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2025-12-12",
+          "reading_value": 4,
+          "reading_value_reason": "RAGの最新動向を網羅した系統的レビューであり、LLMを用いた選別プロセスなど手法も現代的。研究の指針として非常に有用。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "A Systematic Literature Review of Retrieval-Augmented Generation: Techniques, Metrics, and Challenges",
+          "venue": "Big Data and Cognitive Computing"
+        }
+      ],
+      "candidates_total": 153,
+      "fresh_total": 145,
+      "k": 2,
+      "label": "文書構造解析に基づく検索・質問応答・RAG",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 92,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-71bb8aede7a8",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-05-01",
+          "reasons": [
+            "本文もアブストラクトも取得できない"
+          ],
+          "relevance": 6,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "DC-RAG: a dual-channel retrieval-augmented generation framework for audit analysis.",
+          "venue": "Scientific Reports"
+        }
+      ],
+      "slug": "doc-structure-rag",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 40,
+        "openalex/recent": 40,
+        "semanticscholar/important": 37,
+        "semanticscholar/recent": 37
+      }
+    }
+  ],
+  "generated_at": "2026-06-19T06:00:01"
+}
