@@ -13,6 +13,7 @@ from .util import http_get
 
 ARXIV_HTML = "https://arxiv.org/html/"
 ARXIV_PDF = "https://arxiv.org/pdf/"
+ARXIV_EXPORT_PDF = "https://export.arxiv.org/pdf/"
 SKIP_TAGS = {"script", "style", "noscript"}
 # 32k コンテキストに対する入力上限（おおよそ 1.4万〜1.6万トークン相当）。環境変数で調整可。
 MAX_CHARS = int(os.environ.get("FULLTEXT_MAX_CHARS", "50000"))
@@ -253,6 +254,20 @@ def _download_pdf(url, min_interval=0.5):
     return data if data[:5].startswith(b"%PDF") else None
 
 
+def _arxiv_pdf_urls(arxiv_id):
+    urls = [
+        ARXIV_PDF + arxiv_id,
+        ARXIV_PDF + arxiv_id + ".pdf",
+        ARXIV_EXPORT_PDF + arxiv_id,
+        ARXIV_EXPORT_PDF + arxiv_id + ".pdf",
+    ]
+    out = []
+    for url in urls:
+        if url not in out:
+            out.append(url)
+    return out
+
+
 # 見出しに現れやすい語（フォント検出の補助）
 _SECTION_WORDS = (
     "introduction", "related work", "background", "preliminar", "problem",
@@ -412,11 +427,12 @@ def fetch_sections(paper):
         if secs:
             return secs, "fulltext(arxiv)"
         # 古い arXiv は HTML 版が無い → PDF をフォントベースで分割
-        data = _download_pdf(ARXIV_PDF + paper.arxiv_id, min_interval=3.0)
-        if data:
-            secs = _sections_from_pdf(data, paper.title)
-            if secs:
-                return secs, "fulltext(arxiv-pdf)"
+        for url in _arxiv_pdf_urls(paper.arxiv_id):
+            data = _download_pdf(url, min_interval=3.0)
+            if data:
+                secs = _sections_from_pdf(data, paper.title)
+                if secs:
+                    return secs, "fulltext(arxiv-pdf)"
     # 非arXiv の OA PDF
     url = paper.pdf_url or _unpaywall_pdf_url(paper.doi)
     if url:

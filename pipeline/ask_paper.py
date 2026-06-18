@@ -15,9 +15,8 @@ import os
 import re
 import sys
 
-from . import render
+from . import fulltext, render
 from .dedup import load_seen
-from .fulltext import fetch_sections
 from .regenerate_existing import _resolve_paper
 from .schema import Paper, normalize_title
 from .summarize import Summarizer
@@ -155,10 +154,17 @@ def _merge_info(base, fallback):
     return out
 
 
+def _looks_like_pdf_url(url):
+    return bool(url and (".pdf" in url.lower() or "/pdf/" in url.lower()))
+
+
 def _paper_from_info(key, info):
     title = info.get("title", "")
     arxiv_id = info.get("arxiv_id", "")
     if arxiv_id:
+        pdf_url = info.get("pdf_url", "")
+        if not _looks_like_pdf_url(pdf_url):
+            pdf_url = f"https://arxiv.org/pdf/{arxiv_id}"
         return Paper(
             source="arxiv",
             title=title,
@@ -167,7 +173,7 @@ def _paper_from_info(key, info):
             published=info.get("date", "") or info.get("published", ""),
             venue=info.get("venue", ""),
             url=info.get("url", "") or f"https://arxiv.org/abs/{arxiv_id}",
-            pdf_url=info.get("pdf_url", "") or f"https://arxiv.org/pdf/{arxiv_id}",
+            pdf_url=pdf_url,
             arxiv_id=arxiv_id,
             doi=info.get("doi", ""),
             citations=int(info.get("citations") or 0),
@@ -233,6 +239,49 @@ def _format_sections(sections, limit):
     return "\n\n".join(parts), True
 
 
+def _sections_from_pdf_bytes(data, title):
+    sections = fulltext._sections_from_pdf(data, title)
+    if sections:
+        return sections
+    return fulltext._sections_from_text(fulltext._pdf_to_text(data))
+
+
+def _fallback_fulltext_sections(paper):
+    if not paper:
+        return [], "abstract"
+    if paper.arxiv_id:
+        text = fulltext.fetch_arxiv_fulltext(paper.arxiv_id)
+        sections = fulltext._sections_from_text(text)
+        if sections:
+            return sections, "fulltext(arxiv-text)"
+        for url in fulltext._arxiv_pdf_urls(paper.arxiv_id):
+            data = fulltext._download_pdf(url, min_interval=3.0)
+            if not data:
+                continue
+            sections = _sections_from_pdf_bytes(data, paper.title)
+            if sections:
+                return sections, "fulltext(arxiv-pdf)"
+
+    urls = []
+    if _looks_like_pdf_url(paper.pdf_url):
+        urls.append(paper.pdf_url)
+    if paper.doi:
+        try:
+            url = fulltext._unpaywall_pdf_url(paper.doi)
+        except Exception:
+            url = ""
+        if url:
+            urls.append(url)
+    for url in dict.fromkeys(urls):
+        data = fulltext._download_pdf(url)
+        if not data:
+            continue
+        sections = _sections_from_pdf_bytes(data, paper.title)
+        if sections:
+            return sections, "fulltext(oa-pdf)"
+    return [], "abstract"
+
+
 def _source_context(path, html_text, title, html_body, limit, allow_html_fallback):
     rel = _relpath(path)
     _, key, seen_info = _seen_entry_for_path(path)
@@ -240,7 +289,9 @@ def _source_context(path, html_text, title, html_body, limit, allow_html_fallbac
     info = _merge_info(seen_info, html_info)
     paper = _paper_from_info(key, info)
     if paper:
-        sections, basis = fetch_sections(paper)
+        sections, basis = fulltext.fetch_sections(paper)
+        if not sections:
+            sections, basis = _fallback_fulltext_sections(paper)
         context, truncated = _format_sections(sections, limit)
         if context:
             if truncated:
