@@ -17,6 +17,9 @@ import sys
 
 from . import render
 from .dedup import load_seen
+from .fulltext import fetch_sections
+from .regenerate_existing import _resolve_paper
+from .schema import Paper, normalize_title
 from .summarize import Summarizer
 from .util import slugify
 
@@ -44,10 +47,18 @@ FOLLOWUP_CSS = """
 
 QA_SYSTEM = (
     "あなたは計算機科学の研究者を補助する論文読解アシスタントです。"
-    "与えられた論文ページ本文だけを根拠に、ユーザーの追加質問へ日本語で答えてください。"
-    "ページ本文に根拠がない場合は推測せず、何が不明かを明確に述べてください。"
+    "与えられた元論文本文だけを根拠に、ユーザーの追加質問へ日本語で答えてください。"
+    "本文に根拠がない場合は推測せず、何が不明かを明確に述べてください。"
     "必要なら、どのセクションの記述に基づくかを短く示してください。"
     "数式や記号は LaTeX で書き、インラインは $〜$、独立した式は $$〜$$ で囲んでください。"
+    "出力は回答本文のみ。挨拶や前置きは不要です。"
+)
+
+HTML_FALLBACK_SYSTEM = (
+    "あなたは計算機科学の研究者を補助する論文読解アシスタントです。"
+    "元論文本文を取得できなかったため、与えられた生成済みHTMLページ本文だけを根拠に、"
+    "ユーザーの追加質問へ日本語で答えてください。"
+    "ページ本文に根拠がない場合は推測せず、何が不明かを明確に述べてください。"
     "出力は回答本文のみ。挨拶や前置きは不要です。"
 )
 
@@ -96,6 +107,153 @@ def _page_title(text):
     return _strip_tags(m.group(1)) if m else "Untitled"
 
 
+def _html_metadata(text, title, rel):
+    links = re.findall(r'<a href="([^"]+)"', text or "")
+    links = [u for u in links if re.match(r"https?://", u, re.I)]
+    pdf_url = next(
+        (u for u in links if ".pdf" in u.lower() or "/pdf/" in u.lower()),
+        "",
+    )
+    url = next((u for u in links if u != pdf_url), "")
+    doi_m = re.search(r"https?://doi\.org/([^\"<]+)", text or "", re.I)
+    arxiv_m = re.search(
+        r"arxiv\.org/(?:abs|pdf|html)/([0-9][0-9.]+)(?:v\d+)?",
+        text or "",
+        re.I,
+    )
+    return {
+        "file": rel,
+        "title": title,
+        "url": url,
+        "pdf_url": pdf_url,
+        "doi": doi_m.group(1).strip() if doi_m else "",
+        "arxiv_id": arxiv_m.group(1) if arxiv_m else "",
+    }
+
+
+def _relpath(path):
+    return os.path.relpath(path, ROOT).replace(os.sep, "/")
+
+
+def _normalize_rel(path):
+    return os.path.normpath(path or "").replace(os.sep, "/")
+
+
+def _seen_entry_for_path(path):
+    rel = _normalize_rel(_relpath(path))
+    seen = load_seen(SEEN)
+    for uslug, useen in seen.items():
+        for key, info in useen.items():
+            if _normalize_rel(info.get("file", "")) == rel:
+                return uslug, key, dict(info)
+    return "", "", {}
+
+
+def _merge_info(base, fallback):
+    out = dict(fallback or {})
+    out.update({k: v for k, v in (base or {}).items() if v not in (None, "", [])})
+    return out
+
+
+def _paper_from_info(key, info):
+    title = info.get("title", "")
+    arxiv_id = info.get("arxiv_id", "")
+    if arxiv_id:
+        return Paper(
+            source="arxiv",
+            title=title,
+            abstract=info.get("abstract", ""),
+            authors=info.get("authors", []) or [],
+            published=info.get("date", "") or info.get("published", ""),
+            venue=info.get("venue", ""),
+            url=info.get("url", "") or f"https://arxiv.org/abs/{arxiv_id}",
+            pdf_url=info.get("pdf_url", "") or f"https://arxiv.org/pdf/{arxiv_id}",
+            arxiv_id=arxiv_id,
+            doi=info.get("doi", ""),
+            citations=int(info.get("citations") or 0),
+            matched_keywords=info.get("matched_keywords", []) or [],
+        )
+    resolved_key = key
+    if not resolved_key:
+        if info.get("doi"):
+            resolved_key = "doi:" + info["doi"].lower()
+        elif title:
+            resolved_key = "title:" + normalize_title(title)
+    if resolved_key:
+        try:
+            paper = _resolve_paper(resolved_key, info)
+            if paper:
+                return paper
+        except Exception as e:
+            print(f"      [warn] 論文メタデータ再解決に失敗: {e!r}")
+    if info.get("pdf_url") or info.get("doi"):
+        return Paper(
+            source=info.get("source", "existing"),
+            title=title,
+            abstract=info.get("abstract", ""),
+            authors=info.get("authors", []) or [],
+            published=info.get("date", "") or info.get("published", ""),
+            venue=info.get("venue", ""),
+            url=info.get("url", ""),
+            pdf_url=info.get("pdf_url", ""),
+            arxiv_id="",
+            doi=info.get("doi", ""),
+            citations=int(info.get("citations") or 0),
+            matched_keywords=info.get("matched_keywords", []) or [],
+        )
+    return None
+
+
+def _format_sections(sections, limit):
+    cleaned = []
+    for heading, body in sections or []:
+        heading = re.sub(r"\s+", " ", str(heading or "本文")).strip()
+        body = re.sub(r"\s+", " ", str(body or "")).strip()
+        if body:
+            cleaned.append((heading, body))
+    if not cleaned:
+        return "", False
+    full = "\n\n".join(f"## {h}\n{b}" for h, b in cleaned)
+    if len(full) <= limit:
+        return full, False
+
+    parts = []
+    remaining = limit
+    per_section = max(1800, limit // max(1, len(cleaned)) - 80)
+    for heading, body in cleaned:
+        if remaining <= 500:
+            break
+        chunk_limit = min(per_section, max(0, remaining - len(heading) - 5))
+        chunk = body[:chunk_limit]
+        if len(body) > chunk_limit:
+            chunk = chunk.rstrip() + "\n[このセクションは長いため以降を省略]"
+        block = f"## {heading}\n{chunk}"
+        parts.append(block)
+        remaining -= len(block) + 2
+    return "\n\n".join(parts), True
+
+
+def _source_context(path, html_text, title, html_body, limit, allow_html_fallback):
+    rel = _relpath(path)
+    _, key, seen_info = _seen_entry_for_path(path)
+    html_info = _html_metadata(html_text, title, rel)
+    info = _merge_info(seen_info, html_info)
+    paper = _paper_from_info(key, info)
+    if paper:
+        sections, basis = fetch_sections(paper)
+        context, truncated = _format_sections(sections, limit)
+        if context:
+            if truncated:
+                basis += ", truncated"
+            return context, basis, paper
+
+    if not allow_html_fallback:
+        hint = "HTML要約での回答は行いません。必要なら --allow-html-fallback を付けてください。"
+        raise SystemExit(f"arXiv/PDF本文を取得できませんでした。{hint}")
+    fallback = html_body[:limit]
+    return fallback, "generated-html", paper
+
+
 def _resolve_from_seen(field, slug):
     uslug = slugify(field or DEFAULT_FIELD, fallback=DEFAULT_FIELD)
     seen = load_seen(SEEN)
@@ -127,7 +285,7 @@ def _ensure_dialogue_css(text):
     return text[:style_end] + FOLLOWUP_CSS + text[style_end:]
 
 
-def _dialogue_html(question, answer, engine):
+def _dialogue_html(question, answer, engine, basis):
     generated = datetime.datetime.now().isoformat(timespec="seconds")
     return (
         '<div class="dialogue">\n'
@@ -139,14 +297,16 @@ def _dialogue_html(question, answer, engine):
         '<div class="speaker">A</div>'
         f'<div class="bubble">{render._multiline(answer)}</div>'
         '</div>\n'
-        f'  <div class="dialogue-meta">回答エンジン: {render._esc(engine)} ・ 追記日: {render._esc(generated)}</div>\n'
+        f'  <div class="dialogue-meta">回答根拠: {render._esc(basis)}'
+        f' ・ 回答エンジン: {render._esc(engine)}'
+        f' ・ 追記日: {render._esc(generated)}</div>\n'
         '</div>\n'
     )
 
 
-def _append_followup(text, question, answer, engine):
+def _append_followup(text, question, answer, engine, basis):
     text = _ensure_dialogue_css(text)
-    block = _dialogue_html(question, answer, engine)
+    block = _dialogue_html(question, answer, engine, basis)
     if FOLLOWUP_START in text and FOLLOWUP_END in text:
         return text.replace(FOLLOWUP_END, block + FOLLOWUP_END, 1)
     section = (
@@ -163,13 +323,21 @@ def _append_followup(text, question, answer, engine):
     return text[:footer.start()] + "\n" + section + text[footer.start():]
 
 
-def _ask_llm(summarizer, title, page_body, question):
+def _ask_llm(summarizer, title, source_body, question, basis, history):
     if summarizer.stub:
         return "（スタブ回答）LLM未接続のため、実運用ではGemmaがこの質問に回答します。"
+    system = HTML_FALLBACK_SYSTEM if basis == "generated-html" else QA_SYSTEM
+    history_part = (
+        f"\n\n会話履歴（文脈用。根拠は元論文本文を優先）:\n{history[-6000:]}"
+        if history
+        else ""
+    )
     return summarizer._chat(
-        QA_SYSTEM,
+        system,
         f"論文タイトル:\n{title}\n\n"
-        f"論文ページ本文:\n{page_body[:14000]}\n\n"
+        f"回答根拠:\n{basis}\n\n"
+        f"元論文本文:\n{source_body}\n"
+        f"{history_part}\n\n"
         f"追加質問:\n{question}",
         max_tokens=900,
     ).strip()
@@ -185,6 +353,12 @@ def main(argv=None):
     ap.add_argument("--slug", help="対象論文のHTMLファイル名slug、seenキー、またはタイトルslug")
     ap.add_argument("--file", help="対象HTMLファイルのパス（--slug の代わり）")
     ap.add_argument("--question", action="append", required=True, help="追記する質問。複数指定可")
+    ap.add_argument("--context-chars", type=int, default=60000, help="Gemmaに渡す元論文本文の最大文字数")
+    ap.add_argument(
+        "--allow-html-fallback",
+        action="store_true",
+        help="arXiv/PDF本文を取得できない場合のみ生成済みHTMLで回答する",
+    )
     ap.add_argument("--dry-run", action="store_true", help="LLM回答だけ表示し、HTMLは書き換えない")
     ap.add_argument("--stub", action="store_true", help="LLMを呼ばずスタブ回答で動作確認")
     args = ap.parse_args(argv)
@@ -197,17 +371,30 @@ def main(argv=None):
         raise SystemExit("HTML本文を抽出できません。")
 
     summarizer = Summarizer(stub=args.stub)
+    if args.stub:
+        source_body, basis = body[:args.context_chars], "stub"
+    else:
+        source_body, basis, _ = _source_context(
+            path,
+            text,
+            title,
+            body,
+            max(1000, args.context_chars),
+            args.allow_html_fallback,
+        )
     print(f"対象: {os.path.relpath(path, ROOT)}")
     print(f"タイトル: {title}")
+    print(f"回答根拠: {basis}")
     print(f"回答エンジン: {summarizer.engine}")
 
     updated = text
+    history = ""
     for question in args.question:
-        answer = _ask_llm(summarizer, title, body, question)
+        answer = _ask_llm(summarizer, title, source_body, question, basis, history)
         print("\nQ:", question)
         print("A:", answer)
-        updated = _append_followup(updated, question, answer, summarizer.engine)
-        body += f"\n\n追加質問: {question}\n回答: {answer}"
+        updated = _append_followup(updated, question, answer, summarizer.engine, basis)
+        history += f"\n\nQ: {question}\nA: {answer}"
 
     if not args.dry_run:
         _write(path, updated)

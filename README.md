@@ -85,7 +85,8 @@ git add -A && git commit -m "add paper" && git push origin main
 
 ### 3. 生成済みページに追加質問を追記（`ask_paper`）
 
-生成済みHTMLの内容をGemmaに読ませ、追加質問への回答をページ末尾の「追加質問」欄に対話形式で追記できます。
+生成済みHTMLから対象論文を特定し、arXiv/PDF本文を再取得してGemmaに読ませます。
+追加質問への回答は、ページ末尾の「追加質問」欄に対話形式で追記できます。
 
 ```bash
 cd ~/survey-app
@@ -105,12 +106,15 @@ cd ~/survey-app
 | `--mapf` / `--rag` / `--reading` | 対象分野 |
 | `--field <slug>` | 任意の分野スラッグ |
 | `--question "..."` | 追記する質問。複数指定可 |
+| `--context-chars N` | Gemmaに渡す元論文本文の最大文字数（既定60000） |
+| `--allow-html-fallback` | arXiv/PDF本文を取得できない場合のみ生成済みHTMLで回答する |
 | `--dry-run` | 回答だけ表示し、HTMLを書き換えない |
 | `--stub` | LLMを呼ばずスタブ回答で動作確認 |
 | `--no-push` | commitまで行い、pushしない |
 | `--message "..."` | commit messageを指定 |
 
-回答は対象HTMLに含まれる要約・セクション要約・既存の追加質問だけを根拠にします。根拠がない場合は不明と答えるようにしています。
+回答は再取得した元論文本文を根拠にします。本文を取得できない場合は追記せず停止します。
+必要なときだけ `--allow-html-fallback` を付けると、従来通り生成済みHTMLを根拠に回答できます。
 細かく対象を指定したい場合は、従来通り `python -m pipeline.ask_paper --file ...` も使えます。
 
 ### 4. 分野・キーワードの設定（`subscriptions.yml`）

@@ -111,6 +111,12 @@ def main(argv=None):
     ap.add_argument("--rag", dest="field", action="store_const", const="doc-structure-rag", help="RAG分野に絞り込み")
     ap.add_argument("--reading", dest="field", action="store_const", const="reading", help="reading分野に絞り込み")
     ap.add_argument("--message", help="commit message")
+    ap.add_argument("--context-chars", type=int, default=60000, help="Gemmaに渡す元論文本文の最大文字数")
+    ap.add_argument(
+        "--allow-html-fallback",
+        action="store_true",
+        help="arXiv/PDF本文を取得できない場合のみ生成済みHTMLで回答する",
+    )
     ap.add_argument("--dry-run", action="store_true", help="回答だけ表示し、HTML/Gitは変更しない")
     ap.add_argument("--stub", action="store_true", help="LLMを呼ばずスタブ回答で動作確認")
     ap.add_argument("--no-push", action="store_true", help="commitまで行い、pushしない")
@@ -131,6 +137,9 @@ def main(argv=None):
     ask_args = ["--file", rel]
     for question in args.question:
         ask_args += ["--question", question]
+    ask_args += ["--context-chars", str(args.context_chars)]
+    if args.allow_html_fallback:
+        ask_args.append("--allow-html-fallback")
     if args.dry_run:
         ask_args.append("--dry-run")
     if args.stub:
