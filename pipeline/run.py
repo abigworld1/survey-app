@@ -210,6 +210,7 @@ def _report_paper(paper, pid, selection_kind, relevance, basis, extra=None):
         "selection": selection_kind,
         "selection_label": _selection_label(selection_kind),
         "published": paper.published,
+        "venue": render._venue_label(paper.venue, missing=""),
         "source": paper.source,
         "basis": basis,
         "source_quality": _source_quality(basis),
@@ -247,6 +248,7 @@ def _write_run_report(report):
                 rows.append(
                     "<li>"
                     f"{html.escape(item.get('selection_label', ''))} / "
+                    f"採択先 {html.escape(render._venue_label(item.get('venue')))} / "
                     f"読む価値 {item.get('reading_value', '-')} / "
                     f"関連度 {item.get('relevance', 0)} / 被引用 {item.get('citations', 0)}: "
                     f"{html.escape(item.get('title', ''))}"
@@ -527,6 +529,7 @@ def main(argv=None):
                 "title": p.title,
                 "file": rel,
                 "date": p.published,
+                "venue": render._venue_label(p.venue, missing=""),
                 "added": today,
                 "authors": p.authors,
                 "tldr": summary.get("tldr", ""),

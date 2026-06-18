@@ -153,11 +153,6 @@ def _existing_paper(info):
     doi = doi_m.group(1).strip() if doi_m else ""
     arxiv_m = re.search(r"arxiv\.org/(?:abs|pdf)/([0-9][0-9.]+)(?:v\d+)?", text, re.I)
     arxiv_id = arxiv_m.group(1) if arxiv_m else ""
-    if arxiv_id:
-        paper = arxiv_src.fetch_meta(arxiv_id)
-        if paper:
-            paper.pdf_url = paper.pdf_url or pdf_url or f"https://arxiv.org/pdf/{arxiv_id}"
-            return paper
     meta = re.search(r'<div class="meta">(.*?)</div>', text, re.S)
     authors = []
     venue = ""
@@ -170,6 +165,13 @@ def _existing_paper(info):
             m = re.match(r"(.+?) ・ ([^・]+) ・ source: (.+)$", rest)
             if m:
                 venue, _, source = (x.strip() for x in m.groups())
+                venue = render._clean_venue(venue)
+    if arxiv_id:
+        paper = arxiv_src.fetch_meta(arxiv_id)
+        if paper:
+            paper.pdf_url = paper.pdf_url or pdf_url or f"https://arxiv.org/pdf/{arxiv_id}"
+            paper.venue = paper.venue or render._venue_label(venue, missing="")
+            return paper
     return Paper(
         source=source,
         title=info.get("title", ""),
@@ -323,6 +325,12 @@ def main(argv=None):
             skipped += 1
             print("  [skip] メタデータを再取得できません")
             continue
+        if not render._venue_label(paper.venue, missing=""):
+            try:
+                fallback = info.get("venue", "") or _existing_paper(info).venue
+            except OSError:
+                fallback = info.get("venue", "")
+            paper.venue = render._venue_label(fallback, missing="")
         sub = sub_by_slug.get(uslug, {})
         keywords = sub.get("keywords", [])
         patterns = _keyword_patterns(keywords)
@@ -371,6 +379,7 @@ def main(argv=None):
                 "title": paper.title,
                 "file": rel,
                 "date": paper.published,
+                "venue": render._venue_label(paper.venue, missing=""),
                 "authors": paper.authors,
                 "tldr": summary.get("tldr", ""),
                 "engine": summary.get("_engine", ""),

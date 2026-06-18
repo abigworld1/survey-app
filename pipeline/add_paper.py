@@ -142,6 +142,7 @@ def main(argv=None):
         "title": paper.title,
         "file": rel,
         "date": paper.published,
+        "venue": render._venue_label(paper.venue, missing=""),
         "added": added_at[:10],
         "added_at": added_at,
         "authors": paper.authors,

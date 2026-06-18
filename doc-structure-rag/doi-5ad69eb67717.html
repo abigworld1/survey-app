@@ -57,9 +57,9 @@
 <div class="wrap">
   <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
   <h1>TechDocRAG: Relation-Preserving Retrieval-Augmented Generation (RAG) for Technical Documents</h1>
-  <div class="meta">Seungjoon Lee, Myung-Seok Choi<br>Applied Informatics ・ 2026-05-06 ・ source: semanticscholar</div>
+  <div class="meta">Seungjoon Lee, Myung-Seok Choi<br>採択先: Applied Informatics ・ 2026-05-06 ・ source: semanticscholar</div>
   <div class="links"><a href="https://www.semanticscholar.org/paper/060914a818f550a3cd0cf635580994e84ab35baa" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.3390/ai7050161" target="_blank" rel="noopener">DOI</a></div>
-  <div class="paper-facts"><span class="chip">公開日 2026-05-06</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-abstract">アブストラクト</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">技術文書特有の構造保持に焦点を当て、グラフ表現を用いた手法の新規性と、大幅な精度向上を示す実験結果の具体性が高く、実用的な価値も大きい。</div></div>
+  <div class="paper-facts"><span class="chip venue">採択先 Applied Informatics</span><span class="chip">公開日 2026-05-06</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-abstract">アブストラクト</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">技術文書特有の構造保持に焦点を当て、グラフ表現を用いた手法の新規性と、大幅な精度向上を示す実験結果の具体性が高く、実用的な価値も大きい。</div></div>
   <div class="source-notice abstract">本文未取得: アブストラクトのみを根拠にしています。詳細確認には原典を参照してください。</div>
 <div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
   <div class="tldr"><strong>一言で:</strong> 技術文書特有の構造（条項、表、図、手順など）を保持したまま検索を行う、TechDocRAGというフレームワークを提案する。従来のRAGが文書をフラットなチャンクに分割して関係性を破壊するのに対し、本手法は要素間の関係性を維持することで、正確な根拠追跡を可能にする。実験では、既存のベースラインと比較して大幅な精度向上を達成している。</div>
@@ -69,11 +69,10 @@
 <section class="qa"><h2>どうやって有効だと検証した？</h2><p>製品マニュアルやエンジニアリング文書、マルチモーダルPDFを含む4つのベンチマーク（計7,500件以上のQAペア）を用いて評価を行った。結果として、最強のフラットなベースラインに対し平均エンドツーエンドスコアで20.3ポイント、最強の非フラットなベースラインに対し9.3ポイントの向上を確認した。また、厳密な根拠のヒット率は0.510から0.942へと大幅に改善した。</p></section>
 <section class="qa"><h2>議論はある？（限界・課題）</h2><p>技術文書における信頼性の高いRAGは、単に多くのパッセージを検索することよりも、根拠の解釈可能性を支える「関係性の保持」に依存していることが示唆された。堅牢性テストでは、関係性の喪失による性能低下は緩やかであったが、識別子の深刻な破損には敏感に反応することが分かった。クエリの遅延時間は、標準的なハイブリッド検索と同程度であり、実用性も示されている。</p></section>
 
-
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: アブストラクト ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-15
+    情報源: アブストラクト ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
   </footer>
 </div>
 </body>

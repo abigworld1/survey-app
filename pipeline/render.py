@@ -94,6 +94,31 @@ def _reading_value_label(value):
     return f"読む価値 {score}/5" if score else ""
 
 
+def _clean_venue(venue):
+    venue = re.sub(r"\s+", " ", str(venue or "")).strip()
+    venue = re.sub(r"^採択先:\s*", "", venue)
+    venue = re.sub(r"^掲載先:\s*", "", venue)
+    return venue
+
+
+def _is_preprint_venue(venue):
+    v = _clean_venue(venue).lower()
+    v = re.sub(r"[\s._-]+", "", v)
+    return v in {"arxiv", "arxivorg", "arxivcornelluniversity"}
+
+
+def _venue_label(venue, missing="未取得"):
+    venue = _clean_venue(venue)
+    if (
+        not venue
+        or venue.lower() in {"unknown", "n/a", "none", "-"}
+        or venue == "未取得"
+        or _is_preprint_venue(venue)
+    ):
+        return missing
+    return venue
+
+
 def _entry_reason_chips(entry, keywords=None):
     chips = []
     selection = _selection_label(entry.get("selection"), entry.get("selection_label", ""))
@@ -125,6 +150,9 @@ def _paper_facts(paper, summary):
     )
     if selection:
         chips.append(_chip(selection, f"selection-{_class_token(getattr(paper, 'selection_type', ''))}"))
+    venue = _venue_label(getattr(paper, "venue", ""), missing="")
+    if venue:
+        chips.append(_chip(f"採択先 {venue}", "venue"))
     chips.append(_chip(f"公開日 {paper.published or '-'}"))
     kw_count = len([k for k in (getattr(paper, "matched_keywords", []) or []) if str(k).strip()])
     if kw_count:
@@ -216,6 +244,28 @@ def _entry_authors(entry, root=None):
     return html.unescape(re.sub(r"<[^>]+>", "", m.group(1))).strip()
 
 
+def _entry_venue(entry, root=None):
+    venue = _venue_label(entry.get("venue", ""), missing="")
+    if venue:
+        return venue
+    if not root or not entry.get("file"):
+        return ""
+    root_abs = os.path.abspath(root)
+    path = os.path.abspath(os.path.join(root_abs, entry.get("file", "")))
+    if not (path == root_abs or path.startswith(root_abs + os.sep)):
+        return ""
+    try:
+        text = _read(path)
+    except OSError:
+        return ""
+    m = re.search(r'<div class="meta">.*?<br>(.*?)</div>', text, re.S)
+    if not m:
+        return ""
+    rest = html.unescape(re.sub(r"<[^>]+>", "", m.group(1))).strip()
+    venue_text = rest.split("・", 1)[0].strip()
+    return _venue_label(venue_text, missing="")
+
+
 def render_paper_page(tpl_dir, paper, summary):
     sections_html = ""
     for key, heading in SECTIONS:
@@ -246,7 +296,7 @@ def render_paper_page(tpl_dir, paper, summary):
         "title": _esc(paper.title),
         "tldr": _multiline(summary.get("tldr", "")),
         "authors": _esc(", ".join(paper.authors[:12])),
-        "venue": _esc(paper.venue or paper.source),
+        "venue": _esc(_venue_label(paper.venue)),
         "published": _esc(paper.published),
         "source": _esc(paper.source),
         "links": " ・ ".join(links),
@@ -267,6 +317,7 @@ def _list_items(entries, link_basename=False, highlight_added="", keywords=None,
     for idx, it in enumerate(entries):
         tags = _matched_entry_keywords(it, keywords)
         authors = _entry_authors(it, root)
+        venue = _entry_venue(it, root)
         href = os.path.basename(it["file"]) if link_basename else it["file"]
         latest = bool(highlight_added and it.get("added") == highlight_added)
         klass = ' class="latest"' if latest else ""
@@ -274,6 +325,7 @@ def _list_items(entries, link_basename=False, highlight_added="", keywords=None,
         added_sort = "|".join(_entry_sort_key(it))
         title_sort = (it.get("title") or "").lower()
         author_html = f'<div class="authors">{_esc(authors)}</div>' if authors else ""
+        venue_html = f'<div class="venue">採択先: {_esc(venue or "未取得")}</div>'
         reason_html = _entry_reason_chips(it, tags)
         item_id = it.get("file", href)
         reading_value = _as_int(it.get("reading_value"), 0)
@@ -281,6 +333,7 @@ def _list_items(entries, link_basename=False, highlight_added="", keywords=None,
             [
                 it.get("title", ""),
                 authors,
+                venue,
                 it.get("date", ""),
                 it.get("tldr", ""),
                 it.get("selection_label", ""),
@@ -296,6 +349,7 @@ def _list_items(entries, link_basename=False, highlight_added="", keywords=None,
             f'data-original="{idx}">'
             f'{badge}<a href="{_esc(href)}">{_esc(it["title"])}</a>'
             f"{author_html}"
+            f"{venue_html}"
             f"{reason_html}"
             f"{_keyword_tags(tags)}"
             f'<div class="meta">{_esc(it.get("date", ""))} ・ {_esc(it.get("tldr", ""))}</div>'

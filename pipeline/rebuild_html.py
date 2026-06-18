@@ -64,6 +64,7 @@ def _parse_meta(text, info):
         m = re.match(r"(.+?) ・ ([^・]+) ・ source: (.+)$", rest_text)
         if m:
             venue, date, source = (x.strip() for x in m.groups())
+            venue = render._clean_venue(venue)
     return authors_text, venue, date, source
 
 
@@ -141,7 +142,7 @@ def _rebuild_one(rel, info, keywords=None, dry_run=False):
     ctx = {
         "title": render._esc(title),
         "authors": render._esc(authors_text),
-        "venue": render._esc(venue or source),
+        "venue": render._esc(render._venue_label(venue)),
         "published": render._esc(date),
         "source": render._esc(source),
         "links": links,

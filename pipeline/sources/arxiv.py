@@ -31,6 +31,7 @@ def fetch_meta(arxiv_id):
             abstract=(e.findtext(ATOM + "summary") or "").strip(),
             authors=[a for a in authors if a],
             published=(e.findtext(ATOM + "published") or "")[:10],
+            venue=e.findtext(ARXIV + "journal_ref") or "",
             url=(e.findtext(ATOM + "id") or "").strip(),
             arxiv_id=arxiv_id,
             doi=e.findtext(ARXIV + "doi") or "",
@@ -62,6 +63,7 @@ def search(keywords, limit=25, mode="recent"):
         arxiv_id = re.sub(r"v\d+$", "", id_url.rsplit("/abs/", 1)[-1])
         authors = [a.findtext(ATOM + "name") for a in e.findall(ATOM + "author")]
         doi = e.findtext(ARXIV + "doi") or ""
+        venue = e.findtext(ARXIV + "journal_ref") or ""
         pdf = ""
         for link in e.findall(ATOM + "link"):
             if link.get("title") == "pdf":
@@ -73,6 +75,7 @@ def search(keywords, limit=25, mode="recent"):
                 abstract=summary,
                 authors=[a for a in authors if a],
                 published=published,
+                venue=venue,
                 url=id_url,
                 pdf_url=pdf,
                 arxiv_id=arxiv_id,
