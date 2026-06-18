@@ -96,19 +96,19 @@
   <h2>追加質問</h2>
 <div class="dialogue">
   <div class="turn question"><div class="speaker">Q</div><div class="bubble">PIBT+はPIBTとどう違う？どうやって成功率を向上した？</div></div>
-  <div class="turn answer"><div class="speaker">A</div><div class="bubble">PIBT+は、PIBTの失敗原因を補完するために「補完ソルバー（complementary solver）」を用いた手法です。<br><br>PIBTの主な限界として、失敗の原因が主にmakespan制限に起因することが挙げられており、これはグラフの到達可能性や閉路の欠如に依存する問題です。PIBT+は、この補完ソルバーを用いることで、PIBTの成功率を大幅に向上させることが可能であると記述されています（Evaluationセクション）。</div></div>
-  <div class="dialogue-meta">回答エンジン: llm:gemma-4-26b ・ 追記日: 2026-06-18T11:23:30</div>
+  <div class="turn answer"><div class="speaker">A</div><div class="bubble">PIBT+とPIBTの違い、および成功率の向上方法については、以下の通りです。<br><br>**PIBTとPIBT+の違い**<br>PIBT+は、PIBTに「補完的なソルバー（complement solver）」を追加したものです（Section 5.1.1）。PIBT単体では、グラフにサイクルが存在しない場合や、すべてのエージェントが同時にゴールに到達することを保証しない（reachabilityのみを保証する）性質上、makespanの制限によって失敗することがあります（Section 5.1.2）。PIBT+は、このPIBTの欠点を補うために設計されています。<br><br>**成功率の向上方法**<br>PIBT+は、PIBTの解を補完するために別のソルバーを用いることで、成功率を劇的に向上させています（Section 5.1.2）。<br>*   **具体的な手法:** 本論文の実験では、補完的なソルバーとして「PS+（Push and Swapの拡張版）」が使用されました（Section 5.1.1）。<br>*   **注意点:** ただし、PIBT+の成功率向上は補完ソルバーに依存しており、実験で使用されたPS+が不完全なソルバーであるために、PIBT+自体が失敗することもあります（Section 5.1.2）。また、混雑した状況では、補完ソルバーが頻繁に呼び出されるため、解の質（sub-optimality）が低下する場合があることも報告されています（Section 5.1.2）。</div></div>
+  <div class="dialogue-meta">回答根拠: fulltext(ar5iv) ・ 回答エンジン: llm:gemma-4-26b ・ 追記日: 2026-06-18T12:01:17</div>
 </div>
 </section>
 <div class="dialogue">
   <div class="turn question"><div class="speaker">Q</div><div class="bubble">補完ソルバーは具体的にどのような処理を行う？makespan制限とは何？</div></div>
-  <div class="turn answer"><div class="speaker">A</div><div class="bubble">提供された本文には、補完ソルバーの具体的な処理内容、および「makespan制限」の定義に関する詳細な記述はありません。<br><br>本文から確認できる情報は以下の通りです。<br><br>* **補完ソルバーについて**: PIBTの失敗（主にmakespan制限に起因するもの）を補完するために用いられ、これを用いることで成功率を大幅に向上させることが可能であるという記述にとどまっています（Evaluationセクション）。具体的なアルゴリズムや処理手順については記載されていません。<br>* **makespan制限について**: PIBTの失敗の原因が主にこれに起因すること、およびこの問題がグラフの到達可能性や閉路の欠如に依存することについては述べられています（Evaluationセクション）。しかし、「makespan制限」そのものがどのような制約やメカニズムを指すのかという具体的な定義は示されていません。</div></div>
-  <div class="dialogue-meta">回答エンジン: llm:gemma-4-26b ・ 追記日: 2026-06-18T11:25:53</div>
+  <div class="turn answer"><div class="speaker">A</div><div class="bubble">ご質問いただいた点について、論文の記述に基づき回答します。<br><br>**補完ソルバーの具体的な処理について**<br>論文内では、補完ソルバー（complement solver）が具体的にどのようなアルゴリズム的処理（計算手順）を行うかについての詳細な記述はありません。<br>ただし、実験設定（Section 5.1.1）において、PIBT+の補完ソルバーとして使用された「PS+」については、以下の性質を持つことが示されています。<br>*   **性質:** 「PS+」は、複数のエージェントが同時に移動できるように、元の「Push and Swap (PS)」の手法に影響を与えて、解を圧縮（compressed）したものです（Section 5.1.1）。<br>*   **役割:** PIBTが解を見つけられない場合に、その欠点を補うために用いられます（Section 5.1.2）。<br><br>**makespan制限について**<br>makespan（メイクスパン）とは、すべてのエージェントが目的地に到達するまでのタイムステップの最大値（$\max_{i} T_i$）を指します（Section 3.1）。<br>「makespan制限」とは、アルゴリズムが解を探索する際、この値が一定の閾値を超えた場合に、その解を「非現実的なもの」とみなして失敗（failure）として扱う制限のことです（Section 5.1.1）。<br><br>論文内の実験設定では、以下の具体的な制限値が用いられています（Section 5.1.1）。<br>*   `brc202d` というマップの場合：2000<br>*   それ以外のマップの場合：1000</div></div>
+  <div class="dialogue-meta">回答根拠: fulltext(ar5iv) ・ 回答エンジン: llm:gemma-4-26b ・ 追記日: 2026-06-18T12:01:21</div>
 </div>
 <!-- followup-qa:end -->
 
 
-  <footer>
+<footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
     情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
