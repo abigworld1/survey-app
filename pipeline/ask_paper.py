@@ -254,6 +254,13 @@ def _fallback_fulltext_sections(paper):
         sections = fulltext._sections_from_text(text)
         if sections:
             return sections, "fulltext(arxiv-text)"
+        sections = fulltext.fetch_ar5iv_sections(paper.arxiv_id)
+        if sections:
+            return sections, "fulltext(ar5iv)"
+        text = fulltext.fetch_ar5iv_fulltext(paper.arxiv_id)
+        sections = fulltext._sections_from_text(text)
+        if sections:
+            return sections, "fulltext(ar5iv-text)"
         for url in fulltext._arxiv_pdf_urls(paper.arxiv_id):
             data = fulltext._download_pdf(url, min_interval=3.0)
             if not data:
@@ -282,13 +289,38 @@ def _fallback_fulltext_sections(paper):
     return [], "abstract"
 
 
-def _source_context(path, html_text, title, html_body, limit, allow_html_fallback):
+def _paper_fetch_hint(paper):
+    if not paper:
+        return "paper=未解決"
+    return (
+        f"arxiv_id={paper.arxiv_id or '-'} / "
+        f"doi={paper.doi or '-'} / "
+        f"pdf_url={paper.pdf_url or '-'} / "
+        f"url={paper.url or '-'}"
+    )
+
+
+def _source_context(
+    path,
+    html_text,
+    title,
+    html_body,
+    limit,
+    allow_html_fallback,
+    arxiv_id_override="",
+    pdf_url_override="",
+):
     rel = _relpath(path)
     _, key, seen_info = _seen_entry_for_path(path)
     html_info = _html_metadata(html_text, title, rel)
     info = _merge_info(seen_info, html_info)
+    if arxiv_id_override:
+        info["arxiv_id"] = arxiv_id_override
+    if pdf_url_override:
+        info["pdf_url"] = pdf_url_override
     paper = _paper_from_info(key, info)
     if paper:
+        print(f"本文候補: {_paper_fetch_hint(paper)}")
         sections, basis = fulltext.fetch_sections(paper)
         if not sections:
             sections, basis = _fallback_fulltext_sections(paper)
@@ -300,7 +332,7 @@ def _source_context(path, html_text, title, html_body, limit, allow_html_fallbac
 
     if not allow_html_fallback:
         hint = "HTML要約での回答は行いません。必要なら --allow-html-fallback を付けてください。"
-        raise SystemExit(f"arXiv/PDF本文を取得できませんでした。{hint}")
+        raise SystemExit(f"arXiv/PDF本文を取得できませんでした。{_paper_fetch_hint(paper)}。{hint}")
     fallback = html_body[:limit]
     return fallback, "generated-html", paper
 
@@ -419,6 +451,8 @@ def main(argv=None):
     ap.add_argument("--slug", help="対象論文のHTMLファイル名slug、seenキー、またはタイトルslug")
     ap.add_argument("--file", help="対象HTMLファイルのパス（--slug の代わり）")
     ap.add_argument("--question", action="append", required=True, help="追記する質問。複数指定可")
+    ap.add_argument("--arxiv-id", help="本文取得に使うarXiv IDを明示指定する")
+    ap.add_argument("--pdf-url", help="本文取得に使うPDF URLを明示指定する")
     ap.add_argument("--context-chars", type=int, default=60000, help="Gemmaに渡す元論文本文の最大文字数")
     ap.add_argument("--replace-followups", action="store_true", help="既存の追加質問を消してから追記する")
     ap.add_argument(
@@ -448,6 +482,8 @@ def main(argv=None):
             body,
             max(1000, args.context_chars),
             args.allow_html_fallback,
+            args.arxiv_id or "",
+            args.pdf_url or "",
         )
     print(f"対象: {os.path.relpath(path, ROOT)}")
     print(f"タイトル: {title}")

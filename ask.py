@@ -111,6 +111,8 @@ def main(argv=None):
     ap.add_argument("--rag", dest="field", action="store_const", const="doc-structure-rag", help="RAG分野に絞り込み")
     ap.add_argument("--reading", dest="field", action="store_const", const="reading", help="reading分野に絞り込み")
     ap.add_argument("--message", help="commit message")
+    ap.add_argument("--arxiv-id", help="本文取得に使うarXiv IDを明示指定する")
+    ap.add_argument("--pdf-url", help="本文取得に使うPDF URLを明示指定する")
     ap.add_argument("--context-chars", type=int, default=60000, help="Gemmaに渡す元論文本文の最大文字数")
     ap.add_argument("--replace-followups", action="store_true", help="既存の追加質問を消してから追記する")
     ap.add_argument(
@@ -138,6 +140,10 @@ def main(argv=None):
     ask_args = ["--file", rel]
     for question in args.question:
         ask_args += ["--question", question]
+    if args.arxiv_id:
+        ask_args += ["--arxiv-id", args.arxiv_id]
+    if args.pdf_url:
+        ask_args += ["--pdf-url", args.pdf_url]
     ask_args += ["--context-chars", str(args.context_chars)]
     if args.replace_followups:
         ask_args.append("--replace-followups")

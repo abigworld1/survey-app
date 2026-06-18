@@ -106,6 +106,8 @@ cd ~/survey-app
 | `--mapf` / `--rag` / `--reading` | 対象分野 |
 | `--field <slug>` | 任意の分野スラッグ |
 | `--question "..."` | 追記する質問。複数指定可 |
+| `--arxiv-id <id>` | 本文取得に使うarXiv IDを明示指定 |
+| `--pdf-url <url>` | 本文取得に使うPDF URLを明示指定 |
 | `--context-chars N` | Gemmaに渡す元論文本文の最大文字数（既定60000） |
 | `--replace-followups` | 既存の追加質問を消してから追記する |
 | `--allow-html-fallback` | arXiv/PDF本文を取得できない場合のみ生成済みHTMLで回答する |

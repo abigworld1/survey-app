@@ -12,6 +12,7 @@ from html.parser import HTMLParser
 from .util import http_get
 
 ARXIV_HTML = "https://arxiv.org/html/"
+AR5IV_HTML = "https://ar5iv.labs.arxiv.org/html/"
 ARXIV_PDF = "https://arxiv.org/pdf/"
 ARXIV_EXPORT_PDF = "https://export.arxiv.org/pdf/"
 SKIP_TAGS = {"script", "style", "noscript"}
@@ -228,6 +229,38 @@ def fetch_arxiv_sections(arxiv_id):
     return _clean_sections(parser.result())
 
 
+def fetch_ar5iv_sections(arxiv_id):
+    if not arxiv_id:
+        return []
+    try:
+        html = http_get(AR5IV_HTML + arxiv_id, timeout=60, min_interval=1.0, expect="text")
+    except Exception:
+        return []
+    parser = _SectionParser()
+    try:
+        parser.feed(html)
+    except Exception:
+        return []
+    return _clean_sections(parser.result())
+
+
+def fetch_ar5iv_fulltext(arxiv_id):
+    if not arxiv_id:
+        return ""
+    try:
+        html = http_get(AR5IV_HTML + arxiv_id, timeout=60, min_interval=1.0, expect="text")
+    except Exception:
+        return ""
+    parser = _TextExtractor()
+    try:
+        parser.feed(html)
+    except Exception:
+        return ""
+    text = " ".join(parser.parts)
+    text = re.sub(r"[ \t]{2,}", " ", text).strip()
+    return _strip_references(text)[:MAX_CHARS].strip()
+
+
 def _sections_from_text(text):
     """PDF 等のプレーンテキストを読み順に一定サイズで分割する。
 
@@ -426,6 +459,9 @@ def fetch_sections(paper):
         secs = fetch_arxiv_sections(paper.arxiv_id)
         if secs:
             return secs, "fulltext(arxiv)"
+        secs = fetch_ar5iv_sections(paper.arxiv_id)
+        if secs:
+            return secs, "fulltext(ar5iv)"
         # 古い arXiv は HTML 版が無い → PDF をフォントベースで分割
         for url in _arxiv_pdf_urls(paper.arxiv_id):
             data = _download_pdf(url, min_interval=3.0)
