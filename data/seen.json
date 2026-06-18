@@ -603,28 +603,33 @@
     },
     "doi:10.1016/j.artint.2022.103752": {
       "added": "2026-06-14",
+      "arxiv_id": "1901.11282",
       "authors": [
         "Keisuke Okumura",
         "Manao Machida",
-        "Xavier Défago",
+        "X. Défago",
         "Yasumasa Tamura"
       ],
-      "basis": "abstract",
-      "citations": 111,
-      "date": "2022-07-03",
+      "basis": "fulltext(arxiv-pdf)",
+      "citations": 195,
+      "date": "2019-01-31",
+      "doi": "10.1016/j.artint.2022.103752",
       "engine": "llm:gemma-4-26b",
       "file": "mapf-mapd-warehouse/priority-inheritance-with-backtracking-for-iterative-multi-agent-path-finding.html",
       "matched_keywords": [
         "Multi-Agent Path Finding",
         "MAPF"
       ],
+      "pdf_url": "https://doi.org/10.1016/j.artint.2022.103752",
       "reading_value": 5,
-      "reading_value_reason": "MAPF分野で非常に高い被引用数を持ち、大規模・継続的環境への実用的な解決策を提案している。理論的証明と実機検証の両面を備えた必読級の論文である。",
-      "regenerated": "2026-06-15",
+      "reading_value_reason": "MAPF分野の重要論文。大規模・Lifelongシナリオにおけるスケーラビリティと到達可能性の理論的証明、高い実験結果を兼ね備え、被引用数も非常に多い。",
+      "regenerated": "2026-06-18",
       "relevance": 5,
-      "source_quality": "abstract",
-      "title": "Priority inheritance with backtracking for iterative multi-agent path finding",
-      "tldr": "本論文は、大規模かつ継続的なマルチエージェント経路計画（MAPF）に対応するための、新しい劣最適アルゴリズムであるPriority Inheritance with Backtracking (PIBT) を提案しています。PIBTは、エージェントの隣接する移動に焦点を当てた適応的な優先順位付けを用いることで、数百規模のエージェントが存在する環境でも、予測可能な計算時間で実行可能な解を即座に提供します。"
+      "source_quality": "fulltext",
+      "title": "Priority Inheritance with Backtracking for Iterative Multi-agent Path Finding",
+      "tldr": "Lifelong MAPF/MAPDにおいて、数百から数千規模のエージェントをリアルタイムに制御可能な、優先度継承とバックトラッキングを用いた新しい劣最適アルゴリズムPIBTを提案する。",
+      "url": "https://www.semanticscholar.org/paper/d1469458388fab937e0537ad0a48f7c70e0e3b18",
+      "venue": "International Joint Conference on Artificial Intelligence"
     },
     "doi:10.1109/lra.2021.3074883": {
       "added": "2026-06-15",
