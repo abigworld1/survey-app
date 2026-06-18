@@ -323,6 +323,21 @@ def _append_followup(text, question, answer, engine, basis):
     return text[:footer.start()] + "\n" + section + text[footer.start():]
 
 
+def _clear_followups(text):
+    start = text.find(FOLLOWUP_START)
+    end = text.find(FOLLOWUP_END)
+    if start != -1 and end != -1 and end > start:
+        end += len(FOLLOWUP_END)
+        return (text[:start].rstrip() + "\n\n" + text[end:].lstrip()).strip() + "\n"
+    return re.sub(
+        r'\n?\s*<section class="followups"[\s\S]*?</section>\s*\n?',
+        "\n",
+        text,
+        count=1,
+        flags=re.I,
+    )
+
+
 def _ask_llm(summarizer, title, source_body, question, basis, history):
     if summarizer.stub:
         return "（スタブ回答）LLM未接続のため、実運用ではGemmaがこの質問に回答します。"
@@ -354,6 +369,7 @@ def main(argv=None):
     ap.add_argument("--file", help="対象HTMLファイルのパス（--slug の代わり）")
     ap.add_argument("--question", action="append", required=True, help="追記する質問。複数指定可")
     ap.add_argument("--context-chars", type=int, default=60000, help="Gemmaに渡す元論文本文の最大文字数")
+    ap.add_argument("--replace-followups", action="store_true", help="既存の追加質問を消してから追記する")
     ap.add_argument(
         "--allow-html-fallback",
         action="store_true",
@@ -387,7 +403,7 @@ def main(argv=None):
     print(f"回答根拠: {basis}")
     print(f"回答エンジン: {summarizer.engine}")
 
-    updated = text
+    updated = _clear_followups(text) if args.replace_followups else text
     history = ""
     for question in args.question:
         answer = _ask_llm(summarizer, title, source_body, question, basis, history)

@@ -112,6 +112,7 @@ def main(argv=None):
     ap.add_argument("--reading", dest="field", action="store_const", const="reading", help="reading分野に絞り込み")
     ap.add_argument("--message", help="commit message")
     ap.add_argument("--context-chars", type=int, default=60000, help="Gemmaに渡す元論文本文の最大文字数")
+    ap.add_argument("--replace-followups", action="store_true", help="既存の追加質問を消してから追記する")
     ap.add_argument(
         "--allow-html-fallback",
         action="store_true",
@@ -138,6 +139,8 @@ def main(argv=None):
     for question in args.question:
         ask_args += ["--question", question]
     ask_args += ["--context-chars", str(args.context_chars)]
+    if args.replace_followups:
+        ask_args.append("--replace-followups")
     if args.allow_html_fallback:
         ask_args.append("--allow-html-fallback")
     if args.dry_run:

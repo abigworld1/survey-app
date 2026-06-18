@@ -107,6 +107,7 @@ cd ~/survey-app
 | `--field <slug>` | 任意の分野スラッグ |
 | `--question "..."` | 追記する質問。複数指定可 |
 | `--context-chars N` | Gemmaに渡す元論文本文の最大文字数（既定60000） |
+| `--replace-followups` | 既存の追加質問を消してから追記する |
 | `--allow-html-fallback` | arXiv/PDF本文を取得できない場合のみ生成済みHTMLで回答する |
 | `--dry-run` | 回答だけ表示し、HTMLを書き換えない |
 | `--stub` | LLMを呼ばずスタブ回答で動作確認 |
