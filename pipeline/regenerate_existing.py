@@ -7,6 +7,7 @@ fulltext.fetch_sections → Summarizer → render_paper_page を実行する。
 """
 import argparse
 import datetime
+import difflib
 import os
 import re
 import sys
@@ -17,9 +18,9 @@ import urllib.parse
 import yaml
 
 from . import render
-from .dedup import load_seen, save_seen
+from .dedup import dedup, load_seen, save_seen
 from .fulltext import fetch_sections
-from .schema import Paper
+from .schema import Paper, normalize_title
 from .sources import arxiv as arxiv_src
 from .summarize import Summarizer
 from .util import http_get, slugify
@@ -76,6 +77,55 @@ def _citations(paper):
 
 def _source_quality(basis):
     return "fulltext" if str(basis or "").startswith("fulltext") else "abstract"
+
+
+def _fulltext_score(paper):
+    if getattr(paper, "arxiv_id", ""):
+        return 3
+    if getattr(paper, "pdf_url", ""):
+        return 2
+    if getattr(paper, "doi", ""):
+        return 1
+    return 0
+
+
+def _title_similarity(a, b):
+    an = normalize_title(a)
+    bn = normalize_title(b)
+    if not an or not bn:
+        return 0.0
+    if an == bn:
+        return 1.0
+    return difflib.SequenceMatcher(None, an, bn).ratio()
+
+
+def _title_matches(paper, title, threshold=0.82):
+    return _title_similarity(getattr(paper, "title", ""), title) >= threshold
+
+
+def _best_candidate(candidates):
+    merged = dedup([p for p in candidates if p])
+    if not merged:
+        return None
+    selected = max(
+        merged,
+        key=lambda p: (
+            _fulltext_score(p),
+            _citations(p),
+            1 if render._venue_label(getattr(p, "venue", ""), missing="") else 0,
+            len(getattr(p, "abstract", "") or ""),
+        ),
+    )
+    for other in candidates:
+        if not other or not _title_matches(other, selected.title):
+            continue
+        selected.citations = max(_citations(selected), _citations(other))
+        for attr in ("doi", "venue", "url", "pdf_url", "arxiv_id", "published", "abstract"):
+            if not getattr(selected, attr, "") and getattr(other, attr, ""):
+                setattr(selected, attr, getattr(other, attr))
+        if not selected.authors and other.authors:
+            selected.authors = other.authors
+    return selected
 
 
 def _from_s2(item):
@@ -147,15 +197,15 @@ def _strip_tags(value):
 def _existing_paper(info):
     text = _read_existing_html(info)
     links = re.findall(r'<a href="([^"]+)"', text)
-    pdf_url = next((u for u in links if ".pdf" in u or "/pdf/" in u), "")
-    url = next((u for u in links if u != pdf_url), "")
+    pdf_url = info.get("pdf_url", "") or next((u for u in links if ".pdf" in u or "/pdf/" in u), "")
+    url = info.get("url", "") or next((u for u in links if u != pdf_url), "")
     doi_m = re.search(r"https?://doi\.org/([^\"<]+)", text)
-    doi = doi_m.group(1).strip() if doi_m else ""
+    doi = info.get("doi", "") or (doi_m.group(1).strip() if doi_m else "")
     arxiv_m = re.search(r"arxiv\.org/(?:abs|pdf)/([0-9][0-9.]+)(?:v\d+)?", text, re.I)
-    arxiv_id = arxiv_m.group(1) if arxiv_m else ""
+    arxiv_id = info.get("arxiv_id", "") or (arxiv_m.group(1) if arxiv_m else "")
     meta = re.search(r'<div class="meta">(.*?)</div>', text, re.S)
     authors = []
-    venue = ""
+    venue = info.get("venue", "")
     source = "existing"
     if meta:
         parts = meta.group(1).split("<br>", 1)
@@ -249,6 +299,14 @@ def _search_openalex_by_title(title):
     return _from_openalex(results[0]) if results else None
 
 
+def _search_arxiv_by_title(title):
+    results = arxiv_src.search([title], limit=5, mode="recent")
+    candidates = [p for p in results if _title_matches(p, title)]
+    if not candidates:
+        return None
+    return max(candidates, key=lambda p: (_title_similarity(p.title, title), p.published or ""))
+
+
 def _resolve_paper(key, info):
     if key.startswith("arxiv:"):
         arxiv_id = re.sub(r"v\d+$", "", key.split(":", 1)[1])
@@ -256,6 +314,7 @@ def _resolve_paper(key, info):
         if paper:
             paper.pdf_url = paper.pdf_url or f"https://arxiv.org/pdf/{arxiv_id}"
             return paper
+    candidates = []
     if key.startswith("doi:"):
         doi = key.split(":", 1)[1]
         for fetch in (_fetch_s2_by_doi, _fetch_openalex_by_doi):
@@ -265,21 +324,21 @@ def _resolve_paper(key, info):
                 print(f"      [warn] DOI取得失敗 {fetch.__name__}: {e!r}")
                 paper = None
             if paper:
-                return paper
+                candidates.append(paper)
     title = info.get("title") or key.removeprefix("title:")
-    for fetch in (_search_s2_by_title, _search_openalex_by_title):
+    for fetch in (_search_arxiv_by_title, _search_s2_by_title, _search_openalex_by_title):
         try:
             paper = _retry_fetch(fetch, title, f"タイトル検索 {fetch.__name__}")
         except Exception as e:
             print(f"      [warn] タイトル検索失敗 {fetch.__name__}: {e!r}")
             paper = None
-        if paper:
-            return paper
+        if paper and _title_matches(paper, title):
+            candidates.append(paper)
     fallback = _existing_paper(info)
     if fallback and (fallback.pdf_url or fallback.url or fallback.doi or fallback.arxiv_id):
         print("      [note] 既存HTMLのリンクから再取得します")
-        return fallback
-    return None
+        candidates.append(fallback)
+    return _best_candidate(candidates)
 
 
 def _safe_path(rel):
@@ -293,6 +352,7 @@ def _safe_path(rel):
 def main(argv=None):
     ap = argparse.ArgumentParser(description="既存HTMLを再取得・LLM再要約で作り直す")
     ap.add_argument("--field", help="対象分野スラッグ。省略時は全分野")
+    ap.add_argument("--slug", help="対象論文のHTMLファイル名slugまたはseenキー")
     ap.add_argument("--limit", type=int, default=0, help="処理件数上限。0なら無制限")
     ap.add_argument("--dry-run", action="store_true", help="取得可能性だけ確認し、要約・書き換えしない")
     ap.add_argument("--require-fulltext", action="store_true", help="本文が取れない論文は上書きしない")
@@ -310,6 +370,11 @@ def main(argv=None):
         if args.field and uslug != slugify(args.field, fallback=args.field):
             continue
         for key, info in useen.items():
+            if args.slug:
+                file_slug = os.path.splitext(os.path.basename(info.get("file", "")))[0]
+                key_slug = slugify(key, fallback=key)
+                if args.slug not in {file_slug, key, key_slug}:
+                    continue
             targets.append((uslug, key, info))
     if args.limit > 0:
         targets = targets[: args.limit]
@@ -380,6 +445,10 @@ def main(argv=None):
                 "file": rel,
                 "date": paper.published,
                 "venue": render._venue_label(paper.venue, missing=""),
+                "url": paper.url,
+                "pdf_url": paper.pdf_url,
+                "arxiv_id": paper.arxiv_id,
+                "doi": paper.doi,
                 "authors": paper.authors,
                 "tldr": summary.get("tldr", ""),
                 "engine": summary.get("_engine", ""),

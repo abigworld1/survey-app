@@ -11,6 +11,7 @@
 """
 import argparse
 import datetime
+import difflib
 import html
 import json
 import os
@@ -23,7 +24,8 @@ import yaml
 from . import render, sources
 from .dedup import dedup, load_seen, save_seen
 from .fulltext import fetch_sections
-from .schema import Paper
+from .schema import Paper, normalize_title
+from .sources import arxiv as arxiv_src
 from .summarize import Summarizer
 from .util import slugify
 
@@ -37,6 +39,45 @@ def _fulltext_score(p):
     if p.doi:
         return 1
     return 0
+
+
+def _title_similarity(a, b):
+    an = normalize_title(a)
+    bn = normalize_title(b)
+    if not an or not bn:
+        return 0.0
+    if an == bn:
+        return 1.0
+    return difflib.SequenceMatcher(None, an, bn).ratio()
+
+
+def _find_arxiv_by_title(title):
+    try:
+        results = arxiv_src.search([title], limit=5, mode="recent")
+    except Exception as e:
+        print(f"      [warn] arXivタイトル補完失敗: {e!r}")
+        return None
+    candidates = [p for p in results if _title_similarity(p.title, title) >= 0.82]
+    if not candidates:
+        return None
+    return max(candidates, key=lambda p: (_title_similarity(p.title, title), p.published or ""))
+
+
+def _enrich_fulltext_source(paper):
+    """採択先・被引用数を保ったまま、本文取得用のarXiv/PDF情報を補完する。"""
+    if paper.arxiv_id:
+        return paper
+    arxiv_paper = _find_arxiv_by_title(paper.title)
+    if not arxiv_paper:
+        return paper
+    paper.arxiv_id = paper.arxiv_id or arxiv_paper.arxiv_id
+    paper.pdf_url = paper.pdf_url or arxiv_paper.pdf_url
+    paper.abstract = paper.abstract or arxiv_paper.abstract
+    paper.authors = paper.authors or arxiv_paper.authors
+    paper.published = paper.published or arxiv_paper.published
+    paper.url = paper.url or arxiv_paper.url
+    print(f"      [note] arXiv本文候補を補完: {paper.arxiv_id}")
+    return paper
 
 
 def _keyword_patterns(keywords):
@@ -470,6 +511,8 @@ def main(argv=None):
             matched_keywords = _matched_keywords(p, keywords)
             p.matched_keywords = matched_keywords
             kind = selection_kind.get(p.key(), "fallback")
+            if not args.offline:
+                p = _enrich_fulltext_source(p)
             # 本文をセクション分割して多段要約（取れなければ abstract にフォールバック）
             if args.offline:
                 fsections, basis = [], "abstract"
@@ -530,6 +573,10 @@ def main(argv=None):
                 "file": rel,
                 "date": p.published,
                 "venue": render._venue_label(p.venue, missing=""),
+                "url": p.url,
+                "pdf_url": p.pdf_url,
+                "arxiv_id": p.arxiv_id,
+                "doi": p.doi,
                 "added": today,
                 "authors": p.authors,
                 "tldr": summary.get("tldr", ""),
