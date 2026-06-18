@@ -44,6 +44,20 @@
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
   mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
 </style>
 <script>
   window.MathJax = {
@@ -77,6 +91,17 @@
 <section class="secsum"><h3>Priority Inheritance with Backtracking (PIBT)</h3><p>PIBT（Priority Inheritance with Backtracking）は、反復的なマルチエージェント経路探索（MAPF）を解くための、優先度継承とバックトラッキングを組み合わせた中央集権的アルゴリズムである。各タイムステップにおいて、エージェントは目標に未到達であれば優先度 $p_i$ をインクリメントし、目標到達済みであれば $\epsilon_i \in [0, 1)$ にリセットすることで、動的な優先順位付けを行う。アルゴリズムの核心である再帰関数 `PIBT(ai, aj)` は、エージェント $a_i$ が目標に近い隣接ノード $v \in C$ を選択する際、そのノードを占有しているエージェント $a_k$ に対して優先度を継承させ、もし $a_k$ が移動不能（invalid）であれば $a_i$ は別のノードを再計画（replanning）する。この仕組みにより、優先度逆転によるデッドロックを回避しつつ、バックトラッキングを通じて衝突のない次ステップの配置を決定する。理論的には、グラフ $G$ が隣接するノード間に単純閉路を持つ条件（例：二連結グラフ）を満たす場合、すべてのエージェントが最終的に目標に到達する「到達可能性（reachability）」が保証される。1タイムステップあたりの計算量は $O(|A| \cdot (\Delta(G) + F + \log |A|))$ であり、ここで $|A|$ はエージェント数、$\Delta(G)$ はグラフの最大次数、$F$ は候補ノードのソートに要する時間である。</p></section>
 <section class="secsum"><h3>Evaluation</h3><p>本セクションでは、提案手法であるPIBT（Priority Inheritance with Backtracking）の迅速性とスケーラビリティ、および解の品質をMAPF（Multi-Agent Path Finding）とMAPD（Multi-Agent Pickup and Delivery）の文脈で評価している。MAPFの実験では、4連結グリッドを用いたベンチマークにおいて、HCA*、EECBS、CBS、BCPなどの既存手法と比較し、PIBTが1000エージェント規模でも5秒以内で解を出力できる極めて高いスケーラビリティを持つことを示した。評価指標には、成功率、実行時間、および下界を用いた解の品質指標である $\text{sum-of-costs} / \sum_{i \in A} \text{dist}(s_i, g_i)$ と $\text{makespan} / \max_{i \in A} \text{dist}(s_i, g_i)$ が用いられている。PIBTの失敗原因は主にmakespan制限によるものであり、これはグラフの到達可能性や閉路の欠如に起因するが、補完ソルバーを用いたPIBT+により成功率を大幅に向上させることが可能である。MAPDの実験では、タスク頻度を0.2から10まで変化させた設定でToken Passing (TP) アルゴリズムと比較し、1ステップあたりの実行時間、サービス時間、makespanの観点からPIBTの優位性を検証している。</p></section>
 <section class="secsum"><h3>Conclusion</h3><p>本研究では、MAPF（Multi-Agent Path Finding）を反復的に解くためのスケーラブルなアルゴリズムであるPIBTを提案しており、エージェント間の隣接移動に焦点を当てた単純な優先順位付けスキームを用いることで、オンラインやライフロングな状況への適用を可能にしている。実験結果により、PIBT(+)は他のソルバーが膨大な計算時間を要する大規模なMAPFインスタンスを迅速に解決できること、MAPD（Multi-Agent Pickup and Delivery）において既存手法を上回ること、そして数千規模のエージェントに対してもリアルタイムな計画立案が可能であることが示され、さらに実ロボットによる実行も実証された。本手法は実用的なスウォーム制御に寄与する知見を提供するが、今後の課題として、従来の同期的な設定から、実環境におけるエージェント間の非同期性を考慮した「wild」な環境への拡張が挙げられる。</p></section>
+<!-- followup-qa:start -->
+<section class="followups" id="followup-qa">
+  <h2>追加質問</h2>
+<div class="dialogue">
+  <div class="turn question"><div class="speaker">Q</div><div class="bubble">PIBT+はPIBTとどう違う？どうやって成功率を向上した？</div></div>
+  <div class="turn answer"><div class="speaker">A</div><div class="bubble">PIBT+は、PIBTの失敗原因を補完するために「補完ソルバー（complementary solver）」を用いた手法です。<br><br>PIBTの主な限界として、失敗の原因が主にmakespan制限に起因することが挙げられており、これはグラフの到達可能性や閉路の欠如に依存する問題です。PIBT+は、この補完ソルバーを用いることで、PIBTの成功率を大幅に向上させることが可能であると記述されています（Evaluationセクション）。</div></div>
+  <div class="dialogue-meta">回答エンジン: llm:gemma-4-26b ・ 追記日: 2026-06-18T11:23:30</div>
+</div>
+</section>
+<!-- followup-qa:end -->
+
 
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
