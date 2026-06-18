@@ -40,6 +40,12 @@ FOLLOWUP_CSS = """
   .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
   .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
             padding:9px 11px; color:#d8d8d8; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
   .turn.question .bubble { color:#e6edf0; }
   .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
 """
@@ -368,17 +374,65 @@ def _ensure_dialogue_css(text):
     return text[:style_end] + FOLLOWUP_CSS + text[style_end:]
 
 
+def _inline_markdown(text):
+    text = render._esc(text)
+    text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
+    text = re.sub(r"\*\*([^*\n]+)\*\*", r"<strong>\1</strong>", text)
+    return text
+
+
+def _bubble_html(text):
+    lines = str(text or "").splitlines()
+    blocks = []
+    para = []
+    items = []
+
+    def flush_para():
+        nonlocal para
+        if para:
+            blocks.append("<p>" + "<br>".join(_inline_markdown(x) for x in para) + "</p>")
+            para = []
+
+    def flush_items():
+        nonlocal items
+        if items:
+            blocks.append(
+                "<ul>"
+                + "".join(f"<li>{_inline_markdown(x)}</li>" for x in items)
+                + "</ul>"
+            )
+            items = []
+
+    for line in lines:
+        raw = line.strip()
+        if not raw:
+            flush_items()
+            flush_para()
+            continue
+        m = re.match(r"^[*-]\s+(.*)$", raw)
+        if m:
+            flush_para()
+            items.append(m.group(1).strip())
+        else:
+            flush_items()
+            para.append(raw)
+
+    flush_items()
+    flush_para()
+    return "".join(blocks) if blocks else "<p></p>"
+
+
 def _dialogue_html(question, answer, engine, basis):
     generated = datetime.datetime.now().isoformat(timespec="seconds")
     return (
         '<div class="dialogue">\n'
         '  <div class="turn question">'
         '<div class="speaker">Q</div>'
-        f'<div class="bubble">{render._multiline(question)}</div>'
+        f'<div class="bubble">{_bubble_html(question)}</div>'
         '</div>\n'
         '  <div class="turn answer">'
         '<div class="speaker">A</div>'
-        f'<div class="bubble">{render._multiline(answer)}</div>'
+        f'<div class="bubble">{_bubble_html(answer)}</div>'
         '</div>\n'
         f'  <div class="dialogue-meta">回答根拠: {render._esc(basis)}'
         f' ・ 回答エンジン: {render._esc(engine)}'
