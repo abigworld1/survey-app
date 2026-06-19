@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Privacy Preserving Multi Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Privacy Preserving Multi Agent Path Finding</h1>
+  <div class="meta">Rotem Lev Lehman, Roni Stern, Guy Shani<br>採択先: 未取得 ・ 2026-05-13 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2605.14119v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.14119v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-05-13</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFにプライバシー保護の概念を導入した新規性が高く、計画・実行の両面から定式化している点が非常に興味深い。実用的な課題解決に向けた具体的な手法も示されている。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、エージェントが互いの正確な経路を秘匿しつつ衝突を回避する「プライバシー保護型マルチエージェント経路探索（MAPF）」を提案している。計画段階での位置特定を防ぐ「計画レベルのプライバシー（$k$PPMAPF）」と、実行時のセンシングによる検知を防ぐ「実行レベルのプライバシー（$ek$PPMAPF）」の2つの制約を定式化し、模擬エージェント（mock agents）を用いた$k$PPアルゴリズム、視野（FoV）衝突を回避するfPP、および解のコストを改善する後処理技術$PPfPP$を提案している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、異なる組織が管理するエージェント群が、衝突回避と共通目的の最適化を両立させつつ、機密情報を保護しながら経路を計画する問題を扱う。プライバシーの定義として、計画プロセス中に他者の訪問時刻や場所を推論させない「計画レベルのプライバシー（planning-level privacy）」と、実行時の限定的なセンシング能力を用いても他者の位置を特定させない「実行レベルのプライバシー（execution-level privacy）」を定式化している。MAPF問題は、無向グラフ $G=(V, E)$ 上で、各エージェント $i$ が初期位置 $s_i$ から目的地 $g_i$ へ、頂点衝突やエッジ衝突を回避して移動する計画 $\pi$ を求める問題である。本研究の核心的な課題は、エージェントが目的地までの経路上の各時刻における位置 $x_{i,t}$ を他者に知られたくないという要求に対し、既存の分散型MAPFアルゴリズムでは不可能なプライバシー保証を実現することにある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一の貢献は、エージェント $i$ の時刻 $t$ における真の位置に関する他者の信念集合 $B_{i,t}$ のサイズが、可能な位置の集合のサイズに対して $k$ 未満に絞り込まれない状態 $|B_{i,t}| \ge k$ を保証する「$k$-Privacy Preserving MAPF ($k$PPMAPF)」問題の定式化と、その解法である$k$PPアルゴリズムの提案である。第二の貢献は、実行時のセンシングによる位置特定を防ぐため、異なるエージェント・グループ間での視野（FoV）衝突を回避する「実行時 $k$-プライバシー（Runtime $k$-Privacy）」を維持する$\text{fPP}$手法の導入である。第三の貢献は、プライバシーを維持したまま解の総コスト（Sum of Costs, SOC）を削減するための後処理アルゴリズム$PPfPP$の提案である。この手法は、拡張された「セーフゾーン」内においてSIPP（Safe Interval Path Planning）を用いて経路を再計算することで、真のエージェントのパスコストを元の計画と同等またはそれ以下に改善できることを理論的に示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>計画レベルのプライバシーを実現する$k$PPアルゴリズムでは、各エージェントが自身の真の始点・終点を含む $k$ 個の「モックエージェント」のペア集合 $\text{AgGroup}_i$ を作成し、実エージェントとモックエージェントを合わせた大規模なMAPF問題を解く。モックエージェントの選択には、ランダム選択、DisCSP（分散制約充足問題）を用いた手法、および外部ディスパッチャによる手法が提示されている。実行レベルのプライバシーを実現する$\text{fPP}$は、既存のPIBTやLaCAM$^*$を拡張し、エージェント $a$ の位置 $v$ における検知範囲 $\text{FoV}(a, v)$ による衝突を回避するため、衝突に関わるエージェント集合全体を移動させるバックトラッキング処理を導入している。さらに、解の品質を向上させる$PPfPP$は、グループ $G$ の時刻 $t$ における全エージェントの視野に含まれる頂点集合からなる初期セーフゾーン $IS_{G,t}$ を構築し、これを隣接性や包含関係、 $k$-Privacy の維持制約を満たすように拡張して $ES_{G,t}$ を作成する。この拡張されたセーフゾーン内において、SIPPを用いて各エージェントの最適な経路を再計算する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、標準的なMAPFベンチマークである`stern2019multi`から選定された12種類のグリッドマップを用い、修正されたPIBTおよびLaCAM$^*$をサブソルバーとして評価を行った。実験設定として、エージェント数、プライバシー要求値 $k$、および視野角（FoV）の半径 $r$ を変数とし、各設定を異なる乱数シードで3回（後半は30回）実行している。結果として、LaCAM$^*$はPIBTよりも多くのインスタンスを解決し、特に困難な問題において高いRSoC（Relative Solution Cost）を示すことが確認された。また、$k$ の増加は解決可能なインスタンス数を減少させる一方で、提案する$PPfPP$はfPPと比較して統計的に有意なRSoCの改善をもたらし、その改善率は $k$ の増加に伴って向上する傾向が示された。ただし、$PPfPP$の実行時間はマップのサイズおよび元の計画のmakespanに直接依存し、マップが大きくmakespanが長いほど計算コストが増大する。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の提案手法は、有効なMAPF解を返せば$k$PPMAPF解を返すことが理論的に示されているが、ランダムなモックエージェント設定を用いる場合、元の問題が解可能であっても解が見つからない可能性があるため、完全性（completeness）および最適性は保証されない。同様に、$\text{fPP}$も構成上、完全性と最適性を保証しない。今後の課題として、セーフゾーン拡張のためのより複雑な関数の検討、最適なMAPFプランナーを用いた$\text{fPP}$の改良、およびPIBTのスワップ操作へのFoV対応による計算時間の短縮が挙げられている。本研究は、変数の存在自体を隠蔽するBrafmanの概念や、制約・変数の秘匿を目的とするPrivacy Preserving DCOPとは異なり、位置の不確実性を担保することで経路計画のプライバシーを保護するという独自の視点を提供している。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Privacy Preserving Multi Agent Path Finding</h3><p>本研究では、エージェントが互いの経路を共有することを望まないプライバシー制約下でのマルチエージェント経路探索（MAPF）を扱い、2種類のプライバシー制約を定式化している。第一の「計画レベルのプライバシー（planning-level privacy）」は、計画段階で他者の正確な計画位置を特定できないことを指し、これを実現するために計画プロセスに「模擬エージェント（mock agents）」を追加する汎用的なフレームワークを提案している。第二の「実行レベルのプライバシー（execution-level privacy）」は、エージェントのセンシング能力が限定的な場合に、実行中に他者の位置を感知できないことを指し、既存のMAPFアルゴリズムであるPIBTおよびLaCAMをこの制約を満たすよう適応させる手法を示している。さらに、プライバシーを損なうことなく解の総コストを削減するための後処理技術を提案しており、実験評価を通じて、この手法がコストを大幅に改善することを実証している。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>本研究は、異なる組織が管理するエージェントが、衝突回避と共通目的の最適化のために協力しつつ、機密情報を保護しながら経路を計画する「プライバシー保護型MAPF」を提案している。プライバシーの定義として、計画プロセス中に他者の訪問時刻や場所を推論させない「計画レベルのプライバシー（planning-level privacy）」と、実行時のセンシング能力を用いても他者の位置を特定させない「実行レベルのプライバシー（execution-level privacy）」の2種類を定式化している。計画レベルのプライバシーを実現するため、実エージェントに複数の架空の開始・目標地点を持つ「模擬エージェント（mock agents）」を付随させてMAPFアルゴリズムを適用するフレームワークを提案している。実行レベルのプライバシーについては、PIBTやLaCAM*といった既存のMAPFアルゴリズムに対し、他者のセンシング能力を考慮した上で、衝突や検知のリスクなく計画から逸脱可能な「安全地帯（safe zones）」を特定し、局所的な再計画を行うポストプロセッシング手法を導入している。実験評価を通じて、プライバシーの強度と全体の効率性（efficiency）のトレードオフ、および提案するポストプロセッシングが有効に機能する条件を明らかにしている。</p></section>
+<section class="secsum"><h3>2. Background and Problem Setup</h3><p>MAPF問題は、無向グラフ $G=(V, E)$ 上で、各エージェント $i$ が初期位置 $s_i$ から目的地 $g_i$ へ、頂点衝突（同一時刻に同一頂点 $v$ を占有）やエッジ衝突（同一時刻にエッジを入れ替える）を回避して移動する計画 $\pi$ を求める問題である。解の評価指標には、各エージェントの計画長の総和である Sum of Costs (SOC) や、最大計画長である Makespan が用いられ、これらを最適化する問題は NP-Hard である。本研究では、構成生成器として PIBT（優先度に基づき逐次的に頂点を割り当てる手法）および LaCAM$^*$（高レベルの深さ優先探索と低レベルの制約木探索を組み合わせた手法）を基盤とし、これらを分散制約充足問題 (DisCSP) の枠組みで扱う。DisCSP は変数集合 $\mathcal{X}$、ドメイン $\mathcal{D}$、制約集合 $\mathcal{C}$、所有権関数 $\mathcal{O}$ からなるタプル $\langle \mathcal{X}, \mathcal{D}, \mathcal{C}, \mathcal{O} \rangle$ で定義され、公開鍵暗号と協力サーバーを用いることで、最終的な解以外のプライベートな変数値を秘匿したまま協調的な解決が可能である。本研究の核心的な課題は、エージェントが目的地までの経路上の各時刻における位置 $x_{i,t}$ を他者に知られたくないというプライバシー保護にあり、計画時および実行時の両段階において、既存の分散型MAPFアルゴリズムでは不可能なプライバシー保証を実現することを目指している。</p></section>
+<section class="secsum"><h3>3. Planning-Level Privacy</h3><p>本セクションでは、エージェント間の通信から他者のプライバシーが推論されることを防ぐ「$k$-Privacy Preserving MAPF ($k$PPMAPF)」問題と、その解法である「$k$PP」アルゴリズムを提案している。$k$-Privacyは、あるエージェント $i$ の時刻 $t$ における真の位置に関する他者の信念集合 $B_{i,t}$ のサイズが、可能な位置の集合のサイズに対して $k$ 未満に絞り込まれない状態（$|B_{i,t}| \ge k$）と定義される。$k$PPアルゴリズムは、各エージェントが自身の真の始点・終点を含む $k$ 個の「モックエージェント」のペア集合 $\text{AgGroup}_i$ を作成し、これら全エージェント（実エージェント＋モックエージェント）を含む大規模なMAPF問題を計画エージェントが解くことで、実エージェントの計画のみを抽出する手法をとる。モックエージェントの選択肢として、衝突確率がエージェント数の増加に伴い上昇する「ランダム選択」、衝突を避けつつプライバシーを維持する「DisCSP（分散制約充足問題）」を用いた手法、および計算コストとプライバシーのトレードオフを考慮した「外部ディスパッチャ」による手法が提示されている。理論的には、計画エージェントが有効なMAPF解を返せば$k$PPは有効な$k$PPMAPF解を返すことが示されているが、ランダムなモックエージェント設定により元の問題が解可能であっても解が見つからない可能性があるため、完全性（completeness）および最適性は保証されない。</p></section>
+<section class="secsum"><h3>4. Execution-Level Privacy</h3><p>エージェントがセンサーを搭載している場合、実行中に他者の位置を検知することで、計画段階で維持したプライバシーが損なわれるリスクがある。本セクションでは、エージェント $a$ の位置 $v$ における検知範囲を $\text{FoV}(a, v)$ と定義し、ある時刻 $t$ において $v_a(t) \in \text{FoV}(a_j, v_j(t))$ または $v_j(t) \in \text{FoV}(a, v_a(t))$ が成立する状態を $\text{FoV}$ 衝突と定義する。実行時 $k$-プライバシー（Runtime $k$-Privacy）を維持する $\text{ekPPMAPF}$ 問題は、計画段階の $k$-プライバシーを保持しつつ、異なるエージェント・グループ間での $\text{FoV}$ 衝突を回避する解を求める問題である。提案手法である $\text{fPP}$ (Field-of-View $k$-Privacy Preserving Planner) は、既存の $k\text{PP}$ フレームワークを拡張し、同一グループ内のサブエージェント間では衝突を許容しつつ、異なるグループ間でのみ $\text{FoV}$ 衝突を回避するように MAPF プランナーを修正する。具体的な実装として、PIBT や LaCAM$^*$ などのプランナーを拡張し、$\text{FoV}$ 衝突が発生しそうな場合に、衝突に関わるエージェント集合全体を移動させるバックトラッキング処理を導入することで、実行時のプライバシー保護を実現する。ただし、$\text{fPP}$ は構成上、完全性および最適性を保証しない。</p></section>
+<section class="secsum"><h3>5. Improving Solution Quality</h3><p>本セクションでは、プライバシーを維持しつつ、fPP（fast Privacy Preserving Pathfinding）によって生成された解の品質を向上させるための後処理アルゴリズム $PPfPP$ を提案している。エージェントグループ $G$ の時刻 $t$ における初期セーフゾーン $IS_{G,t}$ は、そのグループの全エージェントの視野（FoV）に含まれる頂点の集合として定義され、この範囲内であればエージェントは他のエージェントと調整することなく、自身の単一エージェント計画を最適化できる。$PPfPP$ アルゴリズムは、まず $IS_{G,t}$ を拡張して $ES_{G,t}$ を構築し、その後、各グループの真のエージェントに対して、拡張されたセーフゾーン内のみを通る最適な経路を SIPP（Safe Interval Path Planning）を用いて再計算する。セーフゾーンの拡張関数 $ExtendSafeZone$ は、隣接性、包含関係、および $k$-Privacy の維持という制約を満たす必要がある。理論的解析により、$PPfPP$ は有効な ekPPMAPF 解を返し、かつ真のエージェントの総コスト（Real Agent SoC） $\text{SoC}_{real}(\pi)$ を元の計画と同等またはそれ以下に改善することが定理 15 によって示されている。具体例では、セーフゾーンの拡張により、待機を回避したり目標地点へ早期に到達したりすることで、エージェントのパスコストを大幅に削減できることが示されている。</p></section>
+<section class="secsum"><h3>6. Experimental Results</h3><p>本実験では、標準的なMAPFベンチマークである`stern2019multi`から選定された12種類のグリッドマップを用い、修正されたPIBTおよびLaCAM*アルゴリズムをサブソルバーとして、提案手法の評価を行っている。実験設定として、エージェント数、プライバシー要求値 $k$、および視野角（FoV）の半径 $r$ を変数とし、各設定を異なる乱数シードで3回（後半の実験では30回）実行した。結果として、プライバシー要求値 $k$ の増加は解決可能なインスタンス数を減少させる一方で、LaCAM*はPIBTよりも多くのインスタンスを解決し、特に困難な問題において高いRSoC（Relative Solution Cost）を示すことが確認された。また、FoV半径 $r$ の増加は解決数と解の質の両方に劇的な影響を与えるが、マップの構造（狭い通路の有無など）によってその影響度は異なる。PPfPPアルゴリズムは、fPPと比較して統計的に有意なRSoCの改善をもたらし、その改善率は $k$ の増加に伴って向上する傾向にある。一方で、PPfPPの実行時間はマップのサイズおよび元の計画のmakespanに直接依存し、マップが大きくmakespanが長いほど、各タイムステップにおける期待値（ES）の計算コストが増大する。</p></section>
+<section class="secsum"><h3>7. Related Work</h3><p>本研究は、Collaborative Privacy Preserving Planning (CPPP) の特殊ケースとして、プライバシー保護型 Multi-Agent Path Finding (MAPF) を扱う。従来のCPPPでは各エージェントの変数や行動の秘匿を目的とするが、本研究で定義するMAPFでは、行動（隣接ノードへの移動または待機）は公開される一方で、各時刻におけるエージェントの頂点位置を他のエージェントから秘匿しつつ、衝突を回避するタスクを扱う。提案するプライバシーの定義は、あるエージェントの特定の時刻における位置を、他のエージェントが正確に特定できず、少なくとも $k$ 個の候補値の範囲内に留まるようにすることである。これは、変数の存在自体を隠蔽する Brafman の強固なプライバシー概念とは異なり、位置の不確実性を担保することに焦点を当てている。また、制約や変数の秘匿を目的とする Privacy Preserving DCOP とは異なり、効用関数の最適化ではなく、エージェントの経路計画そのものを目的とする。既存の MAPF 研究（Bardugo et al., 2025）では、全最適解を求めることで外部エージェントに対する経路の秘匿性を高める試みがあるが、本研究のようにエージェント間での経路秘匿を直接的に扱うものは極めて稀である。</p></section>
+<section class="secsum"><h3>8. Conclusion and Future Work</h3><p>本論文は、プライバシー保護を考慮したマルチエージェント経路探索（MAPF）という新たな研究領域を提案している。具体的には、計画段階で真の経路を共有せずに衝突を回避する $k\text{PPMAPF}$ と、センサーの制約下で実行段階における経路の露呈を防ぐために他者の視野（FoV）を避ける $ek\text{PPMAPF}$ という2つの問題を定義した。提案手法として、モックエージェントを用いて他者を混乱させる $k\text{PP}$、これを拡張して視野回避を行う $f\text{PP}$、および「セーフゾーン」の概念を導入して $ek\text{PPMAPF}$ のコストを改善する $PPf\text{PP}$ アルゴリズムを開発した。理論的・実験的評価により、提案手法が $k$-privacy および Runtime $k$-privacy を維持すること、および $PPf\text{PP}$ が $f\text{PP}$ による計画コストを改善することを示した。今後の課題として、Definition 11 に基づくセーフゾーン拡張のためのより複雑な関数の検討、最適な MAPF プランナーを用いた $f\text{PP}$ の改良、および PIBT のスワップ操作への FoV 対応による計算時間の短縮などが挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-20
+  </footer>
+</div>
+</body>
+</html>

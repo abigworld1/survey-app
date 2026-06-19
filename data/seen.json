@@ -152,6 +152,34 @@
       "url": "http://arxiv.org/abs/2606.18381v1",
       "venue": ""
     },
+    "arxiv:2606.20113": {
+      "added": "2026-06-20",
+      "arxiv_id": "2606.20113",
+      "authors": [
+        "Elroy Galbraith"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-18",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.20113.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.20113v1",
+      "reading_value": 4,
+      "reading_value_reason": "Streaming RAGにおけるレイテンシ隠蔽の限界を「意図の安定化」という新概念で定量化した点が非常に独創的。理論的指針として実用的価値が高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "When Does Streaming Tool Use Help? Characterizing Tool-Intent Stabilization in Streaming Retrieval-Augmented Generation",
+      "tldr": "Streaming RAGにおいて、ユーザーの入力完了前にツールクエリを発行する有効性を、クエリの「tool-intent stabilization（ツール意図の安定化）」という概念を用いて定量化した研究である。CRAGベンチマークを用いた分析により、回答に必要な情報が得られる「充足性（sufficiency）」は、検索結果の順位が確定する「自己整合性（self-consistency）」よりも大幅に早期に安定することを示した。現実的な動作条件下では、全クエリの $73.9\\%$ がツール遅延を隠蔽可能であり、特に正解文書が検索可能なサブセットでは $95.2\\%$ という高い割合で遅延隠蔽が可能となる。",
+      "url": "http://arxiv.org/abs/2606.20113v1",
+      "venue": ""
+    },
     "doi:10.3390/ai7050161": {
       "added": "2026-06-14",
       "authors": [
@@ -204,6 +232,36 @@
       "tldr": "2020年から2025年5月までのRAG（Retrieval-Augmented Generation）に関する高引用論文128件を対象とした、PRISMA 2020フレームワークに基づく系統的文献レビュー。RAGのアーキテクチャ、データセット、評価指標、および課題を体系化し、今後の研究の優先方向を提示する。",
       "url": "https://openalex.org/W7114889968",
       "venue": "Big Data and Cognitive Computing"
+    },
+    "doi:10.48550/arxiv.2408.05933": {
+      "added": "2026-06-20",
+      "arxiv_id": "2408.05933",
+      "authors": [
+        "Fei Liu",
+        "Zejun Kang",
+        "Xing Han"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 5,
+      "date": "2024-08-12",
+      "doi": "10.48550/arxiv.2408.05933",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/doi-ecff06c9658e.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2408.05933",
+      "reading_value": 3,
+      "reading_value_reason": "産業現場でのローカルRAG実装という実用的な課題に対し、Self-RAGや複雑なPDF解析を用いた具体的な最適化手法を提案しており、関連分野の研究者にとって有用。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Optimizing RAG Techniques for Automotive Industry PDF Chatbots: A Case Study with Locally Deployed Ollama Models",
+      "tldr": "自動車産業の生産現場におけるオフライン環境での利用を想定し、低スペックなローカル環境（Ollama）で動作するRAG（Retrieval-Augmented Generation）の最適化手法を提案する研究である。LangchainとLangGraphを活用し、マルチカラムレイアウトや技術仕様といった複雑なPDF構造に対応する、高度なPDF処理、検索、およびSelf-RAGエージェントの実装を行っている。",
+      "url": "https://openalex.org/W4402387210",
+      "venue": "arXiv (Cornell University)"
     },
     "doi:10.48550/arxiv.2501.00309": {
       "added": "2026-06-16",
@@ -510,6 +568,35 @@
       "title": "Robust Multi-Agent Path Finding under Observation Attacks: A Principled Adversarial-Plus-Smoothing Training Recipe",
       "tldr": "分散型マルチエージェント経路探索（MAPF）において、観測値への微小な摂動がチーム全体の停滞を招く脆弱性を克服するため、ネットワーク構造やデプロイメント・パイプラインを変更せずに頑健性を向上させる2段階の学習レシピ「Adv-PPO」および「Adv-PPO+MACER」を提案する。"
     },
+    "arxiv:2605.13035": {
+      "added": "2026-06-20",
+      "arxiv_id": "2605.13035",
+      "authors": [
+        "Takuro Kato",
+        "Keisuke Okumura"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-05-13",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2605.13035.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2605.13035v1",
+      "reading_value": 4,
+      "reading_value_reason": "注文の連続性という実用的な制約をMAPFの枠組みで定式化した新規性が高い。3層のanytimeアルゴリズムも具体的で、実験による検証も充実している。",
+      "relevance": 2,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Conveyor Parcel Routing with Order-Contiguous Arrivals",
+      "tldr": "自動倉庫のコンベアネットワークにおいて、同一注文の小包が目的地で連続して到着することを保証する「Order-Contiguous Arrivals」制約付きのオンライン多エージェント経路探索（online MAPF-OC）を定式化し、3層構造のanytimeアルゴリズムであるDual-Ordering Prioritized Planning (DOPP) を提案する。",
+      "url": "http://arxiv.org/abs/2605.13035v1",
+      "venue": ""
+    },
     "arxiv:2605.13296": {
       "added": "2026-06-15",
       "authors": [
@@ -541,6 +628,36 @@
       "source_quality": "fulltext",
       "title": "Discrete Diffusion for Complex and Congested Multi-Agent Path Finding with Sparse Social Attention",
       "tldr": "離散的なデノイジング拡散確率モデル（D3PM）を初期解生成器として統合し、Large Neighborhood Search 2（LNS2）による修復プロセスを強化するハイブリッドフレームワーク「DiffLNS」を提案する。Sparse Social Attentionを用いることで、混雑した環境下でも計算効率を維持しながら協調的な行動軌跡を学習し、最大312エージェントのシナリオにおいても高い成功率を実現する。"
+    },
+    "arxiv:2605.14119": {
+      "added": "2026-06-20",
+      "arxiv_id": "2605.14119",
+      "authors": [
+        "Rotem Lev Lehman",
+        "Roni Stern",
+        "Guy Shani"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-05-13",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2605.14119.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2605.14119v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFにプライバシー保護の概念を導入した新規性が高く、計画・実行の両面から定式化している点が非常に興味深い。実用的な課題解決に向けた具体的な手法も示されている。",
+      "relevance": 2,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Privacy Preserving Multi Agent Path Finding",
+      "tldr": "本研究は、エージェントが互いの正確な経路を秘匿しつつ衝突を回避する「プライバシー保護型マルチエージェント経路探索（MAPF）」を提案している。計画段階での位置特定を防ぐ「計画レベルのプライバシー（$k$PPMAPF）」と、実行時のセンシングによる検知を防ぐ「実行レベルのプライバシー（$ek$PPMAPF）」の2つの制約を定式化し、模擬エージェント（mock agents）を用いた$k$PPアルゴリズム、視野（FoV）衝突を回避するfPP、および解のコストを改善する後処理技術$PPfPP$を提案している。",
+      "url": "http://arxiv.org/abs/2605.14119v1",
+      "venue": ""
     },
     "arxiv:2605.16097": {
       "added": "2026-06-19",

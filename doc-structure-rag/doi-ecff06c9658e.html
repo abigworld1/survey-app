@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Optimizing RAG Techniques for Automotive Industry PDF Chatbots: A Case Study with Locally Deployed Ollama Models | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Optimizing RAG Techniques for Automotive Industry PDF Chatbots: A Case Study with Locally Deployed Ollama Models</h1>
+  <div class="meta">Fei Liu, Zejun Kang, Xing Han<br>採択先: arXiv (Cornell University) ・ 2024-08-12 ・ source: openalex</div>
+  <div class="links"><a href="https://openalex.org/W4402387210" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2408.05933" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2408.05933" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 arXiv (Cornell University)</span><span class="chip">公開日 2024-08-12</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 5</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">アブストラクト</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">産業現場でのローカルRAG実装という実用的な課題に対し、Self-RAGや複雑なPDF解析を用いた具体的な最適化手法を提案しており、関連分野の研究者にとって有用。</div></div>
+  <div class="source-notice fulltext">本文取得済み: アブストラクトを根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 自動車産業の生産現場におけるオフライン環境での利用を想定し、低スペックなローカル環境（Ollama）で動作するRAG（Retrieval-Augmented Generation）の最適化手法を提案する研究である。LangchainとLangGraphを活用し、マルチカラムレイアウトや技術仕様といった複雑なPDF構造に対応する、高度なPDF処理、検索、およびSelf-RAGエージェントの実装を行っている。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、自動車業界特有の複雑な文書構造（マルチカラムレイアウトや詳細な技術仕様）を持つPDFに対し、ローカル環境の低スペックな計算リソースで高精度な回答を生成するチャットボットの構築を目的としている。従来のNaive RAGでは、産業現場の専門的な文書におけるコンテキストの適合性や回答の忠実性を十分に確保できないという課題がある。そのため、Langchainフレームワークに基づき、埋め込みパイプラインのカスタム化やコンテキスト圧縮、Self-RAGエージェントの設計に焦点を当てている。これにより、機密性の高い情報を扱う生産現場でのオフライン利用を可能にする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>自動車業界のドメインに特化した、ローカルLLM（Ollama）を用いたRAG最適化パイプラインを提案した。具体的には、複雑なレイアウトに対応するためのカスタム埋め込みパイプラインと、LangGraphのベストプラクティスに基づくSelf-RAGエージェントの実装が貢献である。評価実験において、独自の自動車業界データセット、QReCC、およびCoQAを用いた比較検証を行い、Naive RAGと比較してコンテキストの適合率（context precision）、再現率（context recall）、回答の関連性（answer relevancy）、および忠実性（faithfulness）の全指標で大幅な向上を達成した。特に、自動車業界のデータセットにおいて顕著な性能向上を示した点が重要である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、Langchainフレームワークを基盤とし、複数の最適化レイヤーで構成される。まず、PDF処理においてマルチカラムレイアウトに対応するための高度な解析を行い、埋め込みパイプラインをサポートするカスタムクラスを設計・実装している。検索メカニズムにおいては、コンテキスト圧縮技術を導入し、限られたコンテキストウィンドウ内での効率を高めている。さらに、LangGraphを用いたSelf-RAGエージェントを設計することで、検索結果の妥当性を自己評価するプロセスを組み込んでいる。これにより、ローカル環境のOllamaモデルを用いながらも、高度な推論と正確な情報抽出を実現している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、技術報告書や社内規定を含む独自の自動車業界データセットに加え、標準的なベンチマークであるQReCCおよびCoQAを用いて実施された。実験では、提案手法と従来のNaive RAGとの比較が行われ、複数の評価指標が用いられた。具体的には、コンテキストの適合率（context precision）、再現率（context recall）、回答の関連性（answer relevancy）、および忠実性（faithfulness）の4項目で性能を測定している。その結果、提案手法はすべての指標においてNaive RAGを上回り、特に自動車業界の専門的なデータセットにおいて顕著な性能向上を確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究は、産業現場におけるローカルRAGシステムの有効なソリューションを提示しており、機密保持が求められるオフライン環境での実用性が示されている。低スペックなローカル環境（Ollama）という制約下においても、適切なアーキテクチャ設計（Self-RAGやコンテキスト圧縮）によって、高度な専門文書への対応が可能であることを証明した。ただし、提供された要約に基づくと、具体的な計算量や、低スペック環境における具体的なハードウェア要件、およびモデルのパラメータ数などの詳細な数値的限界については明記されていない。今後は、さらなる複雑な文書構造への適応や、より広範な産業ドメインへの汎用性が議論の対象となり得る。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Title: Optimizing RAG Techniques for Automotive Industry PDF Chatbots: A Case Study with Locally Deployed Ollama Models</h3><p>本研究は、自動車産業の生産現場におけるオフラインPDFチャットボットの需要に応えるため、ローカル環境の低スペックな設定で動作するOllamaモデルを用いたRetrieval-Augmented Generation (RAG) の最適化手法を提案している。Langchainフレームワークに基づき、マルチカラムレイアウトや技術仕様といった自動車業界特有の複雑な文書構造に対応するため、PDF処理、検索メカニズム、およびコンテキスト圧縮の多次元的な最適化を行っている。具体的には、埋め込みパイプラインをサポートするカスタムクラスと、LangGraphのベストプラクティスに基づくSelf-RAGエージェントを設計・実装している。評価では、技術報告書や社内規定を含む独自の自動車業界データセットに加え、QReCCおよびCoQAを用いた比較実験を行い、従来のNaive RAGと比較して、コンテキストの適合率（context precision）、再現率（context recall）、回答の関連性（answer relevancy）、および忠実性（faithfulness）において大幅な向上を確認した。特に、提案手法は自動車業界のデータセットにおいて顕著な性能向上を示しており、産業現場におけるローカルRAGシステムの有効なソリューションとなることが示されている。</p></section>
+<section class="secsum"><h3>Access Paper:</h3><p>提供されたセクションには、論文のメタデータ（タイトル、著者、カテゴリ、公開時期など）のみが含まれており、研究の具体的な手法、アルゴリズム、実験設定、数値結果、または限界に関する記述は一切含まれていません。したがって、このセクションの範囲内では、自動車産業向けのRAG技術の最適化に関する具体的な技術的内容を要約することは不可能です。</p></section>
+<section class="secsum"><h3>Bibliographic and Citation Tools</h3><p>本セクションでは、文献調査および引用分析を支援するためのツール群が列挙されている。具体的には、文献間の関係性を可視化する Bibliographic Explorer、Connected Papers、Litmaps、および引用の文脈を特定する scite.ai の Smart Citations が挙げられている。また、これらに加えて、関連する Code、Data、Media を探索するための機能についても言及されている。</p></section>
+<section class="secsum"><h3>Code, Data and Media Associated with this Article</h3><p>提示されたセクションには、本研究に関連するコード、データ、およびメディアへのアクセス手段として、alphaXiv、CatalizeX、DagsHub、Gotit.pub、Hugging Face、ScienceCastといった外部プラットフォームへのリンクが列挙されているのみであり、具体的なアルゴリズム、数式、実験設定、または数値結果に関する記述は含まれていない。したがって、本セクションから技術的な詳細を抽出することは不可能である。</p></section>
+<section class="secsum"><h3>Demos</h3><p>提供されたセクションには、デモの実行環境に関するプラットフォーム名（Replicate, Hugging Face Spaces, TXYZ.AI）のリストのみが記載されており、具体的な手法、アルゴリズム、実験設定、数値結果、および研究の限界に関する情報は含まれていません。</p></section>
+<section class="secsum"><h3>Recommenders and Search Tools</h3><p>提供されたセクションには、論文の核心となる手法、アルゴリズム、実験設定、あるいは具体的な数値結果に関する情報は一切含まれておらず、論文のメタデータや外部リソース（arXivLabs、著者情報、所属機関など）へのリンク、および「Influence Flower」という名称の推奨システムに関する断片的なキーワードのみが記載されています。したがって、研究内容に関する具体的な要約を行うための技術的な記述が存在しません。</p></section>
+<section class="secsum"><h3>arXivLabs: experimental projects with community collaborators</h3><p>arXivLabsは、コラボレーターがarXivのウェブサイト上で直接新しい機能を開発・共有することを可能にするフレームワークである。この枠組みは、オープン性、コミュニティ、卓越性、およびユーザーデータのプライバシーというarXivの価値観を遵守する個人や組織を対象としている。本セクションには、arXivがパートナーシップにおいてこれらの価値観の遵守を求めていることや、コミュニティに価値をもたらすプロジェクトの提案を募っていることが記されている。なお、提供されたテキスト内には、本研究の具体的な手法や実験結果に関する情報は含まれていない。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: アブストラクト ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-20
+  </footer>
+</div>
+</body>
+</html>

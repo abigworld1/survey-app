@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>When Does Streaming Tool Use Help? Characterizing Tool-Intent Stabilization in Streaming Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>When Does Streaming Tool Use Help? Characterizing Tool-Intent Stabilization in Streaming Retrieval-Augmented Generation</h1>
+  <div class="meta">Elroy Galbraith<br>採択先: 未取得 ・ 2026-06-18 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.20113v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.20113v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-18</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">Streaming RAGにおけるレイテンシ隠蔽の限界を「意図の安定化」という新概念で定量化した点が非常に独創的。理論的指針として実用的価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> Streaming RAGにおいて、ユーザーの入力完了前にツールクエリを発行する有効性を、クエリの「tool-intent stabilization（ツール意図の安定化）」という概念を用いて定量化した研究である。CRAGベンチマークを用いた分析により、回答に必要な情報が得られる「充足性（sufficiency）」は、検索結果の順位が確定する「自己整合性（self-consistency）」よりも大幅に早期に安定することを示した。現実的な動作条件下では、全クエリの $73.9\%$ がツール遅延を隠蔽可能であり、特に正解文書が検索可能なサブセットでは $95.2\%$ という高い割合で遅延隠蔽が可能となる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、ユーザーの入力が完了する前にツールクエリを予測・発行するStreaming Retrieval-Augmented Generation (Streaming RAG) において、いつツール使用が効果的であるかを解明することを目的としている。従来のRAGは入力完了後に動作するが、Streaming RAGは検索レイテンシを隠蔽するために、発話の途中でクエリを投機的に発行する。本研究では、ツールの有効性がモデルの性能ではなく、発話内のどの時点で決定的な単語（decisive term）が現れるかというクエリ固有の性質に依存することに着目し、その特性を「tool-intent stabilization」として定義・分析している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、ツール使用の有効性を規定するモデル非依存の指標として「tool-intent stabilization」を定義し、充足性（sufficiency）と自己整合性（self-consistency）の観点から定式化した。第二に、CRAGベンチマークを用いて、ツール遅延と入力速度（cadence）の関数として、隠蔽可能な遅延の割合に関する理論的な境界を導出した。第三に、質問のタイプ（比較、集計、集合など）が安定化のタイミングに有意な影響を与えることを、Kruskal–Wallis 検定（$H=14.5, p &lt; 0.001$）によって明らかにした。これにより、学習ベースの推測トリガーを導入すべきタイミングを判断するための理論的指針を提示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>CRAG (Comprehensive RAG Benchmark) の dev set から抽出した 1371 問を対象に、BM25 を用いて各接頭辞 $q_{1:w}$ に対する検索結果を分析した。安定化の指標として、トップ文書がフルクエリ時と一致する自己整合性安定化点 $w_{sc} = \min \{w \mid \forall i \in [w, L], d_{1:i} = d_{1:L}\}$ と、正解文書 $d^*$ を取得する十分性安定化点 $w_{su} = \min \{w \mid d_{1:w} = d^*\}$ を導入した。評価には、ツール遅延 $T_{tool}$ と入力速度 $c$ (words/s) に基づく残存入力時間 $T_{res} = (L - w_{su})/c \times 1000$ を用い、隠蔽可能な割合 $\phi = \min(1, T_{tool}/T_{res})$ を算出している。実験では、120単語のウィンドウ（stride 100）でチャンク化したパッセージに対し、非同期の Streaming RAG harness を用いて遅延の影響を測定した。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験の結果、充足性の安定化（$\text{mean } \bar{s}_{\text{suff}} = 0.14$）は、自己整合性の安定化（$\text{mean } \bar{s}_{\text{sc}} = 0.67$）よりも大幅に早いことが示された。中心的な設定（$2000\text{ ms}$ 遅延, $5\text{ w/s}$ cadence, $k=1$）において、ストリーミング可能なクエリの割合は $73.9\%$ に達し、正解文書が取得可能な「好ましいスライス（favorable slice）」においては $95.2\%$ と極めて高い値を示した。また、質問タイプによる差を確認したところ、比較や集計は早期に安定する一方、集合に関する質問は遅延する傾向が確認された。提案された理論的境界 $\hat{s}_{\text{suff}}$ は、LLMのクエリ生成時間を考慮していないため、実際の遅延削減量に対して保守的な見積もり（underestimate）となることが示されている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究は、Streaming RAGの設計において、クエリの性質がレイテンシ隠蔽の鍵であることを示した。しかし、個々のクエリの削減量を予測する精度については、Spearman の相関係数が $\rho = 0.13$ と低く、誤検知（mis-fire）による負のコストが無視できないことが示唆されている。限界として、入力モデルが一定の単語ストリームを仮定しており、音声認識（ASR）のような可変的なペースや修正を考慮していない点が挙げられる。また、リトリーバーとして BM25 を使用しているため、高密度リトリーバー（dense-retriever）を用いた場合の挙動は今後の課題である。今後は、クエリ生成の重複や誤トリガーのペナルティを組み込んだ、より高度な予測モデルの構築が必要である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>When Does Streaming Tool Use Help? Characterizing Tool-Intent Stabilization in Streaming Retrieval-Augmented Generation</h3><p>本研究は、ユーザーの入力完了を待たずにツールクエリを発行するStreaming Retrieval-Augmented Generation (Streaming RAG) において、推測クエリが正解に繋がる結果へと収束する時点である「tool-intent stabilization」を定義し、その特性を分析している。CRAGベンチマーク（1371問）を用いた評価では、ツール遅延と入力速度（cadence）の関数として、ユーザーの残りの入力時間内に隠蔽可能なツール遅延の割合に関するモデル非依存の境界を導出している。実験の結果、現実的な動作条件（$500\text{ ms}, 2\text{ w/s}, 10\text{ s}$）において、全クエリの $73.9\%$ が大幅な遅延隠蔽を可能にすることが示された。この内訳は、正解の証拠が逐語的に存在しBM25で検索可能な「好ましいスライス（favorable slice）」の $21.3\%$（このうち $95.2\%$ がストリーミング可能）と、それ以外のグラウンディングを行わないフォールバックによる結果で構成される。また、質問のタイプが早期または遅延の安定化を予測する有意な要因であることが Kruskal–Wallis 検定（$H=14.5, p &lt; 0.001$）によって示されており、学習ベースの推測トリガーを導入すべきタイミングの判断材料となる。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>Streaming RAGは、ユーザーの入力が完了する前にツールクエリを並列に予測・発行することで、検索に伴うレイテンシを隠蔽し、会話のフローを維持する手法である。本研究では、ツール使用の有効性がモデルやリトリーバーの性能ではなく、発話内のどの時点でクエリを決定付ける情報（decisive term）が現れるかという、クエリ固有の性質に依存することを指摘している。決定的な単語が発話の最後に現れる場合、早期の投機的クエリは無効となりレイテンシの利点は消失するが、早期に現れる場合はツール実行の大部分を入力待ち時間の中に隠蔽できる。実験の結果、ツール意図の安定化（tool-intent stabilization）は二峰性ではなく、早期に安定化する大きな塊と、遅延する稀な失敗モード（thin late tail）からなる分布を示すことが明らかになった。本論文は、この安定化を測定可能な量として定義することで、システム構築前に隠蔽可能なレイテンシの割合を算出するモデル非依存の境界を与え、学習済みトリガーの導入コストに対する指針を提示している。</p></section>
+<section class="secsum"><h3>2 Background and Related Work</h3><p>Retrieval-Augmented Generation (RAG) は、dense passage retrieval や BM25 を用いて生成を根拠付けた情報に基づかせる手法であるが、本研究が扱う Streaming RAG は、部分的な発話から Trigger がツールクエリを実行し、複数の speculative Threads を並列実行して Reflector が結果を判定する、speculative decoding に着想を得た動的な枠組みである。心理言語学における知見では、発話の意図は文の終了を待たずに漸進的に固定されることが示されており、例えば日本語のような語順では、述語（head）の前に格標識によって引数が予測される pre-head anticipation が確認されている。工学的な観点では、同時逐次翻訳における wait-and-prefix-to-prefix policy や、incremental spoken language understanding における意味フレームの構築が、入力の接頭辞（prefix）に対するコミットのタイミングと修正のリスクを扱っている。本研究の貢献は、これら既存研究が閉じた意図や対話アクトを対象としていたのに対し、オープンワールドの知識ベンチマークにおけるツール/検索意図へと対象を拡張した点にある。具体的には、特定のコミット方策を学習するのではなく、クエリ自体に内在する「検索対象が安定する時点」を測定することで、いかなる方策においても隠蔽可能なレイテンシの上限（headroom）を定量化している。</p></section>
+<section class="secsum"><h3>3 Problem Formalization</h3><p>本セクションでは、ストリーミングRAGにおけるツール利用の有効性を評価するための定式化を行っている。クエリの長さ $L$ に対する接頭辞を $q_{1:w}$ とし、接頭辞から取得されるトップ文書を $d_{1:w}$、フルクエリのトップ文書を $d_{1:L}$、正解を含む文書を $d^*$ と定義した上で、自己整合性安定化点 $w_{sc} = \min \{w \mid \forall i \in [w, L], d_{1:i} = d_{1:L}\}$ と、実用的な指標である十分性安定化点 $w_{su} = \min \{w \mid d_{1:w} = d^*\}$ を導入している。評価指標として、安定化の早さを示す安定化割合 $w_{sc}/L$ および $w_{su}/L$、安定化後の文書変化数を示す安定化揮発性 $v_{sc}$、そしてツール遅延 $T_{tool}$ と入力速度 $c$ (words/s) に基づく隠蔽可能な残存入力時間 $T_{res} = (L - w_{su})/c \times 1000$ を定義している。ツール遅延のうち入力時間内に完了する割合を $\phi = \min(1, T_{tool}/T_{res})$ とし、$\phi$ が一定の閾値を超える場合にクエリを「ストリーミング可能（streamable）」と判定する。本研究では、安定化点の分布（RQ1）、遅延隠蔽が可能なクエリの割合（RQ2）、実際のパイプラインとの整合性（RQ3）、および安定化を予測するクエリの特徴（RQ4）の4つの問いを検証対象としている。</p></section>
+<section class="secsum"><h3>4 Method</h3><p>本研究では、CRAG (Comprehensive RAG Benchmark) の dev set から抽出した 1371 問を対象に、ストリーミング RAG の特性を分析する。Grounding（根拠付け）の手法として、正規化された正解文字列とパッセージ間の部分文字列一致（multi-token の場合）または単語境界一致（single-token の場合）を用いるが、これは recall 志向のヒューリスティックであり、誤検知の可能性を考慮して、より緩和された bag-of-content-token containment 手法による比較も行う。パッセージは 120 単語のウィンドウ（stride 100）でチャンク化され、BM25 を用いて各接頭辞 $x_{1:t}$ ごとに上位 $k$ 個のチャンクを検索する。遅延モデルの評価では、入力の入力間隔を制御するための proxy として、単語シーケンスを一定の速度（ms, w/s）でストリーミングし、非同期の Streaming RAG harness を用いて、Arora et al. (2025) が報告した各ステージの遅延に基づき、ツール使用の遅延が知覚遅延の削減に与える影響を測定する。分析の再現性を確保するため、パイプラインは学習不要かつ CPU のみで動作し、すべての指標はオフラインで再計算可能である。</p></section>
+<section class="secsum"><h3>5 Results</h3><p>CRAG Task 1&amp;2の1371の検証用質問を用い、ストリーミングRAGにおけるツール使用の有効性を分析した結果、回答に必要な文書が取得可能になる「充足性（Sufficiency）」の安定化は、クエリの語彙的なトップ1が確定する「自己整合性（Self-consistency）」の安定化よりも大幅に早いことが明らかになった。具体的には、充足性の安定化（$\text{mean } \bar{s}_{\text{suff}} = 0.14$）に対し、自己整合性の安定化はクエリの後半（$\text{mean } \bar{s}_{\text{sc}} = 0.67$）で発生し、この乖離がストリーミングでのツール使用における有利なレジームを形成している。質問タイプ別では、推論の複雑さではなくエンティティの出現位置が安定化を支配しており、比較（comparison）や集計（aggregation）は早期に安定する一方、集合（set）に関する質問は最も遅く安定する傾向がある。ツール遅延を隠蔽できる割合（streamable fraction）は、中心的な設定（$2000\text{ms}$ 遅延, $5\text{w/s}$ cadence, $k=1$）において73.9%に達し、特に正解文書が取得可能なサブセットでは95.2%と極めて高い。提案された理論的な境界値 $\hat{s}_{\text{suff}}$ は、LLMのクエリ生成時間（$\approx 200\text{ms}$）をモデル化していないため、実際の遅延削減量に対して保守的な見積もり（underestimate）となるが、集計値としては有効である。ただし、$\hat{s}_{\text{suff}}$ は個々のクエリの削減量を予測するランク関数としては機能せず、誤検知（mis-fire）による負のコストを考慮する必要がある。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>Tool-intent stabilizationは、ストリーミング形式のツール利用がいつ、どの程度有効であるかを規定する、クエリ固有かつモデルに依存しない指標である。CRAGベンチマークを用いた評価では、充足性（sufficiency）は検索可能なサブセットにおいて早期に安定し、質問タイプによって早期・後期の有意な差が生じる一方、全ベンチマークにおけるストリーミング可能な割合は $73.9\%$ であった。本研究の限界として、充足性の結果は良好な $21.3\%$ のスライスに条件付けられており、緩和されたグラウンディング（relaxed-grounding）を用いた解析では、集団全体への効果は $p &lt; 0.05$ 未満に留まることが示されている。また、集計値としては保守的な境界（bound）が得られているものの、クエリごとの予測精度は Spearman の相関係数が $\rho = 0.13$ と低く、これはクエリ生成の重複や誤トリガーによる負の影響が支配的であるためである。今後の課題として、クエリ生成の重複や誤トリガーのペナルティを考慮した予測モデルの構築、および高密度リトリーバー（dense-retriever）条件の導入が挙げられる。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>本研究の限界として、まず入力タイミングにおいて、音声認識（ASR）の可変的なペースや仮説の修正を考慮せず、一様な単語ストリームを代理指標として用いている点が挙げられる。安定性の指標については、Top-1の一致度（Top-1 equality）が「意図の定着」を示す粗い代理指標であるため、正解ドキュメントに対する十分性（sufficiency）の報告や Top-$k$ の変動による補完を行っている。グラウンディングの評価は文字列一致に基づいているため、逐語的でない回答は対象外となるが、統計値はグラウンディング可能性を条件としたものであり、グラウンディングに依存しないチェックも併せて報告している。また、リトリーバーとして語彙や言い回しに敏感な BM25 を使用しており、ベンチマークも単一のものであるため、高密度リトリーバー（dense-retriever）の導入や別の QA セットによる検証が今後の課題である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-20
+  </footer>
+</div>
+</body>
+</html>

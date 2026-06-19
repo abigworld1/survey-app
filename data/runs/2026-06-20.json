@@ -1,0 +1,157 @@
+{
+  "date": "2026-06-20",
+  "dry_run": false,
+  "engine": "llm:gemma-4-26b",
+  "fields": [
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2605.14119.html",
+          "id": "2605.14119",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2026-05-13",
+          "reading_value": 4,
+          "reading_value_reason": "MAPFにプライバシー保護の概念を導入した新規性が高く、計画・実行の両面から定式化している点が非常に興味深い。実用的な課題解決に向けた具体的な手法も示されている。",
+          "relevance": 2,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Privacy Preserving Multi Agent Path Finding",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2605.13035.html",
+          "id": "2605.13035",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2026-05-13",
+          "reading_value": 4,
+          "reading_value_reason": "注文の連続性という実用的な制約をMAPFの枠組みで定式化した新規性が高い。3層のanytimeアルゴリズムも具体的で、実験による検証も充実している。",
+          "relevance": 2,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Conveyor Parcel Routing with Order-Contiguous Arrivals",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 42,
+      "fresh_total": 28,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 9,
+      "skipped": [],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 0,
+        "openalex/recent": 0,
+        "semanticscholar/important": 0,
+        "semanticscholar/recent": 2
+      }
+    },
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2606.20113.html",
+          "id": "2606.20113",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-06-18",
+          "reading_value": 4,
+          "reading_value_reason": "Streaming RAGにおけるレイテンシ隠蔽の限界を「意図の安定化」という新概念で定量化した点が非常に独創的。理論的指針として実用的価値が高い。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "When Does Streaming Tool Use Help? Characterizing Tool-Intent Stabilization in Streaming Retrieval-Augmented Generation",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(ar5iv)",
+          "citations": 5,
+          "file": "doc-structure-rag/doi-ecff06c9658e.html",
+          "id": "doi-ecff06c9658e",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2024-08-12",
+          "reading_value": 3,
+          "reading_value_reason": "産業現場でのローカルRAG実装という実用的な課題に対し、Self-RAGや複雑なPDF解析を用いた具体的な最適化手法を提案しており、関連分野の研究者にとって有用。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Optimizing RAG Techniques for Automotive Industry PDF Chatbots: A Case Study with Locally Deployed Ollama Models",
+          "venue": "arXiv (Cornell University)"
+        }
+      ],
+      "candidates_total": 153,
+      "fresh_total": 144,
+      "k": 2,
+      "label": "文書構造解析に基づく検索・質問応答・RAG",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 89,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-71bb8aede7a8",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-05-01",
+          "reasons": [
+            "本文もアブストラクトも取得できない"
+          ],
+          "relevance": 6,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "DC-RAG: a dual-channel retrieval-augmented generation framework for audit analysis.",
+          "venue": "Scientific Reports"
+        }
+      ],
+      "slug": "doc-structure-rag",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 40,
+        "openalex/recent": 40,
+        "semanticscholar/important": 37,
+        "semanticscholar/recent": 37
+      }
+    }
+  ],
+  "generated_at": "2026-06-20T06:00:01"
+}

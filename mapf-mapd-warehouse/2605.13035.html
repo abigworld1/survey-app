@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Conveyor Parcel Routing with Order-Contiguous Arrivals | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Conveyor Parcel Routing with Order-Contiguous Arrivals</h1>
+  <div class="meta">Takuro Kato, Keisuke Okumura<br>採択先: 未取得 ・ 2026-05-13 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2605.13035v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.13035v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-05-13</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">注文の連続性という実用的な制約をMAPFの枠組みで定式化した新規性が高い。3層のanytimeアルゴリズムも具体的で、実験による検証も充実している。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 自動倉庫のコンベアネットワークにおいて、同一注文の小包が目的地で連続して到着することを保証する「Order-Contiguous Arrivals」制約付きのオンライン多エージェント経路探索（online MAPF-OC）を定式化し、3層構造のanytimeアルゴリズムであるDual-Ordering Prioritized Planning (DOPP) を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、自動倉庫の搬送層におけるコンベアネットワークを用いた小包ルーティング問題を、新たに「注文連続性制約（order-contiguity constraint）」を導入した $online\ MAPF\text{-}OC$ として定式化している。この制約は、各ワークステーションにおいて同一注文の小包が他の注文に挟まれることなく連続して到着することを要求するものであり、到着順序の入れ替わりによるオペレーターの再仕分け作業や処理遅延を防ぐことを目的としている。エージェント（小包）は、注文ラベル $o_i$、投入頂点 $s_i$、目的地 $d_i$ のタプル $a_i = (o_i, s_i, d_i)$ として定義され、時間経過とともに出現し、目的地到着後にサービス時間 $T_{service}$ を経てネットワークを離脱する動的な設定である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、注文の連続性を考慮した新しい問題設定 $MAPF\text{-}OC$ の定式化と、それに対する完全な多項式時間アルゴリズムである $Dual\text{-}Ordering\ Prioritized\ Planning\ (DOPP)$ の提案である。DOPPは、(i) 注文レベルの到着シーケンスの探索、(ii) エージェントレベルの優先順位の精緻化、(iii) 優先順位付き計画法（PP）による経路合成、という3層構造を持つ。この手法は、実行可能な解を迅速に発見した上で、計算予算に応じてメイクスパンを反復的に改善できるanytime特性を備えている。また、実際の倉庫レイアウトを含む様々なコンベアネットワークを用いた実験により、高いスケーラビリティと高品質な計画生成能力を実証した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法 $DOPP$ は、以下の3つの階層からなる探索ベースのanytimeアルゴリズムである。<br>1. **Level 1 (Prioritized Planning):** 優先順位に基づき、衝突を回避しつつ経路を合成する。注文の連続性を担保するため、目的地が特定の注文の到着時刻以降にのみ占有可能となる目的地ブロッキング制約 $t \ge t_{arrival}(o)$ を適用する。<br>2. **Level 2 (Agent-level Refinement):** 同一注文内のエージェント間の優先順位を、近傍探索（Neighborhood Search）を用いて精緻化する。<br>3. **Level 3 (Order-level Refinement):** ワークステーションへの注文到着順序そのものを、近傍探索によって最適化し、メイクスパンを改善する。<br>オンライン設定では、時刻 $t$ においてルックアヘッド窓 $[t, t + \Delta T)$ 内に現れるエージェントを対象としたバッチベースの再計画を採用している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、Small/Medium/Complex/Largeの4種類のコンベアネットワークマップを用い、Admission Controlを用いたPIBT（PIBT-AC）をベースラインとして比較評価を行った。評価指標には、最短移動時間を下限とする正規化メイクスパン $\mathcal{M} = \frac{C_{max}}{L_{min}}$ および目的地利用率 $\text{util} = \frac{1}{|D|} \sum_{d \in D} \frac{C_d}{C_{max}}$ を用いている。結果として、DOPPは全てのマップにおいてPIBT-ACを凌駕する性能を示した。特に、Vanilla DOPPでもLargeマップにおいて実行時間が $10^2$ 秒未満に収まる実用的なスケーラビリティを確認しており、Level 3の洗練（refinement）が性能向上に大きく寄与することが示された。また、Lifelong設定においても、一貫して低いメイクスパンを達成している。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>DOPPは、既存のMAPF手法（CBSやPIBT）と比較して、狭い通路での性能低下や効率の減少を抑えつつ、実用的な計算量で実行可能なLifelong実行を実現している。本研究の定式化におけるスナップショットの最適解算出は、既存のMAPFのNP困難性に起因してNP困難であることが示されているが、DOPPは多項式時間で動作する。今後の展望として、より高度な物流自動化に向けて、小包の投入位置や目的地割り当て自体を最適化の変数に組み込んだ、より広範なオンライン $MAPF\text{-}OC$ への拡張が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Conveyor Parcel Routing with Order-Contiguous Arrivals</h3><p>本研究では、自動倉庫のコンベアネットワークにおいて、同一注文に属する小包が配送先で連続して到着するように制御する「Order-Contiguous Arrivals」の制約を伴う問題を、オンライン多エージェント経路探索（online MAPF-OC）として定式化している。この問題は、エージェント（小包）が時間経過とともに出現し、配送完了時にネットワークから退出するという動的な設定である。提案手法である Dual-Ordering Prioritized Planning (DOPP) は、(i) オーダーレベルの到着シーケンスの探索、(ii) エージェントレベルの優先順位の精緻化、(iii) 優先順位付き計画法（prioritized planning）による実行可能な解の合成、という3層構造を持つ完全な多項式時間アルゴリズムである。実際の倉庫から派生した様々なコンベアネットワークのレイアウトを用いた実験により、DOPP は厳しい時間制約下においても高いスケーラビリティと高品質な計画生成能力を持つことが示されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、自動倉庫の搬送層におけるコンベアネットワークを用いた小包のルーティング問題を、オンラインのマルチエージェント経路探索（online MAPF）として定式化し、新たに「注文連続性制約（order-contiguity constraint）」を導入した $online\ MAPF\text{-}OC$ を提案している。この制約は、各ワークステーションにおいて同一注文の小包が他の注文に挟まれることなく連続して到着することを要求するものであり、到着順序の入れ替わりによるオペレーターの再仕分け作業や処理遅延を防ぐことを目的としている。提案手法である $Dual\text{-}Ordering\ Prioritized\ Planning\ (DOPP)$ は、(i) ワークステーションへの注文到着順序を決定する注文レベルの優先順位探索、(ii) エージェントレベルでの注文内優先順位の精緻化、(iii) 優先順位付き計画法（PP）を用いた衝突回避かつ注文連続性を満たす経路合成、という3段階の最適化プロセスからなる探索ベースの anytime アルゴリズムである。DOPP は完全性を持ち、多項式時間で動作し、実行時間に応じて makespan を反復的に改善できる特性を持つ。実際の倉庫レイアウトを含む様々なコンベアネットワークマップを用いた評価実験により、DOPP は限定的な時間予算内での実用的なスケーラビリティと、アドホックな反応型ポリシーに対する優れた makespan 低減性能が示されている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>従来の小包輸送におけるルーティング研究は、オンラインの経路選択やフロー調整、あるいは MILP やネットワークフローを用いた最適化手法が提案されてきたが、変数の増大により大規模なオンライン計画への適用が困難であった。本研究では、これに対し、共有グラフ上で衝突を回避しながら複数のエージェントを調整する Multi-agent Path Finding (MAPF) を抽象化として用い、一般的な有向グラフ上での衝突のない小包軌道のオンライン合成を目指す。既存の Lifelong MAPF や Online MAPF は、エージェントが時間経過とともに次々と現れる性質を扱うが、本研究が提案する MAPF-OC (Order-Contiguous) は、各目的地において「同一の注文に属する小包が連続したブロックとして到着しなければならない」という順序連続性の制約を導入している。これは、各エージェントに目標の順序が与えられている MAPF-PC とは異なり、注文ブロック自体の到着順序を Makespan を最小化するように最適化する決定変数として扱う点が特徴である。本手法は、倉庫ロボティクスや鉄道ネットワーク、自律交差点の調整といった MAPF の応用範囲を、コンベアシステムへと拡張するものである。</p></section>
+<section class="secsum"><h3>3 Problem Definition</h3><p>本セクションでは、注文の連続性を考慮したマルチエージェント経路計画（MAPF-OC）の定式化を行っている。コンベアネットワークは有向グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ としてモデル化され、各頂点は容量1のコンベアセグメントを表し、エージェント $a_i = (o_i, s_i, d_i)$ は注文ラベル $o_i$、投入頂点 $s_i$、目的地 $d_i$ のタプルで定義される。エージェントの経路 $p_i$ は、投入時刻 $t_{start, i} \ge e_i$ において有効であり、目的地到着時刻 $t_{arr, i}$ に到達後、一定のサービス時間 $T_{service}$ を経過してネットワークを離脱する制約を持つ。衝突回避条件に加え、本研究の核心である「注文の連続性（Order-contiguity）」は、目的地 $d$ に到着するエージェントを到着時刻順に並べた際、同じ注文 $o$ に属するエージェントが連続したブロックを形成することを要求する。オフライン設定では、与えられた全エージェント集合 $\mathcal{A}$ に対して、有効、衝突フリー、かつ注文連続性を満たし、最大完了時間（makespan） $M = \max_{a_i \in \mathcal{A}} t_{arr, i}$ を最小化する解を求める。オンライン設定では、バッチベースの再計画を採用し、時刻 $t$ においてルックアヘッド窓 $[t, t + \Delta T)$ 内に現れるエージェントを対象に、スナップショットのmakespanを最小化する。なお、スナップショットにおける最適解の算出は、既存のMAPFのNP困難性から、本問題においてもNP困難であることが示されている。</p></section>
+<section class="secsum"><h3>4 Dual-Ordering Prioritized Planning</h3><p>DOPP (Dual-Ordering Prioritized Planning)は、注文の連続到着（order-contiguity）を維持しつつ、多エージェント経路計画（MAPF）におけるメイクスパンを最適化するanytimeアルゴリズムである。本手法は、注文レベルの優先順位を探索するLevel 3、エージェントレベルの優先順位を探索するLevel 2、および優先順位に基づき優先度付き計画（PP）を実行するLevel 1からなる3層構造を採用している。初期化フェーズでは、アクティブな注文を優先し、エージェントの優先順位を注文の優先順位と整合させることで、PPが多項式時間で実行可能な「well-formed」な設定を保証する。具体的には、Level 1において、エージェントが目的地を占有する時間を制限する目的地ブロッキング制約 $t \ge t_{arrival}(o)$ を適用することで、注文の連続性を担保している。また、計算時間が許す限り、Level 3では保留中の注文の順序を、Level 2では保留中の注文内のエージェント順序を近傍探索（Neighborhood Search）によって改善し、メイクスパンの向上を図る。実験では、CBSやPIBTといった既存手法と比較して、狭い通路での性能低下や効率の減少を抑えつつ、実用的な計算量で実行可能なLifelong実行を実現している。</p></section>
+<section class="secsum"><h3>5 Evaluation</h3><p>本研究では、注文の連続到着（Order-Contiguous Arrivals）を考慮したコンベア・パーセル・ルーティングに対し、階層的な近傍探索を用いるDOPP（Decoupled Order-based Planning and Pathfinding）の有効性を評価している。実験は、Small/Medium/Complex/Largeの4種のマップを用い、PIBT-AC（Admission Controlを用いたPIBT）をベースラインとして、スナップショット品質、実行時間、スケーラビリティ、Anytime特性、およびLifelong性能を評価した。評価指標には、最短移動時間を下限とする正規化メイクスパン $\mathcal{M} = \frac{C_{max}}{L_{min}}$ と、目的地利用率 $\text{util} = \frac{1}{|D|} \sum_{d \in D} \frac{C_d}{C_{max}}$ が用いられている。結果として、DOPPは全てのマップにおいてPIBT-ACを凌駕し、特に注文の優先順位を扱うLevel 3の洗練（refinement）が性能向上に大きく寄与することが示された。実行時間に関しては、Vanilla DOPPでもLargeマップで $10^2$ 秒未満に収まる実用的なスケーラビリティを示し、Level3-NS等の洗練手法は計算予算に応じて品質を向上させるAnytime特性を持つ。Lifelong設定においても、スナップショットでの改善が継続的な再計画に反映され、PIBT-ACに対して一貫して低いメイクスパンを達成している。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、コンベアネットワークにおける注文連続到着（Order-Contiguous Arrivals）を考慮したオンラインMAPF-OC（Multi-Agent Path Finding with Order-Contiguous arrivals）を定式化し、実行可能な解を迅速に発見した上で、許容される限りメイクスパンを改善するanytimeアルゴリズムであるDOPPを提案した。実験の結果、DOPPは実用的なスケーラビリティと高い解の品質を実証しており、従来の倉庫仕分け以外のMAPFアルゴリズムの応用例を拡充した。今後の展望として、より高度な物流自動化に向けて、小包の投入位置や目的地割り当てを組み込んだオンラインMAPF-OCへの拡張が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-20
+  </footer>
+</div>
+</body>
+</html>
