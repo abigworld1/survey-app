@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Karma Mechanisms for Decentralised, Cooperative Multi Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Karma Mechanisms for Decentralised, Cooperative Multi Agent Path Finding</h1>
+  <div class="meta">Kevin Riehl, Julius Schlapbach, Anastasios Kouvelas, Michail A. Makridis<br>採択先: 未取得 ・ 2026-04-09 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2604.07970v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2604.07970v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-04-09</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">分散型MAPFにおける公平性の問題を、Karmaというクレジットを用いた分散フィードバック制御として定式化した点が新規であり、実用的な倉庫シナリオでの検証も具体的である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 大規模なロボット・サイバー物理システムにおける分散型マルチエージェント経路計画（DMAPF）に対し、エージェントの過去の協力履歴を非譲渡的な人工クレジット「Karma」として保持し、衝突解決時の優先順位を動的に調整するメカニズムを提案する。本手法は、中央集権的な計算を必要とせず、既存の交渉ベースの手法と同等の効率性を維持しながら、エージェント間の再計画負荷やサービス時間の格差を大幅に低減し、長期的な公平性を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、大規模・リアルタイムなマルチエージェント経路計画（MAPF）において、中央集権的な最適解法が抱える指数関数的な計算複雑性の問題を回避しつつ、分散型環境下での公平性を確保することを目的としている。既存の最適解法には、整数線形計画法を用いる手法や、制約木を用いるConflict-Based Search (CBS) などがあるが、これらは完全観測性と中央集権的な計算を前提とするため、大規模システムへの適用には限界がある。一方、既存の分散型手法であるトークン渡し方式などは、計画順序による非対称性が生じ、グローバルな最適性を欠く課題がある。本論文では、エージェント間の二者間交渉によるペアワイズな再計画プロセスに、過去の協力行動を符号化する「Karma」を導入することで、局所的な相互作用から長期的な間接的互恵性を引き出すフレームワークを構築している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、分散型MAPFにおいて、エージェントの協力履歴を内生的な優先度として機能させる「Karma mechanism」を提案した点にある。このメカニズムは、再計画の負担を分散するための分散型積分フィードバック信号として機能し、グローバルな優先順位構造を持たずにエージェント間の公平性を実現する。実験を通じて、提案手法がシステム全体の効率性（スループットや平均コスト）を損なうことなく、タスク完了時間の分散（dispersion）を継続的に減少させられることを示した。また、運動学的方向制約を持つLifelong Multi-Agent Pickup-and-Delivery (MAPD) シナリオにおいて、既存の利己的・利他的な交渉ルールやトークン渡し方式と比較して、サービス時間の格差を低減できることを実証した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>衝突が発生した際、エージェント $i$ と $j$ は、自身の軌跡コスト $c_i$ と蓄積された Karma balance $K_i$ を用いた合成コスト $C_i = c_i + \alpha K_i$ に基づいて再計画の優先順位を決定する。ここで $\alpha$ は Karma の影響度を制御する設計パラメータであり、Karma が低いエージェントが優先的に再計画を行うようバイアスをかける。再計画後の Karma 更新則は、再計画を実行したエージェント $i$ に対して $K_i \leftarrow K_i + 1$、それ以外のエージェント $j$ に対して $K_j \leftarrow K_j - 1$ と定義され、再計画の負担が長期的に分散される仕組みとなっている。なお、各エージェントの Karma balance は、新しいタスクのピックアップ時に $0$ へリセットされる。評価実験では、グリッドサイズ $10 \times 10, 20 \times 20, 30 \times 30$ の離散的な環境を用い、運動学的方向制約を持つロボット倉庫内のピックアップ＆デリバリー・シナリオにおいて、完了タスク数、平均コスト、コストの分散、および $A^*$ の呼び出し回数を指標として検証を行っている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>提案手法は、トークンパッシング、利己的（egoistic）交渉、および利他的（altruistic）交渉の3手法と比較評価された。実験結果によれば、トークンパッシングは逐次的な計画構造により後続エージェントの経路が制限され、タスク完了時間が最も長くなる傾向が見られた。利他的交渉は、偏差コスト $\Delta c_{a,b} = c(\tau_a&#x27;) - c(\tau_a)$ を比較し、コスト増加が少ない方を優先するが、Karmaベースのメカニズムはこれと同等の平均タスク時間・サービス時間を維持しつつ、タスク時間の分散を大幅に減少させた。パラメータ $\alpha$ に関する分析では、$\alpha=0$ のとき利他的政策に一致し、$\alpha$ を大きくすると即時的なコスト最小化よりも衝突解決努力の均等な分配が優先されるというトレードオフが確認された。最終的に、Karma mechanism はシステム全体の効率性を犠牲にすることなく、遅延の公平な分配を実現できることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究は、インセンティブベースのフィードバックが、スケーラビリティを維持したまま分散型調整の公平性を向上させ得ることを示した。しかし、いくつかの課題も残されている。まず、Karma の更新規則や影響パラメータ $\alpha$ が、タスク密度やエージェント間の相互作用構造にどのように依存するかについては、さらなる調査が必要である。また、システムの安定性、収束性、および性能境界に関する理論的な解析も今後の課題として挙げられている。さらに、Karma の支払いルール（エージェント間での直接的な支払いか、社会全体への支払いか：pay-to-peer vs. pay-to-society）や、Karma 残高に制限を設けること、あるいは再分配スキームを導入することによる影響についても、詳細な検討が必要である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Karma Mechanisms for Decentralised, Cooperative Multi Agent Path Finding</h3><p>本論文は、大規模なロボット・サイバー物理システムにおけるマルチエージェント経路計画（MAPF）に対し、分散型の協調フレームワークとして「Karma mechanism」を提案している。この手法は、エージェントの過去の協調行動を記録し、将来の衝突解決を制御する非取引型の人工クレジットである Karma を導入することで、グローバルな優先順位構造を持たずに、限定的な通信環境下での長期的な公平性を実現する。衝突解決は、エージェント間の二者間交渉によるペアワイズな再計画プロセスとして定式化されており、中央集権的な最適解法が抱える指数関数的な計算複雑性の問題を回避しつつ、既存の分散型ヒューリスティックにおけるコスト格差を改善することを目指している。評価実験では、運動学的方向制約（kinematic orientation constraints）を持つ、生涯継続的なロボット倉庫内のピックアップ・アンド・デリバリー・シナリオが用いられた。実験結果により、Karma mechanism は全体の効率性を損なうことなく、エージェント間の再計画負荷のバランスをとり、サービス時間の格差を低減できることが示された。</p></section>
+<section class="secsum"><h3>I INTRODUCTION</h3><p>Multi-Agent Path Finding (MAPF)は、グラフ表現された環境において複数のエージェントの衝突のない軌道を計算する問題であり、既存の最適解法には、整数線形計画法等を用いるreduction-based、全エージェントの結合状態空間を探索する$A^*$-based、個々のコストベクトルを探索するICTS-based、および制約木と低レベルの再計画を組み合わせたCBS-basedの4つの手法が存在する。しかし、これらの最適解法は中央集権的な計算と完全観測性を前提としており、大規模・リアルタイムシステムへの適用には計算量の爆発が課題となるため、局所的な相互作用から協調を生み出す分散型MAPF (DMAPF) の研究が進められている。本研究では、非譲渡的なクレジットに基づく人工通貨スキームであるKarma mechanismをDMAPFに導入し、エージェントの協力履歴に基づき優先順位を内生的に適応させる分散制御問題として定式化する。Karmaは、現在の行動を将来の獲得可能性に結びつけることで、自己利益を追求するエージェント間でも長期的な間接的互恵性を促進する分散フィードバック信号として機能する。ロボット倉庫環境におけるLifelong Multi-Agent Pickup-and-Deliveryのケーススタディでは、提案手法はtoken-passingや交渉ベースの既存手法と同等の効率性を維持しつつ、タスク間のサービス時間の格差を大幅に削減できることが示された。</p></section>
+<section class="secsum"><h3>II PROBLEM FORMULATION &amp; REVIEW</h3><p>MAPFは、グラフ $\mathcal{G}$ 上の各エージェント $a \in \mathcal{A}$ に対して、開始地点から目標地点までの衝突のない軌跡 $\tau_a$ を計算する問題であり、本稿では軌跡の長さ（タイムステップ数）をコスト関数 $c(\tau_a)$ として用いる。中央集権的な手法であるConflict-Based Search (CBS) は、制約木 $\mathcal{T}$ を用いて頂点またはエッジの制約 $(a, v, t)$ や $(a, e, t)$ を管理し、高レベルの探索と低レベルの $A^*$ 検索を組み合わせることで最適性を保証するが、エージェント数や衝突数に対して指数関数的な最悪時間計算量を持つ。分散型手法の一つであるトークン渡し方式は、トークンを持つエージェントのみが計画を更新する逐次的な決定プロセスをとるが、計画順序による非対称性が生じ、グローバルな最適性を欠く。これに対し、交渉ベースの調整（Algorithm 1）では、各エージェントが個別に最適化された軌跡を初期計算した後、衝突 $C_{a,b}$ を検出し、偏差コスト $\Delta c_{a,b} = c(\tau_a&#x27;) - c(\tau_a)$ に基づく優先順位に従って、ペアワイズの交渉を通じて再計画を行う。交渉のルールには、自己利益のみを考慮する利己的な設定（$\Delta c_{a,b} \le 0$ の場合にのみ受諾）と、全体のコスト最小化を目指す利他的な設定（$\Delta c_{a,b} &lt; \Delta c_{b,a}$ の場合に受諾）があり、コスト増加が等しい場合は確率 $P=0.5$ でタイブレークを行う。</p></section>
+<section class="secsum"><h3>III METHODS</h3><p>本手法では、分散型マルチエージェント経路計画（DMAPF）において、エージェントの過去の協力履歴を内部的なクレジットとして保持する Karma balance を導入し、意思決定に時間的な結合をもたらす。エージェント $i$ と $j$ の衝突時、再計画の決定は Karma balance を考慮した合成コスト $C_i = c_i + \alpha K_i$ に基づいて行われ、設計パラメータ $\alpha$ によって Karma が低いエージェントが優先的に再計画を行うようバイアスがかけられる。再計画後の Karma 更新則は、再計画を行ったエージェント $i$ に対して $K_i \leftarrow K_i + 1$、それ以外のエージェント $j$ に対して $K_j \leftarrow K_j - 1$ と定義され、これにより再計画の負担が長期的に分散される分散型積分フィードバック制御として機能する。シミュレーションでは、倉庫環境を模した離散的なグリッド上でのマルチエージェント・ピックアップ＆デリバリー（MAPD）タスクを用い、完了タスク数、タスクあたりの平均コスト、コストの分散、および実行時間（A* の呼び出し回数）を評価指標として、グリッドサイズ $10 \times 10, 20 \times 20, 30 \times 30$ の条件下で性能を検証する。なお、各エージェントの Karma balance は、新しいタスクのピックアップ時に $0$ へリセットされる設定となっている。</p></section>
+<section class="secsum"><h3>IV RESULTS</h3><p>本研究では、提案するKarmaベースの交渉メカニズムを、トークンパッシング、利己的（egoistic）交渉、および利他的（altruistic）交渉と比較評価している。実験の結果、トークンパッシングは逐次的な計画構造により後続エージェントの経路が制限され、タスク完了時間が最も長くなることが示された。利他的交渉は、衝突解決の責任を負うエージェント間のコスト増加量 $\Delta c_i$ と $\Delta c_j$ を比較し、残りの移動距離が長いエージェントに責任を負わせることで、利己的交渉よりも優れた性能を示す。Karmaベースのメカニズムは、式 (5) において影響パラメータ $\alpha$ を用いて即時的な再計画コストと蓄積されたKarmaのバランスを調整し、$\alpha=0$ のとき利他的政策に、$\alpha$ が大きいとき長期的なコストの公平な分配を優先する挙動を示す。図4の実験結果によれば、$\alpha$ を大きくすると、即時的なコスト最小化よりも衝突解決努力の均等な分配が優先されるため、平均サービス時間が増加するトレードオフが存在する。最終的に、Karmaメカニズムは利己的・利他的な手法と同等の平均タスク時間・サービス時間を維持しつつ、タスク時間の分散（dispersion）を継続的に減少させており、システム全体ののスループットを犠牲にすることなく、遅延の公平な分配を実現している。</p></section>
+<section class="secsum"><h3>V CONCLUSIONS</h3><p>本研究では、エージェントの過去の協力行動を符号化する人工的なクレジット残高を用いて、二者間の衝突解決を拡張した Karma ベースの分散型 MAPF 調整メカニズムを提案している。このフレームワークは、分散型軌道調整を内生的な優先度適応を伴う分散制御問題として解釈しており、Karma が長期的な再計画負荷のバランスを取るための積分フィードバック信号として機能する。Lifelong かつ方位を考慮した MAPD のケーススタディにおいて、提案手法は token-passing や利己的・利他的ルールに基づく交渉型アプローチなどの既存の分散型ヒューリスティックと同等の効率性を達成しつつ、タスク間およびサービス時間の格差を低減することに成功した。実験の結果、インセンティブベースのフィードバックは、スケーラビリティや中央集権的な最適化を必要とすることなく、分散型マルチエージェント調整における公平性を向上させ得ることが示された。今後の課題として、Karma の更新規則や影響パラメータがタスク密度や相互作用構造に依存する可能性が示唆されており、安定性、収束性、性能境界の解析、および Karma の支払いルール（pay-to-peer vs. pay-to-society）や残高制限、再分配スキームの影響を調査する必要がある。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-21
+  </footer>
+</div>
+</body>
+</html>

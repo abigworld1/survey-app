@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>HySemRAG: A Hybrid Semantic Retrieval-Augmented Generation Framework for Automated Literature Synthesis and Methodological Gap Analysis | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>HySemRAG: A Hybrid Semantic Retrieval-Augmented Generation Framework for Automated Literature Synthesis and Methodological Gap Analysis</h1>
+  <div class="meta">Alejandro Godinez<br>採択先: 未取得 ・ 2025-08-01 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/db0530a6dc2d3c0fb66a7f597bc932af71518413" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.48550/arXiv.2508.05666" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-08-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 2</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">アブストラクト</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">知識グラフとベクトル検索を統合したハイブリッドRAGに加え、エージェントによる自己修正や引用検証を組み込んだ構成が極めて実用的。実験結果も具体的で信頼性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: アブストラクトを根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> HySemRAGは、ETLパイプラインとRAGを統合し、大規模な文献合成と手法的な研究ギャップの特定を自動化するハイブリッドなフレームワークである。セマンティック検索、キーワードフィルタリング、知識グラフ探索を組み合わせた多層的な検索アプローチと、エージェントによる反復的な自己修正、および事後的な引用検証メカニズムを備えている。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、学術文献の膨大な情報から、研究手法のギャップを自動的に特定し、構造化された文献合成を行うためのシステムを提案している。従来のRAG手法では困難であった、複雑な文献間の関係性の把握や、抽出された情報の正確なトレーサビリティの確保を目的としている。実装においては、Doclingアーキテクチャを修正したドキュメントレイアウト解析を導入し、高度なデータ構造の構築を目指している。これにより、単なる情報の検索にとどまらず、研究の文脈に基づいた高度な分析を可能にしている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、Neo4jによる知識グラフとQdrantによるベクトルコレクションを併用する二重のデータ構造を構築し、ハイブリッド検索を実現した点にある。また、エージェントによる品質保証メカニズムを導入することで、生成された回答の信頼性を高めている。実験の結果、提案手法による構造化されたフィールド抽出は、従来のPDFチャンキング手法と比較してセマンティック類似度スコアにおいて $0.655 \pm 0.178$ を記録した。これは、PDFチャンキングの $0.485 \pm 0.204$ に対し $35.1\%$ の精度向上を示しており、統計的にも有意な差（$p &lt; 0.000001$）が確認されている。さらに、検証済み回答における引用精度 $99.0\%$ という極めて高い数値を達成している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>HySemRAGは、8つの統合ステージからなるパイプラインを通じて動作する。まず、Doclingアーキテクチャを修正した手法を用いてドキュメントのレイアウト解析を行い、ETLパイプラインを通じてデータを処理する。検索フェーズでは、セマンティック検索、キーワードフィルタリング、および知識グラフ探索を組み合わせたハイブリッド検索を採用している。データ管理には、Neo4jを用いた知識グラフとQdrantを用いたベクトルコレクションの二重構造を利用する。生成プロセスにおいては、エージェントによる反復的な自己修正フレームワークが機能し、回答の質を向上させる。最後に、事後的な引用検証プロセスを通じて、情報のトレーサビリティを確保する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>提案手法の有効性は、643の観測値を用いた評価実験によって検証されている。評価指標としてセマンティック類似度スコアが用いられ、従来のPDFチャンキング手法との比較が行われた。実験の結果、提案手法は $0.655 \pm 0.178$ のスコアを達成し、ベースラインとなる手法の $0.485 \pm 0.204$ を大幅に上回った。また、エージェントによる品質保証メカニズムの性能として、シングルパスでの成功率 $68.3\%$、および検証プロセスを経た回答における引用精度 $99.0\%$ が示されている。これらの数値により、文献合成における正確性と信頼性が定量的に証明されている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>HySemRAGは、文献調査における自動化の可能性を大きく広げるものであるが、その複雑な多層的アプローチには高度な計算リソースやパイプラインの管理が求められる。エージェントによる自己修正や引用検証は、生成AI特有のハルシネーションを抑制する上で極めて有効である。一方で、シングルパス成功率が $68.3\%$ であることから、複雑な推論タスクにおいては依然としてエージェントの反復的なプロセスが不可欠であることが示唆されている。本フレームワークは、Bibliographic Explorerやscite.aiのような外部ツールと連携することで、より広範な文献ネットワークの解析に応用できる可能性がある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Title: HySemRAG: A Hybrid Semantic Retrieval-Augmented Generation Framework for Automated Literature Synthesis and Metho</h3><p>HySemRAGは、ETLパイプラインとRAGを組み合わせることで、大規模な文献合成と手法的な研究ギャップの特定を自動化するフレームワークである。本手法は、セマンティック検索、キーワードフィルタリング、および知識グラフ探索を組み合わせたハイブリッド検索、エージェントによる反復的な自己修正フレームワーク、そしてトレーサビリティを確保する事後的な引用検証という多層的なアプローチを採用している。実装では、Doclingアーキテクチャを修正したドキュメントレイアウト解析を含む8つの統合ステージを経て、Neo4jによる知識グラフとQdrantによるベクトルコレクションという二重のデータ構造を構築する。643の観測値を用いた評価では、提案手法による構造化されたフィールド抽出が、従来のPDFチャンキング手法と比較してセマンティック類似度スコアにおいて $0.655 \pm 0.178$ を記録し、PDFチャンキングの $0.485 \pm 0.204$ に対し $35.1\%$ 高い精度向上（$p &lt; 0.000001$）を示した。また、エージェントによる品質保証メカニズムは、シングルパス成功率 $68.3\%$、検証済み回答における引用精度 $99.0\%$ を達成している。</p></section>
+<section class="secsum"><h3>Access Paper:</h3><p>提供されたテキストには、論文のタイトル「HySemRAG: A Hybrid Semantic Retrieval-Augmented Generation Framework for Automated Literature Synthesis and Methodological Gap Analysis」およびメタデータのみが含まれており、具体的な手法、アルゴリズム、実験設定、数値結果などの研究内容は記載されていません。したがって、このセクションの範囲内では、自動的な文献合成および手法のギャップ分析を目的とした、ハイブリッドな意味論的検索拡張生成（Hybrid Semantic RAG）フレームワークに関する論文であること以外、詳細な要約を行うための情報は存在しません。</p></section>
+<section class="secsum"><h3>Bibliographic and Citation Tools</h3><p>本セクションでは、文献調査および引用分析を自動化するための外部ツール群が列挙されている。具体的には、文献間の関係性を可視化する Bibliographic Explorer、Connected Papers、および Litmaps が、文献のネットワーク構造を把握するために導入されている。また、引用の文脈を精査するために scite.ai の Smart Citations が挙げられており、これらを用いて文献の支持・反論関係を特定することが示唆されている。さらに、研究の再現性や補完的な情報を収集するための Code, Data, Media といったリソースへのアクセスも考慮されている。</p></section>
+<section class="secsum"><h3>Code, Data and Media Associated with this Article</h3><p>本セクションには、HySemRAGの実現に関連するコード、データ、およびメディアのリソースが列挙されている。具体的には、alphaXiv、CatalyzeX、DagsHub、GotitPub、Hugging Face、Papers with Code、ScienceCastといったプラットフォームやツールへのリンクが含まれており、これらが実装コードの公開やデータの管理、あるいはデモの提供に利用されていることが示唆される。ただし、提供されたテキスト内には、具体的なアルゴリズムの詳細、数式、実験設定、あるいは定量的な数値結果に関する記述は含まれていない。</p></section>
+<section class="secsum"><h3>Demos</h3><p>提供されたセクションは、HySemRAGフレームワークのデモンストレーションに関連する外部プラットフォームへのリンク情報のみで構成されており、手法、アルゴリズム、実験設定、数値結果などの具体的な研究内容は含まれていない。記載されている情報は、Replicate、Hugging Face Spaces、および TXYZ.AI といったプラットフォーム上でデモが利用可能であることを示唆している。したがって、本セクションから技術的な詳細や具体的な解析結果を抽出することは不可能である。</p></section>
+<section class="secsum"><h3>Recommenders and Search Tools</h3><p>提供されたセクションには、論文の主要な手法や実験結果に関する具体的な記述が含まれておらず、Influence Flower や CORE といった推奨ツールおよび検索ツールのインターフェース要素（トグルやリンク）のリストのみが記載されています。このセクションは、研究の文脈において、文献合成や手法のギャップ分析を支援するための外部リソースやナビゲーション要素を提示するものと解釈されます。具体的なアルゴリズム、数式、または実験的な数値結果は、このテキスト範囲内には存在しません。</p></section>
+<section class="secsum"><h3>arXivLabs: experimental projects with community collaborators</h3><p>arXivLabsは、コラボレーターがarXivのウェブサイト上で直接新しい機能を開発・共有することを可能にするフレームワークである。この枠組みは、オープン性、コミュニティ、卓越性、およびユーザーデータのプライバシーというarXivの価値観を遵守する個人や組織を対象としている。本セクションでは、arXivLabsの概要と、コミュニティに価値をもたらすプロジェクトの提案を促す仕組みについて述べられている。なお、提供されたテキスト内には、本論文の著者に関する具体的なエンドーサー情報や、実験の詳細に関する記述は含まれていない。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: アブストラクト ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-21
+  </footer>
+</div>
+</body>
+</html>

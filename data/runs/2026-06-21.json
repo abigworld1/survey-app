@@ -1,0 +1,156 @@
+{
+  "date": "2026-06-21",
+  "dry_run": false,
+  "engine": "llm:gemma-4-26b",
+  "fields": [
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2604.07970.html",
+          "id": "2604.07970",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2026-04-09",
+          "reading_value": 4,
+          "reading_value_reason": "分散型MAPFにおける公平性の問題を、Karmaというクレジットを用いた分散フィードバック制御として定式化した点が新規であり、実用的な倉庫シナリオでの検証も具体的である。",
+          "relevance": 2,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Karma Mechanisms for Decentralised, Cooperative Multi Agent Path Finding",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(ar5iv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2606.17682.html",
+          "id": "2606.17682",
+          "matched_keywords": [
+            "MAPF"
+          ],
+          "published": "2026-06-16",
+          "reading_value": 4,
+          "reading_value_reason": "LLMによるRL環境設計の自動化という新規性の高いテーマであり、失敗軌跡を用いた動的な環境更新が有効であるという知見は、強化学習の研究者にとって非常に興味深い。",
+          "relevance": 1,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "From Trainee to Trainer: LLM-Designed Training Environment for RL with Multi-Agent Reasoning",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 42,
+      "fresh_total": 26,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 7,
+      "skipped": [],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 0,
+        "openalex/recent": 0,
+        "semanticscholar/important": 2,
+        "semanticscholar/recent": 0
+      }
+    },
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2606.19667.html",
+          "id": "2606.19667",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-06-18",
+          "reading_value": 4,
+          "reading_value_reason": "RAGの推論遅延に対し、エンジン側を改修せずプロンプト層の順序最適化のみでKVキャッシュ再利用率を高めるという、実用性と新規性の高いアプローチである。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "CacheWeaver: Cache-Aware Evidence Ordering for Efficient Grounded RAG Inference",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(ar5iv)",
+          "citations": 2,
+          "file": "doc-structure-rag/2508.05666.html",
+          "id": "2508.05666",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2025-08-01",
+          "reading_value": 4,
+          "reading_value_reason": "知識グラフとベクトル検索を統合したハイブリッドRAGに加え、エージェントによる自己修正や引用検証を組み込んだ構成が極めて実用的。実験結果も具体的で信頼性が高い。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "fulltext",
+          "title": "HySemRAG: A Hybrid Semantic Retrieval-Augmented Generation Framework for Automated Literature Synthesis and Methodological Gap Analysis",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 154,
+      "fresh_total": 143,
+      "k": 2,
+      "label": "文書構造解析に基づく検索・質問応答・RAG",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 88,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-71bb8aede7a8",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-05-01",
+          "reasons": [
+            "本文もアブストラクトも取得できない"
+          ],
+          "relevance": 6,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "DC-RAG: a dual-channel retrieval-augmented generation framework for audit analysis.",
+          "venue": "Scientific Reports"
+        }
+      ],
+      "slug": "doc-structure-rag",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 40,
+        "openalex/recent": 40,
+        "semanticscholar/important": 38,
+        "semanticscholar/recent": 38
+      }
+    }
+  ],
+  "generated_at": "2026-06-21T06:00:01"
+}

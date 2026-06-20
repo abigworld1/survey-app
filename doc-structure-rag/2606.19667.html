@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CacheWeaver: Cache-Aware Evidence Ordering for Efficient Grounded RAG Inference | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>CacheWeaver: Cache-Aware Evidence Ordering for Efficient Grounded RAG Inference</h1>
+  <div class="meta">Kaizhen Tan, Rong Gu, Mingyuan Li<br>採択先: 未取得 ・ 2026-06-18 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.19667v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.19667v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-18</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの推論遅延に対し、エンジン側を改修せずプロンプト層の順序最適化のみでKVキャッシュ再利用率を高めるという、実用性と新規性の高いアプローチである。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> CacheWeaverは、RAG（Retrieval-Augmented Generation）において、検索された証拠（evidence）の順序を最適化することで、vLLM等のサービングエンジンにおけるPrefix Cachingの効率を向上させる軽量なプロンプト層の手法である。直近の文書シーケンスを保持するPrefix Tree（Knowledge Tree）を構築し、Greedy Walkを用いて最も再利用可能な接頭辞を先頭に配置することで、回答品質を維持したままTime-to-First-Token (TTFT) の中央値を約20–33%削減する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のRAGでは、隣接するクエリが重複する証拠セットを持っていても、その順序が異なるとAutomatic Prefix Caching (APC) によるKVキャッシュの再利用が困難になるという課題がある。APCはトークン単位の厳密な接頭辞一致に依存するため、文書の順序が変化するとキャッシュの再利用が即座に崩壊する。本研究は、推論エンジン側を変更することなく、プロンプト構築層（プロンプト層）のみで証拠の順序を最適化するCacheWeaverを提案する。この手法は、連続するクエリが文書を共有すること、文書の順序変更が抽出タスクの正解性に影響しないこと、およびキャッシュ状態がサービスの直近性で近似できることの3つの仮定に基づいている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、検索と推論の間に単純なスケジューリング層を設けるだけで、再利用可能なPrefixの局所性を大幅に回復できることを示した点にある。提案するGreedy policyは、全探索によるOracle orderingのTTFT削減効果の97.5%を達成しており、計算コストを抑えつつ極めて高い性能を実現している。実験では、HotpotQA、NQ-Open、TriviaQAなどのデータセットを用い、回答の品質（EMやF1スコア）を損なうことなく、TTFTの中央値を大幅に改善できることを証明した。また、リクエストあたりのmedian prefillを従来の検索順序に基づくAPCと比較して66.3%削減することに成功している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>CacheWeaverは、検索されたドキュメント集合 $\mathcal{D}$ を再構成するために、直近のドキュメント順序を記録するTrie構造の「Knowledge Tree」を用いる。アルゴリズムは、Trieのルートから開始し、未処理のドキュメントの中でキャッシュされたパスを継続できるものを貪欲に選択して順序 $\pi$ を構築するGreedy Walkを実行する。継続できないドキュメントについては、元の検索順位（retrieval rank）に従って追加される。この設計は、各ノードにキャッシュされた子が最大1つの場合には最適解となるが、複数のキャッシュされた子が分岐する場合にのみ劣解となる可能性がある。実装はPythonミドルウェアとして動作し、TTFTに基づいたフィードバックループによって、キャッシュの揮発（eviction）に伴う予測誤差を補正する仕組みを備えている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Qwen2.5モデルを用い、異なるハードウェア構成（Config A: RTX 4060 Ti, Config B: RTX 4090, Config C: 公開データ用）において検証を行った。ワークロードには、Jaccard係数を用いて重複を制御した合成コーパス（100文書および500文書構成）および公開データセットを使用している。評価指標として、TTFTの中央値および、TTFTがキャッシュなし実行時の0.6倍以下となった割合を示す $\text{Fast}\%$ を採用した。実験の結果、NQ-Openではmedian TTFTを14.0%改善し、TF-IDFを用いた合成コーパスでは26.8%削減した。また、Greedy法による順序付けのオーバーヘッドは、Config Bにおいてリトリーバル順序と比較して約26秒増加するものの、推論のp50を29%削減し、スループットの低下も0.4%以内に抑えられている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>CacheWeaverの有効性は、リトリーバル深度やドキュメントの重複度（Overlap）に依存し、中程度の重複がある場合に最も効果を発揮する。重複が極端に高い場合や低い場合には効果が限定的となる。また、辞書式ソートがより高い $\text{Fast}\%$ を示す場合であっても、CacheWeaverがTTFTで上回るのは、APCにおいて浅い一致を多数得るよりも、少数の深いプレフィックス一致（deep prefix matches）を得る方が価値が高いためである。本手法の限界として、評価が合成データや限定的な公開データに基づいているため、実際のプロダクション環境での絶対的な改善が保証されない点、および知識ツリーが実際のキャッシュ状態の近似に留まる点が挙げられる。本手法は、カスタマーサービスやエンタープライズ知識ベースなど、時間的局所性が存在する環境に適している。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>CacheWeaver: Cache-Aware Evidence Ordering for Efficient Grounded RAG Inference</h3><p>CacheWeaverは、Retrieval-Augmented Generation (RAG) において、検索された証拠（evidence）の順序を最適化することで、vLLM等のサービングエンジンにおけるPrefix Cachingの効率を向上させる軽量なプロンプト層の手法である。従来のRAGでは、隣接するクエリが重複する証拠セットを持っていても、その順序が異なるとPrefix Cachingによる再利用が困難になるという課題がある。本手法は、直近に提供された証拠シーケンスを保持するPrefix Treeを構築し、Greedy Walkを用いて最も再利用可能な接頭辞（prefix）を先頭に配置するよう証拠を並べ替える。実験では、3つのvLLM構成において、従来の検索順序に基づくPrefix Cachingと比較して、回答の品質を損なうことなく、Time-to-First-Token (TTFT) の中央値を約20–33%削減することに成功した。また、提案するGreedy policyは、Oracle orderingによるTTFT削減効果の97.5%を達成しており、検索と推論の間に単純なスケジューリング層を設けるだけで、再利用可能なPrefixの局所性を大幅に回復できることを示している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>RAG（Retrieval-Augmented Generation）における推論のボトルネックは、検索されたコンテキストによる入力長の増大に伴うprefillの遅延であり、既存のAutomatic Prefix Caching (APC) はトークン単位の接頭辞一致に依存するため、文書の順序が異なるとKVキャッシュの再利用が困難になるという課題がある。本研究では、サービングエンジンを変更せずプロンプト構築層のみで最適化を行う「CacheWeaver」を提案し、最近の文書シーケンスを知識木（knowledge tree）として保持し、貪欲な木探索（greedy walk）を用いて最も長くキャッシュされている可能性が高い接頭辞を先頭に配置する。この手法は、連続するクエリが文書を共有していること、文書の順序変更が抽出タスクの正解性に影響しないこと、およびキャッシュ状態がサービスの直近性で近似できることの3つの仮定に基づいている。実験では、HotpotQA、NQ-Open、TriviaQAなどのデータセットを用い、中央値のTime-to-First-Token (TTFT) の向上を評価しており、局所性のあるワークロードでは大幅なTTFTの改善を実現する一方で、隣接するクエリ間で検索結果が共有されない場合には効果が限定的であることを明らかにした。CacheWeaverの設計は、検索順序を維持したまま残りの文書を配置するフォールバック機構を備えており、exhaustiveな順序付け（oracle ordering）に近い性能を、エンジンに依存しない最小限の設計で実現している。</p></section>
+<section class="secsum"><h3>2 Background and Related Work</h3><p>標準的なRAGパイプラインにおいて、推論の遅延は主にLLMのプリフィル工程に起因するため、共通のコンテキストを持つリクエスト間でKVキャッシュを再利用することが重要となる。vLLMのAPC（Automatic Prefix Caching）は、トークンブロックをその接頭辞の履歴と共にハッシュ化して管理するため、再利用には厳密な接頭辞の一致が必要となる。RAGにおける検索結果の重複は集合ベースであるが、APCは順序に依存するため、同じ文書群が含まれていても出現順序が異なれば接頭辞が即座に分岐し、キャッシュの再利用が崩壊するという課題がある。本研究では、既存の推論エンジンを変更することなく、プロンプト層での証拠（evidence）の順序付けのみによって、どれだけの再利用率を回復できるかを調査する。比較対象として、RAGCacheやContextPilotなどの既存手法が挙げられるが、本手法はエンジン側の変更を伴わないプロンプト層での最適化に特化しており、全探索によるオラクル順序を設計上の上限として扱う。なお、実験設定における文書単位は、合成データでは約200トークン、HotpotQAでは約160単語であり、vLLMのトークンブロックサイズは16トークンである。</p></section>
+<section class="secsum"><h3>3 Method</h3><p>CacheWeaverは、検索されたドキュメント集合 $\mathcal{D}$ を再構成し、直近のプロンプトと長い共通接頭辞（prefix）を共有するように順序付けを行うことで、KVキャッシュの再利用を促進する手法である。本手法では、直近のドキュメント順序を記録するTrie構造の「Knowledge Tree」を用い、新しいリクエストに対して、キャッシュされたパスを最大限に辿れる順序を推定する。具体的なアルゴリズムは、Trieのルートから開始し、未処理のドキュメントの中でキャッシュされたパスを継続できるものを貪欲に選択して順序 $\pi$ を構築し、継続できない場合は残りのドキュメントを元の検索順位（retrieval rank）に従って追加する。この貪欲法（Greedy Ordering）は、各ノードにキャッシュされた子が最大1つである場合には、再利用可能な接頭辞の深さを最大化する最適解となるが、複数のキャッシュされた子が分岐する場合にのみ劣解となる可能性がある。計算コストは、各反復でTrieの子ノードを探索する程度であり、実用的な $\mathcal{D}$ のサイズに対して無視できるほど小さい。また、実装面ではvLLMの内部構造に依存せず、Pythonミドルウェアとして動作し、TTFT（Time To First Token）に基づいたフィードバックループによって、キャッシュの揮発（eviction）に伴う予測誤差を補正する仕組みを備えている。</p></section>
+<section class="secsum"><h3>4 Experimental Setup</h3><p>本実験では、Qwen2.5モデルを用い、ハードウェア構成（Config A: RTX 4060 Ti, Config B: RTX 4090, Config C: 公開データ用）やvLLMのバージョンが異なる複数の測定キャンペーンを通じて、CacheWeaverの効果を検証している。ワークロードには、バースト的なクエリ間で文書が重複するように設計された合成コーパス（100文書および500文書構成）を使用し、2つの検索セット間の重複はJaccard係数を用いて測定している。比較対象となる戦略は、キャッシュなし、検索順序に基づくAPC、辞書順ソートに基づくAPC、および提案手法である最適化順序（CacheWeaver）の4種類であり、キャッシュ汚染を防ぐため毎回新しいモデルインスタンスで実行される。評価指標は、エビデンスの順序付けがプリフィルに影響を与えることからTTFT（Time To First Token）を主軸とし、補助指標としてキャッシュヒットの代理指標である $\text{Fast}\%$ を採用している。ここで $\text{Fast}\%$ は、ウォームアップ後のリクエストのTTFTが、同一条件下でのキャッシュなし実行時のTTFTの $0.6$ 倍以下（すなわち $40\%$ 以上の高速化）となった割合として定義される。</p></section>
+<section class="secsum"><h3>5 Main Results</h3><p>CacheWeaver による最適化された順序付けは、Headline 設定において、辞書式ソート（lexicographic sorting）と比較して中央値の TTFT（Time To First Token）を継続的に低減させる。評価指標として、TTFT がコールド状態のベースラインの 60% 未満である場合に「Fast% $\dagger$」と定義されるキャッシュヒットのプロキシを用いているが、最適化手法は必ずしも最高の Fast% $\dagger$ を達成するわけではない。実験結果は、改善が $p95$ よりも $p50$ に集中していることを示しており、これはテールケースの多くが順序付けポリシーによる再利用が不可能なコールドリクエストであることに起因する。また、辞書式ソートがより高いヒット率プロキシを示す場合でも、CacheWeaver が TTFT で上回る理由は、APC（Adaptive Prefix Caching）ベースのサービングにおいて、浅い一致を多数得るよりも、少数の深いプレフィックス一致（deep prefix matches）を得る方が価値が高いからである。なお、各テーブル（Table 3, 4, 8）は異なる実行環境とトレースに基づいているため、Config B の $p50$ 値に微差が生じているが、戦略間の比較は各テーブル内のデルタによって評価されている。</p></section>
+<section class="secsum"><h3>6 Analysis</h3><p>CacheWeaverの性能分析では、まずGreedy法がOracle（最適解）のTTFT削減効果の97.5%を達成しており、高コストな探索は不要であることが示されている。手法の有効性はリトリーバル深度やドキュメントの重複度（Overlap）に依存し、中程度の重複がある場合に最も効果的で、重複が極端に高いか低い場合には効果が限定的となる。公開データセットを用いた検証では、HotpotQAやTriviaQAのような隣接する再利用性が低いデータではTTFTの改善は見られないが、NQ-Openでは14.0%のmedian TTFT改善を記録し、TF-IDFを用いた合成コーパスにおいてもmedian TTFTを26.8%削減できることが確認された。回答品質に関しては、同一のエビデンスセットを用いることで、リトリーバル順序と最適化順序の間でEM（Exact Match）やF1スコアに差がないことが示されている。システム負荷への影響については、Greedy法による順序付けのオーバーヘッドはリトリーバル順序と比較して約26秒（Config Bにおいて）増加するものの、推論のp50を29%削減し、スループットの低下も0.4%以内に抑えられている。計算効率の観点では、最適化された順序付けはリトリーバル順序のAPC（Automatic Prefix Caching）と比較して、リクエストあたりのmedian prefillを66.3%削減しており、キャッシュ効率の向上に寄与している。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>CacheWeaverは、検索された証拠（evidence）の順序を再構成することで、サービングエンジンを変更せずにKVキャッシュの再利用性を高め、Prefix Cachingの効率を向上させる手法である。提案手法であるシンプルなgreedy trie walkは、局所性を持つトレースにおいて中央値のTTFT（Time to First Token）を削減し、oracle orderingに近い性能を維持しつつ、ホスト側のオーバーヘッドを無視できる程度に抑え、限定的なQAチェックにおいて検索順序と同等の回答精度を達成している。本手法の限界として、評価に使用したトレースが合成データや限定的な公開データに基づいているため、実際のプロダクション環境における絶対的なTTFT改善が保証されない点、および文書の重複が極端に高い場合や低い場合には効果が限定的である点が挙げられる。また、知識ツリーは実際のキャッシュ状態を近似しているに過ぎず、現在の実装ではTTFTに基づくフィードバックループがキャッシュの滞留性（residency）の間接的な信号に留まっている。本手法は、ユーザーが関連するトピックを繰り返し検索するカスタマーサービスやエンタープライズ知識ベースなどの、時間的局所性が存在する特定のデプロイメントに適している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-21
+  </footer>
+</div>
+</body>
+</html>

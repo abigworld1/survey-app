@@ -152,6 +152,36 @@
       "url": "http://arxiv.org/abs/2606.18381v1",
       "venue": ""
     },
+    "arxiv:2606.19667": {
+      "added": "2026-06-21",
+      "arxiv_id": "2606.19667",
+      "authors": [
+        "Kaizhen Tan",
+        "Rong Gu",
+        "Mingyuan Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-18",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.19667.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.19667v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの推論遅延に対し、エンジン側を改修せずプロンプト層の順序最適化のみでKVキャッシュ再利用率を高めるという、実用性と新規性の高いアプローチである。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "CacheWeaver: Cache-Aware Evidence Ordering for Efficient Grounded RAG Inference",
+      "tldr": "CacheWeaverは、RAG（Retrieval-Augmented Generation）において、検索された証拠（evidence）の順序を最適化することで、vLLM等のサービングエンジンにおけるPrefix Cachingの効率を向上させる軽量なプロンプト層の手法である。直近の文書シーケンスを保持するPrefix Tree（Knowledge Tree）を構築し、Greedy Walkを用いて最も再利用可能な接頭辞を先頭に配置することで、回答品質を維持したままTime-to-First-Token (TTFT) の中央値を約20–33%削減する。",
+      "url": "http://arxiv.org/abs/2606.19667v1",
+      "venue": ""
+    },
     "arxiv:2606.20113": {
       "added": "2026-06-20",
       "arxiv_id": "2606.20113",
@@ -330,6 +360,34 @@
       "title": "Vision-Guided Chunking Is All You Need: Enhancing RAG with Multimodal Document Understanding",
       "tldr": "従来のテキストベースのチャンキングが抱える、複雑な文書構造や複数ページにわたる表・図の断片化という課題に対し、大規模マルチモーダルモデル（LMM）を用いて視覚的文脈を保持しながらチャンクを生成する新しいマルチモーダル・ドキュメント・チャンキング手法を提案する。"
     },
+    "doi:10.48550/arxiv.2508.05666": {
+      "added": "2026-06-21",
+      "arxiv_id": "2508.05666",
+      "authors": [
+        "Alejandro Godinez"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 2,
+      "date": "2025-08-01",
+      "doi": "10.48550/arXiv.2508.05666",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2508.05666.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "",
+      "reading_value": 4,
+      "reading_value_reason": "知識グラフとベクトル検索を統合したハイブリッドRAGに加え、エージェントによる自己修正や引用検証を組み込んだ構成が極めて実用的。実験結果も具体的で信頼性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "HySemRAG: A Hybrid Semantic Retrieval-Augmented Generation Framework for Automated Literature Synthesis and Methodological Gap Analysis",
+      "tldr": "HySemRAGは、ETLパイプラインとRAGを統合し、大規模な文献合成と手法的な研究ギャップの特定を自動化するハイブリッドなフレームワークである。セマンティック検索、キーワードフィルタリング、知識グラフ探索を組み合わせた多層的な検索アプローチと、エージェントによる反復的な自己修正、および事後的な引用検証メカニズムを備えている。",
+      "url": "https://www.semanticscholar.org/paper/db0530a6dc2d3c0fb66a7f597bc932af71518413",
+      "venue": ""
+    },
     "doi:10.48550/arxiv.2510.07233": {
       "added": "2026-06-15",
       "authors": [
@@ -465,6 +523,37 @@
       "source_quality": "fulltext",
       "title": "Graph Attention-Guided Search for Dense Multi-Agent Pathfinding",
       "tldr": "高密度なマルチエージェント経路探索（MAPF）において、グラフアテンションを用いたニューラル方策 $\\text{MAGAT}^+$ を探索アルゴリズム $\\text{LaCAM}$ に統合したハイブリッドフレームワーク $\\text{LaGAT}$ を提案する。事前学習とマップ特化型の微調整、およびデッドロック検出メカニズムを組み合わせることで、既存の探索ベース手法や学習ベース手法のパレート境界を突破し、高密度環境における解の質とリアルタイム性能を向上させている。"
+    },
+    "arxiv:2604.07970": {
+      "added": "2026-06-21",
+      "arxiv_id": "2604.07970",
+      "authors": [
+        "Kevin Riehl",
+        "Julius Schlapbach",
+        "Anastasios Kouvelas",
+        "Michail A. Makridis"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-04-09",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2604.07970.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.07970v1",
+      "reading_value": 4,
+      "reading_value_reason": "分散型MAPFにおける公平性の問題を、Karmaというクレジットを用いた分散フィードバック制御として定式化した点が新規であり、実用的な倉庫シナリオでの検証も具体的である。",
+      "relevance": 2,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Karma Mechanisms for Decentralised, Cooperative Multi Agent Path Finding",
+      "tldr": "大規模なロボット・サイバー物理システムにおける分散型マルチエージェント経路計画（DMAPF）に対し、エージェントの過去の協力履歴を非譲渡的な人工クレジット「Karma」として保持し、衝突解決時の優先順位を動的に調整するメカニズムを提案する。本手法は、中央集権的な計算を必要とせず、既存の交渉ベースの手法と同等の効率性を維持しながら、エージェント間の再計画負荷やサービス時間の格差を大幅に低減し、長期的な公平性を実現する。",
+      "url": "http://arxiv.org/abs/2604.07970v1",
+      "venue": ""
     },
     "arxiv:2604.25567": {
       "added": "2026-06-18",
@@ -836,6 +925,37 @@
       "source_quality": "fulltext",
       "title": "Unassigned Agents in Compilation-based Multi-agent Path Finding",
       "tldr": "目的地を持つエージェント $\\mathcal{A}$ と、目的地を持たない未割り当てエージェント $\\mathcal{U}$ が混在するUA-MAPF問題を、コンパイルベースのSAT/SMTソルバーを用いて解く手法を提案している。未割り当てエージェントは、目的地への到達義務はないものの、他のエージェントの経路を妨げないよう移動させる必要がある。本研究は、MDD（Multi-valued Decision Diagram）をUA用に拡張したUA-MDDを用いることで、既存のSMT-CBSやNRF-SATといった高度なソルバーをUA-MAPFへ容易に適応できることを示した。"
+    },
+    "arxiv:2606.17682": {
+      "added": "2026-06-21",
+      "arxiv_id": "2606.17682",
+      "authors": [
+        "Chao Chen",
+        "Chengzu Li",
+        "Zhiwei Li",
+        "Yinhong Liu",
+        "Zhijiang Guo"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2026-06-16",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2606.17682.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.17682v1",
+      "reading_value": 4,
+      "reading_value_reason": "LLMによるRL環境設計の自動化という新規性の高いテーマであり、失敗軌跡を用いた動的な環境更新が有効であるという知見は、強化学習の研究者にとって非常に興味深い。",
+      "relevance": 1,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "From Trainee to Trainer: LLM-Designed Training Environment for RL with Multi-Agent Reasoning",
+      "tldr": "LLMが強化学習（RL）の環境設計を自動化する「LLM-as-Environment-Engineer」フレームワークを提案し、ポリシーの失敗軌跡に基づき学習環境の構成を動的に更新することで、固定環境よりも高い学習パフォーマンスを実現する。",
+      "url": "http://arxiv.org/abs/2606.17682v1",
+      "venue": ""
     },
     "doi:10.1016/j.artint.2022.103752": {
       "added": "2026-06-14",
