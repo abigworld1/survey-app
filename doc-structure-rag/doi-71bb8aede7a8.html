@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>DC-RAG: a dual-channel retrieval-augmented generation framework for audit analysis. | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>DC-RAG: a dual-channel retrieval-augmented generation framework for audit analysis.</h1>
+  <div class="meta">Chunyu Xing, Hang Meng<br>採択先: Scientific Reports ・ 2026-05-01 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/2573267d55c020314255f19f54316d5a1a56e487" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.1038/s41598-026-50062-8" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip venue">採択先 Scientific Reports</span><span class="chip">公開日 2026-05-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 6</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">テキストと知識グラフを統合するRAGの設計は定石だが、監査ドメインへの適用と具体的な融合戦略（Cross-Channel Evidence Fusion）の提示は、実用的な研究として価値がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 監査結果公告の分析において、LLMのハルシネーションを抑制し、複雑な意味関係の推論精度を向上させるための「DC-RAG (Dual-Channel Retrieval-Augmented Generation)」フレームワークを提案する。本手法は、非構造化テキストから情報を抽出する「テキストチャネル」と、知識グラフ（KG）から構造化されたサブグラフを抽出する「知識グラフチャネル」の二系統の検索メカニズムを構築し、それらを統合・再ランキングすることで、監査ドメインにおける高度な意味理解と構造的推論を両立させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、専門性の高い監査結果公告の分析において、大規模言語モデル（LLM）が直面するドメイン知識の不足や事実誤認（ハルシネーション）という課題に対処する。既存のテキストベースのRAGは、エンティティ間の明示的な関係性や推論制約の提供に限界があり、一方で従来の知識グラフ質問応答（KGQA）は、手動設計への依存やサブグラフの想起不足による重要情報の欠落といった問題がある。監査業務では、詳細な記述を含む非構造化テキストと、エンティティ間の関係を示す構造化知識の両方が不可欠である。本論文は、これら二つの補完的な証拠を協調的に統合する、監査ドメイン初のQAフレームワークを提示している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、監査分析に特化した「DC-RAG」フレームワークの開発である。第一に、ドキュメントデータベースとリレーショナルデータベース（知識グラフ）の双方から候補証拠を抽出するデュアルパス検索メカニズムを構築した。第二に、テキスト証拠とサブグラフ証拠を共同でランキングおよび統合する「Cross-Channel Evidence Fusion」戦略を提案し、異種混合な知識源の協調的なモデリングを実現した。第三に、監査結果公告の特性に合わせた、密な検索（dense retrieval）、疎な検索（sparse retrieval）、および統合ランキング（unified ranking）からなる段階的な検索パイプラインを実装した。これにより、監査ドメインにおける意味的網羅性と構造的推論の要求を同時に満たすことが可能となった。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>DC-RAGは、生成コアとしてドメイン適応済みのLLMを使用し、以下の二つのチャネルで構成される。<br>1. **テキストチャネル**: 非構造化コーパス $\mathcal{D} = \{d_1, d_2, \dots, d_T\}$ に対し、`bge-base-zh` エンコーダを用いてベクトル化を行い、FAISSを用いて密な検索を行う。クエリ $q$ とのコサイン類似度 $\text{sim}(\mathbf{q}, \mathbf{d}_i) = \frac{\mathbf{q} \cdot \mathbf{d}_i}{\|\mathbf{q}\| \|\mathbf{d}_i\|}$ に基づき、上位50個の候補を抽出する。その後、Jiebaによるトークン化とクエリ拡張を用いたBM25アルゴリズムによる疎な検索を行い、キーワードレベルの適合性を精査する。<br>2. **知識グラフチャネル**: 構造化知識チャネルとして、知識グラフに対してエンティティ照合とリレーショナルクエリを実行し、クエリと意味的に整合したサブグラフ情報を取得する。<br>3. **統合プロセス**: 最終的な統合ランキングスコア $S_{unified}(q, d)$ は、密なスコア $S_{dense}$ と、IDF、項頻度飽和パラメータ $k_1$、文書長正規化パラメータ $k_2$ を用いたBM25スコア $S_{sparse}$ を、重み $\alpha = 0.5, \beta = 0.5$ で加重平均して算出される。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、中国国家監査庁が2020年から2024年に公開した監査結果公告をデータセットとして使用した。`pdfplumber` を用いてページ構造に基づきセグメント化を行い、10文字未満の段落を除去することで、計1,025個の有効な文書チャンクを構築している。評価の結果、提案モデルは検索の有効性と回答の質の双方においてベースライン手法を上回る性能を達成した。複数の標準的な公開ベンチマークにおいても大幅な性能向上を示しており、監査ドメインにおける半構造化ドキュメントと構造化知識グラフの共存に対応した実用的なソリューションであることが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>DC-RAGは、テキストの微細な意味論的詳細と、知識グラフによる構造的制約を同時にLLMへ供給することで、従来の単一チャネル型RAGの限界を克服している。既存のハイブリッド手法が単なる並列的な連結に留まっていたのに対し、本手法は異なる証拠間の異質性を考慮した統合ランキング・融合モジュールを備えている点が特徴である。これにより、監査のような高リスクなシナリオにおいて、検証可能なソースに根ざした信頼性の高い回答生成が可能となる。ただし、本手法の性能は、エンティティや関係性の抽出精度、および知識グラフの網羅性に依存するという側面も示唆されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract:</h3><p>本論文は、監査結果公告の分析において、非構造化テキストと構造化知識の双方を効果的に活用するための「Dual-Channel Retrieval-Augmented Generation (DC-RAG)」フレームワークを提案している。この手法は、ドキュメントデータベースとリレーショナルデータベースの二つの経路から候補証拠を抽出するデュアルパス検索メカニズムを構築し、非構造化監査テキストと構造化ナレッジグラフの両方から情報を取得する。取得されたマルチソースの証拠は、統一された評価および再ランキング戦略によって統合され、監査における意味理解と推論能力を向上させる。システムは、クエリ理解、証拠の再ランキング、および回答生成の各モジュールを組み込んだエンドツーエンドの知能型質問応答モデルとして構成されている。実験の結果、提案モデルは検索の有効性と回答の質の双方においてベースライン手法を上回り、監査結果公告のインテリジェントな活用に向けた実現可能なソリューションであることを示している。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>LLMを用いたQAシステムは医療や金融などの分野で活用されているが、監査結果の発表のような専門性の高い領域では、ドメイン固有の知識に関する体系的なモデリングが不足しているため、LLMが事実誤認やハルシネーションを引き起こす課題がある。監査業務における生成結果の信頼性を確保するためには、LLMの汎用的な能力を活用しつつ、専門知識の有効な検索とセマンティックな整合性をいかに高めるかが重要な課題となっている。本セクションでは、既存の金融開示シナリオにおけるLLMの適用事例に触れつつ、監査分野特有の知識不足がもたらす信頼性の欠如という問題意識を提示している。</p></section>
+<section class="secsum"><h3>ARTICLE IN PRESS</h3><p>本研究は、監査結果公表のシナリオにおいて、大規模言語モデル（LLM）のハルシネーションを抑制し、複雑な意味関係下での推論精度を向上させるための、テキストと知識グラフ（KG）の双方を活用する「DC-RAG」フレームワークを提案している。既存のテキストベースのRAGは非構造的な性質から明示的な推論制約の提供に限界がある一方、KGはエンティティ間の関係性や推論パスを構造的に提供できるため、これら二つの補完的な証拠を統合することが鍵となる。提案手法では、ドキュメントから証拠を抽出する「テキストチャネル」と、KGからサブグラフを抽出する「知識グラフチャネル」の二系統の検索メカニズムを構築し、各チャネルで独立した評価基準に基づきランキングを行った後、それらを統合・再ランキングして融合させるプロセスを経る。この設計により、LLMに対して構造的および意味的な推論の手がかりを同時に提供することが可能となる。実験の結果、提案手法は複数の標準的な公開ベンチマークにおいて大幅な性能向上を達成しており、監査ドメインにおける半構造化ドキュメントと構造化知識グラフの共存に対応した初のQAフレームワークとして位置付けられる。</p></section>
+<section class="secsum"><h3>ARTICLE IN PRESS</h3><p>DC-RAGフレームワークは、異種混合な知識源から効果的な検索を行うために、証拠のタイプに応じたランキングおよびフィルタリング戦略を開発している。本手法では、テキスト証拠とサブグラフ証拠を共同でランキングおよび統合する「Cross-Channel Evidence Fusion」戦略を提案している。これにより、非構造化された意味情報と構造化された関係知識を大規模言語モデル（LLM）へ協調的に供給することが可能となり、生成結果の信頼性を向上させている。</p></section>
+<section class="secsum"><h3>2. Related Work</h3><p>LLMは大規模な一般コーパスに基づく統計的学習に依存しているため、専門分野においてはドメイン知識の不足やハルシネーション（幻覚）の問題が生じやすい。特に金融のような高リスクなシナリオでは、複雑な意味理解の誤りや数値の一貫性の欠如、さらには事実に基づかない内容の生成が報告されており、厳格な正確性と追跡可能性が求められる専門的用途への適用には課題がある。監査結果の公表は、公金や責任主体などの重要な情報を含む高度に標準化された専門テキストであり、法的な属性も有するため、エンドツーエンドの生成のみでは回答の信頼性を担保できない。したがって、権威ある外部知識をモデルに導入し、出力を検証可能なソースに根ざさせる証拠中心の生成パラダイムを構築することが不可欠である。</p></section>
+<section class="secsum"><h3>2.1 Retrieval-Augmented Generation (RAG)</h3><p>Retrieval-Augmented Generation (RAG) は、外部知識を生成プロセスに導入することで、大規模言語モデル（LLM）の知識の鮮度や事実正確性の限界を緩和する手法である。標準的な RAG は、文書を意味的なチャンクに分割してベクトルストアにインデックス化し、推論時に類似度に基づいて関連する一節を検索してコンテキストとして提供する「テキストチャンクと意味的類似性」に基づく検索パラダイムを採用している。また、LLM が回答時に外部の事実的証拠に依存することを重視した Evidence-driven RAG も提案されている。しかし、これらの従来手法はエンティティ間の関係性やドメイン構造を明示的にモデル化できていないため、マルチホップ推論や複雑な意味的シナリオにおいて限界がある。</p></section>
+<section class="secsum"><h3>2.2 Knowledge Graph Question Answering and KG-RAG Methods</h3><p>知識グラフ（KG）は、エンティティとそれらの関係性を中心にドメイン知識を構造化することで、複雑な推論の基盤を提供する。初期の知識グラフ質問応答（KGQA）手法は、主にテンプレート駆動型やルール駆動型のパラダイムを採用しており、自然言語の質問をあらかじめ定義された形式に変換することで回答を導出していた。</p></section>
+<section class="secsum"><h3>ARTICLE IN PRESS</h3><p>従来のKGQA手法は、自然言語をSPARQL等の構造化クエリに変換するテンプレートベースの手法において高い解釈性を持つ一方、手動設計への依存と汎用性の低さが課題であった。これに対し、セマンティックパースやパス推論を用いるニューラルKGQAは、大規模なアノテーションデータと高い学習コスト、および解釈性の欠如という問題を抱えている。近年、GraphRAGのように知識グラフから関連サブグラフを抽出してLLMに提供する手法が登場しているが、その性能はエンティティや関係性の抽出精度に強く依存しており、サブグラフの想起（recall）不足による重要情報の欠落が懸念される。さらに、グラフベースの証拠のみでは監査公告に含まれるテキストレベルの微細な意味論的詳細や、暗黙的な情報を十分に捉えきれない。したがって、複雑な監査シナリオの質問応答要件を包括的に満たすには、単一の知識グラフチャネルでは不十分である。</p></section>
+<section class="secsum"><h3>2.3 Hybrid and Multi-Channel Retrieval-Augmented Frameworks</h3><p>近年の研究では、非構造化ドキュメントからのテキスト検索と知識グラフからのサブグラフまたは推論パスの検索を並列に行い、それらを連結してLLMに提供するハイブリッド型またはマルチチャネル型のRAGフレームワークが提案されている。これらの手法は、自然言語による証拠と構造化された関係性による証拠を同時に取り入れることで、意味的な網羅性と明示的な推論能力の両立を図り、LLMのハルシネーション抑制を目指している。しかし、既存手法の多くは単なる並列的な連結に留まっており、異なる証拠間の異質性を明示的にモデル化したり、それらを協調的に統合するための原理的なメカニズムを持っていたりしない。特に監査結果の公表のようなシナリオでは、詳細な記述を重視するテキスト証拠と、エンティティ間の関係や構造的制約を捉えるグラフ証拠の間で、粒度や機能が大きく異なる。そのため、既存のアプローチでは単一のフレームワーク内での効果的な統合ランキングや制約付き融合を実現することが困難であり、意味的網羅性と構造的推論の要求を同時に満たすことができていない。</p></section>
+<section class="secsum"><h3>ARTICLE IN PRESS</h3><p>本研究は、監査ドメインにおける知的な質疑応答の信頼性を向上させるため、テキスト情報と知識グラフ（KG）の証拠を統合した二重チャネル型検索拡張生成（DC-RAG）フレームワークを提案している。この手法は、異種混合な証拠の協調的なモデリングと制御された生成を可能にすることで、監査分析における高度な推論を支援する。具体的には、テキストベースの証拠と構造化された知識グラフの証拠を個別のチャネルとして扱うことで、情報の補完的な活用を目指している。</p></section>
+<section class="secsum"><h3>3.1 Overall Architecture of the Model</h3><p>DC-RAGは、ドメイン適応済みの事前学習済み大規模言語モデル（LLM）を生成コアとし、非構造化文書データベースと構造化リレーショナルデータベースの両方を活用する二重チャネル型の検索拡張生成フレームワークである。ユーザーのクエリに対し、テキストチャネルが非構造化コーパスから意味的な証拠となるテキストセグメントを検索する一方で、構造化知識チャネルは知識グラフに対してエンティティ照合とリレーショナルクエリを実行し、クエリと意味的に整合した構造化サブグラフ情報を取得する。これら2つの並列パスから得られた候補は、統合ランキング・融合モジュールによって正規化および再ランキングされ、高度に関連性の高い証拠セットへと集約される。最終的に、融合された証拠と元のクエリがLLMに共同で提供されることで、専門領域における信頼性の高い回答生成を実現する。</p></section>
+<section class="secsum"><h3>Texts</h3><p>本研究では、「密な検索（dense retrieval）– 疎な検索（sparse retrieval）– 統合ランキング（unified ranking）」のパラダイムに基づく、監査分析のための段階的な検索パイプラインを提案している。まず、ユーザーのクエリをベクトル化してベクトルデータベースとのコサイン類似度を計算する密な検索により、潜在的な意味的整合性をカバーするために Top-50 の候補を抽出する。次に、抽出された候補集合に対して BM25 アルゴリズムを用いた疎な検索を適用し、キーワードレベルでの精密なマッチングを行うことで関連性を精査する。最終的に、密な類似度スコアと BM25 スコアを重み付き融合（weighted fusion）して統合ランキングを生成し、そこから選択された Top-$k$ の文書セグメントを生成モジュールのコンテキストとして利用する。データセットとして、中国国家監査庁が2020年から2024年に公開した100件の監査結果公告を使用し、`pdfplumber` を用いてページ構造に基づきセグメント化することで、10文字未満の段落を除去した計1,025個の有効な文書チャンクを構築している。ベクトル化には `bge-base-zh` テキスト埋め込みモデルを採用し、各チャンクを高次元のセマンティック空間における密なベクトル表現へと写像している。</p></section>
+<section class="secsum"><h3>ARTICLE IN PRESS</h3><p>本セクションでは、監査結果公告の分析を目的としたDC-RAGフレームワークにおける、2段階の検索プロセスが詳述されている。まず、dense retrieval（密ベクトル検索）段階において、ドキュメントチャンクの集合 $\mathcal{D} = \{d_1, d_2, \dots, d_T\}$ は `bge-base-zh` エンコーダを用いてベクトル化され、FAISSベクトルデータベースに格納される。ユーザーのクエリ $q$ も同様のエンコーダでベクトル $\mathbf{q}$ に変換され、コサイン類似度 $\text{sim}(\mathbf{q}, \mathbf{d}_i) = \frac{\mathbf{q} \cdot \mathbf{d}_i}{\|\mathbf{q}\| \|\mathbf{d}_i\|}$ に基づいて、類似度の高い上位50個のチャンクが候補集合として抽出される。続くsparse retrieval（疎ベクトル検索）段階では、BM25アルゴリズムを用いて候補集合の再精査が行われる。具体的には、Jiebaによるトークン化とキーワード抽出法によるクエリ拡張を経て、逆インデックスを利用してキーワードを含むチャンクを特定し、式 (4) で定義されるBM25スコアに基づいて関連性を計算する。この二段階のアプローチにより、高次元のセマンティック空間での意味的整合性と、キーワードに基づく語彙的な適合性の両立を図っている。</p></section>
+<section class="secsum"><h3>ARTICLE IN PRESS</h3><p>本セクションでは、クエリ $q$ とドキュメント $d$ の間の関連性スコア $S_{sparse}(q, d)$ を算出する、BM25に基づくスパース検索手法が定義されている。このスコアは、式 (5) で定義される逆文書頻度（IDF）重み、項頻度の飽和を制御するパラメータ $k_1$、および文書長正規化を制御するパラメータ $k_2$ を用いて計算される。具体的には、IDFは $\log \frac{N - n(t) + 0.5}{n(t) + 0.5} + 1$ と定義され、$N$ はコーパス内の総文書数、$n(t)$ は項 $t$ を含む文書数である。最終的な統合ランキングスコア $S_{unified}(q, d)$ は、密ベクトル検索によるスコア $S_{dense}(q, d)$ とスパース検索によるスコア $S_{sparse}(q, d)$ を、重み $\alpha = 0.5$ および $\beta = 0.5$ を用いて等価に加重平均することで算出される。この統合スコアに基づき、セマンティックな関連性が最も高い上位 $k$ 個のドキュメントが、RAGリトリーバーの候補セットとして選択される。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-22
+  </footer>
+</div>
+</body>
+</html>

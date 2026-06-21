@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>From Gridworlds to Warehouses: Adapting Lightweight One-shot Multi-Agent Pathfinding for AGVs | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>From Gridworlds to Warehouses: Adapting Lightweight One-shot Multi-Agent Pathfinding for AGVs</h1>
+  <div class="meta">Hiroki Nagai, Keisuke Okumura<br>採択先: 未取得 ・ 2026-05-15 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2605.15799v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.15799v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-05-15</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">実世界のAGVの運動学的制約を考慮したMAWPFという新定義と、既存の軽量アルゴリズムの適応・評価が体系的であり、実用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、従来の2Dグリッドに基づくMAPFを、差動駆動型AGVの運動学的制約（回転、加減速、追従衝突）を考慮した「Multi-Agent Warehouse Pathfinding (MAWPF)」へと拡張し、軽量な非最適アルゴリズム（PP, LNS2, PIBT, LaCAM）を適応・評価したものである。実験の結果、LaCAMにPIBTを組み込んだ手法が数百台規模のエージェントに対して高い成功率とスケーラビリティを示す一方、運動学的制約による有向グラフ化がデッドエンドの発生を招き、従来のMAPFに比べスケーラビリティが制限される課題を明らかにした。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のMulti-Agent Pathfinding (MAPF) は、全エージェントが2Dグリッド上で単位時間・単位距離で同期移動することを前提としているが、実世界の自動搬送車 (AGV) はより複雑な制約を持つ。本研究では、これらを統合した「Multi-Agent Warehouse Pathfinding (MAWPF)」という新たな問題定義を提案している。MAWPFの制約には、(i) 直進と原地旋回への動作制限、(ii) 旋回に伴う複数ステップのコスト、(iii) 加減速による速度変化、(iv) 後続車両の追突を防ぐためのフォロワー衝突（直前の空きセルへの進入禁止）が含まれる。これにより、状態空間は位置、向き $\theta \in \{0, \frac{\pi}{2}, \pi, \frac{3\pi}{2}\}$、速度 $v \in \{0, \dots, v_{\max}\}$ の組 $s = (p, \theta, v)$ で定義される有向グラフ $\mathcal{G}$ となり、従来の無向グラフを扱うMAPFよりも本質的に困難な問題となっている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、実世界の倉庫環境におけるAGVの動特性を直接モデル化したMAWPFの定式化と、既存の軽量MAPFアルゴリズムをこの制約下へ適応させる手法の体系的な提案である。具体的には、Prioritized Planning (PP)、Large Neighborhood Search (LNS2)、Priority Inheritance Backtracking (PIBT)、および LaCAM の各アルゴリズムをMAWPF向けに拡張・実装した。また、12種類のベンチマークマップを用いた包括的な実験により、エージェント数、マップの構造、および運動学的パラメータ（$v_{\max}$ や $t_{\text{rot}}$）が成功率や解の品質（$\text{SoC}_{\text{norm}}$）に与える影響を定量的に明らかにした。これにより、実用的な倉庫環境におけるマルチエージェント経路計画の性能限界と、スケーラビリティ向上のための課題を提示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法では、既存の軽量アルゴリズムをMAWPFの有向グラフおよび制約に適応させている。PPは、各エージェントを優先順位に従って順次、空間時間A*を用いて計画し、占有セルを予約する。LNS2は、衝突を許容するPPの初期解に対し、一部の経路を破壊・再計画する局所探索を行う。PIBTの適応では、動作制約を考慮した「multi-step PIBT」を提案しており、計画失敗時に最短停止経路 $stop\_path$ を定義し、衝突するエージェントへ優先権を継承させるルールを導入している。LaCAMに対しては、構成生成器としてPIBT for MAWPFを組み込み、高レベル探索において1ステップずつ確定させるローリングホライゾン方式を採用することで、有向グラフにおける行き止まり問題を回避している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、12種類のMAPFベンチマーク・グリッドマップを用い、M3 Pro Apple Silicon搭載のノートPC上でC++により実装されたアルゴリズムを用いて実施された。各マップに対し25ケースのランダムな開始・目標状態を設定し、成功率、実行時間、および正規化された総コスト $\text{SoC}_{\text{norm}} = \frac{\text{SoC}}{\text{LB}}$ を指標とした。実験の結果、LaCAMは数百台のエージェントを数秒以内に解決できる高いスケーラビリティを示したが、幅1の狭い通路が支配的なマップではPIBTの貪欲な性質により成功率が低下した。また、PPやLNS2は解の品質（SoC）においてPIBTを上回る傾向がある一方、エージェント数の増加に対してはPIBTベースの手法が優れたスケーラビリティを発揮することが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究により、LaCAM + PIBT の適応手法が実用的な規模において極めて高いスケーラビリティを持つことが示されたが、従来のMAPFと比較してスケーラビリティが制限される要因も特定された。その要因として、リッチな運動学的制約によって各エージェントの候補パスが増大し、構成生成コストが高騰すること、および向きや速度の制約により構成グラフが有向グラフ化し、デッドエンドが発生しやすくなることが挙げられる。特に、最大速度 $v_{\max}$ や回転ステップ数 $t_{\text{rot}}$ の増加は、成功率と解の品質を低下させる要因となる。今後の展望として、コストを考慮した後続状態生成や精緻化メカニズムを導入することで、狭い通路などの困難なレイアウトにおける堅牢性を向上させることが求められる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>From Gridworlds to Warehouses: Adapting Lightweight One-shot Multi-Agent Pathfinding for AGVs</h3><p>本研究では、従来の4連結2Dグリッドおよび単位時間移動を前提としたMAPFの制約を、実世界の差動駆動型AGVに適応させた「Multi-Agent Warehouse Pathfinding (MAWPF)」を提案している。MAWPFは、(i) 直進移動と原地旋回への動作制限、(ii) 旋回に伴う複数ステップのコスト、(iii) 加減速の考慮、(iv) 後続車両の追突を防ぐための追従衝突の禁止、という4つの制約を特徴とする。評価にあたっては、代表的な劣最適MAPFアルゴリズムである Priority Planning (PP)、Large Neighborhood Search (LNS2)、Priority Inheritance Backtracking (PIBT)、および LaCAM をMAWPF向けに適応させ、包括的なベンチマークを実施している。実験結果により、PPおよびLNS2はエージェント数が増加するインスタンスの解決に苦戦する一方で、PIBTベースの手法は解のコストは増大するものの、優れたスケーラビリティを実現することが示された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究では、従来のグリッドワールドに基づく Multi-Agent Pathfinding (MAPF) を、実世界の倉庫環境における AGV の動特性に適合させた Multi-Agent Warehouse Pathfinding (MAWPF) という新たな問題定義を提案している。従来の MAPF は、全エージェントが 2D グリッド上で単位時間・単位距離の同期的な動きをすることを前提としているが、実世界の AGV には (i) 回転制約、(ii) 旋回アクションのコスト、(iii) 直前の空きセルへの進入を禁じるフォロワー競合、(iv) 加減速に伴う複数セル移動といった、より複雑な運動学的制約が存在する。既存のポストプロセッシング手法では、簡略化されたロボット力学に依存するため、得られる計画が劣最適になるという限界がある。本論文では、計算負荷の低い代表的な MAPF アルゴリズムである Prioritized Planning (PP), LNS2, PIBT, LaCAM を MAWPF に適応させる手法を記述し、それらの性能と限界を体系的に評価することを目的としている。</p></section>
+<section class="secsum"><h3>2 Classical MAPF</h3><p>本セクションでは、MAWPFの理解を助けるために、古典的かつ最も一般的なMAPFの定式化であるグリッドワールドについて述べている。システムは、離散的かつグローバルに同期された時間モデルの下、グラフ上で動作するエージェントの集合で構成され、各タイムステップにおいてエージェントは現在の頂点に留まるか、隣接する頂点へ移動する。実行可能性は、2つの衝突制約、すなわち同一時刻に2つのエージェントが同じ頂点を占有する「頂点衝突（vertex conflicts）」と、単一のタイムステップ内で2つのエージェントが同じエッジを逆方向に通過する「エッジ衝突（edge conflicts）」によって定義される。各エージェントに異なる開始頂点と目標頂点 $s_i, g_i$ が与えられたとき、one-shot MAPF問題は、衝突を回避しながら全エージェントを開始地点からそれぞれの目標地点へ到達させる有限のアクション列を求めるものである。解の品質は、各エージェントが最初に目標に到達し、その後もそこに留まり続けるまでの時間の総和である sum-of-costs (SoC) または flowtime によって評価される。</p></section>
+<section class="secsum"><h3>3 MAWPF</h3><p>MAWPFは、差動駆動型AGVの運動制約を考慮した、自動倉庫配送の実態に即したマルチエージェント経路計画の定式化である。ワークスペースは障害物のないセル集合 $\mathcal{V}$ と隣接関係を表すエッジ集合 $\mathcal{E}$ からなる4連結2Dグリッドグラフ $G=(\mathcal{V}, \mathcal{E})$ でモデル化され、各エージェントの状態は位置、向き $\theta \in \{0, \frac{\pi}{2}, \pi, \frac{3\pi}{2}\}$、および速度 $v \in \{0, \dots, v_{\max}\}$ の組 $s = (p, \theta, v)$ で定義される。エージェントは各タイムステップにおいて、移動（Stay, Forward, Rotation）と速度変化（Keep, Acceleration, Deceleration）の2段階のアクションを実行するが、加速度の制約により $v$ を即座に変更することはできず、この非可逆性がグラフを有向グラフ $\mathcal{G}$ にする。衝突判定は、エージェントが移動中に占有する線分上の幾何学的頂点が他のエージェントと重なる場合に発生し、これには頂点・エッジ衝突に加え、前ステップの占有セルへの進入を防ぐフォロワー衝突も含まれる。MAWPFは、開始構成 $\mathcal{S}$ から目標構成 $\mathcal{G}$ への衝突のない構成の列を求める問題であり、運動学的制約による行き止まりやデッドロックの発生しやすさから、無向グラフを扱う従来のMAPFよりも本質的に困難な問題となっている。</p></section>
+<section class="secsum"><h3>4 Related Work</h3><p>本研究は、大規模な倉庫内輸送を目的として、従来のMAPF（Multi-Agent Pathfinding）を倉庫環境へと拡張したMAWPFを提案しており、関連研究を「スケーラブルなMAPFソルバー」と「運動学的制約を考慮したMAPF」の2つの観点から整理している。スケーラビリティの観点では、エージェント数に対して指数関数的に分岐数が増大する $A^*$ や、制約集合を探索するCBS（Conflict-Based Search）に対し、本研究では実時間性能を重視して、PP、LNS2、PIBT、LaCAMといった、最適性を犠牲にしつつ大規模インスタンスに対応可能な軽量な非最適アルゴリズムの系譜を採用している。運動学的制約の扱いについては、グリッドベースの解を後処理でAGVの動力学に適合させる手法（AGVやyan2025multiなど）があるが、これらは実行コストの乖離により非最適になりやすい。一方で、MAPF-TやCL-MAPFのように動力学を直接モデル化する手法も存在するが、本研究のMAWPFは、既存の離散探索アルゴリズムを直接適用可能な「完全離散状態空間」を採用しつつ、移動・回転・衝突特性といったAGV固有の制約を統合的に考慮している点で、既存手法と差別化されている。</p></section>
+<section class="secsum"><h3>5 Algorithms</h3><p>本セクションでは、差動駆動モデルおよび倉庫特有の安全制約を持つMAWPF（Multi-Agent Warehouse Pathfinding）へ既存の軽量MAPFアルゴリズムを適応させる手法が述べられている。まず、Prioritized Planning (PP) は、各エージェントを優先順位に従って順次、空間時間A*を用いて計画し、移動軌跡が占有する全セルを予約テーブルに登録する最も単純なベースラインである。次に、LNS2は、衝突を許容するソフトなPPで初期解を得た後、一部のエージェントの経路を破壊・再計画する局所探索法である。PIBTの適応では、差動駆動モデルにおける移動の制約を考慮し、単一の頂点ではなく短期間の動作シーケンスを予約する「multi-step PIBT」を提案している。具体的には、計画失敗時に「stay」の代わりに最短停止経路である $stop\_path$ を定義し、停止経路が衝突するエージェントへ優先権を継承させるルールを導入している。さらに、LaCAMに対しては、構成生成器としてPIBT for MAWPFを組み込み、高レベル探索において $k$-stepの配列をマクロ的な後続状態として扱うのではなく、1ステップずつ確定させるローリングホライゾン方式を採用することで、有向グラフにおける行き止まり問題を回避している。</p></section>
+<section class="secsum"><h3>6 Evaluation</h3><p>本実験では、MAWPF（Multi-Agent Warehouse Pathfinding）アルゴリズムであるPP、LNS2、PIBT、およびLaCAMの性能を、成功率、実行時間、および正規化された総コスト（$\text{SoC}_{\text{norm}} = \frac{\text{SoC}}{\text{LB}}$、ここで $\text{LB}$ は最短経路コストの最小値）を用いて評価している。12種類のMAPFベンチマーク・グリッドマップを用い、M3 Pro Apple Silicon搭載のノートPC上でC++により実装されたアルゴリズムを、各マップ25ケースのランダムな開始・目標状態に対して検証した。結果として、LaCAMは多くのマップで最も高い成功率を示し、数百台のエージェントを数秒以内に解決できるスケーラビリティとリアルタイム性を備えている一方、幅1の狭い通路が支配的なマップ（warehouse-20-40-10-2-1）では、PIBTの貪欲な性質に起因して成功率が低下するという限界が示された。解の品質については、A*ベースの探索を行うPPやLNS2が、実現可能性重視のPIBTよりも低いSoCを達成する傾向にある。また、PIBTのlookahead horizon $H$ を大きくすると、実行時間は増加するものの、デッドエンドの回避や解の品質向上に寄与することが確認された。アブレーション研究では、Division sortによる候補パスのランキングと、Pruningによる冗長な候補の除去が、実行時間の短縮およびSoCの改善に有効であることが示された。さらに、最大速度 $v_{\max}$ や回転ステップ数 $t_{\text{rot}}$ の増加は、成功率と解の品質を低下させる要因となることが明らかになった。</p></section>
+<section class="secsum"><h3>7 Conclusion and Discussion</h3><p>本研究では、従来のMAPFを拡張し、多段階の回転、加減速、および安全性を高めるための保守的な衝突定義といった差動駆動型AGVの制約を含む「Multi-Agent Warehouse Pathfinding (MAWPF)」を定義した。実験の結果、軽量なMAPFソルバーの中でも、ローリングホライゾンを用いた LaCAM + PIBT の適応手法が数百台のエージェント規模において数秒以内の高い成功率を達成し、最もスケーラビリティが高いことが示された。しかし、古典的なMAPFにおける LaCAM が数千台規模を扱えるのに対し、MAWPF では数百台が限界であり、その要因として、リッチな運動学的制約により各エージェントの候補パスが増大し構成生成コストが高騰すること、および向きや速度の制約により構成グラフが有向グラフとなりデッドエンドが発生しやすくなることが挙げられる。今後の展望として、コストを考慮した後続状態生成や精緻化メカニズムの導入により、狭い通路などの困難なレイアウトにおける解の質と堅牢性を向上させることが挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-22
+  </footer>
+</div>
+</body>
+</html>

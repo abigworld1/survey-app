@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>On dynamic multi-agent pathfinding methods: review, simulations and modifications | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>On dynamic multi-agent pathfinding methods: review, simulations and modifications</h1>
+  <div class="meta">Gabriel Fejziaj, Salama Hassona, Wieslaw Marszalek<br>採択先: 未取得 ・ 2026-06-02 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.03735v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.03735v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-02</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">D-MAPFにおけるテンプレート活用という新規なアプローチを提案しているが、計算コストの増大が顕著であり、実用性において課題が残るため。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 動的障害物と部分観測性が存在するマルチエージェント経路探索（D-MAPF）において、オフラインでの幾何学的テンプレート生成とオンラインでの時間的適応を分離した新手法 $A^{**}$ を提案し、既存の6手法と比較評価した。$A^{**}$ はエージェント数1〜9において最小の合計コスト（SoC）を達成したが、再計画時の計算コストが非常に高いという課題も明らかになった。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、動的な障害物、エージェントの限定的な視界（部分観測性）、およびエージェント間の衝突が存在する動的マルチエージェント経路探索（D-MAPF）の設定を対象としている。従来の静的なMAPFで用いられるConflict-Based Search (CBS) 等の最適解を求める手法は、環境変化が激しく計算コストが高い本設定では非効率であるため、本研究ではCooperative A*のようなデカップルされた近似手法に焦点を当てている。評価では、Dijkstra、D* Lite、Space-Time A* ($STA^*$)、WHCA*、M*、および提案手法 $A^{**}$ の計6種類のアルゴリズムを比較対象としている。実験はMovingAIデータセットに基づく8つのベンチマークマップと、10通りのエージェント数構成を用いて行われた。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、幾何学的な経路生成と時間的な適応を明示的に分離したテンプレートベースの経路探索アルゴリズム $A^{**}$ の提案である。$A^{**}$ は、ペナルティ付き2D A*を用いて事前に多様な候補経路（テンプレート）を生成し、オンラインでは $STA^*$ を用いてそれらのテンプレートへ動的に再接続することで、動的環境下での解の質を向上させている。実験を通じて、提案手法が多くの設定で最小の合計コスト（SoC）を達成することを証明した一方で、計算時間や失敗率の観点から既存手法（特にWHCA*）とのトレードオフを詳細に分析した。これにより、D-MAPFにおける解の質、計算効率、および堅牢性の関係性を体系的に示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法 $A^{**}$ は、オフラインでの幾何学的テンプレート生成とオンラインでの時間的適応を組み合わせたアプローチをとる。まず、ペナルティ付き2D A*を用いて、計算量 $O(k \cdot |V| \log |V|)$ （$k$ はテンプレート数、$|V|$ は通過可能セル数）で多様な候補経路を事前に計算する。再計画時には、現在の位置から既存テンプレートの再結合点 $v_i$ へ向かう短距離の $STA^*$ セグメント（ブリッジ）を計算し、その後の経路（テイル）の実行可能性を検証して最小の総経路長を選択する。この再計画ごとの時間計算量は $O(k \cdot (L + H))$ である（$L$ はテンプレート最大長、$H$ は $STA^*$ のホライゾン）。計画ホライゾン $H$ は、シミュレーションの残り時間 $T_{max} - t$ と、目標までのマンハッタン距離 $d$ に重み付けと安全マージンを加えた $\min(T_{max} - t, 5d + C_{safety})$ として定義され、状態空間の爆発を抑制している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、AMD Ryzen 5 9600X、AMD Radeon RX 6700 XT、32GB RAMを搭載したArtix Linux環境で実施された。実験には`empty-32-32`や`maze-32`など7種類のMovingAIベンチマークマップが用いられ、動的障害物は決定論的または一様分布に基づくスケジュールに従って出現・消失する。エージェントはfarthest-first戦略で配置され、先行エージェントの頂点・エッジ予約を用いたReservation Tableによって衝突回避を行う。主要指標は全エージェントの到達タイムステップの総和である $\sum_{i=1}^{n} T_i$ (SoC) であり、副次的にMakespan、平均計算時間、再計画回数、失敗率が用いられた。結果として、$A^{**}$ はエージェント数1〜9において次点のベースラインに対し$0.4\%$から$8.5\%$のSoC改善を示したが、平均再計画時間は最悪設定で $16661 \text{ ms}$ に達し、平均計算時間も最大 $1552.44 \text{ ms}$ まで増大した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>実験結果から、解の質、計算効率、堅牢性の間に明確なトレードオフが存在することが示された。$A^{**}$ はテンプレート機構により優れたSoCを実現するが、計算コストが極めて高く、予約テーブルが疎な環境に適している。計算効率では、Dijkstraや$D^*$ Liteが $1\text{--}6 \text{ ms}$ 未満と高速であるのに対し、$A^{**}$ は数百から数千ミリ秒を要する。堅牢性（失敗率）については、WHCA*（ウィンドウサイズ16）が平均失敗率 $9\%$ と全手法中で最小であり、計算時間と解の質のバランスにおいて最も優れている。一方で、$D^*$ Lite、$A^{**}$、$M^*$ は約20%と高い失敗率を示しており、これは予約による一時的な経路不能の判定や、行き止まりへの進入が原因であると考えられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>On dynami multi-agent pathfinding methods: review, simulations and modifications</h3><p>本研究は、動的障害物、部分観測性、およびエージェント間の衝突が存在する動的マルチエージェント経路探索（D-MAPF）の設定における経路探索アルゴリズムの系統的な調査である。Dijkstra、D* Lite、Space-Time A*、WHCA*、M*、および提案手法である $A^{**}$ の計6種類の代表的なアルゴリズムを、統一されたシミュレーションフレームワークを用いて評価している。提案手法である $A^{**}$ は、オフラインでの幾何学的経路生成とオンラインでの時間的適応を分離するテンプレートベースのアプローチを導入している。具体的には、事前に多様な候補経路を複数計算しておき、空間・時間計画を用いてそれらに動的に再接続することで、環境の変化が頻繁でセンシングが制限された状況下における解の質を向上させている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、動的かつ部分観測な環境におけるマルチエージェント経路探索（D-MAPF）を対象とし、エージェントが限られた視界範囲内で動的な障害物に遭遇しながら、個々の目標へ同時に到達する問題を扱う。従来の静的なMAPFではConflict-Based Search (CBS) 等の最適解を求める手法が存在するが、環境の変化が激しく部分観測下にある本設定では、計算コストの観点から非効率であるため、本研究ではCooperative A*のようなデカップルされた近似手法に焦点を当てる。提案手法である $A^{**}$ は、オフラインでの幾何学的テンプレート生成とオンラインでの時間的適応を組み合わせることで、動的環境における効率的な再計画を実現し、実験では多くの設定において最小の合計コスト（Sum of Costs, SoC）を達成した。評価実験では、Dijkstra、D* Lite、Space-Time A*、WHCA*、M*、および $A^{**}$ の6つのアルゴリズムを、8つのベンチマークマップと10通りのエージェント数構成を用いて比較しており、評価指標にはSoC、makespan、失敗率が用いられる。計画ホライゾン $H$ は、シミュレーションの残り時間 $T_{max} - t$ と、目標までのマンハッタン距離 $d$ に重み付けと安全マージンを加えた値 $\min(T_{max} - t, 5d + C_{safety})$ の最小値として定義され、状態空間の爆発を抑制している。</p></section>
+<section class="secsum"><h3>2 Methods</h3><p>本セクションでは、動的な障害物環境におけるリアクティブな計画に特化した新アルゴリズム $A^{**}$ と、比較対象となる既存手法が提案されている。$A^{**}$ は、ペナルティ付き2D A*を用いて幾何学的に多様な候補経路（テンプレート）を事前に生成する手法であり、テンプレート生成時の計算量は $O(k \cdot |V| \log |V|)$（$k$ はテンプレート数、$|V|$ は通過可能なセル数）となる。再計画時には、現在の位置から既存テンプレートの各再結合点 $v_i$ へ向かう短距離の $STA^*$ セグメント（ブリッジ）を計算し、その後の経路（テイル）の実行可能性を検証することで、最小の総経路長を選択する。$A^{**}$ の再計画ごとの時間計算量は $O(k \cdot (L + H))$ であり、$L$ はテンプレートの最大長、$H$ は $STA^*$ に適用されるホライゾン制限を表す。比較対象として、静的な Dijkstra、時間軸を考慮する $STA^*$、増分的な $D^*$ Lite、衝突時のみ探索空間を拡張する $M^*$、および固定時間窓で計画する $WHCA^*$ の5つのアルゴリズムが挙げられている。</p></section>
+<section class="secsum"><h3>3 Similar methods</h3><p>既存のマルチパス再計画手法であるAPPやMARSは、オフラインで複数の候補経路を事前計算し、障害物による衝突時にそれらを切り替えることで堅牢性を高めているが、幾何学的な経路生成とオンラインの適応が単一のプランニングフレームワーク内で密結合している。一方、FlexSIPPは他のエージェントが許容できる時間的な余裕（temporal slack）を利用して遅延を吸収する手法であるが、単一の計画内での時間的柔軟性に依存している。これに対し、提案手法であるA**は、幾何学的な経路生成（オフラインのテンプレート）と時間的な実行可能性（オンラインのSpace-Time A*による再接続）を明示的に分離している点が特徴である。A**は、ペナルティ付きのテンプレート生成によって空間的な多様性を確保し、単一の計画を修正するのではなく、蓄えられたテンプレートに対して局所的かつ時間認識的な再接続を行う。このように、A**は「経路の多様性」「局所的な時間認識再接続」「幾何学と時間の分離」という3つの要素を同時に組み込んでおり、APP、MARS、FlexSIPPといった従来手法とは根本的に異なる設計となっている。</p></section>
+<section class="secsum"><h3>4 Dataset</h3><p>実験はMovingAIデータセットの7種類のベンチマーク・グリッドマップ（`empty-32-32`, `maze-32`, `maze-32-32-4`, `random-32-32-10/20`, `room-32-32-4/64-64-8/64-64-16`）を用いて行われ、静的なマップに時間依存の動的障害物を追加することで動的環境をシミュレートしている。動的障害物の出現・消失時間は決定論的または一様分布に基づくランダムなスケジュールに従い、出現時刻 $t_{start} \in [a, b]$、消失時刻 $t_{end} \in [c, d]$、最小活動期間 $d_{min}$ が定義され、活動期間が $d_{min}$ 未満にならないよう調整される。エージェントは、開始位置とゴール位置を空間的に分離するために farthest-first 戦略を用いて生成し、移動方向への視界範囲 $v$ 内の障害物を検知して、既知の動的障害物のみを回避対象とする。衝突回避には、先行するエージェントの頂点予約 $V_{res}$ とエッジ予約 $E_{res}$ を用いた優先順位付き予約テーブル（Reservation Table）が使用され、未知の動的障害物との遭遇時にリアクティブな再計画（Replanning）が行われる。評価指標として、全エージェントの到達までのタイムステップの総和である $\sum_{i=1}^{n} T_i$ を主指標とし、次いで Makespan、平均計算時間 $\frac{T_{init} + \sum_{j=1}^{N_{replan}} T_{replan, j}}{n}$、再計画回数、および平均再計画時間を副次的な指標として用いる。</p></section>
+<section class="secsum"><h3>5 Results</h3><p>6つのアルゴリズムに対し、同一のマップ、ランダムにサンプリングされた動的障害物のスケジュール（出現・消失間隔および最小活動期間）、エージェント配置、および乱数シードを用いて評価を行った。実験結果の集計（Fig. 3）によれば、$\text{A}^{**}$ 手法が $\text{SoC}$（Sum of Costs）および $\text{Makespan}$ において優位性を示した。一方で $\text{A}^{**}$ の課題として、平均再計画時間が最悪設定で $16661 \text{ ms}$ に達するなど、平均再計画時間の指標が最も悪化しており、その影響で平均計算時間が最大 $1552.44 \text{ ms}$ まで急増している。ベンチマークは、CPU: AMD Ryzen 5 9600X、GPU: AMD Radeon RX 6700 XT、RAM: 32GB DDR5 を搭載した Artix Linux 環境の単一マシン上で逐次実行された。各指標（$\text{SoC}$、$\text{Makespan}$、総再計画回数、失敗回数、平均再計画時間、平均計算時間）は、値が小さいほど優れたスコアとして示されている。</p></section>
+<section class="secsum"><h3>6 Discussion of Results</h3><p>本研究の実験結果は、エージェント数（1〜10）と8つのベンチマークマップにおける、解の質（SoC）、計算効率、および堅牢性（失敗率）の3つの観点から評価されている。解の質においては、提案手法である $A^{**}$ が、テンプレート機構とペナルティシステムにより動的障害物を回避する経路を事前に計算できるため、エージェント数1〜9において最小のSoCを達成している。計算効率に関しては、Dijkstraや$D^*$ Liteが平均6 ms未満と高速である一方、$A^{**}$ はテンプレート生成と全セルに対するSTA*探索のコストにより、数百から数千ミリ秒を要する。再計画回数は、WHCA*やDijkstraが頻繁であるのに対し、$A^{**}$ や$M^*$は少ないが、$A^{**}$ は1回あたりの再計画コストが極めて高い。堅牢性（失敗率）については、時間拡張探索を行うSTA*とWHCA*が11%未満と最も低く、Dijkstraはエージェント密度が増すと失敗率が15%以上に急増する。一方で、$D^*$ Lite、$A^{**}$、$M^*$ は約20%と最も高い失敗率を示しており、これは予約による一時的な経路不能の判定や、$M^*$ における行き止まりへの進入が原因である。</p></section>
+<section class="secsum"><h3>7 Conclusions</h3><p>動的障害物、部分観測性、エージェント間の衝突を含むD-MAPF設定において、6つのアルゴリズム（Dijkstra, D* Lite, STA*, WHCA*, M*, A**）をMovingAIベンチマーク等の計8マップ、エージェント数1〜10の範囲で評価した。A**はエージェント数1〜9において、次点のベースラインに対し$0.4\%$から$8.5\%$の改善を示し、平均SoC（Success of Completion）が最も低かったが、計算コストが非常に高く、予約テーブルが疎な環境に適している。WHCA*（ウィンドウサイズ16）は、平均失敗率が$9\%$と全手法中で最小であり、エージェント数10でも$17\%$を超えず、計算時間（例：10エージェント時$42\text{ ms}$）と解の質のトレードオフにおいて最も優れた堅牢性を示した。DijkstraおよびD* Liteは、探索空間の小ささから$1\text{--}6\text{ ms}$という最速の計算時間を実現したが、Dijkstraは動的プランナーではないため、エージェント数1において最も高いSoCを記録した。M*は、個別に最適な方向へ探索を制限するサブディメンショナル展開により、特定の条件下で既存手法の中で最良のSoCを達成した。</p></section>
+<section class="secsum"><h3>Section</h3><p>本セクションは著者貢献、資金提供、およびデータの可用性に関する記述である。著者貢献として、G.F.が概念化、ソフトウェア、データキュレーション、可視化、および初稿執筆を担当し、S.H.とW.M.が手法、検証、形式的分析、リソース、および執筆に寄与している。研究の監督はS.H.が、プロジェクト管理はW.M.がそれぞれ務めている。本研究には外部からの資金提供は行われておらず、分析に使用されたデータは論文内に含まれている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-22
+  </footer>
+</div>
+</body>
+</html>

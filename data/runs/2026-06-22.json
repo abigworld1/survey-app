@@ -1,0 +1,134 @@
+{
+  "date": "2026-06-22",
+  "dry_run": false,
+  "engine": "llm:gemma-4-26b",
+  "fields": [
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2606.03735.html",
+          "id": "2606.03735",
+          "matched_keywords": [
+            "MAPF"
+          ],
+          "published": "2026-06-02",
+          "reading_value": 3,
+          "reading_value_reason": "D-MAPFにおけるテンプレート活用という新規なアプローチを提案しているが、計算コストの増大が顕著であり、実用性において課題が残るため。",
+          "relevance": 1,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "On dynamic multi-agent pathfinding methods: review, simulations and modifications",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2605.15799.html",
+          "id": "2605.15799",
+          "matched_keywords": [
+            "MAPF"
+          ],
+          "published": "2026-05-15",
+          "reading_value": 4,
+          "reading_value_reason": "実世界のAGVの運動学的制約を考慮したMAWPFという新定義と、既存の軽量アルゴリズムの適応・評価が体系的であり、実用性が高い。",
+          "relevance": 1,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "From Gridworlds to Warehouses: Adapting Lightweight One-shot Multi-Agent Pathfinding for AGVs",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 42,
+      "fresh_total": 24,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 5,
+      "skipped": [],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 0,
+        "openalex/recent": 0,
+        "semanticscholar/important": 2,
+        "semanticscholar/recent": 2
+      }
+    },
+    {
+      "added": [
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "file": "doc-structure-rag/doi-71bb8aede7a8.html",
+          "id": "doi-71bb8aede7a8",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-05-01",
+          "reading_value": 3,
+          "reading_value_reason": "テキストと知識グラフを統合するRAGの設計は定石だが、監査ドメインへの適用と具体的な融合戦略（Cross-Channel Evidence Fusion）の提示は、実用的な研究として価値がある。",
+          "relevance": 6,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "semanticscholar",
+          "source_quality": "fulltext",
+          "title": "DC-RAG: a dual-channel retrieval-augmented generation framework for audit analysis.",
+          "venue": "Scientific Reports"
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2606.19660.html",
+          "id": "2606.19660",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-06-17",
+          "reading_value": 4,
+          "reading_value_reason": "RAG特有の間接的攻撃に対し、モデル非依存かつ多層的な防御を提案しており、実用的な評価（ASR低減、低レイテンシ、FPR）が非常に具体的で価値が高い。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "A Layered Security Framework Against Prompt Injection in RAG-Based Chatbots",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 153,
+      "fresh_total": 140,
+      "k": 2,
+      "label": "文書構造解析に基づく検索・質問応答・RAG",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 86,
+      "skipped": [],
+      "slug": "doc-structure-rag",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 40,
+        "openalex/recent": 40,
+        "semanticscholar/important": 38,
+        "semanticscholar/recent": 38
+      }
+    }
+  ],
+  "generated_at": "2026-06-22T06:00:01"
+}

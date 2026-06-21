@@ -152,6 +152,37 @@
       "url": "http://arxiv.org/abs/2606.18381v1",
       "venue": ""
     },
+    "arxiv:2606.19660": {
+      "added": "2026-06-22",
+      "arxiv_id": "2606.19660",
+      "authors": [
+        "Gulshan Saleem",
+        "Nisar Ahmed",
+        "Muhammad Imran Zaman",
+        "Ali Hassan"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-17",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.19660.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.19660v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAG特有の間接的攻撃に対し、モデル非依存かつ多層的な防御を提案しており、実用的な評価（ASR低減、低レイテンシ、FPR）が非常に具体的で価値が高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "A Layered Security Framework Against Prompt Injection in RAG-Based Chatbots",
+      "tldr": "RAG（Retrieval-Augmented Generation）ベースのチャットボットにおけるプロンプトインジェクションに対し、モデル非依存の3層防御フレームワークを提案する。このフレームワークは、入力スクリーニング、権限制約付きコンテキスト構築、出力監査の各層が協調することで、攻撃成功率（ASR）を $71.4\\%$ から $11.3\\%$ へと大幅に低減させ、低レイテンシかつ低偽陽性率（FPR $4.8\\%$）での運用を実現する。",
+      "url": "http://arxiv.org/abs/2606.19660v1",
+      "venue": ""
+    },
     "arxiv:2606.19667": {
       "added": "2026-06-21",
       "arxiv_id": "2606.19667",
@@ -209,6 +240,35 @@
       "tldr": "Streaming RAGにおいて、ユーザーの入力完了前にツールクエリを発行する有効性を、クエリの「tool-intent stabilization（ツール意図の安定化）」という概念を用いて定量化した研究である。CRAGベンチマークを用いた分析により、回答に必要な情報が得られる「充足性（sufficiency）」は、検索結果の順位が確定する「自己整合性（self-consistency）」よりも大幅に早期に安定することを示した。現実的な動作条件下では、全クエリの $73.9\\%$ がツール遅延を隠蔽可能であり、特に正解文書が検索可能なサブセットでは $95.2\\%$ という高い割合で遅延隠蔽が可能となる。",
       "url": "http://arxiv.org/abs/2606.20113v1",
       "venue": ""
+    },
+    "doi:10.1038/s41598-026-50062-8": {
+      "added": "2026-06-22",
+      "arxiv_id": "",
+      "authors": [
+        "Chunyu Xing",
+        "Hang Meng"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "2026-05-01",
+      "doi": "10.1038/s41598-026-50062-8",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/doi-71bb8aede7a8.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "",
+      "reading_value": 3,
+      "reading_value_reason": "テキストと知識グラフを統合するRAGの設計は定石だが、監査ドメインへの適用と具体的な融合戦略（Cross-Channel Evidence Fusion）の提示は、実用的な研究として価値がある。",
+      "relevance": 6,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "DC-RAG: a dual-channel retrieval-augmented generation framework for audit analysis.",
+      "tldr": "監査結果公告の分析において、LLMのハルシネーションを抑制し、複雑な意味関係の推論精度を向上させるための「DC-RAG (Dual-Channel Retrieval-Augmented Generation)」フレームワークを提案する。本手法は、非構造化テキストから情報を抽出する「テキストチャネル」と、知識グラフ（KG）から構造化されたサブグラフを抽出する「知識グラフチャネル」の二系統の検索メカニズムを構築し、それらを統合・再ランキングすることで、監査ドメインにおける高度な意味理解と構造的推論を両立させる。",
+      "url": "https://www.semanticscholar.org/paper/2573267d55c020314255f19f54316d5a1a56e487",
+      "venue": "Scientific Reports"
     },
     "doi:10.3390/ai7050161": {
       "added": "2026-06-14",
@@ -748,6 +808,34 @@
       "url": "http://arxiv.org/abs/2605.14119v1",
       "venue": ""
     },
+    "arxiv:2605.15799": {
+      "added": "2026-06-22",
+      "arxiv_id": "2605.15799",
+      "authors": [
+        "Hiroki Nagai",
+        "Keisuke Okumura"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-05-15",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2605.15799.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2605.15799v1",
+      "reading_value": 4,
+      "reading_value_reason": "実世界のAGVの運動学的制約を考慮したMAWPFという新定義と、既存の軽量アルゴリズムの適応・評価が体系的であり、実用性が高い。",
+      "relevance": 1,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "From Gridworlds to Warehouses: Adapting Lightweight One-shot Multi-Agent Pathfinding for AGVs",
+      "tldr": "本研究は、従来の2Dグリッドに基づくMAPFを、差動駆動型AGVの運動学的制約（回転、加減速、追従衝突）を考慮した「Multi-Agent Warehouse Pathfinding (MAWPF)」へと拡張し、軽量な非最適アルゴリズム（PP, LNS2, PIBT, LaCAM）を適応・評価したものである。実験の結果、LaCAMにPIBTを組み込んだ手法が数百台規模のエージェントに対して高い成功率とスケーラビリティを示す一方、運動学的制約による有向グラフ化がデッドエンドの発生を招き、従来のMAPFに比べスケーラビリティが制限される課題を明らかにした。",
+      "url": "http://arxiv.org/abs/2605.15799v1",
+      "venue": ""
+    },
     "arxiv:2605.16097": {
       "added": "2026-06-19",
       "arxiv_id": "2605.16097",
@@ -825,6 +913,35 @@
       "source_quality": "fulltext",
       "title": "STEAM: A Training-Free Congestion-Aware Enhancement Framework for Decentralized Multi-Agent Path Finding",
       "tldr": "STEAMは、学習済みの分散型MAPF（Multi-Agent Path Finding）ポリシーを一切再学習・変更することなく、テスト時の実行プロセスに軽量な混雑回避ガイダンスを注入する、学習不要（training-free）かつ方策に依存しない（policy-agnostic）強化フレームワークである。"
+    },
+    "arxiv:2606.03735": {
+      "added": "2026-06-22",
+      "arxiv_id": "2606.03735",
+      "authors": [
+        "Gabriel Fejziaj",
+        "Salama Hassona",
+        "Wieslaw Marszalek"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-02",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2606.03735.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.03735v1",
+      "reading_value": 3,
+      "reading_value_reason": "D-MAPFにおけるテンプレート活用という新規なアプローチを提案しているが、計算コストの増大が顕著であり、実用性において課題が残るため。",
+      "relevance": 1,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "On dynamic multi-agent pathfinding methods: review, simulations and modifications",
+      "tldr": "動的障害物と部分観測性が存在するマルチエージェント経路探索（D-MAPF）において、オフラインでの幾何学的テンプレート生成とオンラインでの時間的適応を分離した新手法 $A^{**}$ を提案し、既存の6手法と比較評価した。$A^{**}$ はエージェント数1〜9において最小の合計コスト（SoC）を達成したが、再計画時の計算コストが非常に高いという課題も明らかになった。",
+      "url": "http://arxiv.org/abs/2606.03735v1",
+      "venue": ""
     },
     "arxiv:2606.04746": {
       "added": "2026-06-14",
