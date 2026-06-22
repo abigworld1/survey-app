@@ -1,5 +1,40 @@
 {
   "doc-structure-rag": {
+    "arxiv:2605.28120": {
+      "added": "2026-06-23",
+      "arxiv_id": "2605.28120",
+      "authors": [
+        "Zerui Chen",
+        "Qinggang Zhang",
+        "Zhishang Xiang",
+        "Zhimin Wei",
+        "Linfeng Gao",
+        "Xiao Huang",
+        "Zhihong Zhang",
+        "Jinsong Su"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 1,
+      "date": "2026-05-27",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2605.28120.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "",
+      "reading_value": 4,
+      "reading_value_reason": "階層的知識グラフとマルチエージェントによる検証機構を組み合わせた設計が独創的。法務ドメイン特有の課題に対し、検索・検証・統合の各工程を構造化した点は、RAG研究者にとって示唆に富む。",
+      "relevance": 5,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "LegalGraphRAG: Multi-Agent Graph Retrieval-Augmented Generation for Reliable Legal Reasoning",
+      "tldr": "LegalGraphRAGは、階層的な法的知識グラフ（HierarGraph）と、検索・検証・統合を担うマルチエージェントシステムを統合することで、複雑な法的推論における正確性と信頼性を向上させるフレームワークである。",
+      "url": "https://www.semanticscholar.org/paper/c000f4698b168f3ede4c86ddd01bddbe7ab99b33",
+      "venue": ""
+    },
     "arxiv:2606.12903": {
       "added": "2026-06-14",
       "authors": [
@@ -150,6 +185,43 @@
       "title": "SproutRAG: Attention-Guided Tree Search with Progressive Embeddings for Long-Document RAG",
       "tldr": "SproutRAGは、学習済みの文間アテンションを利用して文レベルのチャンクを階層的な二分木構造へとボトムアップに構成する、アテンション誘導型の階層的RAGフレームワークである。外部LLMによる要約やクラスタリングに依存せず、Progressive Embeddingと階層的ビームサーチを用いることで、追加のLLM呼び出しなしに細粒度から広範な粒度までの多粒度な検索を実現する。4つのベンチマークにおいて、最強のベースラインと比較して情報効率（IE）を平均で $6.1\\%$ 向上させた。",
       "url": "http://arxiv.org/abs/2606.18381v1",
+      "venue": ""
+    },
+    "arxiv:2606.19602": {
+      "added": "2026-06-23",
+      "arxiv_id": "2606.19602",
+      "authors": [
+        "Osman Alperen Çinar-Koraş",
+        "Marie Bauer",
+        "Sameh Khattab",
+        "Merlin Engelke",
+        "Moon Kim",
+        "Stephan Settelmeier",
+        "Shigeyasu Sugawara",
+        "Fabian Freisleben",
+        "Felix Nensa",
+        "Jens Kleesiek"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-17",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.19602.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.19602v1",
+      "reading_value": 4,
+      "reading_value_reason": "実臨床のメタデータ欠落や時間的推論の困難さに正面から向き合った、極めて実践的なAgentic RAGの研究。専門医による大規模な検証も評価が高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Configurable Clinical Information Extraction with Agentic RAG: What Works, What Breaks, and Why",
+      "tldr": "複雑な患者記録から情報を抽出するため、メタデータの欠落や時間的推論の困難さを克服するオンプレミス型エージェントRAGパイプライン「ACIE (Agentic Clinical Information Extraction)」を提案。核医学専門医による7,326件の検証実験において、96.5%という高い受理率を達成し、臨床医の作業速度を約3倍向上させた。",
+      "url": "http://arxiv.org/abs/2606.19602v1",
       "venue": ""
     },
     "arxiv:2606.19660": {
@@ -642,6 +714,34 @@
       "title": "Should I Replan? Learning to Spot the Right Time in Robust MAPF Execution",
       "tldr": "エージェントの遅延が発生する実環境下のマルチエージェント経路計画（MAPF）において、Action Dependency Graph (ADG) の統計量に基づき、再計画（Replanning）によるコスト削減の期待値を予測する回帰モデルを提案する。提案手法は、動的障害物による遅延が発生した際に、再計画によって得られる潜在的な利益を高い精度で推定し、実行コストの増大を最大 $50\\%$ まで低減できることを示した。"
     },
+    "arxiv:2605.07744": {
+      "added": "2026-06-23",
+      "arxiv_id": "2605.07744",
+      "authors": [
+        "Yu Kumagai",
+        "Keisuke Okumura"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-05-08",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2605.07744.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2605.07744v2",
+      "reading_value": 4,
+      "reading_value_reason": "TAPF問題に対し、TAとMAPFを分離しフィードバックで洗練する枠組みが独創的。800エージェント規模への拡張性とスペクトル解析を用いたボトルネック特定手法に高い新規性と実用性がある。",
+      "relevance": 1,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Alternating Target-Path Planning for Scalable Multi-Agent Coordination",
+      "tldr": "目標割り当てと経路計画を分離し、フィードバック駆動型の反復的な洗練を行うことで、大規模なTarget Assignment and Pathfinding (TAPF) 問題に対して高いスケーラビリティと良好な解の質を両立させたフレームワークを提案する。",
+      "url": "http://arxiv.org/abs/2605.07744v2",
+      "venue": ""
+    },
     "arxiv:2605.07835": {
       "added": "2026-06-17",
       "authors": [
@@ -716,6 +816,35 @@
       "source_quality": "fulltext",
       "title": "Robust Multi-Agent Path Finding under Observation Attacks: A Principled Adversarial-Plus-Smoothing Training Recipe",
       "tldr": "分散型マルチエージェント経路探索（MAPF）において、観測値への微小な摂動がチーム全体の停滞を招く脆弱性を克服するため、ネットワーク構造やデプロイメント・パイプラインを変更せずに頑健性を向上させる2段階の学習レシピ「Adv-PPO」および「Adv-PPO+MACER」を提案する。"
+    },
+    "arxiv:2605.11503": {
+      "added": "2026-06-23",
+      "arxiv_id": "2605.11503",
+      "authors": [
+        "Takahiro Suzuki",
+        "Yuma Tamura",
+        "Keisuke Okumura"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2026-05-12",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2605.11503.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2605.11503v1",
+      "reading_value": 4,
+      "reading_value_reason": "新しい問題設定（IUMAPF）の定義とNP困難性の証明、および最適解と大規模解の両面からの体系的なアプローチが非常に価値高い。",
+      "relevance": 1,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Distance-Constrained Unlabeled Multi-Agent Pathfinding",
+      "tldr": "本研究は、エージェント間の距離を一定以上に保つ制約を持つ「Distance-Independent Unlabeled Multi-Agent Pathfinding (IUMAPF)」を提案し、その困難性と解決策を提示する。IUMAPFは、標準的なUnlabeled MAPFでは多項式時間で決定可能な解の存在判定が $\\textsf{NP}$-complete になるという性質を持つ。著者らは、最適性を保証するILPへの帰着とグラフ圧縮手法、および大規模インスタンスに対応する構成生成器ベースの探索アルゴリズム（IU-LaCAM）の2つのアプローチを提案し、数百規模のエージェントを実用的な時間で扱うことを実現した。",
+      "url": "http://arxiv.org/abs/2605.11503v1",
+      "venue": ""
     },
     "arxiv:2605.13035": {
       "added": "2026-06-20",

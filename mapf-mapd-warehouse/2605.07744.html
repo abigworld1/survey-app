@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Alternating Target-Path Planning for Scalable Multi-Agent Coordination | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Alternating Target-Path Planning for Scalable Multi-Agent Coordination</h1>
+  <div class="meta">Yu Kumagai, Keisuke Okumura<br>採択先: 未取得 ・ 2026-05-08 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2605.07744v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.07744v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-05-08</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">TAPF問題に対し、TAとMAPFを分離しフィードバックで洗練する枠組みが独創的。800エージェント規模への拡張性とスペクトル解析を用いたボトルネック特定手法に高い新規性と実用性がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 目標割り当てと経路計画を分離し、フィードバック駆動型の反復的な洗練を行うことで、大規模なTarget Assignment and Pathfinding (TAPF) 問題に対して高いスケーラビリティと良好な解の質を両立させたフレームワークを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、各エージェントに複数の候補目標が与えられ、衝突のない経路生成と目標割り当てを同時に行うTAPF問題に取り組む。従来のConflict-Based Search (CBS) に依存する手法は、最適性は保証されるものの、数百規模のエージェントを扱うには計算コストが極めて高く、スケーラビリティに課題があった。本研究では、目標割り当て（TA）と経路計画（MAPF）を分離し、高速な非最適MAPFソルバーをサブルーチンとして利用する反復改善フレームワークを導入する。これにより、与えられた時間予算内で逐次的に割り当てを洗練させることが可能となる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>提案手法は、既存の最先端CBSベースのTAPFソルバー（ITA-ECBS等）が250エージェントを超える規模で困難に直面する中、800エージェント規模でも成功率100%を維持する高いスケーラビリティを実現した。具体的には、遅延に基づくボトルネック特定手法であるDelay-Based Selection (DBS) や、スペクトル解析を用いたSpectral Bottleneck Sampling (SBS) を提案している。また、再割り当て戦略としてPIBTやLocal Hungarian Assignmentを導入し、これらを組み合わせることで、HOTSPOTシナリオにおいて初期解から10–25%のコスト改善を達成した。さらに、複数のボトルネックを並列に評価するMulti-Bottleneck Evaluationにより、探索の停滞を防ぎ、解空間の広範な探索を可能にしている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>フレームワークは、最短経路距離に基づく貪欲な初期割り当てから始まり、以下のプロセスを反復する。まず、LaCAM等の高速なMAPFソルバーを用いて現在の割り当てに基づく経路を生成する。次に、フィードバック機構を用いてボトルネックとなるエージェントを特定する。DBSは、エージェント $i$ の実際の経路コストと理想的な最短経路コストの差である遅延 $d_i$ を用いて上位 $k$ 個を選択する。SBSは、衝突数 $c_{ij}$ と遅延 $d_i, d_j$ から重み付き性能乖離行列 $W_{ij} = c_{ij} \sqrt{d_i d_j}$ を構築し、Lanczos法による固有値分解を用いて干渉するグループを特定する。特定されたボトルネックに対し、PIBT（再帰的なターゲット交代とバックトラッキングを行う手法）またはLocal Hungarian（サブグループ内でハンガリ法を適用する手法）を用いてターゲットを再割り当てする。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、4連結グリッドマップ上のMAPFベンチマーク（HOTSPOT, warehouse, Boston等）を用いて実施された。実験設定では、ターゲットが分散したRANDOMシナリオと、密集したHOTSPOTシナリオの2種類を用意し、評価指標には最短経路長で正規化されたフロータイム（cost）を用いた。実験の結果、DBSとLocal Hungarianを組み合わせた手法が、PIBTベースの手法よりも高い解の質を示した。また、マルチボトルネック法において、ボトルネック数 $k=3$ と設定することで、単一のボトルネック（$k=1$）よりも優れた改善率が得られることが確認された。スケーラビリティの検証では、エージェント数の増加に伴い指数関数的に計算量が増大するITA-ECBSに対し、提案手法は大規模インスタンスにおいても高い適応力を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究は、TAとMAPFを分離し、フィードバックループを構築することで、スケーラビリティと解の質のトレードオフを効果的に解決した。特に、DBSのような単純な手法と、SBSのような高度なスペクトル解析手法を使い分ける、あるいは組み合わせる重要性が示された。今後の展望として、Large Neighborhood Search (LNS) における適応的なオペレータ選択の考え方を応用し、洗練ループの進行状況に応じて、フィードバックメカニズムや再割り当て戦略を動的に選択する適応的なフレームワークの開発が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Alternating Target–Path Planning for Scalable Multi-Agent Coordination</h3><p>本研究は、エージェントへの目標割り当てと衝突のない経路計画を同時に行う同時目標割り当て・経路計画（TAPF）問題に対し、目標割り当てと経路計画を分離した反復的な洗練フレームワークを提案している。従来のCBS（Conflict-Based Search）に基づく手法は、両者を密結合させているため計算負荷が高くスケーラビリティに欠けるという課題があった。提案手法は、LaCAMのような高速で劣最適解を許容する現代的なMAPFソルバーを基盤とし、与えられた時間予算内で「現在の目標割り当てに基づくMAPFの実行」「MAPFのフィードバックによるボトルネック・エージェントの特定」「目標割り当ての再構成」を繰り返す。実験結果では、このフィードバック駆動型の再割り当てループが有効であることが示されており、既存のCBSベースのソルバーでは到達不可能な規模までスケーラビリティを向上させつつ、良好な解の質を維持している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、各エージェントに複数の候補目標が与えられ、衝突のない経路生成と目標割り当てを同時に行うTarget Assignment and Pathfinding (TAPF) 問題に対し、スケーラビリティの課題を解決する反復改善フレームワークを提案している。既存のTAPF手法はConflict-Based Search (CBS) に依存しており、最適性は保証されるものの数百規模のエージェントを扱うには計算コストが極めて高いという限界がある。提案手法は、目標割り当てと経路探索を分離し、高速な非最適MAPFソルバー（PIBTやLaCAM等）をサブルーチンとして利用することで、与えられた時間予算内で割り当てを逐次的に洗練させる。具体的には、遅延に基づきボトルネックを特定するDelay-Based Selection (DBS) やスペクトル解析を用いるSpectral Bottleneck Sampling (SBS) といったフィードバック機構、およびPIBTを応用した手法や小規模群にHungarian法を適用するLocal Hungarianといった再割り当て戦略を提案している。MAPFベンチマークを用いた評価の結果、特にDBSとLocal Hungarianの組み合わせは、既存の最先端CBSベースのTAPFソルバーを大幅に上回るスケーラビリティを示しつつ、競争力のある解の質を維持することを確認している。</p></section>
+<section class="secsum"><h3>2 Preliminaries</h3><p>TAPF（Target-Path Planning）問題は、グラフ $G=(V, E)$、エージェント集合 $\mathcal{A}$、各エージェントの始点 $s_i$、およびターゲット割り当て行列 $M \in \{0, 1\}^{|\mathcal{A}| \times |V|}$ によって定義され、各エージェント $i$ が $M_{i,j}=1$ を満たすターゲット $t_i$ へ到達する単射な割り当てと、衝突のない経路集合 $\mathcal{P} = \{p_1, \dots, p_{|\mathcal{A}|}\}$ を求める問題である。エージェントの移動は隣接頂点への移動または待機を許容する標準的なMAPFモデルに従い、頂点衝突（$p_i(t) = p_j(t)$）およびエッジ衝突（$p_i(t) = p_j(t+1) \land p_i(t+1) = p_j(t)$）を回避する必要がある。解の評価指標には、各エージェントがターゲットに到達して停止するまでの移動時間の総和である flowtime（sum-of-costs）が用いられる。本問題は、各エージェントに特定のターゲット集合が与えられた unlabeled MAPF の一般化と見なせ、既存の CBS ベースの最適・限定的劣解法（CBM, CBS-TA, ITA-CBS 等）は解の質を保証する一方でスケーラビリティに課題があり、例えば最新の ITA-ECBS では 250 エージェントを超えるインスタンスを現実的な時間内で解くことが困難である。</p></section>
+<section class="secsum"><h3>3 Iterative Refinement Framework</h3><p>本手法は、ターゲット割り当て（TA）と経路計画（MAPF）を分離し、反復的に改善を行うIterative Refinement Frameworkを提案している。初期状態では、計算効率を重視して最短経路距離に基づき貪欲に割り当てを行い、ペアごとのスワップによって経路長合計を削減する戦略を用いる。反復プロセスでは、フィードバック機構によりボトルネックとなるエージェントを特定し、その一部のターゲットを再割り当てしてMAPFを解くことで、制限時間内で逐次的に割り当ての質を向上させる。実装では、反復段階では高速なvanilla LaCAMを使用し、最終的な経路最適化段階では、計算コストはやや高いが解の質が高いLaCAM3を用いることで、スケーラビリティと解の品質の両立を図っている。さらに、複数の候補エージェントを並列に評価し、その中から確率的に一つを選択するMulti-Bottleneck Evaluationを導入することで、探索の停滞を防ぎ、解空間の広範な探索を可能にしている。</p></section>
+<section class="secsum"><h3>4 Target Reassignment</h3><p>本セクションでは、ボトルネックとなるエージェントのターゲットを再割り当てするための2つの手法、PIBTとLocal Hungarian Assignmentについて述べている。PIBTはPriority Inheritance with Backtrackingを応用した手法であり、エージェントが希望するターゲットが既に他者に割り当てられている場合、再帰的にターゲットの交代を要求する連鎖的な再割り当てを行う。具体的には、現在のターゲット以外の候補を距離の昇順に列挙し、再帰的な交代要求が失敗した場合にはバックトラッキングを行うことで、貪欲法よりも広範な再割り当てを探索する。PIBTの最悪時間計算量は、エージェントあたりの最大候補ターゲット数を $M$、候補評価時間を $T$ とすると $O(M \cdot T \cdot N)$ となる。一方、ターゲットが密集している場合には、フィードバック機構で特定されたサブグループに対してLocal Hungarian Assignmentを適用する。これは、サブグループ内のエージェントと、その外部に割り当てられていない候補ターゲットからなるコスト行列を構築し、ハンガリ法を用いてサブグループ内での最小線形和コスト割り当てを解くことで、局所的な最適化を行うものである。</p></section>
+<section class="secsum"><h3>5 Feedback Mechanism</h3><p>本セクションでは、経路探索結果からボトルネックとなるエージェントを特定するための2つのフィードバック機構、Delay-Based Selection (DBS) と Spectral Bottleneck Sampling (SBS) が提案されている。DBSは、各エージェント $i$ の実際の経路コストと理想的な最短経路コストの差である遅延 $d_i$ を計算し、遅延が大きい上位 $k$ 個のエージェントからボトルネックを選択する単純かつ効果的な手法である。一方、SBSはスペクトル分解を用いて空間的に相関のあるエージェント群を特定する高度な手法であり、まずエージェント間の潜在的な衝突数 $c_{ij}$ と遅延 $d_i, d_j$ を用いて重み付き性能乖離行列 $W$ を $W_{ij} = c_{ij} \sqrt{d_i d_j}$ と定義して構築する。次に、$W$ の固有値分解を行い、大きな固有値に対応する固有ベクトルを用いて、混雑領域で相互に干渉し合うエージェントのグループを特定する。SBSの計算量は、行列の疎性（実験では90-98%）を利用したLanczos法を用いることで、行列サイズ $n$ に対して $O(m \cdot \text{iter})$ （$m$ は非ゼロ要素数、$\text{iter}$ は反復回数）に削減可能であり、さらにエージェントのサブサンプリングを行うことでスケーラビリティを確保している。実験結果では、提案フレームワークが様々なベンチマーク（HOTSPOT, warehouse, Boston等）において、初期解からのコスト改善率および正規化されたフロータイムの観点から有効であることが示されている。</p></section>
+<section class="secsum"><h3>6 Evaluation</h3><p>本セクションでは、提案されたTAPFフレームワークの有効性を、フィードバック戦略（DBS/SBS）とターゲット再割り当て戦略（PIBT/Local Hungarian）の組み合わせ、既存手法（ITA-ECBS）との比較、スケーラビリティ、およびマルチボトルネック法の効果の4点から評価している。実験はMAPFベンチマークの4連結グリッドマップを用い、ターゲットが分散したRANDOMシナリオと、密集したHOTSPOTシナリオで実施され、評価指標には最短経路長による正規化されたフロータイムである「cost」が用いられている。結果として、HOTSPOTシナリオにおいてDBS-Hungarianは初期解から10–25%の改善を達成し、PIBTベースの手法よりも高い解の質を示した。スケーラビリティの検証では、ITA-ECBSがエージェント数の増加に伴い指数関数的な計算量により失敗するのに対し、提案手法は800エージェント規模でも成功率100%を維持し、大規模インスタンスへの高い適応力を示した。また、マルチボトルネック法（Alg. $\tilde{2}$）において、ボトルネック数 $k=3$ と設定することで、探索の多様性と計算効率のバランスが取られ、単一のボトルネック（$k=1$）よりも優れた改善率が得られることが確認された。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>本研究では、ターゲット割り当てと経路探索を分離することで、既存の主要なTAPFソルバーに対してスケーラビリティの優位性を保ちつつ、競争力のある解の質を維持する反復的な洗練フレームワークを提案した。このフレームワーク内には、2種類のターゲット再割り当て手法（PIBTおよびLocal Hungarian）と、2種類のフィードバックメカニズム（DBSおよびSBS）が導入されている。実験の結果、DBSとLocal Hungarianを組み合わせる手法が一般的に最も効果的であることが示された。今後の展望として、LNS（Large Neighborhood Search）における適応的なオペレータ選択と同様に、洗練ループの過程でメカニズムと再割り当て戦略を適応的に選択する手法が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-23
+  </footer>
+</div>
+</body>
+</html>

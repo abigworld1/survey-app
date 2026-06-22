@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Configurable Clinical Information Extraction with Agentic RAG: What Works, What Breaks, and Why | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Configurable Clinical Information Extraction with Agentic RAG: What Works, What Breaks, and Why</h1>
+  <div class="meta">Osman Alperen Çinar-Koraş, Marie Bauer, Sameh Khattab, Merlin Engelke, Moon Kim, Stephan Settelmeier, Shigeyasu Sugawara, Fabian Freisleben, Felix Nensa, Jens Kleesiek<br>採択先: 未取得 ・ 2026-06-17 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.19602v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.19602v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-17</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">実臨床のメタデータ欠落や時間的推論の困難さに正面から向き合った、極めて実践的なAgentic RAGの研究。専門医による大規模な検証も評価が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 複雑な患者記録から情報を抽出するため、メタデータの欠落や時間的推論の困難さを克服するオンプレミス型エージェントRAGパイプライン「ACIE (Agentic Clinical Information Extraction)」を提案。核医学専門医による7,326件の検証実験において、96.5%という高い受理率を達成し、臨床医の作業速度を約3倍向上させた。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、数百の異種混合ドキュメントや数千の構造化データからなる複雑な患者コンテキストに対し、従来のRAGでは困難であった時間的推論、文書間の依存関係、およびメタデータの欠落という課題に対処する。臨床現場における情報抽出（IE）は、重複、日付の誤り、無関係な記録への埋没といった特性により、標準的なRAGでは対応が難しい。提案手法は、開発者の介在なしに臨床医が型指定されたターゲットを用いて抽出スキーマを動的に定義できる、オンプレミス型のAgentic RAGアーキテクチャである。特に、AIシステムが必要とするメタデータと実際の臨床データエクスポートとの間の「メタデータ・ギャップ」を定量的に分析している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>臨床医が動的にスキーマを構成できる、実用的なデプロイメントを想定したエージェント型抽出フレームワークを提示した。メタデータの信頼性が低い実臨床データ環境において、構造によるフィルタリングではなく、内容に基づく「Agentic retrieval」が不可欠であることを明らかにした。評価実験では、リンパ腫レジストリ研究において74の臨床フィールドを対象に、核医学専門医による計7,326件の判定を実施した。その結果、抽出の全体的な受理率は $96.5\%$ に達し、臨床医の作業速度を患者あたり約3倍向上させることを示した。また、抽出されたすべての値をソースとなる一節に接地（grounding）させることで、臨床医の役割を「情報の集約」から「根拠に基づく検証」へと転換させた。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>ACIEは、FHIRサーバーの構造化データとOCR処理された非構造化ドキュメントを統合した「患者コンテキスト」を対象とする。検索プロセスでは、短いチャンクが優先されるバイアスを回避するため、コサイン類似度 $s$ とチャンク長 $l$ を用いた長さペナルティ付きスコア $\text{score} = s \cdot \exp(-\lambda \cdot l)$ を導入し、$\lambda = 0.001$ で最適化している。エージェントは、セマンティック検索、ドキュメント要約、詳細検査、構造化データ照会を行うツールを備え、証拠が集まるまで反復的に探索を行う。抽出モデルには $Qwen\ 2.5\ 32B$ (MoE) を、OCRには $PaddleOCR\text{-}VL\ 1.5$ を使用し、Kubernetes上のオンプレミス環境（H100 GPU 5枚）で動作する。また、ツール呼び出しの失敗を防ぐため、患者メタデータの提示形式をJSONからMarkdownへ切り替えている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>University Medicine Essenのデータを用い、99名のリンパ腫患者を対象とした回顧的レジストリ研究で評価を行った。核医学専門医が74の臨床医設定フィールド（カテゴリ、数値、Boolean、日付、自由記述、表形式）を検証し、抽出された各値に対して受理または拒否を選択した。実験の結果、総合的な受理率は $96.5\%$ ($7,073/7,326$ 件) を記録した。フィールド型別の精度では、カテゴリや数値型が $96.0 \sim 98.6\%$ と高精度であったが、日付型は $84.3\%$、表形式は $79.8\%$ と低迷した。エラー分析では、誤った値の抽出（161件）が欠落（92件）を上回ったが、幻覚による虚偽情報の生成はほぼ見られなかった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の限界として、単一の疾患領域、単一の病院、単一の言語、および99名の患者を対象とした小規模な回顧的研究であることが挙げられる。評価者間信頼性が測定されておらず、正解が存在しないフィールドが39.4%を占めることが受理率に寄与している可能性もある。日付や表形式における精度の低下は、複雑な時間的推論の難易度に起因している。また、非エージェント型や商用モデルとの直接的な比較が行われていないため、エージェント設計の純粋な寄与を分離できていない。しかし、すべての出力をソースに接地させる設計により、オートメーション・バイアスのリスクを軽減し、臨床医による検証を前提とした安全な運用が可能であることを示した。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Configurable Clinical Information Extraction with Agentic RAG: What Works, What Breaks, and Why</h3><p>本研究では、数百の異種混合ドキュメントや数千の構造化データからなる複雑な患者コンテキストに対し、従来のRAGでは困難であった時間的推論や文書間の依存関係、メタデータの欠落を解決するためのオンプレミス型エージェントRAGパイプライン「ACIE (Agentic Clinical Information Extraction)」を提案している。ACIEは、完全な患者コンテキストに対して推論を行い、臨床医による検証を可能にするためにすべての回答をソースとなる一節に根拠付け（grounding）させるアーキテクチャを採用している。評価実験では、独立した回顧的リンパ腫レジストリ研究において、核医学専門医が引用されたソースと抽出された値を照合する形式で、計7,326件の判定を行った。その結果、抽出の全体的な受理率は $96.5\%$ に達し、項目ごとの受理率は $80\%$ から $99\%$ の範囲であった。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>臨床現場における情報抽出（IE）は、重複や日付の誤り、無関係な記録への埋没といった複雑な患者記録の特性により、手動での作業や標準的なRAGでは困難な課題を抱えている。本研究では、開発者の介在なしに臨床医が型指定されたターゲットを用いて抽出スキーマを定義できる、オンプレミス型のAgentic Clinical Information Extraction (ACIE) を提案する。この手法は、メタデータの信頼性の低さや文書間の相互依存性、時間的推論の必要性といった実臨床データの課題に対応するため、完全な患者コンテキストに基づいて推論を行い、すべての抽出値を検証可能なソース箇所に接地させるエージェント型RAGパイプラインを採用している。評価においては、リンパ腫レジストリ研究として、74の臨床医設定フィールド、99名の患者、7,326件の判定を含む、核医学専門医による検証を実施した。この評価では、抽出された各値に対して専門医が受理または拒否を選択し、拒否時には構造化されたエラーおよび編集カテゴリでラベル付けを行うことで、エージェントによる抽出精度を定量化している。さらに、AIシステムが必要とするメタデータと実際の臨床データエクスポートとの間の「メタデータ・ギャップ」を定量的に分析し、実データに基づいたアーキテクチャ設計のトレードオフを明らかにしている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>従来の臨床情報抽出（IE）は、cTAKESのようなルールベースのパイプラインや、BioBERT、GatorTronといったドメイン特化型事前学習モデルに依存してきたが、抽出対象が開発者によって固定されており、汎用性や構成可能性に課題があった。LLMの登場により、タスク固有の学習なしでのfew-shot抽出が可能となったが、Wiest et al. (2024) のMIMIC-IVを用いた事例のように、依然として研究者が定義した静的なターゲットに留まっている。LLM-AIx (Wiest et al., 2025) はユーザー定義のスキーマによる構造化抽出を可能にするが、検索拡張（RAG）を用いず、文書を独立して処理するという限界がある。最新のAgentic RAGやCLINES (Yang et al., 2025) などのエージェント型フレームワークは、反復的な推論やツール活用により複雑な情報抽出を実現しているが、これらはベンチマークデータセット上の研究目的のターゲットに限定されており、臨床医が動的にスキーマを構成できるような実用的なデプロイメントには至っていない。本研究は、AIシステムが必要とするメタデータと実際の臨床データエクスポートとの乖離、およびアーキテクチャの決定がデプロイ環境でのデータ品質の失敗にどのように影響するかを定量化した、先行研究のない領域に焦点を当てている。</p></section>
+<section class="secsum"><h3>3 System Overview</h3><p>ACIEシステムは、FHIRサーバーから取得した構造化データと、OCR処理された非構造化ドキュメント（退院サマリー、放射線レポート等）から構成される「患者コンテキスト」を対象に、型定義されたスキーマに基づき抽出を行う。検索の際、臨床文書特有の短く情報量の少ない断片が優先される問題を解決するため、コサイン類似度 $s$ とチャンク長 $l$ を用いた長さペナルティ付きのスコア $\text{score} = s \cdot \exp(-\lambda \cdot l)$ を導入しており、開発サブセットで最適化された $\lambda = 0.001$ を用いている。抽出プロセスでは、メタデータに依存せず、セマンティック検索、ドキュメント要約、詳細検査、構造化データ照会を行うツールを備えたエージェントが、証拠が十分集まるまで反復的に探索を行う。エージェントは、各ドキュメントから高スコアの引用チャンクを順に集めて200語程度の要約を動的に生成することで、時系列に沿った関連性のプレビューを提示する。最終的な回答は、すべての値が特定のソース・パッセージに紐付けられた根拠付き（grounded）の形式で返され、臨床医による検証を前提としている。システムはKubernetes上のオンプレミス環境で動作し、抽出モデルには $Qwen\ 2.5\ 32B$ (MoE) を、OCRには $PaddleOCR\text{-}VL\ 1.5$ を使用し、計5枚のH100 GPUで実行される。</p></section>
+<section class="secsum"><h3>4 Evaluation</h3><p>本セクションでは、欧州最大級の臨床FHIRリポジトリの一つであるUniversity Medicine Essenのデータを用いた、ACIE（Agentic RAGを用いた構成可能な臨床情報抽出）の評価結果が示されている。データ品質の分析により、FHIRのエンカウンター（受診）構造が文書を適切に分割できていないことや、文書のタイムスタンプの $56.5\%$ がエンカウンター期間外であるといった、時間的・構造的な不整合が明らかになった。また、文書メタデータは極めて乏しく、OCRによる拒絶率が患者によって最大 $52.0\%$ に達することや、患者ごとのコンテキスト規模が文書数 $1 \sim 2,500$ 件、構造化データ $0 \sim 119,000$ 点と極めて広範であることが示されている。臨床研究抽出の評価では、リンパ腫患者を対象に専門医が $74$ 個のフィールド（カテゴリ、数値、Boolean、日付、自由記述、表形式）を検証し、総合的な受容率は $96.5\%$（$7,073/7,326$）という高い精度を記録した。フィールド型別の精度では、カテゴリや数値型が $96.0 \sim 98.6\%$ と高精度である一方、日付型は $84.3\%$、表形式は $79.8\%$ と低迷しており、これらは時系列推論の難易度に起因している。エラー分析の結果、抽出された値が誤っているケース（$161$ 件）が、欠落しているケース（$92$ 件）を上回っており、幻覚（hallucination）による虚偽情報の生成はほぼ見られなかったものの、日付や治療タイムラインのような複雑な時間的推論を要する項目に課題が残ることが示された。</p></section>
+<section class="secsum"><h3>5 Lessons from Deployment</h3><p>ACIEの臨床データへのデプロイメントから得られた知見として、まず臨床データの品質がAIシステムの要求水準を大幅に下回っていることが挙げられ、FHIRリポジトリにおいても遭遇期間や文書関係などのメタデータが極めて希薄である実態が示されている。このデータ品質の欠如に対応するため、ACIEのアーキテクチャは、信頼性の低いメタデータに基づく静的なフィルタリングではなく、内容に基づいて文書の重要性を判断するエージェントによる検索（Agentic retrieval）へと設計変更された。また、数百の文書を効率的に処理するために、エージェントは全文書を精読する代わりに、$\S 3.2$ で定義されたクエリに関連する要約を用いて文書の選別を行う。さらに、細粒度なチャンク分割によって生じる長さの偏りを補正するため、式 (1) に示される長さのペナルティを用いて、高密度リトリーバーが短い断片を不当に優先するバイアスを修正している。最後に、入力データのシリアライズ形式についても、患者メタデータをJSON形式で提示すると特定の構造がツール呼び出しの失敗を誘発する問題が発生したが、Markdown形式に切り替えることでこれらの決定論的な失敗を解消できることが確認された。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究における Agentic Clinical Information Extraction (ACIE) の展開は、モデルの能力よりもデータの性質がアーキテクチャを決定づけることを示した。FHIR 統合が進んだ施設であっても、検索やトリアージに必要なドキュメントレベルのメタデータが欠如または不正確であるため、構造によるフィルタリングは困難であり、検索ループ内に推論を組み込む必要がある。独立したリンパ腫レジストリを用いた評価では、ハルシネーションを伴わずに 96.5% の受理率を達成したが、残存するエラーは各抽出対象が要求する時間的推論の複雑さに依存していた。すべての値をソースとなる一節にグラウンディングすることで、臨床医の役割を「情報の集約」から「根拠に基づく検証」へと転換させ、医師の作業速度を患者あたり約3倍向上させた。結論として、実臨床データを用いた抽出システムは、コンテンツに対して推論を行うアーキテクチャと、グラウンディングされた出力に対する人間による検証という2つの支柱に依存する。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>本研究は、単一の疾患領域、単一の病院、単一の言語、および 99 名の患者を対象とした単一の回顧的研究であるため、他の設定への汎用性は検証されておらず、各フィールドの評価も単一の専門家によって行われているため評価者間信頼性が測定されていません。回顧的研究の設定は、研究コホートへの登録ではなく介入に直接情報を提供するポイント・オブ・ケア（診療現場）での使用よりも許容的な環境であり、正解が本来存在しないフィールドが 39.4% を占めることが高い受容率に寄与しています。生成された値の適合率（precision）は 96.4% ですが、日付（84.3%）や表（79.8%）といった弱いタイプの項目では低下しており、ハルシネーションの有無も独立した裁定ではなく、ソースに基づいたレビューを行う同一の評価者によって判断されています。また、非エージェント型や商用モデルとの比較が行われていないため、エージェント設計の寄与を単独で分離できておらず、データ品質に関する知見も単一の病院の FHIR リポジトリに基づいているため、具体的な発生率は他所では異なる可能性があります。さらに、抽出の品質はオンプレミスで稼働するモデルの性能に制約されます。</p></section>
+<section class="secsum"><h3>Ethical Considerations</h3><p>ACIEは完全にオンプレミスで動作するため、患者データが病院ネットワーク外に流出することはない。本手法は自律的ではなく、抽出されたすべての値は引用された箇所に基づき、文書化の前に臨床医による検証が必須となる支援的な設計である。これにより、摩擦のないインターフェースが批判的な検討を妨げるオートメーション・バイアスのリスクを軽減しているが、完全に排除できるわけではなく、強制的なソース確認や拒否ワークフローがその防護策として機能する。また、記録や基盤モデルにおいて過小評価されている患者グループに対しては抽出精度が低下する可能性があるが、これも臨床医による検証で検知することを想定している。本研究のレジストリ調査は、University Medicine Essenにおける臨床データの遡及的使用に関する機関および規制の要件に従って実施された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-23
+  </footer>
+</div>
+</body>
+</html>

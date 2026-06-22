@@ -1,0 +1,134 @@
+{
+  "date": "2026-06-23",
+  "dry_run": false,
+  "engine": "llm:gemma-4-26b",
+  "fields": [
+    {
+      "added": [
+        {
+          "basis": "fulltext(ar5iv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2605.11503.html",
+          "id": "2605.11503",
+          "matched_keywords": [
+            "MAPF"
+          ],
+          "published": "2026-05-12",
+          "reading_value": 4,
+          "reading_value_reason": "新しい問題設定（IUMAPF）の定義とNP困難性の証明、および最適解と大規模解の両面からの体系的なアプローチが非常に価値高い。",
+          "relevance": 1,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Distance-Constrained Unlabeled Multi-Agent Pathfinding",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2605.07744.html",
+          "id": "2605.07744",
+          "matched_keywords": [
+            "MAPF"
+          ],
+          "published": "2026-05-08",
+          "reading_value": 4,
+          "reading_value_reason": "TAPF問題に対し、TAとMAPFを分離しフィードバックで洗練する枠組みが独創的。800エージェント規模への拡張性とスペクトル解析を用いたボトルネック特定手法に高い新規性と実用性がある。",
+          "relevance": 1,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Alternating Target-Path Planning for Scalable Multi-Agent Coordination",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 42,
+      "fresh_total": 22,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 3,
+      "skipped": [],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 0,
+        "openalex/recent": 0,
+        "semanticscholar/important": 2,
+        "semanticscholar/recent": 2
+      }
+    },
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 1,
+          "file": "doc-structure-rag/2605.28120.html",
+          "id": "2605.28120",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-05-27",
+          "reading_value": 4,
+          "reading_value_reason": "階層的知識グラフとマルチエージェントによる検証機構を組み合わせた設計が独創的。法務ドメイン特有の課題に対し、検索・検証・統合の各工程を構造化した点は、RAG研究者にとって示唆に富む。",
+          "relevance": 5,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "semanticscholar",
+          "source_quality": "fulltext",
+          "title": "LegalGraphRAG: Multi-Agent Graph Retrieval-Augmented Generation for Reliable Legal Reasoning",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2606.19602.html",
+          "id": "2606.19602",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-06-17",
+          "reading_value": 4,
+          "reading_value_reason": "実臨床のメタデータ欠落や時間的推論の困難さに正面から向き合った、極めて実践的なAgentic RAGの研究。専門医による大規模な検証も評価が高い。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Configurable Clinical Information Extraction with Agentic RAG: What Works, What Breaks, and Why",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 153,
+      "fresh_total": 138,
+      "k": 2,
+      "label": "文書構造解析に基づく検索・質問応答・RAG",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 84,
+      "skipped": [],
+      "slug": "doc-structure-rag",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 40,
+        "openalex/recent": 40,
+        "semanticscholar/important": 38,
+        "semanticscholar/recent": 38
+      }
+    }
+  ],
+  "generated_at": "2026-06-23T06:00:02"
+}
