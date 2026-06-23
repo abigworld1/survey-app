@@ -1,0 +1,156 @@
+{
+  "date": "2026-06-24",
+  "dry_run": false,
+  "engine": "llm:gemma-4-26b",
+  "fields": [
+    {
+      "added": [
+        {
+          "basis": "fulltext(ar5iv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2606.22757.html",
+          "id": "2606.22757",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2026-06-22",
+          "reading_value": 4,
+          "reading_value_reason": "連続空間のMAPFにおけるデッドロック回避という重要課題に対し、軌道全体の依存関係を考慮するプロアクティブな新手法を提案しており、既存手法の欠点を克服しているため。",
+          "relevance": 2,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Cooperative-ORCA*: Real-Time Proactive Deadlock Avoidance for Continuous-Space Multi-Agent Navigation",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2605.07637.html",
+          "id": "2605.07637",
+          "matched_keywords": [
+            "MAPF"
+          ],
+          "published": "2026-05-08",
+          "reading_value": 4,
+          "reading_value_reason": "通信を明示的な教師信号なしに学習する枠組みが新規であり、大規模環境での線形スケーラビリティとSOTA達成の両立が極めて実用的。",
+          "relevance": 1,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Learning to Communicate Locally for Large-Scale Multi-Agent Pathfinding",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 42,
+      "fresh_total": 21,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 2,
+      "skipped": [],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 0,
+        "openalex/recent": 0,
+        "semanticscholar/important": 2,
+        "semanticscholar/recent": 2
+      }
+    },
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2606.22728.html",
+          "id": "2606.22728",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-06-22",
+          "reading_value": 4,
+          "reading_value_reason": "RAGの信頼性評価における「回答の分散が消失する」という新たな失敗モードを定義した点が非常に独創的。3層の分離評価手法は実用的で、研究者が注目すべき重要課題である。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "When Confidence Takes the Wrong Path: Diagnosing Retrieval-State Lock-In in RAG",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2606.22681.html",
+          "id": "2606.22681",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-06-21",
+          "reading_value": 4,
+          "reading_value_reason": "未知の差分のみを計画対象とする「Delta Planning」の着想が極めて独創的。精度向上と大幅なコスト削減を両立しており、実用的なRAG研究として価値が高い。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Only Ask What You Don't Know: Grounded Delta Planning for Efficient Multi-step RAG",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 153,
+      "fresh_total": 141,
+      "k": 2,
+      "label": "文書構造解析に基づく検索・質問応答・RAG",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 88,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 1,
+          "id": "doi-6428af65647a",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2025-12-17",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 5,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "SPR-RAG: Semantic Parsing Retriever-Enhanced Question Answering for Power Policy",
+          "venue": "Algorithms"
+        }
+      ],
+      "slug": "doc-structure-rag",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 40,
+        "openalex/recent": 40,
+        "semanticscholar/important": 38,
+        "semanticscholar/recent": 38
+      }
+    }
+  ],
+  "generated_at": "2026-06-24T06:00:01"
+}

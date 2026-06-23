@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>When Confidence Takes the Wrong Path: Diagnosing Retrieval-State Lock-In in RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>When Confidence Takes the Wrong Path: Diagnosing Retrieval-State Lock-In in RAG</h1>
+  <div class="meta">Sahib Julka<br>採択先: 未取得 ・ 2026-06-22 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.22728v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.22728v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-22</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの信頼性評価における「回答の分散が消失する」という新たな失敗モードを定義した点が非常に独創的。3層の分離評価手法は実用的で、研究者が注目すべき重要課題である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGにおいて、リトリーバーが誤った情報を繰り返し提供することで回答の分散が消失し、従来の不確実性推定が機能不全に陥る「retrieval-state lock-in」現象を定義・診断する手法を提案している。回答（Answer）、証拠（Evidence）、検索状態（Retrieval-state）の3つのオブジェクトを分離して評価することで、回答が一致していても誤答である「silent error」を検知可能にする。</div>
+<section class="qa"><h2>どんなもの？</h2><p>RAG（Retrieval-Augmented Generation）において、サンプリングされた回答間の合意度を信頼度と見なす既存手法が、欠陥のある検索状態に起因する誤答を「確信度の高い正解」と誤認する問題に取り組んでいる。この現象は、検索結果が空でモデルがパラメータメモリに依存する「absence lock-in」と、一貫して誤った近傍情報を取得する「presence lock-in」に分類される。後者は回答の分散（answer dispersion）が $0$ となるため、従来の不確実性推定器では検知できない「silent error」を引き起こす。本研究は、この問題を解決するために、単一の信頼度スコアに混同されている「回答の表面」、「検索された証拠」、「検索状態そのもの」の3つの層を分離して診断する枠組みを提示している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文の主な貢献は、RAGの信頼性評価における「retrieval-state lock-in」という新たな失敗モードを特定し、その構造的な診断手法を確立した点にある。具体的には、回答の分散を測る $SD\text{-}UQ$、証拠との整合性を測る $SEU$、グラフの構造的裏付けを測る $GPS$ という3つの独立した不確実性指標を導入した。これらを組み合わせた監査可能な意思決定ルール（conjunctive rule）により、全受け入れ（accept-all）と比較して適合率（precision）を向上させつつ、誤答を効果的にフラグ立てできることを示した。また、KG-RAGにおいて、回答の分散が消失しても証拠や検索状態のチェックによってエラーを検知できることを実証し、RAGの信頼性設計における新たな設計指針を提供している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、OntoGraphRAGフレームワークを用い、以下の3つの不確実性オブジェクトを測定する。<br>1. **Answer-state**: 質問の埋め込み $\mathbf{q}$ を用いた直交射影行列 $\mathbf{P}_{\mathbf{q}} = \mathbf{I} - \mathbf{q}\mathbf{q}^\top$ により回答埋め込み行列 $\mathbf{X}$ から質問成分を除去し、残差スペクトルの幾何平均 $\text{SD-UQ} = \exp\left(\frac{1}{k} \sum_{i=1}^k \log \sigma_i\right)$ を計算して回答の固まり具合を評価する。<br>2. **Evidence-state**: NLIモデルを用いて、検索された各チャンク $c \in \mathcal{C}$ と回答 $a$ の間の含意・矛盾関係を判定し、$\text{SEU} = 1 - \frac{\sum \text{entail}(c, a)}{\sum (\text{entail}(c, a) + \text{contradict}(c, a))}$ によって整合性を測定する。<br>3. **Retrieval-state**: 知識グラフにおいて、質問エンティティから回答エンティティへの距離重み付きサポート $S = \sum_{j \in \mathcal{E}_A} \exp(-d_j / \mathbb{E}[d])$ を用いる $GPS$ 指標により、構造的な裏付けの強さを評価する。<br>これら3つのチェックがすべて低リスクである場合のみ回答を受け入れる連言的なルールを適用する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、PubMedQA、HotpotQA、MuSiQueを含む6つのデータセットを用い、GPT-4o-mini（温度 $T=0.7$）によるサンプリング設定で評価を行った。結果として、KG-RAGの精度自体はdense retrievalと統計的に有意な差はない（paired McNemar test, $p &gt; 0.05$）ものの、提案指標は従来の回答分散のみの手法では検知できないエラーを可視化できることを示した。特に、回答の分散を用いる $SD\text{-}UQ$ が、特定の条件下で誤答を低分散領域に押し込みAUROCが崩壊する現象を、absence/presence lock-inの分解を通じて明らかにした。臨床ドメインの実験では、自動判定器を用いて高い適合率を達成したが、これはドメイン内での上限値であり、最終的な安全性には人間による検証が必要であると述べている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究は、RAGの信頼性評価を「回答の安定性」「証拠の整合性」「検索の根拠」の3層に分解した点において極めて重要である。しかし、いくつかの限界も存在する。第一に、提案手法はグラフ構造に特化しており、密なリトリーバー（dense retrieval）における「presence lock-in（一貫性のある誤った近傍への固執）」を完全に検出するには、関係レベルのパスの忠実性（path faithfulness）の検証が依然として課題である。第二に、結合ルールを用いることで適合率は向上するが、その代償としてカバー率（coverage）が低下するトレードオフが存在する。本研究は、実運用環境における完全な信頼性保証を目的とするものではなく、lock-in現象を「命名可能、測定可能、診断可能」にするための診断的枠組みとしての貢献に留まっている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>When Confidence Takes the Wrong Path: Diagnosing Retrieval-State Lock-In in RAG</h3><p>本論文は、RAG（Retrieval-Augmented Generation）において、サンプリングされた回答間の合意度を信頼度と見なす既存の不確実性推定手法が、欠陥のある検索状態（retrieval state）に起因する誤った回答に対して機能しない現象を「retrieval-state lock-in」と定義し、その診断手法を提案している。この現象は、検索結果が空でモデルがパラメータメモリに依存する場合や、一貫して誤った近傍情報が取得される場合に発生し、回答の分散（answer dispersion）が $0$ となるため、従来の合意度ベースの手法ではエラーを検知できない。著者らは、単一の信頼度スコアが混同している「回答の表面（answer surface）」、「検索された証拠（retrieved evidence）」、「検索状態そのもの（retrieval state）」の3つのオブジェクトを分離することで、この問題を診断可能にする。オントロジーに基づいた知識グラフRAG（KG-RAG）を用いた実験では、5回のサンプリングにおいて、KG-RAGおよび密ベクトル検索（dense-retrieval）のエラーの多くが回答の分散を持たない一方で、証拠および検索状態のチェックによってそれらの多くをフラグ立てできることを示した。提案する監査可能な意思決定ルールは、回答・証拠・検索の3つのチェックすべてが低リスクであると判断した場合のみ回答を受け入れるものであり、全受け入れ（accept-all）と比較してプールされた適合率（pooled precision）を向上させるが、その代償としてカバー率（coverage）が低下する。臨床キャリブレーション領域における実験では、自動判定器を用いて高い適合率を達成したが、これはドメイン内での自動ラベルによる上限値であり、最終的な臨床的安全性を保証するものではなく、人間による検証が必要であると述べている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本論文は、RAG（Retrieval-Augmented Generation）システムにおいて、リトリーバーが誤った情報を繰り返し提供することで、サンプリングによる回答の分散が消失し、不確実性推定器が誤答を「確信度の高い正解」と誤認する「Retrieval-state lock-in」という現象を定義している。この現象には、リトリーバーが利用可能な情報を返さない「absence lock-in」と、一貫して誤ったグラフ近傍を返す「presence lock-in」の2つの変種が存在し、後者は回答の分散がゼロとなる「silent error」として観測される。著者らは、RAGの信頼性を評価するために、回答の分散を見る「answer-state uncertainty」、検索された文脈と回答の整合性を見る「evidence-state uncertainty」、および検索状態自体の妥当性を見る「retrieval-state uncertainty」の3つの異なる不確実性オブジェクトを提案している。実験では、OntoGraphRAGフレームワークを用い、PubMedQA、HotpotQA、MuSiQueなどの5つのQAタスクにおいて、これら3つの指標が互いに弱い相関（pooled Spearman correlation）を持つ補完的な信号であることを示した。さらに、低コストな指標として質問条件付き埋め込み分散スコアである $SD\text{-}UQ$ を導入し、これら3つのチェックがすべて低リスクであることを確認する結合ルールを用いることで、高い精度で信頼性を担保できることを実証している。なお、KG-RAGの精度自体はdense retrievalと統計的に有意な差はない（paired McNemar test, $p &gt; 0.05$）が、回答のみの不確実性では検知できない失敗状態を可視化できる点に本手法の価値がある。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>本セクションでは、RAG（Retrieval-Augmented Generation）における不確実性推定の既存研究を、回答状態（Answer-state）、RAGプロセス、およびグラフ構造（KG-RAG）の観点から整理している。回答状態の不確実性については、Semantic Entropy（Kuhn et al., 2023）のようにサンプリングされた回答の集合から意味的なエントロピーを計算する手法や、埋め込み空間の幾何学的性質を用いる手法が挙げられるが、これらは回答のバリエーション自体に焦点を当てており、検索状態が誤った経路で固定化される「Retrieval-State Lock-In」の問題を扱っていない。RAGにおける既存の不確実性活用法は、回答側のゲート（answer-side gates）を用いて検索や棄却を判断するものが主流であるが、本研究が指摘するように、検索状態が誤った状態で安定化（lock-in）すると、回答の分散が消失し、これらの信号が機能不全に陥る。本研究の提案手法は、ブラックボックス設定を維持しつつ、回答（Answer）、証拠（Evidence）、および検索状態（Retrieval-state）の3つのファミリーを統合的に診断する点に独自性があり、特にKG-RAGにおいて、検索されたグラフのパスやエンティティが生成された回答をどの程度支持しているかを分離して評価する。既存のKG-RAG研究（Ca2KGやBRINKなど）は、グラフの不完全性や過信を扱っているが、本研究のように「証拠の有無（absence）」と「誤った経路への固定（presence lock-in）」を、グラフのトレースを明示的に用いて構造的に分解・診断するアプローチは提供していない。</p></section>
+<section class="secsum"><h3>3 Background and Problem Formulation</h3><p>RAGにおけるサンプリングベースの不確実性推定は、質問 $q$ に対してリトリーバーが返す文脈集合 $\mathcal{C}$ からの条件付き分布 $P(a|q, c)$ に依存するが、特定の文脈 $c$ が繰り返し選択される「lock-in」状態では、回答の分散の低さが正解性ではなくデコーダの安定性のみを反映してしまう。本論文では、KG-RAGにおいてリトリーバーが返す構造化されたグラフ状態 $\mathcal{S}$ に着目し、サンプリング予算内で回答の分散がゼロ（$D_{SE} = 0$ かつ $SD\text{-}UQ$ が最小値）でありながら誤答となる「Silent error」を定義する。さらに、この誤答が同一の欠陥のあるリトリーバー状態 $\mathcal{S}$ に起因する場合を「Retrieval-state lock-in」と呼び、それが空のルート（absence-compatible）か、正解エンティティに到達しない誤った近傍（presence-compatible）かに分類する。分析フレームワークとして、生成された回答 $a$ を調査する「Answer-state」、証拠 $e$ との整合性を測る「Evidence-state」、およびグラフのトレース $\mathcal{S}$ を検証する「Retrieval-state」の3つの指標群を導入し、これらを独立した予測器ではなく、同一の実行プロセスにおける異なるログビューとして扱う。</p></section>
+<section class="secsum"><h3>4 System Description</h3><p>実験プラットフォームであるOntoGraphRAGは、Vanilla RAGとKG-RAGを共通のインターフェースで提供し、同一のコーパス、埋め込み、生成モデルを使用しながら、検索と証拠の構成方法のみを異なる設計としている。KG-RAGは、まずシンボリックマッチングと埋め込みによるエンティティ・ファーストのアンカリングを行い、次にグラフの局所的拡張、さらにアンカリングが弱い場合にはベクトル検索からエンティティを抽出してグラフを拡張するリトリーバー・ファーストのフォールバックを行う、4段階のルーティング・ハイブリッド・パイプラインで構成される。このシステムは、エンティティ、関係、パス、およびそれらを裏付けるテキストチャンクを明示的なオブジェクトとしてログに記録することで、回答状態（answer-state）、証拠状態（evidence-state）、検索状態（retrieval-state）の3つのレベルでの監査を可能にしている。Vanilla RAGはチャンクのベクトル検索のみを行い、明示的なエンティティやパスを持たないため、検索状態の診断が不可能である。本手法の重要な特性として、エンティティ・ファーストの検索では一度アンカーにコミットすると、その後のグラフ拡張が決定論的になりやすく、たとえ誤った内容であっても検索状態が安定（stabilisation）してしまう「検索状態のロックイン」のリスクが示唆されている。</p></section>
+<section class="secsum"><h3>5 Uncertainty Measures</h3><p>本セクションでは、RAGの信頼性を診断するために、回答状態（answer-state）、証拠状態（evidence-state）、検索状態（retrieval-state）の3つの観点から構成される不確実性指標の分類と定義が示されている。<br><br>回答状態の指標として、本論文で新たに提案されるSD-UQは、質問の埋め込み $\mathbf{q}$ を直交射影行列 $\mathbf{P}_{\mathbf{q}} = \mathbf{I} - \mathbf{q}\mathbf{q}^\top$ を用いて除去した上で、回答埋め込み行列 $\mathbf{X}$ の残差スペクトルの幾何平均 $\text{SD-UQ} = \exp\left(\frac{1}{k} \sum_{i=1}^k \log \sigma_i\right)$ を計算する統計量であり、回答が特定の方向に固まっている（lock-inしている）状態を低分散として検出する。<br><br>検索状態の指標であるGPS（Graph Path Support）は、知識グラフ（KG）において質問エンティティから回答エンティティへの到達可能性を評価し、距離重み付きサポート $S = \sum_{j \in \mathcal{E}_A} \exp(-d_j / \mathbb{E}[d])$ を用いて、値が高いほど検索による構造的裏付けが弱い（リスクが高い）ことを示す。<br><br>証拠状態の指標であるSEU（Support Entailment Uncertainty）は、NLIモデルを用いて検索された各チャンク $c \in \mathcal{C}$ と回答 $a$ の間の含意・矛盾関係を判定し、正規化された含意・矛盾の差分 $\text{SEU} = 1 - \frac{\sum_{c \in \mathcal{C}} \text{entail}(c, a)}{\sum_{c \in \mathcal{C}} (\text{entail}(c, a) + \text{contradict}(c, a))}$ によって、回答が検索結果によってどの程度支持されているかを測定する。<br><br>これらの指標は、単一の隠れた不確実性を推定するものではなく、回答の表面的な一致、検索された証拠の整合性、およびグラフ構造上の経路の存在という、異なる診断対象を捉えるために設計されている。</p></section>
+<section class="secsum"><h3>6 Experimental Setup</h3><p>本実験では、biomedical control (PubMedQA)、clinical QA (RealMedQA)、open-domain multi-hop QA (HotpotQA, 2WikiMultiHopQA, MuSiQue) の3つのドメインにわたる6つのデータセットを用い、per-question bundlesやshared corporaといった異なるコーパス契約（corpus contracts）の下で評価を行っている。生成モデルには GPT-4o-mini を使用し、回答の不確実性を測定するために温度 $T=0.7$ でサンプリングを行う低予算なブラックボックス設定を採用している。評価指標として、不確実性スコアが誤答を正答より適切にランク付けできているかを示す $\text{AUROC}$ を主軸とし、dense-sideの選択的予測については $\text{AUREC}$ を用いる。正解ラベルの判定には GPT-4o-mini による意味的等価性の判定を用いるが、その妥当性を検証するために Llama-3.3-70B による再判定を行い、$90\%$ 以上の高い一致率を確認している。KG-RAG の構成では、all-MiniLM-L6-v2 を用いた entity-first retrieval を基本とし、必要に応じて retriever-first graph expansion (rfge) などのフォールバック経路を辿る構造となっている。なお、本実験はリーダーボードへの提出ではなく、固定サブセットを用いた診断的な実行（diagnostic runs）を目的としている。</p></section>
+<section class="secsum"><h3>7 Results</h3><p>本研究は、RAG（Retrieval-Augmented Generation）において、検索状態が誤った方向に固定される「Retrieval-State Lock-In」現象を診断することを目的としている。実験の結果、KG-RAG（知識グラフを用いたRAG）の精度は、高密度検索（dense retrieval）と比較して統計的に有意な差は見られないものの、従来の密度検索では検知不可能な「回答状態（answer-state）」「証拠状態（evidence-state）」「検索状態（retrieval-state）」の診断指標を提供できることが示された。特に、回答の分散を用いるSD-UQなどの回答状態指標は、検索が強制的に集中する「strict graph-only」な条件下では、誤答が低分散領域に押し込まれることでAUROCがチャンスレベル以下にまで崩壊する。この崩壊は、検索が空である「absence lock-in」と、誤ったが整合性のある近傍に陥る「presence lock-in」に分解される。実用的な適応型ポリシー（adaptive policy）下では、誤答の多くが経路メタデータを持つ「populated route」上で発生しており、これらは証拠の矛盾やグラフ支持の弱さ（GPS）によって検知可能であるが、依然として全ての指標が失敗する「presence lock-in」が最も困難なケースとして残る。</p></section>
+<section class="secsum"><h3>8 Conclusion</h3><p>本研究は、RAG（Retrieval-Augmented Generation）において、リトリーバーが誤った状態を繰り返し返すことで回答の不一致が消失する「Retrieval-state lock-in」現象を特定し、その診断手法を提案している。信頼性の評価対象を、回答の安定性（Answer uncertainty）、証拠の整合性（Evidence support）、およびリトリーバーの状態（Retrieval grounding）の3つの独立したオブジェクトに分解することを提唱しており、これらを統合した連言的なルール（conjunctive rule）を用いることで、OntoGraphRAGにおいて臨床ドメインの自動ラベル精度で $95\%$ に近い精度を達成した。具体的には、回答の分散を測る $SD\text{-}UQ$、証拠との矛盾を測る $SEU$、グラフの検索状態を報告する $GPS$ の3つの診断指標を導入しており、回答が一致していても $SEU$ や $GPS$ が低い場合には、検索の摂動（perturbation）や人間によるレビューが必要であることを示唆している。本手法の限界として、提案された診断はグラフ構造に特化しており、密なリトリーバー（dense retrieval）における「presence lock-in（一貫性のある誤った近傍への固執）」の完全な検出には、関係レベルのパスの忠実性（path faithfulness）の検証が依然として課題であることが挙げられる。また、実験設定は GPT-4o-mini や特定の KG-RAG フレームワークに限定されており、実運用環境における汎用的な信頼性保証ではなく、あくまで lock-in を「命名可能、測定可能、診断可能」にするための診断的枠組みとしての貢献に留まっている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-24
+  </footer>
+</div>
+</body>
+</html>

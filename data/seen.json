@@ -313,6 +313,67 @@
       "url": "http://arxiv.org/abs/2606.20113v1",
       "venue": ""
     },
+    "arxiv:2606.22681": {
+      "added": "2026-06-24",
+      "arxiv_id": "2606.22681",
+      "authors": [
+        "Wei-Chieh Chou",
+        "Xuanjun Chen",
+        "Jian-Ren Lin",
+        "Claire Lin",
+        "Hung-yi Lee",
+        "Jyh-Shing Roger Jang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-21",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.22681.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.22681v1",
+      "reading_value": 4,
+      "reading_value_reason": "未知の差分のみを計画対象とする「Delta Planning」の着想が極めて独創的。精度向上と大幅なコスト削減を両立しており、実用的なRAG研究として価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Only Ask What You Don't Know: Grounded Delta Planning for Efficient Multi-step RAG",
+      "tldr": "未知の情報差分（$\\Delta$）のみを標的とする計画ベースのマルチステップRAGフレームワーク「Grounded Delta Planning RAG (GDP-RAG)」を提案する。事前検索によって得られた既知の知識と未知の情報の差分に対してのみサブクエリを生成することで、冗長な推論ステップを排除し、精度とコスト効率の両立を実現する。",
+      "url": "http://arxiv.org/abs/2606.22681v1",
+      "venue": ""
+    },
+    "arxiv:2606.22728": {
+      "added": "2026-06-24",
+      "arxiv_id": "2606.22728",
+      "authors": [
+        "Sahib Julka"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-22",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.22728.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.22728v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの信頼性評価における「回答の分散が消失する」という新たな失敗モードを定義した点が非常に独創的。3層の分離評価手法は実用的で、研究者が注目すべき重要課題である。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "When Confidence Takes the Wrong Path: Diagnosing Retrieval-State Lock-In in RAG",
+      "tldr": "RAGにおいて、リトリーバーが誤った情報を繰り返し提供することで回答の分散が消失し、従来の不確実性推定が機能不全に陥る「retrieval-state lock-in」現象を定義・診断する手法を提案している。回答（Answer）、証拠（Evidence）、検索状態（Retrieval-state）の3つのオブジェクトを分離して評価することで、回答が一致していても誤答である「silent error」を検知可能にする。",
+      "url": "http://arxiv.org/abs/2606.22728v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "arxiv_id": "",
@@ -713,6 +774,40 @@
       "source_quality": "fulltext",
       "title": "Should I Replan? Learning to Spot the Right Time in Robust MAPF Execution",
       "tldr": "エージェントの遅延が発生する実環境下のマルチエージェント経路計画（MAPF）において、Action Dependency Graph (ADG) の統計量に基づき、再計画（Replanning）によるコスト削減の期待値を予測する回帰モデルを提案する。提案手法は、動的障害物による遅延が発生した際に、再計画によって得られる潜在的な利益を高い精度で推定し、実行コストの増大を最大 $50\\%$ まで低減できることを示した。"
+    },
+    "arxiv:2605.07637": {
+      "added": "2026-06-24",
+      "arxiv_id": "2605.07637",
+      "authors": [
+        "Valeriy Vyaltsev",
+        "Alsu Sagirova",
+        "Anton Andreychuk",
+        "Oleg Bulichev",
+        "Yuri Kuratov",
+        "Konstantin Yakovlev",
+        "Aleksandr Panov",
+        "Alexey Skrynnik"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-05-08",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2605.07637.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2605.07637v2",
+      "reading_value": 4,
+      "reading_value_reason": "通信を明示的な教師信号なしに学習する枠組みが新規であり、大規模環境での線形スケーラビリティとSOTA達成の両立が極めて実用的。",
+      "relevance": 1,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Learning to Communicate Locally for Large-Scale Multi-Agent Pathfinding",
+      "tldr": "大規模なマルチエージェント経路探索（MAPF）において、近傍エージェント間で複数回の反復的な通信を行う学習可能なフレームワーク「LC-MAPF」を提案する。Transformerベースの300万パラメータのモデルを用い、エキスパートのデモンストレーションから通信内容を間接的に学習することで、既存の学習ベース手法（MAPF-GPT, SCRIMP等）を上回る成功率とSolution Cost（SoC）を実現し、かつエージェント数に対して線形なスケーラビリティ $O(n)$ を維持する。",
+      "url": "http://arxiv.org/abs/2605.07637v2",
+      "venue": ""
     },
     "arxiv:2605.07744": {
       "added": "2026-06-23",
@@ -1201,6 +1296,38 @@
       "title": "From Trainee to Trainer: LLM-Designed Training Environment for RL with Multi-Agent Reasoning",
       "tldr": "LLMが強化学習（RL）の環境設計を自動化する「LLM-as-Environment-Engineer」フレームワークを提案し、ポリシーの失敗軌跡に基づき学習環境の構成を動的に更新することで、固定環境よりも高い学習パフォーマンスを実現する。",
       "url": "http://arxiv.org/abs/2606.17682v1",
+      "venue": ""
+    },
+    "arxiv:2606.22757": {
+      "added": "2026-06-24",
+      "arxiv_id": "2606.22757",
+      "authors": [
+        "Junfeng Wu",
+        "Jiaqi Chen",
+        "Hongkun Lyu",
+        "Kevin Zheng",
+        "Andy Li"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2026-06-22",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2606.22757.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.22757v1",
+      "reading_value": 4,
+      "reading_value_reason": "連続空間のMAPFにおけるデッドロック回避という重要課題に対し、軌道全体の依存関係を考慮するプロアクティブな新手法を提案しており、既存手法の欠点を克服しているため。",
+      "relevance": 2,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Cooperative-ORCA*: Real-Time Proactive Deadlock Avoidance for Continuous-Space Multi-Agent Navigation",
+      "tldr": "連続空間におけるマルチエージェント経路計画（MAPF）において、将来的なデッドロックを未然に防ぐための新しいアルゴリズム群 $\\text{C-ORCA}^*$ および $\\text{C-ORCA}^* \\text{-MAPF}$ を提案する。従来の $\\text{ORCA}^*$ が持つ近視眼的な決定によるデッドロック問題や、$\\text{ORCA}^* \\text{-MAPF}$ が抱える事後的な介入によるフロータイムの増大という課題を、エージェントの空間的な軌道全体とその依存関係を考慮することで解決する。",
+      "url": "http://arxiv.org/abs/2606.22757v1",
       "venue": ""
     },
     "doi:10.1016/j.artint.2022.103752": {

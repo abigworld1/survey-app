@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Only Ask What You Don&#x27;t Know: Grounded Delta Planning for Efficient Multi-step RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Only Ask What You Don&#x27;t Know: Grounded Delta Planning for Efficient Multi-step RAG</h1>
+  <div class="meta">Wei-Chieh Chou, Xuanjun Chen, Jian-Ren Lin, Claire Lin, Hung-yi Lee, Jyh-Shing Roger Jang<br>採択先: 未取得 ・ 2026-06-21 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.22681v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.22681v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-06-21</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">未知の差分のみを計画対象とする「Delta Planning」の着想が極めて独創的。精度向上と大幅なコスト削減を両立しており、実用的なRAG研究として価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 未知の情報差分（$\Delta$）のみを標的とする計画ベースのマルチステップRAGフレームワーク「Grounded Delta Planning RAG (GDP-RAG)」を提案する。事前検索によって得られた既知の知識と未知の情報の差分に対してのみサブクエリを生成することで、冗長な推論ステップを排除し、精度とコスト効率の両立を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>既存のマルチステップRAGには、ReActのような逐次的な手法におけるエラーの連鎖やコンテキスト容量の超過、およびReWOOのような静的な計画手法における過剰・不足な計画策定によるコスト増大という課題がある。本研究は、既知の情報を含めた完全な推論軌跡を生成してしまう既存の接地型（grounded）手法に対し、情報の欠落部分（$\Delta$）のみを特定して計画を立てるアプローチを提示する。これにより、解決済みのステップをスキップする「Reasoning-step Compression」、冗長なサブクエリを排除する「Over-planning Pruning」、および不足した依存関係を補完する「Under-planning Refinement」の実現を目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>GDP-RAGは、HotpotQA、2WikiMultiHopQA、MuSiQueの3つのベンチマークにおいて、最高精度60.63%を達成した。コスト効率を示す指標である$Cost\text{-}of\text{-}pass$ ($\text{¢}$) において、PAR-RAGの0.65に対し0.51（22%削減）、KnowTraceの1.57に対し0.51（68%削減）という優れた数値を記録している。また、事前検索、ギャップ認識型クエリ分解、および思考プロセスを保持する骨格的な軌跡（skeletal trajectory）という3つの設計指針を導入し、精度とコストのパレート最適を実現した。さらに、軽量なGPT-4.1-nanoを用いた場合でも、PAR-RAGと同等の精度を維持しつつ、より低いコスト（0.07¢ vs 0.09¢）を実現する堅牢性を示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>GDP-RAGは、Planning PhaseとTrajectory Generation Phaseの2段階で構成される。Planning Phaseでは、まずPreliminary Retrievalによりクエリに関連する文脈を取得し、既存知識 $\mathcal{D}_{pre}$ との差分のみを対象とするGap-aware Query Decompositionを行う。これにより、思考プロセスと証拠をペアにした骨格的な軌跡 $\mathcal{T}_{skel} = \{(t_i, q_i, e_i)\}_{i=1}^k$ を生成する。Trajectory Generation Phaseでは、Actモジュールが暫定回答 $a_i$ を生成し、Reviewモジュールが事実整合性を検証して $\hat{a}_i$ を導出し、Updateモジュールがメモリ $\mathcal{M}_i = (\mathcal{M}_{i-1}, \hat{a}_i, d_i)$ を更新するAct-Review-Updateサイクルを繰り返す。最終的なAnswering Phaseでは、検証済みの軌跡 $\mathcal{T}_{grounded}$ と元のクエリ $q$ を用いて最終回答を合成する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験は、GPT-4o-miniをプランナーおよび生成器として使用し、BAAI/bge-m3によるエンコーディングとBAAI/reranker-large-v2-m3によるリランク（top-30からtop-10を抽出）を用いて実施された。評価指標には正確性（$EM, F1, SM$ の平均）と、コストを統合した$Cost\text{-}of\text{-}pass$ ($\text{¢}$) が用いられた。アブレーション実験では、事前検索の有無、gap-conditioning instructionの有無、および思考成分 $\langle \text{Thought} \rangle$ の有無が検証された。その結果、思考成分を除外したGDP-RAG NTでは精度が56.80%まで低下し、思考プロセスがサブクエリの質維持に不可欠であることが示された。また、Direct Planningと比較して、Reasoning Stepを61.0%、冗長なステップを77.0%削減できることが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>GDP-RAGは、事前検索の$\text{recall@10}$が平均$0.61$であることと密接に相関して、計画ステップを最適化できる。クエリの複雑さが増すにつれ、HotpotQAや2Wikiではステップ数がほぼ一定に保たれ、MuSiQueでは線形に増加するが、常にDirect Planningより少ないステップ数で推論が可能である。一方で、本手法の限界として、評価が事実的なエンティティや関係性に基づくショートフォームのマルチホップQAに限定されている点が挙げられる。オープンエンドな生成、長文の合成、あるいはマルチモーダルな検索においては、情報のデルタ（$\Delta$）の概念や評価指標の再定義が必要であり、これらへの拡張が今後の課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Only Ask What You Don’t Know: Grounded Delta Planning for Efficient Multi-step RAG</h3><p>本研究では、マルチステップRAGにおけるエラーの伝播や過剰な推論ステップによるコスト増大を解決するため、未知の情報差分（$\Delta$）のみを標的とする計画ベースのフレームワーク「Grounded Delta Planning RAG (GDP-RAG)」を提案している。GDP-RAGは、(1) 実行前に計画を根拠付けるための予備的な検索、(2) 不足している情報のみを要求するギャップ条件付きの計画プロンプト、(3) 各サブクエリと予備検索から得た証拠を保持する「Thought」をペアにした骨格的な軌跡（skeletal trajectory）という3つの設計指針に基づいている。HotpotQA、2WikiMultiHopQA、MuSiQueを用いた広範な実験の結果、GDP-RAGは比較対象の中で最高精度（60.63%）を達成した。さらに、コスト効率を示す指標であるcost-of-passにおいて、PAR-RAGの0.65に対し0.51、KnowTraceの1.57に対し0.51という、それぞれ22%および68%低い値を記録しており、精度とコストの両面で既存手法を凌駕している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>既存のマルチステップRAGにおける、ステップごとの分解を行う手法（ReAct等）が抱えるコンテキスト容量の超過やエラーの連鎖、および静的な計画に基づく手法（ReWOO等）が抱える過剰・不足な計画策定と実行コストの増大という課題に対し、本研究ではGrounded Delta Planning RAG (GDP-RAG) を提案する。GDP-RAGは、事前の検索によって得られた知識と未知の情報の差分である情報デルタ（$\Delta$）に対してのみ計画を立てる手法であり、(1)分解前にプランナーを根拠付けるための予備検索、(2)既知の情報を識別し不足分のみをサブクエリ化するギャップ認識型クエリ分解、(3)予備検索の証拠を保持するThoughtを伴う骨格的軌跡、の3つの設計を採用している。このアプローチにより、解決済みのステップをスキップする「Reasoning-step Compression」、冗長なサブクエリを排除する「Over-planning Pruning」、および不足した依存関係を補完する「Under-planning Refinement」を実現している。HotpotQA、2WikiMultiHopQA、MuSiQueを用いた実験では、GDP-RAGは最高精度（60.63%）を達成しつつ、cost-of-passにおいてPAR-RAG（0.65）より22%低く、KnowTrace（1.57）より68%低い0.51を記録し、精度とコストの両面で優位性を示した。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>複雑なQAにおける既存手法は、(1) 逐次的な検索と推論を交互に行うStep-wise Approaches、(2) 実行前にグローバルな計画を構築するPlan-based Approaches、(3) 検索と検証に焦点を当てたRetrieval and Verification、(4) プランナーや推論器を改善する手法の4つに分類される。Step-wise手法（ReAct, IRCoT等）は、現在の状態のみに基づき次のサブクエリを決定するため、大局的な先見性に欠け、中間エラーが伝播しやすいという限界がある。Plan-based手法（PlanRAG, ReWOO等）は実行前にステップ数を固定するが、STORM等の既存の接地型（grounded）手法は、既知の情報を含めた完全な推論軌跡を生成してしまう。これに対し、提案手法であるGDP-RAGは、事前検索から既知の情報を特定し、情報の差分（$\Delta$）に対してのみサブクエリを生成する「gap-aware query decomposition」を導入することで、実行前に最小限の骨組みとなる計画を構築する。また、GDP-RAGはPAR-RAGのAct-Review-Updateメカニズムを継承しつつ、学習不要（training-free）なアプローチとして、事前検索と差分認識指示を用いることで簡潔な計画を実現している。</p></section>
+<section class="secsum"><h3>3 Method</h3><p>本手法は、効率的なマルチステップRAGを実現するために、情報の欠落部分（delta）のみを特定して計画するGDP-RAGフレームワークを提案している。まずPlanning Phaseにおいて、クエリに関連する文脈を事前取得するPreliminary Retrievalを行い、既存の知識 $\mathcal{D}_{pre}$ との差分のみを対象とするGap-aware Query Decompositionを通じて、思考プロセスと証拠を保持する骨格的な軌跡 $\mathcal{T}_{skel} = \{(t_i, q_i, e_i)\}_{i=1}^k$ を生成する。次にTrajectory Generation Phaseでは、各ステップ $i$ において、Actモジュールが $\mathcal{M}_{i-1}$ と検索結果に基づき暫定回答 $a_i$ を生成し、Reviewモジュールが検証クエリを用いて $a_i$ の事実整合性を確認して $\hat{a}_i$ を導出し、Updateモジュールが $\mathcal{M}_i = (\mathcal{M}_{i-1}, \hat{a}_i, d_i)$ としてメモリを更新するAct-Review-Updateサイクルを繰り返す。このプロセスにより、冗長なステップの圧縮、過剰な計画（Over-planning）の排除、および不足した計画（Under-planning）の精緻化が実現される。最終的にAnswering Phaseでは、検証済みの軌跡 $\mathcal{T}_{grounded}$ と元のクエリ $q$ を用いて、論理的に一貫し、検索された文書に厳密に裏付けられた最終回答を合成する。</p></section>
+<section class="secsum"><h3>4 Experiment Setup</h3><p>本実験では、HotpotQA、2WikiMultiHopQA、MuSiQueの3つのマルチホップQAベンチマークを用い、パラメータ知識のみで回答可能な問題をGPT-4o-miniでフィルタリングした、複雑度（hop数）のバランスが取れたデータセットで評価を行う。評価指標は、正確性（Accuracy: $EM, F1, SM$ の平均）、コスト（$Cost$ および $\#Tokens$）、そして正確性とコストを統合した主要指標である $Cost\text{-}of\text{-}pass$ ($\text{¢}$) の3軸で構成される。比較対象のベースラインとして、ステップごとに検索と推論を繰り返すIRCoT、KnowTrace、Search-o1のStep-wise手法と、事前に計画を立てるPAR-RAG、Godbole et al.のPlan-based手法の計5種類を設定している。実装面では、すべての手法でGPT-4o-miniをプランニングと生成に使用し、文書検索にはBAAI/bge-m3によるエンコーディングとBAAI/reranker-large-v2-m3によるリランク（top-30からtop-10を抽出）を採用している。なお、Step-wise手法については、最大推論ステップ数を10に制限して比較を行っている。</p></section>
+<section class="secsum"><h3>5 Main Results</h3><p>GDP-RAGは、全体の精度において60.63%を達成し、最強のベースラインであるPAR-RAGを2.43ポイント上回る最高精度を記録した。具体的にはHotpotQAで64.75%、MusiQueで44.53%の精度を出し、2Wikiでも72.62%とSearch-o1に僅差で次ぐ結果を得ており、gap-conditioned planningが不要な検索を減らしつつ欠損情報に集中することで回答の質を向上させることが示された。統計的有意性については、paired $t$-testおよび10,000サンプルのブートストラップ法により、PAR-RAGに対するEMおよびF1の改善が有意であることが確認されている。効率性の面では、GDP-RAGはパレート境界上に位置しており、主要指標であるCost-of-passにおいて0.51を記録し、高精度かつ低コストな領域を占めている。モデルスケールに対する堅牢性の検証では、より軽量なGPT-4.1-nanoを用いた場合でも、PAR-RAGと比較して同等の精度（40.00% vs. 41.38%）を維持しつつ、より低いコスト（0.07¢ vs. 0.09¢）を実現している。</p></section>
+<section class="secsum"><h3>6 Ablation Study</h3><p>GDP-RAGの構成要素を検証するアブレーション実験では、Planningフェーズにおける3つの設計要素と、Trajectory Generationフェーズにおける2つのモジュールが評価されている。Planningフェーズにおいて、事前検索（Preliminary Retrieval）の有無を比較すると、無関係な文書を提示するGDP-RAG RPは、文書を一切提示しないGDP-RAG NPよりも精度が低下しコストが増大するため、関連性の低い情報の提示は有害であることが示された。また、Gap-aware Query Decomposition（gap-conditioning instruction）は、精度への影響は軽微ながら、冗長なサブクエスチョンの生成を抑制し、ステップ数を1.64（GDP-RAG）から3.36（GDP-RAG GP）へと大幅に削減する効果がある。Skeletal Trajectoryにおいて、思考プロセス $\langle \text{Thought} \rangle$ を除外したGDP-RAG NTは、精度が56.80%まで低下し、思考成分がサブクエスチョンの質を維持するために不可欠であることが確認された。Trajectory Generationフェーズでは、Reviewモジュールがコストの大部分を占めるものの精度への寄与は限定的であり、一方でUpdateモジュールは、1ステップあたり1回のLLMコールという低コストでありながら、実行時の適応性を維持し精度低下を防ぐ効果的なメカニズムとして機能している。</p></section>
+<section class="secsum"><h3>7 Effectiveness Analysis of GDP-RAG</h3><p>Grounded Delta Planning (GDP-RAG) は、Direct Planning と比較して、計画プロセスの圧縮、枝刈り、および洗練のすべての側面において優位性を示す。LLMベースの評価器を用いた分析によれば、GDP-RAG は Reasoning Step の圧縮（3,561 から 1,388 ステップへ 61.0% 削減）、冗長なステップの枝刈り（2,823 から 650 ステップへ 77.0% 削減）、および不足しているドキュメントの補完（1,839 から 913 個へ 50.4% 削減）を実現している。この圧縮効果は、事前検索の $\text{recall@10}$ が平均 $0.61$ であることと密接に相関しており、事前検索でカバーされた証拠量に応じて計画ステップが最適化される。クエリの複雑さが増すにつれ、HotpotQA や 2Wiki ではステップ数がほぼ一定に保たれ、MuSiQue では線形に増加するものの、GDP-RAG は常に Direct Planning よりも少ないステップ数で効率的に推論を行う。この結果は、GDP-RAG がタスクの複雑さに適応し、必要な推論を維持しつつ冗長なオーバーヘッドを削減できることを示している。</p></section>
+<section class="secsum"><h3>8 Conclusion</h3><p>本研究では、予備的な検索、ギャップを意識したクエリ分解、およびスケルトン・トラジェトリを用いて、不足している情報差分（$\Delta$）に対してのみ計画を立てるプランベースのマルチホップRAGフレームワークであるGDP-RAGを提案した。Act-Review-Updateサイクルを導入することで、各サブクエリをランタイムの適応性に基づいて接地（grounding）させている。HotpotQA、2WikiMultiHopQA、およびMuSiQueを用いた実験の結果、GDP-RAGは比較対象の全システムの中で最高精度を達成し、コスト面においてもPAR-RAGより22%、KnowTraceより68%低いcost-of-passを実現した。アブレーション解析により、予備的検索がステップ効率を、ギャップを意識したクエリ分解が効率性を、そしてスケルトン・トラジェトリが精度をそれぞれ向上させていることが確認された。</p></section>
+<section class="secsum"><h3>9 Limitations and Future Work</h3><p>本研究の評価は、事実的なエンティティや関係性に基づいて情報ギャップが定義され、回答が短文かつ検証可能であるショートフォームのマルチホップQAを対象としている。そのため、オープンエンドな生成、長文の合成、およびマルチモーダルな検索においては、情報のデルタ（$\Delta$）の概念や評価指標を再定義する必要がある。GDP-RAGをこのようなオープンエンドな設定やエージェント的な設定へと拡張することが、今後の自然な研究方向として示唆されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-24
+  </footer>
+</div>
+</body>
+</html>

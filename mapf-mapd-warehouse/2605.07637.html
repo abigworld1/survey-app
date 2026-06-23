@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Learning to Communicate Locally for Large-Scale Multi-Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Learning to Communicate Locally for Large-Scale Multi-Agent Pathfinding</h1>
+  <div class="meta">Valeriy Vyaltsev, Alsu Sagirova, Anton Andreychuk, Oleg Bulichev, Yuri Kuratov, Konstantin Yakovlev, Aleksandr Panov, Alexey Skrynnik<br>採択先: 未取得 ・ 2026-05-08 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2605.07637v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.07637v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-05-08</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">通信を明示的な教師信号なしに学習する枠組みが新規であり、大規模環境での線形スケーラビリティとSOTA達成の両立が極めて実用的。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 大規模なマルチエージェント経路探索（MAPF）において、近傍エージェント間で複数回の反復的な通信を行う学習可能なフレームワーク「LC-MAPF」を提案する。Transformerベースの300万パラメータのモデルを用い、エキスパートのデモンストレーションから通信内容を間接的に学習することで、既存の学習ベース手法（MAPF-GPT, SCRIMP等）を上回る成功率とSolution Cost（SoC）を実現し、かつエージェント数に対して線形なスケーラビリティ $O(n)$ を維持する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、グラフ $\mathcal{G}$ 上の $n$ 個のエージェントが衝突を回避しながら目的のコスト関数 $\sum_{i=1}^n c_i$（Sum-of-Costs）または $\max_{i} c_i$（makespan）を最適化するMAPF問題を対象としている。従来の中央集権的な解法は NP-hard であり、エージェント数の増加に伴うスケーラビリティが課題であった。既存の分散型手法は、通信を欠くものや単一ラウンドの観測共有に留まるものが多く、高度な調整が困難であった。本研究では、これらを Dec-POMDP として定式化し、局所的な観測 $\mathbf{o}_{i,t}$ と複数ラウンドの通信に基づく分散型意思決定モデルを構築する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>提案手法 LC-MAPF は、明示的な通信の教師信号を必要とせず、エキスパートの行動軌跡 $\mathcal{D} = \{(\mathbf{o}_{i,t}, a_{i,t})\}$ のみを用いて通信を学習する新しいフレームワークである。これにより、学習ベースの分散型MAPFソルバーにおいて新たな SOTA を達成した。通信ラウンドを導入しながらも、計算コストがエージェント数に対して線形に増加するスケーラビリティを維持している点が大きな貢献である。また、300万パラメータという比較的小規模なモデルでありながら、大規模なMAPF環境において高い汎化性能と協調性を実現している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>各エージェントは、自身のコスト・トゥ・ゴー行列、特徴量 $x_i$、および近傍 $j \in \mathcal{N}_i$ の特徴量からなる観測をトークン化し、Transformer エンコーダで処理する。Perceiver に着想を得た情報ボトルネックを導入し、少数の学習可能な潜在クエリを用いて観測をコンパクトな潜在状態 $z_i$ へ圧縮する。通信プロセスでは $R$ ラウンドのメッセージパッシングを行い、各ラウンド $r$ においてデコーダが近傍からのメッセージ $m_{j \to i}^{(r-1)}$ を統合して次ラウンドのメッセージ $m_{i}^{(r)}$ を生成する。学習には、エキスパートのデモンストレーションを用いたクロスエントロピー損失 $\mathcal{L} = -\mathbb{E} \sum_{i} \log P(a_i^* | \text{obs}_i)$ を使用し、メッセージの内容はアクション損失の勾配を通じて自然に学習される。アーキテクチャには RMSNorm、SwiGLU、QK-normalization、differential attention が組み込まれている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>POGEMA ベンチマークを用い、Random, Mazes, Warehouse, Cities のマップタイプで評価を行った。学習には約 2,350 万サンプルのデータセットを使用し、単一の NVIDIA H100 GPU で 800,000 イテレーション（約 900 GPU-hours）の学習を実施した。実験の結果、LC-MAPF は MAPF-GPT (85M), SCRIMP, DCC, HMAGAT などの最新手法と比較して、成功率および SoC ratio の両面で同等以上の性能を示した。アブレーション研究では、通信ラウンド数 $R=4$ が最良であり、2ラウンド以上が不可欠であることが示された。また、最大 5,000 エージェントの大規模環境においても、1ステップあたり約 0.65 秒の計算時間を維持し、線形なスケーラビリティを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>LC-MAPF は、通信ラウンドを増やすことで協調性を高めつつ、計算量の爆発を抑えることに成功している。通信帯域幅の制約に関する実験では、近傍の通信エージェント数を 4 以下に制限すると、大規模な集団において成功率が著しく低下することが判明しており、適切な通信範囲の確保が重要である。また、メッセージ失敗率が 50% という極端な条件下でも、小規模なタスク（32エージェント以下）では部分的な成功が可能であることが示された。本手法は、明示的な通信指示なしにエキスパートの行動から高度な交渉プロセスを学習できるため、分散型MAPFにおける効果的な事前学習済みモデルとしての有用性が示唆されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Learning to Communicate Locally for Large-Scale Multi-Agent Pathfinding</h3><p>本研究では、大規模なマルチエージェント経路探索（MAPF）において、近傍エージェント間での効率的な特徴量共有を目的とした学習可能な通信モジュールを導入した「Local Communication for Multi-agent Pathfinding (LC-MAPF)」を提案している。MAPFを単一エージェントの視点から Dec-POMDP として定式化し、強化学習や模倣学習を用いて、局所的な観測に基づく行動決定を行う手法をベースとしている。提案手法である LC-MAPF は、近傍エージェント間で複数回の通信（multi-round communication）を行うことで協調性を高める汎用的な学習済みモデルであり、未知のテストシナリオにおいても既存の IL や RL ベースの手法を複数の指標で上回る性能を示す。特筆すべき点として、従来の通信ベースの MAPF ソルバーにおける共通の課題であったスケーラビリティを損なうことなく、高い性能を実現している。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>Multi-Agent Pathfinding (MAPF) は、グラフ上のエージェントが衝突を回避しながら目的のコスト関数を最適化する問題であり、中央集権的な解法は NP-hard であるため、エージェント数が増加するとスケーラビリティに課題が生じる。これに対し、各エージェントが局所的な観測に基づき独立して意思決定を行う分散型アプローチが提案されているが、既存の MAPF-GPT のような手法はエージェント間の通信を欠いており、また既存の分散型手法も単一ラウンドの観測共有に留まることが多く、高度な調整には不十分である。本研究では、複数ラウンドの反復的な相互作用を通じて交渉や衝突解決を可能にする、新しい通信学習フレームワーク LC-MAPF を提案する。この手法は、明示的な通信の教師信号を必要とせず、選択された行動のエキスパートデモンストレーションのみを用いて通信を学習する。提案手法は 300万パラメータの Transformer ベースのモデルであり、学習ベースの分散型 MAPF ソルバーにおいて新たな SOTA を達成している。さらに、通信ラウンド数が性能に与える影響を調査し、通信を導入してもエージェント数の増加に対して線形なスケーラビリティを維持できることを示している。</p></section>
+<section class="secsum"><h3>Related Work</h3><p>本研究に関連する先行研究は、マルチエージェントシステムのための基盤モデル、通信ベースの学習によるMAPF、およびMAPFの解法という3つのカテゴリに分類される。MAPFの解法には、計算速度は速いが解の質が保証されないルールベース、最小費用流やSAT問題に帰着させるリダクションベース、最適性や限定的な劣最適性を保証するCBS等の探索ベース、そして効率性とスケーラビリティを重視した優先順位付きプランニングが存在する。通信ベースの学習手法では、ターゲット情報のみを共有するPRIMALから始まり、学習可能な通信ブロックを導入したDHC、選択的な通信を学習するDCC、模倣学習と強化学習を組み合わせたSCRIMPなどが提案されている。また、グラフアテンション機構を用いて近傍からのメッセージに動的な重み付けを行うMAGATや、その発展形としてハイパーグラフを利用するHMAGAT、3層のスタック構造を持つMAGAT+といった手法も存在する。マルチエージェントにおける基盤モデルの活用は、チェスや協調型ビデオゲーム、SCRIMPなどの事例を除けば未だ限定的であり、MAPF-GPTのような分散型経路探索への適用も初期段階にある。</p></section>
+<section class="secsum"><h3>Background</h3><p>Multi-Agent Pathfinding (MAPF) は、グラフ $\mathcal{G}$ 上の $n$ 個のエージェントに対し、各エージェント $i$ の開始頂点 $s_i$ から目標頂 $g_i$ への、衝突のない経路集合を求める問題であり、解のコストは Sum-of-Costs $\sum_{i=1}^n c_i$ または makespan $\max_{i} c_i$ で評価される。本研究では、各エージェントが局所的な観測 $\mathbf{o}_{i,t}$ と通信に基づき、共有された個別の方策 $\pi$ を用いて行動を選択する分散型意思決定問題として定式化している。学習手法には模倣学習（Imitation Learning）を採用しており、中央集権的なソルバー（例：LaCAM*）から得られたエキスパートの軌跡データ $\mathcal{D} = \{(\mathbf{o}_{i,t}, a_{i,t})\}$ を用いて、負の対数尤度 $\mathcal{L}(\theta) = -\mathbb{E}_{(\mathbf{o}, a) \sim \mathcal{D}} [\log \pi_\theta(a|\mathbf{o})]$ を最小化するように方策を訓練する。提案手法である LC-MAPF アーキテクチャでは、Transformer ベースのエンコーダで局所観測を潜在表現に変換した後、複数回の通信ラウンド $R$ を経て、メッセージパッシングによって近傍エージェントとの協調を行う。具体的には、各ラウンド $r$ において、エージェントは近傍からのメッセージ集合 $\mathcal{M}_{i,r}$ を Transformer ベースのデコーダで自身の潜在状態と融合させ、次ラウンドのメッセージおよび最終的な行動ロジット $\mathbf{z}_{i,t}$ を出力する。</p></section>
+<section class="secsum"><h3>Method</h3><p>各エージェントは、自己のコスト・トゥ・ゴー行列、自身の特徴量 $x_i$、および近傍エージェント $j \in \mathcal{N}_i$ の特徴量 $x_j$ からなる構造化された観測を受け取り、これをトークン化して Transformer エンコーダで処理する。情報の伝播コストを抑えるため、Perceiver に着想を得た情報ボトルネックを導入しており、少数の学習可能な潜在クエリを用いて、観測シーケンスをコンパクトな潜在状態 $z_i$ へと圧縮する。通信プロセスでは、各エージェントが $R$ ラウンドの局所的な通信を行い、各ラウンド $r$ において近傍からのメッセージ $m_{j \to i}^{(r-1)}$ をデコーダで統合して次ラウンドのメッセージ $m_{i}^{(r)}$ を生成する。モデルのアーキテクチャには、RMSNorm、SwiGLU、QK-normalization、および differential attention などの最新技術が組み込まれており、エキスパートのデモンストレーションを用いたクロスエントロピー損失 $\mathcal{L} = -\mathbb{E} \sum_{i} \log P(a_i^* | \text{obs}_i)$ によるエンドツーエンドの学習が行われる。特筆すべき点として、メッセージ $m_i^{(r)}$ に対する補助的な損失関数は存在せず、メッセージの内容は近傍エージェントのアクション・ロジットに与える影響を通じて、アクション損失の勾配が逆伝播することで自然に学習される。実験では、通信ラウンド数として $R=3$ が用いられている。</p></section>
+<section class="secsum"><h3>Experimental Setup</h3><p>本実験は、多様な部分観測マルチエージェント経路探索（MAPF）環境を提供する POGEMA ベンチマークを用い、Random, Mazes, Warehouse, Cities といったマップタイプで評価を行っている。各エージェントは、自身の視野、属性、空間的文脈を含む最大 256 トークンのトークン化された観測を受け取り、5 セル半径内の最大 13 個のメッセージ（自身のメッセージを含む）を、エージェント間の距離順に並べられた一貫した順序で受信する。学習データセットは mazes, random, house の 3 つのサブセットから構成され、合計約 2,350 万サンプル（比率 0.6:0.2:0.2）を含み、全エージェントの観測と正解アクションを保持することで、観測・アクションのペア数は約 7.5 億に達する。モデルは約 300 万の学習可能パラメータを持ち、単一の NVIDIA H100 GPU を用いて、AdamW オプティマイザと cosine learning rate decay を適用し、800,000 イテレーション（実効バッチサイズ 512、総学習時間 約 900 GPU-hours）のスクラッチ学習が行われた。評価指標には、成功率（Success rate）および LaCAM* に対する SoC ratio（lower is better）が用いられている。</p></section>
+<section class="secsum"><h3>Experimental Results</h3><p>LC-MAPFの性能評価は、POGEMAベンチマークを用い、Random, Mazes, Warehouse, Cities Tilesの4種類のマップタイプで実施された。実験では、MAPF-GPT (85M), MAPF-GPT-DDG, SCRIMP, DCC, HMAGAT, MAGAT+といった最新の学習ベース手法と比較され、LC-MAPFは成功率においてこれら全てのベースラインと同等以上の性能を示し、特にSolution Cost (SoC) 比においても多くのケースで最良の結果を達成した。アブレーション研究により、通信ラウンド数は学習時と同じ4ラウンドで最良の性能が得られ、2ラウンド以上が不可欠であることが示された。また、メッセージ失敗率が50%という極端な条件下でも、32エージェント以下の単純なタスクでは部分的な成功が可能であることが確認された。通信帯域幅の制約に関する実験では、近傍の通信エージェント数を4以下に制限すると、大規模なエージェント集団において成功率が著しく低下することが示された。さらに、最大5,000エージェントを用いた大規模評価において、LC-MAPFは線形なスケーラビリティを維持し、5,000エージェント時でも1ステップあたり約0.65秒の計算時間を実現した。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本研究では、明示的な通信の教師信号を用いずにエキスパートのデモンストレーションを活用する、分散型マルチエージェント経路探索（MAPF）のための新しい通信学習フレームワークであるLC-MAPFを提案している。この手法は、エージェント間の協調を強化するために通信をラウンド制で構成しており、Transformerベースのモデルを採用している。POGEMAベンチマークを用いた評価において、LC-MAPFは既存の最先端の学習ベースMAPFソルバーを上回る性能を示し、多様なシナリオにおける調整能力と協調性を向上させた。また、通信ベースの手法に共通する課題であるスケーラビリティについても、エージェント数に対して線形なスケーラビリティ $O(n)$ を維持している。アブレーション研究により、マルチラウンドの局所通信がスケーラビリティや汎化性能を損なうことなく性能を向上させることが確認されており、LC-MAPFは分散型MAPFに対する効果的かつスケーラブルな事前学習済みモデルとしての有用性を示している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-24
+  </footer>
+</div>
+</body>
+</html>

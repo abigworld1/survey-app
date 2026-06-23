@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Cooperative-ORCA*: Real-Time Proactive Deadlock Avoidance for Continuous-Space Multi-Agent Navigation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Cooperative-ORCA*: Real-Time Proactive Deadlock Avoidance for Continuous-Space Multi-Agent Navigation</h1>
+  <div class="meta">Junfeng Wu, Jiaqi Chen, Hongkun Lyu, Kevin Zheng, Andy Li<br>採択先: 未取得 ・ 2026-06-22 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.22757v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.22757v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-22</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">アブストラクト</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">連続空間のMAPFにおけるデッドロック回避という重要課題に対し、軌道全体の依存関係を考慮するプロアクティブな新手法を提案しており、既存手法の欠点を克服しているため。</div></div>
+  <div class="source-notice fulltext">本文取得済み: アブストラクトを根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 連続空間におけるマルチエージェント経路計画（MAPF）において、将来的なデッドロックを未然に防ぐための新しいアルゴリズム群 $\text{C-ORCA}^*$ および $\text{C-ORCA}^* \text{-MAPF}$ を提案する。従来の $\text{ORCA}^*$ が持つ近視眼的な決定によるデッドロック問題や、$\text{ORCA}^* \text{-MAPF}$ が抱える事後的な介入によるフロータイムの増大という課題を、エージェントの空間的な軌道全体とその依存関係を考慮することで解決する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、連続空間でのマルチエージェントナビゲーションにおけるデッドロック回避に焦点を当てている。従来のリアルタイム手法である $\text{ORCA}^*$ は、各タイムステップで速度を割り当てるため、将来的なデッドロックを予測できないという欠点がある。また、その修正策である $\text{ORCA}^* \text{-MAPF}$ は、デッドロック発生後に介入を行う（post hoc interventions）ため、大きなフロータイムのオーバーヘッドが生じる。これに対し、提案手法はプロアクティブ（先行的）なデッドロック回避を目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>エージェントの空間的な軌道全体とその空間的依存関係を考慮することで、デッドロックを未然に防ぐ $\text{C-ORCA}^*$ ファミリーを提案した。これにより、従来の最先端手法が抱えていた「近視眼的な決定」と「事後的な介入によるコスト」という二つの問題を同時に解決している。実験を通じて、解決率（solve rate）、実行時間（runtime）、およびフロータイム（flowtime）のすべての主要な指標において、既存手法を大幅に上回る性能を達成した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、$\text{C-ORCA}^*$ および $\text{C-ORCA}^* \text{-MAPF}$ という二つのアプローチから構成される。これらの手法は、単なる現在の速度割り当てではなく、エージェントの空間的な軌道全体を考慮に入れる点が特徴である。具体的には、エージェント間の空間的な依存関係をモデル化し、将来の衝突やデッドロックを予測して回避するメカニズムを導入している。これにより、デッドロックが発生してから対処するのではなく、発生しないような軌道を事前に計画することが可能となる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>提案手法の有効性は、解決率（solve rate）、実行時間（runtime）、およびフロータイム（flowtime）の3つの指標を用いた実験によって検証された。実験の結果、$\text{C-ORCA}^*$ ファミリーは、従来の最先端手法と比較して、これらすべての指標において大幅な性能向上を示した。特に、デッドロックを未然に防ぐプロアクティブな性質が、フロータイムの抑制と高い解決率の維持に寄与していることが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究は、リアルタイム性と将来予測のバランスを最適化することで、マルチエージェントナビゲーションにおけるデッドロック問題を効果的に解決した。従来の $\text{ORCA}^*$ 系手法が直面していた、近視眼的な決定によるデッドロックや、事後介入による計算・時間コストの増大というトレードオフを克服している。今後は、提案された空間的依存関係の考慮モデルが、より複雑な環境や大規模なエージェント数においてどのようにスケールするかを検討する余地がある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Title: Cooperative-ORCA*: Real-Time Proactive Deadlock Avoidance for Continuous-Space Multi-Agent Navigation</h3><p>本論文は、連続空間におけるマルチエージェント経路計画（MAPF）において、将来的なデッドロックを未然に防ぐための新しいアルゴリズム群である $\text{C-ORCA}^*$ および $\text{C-ORCA}^* \text{-MAPF}$ を提案している。従来の $\text{ORCA}^*$ は各タイムステップで速度を割り当てるリアルタイム手法であるが、近視眼的な決定により将来のデッドロックを予測できず、その修正策である $\text{ORCA}^* \text{-MAPF}$ は事後的な介入（post hoc interventions）によって大きなフロータイムのオーバーヘッドが生じるという課題があった。これに対し、提案手法はエージェントの空間的な軌道全体とその空間的依存関係を考慮することで、デッドロックをプロアクティブに回避する。実験の結果、$\text{C-ORCA}^*$ ファミリーは、解決率（solve rate）、実行時間（runtime）、およびフロータイム（flowtime）のすべての指標において、従来の最先端手法を大幅に上回る性能を示した。</p></section>
+<section class="secsum"><h3>Access Paper:</h3><p>提供されたテキストには、論文のタイトル、著者情報、および arXiv のメタデータ（閲覧コンテキストや引用リンク等）のみが含まれており、研究の内容、手法、アルゴリズム、実験結果などの具体的な情報は一切含まれていません。したがって、論文のセクションとしての要約を作成するための情報が不足しています。</p></section>
+<section class="secsum"><h3>Bibliographic and Citation Tools</h3><p>このセクションは、論文の調査や引用管理を支援するための外部ツール群のリストであり、Bibliographic Explorer、Connected Papers、Litmaps、および scite.ai（Smart Citations）へのリンクが含まれている。これらのツールは、研究の文脈把握や関連文献の探索、引用の質的評価を目的として提供されている。具体的なアルゴリズムや実験結果、数式に関する記述は含まれていない。</p></section>
+<section class="secsum"><h3>Code, Data and Media Associated with this Article</h3><p>本セクションには、論文に関連するコードやデータ、メディアへのリンクが記載されているが、具体的なアルゴリズムの詳細、実験設定、数値結果、および手法の定義に関する情報は含まれていない。提供されたテキストは、alphaXiv、CatalyX、DagsHub、Gotit.pub、Hugging Face、ScienceCast といった外部プラットフォームへのリンク集に留まっている。したがって、本セクションから研究内容に関する技術的な要約を抽出することは不可能である。</p></section>
+<section class="secsum"><h3>Demos</h3><p>提供されたセクションには、デモンストレーションの実行環境に関するリンク情報（Replicate, Hugging Face Spaces, TXYZ.AI）のみが記載されており、提案手法の詳細、アルゴリズム、実験設定、数値結果、および具体的な限界に関する記述は含まれていません。</p></section>
+<section class="secsum"><h3>Recommenders and Search Tools</h3><p>提供されたセクションには、論文の内容に関する具体的な手法、アルゴリズム、定義、実験設定、数値結果、あるいは限界に関する情報は一切含まれておらず、arXivのプラットフォームにおける推奨機能や検索ツール（Influence FlowerやCORE Recommender）へのリンク情報のみが記載されています。したがって、論文の技術的な内容を要約するためのデータが不足しています。</p></section>
+<section class="secsum"><h3>arXivLabs: experimental projects with community collaborators</h3><p>提供されたセクションは、arXivの実験的プロジェクト用フレームワークである arXivLabs に関する記述であり、本論文の研究内容（Cooperative-ORCA*）に関する手法、アルゴリズム、実験設定、数値結果、および限界についての情報は一切含まれていない。本文には、arXivLabs がコミュニティのコラボレーターと共に新しい機能を開発・共有するための枠組みであること、およびその運営方針が開放性、コミュニティ、卓越性、ユーザーデータのプライバシーという価値観に基づいていることのみが記されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: アブストラクト ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-24
+  </footer>
+</div>
+</body>
+</html>
