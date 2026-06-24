@@ -374,6 +374,75 @@
       "url": "http://arxiv.org/abs/2606.22728v1",
       "venue": ""
     },
+    "arxiv:2606.23997": {
+      "added": "2026-06-25",
+      "arxiv_id": "2606.23997",
+      "authors": [
+        "Ning Tang",
+        "Chenghan Xie",
+        "Hanyang Yuan",
+        "Yi Li",
+        "Renhong Huang",
+        "Qian Kou",
+        "Xiaofeng Shi",
+        "Hua Zhou",
+        "Jiarong Xu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-22",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.23997.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.23997v1",
+      "reading_value": 4,
+      "reading_value_reason": "階層型KGとPOMDPを用いたエージェントによるクロスチャートRAGという提案は新規性が高く、ベンチマークの構築も具体的で、実用的な課題解決に寄与する。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "ChartWalker: Benchmarking the Cross-Chart RAG Task with Hierarchical Knowledge Graphs",
+      "tldr": "複数のチャートを跨ぐ複雑な推論を可能にするための、階層型知識グラフ（Hierarchical KG）を用いたクロスチャートRAGフレームワーク「ChartWalker」と、その評価用ベンチマーク「ChartWalker-Bench」を提案する。既存のRAG手法では複雑な推論クエリに対して正解率が30%を下回るという課題に対し、知識グラフ上を反復的に探索するVLMベースのエージェント「ChartWalker Agent」を導入することで、静的なパイプラインを超える性能を実現している。",
+      "url": "http://arxiv.org/abs/2606.23997v1",
+      "venue": ""
+    },
+    "arxiv:2606.24623": {
+      "added": "2026-06-25",
+      "arxiv_id": "2606.24623",
+      "authors": [
+        "Yuanhe Zhao",
+        "Tianyu Zhang",
+        "Huafei Xing",
+        "Derek F. Wong",
+        "Jianbin Li",
+        "Tao Fang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-23",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.24623.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.24623v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGのプライバシー保護と文脈維持の両立という難題に対し、マルチエージェントによる意味的書き換えと非対称検索アーキテクチャを提案しており、新規性と実用性が高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Privacy-Preserving RAG via Multi-Agent Semantic Rewriting: Achieving Confidentiality Without Compromising Contextual Fidelity",
+      "tldr": "RAGにおけるプライバシー漏洩を防ぐため、3つの特化型エージェント（Pri-Extra, Sem-Extra, Reconstruction）を用いたマルチエージェント意味的書き換えフレームワークを提案する。本手法は、機密情報を削除しつつ文脈の忠実度を維持する非同期のオフライン前処理として機能し、LLaMA-3-8Bにおいて標的情報の露出を144件から1件へと劇的に削減し、既存手法（SAGE）を上回るBLEU-1スコア $0.122$ を達成した。",
+      "url": "http://arxiv.org/abs/2606.24623v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "arxiv_id": "",

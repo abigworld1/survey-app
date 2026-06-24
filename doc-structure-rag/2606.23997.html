@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ChartWalker: Benchmarking the Cross-Chart RAG Task with Hierarchical Knowledge Graphs | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>ChartWalker: Benchmarking the Cross-Chart RAG Task with Hierarchical Knowledge Graphs</h1>
+  <div class="meta">Ning Tang, Chenghan Xie, Hanyang Yuan, Yi Li, Renhong Huang, Qian Kou, Xiaofeng Shi, Hua Zhou, Jiarong Xu<br>採択先: 未取得 ・ 2026-06-22 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.23997v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.23997v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-06-22</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">階層型KGとPOMDPを用いたエージェントによるクロスチャートRAGという提案は新規性が高く、ベンチマークの構築も具体的で、実用的な課題解決に寄与する。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 複数のチャートを跨ぐ複雑な推論を可能にするための、階層型知識グラフ（Hierarchical KG）を用いたクロスチャートRAGフレームワーク「ChartWalker」と、その評価用ベンチマーク「ChartWalker-Bench」を提案する。既存のRAG手法では複雑な推論クエリに対して正解率が30%を下回るという課題に対し、知識グラフ上を反復的に探索するVLMベースのエージェント「ChartWalker Agent」を導入することで、静的なパイプラインを超える性能を実現している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、既存のチャートRAGベンチマークが表データに偏っていることや、チャート間の意味的接続が脆弱で論理的な不整合（subject-mismatch等）が生じやすいという課題に対処するものである。従来のChartMRAGは意味的類似性に依存するため推論パスの信頼性に欠け、既存のMulti-hop Question Generation (MHQG) 手法もホップ数増加に伴う情報損失やセマンティック・ドリフト（意味の漂流）といったスケーラビリティの課題を抱えている。これに対し、本研究はチャート内のエンティティと関係性を情報の粒度に応じて層状に抽出する階層型KGと、構造認識型サンプリングを用いることで、論理的に一貫したマルチホップなQA生成を可能にする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、情報の粒度 $l \in \{1, \dots, L\}$ に基づいてエンティティを整理する「階層的チャート知識グラフ（Hierarchical Chart KG）」の構築手法を提案している。第二に、意味的コヒーレンスとレベル遷移を制御するサンプリング方策を用いて、564のマルチホップQAインスタンスからなる「ChartWalker-Bench」を構築した。第三に、複雑な推論においてコンテキストのオーバーフローを回避するため、問題を部分観測マルコフ決定過程（POMDP）として定式化したVLMベースの検索エージェント「ChartWalker Agent」を提案している。最後に、実験を通じて、既存の静的なRAGパラダイムが複雑な推論において限界があること、およびPPOを用いたエージェント学習が有効であることを示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>階層型KGの構築では、VLMを用いてエンティティを抽出し、同一レベル内の関係性を示すintra-level edgeと、レベル間の遷移を示すinter-level edgeからなるマルチグラフ $\mathcal{G} = (\mathcal{E}, \mathcal{R})$ を形成する。QA生成のためのパスサンプリングでは、修正PageRankでアンカーエンティティを選択した後、以下のサンプリング方策を用いる：$P(e_{t+1} | e_t, \mathcal{P}_t) \propto \text{sim}(e_{t+1}, \mathcal{P}_t) \cdot \exp(\alpha \cdot \mathbb{I}(\text{level transition}))$。ChartWalker Agentは、現在のエンティティ、隣接エンティティ、関係性、および過去の履歴を観測として受け取るPOMDPとして設計されている。エージェントの最適化には、非連結のPPOロールアウトと、時間差学習で推定された利得を各アクションに割り当てるアドバンテージ割り当てスキームが採用されている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>ChartWalker-Bench（806枚のチャート、564組のQAペア）を用い、BM25、Dense embedding、VL-embedding、およびHippoRAG等の手法を比較評価した。検索性能において、VL-Embeddingは $\text{R@}10$ で $71.87\%$ を達成し、HippoRAGは知識グラフ上の伝播によりFact CheckやComplex Reasoningで高い性能を示した。生成性能では、最強の構成でも $\text{Cor@}10$ は $65\%$ に留まり、特にComplex Reasoningは $51\%$ と最も困難であった。また、3Bの軽量VLMを用いた実験では、静的なパイプラインが検索予算の増加に伴いノイズで性能低下するのに対し、PPOによるAgent学習は知識グラフの探索を通じて証拠獲得能力を向上させ、静的な手法を上回る精度を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>実験結果は、現在のVLMがマルチチャート間の複雑な定量的検索および推論において、依然として大きな限界を抱えていることを示している。特にComplex Reasoningサブセットでは、平均3.12のソースチャートと5.14の推論ホップを必要とし、既存の静的なRAGでは対応が困難であることが明らかになった。本研究の提案するエージェント型アプローチは、反復的な証拠取得を通じてこの課題を緩和できるが、今後はマルチモーダル埋め込みのさらなる強化や、より高度なエージェント型推論の構築が不可欠である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>1 Inroduction</h3><p>本研究では、既存のベンチマークが表データに偏っていることや、チャート間の意味的な接続が脆弱で論理的な不整合（subject-mismatch等）が生じやすいという課題に対し、階層型知識グラフ（Hierarchical KG）を用いた新しいクロスチャートRAGフレームワーク「ChartWalker」を提案している。提案手法は、チャート内のエンティティと関係性を情報の粒度に応じて層状に抽出する階層型KG構築法と、パスに沿って意味的な連続性を強制する構造認識型サンプリングアルゴリズムの2つの革新的な要素から構成される。このフレームワークにより、複数のチャートを跨ぎつつも論理的に一貫した推論パスを合成し、それを教師信号としてマルチホップなQAペアを生成することが可能となる。構築されたベンチマーク「ChartWalker-Bench」は、4つのクエリタイプを含む564のマルチホップQAインスタンスで構成されている。実験の結果、主要なRAGパラダイムを用いた最高性能のモデルでも正解率は64%に留まり、特に複雑な推論クエリでは正解率が30%を下回るという結果が得られ、マルチステップの定量的検索・推論における現在のVLMの限界が示された。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>Chart RAG の研究は、従来のテーブル QA から、VLM を用いてグラフの特徴量から直接推論を行う手法へと進化しており、さらに大規模コーパスから関連テーブルを検索する Table RAG や、複数のテーブルを扱う cross-table 設定へと発展している。本研究に最も近い ChartMRAG は、cross-chart RAG タスクをベンチマークする初期の試みであるが、意味的類似性に依存しているため推論パスが不整合になりやすく、信頼性に課題がある。一方、Multi-hop Question Generation (MHQG) は、知識グラフ上のパスのホップ数を用いて難易度を制御したり、階層的な推論ツリーに分解したりすることで、複数コンテキストにわたる多段階推論を促す手法が提案されている。しかし、既存の MHQG 手法は、ホップ数が増加するにつれて情報損失やセマンティック・ドリフト（意味の漂流）が発生するというスケーラビリティの課題を抱えており、マルチモーダル設定において意味のあるクロスモーダルな接地（grounding）を欠く問題がある。</p></section>
+<section class="secsum"><h3>3 ChartWalker Benchmark</h3><p>ChartWalker-Benchは、多様な粒度のクエリと論理的に整合した根拠（rationale）を備えた、チャートRAG（Retrieval-Augmented Generation）のためのベンチマークである。本手法では、まずチャート内のエンティティを情報の粒度レベル $l \in \{1, \dots, L\}$ に基づいて階層的に整理した「階層的チャート知識グラフ（Hierarchical Chart KG）」を構築する。グラフ構築において、エンティティはVLMを用いて抽出され、同一レベル内の関連性を示すintra-level edgeと、レベル間の意味的進行を示すinter-level edgeからなるマルチグラフ $\mathcal{G} = (\mathcal{E}, \mathcal{R})$ が形成される。QA生成の際は、接続数とソースの多様性 $s(e)$ を考慮した修正PageRankを用いてアンカーエンティティを選択し、意味的コヒーレンスとレベル遷移を制御するサンプリング方策 $P(e_{t+1} | e_t, \mathcal{P}_t) \propto \text{sim}(e_{t+1}, \mathcal{P}_t) \cdot \exp(\alpha \cdot \mathbb{I}(\text{level transition}))$ に基づいてパスをサンプリングする。最終的に、806枚のチャートから構築されたグラフを用い、自動検証を経て564組のQAペア（Fact Check, Manipulation, Analysis, Complex Reasoningの4種）が生成された。実験の結果、Complex Reasoningサブセットは平均で3.12のソースチャートと5.14の推論ホップを必要とし、高い推論複雑度を持つことが示されている。</p></section>
+<section class="secsum"><h3>4 ChartWalker Agent</h3><p>既存の静的なRAGパイプラインは、複雑なマルチホップ推論において精度が著しく低下し、最大10個のソースチャートを検索しても正解率が51%に留まり、多くの場合30%を下回るという課題がある。これに対し、ChartWalker Agentは、チャートのエンティティと関係性から構築された知識グラフ（KG）上を探索し、証拠を反復的に取得するVLMベースの検索エージェントとして設計されている。本手法では、コンテキストのオーバーフローやクレジット割り当ての不安定性を回避するため、問題を部分観測マルコフ決定過程（POMDP）として定式化し、現在のエンティティ、隣接エンティティ、関係性、および過去の検索履歴を要約した情報を環境の観測としてエージェントに提供する。エージェントは各ターンで行動空間 $\mathcal{A}$ から行動を選択し、期待割引報酬を最大化することを目的として、VLMによってパラメータ化された方策に基づき学習を行う。最適化には、非連結のPPOロールアウトと、時間差学習を用いて推定されたターンレベルの利得を各アクションのトークンに一様に割り当てるアドバンテージ割り当てスキームが採用されている。</p></section>
+<section class="secsum"><h3>5 Experiments</h3><p>本実験では、ChartWalker-BenchにおけるクロスチャートRAGタスクの性能を、検索（Retrieval）と生成（Generation）の観点から評価している。検索性能の評価指標には $\text{Recall@}k$ ($\text{R@}k$) を用い、生成性能にはLLM-as-a-judgeを用いた正解率 $\text{Correctness@}k$ ($\text{Cor@}k$) を用いて、BM25、Dense embedding、Vision-Language (VL) embeddingなどのPlain RAG、およびRagAnythingやHippoRAGなどのGraph-based RAGを比較している。実験結果として、VL-Embeddingが $\text{R@}10$ で $71.87\%$ という高い平均リコールを達成し、マルチモーダルな表現の重要性を示した一方、HippoRAGは知識グラフ上の伝播により、特にFact CheckやComplex Reasoningにおいてテキストのみの検索を大きく上回る性能を示した。生成段階では、最強の構成でも $\text{Cor@}10$ は $65\%$ に留まり、特にComplex Reasoningが $51\%$ と最も困難なサブセットであることが確認された。また、軽量なVLM（3B）では検索予算を増やすとコンテキスト制限やノイズにより性能が低下する傾向があるが、PPOを用いたAgent学習により、知識グラフの探索を通じた証拠獲得能力が向上し、静的なパイプラインを上回る精度を達成した。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本論文では、階層型知識グラフ（Hierarchical Knowledge Graphs）と構造を考慮したサンプリングを活用することで、複雑なマルチホップ推論パスを生成するCross-Chart RAGのための新しいフレームワークおよびベンチマークであるChartWalkerを提案している。ChartWalker-Benchを用いた評価の結果、既存のVision-Language Modelsはマルチチャート分析において困難に直面しており、静的な検索手法の限界が明らかになった。この課題を解決するために、グラフに基づいた反復的な証拠取得を行うChartWalker-Agentを提案し、その有効性を実証している。本研究はマルチモーダルRAGの発展に向けた厳密な基盤を提供するものであり、今後の展望として、マルチモーダル埋め込みの強化や複雑なチャート分析のためのエージェント型推論の向上が挙げられている。</p></section>
+<section class="secsum"><h3>Impact Statement</h3><p>本研究は機械学習の分野を前進させることを目的としており、その成果が社会に与え得る潜在的な影響については、本論文において特に強調すべき特定の懸念事項は存在しないと述べている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-25
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Privacy-Preserving RAG via Multi-Agent Semantic Rewriting: Achieving Confidentiality Without Compromising Contextual Fidelity | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Privacy-Preserving RAG via Multi-Agent Semantic Rewriting: Achieving Confidentiality Without Compromising Contextual Fidelity</h1>
+  <div class="meta">Yuanhe Zhao, Tianyu Zhang, Huafei Xing, Derek F. Wong, Jianbin Li, Tao Fang<br>採択先: 未取得 ・ 2026-06-23 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.24623v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.24623v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-23</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGのプライバシー保護と文脈維持の両立という難題に対し、マルチエージェントによる意味的書き換えと非対称検索アーキテクチャを提案しており、新規性と実用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGにおけるプライバシー漏洩を防ぐため、3つの特化型エージェント（Pri-Extra, Sem-Extra, Reconstruction）を用いたマルチエージェント意味的書き換えフレームワークを提案する。本手法は、機密情報を削除しつつ文脈の忠実度を維持する非同期のオフライン前処理として機能し、LLaMA-3-8Bにおいて標的情報の露出を144件から1件へと劇的に削減し、既存手法（SAGE）を上回るBLEU-1スコア $0.122$ を達成した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>Retrieval-Augmented Generation (RAG) システムは、外部知識を利用して精度を高める一方で、検索対象となるプライベートな知識源から機密情報が漏洩するリスクを抱えている。既存のデータソースレベルでの合成データ置換手法は、生成内容が元の意味的詳細や事実関係から乖離し、ダウンストリームタスクの信頼性を損なう課題があった。本研究は、プライバシー保護と文脈の有用性が共起する「目的の絡み合い（objective entanglement）」問題を定式化し、これらを分離して解決することを目指している。具体的には、プロンプトインジェクション等の攻撃による、非標的型および標的型のリスクを低減するフレームワークの開発に取り組んでいる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、プライバシー抽出、意味解析、再構成を独立した専門エージェントに委ねるマルチエージェント・サニタイゼーション・パイプラインを導入した点にある。これにより、単一パスの変換では困難であった「漏洩抑制」と「有用性の維持」の両立を実現した。また、生データと生成LLMを分離する「非対称検索アーキテクチャ（Asymmetric Retrieval Architecture）」を導入し、検索の再現性を保ちつつLLMへの機密情報接触を物理的に遮断した。実験では、ChatDoctorおよびWiki-PIIデータセットを用い、6つのLLMバックボーンに対して既存のSAGEやAttrPromptを上回るプライバシー保護性能と事実的一貫性を実証した。さらに、本手法がオフライン前処理として動作するため、オンライン推論時のレイテンシを増加させない実用性も示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、オフラインフェーズにおける3段階のエージェント・プロセスと、オンラインフェーズにおける非対称検索で構成される。まず、Pri-Extra Agentが決定論的なNERと生成的な推論を組み合わせ、明示的識別子 $E$ と潜在的準識別子 $Q$ からプライバシー集合 $\mathcal{P} = E \cup Q$ を抽出する。次に、Sem-Extra Agentが文書 $D$ を、主語 $s$、述語 $p$、値 $v$、重要度 $w$ からなる意味的タプル $\mathcal{S} = \{(s_i, p_i, v_i, w_i)\}_{i=1}^n$ へ分解する。最後に、Reconstruction Agentが衝突ルーティング戦略に基づき、プレースホルダー置換や高レベルな抽象化を用いて、制約付き書き換え関数 $f: (D, \mathcal{P}, \mathcal{S}) \to D&#x27;$ を実行する。オンラインフェーズでは、元の $D$ を用いたDense IndexとBM25によるSparse Indexを、Reciprocal Rank Fusion (RRF) を用いて統合する：<br>$$ \text{RRF}(d) = \sum_{r \in \{r_{dense}, r_{sparse}\}} \frac{1}{k + \text{rank}_r(d)} $$<br>ここで $k=60$ である。検索結果のインデックスは元の $D$ を指すが、LLMに渡されるのは書き換え済みの $D&#x27;$ のみとなる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、医療ドメインのChatDoctor（20万件）とWiki-PII（50万サンプル）を用い、6つのLLMバックボーンで実施された。脅威モデルとして、情報成分 $q_{info}$ とコマンド成分 $q_{cmd}$ の結合 $q_{info} \circ q_{cmd}$ による標的型および非標的型攻撃を想定している。実験の結果、LLaMA-3-8Bにおいて標的情報の露出を144件から1件へと削減し、SAGEのBLEU-1スコア $0.117$ を上回る $0.122$ を達成した。事実的一貫性においても、GPT-4oによるスコアリングやDeBERTa-v3による判定で高い性能を示した。また、人間による評価では臨床的有用性（Clinical Usability）が5点満点中4.30と高く、1文書あたりの処理時間は平均28秒であった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、適応的攻撃下でも漏洩を最大3エンティティに抑え込む高い耐性を示すが、いくつかの限界も存在する。第一に、希少疾患名などの詳細が失われる「semantic drift」や、不要な属性まで削除される「over-sanitization」の問題があり、Sem-Extra Agentの欠如によりBLEU-1が $0.122$ から $0.091$ へ低下することが確認されている。第二に、評価コーパスに正解のPIIアノテーションがないため、抽出精度の厳密な測定が困難である。また、現在の評価はグレーボックス設定の脅威モデルに限定されており、学習を用いたクエリ最適化などのより強力な適応型攻撃への対策は今後の課題である。本研究の保護レベルは、評価された脅威モデルの範囲内におけるものであり、絶対的な保証ではない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Privacy-Preserving RAG via Multi-Agent Semantic Rewriting: Achieving Confidentiality Without Compromising Contextual Fid</h3><p>本研究は、Retrieval-Augmented Generation (RAG) における悪意のあるプロンプトによるプライバシー漏洩を防ぐため、マルチエージェントによる意味的書き換え（Semantic Rewriting）を用いたフレームワークを提案している。この手法は、プライバシー抽出、意味解析、再構成を担う3つの特化型エージェントを用いて、文脈の核心を維持したまま機密性の高い識別子を削除する。ChatDoctorおよびWiki-PIIデータセットを用いた6つのLLMによる評価では、LLaMA-3-8Bにおいて標的情報の露出をベースラインの144件からわずか1件へと劇的に削減することに成功した。また、文脈の忠実度についても、既存のSAGE手法のBLEU-1スコア $0.117$ を上回る $0.122$ を達成している。本フレームワークは非同期のプリプロセッシングモジュールとして動作するため、書き換えをオフラインで一度実行するだけで、オンライン推論時のレイテンシを増加させないという利点を持つ。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>RAG（Retrieval-Augmented Generation）は外部知識を活用してLLMの精度を高める一方で、検索対象となるプライベートな知識源から機密情報が漏洩するリスク（非標的型・標的型攻撃による原文の再構成など）を抱えている。既存のデータソースレベルでの合成データ置換手法は、生成された内容が元の意味的詳細や事実関係から大きく乖離し、ダウンストリームタスクの信頼性を損なう課題があった。本研究では、検索と生成の間に位置する、マルチエージェントによる意味的書き換えフレームワークを提案する。このフレームワークは、機密セグメントを抽出するPrivacy Extraction Agent、タスクに関連する意味内容を特定するSemantic Analysis Agent、そして類義語置換や構造的言い換えを用いて核心的な意味を保持しつつ書き換えるReconstruction Agentの3つのエージェントで構成される。ChatDoctorおよびWiki-PIIデータセットを用いた評価の結果、提案手法は標的型・非標的型攻撃の両シナリオにおいて機密情報の露出リスクを大幅に低減しつつ、BLEUやROUGE、事実的一貫性の指標において標準的なRAGと同等の品質を維持することが示された。また、このパイプラインはオフラインでの前処理として機能するため、オンライン推論時のレイテンシを増加させないという利点を持つ。</p></section>
+<section class="secsum"><h3>Research Objectives</h3><p>本研究の主な目的は、Retrieval-Augmented Generation (RAG) システムにおけるデータの活用とプライバシー保護の間の対立を解消することである。具体的には、まずプロンプトインジェクション攻撃を通じて、ヘルスケアなどの機密性の高いドメインにおいて現在のRAGアーキテクチャがいかに機密情報を露呈させるかという脆弱性を分析する。次に、機密性の高い識別子（プライバシー）と重要な文脈（有用性）を判別し、プライバシーを削除してもテキストの意味的価値を損なわないマルチエージェントによる意味的書き換えフレームワークを開発する。最後に、提案手法が既存のプライバシー保護手法である SAGE や AttrPrompt と比較して、多様な敵対的設定下においてプライバシー漏洩を大幅に削減しつつ、文脈の忠実度（BLEU/ROUGE スコア）において優れていることを実証的に示すことを目指している。</p></section>
+<section class="secsum"><h3>Contributions</h3><p>本研究は、RAGにおけるサニタイズを、プライベートな識別子と意味的内容が共起することに起因する「目的の絡み合い（objective entanglement）」問題として定式化し、単一パスの変換では漏洩抑制と有用性の維持に本質的な緊張関係が生じることを明らかにした。提案手法である「Multi-Agent Semantic Rewriting Framework」は、明示的・潜在的な準識別子を特定する Pri-Extra Agent、文書を構造化された知識スロットのタプルへ分解する Sem-Extra Agent、および Fine-grained Conflict Routing を備えタプルのみから文章を再生成する Reconstruction Agent の3段階で構成される。さらに、生データと生成LLMを分離する Asymmetric Retrieval Architecture を導入している。ChatDoctor および Wiki-PII データセットを用い、6つのLLMバックボーンに対して標的型および非標的型の敵対的設定で実験を行った結果、既存のプライバシー保護手法と比較して高い事実的一貫性を維持しつつ、強力なプライバシー保護性能を達成した。本手法は非同期のオフライン前処理モジュールとして機能するため、オンライン推論時のレイテンシを増加させないという利点を持つ。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>RAGは外部知識を動的に取得してLLMの知識を拡張する手法であり、ハルシネーションの抑制や事実精度の向上に寄与するが、プライベートな外部コーパスへの依存が機密データ漏洩のリスクを生じさせる。既存のプライバシー脅威には、メンバーシップ推論攻撃や、敵対的サンプルを用いて取得したプライベートな記録を逐語的に再生させる攻撃、さらには埋め込みベクトルからのテキスト復元などが含まれ、これらは検索、埋め込み、生成の全段階に及ぶ。これに対し、差分プライバシー（DP）を用いた手法は数学的な保証を与えるものの、ノイズ注入によりテキストの整合性や有用性が著しく低下するという限界がある。また、SAGEのようなデータ合成手法は、プライバシー漏洩を回避できる一方で、固有の事実情報の不可逆的な喪失を招く。さらに、単一エージェントによる書き換え手法は、プライバシー保護と意味論的維持を単一のパスで同時に行うため、過剰または不十分なサニタイズを引き起こしやすい。本研究は、プライバシー抽出、意味分析、再構成を独立した専門エージェントに委ねるマルチエージェント・サニタイゼーション・パイプラインを導入することで、既存手法の課題であった意味的なドリフトを抑えつつ、高い文脈忠実度と堅牢なプライバシー保護の両立を目指している。</p></section>
+<section class="secsum"><h3>3 Method</h3><p>本手法は、プライバシー保護と文脈の忠実度を両立させるため、非対称な検索と分離された生成アーキテクチャに基づくマルチエージェント意味論的書き換えフレームワークを提案している。オフラインフェーズでは、3つのエージェントが協調して動作する。まず、Pri-Extra Agentが決定論的なNERと生成的な推論を組み合わせ、明示的な識別子 $E$ と潜在的な準識別子 $Q$ を用いてプライバシー情報の集合 $\mathcal{P} = E \cup Q$ を抽出する。次に、Sem-Extra Agentが文書 $D$ を、主語 $s$、述語 $p$、値 $v$、重要度 $w$ からなる意味的タプル $\mathcal{S} = \{(s_i, p_i, v_i, w_i)\}_{i=1}^n$ へと構造的に分解する。最後に、Reconstruction Agentが、衝突ルーティング戦略に基づき、明示的な識別子にはプレースホルダー置換を、深い意味的衝突には高レベルな抽象化を適用することで、制約付き書き換え関数 $f: (D, \mathcal{P}, \mathcal{S}) \to D&#x27;$ を実行し、安全なペイロード $D&#x27;$ を生成する。オンラインフェーズでは、検索精度を維持するために、元の文書 $D$ を用いて構築された高次元埋め込みによるDense IndexとBM25によるSparse Indexを、Reciprocal Rank Fusion (RRF) を用いて統合する：<br>$$ \text{RRF}(d) = \sum_{r \in \{r_{dense}, r_{sparse}\}} \frac{1}{k + \text{rank}_r(d)} $$<br>ここで $k=60$ である。検索結果として得られた上位文書のインデックスは元の $D$ を指すが、生成LLMに渡されるペイロードは書き換え済みの $D&#x27;$ のみであり、これにより、検索の再現性を損なうことなく、LLMが機密情報に直接触れることを物理的に遮断している。</p></section>
+<section class="secsum"><h3>4 Experimental Setup</h3><p>本実験では、提案手法の有効性を検証するために、医療ドメインの「ChatDoctor」データセット（20万件の対話）と、公開テキストに個人情報（PII）を混入させた「Wiki-PII」データセット（50万サンプル）の2つのシナリオを設定している。脅威モデルは、攻撃者が入力クエリを操作して機密情報を引き出す「標的型抽出攻撃（Targeted Extraction Attacks）」と、無差別に生データを流出させる「非標的型再構成攻撃（Untargeted Reconstruction Attacks）」の2種類を想定しており、攻撃クエリは情報成分 $q_{info}$ とコマンド成分 $q_{cmd}$ の結合 $q_{info} \circ q_{cmd}$ として定式化される。評価指標として、プライバシー漏洩の度合いを測る「Target Info（抽出された機密エンティティ数）」、「Repeat Prompt（10個以上の連続一致トークン数）」、「ROUGE Prompt（意味的重複）」に加え、文脈の忠実度を測るための「BLEU-1/ROUGE-L」および「Factual Consistency（GPT-4oによるスコアリングとDeBERTa-v3によるEntailment/Contradiction判定）」、さらにオフラインでの処理時間を測定するシステム効率を導入している。実装では、GPT-4o-miniやDeepSeek-R1などの多様なLLMを用い、検索にはBGE-M3による密・疎ハイブリッド検索とReciprocal Rank Fusion (RRF) を採用している。実験結果では、提案手法はNaive RAGと比較して標的型攻撃における漏洩を劇的に抑制し、SAGEやKG-PrivRAGといった既存の最先端手法と比較しても、高い事実的一貫性（Factual Consistency）を維持しながら優れたプライバシー・ユーティリティのトレードオフを実現している。</p></section>
+<section class="secsum"><h3>5 Analysis and Discussion</h3><p>本研究では、ChatDoctorデータセットを用いた適応的攻撃分析により、類義語置換攻撃では漏洩が1から2エンティティに微増するのみである一方、段階的推論攻撃では3エンティティまで増加することを確認し、高レベル抽象化戦略の境界における脆弱性を指摘している。しかし、非対称リトリーバルアーキテクチャにより、保護なしのベースライン（28エンティティ）と比較して、適応的条件下でも漏洩を最大3エンティティに抑え込む高い耐性を実現している。人間による評価では、サニタイズ済み文書の臨床的有用性（Clinical Usability）が4.30（5点満点）と高く、実用的な意思決定支援に耐えうることが示された。文脈の忠実度に関しては、BLEU-1およびROUGE-Lにおいて既存のプライバシー保護手法を統計的に有意に上回り、事実的一貫性（Factual Consistency）においても、高い含意率（Entailment rate）と低い矛盾率（Contradiction rate）を達成している。アブレーション研究では、Pri-Extra Agentの除去が漏洩の急増を招き、Sem-Extra Agentの除去が有用性の著しい低下を招くことから、各エージェントの役割がプライバシー保護と意味保持の分離に不可欠であることが証明された。前処理の効率性においても、本手法は反復的な手法（SAGEやAdv-Anon）よりも高速かつ低分散であり、1文書あたり平均28秒という実行時間を実現している。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、Pri-Extra Agent、Sem-Extra Agent、および Reconstruction Agent から構成される、プライバシー保護型 RAG のためのマルチエージェント・セマンティック書き換えフレームワークを提案している。この手法は、決定論的な競合ルーティングポリシーを用いて各エージェントに目的を割り当てることで、単一プロンプト手法における目的の混同（objective entanglement）を回避するオフライン・パイプラインとして機能する。ChatDoctor および Wiki-PII データセットを用いた 6 つの LLM バックボーンによる実験の結果、標的型および非標的型攻撃の両方においてプライバシー漏洩を大幅に抑制しつつ、評価された防御手法の中で最高の事実的一貫性（factual consistency）を維持し、オンライン遅延の増加も無視できる程度であることが示された。アブレーション解析により、各エージェントが個別に不可欠な貢献をしていることが確認されている。ただし、本研究のセキュリティ結果は、固定テンプレートおよび 2 つの適応型攻撃バリアントを含むグレーボックス設定の脅威モデルに限定されており、絶対的な保証ではない。今後の課題として、サニタイズ戦略を完全に知る適応型攻撃者を用いたより厳格な評価プロトコルや、形式的な漏洩境界（formal leakage bounds）の探索が挙げられている。</p></section>
+<section class="secsum"><h3>Limitations and Future Work</h3><p>本手法には、フレームワークレベルで2つの限界が存在する。第一に、希少疾患名のような特定の臨床トピックが、Reconstruction Agentによる抽象化の過程で詳細度を失う「semantic drift」と、プライバシー領域に隣接する属性まで不要に削除される「over-sanitization」というエッジケースの失敗モードがある。アブレーション研究では、Sem-Extra Agentを省略することでBLEU-1スコアが $0.122$ から $0.091$ へ低下することが示されており、過剰なサニタイズの影響が確認されている。第二に、評価コーパスに正解となるPIIアノテーションが存在しないため、Pri-Extra Agentの抽出精度（precision）と再現率（recall）を大規模に独立して測定できない。また、評価における敵対的分析は、固定テンプレートやグレーボックス攻撃、限定的な適応型攻撃に留まっており、推論ベースのプロービングや学習を用いたクエリ最適化、文書間相関を利用したより強力な適応型脅威への対策は今後の課題である。したがって、本論文で報告された保護レベルは、評価された脅威モデルの範囲内に限定されるものであり、絶対的な保証ではない。</p></section>
+<section class="secsum"><h3>Ethics Statement</h3><p>本研究では、個人情報を含む公開データセットである ChatDoctor (HealthCareMagic-101) および Enron email を使用しているが、その目的は再識別ではなく、プライバシー保護技術の開発に限定されている。提案手法は広範な準識別子（quasi-identifiers）を検出するが、これは技術的な防御層を強化するものであり、HIPAA Safe Harbor の 18 種類の識別子の完全な網羅や GDPR への形式的な準拠を保証するものではない。また、LLM による推論技術が準識別子の抽出に悪用されるというデュアルユースのリスクを認識しており、これに対し、プライバシー抽出ロジックをオフラインで厳密に隔離するアーキテクチャを採用している。ただし、システムを導入する実務者は、悪意のある攻撃者による潜在的な悪用に対して継続的な警戒が必要であるとしている。</p></section>
+<section class="secsum"><h3>Declaration of competing interest</h3><p>著者らは、本論文で報告された研究に影響を及ぼす可能性のある、既知の競合する金銭的利益や個人的な関係は存在しないことを宣言している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-25
+  </footer>
+</div>
+</body>
+</html>
