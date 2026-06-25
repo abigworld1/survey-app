@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>RAVEN: Agentic RAG for Automated Vulnerability Repair | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>RAVEN: Agentic RAG for Automated Vulnerability Repair</h1>
+  <div class="meta">Varun Gadey, Zijie Liu, Alexandra Dmitrienko<br>採択先: 未取得 ・ 2026-06-21 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.22647v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.22647v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-06-21</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">Agentic RAGを脆弱性修復に適用し、リポジトリ全体のコンテキスト把握を実現した点が極めて新規性が高い。実験も実世界のCVEを用い、高い成功率を示している。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAVENは、エージェント型検索拡張生成（Agentic RAG）と制御された反復的修復を統合した、自律的な脆弱性自動修復フレームワークである。過去の修正事例の検索、リポジトリ全体のコンテキスト抽出、および静的解析を用いたパッチの洗練を行うことで、局所的なコードのみでは解決困難な複雑な脆弱性に対処する。160件の実世界のCVEを対象とした評価において、83.13%の全体修復成功率（RSR）を達成し、未知のCWEカテゴリやクロス言語設定においても高い汎用性と低コストなローカル実行性能を実証した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>既存の自動脆弱性修正（AVR）手法、特にLLMベースのフレームワークは、特定のCWEや単一のプログラミング言語に限定される傾向があり、局所的なコード領域のみを対象とする限界があった。また、LLMの確率的な性質によるハルシネーション、高コストな商用モデルへの依存、および複数ファイルにまたがる複雑な依存関係への対応不足が大きな課題となっていた。本研究は、これらの課題を解決するために、リポジトリ全体のコンテキストを理解し、外部のセキュリティ知識を動的に活用できる自律的フレームワーク「RAVEN」を提案する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、エージェント型RAGパイプラインを脆弱性修復に導入し、スケーラブルかつ自律的な修復を実現した点にある。具体的には、多角的な検索を行うSemantic Retriever、リポジトリ内のクロスファイル依存関係を抽出するCurator Agent、および静的解析のフィードバックを利用するPatch Reviewerを統合した。これにより、JavaやCを含む多様な言語、未知のCWEカテゴリ、および分布外（out-of-distribution）の設定においても、高い修復成功率を実現した。さらに、Gemma-4-26BやNemotron-3-30Bといった中規模のオープンソースLLMを用いたローカル展開を可能にし、高い汎用性と低コスト性を両立させた。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>RAVENは、5つの主要モジュールで構成されるエージェント型RAGフレームワークである。まず、Semantic RetrieverがCVEFixesデータセットから、6キーワード、40キーワード、脆弱コード、およびCode Property Graphs (CPGs) の4つの表現を用いてBM25による検索を行い、Selector Agentが最適なパッチを1つ選択する。次に、Context Retriever内のCurator Agentが、`read_bundle`, `search_repo`, `find_symbol`, `read_file`, `finish_curating` の5つのツールを反復的に呼び出し、リポジトリ全体の依存関係を抽出する。生成されたパッチは、Patch Reviewerによって静的解析ツールのフィードバックに基づき段階的に洗練され、最終的にPatch Validatorによってコードのセマンティクスに基づき検証される。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価では、160件の実世界のCVE（JavaおよびC言語）を対象に、CVEFixes、Vul4J、および2024年のZero-Dayデータセットを用いて検証を行った。実験設定として、Patch Generator/ReviewerにGemma-4-26B、Patch ValidatorにNemotron-3-30Bを用い、すべて$Q4\_K\_M$形式の4ビット量子化でローカル実行した。結果として、全体で$83.13\%$の修復成功率（RSR）を達成し、JavaベースのCWE評価では$86.75\%$のRSRと平均$0.815$のCodeBLEUを記録した。また、未知の脆弱性を含むVul4Jで$65.22\%$、最新のAPPATCHデータセットで$87.5\%$（$14/16$件）の成功率を示し、高い汎化性能を証明した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>RAVENは、従来の探索ベースや意味論ベースの手法、あるいは特定のCWEに依存する既存のLLMベースの手法と比較して、高い汎用性と未知の脅威への適応力を備えている。特に、Curator Agentによるリポジトリレベルのコンテキスト把握は、権限確認の欠落（CWE-862）のような、局所的なコード修正では解決できない複雑な問題に対処する上で極めて重要である。計算コストの面では、Context Retrievalモジュールが平均$99,509$トークンを消費し、最も高い負荷となるが、ローカル展開によるAPIコストの回避と実用的な実行速度のバランスは取れている。本手法は、商用LLMへの依存を減らしつつ、高度なセキュリティ修復を自律的に行うための強力な基盤を提供する。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>RAVEN: Agentic RAG for Automated Vulnerability Repair</h3><p>RAVENは、エージェント型検索拡張生成（RAG）パイプラインと制御された反復的修復を統合した、スケーラブルかつ自律的な脆弱性自動修復フレームワークである。本手法は、過去の関連する脆弱性修正事例を検索してパッチ生成をガイドする多角的な検索パイプラインを備え、さらに「Curator Agent」を導入することで、局所的なコードのみでは解決困難な複雑な脆弱性に対処するためにリポジトリ内のクロスファイル依存関係を抽出する。評価では、160件の実世界のCVE脆弱性を対象に、多様な脆弱性タイプ、2つのプログラミング言語、未知のCWEカテゴリ、および分布外（out-of-distribution）の設定を用いて検証が行われた。実験の結果、RAVENは83.13%の全体修復成功率を達成し、既存の最先端の修復フレームワークを上回る性能を示すとともに、高い汎用性と無視できる程度の低い修復コストを両立している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>既存の自動脆弱性修正（AVR）手法には、探索ベース、意味論ベース、テンプレートベース、学習ベース、およびLLMベースの様々なアプローチが存在するが、多くのLLMベースのフレームワークは特定のCWE（Common Weakness Enumeration）や単一のプログラミング言語に限定されており、局所的なコード領域のみを対象とする傾向がある。また、LLMの確率的な性質によるハルシネーションや、高コストな商用モデルへの依存、複数ファイルにまたがる複雑な依存関係への対応不足といった課題が残されている。本研究では、これらを解決するために、エージェント型RAG（Retrieval-Augmented Generation）パイプラインを統合した自律的フレームワーク「RAVEN」を提案する。RAVENは、語彙・構文・意味的な手がかりを用いた履歴修正の検索、リポジトリ全体をスキャンして根本原因とファイル間依存関係を抽出するCurator Agent、および静的解析のフィードバックを用いて修正案を段階的に洗練させるPatch Reviewerモジュールを備えている。実験では、160件の実際のCVEを対象に、JavaやCを含む多様な言語と10種類のCWEを用いて評価を行い、全体で $83.13\%$ の修正成功率を達成した。さらに、クロス言語評価で $86.21\%$、未知のCWEカテゴリに対して $87.50\%$ の成功率を記録し、Gemma-4-26BやNemotron-3-30Bなどのオープンソースの中規模LLMを用いたローカル展開においても、高い汎用性と低コスト性を実証している。</p></section>
+<section class="secsum"><h3>2 Motivation</h3><p>本セクションでは、XWikiプラットフォームの `MoveAttachmentJob.java` における CVE-2023-37910（CWE-862: Missing Authorization）を例に、自動脆弱性修復の困難さを論じている。この脆弱性は、`process(EntityReference source)` メソッド内で、リクエストユーザーの権限確認を行わずに `moveAttachment(...)` を直接呼び出すことで、権限のないユーザーによる添付ファイルの移動やデータ操作を許容してしまうものである。この問題の修復は、単なる構文的・意味的な誤りの修正ではなく、欠落しているセキュリティ前提条件（security precondition）を適切な制御フロー内に統合する必要があるため、極めて困難である。また、必要な認可ロジックは局所的なコードコンテキストのみからは判別できず、既存のシステム設計と整合性の取れた修正を行うには、広範なコンテキストの理解が不可欠となる。</p></section>
+<section class="secsum"><h3>3 RAVEN Design</h3><p>RAVENは、外部のセキュリティ知識を活用して脆弱性を自律的に修復する、エージェント型RAG（Agentic RAG）フレームワークである。本手法は、Semantic Retriever、Context Retriever、Patch Generator、Patch Reviewer、Patch Validatorの5つのモジュールで構成され、Gemma-4-26BやNemotron-3-30Bなどの中規模LLMをコアコンポーネントとして用いる。Semantic Retrieverは、CVEFixesデータセットから構築されたRAGデータベースに対し、6キーワード、40キーワード、脆弱コード、およびCode Property Graphs (CPGs) の4つの表現を用いてBM25による多角的な検索を行い、Selector Agentが最も適切な修正パッチを1つ選択する。Context Retrieverは、Curator Agentが `read_bundle`, `search_repo`, `find_symbol`, `read_file`, `finish_curating` の5つのツールを反復的に呼び出すことで、プロジェクトのリポジトリ全体からクロスファイルな依存関係やグローバルなコンテキストを動的に抽出する。生成されたパッチは、Patch Reviewerと静的解析ツールのフィードバックを用いた反復的な洗練プロセスを経て、最終的にPatch Validatorによってコードのセマンティクスに基づき検証される。</p></section>
+<section class="secsum"><h3>4 Evaluation</h3><p>RAVENの評価実験では、JavaおよびC言語における多様な脆弱性（メモリ安全性、インジェクション、アクセス制御、入力処理など）を対象とし、CVEFixes、Vul4J、および2024年に公開されたZero-Day C言語データセットを用いて、未知の脆弱性への汎化性能を検証しています。実験には、Patch GeneratorおよびReviewerにGemma-4-26B、Patch ValidatorにNemotron-3-30Bを用い、すべて$Q4\_K\_M$形式の4ビット量子化でローカル実行されています。評価指標には、脆弱性を完全に解決し機能を維持する「Correct」、セキュリティは解決するが機能不全を伴う「Partial」、および解決に失敗する「Failed」の3分類を用いたRepair Success Rate (RSR) と、構文・データフロー・意味的整合性を測るCodeBLEUスコアが採用されています。JavaベースのCWE評価では、83件中72件の修復に成功し、全体で$86.75\%$のRSRと平均$0.815$のCodeBLEUを記録しました。また、未知の脆弱性を含むVul4Jデータセットにおいて$65.22\%$、2024年の最新脆弱性を含むAPPATCHデータセットにおいて$14/16$件の修復成功（$87.5\%$）を達成しており、高い汎化性能と最新の脅威への適応力が示されています。効率性の面では、Context Retrievalモジュールが平均$99,509$トークンと最も高い計算コストを占めていますが、ローカル展開によるAPIコストの回避と実用的な実行速度を両立しています。</p></section>
+<section class="secsum"><h3>5 Related Work</h3><p>自動プログラム修正（APR）には、変異演算子を用いる探索ベースの手法、記号実行により制約を導出する意味論ベースの手法、および専門家や自動生成によるパターンを用いるテンプレートベースの手法が存在するが、探索空間の爆発や未知の脆弱性への汎用性の欠如といった課題がある。学習ベースの手法は、プログラムを $seq2seq$ 変換として捉え、ASTや人間によるレビュー情報を活用するが、局所的な表現や学習データへの依存により、複雑で文脈依存性の高い脆弱性への対応が困難である。LLMを用いた脆弱性修正では、PatchAgentのようにエージェント型フレームワークを導入するものや、APPATCHのように適応的プロンプティングを用いるものがあるが、高コストな商用LLMへの依存、脆弱性箇所や種類の明示的な指定の必要性、あるいはメモリ・算術関連の脆弱性に限定されるといった限界がある。また、RAP-GenのようにCodeT5を用いた検索拡張（RAG）を行う手法も提案されているが、本研究のRAVENは、多様な脆弱性タイプと複数のプログラミング言語を対象とし、未知の脆弱性に対しても極めて低い修正コストで高い汎用性と成功率を実現する点において、既存手法と一線を画している。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>RAVENは、エージェント型検索拡張生成（Agentic RAG）と反復的な修復メカニズムを組み合わせた、スケーラブルかつ自律的な脆弱性自動修復フレームワークである。本手法は、過去の修正事例の検索、リポジトリレベルのコンテキスト検索、および反復的なパッチ洗練を統合することで、局所的な脆弱コードのみでは解決困難な複雑な脆弱性に対処する。評価の結果、多様な脆弱性タイプ、未知のCWEカテゴリ、および異なるプログラミング言語の設定において高い修復性能を示すことが実証された。また、ローカルにデプロイ可能なオープンソースLLMを用いることで、効率的かつ低コストな運用が可能であるという利点も有している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
+  </footer>
+</div>
+</body>
+</html>

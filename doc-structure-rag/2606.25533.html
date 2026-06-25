@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Security and Privacy in Retrieval-Augmented Generation: Architectures, Threats, Defenses, and Future Directions for Building Trustworthy Systems | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Security and Privacy in Retrieval-Augmented Generation: Architectures, Threats, Defenses, and Future Directions for Building Trustworthy Systems</h1>
+  <div class="meta">Balamurugan Palanisamy, G S S Chalapathi, Vikas Hassija, Rajkumar Buyya<br>採択先: 未取得 ・ 2026-06-24 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.25533v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.25533v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-24</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの展開形態（Micro/Federated等）に応じた脅威の分類が極めて体系的であり、セキュリティ研究者にとって実用的な指針となる。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、Retrieval-Augmented Generation (RAG) におけるセキュリティとプライバシーのリスクを、デプロイメント形態（中央集権型、Micro-RAG、Federated RAG、Hybrid RAG）に基づいた統一的なタクソノミーを用いて包括的に調査したサーベイ論文である。検索、コンテキスト構築、生成の各フェーズにおける攻撃対象領域（Attack Surface）を特定し、プロンプト注入やリトリーバル・ポイズニング、勾配漏洩などの脅威を体系化している。また、差分プライバシーや暗号学的防御策、TEEなどの多層防御（Defense-in-Depth）をレビューし、プライバシーとユーティリティのトレードオフや、今後の研究課題として「Security-by-Design」の重要性を提示している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>RAGシステムは、LLMの知識を外部知識で補完する手法であるが、データの所在や処理プロセスに起因する新たな脆弱性を抱えている。本研究は、従来のクラウド中心の設計から、エッジ・IoT環境に適したMicro-RAGや、生データを共有しないFederated RAG、およびそれらを組み合わせたHybrid Edge–Cloud RAGへと展開が広がる中で生じるリスクを対象としている。具体的には、検索インデックス、クエリログ、コンテキスト構築、連合学習における更新プロセスを通じて機密情報が漏洩する危険性を分析している。既存のサーベイが機能面や評価に偏重しているのに対し、本論文はデプロイメントのパラダイムとセキュリティ・プライバシーを統合的にマッピングしている点が特徴である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、データの所在や実行場所に基づき、RAGを「Centralized」「Micro-RAG」「Federated」「Hybrid Edge–Cloud」の4つのパラダイムに分類する統一的なタクソノミーを提示した。第二に、検索から生成に至るパイプライン全体を網羅する攻撃対象領域（Attack Surface）を定義し、間接的プロンプト注入（IPI）やインデックス推論、ハルシネーション増幅などの脅威を体系化した。第三に、差分プライバシー（DP）、準同型暗号（HE）、Trusted Execution Environments (TEEs) などの防御技術を、RAGの各段階における有用性とのトレードオフの観点から整理した。最後に、精度だけでなく、漏洩リスクや通信コスト、エネルギー消費を統合的に評価するためのベンチマークと指標の必要性を論じた。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>本サーベイは、構造化文献レビューの手法を採用し、IEEE XploreやarXiv等の主要データベースから2020年以降の文献を中心に収集・分析している。分析の枠組みとして、文献を「デプロイメント・パラダイム」「パイプラインの段階」「攻撃タイプ」「防御メカニズム」の4つの次元で整理している。攻撃分析においては、リトリーバー操作、コンテキスト操作（文書の順序や切り捨てを利用）、生成時の矛盾利用などの手法を検討している。防御策の検討では、PII検出器によるフィルタリング、DPによる数学的制限、セキュア集約、および暗号学的検索などの多層防御（Defense-in-Depth）フレームワークをレビューしている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>RAGの評価指標として、従来の検索品質（Recall@k, nDCG@k, MRR等）や生成品質（忠実度, 引用精度）に加え、セキュリティとプライバシーに特化した指標の重要性を検証している。具体的には、プライバシー漏洩を測定するMIA-AUC（メンバーシップ推論攻撃のAUC）や、攻撃成功率、証拠生存率、通信オーバーヘッド、遅延、エネルギー消費といった多角的なメトリクスを提示している。また、防御策の導入に伴う「Privacy–Utility frontier（プライバシーと有用性の境界）」の分析が不可欠であることを示している。既存のベンチマーク（MS MARCO, CRAG, PoisonedRAG等）の限界として、動的な知識更新への対応不足や、オンデバイス環境における観測可能性の制限を指摘している。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>RAGの信頼性構築における最大の課題は、プライバシー保護の強化が検索精度やレイテンシ、通信帯域と不可避なトレードオフの関係にあることである。例えば、準同型暗号（HE）は高い安全性を提供するが、計算コストが極めて高く、Micro-RAGのようなリソース制約下では適用が困難である。また、Federated RAGにおいては、非IID（独立同一分布ではない）なデータ分布やクライアント間の異質性が、セキュリティと学習効率の両面に影響を与える。今後の研究方向として、高次元ベクトル検索における近似暗号化類似性検索の開発や、低FPR（偽陽性率）におけるTPR（真陽性率）を重視した実運用に即したベンチマークの標準化が求められる。最終的には、ログやキャッシュを含むアーキテクチャ全体に最小権限の原則を適用する「Security-by-Design」の確立が必要である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Security and Privacy in Retrieval-Augmented Generation: Architectures, Threats, Defenses, and Future Directions for Buil</h3><p>本論文は、外部知識を統合することで事実に基づいた生成を可能にするRetrieval-Augmented Generation (RAG) における、新たなセキュリティおよびプライバシーのリスクを包括的に調査している。RAGシステムは、中央集権型、オンデバイス型 (Micro-RAG)、連合型 (Federated)、およびハイブリッド型の各パラダイムで展開されるが、検索インデックス、クエリログ、コンテキスト構築、あるいは連合学習における更新プロセスを通じて機密情報が漏洩する危険性がある。著者らは、検索 (retrieval)、コンテキスト構築 (context construction)、生成 (generation) の各段階にわたる脅威表面を統一的なタクソノミーとして提示し、メンバーシップ推論、インデックス推論、ポイズニング、勾配漏洩、共謀といった攻撃クラスを体系的に分析している。また、アーキテクチャ、アルゴリズム、暗号学的防御手法をレビューし、プライバシーとユーティリティのトレードオフやデプロイメント時の考慮事項を明らかにしている。最終的に、実世界のアプリケーションにおいて信頼でき、安全で、レジリエンスの高いRAGシステムを構築するための未解決の研究課題を提示している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>Retrieval-Augmented Generation (RAG) は、外部知識を検索してコンテキストに組み込むことで、LLMの事実に基づいた生成、知識の更新、ドメイン適応を可能にする手法であるが、従来のクラウド中心の設計は、医療や金融などの機密性の高い領域におけるデータ共有の制約や、エッジ・IoT環境での計算資源の不足といった課題を抱えている。本論文では、中央集権型に加え、デバイス上で実行する Micro-RAG、生データを共有せずに協調学習を行う Federated RAG、およびこれらを組み合わせた Hybrid edge–cloud RAG という、デプロイメントに応じた統一的なタクソノミーを提示している。セキュリティ面では、プロンプトインジェクション、検索汚染（retrieval poisoning）、コンテキスト操作、モデル汚染、Sybil攻撃、ローカルインデックスの改ざんなど、検索から生成に至る広範な攻撃対象領域（attack surface）を分析している。特に、コンテキスト構築における有限なコンテキスト予算、順序、切り捨て（truncation）、証拠の置換（evidence displacement）が、堅牢性やプライバシー、事実性（factual grounding）に与える影響を重要な脆弱性として特定している。防御策としては、クエリフィルタリング、検索保護、プライバシーを考慮したコンテキスト組み立て、生成の検証、システムレベルのモニタリングからなる多層防御（defense-in-depth）フレームワークを提案している。本サーベイは、検索、生成、プライバシー、セキュリティ、効率性、および連合学習の観点から、RAGシステムを評価するためのベンチマークや指標についても包括的にレビューしている。</p></section>
+<section class="secsum"><h3>2 Survey Methodology</h3><p>本サーベイは、構造化文献レビューの手法を用い、中央集権型、オンデバイス型、連合型、およびハイブリッド型のデプロイメントにおけるRAGのセキュリティとプライバシーに関する研究を特定・分類・統合している。検索対象はIEEE XploreやarXiv等の主要なデータベースから2020年以降の文献を中心に収集され、連合学習や差分プライバシー、暗号化検索などの基礎概念を含む過去の重要研究も含まれる。選定された文献は、デプロイメント・パラダイム、パイプラインの段階、攻撃タイプ、防御メカニズムの4つの次元で整理されており、例えば攻撃タイプにはプロンプト攻撃、リトリーバル・ポイズニング、メンバーシップ推論、Sybil攻撃などが含まれる。分析では、デプロイメントの選択、脅威モデル、防御策、プライバシーと有用性のトレードオフ、および評価指標の間の関係性を定性的に比較・検討している。本調査の限界として、RAG研究の急速な進展と、local RAGやedge RAG、Micro-RAGといった用語の不一致が挙げられるが、著者は統一されたタクソノミーを採用することでこれに対処している。</p></section>
+<section class="secsum"><h3>3 Related Surveys</h3><p>既存の関連文献は、RAGアーキテクチャ、連合学習（FL）、敵対的堅牢性、プライバシー保護検索、およびエッジ/オンデバイスAIの5つの領域に分類される。Fanら [26] やSharmaら [90] によるRAGの分類、Liら [64] による推論・エージェント型ワークフローの研究、CRAG [114] やKnow-Your-RAG [100] による事実的一貫性の評価手法などは存在するが、これらは主に機能面や評価に重点を置いており、オンデバイスや連合学習環境における展開特有のセキュリティ・プライバシーリスクの扱いは限定的である。セキュリティ面では、プロンプト注入や脱獄 [5, 45]、PoisonedRAG [129] やBadRAG [111] による検索汚染の研究が進んでいるものの、中央集権型、オンデバイス、連合型、ハイブリッド型の各パラダイムを横断した脅威の統合的なマッピングはなされていない。プライバシー保護技術として、差分プライバシー [18]、探索可能暗号、準同型暗号、TEE、SMPCなどが検討されているが、これらは高次元ベクトル検索との統合や、RAGパイプライン全体を通じた構成可能な防御策としての研究が不足している。また、エッジAIに関する研究 [98, 106] はモデル圧縮や量子化に注力しており、ローカルな知識インデックスの改ざんやサイドチャネル漏洩といったセキュリティ懸念を第一級の課題として扱っていない。本サーベイは、これら既存研究の不足を補い、中央集権型からエッジ・クラウドのハイブリッド環境に至るまで、展開形態に応じたRAGのセキュリティとプライバシーを統合的に分析するものである。</p></section>
+<section class="secsum"><h3>4 Background</h3><p>本セクションでは、安全でプライバシーに配慮したRAG展開の基礎となる概念が整理されている。Transformerアーキテクチャに基づくLLMは高い推論能力を持つが、計算資源の制約からエッジ環境では蒸留や量子化等により軽量化されたSLMが用いられるが、知識量や推論能力の低下を補うために外部知識を利用するRAGが重要となる。RAGのパイプラインは、クエリ作成、文書検索、コンテキスト構築、条件付き生成のプロセスを経て、パラメータメモリに依存せず外部知識に基づいた事実的な回答を可能にする。デバイス上でのRAG（Micro-RAG）は、データ局所性や低遅延を実現する一方で、メモリや計算資源の厳格な制約から、量子化モデルやコンパクトなベクトルインデックス、あるいは部分的なクラウドオフロードといった設計上のトレードオフを伴う。また、Federated Learning (FL) を活用したFederated RAGは、生データを共有せずにリトリーバーの適応やジェネレータの微調整を行うことを可能にするが、通信オーバーヘッドや非IIDなデータ分布、クライアント間の異質性、および敵対的リスクといった課題が存在する。</p></section>
+<section class="secsum"><h3>5 Taxonomy of Retrieval-Augmented Generation Systems</h3><p>本セクションでは、データの所在、検索の実行場所、生成の実行場所、および知識・モデル更新の共有方法という4つのデプロイメント次元に基づき、RAGシステムを「Centralized RAG」「Micro-RAG (On-device)」「Federated RAG」「Hybrid Edge–Cloud RAG」の4つのパラダイムに分類している。Centralized RAGは、クラウド上でドキュメント、検索インデックス、生成モデルを統合管理することで高いモデル容量と運用効率を実現するが、クエリやコンテキストがサービスプロバイダーに露出するプライバシーリスクや、単一障害点となる課題がある。Micro-RAGは、検索や生成をスマートフォン等のローカルデバイスで行うことでデータ局所性とプライバシーを最大化するが、メモリや計算資源の制約から、量子化モデルやコンパクトなベクトルインデックスの使用が不可欠となる。Federated RAGは、データを中央に集約せず、FedAvg等の連合学習メカニズムを用いて分散した知識サイロ間で協調的にリトリーバーや生成器を適応させるが、通信オーバーヘッドや非IIDデータ、悪意のあるクライアントによる攻撃といった複雑な課題を抱える。Hybrid RAGは、エッジ側での事前フィルタリングとクラウドでの生成を組み合わせるなど、ローカルのプライバシー保護とクラウドの推論能力を両立させる設計だが、エッジとクラウドの境界を跨ぐオーケストレーションの複雑化と攻撃対象領域（attack surface）の拡大を招く。最終的なアーキテクチャの選択は、データの機密性、接続性、レイテンシ、計算予算、およびプライバシーとユーティリティのトレードオフに基づいて決定されるべきである。</p></section>
+<section class="secsum"><h3>6 Security and Attack Surface of RAG Systems</h3><p>RAGシステムは、外部知識ストアやリトリーバー、ベクトルインデックス等の導入により、スタンドアロンな言語モデルよりも攻撃対象領域（Attack Surface）が拡大している。パイプラインレベルの脅威として、まず、検索された文書が信頼できる文脈として解釈される性質を悪用した間接的プロンプト注入（IPI）や、指示の上書き、出力操作を伴うプロンプトベースの攻撃が挙げられる。次に、リトリーバーやインデックスを標的とした攻撃があり、悪意ある文書を混入させるリトリーバル・ポイズニングや、検索挙動から機密情報を推論するインデックス推論攻撃、さらには埋め込み空間を歪めるリトリーバー操作が存在する。また、検索後のコンテキスト構築段階では、文書の長さや配置を利用して特定の情報を支配させるコンテキスト操作攻撃や、トークン予算の制限を突くパッキング攻撃が、個々の文書が正常に見えるため検知が困難である。生成段階では、不完全または矛盾した文脈によって誤った情報を高い確信度で出力する「ハルシネーション増幅」のリスクがある。デプロイメント形態別では、オンデバイスRAGにおけるローカルインデックスの改ざんやサイドチャネル攻撃、フェデレーテッドRAGにおけるモデルポイズニングや勾配漏洩、ハイブリッドRAGにおけるエッジ・クラウド間の境界におけるポリシー不一致など、アーキテクチャに依存した固有の脅威が存在する。</p></section>
+<section class="secsum"><h3>7 Privacy-Preserving Techniques for Retrieval-Augmented Generation</h3><p>RAGにおけるプライバシー保護は、クエリ、検索、コンテキスト構築、生成、およびモニタリングの各段階で発生するリスクに対し、単一のメカニズムではなく「Defense-in-Depth（多層防御）」フレームワークによる階層的な保護が必要である。アーキテクチャレベルでは、Micro-RAGのようなデバイス内での隔離や、PII検出器・ガードレールを用いたコンテンツフィルタリングが実用的だが、これらは言い換えや意味的な難読化に対して脆弱であり、検索の再現率を低下させる可能性がある。アルゴリズム面では、差分プライバシー（DP）が検索スコアや埋め込みに適用され、メンバーシップ推論等のリスクを数学的に制限できるが、精度低下やプライバシー予算の消費が課題となる。また、連合学習におけるセキュア集約はクライアントの更新を保護するが、非IIDデータや共謀によって匿名性が弱まるリスクがある。暗号学的・ハードウェア的手法として、準同型暗号（HE）による暗号化検索や、Trusted Execution Environments (TEEs) による機密計算が挙げられるが、HEは計算コストが極めて高く、TEEsはサイドチャネル攻撃やメモリ制限の制約を受ける。総じて、プライバシー保護の強化は、検索精度、レイテンシ、通信帯域、およびスケーラビリティとの不可避なトレードオフ（Privacy–Utility Trade-off）を伴うため、パイプライン全体を網羅する構成可能なフレームワークの構築が求められる。</p></section>
+<section class="secsum"><h3>8 Datasets, Benchmarks, and Evaluation Methodologies for RAG Security and Privacy</h3><p>RAGのセキュリティとプライバシーの評価には、従来のRecall@kやnDCG@k、F1といった検索・生成精度のみならず、漏洩リスク、攻撃成功率、通信オーバーヘッド、遅延、エネルギー消費を統合的に考慮する必要がある。既存のベンチマークは、MS MARCO等の検索中心型、CRAGやRGB等のRAG特化型、PubMedQA等のドメイン特化型、PoisonedRAG等の敵対的ベンチマーク、そして連合学習・プライバシー志向型の5つのカテゴリに分類される。評価指標については、検索品質（MRR等）、生成品質（忠実度や引用精度）、プライバシー（MIA-AUCやインデックス推論精度）、セキュリティ（攻撃成功率や証拠生存率）、および連合・オンデバイス環境におけるコスト（通信量やByzantine耐性）を多角的に測定すべきである。また、差分プライバシーや暗号化検索が導入するユーティリティや効率性の低下を考慮し、プライバシーとユーティリティのトレードオフ（Privacy–Utility frontier）を分析することが不可欠となる。現状のベンチマークには、知識ベースの動的な更新に伴う汚染への対応、機密サブセットのアノテーション不足、異なるデプロイメント・パラダイム間での標準化された比較プロトコルの欠如、およびオンデバイス環境における観測可能性の制限といった限界が存在する。</p></section>
+<section class="secsum"><h3>9 Open Challenges and Future Directions</h3><p>RAGシステムの信頼性向上に向けた今後の課題として、クエリ、検索結果、コンテキスト、生成応答の各段階における累積的な情報漏洩を統合的にモデル化する、構成可能なエンドツーエンドのプライバシーフレームワークの構築が挙げられる。評価手法においては、単なるAUCに基づく指標だけでなく、低FPRにおけるTPRや、レイテンシ制約下でのプライバシーとユーティリティのトレードオフ（privacy–utility frontiers）といった、実運用に即したベンチマークの標準化が必要である。技術的な課題として、高次元ベクトル検索における暗号化技術の計算コスト削減（近似暗号化類似性検索など）や、適応的な攻撃者による分布シフトや言い換えに対抗する堅牢な検索ポリシーの開発が求められている。また、Federated RAGにおける非IIDデータ下での更新に伴う漏洩防止や、On-Device RAGにおけるローカルインデックスの改ざん・サイドチャネル攻撃への対策など、デプロイメント形態に応じた特有の脅威モデルへの対応が不可欠である。最終的には、モデルの弱点のみならず、ログやキャッシュといったアーキテクチャ上の決定に起因する脆弱性を防ぐため、最小権限の原則に基づく「Security-by-Design」の確立が重要な研究方向となる。</p></section>
+<section class="secsum"><h3>10 Summary and Conclusions</h3><p>本論文は、外部知識を活用するRAG（Retrieval-Augmented Generation）のパラダイムにおいて、プライバシー、帯域幅、リソース制約の課題を解決するためのオンデバイスおよび連合型RAGへの移行を論じている。著者らは、中央集権型、オンデバイス（Micro-RAG）、連合型、およびエッジ・クラウド・ハイブリッド型のアーキテクチャを網羅する統一的なタクソノミーを提示し、プライバシー、効率性、スケーラビリティ、複雑性のトレードオフを明らかにしている。セキュリティ面では、プロンプト攻撃、検索のポイズニング、連合学習における敵対的挙動といった脅威に対し、差分プライバシーやセキュア集約などの防御策を検討しているが、これらには各展開環境における適用限界が存在する。評価においては、従来の精度中心のベンチマークでは不十分であり、忠実度（faithfulness）に加え、プライバシー漏洩、通信コスト、レイテンシ、エネルギー消費を捉える指標が不可欠であると主張している。今後の研究課題として、制約のあるデバイス向けのMicro-RAG設計、通信効率の高い連合型RAG、非IID（独立同一分布ではない）データや断片化された知識への対応、および信頼可能で検証可能な生成技術の確立を挙げている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
+  </footer>
+</div>
+</body>
+</html>

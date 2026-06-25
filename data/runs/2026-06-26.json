@@ -1,0 +1,440 @@
+{
+  "date": "2026-06-26",
+  "dry_run": false,
+  "engine": "llm:gemma-4-26b",
+  "fields": [
+    {
+      "added": [],
+      "candidates_total": 42,
+      "fresh_total": 19,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 0,
+      "skipped": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2606.18936",
+          "matched_keywords": [],
+          "published": "2026-06-17",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "SciRisk-Bench: A Risk-Dimension-Aware Benchmark for AI4Science Safety",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2606.10087",
+          "matched_keywords": [],
+          "published": "2026-06-08",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "CodeAlchemy: Synthetic Code Rewriting at Scale",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2606.08878",
+          "matched_keywords": [],
+          "published": "2026-06-07",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "PerspectiveGap: A Benchmark for Multi-Agent Orchestration Prompting",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2606.04911",
+          "matched_keywords": [],
+          "published": "2026-06-03",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "BreastGPT: A Multimodal Large Language Model for the Full Spectrum of Breast Cancer Clinical Routine",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2606.03695",
+          "matched_keywords": [],
+          "published": "2026-06-02",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Don't Forget Your Embeddings: Robust Knowledge Erasure via Precise Editing of Embeddings",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2606.02907",
+          "matched_keywords": [],
+          "published": "2026-06-01",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Linear Probes Detect Task Format, Not Reasoning Mode in Language Model Hidden States",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2606.01223",
+          "matched_keywords": [],
+          "published": "2026-05-31",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Connecting the Dots: Benchmarking Reflective Memory in Long-Horizon Dialogue",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2606.00829",
+          "matched_keywords": [],
+          "published": "2026-05-30",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "The Right Inference Strategy Is All You Need: Nearly Training-Free Domain-Wise Inference for EgoCross Challenge",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2605.29502",
+          "matched_keywords": [],
+          "published": "2026-05-28",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Source-Grounded Semantic Reinforcement Learning for Low-Resource Target-Language Generation",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2605.21917",
+          "matched_keywords": [],
+          "published": "2026-05-21",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "MAVEN: A Multi-stage Agentic Annotation Pipeline for Video Reasoning Tasks",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2605.11398",
+          "matched_keywords": [],
+          "published": "2026-05-12",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "AcuityBench: Evaluating Clinical Acuity Identification and Uncertainty Alignment",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2605.09041",
+          "matched_keywords": [],
+          "published": "2026-05-09",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "BiAxisAudit: A Novel Framework to Evaluate LLM Bias Across Prompt Sensitivity and Response-Layer Divergence",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2605.06832",
+          "matched_keywords": [],
+          "published": "2026-05-07",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "IntentGrasp: A Comprehensive Benchmark for Intent Understanding",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2605.02035",
+          "matched_keywords": [],
+          "published": "2026-05-03",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "VIDA: A dataset for Visually Dependent Ambiguity in Multimodal Machine Translation",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2605.01153",
+          "matched_keywords": [],
+          "published": "2026-05-01",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Toward a Unified Framework for Collaborative Design of Human-AI Interaction",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2606.19346",
+          "matched_keywords": [],
+          "published": "2026-04-26",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Disentangling Linguistic Relatedness from Task Alignment in Cross-Lingual Transfer",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2604.16937",
+          "matched_keywords": [],
+          "published": "2026-04-18",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "No One Fits All: From Fixed Prompting to Learned Routing in Multilingual LLMs",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2604.14339",
+          "matched_keywords": [],
+          "published": "2026-04-15",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Shuffle the Context: RoPE-Perturbed Self-Distillation for Long-Context Adaptation",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "2604.12335",
+          "matched_keywords": [],
+          "published": "2026-04-14",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "All in One: A Unified Synthetic Data Pipeline for Multimodal Video Understanding",
+          "venue": ""
+        }
+      ],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 0,
+        "openalex/recent": 0,
+        "semanticscholar/important": 2,
+        "semanticscholar/recent": 2
+      }
+    },
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2606.25533.html",
+          "id": "2606.25533",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-06-24",
+          "reading_value": 4,
+          "reading_value_reason": "RAGの展開形態（Micro/Federated等）に応じた脅威の分類が極めて体系的であり、セキュリティ研究者にとって実用的な指針となる。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Security and Privacy in Retrieval-Augmented Generation: Architectures, Threats, Defenses, and Future Directions for Building Trustworthy Systems",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2606.22647.html",
+          "id": "2606.22647",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-06-21",
+          "reading_value": 4,
+          "reading_value_reason": "Agentic RAGを脆弱性修復に適用し、リポジトリ全体のコンテキスト把握を実現した点が極めて新規性が高い。実験も実世界のCVEを用い、高い成功率を示している。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "RAVEN: Agentic RAG for Automated Vulnerability Repair",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 153,
+      "fresh_total": 138,
+      "k": 2,
+      "label": "文書構造解析に基づく検索・質問応答・RAG",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 86,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 1,
+          "id": "doi-6428af65647a",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2025-12-17",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 5,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "SPR-RAG: Semantic Parsing Retriever-Enhanced Question Answering for Power Policy",
+          "venue": "Algorithms"
+        }
+      ],
+      "slug": "doc-structure-rag",
+      "source_counts": {
+        "arxiv/important": 0,
+        "arxiv/recent": 40,
+        "openalex/important": 40,
+        "openalex/recent": 40,
+        "semanticscholar/important": 38,
+        "semanticscholar/recent": 38
+      }
+    }
+  ],
+  "generated_at": "2026-06-26T06:00:02"
+}

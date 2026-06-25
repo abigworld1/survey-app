@@ -313,6 +313,36 @@
       "url": "http://arxiv.org/abs/2606.20113v1",
       "venue": ""
     },
+    "arxiv:2606.22647": {
+      "added": "2026-06-26",
+      "arxiv_id": "2606.22647",
+      "authors": [
+        "Varun Gadey",
+        "Zijie Liu",
+        "Alexandra Dmitrienko"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-21",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.22647.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.22647v1",
+      "reading_value": 4,
+      "reading_value_reason": "Agentic RAGを脆弱性修復に適用し、リポジトリ全体のコンテキスト把握を実現した点が極めて新規性が高い。実験も実世界のCVEを用い、高い成功率を示している。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "RAVEN: Agentic RAG for Automated Vulnerability Repair",
+      "tldr": "RAVENは、エージェント型検索拡張生成（Agentic RAG）と制御された反復的修復を統合した、自律的な脆弱性自動修復フレームワークである。過去の修正事例の検索、リポジトリ全体のコンテキスト抽出、および静的解析を用いたパッチの洗練を行うことで、局所的なコードのみでは解決困難な複雑な脆弱性に対処する。160件の実世界のCVEを対象とした評価において、83.13%の全体修復成功率（RSR）を達成し、未知のCWEカテゴリやクロス言語設定においても高い汎用性と低コストなローカル実行性能を実証した。",
+      "url": "http://arxiv.org/abs/2606.22647v1",
+      "venue": ""
+    },
     "arxiv:2606.22681": {
       "added": "2026-06-24",
       "arxiv_id": "2606.22681",
@@ -441,6 +471,37 @@
       "title": "Privacy-Preserving RAG via Multi-Agent Semantic Rewriting: Achieving Confidentiality Without Compromising Contextual Fidelity",
       "tldr": "RAGにおけるプライバシー漏洩を防ぐため、3つの特化型エージェント（Pri-Extra, Sem-Extra, Reconstruction）を用いたマルチエージェント意味的書き換えフレームワークを提案する。本手法は、機密情報を削除しつつ文脈の忠実度を維持する非同期のオフライン前処理として機能し、LLaMA-3-8Bにおいて標的情報の露出を144件から1件へと劇的に削減し、既存手法（SAGE）を上回るBLEU-1スコア $0.122$ を達成した。",
       "url": "http://arxiv.org/abs/2606.24623v1",
+      "venue": ""
+    },
+    "arxiv:2606.25533": {
+      "added": "2026-06-26",
+      "arxiv_id": "2606.25533",
+      "authors": [
+        "Balamurugan Palanisamy",
+        "G S S Chalapathi",
+        "Vikas Hassija",
+        "Rajkumar Buyya"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-24",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.25533.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.25533v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの展開形態（Micro/Federated等）に応じた脅威の分類が極めて体系的であり、セキュリティ研究者にとって実用的な指針となる。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Security and Privacy in Retrieval-Augmented Generation: Architectures, Threats, Defenses, and Future Directions for Building Trustworthy Systems",
+      "tldr": "本論文は、Retrieval-Augmented Generation (RAG) におけるセキュリティとプライバシーのリスクを、デプロイメント形態（中央集権型、Micro-RAG、Federated RAG、Hybrid RAG）に基づいた統一的なタクソノミーを用いて包括的に調査したサーベイ論文である。検索、コンテキスト構築、生成の各フェーズにおける攻撃対象領域（Attack Surface）を特定し、プロンプト注入やリトリーバル・ポイズニング、勾配漏洩などの脅威を体系化している。また、差分プライバシーや暗号学的防御策、TEEなどの多層防御（Defense-in-Depth）をレビューし、プライバシーとユーティリティのトレードオフや、今後の研究課題として「Security-by-Design」の重要性を提示している。",
+      "url": "http://arxiv.org/abs/2606.25533v1",
       "venue": ""
     },
     "doi:10.1038/s41598-026-50062-8": {
