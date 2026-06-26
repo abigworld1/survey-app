@@ -46,6 +46,10 @@ FOLLOWUP_CSS = """
   .bubble p:last-child { margin-bottom:0; }
   .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
   .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
   .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
                  padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
   .turn.question .bubble { color:#e6edf0; }
@@ -375,7 +379,7 @@ def _resolve_path(args):
 
 
 def _ensure_dialogue_css(text):
-    if ".followups" in text and ".dialogue" in text:
+    if ".followups" in text and ".dialogue" in text and ".bubble table" in text:
         return text
     style_end = text.find("</style>")
     if style_end == -1:
@@ -390,11 +394,48 @@ def _inline_markdown(text):
     return text
 
 
+def _is_table_separator(line):
+    cells = [c.strip() for c in line.strip().strip("|").split("|")]
+    return bool(cells) and all(re.fullmatch(r":?-{3,}:?", c or "") for c in cells)
+
+
+def _is_table_row(line):
+    raw = line.strip()
+    return raw.startswith("|") and "|" in raw[1:]
+
+
+def _split_table_row(line):
+    cells = [c.strip() for c in line.strip().strip("|").split("|")]
+    return cells
+
+
+def _table_html(lines):
+    rows = [_split_table_row(line) for line in lines if not _is_table_separator(line)]
+    if not rows:
+        return ""
+    width = max(len(row) for row in rows)
+    rows = [row + [""] * (width - len(row)) for row in rows]
+    head, body = rows[0], rows[1:]
+    html = ['<div class="table-wrap"><table><thead><tr>']
+    html.extend(f"<th>{_inline_markdown(cell)}</th>" for cell in head)
+    html.append("</tr></thead>")
+    if body:
+        html.append("<tbody>")
+        for row in body:
+            html.append("<tr>")
+            html.extend(f"<td>{_inline_markdown(cell)}</td>" for cell in row)
+            html.append("</tr>")
+        html.append("</tbody>")
+    html.append("</table></div>")
+    return "".join(html)
+
+
 def _bubble_html(text):
     lines = str(text or "").splitlines()
     blocks = []
     para = []
     items = []
+    table = []
 
     def flush_para():
         nonlocal para
@@ -412,12 +453,25 @@ def _bubble_html(text):
             )
             items = []
 
+    def flush_table():
+        nonlocal table
+        if table:
+            blocks.append(_table_html(table))
+            table = []
+
     for line in lines:
         raw = line.strip()
         if not raw:
+            flush_table()
             flush_items()
             flush_para()
             continue
+        if _is_table_row(raw):
+            flush_items()
+            flush_para()
+            table.append(raw)
+            continue
+        flush_table()
         h = re.match(r"^#{1,6}\s+(.+)$", raw)
         if h:
             flush_items()
@@ -432,6 +486,7 @@ def _bubble_html(text):
             flush_items()
             para.append(raw)
 
+    flush_table()
     flush_items()
     flush_para()
     return "".join(blocks) if blocks else "<p></p>"
