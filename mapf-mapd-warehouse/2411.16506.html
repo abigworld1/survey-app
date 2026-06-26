@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Online Guidance Graph Optimization for Lifelong Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Online Guidance Graph Optimization for Lifelong Multi-Agent Path Finding</h1>
+  <div class="meta">Hongzhi Zang, Yulun Zhang, He Jiang, Zhe Chen, Daniel Harabor, Peter J. Stuckey, Jiaoyang Li<br>採択先: 未取得 ・ 2024-11-25 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2411.16506v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2411.16506v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/aaai.v39i14.33614" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2024-11-25</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 9</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">LMAPFにおける動的な交通パターンへの適応を、CMA-ESを用いたオンライン・ガイダンス最適化で解決しており、スループット向上の実証も具体的で価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> Lifelong Multi-Agent Path Finding (LMAPF) において、CMA-ESを用いて交通パターンに基づきエッジ重みを動的に更新するオンライン・ガイダンス・ポリシーを最適化する手法を提案。PIBTやGPIBTと組み合わせることで、静的なガイダンスや人間が設計したルールよりも高いスループットを達成し、動的なタスク分布下でも有効であることを示した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、Lifelong Multi-Agent Path Finding (LMAPF) におけるエージェントの移動を誘導し、スループットを向上させるためのオンライン・ガイダンス・ポリシーの最適化問題を扱う。LMAPFはグラフ $\mathcal{G}$ 上でエージェントが衝突を避けながら目標を達成し続ける問題であり、既存の再計画型（RHCR等）は大規模環境でのスケーラビリティに欠け、ルールベース型（PIBT等）は計算は高速だが解の質に課題がある。また、従来のオフライン・ガイダンス手法では、時間とともに変化するリアルタイムの交通パターンやタスク分布に柔軟に対応できないという限界がある。本研究では、これらの課題を解決するために、動的なガイダンス・グラフを生成するポリシー $\pi_\theta$ を学習・最適化するアプローチを提案している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>提案手法は、CMA-ES (Covariance Matrix Adaptation Evolutionary Strategy) を用いて、微分不可能なスループット指標を最大化するようにガイダンス・ポリシーのパラメータ $\theta$ を最適化する。実装として、エッジ重みを直接利用する「Direct Planning (on+PIBT)」と、ガイダンス上の最短経路をガイドパスとして利用する「Guide-Path Planning (on+GPIBT)」の2つのパイプラインを設計した。実験により、提案手法はオフライン・ガイダンスと比較して最大 $30.75\%$、人間が設計したオンライン・ガイダンスと比較して最大 $52.42\%$ のスループット向上を達成した。さらに、タスク分布が時間とともに変化する動的なシナリオにおいても、オンライン更新が混雑回避に有効であることを示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>ガイダンス・ポリシー $\pi_\theta$ は、過去の交通パターン、現在のタスク分布、将来の計画経路を観測として、エッジ重み $w \in \mathbb{R}^{|E|}$ を動的に更新する。最適化には、多変量ガウス分布からサンプリングされた $\theta$ を用いて $N_{eval}$ 回のシミュレーションを行い、平均スループットに基づいて分布を更新するCMA-ESを採用している。Direct Planningでは、エッジ重みを最小化する行動コストを計算し、計算コスト削減のために目標地点を根とする探索木を用いたLazy mechanismを導入している。Guide-Path Planningでは、GPIBTの枠組みを拡張し、ガイダンス・グラフ上の最短経路をガイドパスとして利用することで、全頂点間の距離計算を回避し計算負荷を軽減している。ネットワークアーキテクチャには、CNN（3,119パラメータ）や窓付き二次ネットワーク（560パラメータ）が用いられている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>4種類のマップ（sortation, warehouse, empty, random）および静的・動的なタスク分布を用いて、提案手法の有効性を検証した。実験の結果、動的なタスク分布下において、オンラインガイダンスはリアルタイムの交通状況に応じてグラフを更新できるため、オフライン手法（off+PIBT/GPIBT）よりも高いスループットを達成した。特に、GPIBTにLNS (Large Neighborhood Search) を組み合わせた「on+GPIBT+LNS」が極めて高い性能を示し、評価フェーズのみにLNSを適用した「on+GPIBT+LNS(eval)」も高い性能を維持した。計算コストについては、on+PIBTはoff+PIBTの最大4倍、on+GPIBTはhm+GPIBTの最大7倍の実行時間を要するが、1ステップあたりの平均実行時間は $0.026$ 秒以内であり、実用的な範囲内である。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の成果により、オンライン・ガイダンスがタスク分布に基づいた混雑箇所を正確に捉え、待機コスト（wait cost）を適切に割り当てることで混雑を回避できることが可視化分析によって確認された。しかし、現在のアーキテクチャは4近傍グリッドに限定されているという実装上の限界がある。また、CMA-ESによる最適化はシミュレータでの評価回数が膨大になるという課題があるため、今後はサロゲートモデルを用いた最適化手法（surrogate-assisted optimizers）の導入によるサンプリング効率の向上が期待される。さらに、RHCRやLearn to Followといった他のLMAPFアルゴリズムへのガイダンスポリシーの統合も今後の展望として挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Online Guidance Graph Optimization for Lifelong Multi-Agent Path Finding</h3><p>本研究では、リアルタイムの交通パターンに基づいてエージェントを動的に誘導する、Lifelong Multi-Agent Path Finding (LMAPF) におけるガイダンス・ポリシーの最適化問題を扱う。既存の最先端のルールベース LMAPF アルゴリズムである PIBT (Priority Inheritance Backtracking) の解の質を向上させるため、適応的なガイダンスを生成するポリシーを最適化する手法を提案している。具体的には、PIBT にガイダンスを組み込むための 2 つの異なるパイプラインを設計しており、最適化されたポリシーが静的なガイダンスや人間が設計したポリシーよりも優れていることを示している。さらに、実世界のアプリケーションで一般的でありながら先行研究ではほとんど探索されてこなかった、タスク分布が時間とともに変化するシナリオについても調査を行っている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、Lifelong Multi-Agent Path Finding (LMAPF) において、エージェントの移動を誘導しスループットを向上させるため、リアルタイムの交通状況に基づいてエッジ重みを動的に更新するオンライン・ガイダンス・ポリシーの最適化を目的としている。従来の再計画型アルゴリズムは小規模問題では高品質だが大規模環境でのスケーラビリティに欠け、一方でPIBTに代表されるルールベース型アルゴリズムは高速だが解の品質に課題があり、既存のオフライン・ガイダンス手法では混雑エリアの動的な変化に対応できないという限界がある。提案手法では、CMA-ES (Covariance Matrix Adaptation Evolutionary Strategy) を用いて、動的なガイダンス・グラフを生成するオンライン・ポリシーを最適化する。実装として、生成されたグラフの重みを直接利用するパイプラインと、ガイダンス・パスに沿ってエージェントを移動させるパイプラインの2種類を提案している。シミュレーション実験の結果、提案手法はオフライン・ガイダンスと比較して最大 $30.75\%$、人間が設計したオンライン・ガイダンスと比較して最大 $52.42\%$ のスループット向上を達成しており、動的なタスク分布下においても有効であることが示された。</p></section>
+<section class="secsum"><h3>2 Preliminary and Related Work</h3><p>Lifelong Multi-Agent Path Finding (LMAPF)は、グラフ $\mathcal{G}$ 上でエージェントが衝突を避けながら、目標に到達するたびに新たな目標へ移動し続ける問題であり、スループット（単位時間あたりの平均目標到達数）の最大化を目的とする。既存手法には、時間窓 $T$ 内で経路を再計画するRHCRのような再計画型（replan-based）と、最短距離ヒューリスティックと優先度ルールを用いるPIBTのようなルール型（rule-based）がある。RHCRは小規模環境では高性能だが、200エージェントを超える大規模環境や制限時間内ではスループットが著しく低下する課題があり、一方でPIBTは計算速度に優れるものの解の質に課題がある。エージェントの動きを制御する「ガイダンス」には、エッジの重み $w \in \mathbb{R}^{|E|}$ を用いてコストを定義するオフライン型（Guidance Graphなど）と、リアルタイムの交通状況に応じて更新するオンライン型がある。オンライン型は交通パターンの変化に柔軟に対応できるが、ヒューリスティック値の頻繁な更新に伴う計算コストが課題となる。本研究では、PIBTやその派生であるGPIBTに対し、自動最適化されたオンラインガイダンスを組み込むことで、計算効率とスループットの両立を目指している。</p></section>
+<section class="secsum"><h3>3 Approach</h3><p>本手法は、Lifelong Multi-Agent Path Finding (LMAPF) において、過去の交通パターン、現在のタスク分布、および将来の計画経路を観測として用いるガイダンス・ポリシー $\pi_\theta$ を導入し、ガイダンス・グラフ $\mathcal{G}$ のエッジ重みを動的に更新するものである。統合手法として、PIBT等の直接計画（Direct Planning）では、エッジ重みを最小化するように行動コストを計算し、全頂点間の最短経路を保持するヒューリスティック・テーブルを更新するが、計算コスト削減のために目標地点を根とする探索木を用いたLazy mechanismが採用されている。一方、ガイドパス計画（Guide-Path Planning）では、GPIBTの枠組みを拡張し、ガイダンス・グラフ上の最短経路をガイドパスとして利用することで、全頂点間の距離計算を回避し、計算負荷を大幅に軽減している。ガイダンス・ポリシーのパラメータ $\theta$ の最適化には、スループットを最大化することを目的として、微分不可能な単一目的最適化アルゴリズムであるCMA-ESが用いられる。具体的には、多変量ガウス分布からサンプリングされた $\theta$ を用いて $N_{eval}$ 回のシミュレーションを行い、平均スループットに基づいて分布を更新する。実装では、パラメータ数を抑えるためにCNN（3,119パラメータ）や窓付き二次ネットワーク（560パラメータ）が使用されているが、現在のアーキテクチャは4近傍グリッドに限定されている点が限界である。</p></section>
+<section class="secsum"><h3>4 Experiments and Analysis</h3><p>本実験では、提案手法であるオンラインガイダンス（on+PIBTおよびon+GPIBT）の有効性を、4種類のマップ（sortation, warehouse, empty, random）および静的・動的なタスク分布を用いて検証している。実験の結果、動的なタスク分布下において、オンラインガイダンスはリアルタイムの交通状況に応じてガイダンスグラフを更新できるため、オフライン手法（off+PIBT/GPIBT）よりも高いスループットを達成することが示された。特に、GPIBTにLNS（Large Neighborhood Search）を組み合わせた手法（on+GPIBT+LNS）は極めて高い性能を示し、LNSを評価フェーズのみに適用したon+GPIBT+LNS(eval)も高い性能を維持したことから、提案するオンラインガイダンス・ポリシーの汎用性が証明された。計算コストに関しては、オンライン更新によりoff+PIBTの最大4倍、on+GPIBTではhm+GPIBTの最大7倍の実行時間を要するが、1ステップあたりの平均実行時間は $0.026$ 秒以内であり、実用的な範囲に収まっている。また、可視化分析により、オンラインガイダンスがタスク分布に基づいた混雑箇所を正確に捉え、待機コスト（wait cost）を適切に割り当てることで混雑を回避していることが確認された。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>本研究では、Lifelong Multi-Agent Path Finding (LMAPF) における混雑問題を解決するため、交通パターンから学習して動的に生成されるガイダンスグラフを用いたオンラインガイダンス手法を提案している。提案手法は、交通の混雑を緩和しスループットを向上させることを目的としており、4種類の異なるマップにおいて2つの最先端のLMAPFアルゴリズムのスループットを改善することに成功した。今後の展望として、RHCRやLearn to Followといった他のLMAPFアルゴリズムへのガイダンスポリシーの統合が挙げられる。また、現在は最適化にCMA-ESを用いており、シミュレータでの評価回数が膨大になるという課題があるため、サロゲートモデルを用いた最適化手法（surrogate-assisted optimizers）を導入することで、サンプリング効率を向上させることが期待される。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
+  </footer>
+</div>
+</body>
+</html>

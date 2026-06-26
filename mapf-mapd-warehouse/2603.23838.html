@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Learning-guided Prioritized Planning for Lifelong Multi-Agent Path Finding in Warehouse Automation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Learning-guided Prioritized Planning for Lifelong Multi-Agent Path Finding in Warehouse Automation</h1>
+  <div class="meta">Han Zheng, Yining Ma, Brandon Araki, Jingkai Chen, Cathy Wu<br>採択先: Journal of Artificial Intelligence Research, Vol. 85, Article 28. Publication date: March 2026 ・ 2026-03-25 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2603.23838v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2603.23838v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1613/jair.1.20611" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 Journal of Artificial Intelligence Research, Vol. 85, Article 28. Publication date: March 2026</span><span class="chip">公開日 2026-03-25</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 9</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">Lifelong MAPFに対し、Transformerを用いた動的な優先順位付けを強化学習で解く手法は新規性が高い。高密度な倉庫環境でのスループット向上と汎化性能も示されている。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 強化学習と探索ベースのプランニングを統合し、Lifelong Multi-Agent Path Finding (MAPF) における動的な優先順位割り当てを最適化するフレームワーク「RL-RH-PP」を提案する。Transformerベースのアテンション機構を用いてエージェント間の時空間的な相互作用をモデル化し、高密度な倉庫環境において既存手法を上回るスループットと高い汎化性能を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、継続的に新しいタスクが割り当てられるLifelong MAPFにおける、エージェント間の複雑な時空間的相互作用と混雑管理を対象としている。Lifelong MAPFでは、エージェントがタスク完了後に動的に次の目標 $g_{a,i}$ を受け取るオンライン設定であり、短期的な意思決定が将来のデッドロックを招く因果的依存関係が課題となる。本研究では、グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 上で動作するエージェント集合 $\mathcal{A}$ に対し、与えられた時間ホライゾン内で目標に到達したエージェントの総数であるスループット $\mathcal{T}$ を最大化することを目的とする。特に、Amazon型（障害物密度 15.3%）やSymbotic型（障害物密度 56.6%）といった、現実の倉庫自動化を模した高密度な環境での最適化を目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>強化学習と探索ベースのプランニングを統合した、Lifelong MAPFにおける初のフレームワーク「RL-RH-PP」を提案した。従来のPrioritized Planning (PP) をバックボーンとしつつ、動的な優先順位割り当てを部分観測マルコフ決定過程 (POMDP) として定式化することで、計算効率と長期的な最適化を両立させた。実験により、ランダムな優先順位を用いるRH-PPと比較して、Symboticマップのような密な環境で平均約25%のスループット向上を達成した。また、エージェント密度や倉庫レイアウト、計画ホライゾンの変化に対しても、学習済みポリシーが強力なゼロショット汎化性能を示すことを明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、Rolling-Horizon Prioritized Planning (RH-PP) を基盤とし、計画ホライゾン $H_p$ と実行ホライゾン $H_e$ ($H_e \le H_p$) を用いて逐次的な再計画を行う。各ステップでは、SIPPを用いて上位エージェントの経路を動的障害物として扱い、衝突のない経路を計算する。優先順位の全順序 $\pi$ を評価するヒューリスティック関数 $C(\pi)$ は、以下のように定義される：<br>$$C(\pi) = \sum_{i \in \mathcal{A}} \text{dist}(i, \pi) + \lambda \sum_{i \in \mathcal{A}} \mathbb{I}(\text{dist}(i, \pi) &gt; \text{dist}_{\text{shortest}}(i))$$<br>ここで、$\text{dist}(i, \pi)$ は順序 $\pi$ 下での経路長、$\text{dist}_{\text{shortest}}(i)$ は最短経路長、$\lambda$ は不整合へのペナルティを制御するパラメータである。アーキテクチャにはTransformer形式のニューラルネットワークを採用し、辞書ベースの埋め込みとマルチヘッドアテンション層を用いて、エージェントの最短経路情報をエンコードし、優先順位 $\pi$ を自己回帰的にデコードする。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Amazon型およびSymbotic型の2種類の倉庫レイアウトを用い、エージェント数 $N=10, 20, 40$ の条件下で評価を行った。比較対象として、RH-CBS、RH-PBS、PIBT、WPPL、およびランダムサンプリングによるRH-PPを用いた。評価指標にはスループット（TPA: Throughput per agent）と解法時間を用いた。実験の結果、RL-RH-PPはSymboticマップにおいてRH-PPに対し平均25%のスループット向上を示し、高密度シナリオにおいて性能が低下するRH-PBSや、分散型手法であるPIBTをも上回る性能を達成した。また、計算量についても、RLの推論時間を加味してもWPPL等の既存の強力なパイプラインと同等の実行時間を維持していることが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>解釈的な分析により、RL-RH-PPは単に最短経路を追うのではなく、混雑領域に位置するエージェントに高い優先順位を戦略的に割り当てることで交通流を制御していることが判明した。具体的には、混雑境界付近のエージェントに対し、最短経路とは逆方向への移動（バックトラッキング）を促すような優先順位付けを行うことで、通路を確保し、高優先度エージェントの通過を可能にする局所的な回避行動を学習している。今後の課題として、Top-Kサンプリングに伴う計算コスト削減のための並列化、マップサイズに依存しない表現設計、およびタスク割り当てと経路計画を統合した報酬設計の拡張が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Learning-guided Prioritized Planning for Lifelong Multi-Agent Path Finding in Warehouse Automation</h3><p>本研究では、倉庫自動化におけるLifelong Multi-Agent Path Finding (MAPF) を対象とし、強化学習と探索ベースのプランニングを統合した初のフレームワークである RL-RH-PP (Reinforcement Learning-guided Rolling Horizon Prioritized Planning) を提案している。この手法は、古典的な Prioritized Planning (PP) をバックボーンとして採用し、動的な優先順位割り当てを部分観測マルコフ決定過程 (POMDP) として定式化することで、エージェント間の複雑な時空間相互作用を強化学習によって解決する。具体的には、アテンションベースのニューラルネットワークが優先順位の順序を自己回帰的にデコードし、PP プランナーによる効率的な逐次単一エージェント計画を可能にしている。現実的な倉庫シミュレーションを用いた評価の結果、RL-RH-PP は既存のベースラインと比較して最高の総スループットを達成し、エージェント密度、計画ホライゾン、倉庫レイアウトの変化に対しても効果的な汎化性能を示すことが確認された。解釈的な分析により、本手法は混雑しているエージェントを積極的に優先したり、混雑からエージェントを戦略的に転送したりすることで、交通流を緩和しスループットを向上させていることが明らかになった。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>本研究では、継続的に新しいタスクが割り当てられるLifelong Multi-Agent Path Finding (MAPF) において、強化学習（RL）を用いて動的な優先順位を生成するハイブリッドフレームワーク「RL-RH-PP」を提案している。Lifelong MAPFは、エージェントの継続的な出入りや、短期的な意思決定が将来の混雑やデッドロックを招く因果的依存関係といった課題を持つ。提案手法は、検索ベースのPrioritized Planning (PP) をバックボーンとし、動的な優先順位割り当てを部分観測マルコフ決定過程 (POMDP) として定式化することで、計算効率と長期的な最適化を両立させている。アーキテクチャにはTransformer形式のニューラルネットワークを採用しており、辞書ベースの埋め込みと、時間的・空間的な依存関係を交互に捉えるマルチヘッドアテンション層を用いることで、エージェント間の複雑な時空間相互作用をモデル化している。Amazon型とは異なる高密度な障害物を持つSymbotic型の倉庫レイアウトを用いた実験の結果、ランダムな優先順位を用いたRH-PPと比較してスループットが平均で25%向上し、未知のマップや異なるエージェント密度に対しても高いゼロショット汎化性能を示すことが確認された。</p></section>
+<section class="secsum"><h3>2. Related Work</h3><p>本研究は、Lifelong Multi-Agent Path Finding (MAPF) において、高速かつスケーラブルな Prioritized Planning (PP) をバックボーンとし、強化学習を用いて最適なグローバル優先順位を動的に決定する手法を提案している。従来の MAPF アルゴリズムには、最適性を保証するものの計算量が指数関数的な Conflict-Based Search (CBS) や、効率的だが完全性・最適性を欠く PP、さらに局所的な意思決定により解の質が低下する PIBT などが存在する。Lifelong MAPF の文脈では、Rolling-Horizon Conflict Resolution (RHCR) が高密度環境で有効だが大規模化に弱く、PIBT はスケーラブルだが解の質に課題がある。既存の学習ベースの手法（例：ZhangSoCS22）は、One-shot MAPF を対象とし、手動設計された特徴量を用いた教師あり学習による優先順位付けに留まっていた。これに対し、提案手法は継続的なタスク到着を伴う Lifelong 設定において、Attention ベースのニューラルポリシーを用いた強化学習を導入することで、混雑や時空間的な相互作用に適応した動的な優先順位割り当てを実現し、スループットを大幅に向上させている。</p></section>
+<section class="secsum"><h3>3. Problem Definition</h3><p>本セクションでは、グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 上で動作するエージェント集合 $\mathcal{A}$ に対する Multi-Agent Path Finding (MAPF) およびその拡張である Lifelong MAPF が定義されている。標準的な MAPF では、各エージェント $a \in \mathcal{A}$ に初期位置と目標位置 $g_a$ が与えられ、障害物、頂点、およびエッジの衝突を回避しながら、総移動時間（flowtime）または完了時間（makespan）を最小化する経路を求める。これに対し、Lifelong MAPF は、エージェントがタスク完了後に動的に割り当てられる無限のタスクシーケンス $g_{a,1}, g_{a,2}, \dots$ を実行するオンライン設定を想定している。この設定における目的関数は、与えられた時間ホライゾン内で目標に到達したエージェントの総数であるスループット $\mathcal{T}$ を最大化することである。本研究では、倉庫自動化などの実環境を反映し、エージェントが継続的に新しいタスクを遂行する Lifelong MAPF のシナリオを対象としている。</p></section>
+<section class="secsum"><h3>4. Method</h3><p>本セクションでは、Lifelong Multi-Agent Path Finding (MAPF) において、強化学習を用いて最適な優先順位を決定する「RL-RH-PP」フレームワークを提案している。まず、計算効率の高い優先順位付き計画法 (Prioritized Planning, PP) を基盤とし、計画ホライゾン $H_p$ と実行ホライゾン $H_e$ ($H_e \le H_p$) を用いて逐次的に再計画を行う Rolling-Horizon Prioritized Planning (RH-PP) を導入している。RH-PP では、各エピソードにおいて、SIPP を用いて上位エージェントの経路を動的障害物として扱うことで、衝突のない経路を計算する。提案手法では、候補となる全順序 $\pi$ を評価するためのヒューリスティック関数 $C(\pi)$ を以下のように定義している：<br>$$C(\pi) = \sum_{i \in \mathcal{A}} \text{dist}(i, \pi) + \lambda \sum_{i \in \mathcal{A}} \mathbb{I}(\text{dist}(i, \pi) &gt; \text{dist}_{\text{shortest}}(i))$$<br>ここで、$\text{dist}(i, \pi)$ は順序 $\pi$ 下でのエージェント $i$ の経路長、$\text{dist}_{\text{shortest}}(i)$ は最短経路長、$\mathbb{I}(\cdot)$ は不整合（経路の不在）にペナルティを与える指示関数、$\lambda$ はトレードオフを制御するパラメータである。さらに、初期解が不整合な場合に備え、RHCR のリペアメカニズムを用いて、局所的な衝突を回避するために待機動作を挿入することで、ホライゾン内での安全性を保証している。最終的な RL-RH-PP フレームワークは、このプロセスを部分観測マルコフ決定過程 (POMDP) として定式化し、強化学習ポリシーがエージェントの最短経路情報をエンコードして全順序 $\pi$ を自己回帰的にデコードすることで、長期的なスループットを最適化する優先順位を動的に生成する。</p></section>
+<section class="secsum"><h3>5. Experimental Results</h3><p>本研究では、強化学習を用いて優先順位付けを最適化するRL-RH-PP手法を提案し、Amazon型（障害物密度 15.3%）およびSymbotic型（障害物密度 56.6%）の2種類の倉庫環境を用いて評価を行っている。実験では、エージェント数 $N=10, 20, 40$ の条件下で、既存のLifelong MAPFソルバー（RH-CBS, RH-PBS, PIBT, WPPL）と比較を行い、スループット（TPA: Throughput per agent）と解法時間を指標とした。結果として、RL-RH-PPはRH-PP（ランダムサンプリング）と比較して、Symboticマップの密な環境において平均約25%のスループット向上を達成し、学習によって効果的なグローバル優先順位を生成できることを示した。また、RL-RH-PPは、高密度なシナリオにおいてRH-PBSなどの探索ベースの手法が性能を低下させる一方で、堅牢な性能を維持し、PIBTのような分散型手法をも上回るスループットを実現している。計算量に関しては、RLの推論時間を加味しても、既存の強力なパイプライン（WPPL等）と同等の実行時間を維持しつつ、高いスループットを両立していることが確認された。</p></section>
+<section class="secsum"><h3>6. What Does RL Learn?</h3><p>RL-RH-PPは、強化学習（RL）を用いてエージェントの優先順位を適応的に割り当てることで、倉庫自動化における混雑を管理する手法である。実験の結果、一様ランダムに優先順位を割り当てるRH-PPが混雑の蓄積によりタスク完了率を低下させるのに対し、RL-RH-PPは混雑領域に位置するエージェントに高い優先順位を戦略的に割り当てることで、高いスループットを維持できることが示された。ヒートマップ分析により、RL-RH-PPはRH-PPから切り替えた後でも、継承された混雑を効果的に解消し、タスク完了率を回復させる能力を持つことが確認された。具体的には、混雑境界付近のエージェントに対し、最短経路とは逆方向への移動（バックトラッキング）を促すような優先順位付けを行うことで、通路を確保し、高優先度エージェントの通過を可能にする局所的な回避行動を学習している。この挙動は、エージェントが一時的に空間的・時間的な障害物となることを防ぎ、デッドロックを回避してグローバルな衝突を低減させるメカニズムとして機能する。</p></section>
+<section class="secsum"><h3>7. Conclusion</h3><p>本研究では、強化学習と古典的な探索ベースのプランナーを統合し、Lifelong MAPFの最適化を行う初のフレームワークであるRL-RH-PPを提案している。この手法は、Prioritized PlanningのRolling Horizon拡張であるRH-PPを基盤とし、動的な優先順位付けを部分観測マルコフ決定過程（POMDP）として定式化することで、Transformerベースのニューラルネットワークを用いて高品質な優先順位を自己回帰的にデコードし、単一エージェントの探索空間を削減する。AmazonやSymboticに触発された大規模な倉庫環境での実験により、RL-RH-PPはRH-PPと比較して平均25%の性能向上を達成し、RH-CBS、RH-PBS、PIBT、WPPLといった強力なベースライン、特に制約の厳しいシナリオにおいて高いスループットを実現した。学習済みポリシーは、辞書ベースの位置エンコーディングとAttention機構により、エージェント密度、計画ホライゾン、倉庫レイアウトの変化に対して強力なゼロショット汎化性能を示す。今後の課題として、Top-Kサンプリングに伴う計算コストの削減に向けた並列化、異なるマップサイズへの汎化を可能にするマップ非依存の表現設計、およびタスク割り当てと経路計画を統合した報酬設計の拡張が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
+  </footer>
+</div>
+</body>
+</html>

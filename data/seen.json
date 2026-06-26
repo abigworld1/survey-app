@@ -1542,6 +1542,74 @@
       "source_quality": "abstract",
       "title": "Anytime Multi-Task Multi-Agent Pickup and Delivery Under Energy Constraint",
       "tldr": "本論文は、エージェントのエネルギー制約と、エージェントの現在位置に関わらずタスクを割り当て可能な「Anytime Task Allocation」を導入した、新しいマルチタスクMAPD（Multi-Agent Pickup and Delivery）問題を提案しています。提案手法は、従来のマルチタスクMAPDと比較して、幅広いエージェント数においてメイクスパンを $5 - 19 \\%$ 短縮することに成功しています。"
+    },
+    "doi:10.1609/aaai.v39i14.33614": {
+      "added": "2026-06-26",
+      "arxiv_id": "2411.16506",
+      "authors": [
+        "Hongzhi Zang",
+        "Yulun Zhang",
+        "He Jiang",
+        "Zhe Chen",
+        "Daniel Harabor",
+        "Peter J. Stuckey",
+        "Jiaoyang Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-11-25",
+      "doi": "10.1609/aaai.v39i14.33614",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2411.16506.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2411.16506v2",
+      "reading_value": 4,
+      "reading_value_reason": "LMAPFにおける動的な交通パターンへの適応を、CMA-ESを用いたオンライン・ガイダンス最適化で解決しており、スループット向上の実証も具体的で価値が高い。",
+      "relevance": 9,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Online Guidance Graph Optimization for Lifelong Multi-Agent Path Finding",
+      "tldr": "Lifelong Multi-Agent Path Finding (LMAPF) において、CMA-ESを用いて交通パターンに基づきエッジ重みを動的に更新するオンライン・ガイダンス・ポリシーを最適化する手法を提案。PIBTやGPIBTと組み合わせることで、静的なガイダンスや人間が設計したルールよりも高いスループットを達成し、動的なタスク分布下でも有効であることを示した。",
+      "url": "http://arxiv.org/abs/2411.16506v2",
+      "venue": ""
+    },
+    "doi:10.1613/jair.1.20611": {
+      "added": "2026-06-26",
+      "arxiv_id": "2603.23838",
+      "authors": [
+        "Han Zheng",
+        "Yining Ma",
+        "Brandon Araki",
+        "Jingkai Chen",
+        "Cathy Wu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-03-25",
+      "doi": "10.1613/jair.1.20611",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2603.23838.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2603.23838v1",
+      "reading_value": 4,
+      "reading_value_reason": "Lifelong MAPFに対し、Transformerを用いた動的な優先順位付けを強化学習で解く手法は新規性が高い。高密度な倉庫環境でのスループット向上と汎化性能も示されている。",
+      "relevance": 9,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Learning-guided Prioritized Planning for Lifelong Multi-Agent Path Finding in Warehouse Automation",
+      "tldr": "強化学習と探索ベースのプランニングを統合し、Lifelong Multi-Agent Path Finding (MAPF) における動的な優先順位割り当てを最適化するフレームワーク「RL-RH-PP」を提案する。Transformerベースのアテンション機構を用いてエージェント間の時空間的な相互作用をモデル化し、高密度な倉庫環境において既存手法を上回るスループットと高い汎化性能を実現する。",
+      "url": "http://arxiv.org/abs/2603.23838v1",
+      "venue": "Journal of Artificial Intelligence Research, Vol. 85, Article 28. Publication date: March 2026"
     }
   },
   "reading": {}
