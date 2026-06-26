@@ -41,9 +41,37 @@
   .secsum { margin:0 0 16px; }
   .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
   .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -79,10 +107,11 @@
 <section class="secsum"><h3>VI DISCUSSION AND LIMITATIONS</h3><p>本研究の実験結果は、ドメイン固有の文書フィールドに基づいてRAGアーキテクチャを構造化することが、下流の生成タスクを大幅に向上させることを示している。具体的には、記述的なナラティブ（$\text{Summary}$）を技術的・法的推論（$\text{Causes}$ および $\text{Disposition}$）から分離するマルチフィールド・ハイブリッド検索戦略により、専門家による診断推論経路を効果的に再構成し、語彙的な類似性だけでなく歴史的・因果的な先例に基づいたグラウンディングを実現している。また、密ベクトル検索と疎ベクトル検索の信号を融合させることで、語彙の不一致に対する堅牢性を確保しつつ、重要な規制・技術用語の精密な検索を可能にしている。一方で、本評価フレームワークには、大規模な専門家による関連性ラベルの欠如により検索性能をメタデータベースのプロキシスコアで測定している点や、階層的な原因タグがルールベースの抽出に依存している点、さらにLLM-as-a-judgeによる評価がモデル依存のバイアスを孕む可能性があるといった限界が存在する。しかし、これらのヒューリスティックなプロキシの採用は、専門的な行政ドメインにおけるゴールドスタンダードの欠如という実用的な課題に対処しており、現実的なデータ制約下での再現可能な比較基盤を提供している。</p></section>
 <section class="secsum"><h3>VII CONCLUSION</h3><p>本論文は、KMST（韓国海事安全技術院）の裁定報告書データセットを活用し、海事事故の根本原因分析（RCA）を行うためのマルチフィールド・ハイブリッドRAGフレームワークを提案している。手法として、過去の記録をフィールド認識型の「インシデントカード」へと構造化し、RRF（Reciprocal Rank Fusion）を用いてスパース検索とデンス検索の信号を融合することで、先例検索の精度を大幅に向上させている。専門領域における人間によるアノテーション済みゴールドスタンダードの欠如に対処するため、メタデータに基づく再現可能な評価プロキシを導入し、検索戦略の体系的かつ客観的な比較を可能にした。エンドツーエンドの実験の結果、提案手法はLLMのみのベースラインと比較して、より正確で構造化され、かつ先例に基づいたRCA生成を実現することが示された。今後の展望として、COLREGs（海上衝突予防規則）などの正式な法的規制の統合や、診断の深さと解釈性を拡張するためのグラフベースの推論の導入が挙げられている。</p></section>
 
+
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

@@ -41,9 +41,37 @@
   .secsum { margin:0 0 16px; }
   .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
   .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -79,10 +107,11 @@
 <section class="secsum"><h3>VI Discussion and Limitations</h3><p>CADENCEで提案された記述子は、ロボットが移動を開始する前のオフライン計画から計算可能であり、従来のSum of Costs (SoC) よりも実際の実行時間に近い指標として、同一プラットフォーム・実行器における候補計画の選定やスクリーニングに活用できる。しかし、本手法の予測値はプラットフォームや実行器に依存しており、より大規模なフリートや異なる実行ポリシーへのスケール転送には、別途ハードウェアによる検証が必要となる。本研究の限界として、実験は7台のロボットと単一の先行関係を遵守する連続実行器という限定的な環境下で行われており、検証された15のシナリオ（Empty, Medium-Random, Bottleneck）も広範なベンチマークとしては不十分である。また、計画生成メニューを8スロットに固定したコーパス設計は再現性を高める一方で、あらゆるMAPFタスクやソルバーを代表するものではない。さらに、採用されたリッジ回帰や混合効果モデルは、予測性能の理論的上限を追求するものではなく、特徴量群の性質を検証するための解釈性を重視した設計となっている。</p></section>
 <section class="secsum"><h3>VII Conclusion</h3><p>本研究は、標準的なMAPFの計画品質（SoC）だけでは、物理的なマルチロボット・ワークセルにおける実際の実行時間を予測するには不十分であり、実行前に計画側の追加的な構造情報を考慮する必要があることを結論付けている。7台のロボットを用いたハードウェアプラットフォームによる検証の結果、SoCは重要な傾向を示すものの、実時間（wall-clock completion time）を完全には説明できないことが明らかになった。最も顕著な追加信号は「プリミティブな運動負荷（primitive motion burden）」であり、計画側のmakespan、旋回（turns）、連続移動（consecutive moves）、および開始・停止の遷移（start–stop transitions）をSoCに加えることで、リッジ回帰モデルではMAEが $s$ から $s$ へ、混合効果モデルでは $s$ から $s$ へと、最も大きく信頼性の高い改善が見られた。また、相互作用を考慮した調整構造（Interaction-aware coordination structure）も実行信号のさらなる層を示唆しており、両方の解析において点推定値を改善させたが、現在のハードウェア・コーパスではその信頼性や大きさは確定していない。以上の結果から、実行を意識したMAPFの評価においてはSoCのみに依存すべきではなく、ロボットが動き出す前のプリミティブな運動記述子が、欠落している実行時間の信号の多くを捉えることができるという設計上の示唆が得られた。</p></section>
 
+
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

@@ -41,9 +41,37 @@
   .secsum { margin:0 0 16px; }
   .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
   .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -77,10 +105,11 @@
 <section class="secsum"><h3>4 Evaluation</h3><p>本実験では、MAPFベンチマークのマップを用い、スループット（実行タイムステップあたりの完了タスク平均数）と実行時間（実行タイムステップあたりの計算時間）を評価指標として、提案手法であるLLLG（Lifelong LaCAM with Local Guidance）の性能を検証している。比較対象として、RHCR、PIBT、LaCAM、Guided-PIBT、およびWPPLといった主要なLMAPF手法が用いられた。実験結果によれば、LLLGは高密度なシナリオにおいて、RHCRと同等以上のスループットを維持しつつ、計算時間は約10倍高速であり、PIBTベースの手法よりも一貫して優れた解を生成することが示された。特に、エージェント数が1,000体に達する大規模な倉庫マップのスケールアップ試験においても、LLLGは1ステップあたり $20\text{ms}$ 以内の計算時間を維持し、PIBTに対して約30%のスループット向上を達成している。設計の妥当性に関する分析では、前ステップの解を初期値として利用するウォームスタート（$\text{LLLG}_{\Pi}$）が、ガイダンスのみを継承する場合（$\text{LLLG}_{\Phi}$）よりも効果的であることが示された。また、ガイダンスの更新頻度についても、各ステップでオンラインに更新・洗練を行うことが、長期的なスループットの維持に不可欠であることが明らかになった。</p></section>
 <section class="secsum"><h3>5 Discussion</h3><p>本研究は、Lifelong MAPFにおいてローカルガイダンスを導入することで、リアルタイムの計算予算内でスループットを向上させ、密なボトルネックを緩和できることを示した。設計上の重要な選択として、有限ホライゾンの解そのものをウォームスタートするのではなく、前ステップの解から得られる衝突のない短期的な予測を利用してローカルガイダンスをウォームスタートする手法を採用している。実験的には、プランニングホライゾンおよびガイダンスウィンドウのサイズを大きくしても、スループットの向上には収穫逓減が見られ、飽和する傾向があることが確認された。この限界の要因として、LMAPFではタスク完了後の将来のゴール割り当てが未知であるため、長期間のプランニングが将来的に無関係となる予測の最適化に費やされる可能性が挙げられる。今後の課題として、将来のゴール割り当てや予測可能なゴール分布といった追加情報の活用、およびライフロングなスループットとより整合する、anytime refinementのためのコスト評価手法の探索が示唆されている。</p></section>
 
+
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

@@ -41,9 +41,37 @@
   .secsum { margin:0 0 16px; }
   .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
   .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -77,10 +105,11 @@
 <section class="secsum"><h3>4. Experiments</h3><p>本研究では、クロス・クエリの一貫性（Cross-Query Consistency）を利用して、検索拡張生成（RAG）の堅牢性を高める手法「CQC-RAG」を提案している。評価は、事実知識を問うTriviaQA、ロングテール知識を扱うPopQA、およびマルチホップ推論を要するHotpotQAとMuSiQueの4つのベンチマークで行われ、指標としてExact Match (EM)、F1-score、およびその平均値が用いられた。実験の結果、CQC-RAGはTriviaQAでEMが$+10.47$ポイント、MuSiQueで$+20.32$ポイント向上するなど、標準的なRAGやSelf-Certainty、DMQR-RAGといった既存のマルチパス手法を上回るSOTA性能を達成した。アブレーション解析により、クエリ書き換え（Rewriting）とクエリ固有のリランキング（Query-specific Reranking）の両方が、検証に不可欠な多様な推論コンテキストの生成に寄与していることが示された。特に、証拠に基づいたプロトコル（Evidence-grounded Protocol）を欠くと、TriviaQAのEMが$15.92$ポイント低下するなど、モデルの忠実性が著しく損なわれることが確認された。また、評価器として推論モデル自身を用いるのではなく、独立したモデル（Mistral-7B）を用いることで、自己強化バイアスを回避し、より正確な回答識別が可能となっている。</p></section>
 <section class="secsum"><h3>5. Conclusion</h3><p>本研究では、単一のクエリ形式やノイズの多い根拠に基づくRAGの信頼性の限界に対処するため、「Cross-Query Consistency Hypothesis（相互クエリ一貫性仮説）」を提案している。この仮説は、真に適切な根拠に基づく正解は、意味的に等価で構文的に異なる複数のクエリ間でも安定した信頼度を維持するのに対し、ノイズに起因するハルシネーションはクエリに依存した偽の証拠パターンに左右されるため信頼度が不安定になるというものである。これに基づき、追加の検索コストをかけずに、クエリレベルの多様性注入と相互クエリ一貫性の評価を組み合わせた、学習不要のフレームワークであるCQC-RAGを開発した。CQC-RAGは、元の質問を意味を保持したまま複数のバリアントに書き換え、リランキングを通じてクエリごとの推論コンテキストを構築し、それらのコンテキスト間での信頼度の安定性に基づいて回答を選択する。オープンドメインQAベンチマークを用いた実験の結果、CQC-RAGは代表的なマルチパスRAGのベースラインと比較して回答の信頼性を向上させ、特に検索ノイズや偏った証拠が増幅されやすい複雑なマルチホップ・シナリオにおいて顕著な効果を示した。</p></section>
 
+
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

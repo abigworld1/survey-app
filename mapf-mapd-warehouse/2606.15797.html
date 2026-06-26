@@ -41,9 +41,37 @@
   .secsum { margin:0 0 16px; }
   .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
   .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -76,10 +104,11 @@
 <section class="secsum"><h3>3 Experimental Evaluation</h3><p>本実験では、C++で実装された SMT-CBS および NRF-SAT ソルバーを用い、Glucose SAT ソルバーを基盤として未割り当てエージェント（UA）を含む UA-MAPF の性能を評価している。実験は AMD Ryzen 7 2700 (3.2GHz), 32GB RAM の環境下で、movingai.com ベンチマークの 4 つのマップ（empty-16-16, random-32-32-20, room-64-64-16, ost003d）を用いて行われ、各設定につき 25 回のランダム測定の平均値が算出されている。未割り当てエージェントの増加は、問題の緩和（relaxation）と、UA-MDD（Unassigned Agent Multi-valued Decision Diagrams）の巨大化という、相反する二つの影響をソルバーに与える。実験結果によれば、多くのマップにおいて、初期段階では UA-MDD の増大による計算コストの増加が顕著であるが、未割り当てエージェントの数が十分に大きくなると緩和効果が上回り、計算時間が減少する傾向が確認された。特に、小さなマップである empty-16-16 では UA-MDD のサイズによる負の影響が軽微であるため、緩和効果が初期から現れるという特異な挙動を示している。また、NRF-SAT は非精緻化抽象化（non-refined abstractions）によって数式の巨大化を緩和できるため、SMT-CBS よりも UA の影響を受けにくい高い効率性を示している。</p></section>
 <section class="secsum"><h3>4 Conclusion</h3><p>本研究では、割り当てられないエージェントが存在するマルチエージェント経路探索（UA-MAPF）のバリアントを調査し、既存のSATベースのソルバーである SMT-CBS および NRF-SAT を UA-MAPF へ適応させる手法を提案している。適応にあたっては、MDD（Multi-valued Decision Diagram）の代わりに UA-MDD を生成するように構成を変更するだけで済み、SATベースの手法のモジュール性と適応性の高さが示された。実験評価の結果、大規模なマップにおいては、割り当てられないエージェントの数が増えることが問題の緩和につながるという直感に反して、実行時間が長くなるという傾向が確認されたが、最終的にはエージェントの過半数が割り当てられない状態になると緩和の効果が上回る。今後の展望として、連続的な空間における MAPF 問題への UA-MAPF の導入が挙げられている。</p></section>
 
+
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

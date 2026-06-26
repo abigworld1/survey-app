@@ -58,13 +58,20 @@
   .bubble p:last-child { margin-bottom:0; }
   .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
   .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
   .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
                  padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
   .turn.question .bubble { color:#e6edf0; }
   .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -80,8 +87,8 @@
   <h1>From Trainee to Trainer: LLM-Designed Training Environment for RL with Multi-Agent Reasoning</h1>
   <div class="meta">Chao Chen, Chengzu Li, Zhiwei Li, Yinhong Liu, Zhijiang Guo<br>採択先: 未取得 ・ 2026-06-16 ・ source: arxiv</div>
   <div class="links"><a href="http://arxiv.org/abs/2606.17682v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.17682v1" target="_blank" rel="noopener">PDF</a></div>
-  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-06-16</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">アブストラクト</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">LLMによるRL環境設計の自動化という新規性の高いテーマであり、失敗軌跡を用いた動的な環境更新が有効であるという知見は、強化学習の研究者にとって非常に興味深い。</div></div>
-  <div class="source-notice fulltext">本文取得済み: アブストラクトを根拠に要約しています。</div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-06-16</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">LLMによるRL環境設計の自動化という新規性の高いテーマであり、失敗軌跡を用いた動的な環境更新が有効であるという知見は、強化学習の研究者にとって非常に興味深い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
 <div class="tags"><span class="tag">MAPF</span></div>
   <div class="tldr"><strong>一言で:</strong> LLMが強化学習（RL）の環境設計を自動化する「LLM-as-Environment-Engineer」フレームワークを提案し、ポリシーの失敗軌跡に基づき学習環境の構成を動的に更新することで、固定環境よりも高い学習パフォーマンスを実現する。</div>
 <section class="qa"><h2>どんなもの？</h2><p>本研究は、強化学習における環境設計の自動化を目的とした「LLM-as-Environment-Engineer」フレームワークを提案している。従来のRLでは人間が手動で環境を設計していたが、本手法は現在のポリシーモデルが直面した失敗の軌跡や文脈情報を分析し、次段階の学習環境の設定（configuration）をLLMが提案する。評価には、多次元的な環境構成の生成が可能な制御可能なテストベッド「MAPF-FrozenLake」を用いている。このフレームワークは、ポリシーの振る舞い、失敗事例、および環境統計の構造化された要約をLLMへの入力として活用する。</p></section>
@@ -103,7 +110,7 @@
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: アブストラクト ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-21
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

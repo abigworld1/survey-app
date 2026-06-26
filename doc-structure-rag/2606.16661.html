@@ -41,9 +41,37 @@
   .secsum { margin:0 0 16px; }
   .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
   .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -80,10 +108,11 @@
 <section class="secsum"><h3>7. Conclusion</h3><p>SCARは、クエリと近傍チャンクの関連性と構造的な連続性ペナルティを天秤にかけ、相対的な閾値を用いてコンテキストを適応的に拡張する、学習不要な検索時ポリシーである。160個の境界断片化クエリを用いた実験では、静的なウィンドウ手法と比較して、Recallの低下を3.9ポイントに抑えつつ、チャンク量を22.9%削減することに成功した。また、10-Kコーパスを用いたRAGASによる評価では、コンテキスト量を27.1%削減しながらも忠実性（faithfulness）が維持されることが確認されている。本手法の限界として、リトリーバーが上位 $k$ 個にランク付けできなかった証拠や、非隣接な証拠は回収できない点、および「ヘッダーから分離された表の値」のように、隣接チャンク自体のクエリ関連性が極端に低い場合に拡張がスキップされる可能性がある点が挙げられる。今後の展望として、学習ベースの連続性ペナルティの導入や、非隣接な論理的近傍への拡張、および構造を考慮したチャンク構築手法との併用が示唆されている。</p></section>
 <section class="secsum"><h3>GenAI Usage Disclosure</h3><p>本研究の評価パイプラインには、dense chunk および query embedding を生成するために `text-embedding-3-large`、`BGE-large-en-v1.5`、および `zembed-3` といった生成AIコンポーネントが組み込まれている。320個のクエリからなる評価ベンチマークは、LLMを用いたクエリ生成パイプラインによってブートストラップされた後、専門家による手動検証とセクション5で詳述される3名の評価者による一致度調査を経て構築された。セクション6.7におけるダウンストリーム生成の評価では、LLM-as-judge（RAGAS）プロトコルに基づき、生成器として `GPT-4o-mini` が使用されている。また、文章の草案作成や推敲、解析時のコードリファクタリングの提案にも生成AIアシスタントが活用されたが、実験設計、ハイパーパラメータの選択、統計的手法、データセットのキュレーション、アノテーション手順、および最終的な科学的主張はすべて著者らによって策定・検証されている。</p></section>
 
+
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

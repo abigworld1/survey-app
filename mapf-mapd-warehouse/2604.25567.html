@@ -41,9 +41,37 @@
   .secsum { margin:0 0 16px; }
   .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
   .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -79,10 +107,11 @@
 <section class="secsum"><h3>VI Results &amp; Discussion</h3><p>本研究では、動的障害物による影響を検知して再計画（replanning）を行うRPP（Robust Planning Policy）の有効性を、12,000件の実験データを用いて評価している。実験の結果、動的障害物の導入により平均的なSum of Costs (SOC) は $\text{SOC}_{\text{init}}$ から $\text{SOC}_{\text{dyn}}$ へと増加するが、その影響は一部のケースに集中しており、ランダムなタイミングでの再計画は $\text{SOC}_{\text{dyn}}$ とほぼ同等のコストしか得られず、計算オーバーヘッドを考慮すると有害な場合すらあることが示された。提案モデルは、テストセットにおいて感度 $0.88$、特異度 $0.98$ を達成し、再計画による潜在的な節約額 $\Delta \text{SOC}$ を高い精度で予測できる。実測値としての $\text{SOC}$ 節約額 $\text{SOC}_{\text{realized}}$ を評価したところ、再計画が実行されたケースにおいて、潜在的な節約可能額の $54\%$ を回収するリカバリ率を達成し、計算オーバーヘッドを含めた場合でもその効果は維持された。特徴量の重要度（Permutation Importance）の分析により、再計画の判断は静的な計画特性ではなく、既に観測された「総アクション遅延（total action delay）」、「最大アクション遅延（highest action delay）」、および「最大スラック増加量（highest slack increase）」の3つの指標に強く依存していることが明らかになった。</p></section>
 <section class="secsum"><h3>VII Conclusions &amp; Future Work</h3><p>本研究では、観測不可能な動的障害物が存在するADG（Asynchronous Dependency Graph）制御下のMAPF実行において、いつ再計画を行うべきかを決定する「Replanning Prediction Problem (RPP)」を定式化した。18種類の特徴量を用いてADGを拡張したプランナーに依存しない回帰モデルを提案し、4つのマップを用いた実験により、ランダムな再計画は平均的な利益が少ない一方で、一部のケースでは大きな損失を回避できることを示した。学習済みモデルは、単一の再計画機会においてテストデータセット全体の利用可能な節約量の大部分を回収し、極端なケースでは実行コストの過半数を回収する一方で、偽陽性による損失は無視できる程度に抑えられている。特徴量重要度分析の結果、意思決定は主に観測されたアクションの遅延とその伝播（slackの増加）に起因しており、静的なインスタンスや計画の属性はほとんど寄与しないことが判明した。今後の展望として、複数回の再計画を伴う逐次的な意思決定への拡張、計画コストが支配的となる大規模マップへの適用、および複数の動的障害物や部分観測モデルを含むより豊かな妨害モデルへの拡張が挙げられる。</p></section>
 
+
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

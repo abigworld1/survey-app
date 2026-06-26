@@ -58,13 +58,20 @@
   .bubble p:last-child { margin-bottom:0; }
   .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
   .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
   .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
                  padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
   .turn.question .bubble { color:#e6edf0; }
   .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -80,8 +87,8 @@
   <h1>Distance-Constrained Unlabeled Multi-Agent Pathfinding</h1>
   <div class="meta">Takahiro Suzuki, Yuma Tamura, Keisuke Okumura<br>採択先: 未取得 ・ 2026-05-12 ・ source: arxiv</div>
   <div class="links"><a href="http://arxiv.org/abs/2605.11503v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.11503v1" target="_blank" rel="noopener">PDF</a></div>
-  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-05-12</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">アブストラクト</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">新しい問題設定（IUMAPF）の定義とNP困難性の証明、および最適解と大規模解の両面からの体系的なアプローチが非常に価値高い。</div></div>
-  <div class="source-notice fulltext">本文取得済み: アブストラクトを根拠に要約しています。</div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-05-12</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">新しい問題設定（IUMAPF）の定義とNP困難性の証明、および最適解と大規模解の両面からの体系的なアプローチが非常に価値高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
 <div class="tags"><span class="tag">MAPF</span></div>
   <div class="tldr"><strong>一言で:</strong> 本研究は、エージェント間の距離を一定以上に保つ制約を持つ「Distance-Independent Unlabeled Multi-Agent Pathfinding (IUMAPF)」を提案し、その困難性と解決策を提示する。IUMAPFは、標準的なUnlabeled MAPFでは多項式時間で決定可能な解の存在判定が $\textsf{NP}$-complete になるという性質を持つ。著者らは、最適性を保証するILPへの帰着とグラフ圧縮手法、および大規模インスタンスに対応する構成生成器ベースの探索アルゴリズム（IU-LaCAM）の2つのアプローチを提案し、数百規模のエージェントを実用的な時間で扱うことを実現した。</div>
 <section class="qa"><h2>どんなもの？</h2><p>本研究が扱うのは、グラフ $G=(V, E)$ 上で、任意の異なるエージェントのペアの距離が指定された値 $r$ 以上であることを要求する Distance-Independent Unlabeled Multi-Agent Pathfinding (IUMAPF) である。各時刻の配置（configuration） $c$ が、距離独立集合（distance-independent set）となることが制約として課される。これは、エージェントの形状、幾何学的な干渉、あるいは安全マージンを抽象化した問題である。従来のUnlabeled MAPFでは頂点衝突のみを考慮するが、IUMAPFでは $d(u, v) &gt; r$ という広範な制約を扱うため、計算量が大幅に増大する。</p></section>
@@ -105,7 +112,7 @@
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: アブストラクト ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-23
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

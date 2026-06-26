@@ -41,9 +41,37 @@
   .secsum { margin:0 0 16px; }
   .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
   .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -81,10 +109,11 @@
 <section class="secsum"><h3>Limitations</h3><p>本サーベイはマルチモーダルRAGによる文書理解を包括的に概説しているが、いくつかの限界が存在する。第一に、ユーザー中心の評価、システム統合、デプロイメントの拡張性といった実世界での運用における課題に関する分析が予備的な段階に留まっており、社会技術的な側面についてもさらなる探求が必要である。第二に、主要なデータセットやベンチマークは要約されているものの、データの品質、アノテーションの一貫性、ドメイン間転移性、およびモダリティ間での評価の整合性に関する体系的な調査が不足しており、これらが汎用性や実用性の理解を深める鍵となる。さらに、本分野は急速に進化する新興領域であるため、新たなデータセットやモデル、評価プロトコルの登場が継続的に状況を変化させている。これらの動的な性質に対応するため、本サーベイは定期的な更新を行うとともに、進行中の進展を追跡しコミュニティの協力を促進するためのオープンリポジトリを併用する予定である。</p></section>
 <section class="secsum"><h3>Ethics Statement</h3><p>本研究は既存文献のサーベイであり、新たなモデル、アルゴリズム、またはデータセットを導入するものではないため、サーベイ自体が新たなリスクを生じさせることはない。しかし、対象とするドキュメント理解のためのマルチモーダルRAG技術には、学習データに由来するバイアスや差別、およびモデルのハルシネーションによる誤情報の生成という潜在的なリスクが存在することを認めている。これらの倫理的課題への対処は、今後の研究における極めて重要な方向性であると強調している。なお、原稿の文法的な誤りを修正するためにAIアシスタント（ChatGPT）を使用しているが、研究の着想段階におけるAIの関与はない。</p></section>
 
+
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

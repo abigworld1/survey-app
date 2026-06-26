@@ -41,9 +41,37 @@
   .secsum { margin:0 0 16px; }
   .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
   .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -77,10 +105,11 @@
 <section class="secsum"><h3>IV Experiment</h3><p>本研究では、学習ベースの分散型MAPF（Multi-Agent Path Finding）のベースラインであるPRIMAL2およびMAPF-GPTに対し、再学習やネットワーク構造の変更を一切行わずに適用可能な、訓練不要の混雑回避フレームワーク「STEAM」の有効性を検証している。実験は、Random（エージェント数を64から96へ増強）、Maze（障害物密度0.3〜0.8、エージェント数32〜160）、Warehouse（最大192エージェント）の3種類のマップタイプを用いて、成功率（success rate）、makespan、実行時間（runtime）、およびMAPF-GPTにおける合計コスト（sum of costs）やPRIMAL2における累積報酬（cumulative reward）を指標として評価した。結果として、STEAMはMAPF-GPTの学習外分布（OOD）であるWarehouse環境においても成功率を大幅に向上させ、特にエージェント密度が高いシナリオにおいて、ボトルネックや局所的な混雑を緩和することで主要な性能指標を改善することを示した。また、局所的なエージェント密度を $\frac{1}{T \cdot |\mathcal{E}| \cdot N} \sum_{e \in \mathcal{E}} \sum_{t=1}^{T} \sum_{i=1}^{N} \text{count}(i, t, r)$ と定義して分析したところ、STEAMの導入により局所密度が継続的に減少しており、エージェントを混雑領域から分散させる効果が確認された。実行時間のオーバーヘッドは僅かであり、PRIMAL2においては、将来の混雑回避のために意図的な待機を許容することで累積報酬が微減する場合があるものの、成功率やmakespanといった実質的なMAPF性能は向上するというトレードオフが明らかになった。</p></section>
 <section class="secsum"><h3>V Conclusion</h3><p>本論文では、学習ベースの分散型MAPF（Multi-Agent Path Finding）を対象とした、追加学習を必要としない混雑回避強化フレームワークであるSTEAMを提案している。STEAMは、空間的・時間的、および創発的な局所的混雑への認識を組み込むことで、テスト実行時におけるエージェントの混雑予測と緩和を可能にする。具体的には、空間的に解決可能な混雑に対してはエージェント固有のコスト・トゥ・ゴー（cost-to-go）マップを更新し、空間的に解決困難なボトルネックや局所的な混雑に対してはロジットレベルでの補正を行うことで対処する。本手法はポリシーに依存しない（policy-agnostic）ため、既存の学習ベースの分散型MAPFアルゴリズムに対し、ネットワーク構造の変更や再学習を行うことなく統合が可能である。複数のベースラインおよび環境を用いた実験の結果、STEAMはわずかな計算オーバーヘッドのみで、特に高密度かつ混雑が発生しやすい設定において、成功率と協調効率の継続的な向上を達成した。</p></section>
 
+
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

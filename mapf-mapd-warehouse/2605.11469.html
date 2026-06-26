@@ -41,9 +41,37 @@
   .secsum { margin:0 0 16px; }
   .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
   .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -81,10 +109,11 @@
 <section class="secsum"><h3>8 Limitations</h3><p>本研究の限界として、まずスケーラビリティの課題が挙げられ、全ての実験結果は特定のグリッドサイズとエージェント数に基づいているため、より大規模なマップやチーム構成においても提案手法の利得が維持されるかは未検証である。次に、攻撃の強度に関する限界があり、使用された PGD 攻撃は単一のランダムな開始点からのステップに基づいている。そのため、より強力な攻撃プロトコルを適用した場合には報告された数値が低下する可能性があり、現在の結果が真のワーストケースを代表しているとは主張していない。</p></section>
 <section class="secsum"><h3>9 Conclusion</h3><p>POGEMAにおける標準的なPPOベースのMAPF方策は、微小な観測攻撃に対して成功率が著しく低下する問題がある。本研究では、ネットワーク構造やデプロイメント・パイプラインを変更せずにこれを解決する2つの学習手法を提案しており、まずAdv-PPOはSA-PPOを共有方策型マルチエージェントへ拡張し、平滑化正則化項とロバストなチェックポイント選択器を導入することで、最悪ケースの成功率を $0.00$ から $0.75$ へ向上させた。次にAdv-PPO+MACERは、MACERの認証半径ヒンジ損失を小さな重みを持つオンポリシー項として追加し、対応するエントロピーボーナスを併用することで、最悪ケースの成功率を $0.85$ まで引き上げた。また、事後的なMACER蒸留がデプロイ済み方策を崩壊させるという負の結果を報告し、提案するオンポリシー変種がなぜこれを回避できるかを解明している。これらの手法は、エージェントごとの局所観測以外のMAPF構造に依存しないため、SMACやMPEといった他の共有方策型分散型MARLベンチマークにも適用可能な汎用的なレシピである。</p></section>
 
+
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

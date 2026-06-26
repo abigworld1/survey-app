@@ -41,9 +41,37 @@
   .secsum { margin:0 0 16px; }
   .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
   .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -82,10 +110,11 @@
 <section class="secsum"><h3>Conclusion</h3><p>LAD-RAGは、視覚的に豊かな文書理解（VRD）のために、レイアウト情報を考慮した動的なRAGフレームワークを提案している。従来のRAGが文書チャンクを孤立して扱うのに対し、本手法はインジェクション時に局所的な意味論とグローバルなレイアウト構造の両方を捉えるシンボリックな文書グラフを構築し、ニューラルインデックスと共に保存する。推論時にはLLMエージェントがこのグラフを用いてクエリのニーズに基づき動的に推論・検索を行うことで、MMLongBench-Doc、LongDocURL、DUDE、MP-DocVQAの4つのベンチマークにおいて、top-$k$の調整なしで平均90%以上のperfect recallを達成した。具体的には、同等のノイズレベルにおいて、強力なテキスト・画像ベースのベースラインリトリーバーを最大20%上回るリコール性能を示している。このリトリーバルの改善は、最小限のレイテンシ増大でオラクルレベルに近いQA精度を実現しており、レイアウトやページを跨ぐ構造の推論がVRDにおいて極めて重要であることを示唆している。</p></section>
 <section class="secsum"><h3>Limitations</h3><p>LAD-RAGは、検索の完全性と精度を向上させることに特化しており、検索された証拠がほぼ完璧であっても、既存のLVLM（Large Vision-Language Models）がその内容を十分に活用しきれないという、QAモデル自体の推論能力に起因する限界が存在する。本手法は、インジェクション時にテキスト、表、図などの要素を抽出・構造化するために強力なLVLMに依存しており、DUDEやMP-DocVQAのようなスキャンされた低品質なドキュメントにおいては、抽出エラーのリスクが残る。実験では、InternVL2-8BがGPT-4oと同等の抽出品質を示すことが確認されたが、最終的には指示追従性と出力の構造化の観点からGPT-4oを採用している。システム設計としては、推論時にLVLMを多用する手法や高度にモジュール化されたパイプラインとは異なり、計算負荷の大部分をオフラインのインジェクションフェーズに集約し、推論時は構築済みのシンボリックグラフ上で軽量なテキストベースの推論を行うことで、計算コストと複雑性のトレードオフを最適化している。今後の課題として、インジェクションパイプラインのさらなる簡素化や、より軽量なフレームワークのバリアントの開発が挙げられる。</p></section>
 
+
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

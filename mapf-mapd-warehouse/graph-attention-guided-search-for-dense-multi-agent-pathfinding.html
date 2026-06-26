@@ -41,9 +41,37 @@
   .secsum { margin:0 0 16px; }
   .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
   .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -77,10 +105,11 @@
 <section class="secsum"><h3>4 Evaluation</h3><p>本評価実験では、提案手法であるLaGATを、検索ベースの高性能ソルバーであるlacam3や、GPTアーキテクチャを用いた模倣学習モデルMAPF-GPT、GNNベースのSSIL、強化学習ベースのSCRIMPおよびDCCと比較している。POGEMAベンチマークを用い、WarehouseやMazeなどの6種類のマップにおいて、エージェント密度を$0.1$から$0.5$の範囲で変化させて評価を行った。実験結果として、LaGATは高密度な環境において、MAPF-GPTやlacam3よりも有意に高品質な初期解を生成し、制限時間内における最終的な解の品質においてもlacam3を凌駕することを示した。一方で、ost003dのような大規模かつ疎なマップでは、lacam3が近最適解を生成するのに対し、LaGATは初期解がわずかに劣るものの、LNS（Large Neighborhood Search）の活用により最終的には同等の性能に達する。アブレーション解析により、事前学習とマップ特化型の微調整（fine-tuning）は解の成功率（solvability）の向上に、ニューラルガイダンスとデッドロック検出を含む探索メカニズムは解のコスト（solution cost）の削減にそれぞれ不可欠であることが確認された。</p></section>
 <section class="secsum"><h3>5 Discussion</h3><p>本研究は、高密度で混雑したMAPF（Multi-Agent Pathfinding）シナリオにおいて、探索手法とニューラル方策を組み合わせるLaGATが、従来の探索のみの手法や既存のハイブリッド手法よりも優れた性能を示すことを明らかにした。LaGATの成功要因として、まず汎用的な方策を事前学習した後にタスク特有の環境へファインチューニングを行う戦略が有効であり、次に、ニューラル方策が引き起こすデッドロックやライブロックを履歴から検出し、必要に応じて標準的な探索手法へフォールバックする修正レイヤーが不可欠であることが示された。また、低密度環境で生成された準最適軌跡を用いて学習したMAGAT+は、教師モデルであるLaCAM3が予算内で解を見つけられない高密度環境においても、より高品質な状態を探索に導くことで、速度と解の質のパレート境界を再定義している。LaGATの適用は、比較的小規模なマップ、障害物が豊富な環境、および高いエージェント密度を持つシナリオにおいて特に有効であるが、通信・観測範囲を超えるような大規模なマップでは、局所的な方策の性質上、劣解を導く可能性があるという限界も示唆されている。一方で、純粋な学習ベースの手法とは異なり、LaGATは完全性（completeness）を保証し、かつニューラルヒューリスティックをプラグアンドプレイ形式で交換可能であるという、柔軟かつ強力な基盤を提供している。</p></section>
 
+
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

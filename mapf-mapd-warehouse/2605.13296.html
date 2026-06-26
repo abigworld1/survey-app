@@ -41,9 +41,37 @@
   .secsum { margin:0 0 16px; }
   .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
   .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -78,10 +106,11 @@
 <section class="secsum"><h3>5 Related Work</h3><p>従来のMAPFソルバーは、Conflict-Based Search (CBS) や LaCAM のような組合せ探索、あるいは初期解を部分的に再計画する Large Neighborhood Search (LNS) に分類されるが、LNSの研究は主に近傍選択や再計画プロセスに集中しており、高品質な初期解の生成に関する直接的な研究は限定的である。学習ベースの手法（PRIMAL, DHC, MAPF-GPT 等）は、グラフやトークンベースのアーキテクチャを用いて相互作用をモデル化し推論効率を高めているが、高密度な環境において厳密な制約を満たすことが困難であるという課題がある。一方、拡散モデルを用いた生成的な計画手法は、連続的な状態空間における軌道生成には広く適用されているものの、グリッドベースのMAPFが要求する離散的な頂点・エッジの衝突制約への対応が不十分である。本研究では、離散的な結合アクションテンソル上で拡散モデルを定式化することで、多様な初期解を生成し、それを LNS2 による修復プロセスに渡すことで、マルチモーダルな生成事前分布と古典的なハード制約修復を組み合わせている。</p></section>
 <section class="secsum"><h3>6 Conclusion</h3><p>本研究では、D3PMをLNS2の学習済み初期化器として利用するハイブリッドMAPFフレームワーク「DiffLNS」を提案した。DiffLNSは、離散拡散プロセスを通じて共同アクションプランをモデル化し、MAPFインスタンスを条件として構造化された修復シードを生成することで、従来の修復のみに焦点を当てた手法から初期化の質へと重点を移している。生成されたドラフトは、それ自体がすべてのハード制約を満たす必要はなく、下流のLNS2による修復をより堅牢にするための協調的な時空間的事前分布として機能する。拡散注意機構を用いた疎なソーシャルアテンション（sparse social attention）とマルチサンプル修復を組み合わせることで、高密度かつ混雑した設定においても、競争力のある解の質を維持しつつ修復成功率を向上させている。本結果は、離散拡散モデルがマルチエージェント意思決定における構造化された反復生成器として機能し、下流のプランニングや制御に対して有用な共同事前分布を提供できることを示唆している。</p></section>
 
+
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

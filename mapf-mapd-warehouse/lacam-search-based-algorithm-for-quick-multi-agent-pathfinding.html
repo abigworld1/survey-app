@@ -41,9 +41,37 @@
   .secsum { margin:0 0 16px; }
   .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
   .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -78,10 +106,11 @@
 <section class="secsum"><h3>Related Work</h3><p>MAPF（Multi-Agent Pathfinding）のアルゴリズムは、エージェント間を結合して探索する探索ベース、SAT等へ帰着させるコンパイルベース、個別に順次計画する優先度付き計画、およびルールに従い逐次移動するルールベースの4種に分類される。LaCAMは探索ベースの手法であり、既存の主要なアルゴリズム（CBS等）と同様に2レベルの探索構造を持つが、制約の扱いが異なる。具体的には、高レベルで制約を探索するのではなく、低レベルにおいて「誰がいつどこにいるべきか」を指定する正の制約（positive constraints）を用いることで、低レベルの探索空間が劇的に増大することを防いでいる。また、既存の $A^*$ 変種が衝突判定のみを行うのに対し、LaCAMは高レベルの次状態生成時に、構成生成器として他のMAPFアルゴリズムを利用することで、より積極的な協調（aggressive coordination）を実現している。さらに、制約の追加手法については、全エージェントの行動ではなく単一エージェントの行動に対応するノードを生成する $A^*$ with operator decomposition (OD) の仕組みを部分的に継承している。</p></section>
 <section class="secsum"><h3>Conclusion and Discussion</h3><p>本論文では、完全性と高速性を両立した新しい探索ベースのMAPFアルゴリズムであるLaCAMを提案している。LaCAMが高速である理由は、従来のA*が1つのノードから $O(\Delta|A|)$ 個の構成（configuration）を生成し、分岐係数が膨大になるのに対し、LaCAMは高レベルノードから初期状態では1つの後続ノードのみを生成し、必要に応じて遅延評価（lazy manner）的に他の後続ノードを生成することで、実質的な分岐係数を抑制しているためである。実験では、他の最先端の非最適ソルバーが対応できない複雑で高密度なシナリオにおいても、10,000エージェントのインスタンスを数十秒で解決できるスケーラビリティを示している。今後の展望として、幅優先探索（BFS）スタイルを採用することでmakespan最適解を得る手法や、大規模なインスタンスに対して実用的な漸近的最適性（asymptotic optimality）を持つバージョンの開発が挙げられている。また、低レベル探索における効果的な制約の追加や、構成生成器（configuration generator）の設計改善が、現在の限界を克服するための重要な研究課題として示されている。</p></section>
 
+
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+    情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

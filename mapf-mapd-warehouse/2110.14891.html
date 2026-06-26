@@ -41,9 +41,37 @@
   .secsum { margin:0 0 16px; }
   .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
   .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -78,10 +106,11 @@
 <section class="secsum"><h3>本文 (6/7)</h3><p>Lifelong設定における実験では、提案手法である$\text{RMCA}(r)$を既存手法の$\text{CENTRAL}$および$\text{TPTS}$と比較し、タスクが継続的に到着する環境での性能を評価している。実験結果として、$\text{RMCA}(r)$は$\text{TTD}$（Total Travel Delay）を最適化しつつ、$\text{makespan}$においても$\text{CENTRAL}$に近い優れた値を示し、$\text{TPTS}$を大幅に上回る性能を確認した。また、$\text{RMCA}(r)$は$\text{CENTRAL}$よりもステップあたりの実行時間（$\text{T/TS}$）が短く、リアルタイム運用に適していることが示された。統計的有意性の検証として、正規化された$\text{TTD}$を $\text{TTD} \cdot N_a / (N_t \cdot f)$、正規化された$\text{makespan}$を $(makespan \cdot N_a \cdot f) / N_t$ と定義し、有意水準 $0.1$ で$t$-testを行った結果、$\text{RMCA}(r)$は$\text{CENTRAL}$および$\text{TPTS}$に対して正規化$\text{TTD}$および正規化$\text{makespan}$の両方で有意な改善を示した。さらに、破壊戦略の比較実験（25インスタンス、各500タスク）では、$\text{destroy\_random}$、$\text{destroy\_worst}$、$\text{destroy\_multiple}$の3手法が$\text{RMCA}(r)$の解質を向上させ、特に$\text{destroy\_worst}$が$\text{destroy\_multiple}$よりも優れた性能を示すことが明らかになった。</p></section>
 <section class="secsum"><h3>本文 (7/7)</h3><p>本研究で提案された MCA および RMCA は、各ロボットが複数の荷物を同時に運搬可能な容量制限付きマルチエージェント・ピックアップ＆デリバリー問題において、タスク割り当てと経路計画を同時に実行する。この手法は、マルチタスク・マルチロボット割り当てプロセスを導くために、実際の衝突回避コスト（real collision-free costs）を利用することで実現されている。また、新たに導入された anytime improvement 戦略によって、解の質が大幅に向上することが確認された。今後の展望として、エージェントのルートを洗練させ、経路計画におけるアルゴリズムの完全性（completeness）を向上させるために、この anytime improvement 戦略を拡張することが挙げられている。</p></section>
 
+
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

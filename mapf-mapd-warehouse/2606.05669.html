@@ -41,9 +41,37 @@
   .secsum { margin:0 0 16px; }
   .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
   .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -78,10 +106,11 @@
 <section class="secsum"><h3>V Simulation Results</h3><p>本研究では、RubikCell構造を持つグリッドベースのロボット細胞型倉庫システム（RCWS）において、動的なSKU更新に対応する4つのタスク計画戦略（提案手法：Dynamic-TP, Cooperative-TP、ベースライン：Token Passing, TP-Append）を、2種類のセルサイズ（$10 \times 10$ および $20 \times 20$）で評価している。評価指標には平均オーダーフロータイム（average flowtime per order）を用い、更新確率 $p$ および追加SKU数 $k$ を変化させることで、動的強度の影響を調査した。実験結果として、すべての戦略において $p$ および $k$ の増加に伴いフロータイムが単調増加するが、提案手法であるCooperative-TP（C-TP）が最も優れた性能を示し、特に高動的な環境下では、D-TPの $154.5$ から TPの $354.8$ に対し、C-TPは $63.3$ までフロータイムを削減できることが確認された。計算量に関しては、D-TPの更新時平均実行時間がロボット数に依存せず約 $10\text{--}15\text{ ms}$ で安定しているのに対し、C-TPはアイドルロボットの評価を行うため、ロボット数が $10$ から $50$ に増えるにつれて実行時間が約 $15\text{ ms}$ から $150\text{ ms}$ へと増加するトレードオフが存在する。しかし、最大構成においても実行時間は $1$ 秒未満であり、実用的なリアルタイム要件を満たしている。</p></section>
 <section class="secsum"><h3>VI Conclusion</h3><p>本論文では、ロボット細胞型倉庫システム（RCWS）において、実行中に動的に変化する注文を明示的にモデル化するため、従来のMAPDを拡張したDynamic-MAPD問題を提案している。この問題に対し、注文の更新時に適時かつ一貫した再計画を可能にする、イベント駆動型のトークンパッシング・フレームワークを開発した。提案手法のうち、Dynamic-TPはロボットが現在位置から直接ルートを更新することを可能にし、その協調拡張版では、アイドル状態のロボットを活用して新規追加されたアイテムに対応する。今後の展望として、より多様な動的注文パターンの調査、異種ロボットシステムの検討、および実世界への実装が挙げられている。</p></section>
 
+
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>

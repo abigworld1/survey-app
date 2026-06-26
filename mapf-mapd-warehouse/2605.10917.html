@@ -41,9 +41,37 @@
   .secsum { margin:0 0 16px; }
   .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
   .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
   footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
            color:#888; font-size:12px; }
-  mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
 </style>
 <script>
   window.MathJax = {
@@ -80,10 +108,11 @@
 <section class="secsum"><h3>7 Experiments</h3><p>本実験では、障害物を含むグリッドグラフ上で、移動コスト $c_{uv}$、ターゲットでの待機コスト $c_{wait, target}$、非ターゲットでの待機コスト $c_{wait, non-target}$ を定義し、HiGHSおよびGurobiソルバーを用いて提案手法の有効性とスケーラビリティを検証している。実験結果として、$\mathcal{P}_1$（最小コスト輸送）の計算時間が $O(n^3)$ で増加するのに対し、提案する $\mathcal{P}_2 + \mathcal{P}_3$ パイプラインは $O(n)$ に近い線形スケーリングを実現しており、頂点数 $n$ が $10^2$ から $10^4$ に増加する過程で最大 $10^2$ 倍の高速化を達成しつつ、コスト差を $1\%$ 未満に抑えている。また、$\mathcal{P}_2$（Schrödinger bridge）に基づくグラフの枝の削減（pruning）は、名目コストに基づく手法よりも効果的であり、より少ない枝数で実行可能解を得られることが示された。$\mathcal{P}_2 + \mathcal{P}_3$ パイプラインの平均コスト誤差は正則化パラメータ $\epsilon$ に強く依存し、$\epsilon = 0.1$ の設定では、高速化を実現しながらも $\mathcal{P}_1$ に対するコスト誤差を $1.2\%$ に抑えることができる。</p></section>
 <section class="secsum"><h3>8 Conclusions</h3><p>本研究は、マルチエージェント経路探索（MAPF）を、マルチ・マージナル最適輸送（MMOT）、エントロピー正則化緩和、および線形計画法を統合した原理的なフレームワークとして定式化している。実行可能領域の多面体が完全単模性（total unimodularity）を持つことを示すことで、整数制約を明示的に課すことなく、多項式時間で整数輸送解を得る手法を確立した。さらに、シュレーディンガー・ブリッジ（Schrödinger bridges）を用いたエントロピー定式化を導入することで、MAPFに新たな確率論的視点を与え、問題規模を縮小するための構造的なガイダンスとスケーラブルな近似を実現している。提案手法では、投影および枝刈り（projection and pruning）戦略を用いることで、計算の実行可能性、滑らかさ、および最適性の間で柔軟なトレードオフが可能となる。実験結果では、最適解 $P_1$ に対するコスト劣化 $\frac{C(P_3) - C(P_1)}{C(P_1)}$ と保持されたエッジの割合の関係や、ロボット密度 $\rho$ の増加に伴う実行時間のスケーリングが示されており、提案する $P_2 + P_3$ のアプローチが $P_1$ に対して大幅な高速化を実現しつつ、限定的なコスト差に留まることが確認されている。</p></section>
 
+
   <footer>
     ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
     正確な内容は必ず原典をご確認ください。<br>
-    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-18
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-26
   </footer>
 </div>
 </body>
