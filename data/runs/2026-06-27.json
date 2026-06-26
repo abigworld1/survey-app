@@ -1,0 +1,287 @@
+{
+  "date": "2026-06-27",
+  "dry_run": false,
+  "engine": "llm:gemma-4-26b",
+  "fields": [
+    {
+      "added": [
+        {
+          "basis": "fulltext(ar5iv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2106.11454.html",
+          "id": "2106.11454",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF",
+            "Online Multi-Agent Path Finding"
+          ],
+          "published": "2021-06-22",
+          "reading_value": 4,
+          "reading_value_reason": "オンラインMAPFにおける理論的境界を競合比を用いて厳密に解析しており、再経路付けの重要性を数学的に証明している点は、当該分野の研究者にとって極めて価値が高い。",
+          "relevance": 9,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "A Competitive Analysis of Online Multi-Agent Path Finding",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2602.23468.html",
+          "id": "2602.23468",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF",
+            "Lifelong Multi-Agent Path Finding"
+          ],
+          "published": "2026-02-26",
+          "reading_value": 4,
+          "reading_value_reason": "LMAPFにおいてエッジの方向（一方通行化）を導入する新規性が高く、強連結性を保証するERSやQDアルゴリズムを用いた手法など、提案手法の構成も具体的で評価できる。",
+          "relevance": 8,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Optimization of Edge Directions and Weights for Mixed Guidance Graphs in Lifelong Multi-Agent Path Finding",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 117,
+      "fresh_total": 100,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 14,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 583,
+          "id": "doi-04be3ffda662",
+          "matched_keywords": [
+            "MAPD"
+          ],
+          "published": "2003-03-15",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 1,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Mussel Adhesive Protein Mimetic Polymers for the Preparation of Nonfouling Surfaces",
+          "venue": "Journal of the American Chemical Society"
+        }
+      ],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important/q1": {
+          "count": 0,
+          "query": "Multi-Agent Path Finding"
+        },
+        "arxiv/important/q2": {
+          "count": 0,
+          "query": "MAPF"
+        },
+        "arxiv/important/q3": {
+          "count": 0,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "arxiv/important/q4": {
+          "count": 0,
+          "query": "MAPD"
+        },
+        "arxiv/important/q5": {
+          "count": 0,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "arxiv/important/q6": {
+          "count": 0,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q1": {
+          "count": 8,
+          "query": "Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q2": {
+          "count": 8,
+          "query": "MAPF"
+        },
+        "arxiv/recent/q3": {
+          "count": 8,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "arxiv/recent/q4": {
+          "count": 8,
+          "query": "MAPD"
+        },
+        "arxiv/recent/q5": {
+          "count": 8,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q6": {
+          "count": 3,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "openalex/important/q1": {
+          "count": 8,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/important/q2": {
+          "count": 8,
+          "query": "MAPF"
+        },
+        "openalex/important/q3": {
+          "count": 8,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/important/q4": {
+          "count": 8,
+          "query": "MAPD"
+        },
+        "openalex/important/q5": {
+          "count": 8,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/important/q6": {
+          "count": 8,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "openalex/recent/q1": {
+          "count": 8,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/recent/q2": {
+          "count": 8,
+          "query": "MAPF"
+        },
+        "openalex/recent/q3": {
+          "count": 8,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/recent/q4": {
+          "count": 8,
+          "query": "MAPD"
+        },
+        "openalex/recent/q5": {
+          "count": 8,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/recent/q6": {
+          "count": 8,
+          "query": "Online Multi-Agent Path Finding"
+        }
+      }
+    },
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2606.26916.html",
+          "id": "2606.26916",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-06-25",
+          "reading_value": 4,
+          "reading_value_reason": "RAGをビデオ生成の物理的整合性向上に適用する着眼点が新しく、SOTA達成の具体性も高い。計算コストの抑制も実用的で、研究価値が高い。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "PhysRAG: Enhancing Physics-Awareness in Video Generation via Retrieval-Augmented Generation",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2606.26857.html",
+          "id": "2606.26857",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-06-25",
+          "reading_value": 4,
+          "reading_value_reason": "LCAの解釈にRAGを導入し、異種データを統合してロードマップを生成する手法は極めて新規性が高い。実装の詳細も具体的で、計算機科学的にも有用。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "LCAi: Life Cycle Assessment with big data fusion and retrieval-augmented generation-assisted interpretation",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 153,
+      "fresh_total": 138,
+      "k": 2,
+      "label": "文書構造解析に基づく検索・質問応答・RAG",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 86,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 1,
+          "id": "doi-6428af65647a",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2025-12-17",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 5,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "SPR-RAG: Semantic Parsing Retriever-Enhanced Question Answering for Power Policy",
+          "venue": "Algorithms"
+        }
+      ],
+      "slug": "doc-structure-rag",
+      "source_counts": {
+        "arxiv/important/q1": {
+          "count": 0,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "arxiv/recent/q1": {
+          "count": 40,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "openalex/important/q1": {
+          "count": 40,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "openalex/recent/q1": {
+          "count": 40,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "semanticscholar/important/q1": {
+          "count": 38,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "semanticscholar/recent/q1": {
+          "count": 0,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        }
+      }
+    }
+  ],
+  "generated_at": "2026-06-27T06:00:01"
+}

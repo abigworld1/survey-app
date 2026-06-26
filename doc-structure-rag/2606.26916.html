@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PhysRAG: Enhancing Physics-Awareness in Video Generation via Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>PhysRAG: Enhancing Physics-Awareness in Video Generation via Retrieval-Augmented Generation</h1>
+  <div class="meta">Kexu Cheng, Zicheng Liu, Mingju Gao, Chunhe Song, Hao Tang<br>採択先: 未取得 ・ 2026-06-25 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.26916v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.26916v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-25</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGをビデオ生成の物理的整合性向上に適用する着眼点が新しく、SOTA達成の具体性も高い。計算コストの抑制も実用的で、研究価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> PhysRAGは、検索拡張生成（RAG）を用いてビデオ生成モデルの物理的認識能力を向上させる新しいパイプラインである。高品質な7K個の物理ビデオデータセットを構築し、VideoMAEで抽出した特徴量を学習可能なクエリを介してDiffusion Transformer (DiT) へ注入することで、複雑な物理現象の再現性を高める。PhyGenBenchおよびVBenchにおいて、既存の有力モデルを上回るSOTAを達成した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のテキスト動画生成（T2V）モデルは、物理法則のモデリング不足により、物理的な一貫性を欠くという課題がある。これに対し、決定論的なシミュレータを用いる明示的な手法は汎用性に欠け、DPOや強化学習を用いるデータ駆動型の暗黙的な手法は精密な物理的制御が困難である。本研究は、人間が過去の経験から物理法則を想起するプロセスに着想を得て、物理的に関連するビデオの例示（exemplars）を検索し、その時空間特徴をVideo DiTへ注入する「PhysRAG」を提案する。これにより、明示的な時空間リファレンスを物理的事前知識として活用し、潜在的なデノイジング過程に物理的なダイナミクスを組み込むことを目的としている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、ビデオ生成における物理的認識を強化するRAGフレームワークの提案である。第一に、WISA-80Kを基に、Qwen3-VL-4Bを用いた2段階のフィルタリング（Coarse Pre-FilterおよびFine Grounded Filter）により、高品質な7K個の物理ビデオサブセットを構築した。第二に、VideoCLIP-XLによる検索と、学習可能なクエリを用いた「Query Inject」モジュールを導入し、物理的知識をDiTへ適応的に注入するメカニズムを開発した。第三に、PhyGenBenchにおいて平均スコア0.58を記録し、Kling（0.49）やDiT-Mem（0.56）を上回るSOTAを達成した。最後に、パラメータ増加を$2.28\%$、推論遅延を$1.24\%$に抑えつつ、極めて効率的な拡張を実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>PhysRAGは、Wan2.2-5Bをベースモデルとし、17の物理現象カテゴリからなる「PhysRAG Database」を活用する。推論時にはVideoCLIP-XLを用いてプロンプトに関連するビデオを検索し、VideoMAE V2でエンコードされた潜在表現 $\mathbf{F}_{v} \in \mathbb{R}^{L_{v} \times D_{v}}$ を取得する。Query Injectモジュールでは、学習可能なクエリ $\mathbf{Q} \in \mathbb{R}^{L_{q} \times D_{q}}$ を用いたクロスアテンション $\mathbf{A} = \text{Softmax}\left(\frac{\mathbf{Q}\mathbf{F}_{v}^\top}{\sqrt{D_{q}}}\right)\mathbf{F}_{v}$ を計算し、物理的知識のみを抽出するボトルネックとして機能させる。抽出された特徴は射影行列 $\mathbf{W}_{p}$ を経て物理事前知識トークン $\mathbf{F}_{p}$ へ変換され、軽量なアライメント演算子 $\mathcal{A}$ を通じてDiTのトークン空間へ統合される。最終的な注入は、ゲート付き残差接続 $\mathbf{X}_{t+1} = \mathbf{X}_{t} + \gamma \cdot \text{Proj}(\text{Concat}(\mathbf{X}_{t}, \mathcal{A}(\mathbf{F}_{p})))$ によって行われる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、物理的常識を評価するPhyGenBenchと、動画生成の品質を評価するVBenchの2つのベンチマークを用いた。PhyGenBenchにおいて、PhysRAGは平均スコア0.58を達成し、Kling（0.49）やDiT-Mem（0.56）を上回る性能を示した。VBenchでは、Low-Avgで65.48%、High-Avgで82.88%を記録し、視覚的品質と物理的整合性の両立を確認した。アブレーション解析により、特徴量の直接結合や単純なCross-Attentionよりも、学習可能なクエリを用いた情報ボトルネック方式がノイズ排除に有効であることが示された。また、DiTの初期層（層0, 1, 2）へのマルチレイヤー注入およびバックボーンとの共同学習（Joint Training）が、物理法則の厳密な適用に不可欠であることも検証された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>PhysRAGは、外部の物理的な範例を利用することで、拡散モデルを現実世界の物理法則への深い理解へと導くことに成功した。定性的な評価では、水とオールの間の正確な相互作用や、気流による自然な髪の動きなど、従来のモデルでは困難であった複雑な物理的相互作用の再現性が向上していることが示されている。計算コストの面でも、パラメータ数の増加は$+114.25\text{M}$（$2.28\%$）、推論遅延は$+0.82\text{s}$（$1.24\%$）と、実用的な範囲内に抑えられている。本研究の結果は、RAGを用いた検索拡張条件付けが、ビデオ生成における物理的なダイナミクスの欠如を解決するための有効なアプローチであることを示唆している。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>PhysRAG: Enhancing Physics-Awareness in Video Generation via
+Retrieval-Augmented Generation</h3><p>PhysRAGは、熱力学、力学、光学などの多様な物理現象を捉える困難さを解決するため、検索拡張生成（RAG）を用いてビデオ生成モデルの物理的認識能力を向上させる新しいパイプラインである。まず、WISA-80Kデータセットに基づいた2段階のデータフィルタリングパイプラインを設計することで、高品質な7K個のビデオセットを構築している。手法としては、物理ビデオデータベースを構築し、Video MAEを用いて抽出した特徴量を、学習可能なクエリ（learnable queries）を介してDiffusion Transformer (DiT) ブロックへ注入することで、明示的な物理的事前知識をモデルに組み込む。実験の結果、PhyGenBenchおよびVBenchのベンチマークにおいて、視覚的品質と物理法則への準拠性の両面で既存モデルを上回り、SOTA（State-of-the-art）を達成した。定性的な比較では、水とオールの間における正確な相互作用や、気流による自然な髪の動きなど、複雑な物理的相互作用の再現性が向上していることが示されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>従来のテキスト動画生成（T2V）モデルは、物理法則のモデリング不足により、物理的な一貫性を欠くという課題がある。これに対し、決定論的なシミュレータを用いる明示的手法は汎用性に欠け、データ駆動型の暗示的手法は物理的な制約の制御が困難である。本研究では、人間が過去の経験から物理法則を想起するプロセスに着想を得た、Retrieval-Augmented Generation（RAG）による物理認識強化パイプライン「PhysRAG」を提案する。まず、WISA-80Kを基に、キャプションの質を評価する粗い事前フィルタリングと、動画フレームとプロンプトの一貫性を保証する精緻なグラウンディングフィルタからなる2段階のデータフィルタリングパイプラインを設計し、多様な物理現象を含む7K件の高品質な学習用データセットを構築する。生成プロセスにおいては、手動で構築した物理動画データベースからプロンプトに関連する動画を明示的に選択し、学習可能なクエリ（learnable queries）を用いてそれらの物理的知識を動画拡散モデルへ暗示的に注入するメカニズムを導入する。PhyGenBenchおよびVBenchを用いた評価実験の結果、提案手法は視覚的品質と物理法則の遵守の両面で向上を示し、PikaやKlingといった既存の有力モデルを上回る性能を達成した。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>Text-to-Video (T2V) 生成は、Transformer ベースの Video DiT をバックボーンとする手法が主流となっているが、物理的に妥当なダイナミクスや一貫した動きの維持が依然として課題である。既存の物理学を考慮した生成手法には、決定論的なシミュレータや数学的制約を用いる明示的（explicit）な手法と、DPO や強化学習を用いて物理的な分布に適合させる暗黙的（implicit）な手法があるが、前者は複雑なオープンワールドへの汎化性に欠け、後者は精密な物理的制御が困難である。また、RAG を用いたビデオ生成においても、既存手法はグローバルなスタイルや一般的なダイナミクスを対象としており、物理的特性を明示的に抽出するメカニズムを欠いている。本研究は、物理的に関連するビデオの例示（exemplars）を検索し、そのエンコードされた時空間特徴を学習可能なクエリを用いた Cross-Attention を通じて Video DiT のブロックへ直接注入する、新たな検索拡張条件付け（retrieval-augmented conditioning）設計を提案する。これにより、明示的な時空間リファレンスを物理的事前知識として活用し、潜在的なデノイジング過程に物理的なダイナミクスを注入することが可能となる。</p></section>
+<section class="secsum"><h3>3 Physics-Aware Video Data Construction</h3><p>信頼性の高い物理法則学習を実現するため、既存のWISA-80Kデータセットからノイズを除去し、高品質なサブセットを抽出する2段階のデータ前処理パイプラインを提案している。第1段階（Coarse Pre-Filter）では、Qwen3-VL-4Bを用いてテキスト記述のみの品質と物理的関連性をスコアリングし、低コストで上位10%の候補を選別する。第2段階（Fine Grounded Filter）では、第1段階で生じたテキストと動画の不一致（false positives）を解消するため、一様にサンプリングされたキーフレームとテキストプロンプトをQwen3-VL-4Bに入力し、マルチモーダルなグラウンディング検証を行う。全フレームを処理する計算コストを抑えるためにキーフレームをプロキシとして利用する設計となっており、最終的に元の80K個の動画から約7K個の高品質な動画サブセットを構築している。</p></section>
+<section class="secsum"><h3>4 The Proposed Method</h3><p>PhysRAGは、RAG（Retrieval-Augmented Generation）のパラダイムを用いて、ビデオ生成における物理的な動態の正確性を向上させるフレームワークである。まず、衝突や燃焼などの17の物理現象カテゴリに分類された計170本の高品質ビデオからなる「PhysRAG Database」を構築し、推論時にはVideoCLIP-XLを用いてテキストプロンプトに最も関連する物理ビデオを検索する。検索されたビデオはVideoMAE V2によってエンコードされ、その潜在表現 $\mathbf{F}_{v} \in \mathbb{R}^{L_{v} \times D_{v}}$ は、Query Injectモジュールを通じてVideo Diffusion Transformer (DiT) に注入される。Query Injectモジュールは、学習可能なクエリ $\mathbf{Q} \in \mathbb{R}^{L_{q} \times D_{q}}$ を用いたクロスアテンション $\mathbf{A} = \text{Softmax}\left(\frac{\mathbf{Q}\mathbf{F}_{v}^\top}{\sqrt{D_{q}}}\right)\mathbf{F}_{v}$ により、不要な情報を排除して物理的な事前知識のみを適応的に抽出するボトルネックとして機能する。抽出された特徴は、FFNと射影行列 $\mathbf{W}_{p}$ を経て物理事前知識トークン $\mathbf{F}_{p} \in \mathbb{R}^{L_{p} \times D_{p}}$ へと変換され、軽量なアライメント演算子 $\mathcal{A}$ を用いてDiTのトークン空間へ統合される。最終的に、DiTの既存トークン $\mathbf{X}_{t}$ と結合された特徴は、ゲート付き残差接続 $\mathbf{X}_{t+1} = \mathbf{X}_{t} + \gamma \cdot \text{Proj}(\text{Concat}(\mathbf{X}_{t}, \mathcal{A}(\mathbf{F}_{p})))$ によって注入され、生成プロセスに物理的な一貫性を付与する。</p></section>
+<section class="secsum"><h3>5 Experiments and Results</h3><p>本研究では、Wan2.2-5Bをベースモデルとし、VideoCLIP-XLによる特徴抽出とFAISSを用いた効率的な動画潜在変数検索を組み合わせたPhysRAGを提案している。実験では、物理的常識を評価するPhyGenBenchと、動画生成の品質を評価するVBenchの2つのベンチマークを用い、SFTやDiT-Memなどの既存手法と比較した。PhyGenBenchにおいて、PhysRAGは平均スコア0.58を達成し、Kling（0.49）やDiT-Mem（0.56）を上回る最高性能を示した。VBenchにおいても、Low-Avgで65.48%、High-Avgで82.88%を記録し、物理的整合性を高めつつ視覚的品質を維持できることが確認された。アブレーション解析により、検索された特徴を直接結合（concat）やCross-Attentionで注入する手法よりも、学習可能なクエリを用いた情報ボトルネック方式が、ノイズを排して物理的ダイナミクスを抽出する上で有効であることが示された。また、DiTブロックの層0, 1, 2へのマルチレイヤー注入や、バックボーンとクエリの共同学習（Joint Training）が、物理法則の厳密な適用に不可欠であると結論付けている。計算コストに関しては、パラメータ数の増加は$2.28\%$（$+114.25\text{M}$）、推論遅延は$1.24\%$（$+0.82\text{s}$）に抑えられており、極めて効率的な拡張であることが示された。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、ビデオ合成における物理的認識能力を向上させるための新しい検索拡張生成（RAG）フレームワークである PhysRAG を提案している。この手法は、2段階のフィルタリング・パイプラインを通じて高品質な物理データセットを構築し、学習可能なクエリベースの注入メカニズムを開発することで、明示的に検索されたビデオと暗黙的な物理モデリングの間のギャップを埋めるものである。PhyGenBench および VBench を用いた広範な実験の結果、PhysRAG は高い視覚的忠実度を維持しつつ、流体力学や力学的相互作用といった複雑なシナリオにおける物理的一貫性を大幅に改善し、最先端（SOTA）の性能を達成した。これらの結果は、外部の物理的な範例を利用することが、拡散モデルを現実世界の物理法則への深い理解へと導く上で有効であることを示している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-27
+  </footer>
+</div>
+</body>
+</html>

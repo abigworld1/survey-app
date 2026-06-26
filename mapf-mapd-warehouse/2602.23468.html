@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Optimization of Edge Directions and Weights for Mixed Guidance Graphs in Lifelong Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Optimization of Edge Directions and Weights for Mixed Guidance Graphs in Lifelong Multi-Agent Path Finding</h1>
+  <div class="meta">Yulun Zhang, Varun Bhatt, Matthew C. Fontaine, Stefanos Nikolaidis, Jiaoyang Li<br>採択先: 未取得 ・ 2026-02-26 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2602.23468v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2602.23468v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-02-26</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">LMAPFにおいてエッジの方向（一方通行化）を導入する新規性が高く、強連結性を保証するERSやQDアルゴリズムを用いた手法など、提案手法の構成も具体的で評価できる。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> Lifelong Multi-Agent Path Finding (LMAPF) において、エッジの重みだけでなく方向（一方通行化）も同時に最適化する Mixed Guidance Graph Optimization (MGGO) を提案する。提案手法は、強連結性を保証する Edge Reversal Search (ERS) を備えた二段階最適化 (MGGO-DS) と、Quality Diversity アルゴリズムを用いて方向と重みを同時に学習する Joint MGGO-PU の二種類からなる。実験により、提案手法が従来の GGO 手法を上回るスループットを達成し、特に PIBT のようなプランナーにおいてエッジ方向の最適化が有効であることを示した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、Lifelong Multi-Agent Path Finding (LMAPF) におけるエージェントの移動を誘導するための Guidance Graph Optimization (GGO) を拡張したものである。従来の GGO は双方向の重み付きグラフを対象としており、エッジの重みを調整する「ソフトな誘導」に留まるため、対向するエッジでの衝突（head-on collision）を完全に防ぐことができなかった。これに対し、本研究ではエッジの方向性を決定する要素を導入した Mixed Guidance Graph (MGG) を定義し、エッジの方向と重みの両方を最適化する Mixed Guidance Graph Optimization (MGGO) を提案している。これにより、衝突回避と移動距離の増大（迂回）のトレードオフを制御し、スループットの向上を目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、エッジの方向と重みを同時に扱う Mixed Guidance Graph (MGG) の枠組みを定義した。第二に、グラフの強連結性を維持しつつエッジ方向を決定するための高速な修復アルゴリズムである Edge Reversal Search (ERS) を導入した。第三に、進化計算を用いた二段階最適化手法である MGGO-DS と、Quality Diversity (QD) アルゴリズムと CNN を組み合わせた Joint MGGO-PU という二つの最適化手法を提案した。第四に、実験を通じて、エッジ方向の最適化が回転アクションを減少させ、特に PIBT のようなルールベースのプランナーのスループットを向上させることを明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法には、最適化の性質が異なる二つのアプローチがある。MGGO-DS は、第1段階で進化計算 (EA) を用いて非ブリッジ辺の方向を決定し、第2段階で既存の GGO-DS を用いて辺の重み $\mathbf{w}$ を最適化する二段階構成をとる。Joint MGGO-PU は、CMA-MAE アルゴリズムを用いた QD ベースの手法であり、事前計算されたトラフィックパターンを 3 層の CNN（カーネルサイズ $3 \times 3, 5 \times 5, 7 \times 7$）に入力して方向と重みを同時に生成する。この際、モデルが常に有効な決定を下せるよう、出力に依存的な表現 (Dependent Representation) を採用している。また、グラフの強連結性を保証するため、縮約グラフ上のソースとなるメタ頂点から出る辺の半分を反転させる ERS を用いて、実現可能性を担保している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、LMAPF アルゴリズムとして PIBT および RHCR を用い、5 つのマップ（warehouse, random, room, den, empty）において評価を行った。比較対象として、CMA-ES を用いた GGO-DS や Directed Crisscross などの既存手法を用いた。PIBT を用いた実験では、MGGO-DS が単方向エッジの数を最大化することで回転アクションの比率を下げ、`random-32-32-20` 等のマップで最高のスループットを達成した。RHCR においては、エッジ重みの最適化が主たる効果を持つが、方向情報を考慮した GGO-PU が依然として高い性能を示すことが確認された。アブレーション研究により、Joint MGGO-PU において QD (Quantized Determinant) とエッジ類似度による正則化を用いることが、CMA-ES による直接最適化を上回るために不可欠であることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の結果、エッジ方向の最適化は、回転アクションを減少させることで PIBT のようなルールベースのプランナーに対して特に高い効果を発揮することが示された。一方で、RHCR のような探索ベースの手法に対する利得は限定的であった。また、MGGO はエッジ方向と重みの両方を扱うため、複雑性の増大に伴うサンプル効率の低下という課題も浮き彫りになった。すべての GGO 変種に対して一貫して優れているわけではないという限界も示されており、今後の展望として、代理モデル (surrogate modeling) を導入することで、最適化のサンプル効率を改善することが挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Optimization of Edge Directions and Weights for Mixed Guidance Graphs in Lifelong Multi-Agent Path Finding</h3><p>Lifelong Multi-Agent Path Finding (LMAPF) において、エージェントの移動を誘導するための Guidance Graph Optimization (GGO) は、移動や待機を表す双方向の重み付きグラフを最適化するが、エッジの重みはコストを増大させる「ソフトな誘導」に留まり、特定の経路を禁止することはできない。本研究では、エッジの方向性を最適化することで「厳密な誘導」を可能にする Mixed Guidance Graph Optimization (MGGO) を提案し、エッジの方向と重みの両方を最適化する手法へと一般化している。提案手法には、エッジの方向と重みを二段階に分けて個別に最適化する手法と、Quality Diversity アルゴリズムを用いてエッジの方向と重みを生成するニューラルネットワークを最適化する手法の二種類が存在する。さらに、エッジの方向に関連するトラフィックパターンを GGO に組み込むことで、エッジの方向性を考慮したガイダンスグラフの生成を可能にしている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、Lifelong Multi-Agent Path Finding (LMAPF) において、エッジの重みと方向を最適化することでスループット（単位時間あたりのゴール到達数）を向上させる Mixed Guidance Graph (MGG) を提案している。従来の Guidance Graph は双方向の重み付きグラフであり、エッジの重みによって移動コストを表現するが、対向するエッジでの衝突（head-on collision）を完全に防げない課題があった。本論文では、エッジの方向（一方通行化）を決定する要素を導入した Mixed Guidance Graph Optimization (MGGO) を提案し、エッジの重みと方向の両方を最適化することで、衝突回避と移動距離の増大（迂回）のトレードオフを制御する。具体的には、グラフの強連結性（strong connectivity）を保証するための修復アルゴリズムを導入するとともに、既存の GGO 手法にエッジ方向に関する情報を組み込むことで、方向を考慮した最適化を実現する 2 つの MGGO 手法を提示している。実験を通じて、提案手法が従来の最先端の GGO 手法と比較して優れた性能を示すことを明らかにし、LMAPF におけるエッジの重みと方向が果たす役割の違いについて考察している。</p></section>
+<section class="secsum"><h3>2 Background</h3><p>本セクションでは、回転運動モデルに基づくLifelong Multi-Agent Path Finding (LMAPF) の背景と、エッジの重みおよび方向をガイダンスとして利用する手法について述べている。LMAPFは、エージェントが目標に到達するたびに新しい目標が割り当てられる問題であり、スループット（単位時間あたりの目標到達数）の最大化を目的とする。先行研究のGuidance Graph Optimization (GGO) において、Zhang et al. (2024) は、CMA-ESを用いて全エッジの重み $\mathbf{w}$ を直接探索するGGO-DSと、ニューラルネットワークを用いて重みを反復更新するGGO-PIUを提案しているが、GGO-PIUはシミュレーションの計算コストが高く、初期値がすべて $1$ であるという課題がある。また、エッジの方向に関する最適化は、強連結性を維持しつつ距離を最適化するStrong Network Orientation Problem (SNOP) として知られるが、これはNP困難な問題であり、既存のMILPや近傍探索手法では大規模なグラフやスループットの最適化に対応できない。さらに、本研究の基盤となるQuality Diversity (QD) アルゴリズムは、目的関数の最適化と多様性の確保を同時に行うものであり、CMA-MAEなどの手法を用いて、多様な解の集合（アーカイブ）におけるQD-scoreの最大化を図る。</p></section>
+<section class="secsum"><h3>3 Problem Definition</h3><p>連結な無向グラフ $G = (V, E)$ に対し、混合ガイダンスグラフ（Mixed Guidance Graph）は、各非ブリッジ辺 $\{u, v\} \in E$ に対して向き $(u, v)$ または $(v, u)$ もしくはその両方を、ブリッジ辺に対しては両方の向きを、さらに自己ループ $(u, u)$ を追加した有向重み付きグラフとして定義される。各辺の重みはベクトル $\mathbf{w}_{uv} \in \mathbb{R}^d$ で表され、実現可能性を損なわずに計画を行うため、MAPFの目的関数を従来の合計コスト（sum-of-costs）から、混合ガイダンスグラフ上の行動コストの総和 $\sum_{i} \text{cost}(a_i)$ へと変更する。混合ガイダンスグラフ最適化（MGGO）問題は、連結な非重み付きグラフ $G$、目的関数 $f(\mathcal{G})$、混合ガイダンスグラフの空間 $\mathcal{G}$、および辺の重みの上下限 $w_{\min}, w_{\max}$ が与えられたとき、最適な混合ガイダンスグラフを探索する問題である。</p></section>
+<section class="secsum"><h3>4 Approach</h3><p>本セクションでは、Lifelong Multi-Agent Path Finding (LMAPF) における混合ガイダンスグラフ（Mixed Guidance Graph）の辺の方向と重みを最適化するための3つの手法が提案されている。まず、グラフの強連結性を修復する貪欲法として、縮約グラフ（Condensation Graph）上のソースとなるメタ頂点から出る辺の半分を反転させる Edge Reversal Search (ERS) を導入している。次に、二段階の最適化手法である MGGO-DS を提案しており、第1段階では進化計算（EA）を用いて非ブリッジ辺の方向を決定し、第2段階では GGO-DS を用いて辺の重みを最適化する。さらに、辺の方向と重みを同時に最適化する手法として、CMA-MAE を用いた QD（Quality-Diversity）ベースの Joint MGGO-PU を提案しており、これは事前計算された交通パターンを CNN モデルに入力することで、高スループットかつ強連結に近いグラフを生成する。この Joint MGGO-PU では、出力に依存的な表現（Dependent Representation）を用いることで、モデルが常に有効な決定を下せるように設計されており、目的関数にはスループット $f_{tp}$ と、ERS による反転率を考慮した正則化項を含む多様性指標 $f_{div}$ が用いられている。</p></section>
+<section class="secsum"><h3>5 Experimental Evaluation</h3><p>本実験では、LMAPFアルゴリズムであるPIBTおよびRHCRに対し、提案手法であるMGGO-DS（2段階最適化）およびJoint MGGO-PU（QDベースの結合最適化）の有効性を、CMA-ESを用いたGGO-DSやDirected Crisscrossなどの既存手法と比較検証している。実験設定では、5つのマップ（warehouse, random, room, den, empty）を用い、更新モデルとして3層の畳み込み層（カーネルサイズ $3 \times 3, 5 \times 5, 7 \times 7$、パラメータ数 3,479）を持つCNNを採用している。PIBTを用いた実験では、MGGO-DSが単方向エッジの数を最大化することで回転アクションの比率を下げ、`random-32-32-20` 等のマップで最高のスループットを達成した一方、`empty-48-48` ではエッジの重みに特化したGGO-PUが優位であった。RHCRにおいては、低レベルプランナーの性能が高いためエッジ重みの最適化が主たる効果を持つが、エッジ方向の情報を考慮したGGO-PUが依然として高いスループットを示すことが確認された。アブレーション研究では、Joint MGGO-PUにおいてQD（Quantized Determinant）とエッジ類似度による正則化を用いることが、CMA-ESによる直接最適化よりも高いスループットを実現するために不可欠であることを示している。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、GGOを拡張してエッジの方向と重みの両方を最適化するMGGOを提案し、エッジの反転によって強連結性を強制する高速アルゴリズムであるERSを導入した。実験の結果、提案手法はベースラインを上回り、Lifelong Multi-Agent Path Finding (LMAPF) におけるガイダンス手法の新たなSOTAを確立した。エッジ方向の最適化は、回転アクションを減少させることでPIBTのようなルールベースのプランナーに対して特に有効であるが、RHCRのような探索ベースの手法に対する利得は限定的であることが明らかになった。一方で、MGGOは複雑性の増大に伴うサンプル効率の低下により、すべてのGGO変種に対して一貫して優れているわけではないという課題も示された。今後の展望として、代理モデル（surrogate modeling）を用いることでサンプル効率を改善することが挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-27
+  </footer>
+</div>
+</body>
+</html>

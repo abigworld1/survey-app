@@ -504,6 +504,68 @@
       "url": "http://arxiv.org/abs/2606.25533v1",
       "venue": ""
     },
+    "arxiv:2606.26857": {
+      "added": "2026-06-27",
+      "arxiv_id": "2606.26857",
+      "authors": [
+        "Georgios Tsironis",
+        "Juan D. Medrano-Garcia",
+        "Gonzalo Guillen-Gosalbez"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-25",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.26857.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.26857v1",
+      "reading_value": 4,
+      "reading_value_reason": "LCAの解釈にRAGを導入し、異種データを統合してロードマップを生成する手法は極めて新規性が高い。実装の詳細も具体的で、計算機科学的にも有用。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "LCAi: Life Cycle Assessment with big data fusion and retrieval-augmented generation-assisted interpretation",
+      "tldr": "LCA（ライフサイクルアセスメント）の解釈フェーズにおいて、RAG（検索拡張生成）とLLMを統合することで、定量的な環境負荷データと、学術・産業・政策・公共といった多角的なビッグデータを融合させ、実装可能な戦略的ロードマップを自動生成する新しい分析パイプラインを提案する。",
+      "url": "http://arxiv.org/abs/2606.26857v1",
+      "venue": ""
+    },
+    "arxiv:2606.26916": {
+      "added": "2026-06-27",
+      "arxiv_id": "2606.26916",
+      "authors": [
+        "Kexu Cheng",
+        "Zicheng Liu",
+        "Mingju Gao",
+        "Chunhe Song",
+        "Hao Tang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-25",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.26916.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.26916v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGをビデオ生成の物理的整合性向上に適用する着眼点が新しく、SOTA達成の具体性も高い。計算コストの抑制も実用的で、研究価値が高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "PhysRAG: Enhancing Physics-Awareness in Video Generation via Retrieval-Augmented Generation",
+      "tldr": "PhysRAGは、検索拡張生成（RAG）を用いてビデオ生成モデルの物理的認識能力を向上させる新しいパイプラインである。高品質な7K個の物理ビデオデータセットを構築し、VideoMAEで抽出した特徴量を学習可能なクエリを介してDiffusion Transformer (DiT) へ注入することで、複雑な物理現象の再現性を高める。PhyGenBenchおよびVBenchにおいて、既存の有力モデルを上回るSOTAを達成した。",
+      "url": "http://arxiv.org/abs/2606.26916v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "arxiv_id": "",
@@ -802,6 +864,35 @@
     }
   },
   "mapf-mapd-warehouse": {
+    "arxiv:2106.11454": {
+      "added": "2026-06-27",
+      "arxiv_id": "2106.11454",
+      "authors": [
+        "Hang Ma"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2021-06-22",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2106.11454.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Online Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2106.11454v1",
+      "reading_value": 4,
+      "reading_value_reason": "オンラインMAPFにおける理論的境界を競合比を用いて厳密に解析しており、再経路付けの重要性を数学的に証明している点は、当該分野の研究者にとって極めて価値が高い。",
+      "relevance": 9,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "A Competitive Analysis of Online Multi-Agent Path Finding",
+      "tldr": "本研究は、エージェントが未知のタイミングで逐次的に現れるオンライン Multi-Agent Path Finding (MAPF) を対象とし、アルゴリズムの「制御可能性（Controllability）」と「合理性（Rationality）」の観点から、競合比（competitive ratio）の理論的境界を明らかにしたものである。再経路付け（rerouting）を禁止した設定では、高度な計画を行う合理的なアルゴリズムであっても、ナイーブな逐次計画アルゴリズム $\\text{SEQUENCE}$ と同等の漸近的性能しか持たないことを証明した。一方で、再経路付けを許可する $\\text{PLAN-ALL}$ 設定においては、定数下界が存在することを示し、再経路付けがオンライン MAPF の性能向上に不可欠であることを示した。",
+      "url": "http://arxiv.org/abs/2106.11454v1",
+      "venue": ""
+    },
     "arxiv:2211.13432": {
       "added": "2026-06-14",
       "authors": [
@@ -846,6 +937,39 @@
       "source_quality": "fulltext",
       "title": "Graph Attention-Guided Search for Dense Multi-Agent Pathfinding",
       "tldr": "高密度なマルチエージェント経路探索（MAPF）において、グラフアテンションを用いたニューラル方策 $\\text{MAGAT}^+$ を探索アルゴリズム $\\text{LaCAM}$ に統合したハイブリッドフレームワーク $\\text{LaGAT}$ を提案する。事前学習とマップ特化型の微調整、およびデッドロック検出メカニズムを組み合わせることで、既存の探索ベース手法や学習ベース手法のパレート境界を突破し、高密度環境における解の質とリアルタイム性能を向上させている。"
+    },
+    "arxiv:2602.23468": {
+      "added": "2026-06-27",
+      "arxiv_id": "2602.23468",
+      "authors": [
+        "Yulun Zhang",
+        "Varun Bhatt",
+        "Matthew C. Fontaine",
+        "Stefanos Nikolaidis",
+        "Jiaoyang Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-02-26",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2602.23468.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2602.23468v2",
+      "reading_value": 4,
+      "reading_value_reason": "LMAPFにおいてエッジの方向（一方通行化）を導入する新規性が高く、強連結性を保証するERSやQDアルゴリズムを用いた手法など、提案手法の構成も具体的で評価できる。",
+      "relevance": 8,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Optimization of Edge Directions and Weights for Mixed Guidance Graphs in Lifelong Multi-Agent Path Finding",
+      "tldr": "Lifelong Multi-Agent Path Finding (LMAPF) において、エッジの重みだけでなく方向（一方通行化）も同時に最適化する Mixed Guidance Graph Optimization (MGGO) を提案する。提案手法は、強連結性を保証する Edge Reversal Search (ERS) を備えた二段階最適化 (MGGO-DS) と、Quality Diversity アルゴリズムを用いて方向と重みを同時に学習する Joint MGGO-PU の二種類からなる。実験により、提案手法が従来の GGO 手法を上回るスループットを達成し、特に PIBT のようなプランナーにおいてエッジ方向の最適化が有効であることを示した。",
+      "url": "http://arxiv.org/abs/2602.23468v2",
+      "venue": ""
     },
     "arxiv:2604.07970": {
       "added": "2026-06-21",

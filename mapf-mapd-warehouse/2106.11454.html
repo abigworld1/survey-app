@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A Competitive Analysis of Online Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>A Competitive Analysis of Online Multi-Agent Path Finding</h1>
+  <div class="meta">Hang Ma<br>採択先: 未取得 ・ 2021-06-22 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2106.11454v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2106.11454v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2021-06-22</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 9</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">オンラインMAPFにおける理論的境界を競合比を用いて厳密に解析しており、再経路付けの重要性を数学的に証明している点は、当該分野の研究者にとって極めて価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Online Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、エージェントが未知のタイミングで逐次的に現れるオンライン Multi-Agent Path Finding (MAPF) を対象とし、アルゴリズムの「制御可能性（Controllability）」と「合理性（Rationality）」の観点から、競合比（competitive ratio）の理論的境界を明らかにしたものである。再経路付け（rerouting）を禁止した設定では、高度な計画を行う合理的なアルゴリズムであっても、ナイーブな逐次計画アルゴリズム $\text{SEQUENCE}$ と同等の漸近的性能しか持たないことを証明した。一方で、再経路付けを許可する $\text{PLAN-ALL}$ 設定においては、定数下界が存在することを示し、再経路付けがオンライン MAPF の性能向上に不可欠であることを示した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>オンライン MAPF は、連結無向グラフ $G$ において、未知のリリース時刻 $r_i$ を持つエージェント $a_i$ が、開始頂点 $s_i$ から目標頂点 $g_i$ へ衝突を回避しながら移動する問題である。評価指標として、全エージェントのサービス時間の総和である flowtime $\sum_{i=1}^n (t_{arrival,i} - r_i)$、全エージェントの到着時刻の最大値である makespan $\max_i t_{arrival,i}$、および最短経路長との差の総和である latency $\sum_{i=1}^n (t_{arrival,i} - r_i - d(s_i, g_i))$ の3つを定義している。本研究では、将来の到着を知り得ないオンライン設定におけるアルゴリズムの性能を、オフライン最適解との比率である競合比を用いて解析している。また、既存のオフライン MAPF における NP 困難性（makespan の $\alpha$-近似解の算出など）をオンライン設定へ拡張して議論している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、オンライン MAPF におけるアルゴリズムの分類体系の構築と、目的関数ごとの競合比の理論的境界の導出である。具体的には、制御可能性に基づく3つの分類（$\text{PLAN-NEW-SINGLE}$, $\text{PLAN-NEW}$, $\text{PLAN-ALL}$）と、各時刻での計画の質に基づく「合理性」の概念を導入した。理論的成果として、$\text{PLAN-NEW}$ における合理的なアルゴリズムの flowtime および makespan の競合比が $\Omega(n)$ であることを示し、上界とのタイト性を示した。さらに、$\text{PLAN-ALL}$ においては、flowtime で少なくとも $4/3$、makespan で少なくとも $3/2$ の競合比が必要であることを証明し、latency に関しては全ての合理的なアルゴリズムにおいて競合比が無限大になることを明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>アルゴリズムの分類として、新たに現れたエージェントのみを計画対象とする $\text{PLAN-NEW-SINGLE}$、新エージェント集合 $\mathcal{A}_t \setminus \mathcal{A}_{t-1}$ を対象とする $\text{PLAN-NEW}$、および全エージェント $\mathcal{A}_t$ の再計画を許可する $\text{PLAN-ALL}$ を定義している。合理的なアルゴリズムの定義（Definition 9）では、各時刻 $t$ において、既知のエージェント集合 $\mathcal{A}_t$ に対する計画の総 flowtime が $\sum_{i \in \mathcal{A}_t} (t_i + \text{dist}(s_i, g_i))$ 以下であり、かつ makespan が $\max_{i \in \mathcal{A}_t} (t_i + \text{dist}(s_i, g_i))$ 以下であることを要求している。解析には、エージェントをインデックス順に逐次的に経路計画する $\text{SEQUENCE}$ アルゴリズムを基準として用いている。また、下界の導出には 4-neighbor 2D grid 上のインスタンスを用いた構成的な手法を用いている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>$\text{SEQUENCE}$ アルゴリズムの解析により、flowtime に関する競合比が $O(n)$、makespan に関する競合比が $O(n^2)$ であることを帰納法を用いて証明した。合理的なアルゴリズムについては、Theorem 11 および 12 により、flowtime と makespan の両方において $O(n)$ の競合比を達成できることを示した。一方で、$\text{PLAN-NEW}$ 設定における合理的なアルゴリズムの競合比の下界として、flowtime および makespan に対して $\Omega(n)$ を導出し、上界との漸近的なタイト性を検証した。$\text{PLAN-ALL}$ 設定においては、具体的なインスタンスを用いて、flowtime で $4/3$、makespan で $3/2$ という定数下界を導出することで、再経路付けの有無による性能差を定量的に示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の結果は、再経路付けを禁止した条件下では、どれほど高度に「合理的」な計画を行っても、エージェントを順番に処理するナイーブな $\text{SEQUENCE}$ アルゴリズムの性能を本質的に超えられないことを示唆している。これは、オンライン MAPF において、個々のエージェントの局所的な最適化（合理性）が、システム全体の長期的な効率性に必ずしも寄与しないという直感に反する事実を理論的に裏付けている。今後の重要な課題は、$\text{PLAN-ALL}$ 設定において、導出された下界を達成する具体的なアルゴリズムを開発すること、およびエージェントの到着に関する確率モデルを導入した、より現実的なオンライン解析へと発展させることである。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>A Competitive Analysis of Online Multi-Agent Path Finding † † thanks: This work was supported by the Natural Sciences an</h3><p>本研究は、エージェントが時間経過とともに逐次的に現れるオンライン Multi-Agent Path Finding (MAPF) を対象とし、既存のオフライン MAPF の複雑性結果をオンライン設定へと一般化している。オンライン MAPF アルゴリズムを、計画可能なエージェントの集合に基づく「制御可能性 (controllability)」と、計画される経路の質に基づく「合理性 (rationality)」の2つの観点から分類し、一般的な目的関数に対する競合比 (competitive ratio) を解析している。新しく現れたエージェントを順次1体ずつ経路付けするナイーブなアルゴリズムは、flowtime および makespan に関して、競合比がエージェント数によって漸近的に上下から抑えられることを示している。さらに、既存エージェントの再経路付け (rerouting) を許可しない場合、新しく現れた全エージェントに対して最適経路を計画するような合理的なアルゴリズムであっても、2D 4-neighbor grid 上においてナイーブなアルゴリズムと同じ漸近的競合比を持つという直感に反する結果を導いている。一方で、再経路付けを許可する合理的なオンライン MAPF アルゴリズムに対しては、競合比の定数下界を導出している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>Online Multi-Agent Path Finding (MAPF) は、未知のタイミングで流入するエージェント群に対し、衝突のない経路をオンラインで計画する問題であり、自動倉庫やUAV交通管理への応用が期待されている。本研究では、将来の到着を知り得ない設定において、既存のオンラインMAPFアルゴリズムを競争解析（competitive analysis）と計算量理論の観点から理論的に定式化している。アルゴリズムの分類として、計画対象の範囲に基づく制御仮定（PLAN-NEW-SINGLE, PLAN-NEW, PLAN-ALL）と、基準となるSEQUENCEアルゴリズムに対する合理性（optimally-rational, rational）の2軸を導入している。理論的貢献として、既存のNP困難性や近似困難性の結果をオンライン設定へ拡張するとともに、合理的なアルゴリズムにおけるflowtimeおよびmakespanの競争比（competitive ratio）の境界を導出している。具体的には、PLAN-NEW-SINGLEおよびPLAN-NEWにおける境界のタイト性を示す一方、PLAN-ALLにおいてはflowtimeで少なくとも $4/3$、makespanで少なくとも $3/2$ の競争比が必要であることを証明し、latencyに関しては全ての合理的なアルゴリズムにおいて競争比が無限大になることを示している。</p></section>
+<section class="secsum"><h3>2 Online Multi-Agent Path Finding</h3><p>オンラインMAPFは、連結無向グラフ $G$ において、各エージェント $a_i$ が開始頂点 $s_i$、目標頂点 $g_i$、および未知のリリース時刻 $r_i$ を持つ問題であり、エージェントは時刻 $t \ge r_i$ に開始時刻 $t_{start,i}$ でグラフに現れ、隣接頂点への移動または待機を行いながら目標に到達する。衝突回避の条件として、同一時刻における同一頂点の占有（頂点衝突）および、隣接する時刻間での逆方向の移動（エッジ衝突）が禁止される。評価指標には、全エージェントのサービス時間（$r_i$ から到着時刻 $t_{arrival,i}$ までの期間）の総和である flowtime $\sum_{i=1}^n (t_{arrival,i} - r_i)$、全エージェントの到着時刻の最大値である makespan $\max_i t_{arrival,i}$、およびサービス時間と最短経路長 $d(s_i, g_i)$ の差の総和である latency $\sum_{i=1}^n (t_{arrival,i} - r_i - d(s_i, g_i))$ の3つが定義される。本研究では、3-SAT問題からの帰着を用いて、エージェントが事前に既知であるオフライン設定であっても、makespan、flowtime、および latency の各目的関数において、定数近似解を得くことが NP困難であることを示す（Theorem 1, Corollary 2, 3）。特に、makespan の $\alpha$-近似解を求める問題は、任意の $\alpha &gt; 1$ に対して NP困難である。</p></section>
+<section class="secsum"><h3>3 Online MAPF Algorithms</h3><p>本セクションでは、エージェントがリリース時刻 $r_i$ に基づいて集合 $\mathcal{A}_t$（時刻 $t$ までに公開された全エージェント）へと順次追加されるオンラインMAPFアルゴリズムを、制御可能性（Controllability）と最適合理性（Optimal Rationality）の観点から分類している。制御可能性に基づく分類では、新たに公開されたエージェントのみを計画対象とし既存エージェントを動的障害物として扱う $\text{PLAN-NEW-SINGLE}$（個別計画）、新エージェント集合 $\mathcal{A}_t \setminus \mathcal{A}_{t-1}$ のみを計画対象とする $\text{PLAN-NEW}$（新規集合計画）、および全エージェント $\mathcal{A}_t$ の経路を再計画可能な $\text{PLAN-ALL}$（全エージェント計画）の3種があり、$\text{PLAN-NEW-SINGLE} \subseteq \text{PLAN-NEW} \subseteq \text{PLAN-ALL}$ という包含関係が成立する。最適合理性については、各リリース時刻において、与えられた制御可能性の制約下で目的関数（flowtimeやmakespanなど）を最小化する計画を算出する性質と定義される。例えば、$\text{PLAN-NEW-SINGLE}$ においてflowtimeやmakespanを最適化する手法として、Space-Time A*やSIPPを用いた各エージェントの到着時刻を最小化する手法が挙げられる。また、$\text{PLAN-NEW}$ や $\text{PLAN-ALL}$ では、オフラインの最適MAPFアルゴリズムを呼び出すことで、$\mathcal{A}_t \setminus \mathcal{A}_{t-1}$ または $\mathcal{A}_t$ のflowtimeやmakespanを最小化する最適合理なアルゴリズムを構成できる。</p></section>
+<section class="secsum"><h3>4 Feasibility and SEQUENCE</h3><p>本セクションでは、エージェントがゴール到達時にグラフから除去されるオンラインMAPFにおいて、全てのインスタンスが解可能であることを示すために、エージェントをインデックス順に逐次的に経路計画するアルゴリズム $\text{SEQUENCE}$ を提案している。$\text{SEQUENCE}$ は、エージェント $i$ が時刻 $r_i$ に出現した際、前のエージェント $i-1$ がゴールに到達して除去された後に、最短経路を用いて時刻 $r_i$ から $g_i$ まで移動する経路を計画する。フロータイム（flowtime）に関する解析では、各エージェントのサービス時間が $2(n-1)$ 以下であることを帰納法により示し、$\text{SEQUENCE}$ のフロータイムが $O(n \cdot \sum r_i)$ 以下となることから、フロータイムに対する競合比（competitive ratio）が $O(n)$ であることを証明している（Theorem 7）。また、メイクスパン（makespan）については、$\text{SEQUENCE}$ のメイクスパンが $r_{\max} + 2n(n-1)$ 以下であり、最適解が $r_{\max}$ 以上であることから、メイクスパンに対する競合比が $O(n^2)$ であることを示している（Theorem 8）。一方で、レイテンシ（latency）に関しては、$\text{SEQUENCE}$ の競合比は無限大になることが示唆されている。</p></section>
+<section class="secsum"><h3>5 Rationality and Competitive Ratio Upper Bounds</h3><p>本セクションでは、オンラインMAPFにおける「合理性（Rationality）」の定義と、それに基づく競合比の上界について論じている。Definition 9において、オンラインMAPFアルゴリズムが合理的であるとは、各エージェントのリリース時刻 $t_i$ において、既知のエージェント集合 $\mathcal{A}_t$ に対する計画の総フロータイムが $\sum_{i \in \mathcal{A}_t} (t_i + \text{dist}(s_i, g_i))$ 以下であり、かつメイクスパンが $\max_{i \in \mathcal{A}_t} (t_i + \text{dist}(s_i, g_i))$ 以下であることを指す。既存のアルゴリズム（PLAN-NEWやPLAN-ALL）は、計算結果がこの境界を超えた場合に、素朴なアルゴリズムであるSEQUENCEと同様の挙動（インデックス順に順次移動させる手法）へ切り替えるサブルーチンを追加することで、合理化（Rationalization）が可能である。Theorem 10により、フロータイムまたはメイクスパンに関して最適合理的な（optimally-rational）アルゴリズムは、常に合理的であることが証明されている。最終的に、Theorem 11およびTheorem 12により、すべての合理的なアルゴリズムは、フロータイムにおいて $O(n)$、メイクスパンにおいて $O(n)$ の競合比を達成し、漸近的にSEQUENCEと同等以上の性能を保証することが示されている。</p></section>
+<section class="secsum"><h3>6 Competitive Ratio Lower Bounds</h3><p>本セクションでは、4近傍2Dグリッド上のオンラインMAPFインスタンスを用いて、合理的な（rational）オンラインアルゴリズムの競合比（competitive ratio）の下界を導出している。PLAN-NEWにおける合理的なアルゴリズムは、Theorem 13および14により、flowtimeに対して $\Omega(n)$、makespanに対して $\Omega(n)$ の競合比を持つことが示され、これは先行研究の定理11および12で得られた上界が漸近的にタイトであることを意味する。また、PLAN-ALLにおける合理的なアルゴリズムについては、Theorem 18および19により、flowtimeで少なくとも $4/3$、makespanで少なくとも $3/2$ の競合比を持つことが示されている。さらに、latencyに関しては、最適解が $0$ であるのに対し合理的なアルゴリズムが正の値を取り得るため、競合比は無限大となる。これらの結果から、合理的なアルゴリズムが必ずしも非合理的なアルゴリズム（例：オフライン最適解を模倣するPLAN-NEW-SINGLE）よりも優れた解を出力するとは限らないという、合理化が解の質を損なう可能性が示唆されている。</p></section>
+<section class="secsum"><h3>7 Conclusions</h3><p>本研究は、オンラインMAPF（Multi-Agent Path Finding）に関する初の理論的研究であり、再経路設定（rerouting）が禁止された条件下での競争比を分析している。その結果、複数エージェントの計画は単一エージェントの逐次計画と同等の漸近的有効性しか持たず、最適に合理的に行動する場合も、ナイーブなアルゴリズムであるSEQUENCEに従う場合と同等の漸近的有効性に留まることが示された。一方で、再経路設定を許可することで、競争比の上界と下界の間にギャップが生じることから、有効性が大幅に向上する可能性が示唆されている。今後の課題として、PLAN-ALLにおいて現在の競争比の下界を達成する合理的なオンラインMAPFアルゴリズムの開発、あるいは境界のさらなる絞り込み、およびエージェントの将来的な到着に関する確率モデルが与えられた場合のオンラインMAPFの分析が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-27
+  </footer>
+</div>
+</body>
+</html>
