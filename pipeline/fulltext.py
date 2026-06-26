@@ -146,7 +146,18 @@ SECTION_SKIP_TAGS = {"script", "style", "noscript", "math", "table"}
 _DENY_HEADINGS = (
     "reference", "bibliography", "acknowledg", "instructions for reporting",
     "report issue", "github issue", "back to", "why html", "download pdf",
-    "appendix", "(前文)",
+    "appendix", "(前文)", "access paper", "bibliographic", "citation tools",
+    "code, data", "code, data and media", "demos", "recommenders",
+    "search tools", "arxivlabs", "arxiv labs",
+)
+_ARXIV_UI_HEADINGS = (
+    "access paper", "bibliographic", "citation tools", "code, data",
+    "demos", "recommenders", "search tools", "arxivlabs", "arxiv labs",
+)
+_ARTICLE_HEADINGS = (
+    "introduction", "related work", "background", "preliminar", "problem",
+    "method", "approach", "algorithm", "experiment", "evaluation", "result",
+    "discussion", "conclusion",
 )
 PER_SECTION_MAX = int(os.environ.get("SECTION_MAX_CHARS", "14000"))
 MAX_SECTIONS = int(os.environ.get("MAX_SECTIONS", "14"))
@@ -214,6 +225,18 @@ def _clean_sections(sections):
     return out
 
 
+def _looks_like_arxiv_ui_page(sections):
+    hits = 0
+    article_hits = 0
+    for heading, _text in sections:
+        hl = (heading or "").lower()
+        if any(k in hl for k in _ARXIV_UI_HEADINGS):
+            hits += 1
+        if any(k in hl for k in _ARTICLE_HEADINGS):
+            article_hits += 1
+    return hits >= 2 and article_hits == 0
+
+
 def fetch_arxiv_sections(arxiv_id):
     if not arxiv_id:
         return []
@@ -226,7 +249,10 @@ def fetch_arxiv_sections(arxiv_id):
         parser.feed(html)
     except Exception:
         return []
-    return _clean_sections(parser.result())
+    sections = parser.result()
+    if _looks_like_arxiv_ui_page(sections):
+        return []
+    return _clean_sections(sections)
 
 
 def fetch_ar5iv_sections(arxiv_id):
@@ -241,7 +267,10 @@ def fetch_ar5iv_sections(arxiv_id):
         parser.feed(html)
     except Exception:
         return []
-    return _clean_sections(parser.result())
+    sections = parser.result()
+    if _looks_like_arxiv_ui_page(sections):
+        return []
+    return _clean_sections(sections)
 
 
 def fetch_ar5iv_fulltext(arxiv_id):

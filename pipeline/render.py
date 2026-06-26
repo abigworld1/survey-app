@@ -35,6 +35,9 @@ def _today():
 def _basis_label(basis):
     return {
         "fulltext(arxiv)": "本文(arXiv)",
+        "fulltext(arxiv-text)": "本文(arXiv)",
+        "fulltext(ar5iv)": "本文(ar5iv)",
+        "fulltext(ar5iv-text)": "本文(ar5iv)",
         "fulltext(oa-pdf)": "本文(OA-PDF)",
         "fulltext(arxiv-pdf)": "本文(arXiv PDF)",
         "fulltext(pdf)": "本文(PDF)",
