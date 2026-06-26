@@ -232,9 +232,26 @@ def _looks_like_arxiv_ui_page(sections):
         hl = (heading or "").lower()
         if any(k in hl for k in _ARXIV_UI_HEADINGS):
             hits += 1
+            continue
         if any(k in hl for k in _ARTICLE_HEADINGS):
             article_hits += 1
-    return hits >= 2 and article_hits == 0
+    return hits >= 1 and article_hits == 0
+
+
+def _looks_too_shallow_for_fulltext(sections):
+    if not sections:
+        return True
+    article_hits = 0
+    for heading, _text in sections:
+        hl = (heading or "").lower()
+        if any(k in hl for k in _ARTICLE_HEADINGS):
+            article_hits += 1
+    if article_hits:
+        return False
+    if len(sections) <= 2:
+        return True
+    titleish = sum(1 for heading, _text in sections if (heading or "").lower().startswith("title"))
+    return titleish > 0 and len(sections) <= 3
 
 
 def fetch_arxiv_sections(arxiv_id):
@@ -252,7 +269,10 @@ def fetch_arxiv_sections(arxiv_id):
     sections = parser.result()
     if _looks_like_arxiv_ui_page(sections):
         return []
-    return _clean_sections(sections)
+    cleaned = _clean_sections(sections)
+    if _looks_too_shallow_for_fulltext(cleaned):
+        return []
+    return cleaned
 
 
 def fetch_ar5iv_sections(arxiv_id):
@@ -270,7 +290,10 @@ def fetch_ar5iv_sections(arxiv_id):
     sections = parser.result()
     if _looks_like_arxiv_ui_page(sections):
         return []
-    return _clean_sections(sections)
+    cleaned = _clean_sections(sections)
+    if _looks_too_shallow_for_fulltext(cleaned):
+        return []
+    return cleaned
 
 
 def fetch_ar5iv_fulltext(arxiv_id):
