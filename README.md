@@ -133,9 +133,14 @@ subscriptions:
     keywords:                              # OR 検索 ＋ 関連度判定に使う
       - "Multi-Agent Path Finding"
       - "MAPF"
-      - "Warehouse Robotics"
+      - "Multi-Agent Pickup and Delivery"
+    search_queries:                        # 任意。取得用検索語を keywords と分けたい時に使う
+      - "Multi-Agent Path Finding"
+      - "MAPF"
+      - "Multi-Agent Pickup and Delivery"
+      - "MAPD"
     k: 2                                   # 1日あたり最大ページ数（上限20）
-    sources: [arxiv, semanticscholar, openalex]
+    sources: [arxiv, openalex]
 
   - username: reading                      # 手動追加専用（add_paper の既定の置き場）
     label: 個別に読んだ論文
@@ -155,7 +160,7 @@ python3 -m venv .venv
 
 ## 仕組み（要約の流れ）
 
-1. **取得**: 各 `sources` から候補を集める（arXiv は新着順、他はキーワード検索）。
+1. **取得**: 各 `sources` から候補を集める。`search_queries` があれば取得にはそちらを使い、無ければ `keywords` を使う。
 2. **名寄せ**: DOI / arXiv ID / 正規化タイトルで重複排除（`pipeline/dedup.py`）。
 3. **採用**: `k: 2` では重要論文1本＋新着論文1本を採用。
    重要論文は `関連度 → 被引用数 → 本文の取りやすさ → 新しさ` の順、新着論文は `関連度 → 本文の取りやすさ → 新しさ` の順。

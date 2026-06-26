@@ -349,21 +349,46 @@ def load_sample():
         return [Paper(**p) for p in json.load(f)]
 
 
+def _search_groups(sub):
+    queries = sub.get("search_queries")
+    if not queries:
+        return [sub.get("keywords", [])]
+    groups = []
+    for q in queries:
+        if isinstance(q, str):
+            terms = [q]
+        else:
+            terms = [str(x) for x in (q or []) if str(x).strip()]
+        if terms:
+            groups.append(terms)
+    return groups or [sub.get("keywords", [])]
+
+
+def _query_label(terms):
+    return " + ".join(str(t) for t in terms)
+
+
 def gather(sub, offline, mode="recent"):
     if offline:
         return load_sample(), {"sample/" + mode: len(load_sample())}
     papers = []
     counts = {}
+    groups = _search_groups(sub)
+    per_query_limit = max(8, min(FETCH_CAP, (FETCH_CAP + len(groups) - 1) // max(1, len(groups))))
     for src in sub.get("sources") or ["arxiv"]:
-        try:
-            got = sources.search_source(src, sub["keywords"], FETCH_CAP, mode=mode)
-            counts[f"{src}/{mode}"] = len(got)
-        except Exception as e:
-            got = []
-            counts[f"{src}/{mode}"] = {"error": repr(e)}
-            print(f"  [warn] {src}/{mode} 取得失敗: {e!r}")
-        print(f"  {src}/{mode}: {len(got)} 件")
-        papers += got
+        src_total = 0
+        for i, terms in enumerate(groups, start=1):
+            label = f"{src}/{mode}/q{i}"
+            try:
+                got = sources.search_source(src, terms, per_query_limit, mode=mode)
+                counts[label] = {"query": _query_label(terms), "count": len(got)}
+            except Exception as e:
+                got = []
+                counts[label] = {"query": _query_label(terms), "error": repr(e)}
+                print(f"  [warn] {label} 取得失敗: {e!r}")
+            src_total += len(got)
+            papers += got
+        print(f"  {src}/{mode}: {src_total} 件 ({len(groups)} queries)")
     return papers, counts
 
 

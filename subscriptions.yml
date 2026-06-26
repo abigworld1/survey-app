@@ -2,6 +2,7 @@
 #  - username: 公開URL（/survey-app/<username>/）になる ASCII スラッグ。実名・PIIは入れない。
 #  - label:    トップや一覧に表示される日本語の分野名。
 #  - keywords: ソース横断の検索語（OR検索）。
+#  - search_queries: 取得用の検索語。指定すると keywords ではなくこちらで検索する。
 #  - k:        1日に生成するページ数の上限（安全のため最大 20）。
 #  - sources:  arxiv / openalex / semanticscholar / dblp から選択。
 subscriptions:
@@ -13,11 +14,20 @@ subscriptions:
       - "Multi-Agent Pickup and Delivery"
       - "MAPD"
       - "MT-MAPD"
-      - "Task Formation"
       - "Task Allocation and Path Planning"
-      - "Warehouse Robotics"
+      - "Multi-Agent Task Allocation"
+      - "Lifelong Multi-Agent Path Finding"
+      - "Online Multi-Agent Path Finding"
+      - "Robotic Warehouse"
+    search_queries:
+      - "Multi-Agent Path Finding"
+      - "MAPF"
+      - "Multi-Agent Pickup and Delivery"
+      - "MAPD"
+      - "Lifelong Multi-Agent Path Finding"
+      - "Online Multi-Agent Path Finding"
     k: 2
-    sources: [arxiv, semanticscholar, openalex]
+    sources: [arxiv, openalex]
 
   - username: doc-structure-rag
     label: 文書構造解析に基づく検索・質問応答・RAG
