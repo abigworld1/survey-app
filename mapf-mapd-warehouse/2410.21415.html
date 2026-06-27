@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Deploying Ten Thousand Robots: Scalable Imitation Learning for Lifelong Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Deploying Ten Thousand Robots: Scalable Imitation Learning for Lifelong Multi-Agent Path Finding</h1>
+  <div class="meta">He Jiang, Yutong Wang, Rishi Veerapaneni, Tanishq Duhan, Guillaume Sartoretti, Jiaoyang Li<br>採択先: 未取得 ・ 2024-10-28 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2410.21415v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2410.21415v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2024-10-28</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">1万体規模のLMAPFという極めて困難な課題に対し、模倣学習と探索ベースの利点を融合させた点が非常に強力。実験も大規模かつ実機検証を含み、実用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> Lifelong Multi-Agent Path Finding (LMAPF) において、最大10,000体のエージェントを1ステップあたり1秒未満で制御可能なスケーラブルな模倣学習フレームワーク SILLM を提案する。SILLM は、Spatially Sensitive Communication (SSC) モジュール、Collision Shield PIBT (CS-PIBT) による衝突回避、および3種類のグローバルガイダンスを統合することで、既存の学習ベースおよび探索ベースの手法を凌駕する高いスループットを実現している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、エージェントが目標到達のたびに新たな目標を割り当てられる Lifelong Multi-Agent Path Finding (LMAPF) 問題を対象としている。LMAPF の目的は、衝突を回避しながら単位時間あたりの平均目標到達数であるスループットを最大化することである。既存の学習ベース手法は数百規模のエージェントには対応できるものの、数千規模への拡張性やスループットの面で課題があった。一方で、PIBT などの探索ベース手法は数千規模のスケーラビリティを持つが、解の品質（スループット）が低いという問題がある。本研究は、これら両者の利点を融合し、大規模環境でも高精度かつ高速な推論が可能なソルバーの開発を目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、大規模 LMAPF において学習ベース手法の有効性を実証した点にある。具体的には、エージェント間の空間的関係を保持する Spatially Sensitive Communication (SSC) モジュールを導入し、精密な空間推論を可能にした。また、Backward Dijkstra (BD)、Static Guidance (SG)、Dynamic Guidance (DG) の3種類のヒューリスティックを統合したグローバルガイダンス技術を提案している。さらに、Collision Shield PIBT (CS-PIBT) を採用することで、学習された方策を優先しつつ確実な衝突回避を実現した。実験では、最大10,000体のエージェントを含む環境において、既存の学習ベース手法に対し平均スループットで 137.7% の向上、探索ベース手法に対し 16.0% の向上を達成した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>SILLM は、探索ベースの高度なソルバーを模倣する模倣学習（Imitation Learning）フレームワークである。各エージェントは $7 \times 7$ の局所視野（FoV）を持ち、CNN による特徴抽出後、SSC モジュールを通じて近傍エージェントの相対位置に基づいた特徴ベクトルを統合し、5つのアクションの確率を出力する。グローバルな誘導として、最短距離を示す BD、交通量を抑制する SG、混雑を回避する DG の3種類のヒューリスティック $h$ を、絶対値と相対差の2チャンネル形式で観測に含める。学習プロセスでは、anytime アルゴリズムである Windowed MAPF-LNS (W-MAPF-LNS) を用い、目的関数 $\sum_{i \in \mathcal{A}} \sum_{t=0}^{k-1} (c(s_{i,t}, s_{i,t+1}) + h(s_{i,t+1}))$ を最適化することで、洗練された $k$ ステップの経路から得られるアクションを模倣する。推論時には、Learnable PIBT (L-PIBT) として CS-PIBT を用いる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、最大10,000体のエージェントを含む6つの大規模ベンチマークマップを用いて行われた。スループットを最大値で正規化した $0$ から $1$ のスコアで、SCRIMP、Follower などの学習ベース手法、および PIBT、RHCR、TrafficFlow、WPPL などの探索ベース手法と比較された。実験の結果、SILLM はすべてのマップで他手法を上回り、特に大規模インスタンスでは Follower のスコアをほぼ倍増させ、TrafficFlow も大幅に凌駕した。アブレーション研究により、SSC が Attention ベースの ABC よりも優れていること、および模倣学習 (IL) が MAPPO を用いた強化学習 (RL) よりも高い性能を示すことが確認された。また、10台の実ロボットと100台の仮想ロボットを用いた模擬倉庫環境での検証も実施されている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>SILLM は、GPU の活用により 10,000 エージェントの計画を 1 ステップあたり 1 秒未満で実行可能であり、極めて高いスケーラビリティを示した。一方で、既存手法の限界も明らかになっており、RHCR は ECBS の計算コストにより、SCRIMP はアクションの再サンプリングやチーム状態値の計算により、大規模環境への拡張性に欠けることが指摘されている。本研究は、大規模 LMAPF における学習ベース手法の強力な有効性を実証したが、今後の展望として、強化学習 (RL) を用いることでさらなる性能向上が可能である可能性が示唆されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Deploying Ten Thousand Robots: Scalable Imitation Learning for Lifelong Multi-Agent Path Finding</h3><p>本研究では、エージェントが目標に到達するたびに新たな目標が割り当てられるLifelong Multi-Agent Path Finding (LMAPF) に対し、模倣学習を用いたスケーラブルなソルバーであるSILLM (Scalable Imitation Learning for LMAPF) を提案している。SILLMは、新規な通信モジュール、体系的な単一ステップの衝突回避、およびグローバルなガイダンス技術を導入することで、学習ベースの手法の高速な推論速度と探索ベースの手法の高い解の品質を両立させている。最大10,000体のエージェントを含む6つの大規模マップを用いた実験において、SILLMは既存の学習ベースおよび探索ベースのベースラインを上回り、平均スループットにおいてそれぞれ137.7%および16.0%の向上を達成した。さらに、本手法は2023年の国際LMAPFコンペティションであるLeague of Robot Runnersの優勝解をも凌駕しており、10台の実ロボットと100台の仮想ロボットを用いた模擬倉庫環境での検証によってその有効性が示されている。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>Lifelong Multi-Agent Path Finding (LMAPF) は、エージェントが目標に到達するたびに新たな目標を割り当て続ける問題であり、全エージェントが単位時間あたりに到達する目標数の平均であるスループットの最大化を目的とする。既存の学習ベースの手法は、数十から数百規模のエージェントでは動作するものの、PIBT などのスケーラブルな探索ベースの手法と比較してスループットで劣る傾向があり、数千規模への拡張性にも課題があった。本論文では、数百規模のエージェントを用いた最先端の LMAPF ソルバーを模倣する Scalable Imitation Learning for LMAPF (SILLM) を提案し、精密な空間推論を可能にする Spatially Sensitive Communication (SSC) モジュールと、衝突回避およびグローバルなガイダンスのためのヒューリスティック探索の改善を統合している。実験の結果、SILLM は最大 10,000 エージェントの 6 つのベンチマークマップにおいて、既存の学習ベースおよび探索ベースのソルバーに対し、それぞれ平均スループットで 137.7% および 16.0% の向上を達成した。また、GPU の活用により 10,000 エージェントの計画を 1 ステップあたり 1 秒未満で実行可能であり、実環境を模した倉庫環境での検証を通じて、大規模 LMAPF における学習ベース手法の有効性を示している。</p></section>
+<section class="secsum"><h3>II Background</h3><p>LMAPF問題は、$k$-neighborのグリッドグラフと、それぞれ固有の開始位置を持つエージェントの集合 $\mathcal{A}$ で定義される。グラフの頂点は移動可能なグリッドセルを表し、エッジは隣接するセル間の接続を表し、時間は離散的なタイムステップとして扱われる。各タイムステップにおいて、エージェントは上下左右の移動または待機（wait）のいずれかのアクションを選択できるが、同一時刻に同じ頂点を占有する頂点衝突（vertex collision）および、同一時刻に逆方向のエッジを通過するエッジ衝突（edge collision）は禁止される。本問題は、エージェントが現在の目標に到達するたびに外部のタスクアサイナーから新たな目標が割り当てられる継続的な計画を必要とし、目的は衝突を回避しつつ、タイムステップあたりの平均目標到達数であるスループットを最大化することである。</p></section>
+<section class="secsum"><h3>III Related Work</h3><p>MAPF（Multi-Agent Path Finding）における学習ベースの手法は、PRIMAL [20] によるエージェントの均質性を利用した共有分散型ポリシーの導入を起点とし、通信、グローバルガイダンスの導入、衝突解決の強化、探索ベースアルゴリズムの模倣といった方向で発展してきた。探索ベースの手法では、計算量を削減するプランニングウィンドウを導入したRHCR [4] が高い解の質を持つ一方、数百エージェント規模に限定される。対照的に、PIBT [5] は貪欲な単一ステッププランナーとして数千エージェント規模のスケール性を有するが、解の質は低く、TrafficFlow [6] は交通情報を組み込むことでこれを改善している。また、WPPL [7] はPIBTで初期ウィンドウ計画を生成した後にwindowed MAPF-LNS [17] で計画を洗練させる手法である。提案手法であるSILLMは、従来のA*による経路（Path）や移動方向（Movements）といったグローバルガイダンスに対し、Backward Dijkstra (BD)、Static Guidance (SG)、Dynamic Guidance (DG) の3種類を用いる点が特徴である。</p></section>
+<section class="secsum"><h3>IV Methods</h3><p>SILLMは、大規模なマルチエージェント経路探索（LMAPF）を実現するための模倣学習フレームワークであり、エージェント間の空間的関係を明示的に保持するSpatially Sensitive Communication (SSC) モジュールを備えたニューラルネットワーク構造を持つ。各エージェントは $7 \times 7$ の局所視野（FoV）を持ち、CNNを用いて特徴抽出を行った後、SSCモジュールを通じて近傍エージェントの相対位置に基づいた特徴ベクトルを統合し、最終的に5つのアクションの確率を出力する。グローバルな誘導として、最短距離を示すBackward Dijkstra (BD) ほか、交通量を抑制するStatic Guidance (SG) や、混雑を回避するDynamic Guidance (DG) の3種類のヒューリスティック $h$ を、絶対値と相対差の2チャンネル形式で観測に含める。推論時には、衝突を回避しつつ学習された方策を優先するCollision Shield PIBT (CS-PIBT) を用いたLearnable PIBT (L-PIBT) を採用している。学習プロセスでは、anytimeアルゴリズムであるWindowed MAPF-LNS (W-MAPF-LNS) を用いて、目的関数 $\sum_{i \in \mathcal{A}} \sum_{t=0}^{k-1} (c(s_{i,t}, s_{i,t+1}) + h(s_{i,t+1}))$ を最適化し、洗練された $k$ ステップの経路から得られるアクションを模倣することで、自己ブートストラップ的な反復学習を行う。</p></section>
+<section class="secsum"><h3>V Experiments</h3><p>本実験では、大規模なマップにおける学習時のメモリ消費を抑えるため、障害物パターンを維持したまま縮小したマップで学習を行い、評価は元の広大なマップで行う手法を採用している。提案手法であるSILLMは、学習ベースのベースラインであるSCRIMPやFollower、および探索ベースのPIBT、RHCR、TrafficFlow、さらにはWPPLと比較され、スループットを最大値で正規化した $0$ から $1$ のスコアで評価された。実験の結果、SILLMはすべてのマップにおいて他の手法を上回り、特に大規模インスタンスでは従来の学習ベースの最良手法であるFollowerのスコアをほぼ倍増させ、探索ベースのTrafficFlowも大幅に凌駕した。アブレーション研究では、提案する空間的に敏感な通信手法であるSSCが、AttentionベースのABCや通信なしのケースよりも優れた性能を示すことが確認され、また模倣学習（IL）がMAPPOを用いた強化学習（RL）よりも高い性能を示すことも示された。一方で、RHCRはECBSの計算コストにより、SCRIMPはアクションの再サンプリングやチーム状態値の計算により、大規模環境へのスケーラビリティに欠けるという限界が指摘されている。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究では、膨大な数のエージェントを短時間で制御可能な学習ベースのソルバーを実現するため、独自の通信モジュール、効率的な単一ステップの衝突回避、および多様なグローバルガイダンスを統合した手法を提案している。具体的には、スケーラブルな探索ベースのソルバーからスケーラブルな模倣学習（Imitation Learning）を適用することで、提案手法である SILLM を構築した。実験の結果、SILLM は様々なマップにおいて、各タイムステップで 10,000 体のエージェントの経路計画を 1 秒未満で実行可能であり、従来の最良の学習ベースおよび探索ベースのソルバーを上回る性能を示した。本研究は大規模な Lifelong Multi-Agent Path Finding (LMAPF) インスタンスにおける学習の有効性を実証しており、今後の展望として強化学習（RL）を用いたさらなる性能向上を挙げている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-28
+  </footer>
+</div>
+</body>
+</html>

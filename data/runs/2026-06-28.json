@@ -1,0 +1,286 @@
+{
+  "date": "2026-06-28",
+  "dry_run": false,
+  "engine": "llm:gemma-4-26b",
+  "fields": [
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2501.02803.html",
+          "id": "2501.02803",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF",
+            "Lifelong Multi-Agent Path Finding"
+          ],
+          "published": "2025-01-06",
+          "reading_value": 3,
+          "reading_value_reason": "コンピュータアーキテクチャの概念をL-MAPFに導入する着眼点は新規性がある。実験も多角的な分布で検証されているが、エージェント増による渋滞等の課題も示されており、関連分野の研究者が手法の有効性を確認するのに適している。",
+          "relevance": 8,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Enhancing Lifelong Multi-Agent Path Finding with Cache Mechanism",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2410.21415.html",
+          "id": "2410.21415",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "Lifelong Multi-Agent Path Finding"
+          ],
+          "published": "2024-10-28",
+          "reading_value": 4,
+          "reading_value_reason": "1万体規模のLMAPFという極めて困難な課題に対し、模倣学習と探索ベースの利点を融合させた点が非常に強力。実験も大規模かつ実機検証を含み、実用性が高い。",
+          "relevance": 8,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Deploying Ten Thousand Robots: Scalable Imitation Learning for Lifelong Multi-Agent Path Finding",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 116,
+      "fresh_total": 97,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 14,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 583,
+          "id": "doi-04be3ffda662",
+          "matched_keywords": [
+            "MAPD"
+          ],
+          "published": "2003-03-15",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 1,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Mussel Adhesive Protein Mimetic Polymers for the Preparation of Nonfouling Surfaces",
+          "venue": "Journal of the American Chemical Society"
+        }
+      ],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important/q1": {
+          "count": 0,
+          "query": "Multi-Agent Path Finding"
+        },
+        "arxiv/important/q2": {
+          "count": 0,
+          "query": "MAPF"
+        },
+        "arxiv/important/q3": {
+          "count": 0,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "arxiv/important/q4": {
+          "count": 0,
+          "query": "MAPD"
+        },
+        "arxiv/important/q5": {
+          "count": 0,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "arxiv/important/q6": {
+          "count": 0,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q1": {
+          "count": 8,
+          "query": "Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q2": {
+          "count": 8,
+          "query": "MAPF"
+        },
+        "arxiv/recent/q3": {
+          "count": 8,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "arxiv/recent/q4": {
+          "count": 8,
+          "query": "MAPD"
+        },
+        "arxiv/recent/q5": {
+          "count": 8,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q6": {
+          "count": 3,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "openalex/important/q1": {
+          "count": 8,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/important/q2": {
+          "count": 8,
+          "query": "MAPF"
+        },
+        "openalex/important/q3": {
+          "count": 8,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/important/q4": {
+          "count": 8,
+          "query": "MAPD"
+        },
+        "openalex/important/q5": {
+          "count": 8,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/important/q6": {
+          "count": 8,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "openalex/recent/q1": {
+          "count": 8,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/recent/q2": {
+          "count": 8,
+          "query": "MAPF"
+        },
+        "openalex/recent/q3": {
+          "count": 8,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/recent/q4": {
+          "count": 8,
+          "query": "MAPD"
+        },
+        "openalex/recent/q5": {
+          "count": 8,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/recent/q6": {
+          "count": 8,
+          "query": "Online Multi-Agent Path Finding"
+        }
+      }
+    },
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2606.26793.html",
+          "id": "2606.26793",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-06-25",
+          "reading_value": 4,
+          "reading_value_reason": "Agentic RAGという最新の攻撃対象に対し、MCTSとメモリ誘導を組み合わせた新規性の高い手法を提案している。実験も大規模かつ多角的な評価指標を用いており、実用的な価値が高い。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "MIRROR: Novelty-Constrained Memory-Guided MCTS Red-Teaming for Agentic RAG",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2606.26458.html",
+          "id": "2606.26458",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-06-24",
+          "reading_value": 4,
+          "reading_value_reason": "マルチモーダル知識グラフを用いたRAGという未開拓領域に対し、検索と生成を分離して評価する体系的なベンチマークを提案しており、研究の方向性を示す価値が高い。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "MKG-RAG-Bench: Benchmarking Retrieval in Multimodal Knowledge Graph-Augmented Generation",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 153,
+      "fresh_total": 136,
+      "k": 2,
+      "label": "文書構造解析に基づく検索・質問応答・RAG",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 84,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 1,
+          "id": "doi-6428af65647a",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2025-12-17",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 5,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "SPR-RAG: Semantic Parsing Retriever-Enhanced Question Answering for Power Policy",
+          "venue": "Algorithms"
+        }
+      ],
+      "slug": "doc-structure-rag",
+      "source_counts": {
+        "arxiv/important/q1": {
+          "count": 0,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "arxiv/recent/q1": {
+          "count": 40,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "openalex/important/q1": {
+          "count": 40,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "openalex/recent/q1": {
+          "count": 40,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "semanticscholar/important/q1": {
+          "count": 38,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "semanticscholar/recent/q1": {
+          "count": 38,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        }
+      }
+    }
+  ],
+  "generated_at": "2026-06-28T06:00:02"
+}

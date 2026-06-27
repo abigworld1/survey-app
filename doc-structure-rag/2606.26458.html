@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MKG-RAG-Bench: Benchmarking Retrieval in Multimodal Knowledge Graph-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>MKG-RAG-Bench: Benchmarking Retrieval in Multimodal Knowledge Graph-Augmented Generation</h1>
+  <div class="meta">Xiaochen Wang, Bao Hoang, Han Liu, Ting Wang, Fenglong Ma<br>採択先: 未取得 ・ 2026-06-24 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.26458v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.26458v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-06-24</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">マルチモーダル知識グラフを用いたRAGという未開拓領域に対し、検索と生成を分離して評価する体系的なベンチマークを提案しており、研究の方向性を示す価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチモーダル知識グラフを用いた検索拡張生成（MKG-RAG）の性能を評価するための、初のクロスドメイン・ベンチマーク「MKG-RAG-Bench」を提案する。一般ドメイン（MarKG）と医療ドメイン（MedMKG）の2つの知識グラフを用い、LLMによるキュレーションを通じて、検索（Retrieval）と生成（Generation）の両側面から、マルチモーダルな知識の異質性やアライメントの課題を体系的に診断する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のRAGは非構造化テキストに依存しており、複雑な推論においてノイズや情報の断片化が課題となっていた。知識グラフを用いたKG-RAGは構造化データにより高い忠実度を実現するが、既存研究はテキストのみに限定されており、画像や表を含むマルチモーダルな情報を扱うMKG-RAGの体系的な研究やベンチマークは存在しなかった。本研究では、クエリ $q$、マルチモーダル知識グラフ $\mathcal{G}$、リトリーバー $\text{Retriever}$、およびマルチモーダルLLM $\text{MLLM}$ を用いて、応答 $a$ を生成するタスク $\text{MKG-RAG}(q, \mathcal{G}, \text{Retriever}, \text{MLLM}) \to a$ を定義し、その評価基盤を構築した。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、MKG-RAGシステムの限界を診断するための体系的なベンチマーク「MKG-RAG-Bench」を提案したことである。このベンチマークは、異種モダリティの組み合わせに対応する「Heterogeneous Retrieval」、モダリティや抽象度が異なる要素間の「Multimodal KG-Graph–Query Alignment」、および生成モデルの事前知識に依存しない「Benchmark Utility」という3つの主要課題に対処している。LLMを用いたキュレーションパイプラインにより、低有用な知識のフィルタリングと、構造的に根拠のあるクエリ生成を実現した。また、検索プロセスを独立した評価対象として分離することで、検索の質が最終的な生成結果に与える影響を定量的に示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>データ構築は、(1) LLMによる情報の有用性フィルタリング、(2) 三つ組 $(h, r, t)$ に対する relation masking または tail masking による不完全性のシミュレーション、(3) GPT-5を用いたハイブリッドな質問合成、の3段階で行われる。質問は、テキストのみのモードと、頭部エンティティの画像を参照する $[Image]$ を含む画像接地型の2モードで生成される。評価では、追加学習を行わない training-free な設定を採用し、リトリーバーを Text-only、Fusion-based、Captioning-based、Reranking-based の4カテゴリに分類して比較する。検索評価には $NDCG$、$\text{Precision}$、$\text{Recall}$ を用い、生成評価には $\text{Exact Match (EM)}$、$\text{F1}$、$\text{Contains}$、$\text{BLEU-1}$ を用いて、RAG-free（RAGを用いない状態）と比較検証を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>一般ドメインの MarKG に基づく MKG-RAG-Bench-G と、医療ドメインの MedMKG に基づく MKG-RAG-Bench-M の2つの設定で実験を行った。検索評価の結果、テキストクエリに対してマルチモーダルなトリプレットを加えても性能向上は限定的であり、検索空間における「モダリティ・ギャップ」が確認された。視覚的根拠を必要とするマルチモーダルクエリにおいては、Captioning-based 手法は情報損失により性能が低下するが、Fusion-based や Reranking-based の手法が有効であることが示された。生成評価では、生成性能が検索品質に強く依存することが示され、特に専門性の高い医療ドメインでは、微細な視覚的差異を識別するために Reranking 手法が大きな恩恵をもたらすことが実証された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>予備分析により、既存のマルチモーダル知識グラフを単純に組み合わせるだけでは、知識源・検索目的・下流タスク間の不整合（misalignment）が生じ、RAG-free よりも性能が低下する場合があることが明らかになった。これは、タスクに不可欠な知識の欠如や、無関係な知識のノイズ注入が原因である。本ベンチマークは、マルチモーダルな信号を効果的に活用することがエンドツーエンドの性能向上に不可欠であることを示唆しており、今後はグラフを考慮したドメイン適応型のマルチモーダル・リトリーバル手法や、構造化知識のマルチモーダル生成への統合に関する研究が重要となる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>MKG-RAG-Bench : Benchmarking Retrieval in Multimodal Knowledge Graph–Augmented Generation</h3><p>本研究では、マルチモーダル知識グラフを用いた検索拡張生成（MKG-RAG）における検索性能を評価するためのクロスドメイン・ベンチマークである「MKG-RAG-Bench」を提案している。このベンチマークは、一般ドメインと医療ドメインの2つのマルチモーダル知識グラフから構築されており、LLMベースのキュレーションパイプラインを用いて、低有用な知識のフィルタリング、厳密な教師あり学習を可能にする構造的に根拠のあるクエリ生成、および多様なモダリティ構成の網羅を実現している。評価においては、検索プロセスを独立した主要な評価対象として分離しており、検索の質が最終的な生成結果に強く影響することを実験的に示している。既存の非構造化コーパス向けのリトリーバーでは、マルチモーダル知識の異質性やモダリティ間のアライメントの困難さに対応できないという課題に対し、本ベンチマークはMKG-RAGシステムの限界を診断するための体系的な基盤を提供する。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>従来のRAGは非構造化テキストに依存しており、複雑な推論においてノイズや断片化が課題となるが、知識グラフを用いたKG-RAGは構造化データにより高い忠実度を実現する。しかし、既存のKG-RAGはテキストのみに限定されており、画像や表を含むマルチモーダルな情報を扱うMKG-RAG（Multimodal KG-RAG）の体系的な研究やベンチマークは存在しない。本研究では、クエリ $q$、マルチモーダル知識グラフ $\mathcal{G}$、リトリーバー $\text{Retriever}$、およびマルチモーダルLLM $\text{MLLM}$ を用いて、応答 $a$ を生成するタスク $\text{MKG-RAG}(q, \mathcal{G}, \text{Retriever}, \text{MLLM}) \to a$ を定義し、初のベンチマークである「MKG-RAG-Bench」を提案する。このベンチマークは、異種モダリティの組み合わせ（テキストのみ、画像のみ、または両方）に対応する「Heterogeneous Retrieval」、モダリティや抽象度が異なるクエリとグラフ要素間の「Multimodal KG-Graph–Query Alignment」、および生成モデルの事前知識に依存しない「Benchmark Utility」という3つの主要な課題に対処するように設計されている。構築パイプラインでは、LLMを用いて高有用なトリプレットを選択し、ヒューリスティックな戦略を用いてクエリとのアライメントを確保することで、リトリーバーの性能とMLLMのグラウンディング品質の両方を包括的に評価可能にしている。</p></section>
+<section class="secsum"><h3>2. Preliminaries</h3><p>本セクションでは、既存のM-RAG（非構造化マルチモーダル文書を対象）やKG-RAG（テキストベースの知識グラフを対象）とは異なり、エンティティや関係性、クロスモーダルな接続が明示的にモデル化されたマルチモーダル知識グラフ（MKG）から、異種モダリティを統合したサブグラフを特定するMKG-RAGの独自性を定義している。評価対象となるリトリーバーは、テキストのみを用いるText-only、共有表現空間を用いるFusion-based、画像をキャプションに変換するCaptioning-based、および多段階パイプラインを用いるReranking-basedの4つのカテゴリに分類され、本研究では公平性を期すため、追加学習を行わないtraining-freeな設定で事前学習済み重みを用いて評価を行う。予備分析として、MedMKGを用いてVQA-RADおよびSLAKEベンチマークで実験を行った結果、マルチモーダル・リトリーバーはText-onlyよりも優れているものの、RAGを用いない（RAG-free）状態よりも性能が低下するという結果が得られた。この性能低下の要因として、タスクに不可欠な知識がMKG内に欠如していること、およびタスクに無関係な知識がノイズとして注入されることによる、知識源・検索目的・下流タスク間の不整合（misalignment）が挙げられている。以上の分析から、既存のマルチモーダル知識グラフと下流タスクを単純に組み合わせる手法には限界があり、検索、知識源、および評価目的を明示的に整合させた専用のMKG-RAGベンチマークが必要であることが示されている。</p></section>
+<section class="secsum"><h3>3. Benchmark Construction</h3><p>MKG-RAG-Benchは、一般ドメインのMarKGと医療ドメインのMedMKGという2つのマルチモーダル知識グラフ（MKG）から構築された、クロスドメインのベンチマークである。データ構築パイプラインは、(1) LLMを用いた情報の有用性フィルタリング、(2) 三つ組（triplet）の構成要素を隠蔽する制御された不完全性のシミュレーション、(3) ハイブリッドな質問合成、の3段階で構成される。不完全性のシミュレーションでは、三つ組 $(h, r, t)$ に対して、関係を隠蔽する relation masking または尾部エンティティを隠蔽する tail masking を行い、頭部エンティティ $h$ を意味的なアンカーとして保持することで、マルチモーダルな接地（grounding）を容易にしている。質問合成では、GPT-5を用いて、テキストのみの質問と、頭部エンティティの画像を参照する $[Image]$ を含む画像接地型の質問の2モードで自然言語のクエリを生成する。評価指標として、合成された質問に対応する元の三つ組を正解ターゲットとする検索タスクと、隠蔽された要素を正解とする生成タスクの両方をサポートしており、検索と生成の各段階を厳密に評価可能である。統計的には、MarKGに基づくMKG-RAG-Bench-Gではクエリ数が三つ組数を上回るのに対し、MedMKGに基づくMKG-RAG-Bench-Mでは、臨床エンティティの接続パターンが重複しやすいため、三つ組数に対してクエリ数が少なくなるという構造的特性が見られる。</p></section>
+<section class="secsum"><h3>4. Benchmark Evaluation</h3><p>MKG-RAG-Benchの評価では、訓練不要（training-free）の設定に基づき、検索（retrieval）と生成（generation）の両タスクを、クエリのモダリティと候補トリプレットの範囲を組み合わせた5つの設定（$S1$〜$S5$）で検証している。検索評価では、CLIPエンコーダを用いた共有表現空間上でのコサイン類似度に基づき、$NDCG$、$\text{Precision}$、$\text{Recall}$を指標として、テキストのみの検索器、融合型、キャプションベース、リランキング型、およびランダムなベースラインを比較している。実験の結果、テキストクエリに対してマルチモーダルなトリプレットを加えても性能向上は限定的であり、検索空間における「モダリティ・ギャップ」の存在が示された。また、視覚的根拠を必要とするマルチモーダルクエリでは、キャプションベースの手法は情報損失により性能が低下する一方、融合型やリランキング型のマルチモーダル検索器が有効であることが確認された。生成評価では、GPT-5を生成モデルとし、$\text{Exact Match (EM)}$、$\text{F1}$、$\text{Contains}$、$\text{BLEU-1}$を用いて、RAGなし（RAG-free）と比較した有用性を測定している。生成性能は検索品質に強く依存しており、特に専門性の高い医療ドメイン（MKG-RAG-Bench-M）では、微細な視覚的差異を識別するためにリランキング手法がより大きな恩恵をもたらすことが明らかになった。</p></section>
+<section class="secsum"><h3>5. Conclusion</h3><p>本研究は、MKG-RAG（Multimodal Knowledge Graph-Augmented Generation）における進展が、適切なベンチマークの欠如により、リトリーバル（検索）コンポーネントの評価が不十分であるという課題を指摘している。この課題を解決するため、2つのマルチモーダル知識グラフと整合性の取れたQAデータセットで構成される、クロスドメインの評価ベンチマークである MKG-RAG-Bench を提案する。このベンチマークは、LLMを用いたキュレーションパイプラインを通じて、低有用な知識をフィルタリングし、多様なモダリティ構成を体系的にカバーすることで、制御可能かつ現実的なリトリーバル評価を可能にしている。代表的なリトリーバー群を用いた広範な実験の結果、リトリーバル過程においてマルチモーダルな信号を効果的に活用することは、エンドツーエンドの性能向上において極めて重要である一方、依然として困難な課題であることが示された。MKG-RAG-Bench は、グラフを考慮したドメイン適応型のマルチモーダル・リトリーバル手法や、構造化知識のマルチモーダル生成への統合に関する今後の研究を促進するための基盤を提供する。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-28
+  </footer>
+</div>
+</body>
+</html>

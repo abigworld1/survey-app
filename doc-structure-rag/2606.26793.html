@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MIRROR: Novelty-Constrained Memory-Guided MCTS Red-Teaming for Agentic RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>MIRROR: Novelty-Constrained Memory-Guided MCTS Red-Teaming for Agentic RAG</h1>
+  <div class="meta">Inderjeet Singh, Andrés Murillo, Motoyoshi Sekiya, Yuki Unno, Junichi Suga<br>採択先: 未取得 ・ 2026-06-25 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.26793v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.26793v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-25</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">Agentic RAGという最新の攻撃対象に対し、MCTSとメモリ誘導を組み合わせた新規性の高い手法を提案している。実験も大規模かつ多角的な評価指標を用いており、実用的な価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> MIRRORは、マルチモーダルなAgentic RAGの広範な脆弱性を網羅する、メモリ誘導型モンテカルロ木探索（MCTS）を用いた統一的なレッドチーミング・フレームワークである。検索されたコンテキストを探索の事前分布として活用しつつ、決定論的な「Novelty Gate」によって既存攻撃の単純なコピーを排除することで、高い新規性と攻撃成功率（ASR）を両立している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、検索・推論・ツール利用が統合されたエージェント型RAG（Agentic RAG）における、テキスト汚染、画像注入、直接クエリ、オーケストレーター操作といった多様な攻撃対象（attack surfaces）を対象としている。既存の攻撃手法（PAIR, TAP, Prior Sampling等）は、既知の攻撃を $73\text{--}84\%$ の割合で重複生成しており、真の新規性を見逃す課題がある。これに対し、MIRRORはマルチモーダルな脅威（B1: テキスト・ポイズニング、B2: 画像・ポイズニング、B3: 直接クエリ、B4: オーケストレーター攻撃）を横断的に探索する統一的なプランニングを実現する。評価には、4つの攻撃領域にわたる計41,991件のレコードを含む大規模ベンチマーク「ART-SafeBench (v2.0.0)」を用いている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>MIRRORは、メモリバンクから $k$-NN 近傍の履歴を検索して操作子の事前分布を構築し、MCTSによる探索をガイドするメモリ誘導型フレームワークを提案した。決定論的なNovelty Gateを導入することで、ベンチマークやセッション内の既知セットとの重複を排除し、$\text{DupBench@Exact} = 0\%$ という高い一意性を実現している。実験では、画像汚染攻撃（B2）においてベースラインの52%に対し76%のASRを達成し、オーケストレーター攻撃（B4）ではクエリコストを半分に抑えつつ97%のASRを記録した。また、既存手法が攻撃対象によって性能が激しく変動するのに対し、MIRRORは変動係数 $CV = 0.47$ という低いクロスサーフェス分散を実現し、高い汎用性を示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MIRRORは、エピソードメモリバンクと新規性制約付きプランニングの2フェーズで構成される。Prior Networkがコサイン類似度を用いてメモリから $k$-NN の履歴を検索し、それらに紐付く戦略タグから操作子の事前分布 $P(a|s)$ を導出する。MCTSの選択式は $U(s, a) = Q(s, a) + C \cdot P(a|s) \cdot \frac{\sqrt{\sum_b N(s, b)}}{1 + N(s, a)}$ で定義され、報酬 $Q(s, a)$ はLLMジャッジによって算出される。探索のガイドには事前分布の平滑化 $\alpha=0.1$ が用いられ、報酬は割引なしの $G_t = \sum_{t&#x27;=t}^T r_{t&#x27;}$ とされる。また、空白除去と英数字のみの抽出を用いた2種類の正規化による決定論的なNovelty Gateを導入し、攻撃候補が既知セットと重複しないことを保証する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価はART-SafeBench v2.0.0を用い、GeneralRAG（325ケース）およびCyberRAG（37ケース）の計362ケースに対して行われた。実験設定では、simulator ($gpt-5-mini$), judge ($gpt-5-nano$), mutator ($gpt-4o-mini$), embedder ($text-embedding-3-small$) の4モデル構成を採用し、MCTSにおいて $k=4, d=4$（B2では $d=2$）の探索を行った。比較対象には、Open-loop Prompting (OL), Prior Sampling (PS), PAIR, TAP, GCG, Text Overlay (OV), LSB Steganography (LSB), Toolflip (TF) が含まれる。成功判定には、LLMジャッジの出力が閾値 $\tau=0.8$ を超えるかどうかを用い、ASRに加え、重複率 $\text{DupBench@Exact}$ や、重複を除去した後の成功率 $\text{Novel-ASR@Exact}$ を測定した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>MIRRORは、シミュレータでの生成と実ターゲットへの決定論的なリプレイを組み合わせた二重検証（double-validation）により、展開時の分散に対して堅牢な推定を行う。しかし、シミュレータとターゲットのモデルが異なる場合、攻撃の転移性が支配的となり、シミュレータの成功率が実ターゲットの効果を過大評価する可能性がある。また、CyberRAGのケーススタディでは、厳格なJSONスキーマを持つSOCターゲットにおいて一部のベースラインがMIRRORを上回る結果が出ており、コーパスとターゲットの整合性やシミュレータの忠実度が限界として存在する。現在の新規性判定は正規化後の完全一致（exact-match）に基づく決定論的な手法であり、意味的な言い換えを許容する埋め込みベースや含意ベースのフィルタリングの導入が今後の課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>MIRROR: Novelty-Constrained Memory-Guided MCTS Red-Teaming for Agentic RAG</h3><p>MIRRORは、マルチモーダルなAgentic RAGにおけるテキスト汚染、画像注入、直接クエリ、オーケストレーター操作といった広範な攻撃対象領域を網羅する、メモリ誘導型モンテカルロ木探索（MCTS）を用いた統一的なレッドチーミング・フレームワークである。本手法は、検索されたコンテキストに基づいて候補生成を条件付けつつ、正規化比較によって検索セットと一致する候補を拒絶する決定論的な「Novelty Gate」を導入することで、プロンプトの単純なコピーを防ぎながら検索結果を探索の事前分布に活用する。実験の結果、画像汚染攻撃においてベースラインの52%に対し76%の攻撃成功率（ASR）を達成し、オーケストレーター攻撃ではクエリコストを半分に抑えつつ97%のASRを記録した。また、既存の特化型手法が攻撃対象によって性能が激しく変動するのに対し、MIRRORは変動係数 $0.47$ という低いクロスサーフェス分散を実現している。評価には、4つの攻撃領域にわたる計41,991件のレコードを含む「ART-SafeBench」が用いられた。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究では、検索・推論・ツール利用が統合されたエージェント型RAG（Agentic RAG）の脆弱性を突くための、メモリ誘導型MCTSフレームワークであるMIRROR（Memory-Informed Red-teaming with Retrieval-Restricted Optimization and Rollouts）を提案している。既存の攻撃手法（PAIR, TAP, Prior Sampling）は、既知の攻撃を $73\text{--}84\%$ の割合で重複して生成しており、真の新規性を見逃す課題がある一方、MIRRORはメモリバンクから $-NN$ 近傍の履歴を検索してオペレータの事前分布と拒絶セットを構築し、決定論的なNovelty Gateによって重複を排除しながらMCTSによる探索を行う。評価においては、テキスト、画像、直接クエリ、オーケストレーターといった多様な攻撃対象（attack surfaces）を横断する統一的なプランニングを実現しており、シミュレータによるロールアウトと実ターゲットへの決定論的なリプレイを組み合わせた検証プロセスを導入している。また、大規模ベンチマークであるART-SafeBench (v2.0.0) を構築しており、これには $41,991$ 件のレコードが含まれ、MIRRORのエピソードメモリの初期コーパスとして活用される。評価指標には、Wilson 95% 信頼区間、クエリ効率、および正確な重複診断が含まれ、既知の攻撃セットに対するパッチ適用後のストレステストを通じて、攻撃の新規性と汎用性を厳密に測定する。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>RAGは、LLMを非パラメトリックな知識ストアで拡張し、検索された証拠に基づいて生成を行うパラダイムであるが、検索手法はベクトル類似度に基づくDPRのような密な検索から、BM25などの疎な検索、知識グラフへの構造化クエリ、さらには検索を学習可能な意思決定プロセスとして扱うエージェント型アーキテクチャまで多岐にわたる。RAGへの攻撃には、検索コンテキストに悪意ある内容を混入させる知識汚染や検索ポイズニング、論理的矛盾を注入して推論コストを増大させるoverthinking攻撃、さらに画像内のタイポグラフィを利用したマルチモーダルな注入攻撃などが存在する。エージェント型システムにおいては、ReAct形式のプロンプティングによる推論とツール利用の交互作用が、指示の優先順位の曖昧さやツール出力経由の間接的プロンプト注入といった脆弱性を生む。自動レッドチーミングの文脈では、MCTSを用いたDAMONやMUSEといった探索ベースの手法が存在するが、提案手法であるMIRRORは、検索されたトレースの事前知識と、ケースごとに適用される厳格な新規性フィルタ（novelty filter）を組み合わせ、異種混合なエージェント型RAG表面に対して決定論的なリプレイを用いて攻撃を検証する点で異なる。既存のデータセットは間接的注入や直接攻撃など単一の攻撃面に焦点を当てることが多いが、ART-SafeBenchは、検索ポイズニング、マルチモーダル注入、直接クエリ、オーケストレーター操作を網羅的にカバーしている。</p></section>
+<section class="secsum"><h3>III Method</h3><p>MIRRORは、マルチモーダルAgentic RAGにおける4つの脅威表面（B1: テキスト・ポイズニング、B2: 画像・ポイズニング、B3: 直接クエリ攻撃、B4: オーケストレーター攻撃）を対象とした、メモリ誘導型MCTSによるレッドチーミング手法である。本手法は、成功した攻撃トレースを格納するエピソードメモリバンクと、新規性を制約としたプランニングの2フェーズ構成をとる。Prior Networkがコサイン類似度を用いてメモリから$k$-NNの履歴を検索し、それらに紐付く戦略タグから操作子の事前分布 $P(a|s)$ を導出することで、PUCTアルゴリズムに基づくMCTSの探索をガイドする。探索の選択式は $U(s, a) = Q(s, a) + C \cdot P(a|s) \cdot \frac{\sqrt{\sum_b N(s, b)}}{1 + N(s, a)}$ で定義され、報酬 $Q(s, a)$ はLLMジャッジによって算出される。また、提案された攻撃候補がベンチマーク・プール、検索された近傍セット、またはセッション内の既知セットと重複しないことを保証するため、2種類の正規化（空白除去および英数字のみ）を用いた決定論的なNovelty Gateを導入している。評価指標には、攻撃成功率（ASR）に加え、重複率を測定するDupBench@Exactや、重複を除去した後の成功率であるNovel-ASR@Exactなどが用いられる。</p></section>
+<section class="secsum"><h3>IV Experiments</h3><p>本実験では、ART-SafeBench v2.0.0を用い、GeneralRAG（325ケース）およびCyberRAG（37ケース）の計362ケースの決定論的なセットに対して評価を行っている。提案手法MIRRORは、simulator ($gpt-5-mini$), judge ($gpt-5-nano$), mutator/seed synthesizer ($gpt-4o-mini$), embedder ($text-embedding-3-small$) の4つのモデルロールで構成され、MCTSにおいて $k=4, d=4$（B2では $d=2$）の探索、早期終了閾値 $0.9$、割引なしの報酬 $G_t = \sum_{t&#x27;=t}^T r_{t&#x27;}$、および事前分布の平滑化 $\alpha=0.1$ を用いる。比較対象として、Open-loop Prompting (OL), Prior Sampling (PS), PAIR, TAP, GCG（テキストのみの強力な参照用）に加え、B2ではText Overlay (OV) とLSB Steganography (LSB)、B4ではToolflip (TF) を用いている。Prior NetworkはChromaDBによるコサイン類似度を用いて最大50,000件のエントリを管理し、新規性フィルタリングによってベンチマークの再利用を防いでいる。評価指標として、judge-modeの表面では、出力が成功したjailbreak（スコア $1.0$）であるかを判定する閾値 $\tau=0.8$ を用いて成功率を測定するほか、クエリ効率（$Q/\text{Success}$）や実行時間を記録している。</p></section>
+<section class="secsum"><h3>V Results</h3><p>GeneralRAGデータセットを用いた評価において、提案手法であるMIRRORは、4つの異なるサーフェスすべてに適用可能な唯一の手法であり、ASR（Attack Success Rate）の変動係数（CV）が $0.47$ と最も低く、高いクロスサーフェス安定性を実現している。B2サーフェスでは $76\%$ のASRを達成し、OV（$52\%$）やLSB（$32\%$）を上回り、B4サーフェスでは $97\%$ のASRと、TF（$86\%$）よりも優れたクエリ効率（$Q/\text{Success} = 1.00$ vs. $2.08$）を示した。B1サーフェスにおける新規性分析では、既存のseed-pool精緻化手法（PAIR, TAP, PS）がベンチマークの再利用に依存して高いASRを示す一方で、Novel-ASR（新規な攻撃成功率）は $6\text{--}9\%$ に留まるが、MIRRORはNovelty Gateによりベンチマークとの完全一致（$\text{DupBench@Exact} = 0\%$）を保証し、Novel-ASRで $47\%$ を記録した。また、既知の攻撃パターンを拒絶する既知集合（patched knownset）を用いたストレス・テストにおいて、既存手法は既知集合のサイズ増加に伴い、同一の攻撃バリアントを繰り返す自己崩壊（SelfDup@Exactが $93\text{--}97\%$ に達する現象）を引き起こすが、MIRRORはNovelty Gateによってベンチマークレベルおよびセッションレベルの両方で一意性を強制するため、低い重複率を維持できる。</p></section>
+<section class="secsum"><h3>VI Discussion</h3><p>MIRRORは、ベンチマークの再演ではなく、決定論的な新規性制約の下で異なる脆弱性の発見を目的として、固定された被害者クエリ予算内での検証済み成功率を最適化する。評価においては、検証済み成功率、重複診断（DupBench, Novel-ASR, SelfDup）、およびクエリ効率を組み合わせて解釈する必要があり、攻撃モデルの呼び出しコストは被害者予算とは独立して扱われる。シミュレータとターゲットのモデルが異なる場合、攻撃の転移性が支配的となり、シミュレータのみの成功率が実ターゲットの効果を過大評価する可能性があるが、MIRRORは生成時と決定論的なリプレイ時の両方で成功を求める二重検証（double-validation）により、展開時の分散に対して堅牢な推定を行う。限界として、CyberRAGのケーススタディでは、厳格なJSONスキーマを持つSOCターゲットにおいてベースラインがMIRRORを上回る結果が出ており、コーパスとターゲットの整合性やシミュレータの忠実度が制約となっている。また、現在の新規性判定は正規化後の完全一致（exact-match）に基づく決定論的な手法であり、意味的な言い換えを許容する埋め込みベースや含意ベースのフィルタリングは、閾値感度の問題から今後の課題とされている。</p></section>
+<section class="secsum"><h3>VII Conclusion</h3><p>本研究では、マルチモーダルなAgentic RAGシステムを自動的にレッドチーミングするための統一的なクロスサーフェス・プランナーであるMIRRORを提案し、B1–B4の各レベルを評価するためのART-SafeBenchを導入した。MIRRORは、検索を用いてオペレータの事前分布を誘導する一方で、固定された正規化条件下で完全な重複を決定論的に拒否する「retrieval-restricted Novelty Gate」を用いることで、検索結果をテンプレートキャッシュとして利用する挙動を抑制している。GeneralRAGを用いた評価において、MIRRORは4つのサーフェスすべてにエンドツーエンドで適用可能な唯一の手法であり、低いクロスサーフェス分散（$CV=0.47$）を達成しつつ、B2で76%、B4で97%という高い攻撃成功率（ASR）を記録し、B1におけるDupBench@Exactは0%であった。著者らは、既知の攻撃に対する現実的なパッチ適用下での攻撃発見能力を測定するために、ASRに加えてDupBench、Novel-ASR、SelfDup、および固定予算を併せて報告することを推奨している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-28
+  </footer>
+</div>
+</body>
+</html>
