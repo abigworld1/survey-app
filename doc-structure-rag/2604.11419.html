@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Beyond RAG for Cyber Threat Intelligence: A Systematic Evaluation of Graph-Based and Agentic Retrieval | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Beyond RAG for Cyber Threat Intelligence: A Systematic Evaluation of Graph-Based and Agentic Retrieval</h1>
+  <div class="meta">Dzenan Hamzic, Florian Skopik, Max Landauer, Markus Wurzenberger, Andreas Rauber<br>採択先: 未取得 ・ 2026-04-13 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/c3cee8d8cac7540321ca490875c85d48f9ec91a6" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.48550/arXiv.2604.11419" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-04-13</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">CTIドメインに特化し、GraphRAGやAgentic RAGの各手法を体系的に比較・評価している点が極めて有用。失敗モードの特定も具体的で、実務への示唆が深い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> サイバー脅威インテリジェンス（CTI）において、従来のベクトルベースRAGの限界を克服するため、グラフベース（GRAG）、エージェント型（AGRAG）、およびハイブリッド型（HRAG）の検索アーキテクチャを体系的に評価した研究。実験の結果、HRAGがマルチホップ推論において回答の質を最大35%向上させ、回答不能な問いに対しても76%という高い正解拒否率を達成するなど、最も信頼性の高いパフォーマンスを示した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、複雑な関係性や時間的推移を伴うCTIドメインにおいて、証拠が分散している場合に従来のSemantic RAGがマルチホップ推論に失敗するという課題に対処するものである。評価対象として、(i) 標準的なベクトル検索を用いるSemantic RAG、(ii) プロパティグラフ上でCypherクエリを実行するGraph-only retrieval (GRAG)、(iii) 自己反省ループによりクエリ生成の脆弱性を補完するAgentic GRAG (AGRAG)、(iv) 構造化検索と非構造化検索を組み合わせたHybridRAG (HRAG) の4つのアーキテクチャを定義している。評価には、事実確認、マルチホップ推論、アナリストによる統合的な質問、および回答不能なケースを含む3,300件のCTI質問・回答ペアが用いられた。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、CTIドメインにおける検索アーキテクチャの性能、信頼性、および失敗モードを、データ・モデル・指標を固定した制御実験によって明らかにした点にある。具体的には、グラフのみに依存するパイプラインが引き起こす「構造的ハルシネーション（structural hallucination）」や、回答不能なクエリに対する過信（overconfidence）といった特有の課題を特定した。また、エージェントによるクエリ修復や、グラフとテキストの冗長性を活用するハイブリッド検索が、回答の質と安全性の両面で極めて有効であることを示した。さらに、AGRAGがGRAGに対して最大$147\times$の高速化を達成したことを示すなど、効率性と堅牢性のトレードオフについても知見を提供している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>評価フレームワークでは、CTINexusデータセットからサンプリングされた非構造化テキストを、LLMを用いてNeo4j上のプロパティグラフ $\mathcal{G} = (\mathcal{E}, \mathcal{R})$ へと変換した。構成される質問は、単純なルックアップ、単一ホップ、マルチホップ、回答不能、および実務的な「ガイド付き」質問の計66種類に分類される。実験設定では、5種類のLLMを用い、各質問に対して10回の試行を実施した。RAGの構成では、コンテキストウィンドウの制限に基づき、チャンクサイズを200文字、オーバーラップを20文字とし、上位 $k=3$ 個のチャンクを抽出する制約を設けている。回答の品質測定には、F1、BLEU、ROUGE、BERTScoreといった古典的指標に加え、一致性（agreement）、適切性（adequacy）、忠実性（faithfulness）、明快さ（clarity）を評価するLLM-as-a-Judgeを用いた多角的な指標を採用している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験結果によれば、HRAGはマルチホップ質問においてベクトルRAGと比較して回答の質を最大35%向上させることに成功した。スコア分布において、GRAGは完璧な回答（50点）と失敗（$\le 10$点）に極端に分かれる二峰性（bimodal distribution）を示すが、HRAGはエージェントによる修正と冗長性により、最も高い完璧回答率（74.8%）を達成した。安全性分析では、HRAGがグラフとテキストの相互検証を通じて76%の正解拒否率（correct refusal）を記録した一方、Semantic RAGは回答不能な問いに対しても回答を試みる過信（overconfidence）を示し、正解拒否率は0%であった。一方で、GRAGはスキーマ外の概念に対して構造的ハルシネーションを引き起こすリスクや、最大39分に及ぶタイムアウトループといったレイテンシの不安定性が確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究は、グラフベースの検索がマルチホップ推論において有効である一方、単一のグラフパイプライン（Plain GraphRAG）には、自然言語からCypherクエリへの変換エラーやスキーマの不一致に起因する脆弱性が存在することを明らかにした。信頼性の高いCTIアシスタントを構築するためには、エージェントによるクエリ修正メカニズムや、構造化データに欠落がある場合に非構造化コンテキストへフォールバックできるHRAGのような冗長性が不可欠である。本研究の限界として、単一のCTIデータセットと制御されたグラフスキーマに依存している点、および自動生成された質問を使用しているため、実際の分析官による多様なクエリを完全には反映できていない点が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Beyond RAG for Cyber Threat Intelligence: A Systematic Evaluation of Graph-Based and Agentic Retrieval</h3><p>本研究は、サイバー脅威インテリジェンス（CTI）における複雑な関係性への推論を目的とし、従来のベクトルベースのRAG（Retrieval-Augmented Generation）の限界を克服するための4つのアーキテクチャ、すなわち標準的なベクトル検索、CTI知識グラフを用いたグラフベース検索、グラフクエリの失敗を修復するエージェント型、およびグラフとテキスト検索を組み合わせたハイブリッド型を体系的に評価している。評価には、事実確認、マルチホップ推論、アナリストによる統合的な質問、および回答不能なケースを含む3,300件のCTI質問・回答ペアが用いられ、回答の質は一致性（agreement）、適切性（adequacy）、忠実性（faithfulness）、明快さ（clarity）からなる複合指標で測定された。実験結果によれば、ハイブリッド型アーキテクチャは、マルチホップ質問においてベクトルRAGと比較して回答の質を最大35%向上させることに成功している。一方で、グラフのみに依存するパイプラインは、情報が欠落している場合に過剰に自信を持った回答を出力したり、レイテンシの分散が生じたりするといった特有の失敗モードを持つことが示された。最終的に、クエリ修復機能を持つアーキテクチャやハイブリッド検索を採用する手法が、最も信頼性の高い全体的なパフォーマンスを実現すると結論付けている。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>本研究は、サイバー脅威インテリジェンス（CTI）における回答の正確性と信頼性を向上させるため、従来のRAGを超えた検索アーキテクチャの体系的な評価を行うものである。従来のSemantic RAGは、テキストチャンクに対する密ベクトル検索（dense retrieval）を用いるが、CTI特有の複雑な関係性や時間的推移を伴うマルチホップ推論において、証拠が分散している場合に失敗する課題がある。これに対し、本論文では(i) Semantic RAG、(ii) プロパティグラフ上でCypherクエリを実行するGraph-only retrieval (GRAG)、(iii) 自己反省ループによりクエリ生成の脆弱性を補完するAgentic GRAG (AGRAG)、(iv) 構造化検索と非構造化検索を組み合わせたHybridRAG (HRAG) の4つの手法を提案・比較する。実験では、5種類のLLMを用い、単純な質問からマルチホップ、回答不能な質問までを含む3,300個の自動生成QAペアを用いて、回答の質だけでなく、セキュリティ上の重要課題である「不適切な回答（unsafe abstention）」や「レイテンシの不安定性」を評価指標としている。結果として、単純なGRAGは回答不能なクエリに対してRAGよりも性能が低下する場合があり、信頼性を確保するには修正メカニズムや冗長性の導入が不可欠であることを示している。</p></section>
+<section class="secsum"><h3>2. Background and Related Work</h3><p>標準的なRAGは、クエリを埋め込み、Dense Passage Retrieval等の手法を用いて上位 $k$ 個のテキスト断片を検索し、それらを条件として回答を生成するが、証拠が複数の文書に分散している場合や、エンティティ間のマルチホップ推論が必要な場合には限界がある。これに対し、GraphRAGは非構造化テキストを知識グラフ等のグラフ表現に変換することで、エンティティ間の関係性を辿る構造的な推論を可能にするが、その利点はクエリの複雑さやグラフの網羅性に強く依存する。また、ReActやReflexionに代表されるAgentic RAGは、推論、ツール実行、自己反省を繰り返すことで、検索プロセスにおける失敗の検知や修正を実現する。既存研究では、GraphRAGが医療分野での安全性向上に寄与する一方で、グラフ構造が毒入れ攻撃の伝播を招く新たな攻撃面を生む可能性も指摘されており、品質と堅牢性の両面を評価する必要がある。しかし、既存の評価手法はパイプラインやドメイン間で一貫性がなく、単一のバリアントのみを少数のベンチマークで検証する傾向があるため、因果関係の特定が困難であるという課題がある。本研究は、CTIドメインにおいてデータ、モデル、評価指標を固定した制御実験を行い、明示的なグラフ接地、エージェントによるクエリ洗練、およびハイブリッド検索の冗長性が与える影響を分離して評価する。</p></section>
+<section class="secsum"><h3>3. Methodology</h3><p>本研究は、サイバー脅威インテリジェンス（CTI）レポートに対するLLMベースの質問応答において、異なる検索アーキテクチャが信頼性と品質に与える影響を体系的に評価することを目的としている。評価対象は、ベクトル検索を用いるRAG、Cypherクエリを用いてグラフから情報を抽出するGRAG、反復的な修正メカニズムを備えたAGRAG、およびテキストとグラフの両方を利用するHRAGの4つのパラダイムである。評価フレームワークでは、CTINexusデータセットからサンプリングされた非構造化テキストを、LLMを用いてNeo4j上のプロパティグラフ $\mathcal{G} = (\mathcal{E}, \mathcal{R})$ へと変換し、そのグラフから生成されたCypherクエリに基づいて、単純なルックアップ、単一ホップ、マルチホップ、回答不能、および実務的な「ガイド付き」質問の計66問を構成する。実験設定では、5つの異なるLLMを用いて各10回の試行を行い、回答の品質をF1、BLEU、ROUGEなどの古典的な指標およびLLM-as-a-Judgeによって多角的に測定する。RAGの構成においては、コンテキストウィンドウの制限を考慮し、チャンクサイズを200文字、オーバーラップを20文字とし、上位 $k=3$ 個のチャンクを抽出する制約を設けている。</p></section>
+<section class="secsum"><h3>4. Results and Analysis</h3><p>本セクションでは、サイバー脅威インテリジェンス（CTI）タスクにおける、Semantic RAG、Graph RAG (GRAG)、Agentic RAG (AGRAG)、およびHybrid RAG (HRAG) の性能比較および分析結果が示されている。LLM-as-a-Judgeおよび古典的指標（F1, BLEU, ROUGE, BERTScore）を用いた評価の結果、AGRAGとHRAGはRAGに対して大幅な改善を示したが、GRAGはスキーマ制約によるクエリエラーがグラフ活用による利点を相殺するため、RAGに対しわずかな改善に留まった。スコア分布において、グラフベースのシステムは「全か無か」の二峰性（bimodal distribution）を示す傾向があり、特にGRAGは完璧な回答（50点）と失敗に近い回答（$\le 10$点）に極端に分かれるが、HRAGはエージェントによる修正とハイブリッドな冗長性により、失敗の裾野を縮小させ、最も高い完璧回答率（74.8%）を達成している。質問タイプ別では、単純な質問やマルチホップ質問においてグラフ基盤の有効性が確認されたが、Guided質問や回答不能な質問では、GRAGはスキーマ外の概念に対して「構造的ハルシネーション（structural hallucination）」を引き起こすリスクがある。安全性分析では、HRAGがグラフとテキストの相互検証を通じて最も高い正解拒否率（76%）を記録した一方、RAGやAGRAGは回答不能な問いに対しても回答を試みる過信（overconfidence）の課題が見られた。また、Text-to-Cypher生成の観点では、使用するLLMの性能に強く依存しており、HRAGはCypher生成が失敗した場合でも非構造化データから情報を補完できるため、モデルを問わず最も一貫した性能向上を実現している。</p></section>
+<section class="secsum"><h3>5. Discussion</h3><p>本研究は、CTI（サイバー脅威インテリジェンス）レポートに対するグラフベースの検索アーキテクチャの有効性を、3,300の質問と5つの言語モデルを用いて調査したものである。実験の結果、AGRAGやHRAGは、エンティティ間の関係性を辿る必要があるマルチホップ推論において、従来のセマンティック検索よりも優れた性能を示すことが確認された。しかし、グラフのみのパイプライン（Plain GraphRAG）は、自然言語からCypherクエリへの変換エラーやスキーマの不一致に起因する「構造的ハルシネーション（structural hallucination）」という特有の失敗モードを抱えており、グラフのスキーマに含まれない文脈への対応が困難である。この課題に対し、エージェントによるクエリ修正や、グラフ探索とセマンティック検索を組み合わせたハイブリッド検索（Hybrid retrieval）を導入することで、クエリ生成の失敗を軽減し、構造化データに欠落がある場合に非構造化コンテキストへフォールバックできる堅牢性が示された。本研究の限界として、単一のCTIデータセットと制御されたグラフスキーマに依存している点、および自動生成された質問を使用しているため、実際の分析官による多様なクエリを完全には反映できていない点が挙げられる。</p></section>
+<section class="secsum"><h3>6. Conclusion</h3><p>本研究では、サイバー脅威インテリジェンス（CTI）における4つのRAGアーキテクチャ（vanilla semantic RAG, GraphRAG, agentic GraphRAG, HRAG）を、3,300件のQAペアと5つのLLMを用いて評価した。実験の結果、単なるGraphRAGによるグラフ接地（graph grounding）は、クエリ修復ループによる深刻なレイテンシの不安定化を招き、品質向上も限定的であることが示された。一方で、agenticな洗練やハイブリッドな冗長性を持つ手法は、構造化された事実探索やマルチホップクエリにおいて大幅かつ安定した改善をもたらし、agentic GraphRAGはGraphRAGに対して最大$147\times$の高速化を達成した。また、HRAGは回答不能なクエリに対して$76\%$の正解拒絶率（correct refusal）を示したのに対し、semantic RAGは$0\%$であった。グラフベースの検索は、回答不能なクエリにおける$100\%$の崩壊率や、最大39分に及ぶタイムアウトループといった致命的な失敗モードのリスクを孕んでおり、信頼性の高いCTIアシスタントには、agenticな修正メカニズムや、HRAGのような非構造化テキストとの並列検索による冗長性が不可欠である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-29
+  </footer>
+</div>
+</body>
+</html>

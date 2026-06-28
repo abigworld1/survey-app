@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Scaling Lifelong Multi-Agent Path Finding to More Realistic Settings: Research Challenges and Opportunities | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Scaling Lifelong Multi-Agent Path Finding to More Realistic Settings: Research Challenges and Opportunities</h1>
+  <div class="meta">He Jiang, Yulun Zhang, Rishi Veerapaneni, Jiaoyang Li<br>採択先: 未取得 ・ 2024-04-24 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2404.16162v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2404.16162v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/socs.v17i1.31565" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2024-04-24</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">コンペ優勝手法に基づき、極端な高密度・大規模設定における実用的な課題と解決策を体系化しており、MAPF研究者にとって極めて示唆に富む。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、2023年のLeague of Robot Runners (LRR) コンペティションの優勝手法に基づき、Lifelong Multi-Agent Path Finding (LMAPF) を実世界に近い大規模・高密度・現実的な制約下へスケールさせるための3つの主要な研究課題（限られた計画時間、交通渋滞と近視眼的挙動、モデルと実世界の乖離）を提示している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、従来のMAPFが想定していた「エージェント密度 $10\%$ 未満、エージェント数 $100$ 以下」という限定的な設定を超え、実世界の自動倉庫等で求められる極端な条件下でのLMAPFの課題を扱う。対象とするLMAPF-Rは、外部タスクアサイナから継続的に目標が割り当てられるLMAPFに、位置と方位（East, South, West, North）を含むエージェントの状態を組み合わせたものである。LRRコンペティションの設定では、最大 $10,000$ 体のエージェント、最大 $54,230$ 頂点のマップ、最大 $95\%$ のエージェント密度、およびステップあたり $1$ 秒という極めて厳しい計画時間が課される。本論文は、これらの条件下でスループットを最大化するための手法と、直面する技術的障壁を体系化している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文の主な貢献は、大規模LMAPFにおけるスケーラビリティと実用性を阻害する要因を特定し、それらに対する具体的な解決策を提案した点にある。第一に、限られた計画時間内で高品質な解を得るための、並列化されたAnytimeアルゴリズムの枠組みを提示した。第二に、アルゴリズムの近視眼的な振る舞いが引き起こす交通渋滞を緩和するため、ガイダンスグラフの導入やエージェントの無効化（Disabling Agents）といった戦略を提案した。第三に、回転動作を含む現実的なアクションモデル（LMAPF-R）への適応手法を示し、既存モデルと実世界の乖離を埋めるための研究方向性を明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法である Windowed Parallel PIBT-LNS (WPPL) は、複数のアルゴリズムを組み合わせた階層的なアプローチをとる。まず、RHCRの概念に基づきウィンドウ幅 $w$ を用いた計画を行い、高速なルールベース手法であるPIBT (Priority Inheritance Backtracking) によって初期解を生成する。次に、Parallel MAPF-LNS を用いて、非同期に選択されたエージェントグループに対して逐次的な解の改善（Local Search）を行う。渋滞対策としては、エッジの重みを調整して移動コストをエンコードする「ガイダンスグラフ」や、デッドエンドでの滞留を防ぐために一部のエージェントの優先度を下げてゴールを現在地に設定する「エージェントの無効化」を用いる。また、回転動作を含むモデルに対しては、PIBTで次位置を計画した後に、その位置へ到達するための最初の動作のみを採用する手法を導入している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験は、32 vCPUsと84G Memoryを搭載したローカルマシンを用い、オフラインデータに対して評価が行われた。提案手法 WPPL は、10のインスタンス中9つでスコア1に近い 9.755 を記録し、Overall Best および Fast Mover トラックで優勝した。PIBT 単体では Sortation 10000 インスタンスにおいて 250 ms 以内に解を返しており、残りの時間を LNS に充てることでスループットを向上させている。エージェントの無効化の効果については、Game 4000 においてエージェント数を 4,000 から 2,500 に減らすことでスループットが最大化されることを確認した。また、無効化を行わない場合、Random 600, Random 800, Game 4000 においてスループットがそれぞれ $15.7\%$, $51.8\%$, $47.0\%$ 低下するという結果を得ている。回転モデルの導入により、WPPL は Game 4000, Warehouse 8000, Sortation 10000 においてそれぞれ 185.0%, 192.5%, 189.0% のスループット向上を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究では、スケーラビリティと解の品質のトレードオフが重要な課題として残っている。WPPL は高い性能を示す一方で、非構造的なマップや極端に混雑したシナリオでは PIBT の初期解の質に依存するという限界がある。また、近視眼的なコスト最小化が将来の渋滞を悪化させる悪循環についても指摘されており、今後は GGO (Guidance Graph Optimization) のスケールアップや、データ駆動型の渋滞予測、リアルタイム探索を用いたヒューリスティックの更新が必要である。さらに、実世界への適用に向けては、より複雑な運動学・動力学（kinodynamic）モデルの考慮、実行時の不確実性への対応、およびマップやエージェント数が変化する進化するシステム（Evolving Systems）への適応が不可欠な研究課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Scaling Lifelong Multi-Agent Path Finding to More Realistic Settings: Research Challenges and Opportunities</h3><p>本論文は、2023年のLeague of Robot Runners LMAPFコンペティションにおける優勝手法に基づき、Lifelong Multi-Agent Path Finding (LMAPF) における3つの主要な研究課題を提示している。第一の課題は、10,000体規模の大量のエージェントや97.7%という極めて高い密度において、限定された計画時間（例：1ステップあたり1秒）内で高品質な解を探索することであり、ルールベースやAnytimeアルゴリズムの高度化、および既存アルゴリズムの並列化が解決策として挙げられている。第二の課題は、混雑の緩和と近視眼的な振る舞いの抑制であり、移動ガイダンスや交通ルールの導入、将来予測とリアルタイム探索の統合、および最適なエージェント数の決定が重要となる。第三の課題は、既存のLMAPFモデルと実世界アプリケーションとの乖離を埋めることであり、より現実的な運動学的・動力学的（kinodynamic）モデルへの対応、実行時の不確実性、および進化するシステムへの適応が今後の研究方向として示されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本セクションでは、従来のMulti-Agent Path Finding (MAPF) から、エージェントに継続的に新しいタスクが割り当てられるLifelong MAPF (LMAPF) への拡張の重要性が述べられている。既存の研究の多くは、エージェント密度が $10\%$ 未満、エージェント数が $100$ 以下といった限定的な設定に留まっているが、実世界の自動倉庫等では、エージェント密度が $100\%$ に近いケースや数千台規模のロボット運用が求められる。これに対し、Amazon Roboticsが主催する「The League of Robot Runners (LRR)」コンペティションでは、最大 $10,000$ 体のエージェント、最大 $54,230$ 頂点の広大なマップ、最大 $95\%$ の極端なエージェント密度、ステップあたり $1$ 秒という厳しい計画時間、および向きや回転を考慮した現実的なアクションモデルという、極めて困難な設定が導入されている。本論文では、これらに関連する「限られた計画時間」「混雑や近視眼的挙動」「モデルと実世界の乖離」という3つの主要な研究課題を提示し、並列計算の活用や交通ルールの導入、実行の不確実性を考慮したモデル構築などの将来的な研究方向性を議論する。</p></section>
+<section class="secsum"><h3>2 Problem Definition</h3><p>本セクションでは、MAPF、LMAPF、およびMAPF-Rの定義が示されており、本研究の対象であるLMAPF-Rは、外部のタスクアサイナによって継続的に目標が割り当てられるLMAPFと、エージェントの状態に位置と方位（East, South, West, North）を含むMAPF-Rを組み合わせたものである。LMAPFの目的は、全エージェントの衝突を回避しつつ、ステップあたりの平均目標到達数であるスループットを最大化することである。実験設定では、32 vCPUsと84G Memoryを搭載したローカルマシンを用い、オフラインデータに対して評価を行っている。評価指標は、全提出者の最高スループットに対する解のスループットの比率として定義される正規化スコア（0から1の範囲）であり、Overall Best、Fast Mover、Line Honoursの3つのトラックで順位が決定される。提案手法であるWindowed Parallel PIBT-LNS (WPPL) は、PIBTで初期計画を生成した後、Parallel MAPF-LNSを用いて計画を洗練させる手法である。最終的に、提案手法は10インスタンス中9つでスコア1に近い9.755を記録し、Overall BestおよびFast Moverトラックで優勝した。</p></section>
+<section class="secsum"><h3>3 Challenge 1: Limited Planning Time</h3><p>Lifelong Multi-Agent Path Finding (LMAPF) における限られた計画時間（LRRコンペティションでは各ステップ1秒以内）という課題に対し、本セクションでは既存手法の限界と提案手法 WPPL (Windowed Parallel PIBT-LNS) について論じている。既存の最適解アルゴリズム（CBS等）は計算量が指数関数的に増加し、境界劣解アルゴリズム（ECBS等）やルールベース手法（PIBT等）はスケーラビリティと解の品質の間にトレードオフがある。提案手法 WPPL は、RHCR の概念を用いたウィンドウ幅 $w$ による計画、高速な PIBT による初期解生成、および MAPF-LNS による逐次的な解の改善を組み合わせたものである。さらに、マルチコアを活用するために、非同期にエージェントグループを選択して並列に再計画を行う並列化戦略を採用している。実験では、PIBT が Sortation 10000 インスタンスで 250 ms 以内に解を返すことを示し、残りの時間を LNS による改善に充てることでスループットを向上させている。また、過去の計画ステップを再利用することで、Random 600 インスタンスにおいてスループットが 29.9% 向上するという結果を得ているが、非構造的なマップや混雑したシナリオでは PIBT の初期解の質に依存する限界も示唆されている。</p></section>
+<section class="secsum"><h3>4 Challenge 2: Traffic Congestion and the Myopic Behavior of LMAPF Algorithms</h3><p>LMAPF（Lifelong Multi-Agent Path Finding）における交通渋滞とアルゴリズムの近視眼的（myopic）な振る舞いの相関が議論されており、特にWPPLのような手法が、現在のウィンドウ内での近似的な合計コスト $\sum \text{costs}$ を最小化しようとする際、将来の衝突や渋滞を無視することで、結果的にPIBTよりもスループットを低下させ、渋滞を悪化させる悪循環が生じることが示されている。この問題に対し、エッジの重みを調整して移動コストをエンコードする「ガイダンスグラフ（Guidance Graph）」の導入が提案されており、手動での微調整や、計算コストは高いもののGGOアルゴリズムによる自動最適化が行われる。また、デッドエンドや狭い通路での渋滞を回避するため、一部のエージェントのゴールを現在地に設定し優先度を最低に下げる「エージェントの無効化（Disabling Agents）」という手法が用いられ、Game 4000のインスタンスでは、エージェント数を4,000から2,500に減らすことでスループットが最大化されることが確認された。実験結果として、エージェントの無効化を行わない場合、Random 600、Random 800、Game 4000においてそれぞれスループットが $15.7\%$、$51.8\%$、$47.0\%$ 低下することが示されている。今後の展望として、GGOのスケールアップ、オンラインでのガイダンス更新、データ駆動型の渋滞予測、およびリアルタイム探索を用いたヒューリスティックの更新による局所解の回避などが挙げられている。</p></section>
+<section class="secsum"><h3>5 Challenge 3: Gaps between LAMPF Models and Real-World Applications</h3><p>本セクションでは、既存のLMAPFモデルと実世界アプリケーションの間の乖離（Gaps）を第3の課題として挙げ、特に回転動作を含むLMAPF-Rモデルへの適応について論じている。LMAPF-Rでは、従来の4方向移動モデルに対し、前進・回転・待機というより現実的なアクションモデルを採用しており、回転を計画アルゴリズムに直接組み込むことでスループットの向上が期待できる。著者らは、PIBTにおいて回転が次ステップの衝突判定を困難にする問題に対し、まず元のPIBTで次位置を計画し、その位置へ到達するための最初の動作のみを採用するという手法を提案している。実験では、回転モデルが混雑を引き起こしやすいことを示すため、WPPLとPIBTの比較を行い、Game 4000、Warehouse 8000、Sortation 10000においてWPPLがそれぞれ185.0%、192.5%、189.0%のスループット向上を達成した一方で、極端な高密度環境のRandom 800では依然として課題が残ることを示した。さらに、実世界への適用におけるその他の乖離として、複雑な運動学・動力学（Kinematics and Dynamics）の考慮、実行時の不確実性、非一様なタスク分布、およびマップレイアウトやエージェント数が変化する進化するシステム（Evolving Systems）への対応が必要であることを指摘している。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本論文は、2023年のLeague of Robot Runnersコンペティションでの経験に基づき、Lifelong Multi-Agent Path Finding (LMAPF) をより現実的な設定へスケールさせるための3つの主要な課題を提示している。第一に、限られた計画時間への対応として、WPPL（Windowed Prioritized Planning）を解決策として挙げ、ルールベース、Anytime、および並列アルゴリズムの重要性を指摘している。第二に、混雑問題の緩和策としてガイダンスグラフの適用やエージェントの無効化を挙げ、今後はより高度なガイダンスや交通ルールの設計、将来の交通予測、リアルタイム探索、および最適なエージェント数の決定が必要であるとしている。最後に、既存研究における簡略化されたLMAPFモデルと、運動学的制約（kinodynamic models）、実行時の不確実性、および動的に変化するシステムを含む複雑な実世界アプリケーションとの乖離を埋める必要性を論じている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-29
+  </footer>
+</div>
+</body>
+</html>

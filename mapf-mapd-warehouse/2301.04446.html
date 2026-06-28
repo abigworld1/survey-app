@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>An Efficient Approach to the Online Multi-Agent Path Finding Problem by Using Sustainable Information | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>An Efficient Approach to the Online Multi-Agent Path Finding Problem by Using Sustainable Information</h1>
+  <div class="meta">Mingkai Tang, Boyi Liu, Yuanhang Li, Hongji Liu, Ming Liu, Lujia Wang<br>採択先: 未取得 ・ 2023-01-11 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2301.04446v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2301.04446v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2023-01-11</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">オンラインMAPFにおける「計画コンテキストの再利用」という着眼点が独創的。3層構造の提案に加え、理論的保証と大幅な計算加速を両立しており、実用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Online Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 将来の追加エージェントが未知であるオンラインMulti-Agent Path Finding (MAPF) において、過去の計画情報を「持続可能な情報（sustainable information）」として再利用する3層構造のアプローチを提案する。提案手法は、高レベルのSustainable Replan (SR)、中レベルのSustainable Conflict-Based Search (SCBS)、低レベルのSustainable Reverse Safe Interval Path Planning (SRSIPP) で構成され、既存のSOTAと比較して平均1.48倍、大規模マップでは最大10倍の計算加速を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、新しいエージェントが予測不能なタイミングで追加されるオンラインMAPF問題を対象としている。従来のReplan All手法は、エージェント数の増加に伴い計算複雑性が増大する課題があった。本研究では、過去の計画情報を「計画コンテキスト（planning context）」と定義し、これを再利用することで計算の冗長性を削減することを目指している。エージェントは有向グラフ $\mathcal{G}$ 上の $(s_i, t_i, g_i)$（開始頂点、開始時刻、目標頂点）のタプルで表され、衝突は同一頂点の占有（vertex conflict）および逆方向の辺の通過（edge conflict）を考慮する。評価指標には、将来の未知のエージェントの影響を考慮しつつ、現在の情報下でSOCを最小化する「snapshot optimality」の概念を導入している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>提案手法は、計算効率の向上と理論的な保証の両立を実現している。具体的には、計画コンテキストを管理する3層構造のアルゴリズムを提案し、計算の重複を抑制する。理論面では、SRSIPPが完備性と最適性を持ち、SCBSが完備かつ最適であること、そしてシステム全体であるSRが完備かつスナップショット最適（snapshot optimal）であることを証明している。実験においては、4近傍グリッドマップを用いた検証により、既存のSOTA手法と比較して平均で1.48倍、大規模なシナリオでは最大10倍の加速率を達成した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は以下の3層構造で構成される。<br>1. **Sustainable Replan (SR)**: 最上位層として環境のシミュレーションと計画コンテキストの管理を行う。エージェントIDと制約をキーとする2層ハッシュテーブルを用いて情報を保持する。<br>2. **Sustainable Conflict-Based Search (SCBS)**: 中間層として、CBSを拡張したアルゴリズムを用いる。低レベルソルバーの検索前に個別の計画コンテキスト $\mathcal{C}_i$ を抽出し、検索後に更新されたコンテキストを全体コンテキスト $\mathcal{C}$ に書き戻すことで情報の持続性を確保する。<br>3. **Sustainable Reverse Safe Interval Path Planning (SRSIPP)**: 低レベル層として、ゴールを根とするTime-Interval-Space (TIS) 状態上での逆方向A*探索を行う。各反復でゴールは不変で始点のみが変化することに着目し、ダミー子状態（dummy son）を用いて既存のTIS状態のコストを更新・分割することで、前回の計画情報を再利用する。評価関数は $f(s) = g(s) + h(s)$ であり、ヒューリスティック $h(s)$ にはマンハッタン距離を用いる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>4近傍グリッドマップを用いた小規模および大規模な2種類のデータセットを用いて、計算効率を評価した。実験設定はAMD R7-5800X CPUを使用し、実行時間制限を30秒とし、エージェント数 $n$ を変化させた条件下で各設定につき100インスタンス（小規模マップでは25インスタンス）の統計を取得した。比較対象として、Replan Allを用いた $A1$、持続可能な情報を利用しない $A2$、低レベルでのコンテキスト再利用を行わない $A3$ の計4手法を設定した。結果として、小規模マップでは $A4$ ($SR+SCBS+SRSIPP$) は $A1$ と同等以上の成功率を示し、大規模マップでは $A1$ に対する平均加速比が $10\times$ に達する顕著な優位性が確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の成果は、計画コンテキストの再利用がオンラインMAPFの計算コスト削減に極めて有効であることを示している。特に、大規模マップにおいて加速性能が向上する傾向が見られたが、これは経路長が長くなることで持続可能な情報（sustainable information）をより頻繁に利用できる機会が増えるためであると考えられる。提案手法はスナップショット最適性を保証しており、実用的なオンライン環境での適用可能性が高い。今後の展望として、コンフリクトツリーの構築プロセスにおいても持続可能な情報を活用する手法を検討することで、さらなる効率化が可能であると述べている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>An Efficient Approach to the Online Multi-Agent Path Finding Problem by Using Sustainable Information</h3><p>本研究は、将来の追加エージェントに関する情報が未知であるオンラインMulti-Agent Path Finding (MAPF) において、過去の計画コンテキストを再利用することで計算の冗長性を削減する、持続可能な情報（sustainable information）を活用した3層構造のアプローチを提案している。高レベルソルバーであるSustainable Replan (SR) は、計画コンテキストの管理と環境のシミュレーションを担い、中間レベルのSustainable Conflict-Based Search (SCBS) は、コンテキストを維持しながら衝突ツリーを構築する。低レベルソルバーには、過去の計画コンテキストを利用して重複計算を抑制する単一エージェント用アルゴリズムであるSustainable Reverse Safe Interval Path Planning (SRSIPP) を採用している。実験の結果、提案手法は計算効率において大幅な改善を示し、特定のテストシナリオにおいて、エージェント数の設定に関わらず既存のSOTA（State-of-the-Art）と比較して平均で $1.48$ 倍高速であることが確認された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路探索（MAPF）において、新しいエージェントが予測不能なタイミングで追加されるオンラインMAPF問題は、実世界の倉庫ロボット運用などで極めて重要であるが、既存のReplan All手法はエージェント数が増大すると計算複雑性が高くなる課題がある。本研究では、過去の計画情報を「持続可能な情報（sustainable information）」または「計画コンテキスト（planning context）」と定義し、これを再利用することで計算時間を短縮する3層構造の効率的なアルゴリズムを提案している。高レベルアルゴリズムであるSustainable Replan (SR) が環境をシミュレートして計画コンテキストを維持し、中レベルのSustainable Conflict-Based Search (SCBS) が現在の情報に基づき解を探索し、低レベルソルバーとしてSustainable Reverse Safe Interval Path Planning (SRSIPP) を用いる。SRSIPPは、各反復においてエージェントのゴール地点は同一で始点のみが変化することに着目し、ゴールから始点へと逆方向に探索を行うことで、前回の計画情報を再利用する。提案手法は完全性とスナップショット最適性（snapshot optimality）が証明されており、実験では最先端手法（SOTA）と比較して平均で最大1.48倍の加速率を達成している。</p></section>
+<section class="secsum"><h3>2 Problem Definition</h3><p>本研究では、有向グラフ $\mathcal{G}$ とエージェントの集合 $\mathcal{A} = \{a_1, \dots, a_n\}$ を対象としたオンラインMulti-Agent Path Finding (MAPF) 問題を定義しており、各エージェント $a_i$ は $(s_i, t_i, g_i)$（開始頂点、開始時刻、目標頂点）のタプルで表される。システム開始時刻 $t=0$ に既に存在するエージェントをオフライン部分、それ以降に順次追加されるエージェントをオンライン部分と呼び、新しいエージェントが追加される時刻のシーケンスを $T = \{t_1, \dots, t_m\}$ とする。本研究では、エージェントがガレージから任意の時刻に開始できる設定と、目標頂点で消失する設定を採用しており、衝突は同一頂点の占有または逆方向の辺の通過（vertex conflict および edge conflict）のみを考慮する。評価指標として、従来のmakespanやSum-of-Cost (SOC) は将来の未知のエージェントの影響を直接評価できないという限界があるため、本論文では「将来エージェントが現れないと仮定した場合にSOCを最小化できる」という定義に基づき、解の質を測る指標としてsnapshot optimal solverという概念を導入している。</p></section>
+<section class="secsum"><h3>3 Methodology</h3><p>提案手法は、Sustainable Replan (SR)、Sustainable Conflict-Based Search (SCBS)、Sustainable Reverse Safe Interval Path Planning (SRSIPP) の3層構造で構成される。最上位のSRは、エージェントの出現時に全エージェントの再計画を行い、エージェントIDと制約をキーとする2層ハッシュテーブルを用いて「計画コンテキスト」を管理する。中位のSCBSは、CBSを拡張したもので、低位ソルバーの検索前に個別の計画コンテキスト $\mathcal{C}_i$ を抽出し、検索後に更新されたコンテキストを $\mathcal{C}$ に書き戻すことで情報の持続性を確保する。低位のSRSIPPは、ゴールを根とするTime-Interval-Space (TIS) 状態上での逆方向A*探索を行う単一エージェントソルバーであり、時間点 $t$ ではなく時間区間 $[t_{start}, t_{end}]$ を扱うことで、変化する開始点に関わらず前回の探索結果を再利用可能にする。具体的には、ダミー子状態（dummy son）を用いて既存のTIS状態のコストを更新・分割するアルゴリズムを採用しており、評価関数は $f(s) = g(s) + h(s)$ で定義され、ヒューリスティック $h(s)$ にはマンハッタン距離が用いられる。この手法により、オンラインMAPFにおいて、ゴールが不変であることを利用した効率的な再計画を実現している。</p></section>
+<section class="secsum"><h3>4 Theoretical Analysis</h3><p>本セクションでは、提案手法の理論的妥当性が示されており、まずTheorem 1において、ヒューリスティック関数 $h$ が許容可能（admissible）かつ一貫性（consistency）を満たす場合、`StopCheck` 関数が最初に `true` を返した時点で、現在の終端状態集合 $\mathcal{T}$ よりも優れた終端状態は存在しないことが証明されている。Theorem 2では、同様の条件下で SRISPP アルゴリズムが完備性（completeness）と最適性（optimality）を持つことが示されており、これは初期状態が空であれば標準的な A* と同等であり、既存の探索状態がある場合でも、$\mathcal{T}$ 内の未探索の隣接ノードが適切に更新されるためである。これに基づき、Corollary 1 および Corollary 2 から、SCBS は完備かつ最適であり、SR は完備かつスナップショット最適（snapshot optimal）であることが導かれる。`StopCheck` アルゴリズムは、候補となる終端状態集合 $\mathcal{T}$ とオープンリスト内の最小推定値 $f_{min}$ を入力とし、$\mathcal{T}$ の要素が現在のシーンに含まれるか、およびその $f$ 値が $f_{min}$ 以下であるかを判定することで、探索の打ち切り条件を決定する。</p></section>
+<section class="secsum"><h3>5 Experiment</h3><p>本実験では、提案手法である $A4$ ($SR+SCBS+SRSIPP$) の計算効率を評価するため、4近傍グリッドマップを用いた小規模および大規模な2種類のデータセットを使用し、成功率と平均実行時間を指標として評価を行っている。実験設定では、AMD R7-5800X CPUを使用し、実行時間制限を30秒とし、エージェント数 $n$ を変化させた条件下で各設定につき100インスタンス（小規模マップでは各設定25インスタンス）の統計を取っている。比較対象として、Replan Allを用いた $A1$、持続可能な情報を一切利用しない $A2$、低レベルソルバーでのコンテキスト再利用を行わない $A3$ の4つのベースラインを設定した。実験結果として、小規模マップでは $A4$ は $A1$ と同等以上の成功率を示し、実行時間においても $A1$ に対する最大の加速比を達成している。大規模マップにおいては、提案手法 $A4$ の優位性がより顕著となり、全インスタンスを通じて $A1$ に対する平均加速比が $10\times$ に達した。考察として、大規模マップではエージェントの経路長が長いため、持続可能な情報（sustainable information）をより頻繁に利用できることが、提案手法の高い加速性能に寄与していると述べている。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、オンラインMAPF問題を解決するために、マルチエージェントのオンライン環境シミュレーション、マルチエージェント経路計画、および履歴情報を活用したシングルエージェント経路計画の3つの階層からなるアルゴリズムを提案している。提案手法は完全性（completeness）とスナップショット最適性（snapshot optimality）が証明されており、実験の結果、既存のSOTAアルゴリズムよりも高速に動作することが示された。特に、グリッドサイズが大きくなるほど性能が向上する傾向があり、これは経路が長くなることで計画コンテキストの再利用回数が増え、加速効果が高まるためである。今後の展望として、コンフリクトツリーの構築など、持続可能な情報（sustainable information）の活用方法をさらに広げることで、アルゴリズムの効率性を向上させることが挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-29
+  </footer>
+</div>
+</body>
+</html>

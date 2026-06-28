@@ -1,5 +1,37 @@
 {
   "doc-structure-rag": {
+    "arxiv:2605.25030": {
+      "added": "2026-06-29",
+      "arxiv_id": "2605.25030",
+      "authors": [
+        "Magnus Samuelsen",
+        "Wilmer Nystrom",
+        "Somnath Mazumdar",
+        "M. Hussain",
+        "Mikkel Strange"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-05-24",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2605.25030.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2605.25030",
+      "reading_value": 4,
+      "reading_value_reason": "金融ドメイン特有の課題（表形式データ、数値計算、メタデータ活用）に対し、マルチエージェント構成と具体的なチャンキング手法で実用的な解を提示しており、研究価値が高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "MimirRAG: A Multi-Agent RAG Framework for Financial Data Retrieval with Metadata Integration",
+      "tldr": "金融ドキュメントからの高精度な情報抽出を目指す、メタデータ統合型のマルチエージェントRAGフレームワーク「MimirRAG」を提案する。Doclingを用いた構造維持型PDFパース、テーブルを考慮したチャンキング、および5つのエージェント（Extractor, Planner, Search, Validator, Writer）による協調的な検索・検証プロセスにより、FinanceBenchにおいて89.3%の精度を達成した。",
+      "url": "https://www.semanticscholar.org/paper/a8118bc48586e25e5d6f6d60ccfd895074a12b97",
+      "venue": "arXiv (Cornell University)"
+    },
     "arxiv:2605.28120": {
       "added": "2026-06-23",
       "arxiv_id": "2605.28120",
@@ -902,6 +934,38 @@
       "title": "Scaling Beyond Context: A Survey of Multimodal Retrieval-Augmented Generation for Document Understanding",
       "tldr": "本論文は、テキスト、表、図、レイアウトが混在する視覚的に豊かな文書を理解するための「Multimodal RAG」に関する体系的なサーベイである。従来のOCRベースの手法や、コンテキスト制限（$128\\text{K}$–$1\\text{M}$トークン）を持つMLLMの限界を克服するため、ドメイン、検索モダリティ、粒度、およびハイブリッド拡張（グラフ・エージェント型）の観点から最新技術を分類・整理している。"
     },
+    "doi:10.48550/arxiv.2604.11419": {
+      "added": "2026-06-29",
+      "arxiv_id": "2604.11419",
+      "authors": [
+        "Dzenan Hamzic",
+        "Florian Skopik",
+        "Max Landauer",
+        "Markus Wurzenberger",
+        "Andreas Rauber"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-04-13",
+      "doi": "10.48550/arXiv.2604.11419",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2604.11419.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "",
+      "reading_value": 4,
+      "reading_value_reason": "CTIドメインに特化し、GraphRAGやAgentic RAGの各手法を体系的に比較・評価している点が極めて有用。失敗モードの特定も具体的で、実務への示唆が深い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Beyond RAG for Cyber Threat Intelligence: A Systematic Evaluation of Graph-Based and Agentic Retrieval",
+      "tldr": "サイバー脅威インテリジェンス（CTI）において、従来のベクトルベースRAGの限界を克服するため、グラフベース（GRAG）、エージェント型（AGRAG）、およびハイブリッド型（HRAG）の検索アーキテクチャを体系的に評価した研究。実験の結果、HRAGがマルチホップ推論において回答の質を最大35%向上させ、回答不能な問いに対しても76%という高い正解拒否率を達成するなど、最も信頼性の高いパフォーマンスを示した。",
+      "url": "https://www.semanticscholar.org/paper/c3cee8d8cac7540321ca490875c85d48f9ec91a6",
+      "venue": ""
+    },
     "title:ft rag a fine grained retrieval augmented generation framework for complex table reasoning": {
       "added": "2026-06-15",
       "authors": [
@@ -977,6 +1041,40 @@
       "source_quality": "fulltext",
       "title": "LaCAM: Search-Based Algorithm for Quick Multi-Agent Pathfinding",
       "tldr": "LaCAM (lazy constraints addition search for MAPF) は、完全性を備えつつ、数百から10,000エージェント規模の大規模・高密度なマルチエージェント経路探索（MAPF）を高速に解決する2レベル探索アルゴリズムである。"
+    },
+    "arxiv:2301.04446": {
+      "added": "2026-06-29",
+      "arxiv_id": "2301.04446",
+      "authors": [
+        "Mingkai Tang",
+        "Boyi Liu",
+        "Yuanhang Li",
+        "Hongji Liu",
+        "Ming Liu",
+        "Lujia Wang"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2023-01-11",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2301.04446.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Online Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2301.04446v1",
+      "reading_value": 4,
+      "reading_value_reason": "オンラインMAPFにおける「計画コンテキストの再利用」という着眼点が独創的。3層構造の提案に加え、理論的保証と大幅な計算加速を両立しており、実用性が高い。",
+      "relevance": 8,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "An Efficient Approach to the Online Multi-Agent Path Finding Problem by Using Sustainable Information",
+      "tldr": "将来の追加エージェントが未知であるオンラインMulti-Agent Path Finding (MAPF) において、過去の計画情報を「持続可能な情報（sustainable information）」として再利用する3層構造のアプローチを提案する。提案手法は、高レベルのSustainable Replan (SR)、中レベルのSustainable Conflict-Based Search (SCBS)、低レベルのSustainable Reverse Safe Interval Path Planning (SRSIPP) で構成され、既存のSOTAと比較して平均1.48倍、大規模マップでは最大10倍の計算加速を実現する。",
+      "url": "http://arxiv.org/abs/2301.04446v1",
+      "venue": ""
     },
     "arxiv:2410.21415": {
       "added": "2026-06-28",
@@ -1832,6 +1930,38 @@
       "title": "Online Guidance Graph Optimization for Lifelong Multi-Agent Path Finding",
       "tldr": "Lifelong Multi-Agent Path Finding (LMAPF) において、CMA-ESを用いて交通パターンに基づきエッジ重みを動的に更新するオンライン・ガイダンス・ポリシーを最適化する手法を提案。PIBTやGPIBTと組み合わせることで、静的なガイダンスや人間が設計したルールよりも高いスループットを達成し、動的なタスク分布下でも有効であることを示した。",
       "url": "http://arxiv.org/abs/2411.16506v2",
+      "venue": ""
+    },
+    "doi:10.1609/socs.v17i1.31565": {
+      "added": "2026-06-29",
+      "arxiv_id": "2404.16162",
+      "authors": [
+        "He Jiang",
+        "Yulun Zhang",
+        "Rishi Veerapaneni",
+        "Jiaoyang Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-04-24",
+      "doi": "10.1609/socs.v17i1.31565",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2404.16162.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2404.16162v1",
+      "reading_value": 4,
+      "reading_value_reason": "コンペ優勝手法に基づき、極端な高密度・大規模設定における実用的な課題と解決策を体系化しており、MAPF研究者にとって極めて示唆に富む。",
+      "relevance": 8,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Scaling Lifelong Multi-Agent Path Finding to More Realistic Settings: Research Challenges and Opportunities",
+      "tldr": "本論文は、2023年のLeague of Robot Runners (LRR) コンペティションの優勝手法に基づき、Lifelong Multi-Agent Path Finding (LMAPF) を実世界に近い大規模・高密度・現実的な制約下へスケールさせるための3つの主要な研究課題（限られた計画時間、交通渋滞と近視眼的挙動、モデルと実世界の乖離）を提示している。",
+      "url": "http://arxiv.org/abs/2404.16162v1",
       "venue": ""
     },
     "doi:10.1613/jair.1.20611": {
