@@ -662,6 +662,41 @@
       "url": "http://arxiv.org/abs/2606.26916v1",
       "venue": ""
     },
+    "arxiv:2606.27786": {
+      "added": "2026-06-30",
+      "arxiv_id": "2606.27786",
+      "authors": [
+        "Ruochang Li",
+        "Pengcheng Huang",
+        "Zhenghao Liu",
+        "Yukun Yan",
+        "Huiyuan Xie",
+        "Yu Gu",
+        "Ge Yu",
+        "Maosong Sun"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-26",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.27786.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.27786v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの知識競合に対し、極めて軽量なゲートとGRPOを用いた動的な活性化制御を提案しており、新規性と実用性が高い。実験も多角的で信頼できる。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "SHIFT: Gate-Modulated Activation Steering for Knowledge Conflict Mitigation in Retrieval-Augmented Generation",
+      "tldr": "RAGにおけるパラメータ知識と検索コンテキストの衝突（知識競合）を解決するため、LLMのFFN活性化を適応的に制御する軽量なゲート変調フレームワーク「SHIFT」を提案する。バックボーンを凍結したまま、全パラメータの0.01%未満の学習可能パラメータを持つゲートをGRPOで最適化することで、汎用能力を維持しつつ、入力に応じて知識のバランスを動的に調整する。",
+      "url": "http://arxiv.org/abs/2606.27786v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "arxiv_id": "",
@@ -934,6 +969,36 @@
       "title": "Scaling Beyond Context: A Survey of Multimodal Retrieval-Augmented Generation for Document Understanding",
       "tldr": "本論文は、テキスト、表、図、レイアウトが混在する視覚的に豊かな文書を理解するための「Multimodal RAG」に関する体系的なサーベイである。従来のOCRベースの手法や、コンテキスト制限（$128\\text{K}$–$1\\text{M}$トークン）を持つMLLMの限界を克服するため、ドメイン、検索モダリティ、粒度、およびハイブリッド拡張（グラフ・エージェント型）の観点から最新技術を分類・整理している。"
     },
+    "doi:10.48550/arxiv.2602.17856": {
+      "added": "2026-06-30",
+      "arxiv_id": "2602.17856",
+      "authors": [
+        "Hamideh Ghanadian",
+        "Amin Kamali",
+        "Mohammad Hossein Tekieh"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-02-19",
+      "doi": "10.48550/arXiv.2602.17856",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2602.17856.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "",
+      "reading_value": 3,
+      "reading_value_reason": "Vector/Graph/Hybridの比較と専門家による評価手法は実用的だが、手法自体に大きな新規性は乏しく、既存技術の組み合わせの範囲内であるため。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Enhancing Scientific Literature Chatbots with Retrieval-Augmented Generation: A Performance Evaluation of Vector and Graph-Based Systems",
+      "tldr": "科学文献の調査を効率化するため、ベクトルベース、グラフベース、およびそれらを統合したHybrid RAGアーキテクチャを提案し、単一論文および大規模コーパスの2つのユースケースで性能を評価した。実験の結果、Hybrid RAGが平均コサイン類似度 $0.687$、忠実度 $0.845$ を記録し、意味的類似性と構造的知識の統合が検索精度と論理的一貫性の向上に寄与することが示された。",
+      "url": "https://www.semanticscholar.org/paper/8c50f07da087d4de6402ca9ae60a650cca81b769",
+      "venue": ""
+    },
     "doi:10.48550/arxiv.2604.11419": {
       "added": "2026-06-29",
       "arxiv_id": "2604.11419",
@@ -1143,6 +1208,39 @@
       "url": "http://arxiv.org/abs/2501.02803v1",
       "venue": ""
     },
+    "arxiv:2509.23778": {
+      "added": "2026-06-30",
+      "arxiv_id": "2509.23778",
+      "authors": [
+        "Zeyuan Zhao",
+        "Chaoran Li",
+        "Shao Zhang",
+        "Ying Wen"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-09-28",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2509.23778.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2509.23778v2",
+      "reading_value": 4,
+      "reading_value_reason": "Transformerを用いたMAPDのシーケンスモデリングという新規性が高く、計算量を$O(n)$に抑えつつ大規模環境でのスケーラビリティを理論と実験の両面で示した点は非常に価値が高い。",
+      "relevance": 7,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Sequence Pathfinder for Multi-Agent Pickup and Delivery in the Warehouse",
+      "tldr": "Transformerを活用してMAPD（Multi-Agent Pickup and Delivery）問題をシーケンスモデリングとして定式化する「SePar (Sequential Pathfinder)」を提案する手法。エージェント間の暗黙的な情報交換を自己回帰的な方策で実現し、計算複雑度を $O(n)$ に抑えつつ、大規模なエージェント数や未知のマップに対しても高いスケーラビリティと汎化性能を発揮する。",
+      "url": "http://arxiv.org/abs/2509.23778v2",
+      "venue": ""
+    },
     "arxiv:2510.17382": {
       "added": "2026-06-14",
       "authors": [
@@ -1166,6 +1264,38 @@
       "source_quality": "fulltext",
       "title": "Graph Attention-Guided Search for Dense Multi-Agent Pathfinding",
       "tldr": "高密度なマルチエージェント経路探索（MAPF）において、グラフアテンションを用いたニューラル方策 $\\text{MAGAT}^+$ を探索アルゴリズム $\\text{LaCAM}$ に統合したハイブリッドフレームワーク $\\text{LaGAT}$ を提案する。事前学習とマップ特化型の微調整、およびデッドロック検出メカニズムを組み合わせることで、既存の探索ベース手法や学習ベース手法のパレート境界を突破し、高密度環境における解の質とリアルタイム性能を向上させている。"
+    },
+    "arxiv:2601.08214": {
+      "added": "2026-06-30",
+      "arxiv_id": "2601.08214",
+      "authors": [
+        "Jinghao Cao",
+        "Wanchun Liu",
+        "Yonghui Li",
+        "Branka Vucetic"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-01-13",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2601.08214.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2601.08214v1",
+      "reading_value": 4,
+      "reading_value_reason": "通信の物理層制約（有限ブロック長）とMAPFを統合した新規性が高く、スケーラビリティの証明も具体的で、実用的な通信環境を考慮した研究として価値が高い。",
+      "relevance": 6,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Hybrid Centralized Distributed Control for Lifelong MAPF over Wireless Connections",
+      "tldr": "不安定な無線通信と確率的な移動環境におけるLifelong MAPFに対し、クラウドによる残差補正とエッジ側の軽量GRU方策を組み合わせたハイブリッドなCollaborative Distributed-Centralised (CDC) フレームワークを提案する。通信リソースを効率的に活用するため、イベント認識リスクモジュールを用いたダウンリンクスケジューリングを導入し、高混雑環境下でも高いスループット（TNCT）とエージェント数に対する線形なスケーラビリティを実現している。",
+      "url": "http://arxiv.org/abs/2601.08214v1",
+      "venue": ""
     },
     "arxiv:2602.23468": {
       "added": "2026-06-27",

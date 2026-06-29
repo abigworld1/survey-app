@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Sequence Pathfinder for Multi-Agent Pickup and Delivery in the Warehouse | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Sequence Pathfinder for Multi-Agent Pickup and Delivery in the Warehouse</h1>
+  <div class="meta">Zeyuan Zhao, Chaoran Li, Shao Zhang, Ying Wen<br>採択先: 未取得 ・ 2025-09-28 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2509.23778v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2509.23778v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2025-09-28</span><span class="chip keyword-match">キーワード一致 4</span><span class="chip">被引用 0</span><span class="chip">関連度 7</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">Transformerを用いたMAPDのシーケンスモデリングという新規性が高く、計算量を$O(n)$に抑えつつ大規模環境でのスケーラビリティを理論と実験の両面で示した点は非常に価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> Transformerを活用してMAPD（Multi-Agent Pickup and Delivery）問題をシーケンスモデリングとして定式化する「SePar (Sequential Pathfinder)」を提案する手法。エージェント間の暗黙的な情報交換を自己回帰的な方策で実現し、計算複雑度を $O(n)$ に抑えつつ、大規模なエージェント数や未知のマップに対しても高いスケーラビリティと汎化性能を発揮する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、倉庫のような狭い通路や長い廊下を含む複雑な環境下でのMulti-Agent Pickup and Delivery (MAPD) 問題を対象としている。MAPDはLifelong MAPFの一種であり、アイテムの配送に少なくとも2回の連続した経路探索プロセスを必要とするため、従来の局所的な観測に依存する学習ベースの手法では衝突のリスクが高い。既存手法であるPRIMALやPRIMAL2は局所観測に依存し、DHCやSCRIMPのような通信学習型は点対点のメッセージパッシングによる計算オーバーヘッドがスケーラビリティの限界となっていた。本研究は、これら通信コストとスケーラビリティのトレードオフを解決することを目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、MAPDをシーケンスモデリング問題として定式化し、Transformerを用いることでエージェント間の暗黙的な情報交換を可能にするSeParを提案した。第二に、理論面において、シーケンスモデリングに基づく経路探索ポリシーがエージェントの決定順序によらず最適性を保つ「順序不変の最適性 (order-invariant optimality)」を持つことを証明した。第三に、マルチエージェント利得分解定理に基づき、意思決定の計算複雑度を指数関数的なものから線形 $O(n)$ へと削減することに成功した。最後に、大規模なエージェント数（256体以上）や未知のマップ環境において、既存の学習ベース手法を大幅に凌駕するスケーラビリティと汎化性能を実証した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>問題はDec-POMDP $\langle \mathcal{S}, \mathcal{A}, \mathcal{T}, \mathcal{R}, \Omega, \mathcal{O}, \gamma \rangle$ として定式化され、行動空間 $\mathcal{A} = \{0, 1, 2, 3, 4\}$（NOOP, LEFT, RIGHT, UP, DOWN）を持つ。提案手法SeParは、Observation Feature ExtractorとMulti-Agent Transformer (MAT) の2モジュールで構成される。MATのエンコーダは全エージェントの観測埋め込み $\mathbf{z}_i$ を自己注意機構でエンコードし、デコーダはマスク付き自己注意機構を用いて、先行するエージェントの行動 $\mathbf{a}_{&lt;i}$ に基づき $\pi(a_i | \mathbf{z}, \mathbf{a}_{&lt;i})$ を自己回帰的に生成する。学習にはPPOを用い、さらにエキスパート方策を用いた模倣学習（IL）の損失関数 $\mathcal{L}_{IL} = \mathbb{E} [\|\pi(s) - a_{expert}\|^2]$ を組み合わせることで、学習の加速と安定化を図っている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>倉庫シミュレータおよびPOGEMAベンチマークを用いた実験により、MAPD、MAPF、LMAPFの各タスクで評価を行った。倉庫環境のMAPDタスクにおいて、エージェント数を32から512まで変化させた際、SeParはSCRIMPやPRIMAL2を上回り、128体を超える設定でもLaCAM2の50%〜90%の性能を維持する高いスケーラビリティを示した。計算量面では、LaCAM2がマップの複雑さに応じて超線形に増加するのに対し、SeParの推論時間はエージェント数に対して線形 $O(n)$ でスケールした。POGEMA環境のLMAPFにおいても、RHCRやFollowerに次ぐ高いスループットを記録し、学習ベース手法の中で顕著な優位性を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>SeParはTransformerの強力な表現力により未知のマップに対する高い汎化性能を示すが、レイアウト分布が大きく異なる `warehouse_huge3` のような環境では性能が低下するという限界も確認された。また、倉庫のような複雑なマップにおいては、強化学習単体よりも模倣学習（IL）を統合することが極めて重要であることが示唆されている。今後の課題として、エージェントの切断、突発的な障害物の出現、あるいは観測における情報の乱れといった、より動的でランダムな環境事象への対応能力の向上が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Sequence Pathfinder for Multi-Agent Pickup and Delivery in the Warehouse</h3><p>本研究では、固定されたピックアップ・デリバリー地点を持つタスクを順次完了させるMulti-Agent Pickup and Delivery (MAPD) 問題に対し、経路探索をシーケンスモデリング問題として定式化する手法を提案している。提案手法であるSequential Pathfinder (SePar) は、Transformerのパラダイムを活用することで、エージェント間の暗黙的な情報交換を実現し、意思決定の計算複雑度を指数関数的なものから線形 $O(n)$ へと削減しつつ、グローバルな状況把握を可能にしている。理論面では、シーケンスモデリングに基づく経路探索ポリシーが順序不変な最適性 (order-invariant optimality) を持つことを証明しており、これがMAPDにおける有効性の根拠となっている。実験の結果、SeParは様々なMAPFタスクおよびその派生タスクにおいて既存の学習ベースの手法を凌駕し、未知の環境に対しても高い汎化性能を示すことが確認された。また、倉庫のような複雑なマップにおいては、模倣学習 (imitation learning) を統合することの重要性についても指摘している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究は、倉庫のような狭い通路や長い廊下を含む複雑な環境下でのMulti-Agent Pickup and Delivery (MAPD) 問題に対し、Transformerを用いた経路探索フレームワークであるSequence Pathfinder (SePar) を提案している。MAPDはLifelong MAPFの一種であり、アイテムの配送に少なくとも2回の連続した経路探索プロセスを要するため、従来の学習ベースの手法では局所的な観測のみに依存すると衝突のリךが生じやすい。SeParは、自己回帰的な方策を用いて観測シーケンスをアクションシーケンスへと写像することで、エージェント間の暗黙的な情報交換を実現し、マルチエージェント強化学習の複雑さを乗法的なものから加法的なものへと軽減して線形な計算量 $O(n)$ を達成している。また、自己回帰的な経路探索方策がエージェントの決定順序によらず最適性を保つ「順序不変の最適性 (order-invariant optimality)」を証明することで、シーケンスモデルをMAPDに適用する妥当性を示している。学習には環境からのフィードバックとエキスパート方策の模倣を組み合わせた混合アプローチを採用しており、自作の倉庫シミュレータおよびPOGEMAベンチマークを用いた評価の結果、エージェント数が256体以上に達する大規模な設定において、既存の学習ベース手法の性能がSeParの7%〜15%程度に留まるほど、極めて高いスケーラビリティと未知のマップに対する汎化性能を実証した。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>学習ベースのMAPF手法には、PRIMALやPRIMAL2のようにA3Cによる強化学習とODrM*を用いた模倣学習を組み合わせた分散型ポリシーを用いるものがあるが、これらは局所的な観測のみに依存するため、狭い通路や長い廊下が存在する倉庫環境では非効率な挙動を示す。また、Followerのように通信を介さず単一エージェントのA*アルゴリズムを観測に組み込む手法も存在するが、リアルタイム計画の計算コストが高く、グローバルな情報を活用できないため衝突のリスクが増大する。通信学習を取り入れた手法として、グラフ畳み込みを用いるDHC、局所観測に基づき選択的なリクエスト・レスポンスを行うDCC、ODrM*による優先度予測とアドホックなルーティングを組み合わせたPICO、そしてTransformerを用いてメッセージを共有するSCRIMPなどが提案されている。しかし、これらの通信学習アプローチは、点対点のメッセージパッシングに依存することで多大な計算オーバーヘッドを発生させる傾向があり、スケーラビリティの確保が主要な限界となっている。</p></section>
+<section class="secsum"><h3>III Problem Formulation</h3><p>本セクションでは、Lifelong Multi-Agent Pickup and Delivery (LMAPF) 問題を、Decentralized Partially Observable Markov Decision Process (Dec-POMDP) $\langle \mathcal{S}, \mathcal{A}, \mathcal{T}, \mathcal{R}, \Omega, \mathcal{O}, \gamma \rangle$ として定式化している。エージェントの観測空間は、障害物、自身の状態（Picking, Dropping, Idle）、他者の位置や予測経路、廊下の端点座標などを含む計13個の行列で構成され、視野（FOV）内に限定される。行動空間 $\mathcal{A} = \{0, 1, 2, 3, 4\}$ は、NOOP、LEFT、RIGHT、UP、DOWNの5種類であり、報酬構造は移動・待機に $-0.3$、衝突に $-2$、目標到達（Picking/Dropping）に $5.0$ または $10.0$ の報酬を与える。報酬モードとして、全エージェントが共通の報酬を得る GLOBAL、個別の報酬を得る INDIVIDUAL、および $r_i = (1-\beta)r_{i, \text{ind}} + \beta r_{\text{glob}}$ で定義される中間的な PARTIAL の3種類が検討されている。さらに、マップの複雑さを評価する指標として、廊下の長さ $L$ と有効エッジスパース性 $S_{\text{eff}}$ を用いた Path Finding Complexity Index (PFCI) $\mathcal{C} = (S_{\text{eff}}, L)$ を提案しており、ここで $S_{\text{eff}}$ は通行可能領域の密度 $\rho_{\text{traversable}}$ と障害物密度 $\rho_{\text{obstacle}}$ の積の逆数として定義される。</p></section>
+<section class="secsum"><h3>IV Learning Methods</h3><p>本研究では、MAPF（Multi-Agent Pickup and Delivery）を系列モデリング問題として捉え、Transformerを用いた「SePar (TRansformer Pathfinder)」を提案している。SeParは、マルチエージェント利得分解定理に基づき、エージェントの意思決定順序を系列化することで、MARLの複雑さを乗法的なものから線形的な $O(n)$ へと削減している。ネットワーク構造は、2つのVGGブロック、畳み込み層、およびLSTMを含む「Observation Feature Extractor」と、「Multi-Agent Transformer (MAT)」の2つのモジュールで構成される。MATのエンコーダは、全エージェントの観測埋め込み $\mathbf{z}_i$ を入力として自己注意機構により高次な相互作用をエンコードし、デコーダはマスク付き自己注意機構を用いることで、先行するエージェントの行動 $\mathbf{a}_{&lt;i}$ に基づいて各エージェントの行動 $\pi(a_i | \mathbf{z}, \mathbf{a}_{&lt;i})$ を自己回帰的に生成する。学習にはPPO（Proximal Policy Optimization）を用い、エンコーダによる価値関数近似とデコーダによる方策の損失関数を最適化する。さらに、学習の加速と安定化のために、ヒューリスティックなエキスパート方策を用いた行動クローニング（Behavioral Cloning）による模倣学習（IL）を組み合わせ、$\mathcal{L}_{IL} = \mathbb{E} [\|\pi(s) - a_{expert}\|^2]$ を最小化する手法を採用している。</p></section>
+<section class="secsum"><h3>V Experiments</h3><p>提案手法であるSeParの性能評価は、倉庫シミュレーション環境およびPOGEMA環境を用いて、MAPD、MAPF、LMAPFの各タスクに対して行われた。評価指標として、one-shot MAPFでは成功率（Success Rate）と総コスト（Sum of Cost, SoC）を、Lifelong MAPFおよびMAPDでは単位タイムステップあたりの平均目標到達数であるスループット（Throughput）を用い、併せて各タイムステップの平均実行時間を測定した。倉庫環境におけるMAPDタスクでは、エージェント数を32から512まで変化させた実験において、SeParはSCRIMPやPRIMAL2といった他の学習ベースの手法を上回り、特にエージェント数が128を超えた際もLaCAM2の50%〜90%の性能を維持する高いスケーラビリティを示した。計算量に関しては、LaCAM2の計画時間がマップの複雑さに応じて超線形に増加するのに対し、SeParの推論時間はエージェント数に対して線形にスケールし、マップの複雑さの影響を受けないことが確認された。未知のマップに対する汎化性能（Out of Distribution）の実験では、Transformerの強力な表現力によりSCRIMPを大きく上回ったが、レイアウト分布が大きく異なる`warehouse_huge3`では性能が低下するという限界も示された。POGEMA環境を用いたMAPF/LMAPFタスクでは、SeParは他の学習ベースの手法を大幅に上回る成功率と低いSoCを達成し、LMAPFのスループットにおいてもRHCRやFollowerに次ぐ高い水準を記録した。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究では、マルチエージェント強化学習（MARL）と模倣学習を組み合わせた、倉庫内マルチエージェント・ピックアップ＆デリバリー（MAPD）のための手法であるSeParを提案している。SeParはシーケンスモデリング・スキームを採用することで、高密度かつ構造化された倉庫環境におけるエージェント間の効率的な情報交換を維持しつつ、意思決定の複雑さを線形レベル $O(n)$ にまで低減させている。広範な実験を通じて、倉庫シナリオにおけるMAPDタスクでの優位性と模倣学習の必要性が示されており、さらにPOGEMAベンチマークにおいても他の学習ベースの手法に対して顕著な優位性が確認された。今後の課題として、エージェントの切断、突発的な障害物、観測における情報の乱れといった環境内のランダムな事象への対応能力の向上が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-30
+  </footer>
+</div>
+</body>
+</html>

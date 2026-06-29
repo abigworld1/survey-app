@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SHIFT: Gate-Modulated Activation Steering for Knowledge Conflict Mitigation in Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>SHIFT: Gate-Modulated Activation Steering for Knowledge Conflict Mitigation in Retrieval-Augmented Generation</h1>
+  <div class="meta">Ruochang Li, Pengcheng Huang, Zhenghao Liu, Yukun Yan, Huiyuan Xie, Yu Gu, Ge Yu, Maosong Sun<br>採択先: 未取得 ・ 2026-06-26 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.27786v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.27786v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-26</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの知識競合に対し、極めて軽量なゲートとGRPOを用いた動的な活性化制御を提案しており、新規性と実用性が高い。実験も多角的で信頼できる。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGにおけるパラメータ知識と検索コンテキストの衝突（知識競合）を解決するため、LLMのFFN活性化を適応的に制御する軽量なゲート変調フレームワーク「SHIFT」を提案する。バックボーンを凍結したまま、全パラメータの0.01%未満の学習可能パラメータを持つゲートをGRPOで最適化することで、汎用能力を維持しつつ、入力に応じて知識のバランスを動的に調整する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>検索拡張生成（RAG）において、モデルが持つ内部知識（parametric knowledge）と検索された外部知識（contextual knowledge）が矛盾する「知識競合」は、回答の信頼性を著しく低下させる。従来のニューロン単位の編集は知識の絡み合いにより汎用能力を損なうリスクがあり、層単位の介入は固定的なルールに依存するため柔軟性に欠ける。本研究は、入力依存の学習可能なゲートを用いて、FFN（Feed-forward Network）の隠れ状態の活性化を動的に調整することで、この問題を解決することを目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、バックボーンのLLMを完全に凍結した状態で、極めて軽量なゲートモジュールのみを学習させることで、知識競合を緩和する「SHIFT」を提案した点にある。SHIFTは、Group Relative Policy Optimization (GRPO) を用いて、フォーマットと忠実性（faithfulness）に基づく報酬関数によりゲートを最適化する。実験により、Qwen-3-0.6Bにおいて最強のベースラインに対し平均6.16%の向上、ConFiQA-MRではEMで11.15%の改善を達成した。また、MMLUでの性能低下を0.5%未満に抑えつつ、ゲートが知識の衝突を識別する表現を学習していることを実証した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>SHIFTは、各TransformerレイヤーのFFNブランチに軽量なゲートモジュールを導入する。隠れ状態 $h_{l,i}$ に対し、スカラー値 $g_{l,i} = \sigma(\alpha_l \cdot \text{MLP}(h_{l,i}))$ を計算し、残差ストリームへの寄与を $\text{LayerNorm}(h_{l,i} + g_{l,i} \cdot \text{FFN}(h_{l,i}))$ として変調する。学習ではバックボーン $\theta$ を固定し、ゲートパラメータ $\phi$ のみをGRPOを用いて最適化する。目的関数 $\mathcal{L}_{\text{total}}$ は、GRPOの目的関数 $\mathcal{L}_{\text{GRPO}}$、参照方策 $\pi_{\text{ref}}$ とのKLダイバージェンス、および元の挙動を維持するための正則化項 $\lambda \mathbb{D}_{KL}(\pi_{\phi} \| \pi_{\theta})$ を組み合わせたものである。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、MRQAベンチマーク（HotpotQA, NQ, SQuAD等）、ConfiQA（QA, MR, MC）、およびMMLUの3カテゴリで行われた。バックボーンにはQwen-3-0.6BおよびQwen-3-8Bを使用し、比較対象としてVanilla-RAG、CtrlA、CK-PLUG、SFT、Knowledgeable-R1などの手法を設定した。指標にはExact Match (EM)、F1 Score、Accuracy (ACC) を用いた。ゲートの有効性検証として、5分割交差検証によるロジスティック回帰を行い、衝突識別能力の指標となるAUCが0.500から0.832へと向上することを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>SHIFTは、入力に応じてパラメータ知識を抑制したり、逆に文脈知識に従ったりする適応的な知識仲裁を実現している。アブレーション研究では、LoRAやSFTよりも、入力依存のゲート機構とGRPOによる相対的な方策最適化が重要であることが示された。一方で、本手法は高度に専門的なドメインやマルチモーダルなQAについては未調査であり、計算リソースの制約からさらに大規模なモデルでの検証も今後の課題である。モデルサイズが小さいほど、変調による性能向上の恩恵が大きい傾向も観察された。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Shift : Gate-Modulated Activation Steering for Knowledge Conflict Mitigation in Retrieval-Augmented Generation</h3><p>本研究では、検索拡張生成（RAG）において、検索されたコンテキストとモデルのパラメータ知識が衝突する問題に対処するための新手法「SHIFT」を提案している。従来のニューロン単位の編集手法は、ニューロンの絡み合い（entanglement）によりモデルの汎用的な能力を損なう副作用があるが、SHIFTはニューロンの修正を学習可能なゲートによる変調（gate modulation）として再定式化することで、この問題を回避する。技術的には、バックボーンとなるLLMを凍結したまま、0.01%未満の極めて軽量な学習可能パラメータを持つゲートモジュールを導入し、生成時に内部表現を適応的に調整することで、コンテキストとパラメータ知識のバランスを制御する。6つのデータセットを用いた広範な実験により、既存のベースラインと比較してSHIFTの有効性が検証されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>Retrieval-Augmented Generation (RAG) において、モデルのパラメータ知識（parametric knowledge）と検索された文脈知識（contextual knowledge）が矛盾する「知識競合（knowledge conflict）」は、事実の信頼性を損なう重大な課題である。従来のニューロン単位の介入は、知識が疎に表現されているため微細な特定が困難であり、層単位の介入は固定的なルールを用いるため柔軟性に欠けるという限界がある。本研究では、バックボーンとなるLLMを凍結したまま、入力依存の学習可能なゲートを用いて隠れ状態の活性化を調整する軽量なフレームワーク「SHIFT (Selective Hidden-state Intervention on Feed-forward Networks)」を提案する。SHIFTは、Group Relative Policy Optimization (GRPO) を用いてゲートモジュールを最適化することで、知識競合時における文脈知識とパラメータ知識の動的な調停を可能にする。本手法は、全パラメータの $0.01\%$ 未満という極めて少ない学習パラメータ数で動作し、モデルの汎用的な能力を維持しつつ、知識競合の緩和において既存の強力なベースラインを上回る性能を示す。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>Retrieval-Augmented Generation (RAG) における知識の衝突（parametric memory と retrieved evidence の矛盾）への対策として、プロンプティングや知識の精緻化により外部情報の利用を促す手法や、Context-DPO や RA-DIT のようにモデルを直接微調整して文脈への忠実性を高める手法が存在する。しかし、微調整ベースの手法はモデルの内部メカニズムが不明確であることや、破滅的忘却（catastrophic forgetting）を招くリスクがある。これに対し、ニューロンや FFN、アテンションヘッドなどの内部構造に知識を局在化させ、ターゲットを絞った知識編集を試みる研究も行われているが、正確な局在化の困難さや、介入に伴う計算コストの高さ、および介入の脆弱性が課題となっている。近年の研究では、アテンションヘッドや FFN モジュールを対象とした、より粗い粒度での介入（PH3, RHIO, JuICE, ROME, ParamMute など）へとシフトしているが、これらはオフラインで選択されたコンポーネントや静的な剪定ルール、定義済みの抑制係数を用いるなど、固定的な介入スキームに依存している。このような静的な戦略は、モデルの汎用的な能力を不意に損なう可能性があるため、本研究ではパラメータを変更せずに、入力に適応した内部制御を行うフレームワークである SHIFT を提案している。</p></section>
+<section class="secsum"><h3>3 Methodology</h3><p>SHIFTは、RAGにおける検索コンテキストとモデルのパラメータ知識の衝突を緩和するため、FFN（Feed-forward Network）の活性化を適応的に制御する手法である。具体的には、各TransformerレイヤーのFFNブランチに軽量なゲートモジュールを導入し、隠れ状態 $h_{l,i}$ に基づいてスカラー値 $g_{l,i} = \sigma(\alpha_l \cdot \text{MLP}(h_{l,i}))$ を計算することで、残差ストリームへのFFNの寄与を $\text{LayerNorm}(h_{l,i} + g_{l,i} \cdot \text{FFN}(h_{l,i}))$ として調整する。学習プロセスでは、バックボーンのパラメータ $\theta$ を固定したまま、ゲートパラメータ $\phi$ のみをGroup Relative Policy Optimization (GRPO) を用いて最適化し、フォーマットと忠実性（faithfulness）に基づく複合報酬を用いて方策を更新する。最適化の目的関数は、GRPOの目的関数 $\mathcal{L}_{\text{GRPO}}$、参照方策 $\pi_{\text{ref}}$ とのKLダイバージェンス、およびゲートが元の挙動を逸脱しすぎないための正則化項 $\lambda \mathbb{D}_{KL}(\pi_{\phi} \| \pi_{\theta})$ を組み合わせた $\mathcal{L}_{\text{total}}$ で定義される。この手法により、モデルはコンテキストの証拠と自身の知識のバランスを、入力ごとに動的に制御することが可能となる。</p></section>
+<section class="secsum"><h3>4 Experimental Setup</h3><p>本実験では、提案手法であるSHIFTの有効性を検証するため、(1) MRQAベンチマーク（HotpotQA, NQ, SQuAD等）を用いたインドメイン評価、(2) ConfiQA（QA, MR, MCの3サブセット）を用いたアウトオブドメイン評価、(3) MMLUを用いた汎用能力維持の評価という3つのカテゴリで実験を行う。比較対象のベースラインとして、Vanilla-RAGやCtrlAなどのプロンプティング手法、CK-PLUGのようなデコーディング手法、およびSFTやKnowledgeable-R1といったファインチューニング手法の3群を設定している。評価指標には、正規化された予測と参照回答の一致度を測るExact Match (EM) およびトークンレベルのF1 Scoreを用い、汎用性実験では正解の含有率を示すAccuracy (ACC) を採用する。実装の詳細として、バックボーンモデルにはQwen-3-0.6BおよびQwen-3-8Bのnon-thinkingモードを使用し、SHIFTのハイパーパラメータは式(2)におけるゲートの変調範囲を制御する値を$2$に、式(4)における$\alpha$および$\beta$を全レイヤーで$0$に設定している。</p></section>
+<section class="secsum"><h3>5 Experimental Analysis</h3><p>SHIFTは、凍結されたLLMにおいて文脈知識とパラメータ知識の衝突を緩和するため、ゲート制御による活性化変調を行う手法であり、QwenおよびLlamaの両ファミリーにおいてVanilla-RAGを凌駕する性能を示した。実験の結果、Qwen-3-0.6Bにおいて最強のベースラインに対し平均6.16%の向上、特に知識衝突が激しいConFiQA-MRではEMで11.15%の改善を達成しており、モデルサイズが小さいほど変調による恩恵が大きい傾向が見られる。MMLUベンチマークを用いた評価では、全モデルにおいて平均0.5%未満の微小な性能低下に留まっており、汎用的な言語理解能力を維持しつつ知識の仲裁が可能であることが示された。ゲートの活性化分析では、パラメータ知識が正しく文脈が誤っている場合（Type 1）と、その逆（Type 2）を区別する能力が確認され、5分割交差検証によるロジスティック回帰のAUCが0.500から0.832へと向上したことから、ゲートが衝突を識別する表現を学習していることが実証された。アブレーション研究では、LoRAを用いた場合やSFTで学習した場合と比較して性能が低下することから、入力依存のゲート機構とGRPOによる相対的な方策最適化の重要性が示された。ケーススタディでは、誤った文脈に惑わされず正しいパラメータ知識を選択する能力と、逆に正しい文脈に従ってパラメータ知識を抑制する能力の両方が確認され、適応的な知識仲裁が実現されている。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本論文では、検索拡張生成（RAG）における知識の衝突を緩和するために、適応的な内部変調を用いる軽量なフレームワークである SHIFT を提案している。SHIFT は、FFN（Feed-Forward Network）の活性化値に対して学習可能なゲート変調（gate modulation）を適用することで、検索されたコンテキストとモデルのパラメータメモリとの間で、より信頼性の高い知識の仲裁を実現する。複数のベンチマークおよび大規模言語モデル（LLM）を用いた包括的な実験の結果、SHIFT は既存の競合するベースラインを上回る性能を示し、異なる設定においても強力な汎化性能と堅牢性を発揮することが確認された。これらの知見は、RAG における知識衝突の緩和手法として SHIFT が極めて有効であることを示唆している。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>本研究の限界として、提案手法である SHIFT は、高度に専門的なドメインやマルチモーダルな質問応答（QA）については本稿では調査対象としていない。今後は、一般的なドメインや QA ベンチマークを超えて、これらのより広範な設定へと SHIFT を拡張することが課題である。加えて、計算リソースの制約により、より大規模なモデルを用いた実験は実施できていない。</p></section>
+<section class="secsum"><h3>Ethical Statement</h3><p>本研究は、倫理的かつ責任ある方法で実施されており、公開データセットの使用に際してはすべてのデータソースを正確かつ適切に引用し、原著者を明示している。研究の透明性と再現性を確保するため、実装コードおよびデータセットを適切に公開することが予定されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-30
+  </footer>
+</div>
+</body>
+</html>

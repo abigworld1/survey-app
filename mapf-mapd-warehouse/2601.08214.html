@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Hybrid Centralized Distributed Control for Lifelong MAPF over Wireless Connections | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Hybrid Centralized Distributed Control for Lifelong MAPF over Wireless Connections</h1>
+  <div class="meta">Jinghao Cao, Wanchun Liu, Yonghui Li, Branka Vucetic<br>採択先: 未取得 ・ 2026-01-13 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2601.08214v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2601.08214v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-01-13</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 6</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">通信の物理層制約（有限ブロック長）とMAPFを統合した新規性が高く、スケーラビリティの証明も具体的で、実用的な通信環境を考慮した研究として価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 不安定な無線通信と確率的な移動環境におけるLifelong MAPFに対し、クラウドによる残差補正とエッジ側の軽量GRU方策を組み合わせたハイブリッドなCollaborative Distributed-Centralised (CDC) フレームワークを提案する。通信リソースを効率的に活用するため、イベント認識リスクモジュールを用いたダウンリンクスケジューリングを導入し、高混雑環境下でも高いスループット（TNCT）とエージェント数に対する線形なスケーラビリティを実現している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、通信の不安定性や移動の確率的な不確実性を考慮したLifelong MAPF（マルチエージェント経路探索）のための制御フレームワークを対象としている。既存研究の多くは完全集中型か完全分散型のいずれかに偏っており、通信帯域の制限やパケット成功確率といった物理層の制約を体系的に扱うハイブリッドな手法が欠如していた。本研究では、無線通信の有限ブロック長（finite-blocklength）モデルに基づき、通信が確立している際にクラウドがアクションを洗練させ、通信断絶時にはオンボードの分散型方策が安全なフォールバックとして機能する仕組みを構築している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、クラウド側で下りリンクのスケジューリングとマスクされた信念マップ（masked belief map）に基づく残差補正量（residual corrections）を設計する集中型方策と、オンボードの軽量なGRU（Gated Recurrent Unit）方策を統合したハイブリッド制御モデルを提案した。第二に、衝突や壁への接触、キューイングを密な信号として扱うイベント認識リスクモジュールを導入し、単調劣モジュラ（monotone submodular）な性質を持つアップリンク選択目的関数を用いたリンクレベルの整合化を実現した。第三に、実験を通じて、高混雑かつ帯域制限がある環境において、スループット指標であるTNCT（Total Number of Completed Tasks）と意思決定レイテンシの両面で大幅な改善を示し、計算量がエージェント数に対してほぼ線形な $O(n)$ であることを証明した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>環境は無向グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 上の4近傍グリッドとしてモデル化され、エージェントは目標到達後に即座に新タスクを受けるLifelong設定である。通信モデルでは、有限ブロック長近似を用いてパケット成功確率を $P_{succ} \approx Q\left( \frac{C(\gamma) - R}{\sqrt{V(\gamma)/n}} \right)$ と定式化し、SNRと符号化率に基づく物理層の制約を考慮している。制御手法は、行動模倣（Behavioral Cloning）で事前学習された軽量なオンボードGRUポリシーと、クラウド側で生成される残差 $\Delta \text{logits}$ による修正の2段階構成である。クラウド側では、イベント推定器（EEM）を用いて衝突等のリスク発生確率とクラウド介入によるリスク軽減効果（Relief score）を予測し、これらを統合したスケジューリングスコア $S_{i,t}$ に基づいて、限られた無線リソース（RB）を効率的に割り当てる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>MovingAIの4つのトポロジー（Empty, Random, Maze, den312d）を用い、最大256エージェントの条件下でシミュレーションを実施した。移動の不確実性は、意図した動作が確率 $p=0.9$ で成功し、残りの $1-p=0.1$ が滞留や側方移動に分散する確率的カーネルを用いて設定されている。評価指標には、時間窓内のタスク完了総数であるTNCTを用いた。実験の結果、提案手法はMazeやden312dのような構造的ボトルネックが存在する環境において、通信認識型中央集権ベースラインであるODrM+A*を上回る性能を示した。また、ODrM+A*の計算コストが衝突頻度に応じて $O(n^2)$ 程度で増加するのに対し、提案手法はエージェント数 $n$ に対してほぼ線形な $O(n)$ のスケーリングを実現している。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、信頼性の高いリンク下では集中制御に近い挙動を実現しつつ、通信不安定時には分散型の堅牢性を維持できるという利点を持つ。アブレーション解析により、EEMと信念モデルの組み合わせが、リスクの高い意図から確率質量を回避させることで、クラウド側の利得の大部分を担っていることが明らかになった。しかし、クラウド・エッジ間の調整レイヤーによるオーバーヘッドが生じるという限界も存在する。また、通信比 $\rho$ が増加するにつれてTNCTは向上するものの、高帯域幅においては収穫逓減の傾向が見られることも示唆されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Hybrid Centralized–Distributed Control for Lifelong MAPF over Wireless Connections † † thanks: J. Cao, W. Liu, Y. Li, an</h3><p>本研究は、不安定な無線通信と確率的な実行環境下におけるLifelong MAPF（マルチエージェント経路探索）に対し、通信スケジューリングと方策学習を統合したハイブリッドな集中・分散制御手法を提案している。提案手法は、クラウド側で下りリンクのスケジューリングとマスクされた信念マップ（masked belief map）に基づく残差補正量（residual corrections）を設計する集中型方策と、通信途絶時に安全なデフォルト動作を保証するオンボードの軽量なGRU（Gated Recurrent Unit）方策で構成される。学習プロセスには、衝突や壁への接触、キューイングを密な信号として扱うイベント認識リスクモジュールと、有限ブロック長（finite-blocklength）の信頼性に基づき、単調劣モジュラ（monotone submodular）な性質を持つアップリンク選択目的関数を用いたリンクレベルの整合化が含まれる。MovingAIのベンチマークを用いた実験では、高混雑条件下かつ帯域制限がある環境において、スループットの指標であるTNCT（Total Number of Completed Tasks）と意思決定レイテンシの両面で大幅な改善を示し、実行時間はマップサイズに対してほぼ不変なスケーラビリティを実現している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究では、通信の不安定性や移動の確率的な不確実性を考慮した、Lifelong MAPFのためのCollaborative Distributed-Centralised (CDC) フレームワークを提案している。この手法は、スタンドアロン実行用の軽量なオンボードGRUポリシーと、通信可能時にアクションを洗練させるクラウド・レジデュアル・コレクター（cloud residual corrector）の2つのモジュールで構成される。クラウド側は通信が確立している際にオンボードのロジットにレジデュアルを注入し、通信断絶時にはエッジ側が堅牢なフォールバックとして機能する。また、環境構造や近傍エージェントの短期的意図をエンコードするbelief-map表現を導入しており、これはアップロードされた隠れ状態やクラウドでのロールアウトから導出される。評価においては、有限ブロック長（finite-blocklength）の成功確率やイベントレベルのリスクモデリングを組み込んでおり、帯域制限や高混雑条件下において、純粋なオンボード型やメッセージなしの分散型ベースラインを上回る性能を示す。本手法は、信頼性の高いリンク下では集中制御に近い挙動を実現しつつ、通信不安定時には分散型のスケーラビリティと堅牢性を維持するが、クラウド・エッジ間の調整レイヤーによるオーバーヘッドが生じるという限界を持つ。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>既存のMAPF研究は、完全集中型（ODrM等）か完全分散型（PRIMAL等）のいずれかに偏っており、通信と制御を体系的に扱うハイブリッドな手法は稀である。MARL分野では帯域制限下での選択的通信（CTDE等）が研究されているが、実行時に局所的な方策と協調する集中型の残差（residual）制御は欠如している。また、ロボティクスにおけるクラウド・エッジ連携の研究も存在するが、MAPF特有の頂点・エッジ衝突やキュー構造、および有限ブロック長（finite-blocklength）に基づく通信リンクの信頼性を考慮した、実行時の集中・分散ハイブリッドな残差修正によるデコンジェスチョン（混雑緩和）には至っていない。本研究のフレームワークでは、クラウドがダウンリンク更新の対象・時期を決定し、オンボードの方策が提案する行動に対して残差項を用いて修正を加える。通信面では、理想的な無限ブロック長モデルではなく、SNRと符号化率からパケット成功確率を導出する有限ブロック長物理層モデルを採用し、明示的な帯域予算を課している。さらに、頂点・エッジ衝突や壁への衝突、キューイング遅延といったイベントレベルのリスクを報酬設計に組み込むことで、通信制約と実行リスクを統合的に学習する設計となっている。</p></section>
+<section class="secsum"><h3>III Problem Formulation</h3><p>本セクションでは、無線通信環境下におけるLifelong MAPF（Multi-Agent Path Finding）の定式化が述べられている。環境は無向グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 上の4近傍グリッドとしてモデル化され、エージェント集合 $\mathcal{A}$ の各エージェントは、目標 $g_i$ に到達後即座に新たなタスクを受け取るLifelong設定において、スループット（TNCT）の最適化を目指す。実行の不確実性は、意図した動作 $a_t$ に対して、確率的な遷移カーネル $P(s_{t+1} | s_t, a_t)$ を用いてモデル化され、壁やグリッド外への移動は「bounce-to-stay」ルールにより現在の状態 $s_t$ に留まるよう再割り当てされる。通信モデルは、アップリンク（UL）とダウンリンク（DL）のタイムスロットを持つ無線制御ループとして定義され、受信電力 $P_{rx}$ は距離 $d$ とキャリア周波数 $f_c$ に依存するパスロスモデルに基づき、熱雑音 $N$ を考慮した $\text{SNR}$ を通じて記述される。パケットの復号成功確率は、有限ブロック長近似を用いて $P_{succ} \approx Q\left( \frac{C(\gamma) - R}{\sqrt{V(\gamma)/n}} \right)$ とモデル化され、ここで $C(\gamma)$ はシャノン容量、$V(\gamma)$ はチャネル分散、$n$ は符号語長である。ULではエージェントの現在位置や他者の位置、GRUの隠れ状態 $h_t \in \mathbb{R}^d$ を送信し、DLではサーバーからFOV内の他エージェントの動作を含む修正ベクトルが送られる。</p></section>
+<section class="secsum"><h3>IV Proposed Method</h3><p>本手法は、通信および行動の不確実性を伴うLifelong MAPFに対し、エージェント側のローカルポリシーとクラウド側の残差補正を組み合わせたハイブリッド制御を提案している。評価指標として、スループットに密接に関連する時間窓内のタスク完了総数（TNCT）を最大化することを目的とし、報酬関数にはタスク進捗、安全性（衝突や壁への接触）、通信コストを組み込んだ報酬整形を採用している。ローカルポリシーは、GRUを用いた軽量な再帰型ネットワークであり、行動模倣（Behavioral Cloning）による事前学習と、TNCT報酬に基づくActor-Critic法による微調整の2段階で訓練される。クラウド側では、アップリンクで収集されたエージェントの隠れ状態や位置情報に基づき、ローカルポリシーの出力を修正する残差 $\Delta \text{logits}$ を生成する。また、イベント推定器（EEM）を用いて、衝突等のリスク発生確率とクラウド介入によるリスク軽減効果（Relief score）を予測し、これらを統合したスケジューリングスコア $S_{i,t}$ に基づいて、限られた無線リソース（RB）を効率的に割り当てるイベント認識型ダウンリンク割り当てを行う。具体的には、リスクが高く、かつクラウドの介入による改善が見込めるエージェントを優先的に支援する仕組みとなっている。</p></section>
+<section class="secsum"><h3>V Numerical Simulation</h3><p>本研究では、MovingAIの4つのトポロジー（Empty, Random, Maze, den312d）を用い、エージェントの自己中心的なFOVと、意図した移動が確率 $p=0.9$ で成功し、残りの $1-p=0.1$ が滞留や側方移動に分散する確率的カーネルに基づく評価を行っている。主要な評価指標は、全エージェントがホライゾン内に完了したタスクの総数であるTNCT（Total Number of Completed Tasks）であり、通信モデルを考慮した通信認識型中央集権ベースライン（ODrM+A*）および純粋な局所的A*コントローラと比較されている。実験結果によれば、提案するハイブリッド制御手法は、通信比 $\rho$ が増加するにつれてTNCTが向上するものの、高帯域幅では収穫逓減を示す傾向があり、特にMazeやden312dのような構造的ボトルネックが存在する環境において、ODrM+A*を上回る性能を発揮する。計算量に関しては、ODrM+A*のステップあたりのコストが衝突頻度に応じて $O(n^2)$ 程度で増加するのに対し、提案手法は局所的な処理を $O(1)$ で行い、クラウドによる洗練を一部のエージェントに限定するため、エージェント数 $n$ に対してほぼ線形な $O(n)$ のスケーリングを実現している。アブレーション解析では、模倣学習（IL）が局所的なフォールバックの底上げに寄与し、EEM（Expected Error Magnitude）とBeliefがクラウド側でのリスク回避的な意図形成を可能にすることで、TNCTの向上と分散の抑制に大きく貢献していることが示された。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究では、通信および遷移の不確実性を伴う生涯継続的なマルチエージェント経路探索（Lifelong MAPF）に対し、クラウド・エッジのハイブリッド制御手法を提案している。エッジ側では軽量なGRUポリシーが自律性を担保し、クラウド側ではパケット受信時のみ残差（residual）を計算して行動を洗練させる統一実行モデルを採用しており、評価指標には TNCT を用いている。具体的には、イベント推定器（EEM）、カーネル誘導型信念、および衝突を考慮したダウンリンク割り当て器により、疎な完了情報をリスク信号や帯域幅を考慮した修正へと変換する。MovingAIの4つのマップを用いた最大256エージェントの実験では、提案手法は通信制約下での ODrM+A* ベースラインと同等以上の性能を示し、帯域が極端に不足する場合でも純粋なローカル制御を下回ることはなかった。また、計算量はエージェント数に対してほぼ線形であり、マップサイズへの依存性も低いことが示されている。アブレーション解析により、EEMと信念モデルの組み合わせが、リスクの高い意図から確率質量を回避させることでクラウド側の利得の大部分を担っていることが明らかになった。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-06-30
+  </footer>
+</div>
+</body>
+</html>
