@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>GRAND: Guidance, Rebalancing, and Assignment for Networked Dispatch in Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>GRAND: Guidance, Rebalancing, and Assignment for Networked Dispatch in Multi-Agent Path Finding</h1>
+  <div class="meta">Johannes Gaber, Meshal Alharbi, Daniele Gammelli, Gioele Zardini<br>採択先: 未取得 ・ 2025-12-02 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2512.03194v3" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2512.03194v3" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/LRA.2026.3673902" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-12-02</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(arXiv PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">GNNによるグローバルな分布予測と、最小費用流・ILPによる局所最適化を組み合わせた階層的アプローチが極めて実用的。MAPD分野におけるスループット向上と計算量の両立が具体的。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> Lifelong Multi-Agent Pickup-and-Delivery (MAPD) におけるタスクスケジューリング問題を解決するため、Graph Neural Network (GNN) による強化学習を用いたグローバルなガイダンス、最小費用流によるリージョン間のリバランシング、および局所的な整数線形計画法 (ILP) によるタスク割り当てを組み合わせた階層的アルゴリズム「GRAND」を提案する。最大500エージェントの環境において、既存の優勝スケジューラと比較してスループットを最大10%向上させ、かつ1秒以内の計算予算でリアルタイム実行が可能であることを示した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、有向グラフ $G=(V, E)$ 上を移動する複数のエージェント $A = \{a_1, \dots, a_N\}$ が、一定のタスク数 $|C_t| = M$ を維持するタスク生成器 $f_{TG}$ に従ってタスクを遂行する Lifelong Task Assignment (LTS) 問題を扱う。システムの状態を $(x_t, C_t)$ と定義し、時間予算 $b_{TS} &gt; 0$ 内で新しい目標マップ $\rho_t: A \to V$ を出力する anytime アルゴリズムの構築を目指している。目的関数はスループット $\alpha = \sum_{t=0}^{T_{\max}} \sum_{a \in A} \mathbb{1}\{x_t(a) \in C_t\}$ の最大化であり、エージェント密度 $r_{\text{agent/node}} = |A|/|V|$ やタスク負荷 $r_{\text{task/agent}} = M/|A|$ が変化する動的な環境下での最適化が求められる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>提案手法 GRAND は、学習ベースのグローバルなガイダンスと、軽量な最適化レイヤーによる割り当てを統合したハイブリッドなアーキテクチャを導入した。第一に、最短経路ボルノイ分割を用いてグラフの頂点数を $|V|$ から $|V_{\text{agg}}|$ へ（多くの場合90%以上）削減し、計算効率を劇的に向上させた。第二に、強化学習（SAC）を用いてリージョン間の望ましいエージェント分布を予測する手法を確立した。第三に、最小費用流と局所的なマッチングを組み合わせることで、グローバルな目標達成と局所的な計算コストの低減を両立させた。これにより、既存の LORR WINNER などの手法に対し、スループットの向上とコンフリクト（衝突）の抑制を同時に実現している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>GRAND は以下の3層構造で構成される。まず、グローバルガイダンス層では、Transformer 形式の Graph Network を用いて状態をエンコードし、Soft Actor-Critic (SAC) により集約された領域 $\mathcal{V}_{\text{agg}}$ 上の目標分布 $\delta d_t \in \Delta(\mathcal{V}_{\text{agg}})$ を出力する。報酬関数はタスク完了数 $r_{\text{fint}}$ と、タスク完了までの残り時間を考慮した進捗報酬 $r_{\text{futt}} = \sum_{a \in A_{\text{act}_t}} \phi(\tau_t(a) - t)$ の加重和で定義される。次に、リバランシング層では、現在の分布 $\delta f_t$ から目標分布 $\delta d_t$ へエージェントを移動させるため、以下の最小費用流問題を解く：<br>$$ \min \sum_{i \in V_{\text{agg}}} \sum_{j \in V_{\text{agg}}} c_{ij} y_{ijt} \quad \text{s.t.} \quad \sum_{j \in V_{\text{agg}}} y_{ijt} = n_{si}, \sum_{i \in V_{\text{agg}}} y_{ijt} = n_{dj}, y_{ijt} \in \mathbb{Z}_{\ge 0} $$<br>ここで $n_{si}, n_{dj}$ は各領域の供給量と需要量であり、$c_{ij}$ は領域間の最短経路距離である。最後に、割り当て層では、決定されたフローに基づき、各領域内で $\min \sum \sum w_{ac} z_{i,ac}$ のような局所的な最適化問題を解き、個別のタスクを割り当てる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>League of Robot Runners (LoRR) シミュレータを用い、プランニング方策に TFGP アルゴリズムを採用した設定で評価を行った。比較対象として LORR WINNER、G-OPT（線形緩和による最小費用マッチング）、GREEDY の 3 手法を用いた。実験の結果、GRAND はすべてのスケールにおいて LORR WINNER に対し平均約10%、最大規模インスタンスで 4.3%のスループット向上を達成した。また、ピーク時のコンフリクト数を 23%、総コンフリクト数を 20% 削減することに成功している。計算量についても、グローバルマッチングを $O(|V_{\text{agg}}|^3)$、ローカル割り当てを各領域で $O(n_i^3)$ で解くことで、1秒以内の制御予算内での動作を確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>アブレーション研究により、RL によるガイダンスが、ノードごとの空きタスク数に基づく分布やランダムなディリクレ分布よりも優れていることが示された。また、マッチングにおいてフロー制約付き貪欲法を用いるとスループットが大幅に低下することから、提案する割り当て手順の有効性が裏付けられた。本手法は、学習時とは異なるエージェント/ノード比率やグラフサイズ $|V_{tile}|$ に対しても、再学習なしで高い性能を維持するゼロショット転移性を備えている。スループット向上の主な要因は、単なる最短経路の割り当てではなく、Time-in-task を短縮することで混雑を軽減し、コンフリクトを抑制している点にある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>本文 (1/6)</h3><p>本論文は、Lifelong Multi-Agent Pickup-and-Delivery (MAPD) におけるタスクスケジューリング問題を解決するための階層的アルゴリズム「GRAND」を提案している。GRANDは、Graph Neural Network (GNN) を用いた強化学習（RL）によるグローバルなガイダンス、最小費用流（Minimum-Cost Flow）を用いたリージョン間のリバランシング、そして局所的な割り当て（Assignment）の3層構造で構成される。具体的には、RLポリシーがアグリゲートされた倉庫グラフ上の自由エージェントの望ましい分布 $(x, \mathcal{C}, \rho)$ を出力し、これを $y = \arg \min \sum_{i,j} c_{ij} y_{ij}$ の形式の最小費用流問題によってリージョン間の再配置へと変換し、最終的に局所的な整数線形計画法（ILP）等のマッチング問題によって個別のタスク割り当てを決定する。League of Robot Runners (LoRR) の混雑したベンチマークを用いた実験では、最大500エージェントの環境において、2024年の優勝スケジューラと比較してスループットを最大10%向上させつつ、1秒以内の計算予算内でリアルタイム実行が可能であることを示した。</p></section>
+<section class="secsum"><h3>本文 (2/6)</h3><p>本研究では、離散的な時間ステップ $t = 0, 1, \dots, T_{\max}$ において、有向グラフ $G=(V, E)$ 上を移動する複数のエージェント $A = \{a_1, \dots, a_N\}$ のLifelong Task Assignment (LTS) を扱う。システム状態を $(x_t, C_t)$ と定義し、未完了タスクの集合 $C_t$ のサイズを $|C_t| = M$ と一定に保つタスク生成器 $f_{TG}: V \times 2^V \to 2^V$ を想定する。スケジューリング方策 $f_{TS}$ は、現在の状態と前時刻の目標マップ $\rho_{t-1}$ を入力とし、時間予算 $b_{TS} &gt; 0$ 内で新しい単射な目標マップ $\rho_t: A \to V$ を返す anytime アルゴリズムとして定式化される。本手法の目的は、スループット $\alpha = \sum_{t=0}^{T_{\max}} \sum_{a \in A} \mathbb{1}\{x_t(a) \in C_t\}$ の最大化であり、これを実現するために、(i) エージェントの分布を規定するデータ駆動型のグローバルガイダンス、(ii) 最適輸送問題を用いてエージェントの質量を目標分布へ向かわせるリージョン間リバランシング、(iii) 分離された局所的なILPを解くタスク割り当て、の3段階で構成される。グローバルガイダンス層は、現在の状態からリージョン集合 $\mathcal{V}_{\text{agg}}$ 上の確率単体 $\Delta(\mathcal{V}_{\text{agg}})$ への写像 $f_{\text{guide}}: V \times 2^V \times V^A \to \Delta(\mathcal{V}_{\text{agg}})$ を出力し、低次元の中間目標を提供することで、後続の最適化プロセスを制御する。</p></section>
+<section class="secsum"><h3>本文 (3/6)</h3><p>本セクションでは、マルチエージェント経路探索（MAPF）におけるスケジューリングとプランニングの統合的な枠組みが提案されている。まず、ワークスペースをグラフ $G$ 上の領域集合 $V_{\text{agg}}$ に分割し、エージェントの密度を $r_{\text{agent/node}} = |A|/|V|$、タスクの負荷を $r_{\text{task/agent}} = M/|A|$ として定義する。リバランシング工程では、現在の自由エージェント分布 $\delta f_t \in \Delta(V_{\text{agg}})$ を、ガイダンスによって得られた目標分布 $\delta d_t \in \Delta(V_{\text{agg}})$ へ最小コストで輸送するため、供給量 $n_{si} = N_t \delta f_t(i)$ と需要量 $n_{di} = N_t \delta d_t(i)$ を用いた最小費用輸送問題として定式化される：<br>$$ \min \sum_{i \in V_{\text{agg}}} \sum_{j \in V_{\text{agg}}} c_{ij} y_{ijt} \quad \text{s.t.} \quad \sum_{j \in V_{\text{agg}}} y_{ijt} = n_{si}, \sum_{i \in V_{\text{agg}}} y_{ijt} = n_{dj}, y_{ijt} \in \mathbb{Z}_{\ge 0} $$<br>ここで $c_{ij}$ は領域間の最短経路距離である。次に、ローカルなタスク割り当て工程では、リバランシングで決定された領域間のフロー $y_{ijt}$ に基づき、各領域内のエージェントとタスクを距離ベースの貪欲法および二部マッチングを用いて紐付ける。具体的には、領域 $i$ から $j$ へのフローを「プレースホルダー」として扱い、領域を跨ぐエージェントとタスクの相互作用を、各領域のシードノードを介した局所的な最適化問題 $\min \sum \sum w_{ac} z_{i,ac}$ へと分解することで、計算効率を維持しつつグローバルな目標マップ $\rho_t$ を生成する。</p></section>
+<section class="secsum"><h3>本文 (4/6)</h3><p>本セクションでは、グラフ集約、強化学習によるグローバルガイダンス、および最適化ソルバーの3つの構成要素について詳述されている。まず、グラフ集約では、グラフ $G=(V, E)$ に対して最短経路ボルノイ分割を用いてシードノード集合 $V_{\text{agg}} \subseteq V$ を選択し、各ノード $v \in V$ を $\pi(v) \in \arg \min_{i \in V_{\text{agg}}} \text{dist}_G(v, i)$ に割り当てることで、頂点数を $|V|$ から $|V_{\text{agg}}|$ へ（多くの場合90%以上）削減する。次に、ガイダンス方策は、集約された領域間のグラフ $G_{\text{nh}} = (V_{\text{agg}}, E_{\text{nh}})$ 上でSoft Actor-Critic (SAC) を用いて学習され、状態 $s_t$ はTransformer形式のGraph Networkを用いてエンコードされる。報酬関数 $r_t = c_1 r_{\text{fint}} + c_2 r_{\text{futt}}$ は、タスク完了数 $r_{\text{fint}} = |D_t|$ と、割り当てられたタスクの完了までの残り時間を考慮した進捗報酬 $r_{\text{futt}} = \sum_{a \in A_{\text{act}_t}} \phi(\tau_t(a) - t)$ の加重和で構成される。最後に、最適化は、グローバルなリバランシングを完全グラフ上の最小費用流問題として $O(|V_{\text{agg}}|^3)$ で解き、ローカルな割り当てを各領域で $O(n_i^3)$ の計算量で解くことで、並列実行可能な構造を持つ。</p></section>
+<section class="secsum"><h3>本文 (5/6)</h3><p>本研究では、LoRRシミュレータを用いたMulti-Agent Path Finding (MAPF) および Task Scheduling (TS) の評価において、提案手法であるGRANDが既存手法を凌駕することを示している。実験では、プランニング方策 $f_{PP}$ にTFGPアルゴリズムを用い、エージェント数 $|A|$ やマップサイズ $|V_{tile}|$ を変化させた条件下で、ベンチマークとしてLORR WINNER、G-OPT（線形緩和による最小費用マッチング）、GREEDYの3手法と比較した。結果として、GRANDはすべてのスケールにおいて、LORR WINNERに対して平均約10%、最大規模のインスタンスにおいて4.3%のスループット向上を達成した。特にタスクの再割り当て（Reassignment）が禁止された制約条件下では、他手法との性能差が拡大する傾向が見られた。性能向上の要因を分析したところ、GRANDは単に最短経路のエージェントを割り当てるだけでなく、Time-in-task（タスク完了までの時間）を短縮することでスループットを高めており、これはコンフリクト（衝突）の発生を抑制し、混雑を軽減していることに起因する。具体的には、ピーク時のコンフリクト数を23%削減し、総コンフリクト数を20%削減することに成功している。</p></section>
+<section class="secsum"><h3>本文 (6/6)</h3><p>提案手法であるGRANDは、学習ベースのグローバルなガイダンス（Guidance）と、軽量な最適化レイヤーによるエージェント・タスク割り当て（Assignment）を組み合わせたハイブリッドなタスクスケジューリングアーキテクチャである。アブレーション研究により、ガイダンスにおいてRLによる分布が、ノードごとの空きタスク数に基づく分布や、パラメータ $\alpha = 0.1$ のランダムなディリクレ分布よりも優れた性能を示すことが確認された。また、マッチングステップにおいて、フロー制約付き貪欲法（flow-constrained greedy heuristic）を用いると、提案手法の割り当て手順と比較してスループットが大幅に低下する。本手法は、学習時とは異なるエージェント/ノード比率やグラフサイズ $|V_{tile}|$ の設定に対しても、再学習やチューニングなしで高いスループットを維持するゼロショット転移性を備えている。実験では、グローバルなマッチングのベースラインであるG-OPTと比較して、1秒以内の制御予算内で高いスループットを実現しつつ、混雑を低減できることが示された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-01
+  </footer>
+</div>
+</body>
+</html>

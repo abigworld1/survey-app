@@ -999,6 +999,37 @@
       "url": "https://www.semanticscholar.org/paper/8c50f07da087d4de6402ca9ae60a650cca81b769",
       "venue": ""
     },
+    "doi:10.48550/arxiv.2604.09868": {
+      "added": "2026-07-01",
+      "arxiv_id": "2604.09868",
+      "authors": [
+        "Aiman Al Masoud",
+        "Marco Arazzi",
+        "Simone Germani",
+        "Antonino Nocera"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-01-31",
+      "doi": "10.48550/arXiv.2604.09868",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2604.09868.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "",
+      "reading_value": 3,
+      "reading_value_reason": "Graph RAGを規格書という特定ドメインに適用した実用的な研究。手法の具体性は高いが、評価が合成データによる検証に留まり、新規性は既存手法の組み合わせの範疇。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Exploring Structural Complexity in Normative RAG with Graph-based approaches: A case study on the ETSI Standards",
+      "tldr": "本研究は、複雑な階層構造や相互参照を持つETSI規格書などの規範的文書に対し、従来のベクトルベースのRAG（Vanilla RAG）の限界を克服するため、文書構造をグラフとしてモデル化するGraph RAGの有効性を調査したものである。提案手法は、文書をノードとエッジからなるプロパティグラフとして定義し、階層関係 $\\mathcal{E}_{part}$ と引用関係 $\\mathcal{E}_{cite}$ を組み込むことで、構造的・関係的な特徴を検索プロセスに統合する。実験の結果、構造情報を保持するインデックス戦略がPrecisionやMRRの向上に寄与することを示し、技術文書の自動作成に向けたスケーラブルなフレームワークとしての可能性を提示している。",
+      "url": "https://www.semanticscholar.org/paper/6ca09cf033802ad265ab4142e96dacb6f6d3037f",
+      "venue": ""
+    },
     "doi:10.48550/arxiv.2604.11419": {
       "added": "2026-06-29",
       "arxiv_id": "2604.11419",
@@ -1029,6 +1060,37 @@
       "title": "Beyond RAG for Cyber Threat Intelligence: A Systematic Evaluation of Graph-Based and Agentic Retrieval",
       "tldr": "サイバー脅威インテリジェンス（CTI）において、従来のベクトルベースRAGの限界を克服するため、グラフベース（GRAG）、エージェント型（AGRAG）、およびハイブリッド型（HRAG）の検索アーキテクチャを体系的に評価した研究。実験の結果、HRAGがマルチホップ推論において回答の質を最大35%向上させ、回答不能な問いに対しても76%という高い正解拒否率を達成するなど、最も信頼性の高いパフォーマンスを示した。",
       "url": "https://www.semanticscholar.org/paper/c3cee8d8cac7540321ca490875c85d48f9ec91a6",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2604.16312": {
+      "added": "2026-07-01",
+      "arxiv_id": "2604.16312",
+      "authors": [
+        "M. Chen",
+        "Haodong Yang",
+        "Jiawei Cai",
+        "Xiaoli Huang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-02-01",
+      "doi": "10.48550/arXiv.2604.16312",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2604.16312.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "",
+      "reading_value": 4,
+      "reading_value_reason": "多粒度な構造（グラフ、ハイパーグラフ、クラスター）を統合し、推論時の柔軟性と低コストなプロンプトを実現した点が極めて新規性が高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "FlexStructRAG: Flexible Structure-Aware Multi-Granular Relational Retrieval for RAG",
+      "tldr": "FlexStructRAGは、固定長チャンクによる文脈の断片化と、単一の構造（グラフまたはハイパーグラフ）に依存する粒度の制約を解決する、クエリ適応型のマルチグラニュラな構造認識型RAGフレームワークである。エンティティ、二項関係、ハイパーエッジ、および意味的クラスターという4つの異なる粒度の検索ユニットを、インデックスの再構築なしに推論時に柔軟に組み合わせることが可能である。",
+      "url": "https://www.semanticscholar.org/paper/4efdbaf25911c73272c4c5ec0fe4fe3dd1e7b82f",
       "venue": ""
     },
     "title:ft rag a fine grained retrieval augmented generation framework for complex table reasoning": {
@@ -1206,6 +1268,38 @@
       "title": "Enhancing Lifelong Multi-Agent Path Finding with Cache Mechanism",
       "tldr": "Lifelong Multi-Agent Path Finding (L-MAPF) において、一時保管用の「キャッシュ」グリッドと、ロック機構を備えた Task Assigner (TA) を導入することで、エージェントの移動効率とスループットを向上させる L-MAPF-CM を提案する。",
       "url": "http://arxiv.org/abs/2501.02803v1",
+      "venue": ""
+    },
+    "arxiv:2508.05890": {
+      "added": "2026-07-01",
+      "arxiv_id": "2508.05890",
+      "authors": [
+        "Yue Zhang",
+        "Zhe Chen",
+        "Daniel Harabor",
+        "Pierre Le Bodic",
+        "Peter J. Stuckey"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-08-07",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2508.05890.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2508.05890v1",
+      "reading_value": 4,
+      "reading_value_reason": "2万エージェント超の超大規模設定で、計算量と割り当て品質を両立した点が極めて強力。フローを用いた経路誘導の統合も実用的で、MAPD研究者には必読。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Flow-Based Task Assignment for Large-Scale Online Multi-Agent Pickup and Delivery",
+      "tldr": "大規模なオンライン Multi-Agent Pickup and Delivery (MAPD) において、エージェントとタスク間の全ペア距離計算を回避し、環境グラフ上で最小費用流 (minimum-cost flow) としてタスク割り当てを行うフローベースのフレームワークを提案する。本手法は、エージェント数 20,000、タスク数 30,000 という超大規模設定においても 1 秒以内の計画時間を維持し、混雑を考慮したエッジコストモデルを用いることで、既存の Greedy や RMCA などの手法を上回るスループットとスケーラビリティを実現する。",
+      "url": "http://arxiv.org/abs/2508.05890v1",
       "venue": ""
     },
     "arxiv:2509.23778": {
@@ -2026,6 +2120,37 @@
       "source_quality": "abstract",
       "title": "Anytime Multi-Task Multi-Agent Pickup and Delivery Under Energy Constraint",
       "tldr": "本論文は、エージェントのエネルギー制約と、エージェントの現在位置に関わらずタスクを割り当て可能な「Anytime Task Allocation」を導入した、新しいマルチタスクMAPD（Multi-Agent Pickup and Delivery）問題を提案しています。提案手法は、従来のマルチタスクMAPDと比較して、幅広いエージェント数においてメイクスパンを $5 - 19 \\%$ 短縮することに成功しています。"
+    },
+    "doi:10.1109/lra.2026.3673902": {
+      "added": "2026-07-01",
+      "arxiv_id": "2512.03194",
+      "authors": [
+        "Johannes Gaber",
+        "Meshal Alharbi",
+        "Daniele Gammelli",
+        "Gioele Zardini"
+      ],
+      "basis": "fulltext(arxiv-pdf)",
+      "citations": 0,
+      "date": "2025-12-02",
+      "doi": "10.1109/LRA.2026.3673902",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2512.03194.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2512.03194v3",
+      "reading_value": 4,
+      "reading_value_reason": "GNNによるグローバルな分布予測と、最小費用流・ILPによる局所最適化を組み合わせた階層的アプローチが極めて実用的。MAPD分野におけるスループット向上と計算量の両立が具体的。",
+      "relevance": 4,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "GRAND: Guidance, Rebalancing, and Assignment for Networked Dispatch in Multi-Agent Path Finding",
+      "tldr": "Lifelong Multi-Agent Pickup-and-Delivery (MAPD) におけるタスクスケジューリング問題を解決するため、Graph Neural Network (GNN) による強化学習を用いたグローバルなガイダンス、最小費用流によるリージョン間のリバランシング、および局所的な整数線形計画法 (ILP) によるタスク割り当てを組み合わせた階層的アルゴリズム「GRAND」を提案する。最大500エージェントの環境において、既存の優勝スケジューラと比較してスループットを最大10%向上させ、かつ1秒以内の計算予算でリアルタイム実行が可能であることを示した。",
+      "url": "http://arxiv.org/abs/2512.03194v3",
+      "venue": ""
     },
     "doi:10.1609/aaai.v39i14.33614": {
       "added": "2026-06-26",

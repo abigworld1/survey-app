@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>FlexStructRAG: Flexible Structure-Aware Multi-Granular Relational Retrieval for RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>FlexStructRAG: Flexible Structure-Aware Multi-Granular Relational Retrieval for RAG</h1>
+  <div class="meta">M. Chen, Haodong Yang, Jiawei Cai, Xiaoli Huang<br>採択先: 未取得 ・ 2026-02-01 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/4efdbaf25911c73272c4c5ec0fe4fe3dd1e7b82f" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.48550/arXiv.2604.16312" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-02-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">多粒度な構造（グラフ、ハイパーグラフ、クラスター）を統合し、推論時の柔軟性と低コストなプロンプトを実現した点が極めて新規性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> FlexStructRAGは、固定長チャンクによる文脈の断片化と、単一の構造（グラフまたはハイパーグラフ）に依存する粒度の制約を解決する、クエリ適応型のマルチグラニュラな構造認識型RAGフレームワークである。エンティティ、二項関係、ハイパーエッジ、および意味的クラスターという4つの異なる粒度の検索ユニットを、インデックスの再構築なしに推論時に柔軟に組み合わせることが可能である。</div>
+<section class="qa"><h2>どんなもの？</h2><p>既存のRAG手法は、一様なチャンキングによる意味的断片化や、二項関係（グラフ）か$n$項関係（ハイパーグラフ）のいずれか一方の粒度に依存するという構造的バイアスを抱えている。本研究は、マイクロレベルのプリミティブからマクロレベルのトピックまでをシームレスに繋ぐ、多層的な構造認識型検索の必要性を提示している。具体的には、知識の抽出から検索、生成に至るプロセスにおいて、関係性と文脈の連続性を両立させることを目的としている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、再インデックスなしで推論時に検索モードを切り替え可能な、統一的なマルチユニット知識ベースを提案した点にある。また、位置的局所性を考慮した「meso-level structure-aware semantic clustering (SSC)」を導入し、ハイパーエッジ間の意味的・位置的な近接性を利用して中間層の構造を構築した。さらに、動的パーティショニングと切り詰めスライディングウィンドウ抽出を組み合わせることで、計算量を $O(n)$ に抑えつつ、チャンク境界を跨ぐ文脈の取り込みを実現している。これにより、複雑な関係性を持つ知識集約型タスクに対して、スケーラブルかつ高精度な解決策を提供している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>知識構築フェーズでは、まず動的パーティショニングと切り詰めスライディングウィンドウを用いて文書をチャンク化し、LLMを用いてハイパーエッジ $\mathcal{H} = \{(e_i, s_i, \mathcal{E}_i)\}$ を抽出する。これに基づき、ハイパーグラフ $\mathcal{G}_H = (\mathcal{E}, \mathcal{H})$ と、アンカーエンティティを介した二項関係のグラフ $\mathcal{G} = (\mathcal{E}, \mathcal{R})$ を構築する。中間粒度として、ハイパーエッジの埋め込み $\mathbf{h}_i$ と抽出順序に基づく距離 $d(i, j) = \text{dist}(\mathbf{h}_i, \mathbf{h}_j) + \lambda |i - j|$ を用いてHDBSCANにより意味的クラスター $\mathcal{C}$ を形成する。検索フェーズでは、クエリ $q$ に対してエンティティ、エッジ、ハイパーエッジ、クラスターの4つのモジュールをコサイン類似度等を用いて検索し、ハイブリッドに組み合わせる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>UltraDomainベンチマークの4ドメイン（Agriculture, CS, Legal, Mix）を用いた実験により、GraphRAGやHyperGraphRAGを含む9つのベースラインと比較検証を行った。結果として、全ドメインでExact Match (EM)、token-level F1、Generation Evaluation (GE) の全指標において最高性能を達成した。特にMixドメインでは、HyperGraphRAGに対しEMで $+10.15$、F1で $+9.37$、GEで $+6.20$ の大幅な向上を示した。アブレーション研究では、SSCの除去が EM で $-8.40$ という最大の性能低下を招くことが確認された。また、推論時のプロンプトトークン数は $1,097$ と、HyperGraphRAG の $12,221$ に対して極めて低く、効率性においても優位性が示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>FlexStructRAGは、計算コストをオフラインの構築フェーズへシフトさせることで、オンライン推論時のオーバーヘッドを大幅に削減することに成功している。パラメータ感度分析によれば、リトリーバルの範囲を広げることは性能向上に寄与するが、一定範囲を超えると精度が飽和し、プロンプトコストが線形に増加するというトレードオフが存在する。回答の質に関しては、RelevanceやLogical Coherenceにおいて約 $0.8$ という高いGEスコアを記録しており、構造化された知識が生成の論理的一貫性に寄与していることが示唆される。本手法は、特徴量の切り替え（feature toggles）により、特定の構造のみを利用するバリアントの制御も可能である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>FlexStructRAG: Flexible Structure-Aware Multi-Granular Relational Retrieval for RAG</h3><p>FlexStructRAGは、固定長チャンクによる文脈の断片化や、単一の構造化インデックスによる粒度の制約を解決するために提案された、クエリ適応型のマルチグラニュラ（多粒度）な構造認識型RAGフレームワークである。本手法は、二項関係のための知識グラフ（KG）、$n$項関係のための知識ハイパーグラフ（KHG）、および関係的証拠を文書に基づいた文脈単位に集約する構造認識型セマンティッククラスターの3つを共同で構築する。知識構築時には、一様なチャンキングによる意味的断片化を防ぐため、動的パーティショニングと、限定的な文脈依存性を組み込むための切り詰めスライディングウィンドウ抽出メカニズムを導入している。推論時には、エンティティ、エッジ、ハイパーエッジ、およびクラスターレベルの検索を柔軟に組み合わせることで、関係性と文脈の両方に整合した証拠を生成プロセスに提供する。UltraDomainベンチマークを用いた4つのドメインにおける実験の結果、FlexStructRAGは強力なRAGベースラインと比較してセマンティック評価において精度を向上させることが示された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>既存のRAG手法は、固定長のテキストチャンクによる文脈の断片化や、グラフ（二項関係）またはハイパーグラフ（$n$項関係）のいずれか一方の粒度に依存する構造的バイアスという課題を抱えている。提案手法であるFlexStructRAGは、エンティティ、エッジ、ハイパーエッジ、およびドキュメントに基づいたクラスターという4つの異なる粒度の検索ユニットを、インデックスの再構築なしに推論時に切り替え可能な統一フレームワークとして扱う。具体的には、LLMを用いて抽出された関係性から知識グラフと知識ハイパーグラフを構築し、各ユニットにはソーステキストへのスパンレベルのプロバナンス（根拠）を保持させることで、チャンク境界による情報の歪みを抑制している。さらに、マイクロレベルのプリミティブとマクロレベルのトピック間の中間層として、意味的類似性と位置的な近接性を利用してハイパーエッジを統合する「meso-level structure-aware semantic clustering (SSC)」を導入し、多段推論に必要な文脈の連続性と関係性の特定性を両立させている。構築プロセスにおいては、動的パーティショニングと切り詰められたスライディングウィンドウ抽出を組み合わせることで、線形時間計算量 $O(n)$ を維持しつつ、チャンクを跨ぐ限定的な文脈の取り込みとキャッシュ可能性を実現している。</p></section>
+<section class="secsum"><h3>2 Preliminaries</h3><p>本セクションでは、グラフベースのRAGとハイパーグラフ表現の定義が導入されている。グラフベースのRAGは、エンティティの集合 $\mathcal{V}$ と関係の集合 $\mathcal{E}$ からなるグラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ として構造化知識を表現し、各知識項目は $k = (e, u, v)$ （ここで $e \in \mathcal{E}$、 $u, v \in \mathcal{V}$）と記述される。クエリ $q$ に対する回答生成は、検索された候補知識集合 $\mathcal{K}_q$ を用いて、$\text{Ans}(q) = \sum_{k \in \mathcal{K}_q} P(\text{Ans} | k, q)$ のように周辺化することで行われる。一方、ハイパーグラフは各ハイパーエッジが2つ以上のエンティティを接続することを許容し、知識単位を $k = (e, \mathcal{S})$ （ここで $e \in \mathcal{E}_H$、 $\mathcal{S} \subseteq \mathcal{V}$）と定義することで、$n$ 項関係を自然に表現できる。提案手法 FlexStructRAG は、オフラインフェーズで動的なチャンク分割とスライディングウィンドウ抽出を行い、知識ハイパーグラフ、知識グラフ、および構造を考慮したセマンティッククラスターを構築する。オンラインフェーズでは、これらエンティティ、エッジ、ハイパーエッジ、クラスターを検索し、クエリに整合した根拠を組み立てて生成に用いる。</p></section>
+<section class="secsum"><h3>3 The FlexStructRAG Architecture</h3><p>FlexStructRAGは、LLMによる知識抽出の不完全性やノイズに対応するため、エンティティ、二項関係、$n$項関係（ハイパーエッジ）、および文書に基づいた意味的クラスターという複数の粒度で補完的な表現を維持するフレームワークである。知識ベース構築フェーズでは、まず動的パーティショニングと切り詰めスライディングウィンドウ戦略を用いて文書をチャンク化し、各チャンクからハイパーエッジ $\mathcal{H} = \{(e_i, s_i, \mathcal{E}_i)\}$ を抽出する。次に、ハイパーエッジを用いてハイパーグラフ $\mathcal{G}_H = (\mathcal{E}, \mathcal{H})$ を構築し、さらに高次相互作用を捉えるアンカーエンティティを介して二項関係のグラフ $\mathcal{G} = (\mathcal{E}, \mathcal{R})$ を構築する。また、中間の粒度として、ハイパーエッジの埋め込み $\mathbf{h}_i$ と抽出順序に基づく距離 $d(i, j) = \text{dist}(\mathbf{h}_i, \mathbf{h}_j) + \lambda |i - j|$ を用いてHDBSCANで意味的クラスター $\mathcal{C}$ を形成する。検索フェーズでは、クエリ $q$ に対してエンティティ、ハイパーエッジ、エッジ、およびそれらを含むクラスターを検索する4つのモジュールを備えたハイブリッドモードを基本とし、各モジュールはコサイン類似度等を用いて関連情報を取得する。UltraDomainベンチマークにおける実験結果では、FlexStructRAGはAgriculture、CS、Legal、Mixの全ドメインにおいて、既存の最良手法であるHyperGraphRAGを上回る性能を示し、例えばLegalドメインのGE（生成評価）において$65.21$を記録するなど、顕著な改善を実現している。</p></section>
+<section class="secsum"><h3>4 Experiments</h3><p>FlexStructRAGの有効性を検証するため、UltraDomainベンチマークの4ドメイン（Agriculture, CS, Legal, Mix）を用い、Exact Match (EM)、token-level F1、およびLLMベースのGeneration Evaluation (GE) を指標として、GraphRAGやHyperGraphRAGを含む9つのベースラインと比較実験を行った。実験の結果、FlexStructRAGは全ドメインにおいて最高のEM、F1、GEを達成し、特にMixドメインではHyperGraphRAGに対しEMで $+10.15$、F1で $+9.37$、GEで $+6.20$ の大幅な向上を示した。アブレーション研究では、エンティティ、エッジ、ハイパーエッジの各リトリーバルに加え、Structure-aware Semantic Clustering (SSC) やSliding Window (SW) が性能に寄与しており、特にSSCの除去は EM で $-8.40$ という最大の性能低下を招いた。パラメータ感度分析では、リトリーバルの広さを増すと性能は向上するものの、一定範囲を超えると精度は飽和し、プロンプトコストが線形に増加するトレードオフが確認された。回答の質（RQ4）については、RelevanceやLogical Coherenceにおいて約 $0.8$ という高いGEスコアを記録し、全次元で優れた性能を示した。効率性（RQ5）に関しては、知識構築時のトークン消費量は一定程度高いものの、推論時のプロンプトトークン数は HyperGraphRAG の $12,221$ に対し $1,097$ と極めて低く、計算コストをオフラインの構築フェーズへシフトさせることでオンラインのオーバーヘッドを大幅に削減している。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>FlexStructRAGは、グラフ、ハイパーグラフ、およびドキュメントに基づいた検索を統合する、構造認識型のRAGフレームワークである。本手法は、二項関係、$n$項関係、および中間レベルのセマンティック・クラスターを共同でモデリングすることで、ドキュメントの根拠を維持しつつ複雑な関係的証拠を捉える。主な貢献として、再インデックスなしで推論時にモード切り替えが可能な統一マルチユニット知識ベース、位置的局所性を備えたハイパーエッジ中心の構造認識型セマンティック・クラスタリング、およびチャンク分割の歪みを抑えつつ計算量を線形時間 $O(n)$ に抑える切り捨てスライディングウィンドウ抽出による動的パーティショニングを導入している。さらに、特徴量の切り替え（feature toggles）により、グラフのみ、ハイパーグラフのみ、あるいは構造のみのバリアントを制御可能にしており、複雑な知識集約型生成タスクに対してスケーラブルかつ効果的な解決策を提供する。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-01
+  </footer>
+</div>
+</body>
+</html>

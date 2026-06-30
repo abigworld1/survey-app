@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Flow-Based Task Assignment for Large-Scale Online Multi-Agent Pickup and Delivery | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Flow-Based Task Assignment for Large-Scale Online Multi-Agent Pickup and Delivery</h1>
+  <div class="meta">Yue Zhang, Zhe Chen, Daniel Harabor, Pierre Le Bodic, Peter J. Stuckey<br>採択先: 未取得 ・ 2025-08-07 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2508.05890v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2508.05890v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2025-08-07</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">2万エージェント超の超大規模設定で、計算量と割り当て品質を両立した点が極めて強力。フローを用いた経路誘導の統合も実用的で、MAPD研究者には必読。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 大規模なオンライン Multi-Agent Pickup and Delivery (MAPD) において、エージェントとタスク間の全ペア距離計算を回避し、環境グラフ上で最小費用流 (minimum-cost flow) としてタスク割り当てを行うフローベースのフレームワークを提案する。本手法は、エージェント数 20,000、タスク数 30,000 という超大規模設定においても 1 秒以内の計画時間を維持し、混雑を考慮したエッジコストモデルを用いることで、既存の Greedy や RMCA などの手法を上回るスループットとスケーラビリティを実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、動的に発生するタスクを継続的に処理するオンライン MAPD 問題を対象としている。従来の Token Passing (TP) や TPTS といった手法は、貪欲な割り当てにより計算は高速だが、エージェント数の増加に伴い割り当ての質が低下し、ボトルネックが発生する課題がある。また、既存のオフライン手法は全タスクの事前知識を前提としており、数千規模のエージェントに対するリアルタイムな応答が困難である。本研究では、2D グリッドマップ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 上で、エージェントが衝突を避けつつ、ピックアップからデリバリーまでの一連の動作を繰り返す環境において、計算効率と割り当て品質を両立する手法を模索している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、エージェントとタスクの全ペア間の距離行列計算を不要とする、マップのトポロジーを直接利用した空間フローベースのタスク割り当てフレームワークを提案した。第二に、プランナーの探索負荷を軽減するために、フロー解からガイドパスを $O(N)$ で抽出する手法を導入し、経路計画との効率的な統合を実現した。第三に、頂点混雑 $C_{vertex}(v)$ や対向流混雑 $C_{contra}(u, v)$、あるいは過去の平均待ち時間を用いた、リアルタイムの交通量予測を組み込んだ 2 種類の混雑考慮型エッジコストモデルを導入した。これにより、大規模環境においても混雑を回避し、エージェントを分散させることでスループットを向上させた。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>タスク割り当ては、マップの各セルをノードとし、エージェント位置へ接続するソースとタスク位置へ接続するシンクを持つネットワークにおける最小費用流問題として定式化される。従来の線形割り当て法が $O(AT)$ 個のエッジを必要とし計算量が $O(A^3)$ となるのに対し、提案手法はエッジ数をマップ規模 $N$ に基づく $O(N)$ 程度に抑え、計算量を $O(N^2 \log N)$ に削減している。経路計画には Guided PIBT を採用し、フローから得られたガイドパスをヒューリスティックとして利用する。エッジコスト $c(u, v)$ には、将来の交通量予測や、過去の平均待ち時間 $\frac{W_{total}}{C_{total}}$ に減衰因子を適用した動的なコストを組み込むことが可能である。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>C++ および LEMON ライブラリを用いて実装し、Random マップ、Warehouse Small (WS)、Sortation Large (SL) などのマップを用いて評価を行った。実験では、エージェント数を数百から 20,000、タスク数を 30,000 規模まで拡張した。結果として、SL マップのような大規模設定において、従来の Linear Assignment が 10 分以上要するのに対し、提案手法は 1 秒以内の制約下で動作した。スループット評価では、Flow-Traffic や Flow-Avg Waiting モデルが、Greedy や Unit Cost 版、および SOTA である RMCA を上回る性能を示した。また、自由セル数が約 650 万に達する Orz や IH といった超大規模マップにおいても、高いスケーラビリティが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、大規模オンライン MAPD において、計算量と割り当て品質のトレードオフを効果的に解決している。特に、フローネットワークを介してタスク割り当てと経路誘導（ガイドパス生成）を同時に行うアプローチは、プランナーの探索オーバーヘッドを大幅に削減する。限界および今後の課題として、より正確で適応的なエッジコストモデルの設計、フローネットワーク構造自体のさらなる改善、および他の MAPD バリアントへのフレームワークの拡張が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Flow-Based Task Assignment for Large-Scale Online Multi-Agent Pickup and Delivery</h3><p>本研究では、動的に発生するタスクを継続的に処理するオンライン Multi-Agent Pickup and Delivery (MAPD) におけるタスク割り当て問題に対し、環境グラフ上での最小費用流 (minimum-cost flow) として定式化する手法を提案している。この手法は、エージェント間のペアワイズな距離計算を不要とし、エージェントへのタスク割り当てと経路誘導を同時に行うことを可能にするほか、プランナーと統合するための効率的なガイドパス抽出を支援する。さらに、リアルタイムの交通量予測を組み込んだ 2 種類の混雑を考慮したエッジコストモデルを導入することで、解の品質を向上させている。実験の結果、本手法は 20,000 エージェントおよび 30,000 タスクという大規模な設定においても 1 秒以内の計画時間を維持し、計算効率と割り当て品質の両面で既存のベースラインを上回る性能を示した。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>Multi-Agent Pickup and Delivery (MAPD) は、多数のエージェントが共有環境下で衝突を避けつつ、連続的に発生するタスク（ピックアップからデリバリーまで）をリアルタイムに割り当て・実行する問題である。従来の Token Passing (TP) や TPTS は、貪欲な割り当てにより計算は高速だが、エージェント数が増加すると割り当ての質が低下し、ボトルネックが発生する課題がある。また、既存のオフライン手法は、全タスクが事前に既知であることを前提としており、数千規模のエージェントに対するオンラインでの迅速な応答やスケーラビリティに欠ける。本研究では、全ペア間の距離行列を事前に計算する代わりに、マップ上で直接最小費用流 (minimum-cost flow) として解く新しいフローベースのフレームワークを提案する。この手法により、割り当てを決定すると同時にエージェントのガイドパスを生成でき、これがパスプランニングの探索オーバーヘッドを削減して計算時間を短縮する。さらに、リアルタイムの混雑推定を組み込んだ交通量考慮型エッジコストモデルを導入することで、混雑回避とエージェントの分散を実現している。実験では、20,000件以上のエージェントと30,000件以上のタスクが存在する大規模なシナリオにおいて、既存手法を上回る解の質と実行速度を達成し、高いスケーラビリティを示した。</p></section>
+<section class="secsum"><h3>Problem Setup</h3><p>本問題は、既知の2Dグリッドマップ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 上で動作する、大規模なオンライン Multi-Agent Pickup and Delivery (MAPD) 問題を定義している。各エージェントは、動的に発生するタスク集合 $\mathcal{T}$（各タスクはピックアップ地点とデリバリー地点のペア）に対し、ピックアップ後にデリバリーを行う一連の動作を繰り返し実行する。タスクは事前に判明せず、タスク完了時に新たなタスクがプールに追加されることで、プール内のタスク数 $|\mathcal{T}|$ を一定に保つ、あるいは所定のポリシーに従って管理される。システムは離散時間ステップで進行し、エージェントは衝突回避（同一セルへの同時進入や、エッジの逆方向からの同時通行の禁止）を遵守しつつ、スループット（単位時間あたりのタスク完了数）を最大化するようにタスク割り当てと経路計画を行う。実行モデルは、各ステップでアクションの実行時間に相当する固定の計画時間窓が与えられるオンライン形式を採用しており、制限時間内に解を算出できない場合はエージェントが待機することでタスク完了に遅延が生じる。</p></section>
+<section class="secsum"><h3>Related Work</h3><p>MAPD（Multi-Agent Pickup and Delivery）は、タスク割り当てと経路計画の2つのサブ問題で構成される。経路計画におけるMAPF（Multi-agent path finding）では、Conflict-Based Search (CBS) などの集中型ソルバーが解の質に優れる一方、エージェント数の増加に対してスケーラビリティに課題がある。オンラインMAPFでは、実行中に計画を更新する手法が提案されており、例えば Chen et al. (2024) は各ステップで次のアクションのみを確定させ、実行中に空間ガイドパスを改善することで10,000エージェント規模へのスケーリングを実現している。タスク割り当てに関しては、ハンガリアン法やネットワークフローを用いた最適化、あるいはMRTAやVRPといった関連分野の研究があるが、これらは移動コストをマンハッタン距離等の簡略化されたモデルで扱うことが多く、MAPDにおいて重要な混雑や経路衝突によるコスト増大を無視する傾向がある。オフラインMAPDの手法（CBS-TAやBCP-MAPDなど）は、組み合わせ爆発により数百エージェントを超える規模への対応が困難である。一方、オンラインMAPDの手法であるTP（Token Passing）やTPTS、あるいはRMCAなどは動的なタスクに対応可能だが、計算複雑性の制約から数百エージェント未満の劣最適解に留まることが多い。</p></section>
+<section class="secsum"><h3>Traffic-Guided Planner for Path Planning</h3><p>本セクションでは、タスク割り当てと経路計画を分離するフレームワークにおいて、最新のオンラインMAPFプランナーであるGuided PIBTを採用した経路計画手法が述べられている。このプランナーは、将来の混雑を考慮した交通量認識型のコストモデルを用いて、各エージェントに対して時間非依存のガイドパスをFocal Searchにより算出する。エッジ $(u, v)$ のコスト $c(u, v)$ は、頂点 $v$ に進入するエージェント数 $n_v$ に基づく頂点混雑 $C_{vertex}(v) = \sum_{t} \mathbb{1}(\text{agent enters } v \text{ at } t)$ と、逆方向の移動を試みるエージェント数 $n_{v,u}$ に基づく対向流混雑 $C_{contra}(u, v) = \sum_{t} \mathbb{1}(\text{agent traverses } (v, u) \text{ at } t)$ を組み合わせて定義される。算出された初期パスは、更新された混雑推定値に基づいて一部のエージェントを反復的に再計画することで洗練され、最終的にルールベースのソルバーであるPIBTが、これらのガイドパスをヒューリスティックとして利用して衝突を回避しながらエージェントの移動を決定する。</p></section>
+<section class="secsum"><h3>Flow Network for Task Assignment</h3><p>本セクションでは、大規模なオンラインMAPDにおけるタスク割り当て問題を、二部グラフを用いた線形割り当て問題から、マップのトポロジーを直接利用する空間フローベースの手法へと拡張する提案を行っている。従来の線形割り当て法は、エージェント数 $A$ とタスク数 $T$ に対して $O(AT)$ 個のエッジを必要とし、計算量が $O(A^3)$ に達するため、大規模設定ではスケーラビリティに限界がある。これに対し、提案するフローモデルは、マップの各セルをノードとし、ダミーのソース（エージェント位置へ接続）とシンク（タスク位置へ接続）を持つネットワークを構築することで、エッジ数をマップの規模 $N$ に基づく $O(N)$ 程度に抑えている。エッジコストには、単なる単位コストの他に、プランナーによる将来の交通予測や、過去の平均待ち時間 $\frac{W_{total}}{C_{total}}$ に減衰因子を適用した動的な交通コストを導入可能である。フロー解からは、Algorithm 1 に基づき、各エージェントの割り当てタスクと、交通状況を考慮したガイドパスを $O(N)$ で抽出でき、これをプランナーの初期値として与えることで計算を高速化できる。計算量解析によれば、エージェント数がマップサイズに対して線形に増加する場合、線形割り当て法の最悪計算量は $O(N^3)$ となるが、提案手法は $O(N^2 \log N)$ に留まり、大規模問題において極めて高いスケーラビリティを実現している。</p></section>
+<section class="secsum"><h3>Experiments</h3><p>本研究では、大規模なオンラインMulti-Agent Pickup and Delivery (MAPD) におけるタスク割り当て手法として、ネットワークフローを用いたフレームワークを提案し、C++およびLEMONライブラリを用いて実装している。実験では、標準的なMAPFベンチマークのRandomマップ、およびLoRRコンペティション由来のWarehouse Small (WS) とSortation Large (SL) の2種類の倉庫型マップを用い、エージェント数を数百から20,000規模まで変化させて評価した。実験結果として、従来のLinear Assignment手法がエージェント数の増加に伴い計算量が $O(n^2)$ で増大し、SLマップの規模では10分以内に計算が完了しないのに対し、提案するFlow手法は極めて低い計算時間を維持し、高いスケーラビリティを示すことが確認された。スループットの評価では、厳格な1秒のリアルタイム制約下において、単なる最短経路に基づくFlow-Unit Costよりも、混雑状況を考慮したFlow-TrafficやFlow-Avg Waiting（コストモデルを $\text{Avg Waiting Time}$ とする）の方が、Greedy手法やUnit Cost版を上回る性能を発揮した。また、既存のSOTA手法であるRMCAと比較して、提案手法はタスク密度が高い条件下でもタイムアウトを回避し、一貫して低いmakespanを達成している。さらに、OrzやIHといった超大規模マップ（自由セル数が約650万に達するケース）においても、マンハッタン距離をヒューリスティックとして用いることで、実行可能な計算時間内でGreedyを上回るスループットを実現している。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本研究では、オンラインMAPDにおけるタスク割り当て問題に対し、マップ上で直接動作し、高コストなペアワイズ距離計算を回避する空間フローベースのタスク割り当てフレームワークを提案している。このモデルはリアルタイム実行、プランナーとの統合、および高いスケーラビリティをサポートしており、さらに交通情報をフローに組み込むための軽量な混雑考慮型エッジコストを2種類導入することで、柔軟な調整が可能であることを示した。実験の結果、特にプランナーのウォームスタートや混雑推定と組み合わせた場合に、大規模な設定においてベースライン手法を上回る性能を示すことが確認された。今後の課題として、より正確で適応的なエッジコストモデルの設計、フローネットワーク構造の改善、および他のMAPDバリアントへのフレームワークの拡張が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-01
+  </footer>
+</div>
+</body>
+</html>

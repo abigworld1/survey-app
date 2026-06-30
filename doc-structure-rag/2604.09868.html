@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Exploring Structural Complexity in Normative RAG with Graph-based approaches: A case study on the ETSI Standards | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Exploring Structural Complexity in Normative RAG with Graph-based approaches: A case study on the ETSI Standards</h1>
+  <div class="meta">Aiman Al Masoud, Marco Arazzi, Simone Germani, Antonino Nocera<br>採択先: 未取得 ・ 2026-01-31 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/6ca09cf033802ad265ab4142e96dacb6f6d3037f" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.48550/arXiv.2604.09868" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-01-31</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">Graph RAGを規格書という特定ドメインに適用した実用的な研究。手法の具体性は高いが、評価が合成データによる検証に留まり、新規性は既存手法の組み合わせの範疇。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、複雑な階層構造や相互参照を持つETSI規格書などの規範的文書に対し、従来のベクトルベースのRAG（Vanilla RAG）の限界を克服するため、文書構造をグラフとしてモデル化するGraph RAGの有効性を調査したものである。提案手法は、文書をノードとエッジからなるプロパティグラフとして定義し、階層関係 $\mathcal{E}_{part}$ と引用関係 $\mathcal{E}_{cite}$ を組み込むことで、構造的・関係的な特徴を検索プロセスに統合する。実験の結果、構造情報を保持するインデックス戦略がPrecisionやMRRの向上に寄与することを示し、技術文書の自動作成に向けたスケーラブルなフレームワークとしての可能性を提示している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究の対象は、高度な相互参照性、半構造化データ、および専門的な語彙を有する産業規格（ETSI EN 301 489シリーズなど）である。従来の「Vanilla RAG」は、テキストチャンクを高次元ベクトルとしてインデックス化し、コサイン類似度等で検索を行うが、規格書特有のセクション間の親子関係や、専門用語によるセマンティック・ギャップを捉えきれない課題がある。これに対し、本研究では情報をノードとエッジで表現するGraph RAGアーキテクチャに焦点を当て、単純な意味的類似性から、論理的な依存関係や構造的な関連性を考慮した検索メカニズムへの移行を目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、規制文書の構造的複雑性を活用した軽量かつ低遅延なGraph RAGインデックス戦略を提案し、その有効性を定量的に実証した点にある。具体的には、文書を情報単位の集合 $\mathcal{V}$ とエッジ $\mathcal{E}$ からなるプロパティグラフ $G = (\mathcal{V}, \mathcal{E})$ としてモデル化する手法を導入した。また、ETSI規格に基づいたカスタムの合成Q&amp;Aベンチマークデータセットを構築し、構造保持が検索性能に与える影響を詳細に分析した。これにより、構造情報と関係的依存性を組み込むことが、規範的文書の検索精度向上に有効であることを明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>手法は、文書を $\mathcal{E}_{part}$（階層関係）と $\mathcal{E}_{cite}$（引用関係）の2種類のエッジを持つグラフとして構築する。検索パイプラインでは、BM25によるフィルタリングとIBM Graniteを用いたDense Re-rankerを組み合わせ、Reciprocal Rank Fusion (RRF) を用いて以下の式でスコアを統合する：<br>$$\text{RRF}(d) = \sum_{r \in \mathcal{R}} \frac{1}{k + \text{rank}(r, d)}$$<br>さらに、グラフの特性を活かすため、ノード埋め込みを近傍の加重平均で平滑化するSmoothing手法や、シードノードの近傍を展開し、次数によるペナルティを含む以下のスコア $S(v)$ を用いるExpander &amp; Graph Re-rankerを導入している：<br>$$S(v) = \sum_{s \in \mathcal{S}} \text{sim}(s, q) \cdot \text{sim}(v, s) \cdot \frac{1}{\text{deg}(v)}$$</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価実験では、ETSI EN 301 489-Xシリーズの約3000ページ（50文書）を対象とし、Gemini 1.5-flashを用いて生成した合成Q&amp;Aペアと「witness strings（golden chunks）」を用いた。評価指標には、Recall at $K$ ($R@K = \frac{|\mathcal{G} \cap \mathcal{R}_K|}{|\mathcal{G}|}$)、Average Precision at $K$ ($AP@K$)、および(Mean) Reciprocal Rank ($MRR@K$)を採用した。実験では、Vanilla構成からStructured構成まで計8種類の構成を比較し、retrieverが返したチャンクがgolden chunkの75%以上を含む場合に一致とみなす緩和策を適用した。結果として、構造の保持はPrecisionとMRRに対して正の効果をもたらしたが、Recallへの統計的に有意な影響は見られなかった。また、RRFによる混合は精度を向上させたが、近傍拡張（Neighbor expansion）の効果は限定的であった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究は、規格書特有の階層構造や語彙的規則性を活用することで、単純な意味的類似性を超えた検索が可能であることを示した。構造保持とチャンク分割を組み合わせた手法が、精度と再現性のバランスにおいて最も優れた妥協点であることが示唆されている。今後の課題として、より広範なQ&amp;Aデータセットを用いた評価の必要性や、単一文書内または異なる文書間における遠隔した箇所からの情報合成能力の検証が挙げられる。高度な自動規範分析を実現するためには、提案手法と他の技術を組み合わせたハイブリッドな解決策の検討が重要な研究方向となる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Exploring Structural Complexity in Normative RAG with Graph-based approaches: A case study on the ETSI Standards</h3><p>本研究は、複雑な階層構造、ドメイン固有の語彙、および広範な相互参照依存性を有する産業規格や規範的文書に対し、従来のベクトルベースの「vanilla」RAGでは構造的・関係的な特徴を捉えきれない課題を解決するため、Graph RAGアーキテクチャの有効性を調査している。具体的には、情報をノードとエッジで表現することで、単純な意味的類似性から関係性を考慮した検索メカニズムへの移行を目指し、ETSI EN 301 489シリーズなどの公開規格を対象とした、文書構造を検索ワークフローに直接組み込む軽量かつ低遅延なインデックス戦略を提案している。評価においては、独自に合成されたQ&amp;Aデータセットを用いて、提案手法が検索性能およびコンテキストの関連性を向上させることを定量的に分析している。実験結果は、構造情報と関係的依存性を組み込むことで、規範的文書の自動作成に向けたスケーラブルなフレームワークとして、グラフ強化型RAGが有効であることを示している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究は、高度な相互参照性、半構造化データ、および専門的な語彙を持つ規格書（ETSI規格など）に対し、従来のベクトル検索に基づく「vanilla RAG」の限界を指摘し、グラフ構造を活用したGraph RAGの有効性を探求するものである。従来のRAGは、テキストチャンクを高次元ベクトルとしてインデックス化し、コサイン類似度等の指標で検索を行うが、規格書特有の階層構造（セクションやサブセクション間の親子関係）や、専門用語によるセマンティック・ギャップを十分に捉えられない課題がある。これに対し、Graph RAGはデータ単位をノード、関係性をエッジとするグラフ構造として定義し、論理的な依存関係や構造的な関連性を辿ることで、直接的な意味的類似性が低い情報も効率的に探索可能にする。既存のGraph RAGは、インデックスベース、知識ベース、およびハイブリッド型の手法に分類されるが、規制文書や規格書に特化したグラフ技術の適用に関する実証的な比較研究は極めて少ない。本論文では、ETSI EN 301 489シリーズから生成したカスタム合成ベンチマークQ&amp;Aデータセットを用い、軽量な手法とグラフを多用する手法の検索性能を定量的に比較・評価する。</p></section>
+<section class="secsum"><h3>II Methodology</h3><p>本手法は、規制文書の相互参照特性を活用するため、文書を情報単位（InfoUnit）の集合 $\mathcal{V}$ とそれらを結ぶエッジ $\mathcal{E}$ からなるプロパティグラフ $G = (\mathcal{V}, \mathcal{E})$ としてモデル化する。グラフの構造は、階層関係を示す $\mathcal{E}_{part}$（親ノードは高々1つ）と、文書間の引用関係を示す $\mathcal{E}_{cite}$（多対多）の2種類で構成される。グラフ構築では、目次から抽出したセクションコードの接頭辞関係に基づき $\mathcal{E}_{part}$ を決定し、本文内のテキスト解析とヒューリスティックな解決ロジックを用いて $\mathcal{E}_{cite}$ を特定する。検索パイプラインでは、まずBM25による高再現率なフィルタリングと、IBM Graniteを用いたDense Re-rankerによる意味的再ランキングを行い、Reciprocal Rank Fusion (RRF) を用いて両者のスコアを $\text{RRF}(d) = \sum_{r \in \mathcal{R}} \frac{1}{k + \text{rank}(r, d)}$ により統合する。さらに、グラフの近傍情報を活用するため、ノードの埋め込みを近傍の加重平均で平滑化するSmoothing手法や、検索されたシードノードの近傍を展開し、次数によるペナルティを含むスコア $S(v) = \sum_{s \in \mathcal{S}} \text{sim}(s, q) \cdot \text{sim}(v, s) \cdot \frac{1}{\text{deg}(v)}$ を用いて再ランキングするExpander &amp; Graph Re-rankerを導入している。</p></section>
+<section class="secsum"><h3>III Evaluation</h3><p>本研究では、ETSI EN 301 489-Xシリーズの規格書約3000ページ（50文書）を対象に、合成Q&amp;Aペアを用いた評価実験を行っている。Q&amp;Aペアの生成にはGemini 1.5-flashを用い、文脈から回答と、その根拠となる「witness strings（golden chunks）」を抽出するパイプラインを構築した。評価指標には、Recall at $K$ ($R@K = \frac{|\mathcal{G} \cap \mathcal{R}_K|}{|\mathcal{G}|}$)、Average Precision at $K$ ($AP@K$)、および(Mean) Reciprocal Rank ($MRR@K$)を採用している。実験では、単純なチャンク分割を行う「Vanilla」構成と、規格の階層構造を利用する「Structured」構成を含む8種類の構成を比較しており、retrieverが返したチャンクがgolden chunkの75%以上を含んでいる場合に一致とみなす緩和策を導入している。結果として、構造の保持はPrecisionとMRRに対して正の効果をもたらすが、Recallへの統計的に有意な影響は見られず、構造保持とチャンク分割を組み合わせた手法が最も優れた妥協点であることが示された。また、密なランキングと疎なランキングをRRFで混合する手法もPrecisionとMRRを向上させたが、近傍拡張（Neighbor expansion）や再ランキングの効果は限定的であった。</p></section>
+<section class="secsum"><h3>IV Conclusions</h3><p>本研究では、規格書や規範的文書のRAG（Retrieval-Augmented Generation）の有効性を高めるため、インデックス作成メカニズムに構造情報を統合する軽量かつ低遅延な手法を調査した。実験の結果、規格書特有の階層構造や語彙的な規則性を活用することで、単純な意味的類似性を超え、技術文書特有の複雑な相互参照に対応した検索精度の向上が可能であることが示された。本手法は、構造的資産を活用することで検索パイプラインを強化できることを実証したが、今後の課題として、より広範なQ&amp;Aデータセットを用いた評価や、単一文書内または異なる文書間における遠隔した箇所からの情報合成能力の検証が挙げられる。特に、高度な自動規範分析を実現するためには、これらの手法と他の手法を組み合わせたハイブリッドな解決策の検討が重要な研究方向となる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-01
+  </footer>
+</div>
+</body>
+</html>
