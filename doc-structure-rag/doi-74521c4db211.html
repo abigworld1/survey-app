@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multimodal Retrieval-Augmented Generation: Architectures, Approaches, and Emerging Research Directions | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multimodal Retrieval-Augmented Generation: Architectures, Approaches, and Emerging Research Directions</h1>
+  <div class="meta">Ankit Kumar, Gopal Agarwal, Sagar Choudhary<br>採択先: International Journal of Sciences and Innovation Engineering ・ 2026-05-31 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/777af006085c9b5b536af3dc0326b9efcdd0d1d6" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.70849/ijsci03052689720" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 International Journal of Sciences and Innovation Engineering</span><span class="chip">公開日 2026-05-31</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">Multimodal RAGの主要な4つのフレームワークを体系的に比較しており、構造化知識の重要性を実証的に示している。最新動向の把握に非常に有用。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、従来のテキスト中心のRAGの限界を打破するために、画像、動画、図表などの多様なモダリティを統合するMultimodal RAGの最新動向を調査している。シーングラフ、マルチエージェント階層、統一埋め込みモデル、二重知識グラフといった4つの主要なフレームワークを分析し、構造化された知識表現と明示的なクロスモーダル・アライメントが性能向上の鍵であることを明らかにしている。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のRAGは「全ての知識はテキストに還元可能である」という仮定に基づいているが、これは物体数え上げや空間的関係の特定といった視覚的タスクにおいて限界がある。本研究では、画像や動画、複雑なレイアウトを持つドキュメントを扱うためのMultimodal RAGのアーキテクチャを調査対象としている。具体的には、VLM（Vision-Language Model）の弱点を補うための構造化手法や、複数のエージェントによる推論プロセス、単一の共有表現空間への投影手法などが検討されている。また、既存の検索メカニズムの設計と比較して、クエリの分解を含む「クエリ理解」が依然として重要なボトルネックであることも指摘している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文は、Multimodal RAGにおける主要な4つのフレームワーク（Scene-Graph-Augmented RAG, HM-RAG, VLM2Vec-V2, RAG-Anything）の設計思想と性能を体系的に比較・分析した。Scene-Graph RAGがVG-150データセットにおいて、物体カテゴリ認識で約108%、関係性特定で213%のRecall向上を実現することを示した。また、HM-RAGがScienceQAにおいて93.73%の精度を達成し、人間を上回る性能を示すことを報告している。さらに、VLM2Vec-V2が2Bのパラメータ数で7Bモデルを凌駕する汎用性を持つことや、RAG-Anythingが長文ドキュメントにおいて既存手法を13ポイント以上上回ることを明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>分析対象となる手法は多岐にわたる。Scene-Graph RAGは、Faster-RCNNを用いて物体検出を行い、カテゴリ、バウンディングボックス、個数、および$3 \times 3$のグリッドに基づく空間位置情報を $subject\text{-}predicate\text{-}object$ 形式で構造化する。HM-RAGは、BLIP-2による記述生成と文書テキストの照合を行う前処理に加え、Decomposition Agent、Multi-Source Retrieval Agent、Decision Agentからなる3層のマルチエージェント階層を用いる。VLM2Vec-V2は、Qwen2-VLをバックボーンとし、InfoNCE損失関数とLoRA（rank 16）を用いて画像・動画・視覚文書を単一の共有空間に埋め込む。RAG-Anythingは、VLMでエンティティ化したアンカーノードを持つ知識グラフと、NERおよび関係抽出によるテキストグラフを融合する「Dual Knowledge Graph Construction」を採用し、Structural navigationとSemantic matchingを組み合わせたハイブリッド検索を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、多様なベンチマークが用いられている。Scene-Graph RAGの評価にはVG-150が使用され、特にAUG（航空写真）においてカテゴリRecallが470%以上、関係性Recallが3,200%以上向上するという極めて高い数値が記録された。HM-RAGはScienceQAで93.73%の精度を達成し、アブレーション研究ではDecision Agentの除去により精度が10.82ポイント低下することが確認された。VLM2Vec-V2はMMEB-V2の78タスクにおいて平均58.0を記録し、視覚的ドキュメント検索で65.4を達成した。RAG-AnythingはDocBenchで63.4%を記録し、100ページを超える長文において既存手法を13ポイント以上上回る性能を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>調査の結果、シーングラフや知識グラフのような構造化された知識表現は、生のコンテンツに対するフラットな埋め込み類似度よりも有意に優れた検索結果をもたらすことが示された。しかし、いくつかの課題も浮き彫りになっている。既存手法には、視覚情報よりもテキスト情報が優先される検索バイアス、グラフ構築に伴う計算コストの増大、および結合セルを含む非標準的なドキュメントレイアウトへの対応不足が存在する。また、ビデオにおける時間的推論の困難さや、ドメイン外データへの汎化性能の不足も共通の課題である。今後の研究方向として、レイアウト認識型パース、適応的なクエリ分解、スケーラブルなグラフ構築、および外部APIやコード実行を行うエージェント型アーキテクチャとの統合が重要であると結論付けている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>本文 (1/6)</h3><p>本論文は、従来のRAGが前提とする「全ての知識はテキストに還元可能である」という仮定の限界を指摘し、画像、動画、図表などの多様なモダリティを扱うMultimodal RAGの動向を調査している。具体的には、物体数え上げや空間的関係の特定といったVLMの弱点を補うために構造化されたシーングラフを用いる手法、複雑なクエリを分解し、構造化データ・非構造化テキスト・Webから並列的に情報を収集する3層のマルチエージェント階層（HM-RAG）を用いる手法、画像や動画を単一の共有表現空間に投影する統一埋め込みモデル（VLM2Vec）を用いる手法、そしてクロスモーダルな関係性とテキスト意味論の両方を捉える二重知識グラフを構築する手法（RAG-Anything）の4つのフレームワークを分析している。研究の結果、構造化された知識表現と明示的なクロスモーダル・アライメントの組み合わせが最も一貫した性能向上をもたらすことが示されている。一方で、検索メカニズムの設計と比較して、クエリの分解を含む「クエリ理解」が依然として重要なボトルネックであることが明らかになった。</p></section>
+<section class="secsum"><h3>本文 (2/6)</h3><p>本セクションでは、RAGの発展経緯と主要なアーキテクチャの分類が詳述されている。グラフベースの検索では、GraphRAGが知識グラフを用いて多段階のセマンティック依存関係を明示的に表現し、LightRAGが局所的・全域的な検索を使い分けることで再現率を向上させ、HippoRAGが海馬の機能を模倣して長文における概念の想起を支援している。視覚言語モデルの文脈では、CLIPによる対照学習を用いた共有埋め込み空間の構築や、ColPaliによるドキュメントページを画像として扱うマルチベクトル遅延相互作用（late interaction）の手法が、レイアウト情報の損失を防ぐ有効な手段として挙げられている。また、マルチエージェント手法として、モデルの不確実性に基づき検索をトリガーするFLAREや、反復的な検索・合成を行うPaperQAが提案されている。評価指標については、ScienceQAやMMEB-V2などのベンチマークが、単一のモダリティでの性能が他モダリティへの汎化を保証しないという課題を浮き彫りにしている。さらに、Scene-Graph-Augmented RAGの構成要素として、Faster-RCNNを用いて物体検出を行い、カテゴリ、バウンディングボックス、個数、および$3 \times 3$のグリッドに基づく空間位置情報を構造化して抽出する手法が示されている。</p></section>
+<section class="secsum"><h3>本文 (3/6)</h3><p>本セクションでは、4つの異なるマルチモーダルRAGフレームワークが提案されている。第一のフレームワークは、物体と述語の関係を $subject\text{-}predicate\text{-}object$ の形式で構造化し、GloVeと視覚的特徴を統合してベクトルストアに格納することで、直接的な画像知覚よりも検証可能な構造的事実を言語モデル（Qwen-2-72B-Instruct）に提供する手法である。第二のHM-RAGは、BLIP-2による記述生成と文書テキストの照合による前処理を行い、Decomposition Agentによるクエリ分解、Multi-Source Retrieval Agentによるベクトル・グラフ・Webの並列検索、そしてDecision AgentによるROUGE-LやBLEUを用いた評価とGPT-4oによる統合を行う3層エージェント構成をとる。第三のVLM2Vec-V2は、Qwen2-VLをバックボーンとし、InfoNCE損失関数とLoRA（rank 16）を用いた学習により、画像・動画・視覚文書を単一の共有表現空間に埋め込むことを目的としており、MMEB-V2ベンチマークによってその汎用性が評価される。第四のRAG-Anythingは、あらゆるコンテンツを原子的な単位に分解してモダリティタグを付与するユニバーサル・ドキュメント・パースを用い、2つの補完的な知識グラフと密ベクトル検索を組み合わせたハイブリッドな検索メカニズムによって、モダリティ間の構造的知識の断片化を解消しようとするものである。</p></section>
+<section class="secsum"><h3>本文 (4/6)</h3><p>RAG-Anythingは、非テキスト要素（図、表、数式）をVLMで記述・エンティティ化してアンカーノードとする知識グラフと、テキストからNERおよび関係抽出で構築したグラフを、共通エンティティの整列により融合する「Dual Knowledge Graph Construction」を採用している。検索プロセスでは、グラフの近傍探索による「Structural navigation」と、埋め込みベクトルを用いた「Semantic matching」を組み合わせたハイブリッド検索を行い、融合スコアリング関数によって再ランク付けを行う。実験では、Scene-Graph RAGがVG-150データセットにおいて、GPT-4o等のベースラインに対し、物体カテゴリ認識で約108%、関係性の特定で213%のRecall向上を示し、特にAUG（航空写真）ではカテゴリRecallが470%以上、関係性Recallが3,200%以上向上するという顕著な成果を上げた。また、HM-RAGはScienceQAにおいて93.73%の精度を達成し、既存のマルチモーダルモデルや人間を上回る性能を示した。HM-RAGのアブレーション研究では、Decision Agentの除去が精度を10.82ポイント低下させており、証拠の統合（evidence synthesis）が性能向上の主要因であることが示されている。</p></section>
+<section class="secsum"><h3>本文 (5/6)</h3><p>VLM2Vec-V2は、2Bのパラメータ数でありながらMMEB-V2の78タスクにおいて平均58.0を記録し、7BのGME-7Bを0.2ポイント上回る性能を示しており、特にドキュメント特化型データを用いた学習により視覚的ドキュメント検索で65.4という高いスコアを達成している。RAG-AnythingはDocBenchで63.4%を記録し、100ページを超える長文ドキュメントでは既存手法を13ポイント以上上回る性能を見せる一方、デュアルグラフ構造をチャンクベースの検索に置き換えると精度が3.4%低下する。調査されたフレームワークの比較分析によれば、シーングラフや知識グラフのような構造化された知識表現は、生のコンテンツに対するフラットな埋め込み類似度よりも有意に優れた検索結果をもたらす。しかし、既存手法には、視覚情報よりもテキスト情報が優先される検索バイアス、グラフ構築に伴う計算コストの増大、および結合セルを含む非標準的なドキュメントレイアウトへの対応不足といった課題が残されている。</p></section>
+<section class="secsum"><h3>本文 (6/6)</h3><p>本セクションでは、マルチモーダルRAGにおける現在の課題と将来の研究方向性が論じられている。既存の4つのフレームワークには、ビデオにおける時間的推論の困難さ、ドメイン外データへの汎化性能の不足、および共通の評価プロトコルの欠如という共通の課題が存在する。将来の研究方向として、不規則な表構造に対応するレイアウト認識型パース、視覚的証拠を重視する学習目標、適応的なクエリ分解、スケーラブルなグラフ構築、ビデオの時間的表現、および標準化された評価プロトコルの確立が挙げられている。さらに、静的な知識ベースの検索に留まらず、外部APIやコード実行を行うエージェント型アーキテクチャとの統合が重要な展望として示されている。結論として、シーングラフや知識グラフのような構造化された知識表現と、明示的なクロスモーダル・アライメントの導入が、フラットなベクトル検索を凌駕する性能を得るための極めて重要な設計指針であることが強調されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-02
+  </footer>
+</div>
+</body>
+</html>

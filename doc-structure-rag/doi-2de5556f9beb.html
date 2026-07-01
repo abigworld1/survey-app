@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>J-KGRAG: A Hybrid Retrieval-Augmented Generation Architecture for Legal Norm Understanding with Knowledge Graphs | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>J-KGRAG: A Hybrid Retrieval-Augmented Generation Architecture for Legal Norm Understanding with Knowledge Graphs</h1>
+  <div class="meta">V. Oliveira, M. Lima, Sávio Teles, E. Dias<br>採択先: Anais do XXII Congresso Latino-Americano de Software Livre e Tecnologias Abertas (Latinoware 2025) ・ 2025-10-22 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/513e1121d8d01ee8a27b52ff40ff9fc778f2dbfa" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.5753/latinoware.2025.16269" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Anais do XXII Congresso Latino-Americano de Software Livre e Tecnologias Abertas (Latinoware 2025)</span><span class="chip">公開日 2025-10-22</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">GraphRAGを用いた法務ドメインへの適用は実用的で興味深いが、実験規模が42文書と小さく、評価もLLMベースの自動評価に依存しているため、研究としての新規性・信頼性は限定的。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> J-KGRAGは、法規範間の引用、階層、改訂、廃止といった構造的・時系列的な関係性を捉えるために、知識グラフ（KG）を統合したハイブリッドな検索拡張生成（RAG）アーキテクチャである。ブラジルの法規範を対象とした実験において、従来のNaive RAGと比較して事実の正確性を75%、回答の全体的な正解率を16%向上させることに成功した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、従来のRAGが苦手とする法規範間の動的な依存関係（修正、廃止、階層的参照など）の把握という課題に取り組んでいる。標準的な高密度検索（dense retrieval）では、法規制の更新に伴う「古い、あるいは不完全な情報の取得」や、文脈の欠落が発生しやすい。J-KGRAGは、ドメイン固有の知識グラフをRAGパイプラインに組み込むことで、法的な論理構造に基づいた推論を可能にする。これにより、法規範の時系列的な動態をモデル化し、複雑なクエリに対する回答の整合性と信頼性を高めることを目的としている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、法務ドメインに特化したハイブリッドRAGアーキテクチャであるJ-KGRAGを提案したことである。この手法は、ベクトル検索によるテキストチャンクの取得と、KGを用いたエンティティの1次近傍探索を組み合わせることで、法的な依存関係を明示的にモデル化する。実験では、ブラジル・ゴイアス州会計検査院（TCE-GO）の42の規範的行為を含む、新たに作成された53組の質問・回答ペアからなるベンチマークを用いて性能を実証した。結果として、Naive RAGと比較してFactual Correctnessで75%の向上、Answer Correctnessで16%の向上を達成した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>J-KGRAGは、インデックス作成と検索の2段階からなるハイブリッドアーキテクチャを採用している。インデックス作成段階では、文書と条文（article）をエンティティとして定義し、LLMを用いて「contains（含む）」「amends（修正する）」「revokes（廃止する）」の3種類の関係性を抽出してベクトルデータベースとKGを並行して構築する。検索段階では、密ベクトル検索で取得したチャンクに加え、抽出されたエンティティの1次近傍をKG上で探索するグラフベースの拡張を行う。評価にはGPT-4o-miniによるエンティティ抽出と、RAGASフレームワークを用いた自動評価（Semantic Similarity、Factual Correctness、Answer Correctness）が用いられている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>TCE-GOの文書42件を用いた実験において、J-KGRAGの有効性が検証された。特に、プロンプトからドキュメントチャンクを除去した「J-KGRAG without chunks」モデルは、Semantic Similarityで0.918、Factual Correctnessで0.240を記録し、Naive RAG（それぞれ0.912および0.137）を大きく上回った。定性的評価では、監査責任者の特定において、Naive RAGが誤答する中で、本手法はエンティティと関係性に集中することでハルシネーションを抑制し、$Ricardo\ Souza\ Lobo$ を正しく特定した。一方で、KGにエンコードされていない詳細なリスト形式の情報を求めるクエリに対しては、「データ不足」として回答に失敗する限界も確認されている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、エンティティベースの拡張により「lost in the middle」現象を緩和し、矛盾した出力を低減できることが示された。しかし、本研究にはいくつかの限界が存在する。第一に、コーパスが42の規制に限定されている点、第二に、KGが遡及的妥当性を考慮しない即時更新を前提としている点、第三に、評価がRAGASによるLLMベースのヒューリスティックに依存しており、法務専門家による人間による検証が欠如している点である。今後の展望として、GraphSAGEやGraph Transformersを用いたサブグラフのスコアリング、リアルタイム更新のためのストリーミング・インジェクション、および計算コスト削減のためのパラメータプルーニングの検討が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>本文 (1/6)</h3><p>J-KGRAGは、ドメイン固有の知識グラフ（KG）を統合することで、従来のRAGが苦手とする法規範間の構造的関係（引用、階層、改訂、廃止など）の把握を可能にするハイブリッドな検索拡張生成アーキテクチャである。本手法は、標準的な高密度検索（dense retrieval）にグラフベースの拡張ステップを組み合わせることで、初期コンテキストで欠落した更新済みのエンティティを特定・取得し、法規範の時系列的な動態をモデル化する。ブラジルのゴイアス州会計検査院の42の規範的行為を対象とした実験では、ナイーブなRAGベースラインと比較して、事実の正確性が75%、回答の全体的な正解率が16%向上した。評価には、新たに作成された53組の法的な質問と回答のペアからなるベンチマークが使用されている。本研究の目的は、KGを用いて法規範の依存関係や更新を明示的にモデル化し、複雑なクエリに対する回答の整合性と信頼性を高めることにある。</p></section>
+<section class="secsum"><h3>本文 (2/6)</h3><p>J-KGRAGは、法規範間の修正、廃止、階層的参照などの動的な関係性を捉えるために知識グラフ（KG）をRAGパイプラインに統合したハイブリッドなアーキテクチャである。インデックス作成段階では、同一の文書群からベクトルデータベースとKGを並行して構築し、文書と条文（article）をエンティティとして定義した上で、LLMを用いて「contains（含む）」「amends（修正する）」「revokes（廃止する）」の3種類の関係性を抽出する。検索段階では、従来のベクトル類似度に基づく検索に加え、KGを用いたグラフベースの拡張を行うことで、法的な依存関係や時間的な更新を考慮したコンテキストを生成モデルに提供する。本手法は、ブラジル公法を対象としており、既存のNaive RAGが陥りやすい「古い、あるいは不完全な情報の取得」という課題に対し、規範的な論理構造に基づいた推論を可能にすることで、回答の事実的一貫性と関連性を向上させることを目的としている。</p></section>
+<section class="secsum"><h3>本文 (3/6)</h3><p>提案手法であるJ-KGRAGは、密ベクトル検索によるテキストチャンクの取得に加え、抽出されたエンティティの1次近傍を知識グラフ（KG）上で探索するグラフベースの拡張を行うハイブリッドなRAGアーキテクチャである。実験では、法規範の更新や撤回を扱うため、Goiás州会計監査院（TCE-GO）の文書42件から構成されるデータセットを用い、GPT-4o-miniによるエンティティ抽出とRAGASフレームワークによる自動評価を実施した。評価指標には、クロスエンコーダを用いたSemantic Similarity、クレーム分解に基づくFactual Correctness、およびこれらを組み合わせたAnswer Correctnessの3つを採用している。実験結果では、KGの構造化情報のみをプロンプトに用いる「J-KGRAG without chunks」が、Semantic Similarityで0.918、Factual Correctnessで0.240を記録し、Naive RAG（0.912および0.137）を大きく上回る性能を示した。この結果は、KGによるエンティティ拡張が、従来の密ベクトル検索では捕捉困難な、法規範の変更に伴う最新かつ補完的な情報を特定する上で極めて有効であることを示唆している。</p></section>
+<section class="secsum"><h3>本文 (4/6)</h3><p>本セクションでは、知識グラフ（KG）を用いたハイブリッドRAGアーキテクチャであるJ-KGRAGの定性的評価が示されている。実験の結果、推論プロンプトからドキュメントのチャンクを除去した「KGRAG without chunks」モデルが、事実の正確性と全体的な正解率において最も優れた性能を示し、冗長なコンテキストによる言語モデルの混乱（overwhelming）を回避できることが明らかになった。具体的には、監査責任者の特定において、Naive RAGやチャンクを含むKGRAGが誤った人物を回答する一方で、チャンクなしのモデルはエンティティと関係性に集中することでハルシネーションを抑制し、正解である $Ricardo\ Souza\ Lobo$ を正しく特定した。しかし、特定の休日リストを問う質問（Question 12）のように、KGの構造内に明示的なエンティティや関係性がエンコードされていない詳細なリスト形式の情報を求める場合、KGRAG without chunksは「データ不足」として回答に失敗する限界がある。このことから、構造化された知識による精度向上と、チャンクベースの検索による粒度の高い情報取得を適応的に組み合わせる戦略の必要性が示唆されている。</p></section>
+<section class="secsum"><h3>本文 (5/6)</h3><p>J-KGRAGは、ポルトガル語の法域における大規模言語モデル（LLM）のハルシネーションを抑制するため、RAGと専門的な知識グラフ（KG）を統合したハイブリッドアーキテクチャである。定量的評価の結果、従来のNaive RAGと比較して、事実の正確性（Factual Correctness）で $+75\%$、回答の正確性（Answer Correctness）で $+16\%$ の改善が示された。手法の特徴として、エンティティベースの拡張により、密な検索（dense retrieval）で発生しやすい「lost in the middle」現象を緩和し、意味的類似性を損なうことなく矛盾した出力を低減している。本研究の限界として、コーパスが42の規制に限定されていること、KGが遡及的妥当性を考慮しない即時更新を前提としていること、および評価がRAGASによるLLMベースのヒューリスティックに依存しており、法務専門家による人間による検証が欠如していることが挙げられる。今後の展望として、GraphSAGEやGraph Transformersを用いたコンテキストサブグラフのスコアリング、ストリーミング・インジェクションによるリアルタイム更新、およびエネルギー消費量や計算コストを削減するためのパラメータプルーニングの検討が示されている。</p></section>
+<section class="secsum"><h3>本文 (6/6)</h3><p>本研究で提案された KGRAG は、LLM の意味表現と知識グラフ（KG）による明示的な構造情報を組み合わせることで、AI ベースの法務システムの信頼性を向上させるハイブリッドな RAG アーキテクチャである。本手法は、法規制の急速な変化に対応しつつ、透明性、追跡可能性、および技術的な厳密さを確保することを目的としている。本論文では、研究のさらなる発展を促進するために、実装コード、データセット、および評価プロトコルを公開している。なお、本セクションは結論部分であり、具体的な数値結果や詳細なアルゴリズムの比較は含まれていない。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-02
+  </footer>
+</div>
+</body>
+</html>

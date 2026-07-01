@@ -1,0 +1,244 @@
+{
+  "date": "2026-07-02",
+  "dry_run": false,
+  "engine": "llm:gemma-4-26b",
+  "fields": [
+    {
+      "added": [],
+      "candidates_total": 0,
+      "fresh_total": 0,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 0,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 0,
+      "skipped": [],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important/q1": {
+          "count": 0,
+          "query": "Multi-Agent Path Finding"
+        },
+        "arxiv/important/q2": {
+          "count": 0,
+          "query": "MAPF"
+        },
+        "arxiv/important/q3": {
+          "count": 0,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "arxiv/important/q4": {
+          "count": 0,
+          "query": "MAPD"
+        },
+        "arxiv/important/q5": {
+          "count": 0,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "arxiv/important/q6": {
+          "count": 0,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q1": {
+          "count": 0,
+          "query": "Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q2": {
+          "count": 0,
+          "query": "MAPF"
+        },
+        "arxiv/recent/q3": {
+          "count": 0,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "arxiv/recent/q4": {
+          "count": 0,
+          "query": "MAPD"
+        },
+        "arxiv/recent/q5": {
+          "count": 0,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q6": {
+          "count": 0,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "openalex/important/q1": {
+          "count": 0,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/important/q2": {
+          "count": 0,
+          "query": "MAPF"
+        },
+        "openalex/important/q3": {
+          "count": 0,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/important/q4": {
+          "count": 0,
+          "query": "MAPD"
+        },
+        "openalex/important/q5": {
+          "count": 0,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/important/q6": {
+          "count": 0,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "openalex/recent/q1": {
+          "count": 0,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/recent/q2": {
+          "count": 0,
+          "query": "MAPF"
+        },
+        "openalex/recent/q3": {
+          "count": 0,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/recent/q4": {
+          "count": 0,
+          "query": "MAPD"
+        },
+        "openalex/recent/q5": {
+          "count": 0,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/recent/q6": {
+          "count": 0,
+          "query": "Online Multi-Agent Path Finding"
+        }
+      }
+    },
+    {
+      "added": [
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "file": "doc-structure-rag/doi-74521c4db211.html",
+          "id": "doi-74521c4db211",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-05-31",
+          "reading_value": 4,
+          "reading_value_reason": "Multimodal RAGの主要な4つのフレームワークを体系的に比較しており、構造化知識の重要性を実証的に示している。最新動向の把握に非常に有用。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "semanticscholar",
+          "source_quality": "fulltext",
+          "title": "Multimodal Retrieval-Augmented Generation: Architectures, Approaches, and Emerging Research Directions",
+          "venue": "International Journal of Sciences and Innovation Engineering"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "file": "doc-structure-rag/doi-2de5556f9beb.html",
+          "id": "doi-2de5556f9beb",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2025-10-22",
+          "reading_value": 3,
+          "reading_value_reason": "GraphRAGを用いた法務ドメインへの適用は実用的で興味深いが、実験規模が42文書と小さく、評価もLLMベースの自動評価に依存しているため、研究としての新規性・信頼性は限定的。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "fulltext",
+          "title": "J-KGRAG: A Hybrid Retrieval-Augmented Generation Architecture for Legal Norm Understanding with Knowledge Graphs",
+          "venue": "Anais do XXII Congresso Latino-Americano de Software Livre e Tecnologias Abertas (Latinoware 2025)"
+        }
+      ],
+      "candidates_total": 38,
+      "fresh_total": 27,
+      "k": 2,
+      "label": "文書構造解析に基づく検索・質問応答・RAG",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 24,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 1,
+          "id": "doi-6428af65647a",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2025-12-17",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 5,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "SPR-RAG: Semantic Parsing Retriever-Enhanced Question Answering for Power Policy",
+          "venue": "Algorithms"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-a298981bb43c",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-02-05",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "Integrating Dense, Sparse, and Graph-Based Approaches in Financial Data Analysis for a Retrieval-Augmented Generation Framework",
+          "venue": "2026 International Conference on Artificial Intelligence, Computer, Data Sciences and Applications (ACDSA)"
+        }
+      ],
+      "slug": "doc-structure-rag",
+      "source_counts": {
+        "arxiv/important/q1": {
+          "count": 0,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "arxiv/recent/q1": {
+          "count": 0,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "openalex/important/q1": {
+          "count": 0,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "openalex/recent/q1": {
+          "count": 0,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "semanticscholar/important/q1": {
+          "count": 33,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "semanticscholar/recent/q1": {
+          "count": 38,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        }
+      }
+    }
+  ],
+  "generated_at": "2026-07-02T06:00:01"
+}
