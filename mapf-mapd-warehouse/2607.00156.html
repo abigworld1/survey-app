@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Dual-Informed Vertical Expansion for Multi-Objective Node Selection in Anytime Conflict-Based Search | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Dual-Informed Vertical Expansion for Multi-Objective Node Selection in Anytime Conflict-Based Search</h1>
+  <div class="meta">Willem van Osselaer, Jiarui Li, Meshal Alharbi, Gioele Zardini<br>採択先: 未取得 ・ 2026-06-30 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.00156v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.00156v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-06-30</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFにおけるCBSのメモリと解発見のトレードオフを、ノード選択の観点から理論的・実験的に深く分析しており、実用的な改善策として価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> Multi-Agent Path Finding (MAPF) における Conflict-Based Search (CBS) のノード選択において、Best-First Search (BFS) の最適性証明能力と Depth-First Search (DFS) のメモリ効率を両立させる新しいポリシー「Dual-Informed Vertical Expansion (DIVE)」を提案する。DIVEは、現在の暫定解（incumbent）を改善できる限り親ノードから子ノードへと連続的に展開する「Dive」と、グローバルな最小下界ノードを選択する「Best-bound」な挙動を組み合わせることで、メモリ消費を抑えつつ早期に暫定解を提供し、効率的な最適性証明を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、Multi-Agent Path Finding (MAPF) における厳密解探索アルゴリズムである Conflict-Based Search (CBS) のノード選択ポリシーを対象としている。MAPFの定式化として、有向反射グラフ $G=(V, E)$ 上の各エージェント $a \in A$ の軌跡 $\tau_a$ の到着時間 $c(\tau_a)$ の総和である $\text{SoC} = \sum_{a \in A} c(\tau_a)$ の最小化を扱う。従来の Best-First Search (BFS) は、展開ノード数や Dual Bound の進展において優れる一方で、キューのメモリ消費が指数関数的に増大し、探索の途中で暫定解（incumbent）が得られないという課題がある。これに対し、本論文はメモリ使用量、解の発見、最適性証明の進捗という、競合する複数の目的間のトレードオフを最適化する手法を模索している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文の主な貢献は、Anytime CBS において「Dive」と呼ばれる連続的な子ノード展開シーケンスを導入した新しいノード選択方策 DIVE を提案したことである。DIVE は、BFS の「Best-bound なフロンティア維持」と Iterative Deepening (ID) の「深さ優先によるメモリ節約」の中間的な性質を持つハイブリッドなポリシーとして機能する。また、ノード選択の方策を変更しても、標準的な枝刈り条件を維持する限り探索の最適性が保持されることを理論的に証明している。さらに、メモリ制約に応じて DFS へ切り替える Memory-Constrained DIVE (MC-DIVE) の提案や、展開ノード数、Dive breaks、キューサイズ、Primal/Dual Bound の進展といった 5 つの指標を用いた詳細なトレードオフ分析を行っている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>DIVE は、高レベルの CBS を分岐限定法 (Branch-and-Bound) のインスタンスとして抽象化し、以下のポリシー $\pi_{\text{DIVE}}$ に基づいて動作する。まず、現在の暫定解のコストを $z_P^t$ としたとき、直前の展開ノード $n_{\text{last}}$ の子ノード $c \in \mathcal{C}$ の中に $l(c) &lt; z_P^t$ を満たすノードが存在する場合、その最小下界ノードを選択して「Dive」を継続する。一方で、下界が暫定解以上となる $l(n) \ge z_P^t$ のノードに到達した場合は、その子孫が暫定解を改善できないという性質を利用して Dive を停止し、グローバルな最小下界ノードを選択する $\pi_{\text{BFS}}$ へ切り替える。このプロセスにより、ダイブ内では深さ優先的に探索を行い、ダイブ間では Best-bound な探索を行う「best-bound-diversified」な挙動を実現する。また、事前に与えられた実行可能解を用いる Warm start を利用することで、初期の $z_P$ を低減させ、Incumbent pruning による枝刈りを早期に活性化させることが可能である。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、DIVE の性能を BFS や IDCBS と比較し、複数の指標を用いて評価している。評価指標には、展開ノード数 $|\mathcal{E}_{\mathcal{T}}|$、親子の連続性を示す Dive breaks $BT = 1 + |\{t \in \{0, \dots, T-1\} : n_{t+1} \notin \mathcal{C}(n_t)\}|$、最大キューサイズ $Q_{\max} = \max_t |\text{OPEN}_t|$、および primal-dual gap $\frac{z_{P_t} - z_D}{z_{P_t}}$ が用いられた。実験の結果、DIVE は BFS よりも大幅に少ないメモリ消費を実現しつつ、IDCBS よりも多くのフロンティア情報を保持できることが示された。また、DIVE は BFS と比較して、最適性のギャップが証明された暫定解をより早期に提供できることが確認されている。さらに、理論的な解析のために、すべての葉が深さ $d$ を持ち、下界が深さに厳密に依存する Perfect search tree モデルを用いた分析も行われている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>DIVE は、探索の継続性と解の発見効率を両立させる優れた方策であるが、既存手法との明確なトレードオフが存在する。BFS は、単一の最適領域（singleton optimal zone）において、他のいかなる厳密な方策よりも展開ノード数が少なくなることが Proposition 6 により示されているが、メモリ消費と暫定解の欠如が致命的な弱点となる。DIVE はこの BFS の弱点を補うが、ダイブの継続によって探索が非効率な領域に陥るリスクを制御する必要がある。また、メモリ制約が極めて厳しい環境下では、DIVE でも不十分な場合があるため、メモリ閾値を超えた際に DFS へ切り替える MC-DIVE のようなレスポンシブな設計が重要となる。本研究は、ノード選択が単なる実装の詳細ではなく、探索のパレート最適性を決定する設計の第一級の選択肢であることを示している。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>本文 (1/8)</h3><p>本論文は、Multi-Agent Path Finding (MAPF) における厳密解探索アルゴリズムである Conflict-Based Search (CBS) のノード選択ポリシーを、設計の第一級の選択肢として捉え直した研究である。従来の Best-First Search は展開ノード数や Dual Bound の進展において優れる一方、キューのメモリ消費が大きく、実行中の暫定解（incumbent）が得られないという課題がある。これに対し、著者らは Dual-Informed Vertical Expansion (DIVE) を提案しており、これは現在の Best-Bound Frontier から開始する「Dive」と、親ノードの局所性を利用して有望な子ノードを探索する「Depth-oriented」な挙動を組み合わせたポリシーである。DIVE は、暫定解による枝刈り（incumbent pruning）を用いることで、展開ノード数、Dive breaks（探索の跳躍）、キューサイズ、Primal Bound の進展、Dual Bound の進展という 5 つのトレードオフ指標の間で、効率的な動作を実現する。実験の結果、DIVE は Best-First Search よりも大幅に少ないメモリ消費で、かつ最適性のギャップが証明された暫定解を早期に提供できることが示されている。</p></section>
+<section class="secsum"><h3>本文 (2/8)</h3><p>本研究では、Anytime Conflict-Based Search (CBS) において、メモリ使用量、解の発見、最適性証明の進捗という競合する目的間のトレードオフを最適化する新しいノード選択方策「DIVE」を提案している。DIVEは、グローバルに最も優れた下界を持つオープンノードから「ダイブ」を開始し、現在の暫定解（incumbent）を改善できる限り有望な子ノードを探索し続けることで、Best-First SearchとDepth-First Searchの中間的な性質を実現する。MAPFの定式化として、有向反射グラフ $G=(V, E)$ 上の各エージェント $a \in A$ の軌跡 $\tau_a$ の到着時間 $c(\tau_a)$ の総和である $\text{SoC} = \sum_{a \in A} c(\tau_a)$ の最小化を扱う。CBSの枠組みでは、各CTノード $n$ はエージェントごとの制約、軌跡、および下界 $l(n)$ を保持し、衝突が発生するたびに制約を追加して分岐を行う。本論文の貢献は、ノード選択の方策変更が標準的な枝刈り条件を維持する限り最適性を保持することを証明し、DIVEが既存の探索手法（BFS, DFS, ID等）とは異なるパレート最適な特性を持つことを示すことにある。</p></section>
+<section class="secsum"><h3>本文 (3/8)</h3><p>CBSにおけるノード選択は、標準的なBest-first search（BFS）が最小の下界 $l(n)$ を持つノードを選択して最適性証明を優先するのに対し、親ノードと子ノードの局所性（parent-child locality）や実行可能解（incumbent）の発見効率に影響を与える。本研究で提案されるDIVEは、BFSの「Best-boundなフロンティア維持」と、Iterative Deepening（ID）の「深さ優先によるメモリ節約」の中間的な性質を持つハイブリッドなノード選択ポリシーである。DIVEは、ダイブ（Dive）と呼ばれる連続した子ノードへの展開シーケンス $(n_i, \dots, n_j)$ を実行し、ダイブ内では深さ優先的に探索を行うことで親子の状態再利用を促進する。ダイブは、現在のノードが衝突フリーであるか、実行可能な子が不在であるか、あるいは下界 $l(n)$ が現在の暫定解の目的関数値 $z_P$ を改善できなくなった場合に終了する。これにより、ダイブ間ではBest-boundな探索を行い、ダイブ内では深さ方向の探索を行うことで、ノード数、メモリ使用量、および暫定解の発見のトレードオフを制御する。</p></section>
+<section class="secsum"><h3>本文 (4/8)</h3><p>DIVEは、Anytime Conflict-Based Search (CBS) において、探索の継続性と解の発見効率を両立させるための高レベルノード選択ポリシー $\pi_{\text{DIVE}}$ である。この手法は、直前の展開ノード $n_{\text{last}}$ の子ノード $c \in \mathcal{C}$ の中に、現在の暫定解 $z_P^t$ よりも小さい下界を持つノード $l(c) &lt; z_P^t$ が存在する場合、その最小下界ノードを次に展開することで、親子の連続的な展開（dive）を継続する。一方で、探索が非効率な領域に陥るのを防ぐため、下界が暫定解以上となる $l(n) \ge z_P^t$ のノードに対しては、その子孫が暫定解を改善できないという性質（Proposition 1）を利用して、diveを停止し、グローバルな最小下界ノードを選択する $\pi_{\text{BFS}}$ へ切り替える。このポリシーは、各diveの開始時に $\text{arg min}_{n \in \text{OPEN}} l(n)$ を選択する「best-bound-diversified」な性質（Definition III.3）を持ち、これにより単なる深さ優先探索 (DFS) とは異なり、探索の進捗を最適性証明の方向へ維持しつつ、早期に実行可能な解を得るための深層探索を可能にしている。実験的なトレードオフとして、DIVEはBFSよりもフロンティアサイズを小さく抑えつつ、IDCBSよりも多くのフロンティア情報を保持し、親子の連続性を向上させる。</p></section>
+<section class="secsum"><h3>本文 (5/8)</h3><p>DIVEは、高レベルのCBSを分岐限定法（B&amp;B）のインスタンスとして抽象化することで、最適性証明と実行可能解の探索を両立させるAnytimeな手法である。探索中のアクティブなDual bound $z^*_D$ は、OPEN集合内の全ノード $n$ の下界の最小値 $z^*_D = \min_{n \in \text{OPEN}_t} l(n)$ として定義される。DIVEは、現在の暫定解（incumbent）のコスト $z^*_P$ と、緩和問題の最適解 $s(P)$ のコスト $g(s(P))$ を比較し、$g(s(P)) &lt; z^*_P$ の場合に暫定解を更新する。分岐プロセスにおいては、親ノード $P$ とその子ノード $L, R$ の間に $L, R \subseteq P$、$s(P) \notin L \cup R$、および $P \cap \mathcal{Q} \subseteq L \cup R$ という関係を維持することで、実行可能解の漏れを防ぎつつ探索空間を絞り込む。また、事前に与えられた実行可能解を用いるWarm startを利用することで、初期の $z^*_P$ を低減させ、Incumbent pruningによる枝刈りを早期に活性化させることが可能である。本手法は、有限な探索木において適切な下界条件を満たす限り、最適解の返却または実行不能性の正しい判定を保証する。</p></section>
+<section class="secsum"><h3>本文 (6/8)</h3><p>本セクションでは、Conflict-Based Search (CBS) を Branch-and-Bound (B&amp;B) の枠組みとして定式化し、探索木の構造と解の完了条件を定義している。探索木 $\mathcal{T} = (\mathcal{T}, \mathcal{C}, l, f)$ は、ノード集合 $\mathcal{T}$、子ノードへの写像 $\mathcal{C}$、下界キー $l$、および解の実行可能性を示す $f$ から構成され、下界は親から子へ向かって単調増加する $l(m) \ge l(n), \forall n \in \mathcal{T}, m \in \mathcal{C}(n)$ という性質を持つ。厳密解の探索が完了するためには、少なくとも1つの実行可能解が見つかっていること（$\exists n \in \mathcal{E}_{\mathcal{T}} \cap \mathcal{N} \mid f(n) = \top$）と、すべての Dual-zone ノードが処理されていること（$\mathcal{N}_D \subseteq \mathcal{E}_{\mathcal{T}}$）の2条件を満たす必要がある。また、時刻 $t$ における Primal bound $z_t^P$ と Open set の下界 $z_t$ を用いて、能動的な Dual bound を $z_t^D := \min\{z_t^P, z_t\}$ と定義しており、これが $z^*$（最適値）と一致したときに探索が完了する。本研究では、探索の労力を評価する指標として展開ノード数 $|\mathcal{E}_{\mathcal{T}}|$ を用いるほか、Dive breaks などの経路依存の指標を導入している。</p></section>
+<section class="secsum"><h3>本文 (7/8)</h3><p>本セクションでは、Anytime Conflict-Based Search (CBS) におけるノード選択ポリシーのトレードオフを、探索木の構造的特性に基づき分析している。探索木 $\mathcal{T}$ は、下界が最適値 $z^*$ 未満の dual zone $\mathcal{N}_D$、最適値に等しい optimal zone $\mathcal{N}$、および $z^*$ を超える primal zone $\mathcal{N}_P$ の3つの領域に定義される。評価指標として、展開ノード数 $|\mathcal{E}_{\mathcal{T}}|$、親子の連続性を表す dive-break count $BT = 1 + |\{t \in \{0, \dots, T-1\} : n_{t+1} \notin \mathcal{C}(n_t)\}|$、最大キューサイズ $Q_{\max} = \max_t |\text{OPEN}_t|$、および primal-dual gap $\frac{z_{P_t} - z_D}{z_{P_t}}$ が用いられる。分析の結果、BFS は展開ノード数と frontier-bound の進捗に、ID はキューサイズの抑制に、DIVE は dive continuity にそれぞれ強みを持つことが示されている。また、メモリ制約に対応するため、メモリ閾値以下では DIVE を、閾値を超えると DFS に切り替える Memory-Constrained DIVE (MC-DIVE) というレスポンシブな手法が提案されている。さらに、理論的な解析のために、すべての葉が深さ $d$ を持ち、下界が深さに厳密に依存する Perfect search tree のモデルが導入されている。</p></section>
+<section class="secsum"><h3>本文 (8/8)</h3><p>BFSは、単一の最適領域（singleton optimal zone）において、回避不能な作業量を最小化し、フロンティア境界での進捗を最大化することで、デュアル側（下界）の探索に最適化された方策である。Proposition 6によれば、同一の誘導探索木において $|N_O| = 1$ である場合、BFSは他のいかなる厳密な方策よりも展開ノード数が少なくなることが示されている。この効率性の根拠は、ルートから深さ1のノードに至るまでの $d$ 回の遷移において、少なくとも1つの継続（continuation）が不可避であり、それによって下界が得られるという構造にある。しかし、BFSは構造的な弱点も抱えており、最終反復まで暫定解（incumbent）を提供できず、指数関数的に巨大なフロンティアを要求する場合がある。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-03
+  </footer>
+</div>
+</body>
+</html>

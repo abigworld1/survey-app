@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CREST: Constraint-Release Execution for Multi-Robot Warehouse Shelf Rearrangement | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>CREST: Constraint-Release Execution for Multi-Robot Warehouse Shelf Rearrangement</h1>
+  <div class="meta">Jiaqi Tan, Yudong Luo, Sophia Huang, Yifan Yang, Hang Ma<br>採択先: 2026 IEEE ROBOTICS AND AUTOMATION LETTERS ・ 2026-03-27 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2603.28803v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2603.28803v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 2026 IEEE ROBOTICS AND AUTOMATION LETTERS</span><span class="chip">公開日 2026-03-27</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 3</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">DD-MAPDという複雑な問題に対し、実行時の制約解放という実用的なアプローチで大幅な性能向上を実現しており、研究の新規性と具体性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 自動倉庫におけるマルチロボットの棚再配置問題（DD-MAPD）に対し、事前に計算された棚の軌道制約を、実行時の状況に応じて能動的に解放することで、エージェントの待機や不要な棚の積み替えを削減する実行フレームワーク「CREST」を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、エージェント $\mathcal{A}$ が棚 $\mathcal{S}$ を初期位置 $p_s$ から配送位置 $d_s$ へ運搬する Double-Deck Multi-Agent Pickup and Delivery (DD-MAPD) を対象とする。従来の MAPF-DECOMP は、MAPF で計算された棚の軌道を厳格な依存関係として扱うため、エージェントの割り当てや移動時間の変動により、エージェントの待機や不必要な棚の積み替えが発生するという課題があった。CREST は、全タスクと依存関係が事前に既知であるという DD-MAPD の特性を利用し、実行プロセスにおいて制約を能動的に解放（proactively releasing constraints）することで、棚の連続的な移動を促進する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>CREST は、依存グラフの構造的特性を活用し、実行時の情報を基に制約を緩和する 3 つの補完的な戦略（Single Trajectory Replanning, Dependency Switching, Group Trajectory Replanning）を統合した。これにより、エージェントの移動距離を最大 $40.5\%$、メイクスパンを $33.3\%$、棚の切り替え回数を $44.4\%$ 削減することに成功した。また、分解構造を維持しつつ、依存グラフの非巡回性（acyclicity）を保証し、すべての適切に構成された DD-MAPD インスタンスに対して完全性（completeness）を維持している。さらに、リフトや配置の動作オーバーヘッドが存在するシナリオにおいて、特に顕著な優位性を示すことを明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>CREST は、まず MAPF ソルバを用いて、1 ステップの実行遅延下でも衝突を回避できる「1-robust」な棚の軌跡を計算し、依存グラフ $\mathcal{D}$ を構築する。依存グラフは、棚内の順序を示す Type-1 弧と、棚間の先行関係を示す Type-2 弧で構成される。タスク割り当てには、ハンガリー法を用いた `ShelfAssignment()` を用い、エージェントの移動による推定待ち遅延 $d_{a,s}$ をコスト関数として最小コストマッチングを行う。経路計画には、頂点と安全な時間間隔の状態で探索を行う MLSIPP を採用し、制約のない区間での「後退」や「待機」を許可している。実行戦略として、単一軌道の再構成を行う STR、依存関係の向きを反転させる DS、および制約となる棚の未実行区間を再計画する GTR を用いて、実行時のタイミングのずれに対処する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>16 コア CPU と 8GB RAM のサーバを用い、Random-to-Random (R2R)、Staging-to-Warehouse (S2W)、Distributed-and-Exchange (DnE) の 3 種のレイアウト（中規模 $\text{-M}$ および大規模 $\text{-L}$）で MAPF-DECOMP(PP) をベースラインとして比較評価した。評価指標には、正規化コスト $\text{Norm. Cost} = \frac{\text{Cost} - \text{Cost}_{\text{base}}}{\text{Cost}_{\text{base}}}$、正規化メイクスパン $\text{Norm. Mksp} = \frac{\text{Mksp} - \text{Mksp}_{\text{base}}}{\text{Mksp}_{\text{base}}}$、および棚の持ち替え頻度 $\text{\# Switch/Shelf}$ を用いた。実験の結果、CREST は正規化コストを 16–24.7%、正規化メイクスパンを 9.2–23.5%、持ち替え回数を 6.3–14.2% 削減した。アブレーション解析では、3 つの戦略を組み合わせることで、ベースライン比で最大 $40.5\%$ のコスト削減と $44.4\%$ の持ち替え削減を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>CREST は、計算量において MLSIPP による探索空間の拡大により大規模マップでの実行時間が増加するものの、棚 1 つあたりの計画時間は中規模で 0.06s 未満、大規模でも 3.4s 以下であり、実時間実行への適応可能性が示された。本手法は、分解された計画の拡張性と完全性を維持しつつ、エージェントのアイドル時間や物理的な動作オーバーヘッドを効果的に削減できる。今後の課題として、動的なタスク到着を伴うオンライン設定への拡張、依存関係の切り替えや軌道再計画のための学習ベースのヒューリスティックの導入、および実環境のマルチロボットシステムを用いた実証実験による検証が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>CREST: Constraint-Release Execution for Multi-Robot Warehouse Shelf Rearrangement</h3><p>本論文は、自動倉庫におけるマルチロボットの棚再配置問題である Double-Deck Multi-Agent Pickup and Delivery (DD-MAPD) に対し、実行時に軌道制約を能動的に解放することで連続的な棚運搬を実現する実行フレームワーク CREST を提案している。従来の MAPF-DECOMP は、MAPF ソルバーで衝突のない棚の軌道を事前に計算した後にエージェントを割り当てる手法であるが、厳格な軌道依存性により、エージェントの待機や不要な棚の切り替えが発生し、実行品質が低下するという課題があった。CREST は、実行プロセスにおいて制約をリリースすることで、エージェントの移動距離、メイクスパン、および棚の切り替え回数をそれぞれ最大で $40.5\%$、$33.3\%$、$44.4\%$ 削減することに成功している。実験では、多様な倉庫レイアウトにおいて CREST が MAPF-DECOMP を一貫して上回る性能を示し、特にリフト/配置のオーバーヘッドが存在する場合にその優位性が顕著になることが確認された。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究は、棚の移動を伴う自動倉庫におけるマルチロボットの協調問題を、Double-Deck Multi-Agent Pickup and Delivery (DD-MAPD) として定式化し、その実行効率を向上させる手法 **CREST** (Constraint-Release Execution of Shelf Trajectories) を提案している。従来の MAPF-DECOMP は、MAPF で計算された棚の軌道を依存グラフとして扱い、オンラインの MAPD パラダイムに従ってタスクを割り当てるが、依存関係を厳格に適用しすぎるため、エージェントの待機や不必要な棚の積み替えが発生するという課題がある。これに対し CREST は、DD-MAPD において全タスクと依存関係が事前に既知であるという特性を利用し、制約を能動的に解放（proactively releasing constraints）することで、棚の連続的な移動を促進する。具体的には、単一軌道の再計画（single trajectory replanning）、依存関係の切り替え（dependency switching）、およびグループ軌道の再計画（group trajectory replanning）という3つの補完的な戦略を統合しており、これらは割り当て後に判明するエージェントや棚の実際の利用可能時間などの実行情報を活用する。多様な倉庫シナリオを用いた評価の結果、CREST は MAPF-DECOMP と比較して、エージェントの移動距離、メイクスパン（makespan）、および棚の積み替え回数のすべてにおいて一貫した改善を示し、特に持ち上げ・配置のオーバーヘッドを考慮した場合にその優位性が顕著になることが確認された。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>本セクションでは、DD-MAPD（Dynamic Delivery Multi-Agent Path Finding）および関連技術の動向が整理されている。DD-MAPDは、エージェントが運搬する移動可能オブジェクト（棚など）の依存関係と、衝突回避の2段階の階層をモデル化する問題であり、最小メイクスパンの算出は NP-hard である。既存の完全結合型手法は、エージェント数 8、棚数 16 程度の小規模なインスタンスでしか評価されておらず、成功率も低い。一方、MAPF-DECOMP は、棚の軌道計画と実行を分離することでスケーラビリティを確保しているが、棚の軌道実行はエージェントの割り当てや移動時間に依存するため、時間的・構造的な変動が生じる。既存の Temporal Plan Graphs (TPGs) を用いた実行研究は、主にロボットの動力学に起因する微小なタイミングのずれを扱うものである。これに対し、提案手法である CREST は、MAPF-DECOMP の分解構造を維持しつつ、タスク割り当てやエージェントの経路、棚間の依存関係から生じる大きなタイミングの変動に対処するため、実行を考慮した制約解放（constraint-release）戦略を導入している。</p></section>
+<section class="secsum"><h3>III Problem Definitions</h3><p>DD-MAPDは、エージェントの集合 $\mathcal{A}$、棚の集合 $\mathcal{S}$、および連結無向グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ で定義される問題であり、各棚 $s \in \mathcal{S}$ を初期位置 $p_s$ から配送位置 $d_s$ へ運搬することを目的とする。衝突回避は、エージェント間の頂点・辺衝突および棚間の衝突の両レベルで考慮され、解の質はメイクスパンや総コスト $\sum_{a \in \mathcal{A}} \text{cost}(a)$ で評価される。提案手法CRESTは、まずMAPFソルバを用いて、1ステップの実行遅延下でも衝突を回避できる「1-robust」な棚の軌跡を計算し、次に依存関係を持つMAPDとしてエージェントへの割り当てを行う2段階の分解手法を用いる。棚の軌跡間の依存関係は、棚内の順序を示すType-1弧と、棚間の先行関係を示すType-2弧からなる依存グラフ $\mathcal{D}$ で表現され、1-robustな計画から構築された $\mathcal{D}$ は常に非巡回（acyclic）となる。本研究では、エージェントの初期位置を除去しても $\mathcal{G}$ が連結であり、かつ安全な1-robustな棚計画が存在するという「well-formedness」の条件を満たすインスタンスを対象とする。</p></section>
+<section class="secsum"><h3>IV The CREST Framework</h3><p>CRESTは、依存グラフの構造的特性を活用して棚の実行効率を向上させる、多ロボット倉庫内の棚再配置のためのフレームワークである。本手法は、依存グラフ $\mathcal{G}$ を構築し、連続するウェイポイントを統合して簡略化することで、エージェントの待機時間を削減しながらスケーラビリティを維持する。アルゴリズムの核となる `ShelfAssignment()` は、ハンガリー法を用いてエージェントと候補となる棚の間の最小コストマッチングを行い、コスト関数としてエージェントの移動による推定待ち遅延 $d_{a,s}$ を用いる。経路計画には、頂点と安全な時間間隔の状態で探索を行う MLSIPP を採用しており、エージェントが棚を運ぶ際の柔軟性を高めるために、制約のない区間での「後退」や「待機」アクションを許可している。さらに、実行品質を向上させるための3つの補完的な戦略として、未実行の軌道を再構成して経路を最適化する Single Trajectory Replanning (STR)、依存関係の向きを反転させて制約を解消する Dependency Switching (DS)、および制約となる棚の未実行区間を再計画する Group Trajectory Replanning (GTR) を統合している。本フレームワークは、依存グラフの非巡回性（acyclicity）を維持するように設計されており、すべての適切に構成された DD-MAPD インスタンスに対して完全性（completeness）が保証されている。</p></section>
+<section class="secsum"><h3>V Empirical Evaluation</h3><p>本実験では、16コアCPUと8GB RAMのサーバを用い、大規模な倉庫シナリオにおけるCRESTの有効性を、MAPF-DECOMP(PP)をベースラインとして評価している。評価対象のレイアウトは、Random-to-Random (R2R)、Staging-to-Warehouse (S2W)、Distributed-and-Exchange (DnE) の3種で、中規模($\text{-M}$)および大規模($\text{-L}$)の構成が用意されている。評価指標には、スケーラビリティに依存しない正規化された総コスト $\text{Norm. Cost} = \frac{\text{Cost} - \text{Cost}_{\text{base}}}{\text{Cost}_{\text{base}}}$、正規化されたメイクスパン $\text{Norm. Mksp} = \frac{\text{Mksp} - \text{Mksp}_{\text{base}}}{\text{Mksp}_{\text{base}}}$、および棚の持ち替え頻度を示す $\text{\# Switch/Shelf}$ が用いられている。実験結果として、CRESTはベースラインに対し、正規化コストを16–24.7%、正規化メイクスパンを9.2–23.5%、持ち替え回数を6.3–14.2%削減し、一貫して優れた性能を示した。アブレーション解析では、GTR、DS、STRの3つの制約解放戦略を組み合わせることで、ベースライン比で最大40.5%のコスト削減と44.4%の持ち替え削減を達成している。計算量に関しては、MLSIPPによる探索空間の拡大により大規模マップで実行時間が増加するものの、棚1つあたりの計画時間は中規模で0.06s未満、大規模でも3.4s以下であり、実時間実行への適応可能性が示されている。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究では、DD-MAPD（Decentralized Multi-Agent Pathfinding with Delivery）において、能動的な制約解除（proactive constraint release）を通じて実行性能を向上させる新しい実行フレームワークであるCRESTを提案した。CRESTはシステム全体の情報を活用することで、分解された計画の拡張性と完全性を維持しつつ、エージェントのアイドル時間およびリフト・プレース動作の回数を削減することに成功している。今後の展望として、動的なタスク到着を伴うオンライン設定への拡張、依存関係の切り替えや軌道再計画のための学習ベースのヒューリスティックの導入、そして実環境のマルチロボットシステムを用いた実証実験による有効性の検証が挙げられている。</p></section>
+<section class="secsum"><h3>VII Additional Results</h3><p>本セクションでは、提案手法CRESTおよびその派生戦略の性能を、ベースラインと比較するための追加的な評価指標と実験結果が示されている。評価指標として、総移動距離である $\text{Cost}$、非運搬移動コストを反映した $\text{Norm. Cost}$、完了時間 $\text{Mksp}$、エージェントの移動による遅延を示す $\text{Norm. Mksp}$、および棚の持ち替え頻度を表す $\text{# Switch/Shelf}$ が用いられている。実験はオーバーヘッドがない設定（Table IV）と、単位オーバーヘッドがある設定（Table V）の両方で行われ、R2R、S2W、DnEといった異なるマップ設定において、25インスタンスの平均と標準偏差が報告されている。結果として、CRESTの各バリアントは、すべての設定においてベースラインよりも $\text{Norm. Cost}$ や $\text{Mksp}$ を一貫して改善しており、特に $\text{# Switch/Shelf}$ の大幅な減少（例：All設定で最大 $-44.4\%$）を通じて、制約解除による継続的な運搬の利点を示している。また、計算時間（$\text{Time}$）についても、大規模なオフライン評価設定において計算可能な範囲内に収まっており、実用的な効率性を維持していることが確認された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-03
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Agentic RAG-VLM: Affordance-Aware Retrieval-Augmented Generation with Self-Reflective Planning for Robotic Grasping | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Agentic RAG-VLM: Affordance-Aware Retrieval-Augmented Generation with Self-Reflective Planning for Robotic Grasping</h1>
+  <div class="meta">Tao Chen, Lizheng Liu, Jiaxu Wang, Ziyue Jiang, Ruiqi Tian, JiGuang Huo, Zhongxue Gan<br>採択先: 未取得 ・ 2026-06-30 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.31200v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.31200v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-06-30</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGをロボットの把持戦略（アフォーダンス）に適用した新規性が高い。失敗分類に基づく3段階の自己反省プロセスやシーングラフによる制約推論など、手法が具体的かつ高度。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 視覚的類似性ではなく、物体タイプ、材質、脆弱性、把持可能領域の4次元アフォーダンス記述子に基づく検索を行う「Agentic RAG-VLM」を提案する。本手法は、Hierarchical Affordance-Aware RAG (HAA-RAG)、Scene Graph Constraint Reasoner、および14種類の失敗分類に基づく3段階の適応的再試行を行うAgentic Self-Reflective Pipelineを統合している。12のベンチマークタスクにおいて78.3%の総合成功率を達成し、従来のVLMベースラインに対し53.3 ppの精度向上を実現した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、非構造化環境におけるロボットの把持タスクにおいて、視覚的な類似性と物理的な操作適合性の乖離、シーンの文脈を無視した計画、および失敗からの回復能力の欠如という3つの課題に対処する。従来のVLMベースの手法は、検索された経験や構造化された失敗からの回復手段を持たず、パラメータ化された知識のみに依存する傾向がある。また、既存のアフォーダンス推論はピクセルレベルのマップに留まり、力や接近方向といった物理的な把持戦略（how）を規定できていない。本研究は、これらを解決するために、アフォーダンスを考慮した検索、シーングラフによる制約推論、およびエージェント的な自己反省プロセスを統合したフレームワークを構築する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>主要な貢献は、機能的なアフォーダンスに基づいて把持戦略を照合する3段階の検索パイプライン「HAA-RAG」の開発である。次に、VLMによるシーン分析から構築されたシーングラフを用い、空間関係を具体的な把持パラメータの調整へと変換する「Scene Graph Constraint Reasoner」を導入した。さらに、14種類の失敗分類に基づく診断と、L1（パラメータ調整）、L2（手法の切り替え）、L3（再計画）の3段階で構成される「適応的再試行メカニズム」を提案している。これにより、物体固有の学習を必要とせず、単一の把持から複雑な多段階タスクまで、多様なシナリオにおける堅牢な適応性を実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>手法は3つの主要コンポーネントで構成される。第一に、HAA-RAGは、カテゴリ一致によるフィルタリング、アフォーダンス適合性に基づく再スコアリング $S_{aff} = w_1 \cdot \text{type} + w_2 \cdot \text{material} + w_3 \cdot \text{fragility} + w_4 \cdot \text{region}$、およびCLIPによる視覚的再ランキングの3段階を経て、最終スコア $S_{total} = S_{cat} \cdot S_{aff} \cdot S_{vis}$ を算出する。第二に、Scene Graph Constraint Reasonerは、16種の空間関係を持つグラフを用い、内容物保持 ($C_{cont}$)、衝突回避 ($C_{coll}$)、支持依存 ($C_{supp}$)、遮蔽回避 ($C_{occ}$) の4種の制約を定義し、加算的な調整ベクトル $\Delta a$ として把持アクションを修正する。第三に、Agentic Self-Reflective Pipelineは、$\text{Thought} \to \text{Action} \to \text{Observation}$ のサイクルを回し、7つの品質因子に基づく14種類の失敗分類を用いて、3段階のエスカレーションによるリカバリを行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Franka Emika Panda 7-DoFアームと平行ジョーグリッパーを用いたシミュレーション環境において、Qwen3-VL-8Bを基盤とした評価を行った。評価はSingle-Grasp (SG)、Interactive (IT)、Long-Horizon (LH) の3カテゴリ、計12のベンチマークタスク（各360試行）で行われた。結果として、総合成功率78.3%を達成し、VLMのみのベースラインと比較して53.3 ppの向上を示した。アブレーション解析では、HAA-RAGの除去によりITおよびLHタスクの成功率が0%に低下し、Scene Graph ReasoningはITタスクの成功率を25.0%から58.3%へ向上させた。また、HAA-RAGはCLIP-Onlyと比較してP@1で91.7%（対66.7%）を記録し、検索品質の優位性が示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、アフォーダンスを考慮した検索、シーングラフによる制約推論、構造化された失敗回復、およびエージェント的なプランニングを統合することで、堅牢な操作を実現した。未知のカテゴリに対するFar-OODテストでは成功率が54.4%まで低下するものの、HAA-RAGによる知識転移と回復メカニズムにより、一定の汎化性能が維持されていることが確認された。今後の展望として、自律的な経験獲得による知識ベースの拡張、多指ハンドへのアフォーダンス推論の適用、および因果推論を用いた階層的アフォーダンス・オントロジーによるカテゴリ横断的な汎化性能の向上が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Agentic RAG-VLM: Affordance-Aware Retrieval-Augmented Generation with Self-Reflective Planning for Robotic Grasping</h3><p>Agentic RAG-VLMは、視覚的類似性のみに依存する従来のVLMベースの手法に対し、物理的なアフォーダンスや空間的推論、失敗回復を統合したロボット把持のための統一フレームワークである。本手法は、物体タイプ、材質、脆弱性、把持可能領域の4次元アフォーダンス記述子を符号化し、外観ではなく機能的な適合性に基づいて戦略を検索するHierarchical Affordance-Aware RAG (HAA-RAG)、VLMの知覚から近接・遮蔽・支持制約を把持パラメータへ変換するScene Graph Constraint Reasoner、そして14種類の失敗分類に基づく3段階の適応的再試行を行うAgentic Self-Reflective Pipelineの3要素で構成される。単一把持、インタラクティブ、長期的タスクを含む12タスクのベンチマーク（各設定360試行）を用いた評価において、本手法は78.3%の総合成功率を達成し、VLMのみのベースラインと比較して53.3 ppの絶対的な精度向上を示した。これにより、アフォーダンスを考慮した検索、シーングラフによる推論、およびエージェント的な回復プロセスが、堅牢な操作において不可欠であることが実証された。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究では、非構造化環境におけるロボットの把持タスクにおいて、視覚的類似性と操作適合性の乖離、シーンの文脈を無視した計画、および失敗からの回復能力の欠如という3つの課題を解決するため、Agentic RAG-VLMを提案している。提案手法は、視覚的な類似性ではなく機能的なアフォーダンスに基づいて把持経験を照合する3段階の階層的アフォーダンス認識RAG（HAA-RAG）と、空間的な関係性を具体的な把持パラメータの調整へと変換するシーングラフ制約推論器を統合している。また、失敗時には14種類の分類に基づく構造化された診断を行い、L1（パラメータ調整）、L2（手法の切り替え）、L3（完全な再計画）の3段階の適応的リトライを通じて、言語的なフィードバックを物理に基づいた具体的な修正へと変換するエージェント的自己反省パイプラインを備えている。このフレームワークは、VLMによる意味理解と物理的な把持実行のギャップを埋め、エピソードメモリへの成功事例の蓄積を通じてタスクを跨いだ転移学習を可能にする。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>既存のVLMを用いた操作手法は、RT-2のようなエンドツーエンドのトークン化から、SayCanのようなアフォーダンスに基づくモジュール型プランニング、VoxPoserのような3D値マップ、Code as Policiesのようなコード生成、さらにはManipLLM等の微調整された把持予測まで多岐にわたるが、これらは検索された経験や構造化された失敗からの回復手段を持たず、パラメータ化された知識のみに依存している。従来のロボティクスにおけるアフォーダンス推論は、物体表面の把持可能領域を特定するピクセルレベルのマップや部位ベースの解析に留まり、力、幅、接近方向、把持タイプといった物理的なアフォーダンスに適した完全な把持戦略（how）を規定できていない。これに対し、提案手法であるHAA-RAGは、4次元のアフォーダンス記述子（タイプ、材質、脆弱性、把持可能領域）を明示的に符号化し、視覚的類似性ではなく機能的なアフォーダンスの適合性に基づいて、物理的に根拠のある完全な把持戦略を検索・統合する。また、従来のInner MonologueやReflexionのような言語的フィードバックは物理に基づいた修正を欠いているが、本手法は14種類の失敗分類（failure taxonomy）を用いた定量的な修正と、アノテーションなしで操作制約を推論するVLM構築型のシーングラフを導入している。最終的に、Agentic RAG-VLMは、アフォーダンスを考慮した検索、RAGによる経験の接地、シーングラフによる制約推論、構造化された失敗回復、および多段階のエージェントプランニングという5つの能力を単一の統合フレームワーク内で実現している。</p></section>
+<section class="secsum"><h3>III Affordance-Aware Retrieval and Constraint Reasoning</h3><p>本セクションでは、RGB-D観測と自然言語指示から、位置、接近方向、グリッパー開口幅、把持力、把持タイプ（power, pinch, side）を含む把持アクションを生成する、アフォーダンスを考慮した階層的検索（HAA-RAG）と空間制約推論のプロセスを詳述している。HAA-RAGは、視覚的類似性のみに依存する従来のRAGの限界を克服するため、物体カテゴリ、アフォーダンス記述子（8種のアフォーダンスタイプ、材質、脆弱性、把持可能領域）、把持パラメータ、成功ラベル、CLIP ViT-L/14による視覚特徴量を含む知識ベースを用いる。検索は、カテゴリ一致による粗いフィルタリング、アフォーダンスの適合性に基づく再スコアリング（$S_{aff} = w_1 \cdot \text{type} + w_2 \cdot \text{material} + w_3 \cdot \text{fragility} + w_4 \cdot \text{region}$）、およびCLIPによる視覚的再ランキングの3段階で行われ、最終的なスコアは $S_{total} = S_{cat} \cdot S_{aff} \cdot S_{vis}$ として統合される。また、失敗した経験 $\mathcal{E}_{fail}$ は、反省モジュールでの負例として活用しつつ、コントラスティブなペナルティとしてスコアを30%減少させる。さらに、Scene Graph Constraint Reasonerは、VLMによるシーン分析から構築されたグラフ（ノードは物体属性、エッジは $On\_Top\_Of$ 等の16種の空間関係）を用い、ターゲットノード $v_t$ の近傍 $m$ 内の制約を特定する。具体的には、内容物保持（$C_{cont}$）、衝突回避（$C_{coll}$）、支持依存（$C_{supp}$）、遮蔽回避（$C_{occ}$）の4種の制約を定義しており、これらは加算的な調整ベクトル $\Delta a$ として把持アクションを修正する。</p></section>
+<section class="secsum"><h3>IV Agentic Self-Reflective Grasp Planning</h3><p>本セクションでは、実世界での実行におけるノイズや失敗に対応するための、ReActフレームワークに着想を得た「Agentic Self-Reflective Pipeline」が提案されている。この手法は、$\text{Thought} \to \text{Action} \to \text{Observation}$ のサイクルを繰り返すことで、成功または最大リトライ予算に達するまでクローズドループでの実行を行う。失敗時には、7つの品質因子（位置精度 $s_{pos}$、幅の適合性 $s_{wid}$、力の適切さ $s_{f}$、把持タイプの適合性 $s_{typ}$、接近のクリアランス $s_{app}$、物体の難易度 $s_{diff}$、把握の安定性 $s_{sec}$）に基づく14種類の分類を用いて、物理的根拠に基づいた診断を行う。リカバリ戦略は、パラメータ調整を行う Level 1、把持タイプの変更を行う Level 2、パラメータのリセットとランダムな摂動 $\epsilon$ を伴う再計画を行う Level 3 の3段階でエスカレーションされる。また、成功した把持はオブジェクトカテゴリでインデックス化されたエピソードメモリに保存され、同一セッション内でのタスク間転移（例：一つのコップの成功パラメータを後続のコップへ適用）を可能にすることで、探索コストを削減している。</p></section>
+<section class="secsum"><h3>V Experimental Analysis</h3><p>本実験では、Franka Emika Panda 7-DoFアームと平行ジョーグリッパーを用いたシミュレーション環境において、Qwen3-VL-8Bを基盤としたAgentic RAG-VLMの性能を評価している。評価は、Single-Grasp (SG)、Interactive (IT)、Long-Horizon (LH) の3つの難易度カテゴリ、計12のベンチマークタスクを用いて行われ、HAA-RAG、Adaptive Recovery、Scene Graph Reasoning、Episodic Memoryの各コンポーネントのアブレーション解析が実施された。実験結果として、提案手法は全体で78.3%の成功率を達成し、特にHAA-RAGの除去はITおよびLHタスクの成功率を0%にまで低下させることから、アフォーダンスに基づいた知識検索がシステムの基盤であることが示された。また、Scene Graph ReasoningはITタスクにおいて成功率を25.0%から58.3%へと向上させ、衝突回避や制約充足に寄与しており、Adaptive Recoveryは試行回数が増えるにつれて（平均2.48回、回復率53.3%）タスクの成功を支えている。検索品質においても、HAA-RAGはCLIP-Onlyと比較してP@1で91.7%（対66.7%）を記録し、アフォーダンスを考慮したフィルタリングの有効性が証明された。最後に、未知のカテゴリに対するFar-OODテストでは成功率が54.4%まで低下するものの、HAA-RAGによるカテゴリを跨いだ知識転移と回復メカニズムにより、一定の汎化性能が維持されている。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究は、VLMによる意味理解と物理的な把持実行の乖離を埋めるため、アフォーダンス認識型RAG、シーングラフ制約推論、およびエージェントによる自己反省型プランニングを統合した「Agentic RAG-VLM」フレームワークを提案している。主要な貢献として、視覚的類似性ではなく機能的なアフォーダンスに基づいて把持戦略を照合する3段階の検索パイプライン「HAA-RAG」、空間関係を具体的な把持パラメータの調整へと変換する「Scene Graph Constraint Reasoner」、そして14種類の分類に基づく診断と3段階の適応的再試行を行う「構造化された失敗診断メカニズム」が挙げられる。このモジュール化された知識駆動型アーキテクチャにより、物体固有の学習を必要とせず、単一物体の操作から複雑な多段階のテーブルクリア作業まで、多様なシナリオにおける堅牢な適応性を実現している。今後の展望として、展開中の自律的な経験獲得による知識ベースの拡張、より複雑な接触幾何を持つ多指ハンドへのアフォーダンス推論の適用、および因果推論を用いた階層的アフォーダンス・オントロジーによるカテゴリ横断的な汎化性能の向上が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-03
+  </footer>
+</div>
+</body>
+</html>

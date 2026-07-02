@@ -697,6 +697,40 @@
       "url": "http://arxiv.org/abs/2606.27786v1",
       "venue": ""
     },
+    "arxiv:2606.31200": {
+      "added": "2026-07-03",
+      "arxiv_id": "2606.31200",
+      "authors": [
+        "Tao Chen",
+        "Lizheng Liu",
+        "Jiaxu Wang",
+        "Ziyue Jiang",
+        "Ruiqi Tian",
+        "JiGuang Huo",
+        "Zhongxue Gan"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-30",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.31200.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.31200v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGをロボットの把持戦略（アフォーダンス）に適用した新規性が高い。失敗分類に基づく3段階の自己反省プロセスやシーングラフによる制約推論など、手法が具体的かつ高度。",
+      "relevance": 8,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Agentic RAG-VLM: Affordance-Aware Retrieval-Augmented Generation with Self-Reflective Planning for Robotic Grasping",
+      "tldr": "視覚的類似性ではなく、物体タイプ、材質、脆弱性、把持可能領域の4次元アフォーダンス記述子に基づく検索を行う「Agentic RAG-VLM」を提案する。本手法は、Hierarchical Affordance-Aware RAG (HAA-RAG)、Scene Graph Constraint Reasoner、および14種類の失敗分類に基づく3段階の適応的再試行を行うAgentic Self-Reflective Pipelineを統合している。12のベンチマークタスクにおいて78.3%の総合成功率を達成し、従来のVLMベースラインに対し53.3 ppの精度向上を実現した。",
+      "url": "http://arxiv.org/abs/2606.31200v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "arxiv_id": "",
@@ -725,6 +759,35 @@
       "tldr": "監査結果公告の分析において、LLMのハルシネーションを抑制し、複雑な意味関係の推論精度を向上させるための「DC-RAG (Dual-Channel Retrieval-Augmented Generation)」フレームワークを提案する。本手法は、非構造化テキストから情報を抽出する「テキストチャネル」と、知識グラフ（KG）から構造化されたサブグラフを抽出する「知識グラフチャネル」の二系統の検索メカニズムを構築し、それらを統合・再ランキングすることで、監査ドメインにおける高度な意味理解と構造的推論を両立させる。",
       "url": "https://www.semanticscholar.org/paper/2573267d55c020314255f19f54316d5a1a56e487",
       "venue": "Scientific Reports"
+    },
+    "doi:10.1109/iccit68739.2025.11490128": {
+      "added": "2026-07-03",
+      "arxiv_id": "2607.01115",
+      "authors": [
+        "Md Abu Hanif Shaikh",
+        "Abdullah Al Shafi"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-01",
+      "doi": "10.1109/ICCIT68739.2025.11490128",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.01115.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.01115v1",
+      "reading_value": 3,
+      "reading_value_reason": "RAGとVLMを組み合わせた実用的な構成で、ハルシネーション低減の効果も示されているが、手法自体は既存技術の組み合わせであり、新規性は限定的。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Towards Developing a Multimodal Chat Assistant for University Stakeholders: RAG-based Approach",
+      "tldr": "大学関係者の情報アクセシビリティ向上のため、RAG（Retrieval-Augmented Generation）とVision-Language Model（VLM）を組み合わせたマルチモーダル・チャットアシスタントを提案する。量子化された $\\text{LLaVA-1.5-7b}$ と $\\text{Chroma}$ ベクターストアを活用することで、大学のハンドブック等の固有リソースに基づいた正確な回答を実現し、ハルシネーション率を $31.7\\%$ から $6.6\\%$ へと大幅に低減させた。",
+      "url": "http://arxiv.org/abs/2607.01115v1",
+      "venue": "2025 28th International Conference on Computer and Information Technology (ICCIT)"
     },
     "doi:10.3390/ai7050161": {
       "added": "2026-06-14",
@@ -1485,6 +1548,39 @@
       "url": "http://arxiv.org/abs/2602.23468v2",
       "venue": ""
     },
+    "arxiv:2603.28803": {
+      "added": "2026-07-03",
+      "arxiv_id": "2603.28803",
+      "authors": [
+        "Jiaqi Tan",
+        "Yudong Luo",
+        "Sophia Huang",
+        "Yifan Yang",
+        "Hang Ma"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-03-27",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2603.28803.html",
+      "matched_keywords": [
+        "MAPF",
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2603.28803v1",
+      "reading_value": 4,
+      "reading_value_reason": "DD-MAPDという複雑な問題に対し、実行時の制約解放という実用的なアプローチで大幅な性能向上を実現しており、研究の新規性と具体性が高い。",
+      "relevance": 3,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "CREST: Constraint-Release Execution for Multi-Robot Warehouse Shelf Rearrangement",
+      "tldr": "自動倉庫におけるマルチロボットの棚再配置問題（DD-MAPD）に対し、事前に計算された棚の軌道制約を、実行時の状況に応じて能動的に解放することで、エージェントの待機や不要な棚の積み替えを削減する実行フレームワーク「CREST」を提案する。",
+      "url": "http://arxiv.org/abs/2603.28803v1",
+      "venue": "2026 IEEE ROBOTICS AND AUTOMATION LETTERS"
+    },
     "arxiv:2604.07970": {
       "added": "2026-06-21",
       "arxiv_id": "2604.07970",
@@ -2097,6 +2193,37 @@
       "title": "Cooperative-ORCA*: Real-Time Proactive Deadlock Avoidance for Continuous-Space Multi-Agent Navigation",
       "tldr": "連続空間におけるマルチエージェント経路計画（CS-MAPF）において、将来的なデッドロックを未然に防ぐための新しいアルゴリズム群 $\\text{C-ORCA}^*$ および $\\text{C-ORCA}^* \\text{-MAPF}$ を提案する。本手法は、離散的なMAPFから得た経路をstring-pulling法でウェイポイントへ変換し、エージェント間の空間的依存関係（廊下内での対向や連続進入）を考慮することで、反応的な衝突回避から能動的なデッドロック回避へと進化させている。",
       "url": "http://arxiv.org/abs/2606.22757v1",
+      "venue": ""
+    },
+    "arxiv:2607.00156": {
+      "added": "2026-07-03",
+      "arxiv_id": "2607.00156",
+      "authors": [
+        "Willem van Osselaer",
+        "Jiarui Li",
+        "Meshal Alharbi",
+        "Gioele Zardini"
+      ],
+      "basis": "fulltext(arxiv-pdf)",
+      "citations": 0,
+      "date": "2026-06-30",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2607.00156.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.00156v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFにおけるCBSのメモリと解発見のトレードオフを、ノード選択の観点から理論的・実験的に深く分析しており、実用的な改善策として価値が高い。",
+      "relevance": 2,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Dual-Informed Vertical Expansion for Multi-Objective Node Selection in Anytime Conflict-Based Search",
+      "tldr": "Multi-Agent Path Finding (MAPF) における Conflict-Based Search (CBS) のノード選択において、Best-First Search (BFS) の最適性証明能力と Depth-First Search (DFS) のメモリ効率を両立させる新しいポリシー「Dual-Informed Vertical Expansion (DIVE)」を提案する。DIVEは、現在の暫定解（incumbent）を改善できる限り親ノードから子ノードへと連続的に展開する「Dive」と、グローバルな最小下界ノードを選択する「Best-bound」な挙動を組み合わせることで、メモリ消費を抑えつつ早期に暫定解を提供し、効率的な最適性証明を実現する。",
+      "url": "http://arxiv.org/abs/2607.00156v1",
       "venue": ""
     },
     "doi:10.1016/j.artint.2022.103752": {
