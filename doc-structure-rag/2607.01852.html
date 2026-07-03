@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Evaluating Chunking Strategies for Retrieval-Augmented Generation on Academic Texts | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Evaluating Chunking Strategies for Retrieval-Augmented Generation on Academic Texts</h1>
+  <div class="meta">Valentin J. J. Kreileder, Johannes Reisinger, Andreas Fischer<br>採択先: 未取得 ・ 2026-07-02 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.01852v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.01852v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-02</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">RAGのチャンキング戦略を比較し、既存指標の限界や新指標AQSを提案する実用的な研究。実験結果は限定的だが、評価手法の妥当性を問う点は示唆に富む。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 学術論文のような構造化された長文を対象に、RAGにおける3種類のチャンキング戦略（Fixed-Sized, Recursive, Cluster-Based）を比較評価した研究である。実験の結果、計算コストの高いクラスターベースのセマンティック・チャンキングは、単純な固定サイズや再帰的チャンキングを上回る性能を示さず、むしろ回答品質（AQS）において劣る結果となった。また、RAGAsのFaithfulness指標が特定の条件下で信頼性に欠けることや、LLMが検索結果に依存せずパラメトリックな知識で回答してしまう現象も明らかになった。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、Retrieval-Augmented Generation (RAG) システムにおいて、学術論文のような内部構造を持つ長大な文書を適切に分割するためのチャンキング戦略の有効性を検証している。具体的には、固定サイズ（Fixed-Sized Chunking）、構造的区切りを利用する再帰的分割（Recursive Chunking）、および文の類似度に基づくクラスターベースのセマンティック・チャンキング（Cluster-Based Chunking）の3手法を比較対象としている。評価の枠組みとしてRAGAsフレームワークを用い、中規模なハードウェア制約下での評価の妥当性についても検討している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、回答の忠実度（faithfulness）と関連性（answer relevancy）の調和平均を用いた新たな指標である Answer Quality Score (AQS) を定義した点にある。AQSは $\text{AQS} = 2 \cdot \frac{\text{faithfulness} \cdot \text{relevancy}}{\text{faithfulness} + \text{relevancy}}$ と定義され、一方が極端に低い場合にペナルティを与える設計となっている。また、RAGAsを用いた評価において、Faithfulnessの算出が失敗するケースが頻発することや、検索精度が低い状況でもLLMが回答を生成してしまう現象を指摘し、指標の限界を明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>実験では、13の学位論文（単語数 10,232〜26,960、中央値 約16,000）をデータセットとして使用した。チャンキング手法として、150単語・オーバーラップ15単語のFixed-Sized、構造に基づくRecursive、および `all-MiniLM-L6-v2` を用いて文を結合するCluster-Basedの3種を比較した。計算環境は VRAM 16GiB の制約下で、生成器に `llama3.2:3b`、評価器に `deepseek-r1:8b`、埋め込みモデルに `all-MiniLM-L6-v2` を採用している。評価指標には、TF-IDF bigram cosine similarity、Context F1、および定義した AQS を用いて、著者に関する一般的な質問5件と論文固有の質問5件の計10件のクエリで測定を行った。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>390件の測定の結果、Faithfulnessの算出は手法によらず約42%〜47%の割合で失敗した。Context F1において、固定質問では全てのチャンカーのメディアンが0であったが、自由質問ではRecursiveが約0.5、Fixed-Sizedが約0.3のメディアンを記録した。AQSの結果では、自由質問においてFixed-SizedとRecursiveがメディアン約0.65に達したのに対し、Cluster-Basedは0.40と最も低い値を示した。特にRecursiveは四分位範囲（IQR）が最も狭く、生成品質の安定性が確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>実験結果から、クラスターベースのセマンティック・チャンキングは計算コストを増大させるだけで、単純な戦略を上回る性能は示さないことが示唆された。固定質問において検索スコアがほぼ0であるにもかかわらず生成スコアが維持される現象は、LLMが学術論文の構造に関するパラメトリックな知識を利用しているか、RAGAsのAnswer Relevancyが検索コンテキストに依存せず報酬を与える特性を持つためと考えられる。今後の課題として、より大規模な埋め込みモデルの利用や、指標の不備を特定するための人間によるアノテーションを用いた検証の必要性が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Evaluating Chunking Strategies for Retrieval-Augmented Generation on Academic Texts</h3><p>本研究では、学術論文のような構造化された長い文書を対象に、Retrieval-Augmented Generation (RAG) システムにおけるチャンク分割戦略の有効性を評価している。具体的には、固定サイズ（fixed-size）および再帰的（recursive）なチャンク分割に対し、クラスターベースのセマンティック・チャンキング（cluster-based semantic chunking）が検索精度および回答の質を向上させるかを、RAGAsフレームワークを用いて検証した。実験の結果、RAGAsの指標である faithfulness（忠実性）は、本設定においては限定的な信頼性しか示さないことが明らかになった。また、固定的な質問と文書固有の質問に対する性能には大幅な差異が見られ、これは文書のフォーマットや前処理に起因すると考えられる。最終的に、テストされた構成条件下では、クラスターベースのチャンキングはより単純な戦略を上回る性能を示すことはなかった。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>LLMのハルシネーションや知識の限界を解消するRetrieval-Augmented Generation (RAG) において、埋め込みモデルやコンテキストウィンドウの制約から、長大な文書を適切なサイズに分割するチャンキング戦略が不可欠となる。従来の固定長チャンキングやフォーマットに基づく再帰的チャンキングに対し、文の類似度を利用するセマンティック・チャンキングは検索精度の向上が期待されるものの、クラスタリングベースの手法などは計算コストが高いという課題がある。本研究では、回答の忠実度（faithfulness）と回答の関連性（answer relevancy）を組み合わせた新たな指標である Answer Quality Score (AQS) を定義する。さらに、中程度のスペックのハードウェアにおける RAGAs を用いた評価の課題を指摘するとともに、異なるチャンキング戦略が RAG システムの性能に与える影響を RAGAs を用いて検証する。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>Qu et al. は、単純な固定サイズチャンキングが最も費用対効果が高いことを示しているが、その実験は元の文書と人工的に結合された文書の混合データセットで行われており、本研究のような大規模かつ内部構造を持つ文書への汎用性には疑問が残る。また、本研究ではハードウェア制約により小型の文エンコーダを使用しているため、先行研究との直接的な比較には限界がある。Late Chunking は、長文脈モデルを用いて文書全体を埋め込み、その後にチャンキングと平均プーリングを行うことで、チャンキング後に埋め込みを行う従来のパイプラインよりも周囲の文脈を保持したチャンクベクトルを生成する手法である。さらに Reisinger et al. は、チャンク埋め込みの階層構造から文書レベルの知識グラフを構築することで、生成的な判定器を用いずに、入力や文脈の矛盾に起因するハルシネーションを抑制する手法を提案している。</p></section>
+<section class="secsum"><h3>III Methodology</h3><p>本研究では、RAGにおけるチャンク分割戦略として、150単語・オーバーラップ15単語のFixed-Sized Chunking、構造的区切りを用いるRecursive Chunking、および`all-MiniLM-L6-v2`を用いて意味的に類似した文を結合するCluster-Based Chunkingの3手法を比較している。評価にはRAGAsフレームワークを用い、VRAM制約（16GiB）下で`llama3.2:3b`を生成器、`deepseek-r1:8b`を評価器、`all-MiniLM-L6-v2`を埋め込みモデルとして設定した。指標として、TF-IDF bigram cosine similarity（2文書以上に現れるbigramのみ対象）に加え、文脈の適合性を測るContext F1、およびFaithfulness（生成回答内の主張が文脈に支持されている割合）とAnswer Relevancy（質問と生成回答に基づく人工的な質問との類似度）の調和平均であるAnswer Quality Score (AQS) を定義している。具体的にAQSは、$\text{AQS} = 2 \cdot \frac{\text{faithfulness} \cdot \text{relevancy}}{\text{faithfulness} + \text{relevancy}}$ と計算され、一方が低い場合にペナルティを与える設計となっている。実験データセットは、単語数が10,232から26,960（中央値約16,000）の13の学位論文で構成され、著者に関する一般的な質問5件と論文固有の質問5件の計10件のクエリを用いて評価を行っている。</p></section>
+<section class="secsum"><h3>IV Results</h3><p>390件の測定を行った評価実験において、Faithfulnessの算出が44%のケースで失敗し、その内訳はrecursive chunkingで47%、cluster-based chunkingで42%、fixed-sized chunkingで44%と、手法によらず均等に発生した。Context F1の評価では、固定質問（fixed questions）において全てのチャンカーのメディアンが0であったが、これは目次などの構造的ノイズがインデックスと検索を汚染しているためであり、自由質問（free questions）ではrecursive chunkingが約0.5、fixed-sized chunkingが約0.3のメディアンを記録して性能が向上した。AQS（Answer Quality Score）の結果では、自由質問においてfixed-sizedとrecursiveの両方がメディアン約0.65に達したが、特にrecursiveは四分位範囲（IQR）が最も狭く、生成品質の安定性を示した。一方で、cluster-based chunkingはAQSのメディアンが0.40と最も低かった。固定質問において検索スコアがほぼ0であるにもかかわらず生成スコアが中程度を維持している現象は、LLMが学術論文の一般的な構造に関するパラメトリックな知識を用いて回答している可能性や、RAGAsのAnswer Relevancyが検索コンテキストに依存せず報酬を与える特性に起因すると分析されている。</p></section>
+<section class="secsum"><h3>V Conclusion &amp; Future Work</h3><p>本研究では、学術論文コーパスを対象に、RAGAsフレームワークと中規模ハードウェア（小規模な埋め込み・生成・評価モデル）を用いた3種類のチャンキング戦略の性能評価を行った。実験の結果、固定された質問に対する検索チャンクの品質は限定的であった一方、自由形式の質問に対しては中程度の品質を示し、回答品質は概ね良好であったが、モデルの容量不足やドキュメントの専門性の高さに起因すると考えられる忠実性（faithfulness）の低下に注意が必要である。クラスターベースのセマンティック・チャンキングは、計算複雑性を増大させるのみで一貫した改善は見られず、ドキュメントの種類に依存するものの、より単純なチャンキング戦略の方が全体として信頼性が高い傾向にあった。今後の展望として、より大規模な埋め込みモデルの利用や、クラスターベースの手法における異なるクラスタリングアルゴリズムの検討、およびRAGAsのコンテキスト・リコールをIDベースの手法へ更新することが挙げられる。さらに、F1スコアとAQS（Answer Quality Score）の乖離が、真の検索問題なのか指標のアーティファクト（不備）なのかを特定するため、人間によるアノテーションを用いたチャンク関連性の検証が必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-04
+  </footer>
+</div>
+</body>
+</html>

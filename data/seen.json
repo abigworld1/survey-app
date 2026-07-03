@@ -731,6 +731,36 @@
       "url": "http://arxiv.org/abs/2606.31200v1",
       "venue": ""
     },
+    "arxiv:2607.01852": {
+      "added": "2026-07-04",
+      "arxiv_id": "2607.01852",
+      "authors": [
+        "Valentin J. J. Kreileder",
+        "Johannes Reisinger",
+        "Andreas Fischer"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-02",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.01852.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.01852v1",
+      "reading_value": 3,
+      "reading_value_reason": "RAGのチャンキング戦略を比較し、既存指標の限界や新指標AQSを提案する実用的な研究。実験結果は限定的だが、評価手法の妥当性を問う点は示唆に富む。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Evaluating Chunking Strategies for Retrieval-Augmented Generation on Academic Texts",
+      "tldr": "学術論文のような構造化された長文を対象に、RAGにおける3種類のチャンキング戦略（Fixed-Sized, Recursive, Cluster-Based）を比較評価した研究である。実験の結果、計算コストの高いクラスターベースのセマンティック・チャンキングは、単純な固定サイズや再帰的チャンキングを上回る性能を示さず、むしろ回答品質（AQS）において劣る結果となった。また、RAGAsのFaithfulness指標が特定の条件下で信頼性に欠けることや、LLMが検索結果に依存せずパラメトリックな知識で回答してしまう現象も明らかになった。",
+      "url": "http://arxiv.org/abs/2607.01852v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "arxiv_id": "",
@@ -788,6 +818,41 @@
       "tldr": "大学関係者の情報アクセシビリティ向上のため、RAG（Retrieval-Augmented Generation）とVision-Language Model（VLM）を組み合わせたマルチモーダル・チャットアシスタントを提案する。量子化された $\\text{LLaVA-1.5-7b}$ と $\\text{Chroma}$ ベクターストアを活用することで、大学のハンドブック等の固有リソースに基づいた正確な回答を実現し、ハルシネーション率を $31.7\\%$ から $6.6\\%$ へと大幅に低減させた。",
       "url": "http://arxiv.org/abs/2607.01115v1",
       "venue": "2025 28th International Conference on Computer and Information Technology (ICCIT)"
+    },
+    "doi:10.18653/v1/2026.acl-long.1738": {
+      "added": "2026-07-04",
+      "arxiv_id": "2605.28120",
+      "authors": [
+        "Zerui Chen",
+        "Qinggang Zhang",
+        "Zhishang Xiang",
+        "Zhimin Wei",
+        "Linfeng Gao",
+        "Xiao Huang",
+        "Zhihong Zhang",
+        "Jinsong Su"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 2,
+      "date": "2026-05-27",
+      "doi": "10.18653/v1/2026.acl-long.1738",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2605.28120.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://doi.org/10.18653/v1/2026.acl-long.1738",
+      "reading_value": 4,
+      "reading_value_reason": "階層的グラフ構造とマルチエージェントによる検証プロセスを組み合わせた手法は、RAGの信頼性向上において新規性が高く、実験結果も具体的で説得力がある。",
+      "relevance": 5,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "LegalGraphRAG: Multi-Agent Graph Retrieval-Augmented Generation for Reliable Legal Reasoning",
+      "tldr": "LegalGraphRAGは、法学ドメインにおける知識の粒度の不一致と推論の不透明性を解決するため、階層的法学グラフ（HierarGraph）とマルチエージェントシステムを統合した新しいRAGフレームワークである。",
+      "url": "https://www.semanticscholar.org/paper/c000f4698b168f3ede4c86ddd01bddbe7ab99b33",
+      "venue": "Volume 1"
     },
     "doi:10.3390/ai7050161": {
       "added": "2026-06-14",
@@ -2255,6 +2320,39 @@
       "tldr": "Lifelong MAPF/MAPDにおいて、数百から数千規模のエージェントをリアルタイムに制御可能な、優先度継承とバックトラッキングを用いた新しい劣最適アルゴリズムPIBTを提案する。",
       "url": "https://www.semanticscholar.org/paper/d1469458388fab937e0537ad0a48f7c70e0e3b18",
       "venue": "International Joint Conference on Artificial Intelligence"
+    },
+    "doi:10.1038/s41598-026-59580-x": {
+      "added": "2026-07-04",
+      "arxiv_id": "",
+      "authors": [
+        "Zongbao Liang",
+        "Shichao Wang",
+        "X H Yu",
+        "J Liu",
+        "Junli Feng",
+        "Jingni Ma"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "2026-07-01",
+      "doi": "10.1038/s41598-026-59580-x",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/doi-4c079a2ba38d.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://www.nature.com/articles/s41598-026-59580-x_reference.pdf",
+      "reading_value": 4,
+      "reading_value_reason": "動的環境下でのMAPFに対し、ウェイポイント、通信、Transformer、軌道予測を統合した提案手法は構成が非常に高度。大規模環境での高い成功率も示されており、実用的な研究価値が高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "MA-DyRoLT: multi-agent path finding method based on dynamic waypoints and learning communication topology",
+      "tldr": "動的環境下でのマルチエージェント経路計画（MAPF）に対し、MAPPOをベースとした「MA-DyRoLT」を提案する。本手法は、環境の開放度に応じた動的ウェイポイント生成、学習可能な通信トポロジー、Transformerによる時系列エンコーダ、および歩行者の軌道予測に基づくリスクペナルティを統合することで、大規模かつ動的なシナリオにおいて高い成功率と効率性を実現する。",
+      "url": "https://openalex.org/W7166797487",
+      "venue": "Scientific Reports"
     },
     "doi:10.1109/lra.2021.3074883": {
       "added": "2026-06-15",

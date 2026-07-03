@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MA-DyRoLT: multi-agent path finding method based on dynamic waypoints and learning communication topology | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>MA-DyRoLT: multi-agent path finding method based on dynamic waypoints and learning communication topology</h1>
+  <div class="meta">Zongbao Liang, Shichao Wang, X H Yu, J Liu, Junli Feng, Jingni Ma<br>採択先: Scientific Reports ・ 2026-07-01 ・ source: openalex</div>
+  <div class="links"><a href="https://openalex.org/W7166797487" target="_blank" rel="noopener">原典</a> ・ <a href="https://www.nature.com/articles/s41598-026-59580-x_reference.pdf" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1038/s41598-026-59580-x" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 Scientific Reports</span><span class="chip">公開日 2026-07-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">動的環境下でのMAPFに対し、ウェイポイント、通信、Transformer、軌道予測を統合した提案手法は構成が非常に高度。大規模環境での高い成功率も示されており、実用的な研究価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 動的環境下でのマルチエージェント経路計画（MAPF）に対し、MAPPOをベースとした「MA-DyRoLT」を提案する。本手法は、環境の開放度に応じた動的ウェイポイント生成、学習可能な通信トポロジー、Transformerによる時系列エンコーダ、および歩行者の軌道予測に基づくリスクペナルティを統合することで、大規模かつ動的なシナリオにおいて高い成功率と効率性を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、動的な障害物や環境変化が存在する環境におけるマルチエージェント経路計画（MAPF）の課題に取り組んでいる。従来のA*やConflict-Based Search (CBS) などの探索ベースの手法は、動的な環境では再計画の計算コスト増大やリアルタイム性の低下が問題となる。また、既存のマルチエージェント強化学習（MARL）手法は、単一フレームの局所的な観測に依存するため将来の衝突を予測できず、固定された通信構造が冗長な情報交換を招くといった課題がある。本論文は、これらの問題を解決するために、適応的なナビゲーション、効率的な通信、時間的知覚、および予防的なリスク回避を統合したフレームワークを提案している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文の主な貢献は、動的環境における安全性と効率性を両立させるための4つの主要モジュールを統合した点にある。第一に、環境の開放度 $S_i(t)$ に基づいてナビゲーションのサブゴールを適応的に生成する動的ウェイポイント生成メカニズムを導入した。第二に、エージェント間の目標方向の類似性と相対位置に基づき、疎でタスクに関連性の高いリンクを構築する学習型通信トポロジーを提案した。第三に、Transformerベースの時系列エンコーダにより、過去の観測依存性を捉えた文脈依存的な表現抽出を可能にした。第四に、歩行者の軌道予測に基づき、衝突が発生する前に回避行動を促すリスク認識ペナルティを報酬関数に組み込んだ。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法MA-DyRoLTは、MAPPO（Multi-Agent Proximal Policy Optimization）を基盤としている。動的ウェイポイント $w_i(t)$ は、現在位置 $p_i(t)$、目標方向への単位ベクトル $d_i^{\text{goal}}(t)$、および環境の開放度 $S_i(t)$ を用いて $w_i(t) = p_i(t) + k \cdot S_i(t) \cdot d_i^{\text{goal}}(t)$ として算出される。通信トポロジーは、目標方向の類似度 $S_{\text{dir}}(i, j)$ と正規化されたマンハッタン距離 $\bar{D}_{\text{pos}}(i, j)$ を用いた通信確立確率 $P_{ij}(t) = \sigma(\alpha S_{\text{dir}}(i, j) + \beta(1 - \bar{D}_{\text{pos}}(i, j)))$ によって制御され、パラメータ $\alpha, \beta, \tau$ は方策と同時に学習される。時系列情報の処理には、過去 $L$ ステップの観測を入力とするTransformerベースのエンコーダを用い、Multi-Head Self-Attention (MHSA) を通じて文脈依存的な特徴 $H_i(t)$ を抽出する。また、歩行者の将来軌跡 $\hat{p}_j(t+k)$ を予測する補助損失 $L_{\text{pred}}$ と、予測される最小距離 $D_{\min}$ が安全閾値 $C_{\text{safe}}$ を下回る場合に課されるリスクペナルティ $R_i^r(t) = -\eta \sum_{j \in \mathcal{P}_i(t)} \max(0, C_{\text{safe}} - D_{\min}(a_i, P_j, t))$ を用いて、能動的な衝突回避を学習させる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>シミュレーション実験により、多様なマップサイズ、エージェント密度、および障害物設定における性能を検証した。実験では、成功率、移動時間、および実行時間の全指標において、既存の探索ベース、学習ベース、グラフベース、および軌道予測強化型の各手法と比較を行った。特に、$120 \times 130$ の大規模環境における $150$ エージェントの動的シナリオにおいて、MA-DyRoLTは $0.998$ という極めて高い成功率を達成した。さらに、アブレーション研究を通じて、動的ウェイポイント、学習型通信トポロジー、および時間的予測の各モジュールが、システムの性能向上に寄与していることが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>MA-DyRoLTは、通信コストを抑えるために、通信範囲 $R_{\max}$ 内の近傍を選択する戦略 $\mathcal{N}_i(t) = \text{TopK}_j(P_j(t), K_{\max})$ を採用しており、計算量と通信帯域を $O(NK)$ および $O(NKd_m)$ に抑えることで、エージェント数に対して線形に近いスケーラビリティを実現している。報酬関数には通信コストのペナルティ $R_{\text{comm}}(t) = -\lambda \sum_{i=1}^{N} \sum_{j=1}^{N} A_{ij}(t)$ が導入されており、疎な通信構造の学習を促している。一方で、現在の予測モジュールは計算効率を優先して決定論的な予測軌跡に基づいているため、センシングノイズや歩行者の急激な挙動変化といった不確実性への対応には限界がある。今後の課題として、不確実性を考慮した確率的なリスク推定への拡張が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>ABSTRACT</h3><p>本論文は、動的環境下におけるマルチエージェント経路計画（MAPF）の課題に対し、MAPPOをベースとした新手法「MA-DyRoLT」を提案している。本手法は、環境の開放度に応じて適応的な局所ガイダンスを与える動的ウェイポイント生成機構と、エージェント間で疎かつタスクに関連性の高い情報共有を可能にする学習型通信トポロジーを統合している。さらに、過去の観測依存性を捉えるTransformerベースの時系列エンコーダに加え、予測に基づくリスクペナルティを用いた歩行者軌道予測補助モジュールを導入することで、能動的な衝突回避を促進している。シミュレーション実験では、既存の探索ベースおよび学習ベースの手法を成功率、移動時間、実行時間の全指標で上回っており、特に $120 \times 130$ の環境における $150$ エージェントの大規模動的シナリオにおいて $0.998$ という高い成功率を達成している。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>MAPFは、複数のエージェントが環境制約や相互作用を考慮しつつ、衝突を回避して初期位置から目的地へ到達する経路を計画する問題であり、物流や自動運転などの分野で重要視されている。従来のA*、Dijkstra、Conflict-Based Search (CBS) などの探索・最適化ベースの手法は、静的な環境では高い性能を示すものの、動的な障害物や環境変化に対しては頻繁な再計画や集中型の衝突解決が必要となり、計算コストの増大やリアルタイム性の低下を招く。これに対し、Centralized Training with Decentralized Execution (CTDE) を用いたマルチエージェント強化学習 (MARL) は適応的な方策学習を可能にするが、既存手法には、単一フレームや短期間の局所的な観測に依存するため将来の衝突を予測できない点、動的障害物の将来の運動傾向を十分にモデル化できていない点、および固定された通信構造が冗長な情報交換を招いたり、変化する構成下でのタスクに関連する相互作用を捉えきれなかったりするという課題がある。</p></section>
+<section class="secsum"><h3>ARTICLE IN PRESS</h3><p>本論文は、適応的なナビゲーション、効率的な通信、時間的知覚、および予防的なリスク回避を統合した、MAPPOに基づくマルチエージェント経路計画（MAPF）フレームワーク「MA-DyRoLT」を提案している。提案手法は、環境の開放性に基づいて適応的な局所サブゴールを生成する動的ウェイポイント生成メカニズム、目標方向の類似性と相対位置に基づき疎でタスクに関連性の高いリンクを構築する学習型通信トポロジー、およびTransformerベースの時間的エンコーダと歩行者の軌道予測ヘッドを特徴とする。特に、予測された将来のリスクを学習信号としてポリシー最適化に組み込むことで、衝突が発生する前に回避する予防的な行動を学習させるリスク認識ペナルティを導入している。多様なマップサイズ、エージェント密度、障害物設定を用いたシミュレーション実験の結果、MA-DyRoLTは成功率、移動時間、および実行時間のすべての指標において、探索ベース、学習ベース、グラフベース、および軌道予測強化型の既存手法を上回る性能を示した。また、アブレーション研究により、動的ウェイポイント、学習型通信トポロジー、および時間的予測の各モジュールの有効性が検証されている。</p></section>
+<section class="secsum"><h3>1 Related Work</h3><p>MAPF（Multi-Agent Path Finding）の研究は、グラフ探索、最適化、学習ベースの3つの主要なアプローチに分類される。グラフ探索ベースの手法（CBSやMCTSなど）は、狭い通路などの制約が強い環境で強力な衝突回避能力を持つが、エージェント数や計画深度の増加に伴い計算コストが急増する課題がある。最適化ベースの手法は、進化計算と局所探索を組み合わせることで大規模な多目的TSP問題等に有効であるが、静的なルーティングを主眼としており、分散型の協調や動的な障害物回避には直接対応していない。深層強化学習（DRL）を用いた学習ベースの手法は、QMIXやMADDPGのようなCTDE（Centralized Training, Decentralized Execution）フレームワークにより協調性を高めているが、固定されたウェイポイントや単純な通信トポロジーに依存することが多く、動的な不確実性への適応性や情報共有の効率性に限界がある。</p></section>
+<section class="secsum"><h3>ARTICLE IN PRESS</h3><p>本セクションでは、マルチエージェント経路計画（MAPF）における通信メカニズムと時空間予測の現状と課題が整理されている。既存の通信手法は、全結合や固定近傍構造による静的トポロジー、距離やイベントに基づく動的トポロジー、そしてCommNetやDIAL、Attention機構を用いた学習ベースの手法に分類されるが、通信オーバーヘッド、柔軟性の欠如、計算複雑性、あるいは帯域幅制約への対応といった課題が指摘されている。時空間予測に関しては、RNN、LSTM、GNN、Transformer、およびKAN-LSTMなどのモデルが、エージェントの意図や局所的な混雑などの複雑な依存関係を捉えるために用いられている。しかし、従来の予測手法の多くは予測精度の向上を主目的とした独立したモジュールであり、予測された未来の動きを分散型経路計画や衝突回避のための効果的な意思決定信号へと変換するプロセスや、センシングノイズや遅延に伴う予測の不確実性への対応が不十分である。これに対し、提案手法であるMA-DyRoLTは、リアルタイムな分散実行を実現するため、軽量なTransformerベースの時系列エンコーダと補助的な歩行者軌道予測ヘッドを採用しており、予測モジュールを強化学習の目的関数と共同最適化することで、予測情報をリスク認識型ポリシーの向上に直接活用する設計となっている。</p></section>
+<section class="secsum"><h3>ARTICLE IN PRESS</h3><p>予測された将来の状態は、予測に基づくリスクペナルティへと変換され、エージェントが非協力的な動的障害物との潜在的な衝突を事前に回避することを促す。</p></section>
+<section class="secsum"><h3>2 Problem Formulation</h3><p>本研究では、MAPF（Multi-Agent Path Finding）を $H \times W$ の2次元格子世界における問題として定義しており、エージェント集合 $A = \{a_1, a_2, \dots, a_N\}$ の各エージェント $a_i$ は、初期位置 $s_i$ から目標位置 $g_i$ へ至る経路 $\pi_i = \{p_i(0), p_i(1), \dots, p_i(T_i)\}$ を計画する。経路の制約として、任意の時刻 $t$ において、エージェント間の衝突回避 $p_i(t) \neq p_j(t) \, (i \neq j)$、障害物 $O(t)$ との衝突回避 $p_i(t) \neq o_k(t)$、および環境の動的な変化に適応するためのリアルタイムな経路調整の3点が課される。最適化の目的は、タスク完了効率の最大化、経路コストの最小化、および衝突リスクの低減である。また、本手法は有限ホライゾン・マルコフ決定過程 (MDP) $(S, U, P, r, \gamma, T)$ に基づいており、方策 $\pi: S \to \Delta(U)$ を用いて、割引累積報酬 $\mathbb{E}_{\pi, P} \left[ \sum_{t=0}^{T-1} \gamma^t r(s_t, u_t) \right]$ を最大化することを目指す。</p></section>
+<section class="secsum"><h3>3 Algorithm Design</h3><p>MA-DyRoLTは、動的なウェイポイント生成と学習可能な通信トポロジーを核とし、複雑な動的環境下でのマルチエージェント間の効率的な協調と衝突回避を実現する手法である。環境の動態に対する認識力を高めるため、Transformerベースの時系列エンコーダを導入して時間的依存関係と文脈情報を捉えるほか、歩行者の軌跡予測に基づく損失関数と予測ベースのリスクペナルティ機構を組み込むことで、非協力的な動的障害物に対する意思決定の安全性と堅牢性を向上させている。動的ウェイポイント生成メカニズムは、リアルタイムの環境情報に基づいてナビゲーションのサブゴールを適応的に生成することで、グローバルなナビゲーション目標とローカルな障害物回避要件の調整を可能にする。これにより、急速に変化する動的情報や環境の不確実性に対処し、マルチエージェントシステムの協調性を維持しつつ、動的障害物との相互作用における安全性を大幅に改善している。</p></section>
+<section class="secsum"><h3>ARTICLE IN PRESS</h3><p>本セクションでは、エージェントの経路生成の基礎となる環境の開放度評価と動的ウェイポイント生成モデルが提案されている。エージェント $a_i$ の時刻 $t$ における局所観測を $N \times N$ のグリッド $G_i(t)$ と定義し、各セルを自由空間（0）、静止障害物（1）、他エージェント（2）、歩行者（3）、境界（4）の5つの状態に分類する。環境の開放度 $S_i(t)$ は、エージェントを中心とした4つのセクター（上下左右）に対し、各セクター内のセルの半分以上が自由空間である場合に指示関数 $I(s)=1$ を割り当てることで、$S_i(t) = \sum_{k=1}^{4} I(s)$ として $0$ から $4$ の範囲で算出される。動的ウェイポイント $w_i(t)$ は、現在位置 $p_i(t)$、目標方向への単位ベクトル $d_i^{\text{goal}}(t) = \frac{p_i^{\text{goal}}(t) - p_i(t)}{\|p_i^{\text{goal}}(t) - p_i(t)\|}$、および開放度 $S_i(t)$ を用いて、$w_i(t) = p_i(t) + k \cdot S_i(t) \cdot d_i^{\text{goal}}(t)$ という式で生成される。ここで $k$ はステップ長を調整する距離スケーリング係数であり、このモデルはセンサーからのリアルタイムデータを活用して、環境のナビゲーション可能性に基づいたウェイポイントの決定を可能にしている。</p></section>
+<section class="secsum"><h3>ARTICLE IN PRESS</h3><p>提案手法は、動的なウェイポイント生成と学習可能な通信トポロジーを組み合わせたマルチエージェント経路計画法である。ウェイポイントは、前方領域の開放度を示す $S_i(t)$ に応じて生成距離を調整することで適応性を確保し、目標方向ベクトル $\mathbf{d}_i^{\text{goal}}(t)$ を組み込むことで目標指向性を維持する。通信トポロジーは時間依存の隣接行列 $\mathbf{A}(t)$ で表され、目標方向の類似度 $S_{\text{dir}}(i, j) = \mathbf{d}_i^{\text{goal}}(t) \cdot \mathbf{d}_j^{\text{goal}}(t)$ と、最大通信範囲 $R_{\max}$ で正規化されたマンハッタン距離 $\bar{D}_{\text{pos}}(i, j) = \min \left( \frac{\|\mathbf{p}_i(t) - \mathbf{p}_j(t)\|_1}{R_{\max}}, 1 \right)$ に基づき、通信確立確率 $P_{ij}(t) = \sigma(\alpha S_{\text{dir}}(i, j) + \beta(1 - \bar{D}_{\text{pos}}(i, j)))$ を用いて決定される。エッジの生成条件は $P_{ij}(t) &gt; \tau$ かつ $\|\mathbf{p}_i(t) - \mathbf{p}_j(t)\|_1 \leq R_{\max}$ であり、トポロジー制御パラメータ $\alpha, \beta, \tau$ は、MAPPOの目的関数に従って方策と同時に学習される。具体的には、各エージェントのアクションを $\mathbf{u}_i(t) = (\mathbf{u}_{\text{move}}^i(t), \Delta\alpha_i(t), \Delta\beta_i(t), \Delta\tau_i(t))$ と拡張することで、空間的に近く、かつ移動意図が類似したエージェント間での適応的な通信を可能にしている。</p></section>
+<section class="secsum"><h3>ARTICLE IN PRESS</h3><p>MA-DyRoLTは、タスク報酬を通じてトポロジーをエンドツーエンドで学習する手法であり、各エージェントの調整信号 $\Delta\alpha_i(t), \Delta\beta_i(t), \Delta\tau_i(t)$ を全エージェントで平均化し、所定の範囲内にクリッピングすることで一貫したグローバルなトポロジー規則を維持する。具体的には、パラメータ $\alpha, \beta, \tau$ の更新において、更新率 $\rho_\alpha, \rho_\beta, \rho_\tau$ を用いて $\alpha \leftarrow \text{clip}(\alpha + \rho_\alpha \frac{1}{N} \sum_{i} \Delta\alpha_i, 0, \alpha_{\max})$ 等の式に基づき更新が行われる。過剰な通信を防ぐため、報酬関数には通信コストのペナルティ $R_{\text{comm}}(t) = -\lambda \sum_{i=1}^{N} \sum_{j=1}^{N} A_{ij}(t)$ が導入されており、係数 $\lambda$ によって調整された疎で効果的な通信構造の学習を促す。分散実行時において、各エージェントはローカルな観測グリッド全体を放送するのではなく、選択された隣接エージェントに対してコンパクトな状態および意図情報のみを送信するため、通信要件とスケーラビリティが考慮されている。</p></section>
+<section class="secsum"><h3>ARTICLE IN PRESS</h3><p>MA-DyRoLTでは、通信帯域を削減するために、エージェント $a_i$ の位置 $p_i(t)$、速度 $v_i(t)$、目標方向ベクトル $d_i^{\text{goal}}(t)$、動的ウェイポイント $w_i(t)$、および符号化された時間特徴 $h_i(t)$ からなるコンパクトなメッセージ $m_i(t) = h(p_i(t), v_i(t), d_i^{\text{goal}}(t), w_i(t), h_i(t))$ を定義している。通信トポロジーの構築において、全対全の通信 $O(N^2)$ を避け、通信範囲 $R_{\max}$ 内の近傍 $K$ を対象とする、あるいは $K_{\max}$ 個の近傍を選択する戦略 $\mathcal{N}_i(t) = \text{TopK}_j(P_j(t), K_{\max})$ を用いることで、計算コストと通信帯域を $O(NK)$ および $O(NKd_m)$ に抑え、エージェント数に対して線形に近いスケーラビリティを実現している。また、動的な環境における時間的依存性を捉えるため、過去 $L$ ステップの観測シーケンス $\mathcal{O}_i(t) = [o_i(t-L+1), \dots, o_i(t)]$ を入力とするTransformerベースの時間エンコーダを導入している。このエンコーダは、共有埋め込み層で次元 $d_{\text{model}}$ に投影されたシーケンスに対し、Multi-Head Self-Attention (MHSA) と Position-wise Feed-Forward Network (FFN) を備えた $N$ 層のスタック構造を用いて、文脈依存的な表現 $H_i(t)$ を抽出する。最終的に、最新時刻の符号化表現 $h_i(t)$ をActorのポリシーネットワークへ入力することで、非協力的な動的障害物を含む環境の進化を考慮した意思決定を可能にしている。</p></section>
+<section class="secsum"><h3>ARTICLE IN PRESS</h3><p>MA-DyRoLTは、Transformerエンコーダの出力に基づき、観測範囲内の歩行者 $P_j$ の将来の軌跡 $\hat{p}_j(t+1), \dots, \hat{p}_j(t+T_{\text{pred}})$ を予測する軽量な予測ヘッドを備えたモジュール式フレームワークである。学習時には、予測精度を向上させ歩行者の運動パターンを抽出するために、平均二乗誤差（MSE）を用いた補助損失関数 $L_{\text{pred}} = \sum_{j \in \text{observed pedestrians}} \sum_{k=1}^{T_{\text{pred}}} \|\hat{p}_j(t+k) - p_j(t+k)\|^2$ がメインの強化学習目的関数と共同で最適化される。本手法の特徴は、実際の衝突が発生する前に潜在的な衝突を回避する「予測に基づくリスクペナルティ」を報酬関数に導入している点にあり、エージェント $a_i$ と歩行者 $P_j$ の予測される最小距離 $D_{\min}(a_i, P_j, t) = \min_{1 \le k \le T_{\text{pred}}} \|\hat{p}_i(t+k) - \hat{p}_j(t+k)\|$ が安全距離の閾値 $C_{\text{safe}}$ を下回る場合に、リスクペナルティ $R_i^r(t) = -\eta \sum_{j \in \mathcal{P}_i(t)} \max(0, C_{\text{safe}} - D_{\min}(a_i, P_j, t))$ を課す。このメカニズムにより、MAPPOの学習を通じて、エージェントは回避行動（迂回、譲り、減速、待機など）を能動的に選択するリスク認識型の意思決定を学習する。ただし、現在の設計は計算効率とリアルタイムの分散実行を優先して決定論的な予測軌跡に基づいているため、センシングノイズや歩行者の急な挙動変化などの不確実性には対応しておらず、将来的に不確実性を考慮した確率的なリスク推定への拡張の余地が残されている。</p></section>
+<section class="secsum"><h3>ARTICLE IN PRESS</h3><p>MA-DyRoLTは、動的なウェイポイント生成と学習可能な通信トポロジーを基盤とし、Transformerベースの時系列エンコーダ、歩行者の軌跡予測支援損失、および予測に基づくリスクペナルティを統合したマルチエージェント経路計画フレームワークである。Actorネットワークは、Transformerによってエンコードされた文脈依存的な特徴量 $h_i(t)$ を入力として受け取り、行動分布 $\pi_{\theta_i}(u_i(t) | h_i(t))$ と、次ステップ以降の歩行者の予測軌跡 $\hat{P}_j(t+1 : t+T_{\text{pred}})$ を出力する。各エージェントの局所状態 $s_i(t)$ は、自己の状態（目標位置との相対差 $p_{\text{goal},i} - p_i(t)$、速度 $v_i(t)$、動的ウェイポイント $w_i(t)$）、局所環境（グリッド $G_i(t)$）、協力・相互作用情報（近傍エージェント $a_j \in \mathcal{N}_i(t)$ の相対位置・速度および通信パラメータ $(\alpha, \beta, \tau)$）、および非協力的な歩行者情報から構成される。報酬関数は、タスク完了 $R_i^{\text{goal}(t)}$、衝突回避 $R_i^{\text{collision}(t)}$、時間効率 $R_i^{\text{time}(t)}$、ウェイポイント追従 $R_i^{w(t)}$、通信コスト $R_i^{\text{comm}(t)}$、および予測に基づくリスクペナルティ $R_i^{r(t)}$ の総和 $r_{\text{total},i}(t) = R_i^{\text{goal}(t)} + R_i^{\text{collision}(t)} + R_i^{\text{time}(t)} + R_i^{w(t)} + R_i^{\text{comm}(t)} + R_i^{r(t)}$ として定義され、不確実な予測下での過信を防ぐソフトな安全制約として機能する。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-04
+  </footer>
+</div>
+</body>
+</html>
