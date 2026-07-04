@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Continuous-Space Roadmap Generation for Mobile Robot Fleets with Distance Constraints and Geometry-Aware Discretization | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Continuous-Space Roadmap Generation for Mobile Robot Fleets with Distance Constraints and Geometry-Aware Discretization</h1>
+  <div class="meta">Marvin Rüdt, Constantin Enke, Kai Furmans<br>採択先: 未取得 ・ 2025-11-10 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2511.07175v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2511.07175v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-11-10</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPDにおけるロードマップ生成の課題に対し、幾何学的制約と輸送需要を統合した具体的かつ新規性の高い手法を提案しており、実験による検証も極めて詳細である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 移動ロボットフリートの効率的なルーティングのため、幾何学的忠実度と距離制約を両立した連続空間ロードマップ生成手法を提案する。ステーションや凸コーナー点へのノード配置、局所的なグリッド拡張、およびロボットの寸法に基づく最小距離制約を組み合わせることで、高密度なフリートでも干渉を防ぎつつ、高い冗長性と幾何学的最適性を備えたグラフを生成する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、移動ロボットフリートの運用において、経路の冗長性（代替経路の確保）とグラフの複雑性（計算コスト）のトレードオフを最適化する連続空間ロードマップ生成を目的としている。従来のグリッドベース手法は、マンハッタン距離に起因する幾何学的限界や狭い通路での接続性低下という課題があった。また、既存の連続空間手法であるGSRM等は、幾何学的忠実度は高いものの、ロボットの占有による相互干渉を防ぐための距離制約や、特定の輸送需要を考慮できていない。本手法は、幾何学認識型の離散化戦略と輸送需要に基づく枝刈りを導入することで、これらの課題を解決する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>提案手法は、幾何学的な精度とロボットの物理的制約を統合した新しいロードマップ生成フレームワークを提供する。具体的には、ステーションの相互作用点や自由空間の凸コーナー点を利用したノード配置、およびロボットの半径 $R$ や幅 $w$ に基づくノード間・ノード・エッジ間の最小距離制約の定式化を実現した。また、輸送需要行列 $D \in \mathbb{R}^{N \times N}$ を用いた最短経路プルーニングにより、グラフの複雑性を抑えつつ高い冗長性を維持する手法を提案している。評価の結果、GSRMやグリッドベース、ランダムサンプリングと比較して、同等の複雑度において高いスループット、高い冗長性、および短い経路長を達成した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>ロードマップ生成は、(i) 離散化、(ii) エッジ構築、(iii) 枝刈りの3段階で行われる。離散化では、相互作用点集合 $\mathcal{P}$ と距離制約 $d_{min}$ を満たす凸コーナーノードを配置し、グリッド間隔 $\Delta = \frac{d_{min}}{\sqrt{2}}$ で局所グリッドを拡張して自由空間 $\mathcal{F}$ を被覆する。エッジ構築にはDelaunay三角形分割を用い、エッジが $\mathcal{F}$ 内に存在し、かつ端点以外の全ノードに対して $d_{min}$ の制約を満たすもののみを採用する。枝刈り工程では、拡張Yenの $k$-shortest pathアルゴリズムを用い、各経路発見後にエッジコストを $\alpha$ 倍するペナルティを課すことで多様性を確保する。最後に、抽出された集合に対して再度Delaunay三角形分割を行うポストプロセッシングを適用する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>3つのイントラロジスティクス環境（Env. 1, 2, 3）において、MAPD（Multi-Agent Path Finding with Delivery）シミュレーションを用いて評価を行った。比較対象はGSRM、8-connected Grid、Random Samplingとし、ソルバーにはPIBTおよびspace-time $A^*$ を使用した。物理時間は $T = \frac{d}{v} + w \cdot \bar{e}$ として算出され、提案手法は平均エッジ長が長い（$1.1\text{--}1.5\text{ m}$）ため、保守的な設定となっている。実験の結果、Env. 2のフリートサイズ $N=100$ において、提案手法は $10.5$ tasks/sを記録し、GSRM（$4.5$ tasks/s）やグリッド（$3.5$ tasks/s）を大幅に上回るスケーラビリティを示した。また、正規化平均最短経路長においても、Env. 1で $1.03$ という幾何学的最適値に近い値を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、同等のロードマップ複雑度において、高いステーション間接続性と幾何学的最適性を両立できることが示された。プルーニング分析によれば、Env. 1においてノード・エッジ数を $50\% \sim 70\%$ 削減しても、低・中密度環境ではスループットへの影響を $10\%$ 未満に抑えられることが確認された。しかし、高密度環境では構造的なコンパクトさとルーティングの柔軟性の間にトレードオフが生じる。今後の課題として、高密度時の混雑を緩和するためのトラフィックゾーン概念の導入や、異なるMAPDソルバーを用いたプルーニング戦略の比較、および実機への適用が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Continuous-Space Roadmap Generation for Mobile Robot Fleets with Distance Constraints and Geometry-Aware Discretization</h3><p>本研究は、移動ロボットフリートの効率的なルーティングのために、幾何学的忠実度と距離制約を両立させた連続空間ロードマップ生成手法を提案している。提案手法では、自由空間の凸コーナー点およびステーションとの相互作用点にノードを配置し、局所的なグリッド拡張によって自由空間を離散化することで、幾何学的な精度を確保している。また、ロボットの寸法に基づいたノード間およびノード・エッジ間の最小距離制約を課し、輸送需要に基づいた最短経路プルーニングを適用することで、冗長性と経路効率を最適化している。3つのイントラロジスティクス環境における評価では、Priority Inheritance with Backtracking (PIBT) を用いた際、提案手法は GSRM に対して最大フリートサイズで $15\%$、8接続グリッドに対して少なくとも $10\%$、ランダムサンプリングに対しては $20\%$ 以上、すべての環境で優れた性能を示した。さらに、本手法は $1.05$ という最適に近い正規化経路長を達成し、同等のロードマップ複雑度において最も高いステーション間接続性を実現している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究は、移動ロボットフリートの効率的な運用を実現するために、冗長性（代替経路の確保）と複雑性（計算コストに影響するノード・エッジ数）のトレードオフを最適化する、連続空間における自動ロードマップ生成手法を提案している。従来のグリッドベースの手法は、空間解像度の制約により、狭い通路での接続性低下や、ユークリッド距離よりも長いマンハッタン距離に基づく経路生成といった幾何学的な限界があった。一方で、既存の連続空間手法（GSRM等）は幾何学的な忠実度は高いものの、ロボットの占有による相互干渉を防ぐためのノード間・ノード・エッジ間の最小距離制約や、特定の輸送需要（ステーション位置等）を考慮できていないという課題がある。提案手法は、ステーションの相互作用点や凸コーナー点、局所的なグリッド拡張を取り入れた幾何学認識型の自由空間離散化戦略を用い、輸送需要に基づいた最短経路の枝刈りを行うことで、グラフの複雑性を抑えつつ高い冗長性を維持する。さらに、ロボットの寸法から導出される最小距離制約を明示的に定式化・適用することで、高密度なフリートにおいてもロボット同士が互いに妨げ合うことなく、同時に隣接するロードマップ要素を占有できることを保証している。マルチエージェント・ピックアップ＆デリバリー（MAPD）シミュレーションを用いた評価では、提案手法はGSRMやグリッドベース、ランダムサンプリングといった既存のベースラインと比較して、同等の構造的複雑性を保ちながら、より高いスループット、高い冗長性、およびより短い経路長を実現することが示されている。</p></section>
+<section class="secsum"><h3>II Problem Formulation</h3><p>本手法は、連続的な2次元空間における多角形オブジェクト（境界、障害物、ステーション）から構成される環境に対し、ロボットの物理的寸法と輸送需要に基づいた連続空間ロードマップを生成する。ロボットの構成空間における自由空間 $\mathcal{C}_{free}$ は、障害物空間 $\mathcal{C}_{obs}$ を除いた集合であり、幾何学的オブジェクトを回転半径 $r$ と安全距離 $s$ を用いて拡張することで、衝突のない配置 $\mathcal{C}_{free} = \mathcal{C} \setminus \mathcal{C}_{obs}$ を定義する。生成されるロードマップは、エッジの交差による未知の相互作用を防ぐために平面グラフ $G = (V, E)$ として構成され、隣接する要素間でのロボットの干渉を防ぐため、ノード間の最小距離 $d_{min}^{node}$ とノード・エッジ間の最小距離 $d_{min}^{node\text{-}edge}$ の2つの制約が課される。具体的には、ロボットの半径を $R$、幅を $w$ とすると、ノード間制約は $d_{min}^{node}$、ノード・エッジ間制約は $d_{min}^{node\text{-}edge}$ となり、これらはロボットの占有領域（半径 $R$ の円または幅 $w$ のコリドー）が重ならないように設定される。輸送需要は、ステーション間のタスク数を表す行列 $D \in \mathbb{R}^{N \times N}$ で定義され、この行列のスパース性や需要の大きさは、保持される $k$-最短経路の数やロードマップの冗長性に影響を与える。</p></section>
+<section class="secsum"><h3>III Automated Roadmap Generation</h3><p>提案手法は、(i) 自由空間の離散化、(ii) エッジの構築、(iii) 輸送需要に基づく枝刈りの3段階でロードマップを生成する。離散化では、まず相互作用点集合 $\mathcal{P}$ と、距離制約 $d_{min}$ を満たす凸コーナーノードを配置し、その後、既存ノードから局所グリッドを反復的に拡張して $\mathcal{F}$ を密に被覆する。グリッド間隔 $\Delta$ は、対角エッジに対する隣接ノードの垂直距離が $d_{min}$ 以上となるよう $\Delta = \frac{d_{min}}{\sqrt{2}}$ と定義される。エッジ構築にはDelaunay三角形分割を用い、エッジが自由空間 $\mathcal{F}$ 内に存在し、かつ端点以外の全ノードに対して距離制約 $d_{min}$ を満たす場合にのみ採用される。枝刈り工程では、拡張Yenの $k$-shortest pathアルゴリズムを用い、輸送需要 $\mathcal{D}$ に基づいて経路を抽出する。この際、経路の多様性を確保するため、各経路発見後にエッジコストを $\alpha$ 倍するペナルティを課し、最終的に抽出されたノード・エッジ集合 $\mathcal{V}_{red}, \mathcal{E}_{red}$ に対して再度Delaunay三角形分割を行うポストプロセッシングにより、ルーティングの柔軟性を回復させている。</p></section>
+<section class="secsum"><h3>IV Evaluation Methodology</h3><p>本セクションでは、提案手法の有効性を検証するための実験設定が詳述されている。評価は、小規模なEnv. 1、中規模なEnv. 2、大規模なEnv. 3の3つのイントラロジスティクス環境を用い、MAPD（Multi-Agent Path Finding with Delivery）シミュレーションに基づくスループットを主指標、グラフ理論的指標を補完的な構造解析として用いる。比較対象のベースラインとして、Gray-Scott反応拡散系に基づくGSRM、等間隔格子状の8-connected Grid、および制約を満たすRandom Samplingの3手法が設定されており、これらは提案手法と同一のエッジ構築および枝刈りプロセスを適用される。スループット評価には、高密度環境に適したPIBT（Priority Inheritance with Backtracking）と、連続時間空間探索に基づくspace-time A*の2種類のソルバーが使用され、物理時間は $T = \frac{d}{v} + w \cdot \bar{e}$ （$d$は移動距離、$v$は速度、$w$は待機ステップ数、$\bar{e}$は平均エッジ長）として算出される。提案手法は平均エッジ長がベースラインより長い（$1.1\text{--}1.5\text{ m}$ vs $0.5\text{--}0.8\text{ m}$）ため、待機による時間ペナルティが大きくなる保守的な評価設定となっている。また、グラフの構造特性として、ノード・エッジ数、接続性（冗長性）、および可視グラフの最短経路に対する正規化平均最短経路長（幾何学的最適性を示す指標）が算出される。</p></section>
+<section class="secsum"><h3>V Results and Evaluation</h3><p>提案手法は、PIBTおよびspace-time $A^*$ソルバーを用いたMAPDシミュレーションにおいて、全環境および全フリートサイズでGSRM、グリッド、ランダムサンプリングを上回るスループットを達成した。Env. 2では、提案手法はフリートサイズ $N=100$ において $10.5$ tasks/sを記録し、GSRMを $4.5$ tasks/s、グリッドを $3.5$ tasks/s、ランダムサンプリングを $5.0$ tasks/s上回る高いスケーラビリティを示したが、これは幾何学を考慮したノード配置と高い駅間接続性（Env. 2では平均ノード接続性が $10.5$、エッジ接続性が $15.0$）に起因する。グラフ理論的指標では、提案手法は全ての環境で正規化平均最短経路長を最小化しており、Env. 1では幾何学的最適値 $1.0$ に近い $1.03$ を達成し、グリッドやGSRMが受ける最大 $1.4$ 程度のペナルティを回避している。ノード数は式 (2) の最小ノード間距離制約により各手法で同程度に抑えられているが、提案手法は幾何学的なノード配置によりエッジ数が最も多く、高い冗長性と接続性を確保している。プルーニング（枝刈り）分析では、Env. 1でノード・エッジ数を $50\% \sim 70\%$ 削減しても、低・中密度ではスループットへの影響を $10\%$ 未満に抑えられる一方、高密度では構造的なコンパクトさとルーティングの柔軟性のトレードオフが生じることが示された。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究は、移動ロボットフリートのルーティングに向けた、連続空間におけるロードマップ生成手法を提案している。この手法は、ステーションの相互作用点や自由空間の凸コーナー点にノードを配置し、局所的なグリッド拡張によってカバレッジを広げるとともに、ロボットの寸法に由来するノード間およびノード・エッジ間の最小距離制約を適用する。さらに、輸送需要に基づいた最短経路プルーニングを行うことで、ルーティングの冗長性を維持しつつグラフの複雑さを削減している。3つのイントラロジスティクス環境における評価では、PIBTを用いた場合にEnv. 1でGSRMを上回り、Env. 2では全ベースラインに対して少なくとも $15\%$ のスループット向上を示し、Env. 3でもGSRMより高い性能を達成した。Space-time $A^*$ ソルバーによる検証でも、Env. 1, 2, 3においてそれぞれ少なくとも $13\%, 15\%, 11\%$ のマージンで性能向上が確認されている。グラフ理論的解析により、同等のロードマップ複雑度において、高いステーション間接続性と $\approx 1.0$ に近い正規化経路長を実現していることが示された。今後の課題として、高密度時の混雑を緩和するトラフィックゾーン概念の導入や、異なるMAPDソルバーを用いたプルーニング戦略の比較、実機への適用が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-05
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>What Survives Into Context: A Diagnostic for Budget-Constrained Multi-Hop RAG and When Submodular Evidence Packing Improves It | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>What Survives Into Context: A Diagnostic for Budget-Constrained Multi-Hop RAG and When Submodular Evidence Packing Improves It</h1>
+  <div class="meta">Ananto Nayan Bala<br>採択先: 未取得 ・ 2026-07-01 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.00725v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.00725v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの評価指標に「answer-in-context」という新たな診断的視点を導入した点が非常に新規性が高い。劣モジュラ最適化を用いた手法も具体的で、モデル規模による限界まで詳細に検証されており、実用的な示唆に富む。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 予算制約のあるマルチホップRAGにおいて、従来の検索指標である $\text{recall}$ ではなく、パッキングされたコンテキスト内に正解スパンが残存しているかを測定する $\text{answer-in-context}$ 指標を提案する。コンテキスト構築を予算制約付き単調劣モジュラ最大化問題として定式化する手法により、HotpotQAの160トークン予算・3Bモデル設定において、既存手法を上回る $F1$ スコアの向上を達成するが、その優位性はリーダーのモデル規模や予算、データの構造に強く依存する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、限られたコンテキスト予算を持つマルチホップRAGにおいて、検索されたドキュメントが実際にリーダー（LLM）に提示されるコンテキスト内に正解情報として生存しているかを評価する。従来の $\text{recall}@k$ は、検索された集合には正解が含まれていても、パッキング工程で情報が欠落する問題を捉えられない。著者らは、正規化された正解 $a^*$ がコンテキスト $C$ の連続するトークン部分列として存在するかを示す $\text{answer-in-context}$ という診断指標を導入した。HotpotQAを用いた検証では、この指標が $\text{recall}$ よりも $F1$ スコアを精度良く予測し、正解の質を約5倍の幅で識別できることを示した。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、検索性能と回答精度の乖離を説明する新しい診断指標 $\text{answer-in-context}$ を提案した。第二に、関連性、クエリ・カバレッジ、代表性、多様性を同時に最適化する、予算制約付き単調劣モジュラ最大化に基づく証拠パッキング手法を構築した。第三に、提案手法が有効に機能するための4つの境界条件（マルチホップ構造、証拠の検索成功、適度な予算、低読解能力のリーダー）を特定した。これにより、パッキングが単なる冗長性削減ではなく、補完的な証拠を組み立てるプロセスであることを明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>コンテキスト構築を、スニペットの集合 $\mathcal{S}$ をスニペット数上限 $K$ および予算 $B$ の制約下で最大化する問題として定式化する。目的関数は $f(\mathcal{S}) = \text{Rel}(\mathcal{S}) + \lambda_1 \text{QueryCov}(\mathcal{S}) + \lambda_2 \text{Repr}(\mathcal{S}) + \lambda_3 \text{Div}(\mathcal{S})$ で定義される。ここで $\text{Rel}$ は語彙的関連度、$\text{QueryCov}$ はクエリ内容の集合被覆、$\text{Repr}$ は施設配置問題形式の代表性、$\text{Div}$ はソース間の分散を促す多様性を表す。最適化には、各ステップで「トークンあたりの限界利得」を最大化するコスト調整済み貪欲法を用い、さらに Lin–Bilmes 型の単一スニペット・フォールバックを適用する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>HotpotQA（500問）を用い、bge-small-en-v1.5 をリトリーバー、Qwen2.5-3B-Instruct をリーダーとし、160トークンの予算制約下で実験を行った。結果、提案手法 `chunk_submod` は $\text{submod} &gt; \text{focused} &gt; \text{packed} &gt; \text{MMR}$ の性能順序を示し、既存の MMR や単純なパッキングに対し、同等以下のコストで最大 $1.0$ ポイントの $F1$ 向上を達成した。性能向上の 81% は、パッカーが新たに gold answer をコンテキスト内に配置できた 37 問に起因する。一方で、リーダーの規模を 7B, 14B と拡大させると、提案手法の利点は消失し、14B では focused heuristic に逆転されることが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法の有効性は、リーダーの能力がボトルネックとなり、かつ証拠の密度が重要となる特定の条件下に限定される。具体的には、マルチホップの補完的構造が必要であり、リトリーバーが証拠を提示可能で、予算が極端に少なくない（160トークン付近でピーク）場合にのみ、focused heuristic に対する優位性が発揮される。また、グラフ構造で既に圧縮を行う ACE に対しては、パッキングは性能を低下させるため、両者は代替関係にある。今後の課題として、ExpertQA のような自由形式の回答に対する意味的な $\text{answer-in-context}$ 指標の検討や、より大規模なモデルへの汎用性の検証が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>What Survives Into Context: A Diagnostic for Budget-Constrained Multi-Hop RAG and When Submodular Evidence Packing Impro</h3><p>固定されたリーダー・コンテキストの予算制約下にあるマルチホップRAGにおいて、従来のドキュメント・リコールは最適化すべき指標として不適切であることを指摘し、新たに $\text{answer-in-context}$ という診断指標を提案している。この指標は、検索された集合ではなく、パッキングされたコンテキスト内に正解（gold answer）が連続したスパンとして生存しているかを測定するもので、HotpotQAにおいて $\text{answer-in-context}$ は $\text{recall}$ よりも $\text{F1}$ スコアを精度良く予測し、正解の質を約5倍の幅で識別できる。著者らは、コンテキスト構築を予算制約付き単調劣モジュラ最大化問題として定式化し、関連性、クエリ・カバレッジ、代表性、多様性を同時に最適化するパッカーを構築した。HotpotQAの160トークン予算・3Bモデルの設定において、提案手法はMMRや単純なパッキングに対し、同等以下のトークンコストで最大 $1.0$ ポイントの $\text{F1}$ 向上を達成した。ただし、この優位性は「マルチホップの補完的構造」「証拠の検索成功」「適度な予算」「証拠密度がボトルネックとなる程度の読解能力の低さ」という条件が揃った場合に限定され、リーダーの規模が7Bから14Bへと拡大すると、提案手法の利点は消失し、むしろ逆転することが示されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、限られたコンテキスト予算を持つマルチホップRAGにおいて、従来の検索指標である $\text{recall}@k$ と、実際にリーダーが消費するコンテキストの内容との乖離を指摘している。著者らは、パックされたコンテキスト内に正解がそのまま含まれているかを示す「$\text{answer-in-context}$」という指標を定義し、これが従来の $\text{recall}$ よりも回答の $F1$ スコアを精度良く予測することを示す。手法として、コンテキスト構築を「予算制約付き単調劣モジュラ最大化（budgeted monotone submodular maximization）」として定式化し、HotpotQAにおいて、ヒューリスティックなパッキングやMMR、単純な連結よりも優れた性能を達成することを確認している。実験では、RAGBenchやMuSiQueを用い、原理的なパッキングがヒューリスティックを上回るための4つの条件を特定するとともに、リーダーのモデル規模（3B, 7B, 14B）による影響を調査し、14B規模ではパッキングの利点が消失することなどの限界を明らかにしている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>本研究は、Retrieval-Augmented Generation (RAG) において、コンテキストの構築を単なる上位 $k$ 個の連結（top-concatenation）として扱う既存研究とは異なり、予算制約下でパッキングされたコンテキストが実際に何を含んでいるかという「answer-in-context」の量に着目している。Multi-hop QA（HotpotQA, MuSiQue等）の文脈では、検索精度の向上ではなく、補完的な証拠がコンテキスト内に提示されているか否かを検証するためにこれらのデータセットを利用する。コンテキスト選択の手法として、冗長性を考慮した既存の Maximal Marginal Relevance (MMR) をベースラインとし、さらに RECOMP や LLMLingua などの圧縮・フィルタリング手法と比較するが、本手法の目的関数は明示的かつ測定可能な「answer-density」に紐付けられている点が異なる。また、抽出型要約で用いられるコストスケール・貪欲アルゴリズム（cost-scaled greedy algorithm）に基づく劣モジュラ最適化の枠組みを RAG の証拠パッキングに適用している。実験設定では、MTEB や BEIR で評価される bi-encoder をリトリーバーとして用い、リーダーには 4-bit NF4 量子化を施した instruction-tuned LLM を使用する。評価指標については、従来の EM/F1 や faithfulness、context relevance とは別に、パッキングされたコンテキストが最終的なタスク品質を予測する上で recall に対して増分妥当性（incremental validity）を持つことを示す「answer-in-context」を導入している。</p></section>
+<section class="secsum"><h3>3 The Answer-in-Context Diagnostic</h3><p>本セクションでは、予算制約下でのマルチホップRAGにおいて、検索された文書がパッキング（コンテキストへの詰め込み）工程を経て最終的なコンテキスト $C$ に残るかを評価する指標「answer-in-context」を定義している。これは、正規化された正解 $a^*$ が $C$ の連続するトークン部分列として存在するか否かを示す指標であり、抽出型リーダーの正解に不可欠な条件となる。HotpotQAを用いた実験では、answer-in-context は recall@$k$ よりも F1 スコアの強力な予測因子であり、recall が高いにもかかわらず回答精度が低下する「低リコール・高精度」のパラドックスを、パッキング工程での情報の欠落として説明できる。また、recall@5 が 1 である（すべての正解文書が検索されている）条件下でも、パッキングによって回答がコンテキストから脱落するケースが 27% 存在することを示し、本指標が検索性能ではなくパッキング工程を独立して測定していることを証明している。2WikiMultiHopQA に対する介入実験では、サブモジュラ・パッカーが gold-doc coverage を向上させても answer-in-context や F1 が向上しないケースが確認され、精度向上には単なる正解文書の含有量ではなく、回答文字列がコンテキスト内に維持されることが決定的な媒介変数であることが示された。ただし、ExpertQA のような自由形式の回答（正解が逐語的でない場合）に対しては、本指標は退化するため、意味的な変種が必要であるという限界も指摘されている。</p></section>
+<section class="secsum"><h3>4 Method: Budgeted Submodular Evidence Packing</h3><p>本手法は、クエリに対する検索済み証拠と読者トークン予算 $B$ が与えられた際、スニペットの集合 $\mathcal{S}$ を、スニペット数上限 $K$ および予算 $B$ の制約下で、目的関数 $f(\mathcal{S}) = \text{Rel}(\mathcal{S}) + \lambda_1 \text{QueryCov}(\mathcal{S}) + \lambda_2 \text{Repr}(\mathcal{S}) + \lambda_3 \text{Div}(\mathcal{S})$ を最大化するように選択する。各項は単調かつ劣モジュラであり、$\text{Rel}$ は語彙的関連度、$\text{QueryCov}$ はクエリ内容の集合被覆、$\text{Repr}$ は重複を抑制しつつ候補の質量をカバーする施設配置問題形式の項、$\text{Div}$ はソース間の分散を促す凹関数項として定義される。最適化アルゴリズムには、各ステップで「トークンあたりの限界利得」が最大となるスニペットを追加するコスト調整済み貪欲法を用い、さらに単一スニペットの利得が集合の利得を上回る場合に備えて Lin–Bilmes 型の単一スニペット・フォールバックを適用する。評価においては、候補集合を共通化することで選択ルールのみを分離し、関連度順の $\text{Naive packed}$、予算制約を考慮せず利得を長さで正規化しない $\text{Focused heuristic}$、および $\text{MMR}$ をベースラインとして、チャンク形式および ACE グラフ構造の証拠に対して比較を行う。</p></section>
+<section class="secsum"><h3>5 Results: The HotpotQA Win</h3><p>HotpotQA（500問）を用いた実験では、bge-small-en-v1.5（320次元）とQwen2.5-3B-Instructを用い、160トークンの予算制約下で評価を行った。結果として、提案手法である `chunk_submod` は、すべてのシードにおいて、より少ないトークン数で既存の固定ポリシーを上回る性能を示し、性能順序は $\text{submod} &gt; \text{focused} &gt; \text{packed} &gt; \text{MMR}$ となった。特に、汎用的な冗長性削減である MMR は focused なヒューリスティックよりも有意に劣っており、網羅性・代表性・多様性を統合した目的関数のみが有効であることが示された。メカニズムの分析では、`submod` による focused との F1 スコアの差の 81% が、packer が新たに gold answer をコンテキスト内に配置できた 37 問に起因しており、これは単なるトークン密度の向上ではなく、コンテキストに到達する gold documents の数を 256 から 289 へと増やしたことによる補完的なカバレッジの向上によるものである。一方で、グラフレベルで既に圧縮・重複除去を行う ACE に対しては、packer は逆に性能を低下させる（$\text{ace\_submod}$ vs. $\text{ace\_focused}$ の F1 差）ため、ACE と submodular packing は部分的な代替関係にある。なお、per-question oracle は best fixed policy に対して F1 で $91.3\%$ の headroom を持つが、残りの差は推論時に観測不可能な「コンテキスト内への回答の有無」に依存する。</p></section>
+<section class="secsum"><h3>6 When Does Principled Packing Help? A Scope Map</h3><p>Submodular evidence packingがfocused heuristic（特定の情報を優先する手法）に対して優位性を示すには、4つの条件が同時に満たされる必要がある。第1に、マルチホップ構造を持つ補完的なデータ構造が必要であり、単一パスのRAGBench（CovidQA, ExpertQA）では効果が見られない。第2に、リトリーバーが証拠を提示できる必要があるが、MuSiQueのようにリトリーバーが質的にボトルネックとなり、検索深度を増やしてもall-gold@5が改善しない状況では、パッカーは証拠を組み立てられない。第3に、予算（budget）は「拘束されているが極端ではない」範囲である必要があり、HotpotQAの実験では、予算が少なすぎると補完的な情報が入らず、多すぎるとheuristicが追いつくため、優位性は予算160付近で逆U字型のピークを示す。第4に、リーダー（LLM）がボトルネックである必要があり、Qwen2.5のスケール実験では、3Bモデルではsubmodが優位だが、7Bで差が消失し、14Bではfocused heuristicがsubmodを上回る（$F1$の逆転）ことが示された。結論として、submodは常にnaive packingよりは優れているが、taskの構造、リトリーバーの質、予算、およびリーダーの能力という4つの条件が揃ったHotpotQA（budget 160, 3B reader）のような限定的な条件下でのみ、focused heuristicに対する明確な優位性を発揮する。</p></section>
+<section class="secsum"><h3>7 Discussion</h3><p>本研究では、予算制約下でのマルチホップRAGにおいて、単なる検索性能（Recall）ではなく、回答がコンテキスト内に残存するかを評価する「Answer-in-context」という指標の重要性を論じている。サブモジュラ関数を用いたパッキング手法が有効な理由は、単なる重複排除ではなく、被覆率（coverage）、代表性（representativeness）、多様性（diversity）の目的関数によって補完的なマルチホップ証拠を組み立てる点にあり、利得の81%は回答が新たにコンテキストに含まれるようになったケースに起因する。実験の結果、パッキングはチャンク分割には寄与するものの、ACE（Adaptive Context Extraction）には寄与しないことが示され、これはグラフ圧縮がパッカーが利用する冗長性を既に除去しているためである。本手法の適用限界については、14Bパラメータ規模のモデルではパッキングのコストが利得を上回り始めることが示されており、小規模で効率的なリーダーかつ厳しい予算制約下にある場合にのみ、単純なヒューリスティックよりも優先されるべきであると結論付けている。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>本研究の主要な成果は HotpotQA データセットの特定の予算設定において示されたものであり、他のデータセットを用いた実験は設計上、負の結果や境界条件を示すものに留まっている。評価モデルは Qwen2.5 ファミリーの 3B/7B/14B および bge-small-en エンベッダーに限定されており、異なるモデルファミリーやより大規模な 32B 以上のリーダー、あるいは指示チューニングされたリトリーバーに対する汎用性は未検証である。実験設定において、予算 160 を除く一部のスイープ（予算 96/128/224 や MuSiQue）は単一のシードで行われている。評価指標については、ExpertQA のような自由形式の回答に対しては span-based な Answer-in-context は不適切であり、意味的・含意的なバリアントが必要となる。また、ACE グラフの構築はヒューリスティックに基づいているため、「パッキングがグラフ圧縮の代わりとなる」という解釈には注意が必要である。最後に、本研究では EM/F1 およびコンテキストの特性を測定しているが、回答の忠実性（attribution faithfulness）については評価対象外としており、今後の課題となっている。</p></section>
+<section class="secsum"><h3>8 Conclusion</h3><p>予算制約のあるマルチホップRAGにおけるボトルネックは、正解ドキュメントの検索数ではなく、それらがリーダーのコンテキストに詰め込まれた際に回答に必要な情報が維持されるかどうかに依存することを明らかにした。本研究では、検索リコールよりも回答精度を正確に予測する診断指標として $\text{answer-in-context}$ を提案し、2Wikiを用いた介入実験により、カバレッジが変化しても $\text{answer-in-context}$ が変化しない限り精度が停滞することを確認した。手法として、補完的なマルチホップ証拠を構成する予算制約付き劣モジュラ証拠パッカー（submodular evidence packer）を導入し、HotpotQAにおいて3Bのリーダーを用いた際に、同等以下のトークンコストで回答品質を大幅かつ堅牢に向上させることを示した。この手法の有効性は、リーダーの規模（3B, 7B, 14B）に依存する条件を特定しており、7Bでは既存のヒューリスティックとの差が吸収されるものの、14Bでは逆転する傾向がある一方で、パッカーのメカニズム自体は維持される。結論として、本研究は、リーダーの能力ではなく証拠の詰め込みがボトルネックとなる、予算制約下のマルチホップQAにおいて、メカニズムに基づいた条件付きの改善手法を提示している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-05
+  </footer>
+</div>
+</body>
+</html>

@@ -731,6 +731,65 @@
       "url": "http://arxiv.org/abs/2606.31200v1",
       "venue": ""
     },
+    "arxiv:2607.00725": {
+      "added": "2026-07-05",
+      "arxiv_id": "2607.00725",
+      "authors": [
+        "Ananto Nayan Bala"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-01",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.00725.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.00725v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの評価指標に「answer-in-context」という新たな診断的視点を導入した点が非常に新規性が高い。劣モジュラ最適化を用いた手法も具体的で、モデル規模による限界まで詳細に検証されており、実用的な示唆に富む。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "What Survives Into Context: A Diagnostic for Budget-Constrained Multi-Hop RAG and When Submodular Evidence Packing Improves It",
+      "tldr": "予算制約のあるマルチホップRAGにおいて、従来の検索指標である $\\text{recall}$ ではなく、パッキングされたコンテキスト内に正解スパンが残存しているかを測定する $\\text{answer-in-context}$ 指標を提案する。コンテキスト構築を予算制約付き単調劣モジュラ最大化問題として定式化する手法により、HotpotQAの160トークン予算・3Bモデル設定において、既存手法を上回る $F1$ スコアの向上を達成するが、その優位性はリーダーのモデル規模や予算、データの構造に強く依存する。",
+      "url": "http://arxiv.org/abs/2607.00725v1",
+      "venue": ""
+    },
+    "arxiv:2607.00972": {
+      "added": "2026-07-05",
+      "arxiv_id": "2607.00972",
+      "authors": [
+        "Louis Donaldson",
+        "Connor Walker",
+        "Koorosh Aslansefat",
+        "Yiannis Papadopoulos"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-01",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.00972.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.00972v1",
+      "reading_value": 3,
+      "reading_value_reason": "Agentic RAGの信頼性評価にベイズネットワークを用いる着眼点は新規性があり、不確実性の伝播をモデル化する手法も具体的。ただし、概念実証段階であり、評価も限定的。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Bayesian Uncertainty Propagation for Agentic RAG Pipelines: A Proof-of-Concept Study on Multi-Hop Question Answering",
+      "tldr": "Agentic RAGパイプラインにおいて、Planner、Evaluator、Generatorの各段階から得られる不確実性信号をベイズネットワーク（BN）を通じて伝播させ、システム全体の信頼度を推定する軽量なモニタリングフレームワークを提案する。マルチホップ推論が必要なHotpotQAでは、不確実性の蓄積をモデル化することで高い識別能と選択的予測性能を示すが、単純なタスクでは過大評価の傾向がある。",
+      "url": "http://arxiv.org/abs/2607.00972v1",
+      "venue": ""
+    },
     "arxiv:2607.01852": {
       "added": "2026-07-04",
       "arxiv_id": "2607.01852",
@@ -1459,6 +1518,37 @@
       "url": "http://arxiv.org/abs/2501.02803v1",
       "venue": ""
     },
+    "arxiv:2505.22753": {
+      "added": "2026-07-05",
+      "arxiv_id": "2505.22753",
+      "authors": [
+        "Arseniy Pertzovsky",
+        "Roni Stern",
+        "Ariel Felner",
+        "Roie Zivan"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-05-28",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2505.22753.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2505.22753v1",
+      "reading_value": 4,
+      "reading_value_reason": "LMAPFにおけるスループットを最大7倍向上させた点は非常に強力な成果であり、既存の離散的なMAPFアルゴリズムに連続空間のAPFを統合するアプローチも新規性と実用性が高い。",
+      "relevance": 2,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Enhancing Lifelong Multi-Agent Path-finding by Using Artificial Potential Fields",
+      "tldr": "Lifelong Multi-Agent Path-finding (LMAPF) における混雑問題を解決するため、人工ポテンシャル場 (APF) を既存の経路計画アルゴリズム（$\\text{TA}^*$, $\\text{SIPPS}$, $\\text{PIBT}$, $\\text{LaCAM}$）に統合する手法を提案している。実験の結果、単発の MAPF では顕著な効果は見られなかったものの、継続的なタスクが発生する LMAPF においては、システム全体の総スループットを最大で 7 倍向上させるという極めて高い成果を達成した。",
+      "url": "http://arxiv.org/abs/2505.22753v1",
+      "venue": ""
+    },
     "arxiv:2508.05890": {
       "added": "2026-07-01",
       "arxiv_id": "2508.05890",
@@ -1547,6 +1637,36 @@
       "source_quality": "fulltext",
       "title": "Graph Attention-Guided Search for Dense Multi-Agent Pathfinding",
       "tldr": "高密度なマルチエージェント経路探索（MAPF）において、グラフアテンションを用いたニューラル方策 $\\text{MAGAT}^+$ を探索アルゴリズム $\\text{LaCAM}$ に統合したハイブリッドフレームワーク $\\text{LaGAT}$ を提案する。事前学習とマップ特化型の微調整、およびデッドロック検出メカニズムを組み合わせることで、既存の探索ベース手法や学習ベース手法のパレート境界を突破し、高密度環境における解の質とリアルタイム性能を向上させている。"
+    },
+    "arxiv:2511.07175": {
+      "added": "2026-07-05",
+      "arxiv_id": "2511.07175",
+      "authors": [
+        "Marvin Rüdt",
+        "Constantin Enke",
+        "Kai Furmans"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-11-10",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2511.07175.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2511.07175v2",
+      "reading_value": 4,
+      "reading_value_reason": "MAPDにおけるロードマップ生成の課題に対し、幾何学的制約と輸送需要を統合した具体的かつ新規性の高い手法を提案しており、実験による検証も極めて詳細である。",
+      "relevance": 2,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Continuous-Space Roadmap Generation for Mobile Robot Fleets with Distance Constraints and Geometry-Aware Discretization",
+      "tldr": "移動ロボットフリートの効率的なルーティングのため、幾何学的忠実度と距離制約を両立した連続空間ロードマップ生成手法を提案する。ステーションや凸コーナー点へのノード配置、局所的なグリッド拡張、およびロボットの寸法に基づく最小距離制約を組み合わせることで、高密度なフリートでも干渉を防ぎつつ、高い冗長性と幾何学的最適性を備えたグラフを生成する。",
+      "url": "http://arxiv.org/abs/2511.07175v2",
+      "venue": ""
     },
     "arxiv:2601.08214": {
       "added": "2026-06-30",

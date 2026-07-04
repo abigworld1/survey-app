@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Bayesian Uncertainty Propagation for Agentic RAG Pipelines: A Proof-of-Concept Study on Multi-Hop Question Answering | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Bayesian Uncertainty Propagation for Agentic RAG Pipelines: A Proof-of-Concept Study on Multi-Hop Question Answering</h1>
+  <div class="meta">Louis Donaldson, Connor Walker, Koorosh Aslansefat, Yiannis Papadopoulos<br>採択先: 未取得 ・ 2026-07-01 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.00972v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.00972v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">Agentic RAGの信頼性評価にベイズネットワークを用いる着眼点は新規性があり、不確実性の伝播をモデル化する手法も具体的。ただし、概念実証段階であり、評価も限定的。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> Agentic RAGパイプラインにおいて、Planner、Evaluator、Generatorの各段階から得られる不確実性信号をベイズネットワーク（BN）を通じて伝播させ、システム全体の信頼度を推定する軽量なモニタリングフレームワークを提案する。マルチホップ推論が必要なHotpotQAでは、不確実性の蓄積をモデル化することで高い識別能と選択的予測性能を示すが、単純なタスクでは過大評価の傾向がある。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、逐次的な推論を行うAgentic RAG（Retrieval-Augmented Generation）システムにおいて、各エージェントの推論段階で発生する不確実性がどのようにシステム全体の信頼性に影響するかを明示的にモデル化することを目的としている。従来の単一ノードの評価ではなく、Planner、Evaluator、Generatorといった各コンポーネントが生成する補完的な不確実性信号を統合するアーキテクチャを構築している。具体的には、部分観測マルコフ決定過程（POMDP）の概念に基づき、ノードレベルの不確実性をシステム全体の解釈可能な信頼度へと結合する。評価対象として、マルチホップ推論を必要とするStrategyQAおよびHotpotQAの2つのベンチマークを用いている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、Agentic RAGのワークフロー全体における不確実性の蓄積を定量化するための、ベイズネットワークを用いた伝播モデルを導入した点にある。これにより、どの推論段階がシステム全体の失敗に最も寄与しているかを特定することが可能となる。実験を通じて、推論の複雑さが増すほど、個別のノード信号を統合するベイズ的なアプローチが有効であることを示した。また、Wasserstein距離を用いた意味的逸脱（Semantic Divergence）とトークンレベルのエントロピー、Generatorの自己評価を組み合わせた、多角的な不確実性指標の統合手法を提示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、各ノードの不確実性を算出するために複数の指標を用いる。まず、トークンレベルのエントロピー $\mathcal{H}_{token} = -\frac{1}{L} \sum_{t=1}^{L} \log P(x_t | x_{&lt;t})$ を計算し、正規化された対数確率として利用する。次に、決定された出力分布と再サンプリングされた分布間のワッサースタイン距離を埋め込み空間上で算出することで、固有不確実性（IU）を推定する。これらの信号を、Planner $\mathcal{T}_{pl}$、Evaluator $\mathcal{T}_{ev}$、Generator $\mathcal{T}_{ge}$ 等のノードからなるベイズネットワーク（BN）に投入する。BNの構造において、最終的な判定ノード（Overall）は決定論的なORゲートとしてモデル化されており、いずれかのノードが閾値 $0.5$ を超える不確実性（FAIL）を示した場合、システム全体をFAILと判定する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>GPT-3.5-TurboおよびGPT-4.1-Nanoを用い、ReAct手法に基づくパイプラインで評価を行った。実験設定では、Planner/Generatorのtemperatureを0.2、Evaluatorを0.8とし、各ステップのサンプル数 $n=10$ とした。評価指標にはAUROC、AUARC、ECE（Expected Calibration Error）、Brier Scoreを用いた。結果として、HotpotQAではOverall BNがUPropのベースラインに匹敵するAUROCを示し、AUARCにおいても最高値を記録するなど、複雑な推論において高い有効性が確認された。一方でStrategyQAでは、不確実性の過大評価や、信頼性の低い上流ノードの信号が全体の性能を低下させる現象が観察された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、不確実性が蓄積するマルチホップ推論において極めて有望であるが、いくつかの限界も明らかになった。現在の決定論的なORゲートモデルは、失敗確率を過大評価する保守的な挙動を示すため、安全性が重視される産業用途には適している可能性があるが、精度面での課題も残る。また、Generatorの自己評価 $P(\text{True})$ が系統的な保守性を持つ点や、ノードごとの信頼性の違いを動的に適応できない点が挙げられる。今後の改善策として、学習可能な抑制パラメータを持つNoisy-ORモデルの導入や、Isotonic Regressionによる事後較正が提案されている。将来的には、洋上風力発電（OSW）の保守意思決定支援などの、より実用的な産業ドメインでの検証が期待される。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Bayesian Uncertainty Propagation for Agentic RAG Pipelines: A Proof-of-Concept Study on Multi-Hop Question Answering</h3><p>本研究は、マルチステップの推論を行うAgentic RAGシステムの信頼性を確保するため、Planner、Evaluator、Generatorの各段階から得られる不確実性信号をベイズネットワーク（BN）を通じて伝播させ、システム全体の不確実性と失敗の潜在的なノードを推定するフレームワークを提案している。各段階の信号は、意味的な乖離（semantic divergence）およびGeneratorによる自己評価から導出され、これらをBNで統合することで、ワークフロー全体における不確実性の蓄積をモデル化する。評価実験はStrategyQAおよびHotpotQAデータセットを用い、GPT-3.5-TurboおよびGPT-4.1-Nanoをモデルとして、AUROC、AUARC、ECE、Brier Scoreを用いて識別能、選択的予測、および較正性を検証している。結果として、マルチホップ推論の過程で不確実性が蓄積するHotpotQAにおいてベイズ伝播がより効果的であることが示された一方、StrategyQAでは較正の不備や上流信号の信頼性不足による限界が露呈した。本研究は、Agentic RAGのモニタリング手法としてベイズ不確実性伝播の有望性を示す予備的な検討であり、今後は洋上風力発電（OSW）の保守意思決定支援などの産業ドメインでの検証が課題である。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、Agentic RAG（Retrieval-Augmented Generation）パイプラインにおいて、計画、検索、評価といった逐次的な推論段階を通じて不確実性がどのように伝播するかを明示的にモデル化することを目的としている。提案手法は、Planner、Evaluator、Generatorの各エージェントが生成する補完的な不確実性信号を統合する、軽量な不確実性認識モニタリングアーキテクチャである。具体的には、ノードレベルの不確実性推定値を、システム全体の解釈可能な信頼度推定値へと結合するためにベイズネットワーク（BN）を用いた伝播モデルを導入しており、どの推論段階がシステム全体の不確実性に最も寄与しているかを特定することが可能である。本研究では、StrategyQAおよびHotpotQAのマルチホップ質問回答ベンチマークを用い、GPT-3.5-TurboおよびGPT-4.1-Nanoを用いた概念実証的な評価を行っている。評価指標には、AUROC（Area Under the Receiver Operating Characteristic Curve）、AUARC（Area Under the Accuracy-Rejection Curve）、ECE（Expected Calibration Error）、およびBrier Scoreが用いられ、ベイズ不確実性伝播の有効性と限界が検証されている。</p></section>
+<section class="secsum"><h3>2 Methodology on Uncertainty Quantification</h3><p>本手法は、Agentic RAGパイプラインを部分観測マルコフ決定過程（POMDP）としてモデル化し、ベイズネットワーク（BN）を用いて不確実性の伝播を定量化する。不確実性の指標として、まずトークンレベルのエントロピー（Naive Entropy）を用い、生成されたシーケンスの長さ $L$ に対して正規化された対数確率 $\mathcal{H}_{token} = -\frac{1}{L} \sum_{t=1}^{L} \log P(x_t | x_{&lt;t})$ を計算し、これをBNの事前確率をパラメータ化するための局所的な信頼度推定値として利用する。次に、反復的な検索プロセスにおける「意味的逸脱（Semantic Divergence）」を導入しており、これはUPropフレームワークの概念を拡張したもので、決定された出力分布と再サンプリングされた出力分布の間のワッサースタイン距離を、埋め込み空間上の投影を用いて算出することで、各ノードにおける固有不確実性（IU）を推定する。BNの構造において、ワークフローの各段階（Planner $\mathcal{T}_{pl}$、Evaluator $\mathcal{T}_{ev}$、Generator $\mathcal{T}_{ge}$ 等）はノードとして定義され、各ノードの不確実性状態は条件付き確率表（CPT）を通じて伝播される。本研究では、最終的な判定ノード（Overall）のCPTを決定論的なORゲートとしてモデル化しており、パイプライン内のいずれかのノードが閾値 $0.5$ を超える不確実性（FAIL）を示した場合、全体の出力もFAILとなる。この簡略化されたモデルにより、Agentic RAGにおける不確実性の蓄積がハルシネーションやコンファブレーションの検出に有効であるかを検証している。</p></section>
+<section class="secsum"><h3>3 Experiments &amp; Results</h3><p>本研究では、StrategyQAおよびHotpotQAの2つのマルチホップ推論ベンチマークを用い、ReAct手法に基づくエージェント型RAGパイプラインにおけるベイズ不確実性伝播の有効性を評価している。実験設定では、GPT-3.5-TurboおよびGPT-4.1-Nanoを使用し、Planner/Generatorのtemperatureを0.2、Evaluatorを0.8に設定、各ステップのサンプル数 $n=10$ とした。AUROCの結果、StrategyQAではGeneratorが最も強い不確実性信号を示す一方、HotpotQAでは全ノードがランダム以上の識別能を持ち、Overall BNがUPropのベースラインに匹敵する性能を示すことから、推論の複雑さが増すほどベイズ的な不確実性の統合が有効であることが示された。AUARCによる選択的予測の評価では、HotpotQAにおいてOverall BNが最高値を示し、複数ステージにわたる不確実性の結合が複雑な推論において重要であることが示唆された。較正性能については、ECEおよびBrier Scoreの分析から、StrategyQAではOverall BNが失敗確率を過大評価する傾向がある一方、HotpotQAではタスクの難易度が不確実性推定とより良く一致し、確率的な精度が大幅に向上することが確認された。</p></section>
+<section class="secsum"><h3>4 Evaluation</h3><p>本評価実験では、Bayesian Network (BN) による不確実性の伝播が、タスクの複雑性と各ノードの信頼性に依存することを示している。HotpotQAのような複数段階の推論を要する複雑なタスクでは、BNは個々のパイプラインノードよりも優れた性能を示し、不確実性が蓄積する過程で伝播させることに高い価値があることが確認された。一方で、StrategyQAのような比較的単純なタスクでは、PlannerやEvaluatorといった信頼性の低いノードの信号が、決定論的なORゲートによってGeneratorの信号と同等に扱われることで、全体の予測性能を低下させる現象が見られた。また、識別性能（Discrimination）と較正性能（Calibration）の間にはトレードオフが存在し、現在の決定論的ORゲートは失敗確率を過大評価する保守的な挙動を示すが、これは安全性が重視される産業用途には適している可能性がある。本手法の限界として、ノードごとの信頼性に適応できない点、Generatorの自己評価信号 $P(\text{True})$ が系統的な保守性を持つ点、およびWikipediaを用いた環境が特定の産業ドメイン（OSWメンテナンス等）とは異なる点が挙げられており、改善策として学習可能な抑制パラメータを持つNoisy-ORモデルの導入や、Isotonic Regression等による事後較正が提案されている。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>本研究では、Wasserstein意味的ダイバージェンスと $P(\text{True})$ 自己評価から導出されるノードごとの不確実性信号をベイジアンネットワーク（BN）を通じて伝播させ、システム全体の信頼度を推定する軽量な不確実性認識型Agentic RAGフレームワークを提案した。StrategyQAおよびHotpotQAベンチマークを用いたGPT-3.5-TurboとGPT-4.1-Nanoによる評価では、AUROC、AUARC、ECE、Brier Scoreを用いて性能を検証しており、不確実性が複数の推論段階を経て蓄積される真のマルチホップ推論タスクにおいて、ベイジアン不確実性伝播が最も効果的であることを示した。実験結果によれば、Generatorノードの $P(\text{True})$ 自己評価が最も強力な個別の不確実性信号を提供する一方で、パイプラインの各段階の不確実性を組み合わせることで、より困難なベンチマークにおける全体的な性能が向上することが確認された。本手法の限界として、決定論的なORゲートの使用、保守的な $P(\text{True})$ キャリブレーション、および産業用データではなく汎用的な質問応答ベンチマークでの評価に留まっている点が挙げられる。今後の展望として、適応的なベイジアン構造の検討、キャリブレーション技術の改善、およびOSWメンテナンス意思決定支援シナリオを含むドメイン特化型の検索コーパスを用いた検証が予定されている。</p></section>
+<section class="secsum"><h3>Data and Code Availability</h3><p>本研究で使用されたデータセットはすべて公開されており、研究の再現性を確保するために、Agentic RAGパイプライン、ベイズネットワークの推論スクリプト、および評価用ノートブックを含むすべてのコードが GitHub（https://github.com/LouisDonaldson/BN-Uncertainty-Propagation.git）にて公開されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-05
+  </footer>
+</div>
+</body>
+</html>
