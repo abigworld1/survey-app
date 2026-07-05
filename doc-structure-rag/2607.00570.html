@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Dual-Confidence Contrastive Decoding for Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Dual-Confidence Contrastive Decoding for Retrieval-Augmented Generation</h1>
+  <div class="meta">Raymond Li, Md Tawkat Islam Khondaker, Amirhossein Abaskohi, Gabriel Murray, Giuseppe Carenini, Issam H. Laradji<br>採択先: 未取得 ・ 2026-07-01 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.00570v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.00570v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGにおけるドキュメント間の矛盾解決という実用的な課題に対し、学習不要なデコーディング手法を提案しており、新規性と有用性が高い。新ベンチマークDRQAによる検証も具体的である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチドキュメントRAGにおいて、検索された情報源間の矛盾（intra-context conflict）を解決するため、ドキュメントレベルの信頼度とトークンレベルの信頼度の二重の信号を利用する学習不要なデコーディング手法「Dual-Confidence Contrastive Decoding (DCCD)」を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、検索拡張生成（RAG）において、複数の検索ドキュメント間に存在する誤情報、古い情報、あるいはノイズといった矛盾（intra-context conflict）を解決することを目的としている。従来のRAGでは、モデルの内部知識と検索された証拠が衝突した場合に誤った回答を生成する課題があった。これに対し、本研究では企業におけるディープリサーチ・シナリオを模した、事実矛盾を含むQAベンチマーク「DRQA」を新たに導入している。DRQAは、正解、誤情報、時間的矛盾、ノイズの4種類のドキュメントタイプで構成され、モデルが検索された証拠に基づき適切に推論できるかを評価する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>提案手法であるDCCDは、既存のDynamic Contrastive Decoding (DVD) がドキュメントレベルの支持とトークンレベルの生成確信度を区別できていない点を改善している。具体的には、ドキュメントが質問への回答に十分であるかを推定する「ドキュメントレベルの信頼度」と、次トークンの予測分布の鋭さを推定する「トークンレベルの信頼度」を統合した。実験の結果、DCCDはDRQAおよび標準的なマルチドキュメントQAベンチマーク（NQ, TriviaQA, PopQA, TrievalQA）において、フルコンテキスト生成や既存のコントラスティブ・デコーディング手法を上回る最高平均性能を達成した。特に、誤情報やノイズを含むDRQAにおいて顕著な改善を示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>DCCDは、二重の信頼度スコア $s(i,t) = q_i + c(i,t)$ を用いて、最も信頼性の高いドキュメントの情報を増幅し、低いものを抑制する。ドキュメントレベルの信頼度 $q_i$ は、サポートプロンプト $\pi^{\text{sup}}(x, d_i)$ に対する「yes」の確率として計算される。トークンレベルの信頼度 $c(i,t)$ は、Dirichlet不確実性フレームワークに基づき、上位 $k$ 個のロジット $z_{i,t}$ から定義される濃度パラメータ $\alpha(i,t,v) = \text{softplus}(z_{i,t}[v]) + 1$ を用いて、期待エントロピー $H_k(z_{i,t})$ から $c(i,t) = 1 - H_k(z_{i,t})$ として算出される。デコーディングの各ステップにおいて、スコアが最大となるドキュメント $i^+_t$ と最小となる $i^-_t$ を選択し、マージン $\epsilon_t = s(i^+_t, t) - s(i^-_t, t)$ を用いて、次トークンのロジットを $z_t = z^{\text{full}}_t + \epsilon_t (z_{i^+_t} - z_{i^-_t})$ と更新する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Qwen3.5-2B/9BおよびPhi-3-mediumを用いた実験により、DCCDの有効性を検証している。DRQA、NQ、TriviaQA、PopQA、TrievalQAの各データセットにおいて、DCCDはCADやDVDなどの既存手法を上回る性能を示した。アブレーション研究では、ドキュメントレベルの信頼度がコンテキスト内の矛盾解決の主要信号であり、トークンレベルの信頼度がディストラクターが多い状況での補完信号として機能することが示された。また、検索範囲が拡大（@5から@10）した際に、ドキュメントレベルの信頼度のみを用いる「Doc-Only」設定では性能が低下する傾向があるが、DCCDは適応的なゲート機構により頑健な性能を維持した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>DCCDは、ドキュメントの十分性を一度のフォワードパスで評価する一方で、トークンレベルの信頼度は各ステップで再計算するため、検索されたドキュメント数に対して計算コストが線形に増加するという限界がある。しかし、ドキュメント条件付きフォワードパスのバッチ化や状態のキャッシュ、あるいは重要なデコードステップへの限定適用により、実行時のオーバーヘッドを削減できる可能性がある。また、DRQAは合成された企業スタイルドキュメントに基づいているため、長文レポート生成やマルチモーダル理解、ツール利用などは現在の評価範囲外である。本手法は、RAGシステムが競合する証拠から信頼できるものを識別するための強力な枠組みを提供する。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>本文 (1/8)</h3><p>本研究は、マルチドキュメントRAGにおいて、検索された複数の情報源間に存在する矛盾（intra-context conflict）を解決するための、学習不要なデコーディング手法であるDual-Confidence Contrastive Decoding (DCCD) を提案している。DCCDは、ドキュメントが質問への回答に十分であるかを推定する「ドキュメントレベルの信頼度」と、次トークンの予測分布の鋭さを推定する「トークンレベルの信頼度」という2つの補完的な信号を利用する。具体的には、正負のドキュメント条件付きストリームを選択し、それらの信頼度の差（confidence margin）によってコントラスティブ項をスケーリングすることで、信頼性の高い証拠を増幅し、矛盾する情報を抑制する。評価のために、企業におけるディープリサーチ・シナリオから派生した、誤情報や古い情報を含む事実矛盾QAベンチマークであるDRQAを導入している。実験の結果、DCCDはDRQAおよび標準的なマルチドキュメントQAベンチマークにおいて、フルコンテキストおよび既存のコントラスティブ・デコーディングのベースラインを上回る最高平均性能を達成し、特にDRQAにおいて最大の改善を示した。</p></section>
+<section class="secsum"><h3>本文 (2/8)</h3><p>本研究では、企業特有の知識や内部的に矛盾する情報を含むマルチドキュメントQAに対応するため、新たなベンチマークであるDRQAを提案している。DRQAはDRBenchを基に構築され、企業プロファイルやユーザーペルソナに基づく合成事実を用い、正解・時間的誤情報・ノイズを含むドキュメント群から適切な根拠を特定させることで、モデルの内部知識に頼らずに検索された証拠に基づいた推論ができるかを評価する。提案手法であるDual-Confidence Contrastive Decoding (DCCD) は、既存のDynamic Contrastive Decoding (DVD) がドキュメントレベルの支持とトークンレベルの生成確信度を区別していない点を改善しており、これら両方の確信度をコントラスティブなデコーディングプロセスに統合する。トークンレベルの確信度は、Dirichlet不確実性フレームワークに基づき、上位 $k$ 個のロジットをDirichlet集中パラメータに写像して期待エントロピーを計算することで推定される。また、ドキュメントレベルの確信度は、検索された証拠が質問に答えるのに十分であるかを評価するコンテキスト充足度（context-sufficiency）の概念を補完するものである。</p></section>
+<section class="secsum"><h3>本文 (3/8)</h3><p>DRBenchデータセットは、組織の内部知見をQAペアに変換し、正解（correct）、誤情報（misinformation）、時間的矛盾（temporal）、ノイズ（noise）の4種類のドキュメントタイプで構成される。誤情報ドキュメントは、正解と事実に即しながらも異なる内容を生成し、チャットの曖昧な表現などの形式特有の不確実性マーカーを付与することで、モデルが検索結果の矛盾を解決する能力を評価する設定となっている。提案手法であるDual-Confidence Contrastive Decoding (DCCD) は、ドキュメントレベルの信頼度とトークンレベルの信頼度の両方を利用する。トークンレベルの信頼度算出では、Dirichlet不確実性の枠組みに基づき、各ドキュメント条件付きの生成ストリームにおける上位 $k$ 個のロジット $z_{i,t}$ を用いて、濃度パラメータ $\alpha(i,t,v) = \text{softplus}(z_{i,t}[v]) + 1$ を定義する。これにより、各ドキュメント $d_i$ に対して、上位 $k$ 個のトークン集合 $\mathcal{T}(i,t)$ に基づく $\alpha$ の総和 $S(i,t) = \sum_{v \in \mathcal{T}(i,t)} \alpha(i,t,v)$ を用いて、軽量かつ学習不要な信頼度推定を行う。</p></section>
+<section class="secsum"><h3>本文 (4/8)</h3><p>Dual-Confidence Contrastive Decoding (DCCD)は、検索拡張生成（RAG）において、ドキュメントレベルの信頼度 $q_i$ とトークンレベルの信頼度 $c(i,t)$ を組み合わせた二重の信頼度スコア $s(i,t) = q_i + c(i,t)$ を用いて、最も信頼度の高いドキュメントの情報を増幅し、低いものを抑制する手法である。ドキュメントレベルの信頼度 $q_i$ は、サポートプロンプト $\pi^{\text{sup}}(x, d_i)$ に対する「yes」の確率として計算され、トークンレベルの信頼度 $c(i,t)$ は、ディリクレ事後分布に基づくエントロピー $H_k(z_{i,t})$ を用いて $c(i,t) = 1 - H_k(z_{i,t})$ と定義される。デコーディングの各ステップにおいて、スコアが最大となるドキュメント $i^+_t$ と最小となる $i^-_t$ を選択し、マージン $\epsilon_t = s(i^+_t, t) - s(i^-_t, t)$ を用いて、次トークンのロジットを $z_t = z^{\text{full}}_t + \epsilon_t (z_{i^+_t} - z_{i^-_t})$ と更新する。実験では、DRQA、NQ、TriviaQA、PopQA、TrievalQAのデータセットを用い、Qwen3.5やPhi-3などのモデルで評価を行った結果、DCCDはCADやDVDなどの既存のコントラスティブ・デコーディング手法を上回り、特にDRQAのLLM-as-a-judge評価やNQの精度において優れた性能を示した。本手法は、ドキュメントの十分性を事前に一度のフォワードパスで評価する一方で、トークンレベルの信頼度は各ステップで再計算することで、局所的な生成の明瞭さを捉える設計となっている。</p></section>
+<section class="secsum"><h3>本文 (5/8)</h3><p>DCCD（Dual-Confidence Contrastive Decoding）は、ドキュメントレベルとトークンレベルの両方の信頼度を用いて、生成時に正解候補と対照的な負例ソースを選択する、学習不要のデコーディング手法である。Qwen3.5-2B/9BおよびPhi-3-mediumを用いた実験では、DCCDはほぼ全てのデータセットとモデルサイズにおいて最高の平均性能を達成し、特にノイズや誤情報を含むDRQAにおいて顕著な改善が見られた。アブレーション研究（Table 2）により、ドキュメントレベルの信頼度はコンテキスト内の矛盾を解決する主要な信号として機能し、トークンレベルの信頼度は、検索されたドキュメント群がディストラクター（妨害要素）で満たされる状況において補完的な信号として機能することが示された。具体的には、ドキュメントレベルの信頼度のみを用いる「Doc-Only」設定は、検索範囲が広がる（@5から@10へ）につれて性能が低下する傾向がある。一方で、適応的なゲート機構を用いるDCCDは、固定ゲート（$\epsilon_t = 1.0$）を用いる手法よりも多くのデータセットで頑健な性能を示した。本手法の限界として、デコーディングの各ステップで全コンテキストのロジットおよびドキュメント条件付きロジットを必要とするため、検索されたドキュメント数に対して計算コストが線形に増加する推論コストの増大が挙げられる。</p></section>
+<section class="secsum"><h3>本文 (6/8)</h3><p>提案手法であるDCCDは、DVDと同等の計算量を持つが、ドキュメント条件付きのフォワードパスのバッチ化や状態のキャッシュ、あるいは回答に重要なデコードステップへの限定適用により、実行時のオーバーヘッドを削減できる可能性がある。本研究で提案するベンチマークDRQAは、内部メモリでは回答不能で検索された証拠から回復する必要がある、企業向けマルチドキュメントQAにおける検索に基づく知識競合の解決を評価するために設計されている。DRQAは、テキスト表現化された企業ドキュメントに対するファクトイド形式の質問回答に焦点を当てており、長文レポート生成やマルチモーダル理解、ツール利用などは現在の範囲外である。DRQAは合成された企業スタイルのドキュメントから構築されており、意図的に生成された誤情報や古い証拠を含むため、事実に基づく知識源としてではなく、RAGシステムが競合する証拠から信頼できるものを識別できるかを評価するための研究用として意図されている。</p></section>
+<section class="secsum"><h3>本文 (7/8)</h3><p>提供されたテキストは、論文の参考文献リスト（References）であり、提案手法や実験結果に関する具体的な記述は含まれていません。このセクションには、Retrieval-Augmented Generation (RAG) における知識の競合、不確実性推定、およびContrastive Decodingに関連する先行研究（例：Lewis et al., 2020; Li et al., 2023; Wang et al., 2025a, 2025b）が列挙されています。具体的には、SentencePieceによるサブワードトークナイズや、Transformerアーキテクチャ、さらにはQwen3.5のような最新のモデルに関する文献が参照されています。したがって、本セクションから手法のアルゴリズムや具体的な数値結果を抽出することは不可能です。</p></section>
+<section class="secsum"><h3>本文 (8/8)</h3><p>提供されたテキストは論文の参考文献リストの一部であり、研究手法や実験結果に関する具体的な記述は含まれていません。記載されている情報は、Tree promptingに関する研究（Gao et al., 2023）や、短文回答型のオープンドメイン質問応答における適応的RAGの評価ベンチマークであるRetrievalQA（Zhang et al., 2024）などの文献情報のみです。したがって、手法、アルゴリズム、数式、実験設定、数値結果、および限界についての具体的な要約を行うためのデータが不足しています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-06
+  </footer>
+</div>
+</body>
+</html>

@@ -731,6 +731,76 @@
       "url": "http://arxiv.org/abs/2606.31200v1",
       "venue": ""
     },
+    "arxiv:2607.00508": {
+      "added": "2026-07-06",
+      "arxiv_id": "2607.00508",
+      "authors": [
+        "Ganlin Xu",
+        "Linghao Zhang",
+        "Zhitao Yin",
+        "Hongda Xi",
+        "Chen Yang",
+        "Jiaqing Liang",
+        "Weijia Lu",
+        "Sihang Jiang",
+        "Yanghua Xiao",
+        "Deqing Yang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-01",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.00508.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.00508v2",
+      "reading_value": 4,
+      "reading_value_reason": "DBのクエリ最適化をRAGに応用する着眼点が非常に独創的。DPを用いた構造最適化は理論的裏付けもあり、既存手法の課題を解決する実用的な提案である。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "When RAG Meets Query Planning: Logical Query Trees for Resolving Exploratory Reasoning Problems",
+      "tldr": "不確実性が高く、エンティティ間の依存関係が曖昧な探索的推論問題（ERPs）に対し、データベースのクエリプランニングの概念を応用したRAGフレームワーク「PlanRAG」を提案する。自然言語クエリを論理クエリツリー（LQTs）としてモデル化し、Selingerの動的計画法を用いた多次元コストモデルによる最適化と、ボトムアップの並列実行を行うことで、既存の反復型やグラフベースの手法を超えるSOTA性能を達成している。",
+      "url": "http://arxiv.org/abs/2607.00508v2",
+      "venue": ""
+    },
+    "arxiv:2607.00570": {
+      "added": "2026-07-06",
+      "arxiv_id": "2607.00570",
+      "authors": [
+        "Raymond Li",
+        "Md Tawkat Islam Khondaker",
+        "Amirhossein Abaskohi",
+        "Gabriel Murray",
+        "Giuseppe Carenini",
+        "Issam H. Laradji"
+      ],
+      "basis": "fulltext(arxiv-pdf)",
+      "citations": 0,
+      "date": "2026-07-01",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.00570.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.00570v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGにおけるドキュメント間の矛盾解決という実用的な課題に対し、学習不要なデコーディング手法を提案しており、新規性と有用性が高い。新ベンチマークDRQAによる検証も具体的である。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Dual-Confidence Contrastive Decoding for Retrieval-Augmented Generation",
+      "tldr": "マルチドキュメントRAGにおいて、検索された情報源間の矛盾（intra-context conflict）を解決するため、ドキュメントレベルの信頼度とトークンレベルの信頼度の二重の信号を利用する学習不要なデコーディング手法「Dual-Confidence Contrastive Decoding (DCCD)」を提案する。",
+      "url": "http://arxiv.org/abs/2607.00570v1",
+      "venue": ""
+    },
     "arxiv:2607.00725": {
       "added": "2026-07-05",
       "arxiv_id": "2607.00725",
@@ -1516,6 +1586,36 @@
       "title": "Enhancing Lifelong Multi-Agent Path Finding with Cache Mechanism",
       "tldr": "Lifelong Multi-Agent Path Finding (L-MAPF) において、一時保管用の「キャッシュ」グリッドと、ロック機構を備えた Task Assigner (TA) を導入することで、エージェントの移動効率とスループットを向上させる L-MAPF-CM を提案する。",
       "url": "http://arxiv.org/abs/2501.02803v1",
+      "venue": ""
+    },
+    "arxiv:2504.15130": {
+      "added": "2026-07-06",
+      "arxiv_id": "2504.15130",
+      "authors": [
+        "Kushal Shah",
+        "Jihyun Park",
+        "Seung-Kyum Choi"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-04-21",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2504.15130.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2504.15130v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPD問題に対し、学習済みヒューリスティックを用いたNeural STA*により、大規模環境での計算量爆発を回避しつつ高いスループットを実現しており、実用性が高い。",
+      "relevance": 2,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Neural ATTF: A Scalable Solution to Lifelong Multi-Agent Path Planning",
+      "tldr": "本論文は、Lifelong Multi-Agent Pickup and Delivery (MAPD) 問題に対し、タスク割り当てのPGTMと経路計画のNeural STA*を組み合わせた「Neural ATTF」を提案する。本手法は、学習済みヒューリスティックを用いることで、大規模なエージェント数においても高いスループットと極めて低い計算コストを両立し、既存の最先端アルゴリズム（LNS-PBS等）が計算量爆発を起こす環境下でもスケーラブルに動作する。",
+      "url": "http://arxiv.org/abs/2504.15130v1",
       "venue": ""
     },
     "arxiv:2505.22753": {

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Neural ATTF: A Scalable Solution to Lifelong Multi-Agent Path Planning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Neural ATTF: A Scalable Solution to Lifelong Multi-Agent Path Planning</h1>
+  <div class="meta">Kushal Shah, Jihyun Park, Seung-Kyum Choi<br>採択先: 未取得 ・ 2025-04-21 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2504.15130v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2504.15130v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-04-21</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPD問題に対し、学習済みヒューリスティックを用いたNeural STA*により、大規模環境での計算量爆発を回避しつつ高いスループットを実現しており、実用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、Lifelong Multi-Agent Pickup and Delivery (MAPD) 問題に対し、タスク割り当てのPGTMと経路計画のNeural STA*を組み合わせた「Neural ATTF」を提案する。本手法は、学習済みヒューリスティックを用いることで、大規模なエージェント数においても高いスループットと極めて低い計算コストを両立し、既存の最先端アルゴリズム（LNS-PBS等）が計算量爆発を起こす環境下でもスケーラブルに動作する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究が対象とするのは、無向連結グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 上で動作するエージェント集合 $\mathcal{A}$ によるLifelong MAPD問題である。各タスクはピックアップ地点 $p_j$、デリバリー地点 $d_j$、およびリリース時刻 $r_j$ で定義され、エージェントはタスク完了後に再び自由状態となる。最適化の目的は、タスクのリリースから完了までの平均サービス時間 $S_j = (t_{j, \text{finish}} - r_j)$ を最小化することである。また、実環境の不確実性を考慮し、エージェントが予定された経路を進まずに現在位置に留まる「実行遅延（Delays）」のモデル化も含まれている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>Neural ATTFは、タスク割り当てと経路計画をデカップルした構成により、スケーラビリティ、解の質、計算効率の向上を実現した。第一に、Priority Guided Task Matching (PGTM) により、遅延エージェントを優先しつつタスクへの近接度に基づいた動的な割り当てを可能にした。第二に、Neural STA*を導入することで、時空間ドメインにおける学習済みヒューリスティックを活用し、従来のSTA*と比較して探索ノード数 $iters$ をエージェント数の増加に伴い $10$ から $100$ 倍削減することに成功した。第三に、既存の最先端手法（TPTS, CENTRAL, RMCA, LNS-PBS, LNS-wPBS）と比較して、高いタスク頻度下で平均サービス時間 $st$ を $6\% \sim 33\%$ 改善し、実行時間 $rt$ を平均 $90\%$ 以上削減するという優れた計算効率を示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、PGTMモジュールとNeural STA*の2段階で構成される。PGTMは、マンハッタン距離を用いた軽量な距離ヒューリスティックに基づき、遅延しているエージェントを優先的にタスクへマッチングさせる。経路計画のNeural STA*は、VGG-16をバックボーンとするU-Net構造のMap Encoderを用いて環境情報をガイダンスマップに変換し、学習ベースのコストマップを利用する。探索においては、到達コスト $g(n)$ と、マンハッタン距離に微小なユークリッド距離を加えたヒューリスティック $h(n)$ を用いる。また、デッドロック回避のために、アイドル状態のエージェントを局所的な空きセルへ移動させるDeadlock Recovery Modeを備えている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、TPTS, CENTRAL, RMCA, LNS-PBS, LNS-wPBS等の既存手法と比較検証が行われた。Neural STA*の単体評価では、従来のSTA*に対し、平均サービス時間 $st$ を維持しつつ探索ノード数 $iters$ を大幅に削減し、400〜500エージェントの高負荷時において実行時間 $rt$ を大幅に短縮した。スケーラビリティ実験では、200エージェントを超える環境でNeural ATTFが最も優れた $st$ を記録し、RMCAやLNS-PBSが計算量爆発により解を生成できない状況でも安定動作した。さらに、エージェントの実行遅延（$0\%, 1\%, 2\%$）に対する堅牢性評価において、$rt$ は増加するものの $st$ の増加は極めて限定的であることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>Neural ATTFは、LNS系アルゴリズムのような指数関数的な実行時間の増大を回避し、大規模問題において顕著なスケーラビリティを発揮する。小規模なエージェント数においては、エンコーダの推論オーバーヘッドにより改善が限定的となるという限界がある。しかし、大規模環境や不確実性の高い条件下では、再計画コストを効率的に管理することで高い堅牢性とスループットを維持できる。今後の展望として、ロボティクスシミュレータへの展開による現実的な動的シナリオでの評価や、倉庫自動化などの実世界タスクへの適用が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Neural ATTF: A Scalable Solution to Lifelong Multi-Agent Path Planning</h3><p>本論文では、Multi-Agent Pickup and Delivery (MAPD) 問題に対し、スケーラビリティと適応性に優れた Neural ATTF (Adaptive Task Token Framework) を提案している。本手法は、Priority Guided Task Matching (PGTM) モジュールと、データ駆動型の経路計画手法である Neural STA* (Space-Time A*) を組み合わせた構成となっている。Neural STA* は、学習されたヒューリスティックを用いることで探索空間の高速な探索を可能にし、動的な制約下での衝突回避を実現する。PGTM は、遅延しているエージェントを優先し、タスクに最も近いエージェントを動的に割り当てることで、システムの継続性とスループットを最適化する。TPTS, CENTRAL, RMCA, LNS-PBS, LNS-wPBS といった既存の最先端アルゴリズムとの比較実験により、Neural ATTF がスケーラビリティ、解の質、および計算効率において優れていることが示されている。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究では、タスク割り当てと衝突回避経路計画の双方において計算量的に困難なMulti-Agent Pickup and Delivery (MAPD) 問題に対し、効率性・スケーラビリティ・堅牢性に優れたNeural Adaptive Task Token Framework (Neural ATTF) を提案している。本手法は、タスク割り当てに軽量な距離ヒューリスティックを用いたPriority Guided Task Matching (PGTM) モジュールを、経路計画にはSpace-Time A* の時間的モデリングとNeural A* のデータ駆動型効率性を融合させたNeural STA* を用いるデカップル型アルゴリズムである。PGTMは遅延しているエージェントを優先しつつ、タスクに最も近いエージェントを動的に割り当てることでシステムのスループットを最適化し、Neural STA* は時空間ドメインにおける学習済みヒューリスティックを活用して衝突のない軌道を効率的に計算する。さらに、アイドル状態のエージェントを安全な場所へ再ルーティングするデッドロック回復メカニズムや、実行遅延・不確実性に対応するリアルタイム再計画機能を備えている。広範なシミュレーションの結果、Neural ATTFはTPTS、CENTRAL、HBH-MLA*、RMCA、LNS-PBS、LNS-wPBSといった既存の最先端アルゴリズムと比較して、スケーラビリティと効率性の両面で優れた性能を示すことが確認された。</p></section>
+<section class="secsum"><h3>II Preliminaries and Background</h3><p>MAPD（Multi-Agent Pickup and Delivery）問題は、タスク割り当てと経路計画の2つのサブ問題で構成される。タスク割り当てには、二部グラフの最大重みマッチングを解くハンガリアン法や、初期スケジュールを反復的に改善するLarge Neighborhood Search (LNS) などの手法が用いられる。経路計画（MAPF）においては、最適性を保証するConflict-Based Search (CBS) や、計算効率と近似最適性のバランスを取るEnhanced CBS (ECBS)、優先度に基づくPriority-Based Search (PBS) などが提案されている。既存のMAPDアルゴリズムとして、分散型のToken Passing (TP) やその拡張であるTPTS、中央集権的なCENTRAL、タスク割り当てと経路計画を結合したRMCA、さらにLNSとPBSを組み合わせたLNS-PBSや、計算量を削減するために時間窓を用いるLNS-wPBSなどが存在する。本研究で低レベルプランナーとして採用されるNeural A* [11] は、畳み込みエンコーダと微分可能なA*探索を組み合わせたデータ駆動型手法であり、環境マップや始点・終点をガイダンスマップに変換することで、エンドツーエンドの学習を可能にしている。</p></section>
+<section class="secsum"><h3>III Problem Formulation</h3><p>本セクションでは、無向連結グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 上で動作するエージェント集合 $\mathcal{A}$ による、Lifelong Multi-Agent Pickup and Delivery (MAPD) 問題の定式化がなされている。各タスクはピックアップ地点 $p_j$、デリバリー地点 $d_j$、およびリリース時刻 $r_j$ で定義され、エージェントはタスク割り当て後に $p_j$ を経由して $d_j$ へ移動し、完了後に再び自由状態となる。最適化の目的は、タスクのリリースから完了までの平均サービス時間を最小化することであり、タスク $j$ のサービス時間は $S_j = (t_{j, \text{finish}} - r_j)$ と定義される。制約条件として、頂点およびエッジにおける衝突回避、エージェントの移動範囲の制限、タスクの割り当てと実行の整合性、およびエージェントが一度に一つのタスクのみを扱うことなどが数式を用いて厳密に規定されている。また、実環境におけるセンサー誤差や物理的制約に起因する遅延（Delays）を、計画時には予測不可能だが有限な、エージェントが予定された経路を進まずに現在位置に留まる現象としてモデル化している。</p></section>
+<section class="secsum"><h3>IV Neural ATTF</h3><p>Neural ATTFは、タスク割り当てと経路計画の2段階で構成される、スケーラブルで堅牢なマルチエージェント経路計画（MAPD）アルゴリズムである。タスク割り当てには、遅延エージェントを優先し、次にタスク地点への近接度に基づきマンハッタン距離を用いてマッチングを行うPriority Guided Task Matching (PGTM) モジュールが用いられる。経路計画には、VGG-16をバックボーンとするU-Net構造のMap Encoderと、学習ベースのコストマップを利用するNeural Space-Time A*が統合されており、空間と時間の両次元で衝突を回避する。具体的には、エージェントの現在地からタスク開始点、およびタスク開始点からゴール点への2つのガイダンスマップを生成し、それらを基に $g(n)$（到達コスト）と $h(n)$（マンハッタン距離に微小なユークリッド距離を加えたヒューリスティック）を用いて探索を行う。また、従来のアルゴリズムとは異なり、エージェントがゴール地点で待機する制約を緩和し、1タイムステップのみ待機を許容することで、他のエージェントの経路を妨げない設計となっている。デッドロックが発生した場合には、局所的な空きセルへ移動させるDeadlock Recovery Modeを備えており、高密度な環境下でも継続的なタスク実行を可能にしている。</p></section>
+<section class="secsum"><h3>V Experimental Results</h3><p>Neural ATTFの実験評価では、提案手法の有効性とスケーラビリティが多角的に検証されている。まず、Neural STA*パスプランナーの評価において、従来のWindowed PBSと比較して、Neural ATTFは500エージェント規模でもリアルタイム性を維持しつつ、wPBSがタイムアウト（80分）する環境下でも高いスループット（$tp$）を達成した。Neural STA*単体の検証では、従来のSTA*と比較して平均サービス時間（$st$）を維持したまま、探索ノード数（$iters$）をエージェント数の増加に伴い $10$ から $100$ 倍削減し、高負荷時（400〜500エージェント）において実行時間（$rt$）を大幅に短縮することを確認した。既存手法（TPTS, CENTRAL, RMCA, LNS-PBS等）との比較では、小規模・大規模倉庫の両環境において、Neural ATTFは高いタスク頻度下で$st$を平均 $6\% \sim 33\%$ 改善し、かつ$rt$を他手法より平均 $90\%$ 以上削減するという優れた計算効率を示した。スケーラビリティ実験では、200エージェント超の環境でNeural ATTFが最も優れた$st$を記録し、RMCAやLNS-PBSが計算量爆発により解を生成できない状況でも安定して動作した。最後に、エージェントの実行遅延（$0\%, 1\%, 2\%$）に対する堅牢性評価では、遅延に伴う再計画コストにより$rt$は増加するものの、$st$の増加は極めて限定的であり、不確実な環境下でも高い性能を維持できることが示された。</p></section>
+<section class="secsum"><h3>VI Conclusion and Future Work</h3><p>Neural ATTFは、サービス時間と計算効率のバランスに優れ、RMCAやLNS-PBS、LNS-wPBSのような指数関数的な実行時間の増大を回避しつつ、多様なシナリオにおいて効率的なスケーラビリティを実現する。HBH-MLA*と比較して、サービス時間の低下を最小限に抑えつつ実用的な実行時間を維持しており、特にNeural STA*を統合することで、エージェント数が多い大規模な問題においてA*の探索反復回数を大幅に削減できる。小規模なエージェント数ではエンコーダの推論オーバーヘッドにより改善が限定的だが、大規模問題ではそのスケーラビリティと適応性が顕著になる。また、遅延確率が高い不確実な条件下でもサービス時間の低下が最小限であり、再計画コストを効率的に管理することで高い堅牢性を示す。今後の展望として、ロボティクスシミュレータへの展開による現実的な動的シナリオでの評価、および倉庫自動化やマルチエージェント協調といった実世界タスクへの適用が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-06
+  </footer>
+</div>
+</body>
+</html>

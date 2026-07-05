@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>When RAG Meets Query Planning: Logical Query Trees for Resolving Exploratory Reasoning Problems | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>When RAG Meets Query Planning: Logical Query Trees for Resolving Exploratory Reasoning Problems</h1>
+  <div class="meta">Ganlin Xu, Linghao Zhang, Zhitao Yin, Hongda Xi, Chen Yang, Jiaqing Liang, Weijia Lu, Sihang Jiang, Yanghua Xiao, Deqing Yang<br>採択先: 未取得 ・ 2026-07-01 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.00508v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.00508v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">DBのクエリ最適化をRAGに応用する着眼点が非常に独創的。DPを用いた構造最適化は理論的裏付けもあり、既存手法の課題を解決する実用的な提案である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 不確実性が高く、エンティティ間の依存関係が曖昧な探索的推論問題（ERPs）に対し、データベースのクエリプランニングの概念を応用したRAGフレームワーク「PlanRAG」を提案する。自然言語クエリを論理クエリツリー（LQTs）としてモデル化し、Selingerの動的計画法を用いた多次元コストモデルによる最適化と、ボトムアップの並列実行を行うことで、既存の反復型やグラフベースの手法を超えるSOTA性能を達成している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究が対象とする探索的推論問題（ERPs）は、エンティティ間の依存関係が不明瞭で、従来のマルチホップQAのような明示的な分解が困難な「レベル3タスク」として定義される。従来のRAG手法では、検索ノイズの増大、推論過程における誤差の累積、およびエンドツーエンドの計画メカニズムの欠如といった課題が存在する。また、既存の情報探索エージェントは強化学習等を用いるが、高い学習コストや推論時の分散が問題となる。これに対し、PlanRAGはトレーニングフリーで、実行前にグローバルな構造最適化を行うオフライン計画アプローチを採用している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>PlanRAGは、自然言語クエリを論理クエリツリー（LQTs）として構造化し、データベースのクエリ最適化技術をRAGに導入した。具体的には、Selingerの動的計画法（DP）を拡張し、ツリーのサイズ、密度、深さ、バランス、および意味的類似性の5つの次元に基づく多目的コストモデルを提案している。これにより、検索ノイズを抑制しつつ、複雑な推論経路を最適化することが可能となった。また、新たに構築された「WikiWeb-ERP」データセットにおいて、既存の反復型（RetGen, DualRAG等）およびグラフ型（ChainRAG, HopRAG等）のSOTAを上回る性能を実証した。さらに、リレーション前処理による計算コストの削減と、並列実行による高速化も実現している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>PlanRAGは「原子クエリ生成」「論理最適化」「物理実行」の3段階で構成される。まず、ERPを $(subject, predicate, object)$ 形式の原子クエリ集合 $\mathcal{Q}$ に分解する。次に、論理最適化フェーズにおいて、部分集合 $S \subseteq \mathcal{Q}$ の最小コスト $C(S)$ を、以下の再帰式を用いて算出する：<br>$$C(S) = \min_{S_1, S_2} \{ C(S_1) + C(S_2) + \text{inc\_cost}(S_1, S_2) \}$$<br>ここで、コスト関数 $Cost(\mathcal{T})$ は、ツリーサイズ $ts$、構造密度 $sd$、ツリー深度 $td$、ツリーバランス $tb$、および意味的類似性 $ss$ を用いて次のように定義される：<br>$$Cost(\mathcal{T}) = \alpha_1 ts + \alpha_2 sd - \alpha_3 td - \alpha_4 tb - \alpha_5 ss$$<br>物理実行フェーズでは、LQT上の各ノードに対し、子ノードの集約（$\text{agg}$）、書き換え（$\text{rew}$）、検索（$\text{ret}$）、生成（$\text{gen}$）をボトムアップに行う：<br>$$\text{node} = \text{gen}(\text{ret}(\text{rew}(\text{agg}(\text{children}))))$$<br>このプロセスはマルチスレッドによる並列化が可能である。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価には、Wikipediaやライブウェブページから構築された「WikiWeb-ERP」データセットが用いられた。評価指標には、Accuracy (Acc)、Exact Match (EM)、Token-level F1、および $\text{gpt-3.5-turbo-instruct}$ による $\text{Acc}_{\text{sem}}$ が採用されている。実験の結果、PlanRAG w/ Retは既存の高度なRAG手法を凌駕した。アブレーション研究により、サイクル防止（w/o cp）、コンテキスト認識型マージ（w/o ca）、意味的類似性（w/o ss）の各要素が重要であることが示された。また、Llama-3やQwen-2.5、BGEやColBERTといった異なるモデル・リトリーバーに対しても頑健であることが確認された。効率面では、リレーション前処理によりLQT構築時間を82.8sから8.4sへ、LLMコール数を63.6から10.4へと大幅に削減し、並列実行により実行時間を2.56倍高速化した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>PlanRAGは、動的計画法の理論的複雑度が $O(2^n)$ であるものの、実用的なERPでは原子クエリ数 $n$ が15以下であることが多く、事前処理による枝刈りによって実用的な効率を維持している。本手法は、モデルやリトリーバーに依存しない（model-agnostic/retriever-agnostic）特性を持つ。しかし、いくつかの限界も存在する。第一に、単純な問題シナリオへの汎化が困難である可能性が挙げられる。第二に、提案されたコストモデルが、文書の長さやタスクの複雑度を明示的に正規化していないという課題がある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>When RAG Meets Query Planning: Logical Query Trees for Resolving Exploratory Reasoning Problems</h3><p>本研究では、不確実性や曖昧性の高い探索的推論問題（Exploratory Reasoning Problems, ERPs）に対し、データベースのクエリプランニングの概念を応用したRAGフレームワーク「PlanRAG」を提案している。PlanRAGは、自然言語によるERPsを論理クエリ木（Logical Query Trees, LQTs）としてモデル化することで、従来の反復型やグラフベースの手法が抱えていた検索ノイズや誤差の累積、エンドツーエンドの計画メカニズムの欠如という課題を解決する。具体的には、ERPsを原子クエリに分解した後、複数の補完的な次元を含むコストモデルに基づいた動的計画法を用いて、これらを最適なLQTsへと構成する。実行フェーズでは、LQT上のノードに対して反復的な集約、書き換え、検索、生成を行い、中間結果を上位へ伝播させるとともに、マルチスレッドによる並列化で効率化を図っている。新たに構築されたデータセット「WikiWeb-ERP」を用いた実験の結果、PlanRAGは既存の最先端の反復型およびグラフベースのRAGシステムを上回る性能を示した。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>本研究は、探索的推論問題（Exploratory Reasoning Problems, ERPs）に対処するため、データベースのクエリプランニングの概念を導入したRAGフレームワーク「PlanRAG」を提案している。ERPsは、エンティティ間の依存関係が曖昧で、従来のマルチホップクエリのような明示的な分解が困難な「レベル3タスク」として定義され、既存のRAGでは検索ノイズの増大、誤差の累積、エンドツーエンドのプランニングの欠如といった課題がある。PlanRAGは、自然言語クエリを論理クエリツリー（Logical Query Trees, LQTs）としてモデル化し、クエリパース、論理最適化、物理実行の3段階で処理を行う。論理最適化では、Selingerの動的計画法（DP）を用いて、ツリーサイズ、構造密度、ツリーの深さ、ツリーのバランス、および意味的類似性の5つの次元からなる多次元コストモデルに基づき、最適なLQTを構築する。物理実行フェーズでは、LQT上のノードを反復的かつ並列的に処理することで、中間結果を再帰的にルートノードへ伝播させる。評価には、Wikipediaやライブウェブページから構築された新しいベンチマークデータセット「WikiWeb-ERP」が用いられ、実験の結果、PlanRAGは既存の反復型およびグラフベースのRAGシステムを上回るSOTA性能を達成した。</p></section>
+<section class="secsum"><h3>2. Related Work</h3><p>RAGは、LLMの生成能力に外部知識の検索を統合することで、パラメータ化された知識の限界を補い、事実検証や知識に基づいた対話などのタスクを強化する手法である。マルチホップQAにおいては、グラフベースの手法による依存関係のモデル化や、反復的なRAGによる推論チェーンの構築が提案されているが、本論文が扱う探索的推論問題（ERPs）は、単純な逐次的な推論では解決困難な高い不確実性と分解の難しさを有している。情報探索エージェントは、強化学習や模倣学習を用いてアクションシーケンスの探索空間をオンラインで最適化するが、これは高い学習コストと推論時の大きな分散を伴う。これに対し、提案手法であるPlanRAGは、実行前に計画を最適化するオフライン計画を採用しており、自然言語クエリから直接、木構造の探索空間である論理クエリツリー（LQTs）を探索する。このアプローチにより、軌跡の教師あり学習やオンラインの方策学習に依存することなく、グローバルな構造最適化が可能となり、トレーニングフリーでスケーラブルな手法を実現している。</p></section>
+<section class="secsum"><h3>3. Preliminaries</h3><p>本セクションでは、データベースにおける論理クエリツリー（LQT）の概念を、探索的推論問題（ERP）における自然言語クエリの構成的意味論を捉えるための階層的表現へと再定義している。本論文におけるLQTは、原子クエリの集合をノード $\mathcal{V}$、それらの間の意味的依存関係をエッジ $\mathcal{E}$ とする有向非巡回グラフ（DAG）としてモデル化され、葉ノードからルートノードへとボトムアップに実行される。最適化手法にはSelingerの動的計画法（DP）を採用しており、原子クエリの集合 $\mathcal{Q}$ に対し、部分集合 $S \subseteq \mathcal{Q}$ の最小実行コスト $C(S)$ を、分割された2つの部分集合 $S_1, S_2$ （$S = S_1 \cup S_2$）を用いた再帰式 $C(S) = \min_{S_1, S_2} \{ C(S_1) + C(S_2) + \text{inc\_cost}(S_1, S_2) \}$ によって算出する。ここで $\text{inc\_cost}$ はI/OやCPU、メモリ使用量を含む増分コストを推定する。また、コストモデルの重要な信号として、BGEモデルを用いて元のクエリとテキスト化されたLQTのセマンティックな整合性を、内積 $\text{sim}(x, y) = \text{enc}(x)^\top \text{enc}(y)$ によって算出する手法が導入されている。</p></section>
+<section class="secsum"><h3>4. Methodology</h3><p>PlanRAGは、探索的推論問題（ERP）を解決するために、データベースのクエリ計画に触発された論理クエリツリー（LQT）を構築・実行するフレームワークである。手法は、ERPを $(subject, predicate, object)$ 形式の原子クエリに分解する「原子クエリ生成」、動的計画法（DP）を用いて最適なLQTを構成する「論理最適化」、およびボトムアップの並列実行を行う「物理実行」の3段階で構成される。論理最適化では、SelingerのDPパラダイムを拡張し、関係性の事前処理、サイクル防止、および部分的なLQTをプロンプトに含めるコンテキスト認識型マージを導入している。LQTの評価には、ツリーサイズ $ts$、構造密度 $sd$、ツリー深度 $td$、ツリーバランス $tb$、および元のクエリとの意味的類似性 $ss$ を用いた多目的コスト関数 $Cost(\mathcal{T})$ を定義しており、以下の式で最小化を目指す：<br>$$Cost(\mathcal{T}) = \alpha_1 ts + \alpha_2 sd - \alpha_3 td - \alpha_4 tb - \alpha_5 ss$$<br>実行フェーズでは、非葉ノードにおいて子ノードのクエリと回答を統合（$\text{agg}$）し、それらをコンテキストとしてクエリを書き換え（$\text{rew}$）、検索（$\text{ret}$）および生成（$\text{gen}$）を行うプロセス $\text{node} = \text{gen}(\text{ret}(\text{rew}(\text{agg}(\text{children})))) $ を繰り返す。計算量に関しては、DPの理論的複雑度は $O(2^n)$ であるが、実用的なERPでは原子クエリ数 $n$ が15以下であることが多く、LLM呼び出しのコストが支配的であるため、事前処理による「無関係（Unrelated）」なペアの枝刈りが実行効率に大きく寄与する。</p></section>
+<section class="secsum"><h3>5. Experiments</h3><p>本実験では、探索的推論問題（ERP）に特化したWikiWeb-ERPデータセットを用い、提案手法であるPlanRAGの性能を、Accuracy (Acc)、Exact Match (EM)、Token-level F1、およびgpt-3.5-turbo-instructによるSemantic Accuracy ($\text{Acc}_{\text{sem}}$) の4指標で評価している。実験の結果、PlanRAG w/ Retは、反復型（RetGen, DualRAG等）やグラフ型（ChainRAG, HopRAG等）の既存の高度なRAG手法を上回り、SOTAを達成した。アブレーション研究により、論理的誤りを防ぐサイクル防止（w/o cp）や、意味的一貫性を維持するコンテキスト認識型マージ（w/o ca）、およびプランニングの意図を逸脱させないための意味的類似性（w/o ss）が、LQT（Logical Query Tree）構築において極めて重要であることが示された。また、PlanRAGはLlama-3やQwen-2.5などの異なるベースモデルや、BGE、ColBERTなどの異なるリトリーバーに対しても性能が向上することを確認しており、モデルやリトリーバーに依存しない頑健性（model-agnostic/retriever-agnostic）が実証された。効率面では、リレーション前処理によりLQT構築時間を82.8sから8.4sへ、LLMコール数を63.6から10.4へと大幅に削減し、さらに並列実行により実行時間を2.56倍高速化することに成功している。一方で、本手法には、単純な問題シナリオへの汎化の難しさや、コストモデルが文書長やタスク複雑度を明示的に正規化していないといった限界が存在する。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-06
+  </footer>
+</div>
+</body>
+</html>
