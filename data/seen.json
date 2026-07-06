@@ -697,6 +697,37 @@
       "url": "http://arxiv.org/abs/2606.27786v1",
       "venue": ""
     },
+    "arxiv:2606.31033": {
+      "added": "2026-07-07",
+      "arxiv_id": "2606.31033",
+      "authors": [
+        "Kazuaki Furumai",
+        "Shuichiro Haruta",
+        "Kazunori Matsumoto",
+        "Daisuke Kamisaka"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-30",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.31033.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.31033v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGのハルシネーション検出に対し、内部表現の差分とアテンションを用いた文脈残差という独創的なアプローチを提案しており、手法の新規性と具体性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "CORTEX: Token-Level Hallucination Detection in RAG via Comparative Internal Representations",
+      "tldr": "CORTEXは、RAGにおけるトークンレベルのハルシネーションを検出するpost-hoc手法であり、参照文献の有無によるLLMの内部表現の差分（デルタ特徴量）と、アテンションを用いた文脈残差を利用して、根拠に基づいたトークンを特定する。",
+      "url": "http://arxiv.org/abs/2606.31033v1",
+      "venue": ""
+    },
     "arxiv:2606.31200": {
       "added": "2026-07-03",
       "arxiv_id": "2606.31200",
@@ -729,6 +760,42 @@
       "title": "Agentic RAG-VLM: Affordance-Aware Retrieval-Augmented Generation with Self-Reflective Planning for Robotic Grasping",
       "tldr": "視覚的類似性ではなく、物体タイプ、材質、脆弱性、把持可能領域の4次元アフォーダンス記述子に基づく検索を行う「Agentic RAG-VLM」を提案する。本手法は、Hierarchical Affordance-Aware RAG (HAA-RAG)、Scene Graph Constraint Reasoner、および14種類の失敗分類に基づく3段階の適応的再試行を行うAgentic Self-Reflective Pipelineを統合している。12のベンチマークタスクにおいて78.3%の総合成功率を達成し、従来のVLMベースラインに対し53.3 ppの精度向上を実現した。",
       "url": "http://arxiv.org/abs/2606.31200v1",
+      "venue": ""
+    },
+    "arxiv:2607.00422": {
+      "added": "2026-07-07",
+      "arxiv_id": "2607.00422",
+      "authors": [
+        "Chanwoo Choi",
+        "Euntae Kim",
+        "Kyuho Lee",
+        "Youngsam Chun",
+        "Jinhee Jeong",
+        "Eunmi Kim",
+        "Myunggyo Oh",
+        "Junseo Jang",
+        "Buru Chang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-01",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.00422.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.00422v1",
+      "reading_value": 4,
+      "reading_value_reason": "Agentic RAG特有の「推論鎖のハイジャック」という新奇な攻撃概念を提案しており、ブラックボックス条件下での実用的な手法として非常に価値が高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "KidnapRAG: A Black-Box Attack for Hijacking Reasoning in Agentic Retrieval-Augmented Generation Systems",
+      "tldr": "Agentic RAGシステムに対し、外部から公開可能な毒入り文書のみを用いて推論プロセスを段階的に乗っ取るブラックボックス型攻撃手法「KidnapRAG」を提案する。本手法は、検索意図を逸らす $Bait$、推論鎖を維持する $Chain\\text{-}Link$、最終回答を操作する $Mal\\text{-}Ins$ の3段階の文書を用いることで、エージェントの多段階推論を攻撃者の意図する経路へと再誘導する。",
+      "url": "http://arxiv.org/abs/2607.00422v1",
       "venue": ""
     },
     "arxiv:2607.00508": {

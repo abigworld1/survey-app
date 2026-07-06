@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>KidnapRAG: A Black-Box Attack for Hijacking Reasoning in Agentic Retrieval-Augmented Generation Systems | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>KidnapRAG: A Black-Box Attack for Hijacking Reasoning in Agentic Retrieval-Augmented Generation Systems</h1>
+  <div class="meta">Chanwoo Choi, Euntae Kim, Kyuho Lee, Youngsam Chun, Jinhee Jeong, Eunmi Kim, Myunggyo Oh, Junseo Jang, Buru Chang<br>採択先: 未取得 ・ 2026-07-01 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.00422v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.00422v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">Agentic RAG特有の「推論鎖のハイジャック」という新奇な攻撃概念を提案しており、ブラックボックス条件下での実用的な手法として非常に価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> Agentic RAGシステムに対し、外部から公開可能な毒入り文書のみを用いて推論プロセスを段階的に乗っ取るブラックボックス型攻撃手法「KidnapRAG」を提案する。本手法は、検索意図を逸らす $Bait$、推論鎖を維持する $Chain\text{-}Link$、最終回答を操作する $Mal\text{-}Ins$ の3段階の文書を用いることで、エージェントの多段階推論を攻撃者の意図する経路へと再誘導する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、検索、観察、推論、行動を反復的に行うAgentic RAGシステムにおける、推論鎖（reasoning chain）のハイジャックという新たな脆弱性を扱う。従来のRAG攻撃は単発的な検索を対象としており、エージェントが矛盾を検知して再検索を行うことで攻撃を回避する傾向があった。これに対し、KidnapRAGはシステムプロンプトや内部パラメータにアクセスできないブラックボックス条件下で、公開された中間的な推論ステップや検索クエリなどの観測可能な信号を利用する。攻撃者は、エージェントの自律的な検索行動を逆手に取り、逐次的な攻撃表面（sequential attack surface）を通じて推論経路を操作する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、Agentic RAG特有の反復的な推論プロセスを標的とした、実用的なブラックボックス型ポイズニング攻撃「KidnapRAG」を提案したことである。実験を通じて、KidnapRAGが既存の7つの攻撃手法（Ignore AttackやPARADOX等）と比較して、多様なLLMバックボーンおよびフレームワークにおいて一貫して高い攻撃成功率（ASR）を達成することを示した。また、攻撃が単なる情報の注入ではなく、推論鎖に対する持続的な操作であることを明らかにし、推論プロセスを段階的に偽装することでOpenAI Moderationによる検知率を低く抑えられる特性も示した。これにより、Agentic RAGにおける推論鎖のハイジャックが深刻なセキュリティリスクであることを浮き彫りにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>KidnapRAGは、以下の4つのフェーズからなる逐次的な攻撃アルゴリズムである。まず「Reasoning Chain Profiling」により、公開インターフェースから中間的な推論ステップや検索クエリを観察する。次に「Reasoning Redirection」フェーズにおいて、キーワードの再定義、意図のハイジャック、および次のクエリを推奨する「Next Query Recommendation」戦略を用いた $Bait$ 文書を配置し、検索意図を希少なドメインへと逸らす。続いて「Chain Dragging」フェーズでは、再帰的な検索によってエージェントを攻撃者の制御下に留め続ける $Chain\text{-}Link$ 文書を用い、最終的に $Mal\text{-}Ins$ 文書（悪意ある指示ドキュメント）へと誘導して回答を操作する。このプロセスにより、エージェントの推論文脈を攻撃者の意図する結論へと段階的に書き換える。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、HotpotQA、MuSiQue、2WikiMultihopQAの3つのベンチマークを用い、ReAct（Qwen2.5-32B-Instruct, Llama-3.3-70B-Instruct）およびWebThinker（QwQ-32B, DeepSeek-R1-32B）のフレームワークで評価を行った。リトリーバーには $e5\text{-}large\text{-}v2$ を使用し、正解率（EM）、攻撃成功率（ASR）、Reasoning Path Divergence Score、Target Redirection Score、Answer Preference Scoreを指標とした。結果として、KidnapRAGは全ての構成において既存手法を上回るASRを達成した。アブレーション研究では、$Bait$、$Chain\text{-}Link$、$Mal\text{-}Ins$ の連鎖が不可欠であり、これらを単一文書に統合した「w/o Chaining」設定ではASRが大幅に低下することが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>KidnapRAGの有効性は、単なる汚染された証拠の局所的な注入ではなく、推論鎖に対する持続的な操作に起因している。しかし、本手法にはいくつかの限界が存在する。第一に、中間思考や検索クエリが隠蔽・サニタイズされるシステムでは攻撃の有効性が低下する可能性がある。第二に、インデックスの遅延やプラットフォームのモデレーション、ドメイン権威性などの要因が検索の信頼性に影響を与える。第三に、評価がReActやWebThinkerなどの代表的なアーキテクチャに限定されており、マルチエージェント構成等への検証が必要である。今後の課題として、検索結果の検証や推論の一貫性チェックを備えた、より高度な防御メカニズムに対する包括的な検証が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>KidnapRAG: A Black-Box Attack for Hijacking Reasoning in Agentic Retrieval-Augmented Generation Systems</h3><p>本研究は、検索と推論を反復的に行うAgentic RAGシステムに対し、外部から公開可能な毒入り文書のみを用いるブラックボックス型のポイズニング攻撃手法「KidnapRAG」を提案している。KidnapRAGは、初期の検索を誘発する $Bait$、クエリの再構成を誘導する $Chain\text{-}Link$、そして攻撃者が制御する証拠を提供する $Mal\text{-}Ins$ という、役割の異なる3種類の文書を用いた逐次的な攻撃アルゴリズムである。実験では、複数のAgentic RAGフレームワーク、LLMバックボーン、およびベンチマークを用いて評価を行い、既存のポイズニング手法をブラックボックス条件下で一貫して上回る性能を示すことを確認している。詳細な分析により、本手法が元の検索意図を段階的に弱め、検索行動をリダイレクトさせ、攻撃者が制御する証拠への依存度を高めることで、エージェントの多段階の推論チェーンを乗っ取ることが明らかになった。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>Agentic RAGシステムは、検索、観察、推論、行動を反復的に行うことで複雑な情報処理を可能にするが、従来の単発的なRAGへの毒入れ攻撃では、エージェントが推論過程で矛盾する情報を棄却したり再検索を行ったりするため、攻撃が失敗しやすいという課題がある。本研究では、システムプロンプトや内部パラメータにアクセスできないブラックボックス条件下で、エージェントの推論鎖（reasoning chain）を乗っ取る攻撃手法であるKidnapRAGを提案する。KidnapRAGは、初期の検索を誘導して希少なドメインへと検索意図を逸らす $\text{Bait}$、乗っ取った推論鎖を維持する $\text{Chain-Link}$、そして最終的な回答を操作するための証拠を提供する $\text{Mal-Ins}$ という、役割の異なる3種類の毒入り文書を逐次的に利用する。攻撃者は、実際のAgentic RAGサービスが公開している中間的な推論ステップや生成された検索クエリなどの観測可能な信号を利用して、エージェントの推論経路を攻撃者の意図する経路へと段階的に再誘導する。実験の結果、KidnapRAGは多様なアーキテクチャやLLMバックボーンにおいて、既存の毒入れ手法と比較して最大の性能低下と最も高いターゲット回答誘導率を達成した。この結果は、反復的な推論プロセスが単純な攻撃に対しては堅牢性を高める一方で、逐次的な攻撃表面（sequential attack surface）を生み出すという新たな脆弱性を浮き彫りにしている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>Agentic RAGは、ReActのような推論ステップとツール呼び出しを交互に行う動的なパラダイムに基づき、Search-o1やWebThinkerのように自己認識した知識の欠落に応じて検索やウェブナビゲーションを自律的に実行するシステムである。従来のRAGに対する攻撃には、外部コンテンツ内の悪意ある指示を用いてモデルの挙動を転換させる手法や、検索コーパスに細工した文書を注入するコーパス・ポイズニング攻撃が存在する。PoisonedRAGやRAG Paradoxといったブラックボックス型の攻撃も存在するが、これらは主に単一ステップの検索を対象としている。一方で、Agentic RAGを標的とした近年の攻撃は、中間的な推論やツール利用プロセスを操作するものであるが、プロンプトや推論トレース、リトリーバー、モデルパラメータへのホワイトボックス的なアクセスを前提としていることが多い。これに対し、本研究は、攻撃者が外部から検索可能なポイズニング文書を公開するのみで、逐次的な検索を通じてエージェントの推論チェーンを誘導するブラックボックス攻撃を扱う。</p></section>
+<section class="secsum"><h3>3 KidnapRAG</h3><p>KidnapRAGは、Agentic RAGシステムの内部構成（モデル、システムプロンプト、リトリーバー等）にアクセスできないブラックボックス条件下で、攻撃者が意図した回答を生成させる攻撃手法である。攻撃プロセスは、まず公開インターフェースから中間的な推論ステップや検索クエリ、取得コンテンツを観察する「Reasoning Chain Profiling」から始まり、次に観察されたクエリに最適化された「Bait Document」を公開ソースに配置して推論を逸脱させる「Reasoning Redirection」へと続く。逸脱後は、再帰的な検索によってエージェントを攻撃者の制御下に留め続ける「Chain-Link Document」を用い、最終的に「Mal-Ins Document（悪意ある指示ドキュメント）」へと誘導することで、推論の文脈を攻撃者の意図に完全に書き換える「Chain Dragging」と「Target Answer Induction」を実行する。Bait Documentの生成には、キーワードの再定義、意図のハイジャック、および次のクエリを推奨する「Next Query Recommendation」という3つの戦略が用いられ、これによってエージェントを攻撃者が用意した固定のドキュメントチェーンへと引き込む。Chain-LinkおよびMal-Ins Documentは一度作成すれば再利用可能であり、これらは一連の推論の流れの中で自然な結論として攻撃者の意図した回答を提示するように設計されている。</p></section>
+<section class="secsum"><h3>4 Experiment</h3><p>本実験では、Agentic RAGシステムに対するブラックボックス攻撃手法であるKidnapRAGの有効性を、HotpotQA、MuSiQue、2WikiMultihopQAの3つのデータセットを用いて検証している。評価にはReAct（Qwen2.5-32B-Instruct, Llama-3.3-70B-Instruct使用）およびWebThinker（QwQ-32B, DeepSeek-R1-32B使用）の2つのフレームワークを用い、リトリーバーにはe5-large-v2を採用した。評価指標として、正解率（EM）と攻撃成功率（ASR）に加え、推論経路の逸脱を示すReasoning Path Divergence Score、攻撃対象への誘導を示すTarget Redirection Score、およびAnswer Preference Scoreを導入している。実験の結果、既存の7つの攻撃手法（Ignore AttackやPARADOX等）がAgentic RAGにおいて失敗する一方で、KidnapRAGは全ての構成において最も高いASRを達成し、推論経路を攻撃者の意図する方向へ継続的に操作できることが示された。アブレーション研究により、Bait（誘導）、Chain-Link（維持）、Mal-Ins（最終誘導）の3種類の文書が連鎖的に機能することが不可欠であり、これらを単一の文書に統合（w/o Chaining）するとASRが大幅に低下することが判明した。また、KidnapRAGは推論プロセスを段階的に偽装するため、OpenAI Moderationによる検知率（guard rate）を低く抑えられるという特性も確認された。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>本研究は、Agentic RAGシステムにおける重大な脆弱性を明らかにし、内部システムへのアクセスを必要とせず、外部から観測可能な推論信号を利用して最終回答に至る推論鎖を操作できることを示した。提案手法であるKidnapRAGは、エージェントの推論鎖を元のクエリの意図から攻撃者が意図する応答へと段階的に転換させる、現実的なブラックボックス攻撃である。広範な実験の結果、KidnapRAGは既存の攻撃手法と比較して、大幅な性能低下を引き起こすと同時に、標的応答の誘導においてより高い成功率を達成することが示された。詳細な分析により、その有効性は単なる汚染された証拠の局所的な注入ではなく、推論鎖に対する持続的な操作に起因することが確認された。これらの知見は、推論鎖のハイジャックがAgentic RAGにおける根本的なセキュリティリスクであることを浮き彫りにしており、敵対的なステアリングを検知・防御する新たな防御策の必要性を強調している。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>本研究は、攻撃者が内部コンポーネントにアクセスできず、システムが公開する推論チェーンの情報のみに依存するブラックボックス設定下でも、Agentic RAGの推論プロセスを乗っ取れることを示したが、いくつかの限界が存在する。第一に、中間思考や検索クエリの提示度合いに依存するため、推論プロセスが隠蔽・要約・サニタイズされるシステムでは攻撃の有効性が低下する可能性がある。第二に、攻撃者が公開したコンテンツが検索対象となる際、インデックスの遅延、ソースフィルタリング、ドメイン権威性、プラットフォームのモデレーション等の要因により、検索の信頼性が変動する。第三に、実験は ReAct や WebThinker といった代表的なアーキテクチャに限定されており、プランナーや検証器、マルチエージェント構成を含むより広範な設計への評価が必要である。最後に、OpenAI Moderation に基づく検知器による評価は行っているものの、検索結果の検証、ソースの信頼性推定、推論の一貫性チェックといった、より多様な防御メカニズムを備えたシステムに対する包括的な検証は今後の課題である。</p></section>
+<section class="secsum"><h3>Ethical Considerations</h3><p>本研究は、Agentic RAGシステムにおいて、システムが露出させる推論チェーン（reasoning-chain）の情報を悪用してエージェントの推論プロセスを乗っ取る、未踏のブラックボックス攻撃手法であるKidnapRAGを提案している。この攻撃は、中間的な推論の操作や攻撃者の意図に基づいた誤情報の誘導、あるいは不適切・誤解を招く結論への誘導を可能にするリスクがあり、特に医療、法律、金融、教育、公共の意思決定といった高影響なドメインにおいて深刻な脅威となる。実験の大部分は、制御された条件下で公開ベンチマークデータセットを用いてオフラインで実施されている。著者らは、悪用を防ぎ安全なシステムの構築を支援することを目的としており、推論チェーンの異常検知、検索結果の検証、ソースの信頼性評価、および出力の監査といった、推論プロセス乗っ取りに対する実用的な防御策の研究を推奨している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-07
+  </footer>
+</div>
+</body>
+</html>

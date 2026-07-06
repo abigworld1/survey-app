@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CORTEX: Token-Level Hallucination Detection in RAG via Comparative Internal Representations | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>CORTEX: Token-Level Hallucination Detection in RAG via Comparative Internal Representations</h1>
+  <div class="meta">Kazuaki Furumai, Shuichiro Haruta, Kazunori Matsumoto, Daisuke Kamisaka<br>採択先: 未取得 ・ 2026-06-30 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2606.31033v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.31033v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-06-30</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGのハルシネーション検出に対し、内部表現の差分とアテンションを用いた文脈残差という独創的なアプローチを提案しており、手法の新規性と具体性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> CORTEXは、RAGにおけるトークンレベルのハルシネーションを検出するpost-hoc手法であり、参照文献の有無によるLLMの内部表現の差分（デルタ特徴量）と、アテンションを用いた文脈残差を利用して、根拠に基づいたトークンを特定する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、Retrieval-Augmented Generation (RAG) において、生成された回答の各トークンが検索されたドキュメントに忠実であるかを判定する課題に取り組んでいる。従来のSelf-consistencyやPrompt-basedな手法は、推論コストやプロンプト設計への依存が課題であった。CORTEXは、クローズドなLLM $\mathcal{M}$ が生成した回答 $A$ に対し、内部表現にアクセス可能なオープンウェイトLLM $\mathcal{M}_{ow}$ を事後解析モデルとして用いる。これにより、生成プロセスを変更することなく、トークン単位でのハルシネーション検出を可能にしている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、参照情報の有無による内部表現の対照的な変化を捉える新しい特徴量設計と、スパンの一貫性を高める平滑化手法の提案である。具体的には、参照文献の影響を直接的に捉える「参照誘発デルタ表現」と、先行トークンからの伝播を分離する「文脈残差特徴量」を導入した。また、ハルシネーションが連続する性質を利用した「ラベル永続性平滑化（label-persistence smoothing）」により、局所的なノイズを低減している。実験では、RAGTruthおよびHalluRAGの2つのベンチマークにおいて、既存の5つのベースラインを上回る性能を達成した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>CORTEXは、以下の3つの主要ステップで構成される。まず、参照文献を含む入力 $x_{ref}$ と含まない入力 $x_{no\_ref}$ から得られる各トークンの最終層表現 $\mathbf{h}_t^{ref}$ と $\mathbf{h}_t^{no\_ref}$ の差分 $\Delta \mathbf{h}_t = \mathbf{h}_t^{ref} - \mathbf{h}_t^{no\_ref}$ を算出する。次に、先行するトークンを介した間接的な影響を排除するため、アテンション重み $a_{t,j}^{ref}$ を用いた文脈媒介影響 $\sum_{j&lt;t} a_{t,j}^{ref} \Delta \mathbf{h}_j$ を差し引いた文脈残差 $R_t = \Delta \mathbf{h}_t - \sum_{j&lt;t} a_{t,j}^{ref} \Delta \mathbf{h}_j$ を定義する。これらの特徴量をMLP分類器 $f_{\theta}$ に入力し、クラス不均衡対策として重み付けされたバイナリクロスエントロピー損失を用いて学習を行う。最後に、隣接ラベルの持続性を制御するパラメータ $\lambda$ を用いた局所適合項 $P(y_t, y_{t-1} | s_t, s_{t-1})$ を定義し、前向き・後ろ向きアルゴリズムにより事後確率 $\hat{s}_t = \sum_{\mathbf{y}} y_t P(\mathbf{y} | \mathbf{s})$ を計算する平滑化ステップを適用する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、RAGTruthおよびHalluRAGの2つのベンチマークを用い、Llama-3.1-8B-Instruct、Qwen3-8B、Mistral-7B-Instruct-v0.2の3つのLLMを対象に行った。指標にはAverage Precision (AP) および Area Under the ROC Curve (AUROC) を使用し、NLL、SAPLMA、LLM-Check、ICR Probe、RAGLensの5つのベースラインと比較した。結果として、CORTEXはすべての設定において最高の性能を達成した。アブレーション解析により、コンテキスト残差 $\mathcal{R}$ が偽陽性を抑制し、ラベル永続性平滑化がハルシネーション領域の一貫性を高めることが実証された。また、回答レベルの評価においても、トークンレベルの最大スコアを集約する戦略により、競争力のある性能を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>CORTEXは実用的なポストホック手法であるが、いくつかの限界が存在する。第一に、RAG設定を前提としているため、参照文献が存在しないLLMの内部知識に基づく主張の検証には適していない。第二に、解析モデルとして内部表現にアクセス可能なオープンウェイトLLMを必要とするため、検出精度は選択したモデルの能力に依存する。第三に、学習にはスパンレベルの詳細なアノテーションが必要であり、データの不足が課題である。今後の展望として、トークンレベルの信頼性信号を、バイアスや毒性、プライバシーリスクなどの安全性チェックと統合する手法の検討が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>CORTEX: Token-Level Hallucination Detection in RAG via Comparative Internal Representations</h3><p>CORTEXは、Retrieval-Augmented Generation (RAG) におけるトークンレベルのハルシネーション検出手法であり、検索されたドキュメントに根拠を持つトークンは、そうでないトークンよりもドキュメントの影響を強く受けるという直感に基づいている。具体的には、検索ドキュメントがある場合とない場合のLLMの内部表現を比較することで、ドキュメントによる影響度を捉える。単に各トークンの即時的な感度を見るだけでなく、先行するトークンを通じて伝播するドキュメント根拠情報の蓄積も活用することで、既に文脈に吸収された情報の誤検知を抑制している。さらに、ハルシネーションのラベルが連続するスパンで持続する傾向をモデル化する後処理の平滑化ステップを導入し、局所的なノイズを低減してスパンの一貫性を高めている。2つのRAGベンチマークと3つのLLMを用いた実験により、各コンポーネントが性能向上に寄与し、トークンレベルの検出精度を大幅に改善することが示された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究では、RAG（Retrieval-Augmented Generation）におけるトークン単位のハルシネーション検出手法であるCORTEXを提案している。CORTEXは、参照情報がある場合とない場合の同一回答に対する内部表現の差分を比較する「対照的な反事実的視点」に基づき、忠実なトークンは参照情報の提供によって一貫した表現の変化を示すという直感を利用して、トークンレベルのデルタ特徴量を抽出する。さらに、参照情報の効果が先行する回答トークンを通じて間接的に伝播することを考慮し、アテンションパターンと組み合わせた「コンテキスト残差特徴量」を導入することで、間接的に根拠付けられたトークンと根拠のないトークンを区別し、偽陽性を低減する。また、ハルシネーションのラベルが隣接するトークン間で持続するという性質を利用した「ラベル永続性平滑化（label-persistence smoothing）」を導入することで、局所的なノイズを抑制し、スパン単位の注釈構造に適応させている。2つのRAGベンチマークと3つのLLMを用いた実験により、CORTEXがトークンレベルの検出性能を大幅に向上させることが示されており、APIベースのクローズドモデルを含む任意のLLMに適用可能な実用的なポストホック手法として位置付けられている。</p></section>
+<section class="secsum"><h3>2 Preliminaries</h3><p>本研究では、パラメータや内部表現にアクセスできないクローズドウェイトLLM $\mathcal{M}$ が生成した回答 $A$ に対し、質問 $Q$ との整合性を評価するトークンレベルのハルシネーション検出を扱う。内部表現が取得できない $\mathcal{M}$ の代わりに、内部表現へのアクセスが可能なオープンウェイトLLM $\mathcal{M}_{ow}$ を事後解析モデルとして利用する。具体的には、質問と回答を連結した入力 $X = [Q; A]$ を $\mathcal{M}_{ow}$ に入力し、回答の各トークン $a_i$ ($i=1, \dots, n$) に対応する内部表現 $h_i$ を抽出する。ハルシネーション検出タスクは、各トークンに対して、ハルシネーションを示すラベル $y_i=1$ または忠実であることを示すラベル $y_i=0$ を推定することである。本設定は、検索されたリファレンスに基づき回答の忠実性が求められるRAG（Retrieval-Augmented Generation）アプリケーションを想定している。</p></section>
+<section class="secsum"><h3>3 CORTEX</h3><p>CORTEXは、RAGにおけるトークンレベルのハルシネーション検出を行うpost-hocフレームワークであり、参照文献の有無による内部表現の変化を利用する。まず、参照文献を含む入力 $x_{ref}$ と含まない入力 $x_{no\_ref}$ から得られる各回答トークンの最終層の表現を $\mathbf{h}_t^{ref}$ および $\mathbf{h}_t^{no\_ref}$ としたとき、その差分である $\Delta \mathbf{h}_t = \mathbf{h}_t^{ref} - \mathbf{h}_t^{no\_ref}$ を「参照誘発デルタ表現」として定義し、トークンが参照文献によってどのように文脈化されるかを捉える。次に、Chain-of-Thoughtのような推論過程において、先行するトークンを介して伝播する参照文献の影響を分離するため、アテンション重み $a_{t,j}^{ref}$ を用いた文脈媒介影響 $\sum_{j&lt;t} a_{t,j}^{ref} \Delta \mathbf{h}_j$ を差し引いた「文脈残差」 $R_t = \Delta \mathbf{h}_t - \sum_{j&lt;t} a_{t,j}^{ref} \Delta \mathbf{h}_j$ を導入する。これらの特徴量をMLP分類器 $f_{\theta}$ に入力して生のハルシネーションスコア $s_t = \sigma(f_{\theta}(\cdot))$ を算出するが、クラス不均衡対策としてバイナリクロスエントロピー損失に重み付けを行う。最後に、人間によるアノテーションがスパン単位であることを考慮し、隣接するラベルの持続性を制御するパラメータ $\lambda$ を用いた「ラベル持続性平滑化（Label-Persistence Smoothing）」を適用する。この平滑化は、生のスコアに基づく信頼度とラベルの連続性を組み合わせた局所適合項 $P(y_t, y_{t-1} | s_t, s_{t-1})$ を定義し、前向き・後ろ向きアルゴリズムを用いて事後確率 $\hat{s}_t = \sum_{\mathbf{y}} y_t P(\mathbf{y} | \mathbf{s})$ を効率的に計算することで、ノイズを抑えたスパン一貫性のあるスコアを得る。</p></section>
+<section class="secsum"><h3>4 Experiments</h3><p>本研究では、RAGにおけるトークンレベルのハルシネーション検出手法であるCORTEXを、RAGTruthおよびHalluRAGの2つのベンチマークを用いて評価している。実験にはLlama-3.1-8B-Instruct、Qwen3-8B、Mistral-7B-Instruct-v0.2の3つのLLMを使用し、トークンレベルの評価指標としてAverage Precision (AP) および Area Under the ROC Curve (AUROC) を用いて、NLL、SAPLMA、LLM-Check、ICR Probe、RAGLensといった5つのベースラインと比較している。CORTEXは、参照情報の有無による同一トークンの内部表現の対比から信号を抽出する手法であり、RAGTruthにおける人間による詳細なアノテーション、およびHalluRAGにおける文レベルのアノテーションから派生した擬似ラベルの両方において、すべての設定で最高の性能を達成した。回答レベルの評価においては、CORTEXは回答レベルの教師信号を使用せず、トークンレベルの最大スコアを回答スコアとして採用する集約戦略をとっているが、回答レベルの検出においてもベースラインに対して競争力のある性能を示した。アブレーション解析の結果、コンテキスト残差 $\mathcal{R}$ は先行する文脈を介した間接的な接地による偽陽性を抑制し、ラベル永続性平滑化（label-persistence smoothing）は局所的に不安定なスコアパターンを抑制してハルシネーション領域をより一貫して特定することが確認された。</p></section>
+<section class="secsum"><h3>5 Related Work</h3><p>LLMにおけるハルシネーション問題は、RAG（Retrieval-Augmented Generation）によって軽減されるものの、依然として根拠のない、あるいは不整合な出力が生成される課題が残っている。既存の検出手法には、Self-consistencyのように複数回の生成結果を比較する手法や、LLMを判定器として用いるPrompt-basedな手法があるが、これらはプロンプト設計への依存や追加の推論コストが課題となる。一方で、次トークン分布の不確実性や、Transformerの中間表現、AttentionやFFNのスペクトル特徴、Sparse Autoencoder（SAE）を用いた解析など、モデル内部の信号を利用する研究も進んでいる。本研究で提案するCORTEXは、単一の内部状態を解析する従来手法とは異なり、参照情報がある場合とない場合の内部表現を比較することでハルシネーションを検出する。さらに、孤立したノイズを低減し、スパン単位のハルシネーション注釈と予測をより良く一致させるために、label-persistence smoothingを導入している。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、RAGにおけるトークンレベルのハルシネーション検出手法として、参照情報の有無による内部表現の変化を分析するCORTEXを提案している。CORTEXは、同一の回答に対して参照情報がある場合とない場合の内部表現を比較し、その差分をトークンレベルのデルタ特徴量としてエンコードする。この特徴量にアテンションパターンを組み合わせることで文脈を介した参照の影響を捉え、さらにラベル永続性平滑化（label-persistence smoothing）を用いることで、スパンの一貫性を保ちつつ局所的なノイズを低減している。実験の結果、CORTEXはトークンレベルのベースラインを大幅に上回り、単純なスコア集計によって回答レベルでも競争力のある性能を達成した。また、アブレーション解析により、アテンションに基づく文脈的残差とラベル永続性平滑化の両方が有効であることが確認された。本手法は、クローズドなLLMの出力をオープンウェイトのLLMを用いて事後的に解析するため、生成プロセスを変更せずに信頼性を評価できる実用的なアプローチである。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>CORTEXはRAG設定を前提としており、生成された回答を評価するための参照文献の存在を仮定しているため、LLMのパラメータ知識のみから生成された主張の検証には適していない。この制約は、承認された文書のみに基づいた回答が求められるエンタープライズ向けのカスタマーサポート等の制御された用途には適しているが、参照文献に明示されていない有用な情報まで根拠なしと判定してしまう可能性がある。また、手法の性質上、隠れ状態やアテンション重みなどの内部表現にアクセス可能なオープンウェイトLLMを解析モデルとして必要とするため、検出の品質は選択したモデルの能力に依存する。さらに、学習には詳細な教師データが必要であるが、RAGTruthのようなスパンレベルの人間によるアノテーションは依然として不足しており、限られたアノテーション資源下での監督学習の改善が今後の課題である。</p></section>
+<section class="secsum"><h3>Ethical Considerations</h3><p>CORTEXは、RAGシステムの生成出力において根拠のないトークンを特定することで、信頼性評価を支援することを目的としている。本手法は、ユーザーが幻覚（hallucination）に基づいた情報に依存するリスクを低減するが、予測は確率的なものであるため、偽陽性（false positives）や偽陰性（false negatives）が含まれる可能性があり、事実の正確性を保証するものではない。そのため、高リスクな領域では人間によるレビューや追加の検証が必要であり、検出結果を過信して生成出力を実際よりも信頼できるものとして提示するリスクについても注意を要する。また、CORTEXの設計範囲は参照文献に基づいた生成における根拠の有無の検出に限定されており、真実性、公平性、あるいは社会的危害といった広範な概念を判定するものではない。今後の課題として、トークンレベルの信頼性信号を、バイアス、毒性、プライバシーリスク、およびドメイン固有の安全性チェックを含む他の安全策とどのように統合していくかが挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-07
+  </footer>
+</div>
+</body>
+</html>
