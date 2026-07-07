@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MIRAGE: Defending Long-Form RAG Against Misinformation Pollution | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>MIRAGE: Defending Long-Form RAG Against Misinformation Pollution</h1>
+  <div class="meta">Saadeldine Eletter, Ruihong Zeng, Yuxia Wang, Maxim Panov, Aleksandr Rubashevskii, Preslav Nakov<br>採択先: 未取得 ・ 2026-07-06 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.05069v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.05069v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-06</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの脆弱性である「汚染された証拠」に対し、学習不要かつNLIを用いたグラフ構造による検証を提案しており、実用性と新規性のバランスが良い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 検索された文脈に誤情報が含まれる場合に、Long-form RAGの事実性を維持するための学習不要かつモデルに依存しない防御手法 MIRAGE を提案する。NLI（自然言語推論）を用いて文書間のクレームグラフを構築し、一貫性のある主張のみを生成に使用するか、あるいは検索を遮断してモデルの内部知識による回答へフォールバックする「Defended-Claims Gate」を適用することで、汚染された証拠による誤回答を防ぐ。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のRAG（Retrieval-Augmented Generation）は、検索された文脈に微細な捏造やエンティティの入れ替えなどの「汚染された証拠（polluted evidence）」が含まれている場合、LLMがそれらに盲目的に従い、事実性を著しく損なう問題がある。本研究では、正しい主張は複数のソース間で一貫性を持つが、誤情報は互いに矛盾するという洞察に基づき、検索結果の質を検証するプロセスの必要性を指摘している。評価のために、Unambiguous（単一事実の改変）、Conflicting（極性の反転）、Misleading（文脈による誘導）、Fabricated（存在しない情報の導入）の4つの汚染ファミリーからなる「Retrieval Pollution Protocol」を導入している。これにより、クリーン、混合（Mixed）、完全汚染（Full Pollution）の各レジームにおけるRAGの堅牢性を体系的に評価可能としている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、学習を必要とせず、既存のLLMに適用可能なモジュール型の防御フレームワーク MIRAGE を提案したことである。MIRAGE は、クロスソースのNLIを用いたクレームグラフの構築と、一貫性およびソースの多様性に基づくゲーティング機構を組み合わせている。実験の結果、混合汚染下において、GPT-4o-mini の平均精度を $53.88\%$ から $83.43\%$ へ、LLaMA-3.1-8B を $41.71\%$ から $71.91\%$ へと大幅に向上させることに成功した。また、完全汚染下においても、Vanilla RAG が No-RAG（外部知識を用いない回答）を下回る性能に崩壊する中で、MIRAGE は高い事実性を維持し、既存の Robust-RAG 手法を上回る性能を示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MIRAGE は、検索された文書 $D$ から文レベルの主張（claims）を抽出し、以下の手順で防御を行う。まず、主張ペアに対し、オーバーラップ $\text{overlap}(c_i, c_j) = \frac{|T(c_i) \cap T(c_j)|}{\min(|T(c_i)|, |T(c_j)|)}$ を用いて候補を絞り込み、NLIモデルを用いて支持重み $w_{\text{supp}_{ij}} = \max(0, 2p_{\text{entail}(c_i, c_j)} - 1)$ と矛盾重み $w_{\text{contr}_{ij}} = p_{\text{contr}(c_i, c_j)}$ を持つ有向グラフ $G$ を構成する。各主張 $c$ には、支持数 $n(c)$、ドメインの信頼度 $\text{trust}(\text{dom}(c))$、正規化された検索スコア $\tilde{r}(c)$ を用いたスコア $s(c) = \log(1 + n(c)) + \alpha \cdot \text{trust}(\text{dom}(c)) + \beta \cdot \tilde{r}(c)$ が割り当てられる。次に、関数 $F(S) = \sum_{c \in S} s(c) + \sum_{(i,j) \in E, i,j \in S} (w_{\text{supp}_{ij}} - w_{\text{contr}_{ij}})$ を最大化する主張の集合 $S^\star$ を貪欲法で選択する。最終的なゲート判定では、矛盾比 $r_{\text{contr}} = \frac{E_{\text{contr}}}{E_{\text{supp}} + E_{\text{contr}} + \epsilon}$ が閾値 $r_{\text{max}}$ 以下であり、かつソースの多様性 $d_{\text{src}} = |D(S^\star)|$ が $d_{\text{min}}$ 以上である場合にのみ、検証済み主張を用いた生成を行う。条件を満たさない場合は、検索を遮断してパラメトリックな回答へフォールバックする。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は LongFact, FAVA, AlpacaFact, Biography の4つのロングフォームQAベンチマークを用いて行われた。モデルには GPT-4o-mini, GPT-5-mini, LLaMA-3.1-8B, Mistral-7B-Instruct-v0.2, Qwen3-8B の計5種類を使用している。検索には固定された高密度リトリーバーを用い、クエリごとに上位 $k=20$ 個のパッセージを抽出する。事実性の評価指標には、生成された回答をクレームに分解して検証する VeriScore $\text{F1@k}$ を採用している。アブレーション解析では、完全汚染下において多様性に基づくゲートを除去すると F1 値が $26.5\%$ 低下することが示され、多様性の重要性が確認された。また、NLIラベルの検証において、人間によるアノテーションと $90.67\%$ の一致（$\kappa = 0.723$）が得られ、グラフ構築の信頼性が裏付けられた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>MIRAGE は、汚染された証拠の利用を避けることで、Full Pollution 下でも No-RAG の性能を上回る結果を出しており、これは「有害な検索結果の回避」が極めて有効であることを示唆している。しかし、本手法には限界も存在する。検索された証拠の多様性が不足している場合、グラフが疎になり、安全性を優先して情報量の少ない回答（保守的なブロッキング）になる可能性がある。また、言い換えや情報の欠落に基づく誤情報を見逃すリスクや、複数のソース間で組織的に繰り返される誤情報を「一貫性がある」と誤認するリスクも存在する。計算面では、グラフ構築と反証チェックのために追加のローカルな NLI 計算が必要となり、計算オーバーヘッドが発生する。今後の課題として、ドメインシフトへの対応や、より効率的なクレームグラフ構築のスケーラビリティ向上が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>本研究は、検索された文脈に誤情報が含まれる場合に、Long-form RAGの事実性を維持するための、学習不要かつモデルに依存しない防御手法である MIRAGE を提案している。MIRAGE は、NLI（自然言語推論）に基づいた文書間のクレームグラフを構築し、一貫性のある複数のソースによって裏付けられたサブセットのみを生成の条件とするか、あるいは検索自体をブロックしてパラメトリックな回答を行う「Defended-Claims Gate」を適用する。評価のために、Unambiguous, Conflicting, Misleading, Fabricated の4つの摂動ファミリーからなる最小編集汚染プロトコルを導入し、クリーン、混合、完全汚染の各評価レジームを構築している。4つの Long-form QA ベンチマークを用いた実験の結果、従来の RAG は汚染によって事実性が著しく低下するが、MIRAGE は混合および完全汚染の条件下で事実性を一貫して回復させ、既存の Robust-RAG 手法を上回る性能を示した。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>RAG（Retrieval-Augmented Generation）は、検索された文脈に含まれる微細な捏造やエンティティの入れ替えといった「汚染された証拠（polluted evidence）」に対してLLMが盲目的に従ってしまう問題があり、単一のスコアの高い汚染文書が誤った回答を誘発する。本研究では、正しい主張は多様なソース間で一貫性を持つが、誤情報は互いに矛盾するという洞察に基づき、検証プロセスを強制する手法「MIRAGE」を提案する。MIRAGEは2段階のプロセスで動作し、第1段階では検索された文脈から文レベルの主張を抽出し、自然言語推論（NLI）を用いて支持と矛盾のグラフを構築することで、RAGを継続するかモデルのパラメータ知識へフォールバックするかを判定する。第2段階では、検証済みの構造化された主張に基づいて生成を条件付け、モデルにその証拠に基づいた出力を指示する。提案手法は、制御可能な汚染（Unambiguous, Conflicting, Misleading, Fabricated）を注入する新しいベンチマークを用いて4つの長文QAデータセットで評価されており、混合汚染下では一貫した主張を保持し、完全汚染下では信頼できない検索を検知してフォールバックすることで、既存の堅牢なRAGベースラインを上回る事実性を実現している。</p></section>
+<section class="secsum"><h3>Related Work</h3><p>FLAREやSelf-RAG、DRAGINといったActive RAG手法は、生成過程で反復的な検索や洗練を行うが、これらはコーパスが信頼できることを前提としており、意味的に関連しているが誤った情報（polluted evidence）に対して脆弱である。InstructRAGやRetRobustなどの既存の防御策は、誤解を招く証拠への戦略やリランキング、依存性制御、あるいは事後的な検証（RARGやTrustRAGなど）を扱うが、MIRAGEはこれらとは異なり、学習を必要としない（training-free）手法である。MIRAGEは、真実の証拠は複数のソース間で裏付けられる一方で、汚染された証拠は構造的な不整合を引き起こすという「グローバルな文書間の一貫性」に着目している。具体的には、テキストのみの長文RAGを対象とし、クロスソースのNLI（Natural Language Inference）を用いたクレームグラフと、生成前に汚染された証拠を判定するdefended-claims gateを活用することで、情報の汚染を防ぐ。</p></section>
+<section class="secsum"><h3>Methodology</h3><p>MIRAGEは、標準的な検索・生成パイプラインのラッパーとして機能し、検索された文書 $D$ から抽出された文レベルの主張（claims）に基づき、防御された主張グラフ $G$ を構築する手法である。まず、異なるソース間の主張ペアに対し、包含関係に基づくオーバーラップ $\text{overlap}(c_i, c_j) = \frac{|T(c_i) \cap T(c_j)|}{\min(|T(c_i)|, |T(c_j)|)}$ を用いて候補を絞り込み、NLIモデルを用いて支持重み $w_{\text{supp}_{ij}} = \max(0, 2p_{\text{entail}(c_i, c_j)} - 1)$ と矛盾重み $w_{\text{contr}_{ij}} = p_{\text{contr}(c_i, c_j)}$ を持つ有向グラフを構成する。各主張には、支持数 $n(c)$、ドメインの信頼度 $\text{trust}(\text{dom}(c))$、正規化された検索スコア $\tilde{r}(c)$ を用いたスコア $s(c) = \log(1 + n(c)) + \alpha \cdot \text{trust}(\text{dom}(c)) + \beta \cdot \tilde{r}(c)$ が割り当てられ、関数 $F(S) = \sum_{c \in S} s(c) + \sum_{(i,j) \in E, i,j \in S} (w_{\text{supp}_{ij}} - w_{\text{contr}_{ij}})$ を最大化するように貪欲法で一貫した主張の集合 $S^\star$ が選択される。最終的なゲート判定では、矛盾比 $r_{\text{contr}} = \frac{E_{\text{contr}}}{E_{\text{supp}} + E_{\text{contr}} + \epsilon}$ が閾値 $r_{\text{max}}$ 以下であり、かつソースの多様性 $d_{\text{src}} = |D(S^\star)|$ が $d_{\text{min}}$ 以上である場合にのみ、検証済み主張を用いたプロンプトによる生成が行われ、条件を満たさない場合は検索を遮断してパラメトリックな回答に切り替わる。</p></section>
+<section class="secsum"><h3>Retrieval Pollution Protocol</h3><p>本セクションでは、誤情報下における長文RAGの体系的なストレス・テストを行うための「Retrieval Pollution Protocol」が提案されている。このプロトコルでは、検索されたパッセージに対して最小限の編集を加えた破損バリアントを作成することで、クエリごとに制御された3つの検索レジーム（CLEAN、MIXED、POLLUTED）を構築する。実験においては、証拠のサイズ（evidence size）を一定に保ちつつ、トピックの関連性（topical relevance）を維持するように設計されている。これにより、情報の正確性がどの程度損なわれるかを制御しながら、RAGシステムの堅牢性を評価することが可能となる。</p></section>
+<section class="secsum"><h3>Generation setup.</h3><p>本セクションでは、Long-Form RAGに対する誤情報汚染をシミュレートするための生成設定が詳述されている。まず、GPT-4o-miniを用いて、キャッシュされたクリーンな検索文集合 $\mathcal{D}_{\text{CLEAN}}(q) = \{p_1, \dots, p_k\}$ から、流暢かつトピックを維持しつつ検証可能な事実誤認を含む汚染されたバリアント $\tilde{p}_i$ を生成する。汚染の分類（Pollution families）として、単一の原子的事実を改変する「Unambiguous」、主張の極性を反転させる「Conflicting」、文脈の枠組みを変えて誤った結論へ誘導する「Misleading」、および存在しない詳細情報を導入する「Fabricated」の4種類を定義している。実験における検索レジームは、クリーンな文のみの $\mathcal{D}_{\text{CLEAN}}(q)$、汚染文のみの $\mathcal{D}_{\text{POLL}}(q) = \{\tilde{p}_1, \dots, \tilde{p}_k\}$、および汚染率 $\alpha=0.5$ で混合された「Mixed」の3つの設定で構成される。なお、提案手法であるMIRAGEは、正解の文ラベルへのアクセスなしに、検索されたテキストと防御対象の主張グラフ（defended-claims graph）の構造的特性のみに基づいて判断を行う。</p></section>
+<section class="secsum"><h3>Datasets and Models</h3><p>本研究では、LongFact、FAVA、AlpacaFact、Biographyの4つのロングフォーム・ベンチマークを用いて、MIRAGEの評価を行っている。評価対象のモデルは、商用モデルとしてGPT-4o-miniおよびGPT-5-mini、オープンウェイトモデルとしてLLaMA-3.1-8B、Mistral-7B-Instruct-v0.2、Qwen3-8Bの計5種類であり、モデルに依存しない性能検証を目指している。実験設定では、ウェブ検索から構築したデータセット固有のキャッシュ済みクリーンな証拠プールを用い、Clean/Mixed/Fully-Pollutedの3つの検索レジームを定義することで、制御可能かつ再現可能な汚染評価を実現している。検索には固定された高密度リトリーバーを用い、クエリごとに上位 $k=20$ 個のパッセージを抽出する。クレームグラフの構築および文レベルのチェッカーにはDeBERTa-large-MNLIを使用し、事実性の評価指標には、生成された回答をクレームに分解して証拠に基づきラベル付けを行うVeriScore $\text{F1@k}$（プロンプト間の中央値）を採用している。なお、コアゲートの基準設定は、生成器を呼び出さずにキャッシュされた検索結果とNLI出力に対してグリッドサーチを行うことで、オフラインで決定されている。</p></section>
+<section class="secsum"><h3>Experimental Results</h3><p>本実験では、検索結果に誤情報が混入した場合のRAGの堅牢性を評価しており、MIRAGEがVanilla RAGと比較して高い耐性を示すことが確認された。Clean Retrieval環境下では、MIRAGEはVanilla RAGと同等の性能を維持し、防御用のゲートが整合性のある証拠を誤って抑制しないことが示された。一方で、Mixed Pollution (MixP) や Full Pollution (FullP) の条件下では、Vanilla RAGの性能が急激に低下し、No-RAG（外部知識を用いない回答）を下回るケースも見られたが、MIRAGEは矛盾の多い証拠をフィルタリングし、必要に応じてパラメトリックな回答へフォールバックすることで、事実性を回復させた。具体的な数値として、MixPにおいてGPT-4o-miniの平均精度は $53.88\%$ から $83.43\%$ へ、LLaMA-3.1-8Bでは $41.71\%$ から $71.91\%$ へと大幅に向上した。また、FullPにおいてVanilla RAGが崩壊する（例：GPT-4o-miniで $39.87\%$ と No-RAGの $75.88\%$ を下回る）中、MIRAGEはGPT-4o-miniで $78.00\%$、LLaMA-3.1-8Bで $70.34\%$ の精度を達成し、性能を大幅に回復させた。</p></section>
+<section class="secsum"><h3>Long-form QA Results</h3><p>Table 2における実験結果によれば、MIRAGEはMixed Pollution (MixP) および Full Pollution (FullP) の両条件下において、すべてのデータセットとバックボーンで既存のrobust-RAG手法を上回る性能を示した。特にFullPにおいて、ベースラインが矛盾の多い検索結果に脆弱であるのに対し、MIRAGEは信頼性の低い証拠を遮断してパラメトリックな回答へフォールバックすることで、Long-FactデータセットにおいてGPT-4o-miniで $88.93\%$（ベースライン $74.87\%$）、Qwen2-7Bで $85.11\%$（ベースライン $66.41\%$）という大幅な精度向上を達成した。汚染された検索結果下では既存手法がNo-RAGの性能を下回る傾向にある一方、MIRAGEは信頼性を考慮したゲーティングと証拠がない場合の生成プロセスにより、No-RAGの性能をも超越する。この性能向上は、汚染された証拠の利用ではなく、有害な検索結果の回避に起因しており、FullPでは汚染コンテキストの遮断、MixPでは相互に支持されるクリーンな主張の保持が寄与している。</p></section>
+<section class="secsum"><h3>Ablations</h3><p>MIRAGEのゲート機構は、矛盾許容度を制御する $r_{\max}$ とソースの多様性を制御する $d_{\min}$ という2つの解釈可能な整合性基準に基づき、防御対象の主張グラフがグローバルに整合し、複数の独立したドメインによって裏付けられている場合にのみ検索結果を信頼する。実験の結果、ゲートはクリーンな検索では平均87.2%を通過させるが、混合汚染（MixP）下では48.6%に低下し、完全汚染（FullP）下ではほぼ全てのクエリをブロック（0%通過）して誤情報への曝露を防ぐことが示された。検索深度 $k$ に対する感度分析では、LongFactデータセットにおいて $k=5$ から $50$ の範囲でVeriScore F1値が安定しており、MIRAGEが検索深度に対して頑健であることが確認された。アブレーション解析により、反証プロンプティング、矛盾に基づく信頼、多様性に基づく信頼の各コンポーネントが補完的に機能していることが判明し、特に完全汚染下では多様性に基づくゲートの除去がF1値を26.5%低下させるなど、極めて重要な役割を果たす。また、NLIラベルの検証では、人間によるアノテーションと$90.67\%$の一致（$\kappa = 0.723$）が得られ、MIRAGEが使用するグラフのエッジおよび事実性ラベルの信頼性が裏付けられた。</p></section>
+<section class="secsum"><h3>Conclusion and Future Work</h3><p>本研究では、トピックに関連する誤情報（retrieval pollution）から長文RAGを保護するための、学習不要かつモデルに依存しない防御手法であるMIRAGEを提案している。MIRAGEは、複数のソースからクレームグラフ（cross-source claim graph）を構築し、防御済みクレームゲート（defended-claims gate）を用いて、グローバルに一貫性のある証拠に基づいた生成を行うか、あるいはパラメトリックな回答へとフォールバックするかを決定する。4つの長文QAベンチマークおよび複数のLLMを用いた実験の結果、汚染された検索結果は従来のRAGの性能を低下させるものの、MIRAGEは混合または完全な汚染条件下においても事実性を回復させ、既存の堅牢なRAG手法を上回る性能を示した。本研究は、トピックの関連性のみを証拠の質と見なすのではなく、生成前に検索された証拠を検証することの重要性を強調しており、今後の課題として、ドメインシフト、多言語および組織的な誤情報への耐性向上、およびより効率的なゲーティングによるクレームグラフ構築のスケーラビリティ向上が挙げられている。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>MIRAGEは検索された証拠の網羅性と多様性に依存するため、リコールが低い場合やソースの多様性が不足している場合には、グラフが疎になり、より保守的なブロッキングが行われることで、安全性は高まるものの情報量の少ない回答になる可能性がある。手法として、スケーラブルなクロス・クレーム検証の近似としてNLIベースの一貫性確認と語彙的オーバーラップによるフィルタリングを採用しているが、これらは言い換えや情報の欠落に基づく誤情報を見逃すリスクがある。また、複数のソース間で組織的に繰り返される誤情報は、信頼できるものとして誤認される可能性がある。本手法は、堅牢性、解釈性、監査可能性を向上させるために意図的にトレーニングフリーかつモジュール型として設計されているが、その性質上、特定のドメインや言語への適応が制限される場合がある。最後に、生成プロセス自体はクエリごとに1回のLLM呼び出しで済むものの、グラフ構築や反証チェックのために追加のローカルなNLI計算が必要となり、計算オーバーヘッドが発生する。</p></section>
+<section class="secsum"><h3>Ethical Considerations</h3><p>MIRAGEは、誤情報を含む検索結果が伝播するリスクを低減し、RAGの堅牢性を向上させることを目的としている。本研究で提案する汚染プロトコルは、制御された評価のために設計されているが、悪用されると尤もらしい誤情報を生成する可能性があるため、限定的な公開と標準的な安全策が推奨される。手法は、意味的一貫性の標準的なプロキシとして自然言語推論（NLI）と軽量なドメイン事前知識に依存しているが、これらのコンポーネントはバイアスを含んだり、ドメインシフトによって性能が低下したりする可能性がある。これに対し、本手法では集約（aggregation）と保守的な棄権（conservative abstention）を用いることで緩和を図っているが、実際の運用環境においては継続的なモニタリングと適応が重要となる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-08
+  </footer>
+</div>
+</body>
+</html>

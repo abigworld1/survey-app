@@ -957,6 +957,68 @@
       "url": "http://arxiv.org/abs/2607.01852v1",
       "venue": ""
     },
+    "arxiv:2607.04008": {
+      "added": "2026-07-08",
+      "arxiv_id": "2607.04008",
+      "authors": [
+        "Yingdong Yang",
+        "Haijian Wu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-04",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.04008.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.04008v1",
+      "reading_value": 3,
+      "reading_value_reason": "RAGの評価指標やLLM-judgeの乖離に関する知見は有用。ただし、特定のコンペティション（LongEval-RAG）の設定に特化した分析であり、汎用的な手法の提案というよりは、特定条件下での最適構成の探索に留まるため。",
+      "relevance": 8,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Candidate-Constrained Retrieval-Augmented Generation for LongEval-RAG: System Design and Empirical Analysis",
+      "tldr": "LongEval-RAGにおける候補制約型RAG（Candidate-Constrained RAG）の設計と評価を行い、決定論的なルールベースのチャンキングと、生成直前の文レベルでのMiniLMによるリランキングを組み合わせた「rule-minilm」構成が、検索精度や情報の網羅性において最も優れたバランスを示すことを明らかにした。",
+      "url": "http://arxiv.org/abs/2607.04008v1",
+      "venue": ""
+    },
+    "arxiv:2607.05069": {
+      "added": "2026-07-08",
+      "arxiv_id": "2607.05069",
+      "authors": [
+        "Saadeldine Eletter",
+        "Ruihong Zeng",
+        "Yuxia Wang",
+        "Maxim Panov",
+        "Aleksandr Rubashevskii",
+        "Preslav Nakov"
+      ],
+      "basis": "fulltext(arxiv-pdf)",
+      "citations": 0,
+      "date": "2026-07-06",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.05069.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.05069v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの脆弱性である「汚染された証拠」に対し、学習不要かつNLIを用いたグラフ構造による検証を提案しており、実用性と新規性のバランスが良い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "MIRAGE: Defending Long-Form RAG Against Misinformation Pollution",
+      "tldr": "検索された文脈に誤情報が含まれる場合に、Long-form RAGの事実性を維持するための学習不要かつモデルに依存しない防御手法 MIRAGE を提案する。NLI（自然言語推論）を用いて文書間のクレームグラフを構築し、一貫性のある主張のみを生成に使用するか、あるいは検索を遮断してモデルの内部知識による回答へフォールバックする「Defended-Claims Gate」を適用することで、汚染された証拠による誤回答を防ぐ。",
+      "url": "http://arxiv.org/abs/2607.05069v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "arxiv_id": "",
@@ -2724,6 +2786,39 @@
       "tldr": "Lifelong Multi-Agent Pickup-and-Delivery (MAPD) におけるタスクスケジューリング問題を解決するため、Graph Neural Network (GNN) による強化学習を用いたグローバルなガイダンス、最小費用流によるリージョン間のリバランシング、および局所的な整数線形計画法 (ILP) によるタスク割り当てを組み合わせた階層的アルゴリズム「GRAND」を提案する。最大500エージェントの環境において、既存の優勝スケジューラと比較してスループットを最大10%向上させ、かつ1秒以内の計算予算でリアルタイム実行が可能であることを示した。",
       "url": "http://arxiv.org/abs/2512.03194v3",
       "venue": ""
+    },
+    "doi:10.1109/tmech.2026.3704386": {
+      "added": "2026-07-08",
+      "arxiv_id": "2607.04124",
+      "authors": [
+        "Dongliang Zheng",
+        "Zhipeng Wang",
+        "Siqi Wang",
+        "Yuxi Lu",
+        "Bin He",
+        "Hesheng Wang",
+        "Panagiotis Tsiotras"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-05",
+      "doi": "10.1109/TMECH.2026.3704386",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2607.04124.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.04124v1",
+      "reading_value": 4,
+      "reading_value_reason": "CBSを拡張し、低レベル探索にLEA*を導入した新規性が高い。実機でのリアルタイム性も示されており、MAPF分野の研究者にとって有用な知見である。",
+      "relevance": 1,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Conflict-Based Lazy Search for Fast Multi-Manipulator Planning",
+      "tldr": "複数マニピュレータのリアルタイム経路計画において、事前計算された疎なグラフと、エッジ評価を最小化する新しい低レベル探索アルゴリズムLEA*を組み合わせたConflict-Based Lazy Search (CBLS) を提案する。",
+      "url": "http://arxiv.org/abs/2607.04124v1",
+      "venue": "IEEE/ASME Transactions on Mechatronics(TMECH) 2026"
     },
     "doi:10.1609/aaai.v39i14.33614": {
       "added": "2026-06-26",

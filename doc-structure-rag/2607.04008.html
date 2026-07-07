@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Candidate-Constrained Retrieval-Augmented Generation for LongEval-RAG: System Design and Empirical Analysis | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Candidate-Constrained Retrieval-Augmented Generation for LongEval-RAG: System Design and Empirical Analysis</h1>
+  <div class="meta">Yingdong Yang, Haijian Wu<br>採択先: 未取得 ・ 2026-07-04 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.04008v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.04008v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-04</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">RAGの評価指標やLLM-judgeの乖離に関する知見は有用。ただし、特定のコンペティション（LongEval-RAG）の設定に特化した分析であり、汎用的な手法の提案というよりは、特定条件下での最適構成の探索に留まるため。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> LongEval-RAGにおける候補制約型RAG（Candidate-Constrained RAG）の設計と評価を行い、決定論的なルールベースのチャンキングと、生成直前の文レベルでのMiniLMによるリランキングを組み合わせた「rule-minilm」構成が、検索精度や情報の網羅性において最も優れたバランスを示すことを明らかにした。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、主催者が提供する特定の候補ドキュメント集合内でのみ検索・証拠選択・引用を行う「候補制約型（candidate-constrained）」のRAG設定を対象としている。この設定では、広大な外部コーパスからの検索ではなく、与えられた候補集合 $\mathcal{D}$ から回答の根拠となるパッセージや文を特定し、決定論的なプロバナンス（由来）追跡を通じて最終的な引用リストを導出することが求められる。評価は47個のクエリと、各クエリに紐付く10個の公式候補ドキュメント（計470インスタンス）を用いて行われる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>10種類のパイプライン変数を対象としたアブレーション研究を通じて、チャンキング戦略、クエリ拡張、擬似適合フィードバック（PRF）、および再ランキング手法の有効性を検証した。特に、高度な意味的チャンキングよりも、安定したルールベースのパスと生成直前の文レベルのニューラル選択を組み合わせる「rule-minilm」構成が、BERTScore、検索精度（retrieval precision）、nugget coverage、平均グレードの主要指標において最高値を記録することを示した。また、LLMによる自己生成診断プロトコルと公式評価指標との間に乖離があることを示し、RAG評価におけるマルチメトリクスなアプローチの必要性を提示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>システムは、候補集合 $\mathcal{D}$ の範囲内で動作する決定論的なパイプラインで構成される。パッセージ構築には、オーバーラップ文ウィンドウ法、`all-MiniLM-L6-v2`を用いた意味的チャンキング、トピックシフト法の3種がある。検索フェーズでは、BM25を用いた単一クエリに加え、決定論的なクエリ拡張とPRFによる最大5つのクエリバリアントを生成し、Reciprocal Rank Fusion (RRF) により統合する。RRFの式は $RRF(p) = \sum_{l \in L} \frac{1}{k + r(p, l)}$ で定義される。再ランキングでは、RRFスコアに引用ネットワークの次数に基づく正規化された引用事前分布 $\text{prior}(d) = \frac{\text{deg}(d)}{\sum_{d&#x27; \in \mathcal{D}} \text{deg}(d&#x27;)}$ を加算する。最終的に、上位20個のパッセージから最大10個の文を抽出し、`gpt-4o-mini`を用いて最大5文の回答を生成する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は「Primary Organizer Evaluation」と「Supplementary Diagnostic Evaluation」の2プロトコルで行われた。Primary評価では、$\text{ROUGE-L}$、$\text{BERTScore}$、$\text{retrieval precision}$、$\text{nugget coverage}$、$\text{average grade}$、および$\text{TFC1}$の6指標を用いる。Supplementary評価では、Claude Sonnet 4.5を用いた正解性（$\text{Corr.}$）と網羅性（$\text{Comp.}$）のスコアリングに加え、引用集合の$\text{Recall}$、$\text{Precision}$、$\text{Jaccard}$係数を算出する。実験の結果、`rule-minilm`はBERTScore ($0.168$)、検索精度 ($0.975$)、nugget coverage ($0.367$)、average grade ($2.929$) で最高値を記録した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>実験結果は、候補集合を制約したプロバナンス制御だけでは不十分であり、固定された集合内から最適な証拠を選択する能力が性能を左右することを示している。`rule-minilm`の成功は、ルールベースのチャンキングが局所的な文脈を維持し、MiniLMが文書構造を壊さずに最適な文を選択するという「役割分担」に起因すると考察される。一方で、LLM judgeによる評価（`rrf_no_rerank`が最高スコア）と主要指標（`rule-minilm`が最高スコア）の間に乖離が見られることから、LLMは流暢さを過大評価し、証拠の精度や詳細な網羅性を過小評価する傾向がある。今後の課題として、指標を意識した（metric-aware）後段の証拠割り当て（evidence allocation）の検討が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>LongEval-RAG at CLEF 2026</h3><p>LongEval-RAGにおける候補制約付きRAGシステムは、クエリに対して主催者が提供する候補集合（candidate set）を定義し、検索される根拠および最終的な引用がすべてその集合内に収まることを強制する設計となっている。本システムは、決定論的なプロバナンス追跡、パスベースの検索、決定論的なクエリ拡張、擬似適合フィードバック（PRF）、相互ランク融合（RRF）、軽量な根拠再ランキング、引用を考慮した根拠集約、およびオプションのMiniLMによる文レベルの再ランキングを組み合わせた。10種類のパイプライン変数を評価した結果、最も優れたバランスを持つ「rule-minilm」は、ルールベースのチャンキング、クエリ拡張、PRF、RRF、再ランキング、引用優先度、および生成前のMiniLMによる文選択を統合した構成であった。この構成は、BERTScore、検索精度（retrieval precision）、nugget coverage、および平均グレードにおいて最高値を記録しており、複雑な意味的チャンキングよりも、安定したルールベースのパスと生成直前の文レベルのニューラル選択の組み合わせが有効であることを示唆している。また、LLMによる自己生成診断プロトコルは、主催者によるゴールドアンサーやnuggetベースの評価とは異なる傾向を示すため、RAGの評価にはマルチメトリクスなアプローチが必要であることが示された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>LongEval-RAGは、広大な外部コーパスからの検索ではなく、主催者が提供する特定の候補ドキュメントIDの集合内でのみ検索・証拠選択・引用を行う「候補制約型（candidate-constrained）」のRAG設定を扱う。本研究では、ドキュメントをパッセージに構造化し、パッセージから文レベルの証拠を選択して回答を生成し、最終的な参照リストをソースドキュメントIDから導出する決定論的なプロバナンス（由来）追跡を含むパイプラインを提案している。10種類のパイプライン変数を対象としたアブレーション研究の結果、主要な評価指標において最も優れた性能を示したのは、ルールベースのチャンク分割とLate MiniLMによる文レベルのリランキングを組み合わせた `rule-minilm` である。この構成は、意味的な回答類似度、検索精度、nugget coverage、および平均nugget gradeのバランスにおいて最適であり、ニューラルマッチングはチャンク境界の再定義よりも、最終的な証拠予算の割り当てに活用するのが効果的であることを示唆している。また、Query expansion、PRF、RRFといった手法は、固定された候補プール内での語彙的な証拠想起を広げるために依然として重要であることが確認された。なお、補足的なLLM-judge評価では `rrf_no_rerank` が最高スコアを記録したが、これは主要な評価結果とは異なる診断的な差異として扱われている。</p></section>
+<section class="secsum"><h3>2 Task Setting and Data Preparation</h3><p>本セクションでは、LongEval-RAGにおけるタスク設定とデータ準備の詳細が述べられている。評価スライスは47個のクエリで構成され、各クエリには固定で10個の公式候補ドキュメントが紐付けられており、計470のクエリ・ドキュメント・インスタンスが存在する。システムは設計上「候補制約型（candidate-constrained）」であり、全パイプライン（検索、再ランキング、生成、評価）は、クエリに指定された公式候補ドキュメント集合の範囲内でのみ動作し、外部からの検索は一切行わない。テキスト選択においては、`fullText`を優先し、欠損時は`abstract`、最終手段として`title`を用いるフォールバック機構が実装されているが、現在のスライスでは222インスタンスが`fullText`、248インスタンスが`abstract`を使用している。また、決定論的なプロベナンス（由来）追跡機能により、生成された各文は`references`リスト内の引用インデックスを介して、元のドキュメントIDまで遡って追跡可能である。最後に、本研究では用語を厳密に区別しており、候補集合を指す`documents`、分割単位の`chunks`、検索単位の`passages`、引用ドキュメントを記録する`references`、そして評価単位である`nuggets`という5つの用語を定義している。</p></section>
+<section class="secsum"><h3>3 System Pipeline</h3><p>本システムは、提供された候補文書集合 $\mathcal{D}$ のみを検索・再ランク付け・証拠選択・プロンプト構築の全工程で使用する「候補制約（candidate constraint）」を導入している。パッセージ構築には、決定論的なオーバーラップ文ウィンドウ法、`all-MiniLM-L6-v2`を用いた意味的チャンキング、および文間の局所的なドリフトを検知するトピックシフト法の3つのバリアントがあり、共通の語数上限は140語に設定されている。検索フェーズでは、BM25を用いた単一クエリ、決定論的なクエリ拡張（キーワード、時間的意図、手法の意図）、および擬似関連フィードバック（PRF）による最大5つのクエリバリアントが生成され、Reciprocal Rank Fusion (RRF) により統合される。RRFの式は $RRF(p) = \sum_{l \in L} \frac{1}{k + r(p, l)}$ で定義され、再ランク付けではRRFスコアに、引用ネットワークの次数に基づく正規化された引用事前分布 $\text{prior}(d) = \frac{\text{deg}(d)}{\sum_{d&#x27; \in \mathcal{D}} \text{deg}(d&#x27;)}$ を加算する。最終的に、各クエリにつき上位20個のパッセージが選択され、そこから最大10個の文レベルの証拠が抽出され、`gpt-4o-mini`（本文中ではgpt-5.4-miniと誤記）を用いて最大5文の回答が生成される。</p></section>
+<section class="secsum"><h3>4 Experimental Variants</h3><p>本セクションでは、LongEval Task 4における10種類の実験バリアント（Table 4）が、検索強度のアブレーション、チャンキング戦略の比較、および文選択の比較という3つの目的で設計されていることが示されている。実験構成は、下限値となる `concat_baseline`、語彙ベースの `single_query_bm25`、マルチクエリ検索の利得を分離する `rrf_no_rerank`、そして `caes_rag_rrf`（ルールベース・チャンキング、クエリ拡張、PRF、RRF、証拠再ランキング、引用事前分布を使用）へと段階的に発展する。チャンキング戦略については、`rule`（ルールベース）、`sem.`（セマンティック）、`topic`（トピックシフト）の比較が行われ、特に `semantic` および `topic-shift` 系列では `all-MiniLM-L6-v2` がチャンク境界の定義や検出に使用される。一方で、`minilm` サフィックスが付与されたバリアント（例：`rule-minilm`）は、検索済みの候補文に対して `MiniLM` クロスエンコーダを用いた文レベルの再ランキングを適用する構成を指す。これらの設計により、高度なセグメンテーションが検索パスの質を向上させるか、あるいは軽量な Transformer モデルが検索後の追加再ランカーとして有効であるかを検証している。</p></section>
+<section class="secsum"><h3>5 Evaluation Protocols</h3><p>本セクションでは、LongEval-RAGにおける2つの評価プロトコル、すなわち公式の「Primary Organizer Evaluation」と、独自に構築した「Supplementary Diagnostic Evaluation」について詳述している。Primary評価では、回答の類似性、引用の質、情報の網羅性を多角的に診断するため、$\text{ROUGE-L}$、$\text{BERTScore}$、$\text{retrieval precision}$、$\text{nugget coverage}$、$\text{average grade}$、および$\text{TFC1}$の6つの指標を用いる。特に$\text{nugget coverage}$はTREC-AutoJudge形式の評価に基づき、回答が最小情報単位（nuggets）をどの程度カバーしているかを測定し、$\text{TFC1}$はクエリ項目の出現頻度を重視するRAG公理に基づいている。一方、Supplementary評価は開発段階の安定性確認やエラー分析を目的としており、LLM judge（Claude Sonnet 4.5）による正解性（$\text{Corr.}$）と網羅性（$\text{Comp.}$）のスコアリングに加え、引用ドキュメント集合の重なりを評価する$\text{Recall}$ ($\frac{|\mathcal{D}_{ref} \cap \mathcal{D}_{rag}|}{|\mathcal{D}_{ref}|}$)、$\text{Precision}$ ($\frac{|\mathcal{D}_{ref} \cap \mathcal{D}_{rag}|}{|\mathcal{D}_{rag}|}$)、および$\text{Jaccard}$ ($\frac{|\mathcal{D}_{ref} \cap \mathcal{D}_{rag}|}{|\mathcal{D}_{ref} \cup \mathcal{D}_{rag}|}$) を算出する。これらのプロトコルを併用することで、LLM judgeが流暢な合成を過大評価する傾向などの評価バイアスを特定し、単一のスコアでは捉えきれないRAGシステムの挙動を詳細に分析することが可能となる。</p></section>
+<section class="secsum"><h3>6 Primary Results and Analysis</h3><p>LongEval-RAGのTask 4における主要な評価結果として、提出されたすべての検索ベースのシステムが公式のnaive baselineを大幅に上回り、特に検索精度（retrieval precision）において顕著な差が見られた。最もバランスの取れた構成は`rule-minilm`であり、BERTScore ($0.168$)、検索精度 ($0.975$)、nugget coverage ($0.367$)、およびaverage grade ($2.929$) において最高値を記録し、決定論的なルールベースのチャンキングにMiniLMによる後段のリランキングを組み合わせる手法が有効であることが示された。評価指標間の相関については、`topic-shift-current`が最高値のROUGE-L ($0.167$) を記録する一方で、`topic-shift-minilm`は最高値のTFC1 ($0.373$) を記録するなど、指標によって報酬される挙動が異なることが明らかになった。MiniLMを用いた文レベルのリランキングは、semantic-chunking群ではBERTScoreやTFC1を向上させる一方で検索精度を低下させ、topic-shift群ではBERTScoreやTFC1を向上させるもののROUGE-Lを低下させるなど、一律の改善ではなく証拠の選択内容や表現に変化をもたらす。結論として、ROUGE-Lは表面的な語彙一致には有用だが、同一の検索スタックを用いるシステム間では生成スタイルの違いを過大評価する傾向があるため、RAGの根拠能力を分析するには、検索精度、nugget coverage、average gradeといった指標を併用することが不可欠である。</p></section>
+<section class="secsum"><h3>7 Supplementary Diagnostic Results</h3><p>Claude Sonnet 4.5を評価者とした補足的な診断結果では、47個のクエリに対し、正解性（correctness）、網羅性（completeness）、平均スコア（Avg.）、および引用セットの統計量（Recall, Precision, Jaccard）を用いて10手法を比較している。診断結果によれば、`rrf_no_rerank`が平均スコア2.734で最高値を示し、次いで`rule_minilm`と`single_query_bm25`が2.681となり、多様な語彙融合による回答の妥当性が評価されている。一方で、主要な評価指標では`rule_minilm`が優位であることから、LLMによる単一の評価は流暢さや広範な合成能力を過大評価し、引用された証拠の精度や情報の詳細な網羅性（nugget coverage）を過小評価する傾向があることが示唆されている。また、`concat_baseline`は平均スコア1.446、Jaccard係数0.124と大幅に低い性能であり、検索および証拠選択の重要性が改めて確認された。本セクションは、主要指標が語彙の重なり、意味的類似度、引用精度、TFC1などを個別に検証することで、MiniLMによる文再ランキングの具体的な寄与をより詳細に明らかにしている。</p></section>
+<section class="secsum"><h3>8 Discussion</h3><p>LongEval-RAGの実験結果は、候補集合を制約したプロベナンス制御は必要条件ではあるが十分条件ではなく、固定された候補集合の中から回答に資する証拠を選択することが最大の利得をもたらすことを示している。最も強力な構成は、決定論的なルールベースのチャンク分割と、Late MiniLMによる文レベルのリランキングを組み合わせた $\text{rule-minilm}$ であり、これはルールベースのチャンクが局所的な文脈を維持し、MiniLMが文書分割を変更せずに回答に最適な文を選択するという「役割分担」によって実現されている。セマンティックやトピックシフトに基づくチャンク分割は、指標によって性能が向上する場合と低下する場合があり、科学論文のような高密度な用語を含むテキストでは、語彙的重複やタイトル・本文の信号が依然として強力なベースラインとなる。また、ローカルLLMによる評価と、ゴールド回答との重複や引用精度などの補完的な指標との間に乖離が見られることから、RAGの評価には単一のスコアではなく、複数の相補的な尺度を組み合わせることが不可欠である。今後の課題として、Late-stageでの文割り当てや指標を意識したリランキング、および「正しい文書が低順位であるケース」と「文書は選択されているが回答に活用されていないケース」を分離する詳細な診断が挙げられる。</p></section>
+<section class="secsum"><h3>9 Limitations</h3><p>本研究の限界として、まず評価に使用したクエリ数が47件と限定的であるため、システム間の僅かな性能差は統計的な確証を持つには不十分である点が挙げられる。評価指標に関しては、主要なメトリクスや補助的なLLM judgeがいずれも特定の参照回答や定義に依存しており、人間によるアノテーションを用いた場合には結論が変化する可能性がある。また、補助的な参照回答がモデル生成によるものであるため、正当な証拠の欠落やモデル特有の合成バイアス、誤りが含まれるリスクがある。LLM-as-judgeの評価手法自体も、プロンプトの文言や回答の冗長性、スタイルに敏感であるという課題がある。さらに、ドキュメントIDの重複度は証拠の正しい使用を保証するものではなく、あくまで診断的なプロキシに過ぎない。最後に、候補ドキュメントを10件に固定し、全文と抄録のみの入力を混合している設定は、他のRAG環境への直接的な汎化を制限するため、得られた数値は絶対的な性能推定ではなく、プロトコルに依存したパイプライン挙動の比較証拠として解釈すべきである。</p></section>
+<section class="secsum"><h3>10 Conclusion</h3><p>LongEval-RAGの実験結果は、候補集合を制限するプロバナンス制御（provenance control）は必要条件ではあるものの十分条件ではなく、固定された候補集合の中から回答に資する証拠（evidence）を選択することが最大の性能向上に寄与することを示している。提案されたバリアントの中で最も優れた性能を示したのは、決定論的なルールベースのチャンク分割と、Late MiniLMによる文レベルのリランキングを組み合わせた $\text{rule-minilm}$ である。この手法は、BERTScore、検索精度（retrieval precision）、nugget coverage、および平均評価（average grade）のすべてにおいて最高値を記録しており、安定した語彙検索とパッセージ構築の後にニューラルリランキングを適用する有効性が示唆された。一方で、LLMによる補足的な評価と主要な評価指標との間に不一致が見られたことから、RAGシステムは単一の判定スコアではなく、複数の相補的な指標で評価されるべきである。今後の研究の方向性として、プロバナンスを保持する候補制約フレームワークと $\text{rule-minilm}$ の構成を維持しつつ、指標を意識した（metric-aware）後段の証拠割り当て（evidence allocation）に焦点を当てることが示されている。</p></section>
+<section class="secsum"><h3>Declaration of Generative AI and AI-assisted technologies</h3><p>本研究では、実験のデザイン、実装、分析、および原稿の起草と編集の過程において生成AIツールが使用された。しかし、生成されたすべての出力は著者らによって精査および修正されており、内容に関する全責任は著者らが負うことが明記されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-08
+  </footer>
+</div>
+</body>
+</html>

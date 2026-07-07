@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Conflict-Based Lazy Search for Fast Multi-Manipulator Planning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Conflict-Based Lazy Search for Fast Multi-Manipulator Planning</h1>
+  <div class="meta">Dongliang Zheng, Zhipeng Wang, Siqi Wang, Yuxi Lu, Bin He, Hesheng Wang, Panagiotis Tsiotras<br>採択先: IEEE/ASME Transactions on Mechatronics(TMECH) 2026 ・ 2026-07-05 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.04124v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.04124v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/TMECH.2026.3704386" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 IEEE/ASME Transactions on Mechatronics(TMECH) 2026</span><span class="chip">公開日 2026-07-05</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">CBSを拡張し、低レベル探索にLEA*を導入した新規性が高い。実機でのリアルタイム性も示されており、MAPF分野の研究者にとって有用な知見である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 複数マニピュレータのリアルタイム経路計画において、事前計算された疎なグラフと、エッジ評価を最小化する新しい低レベル探索アルゴリズムLEA*を組み合わせたConflict-Based Lazy Search (CBLS) を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチマニピュレータによる多エージェント経路計画（MAFP）は、エージェントの次元数の総和に比例して探索空間が指数関数的に増大するNP困難な問題である。従来、全エージェントを一つの結合エージェントとして扱う手法は「次元の呪い」に直面していた。本研究は、高レベルでの衝突解決と低レベルでの単一エージェント経路探索（SAPF）を分離するConflict-Based Search (CBS) の枠組みを拡張し、計算コストのボトルネックである衝突判定（エッジ評価）の回数を削減することを目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、環境に依存せず再利用可能な「事前計算済み疎グラフ」の利用、およびエッジキューを用いた遅延評価アルゴリズム「LEA* (Lazy Edge-based A*)」の提案である。LEA*は、A*の頂点効率の最適性を維持しつつ、衝突判定の回数を大幅に削減する。これにより、CBLSは従来のCBSやサンプリングベースのRRT-Connectと比較して、マルチマニピュレータ計画において優れた計算速度と経路品質を両立している。また、実機実験を通じて、自己衝突、障害物、およびマニピュレータ間衝突を回避するリアルタイムな計画能力を実証した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法CBLSは、以下の3つの要素で構成される。第一に、関節角空間から一様ランダムサンプリングを行い、パラメータ $m_{\text{dist}}$ を用いて頂点間の最小距離を制御することで、疎性を維持した事前計算済みグラフを構築する。第二に、低レベルのSAPFとしてLEA*を導入する。LEA*は、エッジキュー $\mathcal{E}$ を用いて、推定コスト $f_{e} = g(u) + c(u, v) + h(v)$ が最小のエッジのみを逐次的に衝突判定する。ここで $h(v)$ は許容的かつ一貫的なヒューリスティックである。第三に、高レベルのCBSとして、エージェント間の衝突 $(i, j, e_i, e_j, t)$ を検出し、制約集合 $\mathcal{C}$ を更新しながらコンフリクトツリーを探索する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>7自由度KUKAマニピュレータを用いたシミュレーションでは、LEA*はLazySPと比較してグラフ操作のオーバーヘッドが少なく、最大3倍高速な30-50 Hzの動作を実現した。複数マニピュレータ（最大5台）の実験では、CBLSはCBSおよびRRT-Connectを上回る平均計画時間を記録し、RRT-Connectよりも短い経路を達成した。また、膨張係数 $\epsilon &gt; 1$ を用いた有界劣最適解の探索により、計画時間を大幅に短縮できることも確認された。2台のUR5を用いた実機実験では、動的な環境下でも衝突を回避しながらリアルタイムな計画が可能であることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>CBLSは、事前計算されたグラフを用いることで、オンラインでの自己衝突判定のコストを大幅に削減している。LEA*の設計により、A*が全ての隣接エッジを評価するのに対し、評価すべきエッジの集合を真部分集合に抑えることが可能となり、計算効率が向上している。限界点として、グラフの疎密制御やヒューリスティックの精度が性能に影響を与える可能性があるが、本研究では実用的なリアルタイム性を確保している。今後は、より複雑な動的環境への適応や、さらなる高次元化への対応が期待される。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Conflict-Based Lazy Search for Fast Multi-Manipulator Planning</h3><p>本研究では、複数マニピュレータのリアルタイム計画における計算コストを削減するため、Conflict-Based Search (CBS) を拡張した Conflict-Based Lazy Search (CBLS) を提案している。CBLSは、事前に計算された疎なグラフの利用と、エッジ評価の回数を最小化する Lazy Edged-based A* (LEA*) を組み合わせることで、単一エージェント経路計画 (SAPF) の効率を向上させている。提案手法である LEA* は、エッジキューを用いた遅延評価（lazy search）を採用しており、従来の A* と比較して頂点効率の最適性を維持しつつ、計算のボトルネックであるエッジ評価の回数を削減している。実験では、CBLS を従来の CBS およびサンプリングベースの手法である RRT-Connect と比較し、マルチマニピュレータ計画における優れた性能を実証している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>マルチマニピュレータによる多エージェント経路計画は、探索空間の次元数が各エージェントの次元数の総和となるため、計算複雑性が指数関数的に増大するNP困難な問題である。本研究では、エージェントを一つの「結合エージェント」として扱う従来手法の限界を克服するため、高レベルでの衝突解決と低レベルでの単一エージェント経路探索（SAPF）を繰り返すConflict-Based Search (CBS) の枠組みを拡張したCBLSを提案する。CBLSでは、疎密を制御可能な事前計算済みの明示的グラフを用いることで、環境に依存しないロボット中心の構成を実現している。SAPFのアルゴリズムとして、エッジ評価（衝突判定）の回数を削減するために、ヒューリスティックなエッジコストを用いて探索をガイドするLazy searchの概念を導入した新しいLEA*を提案する。LEA*は、エッジキューを活用することで、A*の頂点最適性を維持しつつエッジ評価の効率を向上させ、既存のLazy searchアルゴリズムと比較して計算オーバーヘッドを低減している。実験では、CBLSが従来のCBSやRRT-connectと比較して優れた性能を示すことが確認されている。</p></section>
+<section class="secsum"><h3>II Related Works</h3><p>本セクションでは、ロボットの経路計画における既存手法が整理されている。まず、SAPF（Single-Agent Path Finding）グラフにおけるLazy Searchについて、LWA*が1ステップのlookaheadを用いてエッジ評価を遅延させるのに対し、LazySPは無限ステップのlookaheadによりエッジ評価の最小化（edge optimality）を実現し、LRA*はその中間を補完する。これらを統合したGeneralized Lazy Search (GLS) は、$\text{EVENT}$関数と$\text{SELECTOR}$関数により、事前知識の有無に応じた柔軟な実装が可能である。次に、MAPF（Multi-Agent Path Finding）の文脈では、全エージェントの拡張空間を探索する手法は次元の呪いに直面するが、Conflict-Based Search (CBS) は、低レベルでSAPFを解き、高レベルでエージェント間の衝突を解決する2層構造を採用することでこれを回避している。既存のCBSの拡張として、CCBSは時間離散化を排除し、CBSBは衝突数を最小化するClass-Ordered A*を用いる。また、マルチマニピュレータ計画においては、先行研究[9]が不完全な制約を用いてCBSの探索空間を枝刈りしているが、本研究は完全な制約（頂点およびエッジ制約）に基づき、より効率的なSAPF手法に焦点を当てることで、これらと補完的な関係にある。</p></section>
+<section class="secsum"><h3>III Problem Fromulations</h3><p>共有環境で動作する複数のマニピュレータの集合を $\mathcal{M}$ とし、時刻 $t$ におけるマニピュレータ $i$ の関節角を $\mathbf{q}_{i,t} \in \mathbb{R}^{d_i}$、全エージェントの関節角集合を $\mathbf{Q}_t = \{\mathbf{q}_{1,t}, \dots, \mathbf{q}_{|\mathcal{M}|,t}\}$ と定義する。$\mathbf{Q}_t$ が有効である条件は、自己衝突、障害物との衝突、およびマニピュレータ間の衝突がないことであり、マルチマニピュレータ計画問題は、開始状態 $\mathbf{Q}_{start}$ から目標状態 $\mathbf{Q}_{goal}$ への有効なパスを見つけることと定義される。本研究では、低レベルで個別の最短経路問題（SAPF）を解き、高レベルでマニピュレータ間の衝突を検出し制約を課す Conflict-Based Search (CBS) を採用している。低レベルの SAPF では、計算コストの高い衝突判定を削減するために、エッジの真のコスト $c(e)$ を計算する前に、エッジの長さに基づくヒューリスティックを用いる Lazy Search を導入する。最終的に、これらを組み合わせた Conflict-Based Lazy Search (CBLS) アルゴリズムを提案している。</p></section>
+<section class="secsum"><h3>IV Lazily Evaluated Sparse Graph</h3><p>CBLSは、オンラインの経路探索のために事前計算されたグラフを利用する手法であり、同一のロボットモデルごとにグラフを構築する。頂点サンプリングには Algorithm 1 に示される手法を用い、関節角空間から一様ランダムサンプリングを行い、自己衝突がないサンプルを抽出する。この際、パラメータ $m_{\text{dist}}$ を導入して頂点間の下限距離を制御し、既存の頂点集合との最小距離が $m_{\text{dist}}$ 未満のサンプルを拒絶することで、頂点集合 $\mathcal{V}$ の疎性を維持する。グラフ構築時には PRM* に倣って近傍頂点間を接続し、自己衝突のみを事前に確認するが、障害物やロボット間の衝突はオンラインの Lazy Search に委ねることで、環境に依存しない再利用可能なグラフを実現している。このアプローチにより、RRT* 等のようにオンラインで自己衝突判定を繰り返す手法と比較して計算コストを削減しており、各ロボットが自身の関節角に基づいたエージェント中心のグラフを持つことが特徴である。</p></section>
+<section class="secsum"><h3>V The LEA* Algorithm for SAPF</h3><p>LEA*（Lazy Edge-based A*）は、CBS（Conflict-Based Search）の計画時間を短縮するために提案された、単一エージェント経路計画（SAPF）のための効率的なアルゴリズムである。本手法は、従来のA*が頂点展開時にすべての隣接エッジを評価するのに対し、エッジキュー $\mathcal{E}$ を用いて、推定コスト $f_{e} = g(u) + c(u, v) + h(v)$ が最小のエッジのみを逐次的に衝突判定（collision checking）する遅延評価（lazy evaluation）を採用している。アルゴリズムの完全性と最適性は、エッジコストが正であること、およびヒューリスティック $h(v)$ が許容的（admissible）かつ一貫的（consistent）であることを前提として証明されており、解が存在すれば必ず最小コスト解を返す。頂点効率の観点では、LEA*はA*と同等の効率性を持ちつつ、評価するエッジの集合がA*の評価集合の真部分集合となるため、計算コストを抑制できる。具体例では、A*が8つのエッジを評価したケースにおいて、LEA*はわずか2つのエッジ評価で解を見つけることが示されている。また、CBSへの統合に向けて、時間次元の追加と制約集合 $\mathcal{C}$ による衝突判定のプロセスが組み込まれている。</p></section>
+<section class="secsum"><h3>VI The CBLS Algorithm for MAFP</h3><p>CBLS（Conflict-Based Lazy Search）は、事前計算されたグラフ上でLEA*を用いて各マニピュレータの制約付き単一エージェント経路計画（SAPF）を解き、エージェント間の衝突を解消するアルゴリズムである。本手法では、頂点衝突をエッジ衝突の特殊なケースとして扱い、エッジ衝突のみを考慮する。各エージェント $i$ の経路を $\pi_i$、そのコストを $c_i$ とすると、エッジの移動時間は $1$ 単位時間と仮定され、衝突は $\pi_i$ と $\pi_j$ のエッジ間で、時刻 $t$ において発生する衝突 $(i, j, e_i, e_j, t)$ として定義される。アルゴリズムは、全エージェントの総コスト $\sum c_i$ を優先度としたコンフリクトツリーを探索し、衝突が検出された場合は、当該エージェントの制約集合に新しい制約を追加してLEA*で再計画を行い、新たなノードをキューに追加する。このプロセスは、衝突が見つからないか、解が存在しないことが判明するまで繰り返される。</p></section>
+<section class="secsum"><h3>VII Simulation and Experiments</h3><p>本セクションでは、提案手法であるCBLSおよびLEA*の性能を、単一および複数マニピュレータのシミュレーションと実機実験を通じて検証している。単一マニピュレータの実験では、7自由度KUKAマニピュレータを用い、PyBullet上で障害物の数（sparse, medium, cluttered）やグラフサイズを変えてA*, LazySP, LEA*を比較した結果、LEA*はLazySPと比較して、グラフ操作のオーバーヘッドが少ないため、同一の解に対して最大3倍高速であり、30-50 Hzでの動作を実現している。複数マニピュレータの実験では、最大5台のマニピュレータを用い、CBSおよびRRT-connectと比較した結果、CBLSはすべてのケースにおいて平均的な計画時間を上回り、RRT-connectよりも短い経路長を達成している。特に、膨張係数 $\epsilon &gt; 1$ を用いた有界劣最適解の探索は、経路長をわずかに増加させるのみで計画時間を大幅に短縮できることが示された。また、動的障害物に対しても、予測ホライゾン内での再計画を行うことで、5 Hz以上の頻度で衝突回避が可能であることが確認されている。最後に、2台のUR5を用いた実機実験において、CBLSが自己衝突、障害物衝突、およびマニピュレータ間衝突を回避しながらリアルタイムな計画を実現できることが実証された。</p></section>
+<section class="secsum"><h3>VIII Conclusion</h3><p>本論文では、高次元空間における高速な計画策定を実現するCBLS（Conflict-Based Lazy Search）アルゴリズムを提案している。CBLSは、MAPF（Multi-Agent Path Finding）の最先端手法であるCBSをベースとし、SAPF（Single-Agent Path Finding）を効率的に解くために、環境に依存せず任意の数のマニピュレータに適用可能な、制御された疎性を有する事前計算済みの遅延評価グラフを導入している。低レベルプランナーにはLazy Edged-based A*（LEA*）を採用しており、LEA*は完全性と最適性を保証し、頂点効率においても最適であるだけでなく、遅延探索によって衝突判定の回数を削減できる。シミュレーションを通じて、CBLSおよびLEA*が既存の競合アルゴリズムに対して優位性を持つことが示されており、さらに2台のマニピュレータを用いた実用的なアプリケーションによって提案手法の有効性が検証されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-08
+  </footer>
+</div>
+</body>
+</html>
