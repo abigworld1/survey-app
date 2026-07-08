@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Dynamic Shelf Arrangement and Task Assignment with Stable Matching for Multi-Agent Pickup and Delivery with Multi-Item Packing Problem | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Dynamic Shelf Arrangement and Task Assignment with Stable Matching for Multi-Agent Pickup and Delivery with Multi-Item Packing Problem</h1>
+  <div class="meta"><br>採択先: 未取得 ・  ・ source: pdf</div>
+  <div class="links"></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip">公開日 -</span><span class="chip">被引用 0</span><span class="chip">関連度 0</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPD-MP問題に対し、安定マッチングや棚配置最適化を組み合わせた提案手法の新規性と、Zipf分布を用いた大規模環境での詳細な実験による実証性が高く、実用的な価値がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+
+  <div class="tldr"><strong>一言で:</strong> マルチアイテム・パッキングを伴うマルチエージェント・ピックアップ＆デリバリー（MAPD-MP）問題に対し、棚配置最適化（SAO）、安定マッチングによるタスク割り当て（TAGS）、および保持ノード統合（HNI）を組み合わせた「3PCS+All」を提案する。Zipf分布を用いた実験により、大規模なエージェント環境においても、既存手法と比較して高いスループットとタスク稼働率を維持しつつ、実用的な計算量で動作することを実証した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、エージェントが棚（shelf）を運搬してピッキングステーションへ運び、その後元の位置に戻すという、マルチアイテム・パッキングを伴うマルチエージェント・ピックアップ＆デリバリー（MAPD-MP）問題を対象とする。環境はグラフ $G=(V, E)$ で定義され、$N$ 台のエージェント $A=\{a_1, \dots, a_N\}$ と $M$ 個の棚 $S=\{s_1, \dots, s_M\}$ が存在する。タスク $\tau(i,j,k) = \langle s_i, v_{\rho_{jk}} \rangle$ は、棚 $s_i$ をステーション $\rho_j$ のノード $v_{\rho_{jk}}$ まで運び、ホームノードに戻して荷降ろしすることを指す。既存の優先度付き経路計画法である3PCSをベースとし、エージェントの優先度 $q_i(t)$ を運搬状態（荷物あり：$1$、なし：$0$）に基づいて設定する分散型アルゴリズムを前提としている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>提案手法は、スループット最大化のために3つの主要コンポーネントを統合した点に貢献がある。第一に、棚の選択確率 $p_k$ に基づき、確率の高い棚をステーションに近いホームノード $h(s_k)$ へ配置する棚配置最適化（SAO）を導入した。第二に、Gale–Shapleyアルゴリズムを用いた安定マッチング（TAGS）により、エージェント間のタスク処理時間の不均衡を緩和する。第三に、将来のタスクに備えて棚を専用の保持ノード $V_{hld}$ へ事前に移動させる保持ノード統合（HNI）を提案した。これにより、大規模なエージェントチームにおける協調効率の向上と、ピッキングリストの処理スループットの有意な改善を実現している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法「3PCS+All」は、SAO、TAGS、HNIの3要素で構成される。SAOは棚の返却直前にホームノードを入れ替えることで、高確率な棚をステーション近傍に配置する。TAGSでは、未割り当てタスク $\tau$ に対して最小コスト $cost(a, \tau)$ を持つエージェントを選択する `TASKASSIGNMENTWITHGS` を用い、Gale-Shapleyアルゴリズムによって安定なマッチングを形成する。HNIでは、`SUBTASKASSIGNMENTFORAGENT` を用いて、スコア $Q = C_1 + C_2 - C_4 + \min(t_{\rho_j}^{comp} - (C_1 + C_3), 0)$ が正となる最適なサブタスク $\sigma_n(i,j,k) = \langle \tau(i,j,k), v_{n&#x27;hld} \rangle$ を選択する。また、各ステーション $\rho_j$ には長さ $\delta=2$ のキュー $L_{\rho_j}$ が設けられ、タスクのプリフェッチを可能にしている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>2次元グリッド環境（Env. 1, Env. 2）において、Zipf分布 $i^{-\alpha} p_i = \text{const.}$（$\alpha \in [1.0, 2.0]$）に基づくタスクを用いて評価を行った。エージェント数 $|A|$ を $56$ から $168$ まで変化させた実験の結果、Env. 1 ($\alpha=2.0$) において、エージェント数 $168$ 時の「3PCS+All」のスループットは、TPに対して約 $88.7\%$、3PCSに対して約 $72.4\%$ の向上を達成した。また、タスク稼働率においてもTPより約 $20\%$ 高い値を記録し、保持ノードの利用率は約 $12\%$ に達した。計算量については、エージェント数に対して線形に増加するものの、最大でも約 $15\text{ ms}$ 程度に抑えられている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、特定の選択分布に依存せず、混雑しやすい Env. 2 や $\alpha=1.0$ の環境においても一貫して高いスループットを維持しており、堅牢性が示された。HNIの導入は、エージェントがアイドル状態になるのを防ぎ、棚の輸送サブタスクを通じて効率的にノードを活用することを可能にしている。SAOの効果については、ヒートマップにより、実行後に選択確率の高い棚がステーション近傍へ最適に配置されていることが確認された。本手法は、3PCSが「well-formed MAPD-MP問題」に対して完全性を持つことから、同様の条件下で完全性が保証される。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>本文 (1/6)</h3><p>本研究では、エージェントが棚（shelf）を運搬してピッキングステーションへ運び、その後元の位置に戻すという、マルチアイテム・パッキングを伴うマルチエージェント・ピックアップ＆デリバリー（MAPD-MP）問題を扱う。提案手法は、既存の優先度付き経路計画法（3PCS）と統合可能な3つのコンポーネントで構成される。第一に、棚の選択確率に基づき棚の配置を最適化する棚配置最適化（SAO）、第二に、Gale–Shapleyアルゴリズムを用いてエージェント間のタスク処理時間の不均衡を緩和する安定マッチングによるタスク割り当て（TAGS）、第三に、将来のタスクに備えて棚を専用の保持ノードへ事前に移動させる保持ノード統合（HNI）である。実験では、実世界のEC倉庫で見られるロングテール現象を模したZipf分布に基づくタスクを用い、大規模なエージェントチームにおける協調効率の向上と、ピッキングリストの処理スループットの有意な改善を実証している。</p></section>
+<section class="secsum"><h3>本文 (2/6)</h3><p>本セクションでは、マルチエージェント・ピックアップ＆デリバリー（MAPD）にマルチアイテム・パッキング（MP）を拡張したMAPD-MP問題の定式化が示されている。環境はグラフ $G=(V, E)$ で定義され、$N$ 台のエージェント $A=\{a_1, \dots, a_N\}$ と $M$ 個の棚 $S=\{s_1, \dots, s_M\}$ が存在する。エージェント $a_i$ が時刻 $t$ に運搬している棚を $c_i(t) \in S \cup \{\perp\}$、棚 $s_j$ の状態（運搬者）を $d_j(t) \in A \cup \{\perp\}$ と定義し、衝突回避のため $v_i(t) \neq v_{i&#x27;}(t)$ かつ $w_j(t) \neq w_{j&#x27;}(t)$（棚の重複禁止）などの制約を課す。タスク $\tau(i,j,k) = \langle s_i, v_{\rho_{jk}} \rangle$ は、棚 $s_i$ をステーション $\rho_j$ のノード $v_{\rho_{jk}}$ まで運び、ホームノードに戻して荷降ろしすることを指す。既存手法である3PCSをベースとし、エージェントの優先度 $q_i(t)$ を運搬状態に基づき $q_i(t) = 1$（荷物あり）または $0$（荷物なし）と設定し、衝突時には低優先度エージェントが再計画を行う分散型アルゴリズムを想定している。</p></section>
+<section class="secsum"><h3>本文 (3/6)</h3><p>本セクションでは、Multi-Agent Pickup and Delivery with Multi-Item Packing (MAPD-MP) 問題における、スループットを最大化するための提案手法が詳述されている。提案手法は、棚の配置最適化 (SAO)、安定結婚アルゴリズムを用いたタスク割り当て (TAGS)、およびタスクのプリフェッチを可能にするキュー管理の3つのコンポーネントで構成される。SAOは、棚の選択確率 $p_k$ に基づき、確率の高い棚をステーションに近いホームノード $h(s_k)$ へ配置するよう、棚の返却直前にホームノードの入れ替えを行うアルゴリズムである。TAGSは、エージェントと未割当タスクの集合に対してGale-Shapleyアルゴリズムを適用し、安定なマッチングを形成することでタスクを割り当てる。また、各ステーション $\rho_j$ には長さ $\delta$（実験では $\delta=2$）のキュー $L_{\rho_j}$ が設けられ、エージェントが現在のタスクの後半部分を実行している間に、次のピッキングリストを事前に準備（プリフェッチ）できる仕組みとなっている。本手法は、既存のパスプランナである3PCSと統合可能であり、3PCSが「well-formed MAPD-MP問題」に対して完全性を持つことから、提案手法も同様の条件下で完全性が保証される。</p></section>
+<section class="secsum"><h3>本文 (4/6)</h3><p>本セクションでは、マルチエージェントにおけるタスク割り当てと、経路計画のためのHolding Node Integration (HNI) 手法が提案されている。タスク割り当てにはGale-Shapley (GS) アルゴリズムを応用した `TASKASSIGNMENTWITHGS` が用いられ、未割り当てタスク $\tau$ に対して最小コスト $cost(a, \tau)$ を持つエージェント $a$ を選択することで、タスクに最適な安定マッチングを実現する。HNIでは、エージェントが一時的に棚を置くための保持ノード集合 $V_{hld}$ を導入しており、`SUBTASKASSIGNMENTFORAGENT` 手法により、スループットを最大化するサブタスク $\sigma_n(i,j,k) = \langle \tau(i,j,k), v_{n&#x27;hld} \rangle$ を選択する。このサブタスクの選択には `GETSCORE` 関数が使用され、エージェントの移動コスト $C_1, C_2, C_3, C_4$ と、ステーションの完了予定時刻 $t_{\rho_j}^{comp}$ を用いて、スコア $Q = C_1 + C_2 - C_4 + \min(t_{\rho_j}^{comp} - (C_1 + C_3), 0)$ を計算し、これが正の場合に最適なサブタスクが選定される。なお、この割り当ては、アクティブなタスク集合 $T$ が空であること、およびキューの長さが $\delta \ge 2$ であることを前提条件としている。</p></section>
+<section class="secsum"><h3>本文 (5/6)</h3><p>提案手法では、サブタスク割り当てによる期待時間短縮量を評価するスコア $Q$ を定義しており、これはサブタスクがない場合の完了予定時刻 $t_{\text{comp}\rho_j}$ と、サブタスクを割り当てた場合のコストの差として $Q = C_1 + C_2 - C_4 + \min(t_{\text{comp}\rho_j} - (C_1 + C_3), 0)$ と計算される。棚の選択確率 $p_i$ には、エージェントの位置に近い棚が選ばれやすくなるよう Zipf 分布 $i^{-\alpha} p_i = \text{const.}$ を用い、環境に応じて $\alpha$ を $1.0$ から $2.0$ の範囲で設定している。実験では、2次元グリッド環境（Env. 1, Env. 2）を用い、エージェント数 $|A|$ を $56$ から $168$ まで変化させ、スループットやCPU時間、タスク稼働率を評価指標とした。結果として、提案手法である 3PCS+All は、エージェント数 $|A|=168$ において TP に対して約 $88.7\%$、3PCS に対して約 $72.4\%$ のスループット向上を達成し、エージェント数が増加しても高い稼働率を維持できることが示された。また、CPU 時間はエージェント数に対して線形に増加するものの、最大でも約 $15\text{ ms}$ 程度に抑えられており、実用的な計算量であることが確認された。</p></section>
+<section class="secsum"><h3>本文 (6/6)</h3><p>提案手法である「3PCS+All」は、棚の選択確率に基づく棚配置最適化（SAO）、安定マッチングを用いたタスク割り当て（TAGS）、および保持ノードを活用するHNIを統合した手法である。実験では、Env. 1（Zipf指数 $\alpha = 2.0$）において、エージェント数 $|A|$ が増加してもスループット（単位時間あたりの完了ピッキングリスト数）を維持し、ベースラインであるTPと比較して、168エージェント時でも約20%高い稼働率（task operating rate）を達成した。HNIの適用により、保持ノードの利用率（holding node usage rate）は168エージェント時に約12%に達し、エージェント数が増加して他の手法がアイドル状態になる中でも、棚の輸送サブタスクを通じて効率的にノードを活用できることが示された。また、$\alpha = 1.0$ の異なる分布や、ノード・棚の数が少なく混雑しやすい Env. 2 においても、3PCS+All は一貫して高いスループットを維持しており、特定の選択分布に依存せず、混雑環境下でも有効であることが確認された。SAOの効果については、実行前は一様であった棚の分布が、実行後には選択確率の高い棚がステーション近傍に配置されるよう最適化されることがヒートマップにより示されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-08
+  </footer>
+</div>
+</body>
+</html>

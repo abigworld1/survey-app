@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Enhancing Lifelong Multi-Agent Path-finding by Using Artificial Potential Fields | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Enhancing Lifelong Multi-Agent Path-finding by Using Artificial Potential Fields</h1>
+  <div class="meta"><br>採択先: 未取得 ・  ・ source: pdf</div>
+  <div class="links"></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip">公開日 -</span><span class="chip">被引用 0</span><span class="chip">関連度 0</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">既存の主要なMAPFアルゴリズムにAPFを統合する汎用的な枠組みを提案しており、スループットを最大7倍向上させるという実験結果の具体性と有用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+
+  <div class="tldr"><strong>一言で:</strong> Lifelong Multi-Agent Pathfinding (LMAPF) において、人工ポテンシャル場 (APF) を既存の協調アルゴリズムに統合することで、将来の混雑を回避しスループットを向上させる手法を提案している。$\text{TA}^*$, $\text{SIPPS}$, $\text{PIBT}$ といった主要なアルゴリズムに APF を組み込むことで、高密度な環境下でのタスク完了率を最大で7倍向上させることに成功した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、エージェントがタスク完了後に即座に新しい目標を与えられる Lifelong Multi-Agent Pathfinding (LMAPF) 設定を対象としている。LMAPF の主要な評価指標は、一定期間内に完了できるタスク数を示すスループットである。既存の Prioritized Planning や LNS2 などの手法では、将来の混雑を予測して回避することが困難であった。本研究では、人工ポテンシャル場 (APF) を用いて、他エージェントの経路から距離を保つようなコストモデルを構築し、オンラインの調整効率を高めることを目的としている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存の経路探索アルゴリズムに APF を統合する汎用的なフレームワークを提案し、$\text{TA}^*\text{+APF}$、$\text{SIPPS+APF}$、および $\text{PIBT+APF}$ を導入した。APF を $h$-inspired（ヒューリスティックへの加算）ではなく、$g$-inspired（累積コストへの加算）として用いることで、回避性能を直接的に向上させる手法を確立した。実験により、高密度な環境においてタスク完了率を最大7倍向上させることが示された。また、APF が $\text{TA}^*$、$\text{SIPPS}$、$\text{PIBT}$、$\text{LaCAM}$ といった多様なアルゴリズムに統合可能であることを実証した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>$\text{TA}^*\text{+APF}$ では、他エージェントの経路 $\pi_i$ に対する斥力 $APF_i(v, t)$ を、距離 $d(v, \pi_i[t]) &lt; d_{max}$ の場合に $w \cdot \gamma^{-d(v, \pi_i[t])}$、それ以外で $0$ と定義し、全エージェントの和 $APF(v, t) = \sum_{i=1}^{k&#x27;} APF_i(v, t)$ を用いる。経路選択には、APF を累積する $g$-inspired な手法 $aggAPF(n) = aggAPF(p) + APF(v, t)$ を採用している。$\text{SIPPS+APF}$ では、安全な時間間隔における最大 APF 値 $APF(n) = \max_{t \in [t_{nstart}, t_{nend}), i} APF_i(v, t)$ を用いて、ソフト制約違反数 $cAPF(n)$ と累積 APF コスト $gAPF(n)$ を更新し、Open List のソートに利用する。$\text{PIBT+APF}$ では、現在の時刻 $t_{curr}$ から $t_{max}$ ステップ先までの $\text{APF}_i(v) = \sum_{j=t_{curr}}^{t_{curr}+t_{max}} \text{APF}_i(v, j)$ を構築し、隣接頂点の評価値を $h(v) + \text{APF}(v)$ としてソートする。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>LMAPF ベンチマークの4種類のマップを用い、エージェント数を50から450の範囲で評価した。実験では、APF のパラメータとして $d_{max}, \gamma, t_{max}, w$ を使用し、ウィンドウサイズおよびプランニングホライゾンは $5$ に設定している。$\text{PIBT+APF}$ は、既存の $\text{L-PIBT+GP}$ を上回り、元の $\text{PIBT}$ を大幅に改善する性能を示した。また、$\text{SIPPS+APF}$ の計算オーバーヘッドは $O(k \cdot d_{max}^2 \cdot l^2)$、$\text{PIBT+APF}$ の全エージェントに対するオーバーヘッドは $O(k \cdot (d_{max})^2 \cdot l)$ である。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、APF を他のアルゴリズムへも統合可能であるという高い汎用性を示している。実験過程において、$\text{SIPPS}$ を用いた $\text{LNS2}$ よりも $\text{A}^*$ を用いた $\text{LNS2}$ の方が優れた性能を示すという、経路の短さの優先度に関する興味深い現象が観察された。これは、APF による混雑回避と経路の最適性のトレードオフを示唆している。高密度な環境において APF を導入することは、スループットの向上に極めて有効である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>本文 (1/4)</h3><p>本研究は、Lifelong Multi-Agent Pathfinding (LMAPF) において、人工ポテンシャル場 (APF) を用いてオンラインの調整効率を向上させる手法を提案している。LMAPFは、エージェントがタスク完了後に即座に新しい目標を与えられる設定であり、システムのスループット（一定期間内のタスク完了数）が評価指標となる。提案手法は、既存の協調アルゴリズム（Prioritized Planning, LNS2など）のコストモデルにAPFを組み込み、将来の混雑を回避するようにエージェントの経路選択を促すものである。具体的には、Temporal A* や SIPPS を拡張した $\text{TA}^*\text{+APF}$ および $\text{SIPPS+APF}$ を導入しており、これらは他のエージェントの経路 $\pi_1, \dots, \pi_{k&#x27;}$ と衝突を避けつつ、APFの斥力に基づいてそれらから距離を保つ経路を生成する。実験の結果、高密度な環境において、APFを統合することでタスク完了率が最大で7倍向上することが示された。</p></section>
+<section class="secsum"><h3>本文 (2/4)</h3><p>本セクションでは、Lifelong Multi-Agent Path-finding (LMAPF) において、人工ポテンシャル場 (APF) を用いて他エージェントとの距離を保つ手法 $TA^*+APF$ および $SIPPS+APF$ が提案されている。$TA^*+APF$ では、他エージェントの経路 $\pi_i$ に対する斥力関数 $APF_i(v, t)$ を、距離 $d(v, \pi_i[t])$ が $d_{max}$ 未満の場合に $w \cdot \gamma^{-d(v, \pi_i[t])}$、それ以外で $0$ と定義し、全エージェントの和 $APF(v, t) = \sum_{i=1}^{k&#x27;} APF_i(v, t)$ を用いてコストを計算する。この APF を $f$-値に加算する $h$-inspired な手法は探索速度に影響するのみで効果が低かったが、経路に沿って APF を累積する $g$-inspired な手法（$aggAPF(n) = aggAPF(p) + APF(v, t)$）は、他エージェントを回避する経路の選択に直接寄与する。また、ソフト制約を扱う $SIPPS+APF$ では、安全な時間間隔における最大 APF 値 $APF(n) = \max_{t \in [t_{nstart}, t_{nend}), i} APF_i(v, t)$ を用いて、ソフト制約違反数 $cAPF(n)$ と累積 APF コスト $gAPF(n)$ を更新し、これらに基づいて Open List をソートする。$SIPPS+APF$ の計算オーバーヘッドは $O(k \cdot d_{max}^2 \cdot l^2)$ であり、元の $TA^*$ や $SIPPS$ の時空間情報を維持しつつ、APF を優先度計算に組み込むことで回避性能を高めている。</p></section>
+<section class="secsum"><h3>本文 (3/4)</h3><p>本セクションでは、Lifelong Multi-Agent Path-finding (LMAPF) において、人工ポテンシャル場 (APF) を用いてエージェントを混雑回避へと誘導する手法が提案されている。PIBT+APF では、各エージェント $i$ が現在の時刻 $t_{curr}$ から $t_{max}$ ステップ先までの最適経路に基づき、式 $\text{APF}_i(v) = \sum_{j \in \{t_{curr}, \dots, t_{curr}+t_{max}\}} \text{APF}_i(v, j)$ を用いて APF を構築し、隣接頂点 $v$ の評価値を $h(v) + \text{APF}(v)$ （ここで $\text{APF}(v) = \sum_{i \in \{1, \dots, k&#x27;-1\}} \text{PIBT APF}_i(v)$）としてソートすることで、混雑を避ける行動を選択させる。APF の計算に伴う計算量は、1エージェントあたり $O((d_{\max})^2 \cdot l)$ （$d_{\max}$ は影響を受ける最大ノード数、$l$ は最長経路長）であり、全 $k$ エージェントに対して $O(k \cdot (d_{\max})^2 \cdot l)$ のオーバーヘッドが発生する。実験では LMAPF ベンチマークの4種類のマップを用い、エージェント数を50から450の範囲で評価した結果、PIBT+APF を含む APF 導入手法は、TA*、SIPPS、PIBT、LaCAM などの既存アルゴリズムにおいて、スループットを大幅に向上させることが示された。特に PIBT+APF は、既存の L-PIBT+GP を上回り、元の PIBT を大幅に改善する性能を示した。一方で、SIPPS を用いた LNS2 よりも A* を用いた LNS2 の方が優れた性能を示すという、経路の短さの優先度に関する興味深い現象も観察されている。</p></section>
+<section class="secsum"><h3>本文 (4/4)</h3><p>本研究では、RHCRフレームワークを用いてLifelong Multi-Agent Path Finding (LMAPF) 問題を解決しており、人工ポテンシャル場 (APF) を $TA^*$、$SIPPS$、および $PIBT$ といった既存のアルゴリズムに統合する手法を提案している。実験設定において、APFのパラメータとして $d_{\max}$、$\gamma$、$t_{\max}$、$w$ が用いられ、さらにウィンドウサイズおよびプランニングホライゾンは $5$ に設定されている。提案手法は、APFを他のアルゴリズムへも統合可能であるという汎用性を示唆している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-08
+  </footer>
+</div>
+</body>
+</html>
