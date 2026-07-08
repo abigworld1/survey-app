@@ -1052,6 +1052,78 @@
       "url": "http://arxiv.org/abs/2607.05069v1",
       "venue": ""
     },
+    "arxiv:2607.05936": {
+      "added": "2026-07-09",
+      "added_at": "2026-07-09T06:19:49.754748",
+      "arxiv_id": "2607.05936",
+      "authors": [
+        "Daniel Maninger",
+        "Leon Chemnitz",
+        "Jannis Brugger",
+        "Tushar Lamba",
+        "Amir Molzam Sharifloo",
+        "Mira Mezini"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-07",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.05936.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.05936v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGとConstrained Decodingを組み合わせ、API生成のハルシネーションを劇的に抑制する実用的な手法を提案している。実験も合成・実世界の双方で行われ、非常に具体的である。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Mitigating Errors in LLM-Generated Web API Invocations via Retrieval-Augmented Generation and Constrained Decoding",
+      "tldr": "LLMによるWeb API呼び出しコード生成におけるハルシネーションを軽減するため、OpenAPI仕様書を活用したRetrieval-Augmented Generation (RAG) と、正規表現ベースのConstrained Decoding (CD) を提案する。RAGは適切なエンドポイントの選択を支援し、CDはURLやHTTPメソッド、引数の構造的な正確性を強制することで、両手法の組み合わせにより合成データセットにおいて最大 $+332\\%$ の正解率向上を達成する。",
+      "url": "http://arxiv.org/abs/2607.05936v1",
+      "venue": ""
+    },
+    "arxiv:2607.06507": {
+      "added": "2026-07-09",
+      "added_at": "2026-07-09T06:19:09.427379",
+      "arxiv_id": "2607.06507",
+      "authors": [
+        "Yaqi Wu",
+        "Xiaolei Guo",
+        "Chenyu Zhou",
+        "Jiaqi Huang",
+        "Xianfa Zhang",
+        "Junxu Zhang",
+        "Zhuo Yu",
+        "Zhubo Shi",
+        "Jianghao Lin",
+        "Dongdong Ge"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-07",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.06507.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.06507v1",
+      "reading_value": 4,
+      "reading_value_reason": "マルチホップRAGの制御を、状態条件付きの原子的な操作として定式化した新規性が高い。精度向上とトークン削減を両立し、モデル間転移も示されており、実用的な価値も大きい。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "DynaKRAG: A Unified Framework for Learnable Evidence Control in Multi-Hop Retrieval-Augmented Generation",
+      "tldr": "DynaKRAGは、マルチホップRAGにおける証拠獲得プロセスを、状態条件付きの原子的な証拠操作に対する制御問題として定式化した統一フレームワークである。学習されたコントローラーが、現在の証拠状態に基づき、検索、クエリ書き換え、停止などのアクションを動的に選択することで、回答精度とトークン効率の両立を実現する。",
+      "url": "http://arxiv.org/abs/2607.06507v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",

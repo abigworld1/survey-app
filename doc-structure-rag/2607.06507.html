@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>DynaKRAG: A Unified Framework for Learnable Evidence Control in Multi-Hop Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>DynaKRAG: A Unified Framework for Learnable Evidence Control in Multi-Hop Retrieval-Augmented Generation</h1>
+  <div class="meta">Yaqi Wu, Xiaolei Guo, Chenyu Zhou, Jiaqi Huang, Xianfa Zhang, Junxu Zhang, Zhuo Yu, Zhubo Shi, Jianghao Lin, Dongdong Ge<br>採択先: 未取得 ・ 2026-07-07 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.06507v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.06507v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-07</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">マルチホップRAGの制御を、状態条件付きの原子的な操作として定式化した新規性が高い。精度向上とトークン削減を両立し、モデル間転移も示されており、実用的な価値も大きい。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> DynaKRAGは、マルチホップRAGにおける証拠獲得プロセスを、状態条件付きの原子的な証拠操作に対する制御問題として定式化した統一フレームワークである。学習されたコントローラーが、現在の証拠状態に基づき、検索、クエリ書き換え、停止などのアクションを動的に選択することで、回答精度とトークン効率の両立を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のマルチホップRAGは、固定的な検索パイプラインに依存しているため、情報の不足やクエリの誤りに対して動的に対応することが困難であるという課題がある。既存手法には、生成と検索を交互に行うIRCoTや、クエリを再構成するCoRAG、検索タイミングを適応させるAdaptive-RAG、証拠の品質を評価するCRAGなどが存在するが、これらは個別の制御プロトコル内に留まっている。本研究は、多様なRAGの振る舞いを、共有された証拠状態（evidence state）に対する原子的な証拠操作（atomic evidence operations）として定義し、これらを一貫した制御プロセスとして扱うことを目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、マルチホップRAGにおける証拠獲得を、状態条件付きの制御問題として統合したDynaKRAGフレームワークの提案である。このフレームワークは、アクションの「妥当性（validity）」と「有用性（utility）」を分離することで、ルールに基づく一貫性と、コスト対効果を考慮した最適な操作の学習を両立させている。実験では、HotpotQAで $F1=0.5998$、2Wikiで $F1=0.5340$、MuSiQueで $F1=0.3061$ を記録し、既存の制御型ベースラインを凌駕した。また、S2G-RAGと比較して、HotpotQAで $15.5\%$、2Wikiで $13.1\%$、MuSiQueで $20.7\%$ のトークン削減を達成しつつ、高い精度を維持している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>DynaKRAGは、質問、検索済み文書、検索フロンティア、履歴、ブリッジ候補、診断フィードバック等を含む状態 $s_t$ に基づき、アクション $a_t$ を選択する。アクション空間 $\mathcal{A}$ には、`retrieve_more`、`gap_query`、`rewrite_query`、`bridge_entity_expand`、`sufficiency_check`、`stop_answer`、`compress_answer_evidence` の7種類が含まれる。まず、ハードな妥当性レイヤー（validity layer）が実行可能なアクション集合 $\mathcal{A}_{valid}$ を構築し、次に学習された価値モデル（コントローラー）がそれらをランク付けする。学習フェーズでは、正解の支持文書の割合を示す support recall $R(s_t)$ を用い、報酬 $r(s_t, a_t) = R(s_{t+1}) - R(s_t)$ を定義して、ランダムフォレスト回帰器を用いてアクション値モデルを訓練する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Qwen2.5-7B-Instructをバックボーンとして、HotpotQA、2Wiki、MuSiQueの3つのベンチマークで評価を行った。アブレーション解析により、学習されたアクション選択、十分性フィードバック、および最終的な証拠圧縮のすべてが性能向上に寄与することが示された。特に、コントローラーを一様分布ポリシーに置き換えると、F1スコアが $3.96\text{--}5.78$ ポイント低下することが確認されている。また、汎用性の検証として、Qwen2.5-7B-Instructで学習したコントローラーを再学習なしでLlama-3.1-8B-Instructへ転移させたところ、HotpotQAで $F1=0.4876$、MuSiQueで $F1=0.2391$ を記録した。さらに、MuSiQueにおけるリトリーバル予算の感度分析では、検索回数が2回から3回に増えるとF1が $0.2796$ から $0.2641$ へ低下し、追加の検索が常に有益ではないことが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の結果は、マルチホップRAGの成功には、単に検索回数を増やすことではなく、現在の情報状態から適切な証拠操作を選択することが不可欠であることを示唆している。特に、複数の事実を組み立てる必要がある「compositional questions」において、動的な証拠収集は極めて効果的であり、2Wikiでは固定リトリーバルと比較してF1が $24.31$ ポイント向上した。また、制御された検索容量（retrieval-cap）の実験は、データセットの特性に応じた適切な予算配分の重要性を浮き彫りにしている。本フレームワークは、証拠の状態に応じた検索、診断、およびギャップを埋めるための獲得を適応的に調整することで、精度と効率のトレードオフを最適化できる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>DynaKRAG : A Unified Framework for Learnable Evidence Control in Multi-Hop Retrieval-Augmented Generation</h3><p>DynaKRAGは、マルチホップRAGにおける証拠獲得プロセスを、状態条件付きの原子的な証拠操作（atomic evidence operations）に対する制御問題として定式化した統一フレームワークである。各ステップにおいて、validity layerが実行可能なアクション集合を構築し、学習されたコントローラーが次に実行すべき操作を選択することで、証拠の状態を更新し、次ステップで新たな操作を可能にする動的な遷移を実現している。Qwen2.5-7B-Instructを用いた評価において、本手法はHotpotQAで $F1=0.5998$、2Wikiで $F1=0.5340$、MuSiQueで $F1=0.3061$ を記録し、すべてのベンチマークで既存の制御型ベースラインを上回った。学習されたコントローラーを一様分布ポリシーに置き換えるとF1スコアが $3.96\text{--}5.78$ ポイント低下することや、十分性フィードバックの除去が精度を悪化させることから、証拠の状態に応じた検索、診断、およびギャップを埋めるための獲得を調整することの重要性が示されている。また、制御された検索容量（retrieval-cap）実験により、追加の検索が常に有益であるとは限らないことも明らかになっている。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>マルチホップ質問への対応において、従来のRAGは固定的なパイプラインに依存しており、情報の不足やクエリの誤りに対して動的な制御が困難であるという課題がある。本研究が提案するDynaKRAGは、多様なRAGの振る舞いを共有された証拠状態（evidence state）に対する原子的な証拠操作（evidence operations）として定義する統一的な学習フレームワークである。この状態には、質問、検索済み文書、検索フロンティア、履歴、ブリッジ候補、診断フィードバックなどが含まれ、アクション空間にはフロンティア検索、クエリ書き換え、ブリッジエンティティ拡張、ギャップ指向検索、充足性確認、停止、および最終的な証拠圧縮が含まれる。DynaKRAGの核心的なメカニズムは、アクションの「妥当性（validity）」と「有用性（utility）」を分離している点にあり、まずハードな妥当性レイヤーが実行可能なアクション集合をフィルタリングし、次に学習された価値モデルがそれらの選択肢をランク付けして次の一手を選択する。この設計により、ルールによる遷移の一貫性の確保と、コスト対効果を考慮した最適な操作の学習を両立させている。3つのマルチホップQAベンチマークを用いた実験では、既存の強力なベースラインと比較して、回答の質とトークン効率の両面で一貫した向上を達成している。</p></section>
+<section class="secsum"><h3>Related Work</h3><p>Multi-hop RAGの研究は、HotpotQAやMuSiQueといったベンチマークに代表される、複数の文書に分散した証拠を辿る必要がある設定を扱っており、後続の検索を既得の証拠に条件付けることで、部分的な解の状態に応じて進化する軌跡として証拠取得を捉えている。既存手法には、IRCoTやSelf-Askのように生成プロセスと検索を交互に行うもの、CoRAGやRQ-RAGのようにクエリの再構成や分解を行うもの、さらにFLAREやAdaptive-RAGのように検索のタイミングや戦略を適応させるものがある。また、CRAGやSelf-RAG、S2G-RAGなどは、証拠の品質評価、反省トークンによる批判、あるいは証拠の不足（gap）の診断といった、証拠の状態に基づいた制御（evidence diagnosis）に焦点を当てている。しかし、これらの多様な振る舞いは個別の制御プロトコル内で研究されることが多く、証拠の状態が変化する中でどの操作を選択すべきかという問題が残されている。本研究の提案手法であるDynaKRAGは、現在の証拠状態が実行可能な操作を決定し、学習された価値モデル（value model）が軌跡の展開に応じて次の操作を選択するという、共有された状態条件付きの制御プロセスを通じてこの決定問題を解決する。</p></section>
+<section class="secsum"><h3>Method</h3><p>DynaKRAGは、マルチホップRAGにおいて、固定的な検索深度やルーチンに依存せず、状態に応じて最適な証拠獲得操作を選択する学習可能な制御フレームワークである。システムは、質問、検索済み文書、クエリ履歴、ブリッジエンティティ、欠落情報のフィードバック等を含む状態 $s_t$ に基づき、有効なアクション集合 $\mathcal{A}_{valid}$ からアクション $a_t$ を選択し、次状態 $s_{t+1}$ へ遷移する。学習フェーズでは、正解の支持文書の割合を示す support recall $R(s_t)$ を用いて、報酬 $r(s_t, a_t) = R(s_{t+1}) - R(s_t)$ を定義し、ランダムフォレスト回帰器を用いてアクション値モデルを訓練する。実行可能な操作には、`retrieve_more`、`gap_query`、`rewrite_query`、`bridge_entity_expand`、`sufficiency_check`、`stop_answer` の7種類があり、これらはハードな妥当性関数によって実行不可能な操作が事前に除外される。推論時には、学習済みのアクション値モデルが各操作の期待値をスコアリングし、継続モデルと組み合わせて最適な証拠獲得の軌跡を決定する。最終段階では、蓄積された証拠を `compress_answer_evidence` によって圧縮し、生成器 $\mathcal{G}$ に渡すことで、ノイズの多いコンテキストから相互に支持し合う事実を抽出する。</p></section>
+<section class="secsum"><h3>Experiments</h3><p>DynaKRAGは、マルチホップQAにおいて学習可能な証拠制御を行う統一フレームワークであり、HotpotQA、2Wiki、MuSiQueの3つのベンチマークで、Qwen2.5-7BおよびGPT-4o-miniのバックボーンにおいて最高水準のF1スコアを達成している。実験では、Qwen2.5-7B-Instructで学習したコントローラーをGPT-4o-miniやLlama-3.1-8B-Instructへ転移させており、再学習なしでもLlama-3.1-8BにおいてHotpotQAで$0.4876$、MuSiQueで$0.2391$のF1を記録するなど、高い汎用性を示した。手法の有効性に関するアブレーション解析により、学習されたアクション選択、十分性フィードバック（sufficiency feedback）、および最終的な証拠圧縮（terminal compression）のすべてが性能向上に寄与していることが確認されており、特に学習されたコントローラーを一様分布に基づくポリシーに置き換えると、全データセットでF1スコアが$3.96$から$5.78$ポイント低下する。また、S2G-RAGと比較して、HotpotQAで$15.5\%$、2Wikiで$13.1\%$、MuSiQueで$20.7\%$のトークン使用量の削減を実現しつつ、より高いF1スコアを達成している。リトリーバル予算の感度分析では、MuSiQueにおいてリトリーバル回数が2回から3回に増えるとF1が$0.2796$から$0.2641$へ低下することから、「リトリーバルの増加が常に性能向上に繋がる」という単純な仮説は否定され、データセットに応じた適切な予算配分が重要であることが示された。最後に、質問構造別の分析では、複数の事実を組み立てる必要がある「compositional questions」において、固定リトリーバルと比較して2WikiのF1が$24.31$ポイント向上するなど、動的な証拠収集が最も効果的に機能することが明らかになった。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本論文では、マルチホップ検索拡張生成（RAG）における状態条件付き制御フレームワークである DynaKRAG を提案している。DynaKRAG は、共有された状態内で証拠操作を整理し、状態の進化に応じて現在実行可能な操作の中から最適なものを選択する閉ループ型の獲得プロセスを実現しており、操作の種類と検索深度の両方を収集済みの証拠に適応させることが可能である。HotpotQA、2Wiki、MuSiQue を用いた実験の結果、強力な共有バックボーンを持つベースラインと比較して F1 スコアを継続的に向上させると同時に、最も強力な反復型 Qwen ベースラインと比較してトークン消費量を削減できることが示された。また、検索上限（retrieval-cap）に関する分析により、追加の検索が必ずしも一様に有益ではないことが明らかになっており、適応的なマルチホップ RAG の成功には、現在の情報状態から適切な証拠操作を選択することが不可欠であると結論付けている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-09
+  </footer>
+</div>
+</body>
+</html>

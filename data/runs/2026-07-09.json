@@ -1,0 +1,1691 @@
+{
+  "date": "2026-07-09",
+  "dry_run": false,
+  "engine": "llm:gemma-4-26b",
+  "fields": [
+    {
+      "added": [],
+      "candidates_total": 115,
+      "fresh_total": 84,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 2,
+      "skipped": [
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 34124,
+          "id": "doi-3ddc0c4dd169",
+          "matched_keywords": [],
+          "published": "2014-08-21",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "A new criterion for assessing discriminant validity in variance-based structural equation modeling",
+          "venue": "Journal of the Academy of Marketing Science"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-74861b4a208e",
+          "matched_keywords": [
+            "Multi-Agent Pickup and Delivery"
+          ],
+          "published": "2026-07-04",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 4,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Online Task-Group Assignment with Regret-Guided Selection for Multi-Task Multi-Agent Pickup and Delivery",
+          "venue": "Zenodo (CERN European Organization for Nuclear Research)"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-0aba78fe3c80",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF",
+            "Multi-Agent Pickup and Delivery",
+            "MAPD"
+          ],
+          "published": "2026-07-02",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 4,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Multi-Agent and Multi-Rack Path Finding in High-Density Environments",
+          "venue": "Journal of Intelligent & Robotic Systems"
+        },
+        {
+          "basis": "abstract",
+          "citations": 18490,
+          "id": "doi-d78e76451112",
+          "matched_keywords": [],
+          "published": "2014-01-22",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Grey Wolf Optimizer",
+          "venue": "Advances in Engineering Software"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 14924,
+          "id": "doi-e75a74361b75",
+          "matched_keywords": [],
+          "published": "2009-08-07",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Fostering implementation of health services research findings into practice: a consolidated framework for advancing implementation science",
+          "venue": "Implementation Science"
+        },
+        {
+          "basis": "abstract",
+          "citations": 14421,
+          "id": "doi-8bd3dff377c8",
+          "matched_keywords": [],
+          "published": "2017-07-26",
+          "reasons": [
+            "本文もアブストラクトも取得できない"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "A survey on deep learning in medical image analysis",
+          "venue": "Medical Image Analysis"
+        },
+        {
+          "basis": "abstract",
+          "citations": 11199,
+          "id": "doi-8e67a0ae3526",
+          "matched_keywords": [],
+          "published": "2018-11-23",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Minimal information for studies of extracellular vesicles 2018 (MISEV2018): a position statement of the International Society for Extracellular Vesicles and update of the MISEV2014 guidelines",
+          "venue": "Journal of Extracellular Vesicles"
+        },
+        {
+          "basis": "abstract",
+          "citations": 11158,
+          "id": "doi-b6e32d6a8ab9",
+          "matched_keywords": [],
+          "published": "2020-12-01",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Global Burden of Cardiovascular Diseases and Risk Factors, 1990–2019",
+          "venue": "Journal of the American College of Cardiology"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 11065,
+          "id": "doi-5984c6832f2c",
+          "matched_keywords": [],
+          "published": "2021-03-29",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "PRISMA 2020 explanation and elaboration: updated guidance and exemplars for reporting systematic reviews",
+          "venue": "BMJ"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 10956,
+          "id": "doi-07e315909093",
+          "matched_keywords": [],
+          "published": "2014-01-01",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "In silico prediction of protein-protein interactions in human macrophages",
+          "venue": "BMC Research Notes"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 9113,
+          "id": "doi-1dd337af5425",
+          "matched_keywords": [],
+          "published": "2019-12-26",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Explainable Artificial Intelligence (XAI): Concepts, taxonomies, opportunities and challenges toward responsible AI",
+          "venue": "Information Fusion"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 8850,
+          "id": "doi-13dd4cb72b5c",
+          "matched_keywords": [],
+          "published": "1996-05-01",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Reinforcement Learning: A Survey",
+          "venue": "Journal of Artificial Intelligence Research"
+        },
+        {
+          "basis": "abstract",
+          "citations": 7848,
+          "id": "doi-f04509ded129",
+          "matched_keywords": [],
+          "published": "2008-05-01",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Technology Acceptance Model 3 and a Research Agenda on Interventions",
+          "venue": "Decision Sciences"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 7809,
+          "id": "doi-568a612d4aca",
+          "matched_keywords": [],
+          "published": "2008-09-04",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Comprehensive genomic characterization defines human glioblastoma genes and core pathways",
+          "venue": "Nature"
+        },
+        {
+          "basis": "abstract",
+          "citations": 6645,
+          "id": "doi-716efbce3e7f",
+          "matched_keywords": [],
+          "published": "2008-11-09",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Rosuvastatin to Prevent Vascular Events in Men and Women with Elevated C-Reactive Protein",
+          "venue": "New England Journal of Medicine"
+        },
+        {
+          "basis": "abstract",
+          "citations": 6509,
+          "id": "doi-ba5461dd91cd",
+          "matched_keywords": [],
+          "published": "2016-05-23",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "2016 European Guidelines on cardiovascular disease prevention in clinical practice",
+          "venue": "European Heart Journal"
+        },
+        {
+          "basis": "abstract",
+          "citations": 6140,
+          "id": "doi-5772a4aa1847",
+          "matched_keywords": [],
+          "published": "2016-03-29",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "The amyloid hypothesis of Alzheimer's disease at 25 years",
+          "venue": "EMBO Molecular Medicine"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 4922,
+          "id": "doi-9c0467e9a846",
+          "matched_keywords": [],
+          "published": "2016-04-26",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Analysis of nanoparticle delivery to tumours",
+          "venue": "Nature Reviews Materials"
+        },
+        {
+          "basis": "abstract",
+          "citations": 4699,
+          "id": "doi-17295076cccc",
+          "matched_keywords": [],
+          "published": "2017-01-01",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Oxidative Stress: Harms and Benefits for Human Health",
+          "venue": "Oxidative Medicine and Cellular Longevity"
+        },
+        {
+          "basis": "abstract",
+          "citations": 4454,
+          "id": "doi-51c3f30280ef",
+          "matched_keywords": [],
+          "published": "2014-08-29",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "2014 ESC Guidelines on the diagnosis and treatment of aortic diseases",
+          "venue": "European Heart Journal"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 4099,
+          "id": "doi-95c4c30523f0",
+          "matched_keywords": [],
+          "published": "2000-09-01",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "SPSS and SAS programs for determining the number of components using parallel analysis and Velicer’s MAP test",
+          "venue": "Behavior Research Methods, Instruments, & Computers"
+        },
+        {
+          "basis": "abstract",
+          "citations": 3772,
+          "id": "doi-65216b4f6e6c",
+          "matched_keywords": [],
+          "published": "2023-03-11",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Opinion Paper: “So what if ChatGPT wrote it?” Multidisciplinary perspectives on opportunities, challenges and implications of generative conversational AI for research, practice and policy",
+          "venue": "International Journal of Information Management"
+        },
+        {
+          "basis": "abstract",
+          "citations": 2970,
+          "id": "doi-90be482db405",
+          "matched_keywords": [],
+          "published": "2016-11-23",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Active Particles in Complex and Crowded Environments",
+          "venue": "Reviews of Modern Physics"
+        },
+        {
+          "basis": "abstract",
+          "citations": 2832,
+          "id": "doi-e95ac0276fec",
+          "matched_keywords": [],
+          "published": "2008-08-30",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Guidelines on the diagnosis and management of acute pulmonary embolism",
+          "venue": "European Heart Journal"
+        },
+        {
+          "basis": "abstract",
+          "citations": 2310,
+          "id": "doi-e538429d8bf6",
+          "matched_keywords": [],
+          "published": "2009-01-29",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Topology and data",
+          "venue": "Bulletin of the American Mathematical Society"
+        },
+        {
+          "basis": "abstract",
+          "citations": 2206,
+          "id": "doi-efd399b1941e",
+          "matched_keywords": [],
+          "published": "2019-05-01",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Automation and New Tasks: How Technology Displaces and Reinstates Labor",
+          "venue": "The Journal of Economic Perspectives"
+        },
+        {
+          "basis": "abstract",
+          "citations": 2076,
+          "id": "doi-c09f4b4cf2b6",
+          "matched_keywords": [],
+          "published": "2018-01-01",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Characterization techniques for nanoparticles: comparison and complementarity upon studying nanoparticle properties",
+          "venue": "Nanoscale"
+        },
+        {
+          "basis": "abstract",
+          "citations": 1940,
+          "id": "doi-5c7c63abdd5e",
+          "matched_keywords": [],
+          "published": "2017-01-01",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "A look at the density functional theory zoo with the advanced GMTKN55 database for general main group thermochemistry, kinetics and noncovalent interactions",
+          "venue": "Physical Chemistry Chemical Physics"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 1449,
+          "id": "doi-90ce8df18d91",
+          "matched_keywords": [],
+          "published": "2009-09-19",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Hydrogen-fueled internal combustion engines",
+          "venue": "Progress in Energy and Combustion Science"
+        },
+        {
+          "basis": "fulltext(ar5iv)",
+          "citations": 1368,
+          "id": "doi-698747eb65c3",
+          "matched_keywords": [],
+          "published": "2013-04-04",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Symmetry protected topological orders and the group cohomology of their symmetry group",
+          "venue": "Physical Review B"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 1276,
+          "id": "doi-06e663052bcf",
+          "matched_keywords": [],
+          "published": "2023-03-09",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Technology Roadmap for Flexible Sensors",
+          "venue": "ACS Nano"
+        },
+        {
+          "basis": "abstract",
+          "citations": 1179,
+          "id": "doi-8c62c898a76f",
+          "matched_keywords": [],
+          "published": "2014-12-01",
+          "reasons": [
+            "本文もアブストラクトも取得できない"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Conflict-based search for optimal multi-agent pathfinding",
+          "venue": "Artificial Intelligence"
+        },
+        {
+          "basis": "abstract",
+          "citations": 1146,
+          "id": "doi-fd01a7aa7782",
+          "matched_keywords": [],
+          "published": "2016-11-21",
+          "reasons": [
+            "本文もアブストラクトも取得できない"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Contribution of copy number variants to schizophrenia from a genome-wide study of 41,321 subjects",
+          "venue": "Nature Genetics"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 1137,
+          "id": "doi-f66b7a9bec03",
+          "matched_keywords": [],
+          "published": "2013-01-01",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Myocardial T1 mapping and extracellular volume quantification: a Society for Cardiovascular Magnetic Resonance (SCMR) and CMR Working Group of the European Society of Cardiology consensus statement",
+          "venue": "Journal of Cardiovascular Magnetic Resonance"
+        },
+        {
+          "basis": "fulltext(ar5iv)",
+          "citations": 1114,
+          "id": "doi-10ba936bc255",
+          "matched_keywords": [],
+          "published": "2012-09-24",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Perspective: Advances and challenges in treating van der Waals dispersion forces in density functional theory",
+          "venue": "The Journal of Chemical Physics"
+        },
+        {
+          "basis": "fulltext(arxiv-pdf)",
+          "citations": 1099,
+          "id": "doi-29ff748026b1",
+          "matched_keywords": [],
+          "published": "1999-07-01",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Decision-Theoretic Planning: Structural Assumptions and Computational Leverage",
+          "venue": "Journal of Artificial Intelligence Research"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 939,
+          "id": "doi-925e8817fdb1",
+          "matched_keywords": [],
+          "published": "2019-05-15",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Blockchain technology: implications for operations and supply chain management",
+          "venue": "Supply Chain Management An International Journal"
+        },
+        {
+          "basis": "abstract",
+          "citations": 888,
+          "id": "doi-1e07de26c653",
+          "matched_keywords": [],
+          "published": "1992-12-01",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Sustained activation of the mitogen-activated protein (MAP) kinase cascade may be required for differentiation of PC12 cells. Comparison of the effects of nerve growth factor and epidermal growth factor",
+          "venue": "Biochemical Journal"
+        },
+        {
+          "basis": "abstract",
+          "citations": 851,
+          "id": "doi-693d38526437",
+          "matched_keywords": [],
+          "published": "2001-12-21",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "The octonions",
+          "venue": "Bulletin of the American Mathematical Society"
+        },
+        {
+          "basis": "fulltext(ar5iv)",
+          "citations": 765,
+          "id": "doi-244dc9151b15",
+          "matched_keywords": [],
+          "published": "2004-05-01",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Holomorphic disks and topological invariants for closed three-manifolds",
+          "venue": "Annals of Mathematics"
+        },
+        {
+          "basis": "abstract",
+          "citations": 723,
+          "id": "doi-1bb4a74de983",
+          "matched_keywords": [],
+          "published": "2014-03-05",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Unobtrusive Sensing and Wearable Devices for Health Informatics",
+          "venue": "IEEE Transactions on Biomedical Engineering"
+        },
+        {
+          "basis": "abstract",
+          "citations": 707,
+          "id": "doi-d24fcb5eb50b",
+          "matched_keywords": [],
+          "published": "1997-05-15",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "The hardwiring of development: organization and function of genomic regulatory systems",
+          "venue": "Development"
+        },
+        {
+          "basis": "fulltext(arxiv-pdf)",
+          "citations": 617,
+          "id": "doi-05d5c935b2ce",
+          "matched_keywords": [],
+          "published": "1998-01-01",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Virtual moduli cycles and Gromov-Witten invariants of algebraic varieties",
+          "venue": "Journal of the American Mathematical Society"
+        },
+        {
+          "basis": "abstract",
+          "citations": 590,
+          "id": "doi-80c839b44891",
+          "matched_keywords": [],
+          "published": "2016-04-07",
+          "reasons": [
+            "本文もアブストラクトも取得できない"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Thermophysical properties of seawater: A review and new correlations that include pressure dependence",
+          "venue": "Desalination"
+        },
+        {
+          "basis": "abstract",
+          "citations": 586,
+          "id": "doi-e3d04866635f",
+          "matched_keywords": [],
+          "published": "2014-01-17",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Uncertainty in evapotranspiration from land surface modeling, remote sensing, and GRACE satellites",
+          "venue": "Water Resources Research"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "t-aba645f79861",
+          "matched_keywords": [],
+          "published": "2027-12-05",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "On the Analysis of Potential Games: From Constraints, Price of Anarchy and Reinforcement Learning to Contrastive Learning",
+          "venue": "eScholarship (California Digital Library)"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-43a081fbf35c",
+          "matched_keywords": [],
+          "published": "2027-01-01",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "The changing agency of human and technological actors in digital transformation as a corporate entrepreneurship, adaptive capability",
+          "venue": "University of the Sunshine Coast"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "t-ffc1e0812a30",
+          "matched_keywords": [],
+          "published": "2027-01-01",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Beyond the Cash Kickback: Contractual Control as Remuneration in Private-Equity-Backed Physician Practices",
+          "venue": "Seton Hall University eRepository (Seton Hall University)"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "doi-ccf5b6b292bd",
+          "matched_keywords": [],
+          "published": "2027-01-01",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Contested urbanisms: The politics of heritage and housing in Jakarta’s kampungs",
+          "venue": "BIROn (Birkbeck, University of London)"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "t-f05ffc0f41c1",
+          "matched_keywords": [],
+          "published": "2026-12-31",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Portfolio Optimisation under Transaction Costs with Recursive Preferences",
+          "venue": "UCL Discovery (University College London)"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "t-2a8ac18cd054",
+          "matched_keywords": [],
+          "published": "2026-12-17",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Natural Agents, Complex Systems and Uncertain Environments: Results from Simulations on Heuristic Organizations",
+          "venue": "HAL (Le Centre pour la Communication Scientifique Directe)"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "t-1d6f54bbafe8",
+          "matched_keywords": [],
+          "published": "2026-12-14",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Continental shift: operations and supply chain management research from an African perspective",
+          "venue": "White Rose Research Online (University of Leeds, The University of Sheffield, University of York)"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "t-458e9373c5b8",
+          "matched_keywords": [],
+          "published": "2026-12-01",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Reconstruction and Renaissance of Dongbei China:A Multimodal Metaphor Analysis of New Media on Harbin",
+          "venue": "Research Explorer (The University of Manchester)"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "t-9eb5222e6b9b",
+          "matched_keywords": [],
+          "published": "2026-08-01",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Bridging Animal Production and Human Nutrition: How Production Ecology Shapes the Nutritional Quality of Terrestrial Animal Foods and Human Omega-3 Status",
+          "venue": "Digital Commons - USU (Utah State University)"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "t-403318469f10",
+          "matched_keywords": [],
+          "published": "2026-08-01",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Race, Sex, and Age Disparities in Homicide Clearance Rates in Tennessee: An Intersectional Approach",
+          "venue": "Digital Commons - East Tennessee State University (East Tennessee State University)"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "t-ab65a4dbf7dc",
+          "matched_keywords": [],
+          "published": "2026-08-01",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Scambaiting as entrepreneurial digilantism - the evolution of scambaiting and its role in combating online fraud",
+          "venue": "ePrints Soton (University of Southampton)"
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "doi-7232a2350439",
+          "matched_keywords": [],
+          "published": "2026-07-07",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Most Fatou and Julia components are small for polynomials",
+          "venue": "Nonlinearity"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "doi-cee96b5e005b",
+          "matched_keywords": [],
+          "published": "2026-07-07",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "High-resolution thermal infrared dataset for airborne person detection in SAR missions",
+          "venue": "Scientific Data"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "doi-ea47eb9792ab",
+          "matched_keywords": [],
+          "published": "2026-07-07",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "From Gene Function to Precision Intervention: CRISPR/Cas9 and Stem Cell-Based Strategies as Emerging Disease-Modifying Approaches in PMOS",
+          "venue": "Stem Cell Reviews and Reports"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "doi-a5b7efa9d5c7",
+          "matched_keywords": [],
+          "published": "2026-07-07",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "From cognitive screening to digital phenotyping: rethinking early detection of cognitive impairment in primary care",
+          "venue": "Frontiers in Neurology"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "doi-403a20e47ce2",
+          "matched_keywords": [],
+          "published": "2026-07-07",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Bridging Gaps in Sustainability. Poland’s National SDGs Performance and the Role of Quality Education in the EU Context",
+          "venue": "Journal of the Knowledge Economy"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "doi-ac453424228b",
+          "matched_keywords": [],
+          "published": "2026-07-07",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "The role of artificial intelligence solutions in contemporary marketing shifts: Evidence and analysis from advanced digital environments",
+          "venue": "Future Business Journal"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "doi-c271b6cc0e25",
+          "matched_keywords": [],
+          "published": "2026-07-07",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Neuroscience meets the classroom: a scoping review of translational research in educational neuroscience (2015–2025)",
+          "venue": "Frontiers in Psychology"
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "doi-ed9c5c73e35f",
+          "matched_keywords": [],
+          "published": "2026-07-06",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Linearity criteria for automorphism groups of malabelian groups",
+          "venue": "Mathematische Annalen"
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "doi-b58980b86e86",
+          "matched_keywords": [],
+          "published": "2026-07-06",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Parametrized homotopic distance",
+          "venue": "Journal of Homotopy and Related Structures"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "doi-f129f6861ba0",
+          "matched_keywords": [],
+          "published": "2026-07-06",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Urban freight micro-regulation: accounting for the heterogeneity of logistics practices in the city",
+          "venue": "European Transport Research Review"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-6cc9e2ed274b",
+          "matched_keywords": [],
+          "published": "2026-07-06",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "The governance paradox: how sharing economy platforms redistribute risks for providers and consumers",
+          "venue": "Journal of Business Research"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-08a29a6a19ae",
+          "matched_keywords": [],
+          "published": "2026-07-06",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Chatbot language style matching and reuse intention in service failure: A communication accommodation theory explanation",
+          "venue": "Acta Psychologica"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "doi-2b71a47ca1e4",
+          "matched_keywords": [],
+          "published": "2026-07-06",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Too Good to Fail: Unpacking Legitimation Work in Social Platform–Based Enterprises",
+          "venue": "Journal of Business Ethics"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "doi-54aa68c1ca9a",
+          "matched_keywords": [],
+          "published": "2026-07-06",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Sonopermeation to Overcome Barriers for Delivery of Drugs to Tumors and Brain Tissue",
+          "venue": "Cellular and Molecular Bioengineering"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "doi-58592f7aa4b1",
+          "matched_keywords": [],
+          "published": "2026-07-06",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Science fiction and technology assessment: Fiction, speculation, and the future of emerging technologies",
+          "venue": "TATuP - Zeitschrift für Technikfolgenabschätzung in Theorie und Praxis"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "doi-b30a35390d8d",
+          "matched_keywords": [],
+          "published": "2026-07-06",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "From inflammation to inheritance: rethinking myocarditis as the first signal of desmosomal cardiomyopathy",
+          "venue": "The Egyptian Heart Journal"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-3ff25cba74af",
+          "matched_keywords": [],
+          "published": "2026-07-05",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Structural Design and Research Analysis of Shared Bicycle Collection and Transfer System",
+          "venue": "Applied Sciences"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "t-f9cb070664da",
+          "matched_keywords": [],
+          "published": "2026-07-05",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Bridging Inclusive Education and AI: A Technology-Centric Taxonomy and Systematic Literature Review",
+          "venue": "Journal of the Association for Information Systems"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-1689810f73a6",
+          "matched_keywords": [],
+          "published": "2026-07-03",
+          "reasons": [
+            "関連キーワードが弱い",
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Fast and Efficient Data Collection Management Approach with Two-Layer UAV Network with Massive Sensor Nodes",
+          "venue": "Applied Sciences"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "doi-0b772dabe3ea",
+          "matched_keywords": [],
+          "published": "2026-07-03",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Feedforward spiking neural networks are not transformers (yet): a learning-theoretic framework for long-range dependencies and biological efficiency",
+          "venue": "Neuromorphic Computing and Engineering"
+        },
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 0,
+          "id": "doi-64afee2f3a98",
+          "matched_keywords": [],
+          "published": "2026-07-03",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Non-isomorphic Cayley Graphs with Identical Random Walk Distribution",
+          "venue": "The Electronic Journal of Combinatorics"
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "t-afa9a4ce75bc",
+          "matched_keywords": [],
+          "published": "2026-07-02",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Weighted Derivative Histopolation on Arbitrary Grids: Admissibility and Exact Factorizations",
+          "venue": "arXiv (Cornell University)"
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "t-e6bec75682ac",
+          "matched_keywords": [],
+          "published": "2026-07-01",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "HK and GL",
+          "venue": "arXiv (Cornell University)"
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "id": "t-85c8b9d98261",
+          "matched_keywords": [],
+          "published": "2026-07-01",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Sheared Witt Vectors",
+          "venue": "arXiv (Cornell University)"
+        },
+        {
+          "basis": "fulltext(arxiv-pdf)",
+          "citations": 0,
+          "id": "t-6b75a7ca3e0a",
+          "matched_keywords": [],
+          "published": "2026-07-01",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "Double Transposed Poisson Algebras",
+          "venue": "arXiv (Cornell University)"
+        },
+        {
+          "basis": "fulltext(arxiv-pdf)",
+          "citations": 0,
+          "id": "t-0ea4240ab59d",
+          "matched_keywords": [],
+          "published": "2026-07-01",
+          "reasons": [
+            "関連キーワードが弱い"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "fulltext",
+          "title": "A homotopy coherent Pontryagin-Thom isomorphism",
+          "venue": "arXiv (Cornell University)"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-0b6f58f39ed9",
+          "matched_keywords": [],
+          "published": "2026-07-01",
+          "reasons": [
+            "本文もアブストラクトも取得できない"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "An Integrated Congestion-Aware Framework for Task Allocation and Path Planning in Multi-Agent Pickup and Delivery",
+          "venue": "Lecture notes in computer science"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "t-c5458909cc42",
+          "matched_keywords": [],
+          "published": "2026-09-01",
+          "reasons": [
+            "本文もアブストラクトも取得できない"
+          ],
+          "relevance": 0,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Preserved diffusion MRI measures despite subtle behavioral and hippocampal CA3 alterations in a preclinical model of cerebral small vessel disease",
+          "venue": "Universiti Putra Malaysia Institutional Repository (Universiti Putra Malaysia)"
+        }
+      ],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important/q1": {
+          "count": 0,
+          "query": "Multi-Agent Path Finding"
+        },
+        "arxiv/important/q2": {
+          "count": 0,
+          "query": "MAPF"
+        },
+        "arxiv/important/q3": {
+          "count": 0,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "arxiv/important/q4": {
+          "count": 0,
+          "query": "MAPD"
+        },
+        "arxiv/important/q5": {
+          "count": 0,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "arxiv/important/q6": {
+          "count": 0,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q1": {
+          "count": 8,
+          "query": "Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q2": {
+          "count": 8,
+          "query": "MAPF"
+        },
+        "arxiv/recent/q3": {
+          "count": 8,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "arxiv/recent/q4": {
+          "count": 8,
+          "query": "MAPD"
+        },
+        "arxiv/recent/q5": {
+          "count": 8,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q6": {
+          "count": 3,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "openalex/important/q1": {
+          "count": 8,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/important/q2": {
+          "count": 8,
+          "query": "MAPF"
+        },
+        "openalex/important/q3": {
+          "count": 8,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/important/q4": {
+          "count": 8,
+          "query": "MAPD"
+        },
+        "openalex/important/q5": {
+          "count": 8,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/important/q6": {
+          "count": 8,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "openalex/recent/q1": {
+          "count": 8,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/recent/q2": {
+          "count": 8,
+          "query": "MAPF"
+        },
+        "openalex/recent/q3": {
+          "count": 8,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/recent/q4": {
+          "count": 8,
+          "query": "MAPD"
+        },
+        "openalex/recent/q5": {
+          "count": 8,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/recent/q6": {
+          "count": 8,
+          "query": "Online Multi-Agent Path Finding"
+        }
+      }
+    },
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2607.06507.html",
+          "id": "2607.06507",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-07-07",
+          "reading_value": 4,
+          "reading_value_reason": "マルチホップRAGの制御を、状態条件付きの原子的な操作として定式化した新規性が高い。精度向上とトークン削減を両立し、モデル間転移も示されており、実用的な価値も大きい。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "DynaKRAG: A Unified Framework for Learnable Evidence Control in Multi-Hop Retrieval-Augmented Generation",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2607.05936.html",
+          "id": "2607.05936",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-07-07",
+          "reading_value": 4,
+          "reading_value_reason": "RAGとConstrained Decodingを組み合わせ、API生成のハルシネーションを劇的に抑制する実用的な手法を提案している。実験も合成・実世界の双方で行われ、非常に具体的である。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Mitigating Errors in LLM-Generated Web API Invocations via Retrieval-Augmented Generation and Constrained Decoding",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 153,
+      "fresh_total": 135,
+      "k": 2,
+      "label": "文書構造解析に基づく検索・質問応答・RAG",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 84,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 1,
+          "id": "doi-6428af65647a",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2025-12-17",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 5,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "SPR-RAG: Semantic Parsing Retriever-Enhanced Question Answering for Power Policy",
+          "venue": "Algorithms"
+        }
+      ],
+      "slug": "doc-structure-rag",
+      "source_counts": {
+        "arxiv/important/q1": {
+          "count": 0,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "arxiv/recent/q1": {
+          "count": 40,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "openalex/important/q1": {
+          "count": 40,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "openalex/recent/q1": {
+          "count": 40,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "semanticscholar/important/q1": {
+          "count": 38,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "semanticscholar/recent/q1": {
+          "count": 38,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        }
+      }
+    }
+  ],
+  "generated_at": "2026-07-09T06:00:01"
+}

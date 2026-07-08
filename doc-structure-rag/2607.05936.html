@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Mitigating Errors in LLM-Generated Web API Invocations via Retrieval-Augmented Generation and Constrained Decoding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Mitigating Errors in LLM-Generated Web API Invocations via Retrieval-Augmented Generation and Constrained Decoding</h1>
+  <div class="meta">Daniel Maninger, Leon Chemnitz, Jannis Brugger, Tushar Lamba, Amir Molzam Sharifloo, Mira Mezini<br>採択先: 未取得 ・ 2026-07-07 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.05936v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.05936v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-07</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGとConstrained Decodingを組み合わせ、API生成のハルシネーションを劇的に抑制する実用的な手法を提案している。実験も合成・実世界の双方で行われ、非常に具体的である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> LLMによるWeb API呼び出しコード生成におけるハルシネーションを軽減するため、OpenAPI仕様書を活用したRetrieval-Augmented Generation (RAG) と、正規表現ベースのConstrained Decoding (CD) を提案する。RAGは適切なエンドポイントの選択を支援し、CDはURLやHTTPメソッド、引数の構造的な正確性を強制することで、両手法の組み合わせにより合成データセットにおいて最大 $+332\%$ の正解率向上を達成する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、OpenAPI仕様に基づきURL、HTTPメソッド、および各種パラメータ（path, query, header, body）を構成する必要があるWeb API呼び出しコード生成において、LLMが陥るハルシネーションや仕様違反を解決することを目的としている。評価には、AsanaやSlack等のAPIを含む395タスクからなる合成データセット「WAPIIBench」と、GitHubからAxiosベースの呼び出しを収集した11種類のAPIを含む新規の実世界データセットの2種類を用いている。実世界データセットでは、パラメータが変数や定数として渡される複雑な構造に対応するため、実行時に適切なデータ型を注入する手法などが導入されている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、OpenAPI仕様書からエンドポイント単位の情報を抽出し、TypeScriptの型宣言にインスパイアされたコンパクトなフォーマットでプロンプトに注入するRAGフレームワークを提案している。第二に、OpenAPI仕様から正規表現ベースの制約を自動生成し、生成プロセス中にHTTPメソッドやURL、パラメータの依存関係を強制するConstrained Decoding (CD) 手法を提案している。実験により、CDが合成データセットにおいて正解率を平均 $+209\%$ および $+143\%$ 向上させ、不正なURLや引数の生成をゼロに抑えることを示した。さらに、RAGとCDを組み合わせることで、合成データセットにおいてハルシネーションをゼロに抑制しつつ、大幅な正確性の向上を実現できることを明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>RAG手法では、`all-MiniLM-L6-v2`を用いた埋め込みとChromaによる近似最近傍探索を採用し、各チャンクが自己完結するように参照のインライン化等の前処理を施している。検索精度向上のため、エンドポイントの記述範囲を変えた5種類のバリエーションを保持することで、top-1精度 $75.7\%$、top-5精度 $95.2\%$ を達成している。CD手法では、開始・停止条件と本体を持つモジュール化された「生成ルール」の集合を構築し、正規表現のキャプチャグループや否定の先読み（negative lookahead assertions）を用いて、必須パラメータの欠落や二重定義を防止する。この制約は、JavaScript/Axiosの構文規則やパラメータのネストといった複雑な構造を階層的な正規表現として捉えるものである。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、24のオープンソースLLMおよびGPT-4o/miniを用い、Full completionとArgument completionの2つのタスク設定で実施された。合成データセットのFull completionにおいて、Vanilla設定の平均正解率が13%と低迷したのに対し、CDは正解率を大幅に向上させた。実世界データセットの検証では、34個のOpenAPI仕様書のパースに成功し、125個のテストケースを用いたスイートですべての制約が意図通りに機能することを確認している。また、RAGとCDの併用により、合成データセットで最大 $+332\%$ の正解率向上を記録した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>RAGはエンドポイントの選択を助けハルシネーションを減少させるが、検索された不要なパラメータを過剰に生成してしまう傾向があり、正解率への影響はモデルや条件により一貫しない。CDは高い正確性を保証する一方で、モデルの次トークン確率分布を歪める可能性があり、一部のモデルでは実行可能性が低下するという限界がある。また、CDはAPI呼び出しの範囲内での局所的な制約に留まるため、引数として渡される変数（リテラルではない値）の型や値までは制御できない。今後の課題として、セキュリティ特性への拡張や、特定の言語・ライブラリに依存しない汎用的な手法の探求が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Mitigating Errors in LLM-Generated Web API Invocations via Retrieval-Augmented Generation and Constrained Decoding</h3><p>本研究では、LLMによるWeb API呼び出しコード生成の誤りを軽減するため、Retrieval-Augmented Generation (RAG) と Constrained Decoding (CD) という2つの補完的な手法を提案している。RAG手法では、OpenAPI仕様書を処理してコンパクトなエンドポイント表現を抽出・取得し、プロンプトに注入するリトリーバーを設計している。一方、CD手法では、OpenAPI仕様書から正規表現ベースの制約へと自動変換を行い、生成プロセス中に制約を強制する。評価は、既存の合成データセットであるWAPIIBenchおよびGitHubリポジトリから構築した新しい実世界のデータセットを用いて行われた。実験結果によれば、RAGは完全なAPI呼び出しの生成においてハルシネーションを抑制し正確性を向上させる一方で、エンドポイントが既に提供されている場合には不要なパラメータの生成を促してしまう。対照的に、CDは不正なURL、HTTPメソッド、および引数の生成を確実に防止し、スターターコードの有無に関わらず全体的な正確性を大幅に向上させることが示された。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>本研究は、OpenAPI仕様に基づきURL、HTTPメソッド、パラメータ（path, query, header, body）を構成する必要があるWeb API呼び出しコード生成において、LLMが陥るハルシネーションや仕様違反を軽減することを目的としている。手法として、OpenAPI仕様から関連情報を抽出するRetrieval-Augmented Generation (RAG) と、仕様に準拠した生成を強制する正規表現ベースのConstrained Decoding (CD) を提案し、それらの相乗効果を調査している。評価には、WAPIIBenchの合成データセットと、GitHubからAxiosベースの呼び出しを収集した11種類のAPIを含む新規の実世界データセットの2種類を用いている。実験結果によれば、CDは合成データセットにおいて正解率を平均 $+209\%$ および $+143\%$ 向上させ、不正なURLや引数をゼロに抑える高い効果を示した。RAGはハルシネーションを減少させるものの、不要なパラメータを生成しすぎる傾向があり、正解率への影響はデータセットや条件により一貫しない。両者を組み合わせた手法は、合成データセットで最大 $+332\%$ の正解率向上を達成し、ハルシネーションをゼロに抑制できるが、CD単体と比較すると正解率の向上幅にばらつきが見られるという限界も示されている。</p></section>
+<section class="secsum"><h3>2. Background</h3><p>本セクションでは、Web API呼び出しの生成における背景知識として、APIの構造、評価ベンチマーク、RAG、および制約付きデコーディングについて述べている。Web APIはHTTPメソッドとURLの組み合わせで識別されるエンドポイントを持ち、OpenAPI仕様に基づき、パス、クエリ、ヘッダー、リクエストボディなどの多様なパラメータ構造を持つ。評価には、Asana、Google Calendar、Google Sheets、Slackの4つのAPIからなる395タスクを含むWAPIIBenchを使用し、コード生成、制御環境下での実行、および正解の構成（URL、メソッド、引数）との比較による正確性分析の3段階で評価を行う。RAGは、知識ベースから関連するチャンクを検索してプロンプトを拡張することで、モデルの記憶への依存を減らし信頼性を高める手法である。一方、制約付きデコーディング（CD）は、正規表現や文脈自由文法を用いて、LLMの次トークン予測時にコンプリーションエンジンがトークンマスクを適用することで、定義された制約に従うトークンのみをサンプリング可能にする技術である。</p></section>
+<section class="secsum"><h3>3. Retrieval-Augmented Generation for Web API Invocations</h3><p>本手法は、OpenAPI仕様書から抽出したエンドポイント単位の情報をベクトルストアに格納し、タスク記述をクエリとして類似度検索を行うRAGフレームワークを提案している。API仕様の文脈依存性を考慮し、各チャンクが自己完結するように、参照のインライン化やセキュリティスキーム・パスレベルパラメータの各エンドポイントへのコピーを行う前処理を施している。検索精度向上のため、`all-MiniLM-L6-v2`を用いた埋め込みとChromaによる近似最近傍探索を採用し、さらにエンドポイントの記述範囲を変えた最大5種類のバリエーションを各チャンクに持たせることで、top-1精度 $75.7\%$、top-5精度 $95.2\%$（重複除去後）を達成している。LLMへの注入に際しては、コンテキスト長超過を防ぐための切り詰め処理を行うが、トークン効率を高めるためにJSONやYAMLではなく、TypeScriptの型宣言にインスパイアされた独自のコンパクトなフォーマットを採用している。</p></section>
+<section class="secsum"><h3>4. Constrained Decoding for Web API Invocations</h3><p>本セクションでは、OpenAPI仕様書から正規表現（regex）ベースの制約を自動生成し、LLMによるWeb API呼び出しの正確性を担保する制約付きデコーディング（Constrained Decoding）のフレームワークを提案している。提案手法の核心は、HTTPメソッド、URL、パラメータ間の相互依存性や、JavaScript/Axiosの構文規則、およびパラメータの順序やネストといった複雑な構造を、階層的な正規表現として変換する点にある。制約は単一の巨大な正規表現ではなく、開始条件（start condition）、停止条件（stop condition）、本体（body）を持つモジュール化された「生成ルール（generation rules）」の集合として構成され、複数のルールが重なり合うことで柔軟な制約のオーケストレーションを実現している。具体的には、正規表現のキャプチャグループを用いて定義済みパラメータを追跡し、条件付きパターンや否定の先読み（negative lookahead assertions）を用いることで、必須パラメータの欠落や二重定義を防止している。実験的な検証として、34個の実世界のOpenAPI仕様書のパースに成功し、さらに125個のテストケース（正例および負例）を用いたテストスイートにおいて、すべての制約が意図通りに機能することを確認している。</p></section>
+<section class="secsum"><h3>5. Real-World Dataset Creation</h3><p>本研究では、従来の合成データセットであるWAPIIBenchを補完するため、GitHubのリポジトリから抽出した実世界のWeb API呼び出しに基づく新しいデータセットを構築した。BigQueryを用いてAxiosライブラリをインポートしているJavaScriptファイルを検索し、OpenAPI仕様が存在し、かつAPIの特定が可能なものを手動で選別した結果、11種類のAPIにわたる28個のタスク（18個のファイルから構成）を構築した。実世界データセットでは、スターターコードの長さが4行から163行と多様であり、合成データセットとは異なり、APIパラメータがリテラルではなく変数や定数として渡されるという特徴を持つ。この変数への対応として、実行時に適切なデータ型のランダムなインスタンスを注入する手法や、`ReferenceError`を最小化するために注入する定義集合を反復的に拡張する手法を導入している。また、サーバー変数やパスパラメータを含む複雑なURL構造に対応するため、生成されたURLの正規化や、文字列補完および結合を用いた制約付きデコーディングの拡張を行っている。この拡張により、WAPIIBenchは多様なファイルレベルのコンテキストやAPI固有の特性に対して、より柔軟かつ堅牢な評価が可能となった。</p></section>
+<section class="secsum"><h3>6. Evaluation</h3><p>本セクションでは、Web API呼び出しコード生成における4つの生成設定（Vanilla, RAG, CD, RAG + CD）と2つのタスク設定（Full completion, Argument completion）を用いた評価実験が詳述されている。実験では24のオープンソースLLMとGPT-4o/miniを使用し、正解率（Correct implementations）、エンドポイントの幻覚（Hallucinated endpoints）、引数の幻覚（Hallucinated implementations）、実行可能性（Executable implementations）を指標とした。結果として、Vanilla設定では合成データセットのFull completionにおいて平均正解率が13%と低迷し、多くのモデルが構文エラーを起こすことが示された。RAGはエンドポイントの選択を助け幻覚を大幅に減少させるものの、モデルが検索された不要な引数を過剰に含めてしまう傾向があるため、正解率がモデルによって大きく変動し、場合によっては低下する。一方で、Constrained Decoding (CD) はすべてのモデルにおいて一貫して正解率を向上させ、合成データのFull completionでは正解率を209%向上させ、Argument completionではCode Llama (70B) が72%の正解率を達成してGPT-4oを上回る結果となった。ただし、CDはモデルの次トークン確率分布を歪める可能性があるため、一部のモデルでは実行可能性が低下するなどの限界も観察されている。</p></section>
+<section class="secsum"><h3>7. Discussion and Limitations</h3><p>本研究では、RAG（Retrieval-Augmented Generation）とCD（Constrained Decoding）がWeb API呼び出しコードの生成におけるエラーやハルシネーションの抑制に有効であることを示したが、実装上の課題として、RAGはチャンクサイズやリトリーバル数などのパイプラインにおける膨大なハイパーパラメータの調整が必要であり、特定のモデルへの過学習のリスクがある。一方、CDは制約設計の難しさが課題であり、正規表現や文法で表現困難なルールへの対応や、モデルの柔軟性を損なう「過剰な制約」と、誤生成を許容する「不十分な制約」のトレードオフが存在する。評価の限界として、RAGの設計空間の広さがモデル間で非一様な影響を与えることや、OpenAPI仕様書の参照解決をチャンク肥大化防止のために限定的な深さに留めていることが挙げられる。また、CDはAPI呼び出しの範囲内での局所的な制約に留まるため、引数として渡される変数（リテラルではない値）の型や値までは制御できない。さらに、提案手法は実行不可能なコードをわずかに増加させる傾向があり、WAPIIBenchの実行ベースの評価指標では、これらが正解率やハルシネーションの数値に適切に反映されないという側面がある。</p></section>
+<section class="secsum"><h3>8. Related Work</h3><p>本研究は、OpenAPIで記述された一般的なRESTful web APIの呼び出し生成におけるエラー軽減を目的としており、既存研究が対象とするドメイン特化型API、SDKラップ型、ローカル関数、あるいはAIエージェント用のツール利用とは異なる、HTTPメソッドやエンドポイント、リクエスト構成要素（path, query, headers, body）を明示的に構築する必要がある複雑な設定を扱う。RAG（Retrieval-Augmented Generation）の観点では、OpenAPI仕様書からのドキュメント検索を導入しているが、エンドポイントによるスコープ設定や参照の解決といった、文脈を維持するための特殊なチャンク作成手法や、トークン効率と理解度を最適化するカスタム出力フォーマットを提案している点が、既存のローカル関数向けRAG研究と異なる。制約付きデコーディング（Constrained Decoding）においては、構文的な正当性や型システム、あるいは言語サーバーに基づく既存手法がローカルAPIに限定されているのに対し、本研究は外部仕様に基づき、Web API呼び出しの構造を捉えてハルシネーションを防ぐ制約を導入する初の試みである。手法の比較として、RAGは実装が容易だがプロンプトの肥大化のリスクがあり、制約付きデコーディングは保証を提供できる一方で柔軟性に欠け推論コストが増大する、ファインチューニングは計算コストが高くデータが陳腐化しやすい、反復的な洗練（Iterative Refinement）はトークン消費が激しいといった特性を挙げ、これらを代替ではなく補完的なものとして捉えるべきだと論じている。</p></section>
+<section class="secsum"><h3>9. Conclusion and Future Work</h3><p>本研究では、LLMによるWeb API呼び出しコード生成の課題に対し、OpenAPI仕様書からエンドポイント単位のチャンクを抽出・注入するRetrieval-Augmented Generation (RAG) と、仕様書から正規表現による制約を導出するConstrained Decoding (CD) を提案した。WAPIIBenchの合成データセットおよびGitHubリポジトリから構築した実データセットを用いた評価の結果、RAGとCDは共にエンドポイントや引数のハルシネーションを抑制し、生成の正確性を向上させることが示された。特にCDはハルシネーションの不在を保証できる一方で、RAGの有効性はモデルやタスクに強く依存するという特性がある。RAGとCDの併用は一部のモデルで正確性を高めるが、他のモデルでは逆に低下させる場合もあり、両手法の統合には注意が必要である。今後の展望として、これらの手法をセキュリティ特性などの広範な品質基準へ拡張することや、JavaScript/Axiosに限定されない言語・ライブラリに依存しない手法の探求が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-09
+  </footer>
+</div>
+</body>
+</html>
