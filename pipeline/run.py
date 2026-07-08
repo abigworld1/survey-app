@@ -593,6 +593,7 @@ def main(argv=None):
                 os.makedirs(os.path.join(ROOT, uslug), exist_ok=True)
                 with open(os.path.join(ROOT, rel), "w", encoding="utf-8") as f:
                     f.write(render.render_paper_page(TPL, p, summary))
+            added_at = datetime.datetime.now().isoformat(timespec="microseconds")
             useen[p.key()] = {
                 "title": p.title,
                 "file": rel,
@@ -603,6 +604,7 @@ def main(argv=None):
                 "arxiv_id": p.arxiv_id,
                 "doi": p.doi,
                 "added": today,
+                "added_at": added_at,
                 "authors": p.authors,
                 "tldr": summary.get("tldr", ""),
                 "engine": summary.get("_engine", ""),

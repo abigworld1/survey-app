@@ -71,7 +71,9 @@ def _latest_added(entries):
 
 
 def _entry_sort_key(entry):
-    return (entry.get("added_at") or entry.get("added", ""), entry.get("date", ""))
+    # 一覧の既定表示は「追加順」。公開日は論文自体の日付なので、
+    # 同日追加分の並びが公開日に引っ張られないようにする。
+    return (entry.get("added_at") or entry.get("added", ""), entry.get("file", ""))
 
 
 def _keyword_tags(keywords):
