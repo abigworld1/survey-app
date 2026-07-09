@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Code-Level Cost Function Generation for Spatial Image Steganography Using RAG-Enhanced Large Language Models | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Code-Level Cost Function Generation for Spatial Image Steganography Using RAG-Enhanced Large Language Models</h1>
+  <div class="meta">Yige Wang, Shiqi Yi, Hanzhou Wu<br>採択先: 未取得 ・ 2026-07-07 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.05868v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.05868v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-07</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGと進化計算を組み合わせ、コードの意味論的検索（CSS）を行う手法は新規性が高い。実験も具体的で、コード実行率や探索コストの改善も明確。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 空間領域画像ステガノグラフィのコスト関数設計を自動化するため、RAG（Retrieval-Augmented Generation）と進化計算を組み合わせたSE-RAG（Self Evolving RAG）フレームワークを提案する。Code Semantic Signature (CSS) を用いてプログラムの意味論的な検索を可能にし、静的な文献知識と動的な経験知識を統合することで、LLMがドメイン固有の数学的制約を遵守した高セキュリティなアルゴリズムを生成できるようにする。実験では、既存手法に対しセキュリティ、コード実行率（$46.3\%$向上）、探索コスト（$26.1\%$削減）の全指標で優位性を示した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、空間領域画像ステガノグラフィにおける歪みコスト関数の設計プロセスを自動化することを目的としている。従来の最小歪みフレームワークでは、コスト関数の設計に高度な専門知識と膨大な試行錯誤が必要であった。また、既存のLLMを用いた自動設計手法では、数学的制約の遵守やステガナリシス耐性の最適化といったドメイン特有の知識が不足しているという課題があった。本研究は、知識誘導型の進化フレームワークを導入することで、これらの課題を解決しようとしている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、静的な文献知識 $\mathcal{K}_{static}$ と動的な経験知識 $\mathcal{K}_{dynamic}$ を統合した自己進化型RAG（SE-RAG）モジュールを提案した。第二に、プログラムのASTから高レベルな意味論へと変換するCode Semantic Signature (CSS) メカニズムを導入し、構文ではなく意味に基づいた知識検索を実現した。第三に、成功した最適化戦略をルール $\mathcal{E}_{new}$ として知識ベースに蓄積するフィードバック駆動型の進化メカニズムを構築した。これにより、LLMを単なるコード合成器から、数学的に適切な変異を行う「指示されたアルゴリズム最適化器」へと進化させた。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案フレームワークは、CSSを用いて手続き型コードをクエリへと変換し、Bi-Encoder ($all\text{-}MiniLM\text{-}L6\text{-}v2$) による検索と Cross-Encoder ($ms\text{-}marco\text{-}MiniLM\text{-}L\text{-}6\text{-}v2$) による再ランキングを経てコンテキストを抽出する。生成プロセスでは、構造化プロンプト $\mathcal{P}$ を用いてLLMが候補アルゴリズム $P_{new}$ を生成する。まず、誤検知率 $P_{fa}$ と見逃し率 $P_{md}$ の最小平均決定誤差率 $\frac{1}{2}(P_{fa} + P_{md})$ を指標とした予備評価を行い、次に専用のステガナライザによる厳密な評価を実施する。性能がベースライン $S_{base}$ を上回る場合、Semantic Auditorが構造的変化を要約し、$\mathcal{K}_{dynamic} \leftarrow \mathcal{K}_{dynamic} \cup \mathcal{E}_{new}$ として知識を更新する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験は BOSSBase v1.01 および BOWS2 データセットを用い、各 10,000 枚の画像を 5:1:4 の割合で分割して実施された。LLM には OpenAI GPT-4o を使用し、228 本の古典的な論文をインデックス化した Chroma DB を構築している。初期値として WOW, HILL, S-UNIWARD を採用し、SRNet を用いてペイロード $0.4 \text{ bpp}$ の条件下で進化を実行した後、$0.1$ から $0.3 \text{ bpp}$ の範囲で性能を評価した。結果として、提案手法は一貫して高い検出エラー率を達成し、コード実行率は平均 $30.4\%$ から $44.5\%$ へと $46.3\%$ 向上、最適解発見に必要な生成数は $26.1\%$ 削減された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>進化後のコスト関数解析により、具体的なアルゴリズムの改善が確認された。HILL ではメディアン残差 $r_{med}$ と高域残差 $r_{hp}$ を用いた $R_{joint} = \sqrt{|r_{hp} \cdot r_{med}|}$ の導入やゲート因子 $g$ による再定義が見られた。WOW では非対称な9タップフィルタ $\mathbf{h}_{low}, \mathbf{h}_{high}$ とチャネルごとの分散 $\sigma^2$ に基づく融合メカニズムが発見された。S-UNIWARD では、5つのサブバンドの幾何平均 $\prod_{i=1}^{5} S_i$ を用いる設計へと進化した。今後の展望として、セマンティック監査機能の拡張や、メディアフォレンジック分野への応用が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Code-Level Cost Function Generation for Spatial Image Steganography Using RAG-Enhanced Large Language Models</h3><p>本研究は、空間領域画像ステガノグラフィにおける適応型コスト関数の設計を自動化するため、RAG（Retrieval-Augmented Generation）を活用した進化型LLMシステムを提案している。提案手法の核となる Self Evolving RAG (SE-RAG) モジュールは、Code Semantic Signature (CSS) を用いて手続き型コードをクエリへと変換し、静的な文献知識と動的な経験知識ベースから明示的な制約や指針を検索することで、LLMがドメイン固有の数学的制約を遵守しながらコードを生成することを可能にする。また、成功した最適化戦略を動的知識ベースへ継続的にフィードバックする仕組みを備えている。BOSSBaseおよびBOWS2データセットを用いた実験の結果、既存の自動設計手法と比較して高いステガノグラフィセキュリティを達成しただけでなく、平均コード実行率を $46.3\%$ 向上させ、探索コストを $26.1\%$ 削減することに成功した。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究は、空間領域画像ステガノグラフィにおける歪みコスト関数の設計を自動化するため、RAG（Retrieval-Augmented Generation）を活用した知識誘導型進化フレームワークを提案している。従来の最小歪みフレームワークでは、コスト関数の設計に専門知識と試行錯誤が必要であり、LLMを用いた自動設計においても、数学的制約の遵守やステガナリシス耐性の最適化といったドメイン特有の知識が不足するという課題があった。提案手法は、静的な文献知識ベースと動的な経験知識ベースを統合した自己進化型RAG（SE-RAG）モジュールを導入しており、さらにプログラムの実装とステガノグラフィの概念を橋渡しするCode Semantic Signature (CSS) を用いることで、構文ベースではなく意味論に基づいた検索を可能にしている。また、成功した最適化戦略を動的知識ベースに蓄積するフィードバック駆動型の知識進化メカニズムを備えており、世代が進むにつれてドメインガイダンスが強化される仕組みとなっている。実験の結果、提案フレームワークは既存の手法よりも高いステガノグラフィセキュリティを達成しただけでなく、平均コード実行率を $46.3\%$ 向上させ、探索コストを $26.1\%$ 削減するという進化効率の改善も示している。</p></section>
+<section class="secsum"><h3>II Proposed Framework</h3><p>提案手法は、知識駆動型の進化パラダイムに基づき、RAG（Retrieval-Augmented Generation）を強化したSE-RAGモジュールを核とする空間画像ステガノグラフィ用のコスト関数自動生成フレームワークである。本フレームワークは、プログラムのAST（抽象構文木）から高レベルなステガノグラフィ的意味論へと変換するCSS（Code-to-Semantic Signature）メカニズムを導入しており、これにより静的な文献知識ベース $\mathcal{K}_{static}$ と、進化の過程で更新される動的な経験知識ベース $\mathcal{K}_{dynamic}$ の両方から、Bi-Encoderによるベクトル検索とCross-Encoderによる再ランキングを経て、最適なコンテキストを抽出する。生成プロセスでは、専門家ガイドライン、検索されたコンテキスト、参照プログラム、および安全制約を統合した構造化プロンプト $\mathcal{P}$ を用いてLLMが新しい候補アルゴリズム $P_{new}$ を生成し、これらはまず、誤検知率 $P_{fa}$ と見逃し率 $P_{md}$ の最小平均決定誤差率 $\frac{1}{2}(P_{fa} + P_{md})$ を指標とした予備評価を受ける。Stage 2では、専用のステガナライザを用いて厳密な評価を行い、その結果が初期のベースライン $S_{base}$ を上回る場合（$S_{new} &gt; S_{base}$）、Semantic Auditorがアルゴリズムの構造的変化を解釈可能なルール $\mathcal{E}_{new}$ として要約し、$\mathcal{K}_{dynamic} \leftarrow \mathcal{K}_{dynamic} \cup \mathcal{E}_{new}$ の操作によって知識ベースを更新することで、自己進化的なフィードバックループを実現している。</p></section>
+<section class="secsum"><h3>III Experimental Setup</h3><p>実験は BOSSBase v1.01 および汎用性検証のための BOWS2 を用い、各 10,000 枚のグレースケール画像を 5:1:4 の割合で訓練・検証・テスト用に分割して実施される。手法の核となる LLM には OpenAI GPT-4o を使用し、Chroma DB を用いて 228 本の古典的なステガノグラフィ論文をインデックス化した知識ベースを構築している。検索プロセスでは、Bi-Encoder ($all\text{-}MiniLM\text{-}L6\text{-}v2$) による密ベクトル検索と Cross-Encoder ($ms\text{-}marco\text{-}MiniLM\text{-}L\text{-}6\text{-}v2$) による再ランキングを組み合わせ、静的チャンクを 50、動的チャンクを 20 までフィルタリングする。進化計算の初期値には WOW, HILL, S-UNIWARD が採用され、各イテレーションで 4 つの候補変異を生成する。探索の効率化のため、SRNet を用いてペイロードが最大となる $0.4 \text{ bpp}$ の条件下でのみ進化を実行し、その後 $0.1$ から $0.3 \text{ bpp}$ の範囲で性能を評価する設定となっている。</p></section>
+<section class="secsum"><h3>IV Results and Analysis</h3><p>提案手法の評価実験では、BOSSBaseおよびBOWS2データセットを用い、HILL、WOW、S-UNIWARDを初期アルゴリズムとして、既存のLLMベース手法と比較したステガノグラフィのセキュリティ（SRNetによる検出エラー率）を検証した。結果として、提案するSE-RAGエンジンを組み込んだ進化フレームワークは、異なる埋め込みペイロードにおいて一貫して最も高い検出エラー率を達成し、言語モデルの暗黙的な知識に頼らずにドメイン固有の知識を明示的に探索に組み込めていることが示された。進化の効率性においては、コードの実行成功率（code executability）が平均30.4%から44.5%へと46.3%向上し、最適解発見に必要なアルゴリズム生成数は平均26.1%削減された。進化後のコスト関数に関する詳細な解析では、HILLにおいてメディアン残差 $r_{med}$ と高域残差 $r_{hp}$ を融合した $R_{joint} = \sqrt{|r_{hp} \cdot r_{med}|}$ を導入し、テクスチャ複雑性を制御するゲート因子 $g$ を用いてコスト $C$ を再定義している。WOWでは、従来のDB-8フィルタに代わり、自律的に発見された非対称な9タップフィルタ $\mathbf{h}_{low}, \mathbf{h}_{high}$ を用い、4番目の低周波構造サブバンドを追加した上で、チャネルごとの分散 $\sigma^2$ に基づく動的な融合メカニズムを導入している。S-UNIWARDにおいては、既存の3つの方向性サブバンドに水平・垂直方向の勾配フィルタを追加して5つのサブバンド構成とし、それらの幾何平均 $\prod_{i=1}^{5} S_i$ を用いて最終的な埋め込みコストを算出する設計へと進化している。</p></section>
+<section class="secsum"><h3>V CONCLUSION</h3><p>本研究では、空間領域画像ステガノグラフィにおけるコードレベルのコスト関数を生成するための、知識ベースの進化型フレームワークを提案している。既存のLLMを用いた自動設計におけるドメイン固有のガイダンス不足を解消するため、中心的なモジュールとしてSE-RAGを導入しており、CSS（Code-Semantic Synthesis）を用いることで、手続き的な実装とステガノグラフィの原理との間の意味的なギャップを埋めている。BOSSBaseおよびBOWS2を用いた実験の結果、提案手法は既存手法と比較して、ステガノグラフィのセキュリティ、コードの実行可能性、および進化の効率において一貫して高い性能を示した。本アーキテクチャは、構造化されたドメイン知識を生成ループに明示的に注入することで、LLMを単なるコード合成器から、数学的に不適切な変異を防ぎ、高セキュリティなコスト関数への収束を加速させる「指示されたアルゴリズム最適化器」へと変貌させている。今後の展望として、セマンティック監査機能の拡張、より広範なステガナライザを用いた汎用的な耐性の検証、およびメディアフォレンジック分野への応用が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-10
+  </footer>
+</div>
+</body>
+</html>

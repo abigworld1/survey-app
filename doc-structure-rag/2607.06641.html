@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Healthier LLMs: Retrieval-Augmented Generation for Public Health Question Answering | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Healthier LLMs: Retrieval-Augmented Generation for Public Health Question Answering</h1>
+  <div class="meta">Felix Feldman, Joshua Harris, Timothy Laurence, Leo Loman, Ollie Higgins, Fan Grayson, Poonam Soma, Bethany Pace-Bonello, Michael Borowitz, Toby Nonnenmacher<br>採択先: 未取得 ・ 2026-07-07 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.06641v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.06641v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-07</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの設計指針を検索手法、チャンク構成、評価指標の観点から体系的に検証しており、実用的な知見が豊富。LLM-as-a-Judgeの妥当性検証も有用。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 公衆衛生分野におけるLLMのハルシネーションと情報の陳腐化を防ぐため、英国政府の公衆衛生ガイダンスを用いたRAG（Retrieval-Augmented Generation）の有効性を検証した研究である。ハイブリッド検索の導入やチャンク長の最適化により、小規模なオープンウェイトモデルが検索なしの大規模モデルと同等以上の性能を発揮できることを示した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、公衆衛生のQA（質問応答）タスクにおいて、LLMのパラメータメモリに依存せず外部知識を活用するRAGの設計指針を提示している。具体的には、英国政府の公衆衛生ガイダンスから派生した7,929問のQAベンチマーク「PubHealthBench」を用い、検索手法、チャンク構成、および生成モデルの性能を体系的に調査している。評価対象は、多肢選択式（MCQA）の「PubHealthBench-Full」と、自由記述形式の「PubHealthBench-FreeForm」の2つのサブセットである。また、自由記述回答の質を測定するために、忠実性、網羅性、明快さ、事実的一貫性の4基準に基づく「LLM-as-a-Judge」フレームワークを導入している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、公衆衛生ドメインに特化したRAGパイプラインの設計において、dense、sparse、およびそれらを統合したhybrid retrievalの有効性を定量的に明らかにした。第二に、適切なコンテキスト選択を行うことで、小規模なオープンウェイトモデルが検索なしの大型モデルに匹敵、あるいは凌駕する性能を得られることを実証した。第三に、自由記述形式の評価において、人間によるアノテーションとLLM judgeの一致度を検証し、評価指標ごとの信頼性の限界を特定した。これにより、公衆衛生機関が最新のガイダンスに基づいた信頼性の高い回答システムを構築するための実践的な知見を提供している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>検索フェーズでは、8種の埋め込みモデルによるEmbedding-based、TF-IDF/BM25によるKeyword-based、およびReciprocal Rank Fusion (RRF) を用いたHybrid retrievalを比較している。さらに、GPT-4o-miniによる要約を用いたSummary-based hybridや、チャンクを要約に置換するReduced-corpus hybridも提案している。生成フェーズでは、検索された上位 $k$ 個のチャンクをコンテキストとして付与し、11種のLLMを用いて評価を行う。自由記述式の評価には、GPT-OSS-120Bをjudgeとして用い、ルーブリックに基づいた評価を実施する。実験設定として、自由記述式では $k=10$、コンテキスト長を $4096$ トークンに制限し、人間との一致度を Cohen’s $\kappa$ および macro-F1 で算出している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>検索性能の評価では、$\text{NV-Embed-v2}$ が $\text{Recall@10} = 0.98$、$\text{MRR} = 0.85$、$\text{nDCG@10} = 0.88$ と最高精度を記録したが、すべてのモデルでハイブリッド検索が性能を向上させた。MCQAにおいて、RAGの導入は $\text{Gemma-3-1B}$ を除く全モデルで人間（検索エンジン利用）のベースラインを上回り、多くのモデルが $k=5$ 付近で最大精度に達した。自由記述式では、中・大規模モデルが $\text{Completeness}$ や $\text{Clarity}$ で $0.88\text{--}0.97$ の高スコアを示す一方、$\text{Faithfulness}$ は最高モデルでも $0.64$ 程度に留まった。評価手法の妥当性については、$\text{Completeness}$ と $\text{Faithfulness}$ では人間との高い合意が見られたが、$\text{Factual consistency}$ では一致度が極めて低かった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>研究の結果、公衆衛生QAにおいてはハイブリッド検索がRecall向上に寄与し、小・中規模モデルでも大規模モデルに匹敵する性能を実現できることが示された。チャンク設計に関しては、長すぎるチャンクはトピック境界を曖昧にしランキング品質を低下させるため、LLMによる要約を用いたセマンティック圧縮が有効である。また、自由記述式では検索対象のランクが下がるにつれて $\text{Faithfulness}$ が急激に低下するため、ランキング品質の維持が極めて重要となる。本研究の限界として、検索の関連性を単一チャンクのバイナリとして扱っている点や、MCQAがモデルの能力を過大評価している懸念、および事実的一貫性におけるLLM judgeの信頼性の低さが挙げられる。結論として、RAGは最新のガイダンスへの適合とデータガバナンスの両立を可能にする、公衆衛生機関にとって実用的な選択肢である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Healthier LLMs: Retrieval-Augmented Generation for Public Health Question Answering</h3><p>本研究は、公衆衛生分野におけるLLMのハルシネーションや情報の陳腐化という課題に対し、Retrieval-Augmented Generation (RAG) を用いた解決策を提案している。著者らは、英国政府の公衆衛生ガイダンスから派生した7,929問のQAベンチマークである PubHealthBench を拡張し、dense、sparse、および hybrid retrieval を複数の埋め込みモデルとコーパス変種を用いて体系的に評価した。実験の結果、hybrid retrieval が一貫して recall とランキング品質を向上させることが示され、チャンク長やトピックがランキング性能に相互作用することも明らかになった。RAGの導入により、多様なLLMにおいて多肢選択式の精度が大幅に向上し、適切なコンテキスト選択と検索品質の向上によって、小規模なオープンウェイトモデルが検索なしの大型モデルと同等以上の性能を発揮することが確認された。さらに、自由形式の回答を評価するために、忠実性 (faithfulness)、網羅性 (completeness)、明快さ (clarity)、事実的一貫性 (factual consistency) を対象とした rubric-based な LLM-as-a-judge を導入し、人間によるアノテーションと比較検証を行った。その結果、judge と人間の合意度は忠実性と網羅性において最も高い一方、事実的一貫性と明快さについては再現性が低く、大規模な評価における解釈には注意が必要であることが示された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>公衆衛生分野におけるLLMの活用は、個別の臨床決定支援とは異なり、人口レベルの指針や更新され続ける公式な推奨事項に基づいた回答が求められるため、ハルシネーションや情報の陳腐化が深刻なリスクとなる。本研究では、LLMのパラメータメモリのみに依存せず、外部知識ベースから関連文書を検索して回答を生成するRetrieval-Augmented Generation (RAG) を用いて、この課題を解決することを目的とする。具体的には、英国の公衆衛生指針から作成されたベンチマークであるPubHealthBenchを用い、埋め込みモデルやシステム設計の差異が検索の有効性に与える影響、および検索の導入が多肢選択式問題（MCQA）や自由記述形式の回答の精度をどの程度向上させるかを調査する。さらに、検索の質やコンテキスト構成が性能に与える依存関係を分析するとともに、人間の専門家の判断と一致する自動評価フレームワークの開発についても検討を行う。本研究を通じて、信頼できるエビデンスに基づいた回答を生成するための、公衆衛生QAにおけるRAGの有効性を実証することを目指している。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>RAGは外部知識の検索とLLMの生成を組み合わせることで、事実の正確性を高めハルシネーションを抑制する手法であり、RETROのように小規模な生成器と大規模な検索データストアを組み合わせることで、大規模なLLM単体システムに匹敵する性能を示すことが示されている。検索手法においては、密な意味埋め込み（dense semantic embeddings）とBM25のような疎なモデルを組み合わせるハイブリッド検索や、GTE-ModernColBERT等のリランキングモデル、知識グラフを用いた検索が、精度と再現率の向上に寄与する。医療・公衆衛生分野の評価では、MedMCQAやMedQAといった多肢選択式（MCQA）ベンチマークが用いられてきたが、MCQAは選択肢のヒントに依存しやすく、自由形式（free-form）の生成タスクと比較してモデルの能力を過大評価する傾向があり、LLMではMCQAから自由形式への移行に伴い精度が平均39.4%低下するという報告もある。公衆衛生のベンチマークであるPubHealthBenchでは、GPT-4.5がMCQAで人間を上回る精度を示す一方で、自由形式のQAではどのモデルも75%を超えられないことが示されており、トピック依存性や生成の難しさが浮き彫りになっている。評価指標については、ROUGEやBLEUといった重複指標は自由形式のQAにおける人間による判断と相関が低いため、Prometheusのような「LLM-as-Judge」や、医師が設計したルーブリックに基づくフレームワークが、臨床医の評価と高い一致を示す代替案として台頭している。</p></section>
+<section class="secsum"><h3>3 Methods</h3><p>本研究では、687の英国政府公衆衛生ガイダンス文書から構成されるPubHealthBench QAベンチマークを用い、RAG（Retrieval-Augmented Generation）パイプラインの性能を評価している。検索手法として、8種の埋め込みモデルを用いたEmbedding-based retrieval、TF-IDFおよびBM25によるKeyword-based retrieval、それらを重み付きReciprocal Rank Fusion (RRF) により統合するHybrid retrieval、GPT-4o-miniによる要約を用いたSummary-based hybrid retrieval、および512トークンを超えるチャンクを要約に置換するReduced-corpus hybrid retrievalの5種類を提案・比較している。生成フェーズでは、検索された上位 $k$ 個のチャンクをコンテキストとしてLLMに付与し、PubHealthBench-Full（多肢選択式）およびPubHealthBench-FreeForm（自由記述式）の2つのサブセットで11種のLLMを評価する。検索性能の評価指標には、Recall@$k$、Mean Reciprocal Rank (MRR)、nDCG@$k$、およびPrecision@1を用い、自由記述式の回答評価には、GPT-OSS-120BをLLM-as-a-Judgeとして用い、事実の一貫性、網羅性、明快さ、ガイダンスへの忠実さの4基準に基づくルーブリック評価を採用している。実験設定において、自由記述式では実用的なシナリオを想定し、$k=10$、コンテキスト長を$4096$トークンに制限した上で、LLM judgeの妥当性を検証するために人間によるアノテーションとの一致度（Cohen’s $\kappa$ および macro-F1）も算出している。</p></section>
+<section class="secsum"><h3>4 Results</h3><p>検索性能の評価において、高密度検索（dense-only）では $8\text{B}$ パラメータを持つ $\text{NV-Embed-v2}$ が $\text{Recall@10} = 0.98$、$\text{MRR} = 0.85$、$\text{nDCG@10} = 0.88$ と最高精度を記録したが、すべてのモデルにおいて $\text{TF-IDF}$ 等を用いたハイブリッド検索が性能を向上させた。検索品質はモデルサイズや埋め込み次元に依存し、チャンク長が長くなるにつれて $\text{MRR}$ や $\text{nDCG@10}$ などの順位感応型指標が急激に低下する傾向がある。多肢選択式問題（MCQA）において、検索コンテキストの付与は $\text{Gemma-3-1B}$ を除くすべてのモデルで人間（検索エンジン利用）のベースラインを上回る精度を実現し、多くのモデルが $\text{k}=5$ 程度のチャンク数で最大精度に達した。自由形式の回答評価では、中・大規模モデルは $\text{Completeness}$ や $\text{Clarity}$ で高いスコア（$0.88\text{--}0.97$）を示す一方、$\text{Faithfulness}$（忠実性）が主要な失敗モードとなっており、最高モデルでも $0.64$ 程度に留まる。特に $\text{Faithfulness}$ はターゲットチャンクのランクが下がるにつれて急激に低下し、モデルが文脈内の不要な情報まで取り込んでしまう傾向が示された。評価手法の検証では、$\text{Completeness}$ や $\text{Faithfulness}$ は $\text{LLM-as-Judge}$ による評価の妥当性が確認されたが、$\text{Factual consistency}$（事実的一貫性）は人間と $\text{LLM}$ の一致度が極めて低く、信頼性の高い評価が困難であることが明らかになった。</p></section>
+<section class="secsum"><h3>5 Limitations</h3><p>本研究にはいくつかの限界が存在する。まず、検索評価において関連性を単一のターゲットチャンクに対するバイナリとして扱っているため、複数の根拠に基づいた公衆衛生上の質問に対する検索品質を過小評価している可能性がある。次に、チャンク長の影響に関する分析は既存の構造を利用したものであり、同一テキスト内でのサイズ変更による系統的な検証ではないため、因果関係の解釈に制約がある。また、多肢選択式（MCQA）形式では、正解チャンク以外から誤答を排除する挙動により、実際の能力を過大評価している懸念があり、これは正解チャンク以外でも高い精度が維持される現象からも示唆される。自由記述形式の評価においては、ルーブリックに基づくスコアが単一のリファレンスチャンクに対して計算されるため、忠実性（faithfulness）は「提供された証拠に対する忠実性」に限定され、コーパス全体の知識を反映しているとは限らない。さらに、事実的一貫性におけるLLMジャッジと人間との一致率が低いため、そのスコアは決定的なものではなく指標的なものに留まる。最後に、PubHealthBenchはコーパス内から回答可能な質問で構成されているため、マルチチャンクの推論や、不確実性を認めるべきコーパス外のクエリに対する能力をテストできていない。</p></section>
+<section class="secsum"><h3>6 Discussion</h3><p>本研究の考察では、公衆衛生分野のQAにおけるRAG（Retrieval-Augmented Generation）の設計指針が示されており、ハイブリッド検索（denseとsparseの組み合わせ）がドメイン特化タスクのRecall向上に寄与し、計算資源の限られた小・中規模モデルでも大規模モデルに匹敵する性能を実現できることが示されている。チャンク設計に関しては、チャンク長が増大するとトピックの境界が曖昧になりランキング品質が低下するため、LLMによる要約を用いたセマンティック圧縮が有効であるものの、構造やトピックを考慮したより原理的なセグメンテーションが必要であると指摘している。MCQA（多肢選択式QA）においては、高品質な検索を組み合わせることで、小・中規模のオープンウェイトモデルが検索なしの大規模クローズドモデルを上回ることが示されており、特に小規模モデルはランキング品質に敏感であるため、関連情報をリストの上位に配置する設計が重要となる。自由形式のQAでは、検索対象のランクが下がるにつれてFaithfulness（忠実性）が急激に低下するため、ランキング品質が極めて重要な設計要素となる。公衆衛生への実装面では、RAGはモデルの再学習なしに最新の公式ガイダンスへの適合を可能にし、かつオンプレミス等の制御された環境での運用が可能であるため、データガバナンスとコスト制約が厳しい公衆衛生機関にとって実用的な選択肢であることが結論付けられている。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>本研究は、PubHealthBenchを検索拡張生成（RAG）の設定へと拡張し、英国の公衆衛生ガイダンス・コーパスを用いた検索の有効性を検証した。実験の結果、検索の質は埋め込みモデルの選択やシステム設計に極めて敏感であり、ハイブリッド検索の導入、チャンク長の最適化、および大規模な埋め込みモデルの使用が関連性ランキングの向上に寄与することが示された。RAGの導入は多肢選択式問題（MCQA）の性能を大幅に改善し、適切なコンテキスト選択を行うことで、小規模なオープンウェイトモデルが検索なしの大規模モデルと同等以上の性能を達成できることが明らかになった。自由形式の回答においても、高品質なランキングはより焦点が絞られ忠実な応答をもたらすが、一方で、複数の証拠を必要とするケースやコーパス外のクエリへの対応といった、実運用における課題も浮き彫りとなった。また、LLMによる評価が人間の専門家による評価と完全には一致しないことが示され、公衆衛生分野へのLLM適用における堅牢な自動評価手法の必要性が示唆された。結論として、公衆衛生QAにおいて検索レイヤーは性能を決定付ける主要な要因であり、最新のガイダンスに基づいた回答を生成することで、ガバナンスやデータセキュリティが厳格な環境下での運用を可能にする。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-10
+  </footer>
+</div>
+</body>
+</html>

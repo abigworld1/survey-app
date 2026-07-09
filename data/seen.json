@@ -1052,6 +1052,37 @@
       "url": "http://arxiv.org/abs/2607.05069v1",
       "venue": ""
     },
+    "arxiv:2607.05868": {
+      "added": "2026-07-10",
+      "added_at": "2026-07-10T06:03:04.699510",
+      "arxiv_id": "2607.05868",
+      "authors": [
+        "Yige Wang",
+        "Shiqi Yi",
+        "Hanzhou Wu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-07",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.05868.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.05868v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGと進化計算を組み合わせ、コードの意味論的検索（CSS）を行う手法は新規性が高い。実験も具体的で、コード実行率や探索コストの改善も明確。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Code-Level Cost Function Generation for Spatial Image Steganography Using RAG-Enhanced Large Language Models",
+      "tldr": "空間領域画像ステガノグラフィのコスト関数設計を自動化するため、RAG（Retrieval-Augmented Generation）と進化計算を組み合わせたSE-RAG（Self Evolving RAG）フレームワークを提案する。Code Semantic Signature (CSS) を用いてプログラムの意味論的な検索を可能にし、静的な文献知識と動的な経験知識を統合することで、LLMがドメイン固有の数学的制約を遵守した高セキュリティなアルゴリズムを生成できるようにする。実験では、既存手法に対しセキュリティ、コード実行率（$46.3\\%$向上）、探索コスト（$26.1\\%$削減）の全指標で優位性を示した。",
+      "url": "http://arxiv.org/abs/2607.05868v1",
+      "venue": ""
+    },
     "arxiv:2607.05936": {
       "added": "2026-07-09",
       "added_at": "2026-07-09T06:19:49.754748",
@@ -1122,6 +1153,44 @@
       "title": "DynaKRAG: A Unified Framework for Learnable Evidence Control in Multi-Hop Retrieval-Augmented Generation",
       "tldr": "DynaKRAGは、マルチホップRAGにおける証拠獲得プロセスを、状態条件付きの原子的な証拠操作に対する制御問題として定式化した統一フレームワークである。学習されたコントローラーが、現在の証拠状態に基づき、検索、クエリ書き換え、停止などのアクションを動的に選択することで、回答精度とトークン効率の両立を実現する。",
       "url": "http://arxiv.org/abs/2607.06507v1",
+      "venue": ""
+    },
+    "arxiv:2607.06641": {
+      "added": "2026-07-10",
+      "added_at": "2026-07-10T06:02:34.203368",
+      "arxiv_id": "2607.06641",
+      "authors": [
+        "Felix Feldman",
+        "Joshua Harris",
+        "Timothy Laurence",
+        "Leo Loman",
+        "Ollie Higgins",
+        "Fan Grayson",
+        "Poonam Soma",
+        "Bethany Pace-Bonello",
+        "Michael Borowitz",
+        "Toby Nonnenmacher"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-07",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.06641.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.06641v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの設計指針を検索手法、チャンク構成、評価指標の観点から体系的に検証しており、実用的な知見が豊富。LLM-as-a-Judgeの妥当性検証も有用。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Healthier LLMs: Retrieval-Augmented Generation for Public Health Question Answering",
+      "tldr": "公衆衛生分野におけるLLMのハルシネーションと情報の陳腐化を防ぐため、英国政府の公衆衛生ガイダンスを用いたRAG（Retrieval-Augmented Generation）の有効性を検証した研究である。ハイブリッド検索の導入やチャンク長の最適化により、小規模なオープンウェイトモデルが検索なしの大規模モデルと同等以上の性能を発揮できることを示した。",
+      "url": "http://arxiv.org/abs/2607.06641v1",
       "venue": ""
     },
     "doi:10.1038/s41598-026-50062-8": {
@@ -1774,6 +1843,37 @@
       "title": "An Efficient Approach to the Online Multi-Agent Path Finding Problem by Using Sustainable Information",
       "tldr": "将来の追加エージェントが未知であるオンラインMulti-Agent Path Finding (MAPF) において、過去の計画情報を「持続可能な情報（sustainable information）」として再利用する3層構造のアプローチを提案する。提案手法は、高レベルのSustainable Replan (SR)、中レベルのSustainable Conflict-Based Search (SCBS)、低レベルのSustainable Reverse Safe Interval Path Planning (SRSIPP) で構成され、既存のSOTAと比較して平均1.48倍、大規模マップでは最大10倍の計算加速を実現する。",
       "url": "http://arxiv.org/abs/2301.04446v1",
+      "venue": ""
+    },
+    "arxiv:2304.04217": {
+      "added": "2026-07-10",
+      "added_at": "2026-07-10T06:01:32.591669",
+      "arxiv_id": "2304.04217",
+      "authors": [
+        "Ming-Feng Li",
+        "Min Sun"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2023-04-09",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2304.04217.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2304.04217v1",
+      "reading_value": 4,
+      "reading_value_reason": "Lifelong MAPFの課題に対し、One-shotで有効なHighway概念を適用する着眼点が良く、計算量削減とスループット向上の両立を実験で具体的に示している。",
+      "relevance": 9,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "The Study of Highway for Lifelong Multi-Agent Path Finding",
+      "tldr": "Lifelong Multi-Agent Path Finding (MAPF) において、エージェントの移動方向を制限・誘導する「Highway（高速道路）」の概念を導入し、計算コストの削減とデッドロック・再ルーティングの抑制を両立する手法を提案している。",
+      "url": "http://arxiv.org/abs/2304.04217v1",
       "venue": ""
     },
     "arxiv:2410.21415": {
@@ -3088,6 +3188,40 @@
       "tldr": "強化学習と探索ベースのプランニングを統合し、Lifelong Multi-Agent Path Finding (MAPF) における動的な優先順位割り当てを最適化するフレームワーク「RL-RH-PP」を提案する。Transformerベースのアテンション機構を用いてエージェント間の時空間的な相互作用をモデル化し、高密度な倉庫環境において既存手法を上回るスループットと高い汎化性能を実現する。",
       "url": "http://arxiv.org/abs/2603.23838v1",
       "venue": "Journal of Artificial Intelligence Research, Vol. 85, Article 28. Publication date: March 2026"
+    },
+    "doi:10.24963/ijcai.2024/35": {
+      "added": "2026-07-10",
+      "added_at": "2026-07-10T06:01:02.849513",
+      "arxiv_id": "2402.01446",
+      "authors": [
+        "Yulun Zhang",
+        "He Jiang",
+        "Varun Bhatt",
+        "Stefanos Nikolaidis",
+        "Jiaoyang Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-02-02",
+      "doi": "10.24963/ijcai.2024/35",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2402.01446.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2402.01446v2",
+      "reading_value": 1,
+      "reading_value_reason": "メタデータはMAPFに関する論文だが、要約内容はIJCAI-24の投稿規定（書式ガイドライン）であり、研究内容に関する情報が一切含まれていないため。",
+      "relevance": 9,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Guidance Graph Optimization for Lifelong Multi-Agent Path Finding",
+      "tldr": "本資料は、IJCAI-24会議における論文投稿および出版のための厳格な書式、レイアウト、および記述形式に関するガイドラインをまとめたものである。",
+      "url": "http://arxiv.org/abs/2402.01446v2",
+      "venue": ""
     }
   },
   "reading": {

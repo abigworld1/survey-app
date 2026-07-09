@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Guidance Graph Optimization for Lifelong Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Guidance Graph Optimization for Lifelong Multi-Agent Path Finding</h1>
+  <div class="meta">Yulun Zhang, He Jiang, Varun Bhatt, Stefanos Nikolaidis, Jiaoyang Li<br>採択先: 未取得 ・ 2024-02-02 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2402.01446v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2402.01446v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.24963/ijcai.2024/35" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2024-02-02</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 9</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 1/5</span><div class="rating-reason">メタデータはMAPFに関する論文だが、要約内容はIJCAI-24の投稿規定（書式ガイドライン）であり、研究内容に関する情報が一切含まれていないため。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本資料は、IJCAI-24会議における論文投稿および出版のための厳格な書式、レイアウト、および記述形式に関するガイドラインをまとめたものである。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本ドキュメントは、IJCAI-24の会議録に掲載される電子原稿の作成方法を規定する事務的な指示書である。論文は2段組のPDF形式で提出され、メイントラックの論文は最大7ページ、参考文献等は最大2ページという構成ルールが定められている。用紙サイズは $8.5&#x27;&#x27; \times 11&#x27;&#x27;$、列幅は $3.375&#x27;&#x27;$、列間隔は $0.25&#x27;&#x27;$ と指定されている。また、投稿用原稿では査読のための匿名性が求められ、行番号を表示するために `\linenumbers` を有効にする必要がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本ガイドラインは、論文の視認性と一貫性を確保するために、図表、表、数式、アルゴリズムの具体的な記述ルールを提供している。図表については、ベクトル形式での生成や $300\text{dpi}$ 以上の解像度維持、キャプションの配置方法などが規定されている。表の作成においては、`booktabs` パッケージを用いた可読性の高い設計や、数値の右揃え、精度の統一が推奨されている。また、数式や定義、定理、証明の記述についても、フォントサイズや間隔に関する詳細な制約を設けることで、出版品質の標準化を図っている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>論文作成には、提供される LaTeX マクロ（`ijcai24.sty`, `ijcai24.tex`）または Microsoft Word テンプレートの使用が求められる。数式については、長い式を `\small` 等で縮小することを禁じ、複数行に分割して記述する手法を推奨している。定義や定理（Definition, Theorem）は、`\newtheorem` を用いて $10\text{pt}$ の太字で開始し、本文は $10\text{pt}$ の斜体で記述する。アルゴリズムは `algorithm` や `algorithmic` パッケージを用い、ページの上部または下部にフローティング配置する形式をとる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>本ガイドラインの遵守状況は、提供されたスタイルファイル（LaTeX 2e および BibTeX 0.99c 対応）を用いて確認される。図表の品質については、ビットマップ使用時の解像度や、白黒印刷時でも判別可能なデザインであるかどうかが基準となる。表の設計においては、標準的な LaTeX デフォルト形式と比較して、`booktabs` を用いた形式が、罫線のスタイルや情報の冗長性排除の観点から優れていることが示されている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本規定は、出版プロセスにおける一貫性を維持するために、非常に厳格な制約を課している。例えば、数式の縮小が前後の行間やタイトルサイズを崩す原因となるため、厳禁とされている点や、図表のキャプションサイズを $9\text{pt}$ に固定する点などが挙げられる。また、論文の構成順序（本文、付録、倫理声明、謝辞、貢献声明、参考文献）も厳密に指定されており、著者はこれらの形式的要件を完全に満たすことが求められる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>IJCAI–24 Formatting Instructions</h3><p>本セクションは、IJCAI–24の会議録における電子原稿の作成および出版に関する形式的な指示を記述したものである。投稿された電子原稿は、印刷版の会議録およびオンライン版の両方に含まれることが規定されている。本文には著者名、所属、メールアドレスの記載形式が含まれており、論文全体のスタイルに関する指示を提供することを目的としている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>提供されたセクションは、論文の投稿規定（ページ制限や使用可能なソフトウェア）に関する事務的な記述のみであり、研究内容に関する手法、アルゴリズム、実験設定、数値結果などの情報は含まれていません。本文の範囲内では、IJCAI-24の会議録はPDF形式で提出する必要があり、メイントラックの論文は最大7ページ、参考文献や謝辞等は最大2ページまでという構成ルールが示されています。また、LaTeXマクロやMicrosoft Wordテンプレートが提供されており、他のソフトウェアを使用する場合でも指定のフォーマットに従うことが求められています。</p></section>
+<section class="secsum"><h3>2 Style and Format</h3><p>本セクションは、IJCAI-24への投稿およびカメラレディ原稿における書式とレイアウトの厳格な規定を定めている。論文は2段組で構成され、8.5&#x27;&#x27; $\times$ 11&#x27;&#x27;の用紙サイズを基準とし、列幅は $3.375&#x27;&#x27;$、列間隔は $0.25&#x27;&#x27;$ と指定されている。投稿用原稿（submissions）では、査読のための匿名性が求められる場合があり、その際は著者情報や謝辞を伏せ、行番号を表示するために `\linenumbers` を有効にする必要がある。一方、採択後のカメラレディ版では、著者名や所属の記載が必須となり、行番号は無効化される。また、抄録（Abstract）は200語以内とし、セクション構成は、本文、付録（Appendices）、倫理声明（Ethical Statement）、謝辞（Acknowledgements）、貢献声明（Contribution Statement）、参考文献（References）の順序に従うことが規定されている。</p></section>
+<section class="secsum"><h3>3 Illustrations</h3><p>本セクションは、論文内における図表（Illustrations）の配置および作成に関する形式的なガイドラインを規定している。図表は、本文の末尾ではなく最初に言及される箇所に配置し、原則としてページの上部または下部にフローティングさせる必要がある。図表は電子的に生成またはスキャンされたものでなければならず、LaTeXの範囲外でクロップして後処理時の不具合を防ぐとともに、可能な限りベクトル形式で生成することが推奨される。ビットマップを使用する場合は少なくとも $300\text{dpi}$ の解像度を維持し、白黒印刷時でも判別可能なデザインにすることが求められる。図表の番号とキャプションは図の下に配置し、キャプションには $9\text{pt}$ のフォントサイズを使用し、図表の周囲には $1/4\text{inch}$ のマージンを確保しなければならない。</p></section>
+<section class="secsum"><h3>4 Tables</h3><p>本セクションでは、論文における表（Tables）の適切な記述方法と、視認性を向上させるための設計指針が述べられている。具体的には、標準的な LaTeX のデフォルト形式（Table 1）と比較して、`booktabs` パッケージを用いた形式（Table 2）の方が、罫線のスタイル、数値列の右揃え、および情報の冗長性の排除という3つの観点から可読性が高いことが示されている。数値の比較を容易にするため、数値列および対応するヘッダーは右揃えにすべきであり、すべての数値において精度（precision）を統一することが推奨されている。また、行間でのシナリオ名の繰り返しを避け、単位は列ヘッダーに集約することで、コンテンツ内の不要な反復を回避する手法が提示されている。</p></section>
+<section class="secsum"><h3>5 Formulas</h3><p>IJCAIの2段組フォーマットにおいて、長い数式を `\small` や `\tiny` 等を用いて縮小することは、前後の段落の行間やタイトル、数式番号のサイズを崩す原因となるため厳禁である。数式が1行に収まらない場合は、複数行に分割して記述することが最も読みやすく推奨される手法である。列幅をわずかに超える程度であれば `resizebox` 環境の使用が検討できるが、数式番号は本文と同じ $10\text{pt}$ のフォントサイズを維持しなければならない。また、数式の主要な記号は `small` テキスト（$9\text{pt}$）を下回るサイズであってはならないという制約がある。</p></section>
+<section class="secsum"><h3>6 Examples, Definitions, Theorems and Similar</h3><p>本セクションでは、論文における例（Example）、定義（Definition）、定理（Theorem）、系（Corollary）などの記述形式に関する書式規定が述べられている。各項目は独立した段落として記述し、前後の段落とは $2\text{pt}$ 以上 $5\text{pt}$ 以下の間隔を空ける必要がある。項目の開始は $10\text{pt}$ の太字で種類と番号（例: **Theorem 1.**）を記し、任意で括弧内にタイトルを添える形式をとる。本文は $10\text{pt}$ の斜体（italics）で記述し、LaTeXでの実装においては `\newtheorem` を用いて環境を定義することが推奨されている。また、番号付けはセクションごとではなく、論文全体を通して通し番号（global numbering）で行う必要がある。</p></section>
+<section class="secsum"><h3>7 Proofs</h3><p>本セクションは、論文における証明（Proofs）の記述形式に関するスタイルガイドラインを規定している。証明は前後の段落から $2\text{pt}$ 以上 $5\text{pt}$ 以下の間隔を空けて独立した段落として記述し、開始時には $10\text{pt}$ のイタリック体で &quot;Proof.&quot; というキーワードを用いる必要がある。本文は $10\text{pt}$ の標準フォントで記述され、証明の終了を示すために白抜きの四角形記号（qed）を末尾に配置する。LaTeX での実装においては、`\proof` 環境を使用することが指定されている。</p></section>
+<section class="secsum"><h3>8 Algorithms and Listings</h3><p>本セクションでは、論文におけるアルゴリズムおよびリスティングの記述形式に関するガイドラインが述べられている。アルゴリズムは図と同様にページの上部または下部にフローティング配置されるべきであり、キャプションは水平線に挟まれたヘッダー内に左寄せで配置し、アルゴリズム本体の末尾も水平線で終了させる必要がある。行番号の表示やコメントの書式設定は著者の任意とされており、LaTeXでの実装には `algorithm` や `algorithmic` パッケージ、あるいはその他のパッケージが利用可能である。具体例として、入力（Input）、パラメータ（Parameter）、出力（Output）の定義から始まり、`while` ループや `if-else` 条件分岐を含む制御構造の構成例が示されている。</p></section>
+<section class="secsum"><h3>9 L a T e X and Word Style Files</h3><p>IJCAI-24の論文投稿用スタイルファイルは、公式ウェブサイト（https://ijcai-24.org/）から入手可能であり、本ドキュメントのフォーマット指示を実装している。LaTeX形式では `ijcai24.sty` および `ijcai24.tex` が提供され、BibTeX形式では `ijcai24.bib` と `.bst` ファイルが使用されるが、これらはそれぞれ LaTeX 2e および BibTeX 0.99c に対応している。Microsoft Word形式では `ijcai24.docx` という単一のファイルが提供されており、これらは IJCAI-23 のテンプレートとは異なる。これらのファイルは本ドキュメントのソースを含んでおり、フォーマットのサンプルとしても機能する。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-10
+  </footer>
+</div>
+</body>
+</html>

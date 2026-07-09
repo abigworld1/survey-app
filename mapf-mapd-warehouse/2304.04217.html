@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Study of Highway for Lifelong Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>The Study of Highway for Lifelong Multi-Agent Path Finding</h1>
+  <div class="meta">Ming-Feng Li, Min Sun<br>採択先: 未取得 ・ 2023-04-09 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2304.04217v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2304.04217v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2023-04-09</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 9</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">Lifelong MAPFの課題に対し、One-shotで有効なHighway概念を適用する着眼点が良く、計算量削減とスループット向上の両立を実験で具体的に示している。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> Lifelong Multi-Agent Path Finding (MAPF) において、エージェントの移動方向を制限・誘導する「Highway（高速道路）」の概念を導入し、計算コストの削減とデッドロック・再ルーティングの抑制を両立する手法を提案している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、物流倉庫のような絶え間なくタスクが発生する環境における Lifelong MAPF 問題を対象としている。既存の Rolling-Horizon Collision Resolution (RHCR) 等の手法では、マップサイズやエージェント密度の増加に伴い、実行時間の指数関数的な増大、デッドロック、および不要な経路修正（rerouting）が発生するという課題がある。本論文では、one-shot MAPF で研究されてきた Highway のアイデアを lifelong MAPF のフレームワークに組み込み、これらの問題を解決することを目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>Highway の概念を lifelong MAPF に適用する 2 つの手法、Strict-limit Highway と Soft-limit Highway を提案した。Strict-limit Highway はエッジの接続性を制限することで逆方向への移動を物理的に不可能にし、デッドロックとリルーティングの回避を保証する。Soft-limit Highway はヒューリスティック値にペナルティを与えることで柔軟な回避を許容する。実験を通じて、Highway の導入が実行時間を数十倍に加速させ、高密度環境下でのスループット向上に寄与することを明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>マップを有向グラフとして定式化し、Highway を特定の方向性を持つ地点の列（corridor）として定義する。提案手法は以下の 2 種類である。<br>1. Strict-limit Highway: グラフを高速道路の方向のみを許容する部分グラフ $\mathcal{G}_{hw}$ に置き換える。これにより、エージェントがゴールから遠ざかる移動 $h(s_{t+\Delta t}) &gt; h(s_t)$ を行わないことが保証され、デッドロックとリルーティングが回避される。<br>2. Soft-limit Highway: 高速道路の逆方向への移動に対し、ヒューリスティック値を $\alpha$ 倍（$\alpha &gt; 1$）に増大させる。<br>実装では、RHCR フレームワーク上で、上位ソルバーに Priority-Based Search (PBS)、下位ソルバーに最短距離ヒューリスティックを用いた $A^*$ を採用している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Intel Core i9-9980XE 環境下、倉庫型マップ（$N \times N$ ブロック、各ブロックに $10 \times 20$ の棚を配置）を用いて評価を行った。エージェント密度を 5% から 20% まで変化させた実験の結果、以下の知見が得られた。<br>- Soft-limit Highway では、コスト $c$ の増加に伴い生成ノード数が減少し、実行時間が大幅に短縮された。<br>- 障害物が 50% 以上存在するマップにおいて、スループットの低下を 10% 未満に抑えつつ、実行時間を数十倍に加速できた。<br>- マップサイズが拡大すると、Highway による余分な移動の影響が相対的に低下し、スループットの低下幅が縮小した。<br>- 高密度環境では、Highway の導入によりリルーティング率とアイドル時間が抑制され、Highway なしの場合よりも高いスループットを達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>Highway の導入は、実行時間の短縮とスループットの維持というトレードオフにおいて、Lifelong MAPF の課題を効果的に解決する。Strict-limit Highway は、エージェントの移動によってゴールへの距離が減少する性質 $h(u) &gt; h(v)$ を利用し、$\sum_{a \in \mathcal{A}} h(s_a) &gt; \sum_{a \in \mathcal{A}} h(v_a)$ が常に成立するように設計することで、待ち状態によるデッドロックを防ぐことができる。また、エージェント密度が増加する条件下では、Highway が経路の秩序を保つことで、むしろスループットを向上させる効果があることが示唆されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>The Study of Highway for Lifelong Multi-Agent Path Finding</h3><p>本研究は、絶え間なくタスクが発生する物流倉庫等の環境における Lifelong Multi-Agent Path Finding (lifelong MAPF) 問題に対し、エージェントを同一方向に誘導することで複雑性を低減する「Highway（高速道路）」の概念を導入する手法を提案している。既存手法では、マップサイズやエージェント密度の増加に伴い、実行時間の指数関数的な増大、デッドロック、および再ルーティング（rerouting）といった問題が発生する。著者らは、one-shot MAPFで研究されてきたHighwayのアイデアをlifelong MAPFのフレームワークに組み込む2つの手法を提示し、デッドロックや再ルーティングを最小化する特性について議論している。実験の結果、Highwayの設定下では、マップサイズが拡大しても実行時間が大幅に削減され、スループットの低下も緩やかになることが示された。さらに、エージェント密度が増加する条件下においても、Highwayを活用することでデッドロックと再ルーティングの発生を顕著に抑制できることが確認された。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>Lifelong Multi-Agent Path Finding (MAPF) は、エージェントに次々と新しい目標が割り当てられるオンラインシナリオを扱うが、既存手法は計算効率やスループット（タイムステップあたりの完了タスク数）に課題がある。本研究では、Rolling-Horizon Collision Resolution (RHCR) が抱えるデッドロックや再ルーティングといった問題に対し、one-shot MAPF で用いられる highway の概念を導入する。具体的には、エージェントに特定の方向への移動を強制する directed map の活用や、highway の方向に逆らう移動に対してペナルティを与えるヒューリスティック値の計算により、対面衝突を効果的に回避する。実験の結果、障害物が 50% 以上存在する倉庫のようなマップにおいて、スループットの低下を 10% 未満に抑えつつ、実行時間を数十倍に加速できることが示された。さらに、エージェント密度が高い環境では、highway の導入によってデッドロックや再ルーティングの影響が大幅に軽減されるため、スループットがむしろ向上するという結果が得られている。</p></section>
+<section class="secsum"><h3>II Background and Related Work</h3><p>One-shot MAPFはNP困難な問題であり、通常は全エージェントの目標が事前に既知のオフライン環境で解かれ、評価指標にはsum-of-costsやmakespanが用いられる。代表的な手法として、低レベルの経路計画に$A^*$を用い、高レベルで衝突を解決するConflict-Based Search (CBS) や、優先順位に基づき効率的だが不完全なPriority-Based Search (PBS) が存在する。対照的に、Lifelong MAPFはタスクが実行中に逐次生成されるオンラインシナリオを扱い、評価指標はthroughput（単位時間あたりのタスク完了数）となる。既存のLifelong MAPF手法には、全タスク既知を前提とするものや、毎ステップ全エージェントを再計画するもの、新目標を持つエージェントのみを再計画するものがあるが、これらは計算コストやスループットに課題がある。RHCRはWindowed MAPFを導入することで効率化を図っているが、不完全性ゆえにデッドロックが発生しやすく、またエージェントが以前訪れた場所を再訪するような経路の修正（rerouting）が生じる限界がある。一方、One-shot MAPFにおけるHighway（移動方向を制限・誘導する設定）は計算量削減に寄与するが、Lifelong MAPFにおけるデッドロックやreroutingといった特有の現象への影響については十分に議論されていない。</p></section>
+<section class="secsum"><h3>III Problem Definition</h3><p>本研究におけるマルチエージェント経路探索（MAPF）問題は、マップを表す有向グラフとエージェントの集合 $\mathcal{A}$ によって定式化される。各エージェント $a \in \mathcal{A}$ は、離散的なタイムステップごとに、隣接する位置への移動または現在地での待機を選択し、開始地点から目標地点 $g_a$ へと移動する。衝突（conflict）は、2つのエージェントが同時に同じ位置に到達するか、あるいは同じエッジを通過する場合に発生し、目的はすべてのエージェントに対して衝突のない経路 $\pi_a$ の集合を共同で探索することである。本論文では、エージェントが事前にタスクを知ることなく、目標到達後に新たなタスクが割り当てられる「lifelong」かつ「online」なMAPFシナリオを想定している。この設定におけるソルバーの目標は、各エージェントの経路を継続的に計画し、タイムステップあたりの完了タスク数であるスループットを最大化することである。</p></section>
+<section class="secsum"><h3>IV Lifelong MAPF with Highways</h3><p>本セクションでは、Lifelong Multi-Agent Path Finding (MAPF) における高速道路（Highway）の定義と、それを用いた2つの手法、Strict-limit HighwayおよびSoft-limit Highwayについて提案している。高速道路は、特定の方向性を持つ一連の地点の列（corridor）として定義され、交差点（intersection）はどのcorridorにも属さない。<br><br>Strict-limit Highwayは、エッジの接続性を高速道路の方向に限定する手法であり、グラフを高速道路の方向のみを許容する部分グラフ $\mathcal{G}_{hw}$ に置き換えることで、エージェントが逆方向に移動することを物理的に不可能にする。これに対し、Soft-limit Highwayは、高速道路の逆方向への移動に対してヒューリスティック値を $\alpha$ 倍（$\alpha &gt; 1$）に増大させる手法であり、低レベルソルバー（A*）が高速道路に沿った経路を優先的に探索するように促すが、動的な障害物がある場合には逆方向への回避移動（rerouting）も許容する。<br><br>本研究では、RHCRフレームワーク上でPBSを上位ソルバー、最短距離ヒューリスティックを用いたA*を下位ソルバーとして採用している。Strict-limit Highwayを用いることで、以下の2つの重要な性質が保証される。第一に、デッドロック（deadlock）の回避である。これは、エージェントが移動することでゴールへの距離が減少する性質 $h(u) &gt; h(v)$ を利用し、条件 $\sum_{a \in \mathcal{A}} h(s_a) &gt; \sum_{a \in \mathcal{A}} h(v_a)$ が常に成立するように設計することで、待ち状態によるデッドロックを防ぐ。第二に、リルーティング（rerouting）の回避である。エージェントがゴールから遠ざかる移動 $h(s_{t+\Delta t}) &gt; h(s_t)$ を行わないことが保証されるため、経路の不整合による逆走や不要な経路変更を抑制できる。</p></section>
+<section class="secsum"><h3>V Experiments</h3><p>本実験では、Lifelong Multi-Agent Path Finding (MAPF) において、高速道路（highway）の導入がスループット、実行時間、および生成ノード数に与える影響を、PBS（Priority-Based Search）を低レベルソルバーとして用いて評価している。実験設定は、Intel Core i9-9980XE環境下で、倉庫型マップ（$N \times N$ ブロック、各ブロックに $10 \times 20$ の棚を配置）を用い、エージェント密度を5%から20%まで変化させて実施された。結果として、ソフト制限高速道路（soft-limit highway, $c &gt; 0$）では、コスト $c$ の増加に伴いエージェントが高速道路の方向に沿って移動する傾向が強まり、生成ノード数が減少することで実行時間が大幅に短縮されることが示された。マップサイズが拡大するにつれ、高速道路に従うことによる余分な移動ステップの割合が相対的に低下するため、スループットの低下幅が縮小し、高速道路なしのケースとの差が解消される傾向にある。また、エージェント密度が高まる条件下では、高速道路の導入によりリルーティング率（rerouting rate）とアイドル時間（idle timesteps）が抑制され、高速道路なしの場合よりも高いスループットを達成できることが確認された。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究では、従来のone-shot MAPFで提案されていたhighwayの概念をlifelong MAPFのシナリオへと拡張し、実行時間とスループットのトレードオフについて調査した。highwayをlifelong MAPFのフレームワークと組み合わせることで、デッドロックや再ルーティングといった既存の課題を最小化する特性について議論を行っている。一連の実験評価の結果、highwayの導入は実行時間を大幅に短縮できることが示された。また、マップサイズやエージェント密度が増大した場合においても、スループットの低下が徐々に緩やかになるという特性が確認された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-10
+  </footer>
+</div>
+</body>
+</html>
