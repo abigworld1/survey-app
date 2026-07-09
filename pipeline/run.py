@@ -139,13 +139,17 @@ def _rank_recent(papers, patterns):
 
 
 def _rank_important(papers, patterns):
-    """重要枠: 関連度 → 被引用数 → 本文の取りやすさ → 新しさ。"""
+    """重要枠: 関連度 → 本文の取りやすさ → 被引用数 → 新しさ。
+
+    品質フィルタで本文未取得の論文を落とすため、abstract だけの高被引用候補より
+    arXiv/PDF で本文を取れる候補を先に試す。
+    """
     return sorted(
         papers,
         key=lambda p: (
             _relevance(p, patterns),
-            _citations(p),
             _fulltext_score(p),
+            _citations(p),
             p.published or "",
         ),
         reverse=True,
@@ -153,23 +157,20 @@ def _rank_important(papers, patterns):
 
 
 def _take_ranked(ranked, patterns, limit, used):
-    """関連ありを優先し、不足時のみ関連度0も補充する。"""
+    """品質フィルタを通る見込みがある関連候補だけを取る。"""
     if limit <= 0:
         return []
     picked = []
-    for require_relevant in (True, False):
-        for p in ranked:
-            key = p.key()
-            if key in used:
-                continue
-            if require_relevant and _relevance(p, patterns) <= 0:
-                continue
-            if not require_relevant and _relevance(p, patterns) > 0:
-                continue
-            picked.append(p)
-            used.add(key)
-            if len(picked) >= limit:
-                return picked
+    for p in ranked:
+        key = p.key()
+        if key in used:
+            continue
+        if _relevance(p, patterns) <= 0:
+            continue
+        picked.append(p)
+        used.add(key)
+        if len(picked) >= limit:
+            return picked
     return picked
 
 
@@ -279,10 +280,15 @@ def _write_run_report(report):
             "<p>"
             f"候補 {field.get('candidates_total', 0)} / "
             f"新規 {field.get('fresh_total', 0)} / "
+            f"目標 {field.get('k', 0)} / "
             f"追加 {len(field.get('added', []))} / "
             f"スキップ {len(field.get('skipped', []))}"
             "</p>"
         )
+        if field.get("shortfall", 0) > 0:
+            rows.append(
+                f"<p><strong>不足: {field.get('shortfall', 0)}本</strong></p>"
+            )
         if field.get("added"):
             rows.append("<h3>追加</h3><ul>")
             for item in field["added"]:
@@ -374,8 +380,14 @@ def gather(sub, offline, mode="recent"):
     papers = []
     counts = {}
     groups = _search_groups(sub)
-    per_query_limit = max(8, min(FETCH_CAP, (FETCH_CAP + len(groups) - 1) // max(1, len(groups))))
     for src in sub.get("sources") or ["arxiv"]:
+        # arXiv は本文取得の主力なので、複数クエリに分割しても各クエリを深めに取る。
+        # OpenAlex/S2 は広くノイズも増えやすいため、従来どおり全体上限をクエリ間で分ける。
+        per_query_limit = (
+            FETCH_CAP
+            if src == "arxiv"
+            else max(8, min(FETCH_CAP, (FETCH_CAP + len(groups) - 1) // max(1, len(groups))))
+        )
         src_total = 0
         for i, terms in enumerate(groups, start=1):
             label = f"{src}/{mode}/q{i}"
@@ -637,6 +649,7 @@ def main(argv=None):
             print(f"  + {rel}")
         if produced < args.limit and produced_for_sub < min(k, len(fresh_all)):
             print(f"  [warn] 生成可能な候補が不足: {produced_for_sub}/{k} ページ")
+        field_report["shortfall"] = max(0, k - produced_for_sub)
 
         if not args.dry_run:
             render.render_user_index(TPL, ROOT, uslug, display, useen, keywords)
