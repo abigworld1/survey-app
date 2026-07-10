@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Multi-Agent Pickup and Delivery Problem: MAPF, MARL and Its Warehouse Applications | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>The Multi-Agent Pickup and Delivery Problem: MAPF, MARL and Its Warehouse Applications</h1>
+  <div class="meta">Tim Tsz-Kit Lau, Biswa Sengupta<br>採択先: 未取得 ・ 2022-03-14 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2203.07092v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2203.07092v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2022-03-14</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 9</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">MAPFとMARLという異なる領域の手法を、共通のMAPD問題で比較・統合した点は学術的に意義がある。ただし、比較対象が限定的であり、引用数も現時点では少ない。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、倉庫自動化におけるマルチエージェント・ピックアップ＆デリバリー（MAPD）問題に対し、集中型経路探索アルゴリズムであるConflict-based Search (CBS) のlifelong版と、マルチエージェント強化学習（MARL）手法であるShared Experience Actor-Critic (SEAC) を包括的に比較したものである。実験の結果、エージェント数が少ない低密度環境ではCBSが最短経路を計画し高い性能を示す一方、エージェント数が増加する高密度環境では、計算コストの増大に直面するCBSに対し、SEACが高いスケーラビリティと配送能力を示すことが明らかになった。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本論文は、異なる原理に基づく2つのアプローチ、すなわちMulti-Agent Path-Finding (MAPF) とMulti-Agent Reinforcement Learning (MARL) を、MAPD問題という共通の枠組みで評価することを目的としている。MAPFは衝突のない経路を計算する手法であり、単発のsingle-shot設定から、タスクを継続するlifelong設定へと拡張される。一方、MARLは環境の観測に基づき累積報酬を最大化する方策を学習する手法であり、部分観測マルコフ決定過程 $\langle \mathcal{A}, \mathcal{S}, \Omega, \mathbf{a}, \mathbf{o}, \mathcal{P}, r_i \rangle$ として定式化される。従来、これら2つの領域では、MAPFではflow timesやmakespans、MARLではreturnといった異なる評価指標が用いられてきたが、本研究ではこれらを統合的に比較する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、これまで評価指標や研究領域が乖離していたMAPFベースの手法とMARLベースの手法を、シミュレーションによる倉庫自動化環境を用いて直接比較した点にある。具体的には、中央集権的なCBSのlifelong版と、最先端のSEACをベンチマークとして用いている。実験を通じて、エージェント密度や数に応じた各手法の適性を明らかにし、低密度環境ではCBS、高密度・多エージェント環境ではSEACが適しているという設計指針を提示した。また、今後の研究として、MAPFの解をMARLの学習に利用する模倣学習の可能性や、非均質なエージェント設定への拡張の必要性を議論している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>比較対象となる手法として、まずMAPF側ではConflict-Based Search (CBS) を用いる。CBSは、高レベルでの制約ツリー（CT）に対する最良優先探索と、低レベルでの制約遵守型経路再計画を行う二段階の集中型アルゴリズムである。CTの各ノードは、制約集合、最小コスト経路、解の総コスト、および衝突集合を保持する。次にMARL側では、Shared Experience Actor-Critic (SEAC) を用いる。SEACは、エージェント間で経験を共有し、重要度サンプリングを用いてオフポリシーデータとして扱う手法である。実験環境はRWAREをベースに、アイテムの回収・配送プロセスと報酬設計（回収・配送成功時に報酬を付与）を最適化したロボット倉庫シミュレーションを用いている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、環境サイズ（small, medium, large）とエージェント数を変化させ、5つの指標（mean flow time, mean makespan, mean episodic cumulative reward, mean number of successfully delivered items, mean episodic time）で性能を測定した。lifelong CBSはエージェント数2, 5, 8の条件下で評価し、SEACは5, 10, 15の条件下で評価した。結果、CBSはエージェント数が少ない場合にflow timeや配送アイテム数でSEACを上回るが、10エージェント以上では再計画の頻度と計算コストの急増によりスケーラビリティの限界が見られた。対照的に、SEACは学習済みポリシーによる推論のみを行うため、実行時間は環境密度に依存せず安定しており、高密度な環境下でもCBSより多くのアイテムを配送できることが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の限界として、現在のlifelong CBSの実装が、目標変更のたびに再計画を行うため効率性に欠ける点が挙げられる。これを解決するために、ICBSやCBSHといった改良版、あるいは最新のMAPFソルバーの導入が必要である。また、本研究は全エージェントが均質な設定を前提としているが、現実的なシナリオではエージェントごとに能力や目標が異なる非均質な設定が求められる。今後の展望として、lifelong MAPFの解をエキスパートのデモンストレーションとして利用し、MARLのサンプル効率を向上させる手法や、SePS (Selective Parameter Sharing) アルゴリズムを用いた非均質なエージェントへの拡張が示唆されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>The Multi-Agent Pickup and Delivery Problem: MAPF, MARL and Its Warehouse Applications</h3><p>本研究では、異なる原理に基づくマルチエージェント・ピックアップ＆デリバリー（MAPD）問題への2つの最先端手法、すなわちマルチエージェント経路探索（MAPF）に基づく Conflict-based Search (CBS) と、マルチエージェント強化学習（MARL）に基づく Shared Experience Actor-Critic (SEAC) を調査している。従来、これら2つのアルゴリズムは異なる研究領域において全く異なる評価指標を用いて性能が測定されてきたが、本論文ではこれらを包括的に比較することを目的としている。具体的には、シミュレーションによる倉庫自動化環境を用いて、これら2つの手法のベンチマーク評価を行う。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>Multi-Agent Pickup and Delivery (MAPD) 問題は、エージェントがリクエストキューからアイテムを回収し、指定された目的地へ配送するタスクを衝突回避しながら実行する問題であり、倉庫自動化などの産業応用において重要である。MAPDへのアプローチは主に、エージェントの現在位置と環境情報を基に衝突のない経路を計算する Multi-Agent Path-Finding (MAPF) と、環境の観測に基づき累積報酬を最大化する方策を学習する Multi-Agent Reinforcement Learning (MARL) の2種類に大別される。従来の MAPF がゴール到達で終了する single-shot な設定であるのに対し、MAPD は配送完了後に次のタスクへ移行する lifelong な設定を扱う点が大きな違いである。評価指標においても、MAPF 側では成功率、flow times（全エージェントの到着時刻の総和）、makespans（全エージェントの到着時刻の最大値）が用いられる一方、MARL 側では学習および評価の return が用いられるという乖離が存在する。本論文では、これら性質の異なる手法を包括的に比較するため、中央集権的な single-shot MAPF ソルバーである Conflict-Based Search (CBS) の lifelong 版と、最先端の MARL ソルバーである Shared Experience Actor-Critic (SEAC) との比較を行う。</p></section>
+<section class="secsum"><h3>2 Background</h3><p>本セクションでは、MAPF、Lifelong MAPF、およびMARLの定式化が述べられている。Single-shot MAPFは、重みなし無向グラフとエージェントの集合で定義され、各エージェントは開始頂点から目標頂点へ、隣接頂点への移動または待機（共にコスト1）を通じて移動する。この際、時刻 $t$ において複数のエージェントが同一頂点に存在することを頂点衝突 $v_i(t) = v_j(t)$、時刻 $t$ と $t+1$ の間にエージェントが同一の辺を逆方向に通過することを辺衝突 $e_i(t, t+1) = e_j(t, t+1)$ と定義し、全エージェントのコストの総和を最小化する衝突のない経路集合を求める。Lifelong MAPF（MAPD問題の基礎）は、単発のMAPFを内側ループで繰り返し解く問題であり、全エージェントの逐次再計画、荷物のピックアップ/デリバリー時のみの再計画、あるいはオフラインでの組合せ最適化問題への帰着という3つのアプローチが存在する。一方、MARLは衝突のない経路を事前に計算するのではなく、環境の状態に基づき各時刻の行動を決定する方策を学習する手法であり、部分観測マルコフ決定過程（Markov game） $\langle \mathcal{A}, \mathcal{S}, \Omega, \mathbf{a}, \mathbf{o}, \mathcal{P}, r_i \rangle$ として定式化される。MARLの目的は、各エージェントの割引報酬の総和 $\sum_{t=0}^{T} \gamma^t r_i(t)$ を最大化する最適結合方策 $\boldsymbol{\pi}^*$ を見つけることであり、文脈に応じて行動空間や観測空間が同一であるといった制約が課される場合もある。</p></section>
+<section class="secsum"><h3>3 Algorithms for MAPF and MARL Problems</h3><p>MAPF問題に対する強力な手法として、Conflict-Based Search (CBS) は、高レベルでの制約ツリー（CT）に対する最良優先探索と、低レベルでの制約を遵守した経路再計画を行う二段階の集中型アルゴリズムである。CTの各ノードは、頂点またはエッジの制約集合、制約下での各エージェントの最小コスト経路からなる解、解の総コスト、および経路間の衝突集合を保持し、衝突が存在する場合に制約を追加してツリーを分岐させることで解決を図る。CBSの改良版には、衝突の選択を優先するICBSや、許容的なヒューリスティックを用いて高レベル探索を加速するCBSHが存在する。一方、MARLアルゴリズムでは、期待報酬 $J(\theta) = \mathbb{E}_{\tau \sim \pi_\theta} [R(\tau)]$ を最大化する方策勾配法（REINFORCE等）が用いられるが、分散を抑えるために価値関数 $V_\phi(s)$ を用いるActor-Critic法が一般的である。さらに、エージェント間で経験を共有し、重要度サンプリングを用いてオフポリシーデータとして扱うSEACや、学習時に全エージェントの情報を利用し実行時には分散実行を行うCentralized Training with Decentralized Execution (CTDE) パラダイムに基づくMADDPG、Q-MIX、COMAなどの手法が、MAPD問題の解決に活用されている。</p></section>
+<section class="secsum"><h3>4 Numerical Experiments</h3><p>本実験では、RWAREをベースに、アイテムの回収・配送プロセスや報酬設計（回収時および配送成功時に報酬を付与）を最適化したロボット倉庫環境を用いて、MAPFベースのlifelong CBSとMARLベースのSEACを比較評価している。実験設定として、環境サイズ（small, medium, large）とエージェント数（lifelong CBSは2, 5, 8、SEACは5, 10, 15）を変化させ、mean flow time、mean makespan、mean episodic cumulative reward、mean number of successfully delivered items、mean episodic timeの5指標で性能を測定した。結果として、lifelong CBSはエージェント数が少ない環境では最短経路を計画するため、SEACよりもflow time、makespan、配送アイテム数において優れた性能を示すが、エージェント数の増加に伴い再計画（replanning）の頻度と計算コストが急増し、10エージェント以上ではスケーラビリティの限界に直面する。対照的に、SEACは学習済みポリシーに基づく推論のみを行うため、テスト時の実行時間は環境の密度に依存せず安定しており、高密度な環境下でもCBSより多くのアイテムを配送できる高いスケーラビリティを持つ。ただし、SEACには学習に多大な時間を要するという限界があり、低密度環境ではlifelong CBS、高密度・多エージェント環境ではSEACが適していることが示された。</p></section>
+<section class="secsum"><h3>5 Discussion and Future Work</h3><p>本セクションでは、現在の実装における課題と今後の研究方向性が議論されている。著者らは、エージェントの目標地点が変更されるたびに再計画を行う lifelong CBS の実装が効率性に欠けることを指摘し、Section 3 で述べた CBS の改良版や、Wu et al. (2021) 等の最新の MAPF ソルバーの活用が必要であるとしている。今後の重要な研究方向として、lifelong MAPF の解をエキスパートのデモンストレーションとして利用し、MAPD 問題を解くための MARL アルゴリズムのサンプル効率を向上させる手法（模倣学習や逆強化学習）が挙げられている。また、本研究では全エージェントが任意のアイテムを扱える均質な設定を仮定しているが、より現実的なシナリオとして、エージェントごとに能力や目標が異なる非均質な設定への拡張が示唆されている。具体的には、能力や目標に基づく教師なしクラスタリングを用いてパラメータ共有を行う SePS (Selective Parameter Sharing) アルゴリズムが挙げられており、より複雑な MAPD 問題において lifelong MAPF ベースの解と SePS がどのように比較されるかが今後の課題である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-11
+  </footer>
+</div>
+</body>
+</html>

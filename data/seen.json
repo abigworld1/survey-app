@@ -1018,6 +1018,38 @@
       "url": "http://arxiv.org/abs/2607.04008v1",
       "venue": ""
     },
+    "arxiv:2607.04379": {
+      "added": "2026-07-11",
+      "added_at": "2026-07-11T06:02:57.470627",
+      "arxiv_id": "2607.04379",
+      "authors": [
+        "Om Solanki",
+        "Lopamudra Praharaj",
+        "Deepti Gupta",
+        "Maanak Gupta"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-05",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.04379.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.04379v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの知識ベース汚染に対し、クエリ非依存の強力な攻撃と、ドメイン知識を活用した低遅延な防御策を提案しており、実用性と新規性のバランスが良い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Knowledge Base Poisoning Attacks and Defense for Policy-Aware LLM-RAG Framework",
+      "tldr": "IoBT（戦場におけるモノのインターネット）の意思決定を支えるPolicy-Aware LLM-RAGフレームワークに対し、実行時のクエリ情報を必要とせずに高確率でコンテキストを汚染する「Query-Agnostic Semantic Retrieval Poisoning」攻撃を提案し、これに対抗する二重検知防御フレームワーク「CLD-KB」を開発した。CLD-KBは、One-Class SVMとポリシー分類学に基づく「Member-Based Category Spread」分析を組み合わせることで、わずか $7\\text{ms}$ のオーバーヘッドで $100\\%$ のコンテキスト整合性を実現する。",
+      "url": "http://arxiv.org/abs/2607.04379v1",
+      "venue": ""
+    },
     "arxiv:2607.05069": {
       "added": "2026-07-08",
       "added_at": "2026-07-08T06:00:04.000000",
@@ -1191,6 +1223,42 @@
       "title": "Healthier LLMs: Retrieval-Augmented Generation for Public Health Question Answering",
       "tldr": "公衆衛生分野におけるLLMのハルシネーションと情報の陳腐化を防ぐため、英国政府の公衆衛生ガイダンスを用いたRAG（Retrieval-Augmented Generation）の有効性を検証した研究である。ハイブリッド検索の導入やチャンク長の最適化により、小規模なオープンウェイトモデルが検索なしの大規模モデルと同等以上の性能を発揮できることを示した。",
       "url": "http://arxiv.org/abs/2607.06641v1",
+      "venue": ""
+    },
+    "arxiv:2607.08269": {
+      "added": "2026-07-11",
+      "added_at": "2026-07-11T06:02:13.915065",
+      "arxiv_id": "2607.08269",
+      "authors": [
+        "Ying Liu",
+        "Yi Ye",
+        "Quanyu Feng",
+        "Mingxi Ye",
+        "Mingtao Zhang",
+        "Haoyang Li",
+        "Chen Jason Zhang",
+        "Qing Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-09",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.08269.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.08269v1",
+      "reading_value": 4,
+      "reading_value_reason": "WebのDOM構造やリンク、エンティティを統合した異種グラフによるRAGは新規性が高く、検証可能性やコスト削減も実用的で、実験結果も具体的である。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "PolyUQuest: Verifiable Structure-Aware Web RAG over Heterogeneous Graphs",
+      "tldr": "PolyUQuestは、Webサイトのハイパーリンク、DOM階層、およびエンティティ間の関係を統合したヘテロジニアスグラフ $\\mathcal{G}$ を用いる、検証可能な構造認識型Web RAGフレームワークである。2層ルーターにより、クエリの性質に応じて「直接的なブロック検索」「ページ間ナビゲーション」「マルチホップ・エンティティ推論」の3つのモードを使い分け、回答の正確性、網羅性、忠実度を向上させつつ、LLMのトークン消費量を削減する。",
+      "url": "http://arxiv.org/abs/2607.08269v1",
       "venue": ""
     },
     "doi:10.1038/s41598-026-50062-8": {
@@ -1758,6 +1826,41 @@
     }
   },
   "mapf-mapd-warehouse": {
+    "arxiv:1705.10868": {
+      "added": "2026-07-11",
+      "added_at": "2026-07-11T06:01:40.237404",
+      "arxiv_id": "1705.10868",
+      "authors": [
+        "Hang Ma",
+        "Jiaoyang Li",
+        "T. K. Satish Kumar",
+        "Sven Koenig"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2017-05-30",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/1705.10868.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Multi-Agent Pickup and Delivery",
+        "MAPD",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/1705.10868v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPD問題における分散型アルゴリズムの提案、理論的保証、および大規模環境でのリアルタイム性の検証がなされており、実用的な価値が高い。",
+      "relevance": 9,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Lifelong Multi-Agent Path Finding for Online Pickup and Delivery Tasks",
+      "tldr": "本研究は、継続的にタスクが発生するオンライン環境におけるMulti-Agent Pickup and Delivery (MAPD) 問題に対し、デカップリングされた分散型アルゴリズムであるToken Passing (TP) とToken Passing with Task Swaps (TPTS) を提案する。提案手法は、現実的な制約を持つ「well-formed」なインスタンスにおいて解を持つことが理論的に保証されており、実験では数百規模のエージェントに対してもリアルタイムな運用が可能であることを示した。",
+      "url": "http://arxiv.org/abs/1705.10868v1",
+      "venue": ""
+    },
     "arxiv:2106.11454": {
       "added": "2026-06-27",
       "added_at": "2026-06-27T06:00:01.000000",
@@ -1786,6 +1889,37 @@
       "title": "A Competitive Analysis of Online Multi-Agent Path Finding",
       "tldr": "本研究は、エージェントが未知のタイミングで逐次的に現れるオンライン Multi-Agent Path Finding (MAPF) を対象とし、アルゴリズムの「制御可能性（Controllability）」と「合理性（Rationality）」の観点から、競合比（competitive ratio）の理論的境界を明らかにしたものである。再経路付け（rerouting）を禁止した設定では、高度な計画を行う合理的なアルゴリズムであっても、ナイーブな逐次計画アルゴリズム $\\text{SEQUENCE}$ と同等の漸近的性能しか持たないことを証明した。一方で、再経路付けを許可する $\\text{PLAN-ALL}$ 設定においては、定数下界が存在することを示し、再経路付けがオンライン MAPF の性能向上に不可欠であることを示した。",
       "url": "http://arxiv.org/abs/2106.11454v1",
+      "venue": ""
+    },
+    "arxiv:2203.07092": {
+      "added": "2026-07-11",
+      "added_at": "2026-07-11T06:01:04.998887",
+      "arxiv_id": "2203.07092",
+      "authors": [
+        "Tim Tsz-Kit Lau",
+        "Biswa Sengupta"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2022-03-14",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2203.07092.html",
+      "matched_keywords": [
+        "MAPF",
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2203.07092v1",
+      "reading_value": 3,
+      "reading_value_reason": "MAPFとMARLという異なる領域の手法を、共通のMAPD問題で比較・統合した点は学術的に意義がある。ただし、比較対象が限定的であり、引用数も現時点では少ない。",
+      "relevance": 9,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "The Multi-Agent Pickup and Delivery Problem: MAPF, MARL and Its Warehouse Applications",
+      "tldr": "本研究は、倉庫自動化におけるマルチエージェント・ピックアップ＆デリバリー（MAPD）問題に対し、集中型経路探索アルゴリズムであるConflict-based Search (CBS) のlifelong版と、マルチエージェント強化学習（MARL）手法であるShared Experience Actor-Critic (SEAC) を包括的に比較したものである。実験の結果、エージェント数が少ない低密度環境ではCBSが最短経路を計画し高い性能を示す一方、エージェント数が増加する高密度環境では、計算コストの増大に直面するCBSに対し、SEACが高いスケーラビリティと配送能力を示すことが明らかになった。",
+      "url": "http://arxiv.org/abs/2203.07092v1",
       "venue": ""
     },
     "arxiv:2211.13432": {

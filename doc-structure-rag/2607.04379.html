@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Knowledge Base Poisoning Attacks and Defense for Policy-Aware LLM-RAG Framework | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Knowledge Base Poisoning Attacks and Defense for Policy-Aware LLM-RAG Framework</h1>
+  <div class="meta">Om Solanki, Lopamudra Praharaj, Deepti Gupta, Maanak Gupta<br>採択先: 未取得 ・ 2026-07-05 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.04379v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.04379v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-05</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの知識ベース汚染に対し、クエリ非依存の強力な攻撃と、ドメイン知識を活用した低遅延な防御策を提案しており、実用性と新規性のバランスが良い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> IoBT（戦場におけるモノのインターネット）の意思決定を支えるPolicy-Aware LLM-RAGフレームワークに対し、実行時のクエリ情報を必要とせずに高確率でコンテキストを汚染する「Query-Agnostic Semantic Retrieval Poisoning」攻撃を提案し、これに対抗する二重検知防御フレームワーク「CLD-KB」を開発した。CLD-KBは、One-Class SVMとポリシー分類学に基づく「Member-Based Category Spread」分析を組み合わせることで、わずか $7\text{ms}$ のオーバーヘッドで $100\%$ のコンテキスト整合性を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、構造化された運用ポリシー（Workflow, Rules of Engagement, Capability）に基づいて意思決定を行うPolicy-Aware LLM-RAG (PA-LLM-RAG) フレームワークの脆弱性を調査している。攻撃者は、知識ベース（KB）への書き込み権限を持ち、実行時のプロンプトを知ることなく、意味的な類似性を悪用してあらゆるクエリに対して高い検索順位を獲得する「クエリ非依存（query-agnostic）」な汚染攻撃を行う。この攻撃は、自律エージェントの意思決定を誤らせ、物理的なセキュリティ侵害やミッションの失敗を招くリスクがある。研究では、IoBT環境におけるミッション制御システムのセキュリティを確保するための、ドメイン固有の分類学を考慮した防御策の必要性を提示している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、実行時のクエリ分布のセントロイドに寄せることで、極めて微量な注入（$1.6\%$）でも $85\%$ のコンテキスト汚染を達成する新たな攻撃手法を特性化した。第二に、既存の密度ベース（DBSCAN, LOF）やクラスタリングベース（K-Means, Isolation Forest）の防御手法が、境界付近に配置された汚染ルールを検知できない限界を明らかにした。第三に、One-Class SVMと、カテゴリ間の幾何学的非対称性を利用した「Member-Based Category Spread」分析を組み合わせた二重検知フレームワーク「CLD-KB」を提案した。これにより、追加のLLM推論を必要とせず、ミッションあたりの計算オーバーヘッドを $7\text{ms}$ に抑えながら、偽陽性ゼロで $100\%$ のコンテキスト整合性を達成した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>攻撃手法は、KBを $n$ 個のルールの集合 $\mathcal{R}$ とし、各ルールを $\text{nomic-embed-text}$ により正規化された埋め込み $\mathbf{e}_i$ に写像する。攻撃者はクエリ分布のセントロイド $\mathbf{c}$ を標的とし、$\text{sim}(\mathbf{e}_{p}, \mathbf{c}) \approx 1$ となる汚染ルール $\mathbf{e}_{p}$ を注入する。防御手法のCLD-KBは二段階構成である。第1段階のOne-Class SVM (OC-SVM) は、RBFカーネルを用いて正当なルールの埋め込み分布 $\mathcal{X}_{legit}$ の境界を学習し、決定関数 $f(x) &lt; \tau$ となるルールを検知する。第2段階のMember-Based Category Spreadは、各カテゴリ $c \in \{WF, ROE, CAP\}$ 内の各ルールとの最小コサイン距離の差 $\text{Spread}(x) = \min_{c} d_{min}(x, c) - \max_{c} d_{min}(x, c)$ を計算し、全カテゴリから等距離に位置する「centroid-mimicking」な攻撃ルールを特定する。検知されたルールは「Filter-and-Refill」プロセスで除外され、適応的ブラックリスト $\mathcal{B}_m$ に追加される。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>60個の正当なポリシー（各カテゴリ20ルール）からなるIoBT知識ベースに対し、24個の敵対的ルールを $1.6\%$ から $25.0\%$ の注入率で導入して実験を行った。攻撃の結果、注入率 $7.7\%$ でLLMのコンテキストに毒性ルールが平均2.65個混入する飽和状態に達することが確認された。防御性能の評価では、CLD-KBはDBSCAN、LOF、K-Means、Isolation Forest、および単体のOne-Class SVMと比較して、Recall、Precision、F1-scoreのすべてにおいて $1.000$ を記録した。正当なルールは $\text{Spread}(x) \ge 0.20$、毒性ルールは $\text{Spread}(x) &lt; 0.15$ という明確な分離特性を示した。また、計算コストはミッション実行時間の $0.04\%$ 未満（約 $7\text{ms}$）であり、Context Integrity Rate (CIR) は全注入率範囲で $100\%$ を維持した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>CLD-KBは高い性能を示すが、IoBTの3カテゴリ分類学に依存しているため、構造が未定義な知識ベースへの適用には課題が残る。また、OC-SVMの境界の汎化性能については大規模データセットでの検証が必要である。攻撃面においては、本研究のクエリ非依存攻撃は強力だが、プロンプトの知識を持つ標的型攻撃（言い換えベース等）に対してはさらに脆弱である可能性がある。運用面では、現在の起動時学習モデルを動的な環境に適応させるための逐次的な再学習メカニズムが求められる。今後の展望として、Gazeboシミュレーションを超えた実世界での実験や、センサーデータを含むマルチモーダルな知識ベースへの拡張が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Knowledge Base Poisoning Attacks and Defense for Policy-Aware LLM-RAG Framework</h3><p>本研究は、構造化された運用ポリシーに基づき意思決定を行うPolicy-Aware LLM-RAG (PA-LLM-RAG) フレームワークに対し、知識ベースの検索層を標的とした新たな攻撃と防御手法を提案している。提案する攻撃手法「Query-Agnostic Semantic Retrieval Poisoning」は、実行時のプロンプト情報を必要とせず、意味的に精巧に作成されたルールをIoBT知識ベースに注入することで、あらゆるオペレータのクエリに対して高い検索順位を獲得する。この攻撃は、わずか $1.6\%$ の注入率（単一のルール注入）で $85\%$ のLLMコンテキスト汚染を達成し、注入率を $25\%$ まで高めても効果が持続することから、極めて微量な知識ベースの侵害がミッション決定を損なうことを示している。これに対し、防御策として提案される「Cyber-Layered Defense for Knowledge Base (CLD-KB)」は、One-Class SVMによる境界検知と、ポリシーの3分類（Workflow, Rules of Engagement, Capability）を利用して汚染されたルール特有のクロスカテゴリ埋め込みシグネチャを特定する「Member-Based Category Spread」分析を組み合わせた二重検知フレームワークである。実験の結果、CLD-KBはDBSCANやIsolation Forestなどの5つのベースライン手法を毒性検知と知識保持の両面で大幅に上回り、注入率 $1.6\%$ から $25\%$ の範囲において、ミッションあたりの計算オーバーヘッドをわずか $7\text{ms}$ に抑えつつ $100\%$ のコンテキスト整合性を実現している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>Internet of Battlefield Things (IoBT) における LLM ベースのオーケストレーションにおいて、Retrieval-Augmented Generation (RAG) は、Workflow や Rules of Engagement などの構造化されたポリシー知識ベースを用いて意思決定を接地させる役割を果たす。本研究では、知識ベースへの書き込み権限を持つ攻撃者が、実行時のプロンプトを知ることなく、あらゆるクエリに対して高い検索順位を獲得するよう設計された、新しいクエリ非依存（query-agnostic）な知識ベース汚染攻撃を提案する。この攻撃は、セマンティックな類似性を悪用して悪意のあるルールを注入することで、自律エージェントの意思決定を誤らせ、物理的なセキュリティ侵害やミッションの失敗を引き起こす。これに対抗するため、本論文では CLD-KB (Cyber-Layered Defense for Knowledge Base) という二重検知フレームワークを導入しており、これは One-Class SVM と、IoBT のポリシー分類学（taxonomy）を活用して汚染されたルールを特定する新しい Member-Based Category Spread 分析を組み合わせたものである。本研究は、LLM ベースの IoBT ミッション制御システムに対するクエリ非依存の検索汚染攻撃を特性化した初めての試みであり、ドメイン固有のミッションルールベースに対する分類学を考慮した異常検知防御策を提案している。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>本研究は、戦場におけるモノのインターネット（IoBT）環境下でのミッション制御を目的とした、ポリシーを考慮するLLM-RAGフレームワーク「PA-LLM-RAG」のセキュリティを対象としている。既存のRAGへの攻撃手法であるPoisonedRAGやPR-Attackは、ターゲットとなるクエリの知識を事前に必要とするが、本研究の攻撃は、60個の構造化されたミッションルールを対象とし、実行時のプロンプトを知ることなくあらゆるクエリに対して高いランキングを得る「クエリ非依存（query-agnostic）」な汚染を実現している。また、攻撃の成功指標として、汚染されたルールがLLMのポリシーコンテキストに到達するかどうかを示す「コンテキスト完全性（context integrity）」を定義している。既存の防御手法であるTrustRAGやRobustRAGは、オープンドメインの非構造化データ向けであり、追加のLLM推論による計算オーバーヘッドや、悪意のあるデータが多数を占める状況への脆弱性といった限界がある。これに対し、提案手法であるCLD-KBは、One-Class SVMによる境界検出と、IoBTのポリシー分類（WF/ROE/CAP）を活用した「Member-Based Category Spread」分析を組み合わせることで、追加のLLM呼び出しを必要とせず、ミッションあたりわずか $7\text{ms}$ のオーバーヘッドで構造化されたルールベースに対する防御を可能にしている。</p></section>
+<section class="secsum"><h3>III PA-LLM-RAG Framework</h3><p>PA-LLM-RAGフレームワークは、IoBT（Internet of Battlefield Things）のミッション・オーケストレーションを対象とし、知識ベースへの注入攻撃を防ぐためのCyber-Layered Defense for Knowledge Base (CLD-KB) を備えたアーキテクチャである。システムは、Workflow、Rules of Engagement、Capabilityの3カテゴリ（各20ルール、計60ルール）からなる知識ベースに対し、`nomic-embed-text`を用いたベクトル埋め込みとコサイン類似度によるセマンティック検索を行い、上位3つのルールとリアルタイムのテレメトリを抽出する。CLD-KB防御層では、One-Class SVMによる境界検出とMember-Based Category Spread分析という2つの補完的な検出器を用いて、異常なルールを特定・ブロックし、知識ベースから永久に削除する。決定プロセスでは、検証済みのポリシーとテレメトリを統合したコンテキスト・プロンプトが、ローカルホストされたLlama 3.2（Ollama経由）に送られ、JSON形式でエージェントへのアクションが生成される。最後に、Judge LLMがLLMのコンテキスト内のルールをクリーンな知識ベースと照合し、不一致があれば攻撃と判定してミッションの成否（Success/Failure）を評価するクローズドループ構造となっている。</p></section>
+<section class="secsum"><h3>IV Attack: Query-Agnostic Semantic Retrieval Poisoning</h3><p>本セクションでは、実行時のクエリ情報を必要とせずに知識ベース（KB）を汚染する、クエリ非依存（query-agnostic）な意味的検索汚染攻撃を提案している。攻撃者は、埋め込みモデル $\text{nomic-embed-text}$ とKBのカテゴリ構造（WF/ROE/CAP）を知るホワイトボックスの敵対者であり、既存ルールの変更やLLMの重みへのアクセスはできないが、KBへの書き込み権限を持つ。攻撃の定式化において、KBを $n$ 個のルールの集合 $\mathcal{R}$ とし、各ルールを正規化された埋め込み $\mathbf{e}_i$ に写像する。攻撃者は、クエリ分布のセントロイド $\mathbf{c}$ に対して、汚染されたルール $\mathbf{e}_{p}$ が $\text{sim}(\mathbf{e}_{p}, \mathbf{c}) \approx 1$ となるように構築することで、広範なクエリに対して高い検索率を実現する。具体的には、`gate`, `drone`, `UAV` などの高頻度語彙を組み合わせたルールを注入し、単一のゲートへ資産を集中させるよう指示することで、1つの注入ルールのみで20個の評価用プロンプトのうち85%（17/20）のコンテキスト汚染を達成した。既存の密度ベース（DBSCAN, LOF）やクラスタリングベース（K-Means, Isolation Forest）の防御手法は、汚染ルールがクエリ分布の境界内に位置するため、F1スコアが $0.684$ や $0.703$ に留まるなど、完全な検知には至らないという限界がある。</p></section>
+<section class="secsum"><h3>V Defense: Cyber-Layered Defense for Knowledge Base (CLD-KB)</h3><p>提案手法であるCLD-KBは、RAGの検索層において、意思決定LLMに到達する前に攻撃的なルールを遮断する2段階の異常検知フレームワークである。第1の検知器であるOne-Class SVM (OC-SVM) は、RBFカーネルを用いて正当なルールの埋め込み分布 $\mathcal{X}_{legit}$ を囲む超球境界を学習し、決定関数 $f(x)$ が閾値 $\tau$ を下回る（$f(x) &lt; \tau$）ルールを異常として検知する。第2の検知器であるMember-Based Category Spreadは、ルールのカテゴリ間の幾何学的非対称性を利用し、各カテゴリ $c \in \{WF, ROE, CAP\}$ 内の各ルールとの最小コサイン距離の差 $\text{Spread}(x) = \min_{c} d_{min}(x, c) - \max_{c} d_{min}(x, c)$ を計算することで、全カテゴリから等距離に位置する攻撃的ルールを特定する。これら2つの検知器を論理和（OR条件）で組み合わせることで、分布の境界から外れるものと、重心付近に配置して境界を回避するもの（centroid-mimicking）の両方を補完的に捕捉する。検知されたルールは「Filter-and-Refill」プロセスによって除外され、必要な数 $k=3$ のクリーンなルールが確保されるまで検索結果を再試行する。さらに、検知されたルールをブラックリスト $\mathcal{B}_m$ に追加して知識ベースから永久に削除する適応的ブラックリスト方式を採用しており、ミッションを重ねるごとに攻撃対象領域を自己修復的に減少させる。</p></section>
+<section class="secsum"><h3>VI Evaluation and Results</h3><p>本実験では、60個の正当なポリシー（Workflow, ROE, Capability各20個）からなるIoBT知識ベースに対し、24個の敵対的ルールを1.6%から25.0%の割合で注入し、PA-LLM-RAGフレームワークの耐性を評価している。攻撃分析の結果、注入率7.7%でLLMのコンテキストに平均2.65個の毒性ルールが混入する飽和状態に達し、わずか1.6%の注入でもプロンプトの約85%で毒性ルールが検索されることが示された。提案手法であるCLD-KBは、DBSCANやLOFなどの既存の異常検知手法（K-Means, Isolation Forest, One-Class SVM）と比較して、Recall, Precision, F1-scoreのすべてにおいて1.000という完璧な検出性能を達成し、偽陽性もゼロであった。これは、正当なルールがMember-Based Category Spreadにおいて0.20以上、毒性ルールが0.15未満という明確な分布の分離特性を持つことに起因しており、Context Integrity Rate (CIR) においても全注入率範囲で100%を維持した。また、CLD-KBの計算オーバーヘッドはミッション実行時間の0.04%未満（約7ms）であり、リソース制約のあるエッジ環境への適用可能性が示されている。</p></section>
+<section class="secsum"><h3>VII Constraints and Future Work</h3><p>提案手法であるCLD-KBは、評価されたすべてのポイズニング率において完全な検知性能と $100\%$ のコンテキスト整合性を達成したが、いくつかの限界が存在する。本防御手法は3カテゴリのIoBTポリシー分類学に依存しているため、構造が平坦または未定義な知識ベースでは適応的な閾値調整が必要となる可能性があり、またOC-SVMの境界が大規模なデータセットにおいて同様の汎化性能を示すかは未検証である。攻撃面では、クエリ非依存の攻撃が単一のルールから $85\%$ のコンテキスト汚染を引き起こすが、プロンプトの知識を持つ標的型攻撃はこれを超える可能性があり、今後は言い換えベースや適応型攻撃の調査が求められる。防御の運用面では、起動時に一度のみ学習を行うため、動的な環境では逐次的な再学習が必要となる可能性がある。さらに、現在の評価は単一のミッションシナリオおよびGazeboシミュレーション内での検証に限定されているため、今後は多様なIoBTミッション、ハードウェア・イン・ザ・ループ、実世界での実験、およびセンサーフィードや画像データを含むマルチモーダルな知識ベースへの拡張が課題である。</p></section>
+<section class="secsum"><h3>VIII Conclusion</h3><p>本研究では、IoBT（Internet of Battlefield Things）のミッション・オーケストレーションにおけるPA-LLM-RAGフレームワークを対象とした敵対的セキュリティ調査を行い、Query-Agnostic Semantic Retrieval Poisoningという新たな攻撃手法を提案した。この攻撃は、実行時のクエリ情報を必要とせず、わずか1.6%の注入率（single injected rule）でLLMのコンテキストを85%汚染することに成功し、注入率が7.7%に達すると効果が飽和する特性を持つ。これに対し、提案手法であるCLD-KB（Cyber-Layered Defense for Knowledge Base）は、One-Class SVMによる境界検知と、IoBTの3カテゴリのポリシー分類学を活用したMember-Based Category Spread分析を組み合わせることで、LLMの意思決定に影響を与える前に汚染されたルールを特定する。実験の結果、CLD-KBは5つのベースライン手法を凌駕し、ミッションあたりのオーバーヘッドをわずか $7\text{ms}$ に抑えつつ、偽陽性ゼロで100%のコンテキスト整合性を維持した。これにより、分類学を考慮した異常検知が、ミッションクリティカルなIoBT環境におけるRAGシステムに対して、軽量かつ効果的な防御策となることが示された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-11
+  </footer>
+</div>
+</body>
+</html>

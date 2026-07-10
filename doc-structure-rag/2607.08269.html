@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PolyUQuest: Verifiable Structure-Aware Web RAG over Heterogeneous Graphs | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>PolyUQuest: Verifiable Structure-Aware Web RAG over Heterogeneous Graphs</h1>
+  <div class="meta">Ying Liu, Yi Ye, Quanyu Feng, Mingxi Ye, Mingtao Zhang, Haoyang Li, Chen Jason Zhang, Qing Li<br>採択先: 未取得 ・ 2026-07-09 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.08269v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.08269v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-09</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">WebのDOM構造やリンク、エンティティを統合した異種グラフによるRAGは新規性が高く、検証可能性やコスト削減も実用的で、実験結果も具体的である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> PolyUQuestは、Webサイトのハイパーリンク、DOM階層、およびエンティティ間の関係を統合したヘテロジニアスグラフ $\mathcal{G}$ を用いる、検証可能な構造認識型Web RAGフレームワークである。2層ルーターにより、クエリの性質に応じて「直接的なブロック検索」「ページ間ナビゲーション」「マルチホップ・エンティティ推論」の3つのモードを使い分け、回答の正確性、網羅性、忠実度を向上させつつ、LLMのトークン消費量を削減する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>既存のRAG手法は、Webコンテンツが持つ「ページ間のハイパーリンク」「ページ内のDOM階層」「ページを跨ぐ固有表現」という3つの補完的な構造層を統合的に扱うことが困難であった。従来のチャンクベースの検索は構造を無視しており、エージェント型検索は高コストである一方、ページ内構造のみに限定した手法も存在する。PolyUQuestは、Webサイトをウェブページ、エビデンスブロック、エンティティ、トピックの各ノードが相互に接続された単一の異種グラフとしてモデル化することで、これらの課題を解決する。これにより、大規模なグローバルコンテキストを注入することなく、構造的に関連性の高いエビデンスのみを効率的に抽出することが可能となる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、Webの構造的信号を最大限に活用する検証可能なRAGフレームワークを提案した点にある。提案手法は、回答の根拠となる各ブロックにソースページ、見出しパス、エンティティリンクを付与することで、ユーザーが主張を構造的根拠まで遡って検証できる仕組みを提供している。評価実験において、PolyUQuestは回答の正確性（Answer Correctness）、網羅性（Coverage）、忠実度（Faithfulness）のすべての指標で既存手法を上回る性能を示した。さらに、クエリあたりのLLMトークン消費量を削減し、効率的な検索を実現している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>システムは、ウェブページ、エビデンスブロック、エンティティ、トピックのノードからなる3層の異種グラフ $\mathcal{G}$ を構築する。オフラインインデックス作成では、Layer 1 (Site Graph)、150単語を閾値とするLayer 2 (Block Tree)、およびLayer 3 (Entity Graph) を構築し、LLMを用いてエンティティの抽出と正規化を行う。オンライン検索では、2段階のルーターがクエリ $q$ を以下の3モードに振り分ける。Mode AはBM25と密ベクトル検索、クロスエンコーダーによる再ランキングを用いる直接的な事実検索である。Mode BはLLMによるサブクエリ分解とサイトグラフを用いたページ拡張を行う。Mode Cはエンティティ関係とトピックキーワードの両経路を用いたマルチホップ推論であり、クエリとの類似度、エンティティ被覆率のキャップ、簡潔さ、同一ページ内ペナルティを用いたスコアリング関数でブロックをランキングする。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>香港理工大学（PolyU）の公式サイト（4,240ページ、31,086 DOMブロック、29,119エンティティ、37,680関係）を用いた300個の質問による評価を実施した。PolyUQuestは、Answer Correctness ($0.644$)、Coverage ($0.649$)、Faithfulness ($0.921$) の全指標において、ChunkRAG、HtmlRAG、FastGraphRAG、LightRAGを上回った。特にFaithfulnessにおいては、次点のベースラインに対し36ポイントもの向上を達成している。コスト面では、クエリあたりの平均トークン数を2,968に抑え、HtmlRAGと比較して26%の削減を実現した。アブレーション研究では、DOM構造を考慮した分割を固定サイズチャンクに置き換えると、Correctnessが8.1ポイント、Coverageが13.9ポイント低下することが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>PolyUQuestは、構造的に関連性の高いエビデンスを標的を絞って抽出することで、高い忠実度と検索コストのバランスを両立している。アブレーションの結果から、DOM構造を意識したセグメンテーションが性能向上の主要因であることが示唆されている。本手法は、大学や政府機関のように、知識が階層的なセクションやエンティティを介して分散している組織のウェブサイトへの適用に非常に適している。現在は、PolyUにおけるQAサービスとしての実用的なデプロイに向けて準備が進められている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>PolyUQuest: Verifiable Structure-Aware Web RAG over Heterogeneous Graphs</h3><p>PolyUQuestは、HTMLに埋め込まれた構造的・意味的信号を活用するため、ページ間のハイパーリンク・トポロジー、ページ内のDOM階層、およびページを跨ぐエンティティ・関係知識を統合したヘテロジニアスグラフに基づく、検証可能な構造認識型Web RAGフレームワークである。本手法は、クエリの構造的ニーズに応じて「直接的なブロック検索」「ページ間グラフ探索」「マルチホップ・エンティティ推論」の3つの検索モードを使い分ける2層ルーターを導入している。生成される回答は、引用された各ブロックがソースページ、見出しパス、エンティティリンクを保持しているため、ユーザーが主張を構造的根拠まで遡って検証することが可能である。香港理工大学（PolyU）の公式サイト（4,240ページ、31,086 DOMブロック、29,119エンティティ、37,680関係）を用いた評価において、PolyUQuestは既存のRAGシステムと比較して、回答の正確性、網羅性、忠実度（faithfulness）のすべてで上回り、かつクエリあたりのLLMトークン消費量を大幅に削減することに成功している。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>既存のRAG手法は、Webコンテンツが持つ「ページ間のハイパーリンク」「ページ内のDOM階層」「ページを跨ぐ固有表現」という3つの補完的な構造層を統合的に扱えず、構造を無視したチャンクベースの検索や、高コストなエージェント型検索、あるいはページ内構造のみに限定された手法に留まっている。これに対し、提案手法であるPolyUQuestは、Webサイトをウェブページ、エビデンスブロック、エンティティ、トピックの各ノードが相互に接続された単一の異種グラフ（heterogeneous graph）としてモデル化する。本システムは、クエリの性質に応じて「直接的なブロック検索」「ページ間ナビゲーション」「マルチホップ・エンティティ推論」の3つの検索モードにルーティングを行うことで、構造的な忠実度とクロスページ推論、および検索コストのバランスを最適化する。これにより、大規模なグローバルコンテキストを注入することなく、構造的に関連性の高いエビデンスのみを効率的に抽出することが可能となる。さらに、引用された各ブロックにはソースページ、見出しパス、エンティティリンクが付与されるため、回答の根拠となるグラフパスを辿ることで、回答の検証可能性（verifiability）が担保されている。</p></section>
+<section class="secsum"><h3>2. PolyUQuest System</h3><p>PolyUQuestは、ウェブサイトをウェブページ、エビデンスブロック、エンティティ、トピックのノードからなる3層の異種グラフ $\mathcal{G}$ としてモデル化するRAGシステムである。オフラインインデックス作成では、ハイパーリンクを扱うLayer 1 (Site Graph)、見出し構造を保持し150単語を閾値として構築されるLayer 2 (Block Tree)、およびエンティティとトピックを扱うLayer 3 (Entity Graph) を構築し、LLMを用いたエンティティ抽出と正規化を行う。オンライン検索では、軽量なルールとLLM分類器からなる2段階のルーターが、クエリ $q$ をMode A（直接的な事実検索）、Mode B（ページ間ナビゲーション）、Mode C（エンティティに基づくマルチホップ推論）のいずれかにルーティングする。Mode AはBM25と密ベクトル検索を組み合わせた候補抽出とクロスエンコーダーによる再ランキングを行い、Mode BはLLMによるサブクエリ分解とサイトグラフを用いたページ拡張、Mode Cはエンティティ関係とトピックキーワードの両経路を用いた探索を行う。Mode Cにおけるブロックのランキングには、クエリとの類似度、エンティティ被覆率のキャップ、簡潔さ、および同一ページ内ペナルティを用いたスコアリング関数が用いられる。</p></section>
+<section class="secsum"><h3>3. Demonstration</h3><p>PolyUQuestのデモンストレーションでは、PolyUの公式ウェブサイトから抽出された31,086個のDOMブロック、29,119個のエンティティ、37,680個のリレーションを含むデータセットを用い、回答の根拠検証、検索トレースの追跡、およびエビデンスグラフの探索という3つのシナリオが提示されている。300個の質問を用いた評価において、PolyUQuestはAnswer Correctness ($0.644$)、Coverage ($0.649$)、Faithfulness ($0.921$) の全指標でChunkRAG、HtmlRAG、FastGraphRAG、LightRAGを上回り、特にFaithfulnessにおいては次点のベースラインに対し36ポイントもの向上を達成した。コスト面では、ルーターがクエリを特定の検索モードに振り分けることで、クエリあたりの平均トークン数を2,968に抑え、HtmlRAGと比較して26%の削減を実現している。アブレーション研究の結果、DOM構造を考慮したブロック分割を固定サイズのチャンクに置き換えると、Correctnessが8.1ポイント、Coverageが13.9ポイント低下することから、構造を意識したセグメンテーションが性能向上の主要因であることが示されている。本手法は、大学や政府機関のように知識が階層的なセクションやエンティティを介して分散している組織のウェブサイトへの適用に適している。</p></section>
+<section class="secsum"><h3>4. Conclusion</h3><p>PolyUQuestは、ハイパーリンクのトポロジー、DOM階層、およびページを跨ぐエンティティ間の関係を単一のヘテロジニアスグラフとしてモデル化する、検証可能な構造認識型Web RAGシステムである。本手法は、クエリを構造的に一致する検索モードへとルーティングすることで、事実確認、ページ間ナビゲーション、およびエンティティ中心の推論に対して、追跡可能なプロバナンスを維持しつつ標的を絞った根拠を抽出する。デモンストレーションでは、回答の背後にあるソースブロックやグラフのトレースを検査し、異なる構造的ニーズに応じて検索モードを比較することが可能である。現在は、PolyUにおけるQAサービスとしてのデプロイに向けて準備が進められている。</p></section>
+<section class="secsum"><h3>GenAI Usage Disclosure</h3><p>本セクションでは、論文執筆における生成AIの利用に関する開示が行われている。著者らは、文法、綴り、および文章の明瞭さを向上させる目的のみに生成AIツール（Anthropic Claude）を使用しており、実質的な内容の生成には一切使用していない。論文の全内容に関する責任は著者らが負うことが明記されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-11
+  </footer>
+</div>
+</body>
+</html>

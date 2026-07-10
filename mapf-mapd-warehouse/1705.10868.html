@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lifelong Multi-Agent Path Finding for Online Pickup and Delivery Tasks | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Lifelong Multi-Agent Path Finding for Online Pickup and Delivery Tasks</h1>
+  <div class="meta">Hang Ma, Jiaoyang Li, T. K. Satish Kumar, Sven Koenig<br>採択先: 未取得 ・ 2017-05-30 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/1705.10868v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/1705.10868v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2017-05-30</span><span class="chip keyword-match">キーワード一致 5</span><span class="chip">被引用 0</span><span class="chip">関連度 9</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPD問題における分散型アルゴリズムの提案、理論的保証、および大規模環境でのリアルタイム性の検証がなされており、実用的な価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、継続的にタスクが発生するオンライン環境におけるMulti-Agent Pickup and Delivery (MAPD) 問題に対し、デカップリングされた分散型アルゴリズムであるToken Passing (TP) とToken Passing with Task Swaps (TPTS) を提案する。提案手法は、現実的な制約を持つ「well-formed」なインスタンスにおいて解を持つことが理論的に保証されており、実験では数百規模のエージェントに対してもリアルタイムな運用が可能であることを示した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本論文は、エージェントが衝突を回避しながら、指定されたピックアップ地点からデリバリー地点まで移動してタスクを完了させるLifelongなMAPD問題を扱う。従来の「one-shot」なMAPFとは異なり、タスクが随時発生するオンライン設定において、タスク割り当てと衝突のない経路計画を同時に行う必要がある。問題は無向連結グラフ上で定義され、エージェントは時刻 $t$ において現在の位置 $l_t$ に留まるか隣接する位置へ移動し、位置の重複やエッジの逆方向移動による衝突を回避しなければならない。評価指標には、タスク追加から完了までの平均タイムステップ数である「サービス時間」が用いられる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、分散型アルゴリズムであるTPおよびTPTSの提案と、それらが「well-formed」なMAPDインスタンスを解けることの理論的証明である。well-formedなインスタンスとは、タスク数が有限であり、非タスク・エンドポイントの集合 $\mathcal{E}_{nt}$ の要素数がエージェント数以上（$|\mathcal{E}_{nt}| \ge |\mathcal{A}|$）であり、かつ任意の2つのエンドポイント間に他のエンドポイントを経由しないパスが存在する条件を満たす。また、中央集権的な比較対象であるCENTRALアルゴリズムを構築し、提案手法との性能・計算コストのトレードオフを明らかにした。実験により、TPが数百規模のエージェントに対してもリアルタイム性を維持できるスケーラビリティを持つことを示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、エージェントが自律的に動作するデカップリング型アルゴリズムである。TPは、全エージェントの経路、タスク集合、割り当て情報を共有する「トークン」を順次受け渡す仕組みであり、エージェントはトークン取得時にA*探索を用いて、他のエージェントの経路終点と衝突しない最小コスト経路 $Path1$ を計算する。TPTSは、タスク集合を「未実行の全タスク」に拡張し、あるエージェントが既に割り当て済みのタスクに対し、既存のエージェントよりも早くピックアップ地点に到達できる場合にタスクの奪い合い（Task Swap）を行う。CENTRALは、ハンガリアン法を用いてエンドポイントを割り当て、Conflict-Based Search (CBS) を用いて全エージェントの衝突のない経路を同時に計画する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>シミュレーション環境下の倉庫システムを用い、50台のエージェントを対象にタスク頻度（0.2〜10）およびエージェント数（10〜50）を変えて評価を行った。実験の結果、CENTRALはTPと比較してservice timeを最大48%削減できるが、実行時間はTP（10ms未満）やTPTS（200ms未満）に比べ、CENTRALでは最大4,000msに達することが確認された。スケーラビリティの検証では、エージェント数100〜500の環境において、TPTSとCENTRALはリアルタイムな継続運用が困難であったが、TPは200エージェント時でも実行時間が500ms未満であり、リアルタイム運用が可能であった。性能面では $makespan$ および $service\ time$ において $CENTRAL \le TPTS \le TP$ の順に優れている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の結果は、タスクの効率性と計算コストの間に明確なトレードオフが存在することを示している。CENTRALは高いタスク完了効率（低いservice time）を実現するが、計算負荷が極めて高く大規模環境への適用には限界がある。TPは、計算効率とスケーラビリティにおいて最も優れており、リアルタイム性が重視される大規模な自動倉庫などの実環境に適している。TPTSは、限定的な通信量でTPとCENTRALの中間的な性能バランスを維持できる特性を持つ。TPTSの運用には、タスク頻度が1の場合、10〜20台程度のエージェントが必要であると推定される。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Lifelong Multi-Agent Path Finding for Online Pickup and Delivery
+Tasks † † thanks: Our research was supported by NSF und</h3><p>本研究では、エージェントが継続的に新しいタスクに直面する自動倉庫のような実世界の設定を模した、オンライン設定における Lifelong MAPF の一形態である Multi-Agent Pickup and Delivery (MAPD) 問題を扱う。MAPD 問題では、各エージェントが衝突を回避しながら、指定されたピックアップ地点からデリバリー地点まで移動してタスクを完了させる必要がある。提案手法として、デカップリングされた 2 つのアルゴリズムである Token Passing (TP) と Token Passing with Task Swaps (TPTS) を提示しており、これらは「well-formed」と呼ばれる現実的なサブクラスの MAPD インスタンスを解けることが理論的に示されている。実験ではシミュレーション環境下の倉庫システムを用いて中央集権的な手法と比較しており、TP は数百規模のエージェントやタスクに対しても効率的でリアルタイム性に優れ、TPTS は限定的な通信量で TP と中央集権的手法のバランスを維持することが確認されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究では、従来の「one-shot」なマルチエージェント経路探索（MAPF）問題が、継続的に新しいタスクが発生する実世界の動的な環境を十分に捉えられていないという課題に対し、Lifelongな「Multi-Agent Pickup and Delivery (MAPD)」問題を扱う。MAPD問題は、無向グラフとしてモデル化された既知の共通環境において、エージェントが外部イベントとして発生する一連の配送タスク（各タスクはピックアップ地点とデリバリー地点で定義される）を、他エージェントとの衝突を避けながら遂行する問題である。本論文では、既存のMAPFアルゴリズムをベースとした2つのデカップリング（分離型）アルゴリズム、Token Passing (TP) および Token Passing with Task Swaps (TPTS) を提案している。理論的には、これらのアルゴリズムが現実的なサブクラスである well-formed MAPD インスタンスをすべて解けることを示している。実験においては、シミュレーションされた倉庫システムを用い、これらの手法を、解の保証を持たない中央集権的なストローマン（比較対象）アルゴリズムと比較評価している。</p></section>
+<section class="secsum"><h3>2 Background and Related Work</h3><p>MAPD（Multi-Agent Pickup and Delivery）問題は、オンラインかつライフロングな設定において、エージェントへのタスク割り当てと衝突のない経路計画を同時に行う必要がある。ライフロング設定ではエージェントはタスク完了後に待機せず、タスクのストリームに対応し続ける必要があり、オンライン設定ではタスクが随時発生するため、実行中にリアルタイムで割り当てと計画を行うことが求められる。既存研究では、分散型のタスク割り当てや、ORCAのような反応型手法、優先度付き手法などの分散型経路計画が個別に研究されてきたが、後者はデッドロックを引き起こす可能性がある。また、MAPF（Multi-Agent Path Finding）はMAPDのワンショット版として研究されており、フロータイム（全エージェントが目的地に到達して停止するまでのタイムステップの総和）の最小化はNP困難であり、メイクスパン（全エージェントが停止するまでのタイムステップ）の最小化は $4/3$ 未満の定数倍の近似もNP困難であることが知られている。MAPFの最適解法には Conflict-Based Search や $M^*$ などがあり、非最適解法には WHCA や TASS などが存在するが、これらを含む既存の多くのMAPF拡張版は依然としてワンショットの設定に留まっている。</p></section>
+<section class="secsum"><h3>3 Problem Definition</h3><p>MAPD問題は、無向連結グラフ上のエージェント群が、タスク集合 $\mathcal{T}$ に含まれる各タスク（ピックアップ地点 $p_i$ とデリバリー地点 $d_i$ のペア）を完了させる問題であり、エージェントは時刻 $t$ において現在の位置 $l_t$ に留まるか隣接する位置へ移動し、位置の重複（$l_{i,t} = l_{j,t}$）およびエッジの逆方向移動（$\{l_{i,t}, l_{i,t+1}\} = \{l_{j,t}, l_{j,t+1}\}$）による衝突を回避しなければならない。エージェントはタスクのピックアップ地点に到達するまで再割り当てが可能であるが、一度ピックアップした後はデリバリー地点まで完遂する必要があり、評価指標はタスク追加から完了までの平均タイムステップ数である「サービス時間」が用いられる。本研究では、解が存在するための十分条件として「well-formed」なインスタンスを定義しており、これは(a)タスク数が有限であること、(b)非タスク・エンドポイントの集合 $\mathcal{E}_{nt}$ の要素数がエージェント数以上であること、(c)任意の2つのエンドポイント間において、他のエンドポイントを経由しないパスが存在すること、の3条件を満たすものと定義される。エンドポイントとは、エージェントが他の経路を妨げずに待機できる場所（初期位置、タスクの端点、または指定された駐車場所）を指し、well-formedなインスタンスは少なくとも $|\mathcal{E}_{nt}| \ge |\mathcal{A}|$ のエンドポイントを持つ。</p></section>
+<section class="secsum"><h3>4 Decoupled MAPD Algorithms</h3><p>本セクションでは、各エージェントが自律的にタスク割り当てと衝突回避経路計画を行う、デカップル型MAPDアルゴリズムとして「Token Passing (TP)」と、その改良版である「Token Passing with Task Swaps (TPTS)」を提案している。TPは、全エージェントの経路、タスク集合、割り当て情報を共有するメモリブロックである「トークン」を順次受け渡す仕組みであり、エージェントはトークン取得時に、他のエージェントの経路の終点と衝突しないタスクを選択して、A*探索によりコスト最小の経路 $Path1$ を計算する。タスクが割り当てられない場合やデッドロック回避が必要な場合は、非タスクの終点へ移動する経路 $Path2$ を計算する。TPTSは、タスク集合を「未実行の全タスク」に拡張しており、あるエージェントが既に割り当て済みのタスクに対し、既存のエージェントよりも早くピックアップ地点に到達できる場合にタスクの奪い合い（Task Swap）を行うことで、効率性を向上させている。TPTSの $GetTask$ 関数内では、タスクの奪い合いが発生した際にトークンを既存のエージェントへ送り直し、新たなタスク割り当てを試行させる再帰的なプロセスが含まれる。両アルゴリズムとも、適切に構成された（well-formed）MAPDインスタンスにおいて解を持つことが証明されているが、TPTSが常にTPより効果的であるとは限らない。</p></section>
+<section class="secsum"><h3>5 Centralized Algorithm</h3><p>本セクションでは、提案する分散型アルゴリズムの性能を評価するための比較対象（strawman）として、中央集権的なMAPDアルゴリズムであるCENTRALを提案している。CENTRALは、各タイムステップにおいてまず全エージェントにエンドポイントを割り当て、次にConflict-Based Search (CBS) を用いて全エージェントの衝突のない経路を同時に計画する。エージェントへの割り当てにはハンガリアン法を用い、未実行タスクのピックアップ地点を優先的に割り当てるため、コスト関数を $c&#x27;_{i,j} = c_{i,j}$ （$j$ がピックアップ地点の場合）および $c&#x27;_{i,j} = c_{i,j} + \text{constant}$ （$j$ がパーキング地点の場合）のように修正して最適化を行う。経路計画の効率化のため、まず新たにタスクに従事するエージェントの経路を、他のエージェントの直近の経路を時空間障害物として扱い計画し、その後に自由なエージェントの経路を計画するという2段階の手法を採用している。このアルゴリズムは、Definition 1に基づくエンドポイントの十分な存在を前提としており、well-formedなMAPDインスタンスにおいて、衝突のない経路を確実に生成できることがProperty 6および7によって示されている。</p></section>
+<section class="secsum"><h3>6 Experimental Evaluation</h3><p>本実験では、50台のマルチエージェントを用いた小規模倉庫環境において、TP、TPTS、CENTRALの3つのMAPDアルゴリズムの性能を、タスク頻度（0.2から10の6段階）およびエージェント数（10から50の5段階）を変えて評価した。評価指標としてmakespan、service time、タイムステップあたりの実行時間（runtime per timestep）を用い、結果としてCENTRALはTPと比較してservice timeを最大48%削減できる一方で、実行時間はTP（10ms未満）やTPTS（200ms未満）よりも大幅に大きく、CENTRALでは最大4,000msに達することが示された。タスク頻度が1の場合、TPTSで継続的な運用を行うには10〜20台のエージェントが必要であると推定され、タスクが蓄積する高頻度設定ではアルゴリズム間の性能差が顕著になる。また、大規模環境（エージェント数100〜500）におけるスケーラビリティの検証では、TPTSおよびCENTRALはリアルタイムな継続運用が困難であったが、TPは200エージェント時でも実行時間が500ms未満であり、リアルタイム運用が可能であることが確認された。</p></section>
+<section class="secsum"><h3>7 Conclusions</h3><p>本論文では、オンラインで継続的に発生する配送タスクに対し、エージェントが衝突を回避しながらピックアップ地点とデリバリー地点を移動する、Lifelong MAPFの拡張問題であるMulti-Agent Pickup and Delivery (MAPD) 問題を研究している。提案手法として、デカップリングされた2つのアルゴリズム、Token Passing (TP) と Token Passing with Task Swaps (TPTS) を提示し、これらがすべてのwell-formedなMAPDインスタンスを解けることを理論的に示した。シミュレーション環境下の倉庫システムを用いた実験では、makespanおよびservice timeの観点で CENTRAL $\le$ TPTS $\le$ TP の順に性能が良く、一方でタイムステップあたりの実行時間は TP $\le$ TPTS $\le$ CENTRAL の順に高速であることが示された。TPは数百規模のエージェントやタスクに対しても効率的であり、リアルタイム性が重視される場合の完全分散型アルゴリズムへの拡張に適している。一方、TPTSはエージェント間の限定的な通信を必要とし、TPとCENTRALの性能バランスを適切に保つ特性を持つ。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-11
+  </footer>
+</div>
+</body>
+</html>
