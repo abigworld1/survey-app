@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Traffic Flow Optimisation for Lifelong Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Traffic Flow Optimisation for Lifelong Multi-Agent Path Finding</h1>
+  <div class="meta">Zhe Chen, Daniel Harabor, Jiaoyang Li, Peter J. Stuckey<br>採択先: 未取得 ・ 2023-08-22 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2308.11234v5" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2308.11234v5" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2023-08-22</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">交通工学のTAP概念をMAPFに導入する新規性が高く、数千〜1万規模の極めて大規模な設定でスループット向上を実証しており、実用上の価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、大規模なMulti-Agent Path Finding (MAPF) における混雑問題を解決するため、交通工学のTraffic Assignment Problem (TAP) の概念を応用し、エージェントに自由流の最短経路ではなく、予想される混雑を回避する「ガイドパス」を提示する手法を提案している。この手法をPIBTやLaCAM*に統合することで、lifelong MAPFにおけるスループットの向上と、one-shot MAPFにおける解の質の改善を、大規模なエージェント数（数千〜10,000規模）において実現した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>MAPFは、共有マップ上で衝突を避けながらエージェントを目的地へ導く問題であり、単一の目標を扱うone-shot MAPFと、目標到達後に新たな目標が継続的に割り当てられるlifelong MAPFに分類される。既存のLNS (Large Neighbourhood Search) はマップやエージェント数の増加に伴い経路計画性能が低下し、PIBT (Priority Inheritance with Back Tracking) は個別の自由流ヒューリスティックを用いるため、エージェント間の混雑（congestion）を招きやすい。本研究は、これらの課題に対し、他のエージェントによる予想混雑を考慮した時間依存しない経路（time-independent routes）を計算し、それをガイドとして利用するアプローチを対象としている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、交通工学の知見をMAPFに導入し、PIBTおよびLaCAM*を拡張した「Guided PIBT」および「Guided LaCAM*」を開発した点にある。lifelong MAPFの設定において、渋滞コストを考慮したガイドパスを用いることで、PIBTと比較してスループットを大幅に向上させ、混雑による性能低下が始まるエージェント密度の閾値を右側にシフトさせた。また、one-shot MAPFにおいても、LaCAM*の解の質（Relative Cost）を改善することに成功している。さらに、10,000体以上のエージェントに対しても1秒未満のレスポンスタイムを維持する高いスケーラビリティを示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、エッジの流量 $f_{u,v}$ に基づき、頂点の混雑度を $C(v) = \sum_{u \in \mathcal{N}(v)} f_{u,v} + \sum_{w \in \mathcal{N}(v)} f_{v,w}$ と定義し、エージェントあたりのコストを $C(v)/n$ として扱う。エッジの重みは、自由流コスト $w_{u,v}^1$ と混雑コスト $w_{u,v}^2$ からなる辞書式順序のコスト $(w_{u,v}^1, w_{u,v}^2)$ として定義される。経路生成では、エージェントごとに最短経路を逐次計算して流量を更新するアルゴリズムを用い、`PathRefinement` により経路を改善する。PIBTの拡張では、従来の最短距離の代わりに、ガイドパスへの距離 $d_{u, \text{path}}$ とガイドパス上の残り距離 $d_{\text{path}, g}$ を用いたガイドヒューリスティック $h(u) = (d_{u, \text{path}}, d_{\text{path}, g})$ を辞書式順序で最小化するように移動を選択する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験はWarehouse、Sortation、Game、Roomの4種類のマップを用い、lifelongおよびone-shot MAPFの両設定で行われた。lifelong MAPFでは、提案手法（$GP\text{-}R100\text{-}Re10\text{-}F2$）がPIBTに対し、WarehouseやGameでは2000エージェント、Sortationでは200エージェント分、混雑耐性が向上することを示した。計算コストは、ガイドパス計算が $7\text{ ms/agent}$ とPIBTの $0.6\text{ ms/agent}$ より高いが、全エージェントに対し1秒以内の応答を維持している。one-shot MAPFでは、Guided LaCAM*がLaCAM*に対し相対コスト（$RC$）を改善したが、ガイドパス計算に30秒を要するため、実行時間制限下ではスケーラビリティが犠牲になるという限界も確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究は、渋滞回避のためのガイドパスが大規模MAPFの性能を向上させることを実証し、特にlifelong MAPFにおいて極めて高いスケーラビリティを実現した。一方で、one-shot MAPFにおける高品質な解の生成には、計算時間の増大というトレードオフが存在する。今後の課題として、現在はFocal Searchを用いて迂回距離と渋滞回避のバランスを取っているが、より正確で情報量の多いガイドパスを算出するための、より高度な目的関数の設計が必要である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Traffic Flow Optimisation for Lifelong Multi-Agent Path Finding</h3><p>本研究は、エージェント数が増加するにつれて既存のMAPFアルゴリズムが直面する混雑問題を解決するため、自由流（free-flow）の最適経路ではなく、混雑を回避する経路をエージェントに提示する新しいアプローチを提案している。評価は、各エージェントが単一の目的地を持つ one-shot MAPF と、エージェントに目的地が継続的に割り当てられる lifelong MAPF の2つの大規模な設定で行われた。実験の結果、one-shot MAPF においては解の質（solution quality）が大幅に向上し、lifelong MAPF においては全体の処理能力（throughput）が向上することが示された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>Multi-Agent Path Finding (MAPF) は、ロボットが共有マップ上で衝突を避けながら目標地点へ到達する問題であり、単一の目標を扱う one-shot MAPF と、目標到達後に新たな目標が継続的に割り当てられる lifelong MAPF に分類される。大規模なエージェント数（数千規模）に対応するためには、既存の LNS (Large Neighbourhood Search) や PIBT (Priority Inheritance with Back Tracking) といった unbounded suboptimal な手法が用いられるが、LNS はマップサイズやエージェント数の増加に伴い単一エージェントの経路計画性能が低下し、PIBT は個別の自由流ヒューリスティックを用いるため、エージェント間の混雑（congestion）を招きやすく解のコストが高くなるという課題がある。本研究では、交通工学における Traffic Assignment Problem (TAP) の概念に着想を得て、他のエージェントによる予想混雑を考慮した、時間依存しない経路（time-independent routes）を計算する手法を提案する。この提案手法は、計算されたガイドパスを PIBT の改良されたヒューリスティックとして利用することで大規模なエージェント数に対する高速な計画を可能にし、同時に LNS のようにガイドパスを継続的に改善することで解の質を向上させる。実験の結果、提案手法は PIBT、LNS、LaCAM を含む主要なアルゴリズムと比較して、one-shot および lifelong MAPF の両方において優れた性能を示すことが確認された。</p></section>
+<section class="secsum"><h3>2 Problem Definition</h3><p>本研究では、無向グリッドマップとエージェントの集合 $\mathcal{A}$ を入力とし、各エージェントが開始地点 $s_i$ から目標地点 $g_i$ へ移動する Multi-Agent Path Finding (MAPF) 問題を定義している。エージェントは離散的なタイムステップ $t$ ごとに、上下左右の移動または待機（いずれもコスト 1）を行い、同一時刻に同一頂点を占有する頂点衝突 $(i, j, v, t)$ や、同一エッジを逆方向に通過するエッジ衝突 $(i, j, u, v, t)$ を回避する有効なパスの割り当てが求められる。標準的な MAPF の目的関数は、全エージェントのパスコストの総和である Sum of Individual Costs (SIC) の最小化であるが、本論文が扱う Lifelong MAPF では、エージェントが目標 $g_i$ 到達後に新たな目標 $g&#x27;_i$ を割り当てられ、タスクを継続的に遂行する。Lifelong MAPF の目的は、運用制限時間 $T$ 内における総タスク完了数（スループット）の最大化であり、タスク割り当て器はパス計画システムとは独立した外部要素として扱われる。</p></section>
+<section class="secsum"><h3>3 Background</h3><p>本セクションでは、関連する3つの手法が定義されている。まず、FOCAL Searchは、OPENリスト内の最小コスト $f_{\min}$ に対して、ユーザー指定の許容範囲 $w$ を用いて $f(n) \le w \cdot f_{\min}$ を満たすノードを $\text{FOCAL}$ リストに格納する、最良優先の有界劣最適アルゴリズムである。次に、PIBTは、エージェントの優先順位 $\pi$ に基づき、1ステップの予約スキームを用いて再帰的に移動を選択するルールベースの手法であり、デッドロックは回避できるが、単発のMAPFではライブロックが発生し得る不完全な手法である。しかし、到着したエージェントに即座に新しいタスクが割り当てられるLifelong MAPFにおいては、PIBTは完全性が保証される。最後に、LaCAM*は、PIBTを後続ノード生成に利用しつつ、Operator Decompositionを用いて探索空間の爆発を抑制しながら、結合空間を系統的に探索するAnytime探索戦略であり、PIBTよりも高い成功率と計画の品質を実現している。</p></section>
+<section class="secsum"><h3>4 Traffic Congestion Reasoning for MAPF</h3><p>本セクションでは、MAPFにおける交通渋滞を考慮した経路計画手法が提案されている。従来のPIBT等の手法は、各エージェントの最短経路を独立に計算するため、媒介中心性の高い頂点にエージェントが集中し衝突を招く。これを解決するため、エッジの流量 $f_{u,v}$ に基づき、頂点の混雑度を $C(v) = \sum_{u \in \mathcal{N}(v)} f_{u,v} + \sum_{w \in \mathcal{N}(v)} f_{v,w}$、エージェントあたりのコストを $C(v)/n$ と定義し、さらに逆流によるコスト増大を考慮した「contraflow congestion」を導入している。エッジの重みは、自由流コスト $w_{u,v}^1$ と混雑コスト $w_{u,v}^2$ からなる2部構成のコスト $(w_{u,v}^1, w_{u,v}^2)$ として定義され、辞書式順序で最小となる経路を探索する。<br><br>経路生成アルゴリズム（Algorithm 2）では、エージェントごとに最短経路を逐次計算し、エッジの流量を更新することで、ユーザー均衡に近い経路を求める。また、`PathRefinement` 手続きにより、一部のエージェントの経路を繰り返し再計画することで経路を改善する。PIBTの実行時には、従来の最短距離の代わりに、ガイドパスへの距離 $d_{u, \text{path}}$ とガイドパス上の残り距離 $d_{\text{path}, g}$ を用いたガイドヒューリスティック $h(u) = (d_{u, \text{path}}, d_{\text{path}, g})$ を使用し、これを辞書式順序で最小化するように移動を選択する。Lifelong MAPFにおいては、エージェントの到着やタスク更新に対応するため、オンラインでガイドパスとヒューリスティックを逐次更新する手続き（Algorithm 3）が提案されている。</p></section>
+<section class="secsum"><h3>5 Experimental Results</h3><p>本実験では、Lifelong MAPFにおいて提案手法であるGuided PIBT（特に$GP\text{-}R100\text{-}Re10\text{-}F2$）の性能を、Warehouse、Sortation、Game、Roomの4種類のマップを用いて評価している。実験結果として、提案手法はPIBTと比較してスループットを向上させ、混雑による性能低下が始まるエージェント密度のピークを右側にシフトさせることに成功した（WarehouseとGameでは2000エージェント、Sortationでは200エージェントの改善）。また、オンラインリファインメント（$Re$）やFocal Search（$F$）を導入することで、特に単一通路の多いRoomマップ等の困難な環境下でもスループットが向上することが示された。計算コストに関しては、ガイドパスの計算はPIBTの距離テーブル計算（$0.6\text{ ms/agent}$）より高価（$7\text{ ms/agent}$）であるが、提案手法は全エージェントに対して1秒以内の安定したレスポンスタイムを維持している。RHCRとの比較では、提案手法はより大規模なエージェント数に対して高いスループットと優れたスケーラビリティを示した。One-shot MAPFの実験では、Guided LaCAM*がLaCAM*に対して相対コスト（$RC$）の改善を示し、特に高密度な環境において高品質な解を見出すことが確認されたが、ガイドパス計算に30秒を要するため、実行時間の制限下ではスケーラビリティが犠牲になるという限界も示されている。</p></section>
+<section class="secsum"><h3>6 Conclusions</h3><p>本研究では、渋滞回避のためのガイドパスが one-shot および lifelong MAPF の性能をどのように向上させるかを調査し、Traffic Assignment Problems の知見を応用して、近年のスケーラブルな MAPF プランナである PIBT および LaCAM* のガイド付きバリアントを開発した。lifelong MAPF において、渋滞コストを考慮することで PIBT に対するスループットの大幅な向上を実現し、10,000体以上のエージェントに対して常に 1秒未満でアクションを返す運用に成功した。one-shot MAPF では、スケーラビリティをわずかに犠牲にするものの、LaCAM* の解の質を大幅に改善した。今後の課題として、現在の手法は Focal Search を用いて迂回距離と渋滞回避のバランスを取っているため、より情報量が多く正確なガイドパス算出のための目的関数の設計に焦点を当てる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-12
+  </footer>
+</div>
+</body>
+</html>

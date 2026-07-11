@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Detecting Hallucinations in Retrieval-Augmented Generation through Grounding-Aware Sensitivity by Perturbation (GASP) | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Detecting Hallucinations in Retrieval-Augmented Generation through Grounding-Aware Sensitivity by Perturbation (GASP)</h1>
+  <div class="meta">Mohamed Aly Bouke<br>採択先: 未取得 ・ 2026-07-05 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.04223v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.04223v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-05</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGのハルシネーションを「根拠への感度」と再定義し、摂動を用いたスパン単位の検出を提案する点は新規性が高い。追加モデル不要で帰属特定も可能な実用的な手法である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGにおけるハルシネーションを、生成文が検索された根拠（context）にどの程度依存しているかという「根拠への感度（grounding sensitivity）」を用いて、文単位（span-level）で検出する手法GASPを提案する。文脈の一部を削除する摂動を与えた際のトークン対数尤度の変化やJensen-Shannon Divergence (JSD) を特徴量として用い、追加の検証モデルなしで、根拠の特定（attribution）と検出を同時に実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>RAG（Retrieval-Augmented Generation）において、生成された回答が検索されたコンテキストに基づいているかを判定する際の「粒度の低さ（回答全体のみ）」と「信号の不足（Perplexity等の内部統計量のみへの依存）」という課題に対処する。従来の検出器は、文脈との直接的な関係性を捉えられず、流暢な誤情報の検出に限界があった。本研究は、ハルシネーションを「根拠への依存性の欠如」と再定義し、文脈の摂動に対する生成分布の応答を測定することで、スパン単位での高精度な検出を目指す。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>文脈の摂動に対する生成分布の感度を測定するGASPを提案し、追加の検証モデルや再サンプリングを必要とせずに、トークン尤度を返せる確率的スコアラーのみで動作する自己完結的なフレームワークを構築した。理論的には、デコーディングをRandom Non-autonomous Invariant Flow System (RNIFS) と見なし、文脈の変化を不変測度の移動として定式化した。また、検出だけでなく、どのコンテキストが回答を支えているかを特定する帰属（attribution）メカニズムを統合した。実験により、RAGTruthやTofuEvalにおいて、PerplexityやNLIベースの手法を上回る性能を示すことを証明した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>生成プロセスを文脈条件付きRNIFSとして定式化し、回答スパン $s$ とコンテキストユニット $c_i$ に対し、コンテキスト全体 $C$ と $C \setminus \{c_i\}$ の間での変化を測定する。具体的には、以下の4つの特徴量を算出する：<br>1. $\text{mean}(\Delta \log p(s|C))$：文脈全体への依存度を示す対数尤度差の平均。<br>2. $\max(\Delta \log p(s|C))$：最も寄与の大きい単一ユニットによる対数尤度差の最大値。<br>3. $\text{mean}(\text{JSD}(p(\cdot|C), p(\cdot|C \setminus \{c_i\})))$：分布変化の平均的なJSD。<br>4. $\max(\text{JSD}(p(\cdot|C), p(\cdot|C \setminus \{c_i\})))$：分布変化の最大JSD。<br>ここで、JSDは $\text{JSD}(P \| Q) = \frac{1}{2} \text{D}_{\text{KL}}(P \| M) + \frac{1}{2} \text{D}_{\text{KL}}(Q \| M)$ （$M = \frac{1}{2}(P+Q)$）として計算される。これらの特徴量を入力とし、閾値ベースの `GASP-threshold` または LightGBM を用いた `GASP-trained` によりハルシネーション・スコアを算出する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>RAGTruth、TofuEval (MeetingBank)、RAGBenchの3つのベンチマークを用いて評価を行った。評価モデルには Qwen2.5 (0.5B, 1.5B) および SmolLM2-1.7B を使用し、フォワードパスのみでスコアリングを実施した。比較対象は Perplexity、回答長、NLI (DeBERTa-v3)、Self-consistency である。スパンレベルの評価では、同一回答内のスパンが訓練とテストに混在するのを防ぐ「leakage-clean constraint」を適用した。結果として、Response-level では AUC $0.7 \sim 0.8$ 台、Span-level では AUC $0.8 \sim 0.9$ 台を達成し、NLI検証器に匹敵する性能を示した。ただし、RAGBenchのような知識集約的な短文QAタスクでは、モデルのパラメータ知識が優位となり、AUC $\approx 0.5$ と限定的な結果となった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>GASPは、外部の検証器を必要とせず、計算コストを抑えながら根拠の特定（attribution）が可能な点で優れている。理論的には、平均収縮仮定の下で、条件付き生成アトラクタの移動がJSDによって抑えられることが示されている。限界として、トピックが類似しているために感度が低くなる「根拠のない追加（baseless addition）」や、証拠が複数のチャンクに分散している場合の性能低下が挙げられる。また、本手法は「世界の真実」ではなく「検索された根拠との整合性」を判定するものであるため、ソース自体が誤っている場合には機能しない。したがって、完全な自動化よりも、人間によるレビューの優先順位付けを行うための補助的なガードレールとしての運用が適している。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>1  Introduction</h3><p>RAG（Retrieval-Augmented Generation）において、生成された文が検索された根拠に基づいているかを判定する手法として、GASP（Grounding-Aware Sensitivity by Perturbation）を提案する。従来の検出器は回答全体に対する単一のスコアしか返せないという粒度の問題や、Perplexityのような生成文の内部統計量のみに依存するため、根拠との関係性を捉えられないという信号の問題を抱えている。これに対しGASPは、文の尤度（likelihood）が検索コンテキストの摂動に対してどの程度変化するかという「根拠への感度（grounding sensitivity）」を測定することで、文単位のハルシネーション検出を実現する。理論的背景として、デコーディングをRNIFS（Random Non-autonomous Invariant Flow System）と見なし、根拠の摂動に対する不変測度の応答として感度を解釈することで、表面的なテキスト統計量ではなく測度論的な距離に基づく適切な検出を可能にしている。本手法は、トークン尤度を返せる確率的スコアラーさえあれば、回答の再生成なしに安価かつ自己完結的に動作し、さらに各文をサポートする根拠となるコンテキストを特定する帰属（attribution）メカニズムも備えている。評価では、RAGTruth、TofuEval、RAGBenchの3つのベンチマークを用い、Perplexityや文脈全体の含意関係（entailment）よりも優れた性能を示すこと、およびデータ漏洩を防ぐleakage-cleanなプロトコル下での有効性を検証している。</p></section>
+<section class="secsum"><h3>2  Related Work</h3><p>既存のハルシネーション検出手法は、大きく4つの系統に分類される。第一に、トークン確率やセマンティック・エントロピー等のモデル内部信号を用いる手法（Intrinsic/Uncertainty-based）があるが、これらは流暢さや自信が必ずしも根拠（grounding）を反映しないため、根拠との直接的な関係を評価できない。第二に、SelfCheckGPTのように複数回のサンプリングによる不一致を見る手法（Sampling-consistency）は、モデルの内部的な不確実性は捉えるが、根拠の摂動ではなく出力の再サンプリングに基づいているため、根拠への依存性を直接テストできていない。第三に、NLIモデル等を用いた含意関係の検証（Entailment/Fact verification）は根拠を直接対象とするが、外部検証モデルのドメイン依存性や、長文コンテキストにおける脆弱性、および計算コストの増大という課題がある。第四に、コンテキストの除去による影響を見る手法（Context attribution/Ablation）は、出力が特定のソースに依存しているという因果的な証拠を与えるが、従来は「どのソースが寄与したか」という帰属（attribution）に主眼が置かれており、特定の文が根拠に基づいているかを判定する「検出（detection）」としての定式化が不十分であった。本研究はこれらに対し、コンテキストの摂動を検出信号として用い、コンテキスト条件付き不変測度（context-conditioned invariant measure）の安定性の変化として、追加の検証モデルや再サンプリングを必要とせずに、スパン単位で根拠への依存性を定量化する手法を提案している。</p></section>
+<section class="secsum"><h3>3  Preliminaries</h3><p>RAGにおけるハルシネーションは、生成された回答 $a$ が検索された文脈 $c$ によって裏付けられていない状態（groundingの欠如）と定義され、本研究では根拠のない情報の追加（baseless information）と、文脈に矛盾する記述（evident conflict）の2種を区別して扱う。従来の指標であるパープレキシティは、文脈 $c$ に基づく条件付き確率 $P(a|c)$ の平均的な驚き（surprisal）の指数として定義されるが、文脈の事前知識と根拠の区別ができないため、流暢な誤情報の検出には限界がある。本手法は、ランダムな非線形写像の集合（RNIFS）の理論に基づき、文脈の一部を削除する摂動を加えた際の不変測度の安定性を利用することで、特定の文脈に依存する出力部分を局所的に特定する。予測分布の比較には、対称的で有界な Jensen-Shannon Divergence (JSD) を用い、$\text{JSD}(P \| Q) = \frac{1}{2} \text{D}_{\text{KL}}(P \| M) + \frac{1}{2} \text{D}_{\text{KL}}(Q \| M)$ （ここで $M = \frac{1}{2}(P+Q)$）を用いて、文脈の変化に伴う分布の移動量を測定する。最終的な判定には、抽出された特徴量を LightGBM による勾配ブースティング決定木を用いてハルシネーション・スコアへと変換する。評価指標には AUC と ROC 曲線を用い、データリークを防ぐために回答単位で分割を行うグループ化された評価プロトコルを採用している。</p></section>
+<section class="secsum"><h3>4  Problem Formulation</h3><p>本セクションでは、RAGにおけるハルシネーション検出問題を、クエリ $q$、検索されたコンテキスト $c$、生成された回答 $a$、および人間によるスパンレベルの注釈からなるトリプルとして定式化している。コンテキストは単位 $u$ に分割され、回答は文字オフセットを持つ文スパンに分割され、各スパンにはハルシネーションの有無を示すバイナリラベル $y_s \in \{0, 1\}$ が割り当てられる。検出器 $D$ は、インスタンスを実数に写像するスコアリング関数であり、回答レベルの検出器 $D_{resp}$ とスパンレベルの検出器 $D_{span}$ が定義される。手法の根幹となるグラウンディング感度（grounding-sensitivity）は、証拠への依存度が高いほど大きな値を取るため、ハルシネーションの疑いを示すスコアを定義する際には、単調反転（monotone inversion）を施して「高いスコアほどグラウンディングが低い」状態にする。評価指標には AUC が用いられ、スパンレベルの推定においては、同一回答内のスパン間の依存性を考慮し、分割の際に応答内の全スパンを同じ側に保持する「リーク防止制約（leakage-clean constraint）」を採用している。最終的な目的は、ハルシネーションを含むインスタンスをグラウンディングされたものより上位にランク付けすることに加え、フラグが立てられたスパンに対して、どのソースに依存しているか、あるいはどのソースの欠如が影響したかを示す説明性を実現することである。</p></section>
+<section class="secsum"><h3>5  Method</h3><p>本手法は、Retrieval-Augmented Generation (RAG) におけるハルシネーション検出のため、文脈の摂動に対する生成分布の感度を測定するGASP (Grounding-Aware Sensitivity by Perturbation) を提案している。生成プロセスを、文脈に依存する非線形確率的再帰的無限分割（RNIFS）として定式化し、文脈の編集（特定のチャンクの削除）が不変測度（アトラクタ）の移動を制御するという性質を利用する。具体的には、回答スパン $s$ と文脈ユニット $c_i$ に対し、文脈全体 $C$ と $c_i$ を除いた $C \setminus \{c_i\}$ の間での、トークン対数尤度の差および Jensen-Shannon Divergence (JSD) を用いた4つの特徴量を算出する。特徴量は、文脈全体への依存度を示す $\text{mean}(\Delta \log p(s|C))$ および $\text{mean}(\text{JSD}(p(\cdot|C), p(\cdot|C \setminus \{c_i\})))$ と、最も寄与の大きい単一ユニットを特定する $\max(\Delta \log p(s|C))$ および $\max(\text{JSD}(p(\cdot|C), p(\cdot|C \setminus \{c_i\})))$ で構成される。検出器として、ラベルなしで動作する閾値ベースの `GASP-threshold` や、勾配ブースティング決定木を用いた `GASP-trained` が提供され、感度が高い（文脈削除による尤度低下や分布変化が大きい）ものを根拠あり、低いものをハルシネーションとして判定する。本手法は、尤度の低下量から根拠となる文脈ユニットを直接特定できるため、検出結果に対するメカニズムに整合した説明（根拠の提示）が可能である。</p></section>
+<section class="secsum"><h3>6  Experimental Setup</h3><p>本実験では、RAGにおけるハルシネーション検出手法「GASP」を評価するため、3つのベンチマーク（RAGTruth, TofuEval, RAGBench）を使用する。RAGTruthは要約およびData-to-Textタスクを対象とした主要なベンチマークであり、人間によるスパンレベルのハルシネーション注釈とタイプラベルを含む。TofuEvalはMeetingBankデータセットを用い、ドメインの汎用性を検証し、RAGBenchは短文回答タスクを通じてタスクタイプの汎用性を検証する。評価モデルには、モデルサイズと系統の頑健性を検証するため、Qwen2.5-0.5B-Instruct、Qwen2.5-1.5B-Instruct、およびSmolLM2-1.7B-Instructの3種を使用し、生成を伴わないフォワードパスのみでスコアリングを行う。比較対象のベースラインとして、Perplexity（$P(x)$）、回答長、NLI（DeBERTa-v3）を用いた含意検証、およびSelfCheckGPTスタイルの自己整合性（Self-consistency）を用いる。評価指標には5分割交差検証によるAUCを用い、スパンレベルでは回答ごとに層化されたグループ化交差検証を適用することで、同一回答の文が訓練とテストに混在することを防いでいる。</p></section>
+<section class="secsum"><h3>7  Results</h3><p>GASPは、RAGにおけるハルシネーション検出において、文脈の除去に対するスコアの変化（grounding sensitivity）を利用する手法であり、複数のモデル（Qwen2.5, SmolLM2）と複数のスコア指標を用いて評価されている。Response-levelの検出において、学習不要なGASP-thresholdはAUC $0.7$〜$0.8$台を達成し、学習済み分類器（GASP-trained）はさらに高い性能を示す一方、perplexityや長さのベースラインを大きく上回る。Span-levelの検出においても、GASP-thresholdはAUC $0.8$〜$0.9$台を記録し、chunk-level NLI verifier（AUC $\approx 0.9$）に匹敵する性能を示す。実験の結果、本手法はRAGTruthやTofuEvalのような要約やData-to-textタスクでは高い有効性を示すが、RAGBenchのような知識集約的な短文回答QAタスクでは、perplexityが主要な信号を担うため、grounding sensitivityの優位性は限定的（AUC $\approx 0.5$）となる。この限界は、モデルがパラメータ知識のみで回答可能な設定では、文脈の除去に対する感度が低くなることに起因しており、本手法は提供された文脈に依存して回答を構成する必要がある設定において最も適している。</p></section>
+<section class="secsum"><h3>8  Analysis and Diagnostics</h3><p>GASP（Grounding-Aware Sensitivity by Perturbation）の分析において、提案手法は文の根拠（grounding）の有無によって、文脈削除時の対数尤度低下量（grounding sensitivity）の分布が明確に異なることを示した。特徴量解析では、文脈全体を削除する「no-context」と、特定のチャンクを削除する「leave-one-out」の2つの視点が、それぞれ文脈への依存度と特定の根拠への局所的な依存度を捉えており、これらを組み合わせることで高い検出性能を実現している。実験では、Qwen2.5-1.5Bをスコアラーとして使用し、学習不要な閾値ベースの検出器（threshold-only variant）が、学習済み勾配ブースティング分類器（AUC 0.85）と遜色ない性能（AUC 0.84）を達成し、汎化性能においても優れていることが示された。また、既存のチャンクレベルNLI検証器と比較して、GASPは追加の検証モデルを必要とせず、同一のスコアラーを用いて回答レベルへの拡張や根拠となるチャンクの帰属（attribution）が可能であるという利点を持つ。定性的解析では、根拠のある文は文脈削除により尤度が急落する「文脈誘起の引き込み（attractor）」を示すのに対し、ハルシネーションは文脈の有無によらず尤度が一定であるという、動的システム的な挙動の違いが確認された。</p></section>
+<section class="secsum"><h3>9  Discussion</h3><p>本研究で提案されるGASP（Grounding-Aware Sensitivity by Perturbation）は、検索拡張生成（RAG）におけるハルシネーションを、回答スパンが証拠文にどの程度依存しているかという反事実的な関係性から検出する手法である。理論面では、平均収縮仮定の下で、Proposition 1により条件付き生成アトラクタの移動が計算されたJSD（Jensen-Shannon Divergence）によって抑えられ、Propositions 2および3により特徴量の極限挙動とスケールが規定されることを示している。実験では、スパン注釈付きベンチマークにおいて、GASPはperplexity、文の長さ、および文脈全体の含意（entailment）よりも、ハルシネーションのスパンを根拠のあるスパンより高い精度でランク付けできることを示した。手法の利点は、外部の検証器を必要とせず、確率的なスコアラーを用いてスパンレベルで計算されるため、計算コストを抑えつつ根拠となる文の特定（attribution）も同時に行える点にある。限界として、トピックが類似しているために証拠への依存度が低く見積もられる「根拠のない追加（baseless addition）」や、証拠が複数のチャンクに分割されている場合に感度が低下する問題が挙げられる。また、絶対的な性能は中程度であり、本手法は自律的な安全フィルターというよりも、人間によるレビューの優先順位付けを行うための補助的なガードレールとしての運用が適している。</p></section>
+<section class="secsum"><h3>10  Threats to Validity</h3><p>本研究の構成概念妥当性は人間によるアノテーションに依存しており、アノテーションノイズが性能評価の上限を規定する可能性がある。内部妥当性については、回答内のスパンをプールして通常の交差検証を行うと、同一回答内の異なる文が訓練とテストに分割されることで性能が不当に膨張するため、回答ごとにフォールドをグループ化する「leakage-clean protocol」を採用してこれを回避している。外部妥当性に関しては、評価が RAGTruth および TofuEval という2つのベンチマーク（要約タスク）に限定されており、短文回答タスクである RAGBench では perplexity と同程度の性能に留まることから、提案手法の有効性は要約設定に制約される。また、使用したスコアラーは3つのモデルファミリーにわたるが、サンプルサイズが小さく、全ベンチマークが英語であることも限界として挙げられる。クラスバランス・サンプリングはランキング指標の測定には適しているが、自然な事前分布とは異なるため、算出された数値は実際のシステムにおけるハルシネーションの発生率を示すものではない。結論の妥当性は、3つの独立したスコアラーおよび応答・スパンの両レベルにおける一貫性、ならびにブートストラップ信頼区間と対応のある有意差検定によって支持されている。</p></section>
+<section class="secsum"><h3>11  Ethical Considerations</h3><p>本手法はハルシネーション検出器という安全ツールとしての側面を持つため、その不完全性が倫理的な重みを持つ。自動フィルタリングによって正当な記述が不当に抑制されるリスクや、検出器への過度な依存（過信）によって誤検知を見逃すリスクが指摘されており、人間によるレビューを代替するのではなく、あくまで支援的なガードレールとして運用すべきである。本手法はコンテンツ生成を行わず、公開ベンチマーク以外のデータ収集も行わないが、検出器が判定するのは「検索された根拠との整合性（grounding）」であり、「世界の真実（truth in the world）」ではない点に注意が必要である。具体的には、根拠となる文章自体が誤っている場合、その文章に忠実な記述はフラグを立てられないため、ユーザーはツールがソースとの一貫性を検証しているに過ぎないことを理解しなければならない。この限界を補完するため、決定と共に根拠となる一節（supporting passage）を提示することで、人間が「記述の接地性」と「ソースの信頼性」の両方を判断できる仕組みを提供している。</p></section>
+<section class="secsum"><h3>12  Conclusion</h3><p>本研究では、RAGにおけるハルシネーションをスパン単位で検出する手法「GASP」を提案しており、回答文の尤度が検索された根拠（evidence）にどの程度依存するかを示す「grounding sensitivity」によってスコアリングを行う。具体的には、文脈条件下でのデコーディングを文脈条件付きRNIFSとして定式化し、leave-one-context-outによる文脈摂動に対するアトラクタの感度を、対数尤度の低下量やJSDを用いて測定する。RAGTruthおよびTofuEval（MeetingBank）の2つのベンチマークを用いた評価では、grounding sensitivityはperplexity、文の長さ、文脈全体の含意関係（entailment）、およびself-consistencyのベースラインを上回り、適切に設定されたチャンク単位の含意検証器ともスパン単位で匹敵する性能を示した。一方で、RAGBenchのマルチドメイン短答QAを用いた調査では、grounding sensitivityがperplexityと同程度にとどまる境界が確認されており、これは回答が検索文脈からの構築ではなく、モデルのパラメータ知識からの想起に依存する設定において本手法の限界となることを示唆している。本手法は、ハルシネーションをテキストの属性ではなく「根拠への依存性の欠如」として再定義しており、追加コストなしで根拠となるパッセージを提示できる説明可能なガードレールを提供する。</p></section>
+<section class="secsum"><h3>13  Limitations and Future Work</h3><p>本手法の絶対的な AUC は、小規模モデルと限定的な特徴量群を用いる困難なハルシネーション検出タスクにおいて、標準的なベースラインを上回るものの、範囲は $0.6$ から $0.7$ 程度に留まっており、より強力な指示追従型スコアラーの導入による性能向上の余地がある。実験設定においては、単一のリーク防止プロトコル下で実行可能なベースラインとの比較に限定されており、ホワイトボックス型のメカニスティックな検出器や RAGTruth で学習された教師あり判定器との直接的な比較は、統一されたベンチマークの欠如により今後の課題となっている。手法の拡張として、複数のパッセージにまたがる主張を扱うための小規模サブセット除去やトップ数件の集約、および計算コストを削減するためのアテンションや勾配に基づく近似手法の検討が挙げられる。また、リトリーバーの境界に合わせた適応的チャンキングの導入が、検出と局在化の精度向上に寄与すると考えられる。理論面では、Proposition 1 で示された平均収縮仮定に基づく発散と不変測度の移動の定量的関係について、ネットワークの収縮定数と拡散定数を直接推定することで、定性的な説明を数値的な保証へと強化できる可能性がある。</p></section>
+<section class="secsum"><h3>Declarations</h3><p>本研究で使用された3つのベンチマーク（RAGTruth、TofuEvalのMeetingBank部分、およびRAGBench）はすべて公開されている。また、スコアリング、特徴量抽出、リーク対策済みの評価、およびすべての表や図を生成するスクリプトを含む、実装および評価パイプラインの全工程は、オープンソースコードとして GitHub (https://github.com/drbouke/GASP) で公開されている。資金提供や利益相反、倫理承認に関する特記事項はない。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-12
+  </footer>
+</div>
+</body>
+</html>

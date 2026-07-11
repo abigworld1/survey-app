@@ -69,6 +69,44 @@
       "url": "https://www.semanticscholar.org/paper/c000f4698b168f3ede4c86ddd01bddbe7ab99b33",
       "venue": ""
     },
+    "arxiv:2606.04231": {
+      "added": "2026-07-12",
+      "added_at": "2026-07-12T06:03:23.075590",
+      "arxiv_id": "2606.04231",
+      "authors": [
+        "Hanoz Bhathena",
+        "Parin Rajesh Jhaveri",
+        "Rohan Mittal",
+        "Prateek Singh",
+        "Aymen Kallala",
+        "Rachneet Kaur",
+        "Yiqiao Jin",
+        "Zhen Zeng",
+        "Adwait Ratnaparkhi",
+        "Denis Kochedykov"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-02",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/t-df43367e9cdb.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.04231",
+      "reading_value": 4,
+      "reading_value_reason": "文書構造（垂直・水平）に応じた動的なパース手法の提案が極めて実用的。既存のVision-centricな手法の弱点を的確に突き、大幅な精度向上と新指標の提案も含む。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "MM-BizRAG: Rethinking Multimodal Retrieval-Augmented Generation for General Purpose Enterprise Q&A",
+      "tldr": "複雑な構造を持つ企業文書に対応するため、文書の構造（垂直・水平）に応じてパース手法を切り替えるマルチモーダルRAGフレームワーク「MM-BizRAG」を提案する。既存のビジョン中心の手法が苦手とするレポート形式の文書において、レイアウト認識型パースとLLMによるアーティファクト変換を用いることで、ColPali等のベースラインに対し最大32ポイントの精度向上を達成した。また、評価指標として人間との相関が高く低コストな$FastRAGEval$を導入している。",
+      "url": "https://openalex.org/W7163720139",
+      "venue": "arXiv (Cornell University)"
+    },
     "arxiv:2606.12903": {
       "added": "2026-06-14",
       "added_at": "2026-06-14T00:00:00.000000",
@@ -1016,6 +1054,35 @@
       "title": "Candidate-Constrained Retrieval-Augmented Generation for LongEval-RAG: System Design and Empirical Analysis",
       "tldr": "LongEval-RAGにおける候補制約型RAG（Candidate-Constrained RAG）の設計と評価を行い、決定論的なルールベースのチャンキングと、生成直前の文レベルでのMiniLMによるリランキングを組み合わせた「rule-minilm」構成が、検索精度や情報の網羅性において最も優れたバランスを示すことを明らかにした。",
       "url": "http://arxiv.org/abs/2607.04008v1",
+      "venue": ""
+    },
+    "arxiv:2607.04223": {
+      "added": "2026-07-12",
+      "added_at": "2026-07-12T06:02:44.602854",
+      "arxiv_id": "2607.04223",
+      "authors": [
+        "Mohamed Aly Bouke"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-05",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.04223.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.04223v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGのハルシネーションを「根拠への感度」と再定義し、摂動を用いたスパン単位の検出を提案する点は新規性が高い。追加モデル不要で帰属特定も可能な実用的な手法である。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Detecting Hallucinations in Retrieval-Augmented Generation through Grounding-Aware Sensitivity by Perturbation (GASP)",
+      "tldr": "RAGにおけるハルシネーションを、生成文が検索された根拠（context）にどの程度依存しているかという「根拠への感度（grounding sensitivity）」を用いて、文単位（span-level）で検出する手法GASPを提案する。文脈の一部を削除する摂動を与えた際のトークン対数尤度の変化やJensen-Shannon Divergence (JSD) を特徴量として用い、追加の検証モデルなしで、根拠の特定（attribution）と検出を同時に実現する。",
+      "url": "http://arxiv.org/abs/2607.04223v1",
       "venue": ""
     },
     "arxiv:2607.04379": {
@@ -2008,6 +2075,74 @@
       "title": "The Study of Highway for Lifelong Multi-Agent Path Finding",
       "tldr": "Lifelong Multi-Agent Path Finding (MAPF) において、エージェントの移動方向を制限・誘導する「Highway（高速道路）」の概念を導入し、計算コストの削減とデッドロック・再ルーティングの抑制を両立する手法を提案している。",
       "url": "http://arxiv.org/abs/2304.04217v1",
+      "venue": ""
+    },
+    "arxiv:2308.11234": {
+      "added": "2026-07-12",
+      "added_at": "2026-07-12T06:01:36.423100",
+      "arxiv_id": "2308.11234",
+      "authors": [
+        "Zhe Chen",
+        "Daniel Harabor",
+        "Jiaoyang Li",
+        "Peter J. Stuckey"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2023-08-22",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2308.11234.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2308.11234v5",
+      "reading_value": 4,
+      "reading_value_reason": "交通工学のTAP概念をMAPFに導入する新規性が高く、数千〜1万規模の極めて大規模な設定でスループット向上を実証しており、実用上の価値が高い。",
+      "relevance": 8,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Traffic Flow Optimisation for Lifelong Multi-Agent Path Finding",
+      "tldr": "本研究は、大規模なMulti-Agent Path Finding (MAPF) における混雑問題を解決するため、交通工学のTraffic Assignment Problem (TAP) の概念を応用し、エージェントに自由流の最短経路ではなく、予想される混雑を回避する「ガイドパス」を提示する手法を提案している。この手法をPIBTやLaCAM*に統合することで、lifelong MAPFにおけるスループットの向上と、one-shot MAPFにおける解の質の改善を、大規模なエージェント数（数千〜10,000規模）において実現した。",
+      "url": "http://arxiv.org/abs/2308.11234v5",
+      "venue": ""
+    },
+    "arxiv:2403.13421": {
+      "added": "2026-07-12",
+      "added_at": "2026-07-12T06:01:03.059794",
+      "arxiv_id": "2403.13421",
+      "authors": [
+        "Yimin Tang",
+        "Zhenghong Yu",
+        "Yi Zheng",
+        "T. K. Satish Kumar",
+        "Jiaoyang Li",
+        "Sven Koenig"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-03-20",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2403.13421.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2403.13421v3",
+      "reading_value": 3,
+      "reading_value_reason": "キャッシュ概念をMAPFに導入する着想は新規性があるが、エージェント増による渋滞で性能が低下する限界も示されており、関連分野の研究者が手法の有効性を検討する価値がある。",
+      "relevance": 8,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Caching-Augmented Lifelong Multi-Agent Path Finding",
+      "tldr": "Lifelong Multi-Agent Path Finding (MAPF) において、コンピュータアーキテクチャのキャッシュ概念を導入した Caching-Augmented Lifelong MAPF (CAL-MAPF) を提案する。アイテムの一時保管場所としての「キャッシュグリッド」と、競合を防ぐ「ロッキングメカニズム」、およびエージェントの状態を管理する Task Assigner (TA) を組み合わせることで、タスク完了後の移動効率を向上させる。",
+      "url": "http://arxiv.org/abs/2403.13421v3",
       "venue": ""
     },
     "arxiv:2410.21415": {

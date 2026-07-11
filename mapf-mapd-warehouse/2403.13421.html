@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Caching-Augmented Lifelong Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Caching-Augmented Lifelong Multi-Agent Path Finding</h1>
+  <div class="meta">Yimin Tang, Zhenghong Yu, Yi Zheng, T. K. Satish Kumar, Jiaoyang Li, Sven Koenig<br>採択先: 未取得 ・ 2024-03-20 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2403.13421v3" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2403.13421v3" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2024-03-20</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">キャッシュ概念をMAPFに導入する着想は新規性があるが、エージェント増による渋滞で性能が低下する限界も示されており、関連分野の研究者が手法の有効性を検討する価値がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> Lifelong Multi-Agent Path Finding (MAPF) において、コンピュータアーキテクチャのキャッシュ概念を導入した Caching-Augmented Lifelong MAPF (CAL-MAPF) を提案する。アイテムの一時保管場所としての「キャッシュグリッド」と、競合を防ぐ「ロッキングメカニズム」、およびエージェントの状態を管理する Task Assigner (TA) を組み合わせることで、タスク完了後の移動効率を向上させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、エージェントが目標達成後に即座に次の目標を割り当てられる Lifelong MAPF（または MAPD）における移動時間の短縮を目的としている。従来の倉庫レイアウト最適化は静的な設計に依存しており、時間とともに変化する入力分布への対応が困難であった。提案手法は、アイテムの保管・置換を可能にする新しいマップグリッド型を導入し、動的なタスク割り当てと状態制御を実現する。評価では、キャッシュなしの Lifelong MAPF（LaCAMをソルバーとして使用）をベースラインとしている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>コンピュータアーキテクチャのキャッシュ設計に着想を得た、動的なキャッシュ配送メカニズム CAL-MAPF を提案した。具体的には、アイテムの一時保管を行う「cache」グリッド、計画の安定性を高めるための Read Lock および Write Lock からなるロッキング機構、およびエージェントのステータス（Status 0–4）を管理する Task Assigner (TA) を導入している。実験を通じて、性能向上に不可欠な要因として「適切な入力タスク分布」「高いキャッシュヒット率」「スムーズなトラフィック」の3点を特定した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>エージェントの集合 $\mathcal{A}$ が無向グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 上で、タスクキュー $\mathcal{Q}$ に基づき移動する問題を扱う。マップは棚 (shelves)、通路 (aisles)、荷降ろしポート (unloading ports) に加え、新たにキャッシュグリッドで構成される。TA は状態遷移マシンを用いて、エージェントがアイテムを運搬する際の目標地点とタスクを管理する。キャッシュへのアクセスにおける競合を防ぐため、複数エージェントによる取得を許容する Read Lock と、アイテム挿入時の排他的な Write Lock を用いた共有ロック機構を実装している。キャッシュ置換ポリシーには LRU、FIFO、RANDOM の3種類を検討している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>27x71 の倉庫マップ（1600個の棚、最大80個のキャッシュ、4つのポート）を用い、キャッシュ数 $\{16, 32, 48, 64, 80\}$ およびエージェント数を変化させて検証した。タスク分布には MK分布、7:2:1分布 (Zhang)、および Real Data Distribution (RDD) の3種類を採用した。実験の結果、キャッシュ数の増加に伴いキャッシュヒット率と makespan が改善し、多くの設定でベースラインを上回る性能を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>CAL-MAPF は特定のタスク分布やマップ構成において有効であるが、エージェント数が増加すると性能が低下する限界がある。特にエージェント数が256に達すると、交通渋滞の影響でキャッシュのロック機構が妨げられ、ヒット率の低下と makespan の悪化を招くことが確認された。したがって、本手法の優位性を維持するためには、高いキャッシュヒット率を維持できるようなスムーズなトラフィックの確保が極めて重要である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Caching-Augmented Lifelong Multi-Agent Path Finding</h3><p>本研究では、エージェントが目標達成後に即座に次の目標を割り当てられるLifelong Multi-Agent Path Finding (MAPF) の性能を向上させるため、Caching-Augmented Lifelong MAPF (CAL-MAPF) という新しいメカニズムを提案している。CAL-MAPFは、アイテムの一時的な保管と交換を行うための「cache」と呼ばれる新しいマップグリッドと、計画解の安定性を高めるためのロッキングメカニズムを導入しており、エージェントへの目標割り当てと状態制御を行うTask Assigner (TA) を備えている。実験では、様々なキャッシュ置換ポリシーと入力タスク分布を用いて評価が行われ、性能に大きく影響する要因として、適切な入力タスク分布、高いキャッシュヒット率、およびスムーズなトラフィックの3点が特定された。結果として、CAL-MAPFは特定のタスク分布、マップ、およびエージェント構成において、性能を向上させる可能性が示されている。</p></section>
+<section class="secsum"><h3>I INTRODUCTION</h3><p>本研究は、エージェントが目標地点に到達するたびに新たな目標が割り当てられる Lifelong MAPF（または MAPD）において、コンピュータアーキテクチャのキャッシュ設計に着想を得た動的なキャッシュ配送メカニズムである CAL-MAPF を提案している。従来の倉庫レイアウト最適化は静的なストレージ設計に依存しており、時間とともに変化する入力分布への対応が困難であったが、提案手法は新しいマップグリッド型を導入することで、アイテムの一時的な保管と置換を可能にしている。CAL-MAPF は、計画の安定性を高めるためのロック機構、エージェントのステータス管理と目標割り当てを行う Task Assigner (TA) で構成され、既存の Lifelong MAPF アルゴリズムや倉庫戦略に柔軟に適応できる。実験を通じて、性能に大きく影響する要因として「入力タスクの分布」、「キャッシュヒット率」、および「マップ設計」の3点が特定されており、特定のタスク分布やマップ・エージェント構成において性能向上の可能性が示されている。</p></section>
+<section class="secsum"><h3>II Problem Definition</h3><p>Lifelong Multi-Agent Path Finding (Lifelong MAPF) は、エージェントの集合 $\mathcal{A}$ が無向グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 上で、タスクキュー $\mathcal{Q}$ に基づき継続的に移動を行う問題である。各タスク $q \in \mathcal{Q}$ は、特定のアイテムタイプ $t$ を目的地の位置 $v_{dest}$ へ運搬することを要求し、アイテムは到達可能な頂点 $v_{item}$ に配置される。エージェントは、タスクアサイナー (TA) によって割り当てられた目標地点へ向かって、隣接する頂点への移動または待機（自己ループ $e \in \mathcal{E}$）を単位時間で行い、目標到達後は即座に次のタスクが割り当てられる。マップは、アイテムを格納する棚 (shelves)、通路 (aisles)、およびアイテムを届ける荷降ろしポート (unloading ports) の3種類のグリッドで構成される。実験設定では、キャッシュグリッドの数を 80 から 16 まで変化させ、キャッシュヒット率への影響を検証する。また、エージェントは必ず荷降ろしポート $v_{port} \in \mathcal{V}_{port}$ を経由して目的地へ向かう必要があり、ポート間の直接遷移は禁止されている。</p></section>
+<section class="secsum"><h3>III Related work</h3><p>MAPFは、複数のエージェントに対して衝突のない経路を求め、与えられたコスト関数を最小化するNP困難な問題であり、各エージェントを独立に計画するDecoupled戦略、全エージェントを同時に計画するCoupled戦略、および衝突時のみ統合を行う動的Coupled戦略に分類される。最適解を求める手法としてConflict-Based Search (CBS) やその劣最適解版であるECBS, EECBSがあり、一方でPrioritized Planning (PP) やPBS, PIBTなどはスケーラビリティと効率性に優れている。Lifelong MAPFは、エージェントが目標に到達するたびに新たな目標が割り当てられる継続的な問題であり、全体解法、一定時間ごとの再計画、および目標到達時の再計画という手法が存在し、特にMAPF-LNSやLaCAMが主要な手法として挙げられる。また、計算機科学におけるキャッシュは、LRUやFIFOなどのポリシーを用いて頻繁に使用されるデータを一時保存し、アクセス速度を向上させる役割を担う。倉庫内の自動保管回収システム（AS/RS）における保管戦略には、空間利用率の高いランダム保管、移動距離を最小化する最寄保管、需要頻度に基づく回転率ベースの保管などがあり、本研究ではこれらとキャッシュの概念を組み合わせた運用状態（Status 0〜4）を定義している。</p></section>
+<section class="secsum"><h3>IV Method</h3><p>本セクションでは、Lifelong Multi-Agent Path Finding (MAPF) において、エージェントの移動時間を短縮するためのキャッシュ機構を導入した「Caching-Augmented Lifelong MAPF (CAL-MAPF)」フレームワークを提案している。この手法では、アイテムの一時保管場所として「キャッシュグリッド」を導入し、Task Assigner (TA) が状態遷移マシンを用いてエージェントの目標地点とタスクを管理する。キャッシュへのアクセスにおける競合（race condition）を防ぐため、共有ロックである Read Lock（複数エージェントによるアイテム取得が可能）と、排他的ロックである Write Lock（アイテムの挿入時に使用）からなるロック機構を導入している。アルゴリズムの詳細は Algorithm 1–3 に示されており、TA はエージェントの状態（Status 0–4）に基づき、キャッシュ内へのアイテムの有無やロックの状態を確認しながら、棚、キャッシュ、または荷降ろしポートへの移動を指示する。実験では、キャッシュ置換ポリシーとして LRU、FIFO、RANDOM を比較しており、キャッシュなしの Lifelong MAPF (NONE) と比較して Makespan の改善と Cache Hit Rate の向上が示されている。</p></section>
+<section class="secsum"><h3>V Experimental Results</h3><p>本実験では、提案手法であるCAL-MAPFの性能を、キャッシュを用いないLifelong MAPF（LaCAMをソルバーとして使用）をベースラインとして評価している。実験環境は、27x71の倉庫マップ（1600個の棚グリッド、最大80個のキャッシュグリッド、4つの荷降ろしポート）を用い、マルチポートおよびシングルポートの2つのシナリオで、キャッシュ数 $\{16, 32, 48, 64, 80\}$ およびエージェント数を変化させて検証した。タスク分布には、MK分布、7:2:1分布（Zhang）、およびKaggleのデータに基づくReal Data Distribution (RDD) の3種類を採用し、キャッシュ置換ポリシーとしてLRU、FIFO、RANDOMを比較している。結果として、キャッシュ数の増加に伴いキャッシュヒット率とmakespan（全タスク完了時間）が改善し、多くの設定でベースラインを上回ったが、エージェント数が増加すると交通渋滞の影響でヒット率が低下し、CAL-MAPFの優位性が減少する傾向が確認された。特に、エージェント数が256に達すると、渋滞によりキャッシュのロック機構が妨げられ、ヒット率の低下とmakespanの悪化を招くという限界が示されている。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究では、Lifelong MAPFの性能向上を目的とした新しいメカニズムであるCaching-Augmented Lifelong MAPF (CAL-MAPF) を提案している。具体的には、一時的なアイテムの保管と置換を行うための新しいマップグリッド型である「cache」を導入し、さらに計画解の安定性を高めるためのキャッシュ・ロッキング機構を考案した。様々なキャッシュ置換ポリシーと入力タスク分布を用いた評価実験を通じて、CAL-MAPFの性能に大きく影響を与える要因として、適切な入力タスク分布、高いキャッシュヒット率、およびスムーズなトラフィックの3点が特定された。実験の結果、CAL-MAPFは特定のタスク分布やマップおよびエージェントの構成において、性能を向上させる可能性が示された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-12
+  </footer>
+</div>
+</body>
+</html>
