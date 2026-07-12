@@ -3469,8 +3469,8 @@
         "Stefanos Nikolaidis",
         "Jiaoyang Li"
       ],
-      "basis": "fulltext(arxiv)",
-      "citations": 0,
+      "basis": "fulltext(ar5iv)",
+      "citations": 9,
       "date": "2024-02-02",
       "doi": "10.24963/ijcai.2024/35",
       "engine": "llm:gemma-4-26b",
@@ -3481,16 +3481,17 @@
         "Lifelong Multi-Agent Path Finding"
       ],
       "pdf_url": "https://arxiv.org/pdf/2402.01446v2",
-      "reading_value": 1,
-      "reading_value_reason": "メタデータはMAPFに関する論文だが、要約内容はIJCAI-24の投稿規定（書式ガイドライン）であり、研究内容に関する情報が一切含まれていないため。",
+      "reading_value": 4,
+      "reading_value_reason": "Lifelong MAPFのスループット向上に向け、ガイダンスグラフの最適化を定式化した新規性が高い。PIUによる大規模マップへの転移可能性も実証されており、実用的な価値も大きい。",
+      "regenerated": "2026-07-12",
       "relevance": 9,
       "selection": "recent",
       "selection_label": "新着論文",
       "source_quality": "fulltext",
       "title": "Guidance Graph Optimization for Lifelong Multi-Agent Path Finding",
-      "tldr": "本資料は、IJCAI-24会議における論文投稿および出版のための厳格な書式、レイアウト、および記述形式に関するガイドラインをまとめたものである。",
+      "tldr": "Lifelong Multi-Agent Path Finding (MAPF) において、エッジの重みを最適化する有向ガイダンスグラフを用いてスループットを向上させる Guidance Graph Optimization (GGO) を提案。ブラックボックス最適化の CMA-ES によるマップ固有の最適化と、交通情報から重みを更新するモデルを学習する Parameterized Iterative Update (PIU) を提示し、大規模マップへの転移可能性と既存アルゴリズムの性能向上を実証した。",
       "url": "http://arxiv.org/abs/2402.01446v2",
-      "venue": ""
+      "venue": "Proceedings of the AAAI Conference on Artificial Intelligence"
     }
   },
   "reading": {
