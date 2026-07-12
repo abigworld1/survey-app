@@ -51,7 +51,7 @@ def _strip_references(text):
     return text
 
 
-def fetch_arxiv_fulltext(arxiv_id):
+def fetch_arxiv_fulltext(arxiv_id, title=""):
     """arXiv HTML から本文テキストを返す。取れなければ ''。"""
     if not arxiv_id:
         return ""
@@ -69,6 +69,8 @@ def fetch_arxiv_fulltext(arxiv_id):
     text = " ".join(parser.parts)
     text = re.sub(r"[ \t]{2,}", " ", text).strip()
     text = _strip_references(text)
+    if _looks_like_formatting_template(text) or not _text_matches_title(text, title):
+        return ""
     return text[:MAX_CHARS].strip()
 
 
@@ -128,7 +130,7 @@ def fetch_oa_pdf_text(paper):
 def fetch_fulltext(paper):
     """本文取得のオーケストレータ（フラット版）。(text, basis) を返す。"""
     if paper.arxiv_id:
-        t = fetch_arxiv_fulltext(paper.arxiv_id)
+        t = fetch_arxiv_fulltext(paper.arxiv_id, paper.title)
         if t:
             return t, "fulltext(arxiv)"
     t = fetch_oa_pdf_text(paper)
@@ -162,6 +164,46 @@ _ARTICLE_HEADINGS = (
 PER_SECTION_MAX = int(os.environ.get("SECTION_MAX_CHARS", "14000"))
 MAX_SECTIONS = int(os.environ.get("MAX_SECTIONS", "14"))
 MIN_SECTION_CHARS = 150
+
+# arXiv HTML 変換が、論文ではなく同梱された投稿テンプレートを本文として
+# 選ぶことがある。タイトルとの整合性とテンプレート固有語で誤取得を弾く。
+_TITLE_STOPWORDS = {
+    "about", "after", "based", "from", "into", "multi", "agent", "paper",
+    "study", "through", "toward", "towards", "using", "with",
+}
+_FORMATTING_TEMPLATE_MARKERS = (
+    "formatting instructions", "style and format", "paper size", "camera-ready",
+    "latex and word style files", "booktabs", "illustrations", "proofs",
+)
+
+
+def _title_terms(title):
+    words = re.findall(r"[a-z0-9]+", unicodedata.normalize("NFKC", title or "").lower())
+    return {w for w in words if len(w) >= 4 and w not in _TITLE_STOPWORDS}
+
+
+def _text_matches_title(text, title):
+    """本文にタイトル由来の識別語が十分含まれるかを軽量に確認する。"""
+    terms = _title_terms(title)
+    if not terms:
+        return True
+    haystack = unicodedata.normalize("NFKC", text or "").lower()
+    hits = sum(1 for term in terms if re.search(rf"\b{re.escape(term)}\b", haystack))
+    required = 2 if len(terms) >= 3 else 1
+    return hits >= required
+
+
+def _looks_like_formatting_template(text):
+    normalized = re.sub(r"\s+", " ", unicodedata.normalize("NFKC", text or "").lower())
+    hits = sum(1 for marker in _FORMATTING_TEMPLATE_MARKERS if marker in normalized)
+    return "formatting instructions" in normalized and hits >= 3
+
+
+def _sections_are_plausible(sections, title=""):
+    text = " ".join(f"{heading} {body}" for heading, body in (sections or []))
+    if _looks_like_formatting_template(text):
+        return False
+    return _text_matches_title(text, title)
 
 
 class _SectionParser(HTMLParser):
@@ -254,7 +296,7 @@ def _looks_too_shallow_for_fulltext(sections):
     return titleish > 0 and len(sections) <= 3
 
 
-def fetch_arxiv_sections(arxiv_id):
+def fetch_arxiv_sections(arxiv_id, title=""):
     if not arxiv_id:
         return []
     try:
@@ -270,12 +312,12 @@ def fetch_arxiv_sections(arxiv_id):
     if _looks_like_arxiv_ui_page(sections):
         return []
     cleaned = _clean_sections(sections)
-    if _looks_too_shallow_for_fulltext(cleaned):
+    if _looks_too_shallow_for_fulltext(cleaned) or not _sections_are_plausible(cleaned, title):
         return []
     return cleaned
 
 
-def fetch_ar5iv_sections(arxiv_id):
+def fetch_ar5iv_sections(arxiv_id, title=""):
     if not arxiv_id:
         return []
     try:
@@ -291,12 +333,12 @@ def fetch_ar5iv_sections(arxiv_id):
     if _looks_like_arxiv_ui_page(sections):
         return []
     cleaned = _clean_sections(sections)
-    if _looks_too_shallow_for_fulltext(cleaned):
+    if _looks_too_shallow_for_fulltext(cleaned) or not _sections_are_plausible(cleaned, title):
         return []
     return cleaned
 
 
-def fetch_ar5iv_fulltext(arxiv_id):
+def fetch_ar5iv_fulltext(arxiv_id, title=""):
     if not arxiv_id:
         return ""
     try:
@@ -310,6 +352,8 @@ def fetch_ar5iv_fulltext(arxiv_id):
         return ""
     text = " ".join(parser.parts)
     text = re.sub(r"[ \t]{2,}", " ", text).strip()
+    if _looks_like_formatting_template(text) or not _text_matches_title(text, title):
+        return ""
     return _strip_references(text)[:MAX_CHARS].strip()
 
 
@@ -508,10 +552,10 @@ def _sections_from_pdf(data, title=""):
 def fetch_sections(paper):
     """(sections, basis) を返す。sections=[(heading, text)]。取れなければ ([], 'abstract')。"""
     if paper.arxiv_id:
-        secs = fetch_arxiv_sections(paper.arxiv_id)
+        secs = fetch_arxiv_sections(paper.arxiv_id, paper.title)
         if secs:
             return secs, "fulltext(arxiv)"
-        secs = fetch_ar5iv_sections(paper.arxiv_id)
+        secs = fetch_ar5iv_sections(paper.arxiv_id, paper.title)
         if secs:
             return secs, "fulltext(ar5iv)"
         # 古い arXiv は HTML 版が無い → PDF をフォントベースで分割
@@ -519,7 +563,7 @@ def fetch_sections(paper):
             data = _download_pdf(url, min_interval=3.0)
             if data:
                 secs = _sections_from_pdf(data, paper.title)
-                if secs:
+                if secs and _sections_are_plausible(secs, paper.title):
                     return secs, "fulltext(arxiv-pdf)"
     # 非arXiv の OA PDF
     url = paper.pdf_url or _unpaywall_pdf_url(paper.doi)
@@ -527,6 +571,6 @@ def fetch_sections(paper):
         data = _download_pdf(url)
         if data:
             secs = _sections_from_pdf(data, paper.title)
-            if secs:
+            if secs and _sections_are_plausible(secs, paper.title):
                 return secs, "fulltext(oa-pdf)"
     return [], "abstract"

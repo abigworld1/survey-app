@@ -269,14 +269,14 @@ def _fallback_fulltext_sections(paper):
     if not paper:
         return [], "abstract"
     if paper.arxiv_id:
-        text = fulltext.fetch_arxiv_fulltext(paper.arxiv_id)
+        text = fulltext.fetch_arxiv_fulltext(paper.arxiv_id, paper.title)
         sections = fulltext._sections_from_text(text)
         if sections:
             return sections, "fulltext(arxiv-text)"
-        sections = fulltext.fetch_ar5iv_sections(paper.arxiv_id)
+        sections = fulltext.fetch_ar5iv_sections(paper.arxiv_id, paper.title)
         if sections:
             return sections, "fulltext(ar5iv)"
-        text = fulltext.fetch_ar5iv_fulltext(paper.arxiv_id)
+        text = fulltext.fetch_ar5iv_fulltext(paper.arxiv_id, paper.title)
         sections = fulltext._sections_from_text(text)
         if sections:
             return sections, "fulltext(ar5iv-text)"
@@ -285,7 +285,7 @@ def _fallback_fulltext_sections(paper):
             if not data:
                 continue
             sections = _sections_from_pdf_bytes(data, paper.title)
-            if sections:
+            if sections and fulltext._sections_are_plausible(sections, paper.title):
                 return sections, "fulltext(arxiv-pdf)"
 
     urls = []
