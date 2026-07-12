@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lifelong Multi-Agent Path Finding in Large-Scale Warehouses | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Lifelong Multi-Agent Path Finding in Large-Scale Warehouses</h1>
+  <div class="meta">Jiaoyang Li, Andrew Tinka, Scott Kiesel, Joseph W. Durham, T. K. Satish Kumar, Sven Koenig<br>採択先: 未取得 ・ 2020-05-15 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2005.07371v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2005.07371v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2020-05-15</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">Lifelong MAPFにおけるスケーラビリティとスループットの課題に対し、RHCRという実用的なフレームワークを提案しており、大規模環境での検証も具体的で価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、エージェントに次々と新しい目的地が割り当てられるLifelong Multi-Agent Path Finding (MAPF) に対し、問題を一連の Windowed MAPF インスタンスへと分解して解く Rolling-Horizon Collision Resolution (RHCR) フレームワークを提案する。RHCR は、限定された時間ホライゾン $H$ 内でのみ衝突を解決することで、計算コストを抑えつつ、最大 1,000 エージェント規模の倉庫環境において既存手法を大幅に上回る高いスループットとスケーラビリティを実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本論文は、大規模な自動倉庫のような環境で発生する Lifelong MAPF 問題を対象としている。Lifelong MAPF では、エージェントが目的地に到達した後、タスクアサイナによって新たな目標が動的に割り当てられ続ける。従来の MAPF は全エージェントの到着時刻の総和である flowtime や最大到着時刻である makespan の最適化を目指すが、これは NP-hard である。既存の Lifelong MAPF 手法には、全ゴールを事前に知るオフライン手法や、ゴール到達後に「hold」動作や「dummy paths」を生成して完全性を保証しようとする手法があるが、これらはスループットの低下やスケーラビリティの欠如といった課題を抱えている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、既存の多様な MAPF ソルバー（CA*, PBS, ECBS, CBS）を、限定された時間ホライゾン内で衝突を解決する Windowed MAPF 形式へと拡張し、Lifelong MAPF に適用可能にする RHCR フレームワークを提案した点である。RHCR は、タスク割り当てと経路計画を分離した階層的な構造を持ち、ドメインに依存せず適用可能である。実験を通じて、RHCR がシミュレーションされた倉庫環境において、マップ上の空きセルの 38.9% に相当する最大 1,000 エージェントという大規模な設定でも高品質な解を生成できることを示した。また、時間ホライゾン $H$ を適切に設定することで、スループットの低下を最小限に抑えつつ、実行時間を大幅に削減できることを実証した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>RHCR は、時間ホライゾン $H$ と再計画周期 $P$ の 2 つのパラメータを用いる。各エージェント $i$ に対し、現在の位置から目標地点シーケンス $\mathcal{G}_i$ をすべて訪問するまでの下限時間 $\sum_{j=1}^{|\mathcal{G}_i|} \text{dist}(g_{j-1}, g_j)$ を計算し、アイドル状態を防ぐ。低レベル探索には、ノードのラベルに訪問済み目標地点の数を保持する拡張 Multi-Label A* を用い、時空間制約下でシーケンス全体を最適化する。また、デッドロック回避のために、エージェントの進捗を評価するポテンシャル関数 $\Phi$ を導入し、進捗が不十分な場合に $H$ を段階的に増加させるメカニズムを備えている。これにより、ホライゾンが小さすぎることによるデッドロックのリスクと、大きすぎることによる計算コスト増大のトレードオフを管理する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>C++ で実装された RHCR を、CBS, ECBS, CA*, PBS をベースとした 4 種類の Windowed MAPF ソルバーを用いて評価した。Fulfillment Warehouse（16% の障害物）の実験では、RHCR は「holding endpoints (HE)」や「reserving dummy paths (RDP)」よりも高いスループットを達成した。Sorting Center（10% の障害物と方向性を持つマップ）の実験では、時間ホライゾン $H$ を小さく設定することで、スループットの低下を 1% 未満に抑えつつ、実行時間を最大 6 倍高速化できることを示した。また、$H=10$ の PBS が 700 エージェントで限界であったのに対し、$H=100$ では 1,000 エージェント以上までスケールすることを確認した。動的な $H$ の決定手法では、平均 $H=9.97$ でスループット 2.10 を記録したが、固定 $H=100$（スループット 2.02）と比較して、実行時間のオーバーヘッドが生じるという限界も示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>RHCR は完全性や最適性を保証するものではないが、実用的なスループットとスケーラビリティを両立している。実験結果から、Lifelong MAPF において $H$ の選択は極めて重要であり、ホライゾンを大きくしすぎると不要な待機時間が増え、小さすぎるとデッドロックのリスクが高まることが示唆された。動的なホライゾン調整はスループットを向上させるものの、地平を繰り返し増大させるための計算コストが課題となる。今後の展望として、混雑状況や計算予算に基づくタイムホライゾンの自動調整、エージェントのグループ化による並列計画、および過去の探索結果を再利用する増分探索技術の導入が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Lifelong Multi-Agent Path Finding in Large-Scale Warehouses † † thanks: This paper is an extension of Li et al. ( 2020c </h3><p>本研究では、大規模な自動倉庫のようにエージェントが絶えず新しい目的地を与えられ続ける、Lifelong Multi-Agent Path Finding (MAPF) を対象としている。提案手法である Rolling-Horizon Collision Resolution (RHCR) は、問題を一連の Windowed MAPF インスタンスへと分解し、限定された時間ホライゾン内でのみエージェント間の衝突を解決することで、継続的に到着する新しい目的地に適応可能な柔軟な計画生成を実現する。実験では、様々な MAPF ソルバーを用いて RHCR を評価しており、シミュレーションされた倉庫環境において最大 1,000 エージェント（マップ上の空きセルの 38.9% に相当）という大規模な設定でも高品質な解を生成できることを示した。この結果は、既存手法を大幅に上回る性能を示している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>Multi-Agent Path Finding (MAPF) は、衝突を回避しながら複数のエージェントを始点から終点へ移動させる問題であり、解の質は全エージェントの到着時刻の総和である flowtime や、最大到着時刻である makespan によって評価されるが、最適解の算出は NP-hard である。本論文では、エージェントに次々と新しい目標が割り当てられる lifelong MAPF に対し、lifelong MAPF を一連の Windowed MAPF インスタンスに分解し、ユーザー指定の再計画周期ごとに経路を再計算する Rolling-Horizon Collision Resolution (RHCR) フレームワークを提案する。この Windowed MAPF では、単一のエピソード内でエージェントに目標のシーケンスを割り当てることが可能であり、衝突回避はユーザー指定のタイムホライゾン $T$ の範囲内のみで行う。RHCR は、CA*、PBS、ECBS、CBS といった多様な MAPF ソルバーを用いて評価されており、限定的なタイムホライゾンを用いることで、全期間のホライゾンを用いる場合と同等のスループットを維持しつつ、実行時間を大幅に削減できることが示されている。実験の結果、RHCR は既存手法を上回る性能を示し、シミュレーションされた倉庫環境において、マップ上の空きセルの 38.9% に相当する最大 1,000 エージェントまでのスケーラビリティを実現している。</p></section>
+<section class="secsum"><h3>2 Background</h3><p>本セクションでは、既存のMAPFソルバー、Lifelong MAPFに関する先行研究、および有界ホライゾン（bounded horizon）の概念について概説している。代表的なMAPFソルバーとして、完全性と最適性を備えた2レベル探索のConflict-Based Search (CBS)、焦点探索を用いてユーザー指定の範囲内で劣最適性を許容するEnhanced CBS (ECBS)、優先度順に経路を計算するCooperative A* (CA*)、およびCBSとCA*の概念を組み合わせたPriority-Based Search (PBS) が挙げられる。Lifelong MAPFの研究は、全ゴールを事前に知るオフライン手法、全エージェントを毎ステップ再計画する逐次分解手法、およびゴールに到達したエージェントのみを再計画する手法の3種に分類されるが、前者はスケーラビリティに欠け、後者は再計画の計算コストや、地図構造に依存する不完全性といった課題がある。特に、Completenessを保証するために導入される「well-formed infrastructures」や、ゴール到達後の「hold」動作、あるいは「dummy paths」の生成は、スループットを低下させる要因となる。最後に、WHCA*のようにホライゾンを制限する手法は、計算コストを下げつつ経路長を増大させる傾向があるが、本論文ではLifelong MAPFにおいて計算コストを抑えつつ解の質をわずかな低下に留める有界ホライゾン計画の有効性を示唆している。</p></section>
+<section class="secsum"><h3>3 Problem Definition</h3><p>本研究では、グラフ $G=(V, E)$ と初期位置を持つエージェントの集合 $\mathcal{A} = \{a_1, \dots, a_n\}$ を入力とし、目標地点 $g_i$ が事前にすべて判明していないオンライン設定における Lifelong Multi-Agent Path Finding (MAPF) を定義している。タスクアサイナによって動的に目標が割り当てられる仕組みを想定しており、タスクが終了した後は充電ステーションや現在地などのダミータスクが割り当てられる。各タイムステップにおいて、エージェントは隣接する頂点への移動または待機（共にコスト 1）を選択でき、同一時刻に同じ頂点を占有する vertex conflict や、エッジを逆方向に通過する swapping conflict を回避した衝突のないパス（MAPF plan）を計画する必要がある。本問題の目的は、すべてのエージェントを目標地点へ移動させつつ、タイムステップあたりの平均目標訪問数であるスループット $\theta$ を最大化することである。本手法はタスク割り当てと経路計画を分離した階層的なフレームワークを想定しており、タスクアサイナが制御不能な外部システムであっても、ドメインに依存せず適用可能であるという利点を持つ。</p></section>
+<section class="secsum"><h3>4 Rolling-Horizon Collision Resolution</h3><p>Rolling-Horizon Collision Resolution (RHCR)は、時間ホライゾン $H$ と再計画周期 $P$ の2つのパラメータを用いて、Lifelong MAPFにおける衝突を解決する手法である。RHCRは、各エージェント $i$ に対して、現在の位置を始点とし、残りの目標地点シーケンス $\mathcal{G}_i$ をすべて訪問するまでの下限時間 $\sum_{j=1}^{|\mathcal{G}_i|} \text{dist}(g_{j-1}, g_j)$ を計算し、エージェントがアイドル状態にならないよう目標地点を動的に割り当てる。低レベル探索には、目標地点シーケンスを考慮して拡張されたMulti-Label A*（Algorithm 1）を用い、ノードのラベルに訪問済み目標地点の数を保持することで、時空間制約を満たしつつシーケンス全体を最適化する。また、(E)CBS、CA*、PBSといった既存のMAPFソルバーを、最初の $H$ ステップ間のみ衝突を考慮するBounded-Horizon形式へと拡張することで、計算コストを削減している。実験的な知見として、Lifelong MAPFでは $H$ を大きくしすぎると不要な待機時間が増えスループットが低下する場合がある一方、$H$ が小さすぎるとデッドロックが発生するリスクがある。このデッドロックを回避するため、エージェントの進捗を評価するポテンシャル関数 $\Phi$ を導入し、進捗が不十分な場合に $H$ を段階的に増加させるメカニズムが提案されている。</p></section>
+<section class="secsum"><h3>5 Empirical Results</h3><p>本実験では、C++で実装されたRHCRを、CBS、ECBS、CA*、PBSをベースとした4種類のWindowed MAPFソルバーを用いて評価している。Fulfillment Warehouse（在庫保管倉庫）の実験では、16%の障害物を含む4近傍グリッドマップを用い、RHCRは既存のMethod (3) である「holding endpoints (HE)」や「reserving dummy paths (RDP)」と比較され、RHCRが最も高いスループットを達成した一方で、1回あたりの実行時間は競合手法より長いことが示された。Sorting Center（仕分けセンター）の実験では、10%の障害物と方向性を持つマップを用い、RHCRの性能をPBS、ECBS（劣最適化係数 $w=1.1$）、CA*、CBSを用いて検証した。その結果、時間地平 $H$ を小さく設定することで、スループットを1%未満の低下に抑えつつ、実行時間を最大6倍高速化できることが確認され、また $H=10$ のPBSは700エージェントが限界であったのに対し、$H=100$ では1,000エージェント以上までスケールした。さらに、デッドロック回避メカニズムを用いた動的な時間地平の決定手法を試行したところ、平均 $H=9.97$ を使用してスループット2.10、実行時間0.35sを記録したが、これは固定の $H=100$ を用いた場合（スループット2.02、実行時間0.17s）と比較して、高いスループットを実現する代わりに、地平を繰り返し増大させるための実行時間オーバーヘッドが生じるという限界が示された。</p></section>
+<section class="secsum"><h3>6 Conclusions</h3><p>本論文では、Lifelong MAPFを一連のWindowed MAPFインスタンスへと分解する手法であるRolling-Horizon Collision Resolution (RHCR) を提案しており、既存の複数のMAPFソルバーをWindowed MAPFソルバーへと変換可能にしている。RHCRは完全性や最適性を保証するものではないが、倉庫や仕分けセンターのマップを用いた実験において、最大1,000エージェントまでのスケーラビリティと高いスループットを実証した。本手法は一般グラフに適用可能であり、ユーザー指定の頻度で再計画を行うことで、継続的に到着する新しいゴールに対応しつつ、遠い未来の予測による計算資源の浪費を回避する柔軟な計画生成を実現している。今後の展望として、混雑状況や計算予算に基づくタイムホライゾンの自動調整、エージェントのグループ化による並列計画、および過去の探索結果を再利用する増分探索技術の導入が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-13
+  </footer>
+</div>
+</body>
+</html>

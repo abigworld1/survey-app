@@ -70,8 +70,8 @@
       "venue": ""
     },
     "arxiv:2606.04231": {
-      "added": "2026-07-12",
-      "added_at": "2026-07-12T06:03:23.075590",
+      "added": "2026-07-13",
+      "added_at": "2026-07-13T06:03:13.472862",
       "arxiv_id": "2606.04231",
       "authors": [
         "Hanoz Bhathena",
@@ -97,13 +97,13 @@
       ],
       "pdf_url": "https://arxiv.org/pdf/2606.04231",
       "reading_value": 4,
-      "reading_value_reason": "文書構造（垂直・水平）に応じた動的なパース手法の提案が極めて実用的。既存のVision-centricな手法の弱点を的確に突き、大幅な精度向上と新指標の提案も含む。",
+      "reading_value_reason": "文書構造に応じた動的なパイプライン切り替えという実用的な新規性があり、既存のVision-centric手法の弱点を克服する実験結果も具体的で、RAG研究者にとって価値が高い。",
       "relevance": 5,
       "selection": "fallback",
       "selection_label": "補充候補",
       "source_quality": "fulltext",
       "title": "MM-BizRAG: Rethinking Multimodal Retrieval-Augmented Generation for General Purpose Enterprise Q&A",
-      "tldr": "複雑な構造を持つ企業文書に対応するため、文書の構造（垂直・水平）に応じてパース手法を切り替えるマルチモーダルRAGフレームワーク「MM-BizRAG」を提案する。既存のビジョン中心の手法が苦手とするレポート形式の文書において、レイアウト認識型パースとLLMによるアーティファクト変換を用いることで、ColPali等のベースラインに対し最大32ポイントの精度向上を達成した。また、評価指標として人間との相関が高く低コストな$FastRAGEval$を導入している。",
+      "tldr": "複雑な構造を持つ企業文書に対応するため、文書の構造（垂直・水平）に応じてインジェクション・パイプラインを動的に切り替えるマルチモーダルRAGフレームワーク「MM-BizRAG」を提案する。既存のビジョン中心の手法が苦手とするレポート形式のレイアウトにおいて、最大32ポイントの性能向上を達成し、効率的かつ人間との相関が高い評価指標「FastRAGEval」も導入している。",
       "url": "https://openalex.org/W7163720139",
       "venue": "arXiv (Cornell University)"
     },
@@ -1803,6 +1803,39 @@
       "url": "https://www.semanticscholar.org/paper/4efdbaf25911c73272c4c5ec0fe4fe3dd1e7b82f",
       "venue": ""
     },
+    "doi:10.48550/arxiv.2605.25030": {
+      "added": "2026-07-13",
+      "added_at": "2026-07-13T06:02:34.019634",
+      "arxiv_id": "2605.25030",
+      "authors": [
+        "Magnus Samuelsen",
+        "Wilmer Nyström",
+        "Somnath Mazumdar",
+        "M. Hussain",
+        "Mikkel Strange"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-05-24",
+      "doi": "10.48550/arXiv.2605.25030",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2605.25030.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2605.25030",
+      "reading_value": 4,
+      "reading_value_reason": "マルチエージェントによる検証プロセスやメタデータ統合、テーブル考慮型チャンキングなど、実務上の課題解決に向けた具体的かつ体系的な手法が示されており、有用性が高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "MimirRAG: A Multi-Agent RAG Framework for Financial Data Retrieval with Metadata Integration",
+      "tldr": "金融ドキュメントからの高精度な情報抽出を目指す、メタデータ統合型のマルチエージェントRAGフレームワーク「MimirRAG」を提案する。Doclingによる構造維持パース、テーブルを考慮したチャンキング、および5つのエージェント（Extractor, Planner, Search, Validator, Writer）による協調的な検索・検証プロセスを通じて、FinanceBenchにおいて89.3%の精度を達成した。",
+      "url": "https://www.semanticscholar.org/paper/a8118bc48586e25e5d6f6d60ccfd895074a12b97",
+      "venue": ""
+    },
     "doi:10.5753/latinoware.2025.16269": {
       "added": "2026-07-02",
       "added_at": "2026-07-02T06:00:02.000000",
@@ -1926,6 +1959,41 @@
       "title": "Lifelong Multi-Agent Path Finding for Online Pickup and Delivery Tasks",
       "tldr": "本研究は、継続的にタスクが発生するオンライン環境におけるMulti-Agent Pickup and Delivery (MAPD) 問題に対し、デカップリングされた分散型アルゴリズムであるToken Passing (TP) とToken Passing with Task Swaps (TPTS) を提案する。提案手法は、現実的な制約を持つ「well-formed」なインスタンスにおいて解を持つことが理論的に保証されており、実験では数百規模のエージェントに対してもリアルタイムな運用が可能であることを示した。",
       "url": "http://arxiv.org/abs/1705.10868v1",
+      "venue": ""
+    },
+    "arxiv:2005.07371": {
+      "added": "2026-07-13",
+      "added_at": "2026-07-13T06:01:04.870066",
+      "arxiv_id": "2005.07371",
+      "authors": [
+        "Jiaoyang Li",
+        "Andrew Tinka",
+        "Scott Kiesel",
+        "Joseph W. Durham",
+        "T. K. Satish Kumar",
+        "Sven Koenig"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2020-05-15",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2005.07371.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2005.07371v2",
+      "reading_value": 4,
+      "reading_value_reason": "Lifelong MAPFにおけるスケーラビリティとスループットの課題に対し、RHCRという実用的なフレームワークを提案しており、大規模環境での検証も具体的で価値が高い。",
+      "relevance": 8,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Lifelong Multi-Agent Path Finding in Large-Scale Warehouses",
+      "tldr": "本研究は、エージェントに次々と新しい目的地が割り当てられるLifelong Multi-Agent Path Finding (MAPF) に対し、問題を一連の Windowed MAPF インスタンスへと分解して解く Rolling-Horizon Collision Resolution (RHCR) フレームワークを提案する。RHCR は、限定された時間ホライゾン $H$ 内でのみ衝突を解決することで、計算コストを抑えつつ、最大 1,000 エージェント規模の倉庫環境において既存手法を大幅に上回る高いスループットとスケーラビリティを実現する。",
+      "url": "http://arxiv.org/abs/2005.07371v2",
       "venue": ""
     },
     "arxiv:2106.11454": {
@@ -2075,6 +2143,38 @@
       "title": "The Study of Highway for Lifelong Multi-Agent Path Finding",
       "tldr": "Lifelong Multi-Agent Path Finding (MAPF) において、エージェントの移動方向を制限・誘導する「Highway（高速道路）」の概念を導入し、計算コストの削減とデッドロック・再ルーティングの抑制を両立する手法を提案している。",
       "url": "http://arxiv.org/abs/2304.04217v1",
+      "venue": ""
+    },
+    "arxiv:2304.14309": {
+      "added": "2026-07-13",
+      "added_at": "2026-07-13T06:01:40.871761",
+      "arxiv_id": "2304.14309",
+      "authors": [
+        "Baiyu Li",
+        "Hang Ma"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2023-04-27",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2304.14309.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2304.14309v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFとMAPDを統合した新しい問題定式化DD-MAPDの提案、および大規模環境でのスケーラビリティを実現する分解手法の提案は、マルチエージェント計画の研究者にとって非常に価値が高い。",
+      "relevance": 7,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Double-Deck Multi-Agent Pickup and Delivery: Multi-Robot Rearrangement in Large-Scale Warehouses",
+      "tldr": "自動倉庫における棚の再配置問題をモデル化した新しい問題定式化「Double-Deck Multi-Agent Pickup and Delivery (DD-MAPD)」を提案し、棚の軌道計画（MAPF）とエージェントのタスク割り当て・経路計画（MAPD）を分離して解くアルゴリズムフレームワーク「MAPF-DECOMP」を開発した。この手法は、最大1,843個の棚と400個のエージェントが存在する大規模な設定においても、数分以内で高品質な解を算出できる高いスケーラビリティと有効性を実証している。",
+      "url": "http://arxiv.org/abs/2304.14309v1",
       "venue": ""
     },
     "arxiv:2308.11234": {

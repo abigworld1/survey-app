@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Double-Deck Multi-Agent Pickup and Delivery: Multi-Robot Rearrangement in Large-Scale Warehouses | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Double-Deck Multi-Agent Pickup and Delivery: Multi-Robot Rearrangement in Large-Scale Warehouses</h1>
+  <div class="meta">Baiyu Li, Hang Ma<br>採択先: 未取得 ・ 2023-04-27 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2304.14309v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2304.14309v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2023-04-27</span><span class="chip keyword-match">キーワード一致 4</span><span class="chip">被引用 0</span><span class="chip">関連度 7</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFとMAPDを統合した新しい問題定式化DD-MAPDの提案、および大規模環境でのスケーラビリティを実現する分解手法の提案は、マルチエージェント計画の研究者にとって非常に価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 自動倉庫における棚の再配置問題をモデル化した新しい問題定式化「Double-Deck Multi-Agent Pickup and Delivery (DD-MAPD)」を提案し、棚の軌道計画（MAPF）とエージェントのタスク割り当て・経路計画（MAPD）を分離して解くアルゴリズムフレームワーク「MAPF-DECOMP」を開発した。この手法は、最大1,843個の棚と400個のエージェントが存在する大規模な設定においても、数分以内で高品質な解を算出できる高いスケーラビリティと有効性を実証している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、エージェントが棚の下を移動するだけでなく、棚を持ち上げて任意の場所へ運搬することで倉庫のレイアウト自体を変化させる「Double-Deck Multi-Agent Pickup and Delivery (DD-MAPD)」という新しい問題を定義している。この問題は、棚同士の衝突（高レベル）とエージェント同士の衝突（低レベル）という2つの階層での衝突回避を同時に要求する。DD-MAPDは、既存のMulti-Agent Path Finding (MAPF) および Multi-Agent Pickup and Delivery (MAPD) の両方を拡張したものであり、その解法はNP困難であることが示されている。評価指標には、全エージェントの完了時刻の最大値である $\text{makespan} = \max_{a \in \mathcal{A}} (\text{completion time of } a)$ と、完了時刻の総和である $\text{flowtime} = \sum_{a \in \mathcal{A}} (\text{completion time of } a)$ が用いられる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、棚の移動とエージェントの移動を階層的に扱うDD-MAPDという新しい問題定式化を提案した。第二に、問題を棚の軌道計画（MAPFインスタンス）とタスク依存関係を持つエージェントの経路計画（MAPDインスタンス）に分解する「MAPF-DECOMP」フレームワークを構築した。第三に、将来の空きエージェントを割り当てに含める「Involving Future (IVF)」という最適化手法を導入し、計算効率を向上させた。第四に、特定の条件下（well-formed DD-MAPD）において完全性を保証する「MAPF-DECOMP(PP)」を提案し、理論的な解の存在条件である「well-formedness」を確立した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案するMAPF-DECOMPは、まずMAPFソルバーを用いて全棚の衝突のない軌跡を計算し、次に棚の移動ステップ間の依存関係をエッジとする有向グラフ $\mathcal{G}_{dep}$ を構築する。このグラフに基づき、棚の移動が「ソフト制約（同時移動可能）」か「ハード制約（待機が必要）」かを判定する。エージェントの割り当てにはハンガリー法を用い、コスト関数を「最短経路距離と棚が実行可能になる時刻の最大値」として最小化する。さらに、将来的に自由になるエージェントも考慮するIVF手法により効率化を図る。完全性を保証するMAPF-DECOMP(PP)では、multi-label A* 探索を用いて、エージェントが現在の位置から棚へ移動し、棚の軌道に従い、最終的に自身の初期位置へと戻る経路を計画することで、デッドロックを回避する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>3.1GHz Intel Core i5、16GB RAMの環境において、MAPF-DECOMPのバリエーション（NIVF, IVF, PP）とベースライン（BASE, PAS）を比較実験した。実験では、最大1,843個の棚と400個のエージェントを含む大規模なインスタンスを用い、数分以内の実行時間で高品質な解が得られることを確認した。結果として、IVFはエージェント数や棚の密度が増加しても高い成功率（succ）を維持し、PPはwell-formedなインスタンスにおいて効率性と有効性のバランスに優れた実用的な解を提供することが示された。また、棚の軌道の総長さ（shelf flowtime）が全体のflowtimeの約60%を占めており、提案する分解アプローチの妥当性が裏付けられた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>MAPF-DECOMPの失敗要因としては、EECBSのタイムアウト、ソフトな依存サイクルに対するエージェント不足、またはAssignAndPlan()におけるパス計画の不完全性が挙げられる。特にIVFにおいて、将来のタイムステップ数 $k$ を大きくするとmakespanは減少する傾向にあるが、計算負荷の影響でエージェントの計算時間は非単調な挙動を示す。今後の課題として、棚の軌道計画の段階で、その後の分解・プランニング工程を考慮したより高度なMAPF解法の導入が挙げられる。また、現在は棚の軌道に制約されているエージェントに対し、個別のパスプランニングを適用することで、より柔軟な制御を実現する拡張が検討されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Double-Deck Multi-Agent Pickup and Delivery: Multi-Robot Rearrangement in Large-Scale Warehouses</h3><p>本論文では、自動倉庫におけるマルチロボットによる棚の再配置問題をモデル化した、新しい問題定式化であるDouble-Deck Multi-Agent Pickup and Delivery (DD-MAPD) を提案している。DD-MAPDは、エージェントが棚の下を移動することや、棚を持ち上げて任意の場所へ運ぶことで倉庫のレイアウト自体を変化させることを許容しており、Multi-Agent Pickup and Delivery (MAPD) および Multi-Agent Path Finding (MAPF) の両方を拡張したものである。DD-MAPDの解法はNP困難であることが示されており、これに対処するために、棚の軌道を調整するMAPFインスタンスと、エージェントの経路を計算するためのタスク依存関係を持つMAPDインスタンスへと問題を分解するアルゴリズムフレームワーク「MAPF-DECOMP」を提案している。さらに、MAPF-DECOMPの性能を向上させる最適化手法と、現実的な部分集合であるwell-formed DD-MAPDインスタンスに対して完全性を保証する方法を提示している。実験の結果、MAPF-DECOMPは1,000個以上の棚と数百のエージェントが存在する大規模なインスタンスに対しても、数分間の実行時間で高品質な解を算出できる効率性と有効性を実証している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究では、大規模倉庫における棚の再配置をモデル化するため、既存のMAPF（Multi-Agent Path Finding）およびMAPD（Multi-Agent Pickup and Delivery）を拡張した新しい問題定式化であるDouble-Deck Multi-Agent Pickup and Delivery (DD-MAPD) を提案している。DD-MAPDは、エージェントが棚の下を移動するか、あるいは棚を持ち上げて新しい場所に配置することを可能にし、棚同士の衝突（高レベル）とエージェント同士の衝突（低レベル）という2つの階層での衝突回避を要求する。提案手法であるMAPF-DECOMPは、DD-MAPDのインスタンスを、まず棚の衝突のない軌道を計画する $n$-agent MAPF問題へと分解し、次にその軌道をタスクに変換してタスク依存関係を持つ $m$-agent MAPD問題を解くという2段階のアルゴリズムフレームワークである。この分解により、状態空間とエージェント数を削減することでスケーラビリティを向上させ、既存のMAPFソルバーを活用して計算を高速化できる利点がある。理論的には、DD-MAPDの解法可能性のための十分条件として「well-formedness」を確立しており、実験では最大1,843個の棚と400個のエージェントを含む大規模な設定においても、数分以内に高品質な解を算出できることを示している。</p></section>
+<section class="secsum"><h3>II Problem Definition</h3><p>DD-MAPDインスタンスは、エージェントの集合 $\mathcal{A}$、棚の集合 $\mathcal{S}$、および接続された無向グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ で定義され、エージェントは時刻 $t$ における位置 $a_t \in \mathcal{V}$ を移動または待機によって更新する。棚 $s \in \mathcal{S}$ は初期位置 $p_s$ から目標位置 $d_s$ へ運搬される必要があり、棚はエージェントに運搬されている間のみ移動可能で、エージェントが棚をリフトまたは配置する時間は $0$ と仮定される。衝突回避の条件として、エージェント間の衝突（低レベルデッキ）および棚間の衝突（高レベルデッキ）の両方を防ぐ必要があり、頂点衝突は $a_t = a&#x27;_t$ または $s_t = s&#x27;_t$、エッジ衝突は隣接する頂点間での同時通過によって定義される。本問題の目的は、すべての棚を目標位置へ運搬するための衝突のない経路を計算することであり、評価指標には全エージェントの完了時刻の最大値であるメイクスパン $\text{makespan} = \max_{a \in \mathcal{A}} (\text{completion time of } a)$ と、完了時刻の総和であるフロータイム $\text{flowtime} = \sum_{a \in \mathcal{A}} (\text{completion time of } a)$ が用いられる。</p></section>
+<section class="secsum"><h3>III Complexity and Solvability</h3><p>本セクションでは、DD-MAPDの計算複雑性と解の存在条件について論じている。まず、3-SAT問題からの帰着を用いることで、makespan最小化問題においてDD-MAPDが任意の定数倍近似 $\alpha$ を求めることがNP困難であることを定理1として示しており、これに伴いflowtime最小化問題の最適解を求めることもNP困難である（系2）。次に、解が存在するための十分条件として「well-formed DD-MAPD instance」という概念を定義しており、これは全エージェントが異なる位置から開始し、エージェントの開始位置を除去してもグラフが連結性を維持し、かつエージェントの開始位置を使用しない「safe 1-robust MAPF solution」が棚（shelves）に対して存在することを条件とする。このwell-formedなインスタンスに対しては、まず棚の軌道を1-robustなMAPF解として生成し、その後、単一のエージェントが他のエージェントを待機させた状態で全ての棚の軌道を同期して実行する（locked steps）という完全なベースラインアルゴリズムが提案されている。著者らの提案手法であるMAPF-DECOMPは、このベースラインと同様に棚の軌道を先に計算する点では共通しているが、複数のエージェントを並列に活用して軌道を実行する点で異なる。</p></section>
+<section class="secsum"><h3>IV MAPF-DECOMP</h3><p>MAPF-DECOMPは、大規模倉庫における棚の再配置問題を解くための、依存関係グラフを用いたMAPD（Multi-Agent Pickup and Delivery）アルゴリズムである。まず、MAPFソルバーを用いて全棚の衝突のない軌跡（trajectories）を計算し、それらを頂点、棚の移動ステップ間の依存関係をエッジとする有向グラフ $\mathcal{G}_{dep}$ を構築することで、棚の実行可能なセグメントを定義する。各タイムステップにおいて、`Update()`関数がエージェントの状態（activeまたはfree）を更新し、棚の依存関係が「ソフト制約（同時に移動可能）」か「ハード制約（他方の棚の移動を待機する必要がある）」かを判定する。`AssignAndPlan()`では、ハンガリー法を用いて、エージェントから棚への割り当てコストを「最短経路距離と棚が実行可能になる時刻の最大値」として最小化し、MAPFソルバーでエージェントの経路を計画する。さらに、将来的にfreeになるエージェントも割り当て候補に含める「Involving Future (IVF)」という最適化手法により、割り当ての効率を向上させている。</p></section>
+<section class="secsum"><h3>V Prioritized Planning (PP) for Completeness</h3><p>既存の MAPF-DECOMP は、棚の軌跡が 1-robust でない場合に依存関係のサイクルが生じる可能性や、`AssignAndPlan()` がエージェントを初期位置とは異なる場所へ移動させることで衝突回避経路の存在を保証できないという問題があり、すべての well-formed DD-MAPD インスタンスに対して完全性が保証されない。これに対し、提案手法 MAPF-DECOMP(PP) は、MAPF ソルバを用いて安全な 1-robust な棚の軌跡を計算し、各割り当てラウンドにおいて最小コストのペアを 1 つずつ選択して multi-label A* 探索を用いて衝突のない時間最小経路を計算することで、完全性を実現している。この経路は、エージェントが現在の位置から棚の現在位置へ移動し、棚の軌跡に従い、最終的に自身の初期位置へと戻る構成となっており、すべてのエージェントの経路が常に初期位置で終了するという不変条件を維持することで、MAPD における &quot;reserving dummy paths&quot; 手法に着想を得たデッドロック回避を行っている。Theorem 3 により、MAPF-DECOMP(PP) はすべての well-formed DD-MAPD インスタンスを解けることが証明されており、これは 1-robust な軌跡の依存グラフが非巡回であること、および multi-label A* が衝突のない経路の存在を保証することに基づいている。</p></section>
+<section class="secsum"><h3>VI Experiments</h3><p>本実験では、3.1GHz Intel Core i5、16GB RAMの環境を用い、MAPF-DECOMPの3つのバリエーション（NIVF, IVF, PP）および2つのベースライン（BASE, PAS）をC++で実装して評価を行っている。提案手法のIVFにおいて、将来のタイムステップ数 $k$ を大きくすると、makespanは減少する傾向にあるが、EECBSの呼び出し回数や計算負荷の変化により、エージェントの計算時間（agent time）は非単調な挙動を示す。実験結果によれば、IVFはエージェント数や棚の密度が増加しても高い成功率（succ）を維持し、大規模なインスタンスでも数分以内の実行時間で完了可能である。失敗の主な要因は、EECBSのタイムアウト、ソフトな依存サイクルに対するエージェント不足、またはAssignAndPlan()におけるパス計画の不完全性（特に $k$ が非常に大きい場合）に分類される。Well-formedなインスタンスにおいては、PPが効率性と有効性のバランスに優れ、実用的な最適解となる一方、IVF-Rは1エージェントでの実行においてもベースラインを上回る有効性を示す。また、棚の軌道の総長さ（shelf flowtime）が全体のflowtimeの約60%を占めており、提案フレームワークの分解と実行が効果的であることが示されている。</p></section>
+<section class="secsum"><h3>VII Conclusions and Future Work</h3><p>本研究では、大規模倉庫におけるマルチロボットによる棚の再配置問題への適用を目指し、MAPF（Multi-Agent Path Finding）とMAPD（Multi-Agent Pickup and Delivery）を統合したDD-MAPD（Double-Deck MAPD）のための新しいアルゴリズムフレームワークを提案した。本フレームワークは、有効性を大きく損なうことなく計算効率を向上させることに焦点を当てて設計されている。今後の展望として、まず棚の軌道に対するMAPFの解法において、その後の分解およびプランニング工程を考慮した、より有効性の高い手法への拡張が挙げられる。さらに、現在は棚の軌道に従わせているエージェントに対し、個別のパスプランニングを適用することで、より柔軟な制御を実現する拡張も計画されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-13
+  </footer>
+</div>
+</body>
+</html>
