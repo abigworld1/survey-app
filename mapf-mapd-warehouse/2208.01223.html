@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-Goal Multi-Agent Pickup and Delivery | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi-Goal Multi-Agent Pickup and Delivery</h1>
+  <div class="meta">Qinghong Xu, Jiaoyang Li, Sven Koenig, Hang Ma<br>採択先: 未取得 ・ 2022-08-02 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2208.01223v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2208.01223v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2022-08-02</span><span class="chip keyword-match">キーワード一致 4</span><span class="chip">被引用 0</span><span class="chip">関連度 6</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPD問題に対し、LNSとPBSを組み合わせた分離型アプローチを提案。大規模環境でのスケーラビリティと既存手法を上回る性能を実証しており、実用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> エージェントが継続的に新しいタスク（ピックアップとデリバリーのペア）を受け取るMulti-Agent Pickup and Delivery (MAPD) 問題に対し、Large Neighborhood Search (LNS) によるタスク割り当てとPriority-Based Search (PBS) による経路計画を組み合わせた分離型アルゴリズムを提案する。完全性を保証する $LNS\text{-}PBS$ と、大規模環境でのスケーラビリティに優れた $LNS\text{-}wPBS$ を提供し、既存手法を上回るサービス時間の短縮と安定性を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、エージェントが動的にリリースされるタスクを順次処理するMulti-Agent Pickup and Delivery (MAPD) 問題、および各タスクが複数の目標地点を持つMulti-Goal MAPD (MG-MAPD) 問題を対象とする。タスクにはリリース時刻 $r_\tau$ と、一連の目標地点（ピックアップ地点およびデリバリー地点）が設定されている。既存手法の多くはタスク割り当てと経路計画を分離しているが、経路コストの推定精度やスケーラビリティに課題があった。本研究では、タスクの割り当て（どのエージェントがどの順序でタスクをこなすか）と、衝突のない経路計画（どのように移動するか）を効率的に統合する枠組みを構築している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、well-formedなMAPDインスタンスにおいて完全性を保証する $LNS\text{-}PBS$ を提案し、既存の完全解法である CENTRAL よりも高い性能を示すことを明らかにした。第二に、実用的な大規模環境向けに、windowed PBS を採用した $LNS\text{-}wPBS$ を提案し、数千のエージェントとタスクを扱うスケーラビリティと、既存の HBH+MLA* を上回るサービス時間の短縮を実現した。第三に、タスクが複数の目標地点を持つ MG-MAPD への拡張性と、将来のタスクを一部把握できるセミオンライン設定への適用可能性を示した。さらに、実行時間の分散が小さい安定したアルゴリズムであることを実証した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、LNS によるタスクシーケンスの最適化と、PBS による衝突回避経路計画の二段階で構成される。LNS プロセスでは、Hungarian algorithm による初期割り当て後、Shaw removal によるタスク削除と Regret-based re-insertion による再挿入を繰り返し、推定サービス時間を最小化する。経路計画では、PBS を拡張し、高優先度エージェントの新しいパスと、低優先度エージェントの既存パス（old paths）の両方を回避する探索を行う。$LNS\text{-}wPBS$ では、計算負荷を抑えるために windowed PBS (wPBS) を採用し、最初の $w$ ステップのみを計画するが、これにより完全性は失われる。また、セミオンライン設定では look-ahead horizon を導入し、事前に把握可能なタスクバッチを利用してエージェントの事前配置を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>4近傍グリッドマップを用いた倉庫環境（small, medium, large）において、CENTRAL, RMCA, HBH+MLA* と比較実験を行った。実験の結果、$LNS\text{-}wPBS$ は medium 環境で 10% 以上、large 環境でも継続的なサービス時間の改善を示し、HBH+MLA* を上回る性能を達成した。また、タイムステップあたりの実行時間 $rt$ の分散が小さく、高い安定性を示した。タスク割り当ての比較では、greedy-LNS よりも Hungarian 法を用いた LNS が優れた結果となった。ルックアヘッド・ホライゾン $LA$ に関しては、$LA=5$ まではサービス時間の短縮に寄与するが、それ以上に拡大するとタスクシーケンスの長期化により逆にサービス時間が増加する傾向が確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、大規模な倉庫環境において数千のエージェントとタスクを扱うことが可能であり、実用的なスケーラビリティを備えている。$LNS\text{-}PBS$ は well-formed な設定において完全性を維持できる点が強みであるが、$LNS\text{-}wPBS$ は効率性と安定性を優先した設計となっている。今後の課題として、現在の推定コストではなく、実際の経路コストに基づいたより精緻なタスク割り当てへの改善が挙げられる。また、理論的なシミュレーションから、より現実的なロボットの挙動を反映したロボットシミュレータを用いた検証への移行が必要である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Multi-Goal Multi-Agent Pickup and Delivery*</h3><p>本研究では、エージェントが継続的に新しいタスク（ピックアップ地点とデリバリー地点のペア）を受け取り、衝突のない経路を計画する必要がある Multi-Agent Pickup-and-Delivery (MAPD) 問題を扱う。提案手法は、Large Neighborhood Search (LNS) を用いて各エージェントにタスクのシーケンスを割り当て、Priority-Based Search (PBS) を用いて経路計画を行う LNS-PBS と、その効率化版である LNS-wPBS の2つのバリアントで構成される。LNS-PBS は、現実的なサブクラスである well-formed MAPD インスタンスに対して完全性を持ち、既存の完全解法である CENTRAL よりも高い性能を示す。一方、完全性の保証はないものの、LNS-wPBS は LNS-PBS よりも効率的かつ安定しており、大規模な倉庫環境において数千のエージェントと数千のタスクを扱うスケーラビリティを備え、既存のスケーラブルな手法である HBH+MLA* を上回る性能を示す。さらに、これらの手法は、タスクごとに目標地点の数が異なるより一般的な Multi-Goal MAPD (MG-MAPD) 問題にも適用可能である。</p></section>
+<section class="secsum"><h3>I INTRODUCTION</h3><p>本研究は、各タスクがリリース時刻と一連の目標地点（ピックアップ地点およびデリバリー地点）を持つMulti-Agent Pickup and Delivery (MAPD) 問題を対象としている。既存手法の多くはタスク割り当てと経路計画を分離しており、一度に一つのタスクのみを割り当てる手法や、経路をセグメントごとに計画する手法が存在するが、これらはタスク割り当ての質や経路の効率性に課題がある。提案手法は、anytimeアルゴリズムであるLarge Neighborhood Search (LNS) を用いてエージェントにタスク列を割り当て、Priority-Based Search (PBS) を用いて一連の目標地点を通る経路を計画する分離型アルゴリズムであり、完備性と効率性に焦点を当てた $LNS\text{-}PBS$ と $LNS\text{-}wPBS$ の2つのバリアントを提案している。$LNS\text{-}PBS$ は「dummy paths」の概念を導入することで、well-formedなMAPDインスタンスにおいて完備性を保証し、$LNS\text{-}wPBS$ はRHCRのwindowed MAPFを採用することで、ユーザー指定の実行時間制限やウィンドウサイズに基づいた高いスケーラビリティを実現している。実験の結果、提案手法は既存のMAPDアルゴリズムよりもサービス時間が短縮される傾向にあり、$LNS\text{-}wPBS$ は大規模な倉庫環境において数千のエージェントとタスクを扱うことが可能である。さらに、本研究はタスクが複数の目標地点を持つMulti-Goal MAPD (MG-MAPD) への拡張や、オンライン、オフライン、および新たに定義したセミオンライン設定への適用についても検討している。</p></section>
+<section class="secsum"><h3>II RELATED WORK</h3><p>MAPD（Multi-Agent Pickup and Delivery）問題は、タスク割り当てと経路計画の2つの要素で構成される。タスク割り当てに関しては、二部グラフの最大重みマッチングを多項式時間で解く Hungarian algorithm や、VRP（Vehicle Routing Problem）のスケジューリングに用いられる Large Neighborhood Search (LNS) などの組合せ最適化手法が関連している。経路計画については、完全かつ最適解を保証する Conflict-Based Search (CBS) やその改良版の ICBS、効率的だが優先順位に基づき不完全性を持つ prioritized planning、さらに優先順位の探索を行う Priority-Based Search (PBS) や、ピックアップ・デリバリー地点間の経路を扱う Multi-Label A* (MLA*) が存在する。既存の MAPD アルゴリズムは、タスク割り当てと経路計画を分離して解く手法（CENTRAL, TA-Hybrid, HBH など）が主流であるが、これらは経路コストの推定値に基づいてタスクを割り当てる。これに対し、RMCA はタスク割り当てと経路計画を同時に行う結合型（coupled）の手法であり、LNS を用いてタスクシーケンスを決定し、prioritized planning と sequential A* を用いて衝突のない経路を計画することで、実際の経路コストをタスク割り当てに反映させている。</p></section>
+<section class="secsum"><h3>III PROBLEM DEFINITION</h3><p>本セクションでは、従来のMAPDを一般化したMulti-Goal MAPD (MG-MAPD) 問題を定義している。MG-MAPDは、エージェントの集合と無向グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ で構成され、各タスク $\tau$ は一連のゴール地点のシーケンスとリリース時刻 $r_\tau$ を持ち、エージェントはこれらを順に訪問する必要がある。衝突条件として、時刻 $t$ における頂点衝突（$x_i(t) = x_j(t)$）およびエッジ衝突（$\{x_i(t), x_i(t+1)\} = \{x_j(t), x_j(t+1)\}$）が定義されている。本研究では、エージェントの開始地点がタスクのゴール地点と重複せず、任意の2つのエンドポイント間に他のエンドポイントを経由しないパスが存在するという「well-formed」なインスタンスを対象とする。問題の目的は、タスクの割り当てと衝突のない経路計画を行い、タスクの完了時刻とリリース時刻の差であるサービス時間の平均を最小化することである。また、アルゴリズムの評価指標として、タイムステップあたりの平均実行時間（効率性）および実行時間の予測可能性（安定性）が用いられる。</p></section>
+<section class="secsum"><h3>IV LNS-PBS AND LNS-wPBS</h3><p>LNS-PBSおよびLNS-wPBSは、Multi-Goal Multi-Agent Pickup and Delivery (MG-MAPD) 問題を解くための手法であり、各エージェントはダミー・エンドポイント、タスク列、ゴール列、および衝突のないパスを保持する。LNS（Large Neighborhood Search）を用いて未実行タスク $\mathcal{T}_{un}$ をエージェントに再割り当てし、ハンガリアン法による初期割り当て、Shaw removalによる関連タスクの削除、およびRegret-based re-insertionによる再挿入のプロセスを経て、推定サービス時間を最小化する。パス計画にはPBS（Priority-Based Search）を拡張した手法を用い、各エージェントが以前のパス（old paths）を回避しながら新しいゴール列を巡回できるよう設計することで、well-formedなインスタンスにおける完全性（completeness）を保証している。具体的には、PBSの低レベル計画において、高優先度エージェントの新しいパスと、それ以外の全エージェントの旧パスを回避する経路を探索する。一方、LNS-wPBSは、計算効率向上のためにwindowed PBS（wPBS）を採用しており、最初の $w$ ステップのみを計画して再計画を繰り返すが、旧パスの考慮やタスクの保留を行わないため、完全性は失われている。</p></section>
+<section class="secsum"><h3>V LOOK-AHEAD HORIZONS</h3><p>本セクションでは、将来のタスクを部分的に把握できるセミオンライン設定における「look-ahead horizon」を定義している。タスクはバッチ単位でリリースされ、look-ahead horizon は事前に把握可能なバッチの数を指し、オフライン設定ではこの値は無限大となる。例えば、5タイムステップごとにタスクがリリースされる環境で horizon が 1 の場合、タイムステップ 0 において、時刻 0 と時刻 5 にリリースされるタスクの両方が既知となる。この先行知識を利用することで、エージェントをタスクのリリース前にあらかじめ目的地へ移動させて待機させることが可能となり、タスク完了時間の短縮が期待できる。具体例として、タスクが時刻 0 と 2 にリリースされる場合、horizon が 0 では平均サービス時間が $\frac{5+11}{2} = 8$ となるのに対し、horizon が 1 であればエージェントを事前に配置することで平均サービス時間を $\frac{4+8}{2} = 6$ まで削減できることが示されている。</p></section>
+<section class="secsum"><h3>VI EXPERIMENTS</h3><p>本実験では、提案手法であるLNS-PBSおよびLNS-wPBSを、既存のMAPDアルゴリズム（CENTRAL, RMCA, HBH+MLA*）と比較し、オンライン、オフライン、およびセミオンライン設定での性能を評価している。実験環境は、4近傍グリッドマップからなる倉庫環境（small, medium, largeの3サイズ）を用い、MG-MAPDインスタンスでは各タスクのゴール地点を1〜5個の範囲でランダムに設定している。LNS-wPBSは、small環境のオンライン設定ではRMCAと混合的な結果となったが、mediumおよびlarge環境では、HBH+MLA*よりも実行時間は長いものの、サービス時間（$st$）において常に優位性（例：mediumで$10\%$以上、largeでも継続的な改善）を示した。また、LNS-wPBSはLNS-PBSやCENTRALと比較して、タイムステップごとの実行時間（$rt$）の分散が小さく、より安定した動作を実現している。タスク割り当てアルゴリズムの比較では、Hungarian法に基づく挿入法を用いたLNSが、greedy heuristicを用いたgreedy-LNSよりも優れたサービス時間を達成した。さらに、ルックアヘッド・ホライゾン（$LA$）の影響については、$LA=5$まではサービス時間の短縮に寄与するものの、それ以上に拡大すると、タスクシーケンスの長期化や頻繁な変更により、逆にサービス時間が増加する傾向が確認された。</p></section>
+<section class="secsum"><h3>VII CONCLUSIONS</h3><p>本研究では、エージェントへのタスクシーケンスの割り当てと、目標地点のシーケンスに基づく衝突回避経路計画を分離して行う、2つのデカップリング型MAPDアルゴリズムを提案している。第1のバリアントである LNS-PBS は、well-formed な MAPD インスタンスに対して完全性（completeness）を持ち、第2の LNS-wPBS はより高い効率性と安定性を備えている。実験の結果、両手法とも既存の最先端 MAPD アルゴリズムと比較してサービス時間を短縮しており、特に LNS-wPBS は大規模な倉庫環境において数千のタスクと 1,000 エージェント規模までスケール可能であることが示された。本手法は、タスクごとに目標地点の数が異なる Multi-Goal MAPD へと拡張可能であり、近未来のタスクが既知であるセミオンライン設定にも対応している。今後の課題として、実際の経路コストに基づいたタスク割り当てへの改善や、実機ロボットへの適用を見据えたより現実的なロボットシミュレータを用いた検証が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-14
+  </footer>
+</div>
+</body>
+</html>

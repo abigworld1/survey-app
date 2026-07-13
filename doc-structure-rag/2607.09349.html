@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Deceptive Grounding: Entity Attribution Failure in Clinical Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Deceptive Grounding: Entity Attribution Failure in Clinical Retrieval-Augmented Generation</h1>
+  <div class="meta">Cedric Caruzzo, Donggeun Yoo, Tae Soo Kim<br>採択先: 未取得 ・ 2026-07-10 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.09349v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.09349v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-10</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 5/5</span><div class="rating-reason">RAGの評価における盲点を突いた極めて重要な研究。既存の忠実度評価を回避する「Deceptive Grounding」を定義し、ドメイン特化モデルの脆弱性を定量的に示した点は新規性が高く、実用上のリスクも大きい。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAG（Retrieval-Augmented Generation）において、回答が検索文書の内容に忠実であり引用も正確であるにもかかわらず、主張の帰属先となるエンティティを誤る「Deceptive Grounding (DG)」という現象を定義・特定した。医学特化型モデルではDG発生率が最大 $86.7\%$ に達し、既存の忠実度（faithfulness）や引用検証の自動評価を完全にパスしてしまうという深刻なリスクを明らかにした。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、臨床RAGにおける新たな失敗形態である「Deceptive Grounding (DG)」を定義している。DGは、(1) 検索文書内のエンティティに帰属する主張を含み、(2) それらが当該エンティティの証拠として提示され、(3) かつ回答の全主張が文書から論理的に含意される（$claims \implies documents$）状態を指す。これは、文書の内容自体は正確であるため、従来のハルシネーション検出やNLI（自然言語推論）に基づく含意チェック、および引用検証では検出できない。具体的には、文書が「garetosmab」の効果を述べている際に、モデルがそれを「rituximab」の効果として誤って属性付与するような、属性帰属（attribution）レベルの失敗である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>13のモデルを用いた制御された要因設計ベンチマークにより、DGの発生率が $8\text{--}87\%$ と幅広く、特に医学・生物医学分野に特化したモデルでは最大 $86.7\%$ に達し、ドメイン特化が失敗を増幅させることを示した。DGとconfabulation（虚偽の捏造）が同一のトリガーから異なる経路を辿るメカニズムであることをアブレーション解析により特定した。また、実運用環境の740の薬物・疾患ペアの測定において、全体で $7.8\%$、最近承認された薬物では $13.6\%$ という高いDG発生率を確認した。さらに、高い精度（適合率 $97.0\%$、再現率 $98.7\%$）を持つ「Entity-Attribution Verification (EAV)」という検証手法を提案した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>5つの臨床サブドメインにわたる $\text{drug}(d) \text{--} \text{disease}(s) \text{--} \text{alternate-drug}(d&#x27;)$ トリプルを用いた、2次元要因設計による制御ベンチマークを構築した。第1軸（$d$-axis）はクエリ対象薬剤 $d$ の証拠の完全性を $\text{absent}$、$\text{partial}$、$\text{complete}$ の3段階で制御し、第2軸（$d&#x27;$-axis）は代替薬剤 $d&#x27;$ の文書内容を $\text{null\_control}$ から $\text{synthetic\_Y}$（薬理学的に妥当だが実在しない薬剤名）までの5段階で制御した。実験では、コンテキスト圧力を検証するために10ツールおよび4ツールのスキーマバリアントを用い、計264トリプルを評価した。判定器にはKimi-K2.5を用い、Llama-3.1-70B-Instructとの一致度（$\text{Cohen&#x27;s } \kappa = 0.71$）および人間によるゴールドスタンダードとの比較によって妥当性を検証した。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>提案されたEAV手法は、人間による評価において、適合率 $97.0\%$、DG再現率 $98.7\%$、特異度 $96.1\%$ という高い精度を示した。実環境の臨床データを用いた検証では、全体的なDG率は $7.8\%$ であったが、証拠が乏しい最近承認された薬剤のカテゴリでは $13.6\%$ まで上昇することが確認された。また、検索品質（$risk$）の増大に伴いDG率が単調増加することも明らかになった。アブレーション解析では、検索文書からエンティティ固有の臨床的根拠を除去するとDGが完全に消失し、失敗の形態がconfabulationへと移行することを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>医学分野のSFT（教師あり微調整）は、薬理学的クラスの表現を強化することで、知識の欠如ではなく属性帰属の感受性を高め、DG率を最大 $86.7\%$ まで上昇させる可能性がある。DGの軽減策として、評価（属性検証の追加）、検索（エンティティ特化型検索の優先）、訓練（エンティティ同一性検証の強制）の3レベルを提案しており、特にエンティティ特化型検索はDGを最大 $6.4\%$ まで抑制する。プロンプトによる介入（explicit entity-anchoring instruction）は、特定のモデルプロファイルにおいて属性帰属失敗率を $36.4\%$ から $5.7\%$ へと $84\%$ 削減するが、すべてのモデルに有効ではない。本研究のベンチマークは設計上、極めて敵対的な設定であり、自然な生成環境における発生率とは乖離がある点が限界として挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Deceptive Grounding: Entity Attribution Failure in Clinical Retrieval-Augmented Generation</h3><p>本研究では、RAG（Retrieval-Augmented Generation）において、モデルの回答が検索された文書の内容には忠実（faithfulness）であり、引用も正確であるにもかかわらず、提示された臨床的根拠がクエリ対象のエンティティではなく別のエンティティに関するものである現象を「Deceptive Grounding (DG)」と定義した。13のモデルを用いた制御された要因設計ベンチマークの結果、DGの発生率は8%から87%に及び、特に医学・生物医学分野に特化したモデルでは最大86.7%に達するなど、ドメイン特化がむしろ失敗を増幅させることが示された。アブレーション解析により、検索文書からエンティティ固有の臨床的根拠を除去するとDGは完全に消失し、失敗の形態がconfabulation（虚偽の捏造）へと移行することから、DGとconfabulationは同一のトリガーから異なる経路を辿るメカニズムであることが特定された。実運用環境における740の薬物・疾患ペアの測定では、全体で7.8%、最近承認された薬物では13.6%のDGが確認された。提案されたエンティティ属性検証手法は、人間によるゴールドスタンダードを用いた評価において、適合率97.0%、DG再現率98.7%という高い精度でDGを検出可能である。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本論文は、Retrieval-Augmented Generation (RAG) において、検索された文書の事実関係は正確であるものの、その証拠を誤ったエンティティに帰属させてしまう「Deceptive Grounding (DG)」という現象を定義している。DGは、既存のハルシネーション検出、忠実度（faithfulness）スコアリング、および引用検証のいずれの自動評価もパスしてしまうという特徴があり、これはモデルが検索文書の内容を正確に伝達している一方で、エンティティの不一致のみが発生しているためである。調査の結果、DGの発生率は13のモデル間で $8\text{--}87\%$ と幅があり、特に医学・生物医学分野に微調整されたモデルでは最大 $86.7\%$ に達するなど、ドメイン特化がむしろ失敗を増幅させることが示された。このメカニズムは、クエリのエンティティと検索文書のエンティティが共通の疾患コンテキストを共有していること（Stage 1）、および検索文書に補完的な情報が含まれていること（Stage 2）の二段階で説明され、情報の欠如を制御するアブレーション実験によって因果関係が確認されている。著者らは、高い精度（Precision $97.0\%$、Recall $98.7\%$）を持つ「Entity-Attribution Verification (EAV)」を提案しており、実際の臨床意思決定支援システムにおいても $7.8\%$、最近承認された薬剤においては $13.6\%$ という高い割合でDGが発生していることを明らかにしている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>既存のRAG評価フレームワークやNLI（自然言語推論）に基づく含意チェックは、生成された回答がソース文書の内容と論理的に整合しているか、あるいは捏造された主張を含まないかを検証するが、Deceptive Grounding（DG）は文書の内容自体には忠実であり、かつ実在するソースを引用するため、これらの手法では検出できない。DGは、クエリ対象のエンティティと文書内のエンティティが異なる場合に発生する属性付与（attribution）レベルの失敗であり、例えば文書が「garetosmab」の効果を述べている際に、生成モデルが「rituximab」の効果として誤って属性を付与するような現象を指す。これは、同名のエンティティ間の事実混同を扱うD-FActScoreや、文書の著者性に焦点を当てた研究とは構造的に異なり、パラメトリックな知識と検索コンテキストが矛盾する「知識の衝突（knowledge conflict）」とも異なり、むしろ両者が一致している状況下で発生する。臨床AIの安全性評価においても、事実の正確性やハルシネーション率は重視されているが、DGのようなエンティティの誤帰属は自動評価を完全にパスしてしまうため、現在の評価指標やFDAの規制ガイドラインにおいても見落とされている。</p></section>
+<section class="secsum"><h3>3 Deceptive Grounding: Definition and Taxonomy</h3><p>本セクションでは、臨床分野のRAGにおける新たな失敗形態である「Deceptive Grounding (DG)」を、事実の正確性ではなくエンティティの帰属レベルでの失敗として定義している。DGは、(1) 検索された文書内のエンティティに帰属する主張を含み、(2) それらの主張が当該エンティティに関する証拠として提示され、(3) かつ、回答内のすべての事実的主張が検索文書によって論理的に含意されている（$claims \implies documents$）状態を指す。この構造的特性により、主張レベルの含意のみを確認する標準的な忠実度（faithfulness）指標では、DGを「忠実である」と誤判定するため、評価が不可能となる。本研究では失敗を3つの階層に分類しており、評価不可能な Tier 1 (DG)、NERにより検出可能な Tier 2 (Entity Substitution: クエリ対象とは異なるエンティティについて回答する)、および忠実度指標で検出可能な Tier 3 (Prior Knowledge Confabulation: 検索文書に根拠のない知識を用いる) を区別している。さらに、DGの内部には、Silent EAF、Explicit EAF、Identity Fusion、Class-Justified Rationalization という、誤帰属の経路を反映した4つの生成サブタイプが存在すると定義している。</p></section>
+<section class="secsum"><h3>4 Method</h3><p>本研究では、5つの臨床サブドメインにわたる $\text{drug}(d) \text{--} \text{disease}(s) \text{--} \text{alternate-drug}(d&#x27;)$ トリプルを用いた、2次元要因設計による制御ベンチマークを構築している。第1軸である $d$-axisは、クエリ対象の薬剤 $d$ に関する証拠の完全性を $\text{absent}$（証拠なし）、$\text{partial}$（機序等はあり、試験結果はなし）、$\text{complete}$（試験名やNCT番号を含む）の3段階で制御し、第2軸である $d&#x27;$-axisは、代替薬剤 $d&#x27;$ の文書内容を $\text{null\_control}$ から $\text{synthetic\_Y}$（薬理学的に妥当だが実在しない薬剤名）までの5段階で制御する。実験では、ツールスキーマの数によるコンテキスト圧力を検証するため、10ツールのスキーマと4ツールのスキーマの2つのバリアントを用い、計264トリプルに対して評価を行っている。評価指標として、Kimi-K2.5を主判定器として用い、各主張に対するソース帰属と失敗分類（DG, ES, またはconfabulation）を行う。この判定器の妥当性は、Llama-3.1-70B-Instructとの一致度（$\text{Cohen&#x27;s } \kappa = 0.71$）および、人間によるゴールドスタンダードとの比較（EAF recall 98.7%, precision 97.0%, specificity 96.1%）によって検証されており、Kimiの偽陰性は主にエンティティ置換ケースに起因する定義上の差異であることが示されている。</p></section>
+<section class="secsum"><h3>5 Results</h3><p>本研究は、臨床RAG（Retrieval-Augmented Generation）において、検索された文書の内容が正しいにもかかわらず、誤ったエンティティ（薬剤名など）にその証拠を帰属させてしまう「Deceptive Grounding (DG)」という現象を分析している。実験の結果、文書内に臨床試験情報（CITs）などの「Completing information」が含まれる場合にDG率が不連続に跳ね上がり、例えば $L1\text{-}16B\text{-}A3B$ モデルでは、不完全な情報下でのDG率が $67\text{--}73\%$ に達することが示された。DGのメカニズムは2段階のゲート構造として定義され、第1段階で疾患コンテキストによる帰属プライアが活性化し、第2段階でCITsの有無によって「DG」か「Confabulation（幻覚）」かが決定される。特に、薬剤名そのもののラベルではなく、情報の「内容」が帰属を駆動することが示されており、実在しない薬剤名（$synthetic\_Y$）を用いた条件でも高いDG率が確認された。また、既存のRAG評価指標（RAGASやFActScore等）は、文書の内容が正確であればDGを検知できず、本研究はエンティティの帰属ミスを特定する「Entity-Attribution Verification (EAV)」の必要性を提唱している。実環境の臨床データを用いた検証では、全体的なDG率は $7.8\%$ であったが、証拠が乏しい新薬のカテゴリでは $13.6\%$ まで上昇し、検索品質（$risk$）の増大に伴いDG率が単調増加することが明らかになった。</p></section>
+<section class="secsum"><h3>6 Discussion</h3><p>医学・生物医学分野のファインチューニング（SFT）は、薬理学的クラスの表現を強化することで、知識の欠如ではなくむしろ属性帰属の感受性を高め、Deceptive Grounding (DG) 率を最大 $86.7\%$ まで上昇させる。DGの軽減に向けた介入として、評価（臨床RAGベンチマークへの属性検証の追加）、検索（トピック一致よりもエンティティ特化型検索を優先）、訓練（証拠合成前のエンティティ同一性検証の強制）の3つのレベルが提案されており、特にエンティティ特化型検索はDGを最大 $6.4\%$ まで抑制する最も効果的な手法である。プロンプトによる介入（explicit entity-anchoring instruction）は、parametric-priorプロファイル（例：L1-16B-A3B）において属性帰属失敗率を $36.4\%$ から $5.7\%$ へと $84\%$ 削減するが、pre-attentionalプロファイルに対してはほぼ効果がない。因果媒介分析の結果、SFTによるDGの増加経路が薬理学的クラスのシルエットスコアを介しているという有意な証拠は見つからず、クラス表現は複数の寄与経路の一つに過ぎないことが示唆されている。本研究のベンチマークは設計上、極めて敵対的な設定であり、自然な生成環境における発生率とは乖離がある点が限界として挙げられる。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>Deceptive grounding (DG) は、回答が正確かつ根拠に基づいているように見えながら、実態はエンティティの帰属（entity-attribution）に誤りがあるという、既存の hallucination や faithfulness、citation チェックでは検出不可能な体系的な失敗クラスである。本研究のプロダクション環境における測定では、全体で $7.8\%$、最近承認された薬剤では $13.6\%$ の DG が確認され、敵対的な検索条件下では医学的に微調整されたモデルにおいて最大 $86.7\%$ に達する。この問題に対し、評価面ではエンティティ帰属の検証を追加すること、検索面ではエンティティ特化型の検索を優先して Stage 1 の置換を防ぐこと、学習面では合成前にエンティティの同一性検証を強制することという、補完的な3つの介入策を提案している。特に学習面においては、単に不一致を検知するだけでは Stage 2 の失敗を防げないことが示されており、表面的な振る舞いに隠された誤りを捉える評価手法の確立が不可欠である。</p></section>
+<section class="secsum"><h3>Author Contributions</h3><p>本セクションでは、CRediT（Contributor Roles Taxonomy）に基づいた著者らの貢献度が記述されている。C.C.は、概念化（Conceptualization）、手法（Methodology）、ソフトウェア（Software）、形式知分析（Formal analysis）、調査（Investigation）、検証（Validation）、可視化（Visualization）、および初稿執筆（Writing – original draft）の各役割を担っている。一方、D.Y.およびT.S.K.は、資金獲得（Funding acquisition）とリソースの提供（Resources）を担当している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-14
+  </footer>
+</div>
+</body>
+</html>

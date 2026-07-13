@@ -1328,6 +1328,67 @@
       "url": "http://arxiv.org/abs/2607.08269v1",
       "venue": ""
     },
+    "arxiv:2607.09121": {
+      "added": "2026-07-14",
+      "added_at": "2026-07-14T06:03:05.395572",
+      "arxiv_id": "2607.09121",
+      "authors": [
+        "Bartosz Ziółko",
+        "Kacper Dobrzeniewski"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-10",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.09121.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.09121v1",
+      "reading_value": 3,
+      "reading_value_reason": "RAGを用いた金融ドメインのワークフロー構築は実用的だが、評価が少人数かつ定性的であり、計算機科学的な新規性よりも応用システムの実証に近い内容であるため。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Augmenting Fundamental Analysis with Large Language Models: A RAG-Based System for Generating Investor Briefs",
+      "tldr": "本研究は、RAG（Retrieval-Augmented Generation）を用いて、財務報告書、マクロ経済指標、およびSECのEDGAR文書などの多様なソースを統合し、投資家向けブリーフを自動生成するシステムを提案している。$\\text{gpt-4o}$ を中核とし、Kitchinサイクル等の経済知識を組み込むことで、単なる情報集約に留まらないクロスドメインな分析を実現している。",
+      "url": "http://arxiv.org/abs/2607.09121v1",
+      "venue": ""
+    },
+    "arxiv:2607.09349": {
+      "added": "2026-07-14",
+      "added_at": "2026-07-14T06:02:39.229857",
+      "arxiv_id": "2607.09349",
+      "authors": [
+        "Cedric Caruzzo",
+        "Donggeun Yoo",
+        "Tae Soo Kim"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-10",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.09349.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.09349v1",
+      "reading_value": 5,
+      "reading_value_reason": "RAGの評価における盲点を突いた極めて重要な研究。既存の忠実度評価を回避する「Deceptive Grounding」を定義し、ドメイン特化モデルの脆弱性を定量的に示した点は新規性が高く、実用上のリスクも大きい。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Deceptive Grounding: Entity Attribution Failure in Clinical Retrieval-Augmented Generation",
+      "tldr": "RAG（Retrieval-Augmented Generation）において、回答が検索文書の内容に忠実であり引用も正確であるにもかかわらず、主張の帰属先となるエンティティを誤る「Deceptive Grounding (DG)」という現象を定義・特定した。医学特化型モデルではDG発生率が最大 $86.7\\%$ に達し、既存の忠実度（faithfulness）や引用検証の自動評価を完全にパスしてしまうという深刻なリスクを明らかにした。",
+      "url": "http://arxiv.org/abs/2607.09349v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -2057,6 +2118,40 @@
       "url": "http://arxiv.org/abs/2203.07092v1",
       "venue": ""
     },
+    "arxiv:2208.01223": {
+      "added": "2026-07-14",
+      "added_at": "2026-07-14T06:01:44.548871",
+      "arxiv_id": "2208.01223",
+      "authors": [
+        "Qinghong Xu",
+        "Jiaoyang Li",
+        "Sven Koenig",
+        "Hang Ma"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2022-08-02",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2208.01223.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2208.01223v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPD問題に対し、LNSとPBSを組み合わせた分離型アプローチを提案。大規模環境でのスケーラビリティと既存手法を上回る性能を実証しており、実用性が高い。",
+      "relevance": 6,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi-Goal Multi-Agent Pickup and Delivery",
+      "tldr": "エージェントが継続的に新しいタスク（ピックアップとデリバリーのペア）を受け取るMulti-Agent Pickup and Delivery (MAPD) 問題に対し、Large Neighborhood Search (LNS) によるタスク割り当てとPriority-Based Search (PBS) による経路計画を組み合わせた分離型アルゴリズムを提案する。完全性を保証する $LNS\\text{-}PBS$ と、大規模環境でのスケーラビリティに優れた $LNS\\text{-}wPBS$ を提供し、既存手法を上回るサービス時間の短縮と安定性を実現する。",
+      "url": "http://arxiv.org/abs/2208.01223v1",
+      "venue": ""
+    },
     "arxiv:2211.13432": {
       "added": "2026-06-14",
       "added_at": "2026-06-14T00:00:00.000000",
@@ -2112,6 +2207,39 @@
       "title": "An Efficient Approach to the Online Multi-Agent Path Finding Problem by Using Sustainable Information",
       "tldr": "将来の追加エージェントが未知であるオンラインMulti-Agent Path Finding (MAPF) において、過去の計画情報を「持続可能な情報（sustainable information）」として再利用する3層構造のアプローチを提案する。提案手法は、高レベルのSustainable Replan (SR)、中レベルのSustainable Conflict-Based Search (SCBS)、低レベルのSustainable Reverse Safe Interval Path Planning (SRSIPP) で構成され、既存のSOTAと比較して平均1.48倍、大規模マップでは最大10倍の計算加速を実現する。",
       "url": "http://arxiv.org/abs/2301.04446v1",
+      "venue": ""
+    },
+    "arxiv:2303.17422": {
+      "added": "2026-07-14",
+      "added_at": "2026-07-14T06:01:08.889755",
+      "arxiv_id": "2303.17422",
+      "authors": [
+        "Giacomo Lodigiani",
+        "Nicola Basilico",
+        "Francesco Amigoni"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2023-03-30",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2303.17422.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2303.17422v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPDにおける遅延という実用的な不確実性を扱い、決定論的・確率的な2つの堅牢なアプローチを提案している点が非常に有用。再計画回数の削減効果も具体的。",
+      "relevance": 7,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Robust Multi-Agent Pickup and Delivery with Delays",
+      "tldr": "実行時の遅延（delays）が発生するMulti-Agent Pickup and Delivery (MAPD) 問題に対し、再計画の頻度を抑えるためのロバストな分散型アルゴリズム $\\delta\\text{-TP}$（決定論的）と $\\epsilon\\text{-TP}$（確率的）を提案する。提案手法は、解のコストや計算時間を大幅に増やすことなく、遅延に起因するオンライン再計画回数を劇的に減少させる。",
+      "url": "http://arxiv.org/abs/2303.17422v1",
       "venue": ""
     },
     "arxiv:2304.04217": {

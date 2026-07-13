@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Robust Multi-Agent Pickup and Delivery with Delays | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Robust Multi-Agent Pickup and Delivery with Delays</h1>
+  <div class="meta">Giacomo Lodigiani, Nicola Basilico, Francesco Amigoni<br>採択先: 未取得 ・ 2023-03-30 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2303.17422v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2303.17422v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2023-03-30</span><span class="chip keyword-match">キーワード一致 4</span><span class="chip">被引用 0</span><span class="chip">関連度 7</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPDにおける遅延という実用的な不確実性を扱い、決定論的・確率的な2つの堅牢なアプローチを提案している点が非常に有用。再計画回数の削減効果も具体的。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 実行時の遅延（delays）が発生するMulti-Agent Pickup and Delivery (MAPD) 問題に対し、再計画の頻度を抑えるためのロバストな分散型アルゴリズム $\delta\text{-TP}$（決定論的）と $\epsilon\text{-TP}$（確率的）を提案する。提案手法は、解のコストや計算時間を大幅に増やすことなく、遅延に起因するオンライン再計画回数を劇的に減少させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、タスク割り当てと衝突回避経路計画を組み合わせたMAPD問題に、エージェントが一時停止する「遅延」を導入した MAPD with delays (MAPD-d) を扱う。従来のMAPDは動的なタスク投入を想定しているが、本研究では実行中にエージェントが現在の頂点に留まることで経路が妨げられる不確実性をモデル化している。遅延は時刻 $t$ における集合 $\mathcal{D}_t$ で表され、問題の整合性を保つため、エージェントが無限に遅延することはないという条件 $\forall a, \forall t, \exists t&#x27; &gt; t \text{ s.t. } a \notin \mathcal{D}_{t&#x27;}$ が課される。既存の分散型手法である Token Passing (TP) をベースラインとし、遅延による衝突を検知してから再計画を行う手法と比較を行う。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>決定論的な堅牢性（$\delta$-robustness）を保証する $\delta\text{-TP}$ と、確率的な堅牢性（$\epsilon$-robustness）を保証する $\epsilon\text{-TP}$ という2つの新しいアルゴリズムを提案した。$\delta\text{-TP}$ は、最大 $\delta$ ステップの連続遅延が発生しても衝突を回避する $\delta\text{-extension}$ 制約を経路計画に組み込む。一方、$\epsilon\text{-TP}$ は、遅延をマルコフ連鎖モデルとして扱い、衝突確率を閾値 $\epsilon$ 以下に抑える計画を行う。これらの手法により、オンラインでの再計画（replanning）の頻度を大幅に削減しつつ、実用的な解のコストを維持できることを示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>$\delta\text{-TP}$ では、エージェント $i$ の経路 $\pi_i$ の時刻 $t$ における頂点 $v \in \pi_i(t)$ を、後続のエージェントが時刻 $t+1, \dots, t+\delta$ において障害物として扱う制約を課す。$\epsilon\text{-TP}$ では、各エージェントの遅延確率 $p$ に基づき、遷移行列 $M$ を用いて時刻 $t$ における所在分布 $\mathbf{x}_t = \mathbf{x}_0 M^t$ を算出する。経路の衝突確率は、各時刻における「エージェントがその頂点にいる確率」と「他のエージェントがその頂点にいない確率」の積を全頂点にわたって合計することで計算される。両手法とも、設定した $\delta$ または $\epsilon$ の閾値を超える遅延が発生した場合には、従来のTPと同様に再計画を実行する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>$10 \times 10$ および $20 \times 20$ の4連結グリッド環境を用い、タスク到着がポアソン分布に従う（到着頻度 $\lambda \in \{0.1, 0.2, 0.5\}$）条件下でシミュレーションを行った。評価指標としてメイクスパン、再計画回数、総実行時間を測定し、再計画を行うベースラインのTPと比較した。実験の結果、提案手法はいずれの環境でも再計画回数を劇的に減少させることが確認された。特に $\epsilon\text{-TP}$ は $\delta\text{-TP}$ よりも同等のメイクスパンにおいて高い堅牢性を示す傾向があり、$\delta\text{-TP}$ がベースラインに対して大幅な実行時間の増加を伴うのに対し、$\epsilon\text{-TP}$ は $\epsilon$ の値に応じてベースラインと同等から増加までの範囲で変動することが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法には、堅牢性のレベルと解のコスト（メイクスパン）との間に明確なトレードオフが存在する。$\epsilon\text{-TP}$ において、閾値 $\epsilon$ を大きくするか $\delta$ を小さくすることで再計画回数は減少するが、堅牢性を過度に高めすぎるとメイクスパンが著しく増大する。また、エージェントあたりの遅延回数を $1$ から $2$ に増やした困難な設定においても、提案手法の有効性は一貫して示された。今後の課題として、$\epsilon\text{-TP}$ のさらなる強化と、シミュレーションを超えた実環境での実験的検証が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Robust Multi-Agent Pickup and Delivery with Delays</h3><p>本研究は、実行時の遅延や失敗といった実環境の不確実性を考慮した、ロバストなMulti-Agent Pickup and Delivery (MAPD) 問題を扱う。提案手法は、分散型アルゴリズムであるToken Passing (TP) をベースとした2つのアルゴリズム、$\text{robust-TP}$ と $\text{prob-TP}$ であり、それぞれ決定論的および確率的なロバスト性の保証を提供する。これらの手法は、不完全な実行による影響を制限するように経路を計画することで、オンラインでの再計画（replanning）の頻度を大幅に削減することを目指している。実験では、オンライン再計画を組み込んだ従来のTPと比較検証が行われ、$\text{robust-TP}$ と $\text{prob-TP}$ は、解のコストや計算時間をほとんど増加させることなく、遅延に起因する再計画回数を劇的に減少させることを示した。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>Multi-Agent Pickup and Delivery (MAPD) は、タスク割り当て問題と衝突回避経路計画（MAPF）を組み合わせた問題であり、実行時に動的にタスクが投入される環境を想定している。本研究では、経路実行中にエージェントが一時停止する「遅延（delays）」が発生する状況を考慮した新しい問題設定である MAPD with delays (MAPD-d) を導入する。提案手法として、遅延による衝突を検知した際に再計画を行う分散型アルゴリズム Token Passing (TP) をベースラインとし、これに対し、遅延による衝突リスクを事前に抑制する堅牢な計画手法である $\delta$-TP および $\epsilon$-TP を提案する。$\delta$-TP は遅延に対して決定論的な堅牢性（$\delta$-robustness）を保証し、$\epsilon$-TP は確率的な堅牢性（$\epsilon$-robustness）を保証する。シミュレーション実験を通じて、提案アルゴリズムが提供する堅牢性のレベルと、解のコスト（solution cost）とのトレードオフを評価している。</p></section>
+<section class="secsum"><h3>2. Preliminaries and Related Work</h3><p>本セクションでは、MAPF（Multi-Agent Path Finding）を拡張したMAPD（Multi-Agent Pickup and Delivery）の定義と、遅延に対する堅牢性（Robustness）の概念が整理されている。MAPDは、グラフ上のエージェントに対し、実行時に動的に追加されるタスク集合 $\mathcal{T}$ から、ピックアップ地点 $p_i$ とデリバリー地点 $d_i$ を持つタスク $t_i$ を割り当て、衝突を回避しながら最小コスト（サービス時間またはメイクスパン）で完了させる問題である。遅延への対策として、各エージェントの遅延が最大 $\Delta$ ステップである場合に衝突を回避する $\Delta$-robustnessと、遅延発生確率に基づき衝突確率を $1-\epsilon$ 以下に抑える $\epsilon$-robustnessの2つの概念が導入されている。また、MAPDにおける長期的な実行可能性を保証する「long-term robustness」の条件として、タスク数が有限であることや、エージェントが干渉せずに待機できるエンドポイント（rest locations）の存在などが挙げられている。本研究では、オンラインかつ分散的な手法であるToken Passing (TP) アルゴリズムをベースとしており、これは共有メモリであるトークンを用いて、空いているエージェントが最も近いタスクを自身に割り当て、衝突のない経路を逐次計算するものである。</p></section>
+<section class="secsum"><h3>3. MAPD with Delays</h3><p>本セクションでは、実行時に遅延が発生するMAPD問題（MAPD–d）を定義している。遅延は、時刻 $t$ における遅延エージェントの集合 $\mathcal{D}_t$ によって表され、エージェント $a$ は現在の頂点に留まることで経路の実行が妨げられる。エージェント $a$ の経路 $\pi_a$ に対する実行トレース $\tau_a$ は、遅延を考慮した実際の頂点遷移の列として定義され、$\tau_a(t)$ は時刻 $t$ においてエージェント $a$ が占有する頂点を示す。問題の「well-formedness（整合性）」を維持するため、エージェントが無限に遅延することはない（$\forall a, \forall t, \exists t&#x27; &gt; t$ s.t. $a \notin \mathcal{D}_{t&#x27;}$）という条件 (iv) が追加されており、これにより遅延が環境のトポロジーを恒久的に変化させて解の存在を失わせることを防いでいる。比較用のベースラインとして、衝突を検知した際にトークンを衝突エージェントに割り当てて経路を再計画する「TP with replanning」が提案されている。このアルゴリズムでは、衝突が発生した場合に `PathPlanner` を用いて他のエージェントの現在の経路を制約条件としつつ新しい経路を計算し、デッドロック時にはランダムウォークによる回避を試みる。</p></section>
+<section class="secsum"><h3>4. Algorithms for MAPD with delays</h3><p>本セクションでは、遅延に対して異なる堅牢性（robustness）を提供する2つのMAPDアルゴリズム、$\delta$-TPおよび$\epsilon$-TPが提案されている。$\delta$-TPは決定論的な堅牢性を提供し、各エージェントが最大 $\delta$ 回の連続した遅延が発生しても衝突を回避できるよう、計画中の経路に対して $\delta$-extension制約を課す。具体的には、エージェント $i$ の経路 $\pi_i$ に対して、時刻 $t$ における頂点 $v \in \pi_i(t)$ を、後続のエージェントが時刻 $t+1, \dots, t+\delta$ において障害物として扱う制約を生成する。一方、$\epsilon$-TPは確率的な堅牢性を提供し、各経路の衝突確率が閾値 $\epsilon$ を下回ることを保証する。$\epsilon$-TPでは、各エージェントの遅延確率を $p$ としたマルコフ連鎖モデルを採用しており、時刻 $t$ におけるエージェントの所在分布を遷移行列 $M$ を用いて $\mathbf{x}_t = \mathbf{x}_0 M^t$ と計算する。経路 $\pi$ の衝突確率は、各時刻における「エージェントがその頂点にいる確率」と「他のエージェントがその頂点にいない確率」の積を全頂点にわたって合計することで算出される。両アルゴリズムとも、$\delta$ 回または $\epsilon$ 閾値を超える遅延が発生した場合には再計画（replanning）が必要となる。</p></section>
+<section class="secsum"><h3>5. Experimental Results</h3><p>本実験では、遅延の影響が顕著な2種類の4連結グリッド環境（小規模：$10 \times 10$、大規模：$20 \times 20$）を用い、提案手法である $\epsilon\text{-TP}$ および $\delta\text{-TP}$ を、再計画を行うベースラインの $\text{TP}$ と比較評価している。タスクの到着はポアソン分布に従い、到着頻度 $\lambda \in \{0.1, 0.2, 0.5\}$ の条件下で、エージェントごとの遅延が発生するシナリオにおいて、評価指標としてメイクスパン（makespan）、再計画回数、および総実行時間を測定した。実験結果から、提案手法はいずれの環境においてもベースラインと比較して再計画回数を大幅に削減できることが示され、特に $\epsilon\text{-TP}$ は $\delta\text{-TP}$ よりも同等のメイクスパンにおいて高い堅牢性（robustness）を示す傾向がある。$\epsilon\text{-TP}$ においては、閾値 $\epsilon$ を大きくするか $\delta$ を小さくすることで再計画回数は減少するが、堅牢性を高めすぎるとメイクスパンが著しく増大するトレードオフが確認された。また、計算量に関しては、$\delta\text{-TP}$ はベースラインに対して大幅な実行時間の増加を伴う一方、$\epsilon\text{-TP}$ の実行時間は $\epsilon$ の値に依存してベースラインと同等から大幅な増加まで変動する。さらに、エージェントあたりの遅延回数を $1$ から $2$ に増やしたより困難な設定においても、提案手法は再計画回数の削減において一貫した有効性を示した。</p></section>
+<section class="secsum"><h3>6. Conclusion</h3><p>本論文では、実行中の未知かつ有限な遅延を考慮した、実用的なマルチエージェント・ピックアップ＆デリバリー問題の拡張版である MAPD with delays (MAPD–d) を提案している。MAPD–d において、エージェントは各タスクのピックアップ地点からデリバリー地点への移動を完了させる必要があるが、本研究では決定論的な頑健性を保証する $\text{MAPD--TP}_{\text{det}}$ と、確率的な頑健性を保証する $\text{MAPD--TP}_{\text{prob}}$ という2つのアルゴリズムを提案した。実験では、遅延に対してリアクティブに対処するベースライン手法と比較を行い、提案手法がいずれもメイクスパンのわずかな増加で再計画（replanning）の回数を大幅に削減できることを示した。特に $\text{MAPD--TP}_{\text{prob}}$ は頑健性とコストのトレードオフにおいて最良の結果を示したが、依然として改善の余地が残されている。今後の展望として、Section 5.2 で述べた $\text{MAPD--TP}_{\text{prob}}$ の強化および実環境での実験的検証が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-14
+  </footer>
+</div>
+</body>
+</html>
