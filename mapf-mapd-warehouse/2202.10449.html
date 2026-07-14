@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Optimal Multi-Agent Path Finding for Precedence Constrained Planning Tasks | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Optimal Multi-Agent Path Finding for Precedence Constrained Planning Tasks</h1>
+  <div class="meta">Kushal Kedia, Rajat Kumar Jenamani, Aritra Hazra, Partha Pratim Chakrabarti<br>採択先: 未取得 ・ 2022-02-08 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2202.10449v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2202.10449v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2022-02-08</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 6</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">先行制約付きMAPFに対し、最小メイクスパンを保証する初の最適アルゴリズムを提案しており、新規性と問題設定の重要性が高い。既存手法の限界も明確に示されている。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Multi-Agent Pickup and Delivery</span></div>
+  <div class="tldr"><strong>一言で:</strong> 先行制約が存在するマルチエージェント経路計画（PC-MAPF）において、最小メイクスパンを達成する初の最適アルゴリズムであるPrecedence Constrained Conflict Based Search (PC-CBS) を提案する。タスク間の依存関係をタスクグラフとして扱い、衝突（collision）と先行制約違反（precedence conflict）の両方を解決することで、最適性と完全性を保証する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、エージェントに割り当てられた一連のタスク間に先行制約が存在する「Precedence Constrained Multi-Agent Path Finding (PC-MAPF)」問題を扱う。この問題は、共同でのピックアップ・デリバリーや、リソース供給を必要とする製造タスクなどのアプリケーションを想定している。タスクは、割り当てられたエージェント集合 $\mathcal{A}_i$、ピックアップ地点 $p_i$、デリバリー地点 $d_i$ のタプル $( \mathcal{A}_i, p_i, d_i )$ で定義され、タスク間の先行制約 $\prec$ は有向非巡回グラフ（DAG）であるタスクグラフ $\mathcal{G}_{task}$ として表現される。本研究の目的は、全エージェントが最終的な位置に到着する最終タイムステップ、すなわちメイクスパンを最小化することである。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>PC-MAPF問題に対し、最小メイクスパンを達成する初の最適アルゴリズムであるPC-CBSを提案した。従来のHierarchical-CBS (H-CBS) は、タスクを個別に計画する性質上、先行制約を満たすためにエージェントを事前に待機させる必要がある場合に劣最適となる限界があった。本研究では、先行制約の衝突を新たに導入し、タスクの有効な実行間隔（valid intervals）を動的に更新する手法を構築した。これにより、タスク割り当てが与えられた条件下でPC-MAPFを最適に解くことが可能となり、タスク割り当てモジュールとの統合も容易な設計を実現している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法PC-CBSは、高レベルにConflict Tree (C.T.)、低レベルにmulti-waypoint A*を用いる2レベル構造のアルゴリズムである。高レベル探索では、各ノードに衝突制約とタスクの開始・終了時刻の有効な区間 $[t_{start}, t_{end}]$ を保持し、best-first探索を行う。先行制約の衝突が検出された場合、先行タスクの終了時刻を用いて現在のタスクの開始区間を分割（split）し、Algorithm 3を用いてトポロジカル順および逆トポロジカル順に区間を伝播的に更新する。低レベル探索では、状態空間を $\{ \text{position, timestep, tasks\_completed} \}$ と定義したmulti-waypoint A*を用い、将来の衝突を抑制するためのtie-breaking heuristics（遅延コストや経路比較に基づくカスケード型）を適用する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>$9 \times 9$ グリッド環境（empty-grid, warehouse-grid, maze-gap, maze-tunnel）を用い、Warehouse AssemblyおよびCollaborative MAPD問題において、PC-CBSとH-CBSを比較評価した。実験はIntel Core i7-1165G7 CPU、15.3 GBメモリ、タイムアウト300sの設定で行われた。Warehouse Assembly問題では、PC-CBSが36個中30個のセットでH-CBSと同等以上の性能を示し、H-CBSは環境が複雑なmaze-tunnelにおいて劣解の割合や $\text{Avg. regret}$ が増大することが確認された。Collaborative MAPD問題では、H-CBSが解の発見率で上回る場面もあったが、依然として大きな劣最適性が発生していた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>PC-CBSは先行制約の整合性を保証しつつメイクスパンの最適性を維持できるが、タスクへのエージェント数が増加すると、マルチウェイポイント探索に伴う衝突の指数関数的な増加により性能が低下する課題がある。また、H-CBSは狭い通路での順序入れ替えが必要なケースにおいて、最適値（例：7）から劣解（例：11）へとメイクスパンが悪化する限界が示された。今後の展望として、パスプランナーの上にタスク割り当てモジュールを統合し、順序のないタスク群に対してマルチゴール版 $A^*$ を用いることで、探索負荷を軽減する手法が挙げられる。さらに、先行制約を伴う協調輸送タスクやインテリジェント倉庫の設計への応用が計画されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Optimal Multi-Agent Path Finding
+for Precedence Constrained Planning Tasks</h3><p>本研究では、エージェントに割り当てられた一連の計画タスク間に先行制約が存在する「Precedence Constrained Multi-Agent Path Finding (PC-MAPF)」という拡張問題を扱う。この問題は、複数のエージェントによる共同でのピックアップ・デリバリーや、製造タスクの前にリソースの供給が必要となる倉庫内組み立て作業などのアプリケーションを想定している。提案手法である「Precedence Constrained Conflict Based Search (PC-CBS)」は、makespanを最適化する解を探索するアルゴリズムであり、Precedence-Constrained Task-Graphを用いて各タスクの有効な実行間隔を定義し、先行制約の衝突が発生するたびにそれらを更新する。評価実験では、倉庫内組み立てやマルチエージェント・ピックアップ・デリバリーの様々なタスクを用いてベンチマークを行い、既存の効率的なベースライン手法における劣最適性を評価している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究では、タスク間の先行制約（precedence constraints）を考慮するPrecedence-Constrained Multi-Agent Path Finding (PC-MAPF) 問題に対し、最小メイクスパン（minimum-makespan）を達成する初の最適アルゴリズムであるPrecedence Constrained Conflict Based Search (PC-CBS) を提案している。PC-MAPFは、各タスクをノード、先行制約を有向エッジとするTask Graphとして表現され、各タスクには開始可能な有効区間（valid intervals）が定義される。提案手法のPC-CBSは、高レベルにConflict Tree (C.T.)、低レベルにmulti-waypoint A*を用いる2レベル構造のアルゴリズムであり、エージェント間の衝突（collision conflicts）に加え、タスクグラフの制約に反する場合の先行制約衝突（precedence conflicts）を新たに導入して探索を行う。低レベルの探索では、各タスクの開始地点と終了地点をウェイポイントとして、各エージェントの経路を個別に探索し、将来の衝突を抑制するためのtie-breaking heuristics を活用する。既存のHierarchical-CBS (H-CBS) は、タスクを個別に計画するセグメント化された性質上、先行制約を満たすためにエージェントを事前に待機させる（pre-emptive delays）必要があるケースにおいて、最適性を欠くという限界がある。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>従来のMAPFは、コストの総和やmakespanを目的関数とした場合にNP困難であることが知られており、Conflict Based Search (CBS) を基盤とした様々な拡張手法が提案されてきた。本研究が扱うPrecedence Constrained MAPF (PC-MAPF) は、タスク間に先行制約が存在するMAPFの一般化であり、MAPFがPC-MAPFの特殊なケースであることから、PC-MAPFの最適解を求める問題も少なくともNP困難である。既存の関連研究では、タスク割り当てと経路計画を統合したTCBSや、TSPを用いてタスク順序を決定した手法、あるいは衝突を考慮せずにタスク割り当てを行うH-CBSなどが存在するが、後者は先行制約のある問題に対して劣最適となることが示されている。これに対し、本研究で提案するPC-CBSは、タスク割り当てが与えられた条件下でPC-MAPFを最適に解くことを目的としており、タスク割り当てモジュールとの統合も容易な設計となっている。</p></section>
+<section class="secsum"><h3>3 Problem Formulation and Notation</h3><p>本セクションでは、古典的なMAPFの定義に基づき、先行制約を含むPC-MAPF（Precedence Constrained Multi-Agent Path Finding）の定式化がなされている。古典的MAPFは、無向グラフ $G=(V, E)$ 上でエージェント集合 $\mathcal{A}$ が衝突を避けつつ、各エージェント $a$ が開始地点 $s_a$ から目標地点 $g_a$ へ到達する経路 $\pi_a$ を求める問題であり、目的関数には合計コスト（sum of costs）やメイクスパン（makespan）が用いられる。PC-MAPFでは、各エージェントに一連のタスク（pickup/delivery）が割り当てられ、タスク間の先行制約 $\prec$ が導入されている。タスク $T_i$ は、割り当てられたエージェント集合 $\mathcal{A}_i$、ピックアップ地点 $p_i$、デリバリー地点 $d_i$ のタプル $( \mathcal{A}_i, p_i, d_i )$ で定義され、複数エージェントが関与するタスクでは、$\mathcal{A}_i$ の全エージェントが同一タイムステップで $p_i$ に到着しなければならないという制約がある。また、衝突の定義が拡張され、同一頂点を占有していても、それが同一のタスクを実行中の場合は衝突とみなされない。問題は、タスクを頂点、先行制約を有向辺とする有向非巡回グラフ（DAG）であるタスクグラフ $\mathcal{G}_{task}$ として表現され、各タスクには実行開始・終了の許容範囲を示す時間間隔 $[t_{start}, t_{end}]$ が定義される。本研究では、全エージェントが最終的な駐車位置に到着する最終タイムステップを最小化する、メイクスパン最適解の算出を目的としている。</p></section>
+<section class="secsum"><h3>4 Proposed Approach</h3><p>提案手法であるPC-CBSは、従来のConflict Based Search (CBS) を拡張し、衝突（collision）だけでなく、タスクグラフの依存関係に違反する先行関係の衝突（precedence conflict）を解決するアルゴリズムである。高レベル探索では、衝突ツリー（CT）の各ノードに衝突制約に加え、タスクの開始・終了時刻の有効な区間（valid intervals）を保持させ、makespanを最小化するbest-first探索を行う。先行関係の衝突が検出された場合、Algorithm 2に基づき、先行タスクの終了時刻を用いて現在のタスクの開始区間を分割（split）することで、不適切な解を探索空間から排除する。この際、Algorithm 3を用いて、トポロジカル順および逆トポロジカル順にタスク区間を伝播的に更新することで、制約の整合性を維持する。低レベル探索では、状態空間を $\{ \text{position, timestep, tasks\_completed} \}$ と定義した多ウェイポイントA*を用い、先行関係や衝突を回避するために、遅延コスト（delay cost）や他のエージェントとの経路比較に基づくカスケード型のタイブレーク・ヒューリスティックを適用する。本手法は、先行関係の衝突を衝突制約より優先して処理することで、タスクグラフの整合性を保証しつつ、makespanの最適性と完全性を維持することが証明されている。</p></section>
+<section class="secsum"><h3>5 Hierarchical-CBS</h3><p>Hierarchical-CBS (H-CBS)は、先行条件付きマルチエージェント経路探索（PC-MAPF）問題を解くための3層階層探索アルゴリズムであり、最上位層にCBS、中間層にIncremental Slack Prioritized Search (ISPS)、最下位層に$A^*$を用いる。前処理として、衝突を無視した各タスクの完了時間を算出し、グローバルなmakespanを増加させずに許容できる余剰時間である「slack」を各タスクに対して定義する。ISPSはタスクグラフをトポロジカル順序で走査し、利用可能なslack量に基づいた優先順位に従って、各タスクセグメントの最短衝突回避経路を$A^*$で探索する。実験では、Warehouse AssemblyおよびCollaborative MAPD問題を用い、Empty Grid、Warehouse Grid、Maze-Gap、Maze-Tunnelの4種類の環境で、PC-CBSに対するH-CBSの解の最適性（% sub-optim.）と平均再計画回数（avg. reg-ret）を評価している。H-CBSは、最適解を得るためにあえて経路を事前に遅延させる必要があるケース（例：狭い通路での順序入れ替えが必要な場合）において、貪欲な経路選択を行うためにmakespanが最適値（例：7）から悪化（例：11）し、最適性を保証できないという限界がある。</p></section>
+<section class="secsum"><h3>6 Experimental Results</h3><p>本実験では、提案手法であるPC-CBSと、分割計画を用いるH-CBSの性能を、4種類の$9 \times 9$グリッド環境（empty-grid, warehouse-grid, maze-gap, maze-tunnel）において比較評価している。評価指標として、解の成功率 $(\text{PC-CBS, H-CBS})_{\text{Sol.}}$、H-CBSが劣解となる割合 $\% \text{sub-opt.}$、およびPC-CBSの最適解に対するH-CBSの追加タイムステップ数である $\text{Avg. regret}$ が用いられた。Warehouse Assembly問題では、PC-CBSが36個中30個の評価セットでH-CBSと同等以上の性能を示し、H-CBSは環境の複雑さが増す（特にmaze-tunnel）につれて、劣解の割合や $\text{regret}$ が増大する傾向が確認された。一方、Collaborative MAPD問題では、H-CBSが解の発見率においてPC-CBSを上回る結果となったが、依然として大きな劣解が発生しており、PC-CBSはタスクへのエージェント数が増加すると、マルチウェイポイント探索に伴う衝突の指数関数的な増加により性能が低下する。実験設定は、Intel Core i7-1165G7 CPU、15.3 GBメモリを用い、各インスタンスのタイムアウトは300sに設定されている。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>本研究では、最先端のMAPFソルバーであるCBSをベースとした、先行制約付きMAPF（PC-MAPF）のための最適アルゴリズムを提案している。倉庫内での組み立てや協調的なMAPD問題をタスクグラフとして表現し、これをソルバーへの入力として用いる手法を構築した。提案手法の最適性を証明するとともに、既存のPC-MAPFソルバーの劣最適性を評価した。今後の展望として、パスプランナーの上にタスク割り当てモジュールを統合し、各エージェントに割り当てられた順序のないタスク群に対してマルチゴール版 $A^*$ を用いることで、タスク割り当て問題の探索負荷を軽減する手法が挙げられる。さらに、先行制約を伴う協調輸送タスクとの組み合わせや、PC-CBSを用いたインテリジェント倉庫の設計に関する研究も計画されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-15
+  </footer>
+</div>
+</body>
+</html>

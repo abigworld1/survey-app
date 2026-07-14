@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Certificate-Driven Closed-Loop Multi-Agent Path Finding with Inheritable Factorization | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Certificate-Driven Closed-Loop Multi-Agent Path Finding with Inheritable Factorization</h1>
+  <div class="meta">Jiarui Li, Runyu Zhang, Gioele Zardini<br>採択先: 未取得 ・ 2026-04-01 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2604.00428v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2604.00428v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-04-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">有限ホライゾンMAPFにおける「証明書」と「予算」の導入という新規性が高く、分解の継承可能性を数学的に証明している点が極めて強力。実用的な改善も示されている。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 有限ホライゾンに基づく閉ループ型MAPFにおいて、衝突のないフォールバック計画とコストの上界を提供する「証明書（certificate）」と「フリート予算（fleet budget）」を導入する。これにより、タイムステップ間で継承可能な「予算制限付き分解（budget-limited factorization）」を実現し、高密度な環境下でも一貫した解の質とスケーラビリティを両立するCDCBSアルゴリズムを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、共有グラフ上で多数のエージェントが衝突を回避しながら目的地へ到達するMulti-Agent Path Finding (MAPF) における、スケーラビリティと解の保証のトレードオフを扱う。従来のAnytime Closed-Loop Conflict-Based Search (ACCBS) 等の有限ホライゾン手法は、高密度な環境において計算予算内で十分なホライゾンを確保できず、解の質が低下したり不安定になったりする課題があった。本論文は、現在の状態からゴールまでの実行可能な軌道集合とコストからなる「fleet budget」を導入することで、有限ホライゾン計画にグローバルな進捗概念を導入し、局所的な再計画が全体的な保証を損なわない枠組みを構築する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、衝突のない全ホライゾン計画とフリート予算のペア $(\mathcal{T}_t, B_t)$ からなる「certificate（証明書）」の概念を導入し、更新が現在の証明書を改善する場合のみ受理することで、エージェントの目標到達（完備性）を数学的に保証した。第二に、フリート予算から導出される「予算制限付き到達可能領域（budget-limited reachable region）」を定義し、ある時刻で成立したグループの独立性が以降の時刻でも維持される「継承可能な分解（inheritable factorization）」を証明した。第三に、これらを統合したCDCBSアルゴリズムを提案し、高密度なベンチマークにおいてACCBSよりも一貫して優れた解の質（Sum of Cost）を達成することを示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法CDCBSは、ACCBSをベースに、証明書の更新と予算制限付き分解を組み込んでいる。時刻 $t$ における各エージェント $i$ の到達可能領域は、スラックネス $\sigma_t$（フリート予算から各エージェントの最短経路コストの総和を引いた値）を用いて $\mathcal{R}_i(v, \sigma_t) = \{u \mid d(v, u) + d(u, g_i) \le \text{cost}_i(t) + \sigma_t\}$ と定義される。この領域の交差に基づき、Disjoint-Set Data Structure (DSU) を用いてフリートを独立したグループに分割する。更新プロセスには、前時刻の証明書を1ステップ切り詰める「Across-timesteps update」と、計算時間内に改善を見出す「Within-timestep update」がある。分解の計算負荷を抑えるため、スラックネスの減少が閾値 $\epsilon$ を超えた場合のみ再計算を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>MAPFベンチマークマップを用い、バックアップコントローラとしてLaCAMを使用して、CDCBSの性能をACCBSおよびLaCAMと比較評価した。実験の結果、CDCBSは特に占有率の高い高密度な設定において、ACCBSよりも一貫して優れたSum of Cost (SOC) を達成した。また、スラックネス予算を小さく設定することで、到達可能領域が制限され、フリートをより小さな独立したグループへと効果的に分割できることが確認された。バックアップコントローラに関する実験では、engineered LaCAMを用いることでよりタイトな証明書（小さなフリート予算）が得られるものの、最終的な閉ループSOC増分はvanilla LaCAMと大差なく、証明書の質と計算コストのトレードオフが存在することが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>CDCBSは、計算予算の増加に伴いSOC増分が単調に減少するという予測可能な挙動を示し、これは証明書が単なる計画のコミットではなく、インカンベントな証明書のタイト化として機能するという理論的性質を裏付けている。本手法の強みは、有限ホライゾン計画を用いながらも、フリート予算の単調減少によってグローバルな進捗を管理し、継承可能な分解によって計算効率を高められる点にある。今後の課題として、他の閉ループMAPFアルゴリズムへの適用、証明書の質と生成コストのバランスを最適化する適応的なコントローラ選択、および並列予算下における継承可能な分解の実行時間に関する調査が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Certificate-Driven Closed-Loop Multi-Agent Path Finding with Inheritable Factorization</h3><p>本研究は、有限ホライゾンに基づく閉ループ型MAPF（Multi-Agent Path Finding）において、局所的な計画が全体的な保証や構成的構造の活用を困難にする課題を解決するため、証明書軌道（certificate trajectories）とそれに関連するフリート予算（fleet budget）を導入する。証明書は、衝突のないフォールバック計画と残余コストに対する単調な上界を提供し、証明書を改善する更新のみを受け入れることで完全性を担保する。この予算情報は、タイムステップ間でグローバルかつ継承可能な分解を可能にする予算制限付き分解（budget-limited factorization）を誘導する。このフレームワークをAnytime Closed-Loop Conflict-Based Search (ACCBS) に適用した手法をCertificate-Driven Conflict-Based Search (CDCBS) と呼び、ベンチマークマップを用いた実験の結果、CDCBSは特に高密度な設定においてACCBSよりも一貫した解の質を達成し、提案する分解手法によって実効的なグループサイズを削減できることが示された。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>MAPF（Multi-Agent Path Finding）は、共有グラフ上で衝突を回避しながらエージェントを目的地へ導く問題であり、スケーラビリティと解の保証（最適性や近似比）のトレードオフが主要な課題である。既存のCBS等の保証付き手法は、全結合軌道を解決する必要があるためスケーラビリティに欠けるが、有限ホライゾンでオンラインに再計画を行うClosed-loop MAPFは、将来の衝突解決を遅延させることで大規模なフリートへの適用を可能にする。しかし、従来のACCBSのような手法では、高密度な環境下で計算予算内で短いホライゾンしか探索できず、解の質の低下や不安定性を招く問題がある。本論文では、現在の状態からゴールまでの実行可能な軌道集合とコストからなる「fleet budget」を導入し、更新候補が現在のcertificate（証明）を改善する場合のみ受理することで、有限ホライゾン計画にグローバルな進捗概念を導入する。さらに、fleet budgetを用いて「budget-limited reachable regions」を定義することで、タイムステップ間で継承可能なグローバルな分解（factorization）を実現し、フリートの構成的構造を効果的に活用する。提案手法であるCDCBSは、ACCBSをベースに、CBSによるactive prefixとバックアップ・ロールアウトを組み合わせたcertificateを更新する仕組みであり、実験では高密度なベンチマークにおいてACCBSよりも堅牢であり、提案する分解手法が実効的なグループサイズを大幅に削減することが示されている。</p></section>
+<section class="secsum"><h3>II Problem Definition and Preliminaries</h3><p>MAPF問題は、有向反射グラフ $\mathcal{G} = (V, E)$、エージェント集合 $\mathcal{A}$、および各エージェントの開始・目標頂点 $\text{start}_a, \text{goal}_a$ からなるタプル $\mathcal{I} = (\mathcal{G}, \mathcal{A}, \text{start}, \text{goal})$ として定義され、頂点衝突（$p_a(t) = p_b(t)$）およびエッジ衝突（$p_a(t) = p_b(t) \land p_a(t+1) = p_b(t+1)$）のない軌跡集合 $\boldsymbol{\tau}$ を求めることが目的である。本研究が扱う「One-shot MAPF問題」は、実行が完璧であり、インスタンスが時間経過で変化しないクローズドループ制御問題として定式化される。既存手法であるACCBSは、実行中のホライゾン $H$ とそのアクティブ・プレフィックス $\boldsymbol{\tau}_{t:t+H-1}$ を用いて、制約木上で有限ホライゾンの探索を行うが、コスト関数 $J(\boldsymbol{\tau})$ は、目標未到達時のペナルティである Running cost $\sum_{t&#x27;=t}^{t+H-1} \mathbb{1}[p_a(t&#x27;) \neq \text{goal}_a]$ と、残りの経路長を近似する Terminal cost $h(p_a(t+H-1), \text{goal}_a)$ の和で構成される。しかし、ACCBSには、高密度環境での計算量の増大によるタイムアウトや、有限ホライゾン近似による近視眼的な意思決定、およびホライゾンの拡大に伴いエージェント間の依存関係が解消されず、問題の分解（factorization）を活用できないという限界がある。</p></section>
+<section class="secsum"><h3>III Certificates and Valid Updates</h3><p>本セクションでは、有限の計算予算下で不完全な計画に陥るのを防ぐため、常に衝突のない全ホライゾン計画である「certificate（証明書）」を維持する手法を提案している。時刻 $t$ におけるcertificateは、衝突のない軌跡集合 $\mathcal{T}_t$ と、それに関連付けられたフリート予算 $B_t$ のペア $(\mathcal{T}_t, B_t)$ として定義され、$\mathcal{T}_t$ は各エージェントの現在地から目標地点までを繋ぎ、総コストが $B_t$ に一致する。このcertificateは、計算が失敗した際の実行可能なフォールバック計画として機能するだけでなく、新しく生成された計画が現在のcertificateを改善する場合のみ受理するというフィルタリングの役割も果たす。updateのプロセスには、前時刻のcertificateを1ステップ分切り詰めて継承する「Across-timesteps update」と、計算時間内に改善が見つかった場合にcertificateを更新する「Within-timestep update」の2種類がある。Lemma III.1により、有効なcertificate updateを毎ステップ行う限り、エージェントが目標に到達していない限り $B_{t+1} &lt; B_t$ が保証され、フリート予算が非負の整数であることから、すべてのエージェントは有限時間内に目標に到達する（完備性が保証される）。</p></section>
+<section class="secsum"><h3>IV Budget-Limited Reachability and Inheritable Factorization</h3><p>本セクションでは、現在の証明書（certificate）に基づき、将来のフリートの挙動が現在の予算内で制限される性質を利用した「予算制限付き到達可能領域（budget-limited reachable region）」と、その「継承可能な分解（inheritable factorization）」を定義している。まず、フリート予算から各エージェントの最短経路コストの総和を引いた値をスラックネス $\sigma_t$ と定義し、エージェント $i$ が時刻 $t$ において頂点 $v$ に位置する場合、将来の予算を遵守するために到達可能な頂点の集合を $\mathcal{R}_i(v, \sigma_t) = \{u \mid d(v, u) + d(u, g_i) \le \text{cost}_i(t) + \sigma_t\}$ と定めている。この到達可能領域の交差に基づき、フリートを独立したグループに分割する「予算制限付き分解」を導入しており、これは従来の局所的な手法とは異なり、フリート全体に対してグローバルに適用される。Lemma IV.2 により、証明書を改善する更新のみを受け入れる限り、各エージェントの予算制限付き到達可能領域は時間の経過とともに縮小（$\mathcal{R}_i(v, \sigma_t) \supseteq \mathcal{R}_i(v&#x27;, \sigma_{t+1})$）することが示されている。この性質から、Corollary IV.1 により、ある時刻 $t$ で予算制限付き分解によって独立となったグループは、その後のすべての時刻においても独立性が維持される（継承される）ことが数学的に証明されている。</p></section>
+<section class="secsum"><h3>V CDCBS Algorithm</h3><p>CDCBSは、ACCBSをベースに証明書（certificate）の更新と予算制限付き分解（budget-limited factorization）を統合した、閉ループ型のマルチエージェント経路計画（MAPF）アルゴリズムである。各タイムステップにおいて、エージェント群は前ステップの分解結果を継承し、長さ $H$ のアクティブな接頭辞（active prefix）に対して制約木（constraint tree）を構築して衝突回避を行う。アルゴリズムは、衝突のない接頭辞が見つかるたびに実行ホライゾン $H$ を拡張し、アクティブな接頭辞と劣最適な衝突回避テールを結合することで、証明書軌道とフリート予算 $\mathcal{B}$ を更新する。分解プロセスでは、スラックネス（slackness）の減少が閾値 $\epsilon$ を超えた場合にのみ、DSU（disjoint-set data structure）を用いて到達可能領域を再計算し、計算負荷と分解の感度のバランスを取る。評価指標としてSum of Cost (SOC) $\sum_{i \in \mathcal{A}} \text{cost}(\pi_i)$ を用いており、計算時間が無限で $H_{max}$ が最適解のメイクスパンを上回る理想的な条件下では、CDCBSはSOCにおいてグローバルな最適性を保証する。ACCBSとは異なり、CDCBSではフリート予算 $\mathcal{B}$ がSOCの性能の上限を規定し、$\mathcal{B}$ の減少に伴いSOCの上限も単調に改善される。</p></section>
+<section class="secsum"><h3>VI Experiments</h3><p>本実験では、MAPFベンチマークのマップを用い、バックアップコントローラとしてLaCAMを使用して、提案手法であるCDCBSの性能をACCBSおよびLaCAMと比較評価している。SOC（Success on Completion）の増分を評価指標とした結果、CDCBSはACCBSよりも一貫して優れた性能を示し、特に占有率が高い密な環境においてその優位性が顕著になることが確認された。CDCBSは計算予算の増加に伴いSOC増分が単調に減少する予測可能な挙動を示すが、これは証明書（certificate）が有限ホライゾン計画のコミットではなく、実行可能なインカンベントな証明書のタイト化に利用されるという理論的性質を裏付けている。予算制限付き分解（budget-limited factorization）に関しては、slackness予算を小さくすることで到達可能領域が制限され、フリートをより小さな独立したグループへと効果的に分割できることが示された。バックアップコントローラの選択に関する実験では、engineered LaCAMを用いることでよりタイトな証明書（より小さなフリート予算）が得られるものの、最終的な閉ループSOC増分はvanilla LaCAMと大差なく、証明書の質と計算コストのトレードオフが重要であることが示唆されている。</p></section>
+<section class="secsum"><h3>VII Conclusion and Future Work</h3><p>本論文では、閉ループ型MAPFのための証明書（certificate）ベースのフレームワークを提案し、ACCBSを具体化することでCDCBSを構築した。この手法の核心は、各タイムステップにおいて、フリート予算（fleet budget）を伴う衝突のない証明書軌道を暫定計画として保持し、その証明書を改善する場合にのみ閉ループの更新を受け入れる点にある。これにより、予算の単調減少による完全性と、予算制限付き到達可能領域に基づく継承可能な分解（inheritable factorization）を両立させ、有限ホライゾン計画下でも実行可能なフォールバック計画と組成構造の活用を可能にしている。実験の結果、CDCBSは特に高密度なインスタンスにおいてACCBSよりも安定した解の質を示し、提案された分解手法は並列計画に活用可能な構造を明らかにしている。また、バックアップコントローラの探索を通じて、より厳密な証明書が必ずしも比例した性能向上をもたらさないという設計上のトレードオフも示された。今後の展望として、他の閉ループMAPFアルゴリズムへの適用、証明書の質と生成コストのバランスを取る適応的なコントローラ選択、および並列予算下での継承可能な分解の実行時間調査が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-15
+  </footer>
+</div>
+</body>
+</html>

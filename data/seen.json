@@ -1389,6 +1389,69 @@
       "url": "http://arxiv.org/abs/2607.09349v1",
       "venue": ""
     },
+    "arxiv:2607.10316": {
+      "added": "2026-07-15",
+      "added_at": "2026-07-15T06:03:24.782835",
+      "arxiv_id": "2607.10316",
+      "authors": [
+        "Zhihui Sun"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-11",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.10316.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.10316v1",
+      "reading_value": 4,
+      "reading_value_reason": "階層的RAGの課題であるLLMコストをSVDによる抽出型要約で劇的に改善しており、実用性が極めて高い。精度維持と高速化の両立が具体的で、研究価値が高い。",
+      "relevance": 8,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "SVD-RAG: Efficient Tree-Organized Retrieval-Augmented Generation via Singular Value Decomposition",
+      "tldr": "SVD-RAGは、RAPTORのような階層的RAGにおけるLLMを用いた要約コスト問題を解決するため、文埋め込み行列に特異値分解（SVD）を適用して情報量の多い文を抽出する手法である。RAPTORと比較して検索品質の差を最小限に抑えつつ、ツリー構築速度を317倍高速化し、トークン消費量を85%削減することに成功している。",
+      "url": "http://arxiv.org/abs/2607.10316v1",
+      "venue": ""
+    },
+    "arxiv:2607.11159": {
+      "added": "2026-07-15",
+      "added_at": "2026-07-15T06:02:52.303872",
+      "arxiv_id": "2607.11159",
+      "authors": [
+        "Guo Chen",
+        "Ziwen Li",
+        "Maolin Zheng",
+        "Hao Gao",
+        "Junjie Huang",
+        "Tao Jia"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-13",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.11159.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.11159v1",
+      "reading_value": 4,
+      "reading_value_reason": "GraphRAGの進化系として、テキスト類似性とGNNによる構造的マッチングを適応的に統合する手法は新規性が高い。コスト削減効果も大きく、実用的な研究である。",
+      "relevance": 8,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "NGM-RAG: Neural Graph Matching based Retrieval-Augmented Generation",
+      "tldr": "マルチホップ推論を必要とする複雑な質問に対し、テキスト類似性とグラフ構造の両面から情報を捉える「NGM-RAG」を提案する。Levenshtein距離、BM25、およびGNNを用いたNeural Graph Matchingを適応的な重み付けで統合することで、既存のGraphRAGやLightRAGを上回る検索精度と、NaiveRAGと比較して90%以上のトークンコスト削減を両立している。",
+      "url": "http://arxiv.org/abs/2607.11159v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -2087,6 +2150,39 @@
       "url": "http://arxiv.org/abs/2106.11454v1",
       "venue": ""
     },
+    "arxiv:2202.10449": {
+      "added": "2026-07-15",
+      "added_at": "2026-07-15T06:01:11.575040",
+      "arxiv_id": "2202.10449",
+      "authors": [
+        "Kushal Kedia",
+        "Rajat Kumar Jenamani",
+        "Aritra Hazra",
+        "Partha Pratim Chakrabarti"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2022-02-08",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2202.10449.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Multi-Agent Pickup and Delivery"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2202.10449v1",
+      "reading_value": 4,
+      "reading_value_reason": "先行制約付きMAPFに対し、最小メイクスパンを保証する初の最適アルゴリズムを提案しており、新規性と問題設定の重要性が高い。既存手法の限界も明確に示されている。",
+      "relevance": 6,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Optimal Multi-Agent Path Finding for Precedence Constrained Planning Tasks",
+      "tldr": "先行制約が存在するマルチエージェント経路計画（PC-MAPF）において、最小メイクスパンを達成する初の最適アルゴリズムであるPrecedence Constrained Conflict Based Search (PC-CBS) を提案する。タスク間の依存関係をタスクグラフとして扱い、衝突（collision）と先行制約違反（precedence conflict）の両方を解決することで、最適性と完全性を保証する。",
+      "url": "http://arxiv.org/abs/2202.10449v1",
+      "venue": ""
+    },
     "arxiv:2203.07092": {
       "added": "2026-07-11",
       "added_at": "2026-07-11T06:01:04.998887",
@@ -2728,6 +2824,37 @@
       "tldr": "自動倉庫におけるマルチロボットの棚再配置問題（DD-MAPD）に対し、事前に計算された棚の軌道制約を、実行時の状況に応じて能動的に解放することで、エージェントの待機や不要な棚の積み替えを削減する実行フレームワーク「CREST」を提案する。",
       "url": "http://arxiv.org/abs/2603.28803v1",
       "venue": "2026 IEEE ROBOTICS AND AUTOMATION LETTERS"
+    },
+    "arxiv:2604.00428": {
+      "added": "2026-07-15",
+      "added_at": "2026-07-15T06:02:03.184563",
+      "arxiv_id": "2604.00428",
+      "authors": [
+        "Jiarui Li",
+        "Runyu Zhang",
+        "Gioele Zardini"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-04-01",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2604.00428.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.00428v1",
+      "reading_value": 4,
+      "reading_value_reason": "有限ホライゾンMAPFにおける「証明書」と「予算」の導入という新規性が高く、分解の継承可能性を数学的に証明している点が極めて強力。実用的な改善も示されている。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Certificate-Driven Closed-Loop Multi-Agent Path Finding with Inheritable Factorization",
+      "tldr": "有限ホライゾンに基づく閉ループ型MAPFにおいて、衝突のないフォールバック計画とコストの上界を提供する「証明書（certificate）」と「フリート予算（fleet budget）」を導入する。これにより、タイムステップ間で継承可能な「予算制限付き分解（budget-limited factorization）」を実現し、高密度な環境下でも一貫した解の質とスケーラビリティを両立するCDCBSアルゴリズムを提案する。",
+      "url": "http://arxiv.org/abs/2604.00428v1",
+      "venue": ""
     },
     "arxiv:2604.07970": {
       "added": "2026-06-21",

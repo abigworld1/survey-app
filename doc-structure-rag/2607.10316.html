@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SVD-RAG: Efficient Tree-Organized Retrieval-Augmented Generation via Singular Value Decomposition | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>SVD-RAG: Efficient Tree-Organized Retrieval-Augmented Generation via Singular Value Decomposition</h1>
+  <div class="meta">Zhihui Sun<br>採択先: 未取得 ・ 2026-07-11 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.10316v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.10316v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-11</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">階層的RAGの課題であるLLMコストをSVDによる抽出型要約で劇的に改善しており、実用性が極めて高い。精度維持と高速化の両立が具体的で、研究価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> SVD-RAGは、RAPTORのような階層的RAGにおけるLLMを用いた要約コスト問題を解決するため、文埋め込み行列に特異値分解（SVD）を適用して情報量の多い文を抽出する手法である。RAPTORと比較して検索品質の差を最小限に抑えつつ、ツリー構築速度を317倍高速化し、トークン消費量を85%削減することに成功している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来の階層的RAG（RAPTOR等）は、文書の階層構造を構築するためにLLMによる抽象的な要約を繰り返すが、これには膨大なAPIコールと計算コストが伴う。特に10,000個のチャンクから深さ3のツリーを構築する場合、約1,000回のLLM呼び出しが必要となる点が課題であった。本研究は、LLMによる要約の代わりに、事前学習済みモデルの密な埋め込み表現を活用した決定論的な抽出型要約を導入することで、低コストかつ再現可能な階層的インデックス構築を目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、SVDを用いた抽出型要約により、階層的RAGの構築プロセスを劇的に効率化した点にある。具体的には、RAPTORと比較してツリー構築時間を31.7秒から0.1秒へと約317倍高速化し、トークン消費量を約85%削減した。検索精度においても、MRRで0.867（RAPTORは0.875）という高い性能を維持しつつ、フラットな埋め込み検索と比較してRecall@1で4.2、MRRで3.1の向上を達成した。これにより、計算資源を抑えながら複雑な意味関係を捉える階層的検索の実現可能性を示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>手法は、文書の埋め込み、SVDによる抽出型要約、再帰的なフォレスト構築、およびビームサーチによる再ランキングの4段階で構成される。要約プロセスでは、文の埋め込み行列 $X \in \mathbb{R}^{n \times d}$ に対して特異値分解 $X = U\Sigma V^\top$ を実行し、累積エネルギー保持率 $\frac{\sum_{i=1}^{k} \sigma_i^2}{\sum_{i=1}^{n} \sigma_i^2} \ge \tau$（デフォルト $\tau=0.95$）を満たす最小の $k$ を用いて、主成分への寄与が高い文を適応的に選択する。構築アルゴリズムでは、クラスタリングされたグループにSVD要約を適用して親ノードを作成し、再帰的にサブツリーを構築することで、多様なトピックをカバーするフォレスト構造を実現する。検索時には、クエリ埋め込みと各ノード間のコサイン類似度に基づき、ビーム幅 $b$ を用いたビームサーチにより、計算量を $O(b \log N)$ に抑えつつリーフチャンクを特定する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Qwen3-VL-Embedding-8Bを埋め込みモデルとして使用し、RAPTORとの比較および205個のチャンク・100個のクエリを用いたマルチトピック・ベンチマークを実施した。実験の結果、SVD-RAGはRecall@1で0.483（RAPTORは0.458）を記録し、検索品質の差を1–5%以内に抑えることに成功した。また、フラットな埋め込み検索と比較して、Recall@1で4.2、MRRで3.1の精度向上を確認した。コスト面では、LLMによる要約をNumPyを用いた局所的な行列演算 $O(n^3)$ に置き換えることで、ツリー構築時のトークン消費量を約85%削減できることが実証された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>SVD-RAGは、情報密度が高い技術文書や、決定論的なインデックス構築による再現性が求められる環境において極めて有効である。スケーリング特性として、SVDはEckart-Youngの定理に基づき最適なランク近似を保証するため、入力長が増大しても強みを持つが、LLM要約と比較して抽出される文字数が約1.8倍長くなる傾向がある。また、Recall@1ではRAPTORを上回る場合がある一方、Recall@5ではRAPTOR（0.675）がSVD-RAG（0.625）を上回り、RAPTORの方がより広範な情報をカバーする特性が見られた。本手法の限界として、抽出型であるための流暢性の欠如、埋め込みモデルへの依存、および静的な構造ゆえの更新コストが挙げられ、今後はLLMとのハイブリッド化や動的な更新手法が課題となる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>SVD-RAG: Efficient Tree-Organized Retrieval-Augmented Generation via Singular Value Decomposition</h3><p>SVD-RAGは、RAPTORのような階層的RAGにおけるノード構築のコスト問題を解決するため、密な文埋め込み行列に対して特異値分解（SVD）を適用し、抽出的な要約を行う手法である。従来のLSAが疎なTF-IDF行列を用いるのに対し、本手法は埋め込みモデルの豊かな意味表現を活用し、主成分におけるエネルギー寄与度に基づいて最も情報量の多い文を特定する。この手法は決定論的であり、追加のLLM APIコールを必要としないため、トークン消費量を85%削減し、RAPTORと比較してツリー構築速度を317倍（0.1s vs. 31.7s）高速化する。実験では、RAPTORのLLM要約を用いた手法に対し、MRRで0.867（RAPTORは0.875）、Recall@1で0.483（RAPTORは0.458）という、検索品質の差を1–5%以内に抑えた結果を示している。また、205個のチャンクと100個のクエリを用いたマルチトピック・ベンチマークにおいて、フラットな埋め込み検索と比較してRecall@1で4.2、MRRで3.1の向上を達成した。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>従来のRAGにおけるフラットなベクトル検索は、複雑な意味関係の捕捉が困難であることや、大規模コーパスにおける検索・再ランクの計算コストが高いという課題がある。RAPTORのような階層的RAGは、LLMを用いた要約による文書ツリー構築を行うが、ノードごとにLLMのAPI呼び出しが必要となるため、例えば10,000個のチャンクから深さ3のツリーを構築する場合に約1,000回のLLM呼び出しを要するなど、コストが極めて高い。本研究が提案するSVD-RAGは、LLMによる抽象的要約の代わりに、文埋め込み行列に対して特異値分解（SVD）を直接適用することで、クラスター内で最も意味的に情報量の多い文を抽出する手法である。具体的には、累積エネルギー保持率（デフォルト値 $0.95$）に基づいて適応的に文の数を決定し、埋め込み空間の主成分におけるエネルギー寄与が高い文を選択することで、コンテンツの複雑さに応じた圧縮を実現する。この手法は、1,000個のチャンクを用いた実験において、ツリー構築時のトークン消費量をLLMベースの要約と比較して約85%削減することに成功しており、決定論的かつ再現可能なプロセスとして、低コストで効率的な階層的検索を可能にする。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>本研究は、RAPTORが提案したGMM（Gaussian Mixture Models）とLLMによる要約を用いた再帰的な木構造型RAGに対し、LLMによる要約の代わりにSVD（特異値分解）を用いた抽出型要約を導入する手法である。既存の抽出型要約手法には、PageRankを応用したTextRankや固有ベクトル中心度を用いるLexRank、およびTF-IDF行列にSVDを適用するLSA（Latent Semantic Analysis）が存在するが、これらは表面的な特徴量に依存しており、現代的な埋め込みモデルを活用していない。これに対し、SVD-RAGは事前学習済みモデルから得られる文レベルのセマンティクスを保持した高密度な埋め込みベクトル行列に対し、古典的なSVDを適用することで、計算コストを抑えつつ効率的な階層的構造の構築を目指している。従来のLSAが単語レベルの疎なTF-IDF行列を扱うのに対し、本手法は密な埋め込み表現を用いる点が決定的な違いであり、入力表現の質がSVDによる選択精度を左右する。</p></section>
+<section class="secsum"><h3>3 Method</h3><p>SVD-RAGは、文書の埋め込み、SVDを用いた抽出型要約、再帰的な木構造（Forest）の構築、およびビームサーチによる再ランキングの4段階で構成される手法である。要約プロセスでは、文の埋め込み行列 $X \in \mathbb{R}^{n \times d}$ に対して特異値分解 $X = U\Sigma V^\top$ を行い、累積エネルギー比 $\frac{\sum_{i=1}^{k} \sigma_i^2}{\sum_{i=1}^{n} \sigma_i^2} \ge \tau$（デフォルト $\tau=0.95$）を満たす最小の $k$ を決定することで、適応的に重要な文を選択する。構築アルゴリズムでは、クラスタリングされたグループに対してSVD要約を適用して親ノードを作成し、条件を満たす場合に再帰的にサブツリーを構築することで、RAPTORのような単一の木ではなく、多様なトピックをカバーするフォレスト構造を実現している。検索時には、クエリ埋め込みと各ノード間のコサイン類似度に基づき、ビーム幅 $b$ を用いてフォレスト上をビームサーチし、到達したリーフチャンクを再ランキングして最終的な top-$K$ 結果を得る。計算量において、SVD-RAGはLLMによる要約をSVDによる局所計算 $O(n^3)$ に置き換えることで、RAPTORと比較して総トークン消費量を約85%削減し、クエリコストを $O(b \log N)$ に抑えている。</p></section>
+<section class="secsum"><h3>4 Experiments</h3><p>SVD-RAGの性能を評価するため、RAPTOR（LLMによる抽象的要約）との直接比較および大規模なマルチトピック・ベンチマーク（205チャンク、100クエリ）が実施された。実験では、Qwen3-VL-Embedding-8Bを埋め込みモデルとして使用し、SVDによる抽出的要約を用いることで、RAPTORと比較してRecall@1の差を1–5%以内に抑えつつ、ツリー構築時間を31.7秒から0.1秒へと約317倍高速化することに成功した。大規模ベンチマークにおいて、SVD-RAGはFlat Embeddingに対しRecall@1で4.2、MRRで3.1の向上を示し、最大深度2のフォレスト構造が検索の堅牢性に寄与することが確認された。コスト面では、LLMによる要約をNumPyを用いた局所的な行列演算に置き換えることで、ツリー構築時のトークン消費量を約85%削減できることが示されている。ハイパーパラメータに関しては、エネルギー比率 $\epsilon$ が要約の長さを制御し、クラスターサイズ $k$ とチャンク数 $n$ によってツリーの最大深度が $\log_k n$ 程度に制限されることが示唆されている。検索効率については、ビーム幅 $w$ を用いたビームサーチにより、計算量を $O(w \log n)$ に抑えつつ、MRR 0.867という高い検索精度を達成している。</p></section>
+<section class="secsum"><h3>5 Discussion</h3><p>SVD-RAGは、情報密度が高い技術文書やコスト制約のある環境、および決定論的なインデックス構築による再現性が求められる場面で特に有効である。スケーリング特性に関して、実験（38–205 chunks）ではSVD-RAGがRecall@1で0.483（RAPTORは0.458）を記録し、単一の最も関連性の高い文を保持する能力に優れる一方、RAPTORはRecall@5で0.675（SVD-RAGは0.625）となり、より広範な情報をカバーする傾向がある。SVDは入力長に依存せず、Eckart-Youngの定理に基づき最適なランク近似を保証するため、入力長が増大してLLMの要約品質が低下する際にも強みを持つが、LLM要約と比較して文字数が約1.8倍長くなるという特性がある。本手法の限界として、既存の文を選択する抽出的な性質による流暢性の欠如、埋め込みモデルの品質への依存、およびインデックスの更新に再構築を要する静的な構造が挙げられる。今後の展望として、SVDとLLMを組み合わせたハイブリッド要約や、動的なインデックス更新、エンドツーエンドの最適化などが示唆されている。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、ツリー構造型RAGにおけるLLMベースの要約に代わる、決定論的かつ低コストな手法としてSVD-RAGを提案している。本手法は、密な文埋め込み行列に対して特異値分解（SVD）を適用することで、追加のAPIコールを必要とせずにドキュメントクラスター内の最も情報量の多い文を特定する。RAPTORとの比較実験では、検索品質においてMRR 0.867（RAPTORは0.875）と1%以内の差に留めつつ、ツリー構築時間を0.1s（RAPTORは31.7s）へと317倍高速化することに成功した。また、205チャンクのベンチマークにおいて、フラットな埋め込みと比較してRecall@1を4.2向上させている。コスト面では、インデックス構築時のトークン消費量をLLMベースの手法と比較して85%削減できることを示した。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-15
+  </footer>
+</div>
+</body>
+</html>
