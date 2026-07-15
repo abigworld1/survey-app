@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Planning over MAPF Agent Dependencies via Multi-Dependency PIBT | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Planning over MAPF Agent Dependencies via Multi-Dependency PIBT</h1>
+  <div class="meta">Zixiang Jiang, Yulun Zhang, Rishi Veerapaneni, Jiaoyang Li<br>採択先: 未取得 ・ 2026-03-24 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2603.23405v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2603.23405v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-03-24</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">既存のPIBTの制約を「依存関係の数」という観点から一般化した新規性が高い。大型エージェント等の複雑な設定で有効性が示されており、MAPF研究者には有用。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、従来のPIBTやEPIBTが「一度に衝突するエージェントを最大1体に制限する」という制約により、マルチステップの依存関係を扱えない課題を解決するため、Multi-Dependency PIBT (MD-PIBT) を提案する。MD-PIBTはエージェント間の依存関係をグラフ構造として管理し、複数のエージェントとの衝突を許容するマルチステップ計画を可能にする汎用的なフレームワークである。実験により、特に大型エージェント（PMLA）を扱う設定において、既存手法を大幅に上回る成功率と解の品質を示すことが確認された。</div>
+<section class="qa"><h2>どんなもの？</h2><p>Multi-Agent Path Finding (MAPF) において、既存の高速なルールベース手法である Priority Inheritance with Backtracking (PIBT) は、高優先度エージェントが一度に衝突できる対象を1体に限定するという根本的な限界がある。この制約により、一つの高優先度エージェントの経路が複数の低優先度エージェントと連鎖的に衝突するような、複雑なマルチステップの行動シーケンスを直接計画することができない。本研究は、空間・時間制約ではなく、エージェント間の「依存関係（agent dependencies）」を探索対象とする新しいアプローチを導入する。対象とする問題設定には、総コスト $\sum c$ を最小化するone-shot MAPFと、スループット $\theta$ を最大化するlifelong MAPFが含まれる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>提案手法である MD-PIBT は、エージェント間の依存関係を管理するエージェント依存グラフ (Agent Dependency Graph, AgDG) を用いた汎用的な計画フレームワークである。この手法は、特定のハイパーパラメータ設定を通じて PIBT や EPIBT を完全に再現できる柔軟性を持ち、既存手法の限界であった「単一の衝突対象」という制約を打破している。特に、エージェントのサイズが大きい PMLA (Pebble Motion with Large Agents) 設定において、MD-PIBT は EPIBT を大幅に上回る成功率を達成した。また、最悪計算量の理論的解析を行い、再計画回数 $K$ に基づく計算量境界 $O(nKp)$ を導出している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MD-PIBT は、各エージェントが保持する $k$-step パスの集合と、優先度付きキュー $\mathcal{Q}$ を用いて依存関係を解消していく。依存関係は、未計画エージェントの安全なパスと衝突する「ハード依存関係」と、計画済みエージェントの暫定パスと衝突する「ソフト依存関係」に分類される。アルゴリズム内の `findBestPath` 関数は、予約テーブルを用いて衝突するエージェントの集合 $\mathcal{C}$ を特定し、そのサイズ $|\mathcal{C}|$ が最大衝突許容数 $k_{max}$ を超えない経路を選択する。有効なパスが見つからない場合、ハイパーパラメータ関数 $\text{fallToSafePath}$ に基づき、「安全なパスへの退避」または「親エージェントへの再計画要求」を選択することで、計算量の爆発を防ぐ設計となっている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、Pebble Motion (PM)、PMLA、Rotation Motion (RM)、および Differential Drive Robots (DDR) の各動的モデルを用いて検証が行われた。One-shot 実験において、PMLA モデルでは MD-PIBT が EPIBT を大幅に上回る成功率を示し、大きなエージェントが周囲の小さなエージェントを押し退けてデッドロックを回避できることが示された。Lifelong 実験では、スループットと実行時間を指標とし、PM では PIBT 的な設定、RM や DDR では EPIBT 的な設定が優れた性能を示すことを確認した。実験設定として、One-shot では Python を用い、PMLA では 3,600 秒のタイムリミット内で 25 インスタンスの平均と 95% 信頼区間を算出している。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>MD-PIBT は、エージェントのサイズが大きい複雑な MAPF 設定において顕著な有効性を発揮する一方で、one-shot や lifelong MAPF の標準的な設定では、既存の PIBT や EPIBT の性能を再現するに留まる。最悪計算量については、再計画回数を $K$ とした場合に $O(nKp)$ となることが示されており、これは各エージェントが $K$ 回の失敗後に安全な経路を選択するという制約に基づいている。今後の展望として、学習ベースのマルチステップ MAPF ポリシーに対する衝突回避シールド (collision-shield) としての活用や、低レベル探索に依存しない特性を活かしたマルチロボットプロトコルへの発展が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Planning over MAPF Agent Dependencies via Multi-Dependency PIBT</h3><p>本研究では、従来の Priority Inheritance with Backtracking (PIBT) や Enhanced PIBT (EPIBT) が、一度に衝突するエージェントを最大1体に制限するというルールベースの制約により汎用性に欠けるという課題に対し、エージェント間の依存関係（agent dependencies）に着目した新しい手法である Multi-Dependency PIBT (MD-PIBT) を提案している。MD-PIBT は、特定のパラメータ設定によって PIBT や EPIBT を再現できるだけでなく、複数のエージェントと衝突する経路を考慮できるマルチステップ計画への拡張を可能にする汎用的なフレームワークである。実験では、pebble motion、rotation motion、および速度・加速度制限を持つ differential drive robot といった様々な運動学的制約下において、最大 10,000 体の均質エージェントに対する効果的な計画能力が示されている。特に、エージェントのサイズが大きい MAPF 設定において MD-PIBT は顕著な有効性を発揮することが評価により明らかになった。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>Multi-Agent Path Finding (MAPF) において、既存の高速な手法である Priority Inheritance with Backtracking (PIBT) は、高優先度エージェントと低優先度エージェント間の依存関係を一度に一つしか考慮できないという根本的な限界がある。このため、一つの高優先度エージェントの経路が複数の低優先度エージェントと衝突するようなマルチステップの行動シーケンスを直接計画することができない。本研究では、空間・時間制約ではなくエージェント間の依存関係を探索対象とする Multi-Dependency PIBT (MD-PIBT) を提案し、複数の依存関係を扱う汎用的なフレームワークを構築する。MD-PIBT は、特定のインスタンス化によって PIBT や EPIBT を再現可能な汎用アルゴリズムであり、複数のハイパーパラメータの最適化が可能である。実験の結果、MD-PIBT は大型エージェント（large agents）を扱う MAPF のバリエーションにおいて PIBT や EPIBT を大幅に上回る性能を示したが、one-shot や lifelong MAPF などの他の設定では、PIBT や EPIBT の性能を再現するに留まった。</p></section>
+<section class="secsum"><h3>II Background</h3><p>MAPFは、エージェント集合 $\mathcal{A}$ が各々の開始地点から目標地点へ衝突を回避して移動する問題であり、頂点衝突およびエッジ衝突を回避する経路集合を求める。本稿では、Pebble Motion (PM)、PMLA、Rotation Motion (RM)、およびDifferential Drive Robots (DDR) の動的モデルを考慮し、総コスト $\sum c$ を最小化するone-shot MAPFと、スループット $\theta$ を最大化するlifelong MAPFを対象とする。既存手法として、CBSのような探索ベース、PPやPBSのような優先度ベース、および学習ベースがあるが、大規模なシナリオではルールベースの手法が求められる。最先端のルールベース手法であるPIBTは、高優先度エージェントが低優先度エージェント $a_j$ と衝突する場合に $a_j$ の優先度を一時的に継承する1ステップの計画アルゴリズムであり、数百のエージェントを200ms未満で処理できる極めて高い速度を持つ。しかし、PIBTやその拡張であるEPIBT、HetPIBTは、1つの経路が衝突を起こす対象を最大1つのエージェントに限定しており、複数のエージェントと衝突する多段階の経路を考慮できないという限界がある。本研究は、この制限を打破するために、複数の依存関係を扱うMulti-Dependency PIBTを導入することを目的としている。</p></section>
+<section class="secsum"><h3>III Agent Dependency Perspective of PIBT</h3><p>本セクションでは、PIBT（Priority Inheritance Backtracking）をエージェント間の依存関係を推論する手法として再定義している。各エージェント $i$ は、計算中の暫定的な経路 $p_i$ と、全エージェント間で衝突のない安全な経路 $s_i$（初期状態では待機行動 $s_i = \text{wait}$）を持つ。エージェント $i$ の暫定経路がエージェント $j$ の安全経路と衝突する場合、エージェント $i$ は $j$ に対して依存関係を持つと定義され、その $j$ が計画済みか否かによって、ハード依存関係（$j \in \text{Planned}$）とソフト依存関係（$j \notin \text{Planned}$）に分類される。これに基づき、エージェントをノード、依存関係を有向エッジとするエージェント依存グラフ（Agent Dependency Graph, AgDG）が構成されるが、PIBTにおいて各エージェントの経路は1ステップであるため、AgDGは連結リストの構造をとる。PIBTのアルゴリズムは、優先度の高いエージェントから順に、依存関係にあるエージェントが衝突のない経路を見つけるまで計画を連鎖的に進めることで、全エージェントの経路決定を行う。</p></section>
+<section class="secsum"><h3>IV Multi-Dependence PIBT</h3><p>MD-PIBTは、衝突のない$k$-stepパスを生成するマルチエージェント経路計画（MAPF）アルゴリズムであり、エージェント間の依存関係を管理するエージェント依存グラフ（AgDG）を用いて計画を行う。各エージェントは、ゴールへの距離が近い順にソートされた$k$-stepパスの集合を保持し、優先度付きキュー $\mathcal{Q}$ を用いて依存関係の解消が必要なエージェントを順次処理する。依存関係には、未計画エージェントの安全なパス（safe path）と衝突する場合に発生するハード依存関係と、既に計画済みのエージェントの暫定パス（tentative path）と衝突する場合に発生するソフト依存関係の2種類が存在する。有効なパスが見つからない場合、エージェントは「安全なパスへの退避（falling to safe path）」または「親エージェントへの再計画要求（attempting to replan）」のいずれかを選択する。この選択はハイパーパラメータ関数 $\text{fallToSafePath}$ によって制御され、再計画の連鎖による指数関数的な計算量爆発を防ぐ役割を果たす。また、$\text{findBestPath}$ 関数における有効なパスの定義や、再計画を要求する親の選択 $\text{chooseParent}$ など、複数のハイパーパラメータを通じてPIBTやEPIBTといった既存手法を包含する柔軟な設計となっている。</p></section>
+<section class="secsum"><h3>V Experimental Evaluation</h3><p>本実験では、提案手法であるMD-PIBTの有効性を、One-shotおよびLifelong MAPFの文脈で、PM（Pebble Motion）、PMLA（Pebble Motion with Large Agents）、RM（Rectangle Motion）、DDR（Dynamic Disk Robots）の各エージェントモデルを用いて検証している。One-shot実験において、PMLAモデルではMD-PIBTがEPIBTを大幅に上回る成功率を示し、これはEPIBTが依存関係を $k=1$ に制限されているのに対し、MD-PIBTは $k &gt; 1$ を許容することで、大きなエージェントが周囲の小さなエージェントを押し退けてデッドロックを回避できるためである。Lifelong実験では、スループットと実行時間を評価指標とし、優先順位付けとしてLET（Longer Elapsed Time）とSD（Shorter Distance）を比較している。PMエージェントを用いた実験では、特定の条件下でPIBTのSD優先順位が優れた性能を示す一方、RMおよびDDRエージェントを用いた実験では、EPIBTまたはそれを再現したMD-PIBTが最良の性能を維持することが確認された。実験設定として、One-shotではPythonを用い、PMは1,800秒、PMLAは3,600秒のタイムリミットを設けて25インスタンスの平均と95%信頼区間を算出している。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究では、エージェント間の依存関係を探索する汎用的なフレームワークとして MD-PIBT を提案しており、従来の PIBT や EPIBT が持っていた「最大で1つの他のエージェントとしか衝突しない経路しか考慮できない」という制約を解消している。実験の結果、MD-PIBT は one-shot および lifelong MAPF 設定において PIBT/EPIBT と同等の性能を示す一方で、エージェントのサイズが大きい MAPF 設定においてはこれらを大幅に上回る性能を達成した。今後の展望として、学習ベースのマルチステップ MAPF ポリシーに対する衝突回避シールド（collision-shield）としての活用や、CBS と同様に低レベル探索に依存しない特性を活かしたマルチロボットプロトコルへの発展が挙げられている。</p></section>
+<section class="secsum"><h3>A1 Additional Algorithms</h3><p>Algorithm 5 に示される `findBestPath` 関数は、Algorithm 3 で使用され、指定された `find path mode` に基づいて、他のエージェントと衝突しない有効な経路をエージェント $a$ に対して探索する。まず、暫定的な経路を持つ全エージェントを特定し、各エージェント $a_i$ の最新の経路（暫定経路の場合は $\mathcal{P}_{tentative}$、それ以外は $\mathcal{P}_{safe}$）からなる予約テーブルを構築する。次に、現在の経路インデックスから候補経路を順次走査し、その候補経路と衝突するエージェントの集合 $\mathcal{C}$ を取得する。候補経路の妥当性は、$\mathcal{C}$ に含まれるエージェントの数 $|\mathcal{C}|$ が最大衝突許容数 $k_{max}$ を超えないこと、および `find path mode` に応じた制約を満たすことで判定される。具体的には、モードが $k_{max} &gt; 0$ の場合は $\mathcal{C}$ のエージェントの最新経路と衝突しないことが条件となり、モードが $k_{max} = 0$ の場合は、(1) 現在の MDPIBT 関数呼び出し内で暫定経路を持つエージェント、(2) より高い優先度を持つエージェント、(3) 再計画の試行回数が残っていないエージェントのいずれとも衝突しないことが要求される。有効な経路が見つかればそれを返し、見つからない場合は失敗を返す。</p></section>
+<section class="secsum"><h3>A2 Theoretical Analysis</h3><p>MD-PIBTの最悪計算量について、各エージェント $i$ が持つ長さ $w$ の全経路集合 $\mathcal{P}_i$ のサイズを $p = a^w$（$a$ は離散アクション数）とし、エージェント数 $n$、最大再計画回数 $K$ と定義して解析している。Theorem 1および2によれば、$K$ が十分に大きい場合、MD-PIBTは各経路の組み合わせ $\mathcal{P} = \mathcal{P}_1 \times \dots \times \mathcal{P}_n$ を高々一度ずつ試行するため、最悪計算量は $O(p^n)$ となる。この境界は、デッドエンドの廊下にエージェントが並ぶようなインスタンスにおいて $O(p^n)$ の計算時間を要することから、探索空間を網羅するナイーブな境界であると同時に、探索の挙動を示す洞察に富むものである。さらに、有限の $K$ を考慮した場合、Theorem 3により、各エージェントが最大 $K$ 回の再計画を行うことから、最悪計算量は $O(nKp)$ となる。この結果は、各エージェントが $K$ 回の失敗後に安全な経路を選択し、それ以降再計画されないという制約に基づいている。</p></section>
+<section class="secsum"><h3>A3 Additional Experiments</h3><p>本セクションでは、提案手法であるMulti-Dependency PIBT (MD-PIBT) の有効性を検証するため、MAPF benchmark [20] に基づく多様なエージェントモデル（Pebble Motion: PM, Rotation Motion: RM, Pebble Motion w/ Large Agents: PMLA）とマップ（random, room, Paris, warehouse等）を用いた追加実験の結果が示されている。One-shot MAPFにおいて、MD-PIBTはEPIBTやPIBTと同等以上の成功率を達成し、特にPMLAエージェントを用いた実験では、EPIBTよりも高品質な解（Sum-of-costおよびMakespanの低減）を見出すことが確認された。評価指標として、解の品質は下限値（LB）に対する比率である $\text{Sum-of-cost} / \text{LB}$ および $\text{Makespan} / \text{LB}$ で測定されており、成功率が1未満の場合は成功した試行のみが計算対象となる。Lifelong MAPF（LMAPF）の実験では、PMエージェントにおいてPIBTを模した設定が強力である一方、RMエージェントではEPIBTを模した設定が最も高いスループットを示す傾向がある。また、エージェント密度が増加するにつれて、エージェントあたりの依存関係の数が増加する傾向が示されている。実験環境として、One-shotでは64コアのAMD Ryzen 3990X CPUを使用し、Lifelongでは高性能クラスターを含む複数のマシンを用いて計算リソースを確保している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-16
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>How Temperature Shapes Ideological Discourse in Retrieval-Augmented Generation? | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>How Temperature Shapes Ideological Discourse in Retrieval-Augmented Generation?</h1>
+  <div class="meta">Elmira Salari, Hazem Amamou, José Victor de Souza, Shruti Kshirsagar, Maria Nunes Delfino, Anderson Avila<br>採択先: 未取得 ・ 2026-07-13 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.11783v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.11783v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-13</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGにおける温度設定とイデオロギー伝播の相関を、LMDAを用いた定量的手法で解明しており、安全性やバイアス制御を研究する者にとって極めて有用。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、Retrieval-Augmented Generation (RAG) において、外部知識に含まれるイデオロギー的言説がLLMの生成回答にどのように伝播・増幅・抑制されるかを調査したものである。サンプリング温度（temperature）を変化させることで、デコーディングのランダム性がイデオロギー的一致（alignment）に与える影響を分析した結果、RAGはLLM単体よりも温度変化に対してイデオロギー的一致を維持しやすい傾向があり、中程度の温度において言説的一致が最大化することが明らかになった。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、RAGフレームワークにおいて外部知識のイデオロギー的バイアスがLLMの回答へ伝播するメカニズムを解明することを目的としている。具体的には、COVID-19の治療に関する「推奨される言説（endorsed）」と「論争的な言説（controversial）」という対立する2つのイデオロギー的シナリオを構築した。実験では、サンプリング温度を $0.1$ から $0.9$ の範囲で制御し、4種類の異なるLLMを用いて、外部知識のイデオロギー的特性が生成テキストにどのように変調されるかを評価している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文の主な貢献は、外部知識に含まれるイデオロギー的次元をLexical Multidimensional Analysis (LMDA) を用いて形式的に定義した点にある。また、異なる温度条件下でイデオロギー的言説がRAGを通じてLLMの回答へ伝播するプロセスを体系的に解明した。さらに、サンプリング温度、プロンプト戦略、および検索による接地性（grounding）の相互作用が、生成物のイデオロギー的一致にどのように影響するかを定量的に示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>手法として、まず1,117件のCOVID-19治療に関する記事に対し、Log-Diceスコアを用いた共起関係の測定とテトラコリック相関行列に基づく因子分析（Promax回転）を適用するLMDAを実施し、固有値 $35.0$ を超える3つのイデオロギー的次元を特定した。提案する「Discourse-Augmented Generation」パイプラインでは、検索器が特定のイデオロギーに偏ったテキストを取得し、生成器は「regular prompt」または次元の記述を含む「enhanced prompt」を用いて回答を生成する。評価指標には、意味的類似度、語彙的類似度（TF-IDF）、およびハイブリッド類似度 $\mathbf{v}_{hybrid} = [\mathbf{v}_{semantic}; \mathbf{v}_{lexical}]$ を用い、すべてコサイン類似度で算出する。また、構造的指標としてType–Token Ratio (TTR) や平均エントロピー、出力長を導入し、ANOVAを用いて統計的有意性を検証している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、サンプリング温度を $0.1, 0.3, 0.5, 0.7, 0.9$ の5段階に設定し、LLM単体（LLM-only）をベースラインとして比較を行った。結果として、RAGはすべての温度設定においてLLM単体よりも高いイデオロギー的整合性を達成しており、特に「enhanced prompting」との組み合わせで最大となった。モデル別では、Qwen2.5が意味的類似度 $0.864$ を記録するなど最も高い整合性を示した一方、GPT-4o-miniは外部知識の影響を受けにくい傾向が見られた。統計解析（ANOVA）により、温度はハイブリッド指標において $\eta^2 = 0.244$ の有意な影響を及ぼすことが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の結果は、RAGにおける検索による接地性が、温度上昇に伴うイデオロギー的ドリフトを抑制する役割を果たすことを示唆している。LLM単体では温度上昇に伴い整合性が低下する「rise-and-fall」パターンが見られるが、RAGは温度変化に対しても比較的安定した一致度を維持する。限界として、分析対象が2020-2022年のCOVID-19という特定の政治的分極化が激しいドメインに限定されている点や、評価が自動的な類似度指標に依存しており人間による評価が含まれていない点が挙げられる。今後は、気候変動などの他の非医療ドメインへの一般化や、パンデミック特有の言説の影響を分離する検証が必要である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>How Temperature Shapes Ideological Discourse in Retrieval-Augmented Generation?</h3><p>本研究は、Retrieval-Augmented Generation (RAG) において、検索された外部知識に含まれるイデオロギー的言説がLLMの生成回答にどのように伝播・増幅・抑制されるかを調査している。著者らは、1,117件のCOVID-19治療に関する記事のコーパスに対しLexical Multidimensional Analysis (LMDA) を適用することで3つのイデオロギー的言説を特定し、これをRAGの外部知識源として用いた。評価では、異なるサンプリング温度（temperature）においてイデオロギー的な質問に対するLLMの回答を生成させ、生成テキストとイデオロギー的参照テキストとの意味的・語彙的な類似性を測定した。実験の結果、RAGフレームワークはイデオロギー的言説を回答へと転移させやすい傾向があり、その転移の強さはサンプリング温度に依存することが示された。具体的には、中程度の温度において生成回答と参照テキストの言説的一致（discoursive alignment）が最も高くなり、モデルが確率性と検索に基づく接地性のバランスを保つ一方で、低温度では決定論的なサンプリングによって言説の転移が抑制されることが明らかになった。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、Retrieval-Augmented Generation (RAG) フレームワークにおいて、外部知識に含まれるイデオロギー的バイアスがLLMの回答にどのように伝播するかを調査している。具体的には、COVID-19の治療に関するテキストを用いたイデオロギー的コーパスを構築し、Lexical Multidimensional Analysis (LMDA) を用いて、公的機関が承認していない論争的な治療法を支持するテキストと、国際的な科学基準に準拠したテキストという、対立する2つのイデオロギー的シナリオを定義している。実験では、サンプリング温度（temperature）を $0.1$ から $0.9$ の範囲で変化させ、4種類の異なるLLMに対して、ターゲットを絞ったプロンプトエンジニアリングを用いて、生成される回答がイデオロギー的な手がかりをどのように変調させるかを評価している。結果として、サンプリング温度は生成物のイデオロギー的一致（ideological alignment）に影響を与えるものの、その影響度はデコーディングのランダム性、プロンプト戦略、および構造的制約を含むシステム全体の設計に依存することが示された。本論文の貢献は、外部知識に含まれるイデオロギー的次元を形式的に定義し、異なる温度条件下でイデオロギー的言説がRAGを通じてLLMの回答へ伝播するプロセスを解明した点にある。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>LLMのデコーディングにおけるサンプリング温度（temperature）は、出力の多様性や創造性に影響を与える一方で、その効果はタスクやモデルに依存し、推論タスクにおいては精度への影響が限定的であるなど、一貫性のない制御パラメータとして知られている。また、LLMは学習データやプロンプトに含まれるイデオロギー的パターンに影響を受けやすく、RAG（Retrieval-Augmented Generation）においては、外部から取得された文書に含まれる偏った語彙やフレーミングが生成テキストに転移・増幅されるリスクがある。本研究では、こうした言説（discourse）を、語彙の共起パターンやフレーミング戦略によって構成される構造的な評価志向として捉え、Biberの多次元フレームワークを拡張したLMDA（Lexical Multidimensional Analysis）を用いて、統計的に導出された次元に基づき体系的に分析する。既存研究では温度設定が創造性に与える影響やLLMのバイアスについては議論されているが、RAGにおいてデコーディングのランダム性がイデオロギーの転移をどのように変調させるかについては十分に解明されていない。</p></section>
+<section class="secsum"><h3>3 Methodology</h3><p>本研究では、COVID-19治療に関する「推奨される言説（endorsed）」と「論争的な言説（controversial）」の対照的なコーパスを用い、語彙的多次元分析（LMDA）を通じてイデオロギー的構造を特定する手法を提案している。LMDAでは、Log-Diceスコアを用いて共起関係の強さを測定し、二値化された共起ペアに対してテトラコリック相関行列を適用した後、因子分析を行うことで潜在的な言説次元を抽出する。具体的には、固有値が $35.0$ を超える因子を意味のあるイデオロギー的言説として扱い、Promax回転を用いて解釈性を高めた結果、最終的に3つの次元を特定している。提案する「Discourse-Augmented Generation」パイプラインでは、LMDAから得られた次元ラベル、記述、および典型的な語彙に基づくメタデータを用いて、検索器（Retriever）が特定のイデオロギーに偏ったテキストを制御して取得する。生成器（Generator）においては、単にイデオロギー的なテキストをコンテキストに含める「regular prompt」と、次元の記述も組み合わせて用いる「enhanced prompt」の2つのアプローチにより、LLMの回答が外部知識のイデオロギー的枠組みにどのように同調するかを評価する設定となっている。</p></section>
+<section class="secsum"><h3>4 Experimental Setup</h3><p>本実験では、RAG（Retrieval-Augmented Generation）における温度パラメータがイデオロギー的言説への同調に与える影響を調査するため、プロンプト構成を「Regular（通常の質問と文脈）」「Enhanced（ラベル、記述、語彙、例示を含むイデオロギー情報の付与）」「Negative（特定のイデオロギーを避けるよう指示）」の3種に設定し、LLM単体（LLM-only）をベースラインとして比較している。サンプリング温度は、生成の確率的な変動を検証するために $0.1, 0.3, 0.5, 0.7, 0.9$ の5段階で設定された。イデオロギーへの同調度は、意味的類似度（BERT風トークナイザーによる埋め込みの平均）、語彙的類似度（TF-IDFベクトル）、およびこれらを結合したハイブリッド類似度（$\mathbf{v}_{hybrid} = [\mathbf{v}_{semantic}; \mathbf{v}_{lexical}]$）の3つの指標を用い、いずれもコサイン類似度によって算出される。さらに、生成の多様性と不確実性を評価するため、語彙の豊かさを示すType–Token Ratio (TTR)、トークン選択の不確実性を表す平均エントロピー、および出力長（平均トークン数）を構造的指標として導入している。統計的有意性の検証には、温度とプロンプトタイプが同調度に与える個別のおよび相互作用の影響を評価するためにANOVA（分散分析）が用いられた。</p></section>
+<section class="secsum"><h3>5 Main Results</h3><p>RAGを用いた生成は、LLM単体での生成と比較して、すべての温度設定および評価指標において高いイデオロギー的整合性（alignment）を達成しており、特に「enhanced prompting」とRAGを組み合わせた構成が最も高い整合性を示す。温度の影響については、RAG構成ではサンプリングの多様性を高めても整合性が維持または向上する傾向がある一方、LLM単体では温度上昇に伴い整合性が低下する「rise-and-fall」パターンが見られ、温度変化に対する感度がより高い。モデル間の比較では、Qwen2.5が意味的（semantic）、語彙的（lexical）、ハイブリッド（hybrid）の全指標で最も高い整合性（例：意味的類似度で $0.864$）を示し、一方でGPT-4o-miniのような大規模モデルは外部知識によるイデオロギー的影響を受けにくい傾向がある。統計的解析（ANOVA）の結果、温度はすべての指標において有意な影響を及ぼし（例：ハイブリッド指標で $\eta^2 = 0.244$）、プロンプトの種類も整合性を強く規定する。また、語彙多様性（TTR）はRAGの方が低く、平均エントロピーは温度上昇に伴い緩やかに増加するが、RAGはLLM単体よりも一貫して長い回答を生成する特性を持つ。最後に、ネガティブプロンプトの使用は整合性を低下させ、特に語彙的指標においてその影響が顕著であることが示された。</p></section>
+<section class="secsum"><h3>6 Limitations</h3><p>本研究の限界として、まず分析対象が2020年から2022年の間のCOVID-19治療に関する内容に限定されており、当時の公衆衛生上の緊急性、科学的不確実性、および激しい政治的分極化が結果に影響を与えている可能性がある。次に、本研究は高リスクな設定におけるイデオロギー的言説のケーススタディとしては有用であるが、特定されたパターンが気候変動などの非医療ドメインへ一般化できるかは不明である。評価手法についても、意味的・語彙的、あるいはそれらを組み合わせた類似度指標に依存しており、イデオロギー的言説の整合性を評価するには不十分な可能性があり、知見を裏付けるための人間による評価が必要とされる。今後の課題として、多様なイデオロギー論争における本アプローチの堅牢性の検証や、得られた知見が一般的なイデオロギー符号化のメカニズムを反映しているのか、あるいはパンデミック特有の言説によるものなのかを特定することが挙げられる。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>本研究は、4つの大規模言語モデル（LLM）と異なるプロンプトおよびシステム構成を用い、Retrieval-Augmented Generation (RAG) システムにおけるサンプリング温度（temperature）がイデオロギー的言説の転移に与える影響を調査した。評価には、参照テキストに対する意味的、語彙的、およびハイブリッドなコサイン類似度を用いて、複数の温度設定下でのイデオロギー的言説の一致度を測定している。実験の結果、温度はすべての指標において一致度に有意な影響を与えるものの、その効果はシステム構成に強く依存することが示された。LLMのみのシステムでは温度変化に伴う変動が大きく、外部的な根拠（grounding）がない状態では確率的デコーディングがイデオロギー的立場に強く影響することを示唆している。対照的に、RAG設定では温度変化に対してもイデオロギー的一致度が比較的安定しており、検索による根拠付けが温度に起因するイデオロギー的ドリフトを抑制していることが明らかになった。結論として、イデオロギーの転移は温度単独で決まるのではなく、デコーディングの確率性、メタデータに基づくプロンプティング、および検索による制約の相互作用によって構造的に調整される。</p></section>
+<section class="secsum"><h3>Use of AI</h3><p>著者らは、論文の明瞭性と可読性を向上させるために、AIツールであるChatGPTおよびGrammarlyを使用した。ただし、生成されたすべての内容は著者らによってレビューおよび検証されており、最終的な原稿に関する全責任は著者らが負うことが明記されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-16
+  </footer>
+</div>
+</body>
+</html>

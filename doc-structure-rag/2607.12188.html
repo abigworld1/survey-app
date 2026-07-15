@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Cost-Governed RAG: Unified Per-Tenant Cost Attribution Across Retrieval and Generation in Multi-Tenant LLM Systems | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Cost-Governed RAG: Unified Per-Tenant Cost Attribution Across Retrieval and Generation in Multi-Tenant LLM Systems</h1>
+  <div class="meta">Navnit Shukla<br>採択先: 未取得 ・ 2026-07-13 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.12188v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.12188v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-13</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">マルチテナントRAGにおけるコスト帰属という実用的な課題に対し、決定論的なメモリ計算を可能にする新手法「TurboVec」を提案しており、精度・コスト削減の両面で高い新規性と有用性がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチテナントLLM環境において、生成コストだけでなく、従来帰属が困難であった検索レイヤー（メモリ、計算、埋め込みAPI）のコストをテナントごとに正確に割り当てる「Cost-Governed RAG」アーキテクチャを提案する。コードブック非依存のベクトルインデックス「TurboVec」を用いることで、決定論的なメモリ計算を可能にし、100テナントのシミュレーションにおいて99.96%のエンドツーエンドのコスト帰属精度と、管理型サービス比で3.1〜9.0倍のコスト削減を達成した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチテナントRAGシステムにおいて、大規模なコーパスを持つテナントが小規模なテナントのインフラコストを実質的に補助してしまう「クロスサブシディ（相互補助）」の問題を解決する。既存のHNSWのようなグラフベースのインデックスはメモリ消費が非線形であり、またTrained PQのような手法は共有コードブックを用いるため、テナントごとの正確なコスト帰属が困難であった。本研究は、埋め込み、検索、生成の3層からなるコストモデルを定式化し、検索と生成の両面で高精度なテナント別コスト帰属を実現する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>コードブック非依存の量子化技術「TurboVec」を導入することで、情報漏洩リスクを排除しつつ、テナントごとのメモリ使用量を決定論的に算出可能にした。これにより、検索インフラコストを管理型サービスと比較して3.1〜9.0倍削減できることを示した。また、テレメトリによるクエリ遅延への影響を0.04%未満に抑えつつ、99.96%という極めて高いコスト帰属精度を達成した。さらに、提案モデルはFinOpsのFOCUS仕様に適合しており、エンタープライズ向けの統合的なチャージバックを実現する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>アーキテクチャは、Snowpark Container Services (SPCS) 上にデプロイされ、ゲートウェイ「GovLLM」と「TurboVec」を統合したスタックで構成される。テナント $t$ の総コストは $C_{total, t} = C_{embed, t} + C_{retrieve, t} + C_{gen, t}$ と定義される。検索コスト $C_{retrieve, t}$ は、インデックスメモリの占有割合に基づくメモリシェアと、SIMDブロック数に基づく計算シェアに分解される。TurboVecは、ランダム回転後の $L_2$ 正規化ベクトルから境界を解析的に導出する手法を採用しており、メモリ消費がテナントのベクトル数 $n_i$ に対して線形かつ決定論的である。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>100のシミュレーションテナント（ベクトル数は対数正規分布に従い $10^4$ から $5 \times 10^5$、合計1,000万ベクトル）を用い、OpenAI `text-embedding-3-large` を使用した1,000 QPSの環境で評価を行った。コスト配分精度は $\text{Acc}_i = 1 - \frac{|\hat{C}_i - C_i|}{C_i}$ で定義され、平均99.96%を達成した。TurboVec 4-bitにおける検索層の配分誤差は、共有回転行列に起因する0.12%のみであった。また、1億個のベクトルを保持する場合、4-bit量子化によりFP32と比較してノード数を4台分削減できることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、検索テレメトリと生成テレメトリを同一のSnowflakeテーブルに記録することで、SQLベースの統合的なコスト管理を可能にする。コードブック非依存の設計は、共有コードブックによる情報漏洩リスクを排除するだけでなく、環境負荷の低減（1億ベクトル規模で年間数トンの $\text{CO}_2$ 削減）にも寄与する。限界として、評価が合成ワークロードに限定されている点や、現在はフラットスキャン検索のみを対象としている点が挙げられる。今後は、グラフ検索層との統合や、SLAに基づいたビット幅の動的選択などの拡張が期待される。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Cost-Governed RAG: Unified Per-Tenant Cost Attribution Across Retrieval and Generation in Multi-Tenant LLM Systems</h3><p>本研究は、マルチテナントLLM環境において、従来は帰属が不明確であった検索レイヤー（ベクトルメモリ、類似度計算、埋め込みAPI）のコストを、生成コストと統合してテナントごとに正確に割り当てる「Cost-Governed RAG」アーキテクチャを提案している。この手法は、決定論的かつ閉形式のメモリ計算式を持つコードブック非依存のベクトルインデックス「TurboVec」を活用することで、非線形なメモリオーバーヘッドを持つグラフベースのインデックスでは困難であった、テナントごとの検索コストのほぼ正確な算出を可能にしている。提案手法は、3層のコストモデルを定式化しており、100のシミュレーションテナント（1,000万ベクトル、対数正規分布サイズ）を用いた実験において、エンドツーエンドのコスト帰属精度99.96%を達成し、テレメトリによるクエリ遅延への影響を0.04%未満に抑えている。また、本アーキテクチャは、管理型ベクトルデータベースサービスと比較して、検索インフラコストを3.1〜9.0倍削減できることを示している。さらに、コードブック非依存の量子化を採用することで、学習済み量子化器に存在する共有コードブックによる情報漏洩のリスクも排除している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究は、マルチテナントLLM環境において、従来の生成コスト管理（モデルカスケードやプロンプト圧縮等）では見落とされてきた検索コスト（ベクトルインデックスのメモリ、類似性検索の計算量、埋め込みAPI呼び出し）の帰属問題を解決する「Cost-Governed RAG」を提案している。既存のHNSWのようなグラフベースのインデックスはメモリ消費が非線形であり、PQのような訓練済みコードブックを用いる手法はテナント間で状態を共有するため、正確なコスト帰属が困難であるという課題がある。これに対し、著者らはメモリ消費がテナントごとに決定論的かつ線形に発生するコードブック非依存のベクトルインデックス「TurboVec」と、トークン帰属や認証を行うゲートウェイ「GovLLM」を統合したスタックを構築した。提案手法は、埋め込み、検索、生成の3層からなるコストモデルを定式化しており、100テナント（1,000万ベクトル）のシミュレーションにおいて、99.96%という極めて高いエンドツーエンドのコスト帰属精度を達成し、管理型サービスと比較して3.1〜9.0倍のコスト削減を実現している。また、テレメトリによるオーバーヘッドは0.04%未満に抑えられている。</p></section>
+<section class="secsum"><h3>II Background and Motivation</h3><p>RAGのコスト構造は、生成、検索、インフラの3層から成るが、既存の観測プラットフォーム（Langfuse等）は生成コストのみをテナント別に追跡し、検索コストを全テナントで一律に按分する固定インフラコストとして扱うため、大規模コーパスを持つテナントが小規模なテナントを実質的に補助するというガバナンス上の問題が生じている。HNSWのようなグラフベースのインデックスや、全コーパスに対して $k$-means を適用する Trained PQ では、エッジ構造やコードブックがテナント間で共有・混在するため、物理的なパーティショニングなしにテナントごとのメモリ分離やコスト帰属を行うことは困難である。これに対し、TurboVec はランダム回転後の $L_2$ 正規化ベクトルから境界を解析的に導出する手法であり、コードブックにコーパス依存の情報やテナント固有の状態を持たない。TurboVec におけるテナントあたりの総サービングメモリは、テナントのベクトル数 $n_i$、次元数 $d$、ビット幅 $b$、および共有回転行列のテナント数 $M$ を用いて、決定論的な閉形式の関数として分解可能である。具体例として、10万ベクトルかつ4ビットの設定では、コード、ノルム、ID、ブロックメタデータの合計が約 $0.5$ MB となり、その大部分がペイロードに依存する。この決定論的な性質を利用することで、GovLLM のようなゲートウェイを通じたトークン帰属管理と組み合わせ、検索と生成の両面における高精度なテナント別コスト帰属が可能となる。</p></section>
+<section class="secsum"><h3>III Architecture</h3><p>本アーキテクチャは、Snowpark Container Services (SPCS) 内にデプロイされ、データのガバナンス境界内で検索から生成までの全レイヤーのテレメトリを統一テーブルに記録することで、マルチテナント環境における正確なコスト配分を実現する。テナント $t$ の総コストは $C_{total, t} = C_{embed, t} + C_{retrieve, t} + C_{gen, t}$ と定義され、検索コスト $C_{retrieve, t}$ は、インデックスメモリの占有割合に基づくメモリシェアと、実際にスキャンされた32ベクトル単位のSIMDブロック数に基づく計算シェアに分解される。TurboVecは、共有される回転行列 $\mathbf{R}$ による誤差を $10^7$ ベクトル時で $0.1\%$ に抑える決定論的なメモリ管理と、カーネルレベルのフィルタリングによる計算の物理的隔離を組み合わせることで、HNSWやPQベースのインデックスでは困難な $99.88\%$ 以上の高精度なコスト配分を可能にしている。テレメトリパイプラインは、スキャンされたベクトル数やメモリ使用量を含む構造化レコードを生成し、これをGovLLMの生成トレース（消費トークン数等）と結合することで、SQLを用いてテナントごとの総コストや検索コストの割合を直接算出できる。この設計により、外部ベクトルデータベースでは困難な、ガバナンス層のテーブルに直接フィードバックされるテナント単位のメモリ利用状況に基づいた、一貫したチャージバックが可能となる。</p></section>
+<section class="secsum"><h3>IV Evaluation</h3><p>本実験では、100のテナント（ベクトル数は対数正規分布に従い$10^4$から$5 \times 10^5$）と合計1,000万個のベクトル（OpenAI `text-embedding-3-large`）を用いた1,000 QPSのマルチテナント環境をシミュレートし、提案手法の有効性を評価している。コスト配分精度は、テレメトリに基づく配分コスト $\hat{C}_i$ と、メモリ測定およびCPUサイクルカウンタから算出される真のコスト $C_i$ を用いて、精度 $\text{Acc}_i = 1 - \frac{|\hat{C}_i - C_i|}{C_i}$ で定義され、全テナントの平均 $\text{mean}(\text{Acc}_i)$ として報告される。実験の結果、TurboVec 4-bitを用いた検索層の配分誤差は、共有回転行列（約9.0 MB）に起因する0.12%のみであり、それ以外のコード、ノルム、ID、メタデータ等はベクトル数 $n_i$ に対して線形であるため、極めて高い精度を実現している。また、HNSWのようなグラフベースのインデックスはエッジがテナント境界を跨ぐため正確な配分が構造的に不可能であるのに対し、TurboVecは式(1)に基づき、テナント数が増加しても精度が99.5%以上を維持する優れたスケーラビリティを示す。コスト分析では、大規模テナントにおいて検索層がRAG総コストの最大28%を占めることが示されており、検索層における正確なコスト配分が、小規模テナントによる不当なクロスサブシディ（相互補助）を防ぐために不可欠であることが明らかになった。</p></section>
+<section class="secsum"><h3>V Discussion</h3><p>本研究では、マルチテナントLLMシステムにおけるガバナンスと持続可能性を向上させるため、クラウドネイティブなデプロイメントの重要性を論じている。TurboVecをSPCS内にデプロイすることで、検索テレメトリと生成テレメトリを同一のSnowflakeテーブルに書き込み、クロスプラットフォームなデータ移動を伴わずにSQLベースの統合的なコストダッシュボードや自動チャージバックを実現している。手法として採用されているコードブックに依存しない量子化は、学習済みPQのような共有コードブックによる情報漏洩リスクを排除するだけでなく、テナントごとのメモリ使用量を決定論的に帰属させることを可能にする。実験的な数値結果として、1億個のベクトルをFP32で保持する場合に5台の $r6i.4xlarge$ インスタンス（各128 GiB RAM）を要するところ、4-bit量子化を用いることで112 GiBに収まり、1台のインスタンスへと4台分のノード削減が可能であることを示している。この削減は、米国の平均的な炭素強度 $0.39 \text{ kg CO}_2/\text{kWh}$ に基づくと、1億ベクトル規模のデプロイメントにおいて年間数トンの $\text{CO}_2$ 削減に直結する。さらに、提案する3層のコストモデルは、リソース識別子 $\text{tenant\_id}$、使用量 $\text{vectors\_scanned}$ や $\text{tokens}$、および単価を含むため、FinOps FoundationのFOCUS仕様に直接適合し、既存のFinOpsツールでの処理が可能である。ただし、本手法によるプライバシー保護はコードブックの設計に限定されたものであり、エンドツーエンドのプライバシー保証には別途形式的な脅威モデルと実証的な評価が必要であるという限界がある。</p></section>
+<section class="secsum"><h3>VI Related Work</h3><p>既存のLLMコスト最適化手法（UCCI, ProCut, FrugalGPT等）は生成レイヤーのみを対象としており、検索コストの帰属問題には対処していない。RAGシステムの最適化に関する研究（RAG-Stack, RAGO, HyperRAG等）においても、テナントごとのコスト観測性は提供されていない。近似最近傍探索（ANN）のためのベクトル量子化（Product Quantization, OPQ, TurboQuant, RaBitQ等）については、本研究は量子化の設計選択とコストガバナンス特性を接続する点に貢献がある。マルチテナント環境における隔離の研究はデータベース分野では進んでいるが、情報漏洩の低減とコスト帰属の両立を目指したベクトルインデックスの隔離は新規性が高い。また、LangfuseやHelicone等の既存の観測ツールや、クラウドコストを標準化するFinOpsのFOCUS仕様は、埋め込みや検索といったAI特有のコスト構成要素を統合しておらず、本研究はこれらをRAGスタックへと拡張する3層モデルを提案している。</p></section>
+<section class="secsum"><h3>VII Limitations and Future Work</h3><p>本研究の限界として、まず評価が対数正規分布に基づく合成ワークロードを用いたシミュレーションに限定されており、実際のエンタープライズ環境で見られるバースト的な負荷変動を完全には捉えられていない点が挙げられる。また、現在のTurboVecはフラットスキャン検索のみを対象としており、HNSWのようなグラフベースのインデックスが持つ非線形なメモリプロファイルに対応する計算式は未実装である。コスト計算は特定の価格設定に基づいているが、アーキテクチャ自体は価格モデルに依存せず、レート定数 $c_r, c_g, c_s$ の更新のみで対応可能である。さらに、テナントの増減やデータ移行を考慮した動的なリバランシング機能や、多次元の埋め込みモデル（本研究では $d=1536$ の `text-embedding-3-large` を使用）以外の構成への拡張も今後の課題である。今後の展望として、グラフ検索層との統合、実稼働環境でのチャージバック検証、テナントのSLAに基づきビット幅を動的に選択するコスト認識型クエリルーティング、およびマルチモーダルRAGへの拡張が計画されている。</p></section>
+<section class="secsum"><h3>VIII Conclusion</h3><p>Cost-Governed RAGは、codebook-oblivious vector quantizationを用いることで、共有コードブックによる情報漏洩のリスクを排除しつつ、テナントごとの決定論的なコスト配分を可能にする手法を提案している。クラウドデータプラットフォームのコンテナサービス上での実証実験において、本アーキテクチャは $99.96\%$ という極めて高いエンドツーエンドのコスト配分精度を達成し、既存のマネージドサービスと比較して検索インフラコストを $3.1$ 倍から $9.0$ 倍削減することに成功した。大規模テナントにおいては、検索プロセスがRAG全体のコストの最大 $28\%$ を占めるという、従来のガバナンスにおける盲点を可視化している。本研究は、エンタープライズAIのマルチテナント展開において、コスト管理をトークン単位の課金から、RAGパイプラインの全レイヤーを網羅するフルスタックな帰属管理へと進化させる必要性を提示している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-16
+  </footer>
+</div>
+</body>
+</html>

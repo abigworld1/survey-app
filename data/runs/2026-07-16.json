@@ -1,0 +1,308 @@
+{
+  "date": "2026-07-16",
+  "dry_run": false,
+  "engine": "llm:gemma-4-26b",
+  "fields": [
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2603.25121.html",
+          "id": "2603.25121",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2026-03-26",
+          "reading_value": 4,
+          "reading_value_reason": "CTS-MAPFという難易度の高い問題に対し、構成ベースの効率性とLaCAMによる完全性を組み合わせた階層的アプローチが非常に具体的で、実機検証も伴うため価値が高い。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "CTS-PLL: A Robust and Anytime Framework for Collaborative Task Sequencing and Multi-Agent Path Finding",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2603.23405.html",
+          "id": "2603.23405",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2026-03-24",
+          "reading_value": 4,
+          "reading_value_reason": "既存のPIBTの制約を「依存関係の数」という観点から一般化した新規性が高い。大型エージェント等の複雑な設定で有効性が示されており、MAPF研究者には有用。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Planning over MAPF Agent Dependencies via Multi-Dependency PIBT",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 184,
+      "fresh_total": 132,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 49,
+      "shortfall": 0,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "2003.07108",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "Lifelong Multi-Agent Path Finding"
+          ],
+          "published": "2020-03-16",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 6,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "abstract",
+          "title": "A Job-Assignment Heuristic for Lifelong Multi-Agent Path Finding Problem with Multiple Delivery Locations",
+          "venue": ""
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-d93d2a1c3541",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "Lifelong Multi-Agent Path Finding"
+          ],
+          "published": "2026-07-13",
+          "reasons": [
+            "本文もアブストラクトも取得できない"
+          ],
+          "relevance": 6,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Energy-Aware Modeling with Planning-Learning Coordination for Lifelong Multi-agent Path Finding",
+          "venue": "Lecture notes in computer science"
+        }
+      ],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important/q1": {
+          "count": 0,
+          "query": "Multi-Agent Path Finding"
+        },
+        "arxiv/important/q2": {
+          "count": 0,
+          "query": "MAPF"
+        },
+        "arxiv/important/q3": {
+          "count": 0,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "arxiv/important/q4": {
+          "count": 0,
+          "query": "MAPD"
+        },
+        "arxiv/important/q5": {
+          "count": 0,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "arxiv/important/q6": {
+          "count": 0,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q1": {
+          "count": 40,
+          "query": "Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q2": {
+          "count": 40,
+          "query": "MAPF"
+        },
+        "arxiv/recent/q3": {
+          "count": 23,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "arxiv/recent/q4": {
+          "count": 38,
+          "query": "MAPD"
+        },
+        "arxiv/recent/q5": {
+          "count": 16,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q6": {
+          "count": 3,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "openalex/important/q1": {
+          "count": 8,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/important/q2": {
+          "count": 8,
+          "query": "MAPF"
+        },
+        "openalex/important/q3": {
+          "count": 8,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/important/q4": {
+          "count": 8,
+          "query": "MAPD"
+        },
+        "openalex/important/q5": {
+          "count": 8,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/important/q6": {
+          "count": 8,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "openalex/recent/q1": {
+          "count": 8,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/recent/q2": {
+          "count": 8,
+          "query": "MAPF"
+        },
+        "openalex/recent/q3": {
+          "count": 8,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/recent/q4": {
+          "count": 8,
+          "query": "MAPD"
+        },
+        "openalex/recent/q5": {
+          "count": 8,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/recent/q6": {
+          "count": 8,
+          "query": "Online Multi-Agent Path Finding"
+        }
+      }
+    },
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2607.12188.html",
+          "id": "2607.12188",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-07-13",
+          "reading_value": 4,
+          "reading_value_reason": "マルチテナントRAGにおけるコスト帰属という実用的な課題に対し、決定論的なメモリ計算を可能にする新手法「TurboVec」を提案しており、精度・コスト削減の両面で高い新規性と有用性がある。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Cost-Governed RAG: Unified Per-Tenant Cost Attribution Across Retrieval and Generation in Multi-Tenant LLM Systems",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2607.11783.html",
+          "id": "2607.11783",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-07-13",
+          "reading_value": 4,
+          "reading_value_reason": "RAGにおける温度設定とイデオロギー伝播の相関を、LMDAを用いた定量的手法で解明しており、安全性やバイアス制御を研究する者にとって極めて有用。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "How Temperature Shapes Ideological Discourse in Retrieval-Augmented Generation?",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 154,
+      "fresh_total": 134,
+      "k": 2,
+      "label": "文書構造解析に基づく検索・質問応答・RAG",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 80,
+      "shortfall": 0,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-0a4ace0de437",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-07-07",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 8,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "Retrieval-Augmented Generation for Curated Thematic Corpora: A Critical Survey, Bibliometric Evidence, and the ThemePath-RAG Framework",
+          "venue": "Information"
+        }
+      ],
+      "slug": "doc-structure-rag",
+      "source_counts": {
+        "arxiv/important/q1": {
+          "count": 0,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "arxiv/recent/q1": {
+          "count": 40,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "openalex/important/q1": {
+          "count": 40,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "openalex/recent/q1": {
+          "count": 40,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "semanticscholar/important/q1": {
+          "count": 39,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "semanticscholar/recent/q1": {
+          "count": 39,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        }
+      }
+    }
+  ],
+  "generated_at": "2026-07-16T06:00:01"
+}
