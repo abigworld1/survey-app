@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Decoupling Geometric Planning and Execution in Scalable Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Decoupling Geometric Planning and Execution in Scalable Multi-Agent Path Finding</h1>
+  <div class="meta">Fernando Salanova, Eduardo Montijano, Cristian Mahulea<br>採択先: 未取得 ・ 2026-03-11 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2603.26684v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2603.26684v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-03-11</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">時間拡張モデルを使わずに幾何学的コスト膨張と分散型制御を分離する手法は、大規模・非同期環境への適用において新規性と実用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 大規模・高密度なMulti-Agent Path Finding (MAPF) において、幾何学的計画と実行時の衝突回避を分離するハイブリッドな優先順位付きフレームワークを提案する。時間拡張モデルを用いず、高優先度エージェントの経路に基づき頂点コストを膨張させるGeometric Conflict Preemption (GCP) と、頂点ごとのFIFO認可キューを用いるDecentralized Local Controller (DLC) を組み合わせることで、最大1000エージェント規模でもほぼ線形 $O(n)$ の計算量で、高い成功率と競争力のあるSum-of-Costs (SOC) を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、従来のMAPF手法が抱える、大規模環境における計算量・メモリ消費の増大、および時間拡張表現（time-expanded representation）に起因するグローバル同期の必要性という課題に対処する。従来のConflict-Based Search (CBS) 等の最適解ソルバーは、エージェント間の明示的な結合によりスケーラビリティに欠け、また多くの手法は通信遅延や非同期動作が避けられない実運用において、頻繁な同期を強いる。本研究では、幾何学的な経路計画と実行時の時間的調整を分離することで、非同期的な動作が可能な大規模ロボットチームへの適用を目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一の貢献は、時間拡張グラフを構築せずに、高優先度エージェントの幾何学的フットプリントに基づいて頂点進入コストを膨張させるGeometric Conflict Preemption (GCP) の提案である。これにより、明示的な時間推論なしに、将来の待機よりも安価な幾何学的迂回を促すことが可能となる。第二の貢献は、各頂点に保持されたFIFO形式の認可キュー $\mathcal{Q}_v$ を用いて、衝突が発生した際のみ待機アクションを挿入するDecentralized Local Controller (DLC) の導入である。これにより、グローバルな時空間予約テーブルを必要としない、分散的な衝突回避を実現している。最後に、最大1000エージェントの実験を通じて、ほぼ線形なスケーリング特性と、制約の強い環境下での高い成功率を実証した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は二段階のプロセスで構成される。第1段階のGCPでは、優先順位の高いエージェントの幾何学的フットプリント $\mathcal{F}_i$ を考慮し、残差グラフ上でコストを膨張させた $A^*$ 計画を行う。具体的には、高優先度エージェントが頂点 $v$ を訪れるインデックス $idx(i, v)$ に比例したペナルティ $P(v)$ を導入し、膨張コスト $c&#x27;(u, v) = c(u, v) + P(v)$ を用いて経路を探索する。第2段階のDLCでは、各頂点 $v$ のFIFO認可キュー $\mathcal{Q}_v$ に基づき、エージェントがキューの先頭である場合のみ移動を許可し、それ以外は待機アクションを挿入することで、頂点衝突およびエッジスワップ衝突を回避する。このプロセスは、エージェントに優先順位が与えられ、到着後に目標地点で待機するという仮定（Assumption III.1）の下で、衝突のない完備な軌道を生成する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、ECBS、Cooperative A* (CA*)、PIBTの3手法と比較評価を行った。ベンチマークとして、広大な空間である`Paris_1_256`と、狭い通路がボトルネックとなる`room-64-64-8`の2種類を使用し、成功率 (SR)、実行時間 (Runtime)、Sum-of-Costs (SOC) を指標とした。結果として、提案手法はPIBTに次ぐほぼ線形なスケーリング特性を示し、ボトルネックの多いマップでも高い成功率を維持した。SOCに関しては、ECBSが最小となる傾向にあるものの、提案手法はCA*やPIBTを上回り、特にGCPによる待機時間の削減が寄与してECBSに匹敵する性能を示した。また、衝突の多いエージェントを先に処理するCL (Conflicting Last) ヘリスティックが、高密度シナリオで最も低いSOCを達成することも確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>アブレーション研究により、幾何学的コストのインフレ（Cost Update）を有効にすることで、空間コスト（経路の頂点数）はわずかに増加するものの、時間コスト（待機アクション数）が大幅に削減され、結果として総SOCが低減するというトレードオフが明らかになった。本手法は、待機コストが支配的となるボトルネック環境において最大の利得を得る。今後の課題として、膨張パラメータ $P(v)$ の適応的なチューニングや、観測された競合に基づいてオンラインで優先度を再順序付けする手法の検討が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Decoupling Geometric Planning and Execution in Scalable Multi-Agent Path Finding † † thanks: This work has been supporte</h3><p>本研究は、大規模または高密度な環境における Multi-Agent Path Finding (MAPF) のスケーラビリティ問題を解決するため、幾何学的計画と実行時の衝突回避を分離するハイブリッドな優先順位付きフレームワークを提案している。第一段階の Geometric Conflict Preemption (GCP) では、時間拡張モデルを用いず、高優先度のエージェントが使用する頂点への遷移コストを膨張させることで、明示的な時間推論なしに空間的な迂回を促す $A^*$ 計画を行う。第二段階の Decentralized Local Controller (DLC) では、頂点ごとの FIFO 認可キューを用いて幾何学的経路を実行し、頂点衝突やエッジの入れ替わり（edge-swap）を防ぐために待機アクションを挿入する。標準的なベンチマークマップを用いた最大 1000 エージェントの実験では、実行時間がほぼ線形 $O(n)$ の傾向でスケールし、幾何学的実行可能性の仮定を満たすインスタンスにおいて 100% の成功率を達成した。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>Multi-Agent Path Finding (MAPF) は、共有グラフ上で複数のエージェントが頂点衝突やエッジスワップ衝突を回避しつつ、目標到着時間の総和である sum-of-costs (SOC) を最小化する問題であり、NP困難な性質を持つ。従来の Conflict-Based Search (CBS) 等の最適解を求める手法は、エージェント間の明示的な結合に依存するため、大規模環境では計算量とメモリ消費が膨大になる。また、多くの手法は時間を離散化して同期的な進化を仮定する time-expanded representation に依存しているが、これは通信遅延や非同期的な動作が避けられない大規模ロボットチームの実運用において、頻繁なグローバル同期を強いるという課題がある。本研究では、幾何学的な経路計画と実行時の時間的調整を分離する二段階の優先度付きフレームワークを提案しており、第一段階の Geometric Conflict Preemption (GCP) では、時間拡張グラフを構築せずに高優先度エージェントの幾何学的フットプリントに基づいて頂点進入コストを膨張させ、将来の待機よりも安価な幾何学的迂回を促す。第二段階の Decentralized Local Controller (DLC) は、頂点ごとのローカルな認可キューを用いて、競合が発生した際のみ待機アクションを挿入することで、衝突のない非同期な実行を保証する。実験の結果、提案手法はエージェント数に対してほぼ線形なスケーリング特性を示し、ボトルネックの多いマップにおいて待機時間を削減することで、競争力のある SOC を維持しつつスケーラビリティを向上させている。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>MAPFアルゴリズムは、最適解を保証するCBSなどの最適解ソルバー、解の質を制限しつつ高速化を図るECBSなどの限定的劣最適ソルバー、そして数千規模の規模に対応可能なデカップリング手法に分類される。Prioritized MAPFに代表されるデカップリング手法は、エージェントを優先順位に従って逐次的に計画することで、エージェント数に対してほぼ線形な計算量 $O(n)$ を実現するが、高優先度エージェントの経路が制約となるため、SOC（Sum of Costs）の増大や待ち時間の連鎖を招く課題がある。本研究で提案するGeometric Conflict Preemption (GCP) は、時間拡張グラフを構築することなく、高優先度エージェントの幾何学的経路から導出されたコスト膨張を一度だけ適用することで、幾何学的な重複を抑制する。提案手法は、計画段階でのコスト修正と、実行段階におけるキューベースのローカルコントローラによる残存衝突の解決を組み合わせた、一回限りの（one-shot）デカップリング手法である。これにより、スケーラビリティを維持しつつ、混雑緩和による解の質の向上を図っており、特定の幾何学的実現可能性条件を満たすインスタンスに対して完全性が保証される。</p></section>
+<section class="secsum"><h3>III Problem Definition</h3><p>本問題は、非負の辺コストを持つ連結無向グラフ $G=(V, E)$ において、各エージェント $i$ に開始頂点 $s_i$ と目標頂点 $g_i$ が与えられたマルチエージェント経路探索（MAPF）として定義される。エージェントの軌跡 $\tau_i$ は、時刻 $t$ における位置 $x_i(t)$ を示す関数であり、隣接する頂点間または同一頂点への待機を許容するが、本手法の計画段階では時間情報をエンコードしない幾何学的経路のみを扱う。衝突回避の条件は、任意の時刻 $t$ において $x_i(t) = x_j(t)$ となる頂点衝突、および $x_i(t) = x_j(t+1) \land x_i(t+1) = x_j(t)$ となるエッジスワップ衝突の不在であり、目的は総コスト（Sum-of-Costs, SOC） $\sum_i \text{cost}(\tau_i)$ を最小化することである。仮定 III.1 により、エージェントに優先順位が与えられ、到着後に目標地点で待機するとすると、優先順位に従って順次エージェントを移動させることで、残差グラフ $G_i$ 上の最短経路 $\pi_i$ を用いた衝突のない軌跡集合を構成できる。この構成により、得られる軌跡の総コストは、最適解のコスト $C^*$ に対して $\sum_i \text{cost}(\pi_i) \le C^*$ を満たすことが保証される。</p></section>
+<section class="secsum"><h3>IV Proposed Method</h3><p>本手法は、幾何学的計画と時間的調整を分離した、優先順位付きのMAPFフレームワークを提案している。第1段階のGeometric Conflict Preemption (GCP) では、優先順位の高いエージェントの幾何学的フットプリント $\mathcal{F}_i$ を考慮し、残差グラフ上でコストを膨張させた $A^*$ を実行することで、時間依存しない幾何学的経路を順次計算する。具体的には、高優先度エージェントが頂点 $v$ を訪れるインデックス $idx(i, v)$ に比例したペナルティ $P(v)$ を導入した膨張コスト $c&#x27;(u, v) = c(u, v) + P(v)$ を用いて、将来的な混雑を回避する経路を探索する。第2段階のDecentralized Local Controller (DLC) は、各頂点 $v$ に保持されたFIFO形式の認可キュー $\mathcal{Q}_v$ に基づき、エージェントがキューの先頭である場合のみ移動を許可し、それ以外は待機アクションを挿入することで、頂点衝突およびエッジスワップ衝突を回避する。このDLCは、グローバルな時空間予約テーブルを必要とせず、各エージェントの移動許可が局所的なキューの状態のみに依存するため、分散的な実装が可能である。理論的には、Assumption III.1 の条件下で、DLCは衝突のない（collision-free）かつ完備な（complete）軌道を生成することが証明されている。</p></section>
+<section class="secsum"><h3>V Experimental Evaluation</h3><p>本実験では、提案手法をECBS、Cooperative A* (CA*)、PIBTの3つの既存手法と比較し、大規模な開けた空間である`Paris_1_256`と、狭い通路がボトルネックとなる`room-64-64-8`の2種類のベンチマークマップを用いて評価を行っている。評価指標には、制限時間内に解を得られた割合を示す成功率 (SR)、計算時間を表すRuntime、および全エージェントの総行動数を表すSum-of-Costs (SOC) が用いられた。実験結果として、提案手法はボトルネックの多いマップでも高い成功率を維持し、Runtimeにおいては時間拡張グラフの構築を回避し局所的なキュー操作を行うことで、PIBTに次ぐほぼ線形なスケーリング特性を実現している。解の質に関しては、ECBSが最小のSOCを記録する傾向にあるものの、提案手法はCA*やPIBTを上回り、特に幾何学的な衝突回避（GCP）が待機時間を削減することで、制約の強い環境下でECBSに匹敵する性能を示す。アブレーション研究では、幾何学的コストのインフレ（Cost Update）を有効にすることで、空間コスト（経路の頂点数）がわずかに増加する一方で、時間コスト（待機アクション数）が大幅に削減され、結果として総SOCが低減されるトレードオフが確認された。また、優先順位付けのポリシーに関する調査では、衝突スコアに基づき衝突の多いエージェントを先に処理するCL (Conflicting Last) ヘリスティックが、高密度シナリオにおいて最も低いSOCを達成することが示された。</p></section>
+<section class="secsum"><h3>VI Conclusions</h3><p>本研究では、幾何学的計画と実行時の調整を分離した優先度ベースのMAPFフレームワークを提案している。幾何学的衝突回避手法として、時間モデルを用いずに元のグラフ上で一回限りのコスト膨張を行う「Geometric Conflict Preemption」を導入し、高優先度エージェントの経路との重複を抑制する。実行フェーズでは「Decentralized Local Controller」が、局所的なFIFOキューを用いて衝突のない実行を強制し、競合が発生した場合にのみ待機を発生させる。評価の結果、この分離手法は、待機コストが支配的となるボトルネックの多い環境において最大の利得を得つつ、大規模なチームサイズにおいても競争力のあるSOC（Sum of Costs）を維持しながら安定したスケーラビリティを実現することが示された。今後の課題として、膨張パラメータの適応的なチューニングや、観測された競合に基づくオンラインでの優先度再順序付けが挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-17
+  </footer>
+</div>
+</body>
+</html>

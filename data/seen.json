@@ -1611,6 +1611,36 @@
       "url": "https://www.semanticscholar.org/paper/c000f4698b168f3ede4c86ddd01bddbe7ab99b33",
       "venue": "Volume 1"
     },
+    "doi:10.3389/frai.2025.1697169": {
+      "added": "2026-07-17",
+      "added_at": "2026-07-17T06:05:13.027036",
+      "arxiv_id": "",
+      "authors": [
+        "Soham Ghosh",
+        "Gaurav Mittal"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 5,
+      "date": "2025-11-19",
+      "doi": "10.3389/frai.2025.1697169",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/doi-7132c294f498.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://public-pages-files-2025.frontiersin.org/journals/artificial-intelligence/articles/10.3389/frai.2025.1697169/pdf",
+      "reading_value": 4,
+      "reading_value_reason": "Contextual RAGと知識グラフを組み合わせ、工学規格特有の断片化問題を解決する具体的かつ実用的な手法を提案している。評価指標も厳密で、研究者にとって実装の参考になる。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Advancing engineering research through context-aware and knowledge graph–based retrieval-augmented generation",
+      "tldr": "工学分野の複雑な技術規格や設計文書におけるLLMのハルシネーションを解決するため、n8n自動化プラットフォーム上に構築された、文脈認識型（Contextual RAG）および知識グラフ（KG）ベースの新しいRAG-LLMフレームワークを提案する。",
+      "url": "https://openalex.org/W4416402923",
+      "venue": "Frontiers in Artificial Intelligence"
+    },
     "doi:10.3390/ai7050161": {
       "added": "2026-06-14",
       "added_at": "2026-06-14T00:00:00.000002",
@@ -2110,6 +2140,44 @@
       "source_quality": "fulltext",
       "title": "FT-RAG: A Fine-grained Retrieval-Augmented Generation Framework for Complex Table Reasoning",
       "tldr": "FT-RAGは、構造化された表データにおける粒度の粗さと意味理解の不足を解決するための、セルレベルの細粒度なRetrieval-Augmented Generationフレームワークである。表を「cell groups」に分解してSATグラフ（Subject, Attribute, Temporal）を構築し、構造的近傍拡張とマルチモーダル融合を用いることで、複雑な複数表の推論を実現する。"
+    },
+    "title:mm bizrag rethinking multimodal retrieval augmented generation for general purpose enterprise q a": {
+      "added": "2026-07-17",
+      "added_at": "2026-07-17T06:06:37.091680",
+      "arxiv_id": "",
+      "authors": [
+        "Hanoz Bhathena",
+        "Parin Rajesh Jhaveri",
+        "Rohan Mittal",
+        "Prateek Singh",
+        "Aymen Kallala",
+        "Rachneet Kaur",
+        "Yiqiao Jin",
+        "Zhen Zeng",
+        "Adwait Ratnaparkhi",
+        "Denis Kochedykov"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "2026-06-02",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/t-df43367e9cdb.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.04231",
+      "reading_value": 4,
+      "reading_value_reason": "企業文書の構造（垂直・水平）に応じた動的ルーティングや、検索と生成の表現を分離する設計など、実用上の課題に対する解決策が具体的で新規性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "MM-BizRAG: Rethinking Multimodal Retrieval-Augmented Generation for General Purpose Enterprise Q&A",
+      "tldr": "企業文書の複雑な構造に対応するため、文書の垂直・水平構造に応じてインジェクション手法を動的に切り替え、プレースホルダーを用いた位置合わせと推論時のマルチモーダル・アセンブリを行うMM-BizRAGを提案する。既存のビジョン中心の手法に対し、レポート形式のレイアウトにおいて最大32ポイントの性能向上を達成し、評価指標として低コストなFastRAGEvalを導入している。",
+      "url": "https://openalex.org/W7163720139",
+      "venue": "arXiv (Cornell University)"
     }
   },
   "mapf-mapd-warehouse": {
@@ -2854,6 +2922,41 @@
       "url": "http://arxiv.org/abs/2602.23468v2",
       "venue": ""
     },
+    "arxiv:2603.12736": {
+      "added": "2026-07-17",
+      "added_at": "2026-07-17T06:01:30.614299",
+      "arxiv_id": "2603.12736",
+      "authors": [
+        "Lukas Heuer",
+        "Yufei Zhu",
+        "Luigi Palmieri",
+        "Andrey Rudenko",
+        "Anna Mannucci",
+        "Sven Koenig",
+        "Martin Magnusson"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-03-13",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2603.12736.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2603.12736v1",
+      "reading_value": 4,
+      "reading_value_reason": "制御不能な動的エージェントの統計的分布をMAPFのコスト関数に統合する手法が新規であり、理論的保証と実データを用いた検証も具体的で価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Conflict Mitigation in Shared Environments using Flow-Aware Multi-Agent Path Finding",
+      "tldr": "制御不能な動的エージェント（UA）が存在する共有環境において、UAの移動パターンを学習したMaps of Dynamics (MoDs) を用いて、衝突を回避しつつ効率的な経路を計画するFlow-Aware Multi-Agent Path Finding (FA-MAPF) を提案する。本手法は、UAのマルチモーダルな速度分布をSemi-Wrapped Gaussian Mixture Models (SWGMMs) でモデル化し、探索ベースのMAPFアルゴリズムのエッジコストに統合することで、事後的な再計画なしに衝突を最大55%削減する。",
+      "url": "http://arxiv.org/abs/2603.12736v1",
+      "venue": ""
+    },
     "arxiv:2603.23405": {
       "added": "2026-07-16",
       "added_at": "2026-07-16T06:02:07.407100",
@@ -2917,6 +3020,37 @@
       "title": "CTS-PLL: A Robust and Anytime Framework for Collaborative Task Sequencing and Multi-Agent Path Finding",
       "tldr": "Collaborative Task Sequencing and Multi-Agent Path Finding (CTS-MAPF) 問題に対し、構成ベースの手法である CTS-PIBT を拡張した階層的フレームワーク CTS-PLL を提案する。本手法は、デッドロックやライブロックを検知して LaCAM による局所再計画を行う「Lock Detection and Release」モジュールと、Large Neighborhood Search (LNS) を用いた「Anytime 精緻化手順」を組み合わせることで、高密度環境における高い成功率と解の品質の継続的な向上を両立している。",
       "url": "http://arxiv.org/abs/2603.25121v1",
+      "venue": ""
+    },
+    "arxiv:2603.26684": {
+      "added": "2026-07-17",
+      "added_at": "2026-07-17T06:02:04.475021",
+      "arxiv_id": "2603.26684",
+      "authors": [
+        "Fernando Salanova",
+        "Eduardo Montijano",
+        "Cristian Mahulea"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-03-11",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2603.26684.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2603.26684v2",
+      "reading_value": 4,
+      "reading_value_reason": "時間拡張モデルを使わずに幾何学的コスト膨張と分散型制御を分離する手法は、大規模・非同期環境への適用において新規性と実用性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Decoupling Geometric Planning and Execution in Scalable Multi-Agent Path Finding",
+      "tldr": "大規模・高密度なMulti-Agent Path Finding (MAPF) において、幾何学的計画と実行時の衝突回避を分離するハイブリッドな優先順位付きフレームワークを提案する。時間拡張モデルを用いず、高優先度エージェントの経路に基づき頂点コストを膨張させるGeometric Conflict Preemption (GCP) と、頂点ごとのFIFO認可キューを用いるDecentralized Local Controller (DLC) を組み合わせることで、最大1000エージェント規模でもほぼ線形 $O(n)$ の計算量で、高い成功率と競争力のあるSum-of-Costs (SOC) を実現する。",
+      "url": "http://arxiv.org/abs/2603.26684v2",
       "venue": ""
     },
     "arxiv:2603.28803": {

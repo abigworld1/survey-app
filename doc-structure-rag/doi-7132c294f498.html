@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Advancing engineering research through context-aware and knowledge graph–based retrieval-augmented generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Advancing engineering research through context-aware and knowledge graph–based retrieval-augmented generation</h1>
+  <div class="meta">Soham Ghosh, Gaurav Mittal<br>採択先: Frontiers in Artificial Intelligence ・ 2025-11-19 ・ source: openalex</div>
+  <div class="links"><a href="https://openalex.org/W4416402923" target="_blank" rel="noopener">原典</a> ・ <a href="https://public-pages-files-2025.frontiersin.org/journals/artificial-intelligence/articles/10.3389/frai.2025.1697169/pdf" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.3389/frai.2025.1697169" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Frontiers in Artificial Intelligence</span><span class="chip">公開日 2025-11-19</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 5</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">Contextual RAGと知識グラフを組み合わせ、工学規格特有の断片化問題を解決する具体的かつ実用的な手法を提案している。評価指標も厳密で、研究者にとって実装の参考になる。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 工学分野の複雑な技術規格や設計文書におけるLLMのハルシネーションを解決するため、n8n自動化プラットフォーム上に構築された、文脈認識型（Contextual RAG）および知識グラフ（KG）ベースの新しいRAG-LLMフレームワークを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、電気工学の国家規格（NFPA 70/NEC等）やIEEE、CIGREの技術文書を対象とし、従来のRAGが抱える「固定サイズチャンクによる情報の断片化」および「意味的に連結された技術情報の探索能力不足」という課題に取り組んでいる。LLMのハルシネーション発生率が50%から82%に達する場合がある中、エンジニアリングドメイン特有の複雑な表形式データや多層的な例外論理を正確に扱う必要がある。既存のRAG手法では、技術的な文脈（電圧定格や条件付き例外）が欠落しやすく、検索精度が低下する問題がある。本研究は、ローカル環境でのプライバシー確保と、高度な検索ロジックを両立させるモジュール式パイプラインの構築を目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、LM StudioとAnythingLLMを活用し、機密性の高い設計仕様を扱えるローカルでの迅速展開可能なRAG-LLMパイプラインの実装例を提示している。第二に、n8nを用いたコンテキスト認識型ワークフローを導入し、文書の構造（親セクションやヘッダー）を各チャンクに付加することで、文脈の断片化を抑制する手法を提案している。第三に、Infranodusと組み合わせた知識グラフ（KG）拡張型RAGを導入し、概念間の隠れた関係性や規格間の相互参照を抽出可能にした。さらに、リランキング（Cohere Rerank v3.5等）の統合による検索品質の向上と、複数の知識グラフを横断する「マルチブレインRAG」の概念を実証している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>システムは、n8nをオーケストレーターとして、ドキュメントの抽出、Markdown変換、埋め込み、ベクトルDB（QdrantやChroma）への保存を自動化する。モデル選定では、ハードウェアの制約を考慮し、Hugging Face Open LLM Leaderboardに基づき $14\text{B}$ から $32\text{B}$ 程度の量子化された中規模モデルを使用する。Contextual RAGでは、各チャンクに周囲の文脈を付加することで、チャンクあたりのトークン量を従来の2〜3倍（約$600\text{--}1,000$ tokens）に増加させる。検索の高度化には、Cross-attentionを用いたリランキングを採用し、Cohere Rerank 3.5を用いてクエリとドキュメントの相互作用を計算する。また、Louvainコミュニティ検出アルゴリズムを用いて、知識グラフ内の密に結合したノードをクラスタリングし、情報の構造化を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>電気工学の専門家が作成したプロンプトセットを用い、National Electrical Code (NEC) 2017に関するQ&amp;Aタスクで検証を行った。評価指標にはDeepEvalのGEval基準（Grounding, Exactness, Verifiability）および、hit rate、Mean Reciprocal Rank (MRR) を使用している。実験の結果、Contextual RAGの性能スコアの中央値は $0.83$ $[0.79, 0.89]$ を記録し、Traditional RAGの $0.62$ $[0.26, 0.77]$ に対してWilcoxon符号付順位検定により統計的に有意な改善（$p &lt; 0.0001$）が確認された。リランキングの比較では、OpenAIの埋め込みモデルとCohere Rerankを組み合わせた構成が、hit rateとMRRの両方で最高スコアを達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、技術規格の正確な解釈において高い有効性を示す一方、いくつかの限界も存在する。表形式データのチャンク分割による情報の断片化や、電圧・環境条件に依存する複雑な多条件例外（multi-conditioned exceptions）の論理推論においては、依然として回答の欠落やハルシネーションのリスクが残る。また、知識グラフベースの手法は高度な意味理解を可能にするが、グラフ構築や推論に伴う計算コストおよびAPIコストが課題である。今後の展望として、図面や表を含むマルチモーダル検索の統合、数値構造を維持する高度なチャンキング、および複雑な推論にはKG、事実検索にはベクトルを用いるハイブリッドRAGアーキテクチャの開発が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>本研究は、工学分野のコードや規格、設計文書におけるLLMの技術的正確性の欠如を解決するため、n8n自動化システム上に構築された、文脈認識型および知識グラフ（KG）ベースの新しいRAG-LLMフレームワークを提案している。従来のRAGが抱える、固定サイズのチャンクによる情報の断片化や、意味的に連結された技術情報の探索能力の不足という課題に対し、検索されたコンテンツをクエリの文脈に適合させる「contextual RAG」アプローチを採用することで、検索の関連性を向上させている。さらに、複数の知識グラフから密に連結された概念を抽出する「knowledge graph retrieval」を導入することで、複雑な技術ドメインにおける深い意味理解を促進している。本フレームワークの有効性は、電気工学の専門家が作成したプロンプトセットを用いて、国家規格や技術標準の解釈に関するタスクで検証されており、実用的なデプロイメントにおける利点、強み、および限界が示されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>大規模言語モデル（LLM）は、未フィルタリングな学習データや自己回帰的な性質に起因して、事実誤認や不整合を含むハルシネーション（幻覚）を引き起こしやすく、その発生率は設定により50%から82%に達する場合がある。この問題に対し、外部ソースを動的に統合して正確性と関連性を高めるRetrieval Augmented Generation（RAG）が有効な手法として注目されているが、エンジニアリング分野における実装には、高度なプログラミング知識の必要性、既存ドキュメント・リポジトリとの複雑な統合、およびリランキングや知識グラフ（Knowledge Graph）を用いた高度な最適化の技術的障壁という課題が存在する。本研究では、これらの障壁を緩和するため、オープンなLLMとモジュール式RAGパイプラインを活用し、LM Studio、AnythingLLM、n8nといったプラットフォーム上で迅速に展開可能なレシピを提案している。具体的には、n8nオートメーションフレームワークを用いて、ドキュメント検索、リランキング、文脈に応じたクエリ、および知識グラフの統合を含むワークフローを実装した。NFPA、IEEE、CIGREなどの技術規格や文献を用いた性能評価により、提案する迅速展開型のRAG-LLM設計が、技術的に困難なドメインにおいても高いユーザビリティと性能を達成できることが示されている。</p></section>
+<section class="secsum"><h3>1.1 Manuscript contribution</h3><p>本研究は、電力システムの実務家向けに、迅速に展開可能な検索拡張生成（RAG）システムの構築手法と技術文書クエリの評価手法を提案している。具体的な貢献として、まず LM Studio と AnythingLLM を用いて、ローカルでの文書検索と LLM 推論を可能にする迅速展開可能な RAG-LLM パイプラインの実装例を示している。次に、n8n を用いたコンテキスト認識型のワークフローを導入し、従来の RAG が苦手とする技術規格特有の密な表形式データや多層的な例外論理（exception logic）を、文書処理と動的な検索ロジックのオーケストレーションによって改善している。さらに、n8n と Infranodus を組み合わせた知識グラフ（Knowledge Graph）拡張型 RAG ワークフローを提示しており、工学文書を意味的に構造化することで、概念間の隠れた関係性の抽出や、関連する規格間の相互参照を可能にしている。これらのワークフローおよびグラフ構築から検索ロジックに至るプロセスは、再現性と実用性のために公開されている。</p></section>
+<section class="secsum"><h3>1.2 Manuscript organization</h3><p>本稿の構成は、まず第2節で RAG システムの基本構成要素と典型的なアーキテクチャを解説し、第3節では LM Studio および AnythingLLM を用いてオープンソース LLM をローカルに展開する、導入が容易なプライベート RAG フレームワークについて述べる。第4節では n8n を用いたドキュメント検索の迅速な統合に焦点を当て、NFPA 70 National Electrical Code (NEC) 2017 に基づく質問セットを用いて詳細な評価とプロンプトの順位付けを行い、従来の RAG-LLM パイプラインの性能限界を明らかにする。第5節では、リランキングとコンテキストを考慮した RAG ワークフローの改善により上述の制限を緩和する手法を提案し、OpenAI や Voyage などの埋め込みモデルに対し、bge-reranker-base や Cohere Reranker v3.5 といった各種リランカーを用いた比較スコアを示す。第6節では、最先端の知識グラフベース RAG システムを用いた「マルチブレイン RAG」の実装と、工学規格のネットワークに対する探索的クエリへの適用方法を論じ、API 消費量とコストを削減するための実用的なガイドラインを提示する。最後に第7節において、研究の知見、現在の限界、および今後の展望をまとめる。</p></section>
+<section class="secsum"><h3>and present limitations</h3><p>LLMは統計的な関連性に依存するため、根拠に基づかない「ハルシネーション」を引き起こす課題があるが、RAGは外部知識源から関連文書を動的に取得することで、正確性とドメイン適合性を向上させる手法である。しかし、RAGは表現（representation）の学習ではなく検索（retrieval）を促進するものであり、新しい構文やプログラミング言語、スタイルへの汎化といったドメイン適応や継続学習の代替にはならない。クラウドベースのホスト型LLMを利用する場合、機密性の高い設計仕様や規格を扱う際のデータ主権と機密保持、トークン長制限による長大な標準文書のコンテキスト不足、セッション終了後に埋め込みやインデックスが消失する永続的なストレージの欠如、そして大規模運用における高コストといった限界が存在する。これらの課題を解決するため、FAISS、Pinecone、Qdrantなどのベクトルデータベースを用い、LLMをローカルで実行するセルフホスト型のRAGパイプラインが、エンジニアリングにおけるセキュリティ、監査可能性、および長期的な知識再利用の観点から重要となる。</p></section>
+<section class="secsum"><h3>RAG-LLM pipeline for engineering</h3><p>エンジニアリング領域におけるデータプライバシー、再現性、およびシステム制御の重要性を考慮し、LM StudioとAnythingLLMを用いたローカル環境でのRAG-LLMパイプラインを提案している。モデル選定においては、推論性能とハードウェアの実現可能性のバランスから、Hugging Face Open LLM Leaderboardを参考に $14\text{B}$ から $32\text{B}$ 程度の「中規模」モデル（GGUF等の量子化形式）を対象としている。知識ベースの構築では、PDFのノイズを避け、構造化されたトークン効率の高いテキストを得るために、IEEE規格や機器マニュアル等をMarkdown形式（$.md$）に変換してAnythingLLMへアップロードする手法をとる。RAGの精度を決定する重要なパラメータとして、AnythingLLM上で「Text Chunk Size」および「Text Chunk Overlap」を設定可能であり、これらによってドキュメント埋め込みにおけるコンテキストの保持範囲を制御する。この構成により、LM Studioで実行されるローカルLLMに対し、AnythingLLMがキャッシュされたモデルへリクエストを送ることで、クラウドサービスに依存しない完全なローカルでの推論とデータ制御を実現している。</p></section>
+<section class="secsum"><h3>framework limitations</h3><p>本研究では、LM StudioやAnythingLLMの自動化・統合能力の限界を克服するため、n8nを用いたモジュール型かつイベント駆動型のRAG-LLMワークフローを提案している。このフレームワークは、Google Driveへのドキュメントアップロードをトリガーとして、コンテンツ抽出、Markdown変換、埋め込み、およびQdrantやChroma等のベクトルデータベースへの保存を自動化し、SlackやGmail等の多様なインターフェース経由でのクエリ応答を可能にする。評価実験では、電気技術者が使用する複雑な規制文書であるNational Electrical Code (NEC) を対象とし、DeepEvalのGEval基準（Grounding, Exactness, Verifiability）を用いて、回答の正確性を検証した。実験結果、セマンティックプロンプティングによる関連条文の特定には一定の有効性が示されたものの、表形式データのチャンク分割によるコンテキストの断片化や、電圧・環境条件に依存する階層的な例外条項の論理的推論において、重大な課題が明らかになった。具体的には、数値データの検索精度や、複雑な条件付き例外（multi-conditioned exceptions）の処理において、回答の欠落や事実誤認が生じる限界が確認されている。</p></section>
+<section class="secsum"><h3>RAG-LLM workflow to improve</h3><p>本セクションでは、従来のRAG-LLMパイプラインにおける関連性と具体性の欠如という制約を克服するため、リランキング（re-ranking）およびコンテキストを考慮した検索（contextual retrieval）を含む、標的を絞ったアップグレード手法が提案されている。これらの高度な機能は、迅速なデプロイが可能なn8nアプローチへの統合が容易であるという特徴を持つ。また、研究の再現性と実用における導入を促進するため、高度化されたn8nワークフローのJSONファイルが公開されており、「Data Availability」セクションで参照される形式となっている。</p></section>
+<section class="secsum"><h3>5.1 Enhancements based on reranking</h3><p>Rerankingは、初期リトリーバーが収集した候補ドキュメントに対し、クエリとの真の関連性に基づいて再順位付けを行う重要な工程であり、特にCross-attentionを用いた手法は、クエリとドキュメントを同時にTransformerに入力することでトークンレベルの相互作用を計算し、高度な意味的整合性を捉えることができる。実装面では、Cohere Rerank 3.5のようなモデルを用い、入力クエリとドキュメントをモデルのコンテキスト長（例：$4,096$ tokens）に基づいて分割して処理し、各チャンクの最高スコアをそのドキュメントの最終的な関連性スコアとする手法が提案されている。実験では、hit rateおよびMean Reciprocal Rank (MRR) を評価指標として、ベースライン、bge-reranker-base、Cohere V3.5 rerankerの3構成を比較した。その結果、OpenAIの埋め込みモデルとCohere Rerankを組み合わせた構成が、hit rateとMRRの両方において一貫して最高スコアを記録した。また、Cohereやbge-reranker-baseは、使用する埋め込みモデルの種類に関わらず検索品質を向上させる効果が確認されており、MRRの改善において極めて重要な役割を果たすことが示された。</p></section>
+<section class="secsum"><h3>5.2 Enhancements based on contextual</h3><p>従来のRAGは、文書を小さなチャンクに分割する手法を用いるが、電気規定（NEC）のような専門的なドメインでは、条件や電圧定格などの重要な文脈が欠落する「文脈の断片化」が生じるという限界がある。これに対し、提案するContextual RAGは、埋め込み時に各チャンクに親セクションやヘッダーなどの周囲の文脈を付加することで、意味的な連続性と構造的な忠実性を維持する。この手法は、チャンクあたりのトークン量を従来の2〜3倍に増加させるため、高スループット（200–300 tokens/s）、低コスト（$&lt;\$0.10$ per million tokens）、および長いコンテキストウィンドウ（1 million tokens）を備えた軽量LLMの選定が重要となる。実験では、n8nワークフローを用いて、構造的な境界を考慮したチャンク分割と、各チャンクの関連性を個別に評価する「Basic LLM Chain」ノードによるフィルタリングを実装した。NECを用いた評価の結果、Contextual RAGの性能スコアの中央値は $0.83$ $[0.79, 0.89]$ であり、Traditional RAGの $0.62$ $[0.26, 0.77]$ に対して、Wilcoxon符号付順位検定により統計的に有意な改善（$p &lt; 0.0001$）が確認された。しかし、複雑なプロンプトや相互参照ルールが頻出する文書においては、依然としてハルシネーションのリスクが存在するため、最終的な出力は必ず権威ある原文と照合する必要がある。</p></section>
+<section class="secsum"><h3>6 State-of-the-art advanced</h3><p>本セクションでは、知識グラフ（KG）を活用したRetrieval-Augmented Generation（RAG）の優位性と、文脈を考慮したチャンキング戦略（Contextual RAG）の有効性が論じられている。KGはエンティティ間の階層的・因果的・機能的な関係をグラフ構造で保持し、Louvainコミュニティ検出アルゴリズムを用いて密に結合したノードをクラスタリングすることで、潜在的な構造や情報の盲点を可視化できる。実験では、2017年米国電気規程（NEC）を用いたQ&amp;Aタスクにおいて、従来のRAGとContextual RAGを比較しており、DeepEvalの[GEval]メトリックを用いた評価の結果、Contextual RAGは正確な数値や参照テーブルの提示において、従来のRAG（スコア例: $0.198$ や $0.088$）を大幅に上回るスコア（スコア例: $0.892$ や $0.756$）を記録した。Contextual RAGは、チャンクごとにドキュメント全体の文脈を付与することで、チャンクあたりのトークン数を約$600\text{--}1,000$に増加させるが、検索の忠実度（Retrieval fidelity）を高める効果がある。また、著者らの知見に基づき、自身の研究、IEEE、CIGREの各リソースから構築された3つの異なる知識グラフ（Brain 1, 2, 3）をAIエージェントが横断的にナビゲートする、マルチブレインKG-RAGの概念が示されている。</p></section>
+<section class="secsum"><h3>7 Summary and future work</h3><p>本研究は、n8nのような自動化プラットフォームを用いることで、低コストなコーディングでドメイン特化型のRAGパイプラインを構築可能であることを示しており、ベクトルデータベースによる効率的な検索と、知識グラフ（KG）による高度な意味構造・解釈性を備えた検索の選択肢を提示している。KGベースのRAGは、エンジニアリング規格のような複雑な相互接続を持つデータの扱いに長けているが、グラフ構築や推論に伴う計算コストとAPIコストが現状の課題であり、将来的にこれらが低下することで、精度とドメイン適合性の面でベクトル検索を凌駕することが期待される。実験では、AIエージェントが複数の動的な知識グラフ（&quot;Brains&quot;）を使い分ける仕組みを検証しており、IEEEやCIGREの技術文書に基づき、高速遮断リレーの設定や$\text{SF}_6$代替遮断器の利点について、文脈に即した正確な回答を生成できることが示された。今後の展望として、図面や表を含むマルチモーダルな検索能力の統合、数値データの構造を維持する高度なチャンキング・インデックス戦略の改善、専門家からのリアルタイムフィードバックによる学習メカニズム、多言語対応、そして計算コストを抑えるために複雑な推論にはKG、事実検索にはベクトルを用いるハイブリッドRAGアーキテクチャの開発が挙げられている。</p></section>
+<section class="secsum"><h3>Data availability statement</h3><p>本研究で生成された n8n テンプレートは、プロジェクトの GitHub リポジトリ（https://github.com/sghosh27/Low-Code-RAG-LLM-Framework-for-Context-Aware-Querying-in-Electrical-Standards-Design-and-Research）にて公開されており、ドキュメント解析用の Python コードと共に利用可能である。また、LLM が生成した出力とグラウンドトゥルース（正解）を比較・評価するためのスコアリング用 Python ノートブックも提供されている。</p></section>
+<section class="secsum"><h3>Author contributions</h3><p>本セクションでは、著者 SG と GM の役割分担が記述されている。SG は、概念化（Conceptualization）、手法（Methodology）、ソフトウェア（Software）、調査（Investigation）、リソース（Resources）、可視化（Visualization）、プロジェクト管理（Project administration）、ソフトウェア開発（Software）、執筆（Writing – original draft, Writing – review &amp; editing）、および監督（Supervision）を担当した。一方、GM は、概念化（Conceptualization）、手法（Methodology）、ソフトウェア（Software）、調査（Investigation）、リソース（Resources）、および執筆（Writing – original draft, Writing – review &amp; editing）に従事した。両者は、研究の基盤となる概念化や手法の策定、および論文執筆において共同で貢献している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-17
+  </footer>
+</div>
+</body>
+</html>

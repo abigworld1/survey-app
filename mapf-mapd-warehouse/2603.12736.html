@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Conflict Mitigation in Shared Environments using Flow-Aware Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Conflict Mitigation in Shared Environments using Flow-Aware Multi-Agent Path Finding</h1>
+  <div class="meta">Lukas Heuer, Yufei Zhu, Luigi Palmieri, Andrey Rudenko, Anna Mannucci, Sven Koenig, Martin Magnusson<br>採択先: 未取得 ・ 2026-03-13 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2603.12736v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2603.12736v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-03-13</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">制御不能な動的エージェントの統計的分布をMAPFのコスト関数に統合する手法が新規であり、理論的保証と実データを用いた検証も具体的で価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 制御不能な動的エージェント（UA）が存在する共有環境において、UAの移動パターンを学習したMaps of Dynamics (MoDs) を用いて、衝突を回避しつつ効率的な経路を計画するFlow-Aware Multi-Agent Path Finding (FA-MAPF) を提案する。本手法は、UAのマルチモーダルな速度分布をSemi-Wrapped Gaussian Mixture Models (SWGMMs) でモデル化し、探索ベースのMAPFアルゴリズムのエッジコストに統合することで、事後的な再計画なしに衝突を最大55%削減する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、ロボット群（MAPFエージェント）と、制御不能な動的エージェント（UA）が混在する共有環境における、実行遅延と衝突問題に対処するためのフレームワークである。従来のMAPF研究は、遅延発生時の完全性の維持に主眼を置いていたが、本研究はUAの時空間的な移動パターンを事前に学習し、中央集権的な経路計画に組み込むことで、環境情報を活用した解の品質向上を目指している。具体的には、環境のトポロジーや社会的規範から生じるフローを「Maps of Dynamics (MoDs)」として符号化し、エージェントの行動とUAの期待移動を一致させるガイダンス手法を導入している。これにより、UAとの接触自体を未然に防ぐことを目的としている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、UAの統計的な移動パターンを探索ベースのMAPFアルゴリズムにシームレスに統合するFA-MAPFフレームワークの提案である。第一に、UAの速度と方向を連続的なマルチモーダル分布として扱うCircular-Linear Flow Field (CLiFF) Mapを導入し、Semi-Wrapped Gaussian Mixture Models (SWGMMs) を用いてその分布を表現する手法を確立した。第二に、学習されたフロー情報をエッジコストに反映させるフローコスト関数 $C_{\text{flow}}$ を定義し、既存の $\epsilon$-suboptimalなMAPFアルゴリズム（ECBS等）と組み合わせることで、劣最適性の範囲を理論的に保証した。第三に、シミュレーションおよび実世界の人間移動データを用いた広範な実験により、スループットを維持しながらUAとの衝突を最大55%削減できることを実証した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>FA-MAPFは、グラフ $G=(V, E)$ 上で、エージェントの行動 $a$ と地点 $v$ におけるUAの移動分布 $\text{MoD}$ との整合性を評価する。UAの運動パターンは、方向 $\theta \in [-\pi, \pi)$ と速度 $s \in [0, \infty)$ を持つ $\text{SWGMM}_v$ としてモデル化され、フローコストは以下の式で計算される：<br>$$C_{\text{flow}}(v, a, \text{MoD}) = -\log \left( \frac{1}{N_v} \sum_{i=1}^{N_v} \exp \left( -\frac{1}{2} (\theta_a - \mu_i)^T \Sigma_i^{-1} (\theta_a - \mu_i) \right) \right)$$<br>ここで、エッジの重み $w(v, u, a)$ は、ステップコスト $c_{\text{step}}$ とフローコストにスケーリング係数 $\lambda$ を乗じたものの和 $w(v, u, a) = c_{\text{step}}(v, u, a) + \lambda C_{\text{flow}}(v, a, \text{MoD})$ として更新される。エージェントの速度は $v_{\text{agent}} = 1$ と仮定され、待機行動については他の移動行動の平均角度を用いて計算を行う。この手法は、ECBSのようなアルゴリズムと組み合わせることで、フローコストが $0 &lt; C_{\text{flow}} \le C_{\text{max}}$ の範囲にあるとき、解のコストが元の最適解 $C^*$ に対して $(1 + \epsilon \frac{C_{\text{max}}}{c_{\text{min}}})$ の範囲に収まることが保証される。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、2つの異なる実験設定で行われた。第1実験では、Sternらのベンチマークマップを用い、サブオプティマリティ係数 $w=1.1$ のEECBSを使用して、MAPFエージェント数に対する解決率と平均実行時間を検証した。第2実験では、Lifelong MAPF設定において、高レベルソルバーにRHCR（ECBS使用、$w=1.1$）、低レベルソルバーにSIPPを用いたFA-RHCRの性能を評価した。指標には、1イテレーションあたりの平均解決時間、スループット、およびUAとの衝突回数（ユークリッド距離が $r_{MAPF} + r_{UA} = 1\text{m}$ 未満となる頻度）を用いた。実験環境は Intel i7-12700K CPU、32GB RAM であり、マップには8種類のベンチマークおよび実世界の人間移動データを含むATCデータセットが使用された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>実験結果により、FA-MAPFはUAとの衝突を最大55%一貫して削減できることが示されたが、これには計算時間の増加というトレードオフが存在する。実行時間の増加は、ガイダンスグラフにおける非一様な遷移コストが低レベル探索におけるノード展開数を増加させることに起因する。また、マップの構造によって効果が異なり、`den312d`のような部屋状の構造ではフローの誘導が強く働くが、迷路のような環境では回避スペースの不足により効果が限定的となる。実世界のATCショッピングモールデータや倉庫のハイウェイパターンにおいても有効性が確認された。一方で、UAが最短経路を無制限に選択し、明確なフローパターンが形成されない環境では、衝突削減の効果が得られないという限界も明らかになった。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Conflict Mitigation in Shared Environments using Flow-Aware Multi-Agent Path Finding</h3><p>本研究では、制御不能な動的エージェントが存在する共有環境において、ロボット群の衝突を軽減するための新しいフレームワークである Flow-Aware Multi-Agent Path Finding (FA-MAPF) を提案している。従来の MAPF 研究は遅延発生時の完全性の維持に主眼が置かれていたが、FA-MAPF は制御不能なエージェントの学習された移動パターンを中央集権的な MAPF アルゴリズムに統合することで、環境情報を活用した解の品質向上を図る。評価は、シミュレーションによる動的エージェントを用いた多様なベンチマークマップ、および記録された人間の軌跡を用いた実世界のマップを用いて行われた。実験結果により、FA-MAPF はタスクの効率性を損なうことなく、制御不能なエージェントとの衝突を最大 55% 一貫して削減できることが示された。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究は、制御不能な動的エージェントが存在する共有環境において、中央集権的なマルチエージェント経路計画（MAPF）の実行遅延を軽減するための「Flow-Aware Multi-Agent Path Finding (FA-MAPF)」を提案している。提案手法は、環境のトポロジーや社会的規範から生じる時空間的な移動パターンを符号化したMaps of Dynamics (MoDs) を活用し、動的エージェントのマルチモーダルな確率分布を探索ベースのMAPFアルゴリズムに統合するものである。具体的には、エージェントの可能な行動と動的エージェントの局所的な期待移動を一致させるコスト関数を用いてエッジの重みを計算するガイダンス手法を採用しており、事後的な再計画や能動的な検知を必要とせずに、計画段階で暗黙的にフローを考慮する。評価実験では、既存のMAPFベンチマークおよび実世界のデータセットを用い、Lifelong MAPF設定における実行時間、スループット、および制御不能なエージェントとの衝突回数を指標として検証を行っている。実験結果は、スループットをほぼ維持しつつ、実行時間の増加と制御不能なエージェントとの衝突回数の減少との間に明確なトレードオフが存在することを示している。</p></section>
+<section class="secsum"><h3>II Preliminaries and Related Work</h3><p>本セクションでは、提案手法であるFA-MAPFの基礎となるMAPF、Dynamicsのマップ（MoD）、およびGuidanceの概念を定義している。MAPFは、頂点と辺からなる無向グラフ $G=(V, E)$、エージェントの集合 $\mathcal{A}$、および各エージェントの開始頂点 $s_i$ と目標頂点 $g_i$ によって定義され、各エージェントは各タイムステップで移動または待機（$v_{t+1} = v_t$）のいずれかのアクションを選択する。FA-MAPFは、制御不能なエージェントとの衝突を回避するために、Circular-Linear Flow Field (CLiFF) MapというMoDを利用し、局所的な運動パターンを速度 $\mathbf{v} = (\theta, s)$ 上の連続的なマルチモーダル分布としてモデル化する。この分布は、方向 $\theta \in [-\pi, \pi)$ と速度 $s \in [0, \infty)$ を扱い、Semi-Wrapped Gaussian Mixture Models (SWGMMs) を用いて、複数の Semi-Wrapped Normal Distributions (SWNDs) $\mathcal{N}_{sw}(\mathbf{v} | \boldsymbol{\mu}, \boldsymbol{\Sigma}, w)$ の加重和 $\sum_{k \in \mathcal{K}} \pi_k \mathcal{N}_{sw}(\mathbf{v} | \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k, w_k)$ として表現される。FA-MAPFは、これらの学習された運動パターンをGuidance Graph $\mathcal{G}_g = (V, E, \mathbf{w})$ のエッジコスト $w_{uv}$ に統合することで、制御不能なエージェントとの相互作用を最小化するように計画プロセスを誘導する。既存のRobust MAPFが実行遅延に対する回復力（resilience）を高めることに焦点を当てているのに対し、本手法は遅延の原因となる制御不能なエージェントとの接触自体を減らすことを目的としており、両者は補完的な関係にある。</p></section>
+<section class="secsum"><h3>III Flow-Aware Multi-Agent Path Finding</h3><p>本セクションでは、制御不能なエージェント（UA）の学習された運動パターンを考慮してMAPF問題を解く手法であるFA-MAPFを提案している。FA-MAPFは、観測されたUAの軌跡データから構築されたMotion Distribution Map (MoD) を用い、エージェントの行動 $a$ とその地点におけるSWGMM（$\text{SWGMM}_v$）との整合性を評価するフローコスト $C_{\text{flow}}(v, a, \text{MoD})$ を定義する。具体的には、マハラノビス距離をガウス混合モデルへ拡張した式 $C_{\text{flow}}(v, a, \text{MoD}) = -\log \left( \frac{1}{N_v} \sum_{i=1}^{N_v} \exp \left( -\frac{1}{2} (\theta_a - \mu_i)^T \Sigma_i^{-1} (\theta_a - \mu_i) \right) \right)$ を用いて計算され、エッジの重みは $w(v, u, a) = c_{\text{step}}(v, u, a) + \lambda C_{\text{flow}}(v, a, \text{MoD})$ と更新される。実装上、エージェントの速度は一定（$v_{\text{agent}} = 1$）と仮定され、待機行動については他の移動行動の平均角度を用いることで計算を可能にしている。本手法は、ECBSのような完全かつ（劣）最適なMAPFアルゴリズムと組み合わせることで、その性質を継承する。さらに、フローコストが $0 &lt; C_{\text{flow}} \le C_{\text{max}}$ の範囲にある場合、$\epsilon$-bounded suboptimalなアルゴリズムが返す解のコストは、元のコスト関数における最適解のコスト $C^*$ に対して $(1 + \epsilon \frac{C_{\text{max}}}{c_{\text{min}}})$ の範囲で劣最適性が保証されることがLemma 1により示されている。</p></section>
+<section class="secsum"><h3>IV Evaluation</h3><p>本評価では、制御不能なエージェント（UA）との衝突回避能力、計算実行時間、およびタスク効率への影響を検証するため、2つの実験を行っている。第1実験では、Sternらによるベンチマークマップを用い、サブオプティマリティ係数 $w=1.1$ のEECBSを用いて、MAPFエージェント数に対する解決率（5秒以内の制限時間内での25シナリオ中の割合）と平均実行時間を評価している。第2実験では、高レベルソルバーにRHCR（ECBS使用、$w=1.1$）、低レベルソルバーにSIPPを用いたLifelong MAPF問題を対象とし、FA-RHCR（flow-aware版）の性能を、1イテレーションあたりの平均解決時間、スループット（タイムステップあたりの完了タスク数）、およびUAとの衝突回数（MAPFエージェントとUAのユークリッド距離が半径の和 $r_{MAPF} + r_{UA} = 1\text{m}$ 未満となる頻度）によって評価する。UAの挙動は、開始・目標地点の選定方法に基づき、random、directed、speedの3タイプが定義されており、これらはMoD（Movement of Distribution）の有効性に影響を与える。実験環境はIntel i7-12700K CPU、32GB RAMであり、マップには8種類のベンチマークおよび実世界の人間移動データを含むATCデータセットが使用されている。</p></section>
+<section class="secsum"><h3>V Results and Discussion</h3><p>実験1では、EECBSを用いたスケーラビリティ評価において、FA-MAPFはフローコストを考慮しない手法と比較して計算効率が低下するものの、マップの構造に依存する特性を持つことが示された。具体的には、`den312d`や`ht_chantry`のような部屋状の構造を持つマップでは、フローの誘導効果が強く働く一方で、迷路のような環境では回避スペースの不足により効果が限定的となる。実験2のRHCRを用いた評価では、FA-MAPFは実行時間の増加と引き換えに、UA（Unplanned Agent）との衝突を最大55%削減することに成功している。この実行時間の増加は、ガイダンスグラフにおける非一様な遷移コストが低レベル探索におけるノード展開数を増加させることに起因する。また、実世界のデータ（ATCショッピングモール）を用いた検証や、倉庫環境におけるハイウェイパターン（一方通行のフロー）の適用においても、FA-MAPFは衝突を大幅に低減できることが確認された。一方で、UAが最短経路を無制限に選択し明確なフローパターンが形成されない環境では、衝突削減の効果は得られないという限界も示されている。</p></section>
+<section class="secsum"><h3>VI Conclusion and Future Research</h3><p>本研究では、制御不能なエージェントの移動パターンに関する統計的な学習情報を中央集権的なMAPFに組み込む手法として、Flow-Aware MAPF (FA-MAPF) を提案している。評価実験の結果、FA-MAPFは制御不能なエージェントとの衝突を大幅に減少させ、局所的な経路修正のための低レベルな衝突回避メカニズムへの依存度を低減できることが示された。今後の研究方向として、PIBTやLaCAMといった大規模MAPFアルゴリズムへのフロー認識の統合、制御不能なエージェントとの衝突が協調マルチロボットシステムの効率指標に与える影響の調査、およびFA-MAPFを時変的な動的マップ（Maps of Dynamics）へと拡張することが挙げられている。本研究は、マルチロボットシステムを、外部からの妨害がない完全制御空間から、より困難でインタラクティブな環境へと移行させるための基礎を築くものである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-17
+  </footer>
+</div>
+</body>
+</html>
