@@ -12,6 +12,7 @@
 """
 import os
 import re
+from difflib import SequenceMatcher
 
 from .util import http_get, http_post_json
 
@@ -35,6 +36,25 @@ _INJECTION_NOTE = (
 _MATH_NOTE = (
     "数式や記号は LaTeX で書き、インラインは $〜$、独立した式は $$〜$$ で囲むこと"
     "（例: 計算量は $O(n\\log n)$、集合は $\\mathcal{O}$）。"
+    "数式内には日本語を入れず、日本語の説明は数式を閉じてから通常文として書くこと。"
+    "\\text{} は短い英語ラベルだけに使い、波括弧と $ は必ず対応させること。"
+    "手法名や関数名は数式に入れず通常文として書くこと。"
+)
+_ACCESSIBILITY_NOTE = (
+    "この要約では論文中の図・表・擬似コードを表示しません。"
+    "『図3』『Table 2』『Algorithm 1』『式(4)』のような番号参照は使わず、"
+    "そこから読み取れる内容を文章だけで自己完結するように説明してください。"
+    "擬似コード内だけで使われる関数名・手続き名・変数名は書かず、処理の意味を日本語で説明してください。"
+    "ただし、論文が正式に提案手法として命名した名称は記述して構いません。"
+)
+_OCHIAI_ROLE_NOTE = (
+    "6項目の役割を厳密に分け、同じ説明や数値を複数項目に繰り返さないでください。\n"
+    "- TLDR: 問題と結論を1〜2文で要約する。\n"
+    "- WHAT: 問題設定、対象、入出力、従来の困難だけを書く。手法の詳細や結果は書かない。\n"
+    "- CONTRIBUTION: 先行研究との差分と新規性だけを書く。処理手順や実験設定は書かない。\n"
+    "- METHOD: 提案手法の仕組みと処理の流れだけを書く。背景説明や実験結果は繰り返さない。\n"
+    "- VALIDATION: データ、比較手法、評価指標、主要な数値結果だけを書く。手法説明は繰り返さない。\n"
+    "- DISCUSSION: 前提、限界、失敗条件、トレードオフ、今後の課題だけを書く。貢献の要約は繰り返さない。"
 )
 
 # 各セクションを詳しく要約させる（出力は要約本文のプレーンテキスト）
@@ -43,7 +63,7 @@ SECTION_SYSTEM = (
     "出力は日本語。\n" + _INJECTION_NOTE + "\n"
     "手法・アルゴリズム・定義・数式の意味・実験設定（データセット/ベンチマーク/評価指標）・"
     "具体的な数値結果・限界を、可能な限り具体的に拾って3〜6文で要約してください。"
-    + _MATH_NOTE + "\n"
+    + _MATH_NOTE + "\n" + _ACCESSIBILITY_NOTE + "\n"
     "与えられた本文が短くても、その範囲だけで要約すること。情報不足を理由に謝罪したり、"
     "本文の提供を求めたりしないこと（『本文をご提供ください』等は書かない）。\n"
     "出力は要約本文のみ（見出し・前置きは不要）。"
@@ -59,8 +79,9 @@ SYNTH_SYSTEM = (
     "あなたは計算機科学の研究者向けに、論文を落合陽一フォーマットで日本語要約するアシスタントです。\n"
     + _INJECTION_NOTE + "\n"
     "以下に与える『各セクションの日本語要約』だけを根拠に、各項目を詳しく作成してください。"
-    "TLDR以外の各項目は4〜8文で、具体的な手法名・アルゴリズム・実験設定・数値・前提・限界を含めること。"
-    "セクション要約に書かれていない事実は創作しないこと。\n" + _MATH_NOTE + "\n" + _MARK_FORMAT
+    "TLDR以外の各項目は3〜6文で作成してください。"
+    "セクション要約に書かれていない事実は創作しないこと。\n"
+    + _OCHIAI_ROLE_NOTE + "\n" + _MATH_NOTE + "\n" + _ACCESSIBILITY_NOTE + "\n" + _MARK_FORMAT
 )
 
 # 本文が取れないとき用（abstract単発, 同じマーカー形式）
@@ -69,7 +90,13 @@ ABSTRACT_SYSTEM = (
     + _INJECTION_NOTE + "\n"
     "落合陽一フォーマットの各項目を、各2〜4文で作成してください。"
     "アブストラクトから読み取れない項目は、推測せず『提供された情報からは不明』と書くこと。\n"
-    + _MATH_NOTE + "\n" + _MARK_FORMAT
+    + _OCHIAI_ROLE_NOTE + "\n" + _MATH_NOTE + "\n" + _ACCESSIBILITY_NOTE + "\n" + _MARK_FORMAT
+)
+
+REVISION_SYSTEM = (
+    "あなたは論文要約の編集者です。初稿を、根拠情報の範囲内で全面的に書き直してください。\n"
+    + _INJECTION_NOTE + "\n" + _OCHIAI_ROLE_NOTE + "\n" + _MATH_NOTE + "\n"
+    + _ACCESSIBILITY_NOTE + "\n" + _MARK_FORMAT
 )
 
 _MARK_RE = re.compile(
@@ -87,6 +114,91 @@ READING_VALUE_SYSTEM = (
 
 _SCORE_RE = re.compile(r"@@SCORE@@\s*([1-5])", re.I)
 _REASON_RE = re.compile(r"@@REASON@@\s*(.+)", re.I | re.S)
+_CJK_RE = re.compile(r"[\u3040-\u30ff\u3400-\u9fff\uff66-\uff9f]")
+_NUMBERED_REFERENCE_RE = re.compile(
+    r"(?:図|表|式|アルゴリズム)\s*[0-9０-９IVXivx]+|"
+    r"\b(?:fig(?:ure)?|table|algorithm|equation|eq\.)\s*[0-9IVXivx]+",
+    re.I,
+)
+_PSEUDOCODE_NAME_CONTEXT_RE = re.compile(
+    r"(?<![A-Za-z0-9_])([A-Za-z][A-Za-z0-9]*)"
+    r"(?=[^A-Za-z0-9_]|$).{0,16}(?:関数|手順|呼び出|実行|用い|適用)"
+)
+
+
+def _balanced_tex_braces(text):
+    depth = 0
+    for i, char in enumerate(text):
+        escaped = i > 0 and text[i - 1] == "\\"
+        if escaped:
+            continue
+        if char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth < 0:
+                return False
+    return depth == 0
+
+
+def _latex_to_plain(text):
+    """壊れた、または日本語を含むLaTeX断片を読める通常テキストへ戻す。"""
+    value = text
+    for _ in range(3):
+        value = re.sub(r"\\(?:text|mathrm|mathbf|mathit|mathcal|operatorname)\{([^{}]*)\}", r"\1", value)
+    value = re.sub(r"\\(?:text|mathrm|mathbf|mathit|mathcal|operatorname)\{?", "", value)
+    value = value.replace(r"\{", "{").replace(r"\}", "}")
+    value = re.sub(r"\\([A-Za-z]+)", r"\1", value)
+    value = re.sub(r"([_^])\{([^{}]+)\}", r"\1\2", value)
+    value = value.replace("{", "").replace("}", "")
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def _find_math_close(text, start, delimiter):
+    i = start
+    while i < len(text):
+        if text.startswith(delimiter, i) and (i == 0 or text[i - 1] != "\\"):
+            return i
+        i += 1
+    return -1
+
+
+def _sanitize_math(text):
+    """不正なTeXが後続の日本語までMathJaxに取り込ませないようにする。"""
+    out = []
+    i = 0
+    while i < len(text):
+        if text[i] != "$" or (i > 0 and text[i - 1] == "\\"):
+            out.append(text[i])
+            i += 1
+            continue
+        delimiter = "$$" if text.startswith("$$", i) else "$"
+        end = _find_math_close(text, i + len(delimiter), delimiter)
+        if end < 0:
+            i += len(delimiter)  # 閉じていない $ だけを捨て、後続文は通常テキストにする
+            continue
+        fragment = text[i + len(delimiter):end]
+        if _CJK_RE.search(fragment) or not _balanced_tex_braces(fragment):
+            out.append(_latex_to_plain(fragment))
+        else:
+            out.extend((delimiter, fragment, delimiter))
+        i = end + len(delimiter)
+    return "".join(out)
+
+
+def _remove_numbered_references(text):
+    value = re.sub(
+        r"(?:図|表)\s*[0-9０-９IVXivx]+\s*(?:に示すように|に示されるように|を参照すると|から分かるように)[、,]?",
+        "",
+        text,
+    )
+    value = re.sub(r"(?:Algorithm|アルゴリズム)\s*[0-9IVXivx]+", "提案手順", value, flags=re.I)
+    value = re.sub(r"(?:Equation|Eq\.|式)\s*\(?[0-9IVXivx]+\)?", "この定式化", value, flags=re.I)
+    return value
+
+
+def _sanitize_generated_text(text):
+    return _remove_numbered_references(_sanitize_math((text or "").strip()))
 
 
 def _parse_marked(text):
@@ -94,10 +206,77 @@ def _parse_marked(text):
     parts = _MARK_RE.split(text)
     out = {}
     for i in range(1, len(parts), 2):
-        out[parts[i].lower()] = parts[i + 1].strip()
+        out[parts[i].lower()] = _sanitize_generated_text(parts[i + 1])
     if not out:
         raise ValueError("no @@KEY@@ markers in output")
     return out
+
+
+def _sentences(text):
+    return [
+        re.sub(r"[\s、。！？!?.,・:：;；()（）「」『』$\\{}]", "", sentence).lower()
+        for sentence in re.split(r"(?<=[。！？!?])\s*|(?<=\.)\s+", text or "")
+        if len(sentence.strip()) >= 24
+    ]
+
+
+def _normalized_summary(text):
+    return re.sub(r"[\s\W_$\\{}]", "", text or "").lower()
+
+
+def _char_ngrams(text, size=3):
+    normalized = _normalized_summary(text)
+    return {normalized[i:i + size] for i in range(max(0, len(normalized) - size + 1))}
+
+
+def _section_quality_issues(text):
+    issues = []
+    if _NUMBERED_REFERENCE_RE.search(text or ""):
+        issues.append("参照できない図表・式・擬似コード番号")
+    if _has_pseudocode_name(text):
+        issues.append("擬似コード固有の関数名")
+    return issues
+
+
+def _has_pseudocode_name(text):
+    for match in _PSEUDOCODE_NAME_CONTEXT_RE.finditer(text or ""):
+        name = match.group(1)
+        camel_humps = sum(a.islower() and b.isupper() for a, b in zip(name, name[1:]))
+        if camel_humps >= 2:
+            return True
+    return False
+
+
+def _synthesis_quality_issues(data):
+    issues = []
+    missing = [key for key in _KEYS if not (data.get(key) or "").strip()]
+    if missing:
+        issues.append("項目不足: " + ", ".join(missing))
+
+    fields = [(key, data.get(key, "")) for key in _KEYS if key != "tldr"]
+    for i, (left_key, left) in enumerate(fields):
+        for right_key, right in fields[i + 1:]:
+            left_grams = _char_ngrams(left)
+            right_grams = _char_ngrams(right)
+            if left_grams and right_grams:
+                containment = len(left_grams & right_grams) / min(len(left_grams), len(right_grams))
+                if containment >= 0.68:
+                    issues.append(f"{left_key} と {right_key} の内容重複")
+                    continue
+            for left_sentence in _sentences(left):
+                for right_sentence in _sentences(right):
+                    if SequenceMatcher(None, left_sentence, right_sentence).ratio() >= 0.86:
+                        issues.append(f"{left_key} と {right_key} の内容重複")
+                        break
+                if issues and issues[-1].startswith(f"{left_key} と {right_key}"):
+                    break
+
+    combined = "\n".join(value for _key, value in fields)
+    if _NUMBERED_REFERENCE_RE.search(combined):
+        issues.append("参照できない図表・式・擬似コード番号")
+    if _has_pseudocode_name(combined):
+        issues.append("擬似コード固有の関数名")
+    return issues
 
 
 def _summary_blob(summary):
@@ -175,6 +354,22 @@ class Summarizer:
         )
         return resp["choices"][0]["message"]["content"]
 
+    def _structured_summary(self, system, user, max_tokens):
+        content = self._chat(system, user, max_tokens=max_tokens)
+        for _attempt in range(2):
+            data = _parse_marked(content)
+            issues = _synthesis_quality_issues(data)
+            if not issues:
+                return data
+            print(f"      [retry] 要約構成を修正: {'、'.join(issues)}")
+            content = self._chat(
+                REVISION_SYSTEM,
+                "修正理由:\n- " + "\n- ".join(issues) + "\n\n" +
+                "根拠情報:\n" + user + "\n\n初稿:\n" + content,
+                max_tokens=max_tokens,
+            )
+        return _parse_marked(content)
+
     def summarize(self, paper, sections=None, basis=None):
         """sections=[(heading, text)] があれば多段要約、無ければ abstract 単発。"""
         sections = sections or []
@@ -245,24 +440,35 @@ class Summarizer:
                 print(f"      [warn] section要約失敗 {heading[:30]}: {e!r}")
                 s = ""
             if s:
+                s = _sanitize_generated_text(s)
+                section_issues = _section_quality_issues(s)
+                if section_issues:
+                    print(f"      [retry] セクション要約を修正: {'、'.join(section_issues)}")
+                    s = _sanitize_generated_text(
+                        self._chat(
+                            SECTION_SYSTEM + "\n前回の要約に残った問題を解消し、全文を書き直してください。",
+                            f"論文タイトル: {paper.title}\nセクション: {heading}\n"
+                            f"修正理由: {'、'.join(section_issues)}\n\n本文:\n{text}\n\n前回の要約:\n{s}",
+                            max_tokens=800,
+                        ).strip()
+                    )
                 sec_sums.append((heading, s))
                 print(f"      ✓ {heading[:40]} ({len(s)}字)")
         if not sec_sums:
             raise RuntimeError("no section summaries produced")
         body = "\n\n".join(f"## {h}\n{s}" for h, s in sec_sums)
-        content = self._chat(
+        data = self._structured_summary(
             SYNTH_SYSTEM,
             f"論文タイトル: {paper.title}\n著者: {', '.join(paper.authors[:8])}\n\n各セクション要約:\n{body}",
             max_tokens=2200,
         )
-        data = _parse_marked(content)
         data["sections"] = [{"heading": h, "summary": s} for h, s in sec_sums]
         data["_engine"] = self.engine
         data["_basis"] = basis
         return data
 
     def _summarize_abstract(self, paper, basis):
-        content = self._chat(
+        data = self._structured_summary(
             ABSTRACT_SYSTEM,
             "# 論文（データ）\n"
             f"Title: {paper.title}\nAuthors: {', '.join(paper.authors[:8])}\n"
@@ -270,7 +476,6 @@ class Summarizer:
             f"Abstract:\n{paper.abstract or '(アブストラクト無し)'}\n",
             max_tokens=1200,
         )
-        data = _parse_marked(content)
         data["sections"] = []
         data["_engine"] = self.engine
         data["_basis"] = basis
