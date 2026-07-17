@@ -4110,6 +4110,32 @@
       "tldr": "Lifelong Multi-Agent Path Finding (MAPF) において、エッジの重みを最適化する有向ガイダンスグラフを用いてスループットを向上させる Guidance Graph Optimization (GGO) を提案。ブラックボックス最適化の CMA-ES によるマップ固有の最適化と、交通情報から重みを更新するモデルを学習する Parameterized Iterative Update (PIU) を提示し、大規模マップへの転移可能性と既存アルゴリズムの性能向上を実証した。",
       "url": "http://arxiv.org/abs/2402.01446v2",
       "venue": "Proceedings of the AAAI Conference on Artificial Intelligence"
+    },
+    "title:efficient tsp based task group allocation for multi task multi agent pickup and delivery": {
+      "added": "2026-07-17",
+      "added_at": "2026-07-17T21:02:48.448222",
+      "arxiv_id": "",
+      "authors": [],
+      "basis": "fulltext(pdf)",
+      "citations": 0,
+      "date": "",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/efficient-tsp-based-task-group-allocation-for-multi-task-multi-agent-pickup-and.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery"
+      ],
+      "pdf_url": "",
+      "reading_value": 4,
+      "reading_value_reason": "MT-MAPD問題に対し、TSPを用いたタスク割り当てと経路計画を分離する実用的な手法を提案。計算量と解の質のトレードオフを具体的に検証しており、実用性が高い。",
+      "relevance": 1,
+      "selection": "manual",
+      "selection_label": "手動追加",
+      "source_quality": "fulltext",
+      "title": "Efficient TSP-Based Task Group Allocation for Multi-Task Multi-Agent Pickup and Delivery",
+      "tldr": "マルチタスク・マルチエージェント・ピックアップ＆デリバリー（MT-MAPD）問題において、巡回セールスマン問題（TSP）を活用してタスクグループを効率的に割り当てる手法を提案し、既存手法と比較してサービス時間を31.1%以上削減した。",
+      "url": "",
+      "venue": ""
     }
   },
   "reading": {

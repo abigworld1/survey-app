@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Efficient TSP-Based Task Group Allocation for Multi-Task Multi-Agent Pickup and Delivery | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Efficient TSP-Based Task Group Allocation for Multi-Task Multi-Agent Pickup and Delivery</h1>
+  <div class="meta"><br>採択先: 未取得 ・  ・ source: pdf</div>
+  <div class="links"></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip">公開日 -</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MT-MAPD問題に対し、TSPを用いたタスク割り当てと経路計画を分離する実用的な手法を提案。計算量と解の質のトレードオフを具体的に検証しており、実用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pickup and Delivery</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチタスク・マルチエージェント・ピックアップ＆デリバリー（MT-MAPD）問題において、巡回セールスマン問題（TSP）を活用してタスクグループを効率的に割り当てる手法を提案し、既存手法と比較してサービス時間を31.1%以上削減した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、各タスクが複数の目的地を持ち、ロボットが容量制限内で複数のタスクをまとめて処理するMT-MAPD問題を対象としている。エージェントの集合 $\mathcal{A} = \{a_1, \dots, a_N\}$ と無向グラフ $G = (V, E)$ 上で構成され、各タスク $\tau$ は目標地点の集合 $\{v_1, \dots, v_K\}$ とリリース時刻 $t_{rel}$ を持つ。従来のMT-MAPD研究は、計算コストの高い結合型手法か、あるいはランダムや近傍探索に基づく非効率な分離型手法のいずれかに偏っているという課題があった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>タスク割り当てと経路計画（MAPF）を分離したデカップル型アーキテクチャを導入し、タスク割り当てにおいてTSPに基づく最短距離構造を利用することで、ランダムな割り当てよりも高品質な解を実現した。計算負荷を抑えるために、全ての目的地を再計算するのではなく、新しく追加された目的地のみの訪問順序に焦点を当てるオンラインTSPアプローチを採用している。これにより、大規模なオンライン環境においても高いスケーラビリティと計算効率を両立させている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>タスク割り当てモジュールは、エージェントの容量が満たされるまで、候補タスク集合から経路コストの増加が最小となるタスクを逐次的に追加してタスクグループを構築する。具体的には、既存の訪問順序 $\{v_{\pi_1}, \dots, v_{\pi_K}\}$ における隣接するターゲットのペア $(v_{\pi_k}, v_{\pi_{k+1}})$ に対して、新しいターゲットを経由する迂回距離 $D(v_{\pi_k}, v_{\pi_{k+1}}, v_{\text{new}}) = \text{dist}(v_{\pi_k}, v_{\text{new}}) + \text{dist}(v_{\text{new}}, v_{\pi_{k+1}})$ を計算する最安挿入法を用いて、計算負荷を軽減している。また、新しいタスクが放出された際に既存のグループを動的に置き換える更新プロセスや、タスクグループ確定後に2-optアルゴリズムで訪問順序を再計算する仕組みを備えている。経路計画には、窓関数を用いたRHCRアルゴリズムを用いて衝突回避を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Kiva倉庫および仕分けセンターのシナリオを用いた実験において、LKHソルバーをベースとした手法と比較した。評価指標には、全タスク完了までの総時間であるメイクスパンと、平均サービス時間を用いた。提案手法のOursoptは、既存のTP-TSPと比較して平均サービス時間を$31.1\%$、メイクスパンを$13.4\%$削減した。また、軽量版のOurseffは、最も計算負荷の高い設定（$N=100, C=9$）においてOursoptより$11.3$倍高速であり、オンライン巡回経路の平均コストを元のTSP解の約$1.09$倍に抑えている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>解の品質と計算負荷の間にはトレードオフが存在し、タスクグループの更新ステップ $t_{\text{update}}$ を大きく設定すると解の品質は向上するが、計算時間も増大する。Ourseffはエージェント数 $N$ やタスク数 $M$ に対して線形にスケールするが、大規模なタスクプールに対してはパラメータ $N_{\text{sub}}$ を調整して計算負荷を管理する必要がある。また、逐次的な挿入による非最適性を緩和するために、タスク確定後に一度だけグローバルな再計算を行う設計となっている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>本文 (1/8)</h3><p>本研究は、各タスクが複数の目的地を持ち、ロボットが容量制限内で複数のタスクをまとめて処理するマルチタスク・マルチエージェント・ピックアップ＆デリバリー（MT-MAPD）問題を対象としている。提案手法は、巡回セールスマン問題（TSP）を用いて、追加されるタスクに対して最短の寄り道経路を持つタスクグループを反復的に特定するタスク割り当てアルゴリズムである。計算効率を向上させるため、すべての目的地を再計算するのではなく、新しく追加された目的地のみの訪問順序に焦点を当てるオンラインTSPアプローチを採用している。また、タスク割り当てと経路計画を並列に処理するフレームワークを導入しており、ロボットの移動中に次なるタスクグループを継続的に最適化することが可能である。実験の結果、提案手法は既存の最先端手法と比較して、サービス時間を31%以上削減することに成功している。</p></section>
+<section class="secsum"><h3>本文 (2/8)</h3><p>本研究では、大規模なオンラインMT-MAPD（Multi-Task Multi-Agent Pickup and Delivery）に対応するため、巡回セールスマン問題（TSP）を活用した新しいタスクグループ割り当てアルゴリズムを提案している。この手法は、ロボットが新しい目的地へ立ち寄る際に生じる経路の延長を最小化するタスクを反復的に選択してグループ化し、ロボットの予算制限に達するまで追加を行うことで、全目的地を最短経路で訪問するタスクグループを形成する。さらに、オンライン環境でのタスク放出に対応するため、新しく放出されたタスクが既存のグループよりも短い迂回経路を提供する場合に、割り当て済みのタスクを動的に置き換える仕組みを備えている。提案手法は、タスク割り当てと経路計画を分離するデカップル（decoupled）アーキテクチャを採用しており、計算量と再計画のオーバーヘッドを大幅に削減しつつ、グリッド状の倉庫環境において高いスケーラビリティを実現している。Kiva倉庫および仕分けセンターのシナリオを用いた実験の結果、提案手法は既存の最先端手法と比較して、サービス時間を31.1%以上短縮することに成功した。</p></section>
+<section class="secsum"><h3>本文 (3/8)</h3><p>既存のMulti-Task Multi-Agent Pickup and Delivery (MT-MAPD) に関する研究は、計算コストの高い結合型手法か、あるいはランダムや近傍探索に基づく非効率な分離型手法のいずれかに偏っている。本論文が定義するMT-MAPD問題は、エージェントの集合 $\mathcal{A} = \{a_1, \dots, a_N\}$ と無向グラフ $G = (V, E)$ 上で構成され、タスクグループ $TG = \{\tau_1, \dots, \tau_M\}$ に含まれる各タスク $\tau$ は、目標地点の集合 $\{v_1, \dots, v_K\}$ とリリース時刻 $t_{rel}$ を持つ。各エージェントはペイロード容量の制限内でタスクグループを割り当てられ、グループ内の全目標地点を巡回してアイテムを回収・配送する必要がある。本手法は、タスク割り当てと経路計画（MAPF）を分離したデカップリング設計を採用しており、タスク割り当てにおいてTSP（巡回セールスマン問題）に基づく最短距離構造を利用することで、ランダムな割り当てと比較して解の質を向上させている。最適化の目的は、全タスク完了までの時間であるメイクスパン、またはタスクの完了時刻とリリース時刻の差の平均である平均サービス時間の最小化である。MAPFにおいては、エージェント間の頂点衝突やエッジ衝突を回避しつつ、割り当てられたタスクグループ内の全目標地点をカバーする衝突のない経路集合 $P = \{p_1, \dots, p_N\}$ を求める。</p></section>
+<section class="secsum"><h3>本文 (4/8)</h3><p>提案手法は、マルチタスク・マルチエージェント・ピックアップ＆デリバリー（MT-MAPD）問題において、タスク割り当てと経路計画を独立したモジュールとして並列動作させるデカップル型アーキテクチャを採用している。タスク割り当てモジュールは、エージェント $a_i \in A$ ごとにタスクグループ $TG_i$ を生成し、キューに格納してエージェントが空き状態になった際に順次割り当てることで、ロボットの移動時間を活用した最適化を実現している。タスクグループの生成には巡回セールスマン問題（TSP）アルゴリズムを用い、ターゲット頂点集合 $V_{\text{target}}$ をすべて訪問する最短経路 $p_{\text{target}}$ を計算する。具体的な生成手順として、既存のタスクグループに新しいタスク $\tau_m$ を追加した際に $p_{\text{target}}$ が増加するものを反復的に追加することで、最短経路に沿ったタスク構成を構築する。また、新しいタスク $\tau_{\text{new}}$ が放出された際には、既存のタスクグループ内のタスクを $\tau_{\text{new}}$ で置き換えることでコストが減少するかを評価し、必要に応じてグループを更新する。経路計画には、窓関数を用いたRHCRアルゴリズムを用いることで、衝突回避とリアルタイム性を両立させている。</p></section>
+<section class="secsum"><h3>本文 (5/8)</h3><p>タスクグループ生成アルゴリズムは、エージェント $a_i \in \mathcal{A}$ の容量が満たされるまで、候補タスク集合 $T_{\text{sub}}$ からタスクを逐次的に追加してタスクグループ $TG_i$ を構築する。各ステップでは、既存のタスク集合に新しいタスク $\tau_m$ を加えた一時的なグループ $TG_{\text{temp}}$ を作成し、TSPアルゴリズムを用いて全ターゲット頂点を巡回する最短経路を計算することで、経路コストの増加が最小となるタスク $\tau_{\text{best}}$ を選択する。計算負荷を軽減するため、全てのターゲットを再計算する代わりに、既存の訪問順序を維持したまま新しいターゲット $v_{\text{new}}$ を隣接する頂点間に挿入するオンラインTSP手法を導入している。この手法では、既存の訪問順序 $\{v_{\pi_1}, \dots, v_{\pi_K}\}$ における隣接するターゲットのペア $(v_{\pi_k}, v_{\pi_{k+1}})$ に対して、新しいターゲットを経由する迂回距離 $D(v_{\pi_k}, v_{\pi_{k+1}}, v_{\text{new}}) = \text{dist}(v_{\pi_k}, v_{\text{new}}) + \text{dist}(v_{\text{new}}, v_{\pi_{k+1}})$ を計算し、この値を最小化する挿入位置を特定する。さらに、既存のタスクグループ内のタスク $\tau_m$ を新しいタスク $\tau_{\text{new}}$ で置き換えることで全体のコストが改善される場合、その入れ替えを行う更新プロセスも備えている。</p></section>
+<section class="secsum"><h3>本文 (6/8)</h3><p>提案手法は、タスクグループ生成においてオンラインTSPアップデーターとして最安挿入法（cheapest-insertion heuristic）を採用し、既存の巡回経路に新しいターゲットを最小限のコスト増加で追加することで、計算負荷を抑えつつ効率的なタスク選択を実現する。この手法では、タスクグループのターゲットが確定した後にのみ、2-optアルゴリズムを用いた元のTSPソルバーを一度だけ実行してグローバルな訪問順序を再計算することで、逐次的な挿入による非最適性を緩和している。計算量に関しては、従来のアルゴリズムが $O(N \cdot C \cdot M \cdot K^2)$ であるのに対し、提案する効率的な手法は、各タスクに対してではなく最終的に選択されたタスクグループに対してのみTSPを計算するため、$O(N \cdot C \cdot K^2)$ まで削減され、最大でも $N \cdot C$ 回のTSP計算で済む。実験では、Kiva倉庫およびソーティングセンターの2種類のベンチマークマップを用い、LKHソルバーをベースとした手法と比較して、オンライン巡回経路の平均コストが元のTSP解の約1.09倍に抑えられることを示している。評価指標には、全タスク完了までの総時間であるmakespanと、タスクのリリースから完了までの平均遅延である平均サービス時間（average service time）が用いられた。</p></section>
+<section class="secsum"><h3>本文 (7/8)</h3><p>提案手法であるOursoptは、タスクグループ内の全タスクを巡回する総コストをTSPアルゴリズムで評価してタスクを選択することで、近接性のみに基づくTPやTP-TSPよりも高品質なタスクグループを形成し、特にエージェント数 $N$ や容量 $C$ が大きい環境において、TP-TSPと比較して平均サービス時間を $31.1\%$、メイクスパンを $13.4\%$ 削減する。計算量と精度のトレードオフを考慮した軽量版のOurseffは、最も計算負荷の高い設定（$N=100, C=9$）においてOursoptより $11.3$ 倍高速であり、オンライン環境での実行に適している。タスクグループの更新ステップ $t_{\text{update}}$ に関するアブレーション研究では、$t_{\text{update}}$ を大きくするほど平均サービス時間は向上するが、計算時間も増大するため、適切な値の選択が重要であることが示されている。Kivaシナリオにおける実験では、Ourseffはタスクグループの完了に要する最小時間（約40秒）に対し、10秒以内という十分な計算速度を維持しており、実世界での並列処理におけるボトルネックが発生しないことが確認された。</p></section>
+<section class="secsum"><h3>本文 (8/8)</h3><p>提案手法であるOurseffは、探索範囲を決定するパラメータ $t_{\text{update}}$ を調整することで、解の品質と計算負荷のトレードオフを制御できる。$t_{\text{update}}$ を大きく設定すると、より多くの候補を評価するため解の品質は向上するが、計算時間は増大する。Ourseffの計算量はエージェント数 $N$ に対して線形にスケールするため、1,000台規模の大規模なフリートにおいても、膨大な計算量を必要とするOursoptとは異なり、リアルタイムアプリケーションに適した堅牢なオンライン性能を維持できる。また、計算時間はタスク数 $M$ に対しても線形にスケールするが、パラメータ $N_{\text{sub}}$ を調整することで、大規模なタスクプールに対しても効果的に計算負荷を管理できる設計となっている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-17
+  </footer>
+</div>
+</body>
+</html>
