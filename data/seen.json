@@ -1515,6 +1515,73 @@
       "url": "http://arxiv.org/abs/2607.12188v1",
       "venue": ""
     },
+    "arxiv:2607.14387": {
+      "added": "2026-07-18",
+      "added_at": "2026-07-18T06:03:07.856147",
+      "arxiv_id": "2607.14387",
+      "authors": [
+        "Yuan Gao",
+        "Wenting Miao",
+        "Mattia Piccinini",
+        "Haoyu Wang",
+        "Qunying Song",
+        "Johannes Betz"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-15",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.14387.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.14387v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGとLangGraphを用いた反復的なDSL生成手法が具体的であり、自動運転の規制に基づいた新規ベンチマークも導入されているため、実用性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Chat2Scenic: An Iterative RAG-Based Framework for Scenario Generation in Autonomous Driving",
+      "tldr": "自動運転の規制記述から実行可能なドメイン固有言語（DSL）のシナリオスクリプトを自動生成するため、反復的な検索拡張生成（RAG）を活用したフレームワークChat2Scenicを提案する。本手法は、対話的な洗練と知識検索を組み合わせることで、既存手法の課題であった汎用性とコンパイル成功率の両立を実現している。",
+      "url": "http://arxiv.org/abs/2607.14387v1",
+      "venue": ""
+    },
+    "arxiv:2607.14811": {
+      "added": "2026-07-18",
+      "added_at": "2026-07-18T06:02:41.429830",
+      "arxiv_id": "2607.14811",
+      "authors": [
+        "Gang Zhang",
+        "Mingyu Tian",
+        "Xukun Luan",
+        "Yuanchi Ma",
+        "Jinyan Liu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-16",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.14811.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.14811v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGのプライバシー保護を「クエリ依存の動的リスク」と再定義した点が非常に新規性が高く、差分プライバシーを意味的距離に基づいて適用する手法も具体的で、実用上の価値が高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Is External Database Protection Static in Retrieval-Augmented Generation? Rethinking Privacy Preservation under Dynamic Queries",
+      "tldr": "従来のRAGにおけるプライバシー保護は、全ドキュメントが等しくリスクを持つという静的な仮定に基づいているが、実際にはリスクはクエリに依存して動的に変化する。本研究は、クエリに応じたリスク階層化と指数メカニズムを用いた適応的なテキスト選択を行うPA-HDPを提案し、高い有用性と強力なプライバシー保護の両立を実現する。",
+      "url": "http://arxiv.org/abs/2607.14811v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -2888,6 +2955,38 @@
       "url": "http://arxiv.org/abs/2601.08214v1",
       "venue": ""
     },
+    "arxiv:2602.20512": {
+      "added": "2026-07-18",
+      "added_at": "2026-07-18T06:02:00.053219",
+      "arxiv_id": "2602.20512",
+      "authors": [
+        "Haitong He",
+        "Xuemian Wu",
+        "Shizhe Zhao",
+        "Zhongqiang Ren"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-02-24",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2602.20512.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2602.20512v2",
+      "reading_value": 4,
+      "reading_value_reason": "エレベーター特有の制約を考慮したCBSの拡張は新規性が高く、MDD-Eによる衝突分類や時間区間制約の導入など、MAPFの高度な応用として読む価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Conflict-Based Search for Multi-Agent Path Finding with Elevators",
+      "tldr": "エレベーターによる階層間移動を伴うマルチエージェント経路計画（MAPF-E）において、エレベーターの状態を考慮した新しい制約と拡張された決定図を用いることで、最適性を維持しつつ探索効率を大幅に向上させた。",
+      "url": "http://arxiv.org/abs/2602.20512v2",
+      "venue": ""
+    },
     "arxiv:2602.23468": {
       "added": "2026-06-27",
       "added_at": "2026-06-27T06:00:02.000000",
@@ -3785,6 +3884,36 @@
       "title": "Dual-Informed Vertical Expansion for Multi-Objective Node Selection in Anytime Conflict-Based Search",
       "tldr": "Multi-Agent Path Finding (MAPF) における Conflict-Based Search (CBS) のノード選択において、Best-First Search (BFS) の最適性証明能力と Depth-First Search (DFS) のメモリ効率を両立させる新しいポリシー「Dual-Informed Vertical Expansion (DIVE)」を提案する。DIVEは、現在の暫定解（incumbent）を改善できる限り親ノードから子ノードへと連続的に展開する「Dive」と、グローバルな最小下界ノードを選択する「Best-bound」な挙動を組み合わせることで、メモリ消費を抑えつつ早期に暫定解を提供し、効率的な最適性証明を実現する。",
       "url": "http://arxiv.org/abs/2607.00156v1",
+      "venue": ""
+    },
+    "arxiv:2607.15182": {
+      "added": "2026-07-18",
+      "added_at": "2026-07-18T06:01:25.738118",
+      "arxiv_id": "2607.15182",
+      "authors": [
+        "Aditya Dutta",
+        "Joon-Seok Kim"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-16",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2607.15182.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.15182v1",
+      "reading_value": 4,
+      "reading_value_reason": "M2M MAPDにおける混雑問題を、割り当てと経路の両面から解決する手法が新規。実験も多角的に行われ、スループット向上の実証も具体的で価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Stigmergic Graph Memory: An Environment-Aware Approach for Many-to-Many Multi-Agent Pickup and Delivery",
+      "tldr": "Many-to-Many Multi-Agent Pickup and Delivery (M2M MAPD) において、従来の推定コストに基づく割り当てが特定の通路や交差点への混雑を招く問題を、環境の実行履歴を保持するメモリ層を用いて解決する。提案手法である Stigmergic Graph Memory (SGM) は、エンドポイントの選択と経路の優先順位付けの両方に介入することで、スループットを大幅に向上させる。",
+      "url": "http://arxiv.org/abs/2607.15182v1",
       "venue": ""
     },
     "doi:10.1016/j.artint.2022.103752": {

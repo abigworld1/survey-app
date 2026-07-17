@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Stigmergic Graph Memory: An Environment-Aware Approach for Many-to-Many Multi-Agent Pickup and Delivery | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Stigmergic Graph Memory: An Environment-Aware Approach for Many-to-Many Multi-Agent Pickup and Delivery</h1>
+  <div class="meta">Aditya Dutta, Joon-Seok Kim<br>採択先: 未取得 ・ 2026-07-16 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.15182v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.15182v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-16</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">M2M MAPDにおける混雑問題を、割り当てと経路の両面から解決する手法が新規。実験も多角的に行われ、スループット向上の実証も具体的で価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> Many-to-Many Multi-Agent Pickup and Delivery (M2M MAPD) において、従来の推定コストに基づく割り当てが特定の通路や交差点への混雑を招く問題を、環境の実行履歴を保持するメモリ層を用いて解決する。提案手法である Stigmergic Graph Memory (SGM) は、エンドポイントの選択と経路の優先順位付けの両方に介入することで、スループットを大幅に向上させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、エージェント、タスク、ピックアップ地点、デリバリー地点の4次元的な割り当てが必要な Many-to-Many Multi-Agent Pickup and Delivery (M2M MAPD) を対象とする。倉庫を無向グラフとしてモデル化し、オンラインで到着するリクエストに対して、エージェント、供給地点、配送地点を割り当てる。従来のM2M手法は経路計画による交通状況を考慮せず、推定コストに基づき割り当てを行うため、特定のエリアに負荷が集中し、衝突や混雑を招くという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のグラフ誘導手法はタスク目標が固定された後のルーティングに主眼を置いているが、SGMは実行履歴を読み取ることで、実行可能なソースとデスティネーションの組み合わせの順位付けと、エンドポイント選択後の経路優先度の割り当ての両方に介入する点で新規性を持つ。アリのコロニー最適化のようなフェロモンベースのアルゴリズムではなく、型付けされ減衰するグラフメモリの抽象化として、環境の痕跡を通じて間接的な協調を行うスティグマジーの概念を導入している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>SGMは、Rolling-Horizon Collision Resolution (RHCR) と Priority-Based Search (PBS) をバックエンドに用いるイベント駆動型の共有メモリ層である。ノードと有向エッジに異なるチャネルで実行履歴を保持し、各メモリ値 $M_{i,t}$ は保持係数 $\gamma$ と時刻 $t$ におけるイベントの寄与 $d_{i,t}$ を用いて $M_{i,t} = \gamma M_{i,t-1} + d_{i,t}$ と更新される。Endpoint Steering では、候補となる組み合わせの割り当てコストに、最短経路上のエッジペナルティの総和 $P = \sum_{e \in \mathcal{P}} \text{penalty}(e)$ を加算してエンドポイントを選択する。Route Guidance では、有向エッジのコストを $c_{e} = 1 + \alpha \cdot \text{memory\_signal}_{e}$ と定義し、混雑抑制と成功したフローへの報酬を両立させる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>5種類の倉庫レイアウト、3段階のフリート規模（エージェント数28, 56, 84）、および25個のシードを用いた実験を行った。比較対象は、移動距離推定に基づく M2M および在庫分布を考慮した M2M-wSKU である。評価指標には、累積完了タスク数 $C(t)$、スループット $\frac{C(T)}{T}$、サービス時間、移動のブロック数、プランナーの実行時間などが用いられた。結果として、SGM はすべての条件下で既存のベースラインを上回り、スループットを 20.5% から 36.7% 向上させた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>SGM の性能向上の主因は、ゴール確定後の経路誘導よりも、実行可能なエンドポイントを選択する段階にあることがアブレーション解析により示されている。フルSGM はスループットを維持しつつプランナー時間を $9.1\%$ 短縮するが、割り当て計算のコストを制約とする場合は、高負荷時に計算量を抑えつつ高い計算量正規化スループットを実現する ASGM が適している。今後の課題として、非定常な倉庫環境への拡張や、実ロボットへの展開が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Stigmergic Graph Memory: An Environment-Aware Approach for Many-to-Many Multi-Agent Pickup and Delivery</h3><p>本研究では、Many-to-Many Multi-Agent Pickup and Delivery (MAPD) において、倉庫内の混雑状況を考慮してエンドポイントを選択するための Stigmergic Graph Memory (SGM) を提案している。SGM は、倉庫のノードおよび有向エッジ上に、最近の実行信号を記録する有界かつ減衰するメモリ層であり、衝突回避制約やプランナーの妥当性を損なうことなく、実行可能なエンドポイントの順位付けや経路の優先順位付けを行う。提案手法は、固定されたゴールへの移動方法を改善するだけでなく、どのゴールをプランナーに渡すかを決定することで、環境の変化に適応する。5つのレイアウト、3つの負荷レベル、各条件25個のシードを用いた実験において、SGM は既存の 2 つの many-to-many 割り当てベースラインをすべての条件下で上回り、スループットを 20.5% から 36.7% 向上させた。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>Many-to-Many Multi-Agent Pickup and Delivery (M2M) は、エージェント、タスク、ピックアップ地点、デリバリー地点の4次元的な割り当て問題として定式化されるが、従来の M2M 手法は経路計画による交通状況を考慮せず、推定コストに基づき割り当てを行うため、特定の通路や交差点への混雑を招く課題がある。本論文では、環境の変化を記憶する軽量なメモリ層である Stigmergic Graph Memory (SGM) を提案し、エンドポイントの選択と経路の優先順位付けに直結させることで、混雑を制御する。SGM は、ウェアハウスのノードおよび有向エッジ上に減衰する信号を保持するスティグマジー（環境への痕跡による協調）に着想を得た仕組みであり、最近の実行パターンをエンドポイントのスコアリングや経路の好みに反映させる。5つのレイアウト、3つの負荷レベル、各条件25個のシードを用いた評価実験において、SGM はすべての条件下でスループットを向上させ、M2M に対して 20.5% から 36.7% の改善を達成した。この性能向上は、経路コストや候補予算の差によるものではないことが、ルーティング制御およびマッチド・キャップ（matched-cap）制御を用いた比較によって示されている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>Multi-Agent Pickup and Delivery (MAPD) は、マルチロボットタスク割り当て (MRTA) と Multi-Agent Path Finding (MAPF) を組み合わせたものであり、頂点やエッジの衝突制約下で衝突のない経路を計算する MAPF や、スケーラビリティのために限定的なホライゾン内で繰り返し再計画を行う lifelong MAPF を包含する。Many-to-many (M2M) MAPD は、各 SKU リクエストに対して複数のソースとデスティネーションを許容することで、エージェント、タスク、ピックアップ場所、デリバリー場所の 4 次元割り当て問題として定式化され、従来の 1 対 1 の MAPD よりもスループットを大幅に向上させる。既存のグラフ誘導手法は、タスク目標が固定された後のルーティングに主に影響を与えるが、提案手法である Stigmergic Graph Memory (SGM) は、実行履歴を読み取ることで、実行可能なソースとデスティネーションの組み合わせの順位付け、およびエンドポイント選択後の経路優先度の割り当ての両方に介入する点で独自性を持つ。SGM は、アリのコロニー最適化のようなフェロモンベースのルーティングアルゴリズムとしてではなく、型付けされ減衰するグラフメモリの抽象化として、環境の痕跡を通じて間接的な協調を行うスティグマジー（stigmergy）の概念を採用している。</p></section>
+<section class="secsum"><h3>3 Problem Setting</h3><p>本研究では、倉庫を無向グラフとしてモデル化し、エージェントの集合 $\mathcal{A}$ が離散的なタイムステップごとに、現在の頂点に留まるか隣接するエッジに移動するかを選択する Many-to-Many Multi-Agent Pickup and Delivery (MM-MAPD) 問題を定義している。タスクはオンラインで到着し、各リクエストは SKU $s \in \mathcal{S}$、供給可能地点の集合 $L_{\text{source}} \subseteq \mathcal{V}$、配送可能地点の集合 $L_{\text{dest}} \subseteq \mathcal{V}$、およびリリース時刻 $r$ の組 $(s, L_{\text{source}}, L_{\text{dest}}, r)$ として与えられる。時刻 $t$ において、リリース済みかつ未完了のリクエストの集合を $\mathcal{R}_t$ とし、リクエストからエージェント $a \in \mathcal{A}$、供給地点 $l_{\text{source}} \in L_{\text{source}}$、配送地点 $l_{\text{dest}} \in L_{\text{dest}}$ を選択して割り当てるプロセスをインスタンス化と呼び、割り当てられたエージェントは $r$ より前に供給地点を訪問しなければならない。制約条件として、同一時刻に複数のエージェントが同じ頂点を占有することや、同一エッジを逆方向に通行すること（衝突）が禁止されている。目的関数は、計画期間 $T$ の終了までに完了したタスク数 $N(T)$ を最大化することであり、長期的なスループットの最大化を目指す。本問題の核心的な課題は、エンドポイントのインスタンス化が経路計画の前に将来のトラフィック分布を決定してしまう点にあり、静的な割り当てでは特定の通路やエリアに負荷が集中する可能性がある。提案手法である Stigmergic Graph Memory (SGM) は、実行履歴を利用して、経路計画の目標となる前に実行可能なエンドポイントの選択肢をランク付けすることでこの課題に対処する。</p></section>
+<section class="secsum"><h3>4 Stigmergic Graph Memory</h3><p>Stigmergic Graph Memory (SGM)は、Rolling-Horizon Collision Resolution (RHCR) と Priority-Based Search (PBS) をバックエンドに用いる、イベント駆動型の共有メモリ層である。SGMは、ノード（待機、エンドポイント圧力、完了、ブロッキング）と有向エッジ（走行、遅延、ブロッキング、フロー）の異なるチャネルで実行履歴を保持し、各メモリ値 $M_{i,t}$ は保持係数 $\gamma$ と時刻 $t$ におけるイベントの寄与 $d_{i,t}$ を用いて $M_{i,t} = \gamma M_{i,t-1} + d_{i,t}$ と更新される。Endpoint Steeringでは、候補となるエージェント・ソース・デスティネーションの組み合わせに対し、ベースラインの割り当てコストに、最短経路上のエッジペナルティの総和 $P = \sum_{e \in \mathcal{P}} \text{penalty}(e)$ を加算することで、エンドポイントの選択を誘導する。Route Guidanceでは、有向エッジのコストを $c_{e} = 1 + \alpha \cdot \text{memory\_signal}_{e}$ と定義し、混雑や遅延を抑制しつつ、最近の成功したフローを報酬として与えることで、経路の選択を制御する。提案手法は、既存のグラフ構造や衝突判定条件を変更せず、単に候補のランキングやエッジコストにスカラー値を適用する限定的な優先度層として機能するため、元のMAPD制約下での衝突回避とタスク実行の実現可能性が保証される。</p></section>
+<section class="secsum"><h3>5 Experimental Protocol</h3><p>本実験では、提案手法であるSGMおよびその適応型であるASGMを、既存手法であるM2MおよびSKU情報を考慮したM2M-wSKUと比較評価している。評価は5種類の倉庫レイアウト、3段階のフリート規模（エージェント数28, 56, 84）、および25個のシードを用いたベンチマークで行われ、フリート規模は駐車容量の30.1%, 60.2%, 90.3%に対応する。評価指標として、タイムステップ $t$ における累積完了タスク数 $C(t)$、スループット $\frac{C(T)}{T}$、最終ウィンドウの活動量、サービス時間、移動のブロック数、および割り当てコストが用いられる。統計的有意性の検証には、シードを一致させた両側ウィルコクソン符号付順位検定を行い、Holmの手続きによってファミリーワイズ誤差率を制御している。比較対象のベースラインは、移動距離推定に基づくM2Mおよび在庫分布項を加えたM2M-wSKUであり、いずれもRHCR/PBSプランナーを用いて構築されている。さらに、経路メモリの端点制御のみ、メモリ重み付きルーティングのみ、およびキューを保持しない設定を用いたアブレーション解析や、エッジコストのみを考慮する制御群を用いた比較により、提案手法の各構成要素の寄与を詳細に検証している。</p></section>
+<section class="secsum"><h3>6 Results</h3><p>SGMは、多くのベンチマーク環境において、既存のM2Mベースラインと比較してタスク完了スループットを大幅に向上させる。5つのレイアウトを用いた全15のマップ・フリート条件において、SGMはペアリクエスト再生下での最終スループットを20.5–36.7%改善しており、特にトラフィックが増加するにつれてその優位性が顕著になる。SGMの性能向上は、単なるルーティング制御ではなく、過去の実行履歴に基づくメモリを用いたエンドポイント選択（Endpoint steering）によって、特定の制約領域への作業集中を回避することに起因する。アブレーション解析の結果、エンドポイントのみの制御（Endpoint-only）は最終的なタスク完了数においてフルSGMと同等の性能を示す一方、ルートガイダンス（Route guidance）はスループットを維持しつつ、プランナーの計算時間、待機時間、および移動のブロック回数を減少させる役割を担うことが示された。また、SGMは迷路のような異なるトポロジーを持つ環境や、中規模の転送学習タスクにおいても性能の維持が確認されており、メモリに基づくエンドポイント選択がスループット制御の主要なインターフェースとして機能している。</p></section>
+<section class="secsum"><h3>7 Discussion</h3><p>SGMは、実行履歴に基づき待機や閉塞、交通集中が発生している出発地と目的地（source-destination）の組み合わせへのタスク割り当てを回避することで、経路計画前に混雑を制御する手法である。エンドポイントのインスタンス化のみを行うアブレーション研究では、小規模マップにおいてフルSGMの $99.3\text{--}100.5\%$ のスループットを維持しており、性能向上の主因がゴール確定後の経路誘導ではなく、実行可能なエンドポイントを選択する段階にあることが示されている。フルSGMは、エンドポイント制御によるスループット維持に加え、グラフメモリによる経路誘導によって、15の条件下ですべてのケースでプランナー時間を $9.1\%$ 短縮し、待機や閉塞に伴う再計画の負荷を軽減する。スループットを最優先する場合はSGMが、割り当て計算のコストを制約とする場合は、高負荷時に計算量を抑えつつ高い計算量正規化スループットを実現するASGMが適している。SGMの有効性は、単に経路コストや静的な高速道路を追加する手法よりも高く、エンドポイントのペア評価数を増やした条件下でも、メモリ設定の範囲においても一貫して優位性が確認されている。</p></section>
+<section class="secsum"><h3>8 Conclusion</h3><p>本研究では、many-to-many MAPD（多対多のマルチエージェント・ピックアップ＆デリバリー）において、直近の実行履歴を用いてエンドポイントの生成と経路の優先順位付けを制御する、有界なグラフメモリ層であるSGMを提案した。ペアリングされたベンチマークを用いた評価の結果、SGMはすべてのマップおよびフリートの条件下において、既存のmany-to-manyベースラインと比較してタスク完了スループットを向上させた。アブレーション解析により、メモリに基づくエンドポイント生成がこの性能向上における主要な要因であることが示された。完全なSGMコントローラは、高いスループットを維持しつつ、エージェントの待機時間、移動のブロック、ブロックによる再計画、およびプランナーの実行時間をそれぞれ削減することに成功した。これらの結果は、many-to-many MAPDにおいて、パスプランニングの開始前に、どのゴールをプランナーに投入するかを制御することで、混雑を抑制できることを示唆している。今後の課題として、非定常な倉庫環境への拡張や、実ロボットへの展開が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-18
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Conflict-Based Search for Multi-Agent Path Finding with Elevators | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Conflict-Based Search for Multi-Agent Path Finding with Elevators</h1>
+  <div class="meta">Haitong He, Xuemian Wu, Shizhe Zhao, Zhongqiang Ren<br>採択先: 未取得 ・ 2026-02-24 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2602.20512v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2602.20512v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-02-24</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">エレベーター特有の制約を考慮したCBSの拡張は新規性が高く、MDD-Eによる衝突分類や時間区間制約の導入など、MAPFの高度な応用として読む価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> エレベーターによる階層間移動を伴うマルチエージェント経路計画（MAPF-E）において、エレベーターの状態を考慮した新しい制約と拡張された決定図を用いることで、最適性を維持しつつ探索効率を大幅に向上させた。</div>
+<section class="qa"><h2>どんなもの？</h2><p>複数のフロアがエレベーターで接続された環境において、衝突を避けつつ全エージェントの経路コストの総和 $\sum_{a \in \mathcal{A}} \text{cost}(p_a)$ を最小化する経路を求める問題を扱う。エレベーターは一度に一人のエージェントしか運搬できず、フロア間の移動コストが非常に大きいという特性を持つ。そのため、エージェントの位置だけでなくエレベーターの状態も考慮する必要があり、状態空間の拡大やエレベーター周辺での混雑、空間的に離れた衝突が発生するという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のConflict-Based Search（CBS）をエレベーター環境に適応させる際、個々のタイムステップに制約を課すと高レベルノードが爆発的に増加する課題に対し、エレベーターの移動およびリセット時間を考慮した「エレベーター制約」を導入することで、単一の分岐で衝突を解決可能にした。また、エレベーターの状態を保持できない従来のMulti-Valued Decision Diagrams（MDD）を拡張したMDD-Eを提案し、リセット中のエレベーターへの進入といった特殊な衝突を正確に検知・分類できる新規性を実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法CBS-Eは、高レベル探索においてエレベーターの移動時間 $c_{\text{elev}}$ とリセットコスト $c_{\text{reset}}$ に基づき、エージェントがエレベーターを利用できない時間区間をまとめて制約として定義する。具体的には、あるエージェントの入場時刻から、エレベーターが利用不可となる前後への時間区間を算出し、他のエージェントに対して特定の入場時刻を禁止する排他的な制約集合を生成する。低レベル探索では、MDD-Eを用いてエレベーターの状態（利用中、リセット中、未使用など）を保持した有向グラフを構築し、衝突を回避しつつコストを増加させないバイパス経路の有無を判定する。さらに、制約によるコスト増加の度合いに応じて、Cardinal、Semi-cardinal、Non-cardinalの順で衝突を優先的に解決する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>$8 \times 8$ または $16 \times 16$ の障害物を含むグリッドマップを用い、低レベルプランナーにSIPPを使用した実験を行った。CBS-Eはベースラインと比較して成功率を2倍から3倍に向上させ、提案する衝突推論を用いることでCBSの反復回数を最大で1桁削減した。一方で、フロア数が4を超えると実行時間の80%以上がMDD-Eの処理に費やされることや、マップサイズが小さくエージェント数が多い場合には、MDD-Eのオーバーヘッドにより成功率がCBS+ECを下回るケースも確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>MDD-Eは衝突検知において強力だが、エージェント数 $N$、フロア数、パス長 $L$ が増加すると構築およびクエリの計算コストが増大するというトレードオフが存在する。また、衝突密度が極めて高い狭小なマップでは、MDD-Eのオーバーヘッドが性能を阻害する可能性がある。今後の課題として、MDD-Eの高速な構築手法の検討、複数人を収容可能なエレベーターへの対応、非同期・連続時間アクションへの拡張、およびタスクプランニングとの統合が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Conflict-Based Search for Multi-Agent Path Finding with Elevators</h3><p>本研究では、エスカレーターやエレベーターを用いて異なる階層間を移動するエージェント群の、衝突のない経路を求める Multi-Agent Path Finding with Elevators (MAPF-E) を対象としている。エレベーターは階層間の移動に長い時間を要するため、多くのエージェントが異なる階層を目指す際に衝突を引き起こしやすく、またエージェントの位置に加えてエレベーターの状態も考慮する必要があるため、状態空間が拡大するという課題がある。これに対し、提案手法である CBS-E は、Conflict-Based Search (CBS) を拡張し、エレベーターの状態を衝突解決プロセスに組み込むための新しい概念であるエレベーター制約を導入することで、MAPF-E を最適に解く。さらに、Multi-Valued Decision Diagrams を拡張した MDD-E を導入することで、各反復において解決すべき衝突をインテリジェントに選択し、実行効率を向上させている。実験の結果、CBS-E はベースラインと比較して成功率を 2 倍から 3 倍に向上させ、提案する衝突推論を用いることで CBS-E の反復回数を最大で 1 桁削減できることが示された。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究では、複数のフロアがエレベーターによって接続された環境において、エージェントが衝突を避けつつ各々の目的地へ到達する経路を求める、Multi-Agent Path Finding with Elevators (MAPF-E) という問題を扱う。MAPF-Eは、エレベーターが一度に一人のエージェントしか運搬できない制約や、フロア間の移動コストがフロア内の移動に比べて著しく大きいという特性を持ち、エージェント間の空間的に離れた衝突や、エレベーター周辺での混雑を引き起こす。既存のMAPF手法をグラフ上の特殊なエッジとしてエレベーターを扱うことで単純に適応させることは可能だが、エレベーターの状態や位置を明示的に考慮する必要があるため、計算負荷が非常に高くなる。本論文では、Conflict-Based Search (CBS) を拡張した最適解を求めるアルゴリズムである CBS-E を提案し、エレベーターの状態に基づいた新しい制約生成手法を導入することで、エレベーターの移動時間が長くなっても反復回数が指数関数的に増加する問題を回避し、解の最適性を維持しつつ衝突を効率的に解決する。さらに、Multi-Valued Decision Diagram を拡張した MDD-E を導入することで、解決すべき衝突をインテリジェントに選択する手法を開発した。実験の結果、提案手法である CBS-E は、単純な CBS の適応手法と比較して成功率を2〜3倍に向上させ、提案した衝突推論技術を用いることで反復回数を最大で1桁削減できることを示した。</p></section>
+<section class="secsum"><h3>II Problem Formulation</h3><p>本問題は、複数のエージェントが階層構造を持つグラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 内で移動するマルチエージェント経路計画（MAPF）として定式化される。グラフは各階層を表すサブグラフ $\mathcal{G}_l$ の集合で構成され、頂点集合 $\mathcal{V}$ はエレベーター頂点 $\mathcal{V}_{\text{elev}}$ とそれ以外の通常頂点 $\mathcal{V}_{\text{reg}}$ に分類される。エッジは、両端がエレベーター頂点であるエレベーターエッジ $\mathcal{E}_{\text{elev}}$ と、それ以外の通常エッジ $\mathcal{E}_{\text{reg}}$ に分けられ、通常エッジのコストは $c(u, v) = 1$ であるのに対し、エレベーターエッジは隣接する階層間を接続し、既知の固定コスト $c(u, v)$ を持つ。エレベーター $e \in \mathcal{E}_{\text{elev}}$ は一度に最大1人のエージェントしか運搬できず、エージェント $a$ がエレベーターを用いて頂点 $u$ から $v$ へ移動する際、その占有および移動（リセット）期間を考慮する必要がある。衝突は、同一時刻における同一頂点の占有（頂点衝突）、逆方向のエッジ通過（エッジ衝突）、およびエレベーターの占有またはリセット中にエージェントがエレベーターに関連する頂点に到着する「エレベーター衝突」の3種類で定義される。具体的に、エージェント $a$ がエレベーターを $u$ から $v$ へ移動させる期間を $[t_{\text{enter}}, t_{\text{leave}}]$ とし、別のエージェント $b$ が同じエレベーターを後続で使用する場合、エレベーターが $a$ を運搬している間、または $a$ を降ろした後に $b$ を乗せるために必要な階層へ移動（リセット）している間、エージェント $b$ がエレベーターの頂点に到達すると衝突となる。本研究の目的は、これら全ての衝突を回避し、全エージェントの経路コストの総和 $\sum_{a \in \mathcal{A}} \text{cost}(p_a)$ を最小化する結合経路を見つけることである。</p></section>
+<section class="secsum"><h3>III Preliminaries</h3><p>Conflict-Based Search (CBS) は、制約木（CT）と呼ばれる二分木を探索する二段階のアルゴリズムであり、高レベル探索では制約集合 $\mathcal{C}$ とそれに基づくコスト $f(\mathcal{C})$ を持つノードを管理し、低レベル探索で各エージェントの制約を満たす最短経路を計算することで、全エージェントの最適な結合経路を求める。CTのノード内で衝突が検出された場合、衝突するエージェントと時刻に対して個別の制約を生成してノードを分岐させるが、本手法では Multi-Valued Decision Diagrams (MDD) を用いて探索を効率化する。MDD は制約下での最適経路を表現する有向グラフであり、エージェント $i$ と $j$ の結合 MDD $\text{MDD}_{ij}$ を構築することで、衝突を回避しつつコストを増加させずに済む経路が存在するかを判定できる。Bypassing Conflicts (BP) 手法では、結合 MDD から抽出可能なバイパス経路が存在する場合、CT のノードを分岐させずに直接経路を修正して OPEN リストに戻すことで、探索空間の増大を抑制する。また、衝突の選択においては、制約によって必ずコストが増加する Cardinal conflict、片方のエージェントのみコストが増加する Semi-cardinal conflict、どちらもコストが増加しない Non-cardinal conflict の順に優先して解決することで、目的関数 $f(\mathcal{C})$ を効率的に増加させる。</p></section>
+<section class="secsum"><h3>IV Method</h3><p>提案手法であるCBS-Eは、エレベーターを利用するマルチエージェント経路探索（MAPF-E）において、従来のCBSが抱えるエレベーター衝突解決の非効率性を解消するために、MDD-Eによる衝突分類と新しいエレベーター制約（EC）を導入している。従来のCBSでは、エレベーターの衝突を解決するために個々のタイムステップに対して制約を課す必要があり、膨大な数の高レベルノード（CTノード）を生成してしまうが、提案手法ではエレベーターの移動時間 $c_{\text{elev}}$ やリセットコスト $c_{\text{reset}}$ を考慮し、エージェントがエレベーターを利用できない時間区間をまとめて制約として定義する。具体的には、エージェント $i$ が時刻 $t_i$ にエレベーターに入場する場合、エレベーターが利用不可となる区間を $[t_i, t_i + c_{\text{elev}} + c_{\text{reset}}]$ および $[t_i - c_{\text{reset}} - c_{\text{elev}}, t_i]$ のように算出し、これに基づきエージェント $j$ に対して特定の入場時刻を禁止する制約集合を生成する。この制約集合は互いに排他的（mutually disjunctive）であることが定理1によって証明されており、単一の分岐で衝突を解決できるため、探索空間を大幅に削減できる。また、従来のMDDではエレベーターの状態を保持できず衝突を検知できない問題に対し、ノードにエレベーターの状態（利用中、リセット中、未使用など）を組み込んだMDD-Eを提案することで、エージェントがリセット中のエレベーターを利用しようとする衝突を正確に検出可能にしている。</p></section>
+<section class="secsum"><h3>V Experimental Results</h3><p>本実験では、エレベーターを含むマルチエージェント経路探索（MAPF-E）において、Conflict-Based Search (CBS) にエレベーター制約解消（EC）とMDD-E（Multi-valued Decision Diagram for Elevators）を組み合わせた手法の有効性を検証している。実験設定として、各フロアを $8 \times 8$ または $16 \times 16$ のランダムな障害物を持つグリッドとし、低レベルプランナーにはSIPPを用い、Intel i7-13700 CPU搭載の環境で実行時間制限60秒の条件下で評価を行った。結果として、CBS+EC+MDD-Eは、ECによる効率的な制約解消とMDD-Eによる衝突分類の組み合わせにより、CBS単体やCBS+MDD-Eよりも高い成功率と少ない高レベルノード展開数を実現している。しかし、エージェント数 $N$ やフロア数、あるいはパス長 $L$ が増加すると、MDD-Eの構築およびクエリにかかる計算オーバーヘッドが増大し、特にフロア数が4を超えるとCBS+EC+MDD-Eの実行時間の80%以上がMDD-E関連の処理に費やされることが示された。また、マップサイズが小さい場合にエージェント数が増えると、衝突密度の上昇に伴うMDD-Eのオーバーヘッドが原因で、CBS+EC+MDD-Eの成功率がCBS+ECを下回るケースも確認された。</p></section>
+<section class="secsum"><h3>VI Conclusions and Future Work</h3><p>本論文では、エレベーターの導入によって複数のエージェント間の結合が生じる新たな問題であるMAPF-Eを提案し、エレベーターによる衝突を効率的に解決する手法を開発した。エレベーターの制約を利用することで、最適解を保証しつつ、単一のノード展開のみでエレベーターの衝突を解消することが可能である。また、MDD（Multi-Dimensional Disjunctive）ノードに保持する情報を拡張した新しい構造であるMDD-Eを構築し、これを基盤としてプライス・コーディング（PC）やビームサーチ（BP）の手法を適用可能とした。実験結果により、提案手法が様々な設定において優位性を持つことが示された。今後の課題として、MDD-Eの高速な構築手法の検討、複数エージェントを収容可能なエレベーターへの対応、非同期または連続時間アクションを持つエージェントへの拡張、およびタスクプランニングとの統合が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-18
+  </footer>
+</div>
+</body>
+</html>

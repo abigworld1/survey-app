@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Is External Database Protection Static in Retrieval-Augmented Generation? Rethinking Privacy Preservation under Dynamic Queries | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Is External Database Protection Static in Retrieval-Augmented Generation? Rethinking Privacy Preservation under Dynamic Queries</h1>
+  <div class="meta">Gang Zhang, Mingyu Tian, Xukun Luan, Yuanchi Ma, Jinyan Liu<br>採択先: 未取得 ・ 2026-07-16 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.14811v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.14811v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-16</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGのプライバシー保護を「クエリ依存の動的リスク」と再定義した点が非常に新規性が高く、差分プライバシーを意味的距離に基づいて適用する手法も具体的で、実用上の価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 従来のRAGにおけるプライバシー保護は、全ドキュメントが等しくリスクを持つという静的な仮定に基づいているが、実際にはリスクはクエリに依存して動的に変化する。本研究は、クエリに応じたリスク階層化と指数メカニズムを用いた適応的なテキスト選択を行うPA-HDPを提案し、高い有用性と強力なプライバシー保護の両立を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>検索拡張生成（RAG）において、外部知識ベースから検索された文書に個人情報（PII）が含まれる場合、LLMによる直接的な複製や間接的な推論を通じて機密情報が漏洩するリスクがある。既存の差分プライバシー（DP）を用いた手法は、すべての検索文書が同一の漏洩リスクを持つという「文書レベルの静的なプライバシーリスク」を前提としている。しかし、同一の文書であってもユーザーのクエリ内容によって漏洩リスクは動的に変化するため、従来の静的な保護では不十分である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の新規性は、プライバシーリスクをドキュメント単位の静的なものとしてではなく、クエリに依存する動的なものとして捉え直した点にある。提案手法は、プロンプトを考慮したリスク階層化を導入することで、クエリとの関連性に基づいた動的なリスク評価を可能にする。これにより、従来の合成データ生成手法と比較して、検索品質の低下を最小限に抑えつつ、ターゲット攻撃および非ターゲット攻撃の両方に対して極めて高い防御性能を示す。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法であるPA-HDPは、まず取得されたコンテキストを文単位のプライバシー単位（PU）に分割する。次に、クエリ内の機密エンティティの有無、クエリとの意味的類似度 $S_{rel}$、およびフィールド感度 $S_{field}$ を用いて、総合的なリスクスコア $R_j = \alpha S_{rel} + (1-\alpha) S_{field}$ を算出し、テキストを3つのリスクレベルに階層化する。保護段階では、機密エンティティを安全なコーパス内の同カテゴリのエンティティで置換して候補集合 $\mathcal{C}_j$ を生成する。最後に、指数メカニズムを用いて、意味的距離 $d(\text{seg}_j, \text{cand}_i)$ と候補の漏洩リスク $R_{leak}(\text{cand}_i)$ を統合した効用関数 $U(\text{seg}_j, \text{cand}_i) = -d(\text{seg}_j, \text{cand}_i) - \lambda R_{leak}(\text{cand}_i)$ を最大化するテキストを選択する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>HealthcareMagic-101およびWiki-PIIデータセットを用い、GPT-3.5-TurboとLlama3-8B-Chatをバックボーンとして評価を行った。ユーティリティ指標にはROUGE-LとBLEU、プライバシー指標にはターゲット攻撃および非ターゲット攻撃に対する抽出成功数を用いた。実験の結果、GPT-3.5においてBLEUが0.1594から0.3275へ、ROUGE-Lが0.1288から0.3445へと大幅に向上した。また、既存の合成データ生成手法（ZeroGen, AttrPrompt, SAGE等）と比較して、PA-HDPは攻撃に対する漏洩指標をゼロに抑える高い防御性能を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、プライバシー予算 $\epsilon$ が増加するにつれて、プライバシー強度は弱まるがBLEU-1やROUGE-Lなどの有用性指標が向上するというトレードオフが存在する。また、本手法はデプロイ前にあらかじめ決定された固定のプライバシー予算を仮定しているという限界がある。実世界のRAGシステムにおいて、クエリの蓄積に伴ってプライバシー予算が枯渇していく問題への対応が今後の課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Is External Database Protection Static in Retrieval-Augmented Generation? Rethinking Privacy Preservation under Dynamic </h3><p>従来のRAGにおけるプライバシー保護手法は、すべての検索ドキュメントが同一の漏洩リスクを持つというドキュメント単位の静的なリスク仮定に基づいているが、本研究ではドキュメントのプライバシーリスクはユーザーのクエリに強く依存し、本質的にクエリ駆動で動的であると指摘している。この課題に対し、提案手法であるPrompt-Aware Dynamic Hierarchical Differential Privacy (PA-HDP) は、プロンプトを考慮したリスク階層化によって、異なるクエリの下でのプライバシーリスクを動的に評価する。PA-HDPは、適応的な機密エンティティの置換と指数メカニズムに基づくテキスト選択を組み合わせることで、特定のクエリにおいて真に機密性が高いコンテンツのみを保護し、検索コーパスへの不要な修正を最小限に抑えつつ、意味的な有用性を維持する。ベンチマークデータセットを用いた広範な実験の結果、PA-HDPは検索品質を高く維持しながらプライバシー漏洩を大幅に削減し、従来手法よりも優れたプライバシーと有用性のトレードオフを実現することが示された。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>Retrieval-Augmented Generation (RAG) は、外部知識ベースから検索された文脈を利用してLLMの回答精度を高める技術であるが、検索された文書に個人情報（PII）が含まれる場合、直接的な複製や間接的な推論を通じて機密情報が漏洩するリスクがある。既存の差分プライバシー（DP）を用いた手法は、すべての検索文書が等しく漏洩リスクを持つという「文書レベルの静的なプライバシーリスク」を前提としているが、実際には同一の文書であってもユーザーのクエリ内容によって漏洩リスクは動的に変化する。本論文では、この課題を解決するために、クエリに依存した動的な保護を実現する Prompt-Aware Dynamic Hierarchical Differential Privacy (PA-HDP) を提案する。この手法は、まず検索された文脈に対してクエリに基づいた文レベルの機密意味認識を行い、機密情報の種類やクエリの意図との関連性に応じてテキストを異なるプライバシーリスクレベルに層別化する。次に、指数メカニズム（exponential mechanism）を用いた適応的な候補選択戦略を導入し、機密エンティティを意味的に同等な表現に置換して生成した候補集合の中から、DPの制約を満たしつつ最大限の意味的忠実度を維持するテキストを選択することで、プライバシー保護と生成ユーティリティの最適なトレードオフを実現する。実験の結果、PA-HDPは厳密なDPの数学的制約を遵守しながら、従来の静的な手法と比較して生成内容のセマンティックな損失を大幅に抑え、高い実用性を達成することが示された。</p></section>
+<section class="secsum"><h3>II Related work</h3><p>既存のRAGにおけるプライバシー保護手法は、大きく3つの方向に分類される。第一に、LLMのデコーディングフェーズにおいてトークンの確率分布やロジットにノイズを注入するトークンレベルの生成保護があり、これには機密トークンにのみ予算を割り当てる手法や、ロジットを公開情報と機密情報に分離して指数メカニズムを適用するInvisibleInk、信頼度フィルタリングとガウスノイズを組み合わせたPAD、さらにはエントロピー調整によりトークンおよび文レベルで予算を動的に配分するPEARLなどが含まれる。第二に、検索される外部データベース自体を保護する手法であり、局所差分プライバシー（LDP）を用いてトークンフィルタリングやランダムな書き換えを行うVAGUE-Gateや、エンティティの種類に応じて適応的に予算を配分するLPRAG、差分プライバシーを満たす合成文書で置換する手法、あるいは埋め込みベクトルを摂動させるDistanceDPや、暗号化された埋め込み上で類似度計算を可能にするppRAGなどが存在する。第三に、学習段階やシステム全体の保護に関する研究であり、DP-SGDのバリエーションを用いたユーザーレベルのプライバシー保護や、マルチターン対話におけるプライバシー予算の累積を制御するために、クエリ単位ではなく文書のアクセス頻度に基づいて予算を管理するMURAGなどのアプローチが提案されている。これらの手法は、生成プロセス、検索ドキュメント、あるいはモデルの学習過程という異なるレイヤーにおいて、情報の漏洩を防ぐことを目的としている。</p></section>
+<section class="secsum"><h3>III Preliminary</h3><p>本セクションでは、個人のプライバシー保護の標準的な枠組みである差分プライバシー（Differential Privacy, DP）の定義と、テキストデータへの適用に向けた拡張が述べられている。隣接する2つの入力 $x, x&#x27;$ に対し、任意の出力集合 $S$ について $P[M(x) \in S] \le e^\epsilon P[M(x&#x27;) \in S]$ を満たすとき、メカニズム $M$ は $\epsilon$-DPを満たす。具体的な手法として、感度 $\Delta f$ を持つ関数に対し、ラプラス分布からサンプリングされたノイズを加えるラプラスメカニズムや、効用関数 $u(D, r)$ の感度 $\Delta u$ に基づいて出力の選択確率を $\exp\left(\frac{\epsilon u(D, r)}{2\Delta u}\right)$ に比例させる指数メカニズムが定義されている。さらに、テキスト空間 $\mathcal{T}$ において、単一のトークンまたはフレーズ単位の挿入・削除・置換によって得られる隣接関係を、意味的埋め込み関数 $f_{\text{emb}}$ を用いた意味的距離 $d_{\text{sem}}$ で定義する「$\epsilon$-Semantic Metric Differential Privacy」を導入している。この定義に基づき、本研究では提案手法の核となる、意味的距離を考慮したSemantic Laplace MechanismおよびSemantic Exponential Mechanismを構築している。</p></section>
+<section class="secsum"><h3>IV Method</h3><p>本セクションでは、検索拡張生成（RAG）における動的なプライバシー保護手法であるPrompt-Aware Dynamic Hierarchical Differential Privacy（PA-HDP）を提案している。この手法は、まず文書を埋め込みモデルでベクトル化して検索を行い、取得されたコンテキストを文単位のプライバシー単位（PU）へと正規化・分割する。次に、ユーザーのクエリに含まれる機密エンティティの有無に基づき、クエリとの意味的類似度 $S_{rel}$ と、抽出された機密フィールドの最大リスク重みによるフィールド感度 $S_{field}$ を用いて、総合的なリスクスコア $R_j = \alpha S_{rel} + (1-\alpha) S_{field}$ を算出する。このスコアに基づき、テキストを3つのリスクレベルに分類し、高リスクな内容にはより強力な保護を適用する階層的なアプローチをとる。最終的な保護段階では、機密エンティティを事前に構築した安全なコーパス内の同カテゴリのエンティティで置換して候補テキスト集合 $\mathcal{C}_j$ を生成し、指数メカニズムを用いて、意味的距離 $d(\text{seg}_j, \text{cand}_i)$ と候補テキストのプライバシー漏洩リスク $R_{leak}(\text{cand}_i)$ を統合した効用関数 $U(\text{seg}_j, \text{cand}_i) = -d(\text{seg}_j, \text{cand}_i) - \lambda R_{leak}(\text{cand}_i)$ を最大化する最適なテキストを選択する。このプロセスにより、差分プライバシーの制約を満たしつつ、情報の有用性とプライバシー保護のトレードオフを最適化している。</p></section>
+<section class="secsum"><h3>V Experiment</h3><p>提案手法であるPA-HDPの有効性を検証するため、医療対話データセット（HealthcareMagic-101）および、公開データに個人情報（PII）を混入させたWiki-PIIデータセットを用いた実験が行われた。評価にはGPT-3.5-TurboとLlama3-8B-Chatの2種類の生成バックボーンが用いられ、ユーティリティ（有用性）の指標としてROUGE-LおよびBLEUが、プライバシー保護の指標として、特定の情報を狙うターゲット攻撃および広範な情報を抽出する非ターゲット攻撃に対する複数の指標が採用された。実験の結果、PA-HDPは既存の合成データ生成手法（ZeroGen, AttrPrompt, SAGE等）と比較して、機密情報の大部分を保持しつつ高いROUGE-LおよびBLEUスコアを達成しており、特にGPT-3.5においてBLEUが0.1594から0.3275へ、ROUGE-Lが0.1288から0.3445へと大幅に向上した。プライバシー面では、元のコーパスやパラフレーズ手法が攻撃に対して脆弱であるのに対し、PA-HDPはターゲット攻撃および非ターゲット攻撃の両方において、抽出成功数や漏洩指標をゼロに抑える極めて高い防御性能を示した。アブレーション研究では、プライバシー予算 $\epsilon$ が増加するにつれて、プライバシーの強度は弱まるものの、BLEU-1やROUGE-Lといったユーティリティ指標が向上するというトレードオフの関係が確認された。本手法は、文書全体を書き換えるのではなく、機密性の高い箇所のみを選択的に保護する階層的な戦略をとることで、情報の忠実度とプライバシー保護の両立を実現している。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究は、検索拡張生成（RAG）におけるプライバシー保護が、従来のドキュメント単位の静的なリスク想定に基づいているという根本的な限界を指摘し、プライバシー漏洩がクエリに依存して動的に変化することを明らかにした。この知見に基づき、提案手法であるPA-HDP（Prompt-Aware Dynamic Hierarchical Differential Privacy）は、リスクの層別化、適応的な機密エンティティの置換、および指数メカニズムに基づくテキスト選択を通じて、クエリに応じた動的なプライバシーリスク評価と差別化された保護を実現する。医療対話およびオープンドメインの質問応答ベンチマークを用いた広範な実験により、PA-HDPは高い検索有用性を維持しつつ、標的型および非標的型のプライバシー攻撃の両方を効果的に軽減し、厳密な差分プライバシーの保証下でプライバシー保護とモデル性能の良好なトレードオフを達成することが示された。一方で、本手法はデプロイ前にあらかじめ決定された固定のプライバシー予算を仮定しているという限界があり、実世界のRAGシステムにおけるクエリ蓄積に伴う予算枯渇への対応が今後の課題である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-18
+  </footer>
+</div>
+</body>
+</html>
