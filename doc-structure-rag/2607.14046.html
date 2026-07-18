@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Earthquaker-AI: A Retrieval-Augmented Generation Framework with Rubric-Based Assessment for Primary School Earthquake Education | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Earthquaker-AI: A Retrieval-Augmented Generation Framework with Rubric-Based Assessment for Primary School Earthquake Education</h1>
+  <div class="meta">Xanthi Kokkinou, Chaido Mizeli, Nafsika Koulaxidou, Marina Delianidi, Konstantinos Diamantaras<br>採択先: 未取得 ・ 2026-07-15 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.14046v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.14046v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.26234/heal.ihu.365" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-15</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv PDF)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">RAGを用いた教育的制御とルーブリック評価の統合は興味深い。実験は小規模だが、特定のドメインにおけるAIの信頼性確保の手法として関連分野の研究者には有用。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 地震教育における情報の正確性と個別化されたフィードバックの不足を解決するため、RAG（検索拡張生成）とルーブリック評価を統合したハイブリッドな教育フレームワークEarthquaker-AIを提案する。本手法は、公式の安全ガイドラインに基づく正確な回答生成と、生徒の発達段階に応じた形成的評価を両立させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>初等教育における地震への備えを対象とし、従来のロボティクスを用いたSTEM教育では、生徒の論理的思考や行動の正当化、および理解度の詳細な評価が困難であった。本研究は、地震に関する知識の受動的な習得に留まる課題に対し、対話型AIとロボティクスを組み合わせた学習環境の構築を目指している。入力として生徒の質問や回答を受け取り、公式の地震安全ガイドラインに基づいた正確な情報提供と、学年別の評価基準に基づくフィードバックを出力する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の物理的な因果関係の理解に重点を置いたプロジェクトに対し、認知的な処理、言語化、および情報に基づいた意思決定へと教育的重点を拡張した点が新規である。RAGを用いることで、生成AI特有の誤情報の発生を抑制する「認識論的制御」を実現し、教育的な信頼性を担保している。また、単なる正誤判定ではなく、発達段階に応じた多次元のルーブリックを用いた形成的評価をAIによって自動化する仕組みを導入している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>Earthquaker-AIは、RAGアーキテクチャとルーブリック評価パイプラインで構成される。検索プロセスでは、`dimitriz/st-Greek-media-Bert-base-uncased`を用いて意味的埋め込みを生成し、FAISSでインデックス化された公式ガイドラインから関連する証拠文を抽出する。学習モードには、自由な探究を促すQuestion Modeと、学年別のシナリオに基づくQuiz Adventure Modeの2種類がある。評価プロセスでは、言語モデルが学習者の回答を参照回答および抽出された証拠文と比較し、各評価軸に対して $1$ から $3$ の範囲でスコアを割り当て、その結果に基づき教育的なフィードバックを生成する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>15個の質問と3段階の回答品質シナリオを用い、Gemma 3 (4B) と DeepSeek の2つのモデルで検証を行った。RQ1のRAG品質評価では、回答の根拠性（groundedness）が $0.84$、正確性（accuracy）が $0.85$、幻覚率（hallucination rate）が $0.07$ という結果を得た。RQ2の評価精度検証では、計450件の評価インスタンスを用いて、予測されたルーブリックレベルと期待値との一致度、および確率的な試行における一貫性を測定した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本フレームワークは、公式のガイドラインという限定された知識範囲内に生成プロセスを制限することで、情報の正確性を高めているが、これは知識の範囲を制度的なものに固定することを意味する。今後の課題として、AIによる形成的評価の信頼性と、異なる学年における一貫性のさらなる検証が挙げられている。また、確率的な生成条件下における評価モデルの安定性を維持しつつ、いかにして生徒の自己調整学習を最大限に支援できるかが重要な検討事項である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract—This paper presents Earthquaker-AI, a hybrid educational framework that</h3><p>Earthquaker-AIは、初等教育における地震への備えを強化するために、Retrieval-Augmented Generation (RAG) を用いた対話型AIアシスタントと教育用ロボティクスを統合したハイブリッドな学習フレームワークである。本手法では、RAGを用いて公式の安全ガイドラインから証拠を検索し、それに基づいた回答を生成することで、学習内容の正確性と教育的整合性を担保している。学習プロセスは発達段階に応じて段階的に設計されており、低学年では行動の認識を問う選択式問題、中学年では行動の順序を問う問題、高学年では記述式回答へと移行し、それぞれ行動認識、感情調節、組織的思考、表現の明快さといった多次元のルーブリックを用いて評価される。実験評価の結果、回答の根拠性（groundedness）が $0.84$、正確性（accuracy）が $0.85$、幻覚率（hallucination rate）が $0.07$ となり、生成された回答が証拠に基づいた安定した挙動を示すことが確認された。このフレームワークは、物理的なロボット操作、情報の解釈、および言語による表現という一連の流れを通じて、生徒の自己調整学習と危機管理スキルの向上を支援する。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>本研究で提案される Earthquaker-AI は、従来のロボティクスを用いた STEM 教育に、Retrieval-Augmented Generation (RAG) とルーブリックに基づく形成的評価を統合したハイブリッドな教育フレームワークである。従来の Earthquaker プロジェクトは、地震検知や自動ドア開閉などの物理的な因果関係の理解には寄与したが、生徒の論理的思考や行動の正当化、および理解度の評価には限界があった。Earthquaker-AI では、RAG アーキテクチャを採用することで、システムの応答を公式の地震安全ガイドラインから抽出された抜粋のみに基づかせ、生成 AI 特有の誤情報の発生を抑制し、正確で根拠に基づいた学習体験を保証している。また、生徒の年齢に応じたシナリオに基づき、認知発達に合わせたルーブリックを用いて対話内容を評価することで、自己調整学習を促すための個別化されたフィードバックを提供する。本研究の目的は、(a) ロボティクス、RAG による対話、ルーブリック評価を組み合わせた設計の提示、(b) RAG コンポーネントが公式ガイドラインに沿った正確な応答を生成できるかの検証、(c) 言語モデルによるルーブリック評価の信頼性と、異なる学年における一貫性の検証、の3点である。</p></section>
+<section class="secsum"><h3>2. Conceptual Positioning of Earthquaker-AI</h3><p>Earthquaker-AIは、ロボットを用いた地震検知や自動応答（ドアの開放、ライフラインの遮断、避難人数確認など）を扱う物理的なSTEMプロジェクトであるEarthquakerの論理を、認知および教育的フレームワークへと拡張したものである。従来のプロジェクトが物理的な実行を通じた経験的な理解に重点を置いていたのに対し、本手法は物理的な実行から、認知的な処理、言語化、および情報に基づいた意思決定へと重点を移行させている。これは、小学校における地震教育が理論的かつ断片的なものに留まり、個別のフィードバックや、シナリオに対する能動的な判断・正当化の機会が不足しているという教育的課題に基づいている。Earthquaker-AIは、知識を受動的に再現するのではなく、構造化された対話を通じて能動的に構築させることを目的としており、ガイド付きの探究学習とゲーミフィケーションの領域へと地震への備えを再定義している。</p></section>
+<section class="secsum"><h3>3. Pedagogical and Developmental Foundations</h3><p>Earthquaker-AIは、発達心理学と螺旋型カリキュラムの理論に基づき、学習者の認知・メタ認知発達に合わせた段階的な学習軌道を設計している。本フレームワークは、構成主義的な設計原則に基づくロボティクスによる体験学習と、Retrieval-Augmented Generation (RAG) を用いた教育的に制御された対話を統合したハイブリッドな教育モデルである。評価メカニズムとして、学習と評価を連結する構造的手段としてルーブリックを採用しており、これは罰則的・比較的なものではなく、自己調整学習を支援するための形成的評価として機能する。ルーブリックの内容は学年によって差別化されており、低学年（1–2年生）では基本的な行動の認識と冷静な態度の維持に焦点を当て、中学年（3–4年生）では行動の順序立てによる体系的な理解を、高学年（5–6年生）では言語化や正当化といったメタ認知的な成熟度を評価対象としている。AIシステムは権威的な評価者ではなく、生徒の応答を制度的な基準と比較し、理解可能で実行可能なフィードバックを提供する教育的仲介者として動作する。これにより、単なる正しい行動の習得に留まらず、地震リスク時における意識的な理解、冷静さ、およびメタ認知的な気づきを促進することを目指している。</p></section>
+<section class="secsum"><h3>4. AI &amp; RAG Framework</h3><p>本フレームワークは、自然言語生成と、外部の制御された公的な情報源からの意味的検索を組み合わせた Retrieval-Augmented Generation (RAG) アーキテクチャを採用している。検索コンポーネントでは、ギリシャ語の Sentence Transformer モデルである `dimitriz/st-Greek-media-Bert-base-uncased` を用いて意味的埋め込みを生成し、FAISS を用いてインデックス化することで、オープンドメインの質問応答における標準的な手法に従った検索を実現している。教育的な観点からは、生成される回答がモデルの一般的な知識ではなく、公式な地震安全ガイドラインから抽出された抜粋のみに基づいていることを保証している。この設計により、生成プロセスを検証可能な制度的知識の範囲内に厳密に制限する「認識論的制御（epistemic control）」のメカニズムとして機能し、誤情報の拡散リスクを低減させ、学習プロセスにおける信頼性と信頼性を強化している。</p></section>
+<section class="secsum"><h3>5. System Design</h3><p>Earthquaker-AIは、既存の地震防災環境において探索的な学習と構造化された形成的評価を支援するために設計された、教育用AIレイヤーとして実装されている。本システムは、検索拡張生成（RAG）とルーブリックに基づく評価、および指導的な教育的フィードバックを組み合わせることで、すべての対話が公式の地震安全ガイドラインに厳密に基づき、かつ年齢に適した教育目標に沿ったものとなるよう保証している。</p></section>
+<section class="secsum"><h3>5.1 Interaction Modes</h3><p>Earthquaker-AIは、異なる教育目標を持つ2つの補完的なインタラクションモードで構成されている。Question Modeは、生徒が地震の安全性に関する質問を自由に行える探究型学習を促進するモードであり、クエリに対して公式の地震安全コーパスから意味的に関連する抜粋を検索し、それらに基づいて回答を生成することで、情報の正確性と信頼性を担保している。一方、Quiz Adventure Modeは、生徒の学年に合わせたシナリオベースの設問を提供するモードであり、選択式または記述式の回答に対して、学年ごとに定義されたルーブリックを用いて評価を行う。このモードでは、回答ごとにルーブリックに基づくスコアと教育的に適応されたフィードバックが生成され、セッションの終了時には学習の進捗状況が要約される。これにより、学習と評価を統合し、生徒が自身のパフォーマンスを振り返りながら構造化された指導を受けられる設計となっている。</p></section>
+<section class="secsum"><h3>5.2 RAG–Rubric Evaluation Pipeline</h3><p>Earthquaker-AIは、学習者の回答を体系的に評価・指導するために、RAG（検索拡張生成）とルーブリック評価を統合した多段階のパイプラインを採用している。まず、学年別の構造化リポジトリから質問内容、インタラクション形式、および参照回答を読み込み、次に公式の地震安全コーパスに対して意味的検索を行うことで、回答生成と評価の根拠となる最も関連性の高い証拠文を抽出する。評価フェーズでは、言語モデルが学習者の回答を参照回答および抽出された証拠文と比較し、各評価軸に対して $1$ から $3$ の範囲でルーブリックに基づくスコアを割り当てる。その後、割り当てられたスコアに基づき、学習者の強みや改善点を強調した教育的に適応されたフィードバックが生成される。一連の質問が完了すると、個別の学習進捗の要約が作成される仕組みとなっており、このアーキテクチャにより、システムが単なる制限のない対話エージェントとしてではなく、検証済みの教育コンテンツと明示的な評価基準に固定された構造的な教育システムとして機能することを保証している。</p></section>
+<section class="secsum"><h3>6. Research Objectives and Research Questions</h3><p>本研究の目的は、構造化されたAI支援型インタラクションと形成的評価を通じて、小学生向けの安全でエビデンスに基づいた地震教育を支援することである。具体的な研究目的として、まずRAG（Retrieval-Augmented Generation）コンポーネントが生成する回答の事実の正確性とエビデンスへの接地性を評価すること、次にAIモデルによるルーブリックに基づいた形成的評価の整合性と信頼性を評価することの2点が掲げられている。これに基づき、RQ1では、公式の地震安全ガイドラインから検索された抜粋によって明示的に裏付けられた、事実として正確かつエビデンスに基づいた回答をEarthquaker-AIがどの程度生成できるかを検証する。またRQ2では、標準化された生徒の回答に対して繰り返し評価を行った際、AIベースの評価モデル（SLMまたはLLM）が、確率的な生成条件下において、ルーブリックに基づくスコア $1 \sim 3$ をどの程度一貫して正確に算出できるかを検証する。</p></section>
+<section class="secsum"><h3>6.1 Methodology</h3><p>本研究では、研究課題に直接対応した2段階の実験デザインを採用している。第1段階では、検索拡張生成（RAG）コンポーネントの回答品質とグラウンディング挙動を評価し、事実の正確性と検索された教育的根拠との整合性に焦点を当てる。第2段階では、ルーブリックに基づく採点の安定性と正確性を検証するため、異なるサイズを持つ言語モデルを用いて、事前定義された標準的な生徒の回答に対する繰り返し評価の比較を行う。</p></section>
+<section class="secsum"><h3>6.2 Evaluation of RAG Answer Quality (RQ1)</h3><p>RAGコンポーネントの信頼性を評価するため、学生風の質問セットに対し、固定された公式の地震安全コーパスから意味的に関連する抜粋を検索して回答を生成する実験が行われた。回答の品質評価には、生成モデルであるDeepSeekとは独立したGemma 3 (4B) を用いたLLM-as-a-Judgeの手法が採用されており、検索された抜粋に回答が明示的に裏付けられているかを示すGroundedness、公式ガイドラインに対する事実の正確性を示すAccuracy、質問の全側面を網羅しているかを示すCompleteness、および検索された証拠にない情報の有無を示すHallucination riskの4つの基準で数値スコアリングが行われた。これらの評価基準は、RAGの性能を定量化するための集約指標として機能する。さらに、生成モデルに依存しないシステムレベルの評価を行うため、生成された回答と検索された証拠文との間で、埋め込みベースの類似度指標を用いた補完的な評価も実施された。</p></section>
+<section class="secsum"><h3>6.3 Rubric-Based Assessment and Model Comparison (RQ2)</h3><p>本セクションでは、Earthquaker-AIにおけるルーブリックに基づく評価メカニズムの信頼性を検証するため、標準化された評価シナリオを用いた比較実験が行われている。具体的には、各設問に対して高品質、中品質、低品質の3種類の生徒回答スタイルを構築し、それぞれに対して教育学的な評価軸に基づいた期待されるルーブリックレベル（1–3）を事前に定義している。このシナリオを、異なる規模を持つ2つの言語モデル、すなわち小型モデルである Gemma 3 (4B) と大規模モデルである DeepSeek に対して、各シナリオにつき5回ずつ繰り返し入力し、生徒の回答、参照回答、および検索された根拠に基づいたルーブリックレベルの予測値を得ている。評価指標には、予測されたレベルが期待されるレベルと一致する割合を示す評価精度（Assessment accuracy）と、全試行において同一のスコアが得られる絶対的一貫性（Absolute consistency）および最頻値が支配的である相対的一貫性（Relative consistency）の2つが用いられている。この実験設定では、外部のLLMジャッジを使用せず、ルーブリックレベルの予測値を定義済みの期待値と直接比較することで、AIによる形成的評価の安定性と内部信頼性、およびモデル規模による挙動の違いを分析している。</p></section>
+<section class="secsum"><h3>7. Experimental Setup</h3><p>本実験では、公式の地震安全ガイドラインに基づき構築された地震安全に関する15個の質問と、構造化された生徒の回答シナリオを用いて評価が行われた。質問は3つの学年クラスター（A–B、G–D、E–ST）に分類されており、RQ1ではRAGベースのシステムが関連する根拠となる文章を検索して回答を生成し、その回答の根拠性、正確性、網羅性、およびハルシネーションのリスクを評価した。RQ2では、各質問に対して高品質、中品質、低品質の3段階の標準化された生徒の回答シナリオを作成し、2種類の規模の言語モデルであるSmall Language Model（Gemma 3, 4B）とLarge Language Model（DeepSeek）を用いて評価を行った。各シナリオは5回の確率的な試行が繰り返され、計15問 $\times$ 3つの回答品質レベル $\times$ 5回の試行 $\times$ 2つの言語モデルという構成により、合計450件のルーブリックに基づく評価インスタンスが生成された。この実験設計により、評価の正確性と、繰り返しの確率的な実行における評価の一貫性を測定することが可能となっている。</p></section>
+<section class="secsum"><h3>8.1  Results for RQ1 – RAG Answer Quality</h3><p>RQ1（Earthquaker-AIが、検索された公式の地震安全ガイドラインに基づき、正確かつ根拠に沿った回答をどの程度提供できるか）を検証するため、システムレベルの評価と意味的な評価の2段階で評価が行われた。システムレベルの評価では、RAGパイプライン内における検索支援型の生成プロセスを評価し、意味的な評価では、最終的に生成された回答の質を評価している。本セクションでは、検索された公式ガイドラインと生成された回答が、事実として正確であるか、および提供された根拠と整合しているかに焦点を当てて分析が行われている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-19
+  </footer>
+</div>
+</body>
+</html>

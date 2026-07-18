@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Adaptive-Horizon Conflict-Based Search for Closed-Loop Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Adaptive-Horizon Conflict-Based Search for Closed-Loop Multi-Agent Path Finding</h1>
+  <div class="meta">Jiarui Li, Federico Pecora, Runyu Zhang, Gioele Zardini<br>採択先: 未取得 ・ 2026-02-12 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2602.12024v3" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2602.12024v3" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-02-12</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">動的な環境下でのMAPFに対し、MPCの概念と反復深化を組み合わせ、制約木の再利用により漸近的最適性を確保した点は新規性が高く、実用的な貢献が大きい。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 計算資源が制約される動的な環境下において、計画ホライゾンを動的に調整することで、実行可能性と解の品質を両立させるAnytime Closed-Loop Conflict-Based Search (ACCBS) を提案する。本手法は、制約木の再利用を通じて計算コストを抑えつつ、計算予算に応じて漸近的最適性を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>高密度かつ長期間のマルチエージェント経路探索（MAPF）において、従来のオープンループ型Conflict-Based Search (CBS) は、制約木が巨大化し計算量や実行応答時間が増大するという課題がある。本研究は、オンラインの摂動が発生し得る閉ループ環境において、限られた計算予算内で効率的に衝突のない軌道を生成することを目的とする。対象は、有向反射グラフ $\mathcal{G} = (V, E)$ 上の複数のエージェント $\mathcal{A}$ が、各々の開始頂点 $s_i$ から目標頂点 $g_i$ へ移動する問題である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存の閉ループ手法が固定のホライゾンを用いるのに対し、本手法は反復深化を用いてホライゾンを適応的に調整し、CBS形式の漸近的最適性を回復させる点が新規である。単一の制約木を異なるホライゾン間で再利用できる仕組みを導入しており、ホライゾンの選択に依存せず、計算資源の増加に伴って解の質を向上させることが可能である。これにより、固定ホライゾン方式では失われていた完全性と最適性の保証を、Anytimeな特性として提供する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>モデル予測制御（MPC）の概念に基づき、時刻 $t$ において有限のホライゾン $H$ 内の衝突を解決し、最初の1ステップのみを実行した後にオンラインで再計画を行う。コスト関数は、ホライゾン内の走行コスト $\sum_{k=t}^{t+H-1} c(s_k, a_k)$ と、終端コスト $h(s_{t+H})$ の和で構成される。計算予算に応じて実行ホライゾン $H_{run}$ を動的に拡張する反復深化スキームを採用しており、低レベルプランナーが制約以降を最短経路で補完することを前提として、ノードコストの不変性と制約木の親子関係の維持を利用して、既存の制約木を再利用しながらシームレスにホライゾンを遷移させる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Small Empty MapやWarehouse Mapなどのベンチマークを用い、one-shot MAPFではSum of Costs (SOC) を、lifelongおよび不確実な実行設定ではスループットを評価指標として実験を行った。比較対象としてEECBSやRHCRなどの既存手法を用い、計算予算 $b$ に制限がある状況での成功率や実行可能性を検証した。結果として、ACCBSはタイムアウトにより計画が生成できない既存手法に対し高い成功率を維持し、lifelong MAPFにおいても計算資源を効率的にスループット向上へ変換できることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>優先度付きコンフリクト（PC）選択を導入する場合、分類の計算オーバーヘッドが探索効率の向上を上回り、固定予算下では解の質を低下させる可能性があるというトレードオフが確認されている。今後の課題として、アプリケーションに応じた計算予算やホライゾン・スケジュールの自動調整手法の確立が挙げられる。また、ECBS等の派生手法との統合や、修復ベースの再計画戦略との比較、および上位のタスクスケジューリングとの共同設計への応用が検討されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Adaptive-Horizon Conflict-Based Search for Closed-Loop Multi-Agent Path Finding</h3><p>本論文では、計算資源の制約下で動的な環境に対応可能な、Anytime Closed-Loop Conflict-Based Search (ACCBS) という手法を提案している。この手法は、有限ホライゾン版の Conflict-Based Search (CBS) を基盤としており、モデル予測制御 (MPC) の反復的なホライゾン深化に着想を得たホライゾン調整メカニズムを備えている。ACCBS は、利用可能な計算予算に応じて計画ホライゾンを動的に調整し、単一の制約木を再利用することで、ホライゾン間のシームレスな遷移を実現する。これにより、高品質で実行可能な解を迅速に生成する一方で、計算予算が増加するにつれて漸近的最適性に到達する anytime な特性を持つ。実験を通じて、ACCBS は計算効率、解の品質、および実行の柔軟性の間で優れたバランスを維持し、クローズドループ形式によってオンラインの摂動を自然に許容できることが示されている。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究では、閉ループ（closed-loop）環境下でのマルチエージェント経路探索（MAPF）を効率的に解くための、適応的ホライゾンを持つAnytime Closed-Loop Conflict-Based Search（ACCBS）を提案している。従来のConflict-Based Search（CBS）は全軌道を一度に計画するオープンループ型であり、高密度かつ長期間のインスタンスでは制約木が巨大化し、計算量や実行応答時間に課題があった。これに対し、ACCBSはモデル予測制御（MPC）の概念に着想を得て、有限の先読みホライゾン内で衝突を解決し、最初のステップを実行した後にオンラインで再計画を行う。本手法の核心は、計算予算に応じてホライゾンを動的に拡張するメカニズムにあり、制約木の再利用とコスト不変性（cost invariance）の性質を利用することで、ホライゾンを拡大しても累積的な計算コストを最小限に抑えつつ、シームレスな遷移を実現している。理論面では、ACCBSが完備性と漸近的最適性（asymptotic optimality）を保持することを証明しており、固定ホライゾン方式で失われる保証を回復している。実験の結果、ACCBSは与えられた時間予算内で、無限ホライゾン型のCBSやその派生手法よりも大規模なインスタンスに対応可能であり、高い解の品質を維持できることが示された。</p></section>
+<section class="secsum"><h3>II Related Work, Definitions, and Terminology</h3><p>マルチエージェント経路計画（MAPF）の解法は、スケーラビリティに優れたヒューリスティック手法と、最適性や完全性を保証する手法に大別される。前者はCA*やLaCAMなどが含まれ、大規模な問題に対応可能だが、安全性に直結する最適性の保証を欠く場合が多い。後者はCBSやECBSなどのConflict-Based Search系やICTSなどが含まれ、衝突のない軌道を保証するが、多くは全軌道を事前に計算するオープンループ形式であり、最悪計算量が指数関数的に増大する課題がある。本研究が提案するACCBSは、固定のホライゾンを用いる既存の閉ループ手法とは異なり、反復深化を用いてオンラインでホライゾンを適応的に調整し、単一の制約木を再利用することで、ホライゾンの選択に依存せずCBS形式の漸近的最適性を回復する。MAPFインスタンスは、有向反射グラフ $\mathcal{G} = (V, E)$、エージェント集合 $\mathcal{A}$、および各エージェント $i \in \mathcal{A}$ の開始頂点 $s_i$ と目標頂点 $g_i$ のタプルとして定義される。エージェント $i$ の軌道は頂点の有限列 $\tau_i = (v_{i,0}, v_{i,1}, \dots, v_{i,T})$ であり、時刻 $t$ において $v_{i,t} = v_{j,t}$ となる頂点衝突、または $(v_{i,t}, v_{i,t+1}) = (v_{j,t+1}, v_{j,t})$ となるエッジ衝突が発生しないとき、軌道集合 $\boldsymbol{\tau} = (\tau_1, \dots, \tau_{|\mathcal{A}|})$ は衝突フリーである。MAPFシステムは、各時刻 $t$ における現在のインスタンス $\mathcal{I}_t$ と状態 $x_t$ に基づき、次状態 $x_{t+1}$ を生成する結合移動コマンド $u_t$ を選択するフィードバックループとして定式化され、移動をオンラインで再計算する手法を閉ループ、全軌道を事前に計算する手法をオープンループと呼ぶ。</p></section>
+<section class="secsum"><h3>III ACCBS</h3><p>ACCBSは、有限ホライゾン型の閉ループ制御を用いたマルチエージェント経路探索（MAPF）手法である。まず、固定ホライゾン $H$ を用いて、各時刻 $t$ において $H$ ステップの軌跡を計画し、最初の1ステップのみを実行する有限ホライゾンCBSを定義する。この際、コスト関数は、ホライゾン内の各ステップの走行コスト $\sum_{k=t}^{t+H-1} c(s_k, a_k)$ と、ゴールまでの残り距離を近似する終端コスト $h(s_{t+H})$ の和として、モデル予測制御（MPC）の形式で構成される。ACCBSは、このホライゾンを動的に変化させる反復深化スキームを採用しており、実行可能な移動を即座に確保しつつ、計算時間が許す限り実行ホライゾン $H_{run}$ を増やして解を洗練させる。本手法の核心は、ホライゾンを拡大しても既存の制約ツリーを再利用できる点にあり、これは、低レベルプランナーが制約以降の軌跡を最短経路で補完することを前提として、ノードコストが不変であること（Lemma III.1）および制約ツリーの親子関係が維持されること（Proposition III.1）によって保証される。これにより、ACCBSは計算量を抑えつつ、利用可能な時間に応じて解の質を向上させるAnytimeな特性を実現している。</p></section>
+<section class="secsum"><h3>IV Experiments</h3><p>ACCBSは、one-shot MAPF、lifelong MAPF、および実行時の不確実性を伴う設定の3つのシナリオで評価されている。実験では、Small Empty MapやWarehouse Mapなどの複数のベンチマークマップを用い、one-shot設定ではSOC（Sum of Costs）を、lifelongおよび不確実な実行設定ではスループットを評価指標としている。ACCBSはanytimeアルゴリズムとして設計されており、各ステップの計画時間を予算 $b$ に制限しても、常に実行可能な最初の移動を返せるため、タイムアウトによって計画が全く生成できないEECBSやRHCRなどの既存手法に対し、高い成功率と実行可能性を維持できる。Lifelong MAPFにおいては、固定ウィンドウを用いるRHCRが大規模なフリートでタイムアウトするのに対し、ACCBSは適応的なホライゾンを用いることで、計算資源をスループットの向上に効率的に変換できる。不確実性を含むケーススタディでは、実行遅延やエージェントの出入りが発生する環境において、オープンループ手法が頻繁な再計画によってボトルネックとなる一方、ACCBSは最新の状態から再計画を行うクローズドループ設計により、高いデリバリー性能を維持する。また、優先度付きコンフリクト（PC）選択の導入に関するアブレーション実験では、コンフリクトの分類にかかる計算オーバーヘッドが、探索効率の向上による利点を上回り、固定予算下では解の質を低下させる可能性があることが示されている。</p></section>
+<section class="secsum"><h3>V Conclusion and Future Work</h3><p>本論文では、利用可能な計算予算に応じて計画ホライゾンを動的に調整する、有限ホライゾン版CBSをベースとした閉ループMAPFアルゴリズムであるACCBSを提案している。ACCBSは、アクティブな接頭辞（active prefix）の概念を導入し、コスト不変性を活用することで、単一の制約木を異なるホライゾン間で再利用することを可能にしており、これにより完全性と漸近的最適性を維持しながら、シームレスなホライゾン遷移とAnytimeな挙動を実現している。今後の課題として、アプリケーションに応じた計算予算やホライゾン・スケジュールの自動調整手法の確立が挙げられる。また、ECBSやEECBSといった他のCBSの派生手法をACCBSのフレームワークに組み込み、ホライゾンの拡張を加速させる研究や、修復ベースまたは部分的な再計画戦略との比較、制約木の再利用とホライゾン適応を分離したアブレーション解析などが検討されている。さらに、そのAnytimeな特性を上位のタスクスケジューリングと統合することで、大規模システムにおける割り当てと計画の包括的な共同設計への応用も期待される。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-19
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>FAIR GraphRAG: A Retrieval-Augmented Generation Approach for Semantic Data Analysis | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>FAIR GraphRAG: A Retrieval-Augmented Generation Approach for Semantic Data Analysis</h1>
+  <div class="meta">Marlena Flüh, Soo-Yon Kim, Carolin Victoria Schneider, Sandra Geisler<br>採択先: 2025 IEEE International Conference on Knowledge Graph (ICKG), Limassol, Cyprus, 2025, pp. 90-97 ・ 2026-07-13 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.11464v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.11464v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/ICKG66886.2025.00019" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 2025 IEEE International Conference on Knowledge Graph (ICKG), Limassol, Cyprus, 2025, pp. 90-97</span><span class="chip">公開日 2026-07-13</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">GraphRAGにFAIR原則とFDOsを統合した新規性が高く、生物医学データを用いた実験で正確性と説明可能性の向上を具体的に実証しているため。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 知識グラフを用いたGraphRAGに科学データの管理原則であるFAIRを統合し、FAIR Digital Objects (FDOs) を基盤としたFAIR GraphRAGフレームワークを提案することで、複雑なドメイン知識に対する回答の正確性と説明可能性を向上させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>大規模言語モデル（LLM）が持つドメイン固有知識の不足やハルシネーションを解決するために、外部知識を活用するGraphRAGが利用される。しかし、既存のGraphRAGは異種データソース間の意味的な接続や、構造化されたFAIR原則に基づく管理が不十分であるという課題がある。本研究は、科学データの検索可能性、アクセシビリティ、相互運用性、再利用性を確保しつつ、高度な意味解析を行うことを目的としている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>FDOsに基づくFAIRな知識グラフ（KG）モデルの定式化と、エンドツーエンドのKG構築パイプラインの開発を実現した。従来のGraphRAGでは不十分であった、コアコンテンツとメタデータの紐付け、オントロジー用語へのマッピング、およびLLMを用いたFAIRなKGの自動構築を統合した点が新規性である。これにより、グラフ全体だけでなく個々のノードレベルでのFAIR性を担保している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>知識グラフをプロパティグラフモデルとして定義し、グラフを $\mathcal{G} = (\mathcal{V}, \mathcal{E}, \mathcal{T}, \text{src}, \text{lbl}, \text{prop}, \text{type})$ と形式化する。各ノードはFDOとしてモデル化され、データ、メタデータ、永続的識別子（PID）、およびラベル集合を保持する。構築プロセスでは、LLMを用いてスキーマを生成し、構造化・非構造化データからエンティティとメタデータを抽出した後、BioPortal等のAPIを用いてオントロジー用語へマッピングを行う。検索時には、LLMがユーザーの質問からCypherやSPARQLといったグラフクエリ言語を生成し、プロパティグラフデータベースに対してクエリを実行する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>胆管癌患者のRNAシーケンシングデータを用い、1038個のノードを含む知識グラフを構築して評価を行った。比較対象として、PIDやメタデータ、オントロジーの紐付けを欠いたNon-FAIR GraphRAGを用いた。評価指標には、FAIR原則への準拠度、回答の正確性、網羅性、および説明可能性を用い、計42問の質問でテストを実施した。gpt-4o-miniを用いたFAIR GraphRAGは、正確性と網羅性で92.86%、説明可能性で100%を達成した。一方、Non-FAIRな手法ではメタデータやオントロジーに関する質問の正確性が0%となり、正確性と網羅性も42.86%に留まった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、ライセンス情報の欠如によりFAIR原則の基準の一つであるR1.1を満たせないという限界がある。また、Llama-3.3-70Bのようなモデルでは、無効なCypherクエリを生成しやすいという課題も確認された。今後の課題として、メタデータのリンキングやオントロジー用語のマッピング手法を高度化し、内部および外部リソースを用いた自動的なFAIR化と意味的相互運用性の強化を目指している。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>FAIR GraphRAG: A Retrieval-Augmented Generation Approach for Semantic Data Analysis</h3><p>FAIR GraphRAGは、知識グラフ（KG）を用いたGraphRAGの利点と、科学データの管理原則であるFAIR（Findability, Accessibility, Interoperability, Reusability）を統合した新しいフレームワークである。本手法では、FAIR Digital Objects (FDOs) をグラフの基本単位として採用しており、各ノードはコアデータ、メタデータ、永続的識別子、および意味的なリンクを包含する。LLMを活用することで、スキーマの構築やデータソースからのコンテンツおよびメタデータの自動抽出を実現している。胃腸病学におけるRNAシーケンシングデータを用いた実験では、メタデータやオントロジーのリンクを含む複雑なクエリに対して、従来のRAGよりも回答の正確性、網羅性、および説明可能性が大幅に向上することが示された。このフレームワークは、医学分野の専門家と計算機科学者の共同設計により、技術的および臨床的な妥当性を確保している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究は、大規模言語モデル（LLM）が持つドメイン固有知識の不足やハルシネーションを解決するため、外部知識を活用するRetrieval-Augmented Generation（RAG）の一種であるGraphRAGを、FAIR原則（Findable, Accessible, Interoperable, Reusable）に基づいて拡張したFAIR GraphRAGフレームワークを提案している。既存のGraphRAGは知識グラフ（KG）を利用するものの、異種データソース間のセマンティックな接続や構造化されたFAIR化が不十分であるという課題がある。提案手法では、知識の基本単位としてFAIR Digital Objects（FDOs）を採用しており、各ノードはコアとなるデータアーティファクト、それを記述するメタデータ、および一意の識別子であるPersistent Identifier（PID）を「シェル」構造として保持する。このフレームワークは、スキーマ設計やデータセットからのエンティティおよびメタデータの自動抽出といったKG構築プロセス自体にもLLMを活用するLLMベースの構成となっている。本研究の貢献は、FDOsに基づくFAIR KGモデルの定式化、エンドツーエンドのKG構築パイプラインの開発、および生物医学データセットを用いた実装と評価を通じて、その実用性を実証することにある。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>本研究の背景となる関連研究では、科学データの管理・共有・再利用性を高めるためのFAIR原則と、その実装概念であるFAIR Digital Objects (FDOs) が議論されている。FDOsは、ビットシーケンス、メタデータ、オブジェクト指向プログラミングに着想を得た標準化された操作、および永続的識別子 (PID) から構成される標準化されたデジタル実体である。既存の知識グラフ (KG) 構築手法には、グラフ全体にPIDやメタデータを付与してFAIR化を試みるものや、FDOsをグラフ内の意味的なサブユニットとして統合する試みがあるが、コアコンテンツの紐付けやオントロジー用語のマッピング、LLMを用いた自動構築といった側面は十分に扱われていない。LLMを用いたKG構築は、スキーマ設計やエンティティ・関係抽出において有効であるが、FAIR原則やFDOsを組み込んだ手法は存在しない。また、RAG (Retrieval-Augmented Generation) において、エンティティをコミュニティとしてグループ化し多層的なサブグラフを構築するGraphRAGの手法は、従来のRAGよりも包括的かつ多様な回答生成が可能である。しかし、RAGフレームワークの基盤となるデータリソースに対して、FAIR原則に基づいた体系的なFAIR化や、LLMによるFAIR KGの自動構築を提案している研究は未だ存在しない。</p></section>
+<section class="secsum"><h3>III Methodology</h3><p>本手法は、各ノードをFAIR Digital Object (FDO) としてモデル化することで、グラフ全体だけでなく個々のノードレベルでのFAIR性を実現するFAIR GraphRAGフレームワークを提案している。知識グラフはプロパティグラフモデルを採用しており、ノードの集合を $\mathcal{V}$、エッジの集合を $\mathcal{E}$、ノードタイプ $\mathcal{T} = \{\text{dataset}, \text{entity}\}$ と定義したとき、グラフはタプル $\mathcal{G} = (\mathcal{V}, \mathcal{E}, \mathcal{T}, \text{src}, \text{lbl}, \text{prop}, \text{type})$ として形式化される。ここで、$\text{src}: \mathcal{E} \to \mathcal{V} \times \mathcal{V}$ はエッジをノードのペアに関連付け、$\text{lbl}: \mathcal{V} \to 2^{\mathcal{L}}$ は各FDOにラベル集合を、$\text{prop}: \mathcal{V} \to \text{Key} \to \text{Value}$ はメタデータ等の属性を、$\text{type}: \mathcal{V} \to \mathcal{T}$ はノードタイプを割り当てる。構築パイプラインは、ユーザー定義のエンティティに基づきLLMを用いてスキーマを生成する段階から始まり、構造化・非構造化データから情報を抽出した後、PIDの付与、メタデータ抽出、およびBioPortal等のAPIを用いたオントロジー用語へのマッピングを通じて各エンティティをFDOへと変換する。最終的に、データセット内またはデータセット間での類似性に基づく関係性をエッジとして統合し、プロパティグラフデータベースを構築する。検索プロセスでは、ユーザーの質問とグラフスキーマを含むプロンプトをLLMに入力することで、CypherやSPARQLといったグラフクエリ言語を生成させ、埋め込みベースの類似性検索よりも柔軟なクエリベースの検索を実現している。</p></section>
+<section class="secsum"><h3>IV Experiments and Results</h3><p>本研究では、生物医学データセットを用いたFAIR GraphRAGの有効性を、PID（永続的識別子）、メタデータ、およびオントロジーの紐付けを欠いたNon-FAIR GraphRAGとの比較により検証している。実験には、胆管癌患者の胆汁サンプルから得られたRNAシーケンシングデータ（GEOアクセッション番号 GSE280797）を使用し、80行のデータから構築された1038個のノード（データセット、遺伝子、GO-BP、パスウェイ）を含むNeo4j上の知識グラフを対象としている。評価指標として、FAIR原則への準拠度（Findability, Accessibility, Interoperability, Reusability）に加え、回答の正確性（Accuracy）、網羅性（Coverage）、および説明可能性（Explainability）を用い、22個の一般質問、10個のメタデータ質問、10個のオントロジー質問の計42問でテストを行った。結果として、gpt-4o-miniを用いたFAIR GraphRAGは、正確性および網羅性において92.86%、説明可能性において100%という高い数値を達成したが、ライセンス情報の欠如により基準R1.1のみを満たせなかった。対照的に、Non-FAIRな手法ではメタデータやオントロジーに関する質問の正確性が0%となり、gpt-4o-miniを用いた場合でも正確性と網羅性は42.86%に留まった。また、Llama-3.3-70BはFAIR設定において性能を向上させたものの、無効なCypherクエリを生成することが多く、gpt-4o-miniの性能には及ばなかった。</p></section>
+<section class="secsum"><h3>V Conclusion</h3><p>本研究では、FAIR Digital Objects をグラフベースの RAG に統合することで、ドメイン固有の知識グラフの FAIR 化と意味的相互運用性を向上させる手法である FAIR GraphRAG を提案している。この手法は、大規模言語モデル（LLM）を活用してスキーマ構築、およびコンテンツとメタデータの自動抽出を行う。生物医学データを用いた実験の結果、FAIR 遵守度と質問応答の評価指標の両面において、従来のベースライン手法と比較して、検索可能性（findability）、相互運用性（interoperability）、再利用性（reusability）、および説明可能性（explainability）が大幅に向上することが示された。標準化されたメタデータ、永続的識別子（PIDs）、およびオントロジー用語のマッピングを採用することで、透明性が高く正確な結果を実現している。本フレームワークは、オープンソースおよび商用 LLM の双方に対応しており、倫理的・規制的基準に準拠した柔軟なデプロイが可能である。今後の課題として、メタデータのリンキングやオントロジー用語のマッピング手法を高度化し、内部および外部リソースを用いた自動的な FAIR 化と意味的相互運用性の強化を目指している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-19
+  </footer>
+</div>
+</body>
+</html>
