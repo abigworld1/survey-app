@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Optimal Unlabeled Pebble Motion on Trees and its Application to Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Optimal Unlabeled Pebble Motion on Trees and its Application to Multi-Agent Path Finding</h1>
+  <div class="meta">Annalisa Calvi, Pierre Le Bodic, Samuel McGuire, Edward Lam<br>採択先: 未取得 ・ 2026-02-04 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2603.23503v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2603.23503v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-02-04</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">木構造におけるUPMTに対し、入力・出力サイズに対して漸近的に最適な計算量を持つ新アルゴリズムを提案しており、MAPFへの応用と数学的な境界の導出も極めて具体的で価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 木構造におけるラベルなしペブル移動問題（UPMT）に対し、入力サイズおよび最適解のサイズに対して漸近的に可能な限り高速な、線形時間動作の最適アルゴリズムを提案する。また、これをマルチエージェント経路探索（MAPF）へ応用し、メイクスパンおよび総コストの最悪ケースの境界を導出する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>木 $T = (V, E)$ 上の $n$ 個のノードに対し、$k$ 個のペブルを初期位置からターゲットノード集合へ、隣接する空きノードを経由して移動させる問題を扱う。各移動はエッジに沿った単一のペブルの移動として定義される。従来のアルゴリズムでは、経路長が $O(n^3)$ となる劣最適解や、マッチング問題に依存する計算量を持つ手法が存在していた。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>UPMTにおいて、入力のエンコーディングサイズ $O(n \log n)$ および計画の符号化サイズ $O(\text{OPT} \log n)$ に対して漸近的に最適な計算量 $O(n \log n + \text{OPT} \log n)$ を実現する初のアルゴリズムを提案する。また、木構造におけるラベルなしMAPFに対して、メイクスパンが最大 $n - k$、総コストが最大 $k(n - k)$ となる劣最適アルゴリズムを提示し、これらの指標の数学的な最悪ケースの境界を明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>UPMTの解決には、各ノード $u$ の需要 $d(u)$ を用いる balance subtrees アルゴリズムを用いる。まず、後順走査により各ノードの需要 $d(u) = \sum_{v \in T_u} \text{target}(v) - \sum_{v \in T_u} \text{pebble}(v)$ を計算する。次に、親ノードが $d(v) &gt; 0$ の子へは inject pebble(v) を、$d(v) &lt; 0$ の子からは extract pebble(v) を再帰的に呼び出すことで、部分木の需要を解消する。MAPFへの応用では、Direct Traffic アルゴリズムを用い、需要に基づいた通りがけ順走査と、各ノードが保持する時刻リスト $l(u)$ および最短開始時刻 $s(u)$ によって、衝突を回避しながらエージェントを移動させる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>提案手法の計算量は $O(n \log n + \text{OPT} \log n)$ であり、これは入力および出力のサイズに対して漸近的に最適である。MAPFへの応用において、メイクスパン $M$ は $M \le n - k$、総コスト $S$ は $S \le k(n - k)$、および最適解の長さ $\text{OPT}$ も $\text{OPT} \le k(n - k)$ という上界を満たすことが示された。これらの境界は、特定の構成において等号が成立するため、最悪ケースにおいてタイトである。また、ランダムな木における期待値として $\mathbb{E}(\text{OPT}) \le \sqrt{Dk(n - k)}$ が導出されている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>Direct Traffic アルゴリズムは、エッジを通り過ぎてから戻るような非効率な動きを含む可能性があり、必ずしもメイクスパンや総コストの最適解を導くわけではない。特に、同一エッジを異なるエージェントが逆方向に通行することを制限した場合、最適性が損なわれるトレードオフが存在する。今後の課題として、これらの指標を最小化するためのさらなる改善が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>木構造上のラベルなしペブル移動問題（UPMT）とは、木上の初期ノードに配置されたペブルの集合を、ターゲットノードの集合へ、移動回数を最小化するように1つずつエッジに沿って移動させる計画を求める問題である。本論文では、入力である木のサイズおよび出力である最適計画のサイズに対して線形時間で動作する、漸近的に可能な限り高速なUPMTの初となる最適アルゴリズムを提案している。この手法を木におけるラベルなしマルチエージェント経路探索（MAPF）へと拡張することで、最適makespan、総コスト（sum of costs）、およびペブル移動計画の長さに関する新たな境界を導出している。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>Unlabeled Pebble Motion on Trees (UPMT) は、木 $T = (V, E)$ 上の $n = |V|$ 個のノードに対し、$k$ 個の小石を初期位置から任意のターゲットノードへ移動させる問題であり、各移動は隣接する空きノードへの単一の小石の移動として定義される。本論文では、UPMT の最適解の長さを $OPT$ としたとき、計算量 $O(n \log n + OPT \log n)$ で動作する最適アルゴリズムを提案しており、これは入力サイズ $O(n \log n)$ および計画の符号化サイズ $O(OPT \log n)$ に対して効率的である。この知見を Multi-Agent Path Finding (MAPF) に応用し、木構造における非ラベル付き MAPF に対して、makespan が最大 $n - k$、sum of costs が最大 $k(n - k)$ となる劣最適アルゴリズムを、同様の計算量で実現している。また、最悪ケースの境界として $OPT \le k(n - k)$ を示す一方で、ランダムな木における期待値 $\mathbb{E}(OPT) \le \sqrt{Dk(n - k)}$ （$D$ はノード間の平均距離）を導出し、一様分布に従うラベル付き木においては $\mathbb{E}(OPT) \le \sqrt{k(n - k) \pi n / 2}$ となることを明らかにしている。</p></section>
+<section class="secsum"><h3>Related Work</h3><p>ラベルなしペブルモーション（UPMT）に関する先行研究として、Kornhauserらは経路長 $O(n^3)$ の劣最適アルゴリズムを提案しており、Ardizzoniらは廊下の長さを $c$ としたとき $O(knc + n^2)$ の経路長を実現する改善案を示している。ラベルあり問題の実行可能性判定については、Aulettaらが $O(n)$ の線形時間アルゴリズムを、実行可能な場合には $O(n + \text{OPT}_{\text{l}})$ の時間で解を求めるアルゴリズムを提示しており、ここで $\text{OPT}_{\text{l}}$ は $O(k^2(n-k))$ の経路長を指す。Călinescuらは、単一のペブルによる連続的なエッジ移動を1回の移動と定義した上で、UPMTに対する最適アルゴリズムを提案しており、これは全ペブルとターゲット間の最短経路を求めた後、総移動距離を最小化する最小重みマッチング問題として解く手法である。このマッチング問題の計算量は、2$k$ 個のノードを持つ完全二部グラフにおいて $O(k^{2.5} \log n)$ または $O(k^3)$ となる。また、ラベルなしマルチエージェント経路探索（MAPF）への応用に関しては、YuとLaValleがネットワークフローを用いて一般グラフ $(V, E)$ において $O(k|E|)$ の時間で解き、メイクスパンを $V + k - 1$ 以下に抑える手法を、OkumuraとDéfagoはオンライン・オフライン両対応のTSWAPアルゴリズムを提案しており、そのメイクスパンは $k \cdot \text{diam}(G)$、総コストは $k^2 \cdot \text{diam}(G)$ に抑えられる。</p></section>
+<section class="secsum"><h3>Lower Bound on the Optimal Plan Length</h3><p>木 $T$ の任意の根を $r \in V$ とし、各ノード $u \in V$ における現在のペブル数を $\text{pebble}(u) \in \{0, 1\}$、目標とするペブル数を $\text{target}(u) \in \{0, 1\}$ と定義する。ノード $u$ を根とする部分木 $T_u$ における需要 $d(u)$ を、その部分木内の目標数から現在のペブル数を引いた値 $d(u) = \sum_{v \in T_u} \text{target}(v) - \sum_{v \in T_u} \text{pebble}(v)$ として定義し、これは $d(u) = \text{target}(u) - \text{pebble}(u) + \sum_{v \in \text{child}(u)} d(v)$ という再帰的な形式でも表される。すべてのノード $u \in V$ において $d(u) = 0$ であることは、すべてのノードで $\text{target}(u) = \text{pebble}(u)$ が成立することと同値である。また、あるノード $v$（根を除く）とその親 $u$ を結ぶエッジ $uv$ について、部分木 $T_v$ 内でペブルが不足している場合は $d(v)$ 回、過剰である場合は $-d(v)$ 回の移動が必要となるため、エッジ $uv$ を通過する移動回数は少なくとも $|d(v)|$ 回でなければならない。したがって、実行可能な計画の総移動回数の下界は $\sum_{u \in V \setminus \{r\}} |d(u)|$ となる。</p></section>
+<section class="secsum"><h3>Algorithm Description</h3><p>提案手法である balance subtrees アルゴリズムは、あるノード $u$ において需要 $d(u) = 0$ であることを前提とし、その部分木 $T_u$ 内のすべてのノード $v \in T_u$ について $d(v) = 0$ となるようにペブルを再配置する。まず、親ノード $u$ が保持するペブルを用いて、需要が正の（$d(v) &gt; 0$）子ノードへは inject pebble(v) を、需要が負の（$d(v) &lt; 0$）子ノードからは extract pebble(v) を呼び出すことで、まず $u$ の直下の子ノードの需要を解消する。inject pebble(v) は、もし子ノード $v$ が既にペブルを保持している場合には、そのペブルをさらにその子へと再帰的に inject pebble(w) させることで空きを作り、その後 $u$ から $v$ へペブルを移動させる。同様に extract pebble(v) は、子ノード $v$ にペブルがない場合に $v$ の部分木内から再帰的にペブルを抽出することで、最終的に $v$ から親 $u$ へペブルを移動させる。最後に、すべての直下の子ノードに対して balance subtrees を再帰的に適用することで、部分木全体の需要をゼロにする。これらの操作は move pebble 関数を通じて、各ノードのペブル保持状態 $\text{pebble}(\cdot)$ と需要 $d(\cdot)$ を更新しながら実行される。</p></section>
+<section class="secsum"><h3>Algorithm Correctness</h3><p>本セクションでは、木構造におけるラベルなしペブル移動（UPMT）問題を解くためのアルゴリズムの正当性が証明されている。基本操作である move pebble は、隣接するノード $u$ と $v$ の間でペブルを移動させ、ノード $v$ が $u$ の子である場合は $d(v)$ を $d(v) - 1$ と更新し、逆に $u$ が $v$ の子である場合は $d(u)$ を $d(u) + 1$ と更新することで、需要 $d$ を適切に維持する。この操作により、全ノードにおける需要の絶対値の総和 $\sum_{u \in V} |d(u)|$ が 1 減少することが示されている。また、inject pebble および extract pebble は、再帰的な呼び出しを通じて、特定のサブツリー内のペブルの過不足を解消するように設計されており、各ステップで $d(v) &gt; 0$ または $d(v) &lt; 0$ となる適切な子ノードを選択することで、前置条件を満たしながら動作する。最終的に、balance subtrees アルゴリズムは、各反復において $\sum_{v \text{ child of } u} |d(v)|$ を減少させ、再帰的な処理を通じてすべてのノード $v \in T_u$ において $d(v) = 0$ を達成することを保証する。これにより、すべてのペブルが目標位置に配置される実行可能な計画が生成されることが証明されている。</p></section>
+<section class="secsum"><h3>Algorithm Optimality</h3><p>提案手法である balance subtrees アルゴリズムは、木構造におけるラベルなしペブル移動問題において、最適な計画長 $\text{OPT} = \sum_{u \in V} |d(u)|$ を達成する。ここで $d(u)$ は各頂点 $u$ における需要を表し、各ペブルの移動は move pebble 関数の呼び出しと一対一に対応しており、Theorem 4 によってこの呼び出し回数が $\sum_{u \in V} |d(u)|$ 以下であることが保証される。この計画は実行可能であり、かつ最小の長さを持つ。また、ペブルの次数を $k$ とすると、計画長は $\text{OPT} \le k(n-1)$ という上界を持ち、さらに $\text{OPT} \le k(n-k)$ と改善される。さらに、最適計画においては、すべてのペブルが最短経路を通って目的地に到達するという性質がある。これは、木における2点間の単純パスが一意であることを利用しており、ペブルがエッジを逆方向に移動するような余分な動きは、すべての需要をゼロにするために必要な移動を増大させるため、最適性を損なうことから導かれる。</p></section>
+<section class="secsum"><h3>Algorithm Complexity</h3><p>本アルゴリズムの計算量は、入力である $n$ 節点の $n$ 分木および最適解のサイズに対して漸近的に最適であり、実行時間は $O(n \log n + \text{OPT} \log n)$ となる。ノードの参照に $O(\log n)$ ビットを要すると仮定すると、入力のエンコーディングサイズは $O(n \log n)$、最適解のエンコーディングサイズは $O(\text{OPT} \log n)$ である。関数 $d$ の計算は、木の葉から根に向かう後順走査（postorder traversal）により、各節点 $u$ においてその子 $v$ の数 $n_u$ に比例する $O(n_u \log n)$ の時間を要するため、全体で $O(n \log n)$ で完了する。ペブルの移動を伴う操作は、各移動において $d$ の更新やノードの出力に $O(\log n)$ の時間を要し、全体の移動回数が $\text{OPT}$ であることから、注入および抽出の総実行時間は $O(\text{OPT} \log n)$ となる。また、部分木のバランスを調整する処理において、各反復は少なくとも1回のペブル移動を伴うため、while ループの総回数は $\text{OPT}$ 以下、for ループの総回数は $n-1$ 以下に抑えられる。これらを統合すると、入力の読み込み、関数 $d$ の計算、および全ての注入・抽出操作の合計により、全体の実行時間は $O(n \log n + \text{OPT} \log n)$ で達成される。</p></section>
+<section class="secsum"><h3>Path Finding on Trees</h3><p>木構造上におけるラベルなしマルチエージェント経路探索（MAPF）問題を、劣最適（sub-optimally）に解くためのアルゴリズムを提案する。この手法は、木構造の各部分木間でエージェントの数を均衡させるために、トップダウンのアプローチを採用している。各エージェントの移動は、需要関数（demand function）に基づいて決定され、先行するアルゴリズムと同様の移動規則に従う。</p></section>
+<section class="secsum"><h3>Algorithm Description</h3><p>提案手法であるDirect Trafficアルゴリズムは、木構造におけるエージェントの移動を制御するために、需要関数 $d(u)$ に基づいた単一の通りがけ順（in-order）走査を用いる。各頂点 $u$ において、負の需要を持つ子ノードを左側に、正の需要を持つ子ノードを右側に配置して走査を行い、親から流入するエージェントと子から流入するエージェントの衝突を防ぐため、先行するエージェントの移動が完了するまで新しいエージェントの移動を遅延させる。各頂点 $u$ は、エージェントが通過する時刻を格納する昇順のリスト $l(u)$ と、エージェントの出発を許可する最短時刻を示す整数 $s(u)$ を保持する。初期状態において $d_I(u) \le 0$ であれば $s(u) = 0$ となり、正の需要を持つ場合は親ノードでの直接交通の実行に伴い、衝突回避のために $s(u)$ が更新される。アルゴリズムは、負の需要を持つ子ノードの処理、頂点 $u$ から出発する移動の処理、そして残りの子ノードの処理という順序で再帰的に実行され、すべての移動は初期の待機アクションの後に中断のない移動として構成される。最終的に、ターゲットノード $u$ においては、リスト $l(u)$ の最大値 $\max l(u)$ の時刻に最後のエージェントが到着し、それ以降そのノードは占有される。</p></section>
+<section class="secsum"><h3>Algorithm Correctness</h3><p>本セクションでは、木構造におけるラベルなしPebble Motion（およびMAPF）に対する提案アルゴリズム `direct traffic` の正当性を、述語を用いた数学的帰納法によって証明している。アルゴリズムは、各ノード $u$ の需要 $d(u)$ を解消するために、子ノードからエージェントを吸い上げる `send up` や、需要のある子ノードへエージェントを送り込む `send down` を制御する。正当性の証明は、各ノードにおける事前条件 `pre(u)`、事後条件 `post(u)`、およびエージェントの移動に関する述語 `neg post(u)`, `get up(u)`, `get down(u)`, `leave(u)` が、木全体のすべてのノードにおいて成立することを示すことで構成される。具体的には、需要が負のノード $d_I(u) &lt; 0$ と、需要が $0$ 以上のノード $d_I(u) \geq 0$ の両方のケースについて、親ノードの処理が子ノードの条件を充足し、かつ子ノードの処理が親ノードの条件を正しく更新することを帰納的に導いている。最終的に、すべてのノードで $d(u) = 0$ となり、かつ `leave(u)` によりエージェントが各タイムステップ $t \in l(u)$ で衝突なく移動し、最終的にすべてのエージェントが目標地点に到達することを示すことで、提案手法が実行可能（feasible）な計画を出力することを証明している。</p></section>
+<section class="secsum"><h3>Algorithm Suboptimality</h3><p>提案手法は、makespan（全エージェントの目標到達時間の最大値）およびsum of costs（全エージェントの目標到達時間の総和）のいずれの目的関数においても、必ずしも最適解を導くとは限らない。具体的には、エッジ $AC$ や $BE$ を等分に細分化することで、提案アルゴリズムが算出する経路が、エージェントが目標地点を通り過ぎてから戻るような非効率な動きを含む反例を無限に構成できる。また、makespan や sum of costs を最小化する最適解を得るためには、同一のエッジを異なるエージェントが互いに逆方向へ通行することが必要となる場合がある。エッジの通行を片方向に制限した場合と比較して、双方向の通行を許容することで、makespan が $6$ から $5$ へ、sum of costs が $20$ から $19$ へと改善されるケースが存在する。</p></section>
+<section class="secsum"><h3>Algorithm Complexity</h3><p>提案手法である direct traffic アルゴリズムの計算量は $O(n \log n + \text{OPT} \log n)$ である。まず、入力の読み込みと各ノードにおける需要 $d$ の計算に $O(n \log n)$ の時間が要し、負の需要を持つ各ノードに対して実行されるノード情報の更新処理に合計で $O(n \log n)$ が費やされる。エージェントを移動させる手続きの総呼び出し回数は、最適解の移動回数 $\text{OPT}$ とターゲット数 $k$ の和である $\text{OPT} + k$ 回に抑えられる。各呼び出しにおける更新処理には $O(\log n)$ の時間がかかるため、移動に関する処理全体の計算量は $O(\text{OPT} \log n + k \log n)$ となる。最終的に、これらを統合することで、全体の実行時間は $O(n \log n + \text{OPT} \log n)$ と導出される。なお、出力形式は各エッジに沿った移動とその時刻のみを記録する最小限の構成となっており、各ステップにおける全エージェントの位置を追跡するよりも効率的である。</p></section>
+<section class="secsum"><h3>Subsequent bounds on optimal solutions</h3><p>本セクションでは、木構造におけるラベルなしペブル移動問題（UPMT）に対し、提案アルゴリズムが生成する解の性能限界を数学的に証明している。まず、ノードの処理順序 $v_1, \dots, v_n$ と、各ノード $v_p$ までに含まれるターゲットの総数 $t_p$ を定義し、ノード $u$ の負の需要を持つ最初の未処理の子を $ch(u)$、その連鎖的な適用を $gc(u)$ と定義することで、処理順序の遷移を記述している。定理41により、各ノード $v_p$ におけるエージェントの最大到着時刻 $\max l(v_p)$ は $p - 1 - t_p$ 以下であることが帰納法を用いて示され、これに基づき、全ノードの最大到着時刻であるメイクスパン $M$ は $M \le n - k$ となることが証明されている。さらに、エージェント数を $k$ とすると、総コスト $S$ は $S \le k(n - k)$ であり、待機動作を含まない最適解の長さ $\text{OPT}$ も $\text{OPT} \le k(n - k)$ という上界を持つ。最後に、これらの上界は特定の構成において $M = n - k$ および $S = k(n - k)$ を満たすため、すべての $n, k$ に対してタイト（最悪ケースで成立する境界）であることが示されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-20
+  </footer>
+</div>
+</body>
+</html>

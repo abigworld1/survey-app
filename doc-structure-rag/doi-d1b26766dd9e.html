@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>OPTIMIZING PDF INGESTION FOR LARGE LANGUAGE MODELS IN RAG ARCHITECTURES | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>OPTIMIZING PDF INGESTION FOR LARGE LANGUAGE MODELS IN RAG ARCHITECTURES</h1>
+  <div class="meta">Rishab Bansal, Binita Mukesh Shah, Abhijit Chanda, V. Parate<br>採択先: International Journal of Applied Mathematics ・ 2025-09-24 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/579afdbff86315a55bc7418cb2c54ac1b1cd0723" target="_blank" rel="noopener">原典</a> ・ <a href="https://ijamjournal.org/ijam/publication/index.php/ijam/article/download/163/154" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.12732/ijam.v38i3s.163" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 International Journal of Applied Mathematics</span><span class="chip">公開日 2025-09-24</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">RAGにおけるPDF解析の課題を体系的に整理しており、実務的な視点を持つ。ただし、新規手法の提案ではなく既存手法の分類に留まるため、サーベイとして読む価値がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGシステムにおいて、視覚的再現性を優先するPDFの構造が、LLMへの取り込み時に文脈の喪失や意味的な劣化を引き起こす課題を調査し、既存の解析手法を分類・整理している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>RAG（Retrieval-Augmented Generation）アーキテクチャにおいて、知識ベースとなるPDFドキュメントから情報を抽出する際のプロセスを対象としている。PDFは意味的な構造ではなく視覚的な提示をエンコードしているため、マルチカラム構成、複雑な表、図表、注釈などの非自明な構造を扱う際に、隣接する列の混同や図とキャプションの関連性の喪失といった問題が発生する。従来のテキスト抽出手法では、文書の空間構造を十分に解析できず、LLMが要求する意味的に構造化された機械可読なコンテンツとの間に「欠落した意味層（missing semantic layer）」が生じるという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究は、検索アルゴリズムの最適化やLLMのファインチューニングに重点を置く従来の研究とは異なり、不完全なデータ取り込みがシステム全体の能力を根本的に制約するという観点から、堅牢なPDF取り込みの重要性を強調している。既存の解析手法を、パイプライン型、包括的なVision-Language Models（VLM）を用いた手法、ハイブリッドシステム、およびグラフベースの表現の4つのカテゴリに分類して整理した。また、レイアウトの解釈、表や図の文脈化、OCRノイズの低減、および意味的関係の保持といった主要な課題を特定している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>PDFの解析プロセスにおける課題解決に向けた既存技術を、以下の4つのアプローチに分類して検討している。<br>- パイプライン型：PDFの解析からテキスト抽出に至るまで、複数の段階を経て処理を行うモジュール型の構成。<br>- エンドツーエンドのマルチモーダルモデル：VLMを活用し、視覚情報とテキスト情報を同時に処理することで、チャートの内容理解などを可能にする手法。<br>- ハイブリッド戦略：複数の手法を組み合わせたアプローチ。<br>- グラフベースの表現：文書内の要素間の関係性をグラフ構造として捉える手法。<br>これらの手法を通じて、レイアウト信号の保持やセマンティックチャンキングによる意味的な境界の維持、メタデータの拡充といった戦略が検討されている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>本論文では、現在の解析技術が単純化されたベンチマークでは評価されているものの、複雑な推論を要する実世界のエンタープライズ文書においては、モデルの精度と人間レベルの理解との間に依然として乖離が存在することを指摘している。評価の文脈として、OCRノイズの影響を「意味的ノイズ（semantic noise）」と「書式ノイズ（formatting noise）」に分類し、それぞれがRAGの検索や回答生成に与える影響を考察している。具体的な数値結果の提示ではなく、既存手法の限界と、実務的な推奨事項（意味的なチャンキング、レイアウトを考慮したツールの選択、マルチモーダル戦略など）の提示に重点を置いている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>PDFの設計思想が人間の視覚的な読みやすさを優先しているため、LLMが求める機械可読な構造との間には本質的な互換性の欠如というトレードオフが存在する。現在の技術には、マルチモーダルモデルの堅牢性向上、現実的なベンチマークの確立、説明可能性の強化、そして文書の意図された意味と構造を正確に捉える意味的忠実性の確保といった課題が残されている。また、固定サイズによるナイーブなチャンキングが意味的な連続性を損なうことや、OCRの誤読が事実に基づかない回答を招くリスクについても言及されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>本論文は、RAG（Retrieval-Augmented Generation）システムにおいて、視覚的再現性を重視するPDF形式のドキュメントが、LLMへの取り込み時に文脈の喪失や意味的な劣化を引き起こす課題を調査している。既存の解析手法を、パイプライン型、包括的なVision-Language Models（VLM）を用いた手法、ハイブリッドシステム、およびグラフベースの表現の4つのカテゴリに分類して整理している。レイアウトの解釈、表や図の文脈化、OCRノイズの低減、および意味的関係の保持が主要な課題として特定されており、現在の解析技術は単純化されたベンチマークでは評価されているものの、複雑な推論を要する実世界のエンタープライズ文書においては、モデルの精度と人間レベルの理解との間に依然として乖離が存在する。実務的な推奨事項として、意味的なチャンキング、レイアウトを考慮したツールの選択、マルチモーダル戦略、およびメタデータの拡充が挙げられている。今後の研究方向としては、マルチモーダルモデルの堅牢性向上、現実的なベンチマークの確立、説明可能性の強化、そしてドキュメントの意図された意味と構造を正確に捉える意味的忠実性の確保が重要であると結論付けている。</p></section>
+<section class="secsum"><h3>1.1 Processing Challenges of PDFs</h3><p>PDFはプラットフォームやOSを問わず視覚的な再現性を保証する標準的な形式であるが、その設計思想は視覚的なレイアウトの保持を優先しており、複雑な構造や埋め込まれた図表、構造化されたテキストを含んでいる。この特性が、自動化された情報抽出や分析ツールにとっての障壁となっており、特に金融報告書、法的契約書、研究論文、技術文書などの膨大なデジタルアーカイブを扱う際、手動での処理は時間とコストがかかり、誤りが生じやすい。PDFは意味的な構造（semantic structure）ではなく視覚的な提示（visual presentation）をエンコードしているため、機械がコンテンツの論理的な流れや要素間の関係性を理解することを困難にしている。したがって、高い精度と文脈の認識能力を備え、PDFから情報を自動的に抽出・分析できる高度なドキュメントインテリジェンスシステムの構築が求められている。</p></section>
+<section class="secsum"><h3>1.2 LLMs and RAG for Enterprise Knowledge</h3><p>大規模言語モデル（LLM）は、膨大なテキストデータセットの学習を通じて人間のような自然言語の理解と生成を可能にし、従来の制約を超えたPDFからの情報抽出を実現する可能性を秘めている。Retrieval-Augmented Generation（RAG）は、外部の最新情報源を統合することでLLMを強化する重要なアーキテクチャであり、モデルの再学習を頻繁に行うことなく文脈に応じた回答を提供できるため、ハルシネーション（幻覚）の問題を解決する手段となる。企業における機械学習開発者の主要なユースケースは、社内規定、標準作業手順書、技術マニュアル、報告書などのPDF形式で保存された文書群を対象としたRAGシステムの構築である。これらのシステムは、自然言語による検索を通じて、文書内に格納された知識を効率的に取得することを目的としている。</p></section>
+<section class="secsum"><h3>1.3 The PDF Ingestion Constraint</h3><p>エンタープライズRAGシステムの信頼性と効率性は、知識ベースとなる情報の品質に直接依存するが、複雑な構造を持つPDFからのデータ抽出プロセスがパイプライン全体の大きなボトルネックとなっている。標準的なパース手法では、マルチカラム構成、ヘッダー、フッター、セル結合を含む表、図、注釈などの非自明な構造を扱う際に、隣接する列のテキストが混同される、あるいは図とキャプションの関連性が失われるといった問題が発生する。これにより、階層を示す見出しや近接性による関連性といったレイアウト信号が消失する「欠落した意味層（missing semantic layer）」が生じ、LLMに文脈情報が欠如したテキスト列のみが渡される結果となる。PDFの設計思想は人間の視覚的な読みやすさを優先しており、LLMが要求する意味的に構造化された機械可読なコンテンツとは本質的に互換性がない。したがって、単なるテキストスクレイピングではなく、文書のレイアウトと構造を解釈して意味を保持できる高度なパース手法が必要とされている。</p></section>
+<section class="secsum"><h3>1.4 Scope and Structure</h3><p>本研究は、RAG（Retrieval-Augmented Generation）システムにおいて、複雑なPDFドキュメントの取り込み（ingestion）を最適化するための課題、既存手法、評価手順、および実用的な検討事項をエンジニア向けに詳述することを目的としている。PDFの解析プロセスにおいて生じる意味的な欠落や文脈の喪失といった問題に焦点を当て、モジュール型のパイプラインやエンドツーエンドのマルチモーダルモデルといった既存の技術的解決策を評価する。評価においては、パフォーマンス指標とその限界を検証し、実務的な推奨事項を提示する。既存の研究では検索アルゴリズムの最適化やLLMのファインチューニングに重点が置かれがちであるが、本研究は、不完全なデータ取り込みがシステム全体の能力を根本的に制約するという観点から、堅牢なPDF取り込みの重要性を強調している。</p></section>
+<section class="secsum"><h3>2.1 Limitations of Traditional Text Extraction</h3><p>PyPDF2などのライブラリに依存する従来のテキスト抽出手法は、複雑なレイアウトを持つPDFの処理において、文書の空間構造を十分に解析せず文字ストリームの抽出に集中してしまうという根本的な問題を抱えている。このため、図、ヘッダー、フッター、複雑な表、あるいは2段組の学術論文といった構成において、テキストの順序が論理的ではなくなり、例えば列を跨いで読み進めてしまうといった誤った結合が発生する。結果として、表データの欠落や歪みが生じるだけでなく、PDFが本来持つ視覚的・構造的な情報が失われ、元の文書の意味を正確に反映できない。このような不完全な抽出結果は、ベクトル化やその後のLLMによる処理において、極めて脆弱な基盤となってしまう。</p></section>
+<section class="secsum"><h3>2.2 The Semantic Gap</h3><p>従来のPDF抽出における「欠落した意味層（missing semantic layer）」の問題は、PDFがテキスト文字列だけでなく、視覚的なレイアウトや書式を用いて意味を伝達している点に起因する。具体的には、項目の地理的な近接性、太字や斜体による強調、箇条書き、見出しによる階層構造、および表や図表による構造化データの表現が、テキスト抽出時に失われることで、LLMが文脈や情報の関係性を正確に理解することを妨げる。例えば、見出しの視覚的な際立ちが失われると、新しいセクションの開始点やその主題の特定が困難になり、表の行と列の構造を維持せずに抽出するとデータ間の関連性が消失する。意味に基づく分割を行うセマンティックチャンキングなどの対策はあるが、不完全なテキストから構造を推論させるLLMの能力だけに依存することは不十分である。したがって、このセマンティックギャップを埋めるには、文書の構造的・関係的な情報を能動的に維持または再構築する抽出技術が必要となる。</p></section>
+<section class="secsum"><h3>3. Issues in Complex PDF Ingestion for LLMs</h3><p>RAG（Retrieval-Augmented Generation）システムにおいて、複雑なPDFをLLMの処理に適した形式へと取り込むプロセスには、PDF形式が持つ視覚的な性質や、実用上存在する多様なドキュメントフォーマットに起因する困難が伴う。これらの課題は、ドキュメントの構造的な意味を正しく捉えられないセマンティック・ギャップや、情報の文脈が失われるコンテキスト・ロスの発生を引き起こす。</p></section>
+<section class="secsum"><h3>3.1 Layout Complexity and Text Flow</h3><p>PDFは内容が関係性ではなく正確な座標に基づいて配置されているため、プログラムによるテキスト抽出を行うと、人間が読む論理的な順序とは異なり、文書のセクションを不自然に飛び越えてしまう課題がある。特に多段組みのレイアウトでは、基本的なパーサーが列を横断して水平方向に読み取ってしまうことで、テキストが混濁し、文脈が破壊される問題が生じる。このような抽出エラーは、固有表現抽出（NER）やトピック分類などのタスクにおいて、RAGシステムの出力に誤ったデータや無意味な結果をもたらす原因となる。さらに、ページ番号、見出し、フッターといった反復的な構成要素が誤って含まれると、段落の意味的な完全性が損なわれるだけでなく、LLMが分析すべきテキスト量が無駄に増加し、コンテンツチャンクの関連性を低下させる要因となる。</p></section>
+<section class="secsum"><h3>3.2 Table Extraction Challenges</h3><p>表は構造化された情報の宝庫であるが、実世界の表には多層的なヘッダー、複雑な入れ子構造、セルの結合、および複数行にわたるコンテンツが含まれるため、セルの境界や行・列・ヘッダー間の相互作用を正確に特定することが極めて困難である。特に金融や科学分野の表では、列と行の正確な整列が解釈の鍵となるが、この構造が崩れるとLLMは適切な推論ができなくなる。表を CSV や JSON といった正規化された形式に変換する際、表のレイアウトが伝える内部的な関係性や周囲のテキストコンテキストが欠落しやすく、文脈を失ったデータはLLMにとって意味の理解や値の関連付けを困難にする要因となる。さらに、特殊文字や略語の誤認、あるいは複数ページにわたる表において継続的なヘッダーを識別して分割された部分を正確に結合できないといった問題も、データの欠損や破損を招く。</p></section>
+<section class="secsum"><h3>3.3 Image and Vector Graphics Handling</h3><p>PDFは写真、グラフ、チャート、ロゴ、スキャンされた署名などのマルチモーダルな要素を含んでおり、従来のテキスト抽出のみの手法では、これらを孤立した情報として扱うため、チャートの傾向や図内のリンク、署名による検証といった重要な情報を欠落させてしまう。単に画像ファイルを抽出するだけでは不十分であり、画像に関連付けられたラベル、副題、または本文中のテキスト参照といった周囲の文脈と視覚的要素を紐付けることが、実質的な知識の抽出には不可欠である。さらに、視覚的項目の内容や関連性を解読することは困難な課題であるが、視覚情報とテキスト情報の両方を処理できるVLM（Vision-Language Models）などのマルチモーダルモデルを活用することで、システムはチャートの内容を「理解」することが可能になる。これにより、例えば「第3四半期の売上チャートはどのような傾向を示しているか」といった、視覚的データに基づいた質問への回答が可能となる。</p></section>
+<section class="secsum"><h3>3.4 OCR Noise and Its Impact on RAG</h3><p>スキャンされたPDFや画像ベースのテキストを含むPDFの処理において、OCR（光学文字認識）は不可欠な工程であるが、低解像度、傾き、背景ノイズ、複雑なレイアウト、特殊な数式記号などの要因により、精度低下に伴うノイズが発生する。OCRノイズは、その下流工程への影響に基づき、数字の誤読や重要語句の置換によってテキストの意味を変化させる「意味的ノイズ（semantic noise）」と、不適切な空白や改行、軽微な文字置換のように構造や可読性に影響を与えるが内容は維持される「書式ノイズ（formatting noise）」に分類される。RAG（Retrieval-Augmented Generation）システムは入力ノイズに対して敏感であり、書式ノイズはチャンキング、埋め込み生成、検索のプロセスを乱して無関係な情報の取得や情報の見落としを引き起こす可能性がある。一方で、意味的ノイズは事実に基づかない誤った回答の生成や、誤った情報の検索を招く直接的な原因となる。したがって、RAGにおける高品質な知識ベースの構築は、文字の誤認（例：$1$ を $I$ と誤読、あるいは $0$ を $O$ と誤読）などのエラーを最小限に抑える正確なOCR予測に大きく依存している。</p></section>
+<section class="secsum"><h3>3.5 Loss of Semantic Relationships and Hierarchy</h3><p>PDFの抽出プロセスにおいて、フォントサイズ、太字、インデント、空白といった階層構造や意味的な組織化を示す微細な手がかりが、プレーンテキストへの平坦化によって失われることが指摘されている。目次のような構造化されたデータも、単純な取り込み手法では単なる逐次的なテキストとして扱われるか無視されるため、RAGシステムにおける階層的な文脈の把握を困難にする。また、固定サイズによるナイーブなチャンキングは、段落や単語を恣意的に分断することで意味的な連続性を損ない、LLMが情報の流れを理解するために必要な前後関係を欠く原因となる。さらに、文書内の内部相互参照は、線形的なチャンキングでは適切に表現できず、文書内の離れた箇所にある情報を統合して知識を合成する能力を阻害する。これらの要因により、セマンティックチャンキングが本来解決すべき論理的な境界に基づくセグメンテーションが機能せず、最終的にRAGシステムによる回答の精度低下や不完全な応答を招く。</p></section>
+<section class="secsum"><h3>4. Existing Techniques for PDF Content Extraction</h3><p>PDFのコンテンツ抽出における既存手法は、大きく分けてパイプライン型、エンドツーエンドのマルチモーダルモデル、ハイブリッド戦略、およびグラフベースの表現の4つのカテゴリに分類される。パイプライン型の手法は、PDFの解析からテキスト抽出に至るまで複数の段階を経て処理を行うが、各工程において特有の課題が発生しやすい構造となっている。これらの手法は、RAG（Retrieval-Augmented Generation）アーキテクチャにおけるデータ取り込みの精度を左右する重要な要素である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-20
+  </footer>
+</div>
+</body>
+</html>

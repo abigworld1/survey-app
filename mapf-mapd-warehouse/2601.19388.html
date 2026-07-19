@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Judgelight: Trajectory-Level Post-Optimization for Multi-Agent Path Finding via Closed-Subwalk Collapsing | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Judgelight: Trajectory-Level Post-Optimization for Multi-Agent Path Finding via Closed-Subwalk Collapsing</h1>
+  <div class="meta">Yimin Tang, Sven Koenig, Erdem Bıyık<br>採択先: 未取得 ・ 2026-01-27 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2601.19388v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2601.19388v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-01-27</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">学習ベースMAPFの弱点である軌跡の質を、事後最適化という汎用的な枠組みで解決しており、新規性と実用性が高い。ILPによる定式化も具体的である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 学習ベースのMAPFソルバーが生成する冗長または振動的な軌跡を改善するため、閉じた部分的な歩行を圧縮する事後最適化レイヤーJudgelightを提案する。本手法は、実行可能性制約を維持したまま移動コストを削減するMAPF-Collapse問題を整数線形計画法（ILP）によって解く。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路探索（MAPF）において、エージェントの集合 $\mathcal{A}$ がグラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 上で衝突を回避しながら目標地点へ移動する経路を計画する。既存の学習ベースの手法は、計算速度に優れる一方で、衝突やデッドロック、あるいは不要な往復運動といった軌跡の質の低さが課題となっている。本研究は、既存のソルバーが生成した実行可能なスケジュールに対し、軌跡レベルでの後処理を行うことを目的とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>エージェントの軌跡内の閉じた部分的な歩行を崩壊させるタスクを、MAPF-Collapseという新たな最適化問題として定式化し、そのNP困難性を証明した。従来の学習ベースの手法は次の一手レベルの衝突回避に留まっていたが、本研究は軌跡全体を対象とした事後最適化を導入している。これにより、ソルバーの種類に依存せず、解の品質を一貫して向上させるフレームワークを実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>エージェント $a$ の時刻 $t_1$ から $t_2$ までの位置が $x_{a, t_1} = x_{a, t_2}$ を満たす場合に、その区間を単一の地点で待機するアクションに置き換える。この問題を、候補となる崩壊操作の集合 $\mathcal{C}$ に対し、コスト削減量 $w_c$ と実行有無を示すバイナリ変数 $z_c$ を用いて、$\text{maximize} \sum_{c \in \mathcal{C}} w_c z_c$ となる整数線形計画法（ILP）として定式化する。制約条件には、同一エージェント内での時間重複の禁止、エージェント間の頂点衝突の回避、および特定の崩壊操作を選択した際に生じる衝突を回避するための依存関係の維持が含まれる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>POGEMAベンチマークを用い、SCRIMP、DCC、RAILGUN、MAMBA、Followerなどの学習ベースの手法およびLaCAMという探索ベースの手法を対象に評価した。評価指標として、成功率（ISR）、総移動コストの減少量（Saved SoC）、および減少率（SoC Saving Ratio）を用いた。実験の結果、エージェント密度が高まるほど冗長な動きが増えるため、平均して約20%から40%のSoC削減を達成した。実行時間は、LaCAMでは100ms未満、多くの学習ベースの手法でもほとんどのケースで1秒未満を実現している。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>Judgelightはソルバーに依存しない汎用的な手法であるが、計算量はILPの制約条件の数に大きく依存する。今後の課題として、他のマルチエージェント計画設定への拡張や、冗長な移動の除去だけでなく、不要な待機アクションの除去へと機能を強化することが挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Judgelight: Trajectory-Level Post-Optimization for Multi-Agent Path Finding via Closed-Subwalk Collapsing</h3><p>本研究では、学習ベースのMAPFソルバーが生成する実行可能だが冗長または振動的な軌跡を改善するため、事後最適化レイヤーであるJudgelightを提案している。この手法は、エージェントの軌跡内にある閉じた部分的な歩行（closed subwalks）を崩壊させることで、すべての実行可能性制約を維持したまま不要な動きを除去する。このプロセスはMAPF-Collapseとして定式化され、その計算量がNP困難であることが証明されている。著者らは、この問題を整数線形計画法（ILP）として定式化することで、厳密な最適化アプローチを提示している。実験の結果、Judgelightは特に学習ベースのソルバーにおいて、解のコストを約20%一貫して削減し、実世界への導入に適した軌跡を生成することを示した。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>Multi-Agent Path Finding (MAPF) は、既知のグラフ上で複数のエージェントが衝突を回避しながら始点から終点へ移動する経路を計画する NP-hard な問題であり、倉庫自動化などの分野で重要視されている。既存の探索ベースの手法は高い解の質を保証する一方で、エージェント数や混雑度の増加に伴い実行時間が大幅に増大する課題があり、これに対し深層学習を用いた手法が提案されているが、学習ベースの手法は衝突やデッドロックを招く安全性への懸念や、不要な往復運動などの軌跡の質の低さが課題となっている。本研究では、学習ベースまたは探索ベースのソルバーが生成した実行可能なスケジュールに対し、軌跡レベルでの後処理を行う手法 Judgelight を提案する。Judgelight は、エージェントの軌跡に含まれる閉じた部分的な歩行（closed subwalks）を圧縮することで冗長な動きを削減することを目的としており、このタスクを、実行可能性制約の下で移動アクションの総数を最小化する（待機は低コストとして扱う）新たな最適化問題 MAPF-Collapse として定式化する。MAPF-Collapse は NP-hard であることが証明されており、提案する厳密な最適化アプローチである Judgelight は、特に学習ベースのソルバーが生成した軌跡の品質を、実世界の倉庫運用に適した形へと一貫して改善する。</p></section>
+<section class="secsum"><h3>2 Background: MAPF Problem Definition</h3><p>Multi-Agent Path Finding (MAPF) 問題は、エージェントの集合 $\mathcal{A}$ が、頂点と単位コストの辺からなる無向グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 上で、各エージェント $a \in \mathcal{A}$ の開始地点 $s_a$ から目標地点 $g_a$ まで、衝突を回避しながら移動する経路を計画する問題である。各エージェントの時刻 $t$ における位置を $x_a(t)$ とすると、移動またはその場での待機（自己ループ）の各アクションは $1$ 単位時間で実行され、経路 $\pi_a$ は $x_a(0) = s_a$ および $x_a(T_a) = g_a$ を満たし、目標到達後は $x_a(t) = g_a$ ($t &gt; T_a$) となる。衝突は、時刻 $t$ において $x_a(t) = x_b(t)$ となる頂点衝突 $\text{coll}(a, b, t)$ と、時刻 $t$ から $t+1$ にかけてエージェント $a$ と $b$ が同じ辺を逆方向に移動する辺衝突 $\text{coll}(a, b, t, t+1)$ の2種類が定義される。MAPF アルゴリズムの目的は、すべてのエージェントの経路集合 $\Pi = \{\pi_a \mid a \in \mathcal{A}\}$ を、各経路がグラフの辺に沿っており、かつすべての衝突 $\text{coll}(a, b, \cdot)$ を回避するように、総フロータイム（SoC）を最小化することである。</p></section>
+<section class="secsum"><h3>3 Related Work</h3><p>マルチエージェント経路探索（MAPF）は最適性を求める場合にNP困難な問題であり、各エージェントの経路を個別に計画する分離型、全エージェントの計画を同時に策定する結合型、および衝突時のみ結合する動的結合型の戦略が存在する。Conflict-Based Search（CBS）に代表される探索ベースの手法は、ECBSやEECBSといった限定的な劣最適解を許容するバリアントを含む中央集権的かつ最適解を得る手法であるが、問題規模の増大に伴う探索空間の次元の爆発という課題を抱えている。これに対し、深層学習を用いた手法は、模倣学習（IL）や強化学習（RL）を用いることで、ヒューリスティック関数を自動的に学習し、探索ベースよりも短時間で計画を生成できる利点がある。具体的には、局所的な視野に基づくPRIMAL、GPTモデルを用いたMAPF-GPT、グラフニューラルネットワークやTransformerによる通信機構を組み込んだMAGATやSCRIMP、さらには中央集権的なILを用いるRAILGUNなどが提案されている。しかし、CS-PIBTのように学習済み局所方策をPIBTと組み合わせる手法であっても、その修正は主に次の一手レベルの衝突回避に留まっており、エージェントが目標に向かって進展しているか、あるいは単に振動運動を繰り返しているかを検知することはできない。また、エージェントに次々と新しい目標が割り当てられるLifelong MAPF（LMAPF）においても、既存のPIBT等の手法と同様に、不要な動きや振動運動が発生する可能性があり、提案手法であるJudgelightはこれらに対しても拡張適用が可能である。</p></section>
+<section class="secsum"><h3>4 MAPF-Collapse</h3><p>MAPF-Collapseは、既存のMAPF解の軌跡に対して、閉じた部分歩行（closed subwalk）を定数シーケンス（待機行動）に置き換えることで総コストを最小化する事後最適化問題である。具体的には、エージェント $a$ の時刻 $t_1$ から $t_2$ までの位置の列 $x_{a, t_1:t_2}$ が $x_{a, t_1} = x_{a, t_2}$ を満たすとき、この区間を $x_{a, t_1}$ で固定する「collapse」操作を適用する。この問題の決定版はNP完全であり、独立集合問題（Independent Set）からの多項式時間還元によってその困難性が証明されている。提案手法であるJudgelightは、この問題を整数線形計画法（ILP）として定式化し、以下の目的関数を最大化することでコスト削減を実現する。<br>$$\text{maximize} \sum_{c \in \mathcal{C}} w_c z_c$$<br>ここで、$\mathcal{C}$ は候補となるcollapseの集合、$w_c$ はその操作によるコスト削減量、$z_c \in \{0, 1\}$ は操作の実行有無を示すバイナリ変数である。制約条件として、同一エージェント内での時間重複の禁止、異なるエージェント間での頂点衝突の回避、およびあるcollapseを選択した際に生じる衝突を回避するために他のエージェントに特定のcollapseを強制する依存関係の維持が含まれる。実用上の計算量削減のため、同一地点が連続する区間を最初と最後の出現のみに絞る最適化や、振動的な動き（例：$ABAB\dots$）に対して長さ3のフィルタリングを適用する前処理が導入されている。</p></section>
+<section class="secsum"><h3>5 Experiments</h3><p>本研究では、POGEMAベンチマークを用い、SCRIMP、DCC、RAILGUN、MAMBA、Followerといった学習ベースの手法およびLaCAMという探索ベースの手法を対象に、提案手法であるJudgelightの有効性を評価している。評価指標には、エージェントが目標地点に到達した割合を示す個別の成功率（ISR）、元の解と最適化後の解の間の総移動コスト（SoC）の減少量であるSaved SoC、および元のSoCに対する減少率であるSoC Saving Ratioが用いられている。実験の結果、エージェント数が増加して密度が高まると、衝突回避のための冗長な動き（振動的な動き）が増えるため、Saved SoCおよびSoC Saving Ratioの両方が増加する傾向が確認され、平均して約20%から40%のSoC削減が達成された。特に、MAPFを完全には解決できないMAMBAやFollowerのような手法において、Judgelightは不要な動きを抑制し、目標に到達できないエージェントを静止させることで高い削減率を示す。実行時間に関しては、エージェント密度と元のアルゴリズムの性能に依存し、特にILPの制約条件の数が変数よりも実行時間に大きな影響を与えるが、LaCAMでは100ms未満、多くの学習ベースの手法でもほとんどのケースで1秒未満の実行時間を実現している。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>学習ベースのMAPFソルバーは、次アクション単位の意思決定を行うため、混雑時や部分的な失敗時に不要な動きや振動を含む解を生成しやすい。本研究では、このような冗長な動きの除去を軌跡レベルの事後処理問題として定式化し、これを MAPF-Collapse と定義して、その問題が NP困難であることを証明した。この問題に対し、整数線形計画法を用いた厳密解法を開発し、それに基づく事後最適化フレームワークとして Judgelight を提案している。POGEMA ベンチマークを用いた実験では、Judgelight は実行時間の実用性を維持しつつ、解のコストを継続的に $20\%$ から $40\%$ 削減し、解決したテストケースの $90\%$ 以上が $1$ 秒以内に完了することを示した。Judgelight はソルバーに依存しない事後処理手法として有効であるが、今後の課題として、他のマルチエージェント計画設定への拡張や、冗長な移動だけでなく不要な待機アクションの除去へと機能を強化することが挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-20
+  </footer>
+</div>
+</body>
+</html>

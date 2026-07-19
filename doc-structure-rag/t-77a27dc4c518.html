@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TechGraphRAG: An Agentic Graph-Augmented RAG Framework for Technical Literature Reasoning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>TechGraphRAG: An Agentic Graph-Augmented RAG Framework for Technical Literature Reasoning</h1>
+  <div class="meta">Kanwar Bharat Singh<br>採択先: 未取得 ・ 2026-06-01 ・ source: openalex</div>
+  <div class="links"><a href="https://openalex.org/W7163597511" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.01613" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-06-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">マルチモーダルRAGにグラフとエージェントによる自己修正を統合した設計が高度。専門ドメインへの適用具体性も高く、実用的な研究。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 専門的な技術文献における推論の困難さを解決するため、テキスト、知識グラフ、および視覚情報を統合し、エージェントによる自己修正プロセスを備えたマルチモーダルなRAGフレームワークTechGraphRAGを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>タイヤ工学や車両力学などの高度に専門的なドメインにおいて、既存のLLMは専門知識の不足、知識の鮮度の低さ、コンテキストウィンドウの制限、および出典の不明確さという課題を抱えている。従来のテキストのみのRAGでは、専門用語の不一致や図表などの視覚情報の欠落、さらには一度の検索で不十分な証拠しか得られないといった問題があり、複雑な技術的推論を正確に行うことが困難である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の単一パスのRAGとは異なり、クエリの意図分類に基づいた適応的な検索戦略と、5つの次元からなる100点満点の明示的な証拠十分性スコアリング・ルーブリックを導入することで、解釈性と監査可能性を確保している。また、LLMによる抽出とOpenAlexによる検証を組み合わせた型付きエンティティグラフによるグラフ誘導型検索と、ColSmolおよびMUVERAを用いたスケーラブルな視覚ドキュメント検索を統合した点が新規である。さらに、Planner、Researcher、Writer、Criticの4つの専門エージェントによるマルチエージェント・パイプラインを通じて、証拠の検証と自己修正を行うプロセスを実現している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>システムは、証拠収集を行うLoop 1と回答生成を行うLoop 2の2段階構成である。Loop 1では、クエリを4つのルートに分類し、FAISSとBM25によるハイブリッド検索、Neo4jを用いたグラフ誘導型のチャンク拡張、およびColSmolとMUVERAを用いた視覚的検索を実行する。視覚的検索では、ColSmolで生成したパッチ埋め込みをMUVERAで4,096次元の固定次元エンコーディング（FDE）に圧縮し、FAISSによる近似最近傍探索とMaxSimによる再ランキングを行う。Loop 2では、収集された証拠に基づき、Plannerが計画を立て、Researcherが調査し、Writerが執筆し、Criticが引用の整合性を検証・修正するマルチエージェント・パイプラインが動作する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>インテリジェントタイヤや車両制御の領域において、ルート分類の正確性、証拠の十分性、検索精度、コスト、遅延の観点から評価を行った。Contentルートのクエリにおける証拠の十分性スコアは平均74（範囲68–81）であった。検索のアブレーション研究では、$K=5$ において、BM25のみの場合の $P@5=0.52$ に対し、クエリ書き換えとキーワードブーストを含むフルパイプラインでは $P@5=0.78$ に向上した。システム全体のコストはクエリあたり平均 $\$0.0045$、実行時間は平均16.4秒であった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>評価実験のサンプルサイズが小さいため、統計的な堅牢性を高めるにはより大規模なラベル付きデータセットでの検証が必要である。評価にLLM-as-Judgeを採用しているため、LLM特有のバイアスが残る可能性がある。技術的な限界として、視覚的検索がページ単位に留まり図表の細粒度な抽出ができていないことや、知識グラフのエンティティ正規化が $\text{ALIAS\_OF}$ による基本的な探索に限定されていることが挙げられる。今後の課題として、より高度な意味的関係（$\text{USED\_FOR}$ や $\text{RELATED\_TO}$ など）を定義する正規化層の構築や、プライバシーとコスト改善のためのローカルなオープンウェイトモデルへの移行が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>TechGraphRAGは、タイヤ、車両力学、制御、機械学習などの専門的な技術文献を対象とした、エージェント駆動型のマルチモーダル検索拡張生成（RAG）フレームワークである。本手法は、クエリの意図分類、テキストおよび視覚的なクエリの書き換え、FAISSとBM25を用いたハイブリッド検索およびクロスエンコーダによる再ランキング、さらにNeo4j知識グラフを用いたグラフ誘導型のチャンク探索による証拠拡張を組み合わせたパイプラインを構成する。視覚的な証拠の取得には、ColSmolによる遅延相互作用埋め込み、MUVERAによる固定次元エンコーディング、近似最近傍探索、およびMaxSimによる再ランキングを用いる。証拠の十分性は100点満点のルーブリックに基づき、ルールベースとLLMのハイブリッド手法で評価され、不十分な場合はドリフト防止策を講じた再定式化による再試行が行われる。生成プロセスでは、Planner、Researcher、Writer、Criticの各エージェントが、証拠のマッピングとCriticによる自己修正プロセスを経て、引用の整合性を検証した回答を生成する。本フレームワークは、40,000ページを超える文書からなる大規模なマルチモーダル検索、解釈可能な証拠評価メカニズム、およびOpenAlexを用いた著者検証を含むドメイン知識グラフの構築を実現している。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>TechGraphRAGは、専門的な技術文献の推論を支援するために設計された、エージェント駆動型のマルチモーダル検索拡張生成（RAG）フレームワークである。従来のテキストのみのRAGが抱える、専門用語の不一致、文脈の拡張性の欠如、および図表などの視覚情報の欠落という課題を解決するため、本手法はテキスト、グラフ、視覚情報の統合的な活用を提案している。具体的には、FAISS、BM25、およびクロスエンコーダーによるリランキングを用いたハイブリッドテキスト検索に加え、Neo4jを用いた論文・著者・トピック・手法・引用関係を保持する知識グラフによるチャンク拡張、さらにColSmol埋め込みとMUVERAを用いたスケーラブルな視覚ドキュメント検索を組み合わせている。根拠の十分性を評価するために、5つの次元からなる100点満点のルーブリックを用いたスコアリングフレームワークを導入しており、内部情報が不足している場合には、CrossrefやOpenAlexなどの外部学術データベースを反復的に探索するエージェントによる再試行プロセスを実行する。最終的な回答生成は、Planner、Researcher、Writer、Criticの4つの専門エージェントからなるマルチエージェント・パイプラインによって行われ、構造化された計画、根拠のマッピング、引用の検証、および自己修正プロセスを通じて、信頼性と検証可能性の高い技術分析を実現している。</p></section>
+<section class="secsum"><h3>Related Work</h3><p>TechGraphRAGは、技術文献の推論に特化した、マルチモーダルな証拠に基づき制御されるエージェント型RAGフレームワークである。本手法は、Reciprocal Rank Fusionを用いた密ベクトルと疎ベクトル検索の融合、およびクロスエンコーダによる再ランキングを組み合わせたハイブリッド検索を採用している。検索の適応性については、学習済みの反射トークンやパープレキシティを用いる既存手法とは異なり、ルールベースのスコアリング、関連性の減衰、およびLLMによるレビューからなる、5つの次元を持つ100点満点の明示的な証拠十分性スコアリング・ルーブリックを導入することで、解釈性と監査可能性を確保している。生成プロセスでは、Planner、Researcher、Writer、Criticの4つの専門エージェントによるマルチエージェント・パイプラインを構築しており、Criticエージェントが証拠に基づいた技術文書の修正ループを実現している。また、グラフ拡張型検索として、LLMによる抽出とOpenAlexによる検証を経た型付きエンティティグラフを構築し、グラフ誘導型のチャンク拡張と知識グラフコンテキストの付与を行う。視覚的文書検索においては、ColSmolとMUVERAの固定次元エンコーディング（FDEs）を組み合わせ、FAISSを用いた近似最近傍探索とMaxSimによる再ランキングを行う2段階のパイプラインにより、メモリ効率の高い高速な検索を実現している。</p></section>
+<section class="secsum"><h3>Domain-Specific Settings</h3><p>スタンドアロンの事前学習済み大規模言語モデル（LLM）は、エンジニアリング分野の重要なアプリケーションにおいて、主に4つの限界を持つ。第一に、汎用的なデータセットで学習されているため、タイヤ力学や車両運動学のような専門的なドメイン知識が不足しており、回答が不完全または一般的になりやすい。第二に、学習データが静的であるため知識の鮮度が低く、最新の研究成果や内部報告書を反映させるには、計算コストの高い再学習やファインチューニングが必要となる。第三に、コンテキストウィンドウの制限により、数十の論文や膨大な特許ポートフォリオを同時に扱うことが困難であり、入力長を増やしてもアテンション機構の劣化により、情報の想起や集中力が低下する問題がある。最後に、生成された情報の出典を明示する能力が欠如しており、学習済みのパターンを合成する性質上、回答が検証不可能で、信頼性が求められる研究開発の現場において技術的な主張の根拠を辿ることができない。</p></section>
+<section class="secsum"><h3>Motivation for Retrieval-Augmented Generation</h3><p>大規模言語モデル（LLM）単体では、専門的な技術文書の膨大な知識への直接アクセスが困難であり、ハルシネーションや根拠の追跡性の欠如といった課題があるため、知識の蓄積と推論を分離する検索拡張生成（RAG）が求められる。本研究の対象となるタイヤ工学や車両制御に関する数千件の学術論文コーパスは、専門用語の多様性、記述的な文脈への情報の埋没、学際的な関係性、および図表などの非テキスト情報の重要性により、従来のキーワード検索や標準的なテキスト埋め込みによる検索では不十分である。従来の単一パスのRAGシステムは、クエリの意図に応じた柔軟な検索戦略を持たず、一度の検索で不十分な証拠しか得られないリスクや、視覚的な証拠を無視するという限界がある。これらの課題を解決するため、本研究では、クエリ意図の分類、テキスト・視覚・グラフの各モダリティからの証拠検索、証拠の品質評価、およびドリフトを防止する再定式化を伴う反復的な検索を行うエージェント型マルチモーダルRAGアーキテクチャを提案する。この手法は、マルチエージェントによるタスク分解と、批判的な修正プロセスを組み込むことで、複雑な技術的推論における回答の品質と信頼性を向上させることを目的としている。</p></section>
+<section class="secsum"><h3>System Architecture and Methodology</h3><p>TechGraphRAGは、技術文献の推論に特化した、エージェント駆動型のマルチモーダルRAGフレームワークである。システムは、証拠収集を行う「Loop 1」と、回答生成を行う「Loop 2」の2つのエージェント・ループで構成され、各段階に3つの品質ガードレール（証拠十分性、引用検証、批判的検証）を配置することで、安全性が重視される工学分野における推論の忠実性を担保している。Loop 1では、クエリをContent、Bibliometric、Trend、Current\_worldの4つのルートに分類し、FAISSとBM25を用いたハイブリッド検索、Neo4jによるグラフ誘導型チャンク拡張、およびColSmolとMUVERAを用いた視覚的ドキュメント検索を組み合わせることで、テキスト、グラフ、画像から強力な証拠集合を構築する。特に視覚的検索では、ColSmolで生成されたページごとのパッチ埋め込みを、MUVERAを用いて4,096次元の固定次元エンコーディング（FDE）に圧縮し、FAISSによる近似最近傍探索（ANN）とMaxSimによる再ランキングの2段階プロセスを経て、約40,000ページから最適な図表を含むページを高速に特定する。Loop 2では、収集された証拠を統合した後、Planner、Researcher、Writer、Criticの4つのエージェントが連携するマルチエージェント・パイプラインを通じて、引用の正確性とハルシネーションの抑制を図りながら最終的な回答を生成する。オフライン処理として、構造を考慮したチャンク分割（目標サイズ約3,500文字）や、all-MiniLM-L6-v2を用いた384次元の密ベクトル生成、および知識グラフの構築が行われる。</p></section>
+<section class="secsum"><h3>Implementation Considerations</h3><p>TechGraphRAGは、PDFの構造を考慮したチャンキング、ColSmolによる視覚的ページ埋め込み、MUVERAを用いたFDE（Fine-grained Document Embedding）の計算、FAISSおよびBM25インデックスの構築、そして知識グラフの作成といった前処理をオフラインで実行するモジュール式システムである。設計上の核心は、検索の再現率よりも精度を優先する戦略にあり、密ベクトル、疎ベクトル、グラフ、視覚情報の各モダリティから得られた候補を、クロスエンコーダによる再ランキング、証拠の十分性スコアリング、および多段階の重複排除を通じて精緻化することで、LLMへの不適切なコンテキスト注入を防いでいる。システムはGradioベースのUIを備え、検索結果の由来（VECTORまたはGRAPH）、証拠の十分性スコア、マルチエージェントの実行トレース、生成回答、およびコスト追跡をリアルタイムで表示する。インデックスの更新は増分的に行われ、新しいPDFに対してのみ埋め込み計算や知識グラフへのMERGEクエリを実行する仕組みとなっている。実行時のハードウェア要件として、RAMは3〜4 GB、VRAMはColSmol-500Mをbfloat16で推論するために4 GB以上、ディスク容量はテキストおよび視覚インデックス、Neo4jを含む合計約23 GB程度が必要となる。</p></section>
+<section class="secsum"><h3>Results</h3><p>TechGraphRAGは、インテリジェントタイヤや車両制御などの技術領域におけるクエリに対し、ルート分類、証拠の十分性スコアリング、エージェントによる再試行、引用に基づく回答品質、およびコストと遅延の観点から評価された。ルートレベルの評価では、6つのテストクエリすべてにおいて正しいルート分類（content, bibliometric, current_world）が達成され、すべての回答がマルチエージェントによる批判的評価を通過した。Contentルートのクエリにおける証拠の十分性スコアは平均74（範囲68–81）であり、スコアによって証拠の強度が適切に識別されていることが示された。検索の切除実験（Ablation Study）では、10個のクエリを用いた $K=5$ での評価において、BM25のみの $P@5=0.52$ に対し、フルパイプライン（クエリ書き換えとキーワードブーストを含む）では $P@5=0.78$ に向上しており、ハイブリッド検索やクロスエンコーダーによる再ランキング、クエリ書き換えの各要素が検索精度に寄与することが確認された。システム全体のコストはクエリあたり平均 $\$0.0045$、実行時間は平均16.4秒（範囲10.9s–22.1s）であり、効率的な運用が可能であることが示されている。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>本研究にはいくつかの限界が存在する。まず、評価実験においてルートレベルの評価が6クエリ、検索のアブレーション研究が10クエリとサンプルサイズが極めて小さいため、統計的に堅牢な結論を導き出すには不十分であり、今後は20〜50クエリ規模のラベル付きデータセットによる検証が必要である。評価手法については、GPT-4o-miniを用いたLLM-as-Judgeを採用しているが、位置バイアスや冗長性への偏好、自己強化バイアスといったLLM特有の課題が残されており、人間による評価や評価者間信頼性の分析は実施されていない。運用面では、OpenAIのAPIやCrossref、Semantic Scholarなどの外部APIに依存しており、可用性やコスト、モデルの廃止といったリスクを抱えている。技術的な側面では、視覚的検索においてページ単位の取得に留まり、図表などの個別の視覚要素を細粒度に抽出できていないことや、知識グラフにおけるエンティティ正規化が $ALIAS\_OF$ による基本的な探索に限定されており、高度なオントロジーに基づく意味的な関係性の構築が未実装であるため、用語の揺らぎに対する想起率が制限されている。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本研究は、インテリジェントタイヤや車両制御などの専門的な技術文献における推論を支援するため、マルチモーダルなエージェント型RAGフレームワークであるTechGraphRAGを提案している。本手法は、クエリの意図分類、テキストと視覚情報の書き換え、Neo4jを用いたグラフ誘導型のチャンク探索、およびColSmolとMUVERAを組み合わせたスケーラブルな後期相互作用（late-interaction）検索による視覚的情報の取得を統合した多段階の自律的パイプラインで構成される。特に、19の基準に基づく証拠の十分性スコアリング、ドリフト防止機能を備えたエージェントによる再試行、およびPlanner–Researcher–Writer–Criticからなるマルチエージェントによる自己修正型の回答生成プロセスが、技術的な厳密さと透明性を担保している。知識グラフの構築においては、LLMを用いたエンティティ抽出とOpenAlexによる著者検証、およびコーパス内の引用解決が行われている。今後の課題として、同義語のクラスタリングやエンティティ間の意味関係（$\text{USED\_FOR}$, $\text{MEASURES}$, $\text{RELATED\_TO}$, $\text{BROADER\_THAN}$ など）を定義するエンティティ正規化層の完成、ローカルなオープンウェイトモデルへの移行によるプライバシーとコストの改善、人間によるフィードバックループの導入、およびより大規模なラベル付きデータセットを用いた検索アブレーション研究による定量的評価の拡充が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-20
+  </footer>
+</div>
+</body>
+</html>

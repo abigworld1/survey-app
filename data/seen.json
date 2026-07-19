@@ -1674,6 +1674,38 @@
       "url": "http://arxiv.org/abs/2607.11464v1",
       "venue": "2025 IEEE International Conference on Knowledge Graph (ICKG), Limassol, Cyprus, 2025, pp. 90-97"
     },
+    "doi:10.12732/ijam.v38i3s.163": {
+      "added": "2026-07-20",
+      "added_at": "2026-07-20T06:09:57.142040",
+      "arxiv_id": "",
+      "authors": [
+        "Rishab Bansal",
+        "Binita Mukesh Shah",
+        "Abhijit Chanda",
+        "V. Parate"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "2025-09-24",
+      "doi": "10.12732/ijam.v38i3s.163",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/doi-d1b26766dd9e.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://ijamjournal.org/ijam/publication/index.php/ijam/article/download/163/154",
+      "reading_value": 3,
+      "reading_value_reason": "RAGにおけるPDF解析の課題を体系的に整理しており、実務的な視点を持つ。ただし、新規手法の提案ではなく既存手法の分類に留まるため、サーベイとして読む価値がある。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "OPTIMIZING PDF INGESTION FOR LARGE LANGUAGE MODELS IN RAG ARCHITECTURES",
+      "tldr": "RAGシステムにおいて、視覚的再現性を優先するPDFの構造が、LLMへの取り込み時に文脈の喪失や意味的な劣化を引き起こす課題を調査し、既存の解析手法を分類・整理している。",
+      "url": "https://www.semanticscholar.org/paper/579afdbff86315a55bc7418cb2c54ac1b1cd0723",
+      "venue": "International Journal of Applied Mathematics"
+    },
     "doi:10.18653/v1/2026.acl-long.1738": {
       "added": "2026-07-04",
       "added_at": "2026-06-23T06:00:04.000000",
@@ -2310,6 +2342,35 @@
       "tldr": "企業文書の複雑な構造に対応するため、文書の垂直・水平構造に応じてインジェクション手法を動的に切り替え、プレースホルダーを用いた位置合わせと推論時のマルチモーダル・アセンブリを行うMM-BizRAGを提案する。既存のビジョン中心の手法に対し、レポート形式のレイアウトにおいて最大32ポイントの性能向上を達成し、評価指標として低コストなFastRAGEvalを導入している。",
       "url": "https://openalex.org/W7163720139",
       "venue": "arXiv (Cornell University)"
+    },
+    "title:techgraphrag an agentic graph augmented rag framework for technical literature reasoning": {
+      "added": "2026-07-20",
+      "added_at": "2026-07-20T06:08:35.712521",
+      "arxiv_id": "",
+      "authors": [
+        "Kanwar Bharat Singh"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "2026-06-01",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/t-77a27dc4c518.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.01613",
+      "reading_value": 4,
+      "reading_value_reason": "マルチモーダルRAGにグラフとエージェントによる自己修正を統合した設計が高度。専門ドメインへの適用具体性も高く、実用的な研究。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "TechGraphRAG: An Agentic Graph-Augmented RAG Framework for Technical Literature Reasoning",
+      "tldr": "専門的な技術文献における推論の困難さを解決するため、テキスト、知識グラフ、および視覚情報を統合し、エージェントによる自己修正プロセスを備えたマルチモーダルなRAGフレームワークTechGraphRAGを提案する。",
+      "url": "https://openalex.org/W7163597511",
+      "venue": ""
     }
   },
   "mapf-mapd-warehouse": {
@@ -3020,6 +3081,37 @@
       "url": "http://arxiv.org/abs/2601.08214v1",
       "venue": ""
     },
+    "arxiv:2601.19388": {
+      "added": "2026-07-20",
+      "added_at": "2026-07-20T06:04:16.769127",
+      "arxiv_id": "2601.19388",
+      "authors": [
+        "Yimin Tang",
+        "Sven Koenig",
+        "Erdem Bıyık"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-01-27",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2601.19388.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2601.19388v2",
+      "reading_value": 4,
+      "reading_value_reason": "学習ベースMAPFの弱点である軌跡の質を、事後最適化という汎用的な枠組みで解決しており、新規性と実用性が高い。ILPによる定式化も具体的である。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Judgelight: Trajectory-Level Post-Optimization for Multi-Agent Path Finding via Closed-Subwalk Collapsing",
+      "tldr": "学習ベースのMAPFソルバーが生成する冗長または振動的な軌跡を改善するため、閉じた部分的な歩行を圧縮する事後最適化レイヤーJudgelightを提案する。本手法は、実行可能性制約を維持したまま移動コストを削減するMAPF-Collapse問題を整数線形計画法（ILP）によって解く。",
+      "url": "http://arxiv.org/abs/2601.19388v2",
+      "venue": ""
+    },
     "arxiv:2602.12024": {
       "added": "2026-07-19",
       "added_at": "2026-07-19T06:02:02.701782",
@@ -3183,6 +3275,38 @@
       "title": "Planning over MAPF Agent Dependencies via Multi-Dependency PIBT",
       "tldr": "本研究は、従来のPIBTやEPIBTが「一度に衝突するエージェントを最大1体に制限する」という制約により、マルチステップの依存関係を扱えない課題を解決するため、Multi-Dependency PIBT (MD-PIBT) を提案する。MD-PIBTはエージェント間の依存関係をグラフ構造として管理し、複数のエージェントとの衝突を許容するマルチステップ計画を可能にする汎用的なフレームワークである。実験により、特に大型エージェント（PMLA）を扱う設定において、既存手法を大幅に上回る成功率と解の品質を示すことが確認された。",
       "url": "http://arxiv.org/abs/2603.23405v2",
+      "venue": ""
+    },
+    "arxiv:2603.23503": {
+      "added": "2026-07-20",
+      "added_at": "2026-07-20T06:03:44.241297",
+      "arxiv_id": "2603.23503",
+      "authors": [
+        "Annalisa Calvi",
+        "Pierre Le Bodic",
+        "Samuel McGuire",
+        "Edward Lam"
+      ],
+      "basis": "fulltext(arxiv-pdf)",
+      "citations": 0,
+      "date": "2026-02-04",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2603.23503.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2603.23503v1",
+      "reading_value": 4,
+      "reading_value_reason": "木構造におけるUPMTに対し、入力・出力サイズに対して漸近的に最適な計算量を持つ新アルゴリズムを提案しており、MAPFへの応用と数学的な境界の導出も極めて具体的で価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Optimal Unlabeled Pebble Motion on Trees and its Application to Multi-Agent Path Finding",
+      "tldr": "木構造におけるラベルなしペブル移動問題（UPMT）に対し、入力サイズおよび最適解のサイズに対して漸近的に可能な限り高速な、線形時間動作の最適アルゴリズムを提案する。また、これをマルチエージェント経路探索（MAPF）へ応用し、メイクスパンおよび総コストの最悪ケースの境界を導出する。",
+      "url": "http://arxiv.org/abs/2603.23503v1",
       "venue": ""
     },
     "arxiv:2603.25121": {
