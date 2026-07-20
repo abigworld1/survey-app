@@ -1418,6 +1418,37 @@
       "url": "http://arxiv.org/abs/2607.10316v1",
       "venue": ""
     },
+    "arxiv:2607.10798": {
+      "added": "2026-07-21",
+      "added_at": "2026-07-21T06:03:34.331384",
+      "arxiv_id": "2607.10798",
+      "authors": [
+        "Saadeldine Eletter",
+        "Owais Aijaz",
+        "Preslav Nakov"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-12",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.10798.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.10798v1",
+      "reading_value": 4,
+      "reading_value_reason": "マルチモーダルRAGにおける「汚染」という実用的な脅威に対し、詳細なベンチマークと軽量な防御策を提案しており、研究の新規性と有用性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Trust Before Fusion: QIMG-7 and Source-Aware Resolution for Polluted Multimodal RAG",
+      "tldr": "マルチモーダル検索拡張生成（RAG）において、トピックは関連しているが誤情報を含む「汚染された」証拠が与えられた際の脆弱性を評価するベンチマーク QIMG-7 を提案し、ソースの信頼性に基づいて回答を選択する Source-Aware Trust Resolution (SATR) によってその堅牢性を向上させる。",
+      "url": "http://arxiv.org/abs/2607.10798v1",
+      "venue": ""
+    },
     "arxiv:2607.11159": {
       "added": "2026-07-15",
       "added_at": "2026-07-15T06:02:52.303872",
@@ -1580,6 +1611,38 @@
       "title": "Is External Database Protection Static in Retrieval-Augmented Generation? Rethinking Privacy Preservation under Dynamic Queries",
       "tldr": "従来のRAGにおけるプライバシー保護は、全ドキュメントが等しくリスクを持つという静的な仮定に基づいているが、実際にはリスクはクエリに依存して動的に変化する。本研究は、クエリに応じたリスク階層化と指数メカニズムを用いた適応的なテキスト選択を行うPA-HDPを提案し、高い有用性と強力なプライバシー保護の両立を実現する。",
       "url": "http://arxiv.org/abs/2607.14811v1",
+      "venue": ""
+    },
+    "arxiv:2607.15738": {
+      "added": "2026-07-21",
+      "added_at": "2026-07-21T06:02:51.255536",
+      "arxiv_id": "2607.15738",
+      "authors": [
+        "S M Asif Hossain",
+        "Ruksat Khan Shayoni",
+        "M. F. Mridha",
+        "Jungpil Shin"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-17",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.15738.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.15738v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGに教育的ポリシーとNLIによる主張レベルの検証を統合した点が新規。ベンチマーク構築や実験による学習効果の検証も具体的で、教育AI分野の研究者にとって価値が高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "EduGuard: A Safe RAG-Based LLM Tutor for Programming Education",
+      "tldr": "プログラミング教育におけるLLMのハルシネーション、解答の直接提示、および学習者の過度な依存という課題に対し、教育的ポリシーと主張レベルの検証を統合した安全なRAGベースのチュータリングフレームワークEduGuardを提案する。本手法は、学習効果の向上と学術的誠実性の維持を両立させる。",
+      "url": "http://arxiv.org/abs/2607.15738v1",
       "venue": ""
     },
     "doi:10.1038/s41598-026-50062-8": {
@@ -3081,6 +3144,37 @@
       "url": "http://arxiv.org/abs/2601.08214v1",
       "venue": ""
     },
+    "arxiv:2601.10123": {
+      "added": "2026-07-21",
+      "added_at": "2026-07-21T06:01:26.813264",
+      "arxiv_id": "2601.10123",
+      "authors": [
+        "Aditi Anand",
+        "Dildar Ali",
+        "Suman Banerjee"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-01-15",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2601.10123.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2601.10123v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFに公平性の概念を導入し、非合理的・合理的な両方のエージェントに対応するメカニズムを提案している点が非常に新規かつ実用的。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Fairness Driven Multi-Agent Path Finding Problem",
+      "tldr": "複数のエージェントが衝突を回避しながら目的地へ移動するマルチエージェント経路探索（MAPF）において、エージェント間の福祉の格差を抑える公平性の概念を導入し、非合理的および合理的なエージェントの双方に対応する解決策を提案する。",
+      "url": "http://arxiv.org/abs/2601.10123v1",
+      "venue": ""
+    },
     "arxiv:2601.19388": {
       "added": "2026-07-20",
       "added_at": "2026-07-20T06:04:16.769127",
@@ -4201,6 +4295,39 @@
       "tldr": "動的環境下でのマルチエージェント経路計画（MAPF）に対し、MAPPOをベースとした「MA-DyRoLT」を提案する。本手法は、環境の開放度に応じた動的ウェイポイント生成、学習可能な通信トポロジー、Transformerによる時系列エンコーダ、および歩行者の軌道予測に基づくリスクペナルティを統合することで、大規模かつ動的なシナリオにおいて高い成功率と効率性を実現する。",
       "url": "https://openalex.org/W7166797487",
       "venue": "Scientific Reports"
+    },
+    "doi:10.1109/iros60139.2025.11247630": {
+      "added": "2026-07-21",
+      "added_at": "2026-07-21T06:02:00.691442",
+      "arxiv_id": "2601.03301",
+      "authors": [
+        "Guotao Li",
+        "Shaoyun Xu",
+        "Yuexing Hao",
+        "Yang Wang",
+        "Yuhui Sun"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-01-06",
+      "doi": "10.1109/IROS60139.2025.11247630",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2601.03301.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2601.03301v1",
+      "reading_value": 4,
+      "reading_value_reason": "通信の動的選択、群衆知覚、デッドロック解消の3要素を統合した提案手法は新規性が高く、512エージェントでの高い成功率は実用的なスケーラビリティを示している。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "PC2P: Multi-Agent Path Finding via Personalized-Enhanced Communication and Crowd Perception",
+      "tldr": "部分観測環境下における分散型マルチエージェント経路探索（MAPF）において、高密度な環境でのデッドロックや観測情報の冗長性による性能低下を解決するため、パーソナライズ強化通信、群衆知覚、および領域ベースのデッドロック解消を統合したPC2Pを提案する。",
+      "url": "http://arxiv.org/abs/2601.03301v1",
+      "venue": ""
     },
     "doi:10.1109/lra.2021.3074883": {
       "added": "2026-06-15",

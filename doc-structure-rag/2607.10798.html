@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Trust Before Fusion: QIMG-7 and Source-Aware Resolution for Polluted Multimodal RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Trust Before Fusion: QIMG-7 and Source-Aware Resolution for Polluted Multimodal RAG</h1>
+  <div class="meta">Saadeldine Eletter, Owais Aijaz, Preslav Nakov<br>採択先: 未取得 ・ 2026-07-12 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.10798v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.10798v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-12</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">マルチモーダルRAGにおける「汚染」という実用的な脅威に対し、詳細なベンチマークと軽量な防御策を提案しており、研究の新規性と有用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチモーダル検索拡張生成（RAG）において、トピックは関連しているが誤情報を含む「汚染された」証拠が与えられた際の脆弱性を評価するベンチマーク QIMG-7 を提案し、ソースの信頼性に基づいて回答を選択する Source-Aware Trust Resolution (SATR) によってその堅牢性を向上させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチモーダルRAGにおいて、検索されたテキストや画像が、メタデータの改ざん、エンティティの入れ替え、ピクセルレベルの編集、敵対的パッチなどの汚染を受けている状況を対象とする。従来のマルチモーダル融合手法では、トピックが関連しているためにモデルが誤った情報を自信を持って受け入れてしまい、性能が著しく低下するという困難がある。本研究は、ユーザーの質問に対し、検索されたテキスト、画像、およびそれらのメタデータが攻撃者によって操作された際の、マルチセンテンスの事実に基づく質問応答（QA）の信頼性を検証することを目的とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>テキストと画像の双方に汚染が含まれる設定を評価するため、7種類の画像攻撃ファミリーと16の評価レジームを備えた制御されたベンチマーク QIMG-7 を構築した。既存の防御手法が主にテキストのみを対象としていたのに対し、本研究はパラメトリック知識、テキストのみ、およびフルマルチモーダルという複数の回答候補間で信頼性を解決する、追加学習を必要としないプロンプトベースの軽量な防御策を提案している。これにより、マルチモーダルな証拠の汚染が与える影響を直接的に分離して測定することを可能にした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、各クエリに対してパラメトリック、テキストのみ、およびフルマルチモーダル（Full-MM）の3種類の候補回答を生成する。提案手法である Source-Aware Trust Resolution (SATR) は、生成された回答と証拠を参照し、$\text{text\_reliability}$、$\text{image\_reliability}$、$\text{internal\_external\_conflict}$、$\text{cross\_modal\_conflict}$ といった構造化された信頼性フィールドを出力する。主要なバリエーションである Field-Selector は、これらのフィールドに基づき、テキストが信頼できない場合はパラメトリック回答へ、画像が疑わしい場合はテキストのみの回答へと決定論的にフォールバックを行う。また、複数の回答を組み合わせる Soft-Conductor という手法も存在する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>LongFact、Biography、AlpacaFact、FAVAの4つのデータセットからなる QIMG-7 を用い、GPT-4o-mini をベースとした構成で評価を行った。評価指標には、LLM-as-judge による 4 段階の support score を用いている。実験の結果、クリーンなテキスト下で 0.908 であった Full-MM の性能は、汚染されたテキスト下では 0.490 まで低下したが、Field-Selector は 0.816 という最高スコアを達成した。アブレーション解析により、$\text{text\_reliability}$ フィールドを削除すると、汚染テキスト下でのスコアが 0.958 から 0.720 へと大幅に低下することが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法の性能は、リゾルバー（ゲートモデル）が証拠の信頼性を正しく評価できる能力に強く依存しており、モデルの能力が低い場合には逆に性能を損なう可能性がある。また、SATR はクエリごとに複数の LLM 呼び出しを必要とするため、実用的なデプロイメントにおいては軽量なモデルへの蒸留などの検討が必要である。現在のベンチマークは合成的な汚染に基づいているため、現実世界の多様な汚染形態を完全に網羅しているわけではなく、今後は画像が検索に不可欠となるマルチイメージ設定や、多言語・クロスドメインへの対応が課題となる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Trust Before Fusion: QIMG-7 and Source-Aware Resolution for Polluted Multimodal RAG</h3><p>本研究では、マルチモーダル検索拡張生成（RAG）において、トピックは関連しているが誤ったテキストや誤解を招く画像（メタデータの破損、エンティティの入れ替え、タイポグラフィのオーバーレイ、セマンティックな編集、敵対的パッチなど）が含まれる「汚染された」状況を評価するための制御されたベンチマーク QIMG-7 を提案している。QIMG-7 は 4 つのデータセット、7 つの画像攻撃ファミリー、および 16 のクリーン/汚染ペアの構成から成り、マルチモーダルな事実に基づく質問応答における信頼性を検証する。実験の結果、GPT-4o-mini を用いた構成において、クリーンなテキストでは 0.908 であった Full-MM（完全なマルチモーダル融合）の性能が、汚染されたテキスト下では 0.490 まで低下し、時には検索結果を利用するよりもパラメトリックな知識に頼る方が安全であることが示された。これに対し、提案手法である Source-Aware Trust Resolution (SATR) は、パラメトリック、テキストのみ、および Full-MM の各候補回答を比較し、ソースの信頼性に基づいて回答を選択またはフォールバックを行う学習不要のアプローチである。特に Field-Selector 変種は、Full-MM に対して 11.7 ポイント向上する 0.816 という最高スコアを達成しており、アブレーション解析からは、テキストの信頼性を明示的にモデリングすることが性能向上の主要な要因であることが明らかになった。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、マルチモーダルRAGにおいて、検索された内容がトピックとしては関連しているものの、誤情報（誤ったキャプション、画像編集、文脈外のクロップなど）を含む「汚染された（polluted）」状態にあることで、モデルが自信を持って誤った回答を生成してしまう問題に取り組んでいる。著者らは、マルチセンテンスの事実に基づくQAを対象とした、クリーンなデータと汚染されたデータのペアからなるベンチマーク QIMG-7 を構築しており、これにはメタデータ、ピクセル、スタイルの摂動を含む7種類の画像攻撃手法と、16の評価レジームが含まれる。実験の結果、既存のマルチモーダル融合はデフォルトでは安全ではなく、テキストが汚染されている状況下では、単純なRAGはパラメトリックな知識のみに頼る場合よりも性能が低下することが示された。この課題に対し、訓練を必要としない手法群である Source-Aware Trust Resolution (SATR) を提案しており、これはパラメトリックな回答、テキストのみの回答、およびフルマルチモーダルな回答の候補に加え、構造化された信頼性フィールドを用いて、回答の選択、構成、またはフォールバックを行うものである。提案手法の一つである Field-Selector は、フルマルチモーダルな回答を用いる場合と比較してバランススコアを約12ポイント、Cascaded Router と比較して約3ポイント向上させており、その性能向上は単なる候補の集約ではなく、明示的なテキスト信頼性のモデリングに起因することが分析によって示されている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>既存のRAG研究では、誤解を招く情報や敵対的な情報の注入がLLMの回答を操作するセキュリティ脅威として議論されており、特にPoisonedRAGなどの研究では、知識データベースへの悪意ある文章の注入がブラックボックス環境下でも高い成功率で攻撃を成立させることが示されている。これに対し、Self-RAGやCRAG、Adaptive-RAG、RobustRAGといった防御手法は、リトリーバル結果の評価や修正、ルーティング、集約プロセスを通じて堅牢性を高める試みを行っているが、これらは主にテキストのみを対象としている。本研究で提案されるQIMG-7およびSATRは、テキストと画像の双方に汚染が含まれるマルチモーダルな設定において、パラメトリック知識、テキストのみ、およびフルマルチモーダルという複数の回答候補枝の間で信頼性を解決する手法であり、追加学習を必要としないプロンプトベースの軽量な防御策である。また、評価手法として、物体幻覚を測定するPOPEや記述の正確性を問うMMHal-Bench、さらには文レベルの事実性を検証するFActScoreなどの既存の枠組みが存在するが、本研究はクリーンなデータと汚染されたデータを対にした制御された環境を構築することで、テキストや画像の汚染が与える影響を直接的に測定する。本研究の独自性は、マルチセンテンスの事実に基づくQA、テキストと画像のペアによる汚染、7種類の画像攻撃、および選択的信頼防御を統合したベンチマークを提供している点にある。</p></section>
+<section class="secsum"><h3>3 Benchmark and Threat Model</h3><p>本研究では、ユーザーの質問と回答モデルは固定されているが、モデルに渡される前に検索された証拠（テキスト、画像キャプション、メタデータ、画像ピクセル）が攻撃者によって汚染される脅威モデルを想定し、トピックに関連していても信頼できない証拠を回避できるかを評価するベンチマークQIMG-7を提案している。QIMG-7は、LongFact、Biography、AlpacaFact、FAVAの4つの事実に基づくQAデータセットから抽出された110の質問を基盤とし、各質問を「クリーン/汚染されたテキスト」と「クリーン/7種類の画像汚染」の組み合わせによる16のレジーム（$TC\_IC$, $TP\_IC$, および各画像攻撃に対する$TC\_IP\_&lt;\text{attack}&gt;$, $TP\_IP\_&lt;\text{attack}&gt;$）へと拡張することで、テキスト、画像、またはその相互作用による影響を分離して測定可能にしている。テキストの汚染には、明白な誤り、矛盾、誤解を招く内容、捏造の4種類が用いられ、画像の汚染には、メタデータのみを操作するCaption flipやEntity swapに加え、ピクセルレベルで編集を行うSemantic entity rewrite、FigStep typography、Adversarial patch、Image blend、Neural style transferの7つの攻撃手法が導入されている。評価では、Full-MMブランチにおいて、質問、テキスト断片（タイトル、URL、スニペットを含む）、および画像証拠（生ピクセル、タイトル、代替テキスト、ソースページ）を回答モデルに提示し、Text-onlyブランチでは画像フィールドを、Parametricブランチではすべての証拠フィールドを空にする設定で比較を行う。最終的なベンチマークは、各手法につき1,760行のデータ構成となり、画像は証拠のURLからではなく、質問に基づいた検索によって取得されることで、視覚的な関連性が担保されている。</p></section>
+<section class="secsum"><h3>4 Methods</h3><p>本手法は、汚染されたマルチモーダル検索結果（RAG）に対処するため、まず各クエリに対して、外部知識を用いないParametric、テキスト証拠のみを用いるText-only、およびテキストと画像の双方を用いるFull-MMの3種類の候補回答を生成する。Cascaded Routerは、まず検索された証拠が信頼に足るかを判定するBinary self-check gateでフィルタリングを行い、信頼できる場合にのみ、Full-MMとText-onlyのどちらを使用するかを決定するTriage gateへと進む2段階のルーティングを行う。これに対し、提案するSource-Aware Trust Resolution (SATR) は、生成された候補回答と検索証拠を同時に参照し、$\text{text\_reliability}$、$\text{image\_reliability}$、$\text{internal\_external\_conflict}$、$\text{cross\_modal\_conflict}$ といった構造化された信頼性フィールドを出力することで、より解釈性の高い防御を実現する。SATRの主要なバリエーションであるField-Selectorは、LLMが生成した信頼性フィールドに基づき、テキストが信頼できない場合はParametric回答へフォールバックし、画像が疑わしい場合は画像チャネルを排除してText-onlyを選択するという決定論的なスクリーニングを行う。また、複数の回答を組み合わせるSource-aware conductorを用いるSoft-Conductorという手法も存在し、回答の構成による性能向上を試みている。実験では、QIMG-7ベンチマークを用い、クリーンな証拠と7種類の画像攻撃を含む汚染された証拠を組み合わせた16の条件下で、これらの手法の堅牢性を評価している。</p></section>
+<section class="secsum"><h3>5 Experimental Setup</h3><p>本実験では、Parametric、Text-only、Full-MM、および文字列・トークン類似度に基づき最も中心的な候補を選択するAnswer-Consensusをベースラインとして、提案手法であるCascaded Routerおよびsource-aware SATRのバリアントであるField-SelectorとSoft-Conductorを比較評価する。主要な評価指標は、信頼できるクリーンな根拠に対するLLM-as-judgeによるsupport scoreであり、回答をsupported、partial、unsupported、uncertainの4段階でラベル付けして平均化する。評価の頑健性を担保するため、512個の出力からなる層化サブセットに対して6つの追加の判定モデルを用いた監査を行い、さらに96個の出力に対して人間による検証を行うことで、判定モデルへの依存性を低減しつつ手法間の傾向が維持されることを確認している。統計的な報告には、質問ごとにクラスター化された10,000回の再サンプリングによる質問IDベースのペア付きブートストラップ法を用い、95%信頼区間を算出している。実装面では、回答生成、判定、ゲート決定にgpt-4o-miniを使用し、モデルの汎用性を検証するためにgpt-4o-mini、gpt-4.1-mini、Qwen2.5-VL-7B、Llama-3.2-11B-Visionの4種類のスタックを用いてQIMG-7の再実行を行っている。</p></section>
+<section class="secsum"><h3>6 Results</h3><p>QIMG-7ベンチマークを用いた実験の結果、テキストが汚染された環境下では、単純なマルチモーダル検索に基づくFull-MMは性能が著しく低下する一方で、Parametric answering（モデルの内部知識による回答）の方が安全であることが示された。提案手法であるSource-Aware Trust Resolution (SATR) のうち、Field-Selectorは、クリーンなテキスト環境での性能を維持しつつ、汚染された環境での性能低下を最小限に抑え、バランススコアで $0.816$ という最高値を記録した。この性能向上は、主にテキストの信頼性を示す $text\_reliability$ フィールドに依存しており、アブレーション解析ではこのフィールドを削除すると汚染テキスト下でのスコアが $0.958$ から $0.720$ へと大幅に低下することが確認された。モデルの汎用性については、gpt-4o-miniやQwen2.5-VL-7BなどのスタックでField-Selectorが優れたバランススコアを示す一方、Llama-3.2-11B-Visionのようなゲートモデルの能力が低いケースでは、信頼性に基づくルーティングが逆に性能を損なう可能性があり、SATRの有効性はリゾルバーの判断精度に依存すると結論付けられている。攻撃手法別の分析では、Cascaded Routerがメタデータ操作等の攻撃に強いのに対し、Field-Selectorは画像の内容が視覚的に改変された攻撃に対して高い堅牢性を示す。また、原子的な事実性の監査においても、Field-Selectorは汚染された環境下での原子レベルの支持スコアにおいて、検索を考慮した手法の中で最高の結果を得ている。</p></section>
+<section class="secsum"><h3>7 Conclusion and Future Work</h3><p>本研究では、4つの事実に基づくQAデータセット、7種類の画像攻撃手法、およびクリーンな状態と汚染された状態のペアから構成される、マルチモーダル検索汚染を評価するための制御されたベンチマークである QIMG-7 を提案した。実験の結果、単純なマルチモーダル融合を行う Full-MM は、テキストがクリーンな場合は良好な性能を示すものの、汚染されたテキストや誤解を招く画像が検索された場合には性能が崩壊することが示された。これに対し、提案手法である SATR は、すべての証拠を無条件に融合するのではなく、パラメトリックな回答、テキストのみの回答、およびマルチモーダルな回答をソースごとの信頼性判断に基づいて比較することで、検索結果を選択的に信頼するアプローチをとる。GPT-4o-mini を用いた構成において、Field-Selector は最も高いバランスの取れたサポートスコアを達成し、クリーンな環境と汚染された環境の性能差を大幅に縮小させたことが、アブレーション解析や人間による検証を通じて確認された。今後の展望として、学習ベースの信頼性モデルの構築、画像フォレンジックを考慮したルーティング、および事実に基づくQAを超えた多言語・クロスドメインでの堅牢性テストが挙げられる。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>QIMG-7は、多文の事実に基づくQAにおけるマルチモーダル検索汚染を制御された条件下で検証するためのストレス・テスト・ベンチマークであるが、現状では汚染されたテキストが主な失敗要因となっており、視覚的識別、OCR、図表、文書に基づいたQA、あるいは画像が単なる誤導的な証拠ではなく検索に不可欠となるマルチイメージ設定など、視覚チャネルをより直接的に検証するベンチマークの構築が求められる。汚染生成手法は、テキスト、画像、およびそれらの相互作用の影響を分離するために設計された合成的なものであり、信頼されているソースにおける微細な事実の乖離や、明らかなスパムといった現実世界の多様な汚染形態を完全に網羅しているわけではない。提案手法であるSATRは、ゲートモデルが証拠の信頼性を評価する能力に依存するため、あらゆる生成器とゲートの組み合わせに対して性能を保証するものではなく、モデルに依存しないフレームワークとして捉える必要がある。また、単一ブランチのベースラインと比較して、クエリごとに2〜3回のLLM呼び出しが追加されるため、実用的なデプロイメントにおいては、学習済みのキャリブレーションされたルーターや蒸留された軽量なリゾルバーの活用が検討されるべきである。さらに、使用されたデータセットはすべて英語であり、翻訳エラーや低リソース言語の証拠がマルチモーダル検索と相互作用するような、言語横断的な検索汚染への対応は今後の課題である。</p></section>
+<section class="secsum"><h3>Ethical Considerations</h3><p>本研究は、誤解を招くテキストや画像によってマルチモーダル検索が汚染される現象を調査しており、その手法が悪用されて欺瞞的なコンテンツが生成されるリスクを認めている。しかし、研究の目的は検索に基づく事実に基づく多文QAの堅牢性を向上させる防御的なものであり、公開される汚染データはメタデータにおいて合成された操作済みのベンチマーク・アーティファクトとして明示的にラベル付けされ、事実としての証拠にはされない。著作権保護の観点から、第三者の画像再配布が制限される場合は、画像そのものではなくメタデータやプロンプト、あるいは再構成スクリプトのみを公開する。また、公開されるデータセットには個人情報や機密性の高いユーザーデータは含まれず、すべての記録は匿名化されている。人間による検証アノテーションは著者自身が行われており、外部のアノテーターは雇用されていないため、大規模な独立したアノテーションの代替ではなく、あくまで検証チェックとしての利用に留まるという限界がある。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-21
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>EduGuard: A Safe RAG-Based LLM Tutor for Programming Education | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>EduGuard: A Safe RAG-Based LLM Tutor for Programming Education</h1>
+  <div class="meta">S M Asif Hossain, Ruksat Khan Shayoni, M. F. Mridha, Jungpil Shin<br>採択先: 未取得 ・ 2026-07-17 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.15738v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.15738v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-17</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGに教育的ポリシーとNLIによる主張レベルの検証を統合した点が新規。ベンチマーク構築や実験による学習効果の検証も具体的で、教育AI分野の研究者にとって価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> プログラミング教育におけるLLMのハルシネーション、解答の直接提示、および学習者の過度な依存という課題に対し、教育的ポリシーと主張レベルの検証を統合した安全なRAGベースのチュータリングフレームワークEduGuardを提案する。本手法は、学習効果の向上と学術的誠実性の維持を両立させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>プログラミング学習において、LLMが誤った解説を行うハルシネーションや、解答をそのまま提示してしまうことによる学術的誠実性の欠如、さらには学習者がLLMに過度に依存してしまうリスクが問題となっている。従来のRAG（検索拡張生成）システムは回答の関連性向上には長けているが、教育的な安全性や適切なスキャフォールディング（足場かけ）を考慮できていない。本研究は、講師が承認した教材に基づき、教育的意図に沿った安全なフィードバックを提供するシステムを対象とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のRAG手法が回答の関連性のみに焦点を当てていたのに対し、本研究は教育的ポリシーの適用と、生成された回答の原子的な主張（atomic claims）に対する検証プロセスを導入することで、教育的な安全性を確保した点に新規性がある。また、プログラミング教育に特化した、敵対的な直接回答要求やバイリンガル入力を含むベンチマークであるBILearn-CSを新たに導入している。さらに、生成器と検証器のアーキテクチャを分離し、自然言語推論（NLI）を用いた検証を行うことで、同一モデルによる自己検証よりも高い安全性制御を実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>EduGuardは、クエリ、検索された根拠、ルーブリック、検証ステータスを引数として適切な教育戦略を選択する方策関数 $f(q, e, r, v)$ を用いて動作する。まずクエリ理解モジュールが意図やリスクを分類し、FAISSとBM25によるハイブリッド検索を用いて講師承認済みの資料から根拠を抽出する。次に、Meta-Llama-3.1-8B-Instructを生成器として、選択された戦略とルーブリックに基づき回答を生成する。最後に、DeBERTa-v3-large-MNLIを用いた検証モジュールが、各主張が根拠によって含意される確率 $P(\text{entailment})$ を推定し、未支持の主張の割合 $\text{UCR} = \frac{\text{unsupported claims}}{\text{total claims}}$ が閾値 $\tau$ を超える場合には、回答の再生成または拒絶を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>600件のクエリからなるBILearn-CS、150件のCS50フォーラムデータ、および10名の学部生によるパイロット実験を用いて評価を行った。BILearn-CSにおいて、正解率 $90.1\%$、グラウンディング $89.4\%$、ルーブリック適合度 $90.8\%$ を達成し、ハルシネーションを $4.9\%$、直接回答の漏洩を $9.8\%$ に抑制した。CS50フォーラムでは正解率 $86.7\%$、ハルシネーション率 $6.8\%$ を維持した。パイロット実験では、GPT-4o-mini Tutorと比較して、事後テストの正解率を $68.4\%$ から $81.2\%$ へ向上させ、過度な依存を $38.0\%$ から $17.0\%$ へと大幅に削減した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、検索された証拠が「どの程度の助けを与えるべきか」という教育的判断を決定できないという従来のRAGの限界を、レスポンス制御ポリシーによって克服している。しかし、検索対象のチャンクに詳細が不足している場合や、自然言語の含意関係は判定できてもコードの実行結果に基づく論理的正当性を判断できないといった、コード意味論における限界が存在する。また、検証の閾値 $\tau$ に関しては、厳格すぎると過剰な拒絶を招き、緩和しすぎると根拠のない主張を許容するというトレードオフがある。今後の課題として、より大規模なランダム化比較試験による長期的な学習保持効果の検証が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>EduGuard: A Safe RAG-Based LLM Tutor for Programming Education</h3><p>EduGuardは、プログラミング教育におけるハルシネーションや解答の漏洩、学習者の過度な依存を防ぐために設計された、安全な検索拡張生成（RAG）ベースのチュータリングフレームワークである。本手法は、クエリ理解、講師承認済みのコース資料からの検索、教育戦略の選択、ルーブリックを考慮した生成、主張レベルの検証、および過度な依存の制御を統合している。評価には、概念質問やデバッグ、誤概念、課題支援、コード混在言語、敵対的な直接回答要求を含む600件のクエリからなるベンチマークBILearn-CS、150件の公開フォーラムデータ、および10名の学部生を対象とした対照実験が用いられた。Meta-Llama-3.1-8B-Instructを生成器、FAISSとBM25によるハイブリッド検索、DeBERTa-v3-large-MNLIを検証器として採用しており、BILearn-CSにおいて正解率 $90.1\%$、グラウンディング $89.4\%$、ルーブリック適合度 $90.8\%$ を達成し、ハルシネーションを $4.9\%$、直接回答の漏洩を $9.8\%$ に抑え込んでいる。パイロット実験では、GPT-4o-mini Tutorと比較して、事後テストの正解率を $68.4\%$ から $81.2\%$ へ向上させ、過度な依存を $38.0\%$ から $17.0\%$ へと大幅に削減することに成功した。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>プログラミング教育におけるLLMの利用は、解答の直接提示による学術的誠実性の欠如や、ハルシネーションによる誤った解説といったリスクを伴う。本研究では、これらを解決するための安全なRAGベースのチュータリングフレームワークであるEduGuardを提案する。EduGuardは、学生のクエリ分析、講師が承認した根拠情報の検索、教育的戦略の選択、回答生成、自然言語推論（NLI）モデルを用いた生成された主張の検証、および過度な依存を抑制するポリシーの適用からなる応答制御パイプラインを構築している。評価のために、講師作成およびTA検証済みの600件のクエリからなるプログラミング支援ベンチマークであるBILearn-CSを導入しており、これには明示的な出典、安全な回答ラベル、バイリンガル/コードミックスのプロンプト、および直接回答を誘発する敵対的ケースが含まれる。さらに、CS50形式のコースフォーラムデータセットを用いた検証と、学習効果や自信の較正、過度な依存行動を測定する10名の学部生を対象としたパイロットスタディを通じて、提案手法の有効性を多角的に検証している。</p></section>
+<section class="secsum"><h3>2. Related Works</h3><p>教育におけるAIは、従来のインテリジェント・チュータリング・システムから、自動フィードバックや学習分析へと進化しており、効果的なフィードバックには目標の明確化、現状の把握、次なる行動への導き、および自己調整学習の支援が不可欠である。プログラミング教育の文脈では、LLMが学習の摩擦を軽減する一方で、学術的誠実性への挑戦やスキャフォールディング（足場かけ）の再設計が必要であることが指摘されている。LLMの生成プロセスにおけるハルシネーション（幻覚）は、流暢な出力であっても根拠のない主張を含むリスクがあり、学習場面における誤ったフィードバックは学生の行動や自信に悪影響を及ぼす。RAG（検索拡張生成）や高密度検索は、LLMの出力を根拠付け（grounding）する一般的な手法として、コース教材やルーブリックを用いて生成されるフィードバックを制約するために用いられている。しかし、既存の多くのRAGシステムは回答の関連性の最適化に重点を置いており、教育的な安全性（pedagogical safety）を十分に考慮できていないという課題がある。</p></section>
+<section class="secsum"><h3>3. Methodology</h3><p>EduGuardは、プログラミング教育において安全性と教育的妥当性を両立させるためのRAGベースのチュータリング・フレームワークである。本手法は、クエリ、検索された根拠、ルーブリック、検証ステータスを引数として、適切なチュータリング・アクションを決定する方策関数 $f(q, e, r, v)$ を用いて、概念説明やソクラテス式ヒントなどの教育戦略を選択する。システム構成は、クエリの意図やリスクを分類するクエリ理解モジュール、Meta-Llama-3.1-8B-Instructを主生成器とするフィードバック生成モジュール、および生成された回答の原子的な主張（atomic claims）を検証するハルシネーション検証モジュールで構成される。検証プロセスでは、DeBERTa-v3-large-MNLIを用いて各主張が根拠によって含意される確率 $P(\text{entailment})$ を推定し、未支持の主張の割合 $\text{UCR} = \frac{\text{unsupported claims}}{\text{total claims}}$ が閾値 $\tau$ を超える場合、回答の再生成またはガイダンス付きの拒絶を行う。評価には、講師が作成した600件のBILearn-CSベンチマーク、CS50の公開フォーラムから抽出した150件の外部検証セット、および10名の学生によるパイロット実験が用いられる。評価指標には、回答の正当性を示すCorrectness、根拠への忠実度を示すGrounding、およびポリシーに反する直接回答の漏洩を示すDirect-answer leakageが含まれる。</p></section>
+<section class="secsum"><h3>4. Results</h3><p>構築されたベンチマーク BILearn-CS、外部フォーラム CS50-Forum、および10名の大学生を対象としたパイロット実験において、提案手法である EduGuard は、既存の RAG + Self-Check や GPT-4o-mini Tutor を上回る性能を示した。BILearn-CS において、EduGuard は根拠性（grounding）、ハルシネーション、ルーブリックへの適合性、および情報の漏洩（leakage）の抑制において有意な改善を実現しており、これは主張レベルの検証と明示的なチュータリング・ポリシーの組み合わせが、同一モデルによる自己検証よりも強力な安全性制御を提供することを示唆している。CS50-Forum を用いた汎化性能の検証では、公開投稿特有の不完全なコード文脈により全体の根拠性は低下したものの、EduGuard は正解率 86.7%、ハルシネーション率 6.8% という高い性能を維持した。大学生によるパイロット実験では、EduGuard を使用した学生は、GPT-4o-mini Tutor を使用した学生と比較して、事後テストの正解率と正規化学習利得が高く、信頼度の較正誤差（calibration error）や過度な依存（overreliance）が低いことが確認され、学生が単なる解答のコピーではなく、より多くの追加質問を通じて学習を進める傾向が見られた。アブレーション解析により、検証器（verifier）の除去はハルシネーションをほぼ倍増させ、戦略セレクターの除去は情報の漏洩を大幅に増加させることが判明しており、検証器を NLI（自然言語推論）ベースにすることで、同一モデルによる自己検証よりも高い性能が得られることから、アーキテクチャ上の分離の重要性が示された。また、検証の閾値については、厳格な設定（0.10）ではハルシネーションを最小化できるが過剰な拒絶（over-refusal）を招き、緩和した設定（0.30）では網羅性は向上するが根拠のない主張を許容してしまうため、デフォルトの設定がハルシネーション抑制と網羅性の最適なバランスを実現している。</p></section>
+<section class="secsum"><h3>5. Discussion</h3><p>EduGuardは、証拠の検索、教育的ポリシーの適用、回答生成、および検証の各プロセスを分離することで、ハルシネーションの抑制と解答漏洩（leakage）の防止を同時に実現する。従来のRAG手法では、検索された証拠が「どの程度の助けを与えるべきか」という教育的判断を決定できないため、解答をそのまま提示してしまう課題があったが、本手法はレスポンス制御ポリシーを通じて、高リスクな要求を学習を支援する小さなステップへと変換する。実験における失敗分析では、検索対象のチャンクに詳細が不足している不完全な検索や、自然言語の含意関係は判定できてもコードの実行結果に基づく論理的正当性を判断できないコード意味論の限界、さらには英語の教材とベンガル語の翻字によるバイリンガル検索の失敗が確認されている。また、NLI（自然言語推論）検証器は生成器とアーキテクチャ上は分離されているものの、両者が広範なウェブデータで学習されているため、相関した失敗モードを持つ可能性がある。10名の学生を対象としたパイロット実験では、正規化学習利得の向上と過度な依存の減少が示され、ループのトレースや出力の予測を促すプロンプトが能動的な学習を促進することが示唆されたが、長期的な保持効果や成績への影響を結論付けるには、より大規模なランダム化比較試験が必要である。</p></section>
+<section class="secsum"><h3>6. Conclusions</h3><p>本研究では、プログラミング教育のための安全なRAGベースのLLMチュータリングフレームワークであるEduGuardを提案した。このシステムは、ハイブリッド検索、教育戦略の選択、ルーブリックを考慮した回答生成、主張レベルの検証、および過度な依存の制御を組み合わせた構成となっている。評価では、指導者が作成した600件のクエリからなるベンチマーク、公開されたコースフォーラムの検証セット、および10名の学部生を対象とした制御下でのパイロット実験を実施し、アブレーション解析や閾値感度分析も行った。実験の結果、EduGuardはGPT-4o-mini Tutor、Llama Socratic Tutor、Basic RAG、LPITutor形式のRAG、RAG + Rubric、RAG + Self-Checkといった既存手法と比較して、正解率、グラウンディング、ルーブリックへの適合性、および専門家による有用性の評価において向上を示し、一方でハルシネーションや直接的な回答の漏洩を抑制することに成功した。これらの知見は、安全な生成AIチュータリングを実現するためには、単に強力なLLMや検索技術を用いるだけでなく、明示的な教育方針とエビデンスに基づく検証プロセスが不可欠であることを示唆している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-21
+  </footer>
+</div>
+</body>
+</html>

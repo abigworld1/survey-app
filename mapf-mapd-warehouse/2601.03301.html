@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PC2P: Multi-Agent Path Finding via Personalized-Enhanced Communication and Crowd Perception | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>PC2P: Multi-Agent Path Finding via Personalized-Enhanced Communication and Crowd Perception</h1>
+  <div class="meta">Guotao Li, Shaoyun Xu, Yuexing Hao, Yang Wang, Yuhui Sun<br>採択先: 未取得 ・ 2026-01-06 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2601.03301v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2601.03301v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/IROS60139.2025.11247630" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-01-06</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">通信の動的選択、群衆知覚、デッドロック解消の3要素を統合した提案手法は新規性が高く、512エージェントでの高い成功率は実用的なスケーラビリティを示している。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 部分観測環境下における分散型マルチエージェント経路探索（MAPF）において、高密度な環境でのデッドロックや観測情報の冗長性による性能低下を解決するため、パーソナライズ強化通信、群衆知覚、および領域ベースのデッドロック解消を統合したPC2Pを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>複数のエージェントが衝突を回避しながら、グラフ $G = (V, E)$ 上の始点 $s_i$ から目標地点 $g_i$ へ移動する経路を計画する問題に対象とする。エージェントは自身の視野（FOV）内のみを観測できる部分観測環境で動作し、頂点衝突やエッジ衝突を回避しながら総タイムステップ数 $\sum_{i} T_i$ を最小化する必要がある。従来の分散型手法では、環境の規模や密度が変化すると、エージェント間の相互作用の管理不足や観測情報の冗長性により、計画成功率や解の品質が不安定になるという課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存の通信メカニズムに対し、グラフアテンションを用いて通信相手を動的に選択し、カスタマイズされたメッセージをやり取りするパーソナライズ強化通信を導入している。また、静的な空間制約と動的な占有率の変化を統合した群衆知覚を導入することで、エージェントの状況認識能力を向上させている。さらに、従来の強化学習のみでは困難であった、狭い領域内での極端なデッドロックを解消するための、専門家の知識を活用した領域ベースの協調的戦略を提案している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>通信においては、エージェント $i$ の行動がエージェント $j$ に影響を与える場合にのみ通信対象とする集合 $\mathcal{C}_i^t = \{j \in \mathcal{N}_i^t \mid a_i^t(o_i^t) \neq a_i^t(o_i^t \setminus \{j\})\}$ を定義し、Graph Attention Networksを用いてアテンション係数 $\alpha_{ij}^h = \text{softmax}_j(\text{LeakyReLU}(\mathbf{a}^T [ \mathbf{W}\mathbf{h}_i^s \, \Vert \, \mathbf{W}\mathbf{h}_j^r ]))$ を計算してメッセージを集約する。観測面では、静的混雑度 $C_{\text{static}} = \frac{n_{\text{obs}}}{N_{\text{grid}}}$ と動的混雑度 $C_{\text{dynamic}} = \frac{n_{\text{agents}}}{N_{\text{grid}}}$ を用いた総合混雑度 $C_{\text{total}} = \lambda C_{\text{static}} + (1-\lambda) C_{\text{dynamic}}$ を導入している。デッドロック発生時には、A*アルゴリズムによるサブゴール生成とODR*アルゴリズムを用いた協調的な解消戦略を実行する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>ランダムマップや構造化マップ（den312d, warehouse）を用い、DHC、DCC、SCRIMP、EPH*といった既存手法と比較評価を行った。評価指標には成功率（SR）とエピソード長（EL）を用い、カリキュラム学習により最大16エージェント、さらには512エージェントの条件下での実験を実施している。結果として、PC2Pは512エージェントの条件下でも90%以上の高い成功率を維持し、高密度環境において他のモデルを上回るスケーラビリティと協調能力を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、独立型Q学習（IQL）フレームワークに基づいているため、学習の不安定性が内在するという課題がある。今後は、中央集中型学習・分散実行（CTDE）フレームワークを統合することで、MAPFタスクにおける衝突やデッドロックをさらに軽減することを目指している。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>PC 2 P: Multi-Agent Path Finding via Personalized-Enhanced Communication and Crowd Perception</h3><p>本研究では、部分観測環境下での分散型マルチエージェント経路探索（MAPF）を改善するため、Q学習ベースのマルチエージェント強化学習（MARL）フレームワークに基づく新しい手法であるPC2Pを提案している。提案手法は、動的なグラフトポロジーに基づき、選択、生成、集約の3段階の操作を通じて「誰が」「何を」伝達すべきかを決定するパーソナライズ強化通信メカニズムを導入している。同時に、静的な空間制約と動的な占有変化を統合した局所的な群衆知覚（local crowd perception）を組み込むことで、エージェントのヒューリスティックな観測を豊かにし、効果的な行動へのガイダンスを強化している。さらに、極端なデッドロック問題を解決するために、専門家のガイダンスを活用して狭い領域内での効率的な協調を実現する領域ベースのデッドロック解消戦略を導入している。実験の結果、PC2Pは多様な環境において既存の最先端の分散型MAPF手法と比較して優れた性能を示すことが確認されており、アブレーション研究によって各モジュールの有効性も実証されている。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>Multi-Agent Path Finding (MAPF) は、複数のエージェントが衝突を回避しながら始点から終点へ移動する経路を計画する問題であり、中央集権的な手法はグローバルな情報への依存や動的環境下での再計画の必要性からスケーラビリティに課題がある一方、分散型のマルチエージェント強化学習（MARL）を用いた手法は、限定的な視野（FOV）内での観測と通信に基づきリアルタイムな協調を実現する。しかし、既存の分散型手法は、環境の規模や密度が変化すると計画成功率や解の品質が不安定になり、特に高密度な環境ではエージェント間の相互作用の管理不足や、観測情報の冗長性によってデッドロックが発生しやすいという限界がある。本論文が提案する PC2P は、まず「Selection-Generation-Aggregation」と称される3段階のパーソナライズ強化通信メカニズムを導入しており、グラフアテンションメカニズムを用いて通信相手を動的に選択し、カスタマイズされたメッセージを取得する。次に、静的な空間制約と動的な占有率の変化を統合した「crowd-augmented local observation」を導入することで、エージェントが現在および将来の環境状態をより正確に把握し、リアルタイムな方策出力のためのヒューリスティックな指針を得られるようにしている。さらに、専門家の知識を活用して局所的な極端なデッドロックを解消する、領域ベースの協調的デッドロック打破戦略を提案している。実験の結果、PC2P は様々なテスト環境において既存の分散型アルゴリズムを継続的に上回る性能を示すことが確認されている。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>マルチエージェント経路探索（MAPF）におけるマルチエージェント強化学習（MARL）の研究は、エージェント間の協調性を高めるために多様な手法が提案されてきた。初期の研究であるPRIMALは、非同期アドバンテージ・アクター・クリティック（A3C）と模倣学習を統合してエキスパートの知識を活用し、その後のPRIMAL2では生涯学習型のMAPFへと拡張された。通信メカニズムに関しては、グラフ畳み込み（GCN）を用いたDHCや、意思決定の因果関係に基づくリクエスト・レスポンス機構を用いるDCC、エキスパートのデモンストレーションから動的な通信トポロジーを構築するPICOなど、効率化に向けた試みがなされている。また、Transformerに似たアーキテクチャを用いるSCRIMPや、階層型強化学習により複雑なタスクを分解するHELSA、高密度環境での報酬設計を行うCRAMPといった手法も存在するが、これらは大規模かつ高密度な環境におけるスケーラビリティに課題を残している。通信戦略の側面では、アテンション機構による選択的メッセージ送信を行うTarMACや、グラフ・アテンション・ネットワーク（GAT）を用いて通信対象の選択と情報の集約を最適化するMAGIC、さらには視野外の遠隔情報へのアクセスを可能にする2ホップ通信のAC2Cなどが提案されており、部分観測環境下での効率的な情報共有が重要な研究焦点となっている。</p></section>
+<section class="secsum"><h3>III Problem Formulation</h3><p>MAPF（Multi-Agent Path Finding）問題は、グラフ $G = (V, E)$ 上で各エージェント $i$ が開始地点 $s_i$ から目標地点 $g_i$ まで衝突を回避しながら移動する経路を求める問題である。エージェントの経路 $\tau_i = (v_{i,0}, v_{i,1}, \dots, v_{i,T_i})$ は、各時刻 $t$ において $v_{i,t} = v_{i,t-1}$ または $(v_{i,t-1}, v_{i,t}) \in E$ を満たす必要があり、同時に同一頂点に複数のエージェントが存在する頂点衝突 $v_{i,t} = v_{j,t}$ や、同一エッジを逆方向に通過するエッジ衝突 $(v_{i,t-1}, v_{i,t}) = (v_{j,t}, v_{j,t-1})$ を回避しなければならない。本研究では、2Dの4近傍グリッドワールドを環境として採用し、各エージェントは自身の視野（FOV）内のみを観測できる部分観測環境下で動作する。目的関数は、全エージェントが目標に到達するまでの総タイムステップ数 $\sum_{i} T_i$ の最小化であり、報酬関数は目標への迅速な到達と衝突回避を促進するように設計されている。なお、移動時の衝突解決策として、2番目に高いQ値を持つアクションを実行する手法が用いられる。</p></section>
+<section class="secsum"><h3>IV Method</h3><p>PC2Pは、部分観測環境下における分散型マルチエージェント経路探索（MAPF）を解決するため、個別化された通信と群衆知覚を統合した深層強化学習フレームワークを提案している。通信メカニズムでは、Decision Causal Unitを用いて、エージェント $i$ の行動 $a_i^t$ がエージェント $j$ の行動に影響を与える場合にのみ通信相手として選択する集合 $\mathcal{C}_i^t = \{j \in \mathcal{N}_i^t \mid a_i^t(o_i^t) \neq a_i^t(o_i^t \setminus \{j\})\}$ を定義し、Graph Attention Networks（GAT）を用いて、送信側と受信側の特徴量に基づいたアテンション係数 $\alpha_{ij}^h = \text{softmax}_j(\text{LeakyReLU}(\mathbf{a}^T [ \mathbf{W}\mathbf{h}_i^s \, \Vert \, \mathbf{W}\mathbf{h}_j^r ])) $ を計算することで、個別化されたメッセージ生成と集約を行う。学習にはDouble Dueling Deep Q Network（D3QN）を採用し、多段階TD誤差を最小化するように、行動価値関数 $Q(s_i^t, a_i^t; \theta)$ を最適化する。観測モジュールでは、障害物や他エージェントの位置に加え、静的混雑度 $C_{\text{static}} = \frac{n_{\text{obs}}}{N_{\text{grid}}}$ と動的混雑度 $C_{\text{dynamic}} = \frac{n_{\text{agents}}}{N_{\text{grid}}}$ を重み付け加算した総合混雑度 $C_{\text{total}} = \lambda C_{\text{static}} + (1-\lambda) C_{\text{dynamic}}$ に基づく群衆知覚情報を導入することで、環境の通過可能性を向上させている。さらに、エージェントが一定期間静止または徘徊するデッドロック状態を検知した場合、局所的なマップ上でA*アルゴリズムによるサブゴール生成とODR*アルゴリズムを用いた協調的なデッドロック解消戦略を実行する。</p></section>
+<section class="secsum"><h3>V Experiments</h3><p>PC2Pは、分散型優先リプレイバッファを用いたQ学習ベースのマルチエージェント強化学習（MARL）により訓練され、割引率 $\gamma = 0.99$ の2ステップTD誤差を用いてネットワークを更新する。カリキュラム学習戦略を採用しており、最初は単一エージェントと障害物から始まる小規模なグリッド環境から、成功率が0.9を超えるとマップサイズやエージェント数（最大16）を段階的に増加させる。評価指標には成功率（SR）とエピソード長（EL）を用い、ランダムマップや構造化マップ（den312d, warehouse）において、DHC、DCC、SCRIMP、EPH*といった既存の最先端モデルと比較される。実験結果では、PC2Pは大規模かつ高密度な環境において、他のモデルが性能を著しく低下させる中で、512エージェントの条件下でも90%以上の高い成功率を維持し、優れたスケーラビリティと協調能力を示す。アブレーション研究により、Personalized Graph-Enhanced Communication (PGC) モジュール、Crowd-Augmented Local Observation (CA) モジュール、およびCooperative Deadlock-Breaking (CDB) モジュールの各寄与が確認されており、特に高密度環境では、PGCによるパーソナライズされた通信、CAによる混雑回避、CDBによる局所的なデッドロック解消が、SRの向上とELの抑制に不可欠であることが示されている。</p></section>
+<section class="secsum"><h3>VI CONCLUSIONS</h3><p>本論文では、マルチエージェント経路探索（MAPF）問題を解決するための、分散型リアルタイムプランナーであるPC2Pを提案している。この手法は、グラフアテンションメカニズムを活用してエージェント間の関係性を動的に捉え、パーソナライズされたメッセージを適応的に割り当てるグラフ強化型通信モジュールを備えている。さらに、静的および動的な混雑状態を統合した群衆知覚情報を導入することで、複雑なシナリオにおけるエージェントの状況認識能力を向上させている。また、深刻なデッドロックに対処するために、エキスパートのガイダンスを用いた協調的なデッドロック解消戦略を設計している。実験の結果、PC2Pは規模、密度、環境タイプが異なるテスト環境において顕著な優位性を示し、特に高密度な設定において優れた協調性とスケーラビリティを発揮することが確認された。今後の課題として、独立型Q学習（IQL）フレームワークに内在する不安定性を解消するため、中央集中型学習・分散実行（CTDE）フレームワークを統合し、MAPFタスクにおける衝突やデッドロックを軽減することを目指している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-21
+  </footer>
+</div>
+</body>
+</html>

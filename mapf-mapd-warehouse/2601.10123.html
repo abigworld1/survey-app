@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Fairness Driven Multi-Agent Path Finding Problem | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Fairness Driven Multi-Agent Path Finding Problem</h1>
+  <div class="meta">Aditi Anand, Dildar Ali, Suman Banerjee<br>採択先: 未取得 ・ 2026-01-15 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2601.10123v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2601.10123v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-01-15</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFに公平性の概念を導入し、非合理的・合理的な両方のエージェントに対応するメカニズムを提案している点が非常に新規かつ実用的。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 複数のエージェントが衝突を回避しながら目的地へ移動するマルチエージェント経路探索（MAPF）において、エージェント間の福祉の格差を抑える公平性の概念を導入し、非合理的および合理的なエージェントの双方に対応する解決策を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>グラフ $G = (V, E)$ 上の $n$ 個のエージェントに対し、頂点衝突および辺衝突を回避しつつ、各々の始点 $s_i$ から終点 $d_i$ への経路を割り当てる問題を扱う。エージェントの福祉は $w_i = v_i - L(\pi_i)$（$v_i$ は目的地到達時の価値、$L(\pi_i)$ は経路長）で定義されるが、従来のMAPFではエージェント間の福祉の著しい格差が課題となっていた。本研究では、$\epsilon$-Envy Freeness、Max-min fairness、Proportional Fairness という3つの公平性制約の下での経路計画を対象とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>MAPFの文脈に公平性の概念を導入し、$\epsilon$-Envy Freeness、Max-min fairness、Proportional Fairness の3つの異なる公平性制約を定義した点が新規である。非合理的なエージェント向けのヒューリスティックな解法に加え、エージェントが自身のコスト情報を偽って報告する合理的な状況においても、支配戦略に対するインセンティブ適合性（DSIC）および個別の合理性（IR）を保証するメカニズム設計を提示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>非合理的なエージェント向けに、反復深化を用いた Fair-ICTS と、Conflict-Based Search を拡張した Fair-CBS の2手法を提案する。Fair-ICTS は各エージェントのステップ数ベクトル $\mathbf{s}$ を探索空間とし、有向非巡回グラフ（DAG）を構築して衝突を排除した後に公平性制約を適用する。Fair-CBS は、衝突時に排他的な制約を課した子ノードを生成するプロセスを通じて実現可能な計画集合 $\mathcal{P}$ を蓄積し、公平性制約に基づき社会的厚生を最大化する計画を選択する。合理的なエージェントに対しては、入札額 $b_i$ に基づき社会的厚生 $\sum_{i} (b_i - c_i(p_i))$ を最大化する割り当て関数と、エージェントが経路を維持するために必要な最小入札額であるクリティカル値 $b_i^*$ を用いた支払い関数 $p_i(\mathbf{b}) = b_i^*$ からなるメカニズムを用いる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>障害物の有無や密度が異なる4種類の2Dグリッドマップ（`random32-32-20`, `den312d`, `empty48-48`, `empty16-16`）を用いて、成功率と平均実行時間を評価した。Fair-ICTS は探索構造がコンパクトであるため、高密度マップでも実行時間が $10\text{s}$ 程度と低コストである。一方、Fair-CBS は制約の展開によるオーバーヘッドのため、設定により実行時間が数百秒まで増大する。公平性の許容度 $\epsilon$ を増加させると、解の発見が容易になり成功率は向上するが、Fair-CBS は Fair-ICTS よりも $\epsilon$ の変化に対して実行時間の感度が高い。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>エージェント数が増加すると成功率は低下する傾向にある。また、公平性の条件を厳格にする（$\epsilon$ を小さくする）ほど、解の発見が困難になるというトレードオフが存在する。今後の課題として、エージェントが随時参加・離脱するオンライン設定や、不確実な環境下での動作といった、より実用的な制約条件を考慮した研究が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Fairness Driven Multi-Agent Path Finding Problem</h3><p>本研究では、複数のエージェントがそれぞれの始点から終点まで衝突することなく移動する経路を求めるマルチエージェント経路探索（MAPF）問題に対し、公平性の観点からアプローチしている。エージェントが非合理的である場合を想定したヒューリスティックな解法と、エージェントが自身の情報を偽って報告する可能性がある合理的な場合を想定したメカニズム設計の二つの側面を検討している。合理的なエージェントを対象とした提案メカニズムは、支配戦略に対するインセンティブ適合性（dominant strategy incentive compatible）および個別の合理性（individually rational）を満たすことが示されている。提案手法の有効性と効率性を検証するために、多様な解決手法を用いた評価が行われている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路計画（MAPF）問題は、グラフ上の各エージェントに対して、衝突などの制約を満たしながら出発点から目的地までの非干渉な経路を割り当てる問題であり、ロボティクスやドローン、在庫管理などの広範な分野に応用されている。既存研究では、オンライン設定、多目的最適化、不確実性の考慮、学習ベースの手法など様々なバリエーションが検討されてきたが、公平性（fairness）の観点は十分に考慮されてこなかった。本研究では、公平性の概念をMAPFに導入し、$\text{envy freeness}$（羨望の不在）、$\text{max-min fairness}$、$\text{proportional fairness}$（比例的公平性）という3つの異なる公平性制約の下での問題を検討する。提案手法には、非合理的エージェント向けの解法に加え、合理的エージェントに対しては、支配戦略均衡において誘因適合的（dominant strategy incentive compatible）かつ個別の合理性（individually rational）を保証するメカニズム設計が含まれる。MAPFベンチマークデータセットを用いた大規模な実験を通じて、提案されたアプローチの有効性と効率性が検証されている。</p></section>
+<section class="secsum"><h3>2 Background and Problem Set Up</h3><p>本研究では、グラフ $G = (V, E)$ 上で $n$ 個のエージェントが各々の始点 $s_i$ から終点 $d_i$ へ移動する、公平性を考慮したマルチエージェント経路探索（MAPF）問題を定義している。各エージェント $i$ は、移動コスト $c=1$ で隣接頂点へ移動または留まることができ、目的地到達時に得られる価値 $v_i$ を持つ。エージェント $i$ の経路を $\pi_i$、その長さを $L(\pi_i)$ とすると、エージェントの福祉（welfare）は $w_i = v_i - L(\pi_i)$ と定義され、社会福祉（social welfare）は全エージェントの福祉の総和 $\sum_{i=1}^{n} w_i$ で表される。解の制約として、同一時刻に同一頂点に存在することを禁じる頂点衝突制約と、同一の辺を逆方向に、あるいは同時に通過することを禁じる辺衝突制約があり、これらを満たす解を実行可能（feasible）と呼ぶ。本論文では、既存研究におけるエージェント間の福祉の著しい格差という限界を解決するため、以下の3つの公平性の概念を導入している。第一に、任意のペア $(i, j)$ について福祉の差が閾値 $\epsilon$ 以内に収まる $\epsilon$-Envy Freeness、第二に、最小の福祉を最大化する Max-min fairness、第三に、他のいかなる実行可能解と比較しても福祉の比率が一定の条件を満たす Proportional Fairness である。</p></section>
+<section class="secsum"><h3>3 Proposed Solution Approaches</h3><p>本セクションでは、公平性を考慮したマルチエージェント経路探索（MAPF）を解決するための2つの手法、Fair-ICTSとFair-CBSが提案されている。<br><br>Fair-ICTSは、反復深化を用いた探索手法であり、各エージェントに割り当てられたステップ数のベクトル $\mathbf{s} = (s_1, \dots, s_n)$ を探索空間として定義する。探索の各ノード $N$ は、評価関数 $f(N) = g(N) + h(N)$ によって評価され、$g(N)$ は現在の累積コスト、$h(N)$ は実現可能な共同計画を得るために必要な追加コストを示す許容的なヒューリスティックである。アルゴリズムは、各エージェントの許容ステップ数に基づく有向非巡回グラフ（DAG）を構築し、それらを統合した共同DAGから衝突（頂点、エッジ、スワップ）を削除するプロセスを経て、実現可能な計画を抽出する。得られた計画集合 $\mathcal{P}$ に対して、羨望フリー（envy-free）、比例的公平性（proportional fairness）、および最大最小公平性（max-min fairness）の制約を適用し、最終的に社会的厚生を最大化する計画を返す。この手法の計算量は、反復回数を $b$、DAGの最大分岐係数を $b$、最大ステップ数を $T$、ある境界における衝突のない共同計画の数を $k$ とすると、時間計算量は $O(b \cdot b^T \cdot k)$、空間計算量は $O(b \cdot k)$ となる。<br><br>Fair-CBSは、標準的なConflict-Based Search（CBS）を拡張したものであり、各ノードに制約と個々の経路コストの総和（SIC）を保持する。衝突が検出された場合、衝突するエージェントに対して互いに排他的な制約を課した子ノードを生成し、再計画を行う。探索プロセスを通じて、すべての実現可能なリーフノードが評価され、羨望フリーな計画が集合 $\mathcal{P}$ に蓄積される。最終的に、$\mathcal{P}$ に対して比例的公平性と最大最小公平性のフィルタリングを行い、社会的厚生を最大化する計画を選択する。Fair-CBSの計算量は、探索されたノード数を $n$、エージェントの経路保存に必要な空間を $s$ とすると、時間計算量は $O(n)$、空間計算量は $O(s)$ と定義される。</p></section>
+<section class="secsum"><h3>4 Mechanism for Rational Agents</h3><p>各エージェントが持つステップごとのコスト $c_i$ をプライベートな情報とし、エージェントが自身の利益を最大化するためにコストを偽って報告する可能性がある状況において、本セクションでは、真実の報告が常に最適となる支配戦略インセンティブ適合性（DSIC）、参加しない場合と同等以上の効用を保証する個人合理性（IR）、および報告されたコストに基づき社会的厚生を最大化する性能保証を備えたメカニズムを提案している。提案するメカニズムは、エージェント $i$ の入札額を $b_i$ としたとき、報告された入札ベクトル $\mathbf{b}$ に基づいて社会的厚生 $\sum_{i} (b_i - c_i(p_i))$ を最大化する経路集合 $\mathcal{P}$ から最適な計画 $p^*$ を選択する割り当て関数 $f(\mathbf{b}) = \arg\max_{p \in \mathcal{P}} \sum_{i} b_i$ と、各エージェントに支払われる金額を決定する支払い関数 $p_i(\mathbf{b})$ で構成される単一パラメータドメインメカニズムである。支払い関数 $p_i(\mathbf{b})$ は、エージェント $i$ が自身の経路を維持するために必要な最小の入札額であるクリティカル値 $b_i^*$ を用いて $p_i(\mathbf{b}) = b_i^*$ と定義され、この $b_i^*$ は、エージェント $i$ の入札額をそれ以下に下げた場合に割り当てられる計画が、真のコストの下での最適解と異なるようになる最小の入札額として算出される。このメカニズムは、エージェントの効用 $u_i = p_i - c_i(p_i)$ を最大化しようとする自己中心的なエージェントに対しても、DSICおよびIRの性質を満たすことが定理として示されている。</p></section>
+<section class="secsum"><h3>5 Experimental Evaluation</h3><p>本実験では、Sternらによるベンチマークから選定された、障害物を含む `random32-32-20` や `den312d`、および障害物のない `empty48-48` や `empty16-16` の4種類の2Dグリッドマップを用いて、提案手法である Fair-ICTS と Fair-CBS の性能を評価している。各実験は、エージェント $i$ の効用を $u_i$、ステップコストを $c_i$ とし、エージェントの最適経路長を $L_i$ としたとき、$u_i$ と $c_i$ をサンプリングして異なる開始・目標位置で100回実行され、60秒の制限時間内での成功率（success fraction）と平均実行時間が測定されている。実験結果によれば、エージェント数の増加に伴い成功率は低下するが、マップサイズが大きいほど空間的柔軟性が高まるため、成功率は向上する傾向にある。実行時間に関しては、Fair-ICTS は探索構造がコンパクトであるため、小規模マップで $1\text{s}$ 未満、高密度マップでも $10\text{s}$ 程度と低コストに抑えられているのに対し、Fair-CBS は制約の明示的な展開による計算オーバーヘッドのため、マップや設定に応じて数秒から数百秒まで大幅に増大する。また、公平性の許容度 $\epsilon$ を変化させた評価では、$\epsilon$ が小さくなるほど公平性の条件が厳格化し、$\epsilon$ の増加に伴って解の発見が容易になるため成功率が向上するが、Fair-CBS は Fair-ICTS よりも $\epsilon$ の変化に対して実行時間の感度が高いことが示されている。</p></section>
+<section class="secsum"><h3>6 Concluding Remarks</h3><p>本研究では、全エージェントの衝突を回避しつつ、社会的厚生を最大化する公平な経路を探索する公平性駆動型マルチエージェント経路探索（MAPF）問題を検討している。公平性の概念として、羨望フリー（envy freeness）、最大最小公平性（max-min fairness）、および比例公平性（proportional fairness）の3つを定義し、これらに基づく経路計画を扱っている。エージェントが非合理的である場合と、合理的エージェントに対して支配戦略均衡を保証する誘因両立的なメカニズムを導入する場合の両方の解決策を提案した。今後の展望として、エージェントが随時参加・離脱するオンライン設定や、不確実な環境下での動作といった、より実用的な制約条件を考慮した研究を進める予定である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-21
+  </footer>
+</div>
+</body>
+</html>
