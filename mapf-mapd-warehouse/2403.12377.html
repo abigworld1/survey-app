@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Online Multi-Agent Pickup and Delivery with Task Deadlines | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Online Multi-Agent Pickup and Delivery with Task Deadlines</h1>
+  <div class="meta">Hiroya Makino, Seigo Ito<br>採択先: 未取得 ・ 2024-03-19 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2403.12377v3" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2403.12377v3" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/IROS58592.2024.10802597" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2024-03-19</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">オンラインMAPDにデッドライン制約を導入した新規性は評価できるが、実験規模が限定的であり、計算量や大規模環境への適用性に課題が残るため。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> タスクの配送期限が設定され、かつタスクが動的に追加されるオンライン型マルチエージェント・ピックアップ＆デリバリー問題（MAPD-D）を定義し、累積遅延を最小化する手法を提案する。提案手法は、期限の切迫度と実行コストを考慮したタスク割り当てと、エージェント間および単一エージェント内でのタスク入れ替え戦略により、効率的な配送を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究の対象は、エージェントの集合 $\mathcal{A}$、グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$、および未実行タスクの集合 $\mathcal{T}$ からなるオンラインMAPD-D問題である。各タスク $i \in \mathcal{T}$ はピックアップ地点 $p_i$、デリバリー地点 $d_i$、およびデリバリー期限 $T_i$ を持ち、エージェントは頂点衝突やスワッピング衝突を回避しながらこれらを配送する。従来のMAPDは衝突回避と搬送に主眼を置いていたが、本問題ではタスクが随時追加されるオンライン環境において、各タスクの期限を遵守することが求められる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のオンラインMAPD研究では、トークンパッシング（TP）を用いた衝突回避は扱われているものの、タスクの動的な追加とデッドライン制約を同時に扱う研究は不足していた。また、動的車両ルーティング問題（Dynamic VRPPD）は期限を扱うが、エージェント間の衝突回避を考慮していない。本研究は、デッドライン制約を組み込んだMAPD-Dを新たに定義し、実行コストと期限の切迫度のバランスを最適化するアルゴリズムを提案することで、これら既存手法の欠落を補完している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法の核となるDeadline-aware Token Passing（D-TP）は、まず配送地点からピックアップ地点へ逆方向に経路探索を行うダミーエージェントを用いて、最新のピックアップ期限 $T_{\text{pickup}}$ を算出する。タスク割り当て時には、現在の時刻 $t$、緊急度の重み $\alpha$、エージェントの現在地 $s_a$ からの実行コスト $h(s_a, p_j)$ を用いて、$\min_{j \in \mathcal{T}_a} \{ \alpha (T_{\text{pickup}, j} - t) + h(s_a, p_j) \}$ を最小化するタスクを選択する。さらに、D-TPTSでは、エージェント間でのタスク交換（Task Swapping）に加え、新しいタスク $j&#x27;$ の期限が現在のタスク $j$ より早く、かつ実行コストが低い $T_{\text{pickup}, j&#x27;} &lt; T_{\text{pickup}, j} \land h(s_a, p_{j&#x27;}) &lt; h(s_a, p_j)$ という条件を満たす場合に、現在のタスクを放棄して乗り換えるタスク切り替え（Task Switching）を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>4近傍グリッド環境において、15名のエージェントと151個のタスクを用いたシミュレーションを実施し、累積遅延 $\sum_{i \in \mathcal{T}} \max(0, c_i - T_i)$ を指標として既存のTP手法と比較した。実験の結果、タスクの入れ替えと再割り当てを組み合わせたD-TPTSが最も優れた性能を示した。具体的には、タスクのリリースが頻繁でデッドラインが長い設定において、タスクの入れ替えのみで遅延を $25\%$ 削減し、さらにタスクの再割り当てを組み合わせることで追加で $10\%$ の削減を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、タスクが密集しデッドラインが長い特定の条件下では、オフラインの理想的なベンチマークを上回る性能を示す。しかし、計算量の制約から大規模な環境への適用には限界がある。今後の課題として、大規模化に対応するための分散型アルゴリズムの開発や、不確実な障害物が存在するシナリオへの対応が挙げられる。また、オンライン環境において将来のタスク傾向に合わせたパラメータの最適化が困難であるというトレードオフも存在する。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Online Multi-Agent Pickup and Delivery with Task Deadlines</h3><p>本研究では、タスクの配送期限を考慮したオンライン型マルチエージェント・ピックアップ＆デリバリー問題（MAPD-D）を定義し、動的に追加されるタスクに対して期限内に配送を行う手法を提案している。提案手法であるDeadline-aware Token Passing（D-TP）は、各タスクのピックアップ期限を算出し、実行コストと期限の切迫度のバランスを考慮してタスクを割り当てるアルゴリズムである。さらに、タスクの入れ替え戦略を導入したD-TP with Task Swaps（D-TPTS）を用いることで、タスクの遅延（tardiness）をさらに低減し、運用の柔軟性と効率性を向上させている。シミュレーション環境を用いた数値実験の結果、D-TPおよびD-TPTSは既存手法と比較してタスクの遅延を有意に削減できることが示された。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究では、タスクのデリバリー期限を考慮し、かつタスクが随時追加されるオンライン環境におけるマルチエージェント・ピックアップ＆デリバリー問題（MAPD-D）を新たに定義している。従来のMAPDはエージェント間の衝突回避と荷物の搬送を目的とするが、MAPD-Dは各タスクに設定された期限の遵守を重視する。提案手法であるDeadline-aware Token Passing（D-TP）アルゴリズムは、実行コストと期限の切迫度のバランスを考慮して、ピックアップ期限の算出およびタスクの割り当てを行う。さらに、タスクの遅延を削減するために、エージェント間および単一エージェント内でのタスク入れ替え戦略を用いるDeadline-aware Token Passing with Task Swaps（D-TPTS）を導入している。これにより、オンライン環境下での柔軟性と効率性を高め、デリバリーの遅延を最小化することを目指している。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>MAPFが複数エージェントを衝突なく目的地へ移動させる問題であるのに対し、MAPDはピックアップ地点とデリバリー地点を持つ一連のタスクをエージェントに割り当て、エージェントがデリバリー完了後に次のタスクを受け取る形式をとる。オンラインMAPDではタスクが随時追加されるが、既存研究ではトークンパッシング（TP）アルゴリズムを用いて、共有メモリであるトークンを順次アクセスすることで、既存の経路やタスク割り当てと衝突しない経路を順次決定する手法が提案されている。先行研究において、デッドライン（期限）を考慮した研究はMAPFおよびMAPDの両方で存在するが、オンラインのタスク追加とデッドラインを同時に扱うMAPDの研究は不足している。また、オンラインのリクエストとデッドラインを扱う動的車両ルーティング問題（Dynamic VRPPD）は、リクエストからピックアップまでの待ち時間の最小化を目的関数とする点で本研究のMAPD-Dと類似しているが、エージェント間の衝突回避は考慮されていない。本研究で提案するMAPD-Dは、タスクが任意のタイミングで追加されるオンライン環境において、デッドライン制約を満たすMAPDを扱うものである。</p></section>
+<section class="secsum"><h3>III Problem Definition</h3><p>MAPD-Dは、エージェントの集合 $\mathcal{A}$、連結な単純無向グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$、および未実行タスクの集合 $\mathcal{T}$ から構成される問題である。各タスク $i \in \mathcal{T}$ は、ピックアップ地点 $p_i$、デリバリー地点 $d_i$、およびデリバリー期限 $T_i$ を持ち、エージェントが $p_i$ を経由して $d_i$ に到達した時刻を完了時刻 $c_i$ と定義する。エージェントの移動においては、同一時刻に異なるエージェントが同じ頂点に位置する頂点衝突（$\forall a, a&#x27; \in \mathcal{A}, \forall t: \text{pos}(a, t) \neq \text{pos}(a&#x27;, t)$）および、同一の辺を逆方向に移動するスワッピング衝突（$\forall a, a&#x27; \in \mathcal{A}, \forall t: \{\text{pos}(a, t), \text{pos}(a, t+1)\} \neq \{\text{pos}(a&#x27;, t), \text{pos}(a&#x27;, t+1)\}$）を回避しなければならない。本研究では、タスクの成否のみを考慮する目的関数ではなく、タスクの遅延をより詳細に評価するため、累積遅延 $\sum_{i \in \mathcal{T}} \max(0, c_i - T_i)$ の最小化を目的関数として採用している。問題が解可能であるための条件（well-formed）として、タスク数が有限であること、エージェント数が非タスク・エンドポイントの数を超えないこと、および任意の2つのエンドポイント間に他のエンドポイントを介さないパスが存在することが定義されている。</p></section>
+<section class="secsum"><h3>IV Proposed Method</h3><p>本セクションでは、タスクの期限（deadline）を考慮したMAPD-D問題に対処するためのアルゴリズムD-TPおよびD-TPTSを提案している。D-TPは、まず新しいタスクが追加された際に、配送地点からピックアップ地点へ時間を逆転させて経路探索を行うダミーエージェントを用いて、配送期限を満たすための最新のピックアップ期限 $T_{\text{pickup}}$ を算出する。タスク割り当てにおいては、従来の実行コストのみを最小化する手法とは異なり、実行コストと期限までの時間的余裕（temporal margin）の加重和 $\min_{j \in \mathcal{T}_a} \{ \alpha (T_{\text{pickup}, j} - t) + h(s_a, p_j) \}$ を最小化するようにエージェント $a$ にタスク $j$ を割り当てる。ここで $t$ は現在の時刻、$\alpha$ は緊急度に対する重み、 $h(s_a, p_j)$ はエージェントの現在地 $s_a$ からタスクのピックアップ地点 $p_j$ までの実行コストを表す。さらに、柔軟性と効率性を高める手法としてD-TPTSを提案しており、これはエージェント間でのタスク交換（Task Swapping）に加え、エージェントが移動中に現在のタスクを放棄してより緊急かつ低コストなタスクへ乗り換えるタスク切り替え（Task Switching）を導入している。タスク切り替えは、新しいタスク $j&#x27;$ のピックアップ期限が現在のタスク $j$ よりも早く、かつ実行コストが低いという条件 $T_{\text{pickup}, j&#x27;} &lt; T_{\text{pickup}, j} \land h(s_a, p_{j&#x27;}) &lt; h(s_a, p_j)$ が満たされた場合に実行される。これらの手法は、タスク数が有限で経路が存在する適切なMAPDインスタンスにおいて、完遂可能性（Completeness）が保証されている。</p></section>
+<section class="secsum"><h3>V Numerical Experiments</h3><p>本実験では、提案手法であるD-TPおよびD-TPTSの有効性を、既存手法であるTPと比較するために、自動倉庫を模した4近傍グリッド環境において評価している。15名のエージェントに対し、151個のタスクをランダムなピックアップ・デリバリー地点に割り当て、タスクのリリース頻度やデッドラインの長さを変化させた条件下で、30回の試行に基づく累積遅延（cumulative tardiness）を評価指標として用いている。タスク割り当ての重み $\alpha$ を調整することで、実行コストとデッドラインの優先度を制御しており、タスクのリリースが頻繁でデッドラインが短い状況では実行コストの最小化が、リリースが稀でデッドラインが長い状況ではデッドラインの考慮が重要となる。実験の結果、タスクの入れ替え（task swapping）とタスクの再割り当て（task switching）の両方を実装した場合に最も低い遅延が達成され、例えばタスクのリリースが頻繁でデッドラインが長い設定では、タスクの入れ替えのみで遅延が $25\%$ 削減され、さらにタスクの再割り当てを組み合わせることで追加で $10\%$ の削減が確認された。オンライン設定における提案手法は、タスクが事前に判明しているオフラインの理想的なベンチマークと比較して、タスクが密集しデッドラインが長い特定の条件下において、オフライン手法を上回る性能を示すことが明らかになった。</p></section>
+<section class="secsum"><h3>VI Conclusions</h3><p>本研究では、タスクが随時追加され、それぞれに期限が設定されるオンラインMAPD-D問題を提案している。この問題に対し、タスクのピックアップ期限と実行コストを考慮してタスクを割り当てるD-TP、およびエージェント間や単一エージェント内でのタスク交換を可能にするD-TPTSという2つのアルゴリズムを提案した。グリッド環境を用いた数値実験の結果、提案手法は既存手法と比較してタスクの遅延を効果的に削減できることが示された。しかし、計算量の制約から大規模な環境への適用には限界があり、将来的な課題として、大規模化に対応するための分散型アルゴリズムの開発や、不確実な障害物が存在するより現実的なシナリオへの対応が挙げられる。また、オンラインのタスク設定においては、過去の傾向に基づいた調整は可能であるものの、将来の傾向に合わせたパラメータの最適化が困難であるという課題も残されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-22
+  </footer>
+</div>
+</body>
+</html>

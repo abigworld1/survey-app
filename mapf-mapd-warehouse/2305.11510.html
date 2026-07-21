@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Terraforming -- Environment Manipulation during Disruptions for Multi-Agent Pickup and Delivery | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Terraforming -- Environment Manipulation during Disruptions for Multi-Agent Pickup and Delivery</h1>
+  <div class="meta">David Vainshtein, Yaakov Sherma, Kiril Solovey, Oren Salzman<br>採択先: 未取得 ・ 2023-05-19 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2305.11510v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2305.11510v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2023-05-19</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPDに環境操作（Terraforming）を導入する新設定の提案が独創的。計算量を抑えるためのdemi-agentsへの帰着手法も具体的で、実用的な評価もなされている。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 従来のMAPDでは動かせない障害物として扱われていたポッドを、環境の混乱時にエージェントが再配置することを可能にするtMAPDを提案し、スループットの向上とサービス時間の短縮を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>自動倉庫におけるマルチエージェント・ピックアップ＆デリバリー（MAPD）問題を対象とし、エージェントがタスクに関連するポッドのみを移動させ、それ以外を固定された障害物として扱う従来の制約を扱う。環境には、アイテムの落下やエージェントの故障といった、継続時間が未知で予測不能な中断（disruptions）が発生する可能性がある。エージェントが動的にポッドを再配置して通路を確保する決定空間は膨大であり、計算コストが大幅に増大するという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>環境操作を、予期せぬ中断が発生した際にのみ戦略的に実行するTerraforming MAPD (tMAPD) という新しい問題設定を導入した。障害物の移動問題を「demi-agents」と見なす簡略化されたtMAPF問題に帰着させることで、計算量を抑えつつ環境操作の是非を評価する手法を提案している。これにより、従来のMAPD設定と比較して、実行時間を劇的に増やすことなくスループットを向上させ、最大サービス時間を大幅に短縮できることを示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法であるtRHCRは、まず既存のRHCRに基づきタスク割り当てと経路計画を行う。中断を検知した際は、まずW-PBSを用いて回避経路を再計画し、その後、混乱地点からグラフ距離 $r_{\text{terraforming}}$ 以内にある移動可能な障害物を対象に環境操作の価値を検討する。この際、障害物を自律的に移動可能なdemi-agentsと見なし、待機アクションにコストを課さないコスト関数 $C_{\text{terra}}$ を用いてtMAPFを解く。移動が必要と判断された障害物に対しては、あらかじめ定義された予約済み地点 $\mathcal{V}_{\text{reserved}}$ のうち最も近い場所へ運ぶための新しいタスクを生成し、エージェントに割り当てる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Medium、Large、および通路幅が障害物幅に等しいLarge2Wideの3種類のマップを用い、100エージェント、テラフォーミング半径 $r=6$、中断発生確率 $p=0.06$ の設定で評価した。提案手法は、従来のRHCRと比較して、すべてのマップにおいてスループットを $1.1$ 倍から $1.5$ 倍に向上させ、最大サービス時間比も大幅に低減させた。計算時間は、中断発生時にW-PBSを用いるRHCRより1桁程度増加するものの、1プランニングウィンドウあたり $10$ msから $20$ ms程度に収まっている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>テラフォーミングは、エージェントが身動きを取れなくなるような極端なケースにおいて、近隣エージェントがショートカットを作成することを可能にする。テラフォーミング半径 $r$ を大きくすると、候補となる障害物が増えてスループットは向上するが、計算量が増大するというトレードオフが存在する。今後の課題として、アイテム回収に向かうエージェントが、複数のエージェントに資するような先見性を持った局所的な環境最適化を行う手法の開発や、提案した変種の計算複雑性の形式的な分析が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Terraforming—Environment Manipulation during Disruptions for Multi-Agent Pickup and Delivery</h3><p>従来の Multi-Agent Pickup and Delivery (MAPD) 問題では、エージェントが自身のタスクに関連するポッドのみを移動させ、それ以外のポッドを固定された障害物として扱うという制約があった。本研究では、エージェントが動的にポッドを再配置して通路を確保することを可能にする Terraforming MAPD (tMAPD) という新しい問題設定を提案している。提案手法は Rolling-Horizon Collision Resolution (RHCR) アルゴリズムをベースとしており、計算コストの増大を抑えるために、ポッドの落下やエージェントの故障といった環境の混乱（disruptions）が発生した際にのみ、戦略的にポッドの移動（terraforming）を実行する。確率的なプロセスを用いて混乱をモデル化した実験の結果、従来の MAPD 設定と比較して、実行時間を大幅に増加させることなく、スループットを $20\%$ 以上向上させ、最大サービス時間（ポッドのドロップオフ時刻とピックアップ時刻の差）を $30\%$ 以上削減することに成功した。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究では、自動倉庫におけるマルチエージェント・ピックアップ＆デリバリー（MAPD）問題において、移動中のエージェント以外の障害物（ポッドなど）を動的に移動させることを可能にする新しい問題設定「Terraforming MAPD (tMAPD)」を提案している。従来のMAPDは、搬送中ではないポッドを移動不可能な静的障害物として扱う制約があったが、tMAPDではエージェントが環境を操作して障害物を再配置する柔軟性を認めることで、スループットの向上を図る。しかし、どの障害物をどのエージェントが移動させるかという決定空間が膨大になるため、計算コストが大幅に増大するという課題がある。そこで本論文では、予期せぬ障害（アイテムの落下やエージェントの故障による安全圏の確保など）が発生した際にのみ環境操作を行う手法を提案し、障害が発生した箇所を移動対象の候補としてヒューリスティックに絞り込むことで計算量を抑制する。提案手法であるTerraforming RHCR (tRHCR) は、RHCRアルゴリズムをベースに、障害物の移動問題をMAPFに似た形式に帰着させることで効率的な解法を実現している。実験の結果、標準的なMAPDと比較して、実行時間を劇的に増やすことなく、スループットを大幅に向上させ、ポッドのピックアップからドロップオフまでの時間である最大サービス時間を大幅に短縮できることが示された。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>マルチエージェント経路計画（MAPF）の研究は、ネットワークフローや充足可能性、木探索など多岐にわたる手法が存在するが、本研究では解の質と計算速度のバランスに優れたPriority-Based Search（PBS）をベースラインおよび提案手法であるtMAPDの基盤として採用している。環境の再構成を扱うConfigurable MAPF（C-MAPF）は、グラフの変更を最小限に抑える固定のグラフを探索するものであるのに対し、提案するtMAPDはエージェントの経路実行中に障害物が一時的に除去されるといった動的な環境変化を許容する点で異なる。また、エージェントの遅延に対する堅牢性を扱う$k$-robust MAPFは、エージェントごとの移動に伴う確率的な遅延を想定しているが、本研究ではエージェントが占有していないグラフ区間を遮断する、継続時間が未知の突発的な中断を考慮する。既存のMAPDにおける最先端手法であるRolling-Horizon Collision Resolution（RHCR）は、指定された時間ホライゾンまでの部分的な経路を反復的に計画する手法であり、本研究はこのRHCRを拡張することで、グラフ自体に影響を与える予期せぬ中断への対応とテラフォーミングの概念を組み込んでいる。</p></section>
+<section class="secsum"><h3>3 Problem Formulation</h3><p>本セクションでは、グラフ $G=(V, E)$ 上のエージェント集合 $\mathcal{A}$ が、衝突を回避しながら各エージェントの開始地点 $s_i$ から目標地点 $g_i$ へ移動するMAPF（Multi-Agent Path Finding）を基礎として、MAPD（Multi-Agent Pickup and Delivery）および提案するtMAPD（Terraforming MAPD）を定義している。MAPDでは、タスクキューからオンラインで供給されるタスク $(p_j, d_j)$ に対し、エージェントはピックアップ地点 $p_j$ への移動、荷物の搬送、および $p_j$ への復帰という一連の工程を行う必要があり、タスクのサービス時間は、ピックアップ時刻から復帰時刻までの差として定義される。解の品質指標として、単位時間あたりのタスク完了数であるスループットのほか、実際のサービス時間と、障害物や他エージェントを考慮しない理想的な最短経路に基づく理想的なサービス時間の比であるサービス時間比 $\frac{\text{actual service time}}{\text{ideal service time}}$ が用いられる。tMAPDは、タスクを運んでいないフリーのエージェントが、通路の確保や混雑緩和のために障害物を移動できることを特徴とする。さらに、環境には予測不能な中断（disruption）が存在し、時刻 $t \in [t_{start}, t_{end}]$ において特定の頂点が通行不能となるが、プランナーは関数 $\text{Observe}(t)$ を通じて現在アクティブな中断のみを把握でき、将来の中断や継続時間は事前に知ることができない。</p></section>
+<section class="secsum"><h3>4 Algorithmic Background</h3><p>本セクションでは、提案手法の基礎となるPriority-Based Search (PBS) と、それを拡張したWindowed PBS (W-PBS)、およびMAPD問題を解くためのRHCRアルゴリズムについて述べている。PBSは、エージェント間の優先順位を管理する高レベル探索と、その順位に従って経路を計算する低レベル探索の階層構造を持つ。高レベル探索では優先順位木 (Priority Tree, PT) を探索し、あるノードにおける優先順位集合 $\mathcal{P}$ に基づいて低レベル探索を実行する。低レベル探索では、$\mathcal{P}$ に基づくトポロジカルソートを行い、高優先度のエージェントとの衝突を回避するように各エージェントの経路を順次更新する。W-PBSは、計算コストを抑えるために特定の時間窓内でのみ衝突を考慮する手法であり、完全性や最適性は保証されないものの、高いスループットを実現する。MAPD問題の解決にはRHCRアルゴリズムが用いられ、これは「空きエージェントへのタスク割り当て」「目標位置の決定」「MAPFソルバーによる経路計算」の3ステップを反復する。タスク割り当てには、グラフ距離に基づき最短経路を考慮する貪欲法が用いられ、オンラインでのタスク追加に対応するため、新しいタスクが割り当てられた際にはエージェントの優先順位をリセットして再計画を行う。</p></section>
+<section class="secsum"><h3>5 Algorithmic Framework</h3><p>本セクションでは、マルチエージェント・ピックアップ＆デリバリー（MAPD）において、環境の混乱（disruptions）が発生した際に環境操作（terraforming）を組み込むためのアルゴリズムフレームワークであるtRHCRを提案している。tRHCRは、まず既存のRHCRの手法に基づきタスク割り当てと経路計画を行うが、混乱を検知した際には、まず混乱を回避する経路をW-PBSを用いて再計画し、その後に環境操作を行う価値があるかを検討する。環境操作の判断のために、混乱地点からグラフ距離 $r_{\text{terraforming}}$ 以内にある移動可能な障害物を対象とした簡略化されたtMAPF問題を解く。このtMAPFでは、障害物を「demi-agents」と見なし、それらが自律的に移動できると仮定することで、誰が障害物を動かすかという問題を後回しにして、障害物を動かすべきか否かのみを評価する。tMAPFのコスト関数であるterra-flowtime $C_{\text{terra}}$ は、通常のflowtimeとは異なり、demi-agentsの待機アクション（wait actions）にコストを課さないことで、移動しない障害物によるペナルティを排除している。tMAPFの解から移動が必要な障害物を特定し、それらをあらかじめ定義された予約済み地点 $\mathcal{V}_{\text{reserved}}$ のうち最も近い場所へ運ぶための新しいタスクを生成してエージェントに割り当てることで、混乱を回避しつつ効率的な経路を確保する。</p></section>
+<section class="secsum"><h3>6 Evaluation</h3><p>本研究では、自律型倉庫を模したMedium、Large、および通路幅が障害物幅に等しいLarge2Wideの3種類のマップを用い、100エージェント、テラフォーミング半径 $r=6$ の設定で評価を行っている。中断（エージェントの不動化およびアイテムの落下）は、各ステップにおいて確率 $p=0.06$ で発生し、ランダムな時間範囲で経路を遮断する。提案手法であるtRHCRは、従来のRHCRと比較して、すべてのマップおよびエージェント数においてスループット（シミュレーションステップあたりのタスク完了数の平均）を $1.1$ 倍から $1.5$ 倍の範囲で向上させる。計算量に関しては、中断発生時にTW-PBSを用いるtRHCRの実行時間は、影響を受けるエージェントに加え候補となる障害物を「デミ・エージェント」として扱うため、W-PBSを用いるRHCRよりも1桁程度増加するが、シミュレーション全体を通じた平均計算時間は、1プランニングウィンドウあたり $10$ msから $20$ ms程度と許容範囲内に収まっている。タスクの遅延指標である最大サービス時間比についても、tRHCRはRHCRよりも大幅に低い値を示しており、これはテラフォーミングが経路のショートカットを形成することで、中断による回避行動や待機時間を削減するためである。テラフォーミング半径 $r$ を大きくすると、候補となる移動可能障害物の数が増加し計算量が増大する一方で、スループットの向上も得られるというトレードオフが存在し、実験的には $r=6$ がバランスの良い値であることが示されている。</p></section>
+<section class="secsum"><h3>7 Discussion and Future Work</h3><p>本研究では、MAPD（Multi-Agent Pickup and Delivery）において、予期せぬ環境の変化（disruptions）による影響を緩和するためのテラフォーミングの有用性を検討した。特に、エージェントが環境の変化によって身動きが取れなくなる極端なケースにおいて、テラフォーミングは近隣のエージェントがショートカットを作成することを可能にし、タスクごとの実行時間を短縮することで、スループットの維持や向上に寄与する。今後の展望として、テラフォーミングをMAPDへ適用し、アイテム回収に向かうエージェントが、環境の変化に関わらず、複数のエージェントに資するような局所的な環境最適化を行う手法を構想している。具体的には、コストを抑えつつも、近隣のエージェントに対して大きな利益をもたらすような、先見性を持った微細な環境操作手法の開発を目指す。さらに、提案された新しい変種の計算複雑性を形式的に分析することも今後の課題である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-22
+  </footer>
+</div>
+</body>
+</html>

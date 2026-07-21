@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Testing Retrieval-Augmented Generation Systems with Chunk Coverage | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Testing Retrieval-Augmented Generation Systems with Chunk Coverage</h1>
+  <div class="meta">Jinhan Kim, Samuele Pasini, Paolo Tonella<br>採択先: 未取得 ・ 2026-07-20 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.18155v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.18155v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-20</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの評価を「個別の回答精度」から「検索空間の網羅性」へと転換した点が新規。正解不要な指標の提案と、欠陥検出効率の向上を実証した実験も具体的で価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGシステムの検索コンポーネントにおけるテスト充足性を評価するため、正解ラベルに依存せずコーパス内のチャンク網羅率を測定するChunk Coverage (CC) を提案し、効率的なテスト生成と欠陥検出の早期化を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>RAGシステムのテストにおいて、従来の評価指標は個々のクエリに対する回答の正確性や関連性に焦点を当てており、テストスイート全体がリトリーバーの振る舞いを十分に網羅しているかというテスト充足性の観点が欠如している。本研究の対象は、リトリーバーの構成が固定されたRAGシステムの検索コンポーネントである。入力としてクエリの集合を受け取り、出力としてコーパス内のチャンクがどの程度探索されたかを定量化することを目指す。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のRAG評価指標がクエリごとの品質（Context PrecisionやFaithfulnessなど）を測定するのに対し、本研究はテストスイート全体がコーパスをどの程度網羅しているかという構造的な充足性基準を導入した。正解ラベルや参照回答を必要としない oracle-independent な指標であるChunk Coverage (CC) を提案した点が新規性である。これにより、モデル内部の表現に依存する既存の深層学習テスト手法とは異なり、外部から取得される情報の網羅性を対象とした、検索空間の探索を導くための新しいテスト指針を提供している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>コーパス内の全チャンクの集合を $\mathcal{C}$、テストスイートを $\mathcal{Q}$、クエリ $q \in \mathcal{Q}$ に対して上位 $k$ 個の検索結果として取得されるチャンクの集合を $\mathcal{R}(q)$ と定義し、以下の式で算出されるChunk Coverage (CC) を用いる。<br>$$CC = \frac{|\bigcup_{q \in \mathcal{Q}} \mathcal{R}(q)|}{|\mathcal{C}|}$$<br>この指標をガイド信号として、未取得のチャンクを検索することを目的とした新しいクエリを補助的なLLMを用いて生成、または既存のクエリプールから選択する反復的なプロセスを行う。この手法は、未探索のリトリーバー空間を拡大するようにテストスイートを構築する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>臨床（MIMIC-IV）および金融（T2-RAGBench）の5つのデータセットを用い、ランダム選択や重複重視戦略と比較評価を行った。CCは正規化エントロピーと正の相関、Gini係数およびJaccard類似度と負の相関を持つことが示された。coverage-guided selectionは、最大到達カバレッジの50%に達する速度において、ランダム選択より1.7倍、重複優先戦略より4.2倍高速であった。また、欠陥検出の有効性を示すAPFDにおいて、ランダム選択と比較して10%から25%の向上を記録した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>CCは検索の網羅性を測るものであり、取得されたチャンクがクエリに対して適切であるか、あるいはLLMが正しい回答を生成できるかという生成の質を直接保証するものではない。また、検索されたチャンクがタスクに無関係な場合でもカバレッジが算出されるため、充足性を過大評価する可能性がある。さらに、テスト生成モデルの能力に依存するため、生成モデルの質が低い場合にはCCの優位性が十分に発揮されないという限界がある。今後の課題として、検索が任意となるオープンドメインのRAG設定への一般化や、チャンク分割手法への依存性の検討が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Testing Retrieval-Augmented Generation Systems with Chunk Coverage</h3><p>本研究では、Retrieval-Augmented Generation (RAG) システムの検索コンポーネントを評価するための、オラクルに依存しないテスト充足度基準であるChunk Coverage (CC) を提案している。CCは、テストスイート全体を通じて少なくとも一度は検索されたコーパス内のチャンクの割合を測定することで、検索空間のどの部分が実行されたかを構造的に把握する指標である。このCCを用いることで、未実行の検索領域を拡大するクエリを優先的に選択・生成するテスト選択およびテスト生成の指針を与えることが可能となる。臨床および金融のRAGシナリオを用いた評価では、CCに基づくテストは、ランダム選択よりも1.7倍、冗長性を重視した戦略よりも4.2倍速く、到達可能なカバレッジの50%に到達することが示された。さらに、CCはランダムな手法と比較して、欠陥検出の有効性を示す指標であるAPFDを10%から25%向上させており、異なる検索欠陥をより早期に発見できることが実証されている。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>Retrieval-Augmented Generation (RAG) システムのテストにおいて、従来の評価指標は個々のクエリに対する回答の正確性や関連性に焦点を当てているが、テストスイート全体がリトリーバーの振る舞いを十分に網羅しているかというテスト充足性の観点が欠如している。本論文では、リトリーバーの構成が固定されている場合、テストスイート全体を通じて少なくとも一度取得されたコーパスチャンクの割合を測定する、構造的な充足性基準である Chunk Coverage (CC) を提案する。CC は、正解ラベルや参照回答を必要としない oracle-independent な指標であり、リトリーバーの実行トレースのみから算出できるため、従来の LLM を用いた評価手法とは独立して動作する。この CC をガイド信号として用いることで、未探索のリトリーバー空間を拡大するためのテスト選択や、補助的な LLM による新規クエリの合成といった、カバレッジ駆動型のテスト生成が可能となる。MIMIC-IV（臨床意思決定）および T2-RAGBench（金融 QA）の 5 つのデータセットを用いた実験の結果、CC を用いた手法はランダムな選択と比較して、到達可能なカバレッジの 50% に到達する速度が 1.7 倍速く、重複を重視した生成手法よりも 4.2 倍速いことが示された。さらに、欠陥検出の有効性を示す指標である APFD（Average Percentage of Faults Detected）において、CC を用いたテスト生成はランダム選択よりも 10% から 25% 高い値を示し、多様なリトリーバーの欠陥をより早期に発見できることが実証された。</p></section>
+<section class="secsum"><h3>2. Background</h3><p>RAGシステムは、オフラインでのドキュメントインデックス作成フェーズと、オンラインでの出力生成フェーズで構成される。インデックス作成では、文書をチャンクに分割して埋め込みモデルにより高次元ベクトル空間へ写像し、ベクトルデータベースに格納する。生成フェーズでは、クエリを同様のモデルで埋め込み、コサイン類似度などの指標に基づき類似チャンクを検索して、それらをプロンプトに結合してLLMに入力する。既存の評価指標であるRAGASは、クエリごとの性能評価に焦点を当てており、検索レベルでは、検索されたチャンクのうちクエリに関連するものの割合を示すContext Precision $\frac{1}{k} \sum_{i=1}^{k} \mathbb{1}_{i \in \text{relevant}}$ や、検索された文集合 $\mathcal{S}$ のうち回答に不可欠な文の割合を示すContext Relevance $\frac{|\mathcal{S}_{\text{necessary}}|}{|\mathcal{S}|}$ を用いる。生成レベルでは、生成された回答 $a$ から生成された質問群と元のクエリとの類似度の平均であるResponse Relevancyや、回答を原子的な命題の集合 $\mathcal{S}_{\text{atomic}}$ に分解した際、それらが検索されたチャンクによって支持される割合 $\frac{1}{|\mathcal{S}_{\text{atomic}}|} \sum_{s \in \mathcal{S}_{\text{atomic}}} \mathbb{1}_{s \text{ is supported}}$ を示すFaithfulnessなどが定義される。しかし、これらの指標は個別のクエリの品質を測定するものであり、テストセット全体がコーパスのどの程度を網羅的に検証できているかというテストの妥当性（test adequacy）を評価するには不十分である。</p></section>
+<section class="secsum"><h3>3. Chunk Coverage for Testing RAG Systems</h3><p>本研究では、RAGシステムの検索コンポーネントのテストにおける構造的な妥当性基準として、Chunk Coverage (CC) を提案している。CCは、コーパス内の全チャンクの集合を $\mathcal{C}$、テストスイート（クエリの集合）を $\mathcal{Q}$、クエリ $q \in \mathcal{Q}$ に対して上位 $k$ 個の検索結果として取得されるチャンクの集合を $\mathcal{R}(q)$ と定義したとき、以下の式で表されるコーパス内のチャンクの割合として算出される。<br>$$CC = \frac{|\bigcup_{q \in \mathcal{Q}} \mathcal{R}(q)|}{|\mathcal{C}|}$$<br>この指標は、埋め込みモデルとベクトルデータベースの構成によって規定される検索空間の探索度を測定するものであり、正解ラベル（グラウンドトゥルース）や生成品質に依存せず、検索動作そのものを独立して評価できる点が特徴である。提案するテスト生成アルゴリズムは、予算内または目標のCCに達するまで、未取得のチャンクを特定し、それらを検索することを目的とした新しいクエリを補助的なLLM等を用いて生成してテストスイートに追加する反復的なプロセスを行う。この手法は、従来のソフトウェアテストにおけるコードカバレッジと同様の役割を果たし、検索空間内の未テストな領域を体系的に探索することを可能にする。ただし、CCは検索動作の網羅性を測るものであり、取得されたチャンクがクエリに対して適切であるかという検索の正確性や、LLMがそれを利用して正しい回答を生成できるかという生成の質を保証するものではない。</p></section>
+<section class="secsum"><h3>4. Experimental Setup</h3><p>本研究は、RAGシステムのテストにおけるChunk Coverage（CC）の有効性を検証するため、3つのリサーチクエスチョン（RQ）に基づいた実験設定を行っている。RQ1では、CCと検索の多様性（正規化エントロピー、ジニ係数、Jaccard重複度）の関係を、100個のテストスイートを用いたランダム選択と比較して検証する。RQ2では、CCをフィードバック信号として用いたテスト生成・選択が、固定予算内で検索空間の探索をどれだけ効率化できるかを評価する。RQ3では、CCの向上が、テストの有効性指標であるAPFD（Average Percentage of Faults Detected）にどのように寄与するかを調査する。<br><br>実験には、臨床意思決定（MIMIC-IV）と金融QA（T2-RAGBench）の2つのドメイン、計5つのデータセットを使用する。失敗（Failure）は、回答の関連性や根拠（Grounding）などの評価指標 $\mathcal{M}$ が最小値（0）をとる状態と定義され、故障（Fault）は、検索されたチャンク集合 $\mathcal{C}(q)$ のJaccard類似度が閾値 $\tau = 0.8$ を超える場合に同一の故障とみなすことで、検索挙動に基づく根本原因として定義される。評価シナリオとして、CCを最大化する「CC-guided」、既存の検索挙動との重複を最大化する「Overlap-biased」、および「Random」の3つの選択戦略を比較する。T2-RAGBenchでは既存のクエリプールからの選択（Selection）を行い、MIMIC-IVではLLMを用いたテスト生成（Generation）を行うことで、検索空間の網羅性と故障検出の早期化を測定する。</p></section>
+<section class="secsum"><h3>5. Results</h3><p>Chunk Coverage (CC) は、検索行動の多様性を捉える指標として、正規化エントロピー、Gini係数、および平均Jaccard類似度と強い相関を持つことが示された。実験では、CCが高いほど正規化エントロピーが高く、Gini係数およびJaccard類似度が低くなる傾向が確認されており、すべての相関は統計的に有意であった。テスト生成の戦略として、CCに基づき増分カバレッジを最大化するクエリを貪欲に選択する「coverage-guided selection」を提案し、ランダム選択や重複を優先する「overlap-biased selection」と比較した。その結果、coverage-guided selectionは、最大到達カバレッジの50%に達するまでのテスト数を、ランダム選択に対して平均で1.7倍、重複優先戦略に対して平均で4.2倍高速化することに成功した。さらに、欠陥検出の有効性を評価する指標であるAPFD（Average Percentage of Faults Detected）において、coverage-guided selectionはランダム選択と比較して約10%から25%の改善を示し、欠陥をより早期に発見できることが実証された。ただし、MIMIC-IVデータセットにおいて一部の指標でランダム戦略が上回るケースが見られたが、これはテスト生成モデルの能力に依存する限界であり、より強力なモデルを用いることでCCの優位性が回復することが確認されている。</p></section>
+<section class="secsum"><h3>6. Related Work</h3><p>本研究で提案するChunk Coverage (CC) は、従来のソフトウェアテストにおける構造的カバレッジ（文、分岐、パスなど）や、ミューテーションテストによる欠陥検出能力の概念を、RAGシステムの外部から取得されるチャンクへと拡張したものである。深層学習モデルのテストにおいては、ニューロンの活性化に基づくDeepXploreやDeepGauge、あるいは訓練分布からの逸脱度を測るSurprise Adequacyといった、モデル内部の表現に着目した充足度基準が存在するが、CCはこれらとは異なり、外部から取得される情報の網羅性を対象とする。LLMの評価に関する既存研究は、堅牢性、バイアス、ハルシネーション、あるいはCheckListのような言語能力に基づくテストに焦点を当てているが、その多くはモデル自体の振る舞いや入力ごとの性能評価に留まっている。これに対しCCは、RAGシステムの振る舞いを決定付けるドキュメントコーパス、埋め込みモデル、および検索設定によって定義される「外部から誘発される振る舞いの空間」を、テストスイートがいかに網羅しているかを定量化することを目的としている。</p></section>
+<section class="secsum"><h3>7. Threats to Validity</h3><p>構成概念妥当性（Construct validity）における限界として、Chunk Coverage (CC) は検索挙動に基づくテストの十分性を評価するものであり、生成された出力の正確性を直接評価するものではないため、検索されたチャンクの一部がタスクに無関係な場合に十分性を過大評価する可能性がある。これに対し、本研究では検索への依存度が高いRAGシナリオに焦点を当て、CCを正確性の指標ではなくテストの指針として解釈することで対処している。内部妥当性（Internal validity）については、LLMの推論やテスト選択に伴う非決定性を緩和するために実験を繰り返し、平均値を報告している。また、MIMIC-IVにおけるクエリ生成の質がCCの利点を過小評価する可能性を考慮し、すべての評価戦略において生成済みの固定されたクエリプールを使用することで制御している。外部妥当性（External validity）に関しては、本研究が検索が必須となる高リスクな特定ドメインに限定されており、検索が任意となるオープンドメインのRAG設定には一般化できない可能性や、チャンク分割や埋め込み手法などの特定の設定に依存する可能性が挙げられる。ただし、CCは異なるRAG構成の比較を目的としたものではなく、従来のプログラムテストにおけるカバレッジ基準と同様に、対象となるシステムに対するテスト選択を導くためのものである。</p></section>
+<section class="secsum"><h3>8. Conclusion</h3><p>本研究では、RAGシステムの検索コンポーネントにおけるテスト充足度基準として、Chunk Coverage (CC) を提案している。CCは、個々のクエリに対する正解性（oracle）を必要とせず、テストスイート全体のレベルで検索挙動を明らかにすることで、テストの生成や選択を導く実用的な指標となる。臨床および金融のRAGシナリオを用いた実験において、CCに基づくテストは、ランダムな手法や冗長性を重視する手法と比較して、検索空間のより広範な領域を体系的に探索し、異なる種類の検索欠陥をより早期に検出できることが示された。この結果は、CCによって捉えられる検索の多様性が、テストの有効性に直結していることを証明している。既存のクエリ単位のRAG評価指標を、スイート単位の視点から補完するCCは、デプロイ前の検索中心型LLMシステムに対する体系的なテストと検証のための原理的な基盤を提供する。</p></section>
+<section class="secsum"><h3>Data Availability</h3><p>本研究で提案されたチャンクカバレッジの評価手法の実装コードおよび、実験結果を再現するために必要なデータセットは、指定された GitHub リポジトリにて公開されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-22
+  </footer>
+</div>
+</body>
+</html>

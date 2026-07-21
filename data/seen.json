@@ -1645,6 +1645,67 @@
       "url": "http://arxiv.org/abs/2607.15738v1",
       "venue": ""
     },
+    "arxiv:2607.18155": {
+      "added": "2026-07-22",
+      "added_at": "2026-07-22T06:03:27.217553",
+      "arxiv_id": "2607.18155",
+      "authors": [
+        "Jinhan Kim",
+        "Samuele Pasini",
+        "Paolo Tonella"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-20",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.18155.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.18155v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの評価を「個別の回答精度」から「検索空間の網羅性」へと転換した点が新規。正解不要な指標の提案と、欠陥検出効率の向上を実証した実験も具体的で価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Testing Retrieval-Augmented Generation Systems with Chunk Coverage",
+      "tldr": "RAGシステムの検索コンポーネントにおけるテスト充足性を評価するため、正解ラベルに依存せずコーパス内のチャンク網羅率を測定するChunk Coverage (CC) を提案し、効率的なテスト生成と欠陥検出の早期化を実現する。",
+      "url": "http://arxiv.org/abs/2607.18155v1",
+      "venue": ""
+    },
+    "arxiv:2607.18225": {
+      "added": "2026-07-22",
+      "added_at": "2026-07-22T06:02:48.327824",
+      "arxiv_id": "2607.18225",
+      "authors": [
+        "Masahiro Kato",
+        "Taka Kato"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-20",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.18225.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.18225v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGを因果推論の最近傍マッチングとして定式化し、後悔の上界を理論的に導出した点が非常に新規性が高い。実証実験も具体的で、理論と実践の接続が優れている。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Vector Search As Nearest Neighbor Matching: RAG-based Policy Learning in Causal Inference",
+      "tldr": "検索拡張生成（RAG）を用いたアクション選択を、潜在結果フレームワークに基づく方策学習問題として定式化し、1ステップおよび2ステップのRAG-PL手法を提案する。ベクトル検索によるアクション固有の証拠抽出を因果推論における最近傍マッチングとして解釈し、その後悔（regret）の上界を理論的に導出する。",
+      "url": "http://arxiv.org/abs/2607.18225v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -2786,6 +2847,38 @@
       "title": "Double-Deck Multi-Agent Pickup and Delivery: Multi-Robot Rearrangement in Large-Scale Warehouses",
       "tldr": "自動倉庫における棚の再配置問題をモデル化した新しい問題定式化「Double-Deck Multi-Agent Pickup and Delivery (DD-MAPD)」を提案し、棚の軌道計画（MAPF）とエージェントのタスク割り当て・経路計画（MAPD）を分離して解くアルゴリズムフレームワーク「MAPF-DECOMP」を開発した。この手法は、最大1,843個の棚と400個のエージェントが存在する大規模な設定においても、数分以内で高品質な解を算出できる高いスケーラビリティと有効性を実証している。",
       "url": "http://arxiv.org/abs/2304.14309v1",
+      "venue": ""
+    },
+    "arxiv:2305.11510": {
+      "added": "2026-07-22",
+      "added_at": "2026-07-22T06:01:58.601665",
+      "arxiv_id": "2305.11510",
+      "authors": [
+        "David Vainshtein",
+        "Yaakov Sherma",
+        "Kiril Solovey",
+        "Oren Salzman"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2023-05-19",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2305.11510.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2305.11510v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPDに環境操作（Terraforming）を導入する新設定の提案が独創的。計算量を抑えるためのdemi-agentsへの帰着手法も具体的で、実用的な評価もなされている。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Terraforming -- Environment Manipulation during Disruptions for Multi-Agent Pickup and Delivery",
+      "tldr": "従来のMAPDでは動かせない障害物として扱われていたポッドを、環境の混乱時にエージェントが再配置することを可能にするtMAPDを提案し、スループットの向上とサービス時間の短縮を実現する。",
+      "url": "http://arxiv.org/abs/2305.11510v1",
       "venue": ""
     },
     "arxiv:2308.11234": {
@@ -4295,6 +4388,36 @@
       "tldr": "動的環境下でのマルチエージェント経路計画（MAPF）に対し、MAPPOをベースとした「MA-DyRoLT」を提案する。本手法は、環境の開放度に応じた動的ウェイポイント生成、学習可能な通信トポロジー、Transformerによる時系列エンコーダ、および歩行者の軌道予測に基づくリスクペナルティを統合することで、大規模かつ動的なシナリオにおいて高い成功率と効率性を実現する。",
       "url": "https://openalex.org/W7166797487",
       "venue": "Scientific Reports"
+    },
+    "doi:10.1109/iros58592.2024.10802597": {
+      "added": "2026-07-22",
+      "added_at": "2026-07-22T06:01:24.060666",
+      "arxiv_id": "2403.12377",
+      "authors": [
+        "Hiroya Makino",
+        "Seigo Ito"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-03-19",
+      "doi": "10.1109/IROS58592.2024.10802597",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2403.12377.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2403.12377v3",
+      "reading_value": 3,
+      "reading_value_reason": "オンラインMAPDにデッドライン制約を導入した新規性は評価できるが、実験規模が限定的であり、計算量や大規模環境への適用性に課題が残るため。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Online Multi-Agent Pickup and Delivery with Task Deadlines",
+      "tldr": "タスクの配送期限が設定され、かつタスクが動的に追加されるオンライン型マルチエージェント・ピックアップ＆デリバリー問題（MAPD-D）を定義し、累積遅延を最小化する手法を提案する。提案手法は、期限の切迫度と実行コストを考慮したタスク割り当てと、エージェント間および単一エージェント内でのタスク入れ替え戦略により、効率的な配送を実現する。",
+      "url": "http://arxiv.org/abs/2403.12377v3",
+      "venue": ""
     },
     "doi:10.1109/iros60139.2025.11247630": {
       "added": "2026-07-21",

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Vector Search As Nearest Neighbor Matching: RAG-based Policy Learning in Causal Inference | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Vector Search As Nearest Neighbor Matching: RAG-based Policy Learning in Causal Inference</h1>
+  <div class="meta">Masahiro Kato, Taka Kato<br>採択先: 未取得 ・ 2026-07-20 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.18225v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.18225v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-20</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGを因果推論の最近傍マッチングとして定式化し、後悔の上界を理論的に導出した点が非常に新規性が高い。実証実験も具体的で、理論と実践の接続が優れている。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 検索拡張生成（RAG）を用いたアクション選択を、潜在結果フレームワークに基づく方策学習問題として定式化し、1ステップおよび2ステップのRAG-PL手法を提案する。ベクトル検索によるアクション固有の証拠抽出を因果推論における最近傍マッチングとして解釈し、その後悔（regret）の上界を理論的に導出する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>クエリを共変量 $x$、アクションを $a$、アクション $a$ 下での潜在結果を $Y(a)$ と定義したとき、条件付き期待値 $\mathbb{E}[Y(a) | x]$ を最大化するアクション $a^*(x) = \arg\max_{a} \mathbb{E}[Y(a) | x]$ を選択する問題設定を行う。従来のRAGはアクション選択のプロセスがブラックボックスであり、因果推論の枠組みでその性能を評価することが困難であった。本研究は、アクション集合が未知の場合や大規模な場合に、どのように最適なアクションを特定すべきかという課題に取り組む。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>RAGにおけるベクトル検索を、アクションごとに類似した証拠を抽出する最近傍マッチング（nearest-neighbor matching）として定式化し、因果推論の理論体系へと接続した。2ステップ法において、全体の後悔を「候補集合の選択に起因する後悔」と「候補内での選択に起因する後悔」に分解し、Transformerの予測誤差保証を用いて後悔の上界を導出した。これにより、RAGを用いた意思決定の理論的な収束レートの評価を可能にした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法であるRAG-PLには、直接アクションを返す1ステップ法と、候補生成と評価を分離する2ステップ法の2種類がある。2ステップ法では、まずAction-set RAGを用いて共変量 $x$ に基づき有限な候補集合 $\mathcal{A}_{cand} \subset \mathcal{A}$ を生成し、次に各候補 $a \in \mathcal{A}_{cand}$ に対して、埋め込み関数 $\phi$ を用いて $\phi(x, a)$ に最も近いデータベース内の観測値から証拠 $\mathcal{E}(x, a)$ を取得する。この証拠を用いて、Expected-outcome RAGによる期待値推定、またはRanking RAGによる候補の順位付けを行い、最終的なアクションを決定する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>3つのデータ生成プロセス（DGP 1: 線形条件付き効果、DGP 2: 非線形条件付き効果、DGP 3: 24種類のアクション）を用いたシミュレーション実験を行った。GPT-4o miniとtext-embedding-3-smallを使用し、評価指標として後悔（regret）と最適アクションの選択確率を用いた。DGP 1および2では、共変量を用いないRAGと比較して後悔が減少し、最適アクションの選択確率が向上した。DGP 3の24アクション設定では、2ステップ法が後悔を $1.52$ から $0.44$ へと減少させ、1ステップ法よりも優れた性能を示すことを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>因果的な解釈には、埋め込み $\mathbf{z}$ が調整に必要な情報を保持しているという条件付き交換可能性や正値性が必要となる。1ステップ法は構成要素の分析が困難であり、2ステップ法は候補数を増やすことで最適行動を含む確率を高められる一方、推定・ランキングすべき対象が増えるというトレードオフが存在する。また、学習済みのRAGシステムのみを用いる設定では、個別の結果や割り当て確率を必要とするIPWやAIPWのような手法を直接構築することは困難である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Vector Search As Nearest Neighbor Matching: RAG-based Policy Learning in Causal Inference</h3><p>本研究では、検索拡張生成（RAG）を用いた方策学習を、潜在結果フレームワークの下で定式化し、1ステップおよび2ステップの手法を提案している。2ステップ手法では、ベクトル検索によって埋め込み空間からアクション固有の近傍エビデンスを検索し、生成器が条件付き期待値またはその差分を推定した後、プラグイン・ルールによって最適なアクションを選択する。この定式化は、アクション固有のベクトル検索を因果推論における最近傍マッチング（nearest-neighbor matching）へと結びつけるものである。2ステップ手法の後悔（regret）は、候補生成における後悔と候補内選択における後悔に分解され、後者は最近傍推定量およびTransformerの予測誤差保証を用いて上界が抑えられる。また、中間計算が観測不能であることを考慮し、1ステップ手法を直接的な方策として評価している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、Retrieval-augmented generation (RAG) によるアクション選択を、潜在結果（potential outcome）フレームワークに基づく方策学習（policy learning）問題として定式化している。クエリを共変量 $x$、アクションを $a$、アクション $a$ 下での潜在結果を $Y(a)$ と定義したとき、目的は条件付き期待値 $\mathbb{E}[Y(a) | x]$ を最大化するアクション $a^*(x) = \arg\max_{a} \mathbb{E}[Y(a) | x]$ を選択することである。RAGにおけるベクトル検索は、観測された事例からアクションごとに類似した証拠を抽出するプロセスであり、これは因果推論における最近傍マッチング（nearest-neighbor matching）として解釈される。提案手法として、アクション集合が事前に与えられている場合は、アクションごとの条件付き期待値を推定して選択するプラグイン型の方策として、アクション集合が未知の場合は、候補アクションの生成と、その中での期待値推定・ランキングを分離する2ステップ法を提案している。2ステップ法では、全体の後悔（regret）を、生成された候補セットに起因する損失と、候補内での期待値推定またはランキングに起因する損失に分解して評価できる。本研究の理論的貢献は、この後悔の分解を行い、Transformerを用いた期待値推定における予測誤差の保証を用いて、候補内での後悔をバウンドすることにある。</p></section>
+<section class="secsum"><h3>2 Setup</h3><p>本セクションでは、因果推論における方策学習の枠組みを定義している。共変量を $x \in \mathcal{X}$、行動を $a \in \mathcal{A}$、スカラーの出力を $y \in \mathbb{R}$ とし、共変量 $x$ と行動 $a$ が与えられたときの条件付き期待出力を $\mu(x, a) = \mathbb{E}[y | x, a]$ と定義する。本研究では決定論的な方策 $\pi: \mathcal{X} \to \mathcal{A}$ に焦点を当て、方策 $\pi$ の値は $V(\pi) = \mathbb{E}_{x \sim P(x)}[\mu(x, \pi(x))]$ として定義される。学習データや検索データベースに依存する方策を $\hat{\pi}$ とすると、その期待値はこれらのランダム性についても平均化される。最適な決定論的方策 $\pi^*$ は、すべての $x$ に対して $\mu(x, \pi^*(x)) = \sup_{a \in \mathcal{A}} \mu(x, a)$ を満たす可測選択子として存在すると仮定され、その値は $V(\pi^*) = \mathbb{E}_{x \sim P(x)}[\sup_{a \in \mathcal{A}} \mu(x, a)]$ となる。最後に、最適行動ルールに対する後悔（Regret）は、最適値と学習された方策の値の差 $V(\pi^*) - V(\pi)$ として定義される。</p></section>
+<section class="secsum"><h3>3 RAG-PL</h3><p>RAG-PL（RAG-based policy learning）は、共変量 $x$ から最適な行動 $a$ を決定する手法であり、直接行動を返す「1ステップ法」と、候補生成と評価を分ける「2ステップ法」の2種類が提案されている。2ステップ法では、まずAction-set RAGを用いて、共変量 $x$ に基づき有限な候補集合 $\mathcal{A}_{cand} \subset \mathcal{A}$ を生成し、次に各候補 $a \in \mathcal{A}_{cand}$ に対して、検索された証拠を用いて条件付き期待アウトカム $\mathbb{E}[Y|x, a]$ を推定または順位付けを行う。この検索プロセスにおいて、ベクトル検索を用いた最近傍マッチングが導入されており、埋め込み関数 $\phi$ を用いて、特定の行動 $a$ に対して $\phi(x, a)$ に最も近いデータベース内の観測値のインデックス集合 $\mathcal{I}(x, a)$ を特定することで、証拠 $\mathcal{E}(x, a)$ を取得する。具体的には、Action-set RAGは集合値関数 $f_{as}(x) \in \mathcal{P}_{fin}(\mathcal{A})$ として定義され、Expected-outcome RAGは関数 $f_{eo}(x, a) \approx \mathbb{E}[Y|x, a]$、Ranking RAGは候補集合を期待アウトカムの降順に並べ替えたタプル $(a_{(1)}, \dots, a_{(k)})$ を返す。1ステップ法はPolicy RAG $f_{p}(x)$ を直接適用するが、中間的な候補集合や期待値が明示されないため、2ステップ法と比較して各構成要素が後悔（regret）に与える影響を個別に分析することが困難であるという特徴を持つ。</p></section>
+<section class="secsum"><h3>4 Regret Analysis</h3><p>2段階のRAG-PL（Retrieval-Augmented Policy Learning）における後悔（regret）を、候補集合の選択に起因する「候補集合後悔」と、その集合内での期待値推定やランキングに起因する「集合内後悔」の和として分解する。候補集合後悔は、生成された集合 $\mathcal{C}_t$ が最適行動 $a^*_t$ を含んでいるか、あるいは最適行動に近い行動を含んでいるかによって制御され、行動空間上の距離 $d(a, a^*_t)$ と期待値の差を関連付ける滑らかさの条件を用いることで、$\mathbb{E}[R_t] \le \mathbb{E}[\min_{a \in \mathcal{C}_t} \Delta_t(a)]$ の形で上界が与えられる。集合内後悔については、候補集合内の最小の期待値ギャップを $\Delta_{\mathcal{C}_t} = \min_{a \in \mathcal{C}_t, \Delta_t(a) &gt; 0} \Delta_t(a)$ と定義したとき、期待値推定誤差が $\epsilon_t$ であれば、後悔は $O(\epsilon_t \log |\mathcal{C}_t|)$ のオーダーで抑えられることが示される。この結果を非パラメトリックな予測誤差率に代入することで、例えば予測誤差が $n^{-\beta}$ の場合、後悔は $O(n^{-\beta})$ となり、トランスフォーマーを用いたRAGシステムにおける予測精度に基づいた後悔の評価が可能となる。また、1段階のRAG-PLと比較して、2段階の手法は候補集合を大きくすることでより良い行動を選択できる可能性がある一方、推定やランキングの精度が低い場合にはその利点が失われるというトレードオフが存在する。最後に、行動集合が有限またはバイナリの場合、マージン条件 $\mathbb{P}(\Delta_t(a) \le s | X_t) \le c s^\alpha$ を導入することで、後悔の収束レートをより詳細に記述できる。</p></section>
+<section class="secsum"><h3>5 Nearest-Neighbor Matching and Expected-Outcome Regret</h3><p>本セクションでは、RAG-PLを因果推論の最近傍マッチング（Nearest-Neighbor Matching）の枠組みで定式化し、期待結果の推定誤差とリグレットの関係を論じている。特定の行動 $a$ に対するデータベース $\mathcal{D}_a$ から、クエリの埋め込み $z$ に対して最も近い $k$ 個のインデックスを $\mathcal{N}_k(z, \mathcal{D}_a)$ とすると、マッチングによる期待結果の推定値は $\hat{\mu}(z, a) = \frac{1}{k} \sum_{i \in \mathcal{N}_k(z, \mathcal{D}_a)} Y_i$ と定義される。定理5.1によれば、関数 $m(z, a)$ が $\alpha$-Hölder連続であり、埋め込みが十分な情報を保持している等の条件下で、推定誤差の平均二乗誤差（MSE）は $O(k^{-2\alpha/d} + k^{-1})$ のオーダーで抑えられる。この結果をリグレットの評価に適用すると、マージン条件の下で、リグレットは $O(k^{-\alpha/d} + k^{-1/2})$ または $O(k^{-\alpha/d} + k^{-1/2} \cdot \text{error}_{\text{RAG}})$ の速度で収束し、最適な $k$ の選択によってバイアスと分散のバランスが決定される。また、マッチング回数は重み付け表現として解釈可能であり、密度比が逆傾向スコア（Inverse Propensity Score）に比例することから、マッチングがIPW（逆確率重み付け）やAIPW（二重に頑健な推定）の表現と理論的に接続されることが示されている。ただし、観測された結果が存在しない一般的な文書コーパスにおいては、定理5.1を直接適用することはできず、RAGの出力がマッチング計算をどの程度近似できているかという誤差項 $\text{error}_{\text{RAG}}$ の評価が必要となる。</p></section>
+<section class="secsum"><h3>6 Discussion</h3><p>本セクションでは、提案手法であるRAG-PL（Retrieval-Augmented Generation-based Policy Learning）の因果推論における識別性、期待値と方策値の定式化、マージン条件、および大規模な行動空間における行動生成について議論している。因果的な解釈には、一貫性、条件付き交換可能性、および正値性が必要であり、クエリ $x$ には年齢や性別などの観測された変数を含むべきであるが、ベクトル検索では埋め込み $\mathbf{z}$ を用いるため、埋め込みが調整に必要な情報を保持しているかどうかが重要となる。期待値 $\mathbb{E}[Y|x, a]$ を用いる場合、すべての測定可能な選択子を含む方策クラスでは、各コンテキストでの最大化が方策クラス全体の最大化と等価になるが、制限された方策クラスでは近似誤差が生じる可能性がある。また、IPW（逆確率重み付け法）やAIPW（二重に頑健な推定法）のような手法は、個別の結果や割り当て確率を必要とするため、学習済みのRAGシステムのみを用いる本研究の主要な設定では、直接的な構築が困難である。マージン条件は、推定誤差が好ましい行動を変化させる頻度を制御するものであり、バイナリケースでは $\mathbb{E}[Y|x, a=1] - \mathbb{E}[Y|x, a=0]$ が $0$ に近いコンテキストの確率を制限することで、リグレットの減少速度に影響を与える。行動空間が大規模または非可算である場合、生成された候補集合がどれほど優れた条件付き期待値を含むかに依存し、候補数を増やすことは、良好な行動を含む確率を高める一方で、推定またはランキングすべき期待値の数も増加させる。</p></section>
+<section class="secsum"><h3>7 Simulation Studies</h3><p>本研究では、アクション固有の事例検索が方策選択を改善するかを検証するため、3つのデータ生成プロセス（DGP）を用いたシミュレーション実験を行っている。DGP 1は線形な条件付き効果と観測的なアクション割り当て、DGP 2はランダム化された割り当てと非線形な条件付き効果、DGP 3は24種類のアクションからなる複雑な介入設定をそれぞれ持つ。手法として、GPT-4o miniとtext-embedding-3-smallを用い、現在の状態に基づくクエリに対して、各アクションごとにコサイン類似度で上位6件の事例を検索するOne-step RAG-PLおよびTwo-step RAG-PLを提案している。評価指標には、最適アクションからの乖離を示す後悔（regret）と、最適アクションを選択する確率を用い、各DGPにおいて20回の試行と各試行10個のテストクエリで平均値を算出している。実験の結果、DGP 1ではRAG-PLの導入により後悔が大幅に減少し、最適アクションの選択確率も向上した。DGP 2においても、パーソナライズの効果によりRAG-PLはRAG without covariates（共変量なしのRAG）と比較して後悔を低減させ、最適アクションを $80\%$ の確率で選択した。DGP 3では、Two-step RAG-PLが後悔を $1.52$ から $0.44$ へと減少させたが、その内訳は候補集合に関する後悔 $0.23$ と候補内での選択に関する後悔 $0.18$ に分解され、候補生成と選択の両方に改善の余地があることが示された。</p></section>
+<section class="secsum"><h3>8 Conclusion</h3><p>本研究では、1ステップおよび2ステップのRAG（Retrieval-Augmented Generation）に基づく方策学習手法を提案している。RAGにおけるベクトル検索の構成要素を最近傍マッチング（nearest-neighbor matching）として解釈し、このマッチング手順を傾向スコア重み付け、密度比推定、およびRiesz回帰に関連付けることで、RAGを用いた意思決定を既存の方策学習の理論体系へと接続した。提案手法の悔恨（regret）の上界については、方策学習の解析手法と、最近傍推定器およびTransformerに関する非パラメトリックな予測誤差の上界を組み合わせることで導出している。シミュレーション実験の結果、バイナリ設定においては共変量を用いないRAGと比較して提案する両方のRAG-PL手法が低い平均悔恨を示し、さらに24アクションの設定では2ステップ手法が1ステップ手法よりも低い平均悔恨を達成することが確認された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-22
+  </footer>
+</div>
+</body>
+</html>
