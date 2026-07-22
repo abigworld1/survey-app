@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Deadlock-Free Method for Multi-Agent Pickup and Delivery Problem Using Priority Inheritance with Temporary Priority | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Deadlock-Free Method for Multi-Agent Pickup and Delivery Problem Using Priority Inheritance with Temporary Priority</h1>
+  <div class="meta">Yukita Fujitani, Tomoki Yamauchi, Yuki Miyashita, Toshiharu Sugawara<br>採択先: 未取得 ・ 2022-05-25 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2205.12504v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2205.12504v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2022-05-25</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">既存のPIBT法の環境制約を緩和する提案は新規性があり、理論的保証と実験による検証もなされている。MAPD分野の研究者にとって、デッドロック回避の具体的アプローチとして関連性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 木構造の経路や行き止まりを含む環境において、従来のPIBT法がデッドロックを引き起こす課題に対し、一時的な優先度を導入することでデッドロックを回避し、タスク完了を保証する手法を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>複数のエージェントが衝突を回避しながら連続的にピックアップおよび配送タスクを実行するマルチエージェント・ピックアップ・アンド・デリバリー（MAPD）問題を対象とする。無向グラフ $G = (V, E)$ 上で、各エージェント $a \in \mathcal{A}$ はピックアップノード $p_i$ からデリバリーノード $d_i$ への移動を行う。従来の分散型アルゴリズムであるPIBTは、環境が二連結グラフであることを前提としており、行き止まり（cul-de-sac）や木構造の経路を含む環境ではデッドロックが発生するという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のPIBTが要求する二連結グラフという環境制約を緩和し、木構造のデッドエンドが存在する環境下でもノード間の到達可能性を保証する。一時的な優先度（temporary priority）を導入することで、PIBTの分散的な特徴を維持したまま、デッドロックを回避して有限時間内にタスクを完了できることを理論的に示した点が新規である。また、エージェントを枝の部分へ効率的に退避させる改良版を提案し、既存のトークンパッシング法（TP）を超える効率性を実現している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>環境をメインの二重連結領域 $\mathcal{G}_{\text{main}}$ と、そこから接続された木構造の領域 $\mathcal{T}_i$ に分けて考える。提案手法のPIBTTPでは、エージェントが目的地を含む木 $\mathcal{T}_i$ 内にいるが現在地が木に含まれない場合、一時的な優先度 $P_{\text{temp}}$ を付与して木の中のエージェントがメイン領域へ退避することを優先させる。改良版のPIBTTP-TAでは、押し戻されるエージェントが最短経路上のノードを一時的に予約（$\text{Reserve}$）し、自身を一時回避状態（$\text{TAS}$）に設定することで、最短経路から外れた枝（branch）へ優先的に退避させる処理を行う。これにより、$\text{TAS}$ 状態のエージェントは枝の奥深くへ押し込まれることなく、最短経路へ復帰することが可能となる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>4つの異なる環境（深い木構造、不均衡なノード配置、浅い木構造、倉庫に近い密集環境）において、50個のタスクを完了させるまでの平均メイクスパン $M$ を評価した。比較手法としてToken Passing（TP）およびPIBTTPを用い、エージェント数 $N \in \{5, 10, \dots, 40\}$ を変化させて200回の試行を実施した。実験の結果、PIBTTP-TAはすべての環境においてTPおよびPIBTTPを上回る効率を示した。特に、狭い通路を持つ環境においてエージェント数 $N$ が増加しても、混雑を緩和することで高い効率を維持できることが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、二連結成分である主要領域に接続された木の深さが効率に大きく影響するという課題がある。また、本手法はループを含む環境においてはデッドロックを引き起こす可能性があるという限界がある。今後は、ループが存在する環境や、複数の二連結成分が接続されたより一般的な環境においても、MAPDタスクを継続的に実行可能にする手法の検討が課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Deadlock-Free Method for Multi-Agent Pickup and Delivery Problem Using Priority Inheritance with Temporary Priority</h3><p>本研究は、従来の Priority Inheritance with Backtracking (PIBT) 法が、行き止まり（dead-ends）を含む木構造の経路が存在する環境においてデッドロックを引き起こすという課題に対し、一時的な優先度（temporary priority）を導入することでこれを解決する制御手法を提案している。PIBT は各エージェントに優先度を割り当て、各タイムステップにおいて優先度の高い順に隣接する移動先を決定する分散的なアルゴリズムであるが、二連結グラフ（bi-connected area）でない環境では適用できない限界があった。提案手法では、エージェントに一時的な優先度を持たせ、木構造内でのエージェントの動きを制限することで、PIBT の特徴を維持しつつ、デッドロックを回避して必ず配送タスクを完了できることを理論的に示している。実験では、既存のトークンパッシング法をベースラインとして比較を行い、PIBT が適用不可能な環境においても提案手法が非常に高い効率性を維持することを確認している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究では、複数のエージェントが衝突を回避しながら連続的にピックアップおよび配送タスクを実行するマルチエージェント・ピックアップ・アンド・デリバリー（MAPD）問題を対象とし、デッドロックを回避する手法を提案している。従来の分散型アルゴリズムであるPriority Inheritance with Backtracking（PIBT）は、環境が2-連結グラフ（任意の2ノード間に、1つのノードを除いても接続を維持できる複数のパスが存在する構造）であることを前提としており、行き止まり（cul-de-sac）や木構造の経路を含む環境ではデッドロックが発生するという限界がある。これに対し、提案手法はPIBTに一時的な優先度（temporary priorities）を導入することで、木構造のデッドエンドが存在する環境下でも、ノード間の到達可能性を保証しつつデッドロックを回避する。提案手法には、エージェントが木構造の末端においてルートノードと目的地間の最短経路のみを移動する基本的な拡張アルゴリズムと、エージェントが他のエージェントの通行を許可するために木構造の枝の部分で一時的に待機することを可能にした効率的な改良版の2種類がある。Token Passing（TP）をベースラインとした比較実験の結果、提案アルゴリズムは多くの設定においてTPよりも効果的かつ効率的であることが示されている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>マルチエージェント経路計画（MAPF）およびその拡張であるマルチエージェント・ピックアップ＆デリバリー（MAPD）に関する研究は、主に集中型制御と分散型制御の2つのアプローチに大別される。集中型制御では、Conflict-based Search（CBS）のように高レベルと低レベルの探索を組み合わせる手法や、エージェントの位置を入れ替える操作によって衝突を回避する手法が存在するが、エージェント数の増加に伴い計算コストが増大し、全体の効率が低下する課題がある。一方、分散型制御では、共有メモリであるトークンを用いてエージェントが自律的に計画を生成するTPアルゴリズムや、その拡張としてロボットの物理的制約を考慮した手法、あるいは待機に基づくデッドロック回避アルゴリズムと統合して並列性を高める手法などが提案されている。しかし、PIBT（Priority Inheritance Backtracking）を含むこれらの分散型アプローチの多くは、環境やタスク選択において特定の制約を前提としており、適用範囲が限定的であるという限界がある。本研究は、PIBTが要求する環境条件を緩和することで、その適用範囲を拡大することを目指している。</p></section>
+<section class="secsum"><h3>3 Preliminary</h3><p>本セクションでは、無向グラフ $G = (V, E)$ 上の離散時間 $t \in \mathbb{Z}^+$ におけるマルチエージェント・ピックアップ＆デリバリー（MAPD）問題の定式化と、既存手法であるPIBT（Priority Inheritance Backtracking）の動作原理が述べられている。各エージェント $a \in \mathcal{A}$ はタスク $T_i = (p_i, d_i)$ を持ち、ピックアップノード $p_i$ からデリバリーノード $d_i$ へ移動するが、衝突回避のため、同一時刻において複数のエージェントが同じノードに存在することや、エッジを通り過ぎる（$x_a(t+1) = x_b(t)$ かつ $x_b(t+1) = x_a(t)$）ことは禁止されている。PIBTは、各エージェントが持つ優先順位 $P_a$ に基づき、高優先度エージェントが目的ノードへ移動できるよう、低優先度エージェントが自身の移動先を譲りつつ優先順位を継承する優先順位継承（PI）を行う。PIが連鎖してデッドロックが発生した場合、PIとは逆方向にデッドロック情報を伝播させるバックトラッキング（BT）によって、エージェントが別の隣接ノードを選択することで解決を試みる。しかし、PIBTはグラフが二連結でない場合や、優先順位が経路の開始からの経過時間に基づき固定されている場合に、デッドロックを解消できないという限界がある。</p></section>
+<section class="secsum"><h3>4 Proposed Method</h3><p>本セクションでは、メインの二重連結領域 $\mathcal{G}_{\text{main}}$ と、その各ノードから接続された木構造の領域 $\mathcal{T}_i$ からなる環境において、デッドロックを回避しながらマルチエージェント集荷配送問題（MAPD）を解く手法「PIBT with Temporary Priority (PIBTTP)」を提案している。PIBTTPは、エージェント $a$ が目的地 $d_a$ を含む木 $\mathcal{T}_i$ 内にいるが、現在地 $p_a$ がその木に含まれない場合に、一時的な優先度 $P_{\text{temp}}$ を与えることで、木の中にいるエージェントがメイン領域へ退避することを優先させる。アルゴリズムの核となる `exPIBT` 関数は、優先度の高いエージェントから順に、占有または予約済みのノード、目的地への最短経路から外れるノード、および高優先度エージェントが占有するノードを避けて移動先を決定する。これにより、木の中にいるエージェントが目的地に到達した後にメイン領域へ戻ることを保証し、定理1に基づき、有限のタスク集合 $\mathcal{O}$ を有限時間内に完了できることが示されている。さらに、効率性を向上させた「PIBTTP with Temporary Avoidance (PIBTTP-TA)」では、押し戻されるエージェントが最短経路上のノードを一時的に予約（$\text{Reserve}$）し、自身を一時回避状態（$\text{TAS}$）に設定することで、最短経路から外れた枝（branch）へ優先的に退避させる処理を導入している。PIBTTP-TAにおける $\text{TAS}$ 状態のエージェントは、優先度を $P_{\text{temp}}$ に設定することで、枝の奥深くへ押し込まれることなく、最短経路へ復帰できることが保証されている。</p></section>
+<section class="secsum"><h3>5 Experimental Evaluation</h3><p>提案手法であるPIBTTP-TAの有効性を検証するため、既存手法であるTPをベースラインとし、4つの異なる環境（Env. 1〜4）において、50個のタスクを完了させるまでの平均メイクスパン $M$ を、エージェント数 $N \in \{5, 10, \dots, 40\}$ を変化させて200回の試行に基づき評価した。Env. 1は深い木構造の末端にピックアップ・デリバリーノードが配置された環境、Env. 2はノード数が不均衡な環境、Env. 3はEnv. 1より木の深さが浅い環境、Env. 4は実際の倉庫に近い、中央に密集したラックと不均衡なノード配置を持つ環境として設定されている。実験の結果、TPは同一目的地へのエージェント集中を制限する制約があるため、Env. 2のようにノード数が少ない場合に並列性が低下するが、PIBTTPは制約がないため高い並列性を実現できる一方で、Env. 1のような深い木構造ではエージェントが接続ノードへ押し戻されるオーバーヘッドにより効率が低下する傾向が見られた。これに対し、提案手法であるPIBTTP-TAは、木構造内の枝を利用してエージェントが一時的に回避行動をとることで、押し戻しによるオーバーヘッドを抑制し、すべての環境においてTPおよびPIBTTPを上回る効率を示した。特にEnv. 4のような狭い通路を持つ環境では、エージェント数 $N$ の増加に伴いPIBTTPの効率が低下するのに対し、PIBTTP-TAは混雑を緩和することで効率を向上させた。ただし、提案手法はループを含む環境においてデッドロックを引き起こす可能性があるという限界がある。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、既存のPIBTを拡張し、制約が緩和された環境下でも適用可能なPIBTTPと、その効率化版であるPIBTTP-TAを提案した。実験の結果、一時的な優先度（temporary priority）の導入と移動方向の制限により、PIBTTPを用いることで、制約が緩和された環境においても複数のエージェントがデッドロックを起こすことなく、協調的に継続して資材を搬送できることが示された。PIBTTPは高い並列性を有し、比較対象としたTPよりも大幅に効率的であるが、二連結成分である主要領域に接続された木の深さが効率に大きく影響するという課題がある。この欠点を克服するために提案されたPIBTTP-TAは、高い効率性を達成することに成功した。今後の課題として、ループが存在する環境や、複数の二連結成分が接続されたより一般的な環境においても、MAPDタスクを継続的に実行可能にする手法の提案が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-23
+  </footer>
+</div>
+</body>
+</html>

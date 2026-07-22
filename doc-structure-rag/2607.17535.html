@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Salience Induction against Multi-Hop RAG Agents: Threat and Defense | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Salience Induction against Multi-Hop RAG Agents: Threat and Defense</h1>
+  <div class="meta">Xingfu Zhou, Pengfei Wang, Yuan Zhou, Wei Xie, Xu Zhou<br>採択先: 未取得 ・ 2026-07-20 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.17535v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.17535v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-20</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">事実を改変せず情報の提示方法（顕著性）のみで推論を誤らせるという、RAGの脆弱性に関する極めて新規性の高い脅威モデルを提示している。防御策も軽量で実用的であり、エージェント研究者にとって重要。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチホップRAGエージェントに対し、事実の真偽や指示の有無を一切変えずに、情報の配置や強調などの「顕著性（salience）」を操作することで誤った属性結合を誘発する攻撃手法「Salience Induction」を提案し、それに対する軽量な防御策「Salience Normalization」を提示する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチホップRAG（Retrieval-Augmented Generation）エージェントが、検索されたコンテキストからエンティティと属性を紐付ける「オブジェクト・値のバインディング」プロセスを標的とする。従来の攻撃は偽情報の注入や指示の改変に依存していたが、本研究は事実の整合性を維持したまま、情報の提示方法のみを操作して推論を誤らせる。対象は、GPT、Claude、Gemini、DeepSeek、Qwenといった主要なLLMおよびReAct、Reflexion、tool-callingといった複数のエージェントアーキテクチャである。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存の防御策が「取得された事実が真実であれば推論も安全である」という仮定に基づいているのに対し、本研究は事実を維持したまま推論の方向性を変える「顕著性チャネル」への攻撃という新たな脅威モデルを特定した。情報の関連性 $\text{rel}(e, q)$ と顕著性 $\text{sal}(e, q)$ を分離し、$\Delta \text{sal} &gt; \Delta \text{rel}$ となることでバインディングエラーを意図的に引き起こす理論的枠組みを提示している。また、LLMを呼び出さずに顕著性信号を中立化する、計算コストの低い入力側防御手法を提案している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>攻撃手法は、6種類の編集オペレータ（Promote, Demote, Assert, Hedge, Emphasize, Bridge）を用い、提案者（Proposer）と検証者（Verifier）のパイプラインを通じて、事実の不変性と編集予算の制約下で文書を改変する。攻撃には、単一の文書を標的とする手法と、複数のホップに分散して編集を行う手法がある。防御手法であるSalience Normalizationは、文の順序のシャッフル、書式やリスト構造の平文化、確信度を示す語彙の削除、および関係性パターンの過剰な強調を抑えるテンプレート適用という5つの決定論的なプロセスにより、顕著性信号を中立化する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>デコイ（囮）の注釈が付与された新しいベンチマークSalientWiki-MHを用い、金融および医療ドメインの144サンプルで評価を行った。30%の編集予算において、GPT-5.1 ReActに対するUntargeted ASRは83.3%に達し、既存の防御策を適用しても75.7%という高いASRが残ることを示した。これに対し、提案するSalience Normalizationを導入することで、標準的な攻撃下ではASRを15.3%に、適応的な攻撃下でも23.6%まで低減し、かつ94.4%の中立的な精度を維持した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本攻撃は、情報の意味的な近接性を操作する「Bridge」オペレータが最も効果的であり、マルチホップ推論における結合エラーが連鎖的に増幅される特性を持つ。防御手法はLLMを呼び出さないため極めて軽量であるが、辞書にない表現を用いる適応的な攻撃に対しては、ASRが一定程度回復するという限界がある。また、ドメインごとに専門的な語彙リストの作成が必要となる点や、ニュースドメインなど未知の領域への汎用性の検証が今後の課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Salience Induction against Multi-Hop RAG Agents: Threat and Defense</h3><p>本研究は、マルチホップRAG（Retrieval-Augmented Generation）エージェントに対し、偽の事実や命令を注入せずに、事実の配置や強調、フレーミングを操作することで推論を誤らせる「Salience Induction（顕著性誘導）」という新たな攻撃手法を提案している。LLMエージェントがオブジェクトと値の結合を明示的なスキーマではなく局所的なテキストの手がかりに依存して解決する性質を突き、位置、語調、構造、意味的近接性を操作する6種類の編集オペレータを用いて、検索トレースのセマンティクスを維持したまま属性結合を誤誘導する。攻撃の検証には、デコイ（囮）のアノテーションが付与された新しいマルチホップ・ベンチマークであるSalientWiki-MHを用い、GPT、Claude、Gemini、DeepSeek、Qwenといった主要なモデル群およびReAct、Reflexion、tool-callingといった複数のエージェントアーキテクチャに対して評価を行っている。実験の結果、30%の編集予算において攻撃成功率（ASR）は83.3%に達し、既存の強力な防御策を適用しても75.7%という高いASRが残ることが示された。これに対し、提案する軽量な入力側防御手法であるSalience Normalizationを導入することで、標準的な攻撃下ではASRを15.3%に、適応的な攻撃下でも23.6%まで低減することに成功している。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>本研究は、マルチホップRAG（Retrieval-Augmented Generation）エージェントにおける新たな攻撃手法であるSalience Induction（顕著性誘導）を提案している。この攻撃は、事実関係を一切改変せず、エンティティの配置、書式、語調などの「顕著性（salience）」を操作することで、エージェントが誤ったエンティティを属性に紐付ける（binding error）よう誘導するものである。既存の防御策は、事実の整合性を検証するfactuality defensesや、指示の正当性を確認するinstruction-integrity defenses、あるいは自己整合性を利用するconsistency-based votingに依存しているが、これらは「取得された事実が真実であれば推論プロセスも安全である」という仮定に基づいているため、事実を維持したまま推論の方向性を変える本攻撃に対しては無力である。著者らは、6つの編集オペレータと、事実性と隠密性の制約下で敵対的な編集を生成する提案者・検証者（proposer–verifier）パイプラインを定義し、524サンプルのマルチホップ・ベンチマークであるSalientWiki-MHを構築した。実験の結果、30%の編集予算においてSalience Inductionは83.3%の攻撃成功率（ASR）を達成し、既存の強力な防御策を用いても75.7%のASRが残るという脆弱性が示された。これに対し、LLMを呼び出さずに顕著性信号を正規化する軽量な防御手法であるSalience Normalizationを提案しており、標準的な攻撃下でASRを15.3%まで、適応的な攻撃下でも23.6%まで低減することに成功している。</p></section>
+<section class="secsum"><h3>2. Background and Threat Model</h3><p>本セクションでは、エージェント型マルチホップRAG（Retrieval-Augmented Generation）システムを標的とした、事実の真偽や指示の有無に依存しない新しい攻撃モデル「Salience Induction（顕著性誘導）」を定義している。この攻撃は、LLMエージェントが検索されたコンテキストからエンティティとスロットを紐付ける「オブジェクト・値のバインディング」のプロセスを標的としており、検索結果のランキング操作ではなく、情報の提示方法を操作することで誤った推論を誘発する。攻撃者は、内容の真実性を維持したまま、位置（文の境界）、構造（太字や見出し）、トーン（確信度を示す表現）、意味的近接性（橋渡しとなるフレーズ）という4つの顕著性信号を操作する。具体的な攻撃手法として、正しい情報を「Demote（格下げ）」し、誤った推論を導くためのデコイ情報を「Bridge（橋渡し）」「Promote（昇格）」「Emphasize（強調）」することで、エージェントの注意を誤ったエンティティへと向けさせる。この攻撃は、事実の不変性（Factual invariance）、指示の不在（Instruction absence）、およびトークンレベルの編集予算（Stealth budget）という3つの制約条件下で行われ、既存のRAG防御策が事実の真偽や指示の有無のみを検証している点に脆弱性があることを示している。実験設定において、攻撃対象の文書はBGE-m3による密ベクトル検索においてトップ3の保持率が $97.1\%$ と高く、検索順位の操作ではなくバインディングの失敗に起因する攻撃であることを担保している。</p></section>
+<section class="secsum"><h3>3. The Salience–Relevance Decoupling</h3><p>本セクションでは、RAGエージェントにおける「顕著性（Salience）」と「関連性（Relevance）」の分離（Decoupling）という攻撃対象領域を定式化している。LLMは自然言語の文脈からエンティティと属性の結びつきを推論する際、情報の重要度を示す顕著性と、クエリに対する真の関連性を混同する傾向があり、攻撃者は情報の正確性を保ったまま、デコイ（偽のエンティティ）の顕著性を高めることでこの相関を意図的に破壊できる。エンティティ $e$ のバインディング決定は、スコア $S(e, q) = \alpha \cdot \text{rel}(e, q) + \beta \cdot \text{sal}(e, q)$ としてモデル化され、ここで $\text{rel}(e, q)$ はクエリのスロットに対する意味的な関連性、$\text{sal}(e, q)$ は位置、構造、確信度などのテキスト上の顕著性を表す。攻撃が成功する条件は、正解エンティティ $e_{\text{gold}}$ とデコイ $e_{\text{decoy}}$ の間の関連性の差 $\Delta \text{rel}$ が、攻撃者が操作可能な顕著性の差 $\Delta \text{sal}$ によって覆されるとき、すなわち $\Delta \text{sal} &gt; \Delta \text{rel}$ となるときである。マルチホップ推論においては、各ステップでのバインディングエラーが次ステップの検索クエリを誤ったエンティティへと導くため、エラーの発生確率は $1 - \prod_{i=1}^{H} (1 - p_i)$ となり、ホップ数 $H$ が増えるほど連鎖的に増幅される。攻撃の実現可能性は、デコイが正解と同様の役割を持つ「関係性の互換性（F1）」と、関連性の差が小さく操作が容易な「バインディングの曖昧さ（F2）」という2つの文書固有の条件に依存する。</p></section>
+<section class="secsum"><h3>4. Attack Design</h3><p>本手法は、Multi-Hop RAGエージェントの推論過程におけるエンティティの結合（binding）を操作する攻撃デザインを提案している。攻撃者は、正解の推論経路を構成する文書集合 $\mathcal{D}$ のうち、編集可能な文書集合 $\mathcal{D}_{\text{edit}}$ を選択し、特定のホップ $h$ においてエージェントが誤ったエンティティ $e_{\text{decoy}}$ を選択するように文書を改変する。攻撃の成功条件は、編集された文書がエージェントのコンテキストに入った後、最初の結合エラー $e_{\text{err}}$ が正解のエンティティ $e_{\text{gold}}$ ではないエンティティ（攻撃者が指定したデコイ、あるいは経路外のエンティティ）になることである。攻撃は、事実の不変性、指示の不在、および編集予算の制約下で行われ、編集コストは単語レベルの編集距離 $\text{EditDist}$ を用いて、文書全体の長さに対する割合 $\frac{\text{EditDist}(\mathcal{D}_{\text{edit}}, \mathcal{D})}{\text{length}(\mathcal{D})}$ として定義される。<br><br>攻撃には、特定の文とエンティティを対象とする6種類の「Salience-Editing operators」が用いられる。これには、既存の証拠の提示方法を変える $\text{Promote}$（促進）、$\text{Demote}$（抑制）、$\text{Assert}$（断定）、$\text{Hedge}$（ぼかし）、$\text{Emphasize}$（強調）や、ソースに基づいた真の文を挿入する $\text{Bridge}$ が含まれる。攻撃プロセスは、エージェントの観測可能な行動トレースに基づき、提案者（Proposer）が編集案を出し、検証者（Verifier）が制約を満たすか確認するクローズドループ形式で実行される。攻撃モードには、ボトルネックとなる単一の文書を標的とする「Weakest-hop salience induction」と、複数の近接するホップにわたって分散的に編集を行う「Neighborhood-level salience induction」の2種類が存在する。</p></section>
+<section class="secsum"><h3>5. The SalientWiki-MH Benchmark</h3><p>SalientWiki-MHは、マルチホップRAGエージェントにおけるSalience Induction攻撃を評価するために構築された、デコイ（偽の候補）注釈付きのベンチマークである。既存のHotpotQAやMuSiQueがスニペット形式の証拠を用いる点や、ドキュメント内のデコイが体系化されていない点を克服するため、3ホップのエンティティ連鎖に基づき、検索対象となるWikipediaの全文ドキュメントと、そのドキュメント内に存在する文脈的に妥当なデコイ候補を保持する設計となっている。構築プロセスでは、Wikidataから金融および医療ドメインのパスを抽出し、各ホップの正解エンティティがドキュメント内に存在することを確認した上で、正解エンティティと競合し得るデコイを抽出している。評価には、GPT-5.1、Claude Haiku 4.5、Gemini 3 Flashの3つのモデルを用いたクロスバリデーションが導入されており、524個のサンプル中、少なくとも2つのモデルが意図した経路と正解を導き出せるもののみが採用されている。評価用データセットであるSalientWiki-MH-Testは、ドメインの均衡、デコイの網羅性、多様性を考慮して抽出された144個のサンプルで構成される。主要な評価指標は、エージェントが攻撃を受けたドキュメントをコンテキストに含めた後に発生する最初のバインディングエラーに基づく攻撃成功率（$ASR$）であり、特定のデコイを狙ったTargeted $ASR$と、あらゆる誤ったバインディングを成功とみなすUntargeted $ASR$に分類される。</p></section>
+<section class="secsum"><h3>6. Defense: Salience Normalization</h3><p>Salience Normalization (SN)は、検索されたドキュメントに含まれる「内容チャネル」と、攻撃者が操作可能な「顕著性（salience）チャネル」を分離することを目的とした、軽量な入力側プリプロセッサである。この手法はLLMの呼び出しを一切行わず、攻撃者が利用する位置、トーン、構造、意味的近接性の4つの信号を中立化することで、エージェントの選択を内容のみに依存させる。具体的な実装であるSN-1は、5つの決定論的な変換プロセスから構成される。まず、ドキュメントを文単位に分解（atomization）した後、クエリごとに決定論的なシードを用いた一様ランダム置換によって文の順序をシャッフルし、位置による影響を排除する。次に、見出しや書式、リスト構造を平文へと変換して構造的階層を崩し、さらに40語の語彙リストを用いて確信度やヘッジ（ぼかし）を示す表現を削除することで、トーンを中立化する。最後に、関係性を表す特定の語彙を弱めるテンプレート適用と、関係性パターンの出現回数がドキュメントの中央値より $2\sigma$ を超える文から最上級修飾語を削除する処理により、意味的な橋渡し（semantic-bridge）を減衰させる。SN-1はドキュメントあたり約 $50\text{ ms}$ の計算コストで動作し、攻撃者が防御手法の全容を知っているホワイトボックス適応型攻撃モデルに対しても、語彙外の関係性表現や微細な意味の再構成を除いて、位置・構造・トーン・既知の関係性操作を無効化する。</p></section>
+<section class="secsum"><h3>7. Evaluation</h3><p>本セクションでは、Multi-Hop RAGエージェントに対するSalience Induction攻撃の有効性、汎用性、防御策、および攻撃の感度に関する評価が行われている。評価には、金融と医療のドメインからなる144サンプルのSalientWiki-MH-Testが用いられ、攻撃の提案者にはQwen3-Max、主な被害モデルにはReAct構成のGPT-5.1が使用されている。攻撃の成功率は、非ターゲットの結合エラーを測定するUntargeted ASRと、特定のデコイへ誘導するTargeted ASRで評価され、GPT-5.1 ReActに対して30%の編集予算を用いた実験では、Untargeted ASRが83.3% $[76.4\%, 88.5\%]$、Targeted ASRが52.1% $[44.0\%, 60.1\%]$に達した。また、BGE-m3を用いたエンドツーエンドの密検索環境下でも、検索保持率が97%以上を維持し、ASRもオラクル設定から1.4〜8.3%の範囲内に収まることから、攻撃の有効性が確認されている。防御策の評価では、既存の指示ガードや事実性チェックは無効であったが、提案手法であるSalience Normalization (SN-1) は、中立的な精度を94.4%に維持しつつ、Untargeted ASRを83.3%から15.3%へと大幅に低減させた。感度分析の結果、編集予算は30%で飽和し、NLI検証器の閾値 $\tau$ は、攻撃成功率と事実保持のトレードオフが最適となる0.70が推奨されることが示された。さらに、攻撃において最も効果的な操作はBridgeであり、これはデコイに対して局所的な関係性の枠組み（relational frame）を構築することで、位置情報よりも強力に結合決定を操作することを示唆している。</p></section>
+<section class="secsum"><h3>8. Discussion</h3><p>Salience Inductionは、内容の真実性を保ったまま顕著性（salience）を操作することで、検索結果と回答の結合プロセスを混乱させるチャネル混同攻撃であり、平均編集コスト $8.4\%$ に対して $83.3\%$ という高い攻撃成功率（ASR）を記録し、モデルの系統やエージェントの設計を問わず有効である。本研究では、情報の意味的な近接性が攻撃の主要なメカニズムであることを示しており、適合性の高いサンプルと低いサンプルの間で ASR に $27.0\text{ pp}$ の差が生じることは、結合モデルの反転条件を支持している。防御手法であるSN-1は、入力境界で攻撃力を大幅に除去できるものの、辞書にない表現を用いる適応的攻撃者によって $8.3\text{ pp}$ の ASR が回復されるという限界があり、これは LLM を呼び出さない設計とのトレードオフである。SN-1 の実装には金融や医療などのドメインごとに専門家による辞書作成が必要であり、既存の検索ランキングや出力検証といった防御層をすり抜けて結合プロセスを汚染するという特性を持つ。また、本攻撃は事実関係を維持したまま顕著性を操作する点で、生成エンジン最適化（GEO）とは異なる敵対的な脅威モデルに基づいている。評価は金融と医療の2ドメインに限定されているが、ニュースドメインの予備実験では $78.6\%$ の ASR が得られており、攻撃の汎用性が示唆されている。</p></section>
+<section class="secsum"><h3>9. Related Work</h3><p>既存のRAGに対する敵対的攻撃は、誤った情報を注入するPoisonedRAGや、検索順位を操作するBadRAG、バックドアを埋め込むTrojanRAGやBadChain、さらにはサービス拒否を目的とした手法などが存在するが、これらはすべて偽のコンテンツに依存するため事実検証による防御が可能である。これに対し、提案手法であるSalience Inductionは、すべての事実が真実であるという極めて強い制約下で動作するため、事実に基づく防御策を無効化できる。また、間接的プロンプト注入やCoTハイジャックといった既存の攻撃とはメカニズムが異なり、プロンプト注入検知器にも検知されない。マルチホップ推論の堅牢性に関する既存研究は、HotpotQAなどのベンチマークを用いた受動的な堅牢性や合意に基づく検証に焦点を当てているが、本研究はエージェントによるマルチホップ検索の各ステップにおける結合決定を標的とした能動的な敵対的操作を導入している。さらに、LLMが文脈の中間に位置する情報を軽視する性質や、提示形式が学習に影響を与える性質、および認知科学におけるフレーミング効果を悪用することで、情報の提示方法を操作し、LLMの挙動を系統的に変化させる攻撃を実現している。これは、生成エンジンにおけるコンテンツの視認性を高めるGEO（Generative Engine Optimization）の敵対的な応用といえる。</p></section>
+<section class="secsum"><h3>10. Conclusion</h3><p>本研究は、コンテンツ・ポイズニングやプロンプト・インジェクションとは異なる、エージェント型RAGに対する第3の攻撃対象領域として「サリエンス（顕著性）チャネル」を特定した。この攻撃は、引用される事実の真偽を保ったまま提示方法を編集することで、マルチホップ推論を攻撃者が意図する誤った回答へと誘導する手法である。提案された6種類のオペレータによる攻撃は、オラクル検索下で 83.3% の攻撃成功率（ASR）を達成し、BGE-m3 の top-3 検索下でも 75.0% という高い ASR を記録したほか、5つのモデルファミリーおよび3つのエージェント・アーキテクチャ間での転移性も示した。単一の結合（binding）の反転が下流の推論チェーン全体を破壊するため、マルチホップ・エージェントは特に脆弱である。これに対し、生成LLMの呼び出しを必要としない防御策である Salience Normalization を導入することで、標準的な攻撃下では ASR を 15.3% まで、ホワイトボックスの適応的攻撃下でも 23.6% まで低減することに成功した。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-23
+  </footer>
+</div>
+</body>
+</html>

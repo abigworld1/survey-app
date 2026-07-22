@@ -1645,6 +1645,75 @@
       "url": "http://arxiv.org/abs/2607.15738v1",
       "venue": ""
     },
+    "arxiv:2607.17535": {
+      "added": "2026-07-23",
+      "added_at": "2026-07-23T06:03:53.096347",
+      "arxiv_id": "2607.17535",
+      "authors": [
+        "Xingfu Zhou",
+        "Pengfei Wang",
+        "Yuan Zhou",
+        "Wei Xie",
+        "Xu Zhou"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-20",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.17535.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.17535v1",
+      "reading_value": 4,
+      "reading_value_reason": "事実を改変せず情報の提示方法（顕著性）のみで推論を誤らせるという、RAGの脆弱性に関する極めて新規性の高い脅威モデルを提示している。防御策も軽量で実用的であり、エージェント研究者にとって重要。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Salience Induction against Multi-Hop RAG Agents: Threat and Defense",
+      "tldr": "マルチホップRAGエージェントに対し、事実の真偽や指示の有無を一切変えずに、情報の配置や強調などの「顕著性（salience）」を操作することで誤った属性結合を誘発する攻撃手法「Salience Induction」を提案し、それに対する軽量な防御策「Salience Normalization」を提示する。",
+      "url": "http://arxiv.org/abs/2607.17535v1",
+      "venue": ""
+    },
+    "arxiv:2607.17742": {
+      "added": "2026-07-23",
+      "added_at": "2026-07-23T06:02:56.183262",
+      "arxiv_id": "2607.17742",
+      "authors": [
+        "Jiaming Tian",
+        "Liyao Li",
+        "Wentao Ye",
+        "Haobo Wang",
+        "Lihua Yu",
+        "Zujie Ren",
+        "Gang Chen",
+        "Junbo Zhao"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-20",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.17742.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.17742v1",
+      "reading_value": 4,
+      "reading_value_reason": "Table RAGにおける「意味的類似性と回答可能性の乖離」という重要な課題を特定し、独自のベンチマークと解決策を提案しており、実用上の示唆が非常に高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Semantically Similar, Logically Distinct: Diagnosing the Semantic-Answerability Gap in Table RAG",
+      "tldr": "検索拡張生成（RAG）における表形式データの利用において、検索された表がトピックとして関連していても、質問に答えるための十分な証拠を含んでいるとは限らない「Semantic-Answerability Gap」を特定し、これを診断するベンチマークと解決策を提案する。",
+      "url": "http://arxiv.org/abs/2607.17742v1",
+      "venue": ""
+    },
     "arxiv:2607.18155": {
       "added": "2026-07-22",
       "added_at": "2026-07-22T06:03:27.217553",
@@ -2662,6 +2731,38 @@
       "url": "http://arxiv.org/abs/2203.07092v1",
       "venue": ""
     },
+    "arxiv:2205.12504": {
+      "added": "2026-07-23",
+      "added_at": "2026-07-23T06:01:58.826416",
+      "arxiv_id": "2205.12504",
+      "authors": [
+        "Yukita Fujitani",
+        "Tomoki Yamauchi",
+        "Yuki Miyashita",
+        "Toshiharu Sugawara"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2022-05-25",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2205.12504.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2205.12504v1",
+      "reading_value": 3,
+      "reading_value_reason": "既存のPIBT法の環境制約を緩和する提案は新規性があり、理論的保証と実験による検証もなされている。MAPD分野の研究者にとって、デッドロック回避の具体的アプローチとして関連性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Deadlock-Free Method for Multi-Agent Pickup and Delivery Problem Using Priority Inheritance with Temporary Priority",
+      "tldr": "木構造の経路や行き止まりを含む環境において、従来のPIBT法がデッドロックを引き起こす課題に対し、一時的な優先度を導入することでデッドロックを回避し、タスク完了を保証する手法を提案する。",
+      "url": "http://arxiv.org/abs/2205.12504v1",
+      "venue": ""
+    },
     "arxiv:2208.01223": {
       "added": "2026-07-14",
       "added_at": "2026-07-14T06:01:44.548871",
@@ -2751,6 +2852,37 @@
       "title": "An Efficient Approach to the Online Multi-Agent Path Finding Problem by Using Sustainable Information",
       "tldr": "将来の追加エージェントが未知であるオンラインMulti-Agent Path Finding (MAPF) において、過去の計画情報を「持続可能な情報（sustainable information）」として再利用する3層構造のアプローチを提案する。提案手法は、高レベルのSustainable Replan (SR)、中レベルのSustainable Conflict-Based Search (SCBS)、低レベルのSustainable Reverse Safe Interval Path Planning (SRSIPP) で構成され、既存のSOTAと比較して平均1.48倍、大規模マップでは最大10倍の計算加速を実現する。",
       "url": "http://arxiv.org/abs/2301.04446v1",
+      "venue": ""
+    },
+    "arxiv:2302.09250": {
+      "added": "2026-07-23",
+      "added_at": "2026-07-23T06:01:26.075288",
+      "arxiv_id": "2302.09250",
+      "authors": [
+        "Yuki Miyashita",
+        "Tomoki Yamauchi",
+        "Toshiharu Sugawara"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2023-02-18",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2302.09250.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2302.09250v1",
+      "reading_value": 3,
+      "reading_value_reason": "速度変動や非同期実行を許容する分散型MAPD手法という実用的な提案。既存手法との比較実験も具体的だが、引用数が少なく、グラフの向き付け等の制約も含むため、関連分野の研究者が検討すべき内容。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Distributed Planning with Asynchronous Execution with Local Navigation for Multi-agent Pickup and Delivery Problem",
+      "tldr": "エージェントの移動速度が変動し、かつ作業終了地点の数に制約がある現実的な環境下でのマルチエージェント・ピックアップ＆デリバリー（MAPD）問題に対し、非同期実行を伴う分散型計画手法を提案する。提案手法は、エージェントが個別に経路を生成しつつ、ノード単位の予約管理によって衝突を回避することで、不確実な環境でも効率的なタスク遂行を可能にする。",
+      "url": "http://arxiv.org/abs/2302.09250v1",
       "venue": ""
     },
     "arxiv:2303.17422": {

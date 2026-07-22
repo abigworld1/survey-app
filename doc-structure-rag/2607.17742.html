@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Semantically Similar, Logically Distinct: Diagnosing the Semantic-Answerability Gap in Table RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Semantically Similar, Logically Distinct: Diagnosing the Semantic-Answerability Gap in Table RAG</h1>
+  <div class="meta">Jiaming Tian, Liyao Li, Wentao Ye, Haobo Wang, Lihua Yu, Zujie Ren, Gang Chen, Junbo Zhao<br>採択先: 未取得 ・ 2026-07-20 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.17742v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.17742v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-20</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">Table RAGにおける「意味的類似性と回答可能性の乖離」という重要な課題を特定し、独自のベンチマークと解決策を提案しており、実用上の示唆が非常に高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 検索拡張生成（RAG）における表形式データの利用において、検索された表がトピックとして関連していても、質問に答えるための十分な証拠を含んでいるとは限らない「Semantic-Answerability Gap」を特定し、これを診断するベンチマークと解決策を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>Table RAGにおいて、検索されたソースがクエリと意味的に類似している（Semantic Relevance）ことと、クエリに答えるための十分な証拠を含んでいる（Answerability）ことは別問題である。既存のベンチマークは関連するテーブルが与えられていることを前提としており、検索プロセスにおける証拠の十分性を評価できていない。本研究は、スキーマが酷似しているが内容に微細な差異がある「兄弟テーブル」を用いることで、この乖離を測定することを目的とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>意味的関連性と回答可能性を分離して定義し、その乖離を定量化する概念を導入した。診断用ベンチマークであるTCR-Benchを提案し、スキーマが酷似した「兄弟テーブル（Sibling Tables）」を用いることで、粗い意味的検索から分離された細粒度な回答可能性の評価を可能にした。また、検索のボトルネックがモデルの規模やシリアライズ形式ではなく、回答可能性を検証するステップの欠如にあることを明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>回答可能性を、単一のソースにおいてクエリに必要なすべての行、値、および属性の紐付けが提供され、制約に矛盾しない結果を生成できる状態と定義する。提案するAAR（Answerability-Aware Reranking）は、クロスエンコーダによる相互作用を通じて、テーブルがクエリを満たす構造化された証拠を十分に含んでいるかを直接評価する2段階のパイプラインである。これには、クロスエンコーダを用いたAAR-CEと、LLMベースの二値判定器を用いたAAR-Judgeの2つのバリアントが存在する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>SpiderおよびBIRDから構築された209個のクエリと637個のテーブルを含むTCR-Benchを用いて評価を行った。高密度検索器を用いた場合、正解テーブルを特定できる $\text{Top-1 Recall}$ は $18.2\%$ と低迷し、QA性能はOracle設定の $0.755$ から $\text{Top-}5$ 検索時の $0.330$ まで低下した。一方、AAR-CEを導入することで、$\text{Top-1}$ の検索精度は $18.2\%$ から $57.4\%$ へ、あるいは $0.670$ から $0.818$ へと大幅に改善された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>検索の失敗は、表面的なシリアライズ形式やクエリの言い換えではなく、意味的な情報の蓄積（Semantic Accumulation）、スキーマレベルのヒントへの過度な依存、および行と列の結合の弱さ（Weak Row-Column Binding）という3つの要因に起因する。AARは計算コストの増大と初期検索品質への依存という限界を持つ。今後の課題として、断片的な証拠や複数ソースに分散した事実、あるいは証拠が存在しないケースを含む、より複雑な検索環境への対応が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Semantically Similar, Logically Distinct: Diagnosing the Semantic-Answerability Gap in Table RAG</h3><p>本研究では、検索拡張生成（RAG）における表形式データの利用において、検索された表が質問に答えるための十分な証拠を含んでいるかという「回答可能性（answerability）」の概念を定義し、意味的な関連性と回答可能性の間に生じる乖離（Semantic-Answerability Gap）を分析している。著者らは、スキーマが酷似しているが内容に微細な差異がある「兄弟テーブル（sibling tables）」を用いた診断用ベンチマークであるTCR-Benchを提案した。実験の結果、高密度検索モデルは正しい兄弟テーブルのグループを特定できても、その中で唯一回答可能なテーブルを正確に選別できず、QA性能がオラクル時の $0.755$ から上位5件の検索時では $0.330$ まで低下することが示された。この乖離の要因として、意味的な情報の蓄積、スキーマレベルのヒントへの依存、および行と列の結合の弱さが挙げられている。この問題を解決するために、質問と表の回答可能性を直接判定する軽量な2段階パイプラインであるAnswerability-Aware Reranking（AAR）を導入したところ、上位1件のターゲット検索精度が $18.2\%$ から $57.4\%$ へと大幅に改善された。この結果は、既存モデルの能力不足よりも、回答可能性を検証するステップの欠如が性能低下の主因であることを示唆している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究では、検索されたソースがトピックとしての関連性（Semantic Relevance）を持つだけでなく、クエリに答えるための十分な証拠を含んでいるかという性質を「Answerability」と定義し、両者の乖離を「Semantic-Answerability Gap」と名付けている。既存のWikiTableQuestionsやHybridQAといったベンチマークは、関連するテーブルが与えられていることを前提としており、検索プロセスにおける証拠の十分性を評価できていない。提案する診断用ベンチマークであるTCR-Benchは、フィルタリングや微修正によって生じる、スキーマが酷似した「兄弟テーブル（Sibling Tables）」を用いることで、粗い意味的関連性から回答可能性を分離して測定することを可能にする。実験の結果、テストした高密度検索器（Dense Retriever）が回答可能なテーブルを正しく特定できた割合はわずか $18.2\%$ であり、これによりQA性能が $0.755$ から $0.330$ へと大幅に低下することが示された。このギャップの要因は、クエリの言い回しやシリアライズ形式といった表面的な問題ではなく、意味の蓄積（Semantic Accumulation）、スキーマレベルのヒントへの依存、および行と列の結合の弱さに起因することが明らかになった。さらに、回答可能性の判定を明示的に組み込んだ2段階の軽量なパイプラインであるAnswerability-Aware Reranking（AAR）を導入することで、トップ1の検索精度を $18.2\%$ から $57.4\%$ へと改善することに成功している。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>既存の検索手法は、単一のベクトル表現による表現力の限界や、スケーリングに伴う収益逓減、実用上の退化といった理論的・実践的な課題を抱えており、単なる意味的類似性だけでは不十分であることが指摘されている。既存研究では、堅牢性やQA精度、マルチホップ推論などの観点が導入されているが、意味的関連性と「回答可能性（answerability）」を分離した概念として定義したものは存在しない。本研究では、検索された文書がクエリと意味的に類似していても、特定の根拠を含むのは一つのみであるという現象を「Semantic-Answerability Gap」として定式化している。テーブルRAGの文脈においても、スキーマやタイトルを考慮した表現やハイブリッドなパイプラインが提案されているが、これらは主に意味的な関連性の最適化に焦点を当てており、既存のベンチマークも検索を意味的マッチングとして捉える傾向にある。これに対し、本論文が提案するTCR-Benchは、意味的に類似した候補の中から唯一の回答可能なテーブルを識別させる「sibling tables」という設定を用いることで、粗い意味的検索から分離された、きめ細かな回答可能性の選択を評価対象としている。</p></section>
+<section class="secsum"><h3>3 TCR-Bench: A Diagnostic Benchmark for Table Content-Level Answerability in RAG</h3><p>TCR-Benchは、Table RAGにおける検索の目的が単なる意味的な関連性（Semantic Relevance）ではなく、クエリに対する回答可能性（Answerability）にあることを診断するためのベンチマークである。回答可能性を、単一のソースにおいてクエリに必要なすべての行、値、および属性の紐付けが提供され、制約に矛盾しない結果を生成できる状態と定義し、正解となるTarget Table、意味的に類似しているが証拠が欠落したSibling Distractor Tables、および無関係なNon-Sibling Tablesの3種類を区別する。データセットはSpiderおよびBIRDから構築され、Exact Match (EM)、Selective Filtering (SF)、Selective Aggregation (SA) の3つのクエリタイプを含む209個のクエリと637個のテーブルで構成される。Sibling Distractor Tablesの構築には、元のテーブルからクエリ条件やターゲット列を選択的に削除し、制約に違反する行を削除または再サンプリングする手法が用いられ、さらにGPT-OSS-120Bによるパラフレーズや数値・日付の摂動を加えることで、表面的な一致によるショートカットを防いでいる。実験的な知見として、埋め込みモデルはSibling Distractor TablesとNon-Sibling Tablesを区別できるものの、Target TableとSibling Distractor Tablesを混同する傾向があるが、リランカーを用いることでこれらをより正確に分離できることが示されている。</p></section>
+<section class="secsum"><h3>4 Primary Observations from Main Experiments</h3><p>本セクションでは、Table RAGにおける「意味的関連性（Semantic Relevance）」と「回答可能性（Answerability）」の間に存在する深刻な乖離、すなわちSemantic-Answerability Gapについて分析している。検索性能の評価指標として、正解テーブルを特定できるかを示す $\text{Top-1 Recall}$、類似したトピックを持つテーブル群（Sibling Table Group）を特定できるかを示す $\text{Top-Group Recall}$、および意味的に類似したグループ内で正解を識別できる能力を測る $\text{Top-1 Discriminative Score}$ ($D_1$) が定義されている。実験の結果、Qwen3-Embedding-8Bのような大規模モデルであっても $\text{Top-Group Recall}$ は高い値を示す一方で、$\text{Top-1 Recall}$ はランダム選択の期待値である $0.298$ 付近またはそれ以下に留まっており、意味的に近いテーブル群の中から正確な証拠を持つテーブルを識別する能力が極めて低いことが示された。下流のQAタスクにおける評価では、正解テーブルのみを用いたOracle設定のF1スコアが $0.755$ であるのに対し、検索結果を用いた $\text{Top-}k$ 設定では $k$ の増加に伴い $\text{QA F1}$ が低下し、$\text{Utility}$ ($U_{QA}$) も減少する傾向が確認された。これは、意味的に類似した誤ったテーブルがコンテキストに含まれることで干渉が生じることを示唆しており、検索の精度（特に $\text{Top-1}$）が生成品質を決定付ける決定的な要因であることが明らかになった。</p></section>
+<section class="secsum"><h3>5 Investigation I: Surface Variations Do Not Explain Answerability Failures</h3><p>本セクションでは、Table RAGにおける検索失敗が、テーブルのシリアライズ形式やクエリの言い換えといった表面的な差異に起因するものか、あるいは意味的検索の目的と回答可能性の識別との間の本質的な乖離によるものかを調査している。テーブルのシリアライズ形式として Markdown, CSV, HTML, Mixed, Sen (行を宣言的な文に変換), SenS (属性順をシャッフルした文) の6種類を評価した結果、Qwen3-4Bを用いた実験では、SenとSenSの間で性能に大きな差が見られず、行内の属性順序が検索決定に与える影響は限定的であることが示された。また、クエリの表現についても、自然言語形式、文形式、および属性値制約を強調したテンプレート形式の3種で比較したが、検索性能の変動は緩やかであり、言い換えを行っても候補集合は概ね安定していた。これらの結果は、モデルが論理的な意図は捉えているものの、構造的に類似したテーブルの中から唯一のターゲットを識別するための粒度が不足していることを示唆している。結論として、検索のボトルネックは表面的なバリエーションではなく、トピックに基づくフィルタリングには適しているが、特定の回答可能性を判別する細粒度な識別には適していないという、検索目的レベルのミスマッチにあることが明らかになった。</p></section>
+<section class="secsum"><h3>6 Investigation II: Semantic Retrieval Objectives Are Associated with Collapsed Answerability Distinctions</h3><p>本セクションでは、密な意味検索（dense semantic retrieval）が、トピックの類似性には強く反応する一方で、回答可能性（answerability）の識別には失敗するという「意味的検索目的と回答可能性の乖離」を調査している。まず、行を自然言語化する3つの変換（元の順序の $\text{Sen}$、順序をランダム化した $\text{SenS}$、行を一意に特定するのに十分なサブセットである $\text{SenSS}$）を用いた実験により、検索精度が論理的な十分性よりも意味的な情報量（semantic volume）に依存していることが示された。具体的には、Qwen3-4Bにおいて、行を一意に特定できる $\text{SenSS}$ 形式への削減が精度を $0.871$ から $0.619$ へと低下させており、対照学習が制約の完全性ではなく広範なトピックの網羅性を報酬として学習していることが示唆される。また、列をシャッフルした妨害データを用いた実験では、行インデックスを付与する $\text{RID}$ などの手法を用いても、列をシャッフルした $\text{RID+Shuf}$ の精度は $0.314$ に留まり、モデルが値と列の意味的な結合（row-column binding）を維持できていないことが明らかになった。これらの結果から、評価対象のモデルは、構造的な関係表現としてではなく、単なるフレーズの集合（bag-of-phrases）として動作しており、トークン密度への依存、スキーマレベルの信号への過度な依存、および行と列の結合の弱さという3つの系統的な失敗モードを持つことが結論付けられている。</p></section>
+<section class="secsum"><h3>7 Answerability-Aware Reranking for Table Retrieval</h3><p>検索段階における明示的な回答可能性（answerability）のモデリングの重要性を検証するため、クエリと候補テーブルを結合して評価する Answerability-Aware Reranking (AAR) を提案している。AAR は、単一ベクトルによる検索とは異なり、クロスエンコーダによる相互作用を通じて、テーブルがクエリを満たすための構造化された証拠を十分に含んでいるかを直接評価する。具体的には、埋め込みモデルと同じ Qwen3 ファミリーの Qwen3-Reranker-8B を用いた AAR-CE と、Qwen3-30B-A3B-Thinking-2507 を用いた LLM ベースの二値判定器である AAR-Judge の 2 つのバリアントを実装している。TCR-Bench における実験の結果、AAR-CE は R@1 を 0.182 から 0.574 へ、あるいは 0.670 から 0.818 へと大幅に向上させ、AAR-Judge も同様に密ベクトルベースの基準を大きく上回る性能を示した。これらの改善はモデル容量の差ではなく、相互作用に基づく明示的な回答可能性のモデリングによるものであることが示唆されており、Table RAG の検索における主要なボトルネックが、初期検索フェーズにおける回答可能性評価の欠如にあることを明らかにしている。</p></section>
+<section class="secsum"><h3>8 Conclusion</h3><p>本研究は、検索されたソースがクエリに対して高い意味的関連性（semantic relevance）を持っていても、回答に必要な十分な証拠を含んでいるとは限らないという「Semantic-Answerability Gap」を特定した。このギャップを検証するために、回答可能性を精密に評価可能な兄弟テーブルを用いた診断用ベンチマークである TCR-Bench を導入し、高密度検索器（dense retrievers）の性能を評価した。実験の結果、検索器は意味的に関連する候補群を特定することには成功するものの、その中で唯一回答可能なテーブルを特定することには失敗しており、Oracle QA の性能である $0.755$ に対し、上位5件の検索結果を用いた場合の性能は $0.330$ まで大幅に低下することが示された。このギャップの原因は、Semantic Accumulation、Weak Row-Column Binding、Schema-Level Cue Dependence という3つのパターンに帰属され、これらは対照学習によるアライメント目的関数と、細粒度な内容検証との間の不一致を反映している。診断用プローブとして提案された AAR は、クエリとテーブルの明示的な相互作用を通じてこのギャップを大幅に縮小させており、現在のボトルネックはモデルの規模やシリアライズ手法の問題よりも、回答可能性のモデリングの欠如に起因することを示唆している。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>本研究は、意味的な関連性と回答可能性を分離して定義した Semantic-Answerability Gap を初めて体系的に調査したが、より広範な検索環境では、断片的な証拠や複数ソースに分散した事実、あるいは完全に満たすソースが存在しない検証タスクなど、回答可能性の概念がより複雑になる可能性がある。評価においては、リソースの制約から主要なオープンソースの埋め込みモデルに焦点を当てており、Qwen3 ファミリーの $0.6\text{B}$ から $8\text{B}$ のスケールで一貫したギャップが確認されたものの、商用モデルを含む全検索システムへの一般化については今後の課題である。ベンチマークとして用いた TCR-Bench は、スキーマの重複や不完全なエクスポートといった実用的な性質を維持しつつ、精密な診断のために検索空間を制御しているが、実際のテーブルエコシステムはよりノイズの多いスキーマや進化するテーブル、異種混合の証拠源を持つ。提案手法である AAR は Semantic-Answerability Gap を緩和するものの完全に解消するものではなく、リランキング手法はクエリとテーブルの明示的な相互作用を通じて対象の特定を改善するが、計算コストの増大と初期検索品質への依存という限界がある。総じて、将来のシステムは効率性と正確な回答可能性のバランスを取りつつ、より早い段階でコンテンツと構造の両方を考慮した表現を埋め込む必要がある。</p></section>
+<section class="secsum"><h3>Ethical Considerations</h3><p>本研究で構築されたベンチマークであるTCR-Benchは、公開データセットであるSpiderおよびBIRDと合成データのみで構成されており、個人を特定できる情報や機密情報は含まれていない。意味的な摂動やクエリのテンプレート生成は自動化されているが、品質と適切性を担保するために著者らによる手動の検証が行われている。大規模言語モデルの利用範囲は、クエリやスキーマの言い換え、軽微なコード生成の補助、および原稿の推敲のみに限定されている。透明性と再現性を高めるため、データ、コード、および評価プロトコルは公開される予定である。なお、TCR-BenchはTable RAGにおける検索研究の発展を目的としているが、医療や金融などの機密性の高い領域に本手法を適用する際には、ドメイン固有の適切な安全策を講じる必要がある。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-23
+  </footer>
+</div>
+</body>
+</html>

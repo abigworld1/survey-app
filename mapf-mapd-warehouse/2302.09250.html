@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Distributed Planning with Asynchronous Execution with Local Navigation for Multi-agent Pickup and Delivery Problem | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Distributed Planning with Asynchronous Execution with Local Navigation for Multi-agent Pickup and Delivery Problem</h1>
+  <div class="meta">Yuki Miyashita, Tomoki Yamauchi, Toshiharu Sugawara<br>採択先: 未取得 ・ 2023-02-18 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2302.09250v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2302.09250v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2023-02-18</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">速度変動や非同期実行を許容する分散型MAPD手法という実用的な提案。既存手法との比較実験も具体的だが、引用数が少なく、グラフの向き付け等の制約も含むため、関連分野の研究者が検討すべき内容。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> エージェントの移動速度が変動し、かつ作業終了地点の数に制約がある現実的な環境下でのマルチエージェント・ピックアップ＆デリバリー（MAPD）問題に対し、非同期実行を伴う分散型計画手法を提案する。提案手法は、エージェントが個別に経路を生成しつつ、ノード単位の予約管理によって衝突を回避することで、不確実な環境でも効率的なタスク遂行を可能にする。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、建設現場や災害現場における重量物搬送を想定した、移動速度が変動するマルチエージェント・ピックアップ＆デリバリー（MAPDFS）問題を対象とする。エージェントの集合 $\mathcal{A}$ が、運搬物 $m_t$、積み込みノード $p_t$、荷降ろしノード $d_t$ からなるタスクの集合 $\mathcal{T}$ を完了させる必要がある。従来のMAPD研究では、エージェントの移動速度が一定であることや、全エージェントの動きが同期していること、あるいは回避経路が十分に確保された理想的な環境を前提としていた。そのため、天候や床の状態による速度変動や、作業終了地点（エンドポイント）の柔軟性が制限される環境への適用が困難であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存の分散型手法であるHTEなどは、完備性を保証するためにWFI条件や二連結グラフといった特定の環境条件を必要とし、さらにエージェント間の移動同期が強制されるため速度変動に対応できない。また、中央集権的な手法やRHCRのような再計画を伴う手法は、エージェント数の増加に伴う計算量や通信量の増大、あるいは密集環境での計算コストに課題がある。本研究の新規性は、エージェントが他者の計画を考慮せずに個別に経路を生成し、グラフの隣接ノード間でのみ通信を行うことで、非同期な移動と速度変動を許容する分散型アプローチを実現した点にある。これにより、複雑なエージェント構成を必要とせず、低コストで混雑した環境下でのナビゲーションを可能にしている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、キャリアエージェントとノードエージェント $\mathcal{N}_i$ の2種類を導入した分散型アルゴリズムである。まず、メインエリアの無向グラフをRobbinsの定理に基づき、強連結成分となるように一方向の向きを持つ有向グラフへと向き付けを行う。キャリアエージェントは、現在のノード $v_{curr}$ から目的地 $v_{dest}$ までの最短経路を非同期に生成し、次のノード $v_{next}$ へ移動する前に、現在のノードのファシリテーターである $\mathcal{N}_{v_{curr}}$ に対して予約リクエストを送信する。ノードエージェントは、隣接するノードエージェントと通信して衝突の可能性を確認し、予約が拒否された場合には、待機を促す $\text{Wait}$ または別の隣接ノードへの迂回を促す $\text{Detour}$ という2種類の移動提案（SOM）をエージェントに返送する。また、木構造の領域（Marginal Zone）においては、ルートノードが進入するエージェントの数を制限することで混雑を制御する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>タスクの端点が10箇所存在する2種類の環境を用い、RHCRおよびHTEを比較手法として評価を行った。評価指標には、タスク完了率、makespan、および計画（CPU）時間が用いられ、エージェント数は2から40、タスク数は10に設定された。実験1（WFI条件を満たす環境）では、エージェント数が10を超える条件下で、提案手法はRHCRやHTEよりも優れたmakespanを示し、すべてのタスクを衝突なく完了した。実験2（移動速度に確率 $p$ で遅延が生じる環境）においても、提案手法は大きな性能低下を見せず、高い頑健性を備えていることが示された。また、計画時間はエージェント数の増加に伴う上昇が緩やかであり、頻繁な再計画を必要とする手法と比較して大幅に短いことが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法の効率的な移動を実現するためには、メインエリア内の空きノード数 $N_{open}$ がエージェント数 $N_{agent}$ に対して $N_{open} &gt; N_{agent}/2$ を満たすことが推奨される。今後の課題として、環境グラフの制約の緩和や、効率性を向上させるための適切なグラフ方向付けの提案、さらに複数のエージェントで一つのタスクを実行するといった、より複雑なタスクへの拡張が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Distributed
+Planning with Asynchronous Execution with Local Navigation for Multi-agent Pickup
+and Delivery Problem</h3><p>本研究は、エージェントの活動に遅延が発生し、かつ作業終了地点（エンドポイント）に柔軟性がある環境下でのマルチエージェント・ピックアップ＆デリバリー（MAPD）問題に対し、非同期実行を伴う分散型計画手法を提案している。従来のMAPD研究の多くは、エージェントの移動速度が一定であることや、全エージェントの動きが同期していること、あるいは回避経路が十分に確保された理想的な環境を前提としていたが、本手法は天候や床の状態による速度変動や遅延を許容することで、より現実的な環境への適用を可能にしている。提案手法は、エージェントの速度変動や柔軟な作業場所の設定といった制約の緩和を実現しており、実験の結果、ベースライン手法と比較して、このような不確実な環境下でもエージェントが効率的にタスクを遂行できることが示された。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>本研究では、建設現場や災害現場における重量物の搬送を想定し、移動速度の変動とエンドポイントの少なさを考慮した、移動速度が変動するマルチエージェント・ピックアップ＆デリバリー問題（MAPDFS）を定義している。提案手法は、分散型の計画および非同期実行アルゴリズムであり、エージェントが他者の計画を考慮せずに個別に経路を生成し、グラフ構造における隣接するノード間でのみ通信を行うことで衝突を回避する。具体的には、経路を計画するキャリアエージェントと、グラフの各ノードを管理し衝突の可能性を検知するノードエージェントの2種類を導入しており、ノードエージェントはキャリアエージェントに対して、次のノードへの移動、迂回、または待機を指示する。環境は、小さな木構造領域を含む複数の二重連結成分からなるグラフとして記述され、主要なエリアは強連結グラフとして構成することで、ラウンドアバウトのような方向性を持たせ、正面衝突やデッドロック・ライブロックを抑制している。実験では、既存手法であるRHCRおよびHTEと比較評価を行い、提案手法が、エージェントの速度遅延やエンドポイントの配置の柔軟性が求められる環境において、衝突なくすべてのタスクを完了できることを示した。</p></section>
+<section class="secsum"><h3>2. Related Work</h3><p>MAPF/MAPDにおける衝突回避経路計画はNP困難な問題であり、既存研究では計算コストを抑えるために、制約を緩和した劣最適解の探索や、中央集権的なプランナーを用いたタスク割り当てと経路計画の反復処理が行われてきた。中央集権的な手法、例えばConflict-based Searchを拡張し、エージェントの進行方向を制限するハイウェイ（highways）を導入する手法などは、計算時間や解のコストを削減できるものの、エージェント数の増加に伴う計算量と通信量の増大によりスケーラビリティに課題がある。また、一定の時間窓内で衝突を再計画するRHCRなどの手法も、環境が密集している場合には他エージェントの経路確認に多大な計算コストを要する。分散型の手法として、優先度に基づき順次経路を計画するHTEや、短期間の窓内で隣接移動に焦点を当てるPIBTなどが提案されているが、これらは完備性を保証するためにWFI条件や二連結グラフといった特定の環境条件を必要とし、さらにエージェント間の移動同期が強制されるため速度変動に対応できない。これに対し、提案手法はエージェントが非同期に移動できる分散型アプローチを採用しており、既存の空間分散型プランナーのような部分的な中央集権化を必要とせず、また複雑なエージェント構成を必要とする先行研究と比較して、より単純かつ低コストで混雑した環境下でも効果的なナビゲーションを実現している。</p></section>
+<section class="secsum"><h3>3. Problem formulation</h3><p>本セクションでは、Multi-agent Pickup and Delivery (MAPD) 問題の定式化と、想定される環境条件が定義されている。MAPD問題は、エージェントの集合 $\mathcal{A}$ がタスクの集合 $\mathcal{T}$ を完了させる問題であり、各タスク $t \in \mathcal{T}$ は、運搬物 $m_t$、積み込みノード $p_t$、荷降ろしノード $d_t$ からなるタプル $(m_t, p_t, d_t)$ で指定される。環境は、直接エッジ $e_{uv}$ と、一方向のみの移動を許す間接エッジ $e_{uv}^{ind}$ から構成される連結グラフ $G = (V, E)$ で表され、衝突は同一ノードへの存在、または逆方向のエッジの同時通過によって定義される。エージェントは離散時間 $t \in \{0, 1, \dots\}$ において、自身の初期位置 $s_a$ から積み込み、目的地へ運搬し、完了後に駐車場ノード $p_a$ へ戻る一連の経路を個別に計画する。環境条件として、グラフ $G$ は、主要領域 $\mathcal{G}_{main}$ と、それらに接続する木構造のサブグラフからなる二重連結成分（bi-connected components）の集合として定義される。具体的には、$\mathcal{G}_{main}$ は $G$ の二重連結成分の和集合であり、木構造の部分グラフに含まれるノードは、$\mathcal{G}_{main}$ 内の特定のルートノード $r \in \mathcal{R}$ とのみ接続されるという構造条件（SC1–SC3）が課される。また、エージェント数 $|\mathcal{A}|$ は $\mathcal{G}_{main}$ のノード数より少なくとも2つ少なく、効率性の観点からはノード数の半分以下であることが推奨される。</p></section>
+<section class="secsum"><h3>4. Proposed method</h3><p>提案手法は、エージェント同士の計画を無視して個別に経路を生成する分散型アルゴリズムであり、ノードの予約を管理するノードエージェント $\mathcal{N}_i$ を導入することで衝突を回避する。まず、メインエリアの無向グラフを、Robbinsの定理に基づき、強連結成分となるように一方向の向きを持つ有向グラフへと向き付け（Orientation）を行う。キャリアエージェントは、現在のノード $v_{curr}$ から目的地 $v_{dest}$ までの最短経路を $A^*$ 探索などの手法で非同期に生成し、次のノード $v_{next}$ へ移動する前に、現在のノードのファシリテーターである $\mathcal{N}_{v_{curr}}$ に対して予約リクエストを送信する。ノードエージェントは、隣接するノードエージェントと通信して衝突の可能性を確認し、予約が拒否された場合には、待機を促す $\text{Wait}$ または別の隣接ノードへの迂回を促す $\text{Detour}$ という2種類の移動提案（SOM: Suggestion of Movement）をエージェントに返送する。また、ツリー構造の領域（Marginal Zone）においては、ルートノードが進入するエージェントの数を制限することで、領域内の混雑を制御する。実験的な知見として、メインエリア内の空きノード数 $N_{open}$ がエージェント数 $N_{agent}$ に対して $N_{open} &gt; N_{agent}/2$ を満たすことが、効率的な移動を実現するために推奨される。</p></section>
+<section class="secsum"><h3>5. Experiments and Discussion</h3><p>提案手法の評価は、タスクの端点（ロード・アンロード地点）が10箇所存在する2種類の環境を用いて、MAPDFS（Multi-Agent Pickup and Delivery with Fixed Destination and Speed）インスタンスに対して行われた。実験1では、既存手法のHTEが前提とするWFI（Wait-For-Information）条件を満たす環境を用い、実験2ではWFI条件を満たさず、移動速度に確率 $p$ で遅延が生じるより現実的な環境を用いて、提案手法の頑健性を検証した。評価指標には、タスク完了率、makespan（全タスク完了時間）、および計画（CPU）時間が用いられ、エージェント数は2から40、タスク数は10に設定された。実験の結果、提案手法は実験1において、エージェント数が増加しても衝突やデッドロックを起こさず、すべてのインスタンスを完了させることができ、特にエージェント数が10を超える条件下では、完了率が著しく低下するRHCRや、タスク端点の不足により並列実行が制限されるHTEよりも優れたmakespanを示した。また、提案手法の計画時間は、時間情報や他エージェントの経路を考慮せずに分散的に経路を生成するため、エージェント数の増加に伴う上昇は緩やかであり、RHCRのような頻繁な再計画を必要とする手法と比較して大幅に短いことが確認された。実験2における移動速度の変動に対しても、提案手法は大きな性能低下を見せず、高い頑健性を備えていることが示された。</p></section>
+<section class="secsum"><h3>6. Conclusion</h3><p>本研究では、エージェント数よりもタスクの終端地点が少ない環境や、エージェントの移動速度が変動する現実的な環境に対応可能な、非同期実行を伴う分散型計画手法を提案している。提案手法は、速度の変動や柔軟な終端地点の設定といった、従来のベースライン手法では適用が困難な条件下においても、衝突やデッドロックを発生させることなく全てのタスクを効率的に完了できることを実験により示した。実験結果では、MAPD（Multi-agent Pickup and Delivery）問題において、提案手法が既存のベースライン手法を上回る性能を示すことが確認されている。今後の展望として、環境グラフの制約の緩和や、効率性を向上させるための適切なグラフ方向付けの提案、さらに複数のエージェントで一つのタスクを実行するといった複雑なタスクへの拡張が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-23
+  </footer>
+</div>
+</body>
+</html>
