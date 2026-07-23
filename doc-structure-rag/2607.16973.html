@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TurboVec: A Case Study in Cost-Efficient Private Retrieval for Enterprise RAG via Codebook-Oblivious Quantization | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>TurboVec: A Case Study in Cost-Efficient Private Retrieval for Enterprise RAG via Codebook-Oblivious Quantization</h1>
+  <div class="meta">Navnit Shukla, Kamal Pandey, Omsankar Tiwari<br>採択先: 未取得 ・ 2026-07-18 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.16973v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.16973v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-18</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGのプライバシーと効率性に直結する「コードブック非依存の量子化」という新規性が高い。実用的なSIMD実装やフィルタリング手法も具体的で、研究者にとって価値がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチテナント環境のエンタープライズRAGにおける、コードブックの漏洩とフィルタリング効率の課題を解決するため、データ分布に依存しないコードブック非依存のスカラー量子化手法を用いたベクトルインデックスTurboVecを提案する。TurboQuantによる量子化を用いることで、メモリ使用量を大幅に削減しつつ、従来の学習ベースの量子化手法を上回る検索精度と、メンバーシップ推論攻撃に対する高い耐性を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチテナント環境のエンタープライズRAGにおいて、共有された量子化インデックス（コードブック等）からの情報漏洩や、検索後のフィルタリングに伴う計算資源の浪費が問題となっている。対象は、高次元で $L_2$ 正規化された埋め込みベクトルであり、大規模なコーパスにおける効率的な検索とプライバシー保護の両立が求められる。従来のProduct Quantization（PQ）などの手法では、コードブックが訓練データの分布構造をエンコードしてしまうことや、検索後に不一致な結果を破棄するポストフィルタリングが非効率であるという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>先行研究であるProduct Quantization（PQ）がデータ依存のコードブック学習を必要とし、それがメンバーシップ推論攻撃の標的となるのに対し、本研究は解析的に導出された境界を用いるコードブック非依存（codebook-oblivious）な設計により、攻撃精度をランダムと同等の水準まで低減させた。また、学習プロセスを排除することで、データ分布に依存しない汎用的な量子化を実現している。さらに、カーネルレベルでの許可リストフィルタリングを導入することで、従来のオーバーフェッチ後の後処理と比較して、高い再現率を維持しながら計算量とI/Oを削減する仕組みを提案している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法であるTurboQuantは、まず固定のランダム直交行列による回転を行い、各座標が $\text{Beta}(a, b)$ 分布またはガウス分布に収束する性質を利用する。次に、解析的に導出されたLloyd-Maxスカラー量子化の境界を用いて量子化を行い、ビットパッキングを経て圧縮を行う。量子化による内積の過小評価を補正するために、長さ再正規化スコアリングを適用するパイプラインを構成する。インデックスの実装として、SIMD命令セットで加速されるTurboQuantIndexと、外部のIDマッピングやアクセス制御を可能にするIdMapIndexを提供する。フィルタリングにおいては、検索カーネルに許可リストを渡し、32ベクトル単位のブロック粒度で、許可されていないスロットを全く含まないブロックをスコアリング前にスキップする制御を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>DBpediaのOpenAI埋め込みデータセット（次元数 $d=1536$）を用い、100Kから999K規模のベクトル数で評価を行った。4ビット量子化において、TurboQuantはFAISS PQ 4-bitと比較してRecall@5で8.5〜8.9ポイント高い精度を達成し、100K規模で0.965、999K規模で0.968の再現率を示した。メモリ使用量はHNSWと比較して4〜8倍削減され、999K規模においてTurboQuantは76.8 MBで動作した。Snowpark Container Servicesを用いたケーススタディでは、100Kベクトルに対して中央値11msのクエリレイテンシを記録した。プライバシー評価では、合成データを用いたメンバーシップ推論攻撃に対し、FAISS PQの攻撃精度57.3%に対し、TurboQuantは50.0%まで低下させた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の限界として、評価が単一のデータセットと特定の埋め込みモデルに限定されており、低次元や非正規化ベクトル、あるいは異なるドメインにおける分布仮定の妥当性は未検証である。また、HNSWとの比較が非圧縮のFP32ベクトルを用いているため、圧縮版HNSWとの比較が必要である。プライバシー面では、コードブックに基づく攻撃のみを対象としており、アクセスパターンやクエリレベルの漏洩、およびTQ+のパラメータを用いた高度な攻撃については評価できていない。今後の課題として、RAGの下流タスクにおける品質評価、GPU環境での評価、および差分プライバシーに基づく形式的な解析が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>TurboVec: A Case Study in Cost-Efficient Private Retrieval for Enterprise RAG via Codebook-Oblivious Quantization</h3><p>TurboVecは、高次元で $L_2$ 正規化された埋め込みベクトルの分布特性から量子化境界を解析的に導出する、コードブック非依存のスカラー量子化手法TurboQuantに基づいたオープンソースのベクトルインデックスである。DBpedia OpenAI埋め込みベンチマーク（次元数 $d=1536$、ベクトル数 $10^5 \sim 10^6$）を用いた評価では、4ビット設定においてTurboQuantは学習ベースのFAISS Product QuantizationよりもRecall@5で8.5〜8.9ポイント高い精度を維持し、HNSWと比較してメモリ使用量を4〜8倍削減しつつ、IVF-PQを上回る再現率を実現している。Snowpark Container Servicesを用いたケーススタディでは、10万ベクトルに対して中央値11msのクエリレイテンシを達成し、カーネルレベルのマルチテナント許可リストフィルタリングにより、単純なオーバーフェッチ後の後処理フィルタリング（Recall@10が0.09〜0.19）と比較して、0.86〜0.93という高い再現率を維持できる。プライバシー面では、コードブックに基づくメンバーシップ推論攻撃に対し、従来のPQベースのコードブックが57.3%の精度を示すのに対し、TurboVecは50.0%（ランダムと同等）まで攻撃信号を低減させている。本研究の限界として、評価が単一のデータセットと埋め込みモデルに限定されていること、HNSWとの比較が非圧縮のFP32ベクトルを用いていること、およびプライバシー評価がアクセスパターンやクエリレベルの漏洩ではなく、コードブックベースの攻撃のみを対象としていることが挙げられる。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究は、マルチテナント環境のエンタープライズRAGにおける、コードブック漏洩とフィルタリング効率の課題を解決するTurboVecを提案している。TurboVecは、データ分布に依存する学習を必要とせず、高次元かつ $L_2$ 正規化されたベクトルの座標分布から事前に計算された境界を用いるTurboQuantをRustで実装したものである。実験では、次元数 $d=1536$ のDBpediaエンティティデータセットを用い、4ビット量子化においてTurboQuantが学習済みFAISS PQ 4-bitをRecall@5で上回る精度を示すことを確認している。また、Snowpark Container Services上のCPU環境での展開を通じて、レイテンシ、メモリ、コストを評価するとともに、カーネルレベルでの許可リストによるフィルタリングが、検索後に結果を捨てるポストフィルタリングよりも効率的であることを示している。さらに、コードブックを用いたメンバーシップ推論攻撃に対する評価では、TurboVecのコードブック非依存（codebook-oblivious）な設計により、攻撃精度がPQを用いた場合と比較してランダムに近い水準まで低下し、コーパスの統計情報の漏洩を抑制できることを実証している。</p></section>
+<section class="secsum"><h3>II Background</h3><p>TurboQuantは、$L_2$正規化されたベクトルを圧縮する手法であり、固定のランダム直交行列による回転後に各座標が $\text{Beta}(a, b)$ または $\text{Gaussian}$ 分布に収束することを利用して、データに依存しない解析的な分布モデルからLloyd-Maxスカラー量子化の境界を事前に算出するcodebook-obliviousな性質を持つ。具体的には、ノルムの分離、ランダム回転、スカラー量子化、ビットパッキング、および量子化による内積の過小評価を補正する長さ再正規化スコアリングのパイプラインを経て、例えば1536次元のベクトルを4ビット量子化によって6,144バイトから768バイトへと圧縮する。オプションのTQ+キャリブレーションでは、インデックス化された最初のバッチから座標ごとのシフトとスケールパラメータを適合させるが、これは各座標の1次および2次モーメントのみを保持する限定的なデータ依存性に留まり、訓練コーパスのクラスタ構造をエンコードするProduct Quantization（PQ）よりも漏洩が弱い。本研究の脅威モデルは、共有された量子化インデックス（コードブックやTQ+パラメータ）への読み取り権限を持つ悪意のあるテナントを想定しており、コードブックの重心やキャリブレーションパラメータから、訓練コーパスへのメンバーシップ推論や元の埋め込みの近似再構成を行う攻撃を対象とする。一方で、PIRやORAM、MPCを用いた暗号学的アプローチが提供するような、クエリ内容やアクセスパターンの秘匿、および悪意のあるサーバーに対する強力なプライバシー保護は、計算コストの観点から本手法のスコープ外としている。</p></section>
+<section class="secsum"><h3>III System Design</h3><p>TurboVecは、オンラインでのデータ投入とディスクへの永続化をサポートし、ARMのNEONやx86のAVX-512BWといったSIMD命令セットによって加速される2種類のインデックスを提供します。一つはフラットスキャンと位置指定アドレス指定を行うTurboQuantIndexであり、もう一つは外部の $\text{uint64}$ IDマッピング、削除、およびIDベースのアクセス制御を可能にするIdMapIndexです。マルチテナント環境におけるフィルタリングでは、検索カーネルに許可リストを渡すことで32ベクトル単位のブロック粒度で制御を行い、許可されていないスロットを全く含まないブロックはルックアップテーブルによるスコアリング前にスキップし、スコアリング済みのブロック内の許可されていないスロットはヒープ挿入時に除外することで、計算資源の浪費を防ぎます。このカーネルレベルのフィルタリングは、全ブロックをスコアリングした後に不一致な結果を破棄する従来の「過剰取得後のフィルタリング」手法と比較して、計算量とI/Oを削減しつつ再現率を維持します。デプロイメントの事例として、SnowflakeのSnowpark Container Services上でFastAPIを用いたコンテナ化サービスとして実装されており、RESTエンドポイントを通じてデータの追加、検索、および許可リストを用いたテナントフィルタリング検索を提供し、クエリごとのテレメトリをプラットフォームのテーブルに書き出すことでコスト配分を可能にしています。</p></section>
+<section class="secsum"><h3>IV Compression Quality Scaling Study</h3><p>OpenAIのtext-embedding-3-large（$d=1536$）を用いた100Kから999K規模のDBpediaエンティティ記述データセットを用い、提案手法であるTurboQuantの圧縮品質をFAISSの各種インデックスと比較評価している。実験ではRecall@5を主要指標とし、TurboQuant 4-bitは全スケールにおいてFAISS PQ 4-bitを上回り、100K規模で0.965、999K規模で0.968という高い再現率を達成している。メモリ使用量に関しては、HNSW-Flatが100Kで640 MB、500Kで3.2 GBを要し999Kではメモリ不足となるのに対し、TurboQuantは76.8 MBと極めて低コストであり、検索速度においてもSIMDネイティブなスカラー量子化の恩恵により、CPU上でflat PQよりも高速（999K時で17 ms vs 154 ms）である。PQのハイパーパラメータ感度分析では、部分空間の数を増やした最強の設定や、回転行列を学習するOptimized PQ（OPQ）を用いても、TurboQuant 4-bitの性能には及ばないことが示されている。さらに、RAGへの影響を評価するHit@5ではTurboQuant 4-bitは100%を記録し、MRR@20も0.987と極めて高い値を示しており、量子化ノイズが正解をコンテキストウィンドウ外へ追い出すことなく、実用的な検索品質を維持していることが確認された。</p></section>
+<section class="secsum"><h3>V Case Study: Production Deployment</h3><p>Snowpark Container Services（2 vCPU, 4GB RAM）上で、次元数 $d=1536$ のDBpedia 100Kサブセットを用いた実稼働環境のケーススタディを実施した。TurboVecは、ブルートフォースのスキャンを行うSnowflakeのネイティブなベクトル類似度計算と比較して、中央値11msのレイテンシで96.2%のRecall@5を達成し、707msを要するウェアハウスのスキャンに対して大幅な高速化を実現した。この3.8%の再現率の差は、4ビットの損失あり圧縮に伴う固有のコストである。マルチテナント環境におけるフィルタリング検索では、単純なオーバーフェッチ後の後処理フィルタリングと比較して、カーネルレベルの許可リストフィルタリングがすべてのテナント数において高い再現率を示したが、これは高度な属性認識型ANN手法との比較ではない。最後に、1,000 QPSかつ1,000万ドキュメントの規模におけるコスト試算では、マネージドサービスの公開価格に基づいた概算値を示しているが、これは再現率やレイテンシ、可用性のSLAを同一条件に揃えた厳密な比較ではない。</p></section>
+<section class="secsum"><h3>VI Privacy Evaluation</h3><p>本セクションでは、共有コードブックとTQ+のキャリブレーションパラメータにアクセス可能な攻撃者が、量子化誤差を通じてメンバーシップ推論を試みる脅威モデルに基づき、プライバシー性能を評価している。FAISS PQを用いた実験では、コードブックが訓練コーパスの分布構造をエンコードしてしまうため、クラスタ化されたガウス分布と一様球分布の間でコードブックの平均二乗偏差 $\text{MSD}(\mathcal{C}_1, \mathcal{C}_2)$ が発生するが、解析的に導出されるTurboVecのLloyd-Max境界ではこの偏差がゼロとなり、分布依存性が排除されていることが示された。TQ+が保持する座標ごとのシフトおよびスケールの統計量についても、PQの重心の偏差と比較して極めて小さく、クラスタ構造ではなく各座標の第1・第2モーメントのみを保持している。量子化誤差に基づくメンバーシップ推論攻撃の評価において、FAISS PQの攻撃精度が57.3%であったのに対し、TurboVecは50.0%（メンバーと非メンバーの誤差が同一分布）を記録し、提案手法の設計が推論信号を大幅に低減させることが確認された。ただし、この評価は次元数 $d=256$ の合成データを用いた限定的な検証であり、圧縮ベクトル間の距離やアクセスパターン、あるいはTQ+のパラメータを用いたより高度な攻撃、および実際のRAG用埋め込みベクトル（$d=1536$）に対する評価や形式的な漏洩証明は今後の課題として残されている。</p></section>
+<section class="secsum"><h3>VII Related Work</h3><p>近似最近傍探索（ANN）の分野では、データ依存のコードブック学習を行う Product Quantization やその派生手法、理論的な誤差境界を与える RaBitQ、異方性損失を用いる ScaNN、そしてコーパスの学習なしに解析的に歪みを最小化する TurboQuant が存在するが、本研究はこれらを OpenAI の埋め込み分布およびクラウド展開の文脈へと拡張している。グラフベースの ANN では、プロダクション環境の標準である HNSW やディスク格納インデックスを扱う DiskANN が存在するが、本評価ではフラットスキャンのみを用いており、グラフ手法との統合は今後の課題である。プライバシー保護型 ANN に関しては、秘密計算を用いる SANNS や、PIR および ORAM を用いてクエリとインデックスを隠蔽する Pacmann、距離比較暗号を用いる PP-ANNS などがあるが、これらは TurboVec よりも強力な保証を提供する一方で、2〜4 桁の計算オーバーヘッドが生じる。RAG システムの文脈では、検索と生成を共同最適化する手法や MTEB による標準的なベンチマークが存在し、さらにマルチテナント環境におけるセキュリティとして、共有 KV キャッシュからのプロンプト再構成に関する OptiLeak などの研究が関連している。</p></section>
+<section class="secsum"><h3>VIII Limitations and Future Work</h3><p>本研究の限界として、まず評価がDBpediaのエンティティとOpenAIの $\text{text-embedding-3-large}$ モデル（次元数 $d=1536$）に限定されており、低次元や非正規化埋め込み、あるいはドメイン特化型コーパスにおける TurboQuant の分布仮定の妥当性は未検証である。比較対象とした HNSW は FP32 ベクトルを用いるメモリ集約的な構成であり、HNSW+PQ のような圧縮版 HNSW との比較は今後の課題である。プライバシー評価は合成データを用いたコードブックに基づくメンバーシップ推論攻撃のみに留まっており、クエリ内容やアクセスパターンの秘匿性、および TQ+ のキャリブレーション統計量に関する形式的な漏洩境界の解析は行われていない。また、実験は静的なコーパスと低並列な単一クエリの遅延に基づいているため、概念ドリフトや高負荷時のスループット、マルチテナント環境における Zipf 分布のような偏った負荷への耐性は評価されていない。コストモデルも簡略化された見積もりであり、マネージドサービスが提供する量子化機能などが比較結果に与える影響は考慮されていない。今後の展望として、RAG の QA タスクを用いた下流評価による再現率の差の検証、HNSW との統合による劣線形探索の実現、GPU 環境での評価、および差分プライバシーに基づく形式的な解析が挙げられる。</p></section>
+<section class="secsum"><h3>IX Conclusion</h3><p>DBpediaのOpenAI埋め込みベンチマーク（次元数 $d=1536$、ベクトル数 $100\text{K}$–$999\text{K}$）を用いた評価において、提案手法であるTurboQuant 4-bitは、学習を必要とせずに、同一の4-bitメモリ予算下で学習済みFAISS PQよりもRecall@5において8.5–8.9ポイント高い精度を一貫して示した。TurboQuantは、HNSWと比較して4–8倍少ないメモリ消費を実現しつつ、既存のプロダクション用IVF-PQよりも高い再現率を達成するという独自の設計特性を持つ。Snowpark Container Servicesを用いたケーススタディでは、100KベクトルにおいてFP32ストレージより8倍少ないメモリで、中央値11msのレイテンシを達成し、カーネルレベルの許可リストフィルタリングが単純なオーバーフェッチ後のフィルタリングよりも優れた性能を示すことが確認された。また、コードブックへのアクセスを制限する脅威モデル下において、TurboQuantのコードブック非依存（codebook-oblivious）な設計は、PQのコードブックで見られるメンバーシップ推論の信号を大幅に低減する。本研究の限界として、単一のデータセット、CPUによるフラットスキャンのみの評価、限定的なプライバシー脅威モデル、およびLLMを用いた回答生成レベルでのRAG品質評価（EMやF1スコアなど）が行われていない点が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-24
+  </footer>
+</div>
+</body>
+</html>

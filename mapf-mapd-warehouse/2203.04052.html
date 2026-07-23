@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Towards Safe and Efficient Swarm-Human Collaboration: A Hierarchical Multi-Agent Pickup and Delivery framework | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Towards Safe and Efficient Swarm-Human Collaboration: A Hierarchical Multi-Agent Pickup and Delivery framework</h1>
+  <div class="meta">Xin Gong, Tieniu Wang, Yukang Cui, Tingwen Huang<br>採択先: 未取得 ・ 2022-03-08 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2203.04052v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2203.04052v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2022-03-08</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">人間とロボットの協調（HS-MAPD）という実用的な課題に対し、階層的最適化と予測ホライゾンを用いた動的適応を提案しており、研究の方向性は妥当。ただし、シミュレーション規模が小さく、比較対象も標準的な手法に留まるため、実用的な新規性には検証</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 人間とロボットの群れが協調して動的なタスクを遂行する $(HS)^2\text{PD}$ 問題に対し、安全性と効率性を両立する階層的な2層最適化フレームワークを提案する。予測ホライゾンに基づくローリング最適化を用いることで、人間の不確実性やタスクの動的な変化に適応する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>将来のインテリジェント保管システム（ISS）において、人間とロボットの群れが協調して時間変動・不均一・不確実なタスクを遂行する人間・スウォーム・ハイブリッド・システムにおけるピックアップ＆デリバリー（$(HS)^2\text{PD}$）問題を対象とする。タスクには、ワークステーションから倉庫へ物品を運ぶピックアップモード $\mathcal{T}_{\text{pickup}}$、特定の出発地から目的地へ直接運ぶデリバリーモード $\mathcal{T}_{\text{delivery}}$、および充電モード $\mathcal{M}_{\text{charge}}$ が存在する。従来の課題として、人間の行動の予測不可能性、タスクの動的な変化、およびロボットと人間が同一空間を共有する際の安全性確保が挙げられる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>タスク割り当て（TA）と経路計画（PF）を分離した階層的な2層最適化フレームワークを提案し、計算複雑性の低減を実現している。人間の疲労や慣性をモデルに組み込み、人間には近距離のタスクを、積載容量の大きいロボットには多くのタスクを割り当てる人間中心の割り当て手法を導入している。また、予測ホライゾンを用いた後退水平戦略を採用することで、タスクの急なキャンセルや人間の非効率な行動といった予測不可能な事象への適応力を高めている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>第1層では、混合整数計画法（MIP）を用いてエージェントの動作モードの決定、タスクの割り当て、および巡回順序を決定する。モード割り当ての決定変数は $x_{i,m} \in \{0, 1\}$ で表され、目的関数はデリバリータスクとピックアップタスクの待ちコストの加重和を最小化するように設計されている。第2層では、第1層で決定された順序に基づき、グリッドマップ上の道路構造を利用してロボットと人間の衝突を回避する具体的な移動軌跡を算出する。システム全体は、予測時間 $T$ と更新ステップ $\Delta t$ を用いたローリング最適化により、予測ホライゾン内の最初の決定のみを実行し、次回の更新ステップで環境の変化を反映して再最適化を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>$16 \times 13$ のグリッドマップを用い、3台のロボットと積載容量 $60$ の人間が17個のタスクを遂行する数値シミュレーションを実施した。ロボットの移動速度を $1$、更新タイムステップを $1$、予測ホライゾンを $10$ と設定し、YalmipとGurobi 9.1.2を用いて最適化を行った。実験の結果、第9タイムステップですべてのタスク要求への対応が完了し、第16タイムステップですべてのタスクが完遂された。また、MATLABとGurobi、GA、Greedyソルバーとの比較において、提案手法は凸最適化問題としてモデル化されているため、より少ない計算時間で最適解を得られることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、予測不可能なタスクの変化や人間のミスに対して動的に応答できるが、さらなる作業効率向上のための課題が残されている。具体的には、地図上での動的障害物回避の実装や、システムの知能と効率性を高めるための強化学習の導入が今後の展望として挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Towards Safe and Efficient Swarm-Human Collaboration: A Hierarchical Multi-Agent Pickup and Delivery framework</h3><p>本研究では、将来のインテリジェント保管システム（ISS）において、ロボットと人間が協調して時間変動・不均一・不確実なタスクを遂行する、人間・スウォーム・ハイブリッド・システムにおけるピックアップ＆デリバリー（$(HS)^2\text{PD}$）フレームワークを提案している。提案手法は、人間の行動の予測不可能性とタスクの動的な変化に対応するため、予測ホライゾンウィンドウに基づく2層の意思決定フレームワークで構成される。第1層では、モード割り当てとタスク割り当て（TA）を解決するための2段階プログラミング問題を解き、第2層では、混合整数計画法（MIP）を用いることで各エージェントの正確な経路を決定する。この統合アルゴリズムの有効性は、$(HS)^2\text{PD}$ タスクを用いた数値シミュレーションによって実証されている。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究は、人間とロボットの群れが協調して作業を行う人間・スワーム・ハイブリッドシステム（$(HS)^2$）における、安全かつ効率的なマルチエージェント・ピックアップ＆デリバリー（MAPD）問題の解決を目的としている。提案手法は、MAPD問題をタスク割り当て（TA）問題と経路計画（PF）問題に分離した階層的な2層最適化フレームワークであり、混合整数計画法（MIP）を用いて構成される。第1層は、タスクのモード割り当てとTAを解決する高層・低層構造を持ち、第2層は厳密なPF問題を解くことで、ロボット間の衝突を回避する一連の無衝突経路を生成する。$(HS)^2$の特性を考慮し、タスクをロボットと人間の双方に割り当てる際、人間の疲労や慣性をモデルに組み込むことで、生産性を向上させる人間中心の割り当てを実現している。また、予測ホライゾンに基づくローリング最適化手法を採用することで、予測時間 $T$ と更新ステップ $\Delta t$ を用いて、予測不可能なタスクの変化や人間のミスに対して動的に応答する。安全性に関しては、ロボットが前方に人間を検知した際に緊急停止および経路の再計画を行う動的更新メカニズムを備えており、ロボットと人間の衝突を確実に回避する。</p></section>
+<section class="secsum"><h3>II Problem Formulation</h3><p>本セクションでは、複数のロボットと人間が協力して異なる時間要件を持つ物品を運搬する、人間とロボットの協調型マルチエージェント・ピックアップ＆デリバリー（(HS)2 PD）問題を定式化している。タスクは、ワークステーションから倉庫へ物品を運ぶピックアップモード $\mathcal{T}_{\text{pickup}}$ と、特定の出発地から目的地へ直接運ぶデリバリーモード $\mathcal{T}_{\text{delivery}}$ の2種類に分類され、エージェントはこれらに加えて充電モード $\mathcal{M}_{\text{charge}}$ を持つ。マップは、広域的なタスク割り当て（TA）を行うための重み付き有向グラフ $\mathcal{G}_{\text{large}} = (\mathcal{V}_{\text{large}}, \mathcal{E}_{\text{large}})$ と、詳細な経路計画（PF）を行うためのグリッドマップに基づく無向グラフ $\mathcal{G}_{\text{small}} = (\mathcal{V}_{\text{small}}, \mathcal{E}_{\text{small}})$ の2層構造で抽象化される。各エージェントは、一辺の長さが $L$ の正方形グリッド上を一定速度で移動し、各タスクには指定された時間枠（タイムウィンドウ）が存在する。人間とロボットは同一空間を共有するが、安全性の確保のため、ロボットは前方に人間を検知すると緊急停止する制約があり、人間はロボットの動きを妨げないよう協調的に行動する。また、エージェントの積載容量や人間の不確実性を考慮した、動的で予測不可能なタスク要求への対応が求められる。</p></section>
+<section class="secsum"><h3>III Main Results</h3><p>本セクションでは、人間とロボットの群れが協調する「人間・群れピックアップ＆デリバリー問題 (HS) 2 PD」に対し、計算複雑性を低減するためにタスク割り当て (TA) と経路計画 (PF) を分離した2層の最適化フレームワークを提案している。第1層のTA問題は、混合整数計画法 (MIP) を用いて、エージェントの動作モード（ピックアップ、デリバリー、充電）の決定と、各エージェントへのタスク割り当ておよび巡回順序の決定を行う。ピックアップモードでは、エージェントは一連のタスク開始点を巡回して倉庫へ向かう経路が決定され、デリバリーモードでは、タスクの起点から目的地への移動が割り当てられる。第1層の目的関数は、デリバリータスクとピックアップタスクの待ちコストの加重和を最小化することであり、モード割り当ての決定変数は $x_{i,m} \in \{0, 1\}$ で表される。<br><br>ピックアップモードのTA問題は、ロボットと人間の特性の違いを考慮したMIPとして定式化されており、目的関数は、ロボットと人間によるタスク完了コスト、および未割り当てタスクに対する追加コストの総和を最小化する。具体的には、人間の疲労を考慮して、人間には移動コストに重み $\alpha$ を乗じたコストを課すことで、人間には近距離のタスクを割り当てるよう誘導し、一方で積載容量の大きいロボットにはより多くのタスクを割り当てる設計となっている。制約条件には、各タスクへの最大1名のエージェント割り当て、サービス時間窓 $[a_j, b_j]$ 内での到着、および最大積載量 $L_i$ の遵守などが含まれる。<br><br>動的な環境変化に対応するため、移動予測窓を用いた後退水平戦略（receding horizon strategy）を採用しており、予測ホライゾン内の最適な決定シーケンスのうち、最初のタイムステップの決定のみを実行し、次回の更新ステップで環境の変化を反映して再最適化を行う。第2層のPF問題は、第1層で決定されたタスク順序に基づき、ロボットの具体的な移動軌跡を決定するものであり、グリッドマップ上の道路構造を利用して、ロボットと人間の衝突を回避しながら安全かつ効率的な経路を算出する。</p></section>
+<section class="secsum"><h3>IV Numerical Simulation</h3><p>$16 \times 13$ のグリッドマップを用いた数値シミュレーションにおいて、提案手法は3台のロボットと積載容量 $60$ の人間が協力して17個のタスク（配送モード6個、回収モード11個）を遂行する環境で検証された。実験設定では、グリッドサイズを $1$、ロボットの移動速度を $1$、更新タイムステップを $1$、予測ホライゾンを $10$ とし、環境の不確実性を再現するために一部のタスクを特定の時刻まで非公開とする設定が用いられた。タスク割り当て（TA）の最適化には、混合整数計画問題（MIP）をモデル化するYalmipとGurobi 9.1.2を使用し、2層構造のプログラミングにはFminconとGurobiを組み合わせて解いている。シミュレーションの結果、第9タイムステップですべてのタスク要求への対応が完了し、第16タイムステップですべてのタスクが完遂された。また、異なるスケールでの10通りのシナリオ実験を通じて、完了時間、計算時間、平均遅延、スループットの観点から、提案フレームワークが異なる規模においても安定して動作することが示された。さらに、同一の実験シーンにおいてMATLABとGurobi、GA、Greedyソルバーを比較した結果、提案手法は凸最適化問題としてモデル化されているため、他の手法よりも少ない計算時間で最適解を得られることが確認された。</p></section>
+<section class="secsum"><h3>V Conclusion</h3><p>本論文では、多様な要件を持つタスクが存在し、タスクの受諾が特定の時間窓内に制限される、人間と群ロボットの協調下におけるマルチエージェント・ピックアップ＆デリバリー問題（(HS)2 PD）に対し、安全性と効率性を両立する階層的な解決フレームワークを提案している。このフレームワークは、各エージェントが複数のパッケージを同時に運搬することを可能にしている。また、予測ホライゾン戦略を採用することで、新規タスクの発生やタスクの急なキャンセル、さらには人間作業員による非効率な行動といった予測不可能な事象に対して適応できる設計となっている。今後の展望として、作業効率をさらに向上させるための地図上での動的障害物回避の実装や、システムの知能と効率性を高めるための強化学習の導入が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-24
+  </footer>
+</div>
+</body>
+</html>

@@ -1645,6 +1645,37 @@
       "url": "http://arxiv.org/abs/2607.15738v1",
       "venue": ""
     },
+    "arxiv:2607.16973": {
+      "added": "2026-07-24",
+      "added_at": "2026-07-24T06:03:41.488010",
+      "arxiv_id": "2607.16973",
+      "authors": [
+        "Navnit Shukla",
+        "Kamal Pandey",
+        "Omsankar Tiwari"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-18",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.16973.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.16973v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGのプライバシーと効率性に直結する「コードブック非依存の量子化」という新規性が高い。実用的なSIMD実装やフィルタリング手法も具体的で、研究者にとって価値がある。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "TurboVec: A Case Study in Cost-Efficient Private Retrieval for Enterprise RAG via Codebook-Oblivious Quantization",
+      "tldr": "マルチテナント環境のエンタープライズRAGにおける、コードブックの漏洩とフィルタリング効率の課題を解決するため、データ分布に依存しないコードブック非依存のスカラー量子化手法を用いたベクトルインデックスTurboVecを提案する。TurboQuantによる量子化を用いることで、メモリ使用量を大幅に削減しつつ、従来の学習ベースの量子化手法を上回る検索精度と、メンバーシップ推論攻撃に対する高い耐性を実現する。",
+      "url": "http://arxiv.org/abs/2607.16973v1",
+      "venue": ""
+    },
     "arxiv:2607.17535": {
       "added": "2026-07-23",
       "added_at": "2026-07-23T06:03:53.096347",
@@ -1773,6 +1804,35 @@
       "title": "Vector Search As Nearest Neighbor Matching: RAG-based Policy Learning in Causal Inference",
       "tldr": "検索拡張生成（RAG）を用いたアクション選択を、潜在結果フレームワークに基づく方策学習問題として定式化し、1ステップおよび2ステップのRAG-PL手法を提案する。ベクトル検索によるアクション固有の証拠抽出を因果推論における最近傍マッチングとして解釈し、その後悔（regret）の上界を理論的に導出する。",
       "url": "http://arxiv.org/abs/2607.18225v1",
+      "venue": ""
+    },
+    "arxiv:2607.20346": {
+      "added": "2026-07-24",
+      "added_at": "2026-07-24T06:02:55.501829",
+      "arxiv_id": "2607.20346",
+      "authors": [
+        "Pratyush Kumar"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-22",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.20346.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.20346v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの検索精度向上に向けた多段階パイプライン（RRF/MMR）や、役割分担型エージェントによる自己修正ループの設計が具体的で、実用性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "IteraSim RAG: A Multi-Stage Retrieval-Augmented Agentic Back-End for OpenFOAM-Based Computational Fluid Dynamics",
+      "tldr": "OpenFOAMを用いた数値流体力学（CFD）の設定自動化において、単一クエリによる検索の語彙不一致や、設計とレビューの混同によるハルシネーションといった課題を解決する、マルチステージの検索拡張生成（RAG）エージェント・バックエンドを提案する。",
+      "url": "http://arxiv.org/abs/2607.20346v1",
       "venue": ""
     },
     "doi:10.1038/s41598-026-50062-8": {
@@ -2667,6 +2727,37 @@
       "url": "http://arxiv.org/abs/2106.11454v1",
       "venue": ""
     },
+    "arxiv:2201.06014": {
+      "added": "2026-07-24",
+      "added_at": "2026-07-24T06:01:57.776310",
+      "arxiv_id": "2201.06014",
+      "authors": [
+        "Tomoki Yamauchi",
+        "Yuki Miyashita",
+        "Toshiharu Sugawara"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2022-01-16",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2201.06014.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2201.06014v2",
+      "reading_value": 4,
+      "reading_value_reason": "迷路状の制約が強い環境に特化したデッドロック回避手法の提案であり、グラフ理論を用いた待機ノードの動的特定という新規性と、実験による大幅な効率改善が示されている。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Standby-Based Deadlock Avoidance Method for Multi-Agent Pickup and Delivery Tasks",
+      "tldr": "迷路状の制約が強い環境におけるマルチエージェント・ピックアップ＆デリバリー（MAPD）問題において、エージェントの滞留によるデッドロックを防ぎ、輸送効率を向上させる待機ノードに基づくデッドロック回避手法（SBDA）を提案する。グラフ理論を用いてリアルタイムに特定した待機ノードを活用することで、デッドロックの回避と完全性の保証を両立する。",
+      "url": "http://arxiv.org/abs/2201.06014v2",
+      "venue": ""
+    },
     "arxiv:2202.10449": {
       "added": "2026-07-15",
       "added_at": "2026-07-15T06:01:11.575040",
@@ -2698,6 +2789,38 @@
       "title": "Optimal Multi-Agent Path Finding for Precedence Constrained Planning Tasks",
       "tldr": "先行制約が存在するマルチエージェント経路計画（PC-MAPF）において、最小メイクスパンを達成する初の最適アルゴリズムであるPrecedence Constrained Conflict Based Search (PC-CBS) を提案する。タスク間の依存関係をタスクグラフとして扱い、衝突（collision）と先行制約違反（precedence conflict）の両方を解決することで、最適性と完全性を保証する。",
       "url": "http://arxiv.org/abs/2202.10449v1",
+      "venue": ""
+    },
+    "arxiv:2203.04052": {
+      "added": "2026-07-24",
+      "added_at": "2026-07-24T06:01:24.869560",
+      "arxiv_id": "2203.04052",
+      "authors": [
+        "Xin Gong",
+        "Tieniu Wang",
+        "Yukang Cui",
+        "Tingwen Huang"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2022-03-08",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2203.04052.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2203.04052v1",
+      "reading_value": 3,
+      "reading_value_reason": "人間とロボットの協調（HS-MAPD）という実用的な課題に対し、階層的最適化と予測ホライゾンを用いた動的適応を提案しており、研究の方向性は妥当。ただし、シミュレーション規模が小さく、比較対象も標準的な手法に留まるため、実用的な新規性には検証",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Towards Safe and Efficient Swarm-Human Collaboration: A Hierarchical Multi-Agent Pickup and Delivery framework",
+      "tldr": "人間とロボットの群れが協調して動的なタスクを遂行する $(HS)^2\\text{PD}$ 問題に対し、安全性と効率性を両立する階層的な2層最適化フレームワークを提案する。予測ホライゾンに基づくローリング最適化を用いることで、人間の不確実性やタスクの動的な変化に適応する。",
+      "url": "http://arxiv.org/abs/2203.04052v1",
       "venue": ""
     },
     "arxiv:2203.07092": {

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>IteraSim RAG: A Multi-Stage Retrieval-Augmented Agentic Back-End for OpenFOAM-Based Computational Fluid Dynamics | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>IteraSim RAG: A Multi-Stage Retrieval-Augmented Agentic Back-End for OpenFOAM-Based Computational Fluid Dynamics</h1>
+  <div class="meta">Pratyush Kumar<br>採択先: 未取得 ・ 2026-07-22 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.20346v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.20346v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-22</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの検索精度向上に向けた多段階パイプライン（RRF/MMR）や、役割分担型エージェントによる自己修正ループの設計が具体的で、実用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> OpenFOAMを用いた数値流体力学（CFD）の設定自動化において、単一クエリによる検索の語彙不一致や、設計とレビューの混同によるハルシネーションといった課題を解決する、マルチステージの検索拡張生成（RAG）エージェント・バックエンドを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>数値流体力学（CFD）のセットアップおよびデバッグを支援するためのシステムを対象としている。従来のLLMベースの支援システムでは、単一クエリによる検索における語彙の不一致や冗長性、クエリ種別に応じたルーティングの欠如、および設計プロセスとレビュープロセスが混在することによるハルシネーションが困難であった。本研究は、OpenFOAMのケース構築におけるこれらの課題を解決するための、マルチステージのRAGバックエンドの構築を目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の単一クエリによるフラットな検索や一律な検索戦略、および生成と自己レビューが混在する構成に対し、3段階の検索パイプラインと役割分担されたエージェント構成を導入した点が新規である。具体的には、LLMによるクエリ拡張、Reciprocal Rank Fusion（RRF）による統合、およびMaximal Marginal Relevance（MMR）による再ランキングを組み合わせた検索プロセスを実現している。また、決定論的なキーワード駆動型分類器によるデュアルモード・ルーターと、Architect、InputWriter、Reviewerという3つの役割を持つエージェント構成により、専門的な知見の欠落を防いでいる。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>検索プロセスは、LLMがクエリを物理、ソルバーキーワード、トラブルシューティングの3側面へ拡張し、RRFを用いてランキングを統合した後、MMRを用いて多様性と関連性のトレードオフを制御する3段階の構成をとる。RRFのスコアは $\sum_{l \in L} \frac{1}{\text{rank}(d, l) + k}$ （$L$ はリストの集合、$k=60$）で計算され、MMRは $\text{arg max}_{d \in \mathcal{D} \setminus S} [\lambda \cdot \text{sim}(d, q) - (1-\lambda) \cdot \max_{s \in S} \text{sim}(d, s)]$ によって制御される。システムは、決定論的な分類器により、ツール依存の「Workflow mode」と広範な物理知識を扱う「Expert mode」を切り替える。生成フェーズでは、Architect、InputWriter、Reviewerの3エージェントが協調し、Reviewerがログからエラーを特定してInputWriterにフィードバックする修正ループを最大10回まで繰り返す。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>4つの難易度層からなる28ケースのベンチマークを用いて評価を行った。検索段階の評価指標 $S$ は、期待されるタグの集合 $\mathcal{T}$ と、検索結果に含まれるタグの集合 $\text{op}(C)$ およびターゲットとなるソルバー名 $\text{solver}(i)$ を用いて $S = \frac{|\text{op}(C) \cap \mathcal{T}|}{|\mathcal{T}|} + \mathbb{I}(\text{solver}(i) \in \text{op}(C))$ と定義される。実験の結果、検索カバレッジの平均は $0.85$（中央値 $0.88$）に達し、パラメータ変更カテゴリでは $0.95$ を超える性能を示した。また、OpenFOAM v2506において全28構成が正常にメッシュ生成および計算完了に到達し、合成的に破損させたケースの診断と修復にも成功した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、クエリ拡張により計算負荷が4倍に増大するものの、エンドツーエンドの遅延を3秒未満に抑えるというトレードオフを実現している。今後の課題として、よりニッチなソルバー群へのコーパス拡張、各コンポーネントの要因解析、および物理的な妥当性を直接評価するための物理忠実度評価器の追加が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>IteraSim RAG: A Multi-Stage Retrieval-Augmented Agentic
+Back-End for OpenFOAM-Based Computational Fluid Dynamics</h3><p>IteraSim RAGは、OpenFOAMを用いた数値流体力学（CFD）の設定自動化を目的とした、マルチステージの検索拡張生成（RAG）バックエンドである。検索プロセスは、LLMによるクエリの物理・ソルバーキーワード・トラブルシューティングへの拡張、Reciprocal Rank Fusionによるランキングリストの統合、そしてHNSWインデックス化された高密度ベクトルストアに対するMaximal Marginal Relevanceを用いた再ランキングという3段階で構成される。システムは、決定論的なキーワードルーターによって、ツール条件付きのワークフロークエリとコーパス全体の物理クエリを分離して処理し、さらにArchitect、InputWriter、Reviewerという役割の異なる複数のエージェントと、ソルバー選択や境界条件をカバーする静的な標準知識層を用いて生成を行う。28ケースのベンチマークを用いた評価では、平均検索カバレッジが $0.85$（中央値 $0.88$）に達し、特にパラメータ変更カテゴリでは $0.95$ を超える性能を示した。また、OpenFOAM v2506において全6件のリファレンス構成が正常に完了したほか、ソルバーログと標準知識層のみを用いて、合成的に破損させた2件のケースの診断と修復に成功している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>IteraSim RAGは、OpenFOAMを用いた数値流体力学（CFD）のセットアップおよびデバッグを支援するために設計された、マルチステージの検索拡張生成（RAG）エージェント・バックエンドである。既存のLLMベースのCFD支援システムにおける、単一クエリによる検索の語彙不一致や冗長性（L1）、クエリ種別に応じたルーティングの欠如（L2）、および設計とレビューの混同によるハルシネーション（L3）という3つの課題を解決することを目的としている。手法として、まずクエリを物理、ソルバーキーワード、トラブルシューティングの3つの側面へ再構成し、Reciprocal Rank Fusion（RRF）による統合とMaximal Marginal Relevance（MMR）による再ランク付けを行う3段階の検索パイプラインを導入している。次に、18カテゴリのCFDオントロジーに基づく決定論的なキーワード駆動型分類器を用い、ツール依存のワークフローモードと広範な物理知識を扱うエキスパートモードを切り替えるデュアルモード・ルーターを実装している。エージェント構成においては、Architect、InputWriter、Reviewerの3者による役割分担に加え、ソルバーの構文や境界条件の選択ルールを保持する正準知識層（canonical-knowledge layer）をコンテキストに注入することで、専門的な知見の欠落を防いでいる。このシステムは、OpenFOAMだけでなく、snappyHexMeshやGmshなどのツールとも結合可能な、ソルバーに依存しない拡張性を備えている。</p></section>
+<section class="secsum"><h3>2 Methodology</h3><p>IteraSim RAGは、OpenFOAMを用いた数値流体力学（CFD）のケース構築を支援する、マルチステージの検索拡張生成（RAG）エージェント・バックエンドである。知識コーパスは、専門家のノート、フォーラムのFAQ、OpenFOAMのチュートリアル、FoamGPTのQA、およびSandia国立研究所のWEC拡張ドキュメントの5つのソースから構成され、セクション単位のチャンク分割とHNSWグラフインデックスを用いたベクトル検索が行われる。検索パイプラインは、LLMによる3つの異なる側面（物理、OpenFOAMキーワード、トラブルシューティング）へのクエリ拡張、Reciprocal Rank Fusion（RRF）を用いた多重クエリ検索、およびMaximal Marginal Relevance（MMR）による再ランキングの3段階で構成される。RRFのスコアは $\sum_{l \in L} \frac{1}{\text{rank}(d, l) + k}$ （ここで $L$ はリストの集合、$k=60$）で計算され、MMRは $\text{arg max}_{d \in \mathcal{D} \setminus S} [\lambda \cdot \text{sim}(d, q) - (1-\lambda) \cdot \max_{s \in S} \text{sim}(d, s)]$ によって、ワークフローモード（$\lambda=0.7$）またはエキスパートモード（$\lambda=0.3$）に応じて多様性と関連性のトレードオフを制御する。システムは、決定論的な意図分類器により、特定のツールに特化した「Workflow mode」と、物理的概念を扱う「Expert mode」の2つの検索モードを使い分ける。生成フェーズでは、Architect（シミュレーション設計）、InputWriter（設定ファイル作成）、Reviewer（実行とエラー解析）の3つのエージェントが協調し、Reviewerがログからエラーを特定してInputWriterにフィードバックする修正ループを最大10回まで繰り返すことで、検証済みのOpenFOAMケースを出力する。</p></section>
+<section class="secsum"><h3>3 Results and Discussion</h3><p>IteraSim RAGの性能評価は、4つの難易度層（Category A: ゼロショット設定、B: Few-shot、C: パラメータ変更、D: 物理モデル変更）からなる28ケースのベンチマークを用いて行われた。評価指標として、まず検索段階（Retrieval tier）において、期待される物理タグの集合 $\mathcal{T}$ が検索されたコンテキストブロック $C$ に含まれる割合を測るスコア $S$ を定義している。このスコアは、期待されるタグの集合 $\mathcal{T}$ と、ターゲットとなるソルバー名 $\text{solver}(i)$ を含む、検索結果に含まれるタグの集合 $\text{op}(C)$ を用いて、以下のように算出される。<br>$$S = \frac{|\text{op}(C) \cap \mathcal{T}|}{|\mathcal{T}|} + \mathbb{I}(\text{solver}(i) \in \text{op}(C))$$<br>ここで $\mathbb{I}$ は指示関数である。検索段階の実験結果では、中央値で $0.92$ という高いスコアを記録し、特にパラメータ変更を伴うCategory Cでは中央値 $1.0$ を達成した。アブレーション研究の結果、マルチクエリによるクエリ拡張（L1）と、定型知識層（canonical-knowledge layer）の導入が、検索品質の向上に最も大きく寄与していることが示された。また、エンドツーエンドの実行可能性（Executability tier）については、メッシュ生成からソルバーの収束、および指定パラメータの正確性までを0から4の5段階で評価するルーブリックが設定されている。</p></section>
+<section class="secsum"><h3>4 Conclusion</h3><p>IteraSim RAGは、OpenFOAMを用いた数値流体力学（CFD）において、単一クエリによるフラットな検索、一律な検索戦略、および生成と自己レビューの混在という従来手法の課題を解決する、マルチステージの検索拡張エージェント・バックエンドである。本手法は、LLMによるクエリ拡張、Reciprocal Rank Fusionによるリスト統合、およびMaximal Marginal Relevanceによる再ランキングからなる3段階の検索パイプライン、ツール利用を目的としたクエリと知識検索を分ける決定論的ルーター、そしてArchitect–InputWriter–Reviewerからなる3エージェント構成のオーケストレーターを統合している。28ケースのベンチマークにおいて、検索層の評価では期待される物理・ソルバー・キーワードのタグに対する平均カバレッジが $0.86$ に達し、パラメータ変更カテゴリでは $0.93$、few-shotカテゴリでは $1.0$ を記録した。また、乱流モデルの入れ替えカテゴリでも平均 $0.89$（最小 $0.75$）という高い性能を示し、end-to-endの遅延もクエリ拡張による4倍の負荷増にもかかわらず3秒未満に抑えられている。実行可能性の観点では、全28構成がOpenFOAM v2506上で正常にメッシュ生成および計算完了に到達し、ソルバーログのみからエラーを診断・修復できる能力が確認された。今後の展望として、ニッチなソルバー群へのコーパス拡張、各コンポーネントの要因解析（ablation study）、および物理的な妥当性を評価する物理忠実度評価器の追加が挙げられている。</p></section>
+<section class="secsum"><h3>CRediT authorship contribution statement</h3><p>本研究は Pratyush Kumar によって単独で行われ、概念化、手法の設計、ソフトウェアの実装、調査、データキュレーション、形式的な分析、可視化、資金獲得、および論文の執筆（初稿作成および校閲・編集）を含む、研究のあらゆる側面を同氏が担当している。</p></section>
+<section class="secsum"><h3>Declaration of competing interest</h3><p>著者は、本論文で記述されている独自の検索エンジンを開発している IteraSim 社に対して金銭的な利害関係を有している。一方で、公開されたベンチマーク、採点ルーブリック、および図作成用のスクリプトについては、当該のプロプライエタリなコンポーネントとは独立しており、オープンに提供されている。著者は、これら以外の競合する金銭的または個人的な利害関係はないことを宣言している。</p></section>
+<section class="secsum"><h3>Data availability</h3><p>本研究で用いられた28ケースのベンチマーク仕様、機械判読可能なベンチマーククエリ、および査読ループにおけるOpenFOAMの致命的エラー（FATAL error）のプローブ結果は、MITライセンスの下で公開されている。また、検索層のスコアリング基準、leave-one-outによるアブレーション解析の記録（30個のクエリと各構成におけるクエリごとのスコア）、参照ケースの実行可能性記録、および図の再生成用スクリプトも、GitHubおよびZenodoを通じて利用可能である。一方で、IteraSim RAGの検索エンジン、Architect–InputWriter–Reviewerからなるオーケストレーター、標準的な知識層、およびデータ取り込みパイプラインは、IteraSim社の商用知的財産であり、著者へのリクエストを通じて学術的共同研究または商用ライセンスの提供が行われる。</p></section>
+<section class="secsum"><h3>Declaration of generative AI and AI-assisted
+technologies in the manuscript preparation process</h3><p>本論文の作成過程において、著者は原稿のテキスト編集および校閲、$\text{LaTeX}$ によるフォーマット調整、ならびに参考文献リストの完全性と一貫性の確認を目的として、Anthropic 社の Claude を使用した。AI ツールの使用後、著者は必要に応じて内容の確認と修正を行い、出版される論文の内容に関する全責任を著者が負うことが明記されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-24
+  </footer>
+</div>
+</body>
+</html>
