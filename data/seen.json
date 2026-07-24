@@ -1645,6 +1645,35 @@
       "url": "http://arxiv.org/abs/2607.15738v1",
       "venue": ""
     },
+    "arxiv:2607.16604": {
+      "added": "2026-07-25",
+      "added_at": "2026-07-25T06:03:40.554653",
+      "arxiv_id": "2607.16604",
+      "authors": [
+        "Sokipriala Jonah"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-18",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.16604.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.16604v1",
+      "reading_value": 4,
+      "reading_value_reason": "GraphRAGやマルチモーダルRAGの有効性を、Late Fusion方式で各要素を分離して検証した実験設計が非常に厳密で、実用上のボトルネックを明確に示しているため。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "When Do Multimodal and Graph-Augmented RAG Help? A Controlled Evaluation for Document Question Answering",
+      "tldr": "図表や空間レイアウト、分散した関係性の欠落を補完するため、知識グラフと視覚情報を統合したマルチモーダルGraph-RAGを提案し、その有効性を制御された条件下で評価した。その結果、知識グラフによる拡張は精度向上に寄与せず、マルチモーダル化はピクセル情報の直接解釈が必要な場合にのみ限定的な効果を持つことが明らかになった。",
+      "url": "http://arxiv.org/abs/2607.16604v1",
+      "venue": ""
+    },
     "arxiv:2607.16973": {
       "added": "2026-07-24",
       "added_at": "2026-07-24T06:03:41.488010",
@@ -1833,6 +1862,36 @@
       "title": "IteraSim RAG: A Multi-Stage Retrieval-Augmented Agentic Back-End for OpenFOAM-Based Computational Fluid Dynamics",
       "tldr": "OpenFOAMを用いた数値流体力学（CFD）の設定自動化において、単一クエリによる検索の語彙不一致や、設計とレビューの混同によるハルシネーションといった課題を解決する、マルチステージの検索拡張生成（RAG）エージェント・バックエンドを提案する。",
       "url": "http://arxiv.org/abs/2607.20346v1",
+      "venue": ""
+    },
+    "arxiv:2607.21324": {
+      "added": "2026-07-25",
+      "added_at": "2026-07-25T06:02:42.630642",
+      "arxiv_id": "2607.21324",
+      "authors": [
+        "Paolo Pedinotti",
+        "Enrico Santus"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-23",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.21324.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.21324v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの各工程を計算グラフとして捉え、下流の評価を上流のプロンプトへ伝播させる設計は新規性が高く、実用的な改善策として非常に興味深い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "GRADRAG: Cross-Component Prompt Adaptation for Coordinated Multi-Agent RAG",
+      "tldr": "RAGパイプラインにおけるコンポーネント間の調整問題を解決するため、評価フィードバックを下流から上流のエージェントへ伝播させ、プロンプトを反復的に適応させるフレームワークGradRAGを提案する。これにより、検索や証拠構築といった上流プロセスを、最終的な回答の質に基づいて協調的に洗練させることが可能になる。",
+      "url": "http://arxiv.org/abs/2607.21324v1",
       "venue": ""
     },
     "doi:10.1038/s41598-026-50062-8": {
@@ -2660,6 +2719,39 @@
       "title": "Lifelong Multi-Agent Path Finding for Online Pickup and Delivery Tasks",
       "tldr": "本研究は、継続的にタスクが発生するオンライン環境におけるMulti-Agent Pickup and Delivery (MAPD) 問題に対し、デカップリングされた分散型アルゴリズムであるToken Passing (TP) とToken Passing with Task Swaps (TPTS) を提案する。提案手法は、現実的な制約を持つ「well-formed」なインスタンスにおいて解を持つことが理論的に保証されており、実験では数百規模のエージェントに対してもリアルタイムな運用が可能であることを示した。",
       "url": "http://arxiv.org/abs/1705.10868v1",
+      "venue": ""
+    },
+    "arxiv:1812.06355": {
+      "added": "2026-07-25",
+      "added_at": "2026-07-25T06:01:26.360527",
+      "arxiv_id": "1812.06355",
+      "authors": [
+        "Hang Ma",
+        "Wolfgang Hönig",
+        "T. K. Satish Kumar",
+        "Nora Ayanian",
+        "Sven Koenig"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2018-12-15",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/1812.06355.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/1812.06355v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPD問題に対し、運動学的制約を後処理なしで直接扱うSIPPwRTを提案しており、実機への適用を見据えた新規性と実験の具体性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Lifelong Path Planning with Kinematic Constraints for Multi-Agent Pickup and Delivery",
+      "tldr": "次々と発生するピックアップおよびデリバリータスクを多数のエージェントが処理するMAPD問題に対し、ロボットの運動学的制約を直接考慮した経路計画アルゴリズムTP-SIPPwRTを提案する。これにより、従来の離散的な移動を仮定した手法で必要だった後処理を不要にし、効率的かつ安全な経路生成を実現する。",
+      "url": "http://arxiv.org/abs/1812.06355v1",
       "venue": ""
     },
     "arxiv:2005.07371": {
@@ -3584,6 +3676,41 @@
       "title": "Adaptive-Horizon Conflict-Based Search for Closed-Loop Multi-Agent Path Finding",
       "tldr": "計算資源が制約される動的な環境下において、計画ホライゾンを動的に調整することで、実行可能性と解の品質を両立させるAnytime Closed-Loop Conflict-Based Search (ACCBS) を提案する。本手法は、制約木の再利用を通じて計算コストを抑えつつ、計算予算に応じて漸近的最適性を実現する。",
       "url": "http://arxiv.org/abs/2602.12024v3",
+      "venue": ""
+    },
+    "arxiv:2602.13999": {
+      "added": "2026-07-25",
+      "added_at": "2026-07-25T06:01:48.915279",
+      "arxiv_id": "2602.13999",
+      "authors": [
+        "Haozheng Xu",
+        "Wenhao Li",
+        "Zifan Wei",
+        "Bo Jin",
+        "Hongxing Bai",
+        "Ben Yang",
+        "Xiangfeng Wang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-02-15",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2602.13999.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2602.13999v1",
+      "reading_value": 4,
+      "reading_value_reason": "OSとMAPFを密結合したシミュレータの提案は、実用的な倉庫自動化において極めて重要。実験も故障や異種ロボットを考慮しており、研究の有用性が高い。",
+      "relevance": 4,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "It Takes Two to Tango: A Holistic Simulator for Joint Order Scheduling and Multi-Agent Path Finding in Robotic Warehouses",
+      "tldr": "従来のロボット倉庫システムでは、注文スケジューリング（OS）とマルチエージェント経路探索（MAPF）が分離されており、高レベルの意思決定と低レベルの混雑との依存関係が無視されてきました。本研究では、これらを密に結合し、動的な注文、物理的制約、および故障へのリカバリを統合した包括的なシミュレーションプラットフォームWareRoverを提案します。",
+      "url": "http://arxiv.org/abs/2602.13999v1",
       "venue": ""
     },
     "arxiv:2602.20512": {

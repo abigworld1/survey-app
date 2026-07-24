@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lifelong Path Planning with Kinematic Constraints for Multi-Agent Pickup and Delivery | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Lifelong Path Planning with Kinematic Constraints for Multi-Agent Pickup and Delivery</h1>
+  <div class="meta">Hang Ma, Wolfgang Hönig, T. K. Satish Kumar, Nora Ayanian, Sven Koenig<br>採択先: 未取得 ・ 2018-12-15 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/1812.06355v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/1812.06355v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2018-12-15</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(ar5iv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPD問題に対し、運動学的制約を後処理なしで直接扱うSIPPwRTを提案しており、実機への適用を見据えた新規性と実験の具体性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(ar5iv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 次々と発生するピックアップおよびデリバリータスクを多数のエージェントが処理するMAPD問題に対し、ロボットの運動学的制約を直接考慮した経路計画アルゴリズムTP-SIPPwRTを提案する。これにより、従来の離散的な移動を仮定した手法で必要だった後処理を不要にし、効率的かつ安全な経路生成を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、2次元の4近傍格子状環境において、多数のエージェントが未知のタイミングで発生するタスク（ピックアップ地点 $p$ からデリバリー地点 $d$ への移動）を衝突を回避しながら実行するMulti-Agent Pickup and Delivery (MAPD) 問題を対象とする。従来のToken Passing (TP) アルゴリズムは、エージェントの移動を離散的な方位への移動と一定速度の移動と仮定している。そのため、連続的な並進・回転速度を持つ実ロボットの運動学的制約を考慮する場合、計画後に経路を変換する後処理が必要となり、経路の効率が低下するという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のMAPDアルゴリズムとの差分として、単一エージェントの経路計画にSafe Interval Path PlanningにReservation Tableを組み合わせたSIPPwRTを導入している。従来のSIPPが離散的なグリッド移動を前提としていたのに対し、本手法は連続的な時間における安全な時間間隔（Safe Interval）を効率的に管理できる点が新規である。これにより、離散的な移動を仮定する従来のTPとは異なり、与えられた速度に基づく連続的な前進移動やポイントターンを直接計算することが可能となっている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法TP-SIPPwRTは、Token Passingの枠組みの中で、SIPPwRTを用いて各エージェントの経路を計算する。エージェントは半径 $r$ の円盤としてモデル化され、回転速度および並進速度に従って隣接セルへの移動や $\frac{\pi}{2}$ ラジアンの旋回を行う。SIPPwRTでは、セルごとの予約テーブルを優先度付きキューとして保持し、衝突回避のために移動方向（同方向、直交方向、逆方向）に応じた時間オフセット $\text{Offset}(\text{cfg}_1, \text{cfg}_2)$ を計算して安全な時間間隔の境界をタイト化する。例えば、同方向の移動では、エージェント間の距離 $d(t)$ が $2r$ 以上を維持するように、$\text{Offset} = \frac{2r - d_0}{v_1 - v_2}$ （ただし $v_1 &gt; v_2$）を用いて境界を調整する。アルゴリズムは、構成と安全な時間間隔のペアを状態とするA*探索を行い、旋回と移動を組み合わせた動作を検討することで経路を生成する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>エージェントシミュレータおよびロボットシミュレータを用い、TP-A*およびCENTRALと比較検証を行った。30エージェント、1,000タスクの条件下では、TP-SIPPwRTは後処理時間が0秒であり、サービス時間やメイクスパンが小さく、スループットが大きいことが示された。エージェント数（10〜250）やタスク頻度、速度を変化させた実験では、エージェント数や速度の増加に伴いサービス時間とメイクスパンが減少し、スループットが増加する傾向が確認された。また、V-REPシミュレータを用いた差動駆動型ロボットの検証では、半径 $r=0.2$、最大並進速度 $v_{\text{max}}=0.5$、最大回転速度 $\omega_{\text{max}}=1.0$ の条件下で、10ロボットによる20タスクの安全な実行が実証された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、エージェントが過多になり混雑が発生した場合に、例外的な挙動を示す可能性がある。また、現在は速度の制約のみを考慮しているが、加速度や減速度といった追加の動力学的制約はまだ組み込まれていない。今後の課題として、CENTRALなどの他のマルチエージェント経路計画アルゴリズムとの組み合わせによる汎用化、動力学的制約の導入による経路追従性の向上、およびTP-SIPPwRTの分散型への拡張が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Lifelong Path Planning with Kinematic Constraints for Multi-Agent Pickup and Delivery † † thanks: Our research was suppo</h3><p>本研究では、次々と発生するピックアップおよびデリバリータスクを多数のエージェントが処理するMulti-Agent Pickup and Delivery (MAPD) 問題に対し、既存のToken Passing (TP) アルゴリズムを改良したTP-SIPPwRTを提案している。提案手法は、単一エージェントの経路計画にSafe Interval Path Planning with Reservation Table (SIPPwRT) という新しい組合せ探索アルゴリズムを導入しており、オンライン設定において全エージェントの現在の経路を高速に更新・検索できる高度なデータ構造を利用する。TP-SIPPwRTは、離散的な移動や一様な速度を仮定するのではなく、非ホロノミックなロボットの運動学的制約を直接考慮し、与えられた速度に基づく連続的な移動を計算する。エージェントシミュレータおよび標準的なロボットシミュレータを用いた実験では、数百のエージェントと数千のタスクに対して数秒で経路を計算できることが示され、経路生成後に連続的な動きへ適応させる後処理を行う既存のMAPDアルゴリズムよりも効率的かつ効果的であることが確認された。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>Multi-Agent Pickup and Delivery (MAPD) 問題は、2次元の4近傍格子状の環境において、エージェントが次々と発生する未知のタイミングのタスク（ピックアップ地点 $p$ からデリバリー地点 $d$ への移動）を、衝突を回避しながら実行する問題である。既存の効率的なアルゴリズムである Token Passing (TP) は、エージェントの移動を離散的な方位への移動と一定速度の移動と仮定しているが、後処理によって連続的な並進速度や回転速度を持つ移動へ変換する場合、計画段階でその制約を考慮していないため、結果として得られる経路の効率が低下するという課題がある。本研究では、TP の効率を向上させるために、Safe Interval Path Planning に Reservation Table を組み合わせた SIPPwRT を提案し、TP の内部ループにおける経路計画に適用する。さらに、SIPPwRT を拡張することで、与えられた速度に基づく連続的な前進移動やポイントターンを直接計算可能にし、エージェント間の安全距離を保証しつつ、すべての適切に構成された MAPD インスタンスを解くことができる TP-SIPPwRT を実現している。</p></section>
+<section class="secsum"><h3>TP-SIPPwRT</h3><p>TPは、グリッド上での離散的な移動と一定の速度を前提とし、他のエージェントを自身の経路に従う動的障害物と見なして、space-time A*を用いて個別に経路を計画するMAPDアルゴリズムである。TPのプロセスでは、トークンを用いて未割り当てのタスク集合と各エージェントの現在の経路を共有し、トークンを持つエージェントが、自身が最も早く到着できるタスクを選択して、現在地からピックアップ地点、さらにデリバリー地点へと至る2つの時間最小経路を結合して保存する。タスクが存在しない場合やデッドロック回避が必要な場合には、空の経路や特定の終点への経路を計算するが、全ての経路は他のエージェントの経路との衝突を回避し、かつ自身の終点以降に他の経路がそのセルを使用しないことを保証しなければならない。本研究では、このTPを拡張したTP-SIPPwRTを提案しており、従来の離散的な移動の代わりに、SIPPwRTを用いることで、与えられた速度に基づく連続的な前進移動と点旋回（point turn）を可能にしている。エージェントは半径 $r$ の円盤としてモデル化され、その状態は位置と向きのペアで定義され、回転速度および並進速度に従って、隣接するセルの中心への移動や $\frac{\pi}{2}$ ラジアンの旋回を行う。2つのエージェントの経路が衝突しない条件は、各エージェントの円盤の内部が、経路に沿って移動する際に決して交差しないことである。</p></section>
+<section class="secsum"><h3>SIPPwRT</h3><p>SIPPwRTは、連続的な移動と一定の速度を持つエージェントの運動学的制約を考慮し、動的障害物を回避しながら時間最小の経路を計画する手法である。従来のSIPPが離散的なグリッド移動を前提としていたのに対し、本手法はセルごとの予約テーブル（Reservation Table）を優先度付きキューとして保持することで、連続的な時間における安全な時間間隔（Safe Interval）を効率的に管理する。衝突回避のため、エージェントの安全半径 $r$ と速度 $v$ に基づき、移動方向が「同方向」「直交方向」「逆方向」の3つのケースに応じて、時間オフセット $\text{Offset}(\text{cfg}_1, \text{cfg}_2)$ を計算して安全な時間間隔の境界をタイト化する。例えば、同方向の移動（Case a1）では、エージェント間の距離 $d(t)$ が $2r$ 以上を維持するように、$\text{Offset} = \frac{2r - d_0}{v_1 - v_2}$ （ただし $v_1 &gt; v_2$）といった形で境界を調整する。アルゴリズムは、構成（Configuration）と安全な時間間隔のペアを状態とするA*探索を行い、各ステップで「旋回して移動する（turn-and-move）」動作を検討することで、回転速度と並進速度の両方を考慮した経路を生成する。探索の効率化のため、ゴール集合への最短時間を逆向きに計算した許容的なヒューリスティック値 $h(\text{cfg})$ を用いる。</p></section>
+<section class="secsum"><h3>Simulated Automated Warehouses</h3><p>本セクションでは、提案手法の有効性を検証するためのシミュレーション環境の設定について述べている。実験は、経路実行が完全なエージェントシミュレータと、運動学的制約や運動ノイズによる不完全な実行を伴う標準的なロボットシミュレータの両方を用いて、小規模および大規模な倉庫環境で実施される。エージェントは円形の倉庫ロボットをモデル化しており、すべてのエージェントは共通の回転速度 $\omega$ を持ち、初期状態では北を向いている。移動の制約として、棚を運んでいない自由なエージェントは、棚が置かれるセルを含むすべてのセルを高い並進速度 $v_{\text{free}}$ で移動できる。一方で、タスクを実行中のエージェントは、自身のタスクのピックアップおよびデリバリー地点、およびその他の非エンドポイントのセルのみを、低い並進速度 $v_{\text{task}}$ で移動することが可能である。</p></section>
+<section class="secsum"><h3>Experimental Results</h3><p>提案手法であるTP-SIPPwRTの性能を、既存のMAPDアルゴリズムであるTP-A*およびCENTRALと比較する実験が行われた。実験1では、30エージェント、1,000タスク、タスク頻度2 tasks/s、速度$v=1$の条件下で評価し、TP-SIPPwRTはTP-A*やCENTRALと比較して、後処理時間（post-processing time）が0秒であるため計算効率が極めて高く、サービス時間（service time）やメイクスパン（makespan）が小さくスループット（throughput）が大きいことから、有効性においても優れていることが示された。実験2および3では、エージェント数（10〜250）、タスク頻度（1〜10 tasks/s）、タスク速度（$v=1, 2, 5$）を変化させた際、エージェント数や速度の増加に伴いサービス時間とメイクスパンが減少し、スループットが増加する傾向が確認された。特に実験3では、250エージェントかつ$v=1$の条件下で、エージェント過多による混雑（congestion）が原因で例外的な挙動が見られた。実験4では、差動駆動型ロボットの運動学的制約を考慮したV-REPシミュレータを用い、半径$r=0.2$、最大並進速度$v_{max}=0.5$、最大回転速度$\omega_{max}=1.0$の条件下で検証した結果、PID制御を用いた実機に近い環境においても、10ロボットで20タスクを安全に実行できることが実証された。</p></section>
+<section class="secsum"><h3>Conclusions and Future Work</h3><p>本研究では、Multi-Agent Pickup and Delivery（MAPD）問題に対して、効率的かつ効果的なアルゴリズムである TP-SIPPwRT を提案した。今後の研究課題として、まず既存の（最適性を保証するものを含む）マルチエージェント経路計画アルゴリズムと SIPPwRT を組み合わせることで、与えられた速度に基づく連続的なエージェントの移動を計算可能にし、CENTRAL などの手法をより汎用化することが挙げられる。次に、加速度や減速度の制約といった追加の動力学的制約を SIPPwRT および TP-SIPPwRT に組み込み、ロボットがより安全に経路を追従できるようにすることが示唆されている。さらに、TP-SIPPwRT を分散型へと拡張することも重要な研究方向として提示されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(ar5iv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-25
+  </footer>
+</div>
+</body>
+</html>

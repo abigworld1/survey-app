@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>GRADRAG: Cross-Component Prompt Adaptation for Coordinated Multi-Agent RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>GRADRAG: Cross-Component Prompt Adaptation for Coordinated Multi-Agent RAG</h1>
+  <div class="meta">Paolo Pedinotti, Enrico Santus<br>採択先: 未取得 ・ 2026-07-23 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.21324v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.21324v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-23</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの各工程を計算グラフとして捉え、下流の評価を上流のプロンプトへ伝播させる設計は新規性が高く、実用的な改善策として非常に興味深い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGパイプラインにおけるコンポーネント間の調整問題を解決するため、評価フィードバックを下流から上流のエージェントへ伝播させ、プロンプトを反復的に適応させるフレームワークGradRAGを提案する。これにより、検索や証拠構築といった上流プロセスを、最終的な回答の質に基づいて協調的に洗練させることが可能になる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェントRAGにおいて、検索、グラフ構築、回答生成といった個別のコンポーネントが、最終的な回答の質に基づいた統合的な最適化を受けられないという課題がある。本研究は、Query-Focused Summarization (QFS) タスクを対象とし、リトリーバーやグラフ構築器などの各エージェントが、下流の評価結果を反映して動的に動作を調整することを目的とする。入力はクエリと関連ドキュメントであり、出力は洗練された回答と、それを支える根拠となる情報である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のマルチエージェント手法は、検索制御や回答選択といった局所的な段階にフィードバックを適用するに留まっていたが、本研究は評価信号を計算グラフを通じて上流コンポーネントへ伝播させる点に新規性がある。モデルのパラメータを更新することなく、自然言語による構造化されたフィードバックを用いて、検索戦略やグラフ抽出プロセスをテスト時に適応させる。これにより、最終的な生成器のみを更新する従来の1ステップ洗練手法に対する優位性を確立した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>RAGのワークフローを、エージェントやデータアーティファクトをノード、計算変換をエッジとする計算グラフとしてモデル化する。Evaluatorエージェントが生成された回答と根拠を分析し、情報の欠落や推論の弱さを特定する構造化されたフィードバックを生成する。Prompt Optimizerは、このフィードバックに基づき、リトリーバーやグラフ構築器などの適応型エージェントのプロンプトを更新する。ベクトルRAGではIRCoT形式の戦略に基づき検索戦略を適応させ、グラフRAGでは不足しているエンティティや関係性に関するフィードバックを通じて、タスク指向のオントロジーを誘導するように抽出プロンプトを洗練させる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>SQuALITYおよびQMSumデータセットを用い、ベクトルベースのフラット検索とグラフベースの検索の2つのパラダイムで評価を行った。比較対象は、回答生成エージェントのみを更新するOne-Step Refinementである。評価指標にはLLM-as-a-Judgeによる勝率（win rate）を用い、人間による評価とも高い一致を確認している。結果として、GradRAGはLLMによるペア比較において12〜15パーセントポイントの純選好マージンの向上を達成し、その利得の大部分はわずか2回の反復更新で得られることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>GradRAGは、フォワード実行とリファインメントの両フェーズでLLMを使用するため、One-Step手法と比較して実行時間やトークン使用量が増加するという計算コストのトレードオフがある。また、評価エージェントが一般的な要約原則に基づく自己評価を行う設計であるため、より高い忠実度を得るには報酬モデルなどの追加的な監督信号の統合が必要である。今後の課題として、実用的なデプロイ環境に向けたバッチ処理への拡張や、継続的なフィードバック体制の構築が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>GradRAG : Cross-Component Prompt Adaptation for Coordinated Multi-Agent RAG</h3><p>GradRAGは、RAGパイプラインを計算グラフとしてモデル化し、構造化された評価フィードバックを上流のエージェントへ伝播させることで、コンポーネント間の協調的なプロンプト適応を実現するフレームワークである。この手法では、Evaluatorが生成された回答とそれを支える根拠を批判的に検証して実行可能なフィードバックを生成し、Prompt Optimizerがそれを用いてリトリーバー、グラフ構築器、回答生成器などの適応型エージェントのプロンプトを反復的に更新する。Evaluatorは回答が十分であると判断した場合に早期停止をトリガーする機能も備えている。SQuALITYおよびQMSumベンチマークを用いた評価では、チャンクベースのフラットな検索（IRCoT形式のクエリ洗練を含む）と、エンティティ・関係グラフを構築するグラフベースの検索の両方のパラダイムにおいて、最終的な生成器のみを更新する1ステップの洗練手法を上回る性能を示した。LLMによるペア比較において、GradRAGは12〜15パーセントポイントの純選好マージンの向上を達成しており、その利得の大部分はわずか2回の反復更新で得られることが確認されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究では、マルチエージェントRAGにおけるコンポーネント間の調整問題を解決するため、評価フィードバックを上流のエージェントへ伝播させるフレームワークであるGradRAGを提案している。GradRAGは、RAGパイプラインをリトリーバー、グラフ構築器、回答生成器などのエージェントからなる計算グラフとしてモデル化し、テスト時にEvaluatorエージェントが生成された回答と根拠を分析して、情報の欠落や推論の弱さを特定する構造化されたフィードバックを生成する。このフィードバックはPrompt Optimizerによって各エージェントのプロンプト更新へと変換され、モデルのパラメータを変更することなく、リトリーバーや証拠構築プロセスを適応的に改善する。実験では、SQuALITYおよびQMSumデータセットを用い、チャンクベースのフラットなリトリーバーと、エンティティ・関係グラフを構築するグラフベースのリトリーバーの2つのパラダイムで評価を行った。GradRAGは、最終的な回答生成器のみを更新する従来の1ステップ改善手法と比較して、LLMによるペアワイズ評価において12〜15パーセントポイントの純増分（net preference margin）を示し、特に最初の2回の反復内で顕著な性能向上を達成した。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>近年のRAG研究では、検索決定や証拠評価を担うエージェントを組み込む手法が主流となっており、ルーティング、逐次的なクエリ洗練、あるいはモンテカルロ木探索を用いた検索最適化などが提案されている。既存のマルチエージェント手法は、検索制御や回答選択といった個別の段階に対して局所的なフィードバックを適用するに留まっており、最終的な回答の質に基づく評価信号が、検索や証拠構築といった上流のコンポーネントにまで統合的に反映されないという課題がある。また、LLMを批判者（Critic）として用いるリフレクション手法や、自然言語による批判を最適化信号として扱うプロンプト最適化の研究も進んでおり、DSPyによるプロンプト構造の最適化や、TextGradによる計算グラフ上での批判駆動型更新といった枠組みが存在する。本研究はこれらの知見に基づき、下流の回答品質に対するフィードバックを用いて、RAGパイプライン内の検索、構造化、生成という複数のコンポーネントのプロンプトを統一的に適応させるGradRAGを提案する。これにより、長文読解における検索拡張推論の精度向上を図る。</p></section>
+<section class="secsum"><h3>3 Method: GradRAG</h3><p>GradRAGは、マルチエージェントRAGパイプラインにおいて、下流の回答品質に対するフィードバックを用いて複数の上流コンポーネントのプロンプトを統合的に適応させるテスト時フレームワークである。RAGのワークフローを、エージェントやデータアーティファクトをノード、計算変換をエッジとする計算グラフとして抽象化しており、評価エージェントが生成した構造化された自然言語フィードバックに基づき、プロンプト最適化エージェントが適応型エージェントのプロンプトを更新する反復的な洗練サイクルを実行する。このプロセスはモデルのパラメータを更新せず、評価エージェントが満足の判定を下すか、最大反復回数に達するまで継続される。ベクトルRAGにおいては、検索エージェントがIRCoT形式の戦略に基づきサブクエリを逐次生成し、密な類似性検索と語彙マッチングを組み合わせたハイブリッド検索を行うが、評価結果に応じて検索戦略自体が適応する。グラフRAGにおいては、グラフ抽出エージェントがエンティティと関係性を特定し、Leidenアルゴリズムによるコミュニティ検出を用いて要約を生成するが、不足しているエンティティや関係性に関するフィードバックを通じて、抽出プロンプトを洗練させることでタスク指向のオントロジーを誘導する。</p></section>
+<section class="secsum"><h3>4 Experimental Setup</h3><p>本研究では、複数のエージェント間でプロンプト適応を調整することがRAGパイプラインの性能を向上させるかを検証するため、Query-Focused Summarization (QFS) タスクを用いて実験を行っている。評価対象は、ベクトルベースのフラットな検索（IRCoTベース）とグラフベースの検索（GraphRAGベース）の2つのパラダイムであり、回答生成エージェントのみを更新する「One-Step Refinement」をベースラインとして、評価者エージェントのフィードバックを検索やグラフ抽出などの上流エージェントにも伝播させる「Full GradRAG」との比較を行う。実験には、物語形式のSQuALITYと会議録形式のQMSumの2つのデータセットを使用し、テスト時に各クエリに対して最大3回の反復的なリファインメント・ループを実行する。評価指標には、LLM-as-a-Judgeによる勝率（win rate）を採用し、評価の堅牢性を確保するために位置一貫性（position consistency）の測定や二項検定、人間による検証も併用している。実装面では、生成エージェントにGemini-2.5-Flashを使用し、検索戦略の選択やグラフの構築を適応的に行う。計算コストに関しては、Full GradRAGはOne-Step手法と比較して、1クエリあたりの実行時間が約10%増加し、トークン使用量も6,040から8,140へと増加するが、その大部分は共通のフォワードパスに費やされている。</p></section>
+<section class="secsum"><h3>5 Results</h3><p>人間による評価とLLMによる評価の間には高い一致が見られ、LLMを用いた評価の妥当性が確認されている。主要な実験結果として、提案手法であるGradRAGのフルバリアントは、検索アーキテクチャ（フラット検索またはグラフベース検索）に関わらず、一回限りの生成を行うベースラインに対して一貫して高い勝率を示しており、評価者のフィードバックを用いて複数の上流エージェントを更新することが、最終的な回答生成器のみを洗練させるよりも効果的であることが示された。リファインメントの回数に関する分析では、フラット検索とグラフベース検索のいずれにおいても、リファインメントの回数を増やすことで性能が向上する傾向があり、グラフベースのGradRAGは固定されたリファインメント回数において高い選好率を維持している。また、リファインメントの過程における応答の変化を分析すると、回数の増加に伴いROUGE-1スコアが単調に改善し、トピックエントロピーが減少することから、提案手法は単にコンテンツ量を増やすのではなく、情報の密度とトピックの焦点（topical focus）を高めることで応答を洗練させていることが明らかになった。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、Retrieval-Augmented Generation (RAG) パイプラインにおける複数のエージェントを、コンポーネント間を跨ぐプロンプト適応を通じて調整するフレームワークである GradRAG を提案している。RAG システムを計算グラフとしてモデル化し、評価フィードバックをエージェント間で伝播させることで、テスト時に検索、根拠の構築、および回答生成の各プロセスを協調的に洗練させることが可能となる。ベクトル検索およびグラフ検索の両方の設定において、GradRAG はペア比較において 12–15 パーセントポイントの純選好マージンを達成した。この結果は、最終的な回答のみを修正するのではなく、評価フィードバックを上流のコンポーネントに影響させる手法が、システム全体の出力を一貫して向上させることを示している。本研究の知見は、モジュール化された RAG パイプラインにおいて、異種混合なコンポーネント間で適応を調整することの重要性を強調している。</p></section>
+<section class="secsum"><h3>7 Limitations</h3><p>GradRAGは、フォワード実行とリファインメント（洗練）の両フェーズでLLMによる生成を必要とするため、計算コストが高いという課題があるが、適応エージェントの数に応じてコストは予測可能であり、並列化による効率化も期待できる。評価プロトコルについては、データ分離と解釈性を重視して各リファインメントサイクルを単一のフォワード実行の後にトリガーする設計としているが、これはDSPyのように複数の例から最適化を行う手法と比較して、実際のデプロイ環境とは乖離がある。そのため、実用的な運用に近づけるには、バッチ処理や継続的なフィードバック体制への拡張が今後の研究課題となる。また、評価エージェントは外部の報酬信号を用いず、一貫性や流暢さといった一般的な要約原則に基づいて自己評価を行う設計となっているが、評価の忠実度を高めるためには、報酬モデルやヒューリスティックな指標などの追加的な監督信号を統合する余地が残されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-25
+  </footer>
+</div>
+</body>
+</html>

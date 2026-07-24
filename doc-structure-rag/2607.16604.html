@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>When Do Multimodal and Graph-Augmented RAG Help? A Controlled Evaluation for Document Question Answering | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>When Do Multimodal and Graph-Augmented RAG Help? A Controlled Evaluation for Document Question Answering</h1>
+  <div class="meta">Sokipriala Jonah<br>採択先: 未取得 ・ 2026-07-18 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.16604v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.16604v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-18</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">GraphRAGやマルチモーダルRAGの有効性を、Late Fusion方式で各要素を分離して検証した実験設計が非常に厳密で、実用上のボトルネックを明確に示しているため。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 図表や空間レイアウト、分散した関係性の欠落を補完するため、知識グラフと視覚情報を統合したマルチモーダルGraph-RAGを提案し、その有効性を制御された条件下で評価した。その結果、知識グラフによる拡張は精度向上に寄与せず、マルチモーダル化はピクセル情報の直接解釈が必要な場合にのみ限定的な効果を持つことが明らかになった。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のRAGはテキストのチャンク化と類似度検索に依存しているが、図表や空間レイアウト、分散した関係性の欠落、およびOCRによる構造や数値の歪みが課題となっている。本研究は、文書質問応答において、テキスト抽出のみでは補完できない情報を扱うための問題設定を行っている。対象はPubLayNetから抽出された1,000ページの科学文書であり、入力として質問と文書データ、出力として回答を扱う。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>先行研究のGraphRAGやマルチモーダルRAGに対し、グラフ情報、視覚情報、生成器の各要素を独立して評価できるよう、3つの証拠ソースを個別に検索し、生成時にのみ結合するLate Fusion方式のアーキテクチャを導入した点に新規性がある。また、図表に関する質問を、キャプションから回答可能なものとピクセル情報の直接解釈を必要とするものに区別する評価プロトコルを導入し、テキストのみのシステムによる過大評価を防ぐ手法を提示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>ドキュメントをテキスト、視覚領域、構造化された関係性の3つの証拠ソースとして表現する。テキスト検索は $text\text{-}embedding\text{-}3\text{-}small$ を用いた500文字の重複ウィンドウによるチャンクに基づき、視覚領域は $CLIP\text{ }ViT\text{-}B/32$ を用いて画像またはキャプションとして取得する。知識グラフは $GPT\text{-}4o\text{-}mini$ により抽出された主語・述語・目的語のトリプルで構成される。検索プロセスでは、質問内の単語と一致するエンティティから最大8つの隣接するトリプルを抽出する。マルチモーダル検索では、図に関する質問には画像ピクセルを、それ以外には上位3つの領域のキャプションをテキストとして入力するゲート機構を備えている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>PubLayNetの1,000ページを用い、4つの生成器（GPT-4o-mini, Gemini 3.1 Flash-Lite, Llama 4 Scout, Llama 4 Maverick）と3つの質問タイプ（単一文、マルチホップ、図表のみ）で評価した。評価指標には $Recall@k$、$MRR$、およびRAGASに基づく正確性、忠実性、関連性を用いた。結果として、知識グラフの追加は精度に一貫した改善をもたらさなかった。図表に関するPixel-onlyな質問では、マルチモーダルシステムは $0.057$ から $0.114$ の精度を達成したが、これは画像検索の $Recall@1$ が $0.229$ であるという理論的上限に制約されている。また、Llama 4 ScoutはGPT-4o-miniと比較して、精度で上回りつつ約17倍低いコストを実現した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>知識グラフによる拡張は、使用したコーパスにおいて文書間の関連性が低かったため、無関係な事実の混入や既存情報の再構成に留まった。マルチモーダル検索については、CLIP等の検索器が正確な図表を返せない問題や、生成器が高密度な科学的図表から数値を抽出できない問題がボトルネックとなっている。また、画像トークン化がデプロイコストを支配するため、不要な画像供給を防ぐゲート制御が重要である。本研究の限界として、1条件あたりの質問数が少なく、生物医学論文に偏った単一のレイアウト解析コーパスを使用しているため、他ドメインへの汎用性には注意が必要である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>When Do Multimodal and Graph-Augmented RAG Help?
+A Controlled Evaluation for Document Question Answering</h3><p>本研究では、テキスト抽出のみでは欠落する図表やレイアウト、および文を跨ぐ関係性の情報を補完するため、LLMにより抽出された主語・述語・目的語のトリプルと、CLIPを用いた図表の検索を組み合わせた、説明可能なマルチモーダルGraph-RAGアーキテクチャを提案している。この手法は、グラフ情報、視覚情報、および生成器の各要素を独立して評価できるよう、3つの証拠ソースを個別に検索し、生成時にのみ融合する設計となっている。PubLayNetの1,000ページを用い、単一文、マルチホップ、および図表に関する質問に対して、2種類のクローズドモデルと2種類のオープンモデルのマルチモーダル生成器を用いた4方向のアブレーション実験を行った結果、本コーパスにおいては知識グラフによる拡張は、生成器や質問タイプを問わず、信頼できる精度向上をもたらさなかった。キャプション情報に依存しないピクセルのみの図表に関する質問に対し、テキストのみのシステムは精度が $0$ であるのに対し、マルチモーダルシステムは $0.057$ から $0.114$ の精度を達成したが、その性能は画像検索の再現率 $\text{Recall@3}$ や、高密度な科学的図表を解釈する生成器の能力に制約されている。また、キャプションから導出された質問を用いると、テキストのみの視覚的質問回答能力を大幅に過大評価してしまうことが示されたほか、同一画像に対する入力トークン数が生成器間で11倍もの差が生じることから、画像トークン化がデプロイコストを支配する要因となることが明らかになった。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>従来のRAGはテキストのチャンク化と類似度検索に依存しているが、図表や空間レイアウト、分散した関係性といった情報の欠落や、OCRによる構造・数値の歪みが課題となる。本研究では、これらを解決する手法として、視覚的証拠を用いるMultimodal RAGと、エンティティと関係性を明示するGraph-based RAGの有効性を、共通のlate-fusion RAGパイプラインを用いて制御された条件下で評価する。実験では、PubLayNetから抽出した1,000ページの科学文書を用い、OCRテキスト、LLMにより抽出された主語・述語・目的語のトリプル、およびCLIPで埋め込みを行った図表のクロップ画像という3つの証拠源を独立して検索・統合する。評価設定は、テキストのみのベースライン、テキストとグラフ、テキストと視覚情報、およびこれらを組み合わせたMultimodal Graph-RAGの4構成を比較し、2つのクローズドモデルと2つのオープンウェイトモデルを含む4つの生成器を用いて、単一パス、マルチホップ、および図表に関する質問で検証する。特に図表に関する質問では、キャプションから回答可能なものと、ピクセル情報の直接的な解釈を必要とするもの（pixel-only）を区別するプロトコルを導入し、回答の正確性、忠実性、関連性に加え、レイテンシやコストなどの効率性も多角的に測定する。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>本研究の関連研究では、まずRAG（Retrieval-Augmented Generation）において、検索が必ずしも正確な生成を保証しない点や、動的・低頻度・マルチホップな質問における性能低下が指摘されていることを踏まえ、RAGASフレームワークに基づき、LLMジャッジを用いて回答の正確性、忠実性、関連性を評価する手法が述べられている。マルチモーダルRAGに関しては、図表やレイアウトなどの視覚的証拠を活用する手法（PixelRAGやColPaliなど）が提案されているが、本研究ではテキストを主たる検索チャネルとしつつ、CLIPを用いて図表を検索し、画像ピクセルまたはキャプションを証拠として提供することで、視覚的推論とキャプションに基づく回答復元を区別する。グラフ強化型RAGについては、LLMにより抽出されたエンティティグラフを用いるGraphRAGなどの先行研究があるが、本研究ではNetworkXに保存された主語・述語・目的語のトリプルを含む知識グラフを、テキスト、グラフ、視覚の各検索ブランチと独立して維持する設計を採用している。この設計は、生成時にのみ各出力を結合する「Late Fusion（遅延融合）」方式であり、テキスト検索を固定したまま、知識グラフや視覚情報のブランチを独立して除去（アブレーション）することが可能である。実験設定においては、コーパス、検索インデックス、プロンプト構成を固定した上で、生成モデルと証拠の構成（テキストのみ、知識グラフ追加、マルチモーダル追加、両方の追加）を変化させることで、各要素の影響を分離して評価している。</p></section>
+<section class="secsum"><h3>III Method</h3><p>本手法は、ドキュメントの各ページをテキスト、視覚領域、および構造化された関係性の3つの証拠ソースとして表現し、それらを独立して検索した後に生成時に結合するパイプラインを提案している。テキスト検索は $text\text{-}embedding\text{-}3\text{-}small$ を用いた $500$ 文字の重複ウィンドウによるチャンクに基づき、視覚領域は $CLIP\text{ }ViT\text{-}B/32$ を用いて画像またはキャプションとして取得され、知識グラフは $GPT\text{-}4o\text{-}mini$ によって抽出された主語・述語・目的語のトリプルから構成される。評価では、テキストのみのベースライン $R_{\text{text}}$、知識グラフを追加した $R_{\text{text}} + KG$、マルチモーダルを追加した $R_{\text{text}} + \text{multimodal}$、およびその両方を用いた $R_{\text{text}} + \text{both}$ の4つの構成を比較する。知識グラフの検索では、質問内の単語と一致するエンティティを抽出し、最大8つの隣接するトリプルをプロンプトに含めるが、誤った情報の混入を防ぐため、エンティティの長さが5文字未満である場合や、ソースページがテキスト検索の結果に含まれない場合は除外される。マルチモーダル検索では、図に関する質問には最も類似度の高い画像ピクセルを直接入力し、テキストやマルチホップの質問には上位3つの領域のキャプションをテキストとして入力するゲート機構を備えている。実験には $PubLayNet$ から抽出された $1,000$ ページのコーパスが使用され、検索インデックスは全ての構成で固定されているため、出力の差異は提供される証拠の種類または生成器に起因する。</p></section>
+<section class="secsum"><h3>IV Experiments and Results</h3><p>本実験は、PubLayNetコーパスを用いた文書質問応答において、グラフ拡張やマルチモーダルRAGの効果を、4つの生成器（GPT-4o-mini, Gemini 3.1 Flash-Lite, Llama 4 Scout, Llama 4 Maverick）と3つの質問タイプ（単一文、マルチホップ、図表のみ）を用いて評価している。検索品質の指標として、正解ソースの順位に基づく $Recall@k$ および $MRR$ を用い、回答の質はRAGASフレームワークに基づき、正確性（Accuracy）、忠実性（Faithfulness）、関連性（Relevancy）の3観点で評価された。実験の結果、知識グラフの追加は、グラフ内の事実がテキスト検索結果の再陳述に留まることや、無関係なエンティティの混入により、精度に一貫した改善をもたらさなかった。図表に関する質問では、キャプションから回答可能なものと、直接的な視覚的推論を要する「Pixel-only」なものとの間で性能差が顕著であり、Pixel-onlyな質問では、画像検索の $Recall@1$ が $0.229$ であることが性能の理論的上限（ceiling）となっている。また、マルチモーダル構成におけるコストとトークン数は、プロバイダー固有の画像トークン化手法に強く依存しており、例えばLlama 4 ScoutはGPT-4o-miniと比較して、精度で上回りつつ約17倍低いコストを実現している。</p></section>
+<section class="secsum"><h3>V Discussion and Conclusion</h3><p>本研究では、4つのマルチモーダル生成モデルと4つのRAG構成を用いて、グラフ拡張および視覚的証拠の効果を検証した。まず、ベンチマークの構築方法がマルチモーダルRAGの評価に強く影響することが示され、図のキャプションから回答可能な質問が含まれる場合、テキストのみのシステムでも高い精度を示す一方、画像内のピクセル情報のみに依存する質問では精度が $0$ に低下するため、キャプション由来かピクセル由来かを区別して報告する必要がある。次に、知識グラフによる拡張は、本実験で使用したPubLayNetが文書間の関連性が低いページ集合であったため、無制限なエンティティマッチングによる無関係な事実の混入や、制限付きマッチングによる既存情報の再構成に留まり、一貫した改善は見られなかった。マルチモーダル検索については、画像内にのみ答えが存在する質問には不可欠であるものの、CLIPなどの検索器が正確な表や図ではなく類似した画像を返す問題や、生成モデルが密な科学的図表から正確な数値を抽出できない問題があり、検索精度や文書表現の向上がモデルのスケールアップよりも重要であることが示唆された。また、コスト面ではトークン単価だけでなく、画像エンコーディングやレイテンシ、入力拡張の影響を直接測定すべきであり、不要な画像供給によるコスト増を防ぐために、質問や検索の信頼度に基づいた視覚入力のゲート制御が有効な設計となる。本研究の限界として、1条件あたりの質問数が $30 \sim 35$ 問と少なく、生物医学論文に偏った単一のレイアウト解析コーパスを使用しているため、他の文書ドメインへの汎用性には注意が必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-25
+  </footer>
+</div>
+</body>
+</html>

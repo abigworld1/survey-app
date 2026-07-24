@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>It Takes Two to Tango: A Holistic Simulator for Joint Order Scheduling and Multi-Agent Path Finding in Robotic Warehouses | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>It Takes Two to Tango: A Holistic Simulator for Joint Order Scheduling and Multi-Agent Path Finding in Robotic Warehouses</h1>
+  <div class="meta">Haozheng Xu, Wenhao Li, Zifan Wei, Bo Jin, Hongxing Bai, Ben Yang, Xiangfeng Wang<br>採択先: 未取得 ・ 2026-02-15 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2602.13999v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2602.13999v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-02-15</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">OSとMAPFを密結合したシミュレータの提案は、実用的な倉庫自動化において極めて重要。実験も故障や異種ロボットを考慮しており、研究の有用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 従来のロボット倉庫システムでは、注文スケジューリング（OS）とマルチエージェント経路探索（MAPF）が分離されており、高レベルの意思決定と低レベルの混雑との依存関係が無視されてきました。本研究では、これらを密に結合し、動的な注文、物理的制約、および故障へのリカバリを統合した包括的なシミュレーションプラットフォームWareRoverを提案します。</div>
+<section class="qa"><h2>どんなもの？</h2><p>ロボットモバイルフルフィルメントシステム（RMFS）において、効率的な運用を実現するには注文スケジューリングと経路計画の緊密な連携が必要ですが、既存のシミュレータは高レベルの在庫管理か抽象的なグリッド世界でのアルゴリズム評価のいずれかに偏っています。対象となる問題は、動的なオーダーストリーム、物理的な運動制約、および実行時の不確実性が存在する環境下での、OSとMAPFの共同最適化です。従来の環境では、高レベルのディスパッチング決定が低レベルの交通混雑に与える影響や、ロボットの故障といった現実的な制約を同時に評価することが困難でした。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>WareRoverは、RMFS指向のプラットフォームとMAPF中心のシミュレータの欠点を解消し、両者をクローズドループの最適化インターフェースを介して統合した点に新規性があります。先行研究が分離して扱ってきた注文生成、多段階タスク、およびエージェント間の相互作用を単一の評価ループ内に組み込んでいます。また、異種混合のロボットフリートのサポートや、ロボットの故障および復旧を明示的にモデリングする機能を備えている点が、従来の抽象的な手法との大きな差分です。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>WareRoverは、ステップレベルでの共同最適化ループを通じて、スケジューラがシステム状態に基づきタスクキューを動的に更新し、パスプランナがそれに基づき衝突のない軌道を生成する仕組みを提供します。物理的な運動実行器は、離散的な計画を運動学的制約を満たす連続的な軌道へと変換し、速度制限や旋回制約、連続的な衝突判定を適用します。混雑や閉塞が発生した場合にはオンライン再計画を行い、ロボットが故障した際にはメンテナンス用の安全回廊を生成して他のエージェントがその領域を回避するように経路計画に反映させます。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>均質、異種混在、および故障耐性の3つのシナリオを用いて、成功率（SR）、計算時間（CT）、およびスループット（TP）を評価指標として検証を行いました。注文スケジューリングにはTAとRD、MAPFにはA*、CBS、DHCを組み合わせ、各構成で100回の試行を実施しています。均質な環境ではTAとCBSの組み合わせが最小のCTで最高のTPを達成しました。異種混在環境では、大型エージェントにおいてDHCのSRが著しく低下した一方、CBSはDHCを上回る性能を示しました。故障耐性環境では、ロボットが確率 $p$ で故障し $k$ ステップの間停止する設定において、A*が最小のCTを実現しましたが、CBSは頻繁な再計画により計算コストが大幅に増大しました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の結果から、故障が発生しやすい環境においては、再計画の効率性がシステムの性能を決定付ける支配的な要因であることが示唆されました。既存の最先端アルゴリズムは、現実的な結合制約や不確実性の下では性能が低下するというトレードオフが存在します。今後の課題として、より複雑な動的環境や、さらなる不確実性に対するアルゴリズムの堅牢性を高めるための研究が挙げられます。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>It Takes Two to Tango: A Holistic Simulator for Joint Order Scheduling and Multi-Agent Path Finding in Robotic Warehouse</h3><p>従来のロボットモバイルフルフィルメントシステム（RMFS）では、オーダースケジューリング（OS）とマルチエージェント経路探索（MAPF）を独立したサブ問題として扱う傾向があり、高レベルのディスパッチングと低レベルの混雑との間に存在する重要な依存関係が無視されてきました。本研究では、これら OS と MAPF を統一されたクローズドループ最適化インターフェースを介して密に結合させた、包括的なシミュレーションプラットフォームである WareRover を提案します。WareRover は、従来のベンチマークとは異なり、動的なオーダーストリーム、物理学に基づいた運動制約、および非定常な実行失敗に対するリカバリメカニズムを単一の評価ループ内に統合しています。実験の結果、既存の最先端アルゴリズムは、これら現実的かつ結合された制約条件下では性能が低下することが示されており、WareRover が次世代の倉庫協調制御における堅牢なテストベッドとして機能することが実証されました。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>ロボット倉庫におけるRMFS（Robotized Mobile Fulfillment Systems）の効率化には、注文スケジューリングとマルチエージェント経路探索（MAPF）の緊密な連携が不可欠であるが、既存のシミュレータは高レベルな在庫管理に特化したものか、抽象的なグリッド世界でのアルゴリズム評価に特化したもののいずれかに偏っており、両者の結合が不十分である。本研究では、高レベルの物流ロジックと低レベルの運動計画を統合した包括的なシミュレーションプラットフォームであるWareRoverを提案する。WareRoverは、トポロジーに依存しないカスタマイズ可能なレイアウト、異種混合のロボットフリート、および現実的な注文ストリームをサポートする高忠実度な倉庫モデリングを実現している。また、注文スケジューリングとMAPFを結合したクローズドループの共同最適化インターフェースを提供することで、交通混雑やルーティングコストを考慮したスケジューリング戦略の研究を可能にする。さらに、ロボットの故障や遅延といった確率的な事象をシミュレートする機能を備えており、実行時の不確実性に対するアルゴリズムの堅牢性（Resilience）を評価できる点が特徴である。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>既存の倉庫ロボティクスシミュレータは、注文生成やエンドツーエンドの履行ワークフローに焦点を当てたRMFS指向のプラットフォームと、抽象的なグリッド環境でのエージェント間相互作用を詳細にモデル化するMAPF中心のシミュレータの2つのカテゴリに大別される。RMFS指向のツールは、注文スケジューリングと経路計画が分離されており、大規模な衝突回避、異種AGV、実行レベルの失敗への対応が限定的である。一方でMAPF中心のシミュレータは、注文スケジューリングや多段階タスク、構造化された保管レイアウトといった倉庫特有のセマンティクスを欠いている。倉庫環境におけるMAPFアルゴリズムの研究は、A*やCBSなどの探索ベースの手法や学習ベースの戦略に依存しているが、動的な注文到着や物理的な実行制約、実行失敗といった実環境の要因を十分にモデル化できていない。これに対し、提案手法であるWareRoverは、異種AGVのサポート、注文スケジューリングと経路計画の共同評価、オンライン再計画、およびAGVの故障と復旧の明示的なモデリングを統合することで、実用的なRMFS設定におけるMAPF手法の評価を可能にする。</p></section>
+<section class="secsum"><h3>3 The WareRover Platform</h3><p>WareRoverは、ロボット倉庫におけるタスクスケジューリングとマルチエージェント経路計画（MAPF）を統合的にシミュレーションするためのプラットフォームである。本システムは、棚や通路、荷受ステーションなどの静的要素を含む高精度な環境構築機能に加え、ピッキングや配送といった多段階のタスク分解、および波状の注文や需要の偏りを含む現実的なワークロードのモデリング機能を備えている。手法の核心は、ステップレベルでの共同最適化ループにあり、スケジューラがグローバルなシステム状態に基づいてAGVのタスクキューを動的に更新し、それに基づきパスプランナが衝突のない軌道を生成して、混雑や閉塞時にオンライン再計画を行う密結合な設計となっている。物理的な運動実行器は、離散的な計画を運動学的制約を満たす連続的な軌道へと変換し、速度制限や旋回制約、連続的な衝突判定を適用することで、理想化されていない現実的な運動条件下での評価を可能にする。さらに、故障シミュレーション機能により、AGVの故障時にメンテナンス用の安全回廊を生成し、他のエージェントがその領域を回避するように経路計画に反映させることで、異常条件下におけるシステムの堅牢性と回復力を評価できる。</p></section>
+<section class="secsum"><h3>4 Experiments</h3><p>本実験では、提案手法であるWareRoverを、均質（Homogeneous）、異種混在（Heterogeneous）、および故障耐性（Fault-tolerant）の3つのシナリオを用いて評価している。評価指標には成功率（SR）、計算時間（CT）、およびスループット（TP）を用い、注文スケジューリング戦略としてTAとRD、MAPFアルゴリズムとしてA*、CBS、DHCを組み合わせて、各構成で100回の試行を行っている。均質な環境では、TAとCBSの組み合わせが最小限の計算時間で最高のTPを達成し、全ての組み合わせがほぼ完全なSRを記録した。異種混在環境では、異なるサイズの貨物やAGVが存在することで空間的な衝突が増加し、DHCは特に大型のエージェントにおいてSRが著しく低下する一方、CBSは衝突回避の推論能力によりDHCを上回る性能を示した。故障耐性環境では、AGVが確率 $p$ で故障し $k$ ステップの間停止する設定において、A*は軽量な局所再計画により最小のCTを実現したが、CBSは頻繁な再計画により計算コストが大幅に増大した。結果として、故障が発生しやすい環境では、再計画の効率性が性能を決定付ける支配的な要因であることが示された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-25
+  </footer>
+</div>
+</body>
+</html>
