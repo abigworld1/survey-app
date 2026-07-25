@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SPBEBOT: A Hierarchy-Aware Retrieval-Augmented Generation Framework for Evidence-Based Audit Assessment of Indonesian Electronic-Based Government | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>SPBEBOT: A Hierarchy-Aware Retrieval-Augmented Generation Framework for Evidence-Based Audit Assessment of Indonesian Electronic-Based Government</h1>
+  <div class="meta">Regi Muhammar, Wiyli Yustanti, Bartolomeus Priya Perkasa Utama Widada<br>採択先: Journal of Artificial Intelligence and Data Science ・ 2026-07-04 ・ source: openalex</div>
+  <div class="links"><a href="https://openalex.org/W7169838740" target="_blank" rel="noopener">原典</a> ・ <a href="https://journal.ascendiumglobal.org/ascendiumjournal/ajaids/article/download/35/29" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.67561/jaids.v2i1.5" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 Journal of Artificial Intelligence and Data Science</span><span class="chip">公開日 2026-07-04</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">階層構造を持つ規制文書へのRAG適用という実用的な課題に対し、Parent Document Retriever等の既存手法を組み合わせた構成は具体的で有用。ただし、手法の新規性は限定的。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> インドネシアの電子政府（SPBE）監査における複雑な階層構造を持つ規制文書の扱いを困難にする問題に対し、階層構造を考慮したRAGフレームワークであるSPBEBOTを提案し、証拠に基づいた成熟度評価の支援を実現した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>インドネシアの電子政府（SPBE）監査において、4つのドメイン、8つのアスペクト、47の指標、および5段階の成熟度基準からなる複雑な階層構造を持つ規制文書を扱う必要がある。従来のシステムでは、このような構造化された情報の正確な検索や、証拠に基づいた成熟度レベルの推奨、出典の明示といった監査業務特有の要件を満たすことが困難であった。本研究は、236ページに及ぶ大臣指針に基づき、監査員の意思決定を支援するための情報検索と評価を目的としている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のRAG手法に対し、ドメイン、アスペクト、指標といった規制文書特有の階層性を保持するための階層的なドキュメント分割と、Parent Document Retriever、Multi-Query Retriever、およびPrompt Routingを組み合わせた独自のフレームワークを提案した。これにより、単なる事実検索に留まらず、複雑な監査シミュレーションタスクにおける正確な成熟度スコアリングを可能にした。また、既存の規制用RAGチャットボットと比較して、Context Recallにおいて高い性能を示すことを明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LlamaParseを用いてPDFをMarkdown形式に変換し、ヘッダーに基づく第1段階の分割と再帰的な文字ベースの第2段階の分割による階層的なチャンク分割を行う。インデックス作成では、約400トークンの子チャンクと、それを含む約1500トークンの親チャンクによる2段階構造を採用し、検索は子チャンクの類似度 $sim(q,c)$ に基づいて行われるが、LLMには文脈保持のために親チャンクを渡す。検索時には、LLMが元のクエリから $m=3$ 個の変形クエリを生成するMulti-Query Retrieverを用いて検索漏れを防ぎ、取得されたチャンクは重複排除後に親チャンクへ統合される。生成プロセスでは、クエリの内容に応じて、事実的な説明を行う一般用テンプレートか、監査用テンプレートのいずれかへルーティングを行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>RAGASフレームワークを用いた定量的評価では、Context Recallで$0.83$、Answer Relevancyで$0.81$、Faithfulnessで$0.72$、Context Precisionで$0.68$を記録した。特にContext Recallは、既存のKemenkeuGPTの$0.60$を上回る結果となった。監査シミュレーションタスクでは、特定の計画文書からドメイン、アスペクト、指標、成熟度レベルを正解と一致するように割り当てることが可能であることを示した。また、外部の監査員によるリッカート尺度を用いた調査では、総合的なユーザー満足度$84.6\%$を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>Context Precisionが相対的に低い原因として、類似した文言を持つ複数の指標が混在して検索されることが挙げられ、指標やアスペクトの誤認が発生する場合がある。技術的な限界として、マルチクエリの統合後にリランキング工程がないため、関連性の高い不要なチャンクが混入する点や、ベクトルベースのインデックスが階層構造を完全には捉えきれていない点が指摘されている。また、現在は単一の規制にのみ基づいているため、今後はより広範な知識への対応が課題となる。指標が類似している場合には、依然として専門家による判断と併用する必要がある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>本文 (1/7)</h3><p>SPBEBOTは、インドネシアの電子政府システム（SPBE）の監査評価を支援するために提案された、階層構造を考慮したベクトル検索拡張生成（RAG）フレームワークである。本手法は、4つのドメイン、8つのアスペクト、47の指標からなる複雑な評価ガイドラインを扱うため、階層的なドキュメント分割、親ドキュメント検索、マルチクエリ拡張、およびプロンプトルーティングを実装している。評価にはRAGAS指標とMetaのLlama 3.3 70bモデルが用いられ、Context Recallで83%、Context Precisionで68%、Faithfulnessで72%、Answer Relevancyで81%という結果を得ている。また、外部のSPBE監査員によるテストでは84.6%のユーザー満足度を達成しており、監査業務の効率化に寄与することが示された。ただし、指標が類似している場合には、依然として専門家による判断と併用する必要があるという限界も指摘されている。</p></section>
+<section class="secsum"><h3>本文 (2/7)</h3><p>本研究では、インドネシアの電子政府（SPBE）の監査・評価を支援するためのRAG（Retrieval-Augmented Generation）ベースのチャットボット「SPBEBOT」を提案している。開発手法には、プロトタイピングと反復的な構成（ドキュメントのチャンク設定、ベクトル埋め込みサイズ、プロンプトエンジニアリング等）に適したRapid Application Development（RAD）を採用している。システムは、Llama 3.3 70Bを大規模言語モデル（LLM）として利用し、LangChainによるオーケストレーション、LlamaParseによるPDFからMarkdownへの変換、Chromaによるベクトルデータベース管理、Nomic-embed-textによる埋め込み、Groq Cloudによる推論、Streamlitによるインターフェース、およびRAGASによる評価という技術スタックで構成される。機能要件として、アップロードされた規制PDFに基づく情報検索、47の指標に対する成熟度レベル（1〜5）の推奨、回答に対する出典（ページや表）の明示、および会話履歴の保持が定義されている。知識ソースとなる「SPBEモニタリングおよび評価手順に関する2024年大臣指針」は計236ページに及び、5つの主要な章で構成されており、これらが埋め込みとコンテキスト検索のためのチャンク分割戦略の基礎となる。</p></section>
+<section class="secsum"><h3>本文 (3/7)</h3><p>SPBEBOTは、インドネシアの電子政府（SPBE）監査を支援するための階層構造を意識したRAG（Retrieval-Augmented Generation）フレームワークである。ドメイン、アスペクト、47の指標、およびレベル1から5の成熟度基準からなる階層的な規制文書を扱うため、Llama Parseを用いて文書を構造化されたMarkdown形式に変換し、階層的なコンテキストを保持した状態でチャンク分割を行う。文書の分割プロセスは、章や指標などのヘッダーに基づく第1段階の分割と、コンテキストウィンドウを管理するための再帰的な文字ベースの第2段階の分割の2ステップで構成され、各チャンクはサイズ1500文字、オーバーラップは100文字に設定されている。システムはLangChainを用いてパイプラインを管理し、nomic-embed-textモデルによって生成された768次元のベクトルをChromaDBに格納し、ユーザーのクエリに対してコサイン類似度を用いて上位3つの文書を検索する。最終的に、検索されたコンテキスト、システムプロンプト、およびユーザーのクエリがMeta Llama 3.3 70Bに渡され、SPBEの評価アシスタントとしての役割に基づいた、根拠のある回答が生成される。</p></section>
+<section class="secsum"><h3>本文 (4/7)</h3><p>SPBEBOTは、階層構造を持つ規制文書の特性を考慮したRetrieval-Augmented Generation (RAG) フレームワークであり、Parent Document Retriever、Multi-Query Retriever、およびPrompt Routingの3つの手法を組み合わせている。インデックス作成段階では、約400トークンの子チャンクと、それを含む約1500トークンの親チャンクによる2段階の階層構造を採用しており、検索は子チャンクの類似度 $sim(q,c)$ に基づいて行われるが、LLMには文脈を保持するために親チャンクが渡される。検索時には、LLMを用いて元のクエリから $m=3$ 個の変形クエリを生成するMulti-Query Retrieverにより、用語の不一致による検索漏れを防ぎ、取得されたチャンクは重複排除された後に親チャンクへと統合される。生成プロセスでは、クエリの内容に応じて、事実的な説明を行う一般用テンプレートか、成熟度レベルや根拠を引用する監査用テンプレートのいずれかへルーティングを行う。システムの評価にはRAGASフレームワークを用い、生成された回答の根拠となる文脈への忠実度を示すFaithfulness、検索されたチャンクの精度を示すContext Precision、正解に含まれる情報の網羅性を示すContext Recall、およびクエリとの関連性を示すAnswer Relevancyの4指標で測定する。具体的には、Answer Relevancyはクエリ $q$ と回答 $a$ の埋め込み表現のコサイン類似度の平均として $\frac{1}{N} \sum_{i=1}^{N} \text{cosine similarity}(E_{gi}, E_{o})$ と定義される。</p></section>
+<section class="secsum"><h3>本文 (5/7)</h3><p>SPBEBOTは、LangChainを用いて構築され、Streamlitでデプロイされた階層構造を意識した検索拡張生成（RAG）フレームワークである。評価実験では、事実の検索、マルチホップ推論、および監査シミュレーションの3つのタスクタイプを含む5つの質問を用いて性能を検証している。事実検索のタスクでは、目標値である $2.60$ 未満のドメイン指数を問う質問に対し、ガバナンス・ドメイン（2021年: $1.89$、2022年: $1.85$、2023年: $2.29$）およびマネジメント・ドメイン（2021年: $1.23$、2022年: $1.32$、2023年: $1.66$）の正確な数値を抽出・要約することに成功している。監査シミュレーションにおいては、特定の計画文書に基づき、ドメイン、アスペクト、インジケーター、および成熟度レベル（例：レベル3、インジケーター12、アスペクト2、ドメイン2）を正解（Ground-Truth）と一致するように割り当てることが可能である。この結果は、本手法が直接的な事実の検索だけでなく、証拠に基づいた成熟度スコアリングという複雑なタスクも実行できることを示している。</p></section>
+<section class="secsum"><h3>本文 (6/7)</h3><p>SPBEBOTの評価実験では、RAGASフレームワークを用いた定量的評価と、リッカート尺度によるユーザー満足度調査の両面から検証が行われた。RAGASによる評価結果では、平均してContext Recallが $0.83$、Answer Relevancyが $0.81$、Faithfulnessが $0.72$、Context Precisionが $0.68$ を記録しており、特にContext Recallは既存のインドネシア規制用RAGチャットボットであるKemenkeuGPTの $0.60$ を上回る高い値を示した。一方で、Context Precisionの低さは、類似した文言を持つ複数の指標が混在して検索されることに起因しており、具体的にはQ2において成熟度レベルやドメインは正しく特定したものの、指標（Indicator 13から16へ）とアスペクト（Aspect 2から5へ）を誤認する事例が確認された。ユーザー満足度調査では、回答の正確性、関連性、適合性、明快さ、監査タスクへの適合性、全体的な使いやすさを評価した結果、総合スコアは $84.6\%$ となり「非常に満足（Very Satisfied）」のカテゴリに分類された。本手法の限界として、単一の規制にのみ基づいている点、マルチクエリの統合後にリランキング工程がないため関連性の高い不要なチャンクが混入する点、およびベクトルベースのインデックスがドメイン、アスペクト、指標間の階層構造を完全には捉えきれていない点が挙げられる。</p></section>
+<section class="secsum"><h3>本文 (7/7)</h3><p>本研究では、インドネシアの電子政府（SPBE）の監査評価を支援するために、階層構造を考慮した検索拡張生成（RAG）フレームワークであるSPBEBOTを提案している。このフレームワークは、監査決定の信頼性を向上させることを目的としており、プロンプト設計の洗練や内部評価者による検証プロセスを含む。評価手法には、監査の意思決定を支援するための内部アセッサーによる精査が含まれており、これらを通じてシステムの信頼性を高めるアプローチが取られている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-26
+  </footer>
+</div>
+</body>
+</html>

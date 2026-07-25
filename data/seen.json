@@ -2561,6 +2561,37 @@
       "url": "https://www.semanticscholar.org/paper/513e1121d8d01ee8a27b52ff40ff9fc778f2dbfa",
       "venue": "Anais do XXII Congresso Latino-Americano de Software Livre e Tecnologias Abertas (Latinoware 2025)"
     },
+    "doi:10.67561/jaids.v2i1.5": {
+      "added": "2026-07-26",
+      "added_at": "2026-07-26T06:04:25.622684",
+      "arxiv_id": "",
+      "authors": [
+        "Regi Muhammar",
+        "Wiyli Yustanti",
+        "Bartolomeus Priya Perkasa Utama Widada"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "2026-07-04",
+      "doi": "10.67561/jaids.v2i1.5",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/doi-cc3cfffd0025.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://journal.ascendiumglobal.org/ascendiumjournal/ajaids/article/download/35/29",
+      "reading_value": 3,
+      "reading_value_reason": "階層構造を持つ規制文書へのRAG適用という実用的な課題に対し、Parent Document Retriever等の既存手法を組み合わせた構成は具体的で有用。ただし、手法の新規性は限定的。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "SPBEBOT: A Hierarchy-Aware Retrieval-Augmented Generation Framework for Evidence-Based Audit Assessment of Indonesian Electronic-Based Government",
+      "tldr": "インドネシアの電子政府（SPBE）監査における複雑な階層構造を持つ規制文書の扱いを困難にする問題に対し、階層構造を考慮したRAGフレームワークであるSPBEBOTを提案し、証拠に基づいた成熟度評価の支援を実現した。",
+      "url": "https://openalex.org/W7169838740",
+      "venue": "Journal of Artificial Intelligence and Data Science"
+    },
     "doi:10.70849/ijsci03052689720": {
       "added": "2026-07-02",
       "added_at": "2026-07-02T06:00:01.000000",
@@ -2683,9 +2714,76 @@
       "tldr": "専門的な技術文献における推論の困難さを解決するため、テキスト、知識グラフ、および視覚情報を統合し、エージェントによる自己修正プロセスを備えたマルチモーダルなRAGフレームワークTechGraphRAGを提案する。",
       "url": "https://openalex.org/W7163597511",
       "venue": ""
+    },
+    "title:techrag evidence gated multimodal agentic rag for technical literature reasoning": {
+      "added": "2026-07-26",
+      "added_at": "2026-07-26T06:07:37.978890",
+      "arxiv_id": "",
+      "authors": [
+        "Kanwar Bharat Singh"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "2026-06-01",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/t-985aac9a53d2.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.01613",
+      "reading_value": 4,
+      "reading_value_reason": "マルチエージェント、マルチモーダル、知識グラフを統合した高度なRAG構成が新規。技術ドメイン特化の設計は実用的で、研究者が手法を参考にする価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "TechRAG: Evidence-Gated Multimodal Agentic RAG for Technical Literature Reasoning",
+      "tldr": "専門的な技術文献における知識不足やハルシネーションを解決するため、エビデンスの十分性を制御信号とするマルチモーダルなエージェント型RAGフレームワークTechRAGを提案する。テキスト、視覚情報、知識グラフを統合的に活用し、マルチエージェントによる批判的な検証プロセスを通じて、信頼性の高い技術的推論を実現する。",
+      "url": "https://openalex.org/W7163597511",
+      "venue": "arXiv (Cornell University)"
     }
   },
   "mapf-mapd-warehouse": {
+    "arxiv:1302.0278": {
+      "added": "2026-07-26",
+      "added_at": "2026-07-26T06:01:40.814929",
+      "arxiv_id": "1302.0278",
+      "authors": [
+        "E. Guliyev",
+        "F. Ahmadov",
+        "G. Ahmadov",
+        "A. Sadigov",
+        "Z. Sadigov",
+        "N. Anfimov",
+        "Z. Krumshtein",
+        "A. Olshevski",
+        "V. Shvetsov",
+        "V. Zhezher",
+        "R. Madatov"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2013-02-01",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/1302.0278.html",
+      "matched_keywords": [
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/1302.0278v2",
+      "reading_value": 3,
+      "reading_value_reason": "MAPDを用いた小型検出器の構成と性能評価が具体的に示されている。新規性は限定的だが、低エネルギー領域での分光性能の検証は関連分野の研究者にとって有用。",
+      "relevance": 4,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Investigation of gamma ray detection performance of thin LFS scintillator with MAPD readout",
+      "tldr": "LFS-8シンチレータと高画素密度のMAPDを組み合わせた小型ガンマ線検出器を開発し、低エネルギー領域における優れた分光性能を確認した。",
+      "url": "http://arxiv.org/abs/1302.0278v2",
+      "venue": ""
+    },
     "arxiv:1705.10868": {
       "added": "2026-07-11",
       "added_at": "2026-07-11T06:01:40.237404",
@@ -3010,6 +3108,37 @@
       "title": "Multi-Goal Multi-Agent Pickup and Delivery",
       "tldr": "エージェントが継続的に新しいタスク（ピックアップとデリバリーのペア）を受け取るMulti-Agent Pickup and Delivery (MAPD) 問題に対し、Large Neighborhood Search (LNS) によるタスク割り当てとPriority-Based Search (PBS) による経路計画を組み合わせた分離型アルゴリズムを提案する。完全性を保証する $LNS\\text{-}PBS$ と、大規模環境でのスケーラビリティに優れた $LNS\\text{-}wPBS$ を提供し、既存手法を上回るサービス時間の短縮と安定性を実現する。",
       "url": "http://arxiv.org/abs/2208.01223v1",
+      "venue": ""
+    },
+    "arxiv:2209.05057": {
+      "added": "2026-07-26",
+      "added_at": "2026-07-26T06:01:24.779294",
+      "arxiv_id": "2209.05057",
+      "authors": [
+        "K. Isayev",
+        "A. Mammadli",
+        "K. Khuseynzada",
+        "A. Sadigov"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2022-09-12",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2209.05057.html",
+      "matched_keywords": [
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2209.05057v1",
+      "reading_value": 3,
+      "reading_value_reason": "埋め込み型ピクセル構造による高密度化という新規性はあるが、実験結果が特定のデバイス特性の報告に留まり、計算機科学的な示唆は限定的である。",
+      "relevance": 4,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "MAPD type avalanche photodetectors",
+      "tldr": "本研究は、次世代の医療用PETカメラへの応用を目指し、低動作電圧かつ高ピクセル密度を実現したマイクロピクセル・アバランシェ・フォトダイオード（MAPD）の特性を評価したものである。実験の結果、提案されたMAPDは、低電圧動作と高いゲインを両立しており、シンチレーション検出器のセンサーとして十分な性能を持つことが示された。",
+      "url": "http://arxiv.org/abs/2209.05057v1",
       "venue": ""
     },
     "arxiv:2211.13432": {
