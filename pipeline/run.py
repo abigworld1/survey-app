@@ -114,6 +114,34 @@ def _matched_keywords(paper, keywords):
     return out
 
 
+def _has_domain_context(paper, context_keywords):
+    """タイトル・要旨に購読分野を示す語が含まれるかを返す。"""
+    if not context_keywords:
+        return True
+    text = f"{paper.title or ''}\n{paper.abstract or ''}".lower()
+    return any(pt.search(text) for pt in _keyword_patterns(context_keywords))
+
+
+def _domain_context_issue(paper, matched_keywords, ambiguous_keywords, context_keywords):
+    """曖昧な略語だけで一致した別分野の論文を検出する。"""
+    ambiguous = {
+        str(keyword).strip().casefold()
+        for keyword in (ambiguous_keywords or [])
+        if str(keyword).strip()
+    }
+    matched = {
+        str(keyword).strip().casefold()
+        for keyword in (matched_keywords or [])
+        if str(keyword).strip()
+    }
+    if not ambiguous or not matched or not matched.issubset(ambiguous):
+        return ""
+    if _has_domain_context(paper, context_keywords):
+        return ""
+    labels = ", ".join(sorted(matched_keywords, key=str.casefold))
+    return f"曖昧な略語のみ一致（{labels}）、分野文脈なし"
+
+
 def _citations(paper):
     """被引用数。取れないソースは 0 として扱う。"""
     try:
@@ -496,6 +524,8 @@ def main(argv=None):
         fresh_important = [p for p in important_papers if p.key() not in useen]
         fresh_all = [p for p in papers if p.key() not in useen]
         keywords = sub.get("keywords", [])
+        ambiguous_keywords = sub.get("ambiguous_keywords", [])
+        context_keywords = sub.get("context_keywords", [])
         kw_pats = _keyword_patterns(keywords)
         important_quota = _important_quota(k)
         recent_quota = k - important_quota
@@ -529,7 +559,13 @@ def main(argv=None):
         for p in fallback:
             selection_kind.setdefault(p.key(), "fallback")
         candidate_queue = picked + fallback
-        relevant = [p for p in fresh_all if _relevance(p, kw_pats) > 0]
+        relevant = []
+        for p in fresh_all:
+            matched = _matched_keywords(p, keywords)
+            if _relevance(p, kw_pats) > 0 and not _domain_context_issue(
+                p, matched, ambiguous_keywords, context_keywords
+            ):
+                relevant.append(p)
         field_report = {
             "slug": uslug,
             "label": display,
@@ -561,6 +597,27 @@ def main(argv=None):
             matched_keywords = _matched_keywords(p, keywords)
             p.matched_keywords = matched_keywords
             kind = selection_kind.get(p.key(), "fallback")
+            context_issue = _domain_context_issue(
+                p, matched_keywords, ambiguous_keywords, context_keywords
+            )
+            if context_issue:
+                reasons = [context_issue]
+                field_report["skipped"].append(
+                    _report_paper(
+                        p,
+                        pid,
+                        kind,
+                        relevance_score,
+                        "metadata",
+                        {"reasons": reasons},
+                    )
+                )
+                print(
+                    f"    {pid}: {_selection_label(kind)} / 関連度{relevance_score} / "
+                    f"被引用{_citations(p)} / 本文取得前に除外"
+                )
+                print(f"      [skip] {context_issue}")
+                continue
             if not args.offline:
                 p = _enrich_fulltext_source(p)
             # 本文をセクション分割して多段要約（取れなければ abstract にフォールバック）

@@ -26,6 +26,25 @@ subscriptions:
       - "MAPD"
       - "Lifelong Multi-Agent Path Finding"
       - "Online Multi-Agent Path Finding"
+    # MAPF/MAPD は他分野でも使われるため、略語だけの一致には下記の文脈を必須にする。
+    ambiguous_keywords:
+      - "MAPF"
+      - "MAPD"
+    context_keywords:
+      - "Multi-Agent"
+      - "Multi Agent"
+      - "Path Finding"
+      - "Pathfinding"
+      - "Pickup and Delivery"
+      - "Pickup-and-Delivery"
+      - "Task Assignment"
+      - "Task Allocation"
+      - "Collision-Free"
+      - "Path Planning"
+      - "Multi-Robot"
+      - "Multi Robot"
+      - "Robot"
+      - "Warehouse"
     k: 2
     sources: [arxiv, openalex]
 

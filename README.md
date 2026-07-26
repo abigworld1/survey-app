@@ -139,6 +139,12 @@ subscriptions:
       - "MAPF"
       - "Multi-Agent Pickup and Delivery"
       - "MAPD"
+    ambiguous_keywords: ["MAPF", "MAPD"] # 他分野でも使われる曖昧な略語
+    context_keywords:                      # 略語だけの一致時に必須とする分野文脈
+      - "Multi-Agent"
+      - "Path Finding"
+      - "Pickup-and-Delivery"
+      - "Warehouse"
     k: 2                                   # 1日あたり最大ページ数（上限20）
     sources: [arxiv, openalex]
 
@@ -165,7 +171,8 @@ python3 -m venv .venv
 3. **採用**: `k: 2` では重要論文1本＋新着論文1本を採用。
    重要論文は `関連度 → 被引用数 → 本文の取りやすさ → 新しさ` の順、新着論文は `関連度 → 本文の取りやすさ → 新しさ` の順。
    関連度＝キーワードのタイトル一致(×3)＋アブストラクト一致(×1)。略語は単語境界判定（`RAG`が`storage`に誤マッチしない）。
-   適合0の論文は除外し、*k* 本に満たない時は次候補を試す。
+   適合0の論文は除外する。`ambiguous_keywords` だけで一致した候補は `context_keywords` の分野文脈も確認し、
+   条件を満たさない場合は次候補を試す。
 4. **本文取得**: arXiv HTML を優先（`arxiv.org/html/<id>`）。無ければ OA PDF（Unpaywall/OpenAlex → PyMuPDF）。取れなければ abstract。
    自動更新では abstract のみの候補も低品質ページ防止のため公開せず、次候補を試す。
 5. **多段要約**: 本文を主要セクション（Introduction / Methods / Experiments …）に分割し、
