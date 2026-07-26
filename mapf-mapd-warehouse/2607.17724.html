@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lifelong Multi-Subsystem Pickup and Delivery with Buffer-Limited Handover Stations | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Lifelong Multi-Subsystem Pickup and Delivery with Buffer-Limited Handover Stations</h1>
+  <div class="meta">Chuanlong Zang, Isabelle Barz, Anna Mannucci, Philipp Schillinger, Florian Lier, Wolfgang Hönig<br>採択先: arXiv (Cornell University) ・ 2026-07-20 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.17724v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.17724v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2607.17724" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 arXiv (Cornell University)</span><span class="chip">公開日 2026-07-20</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">有限容量のバッファを介したマルチサブシステム間の荷物交換という、実用上極めて重要な制約を定式化した点が新規。既存のMAPD手法を維持しつつ、予約カレンダーで拡張する設計も実用的で評価できる。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 異なる領域を管理する複数のサブシステムが、容量制限のある共有バッファを介して荷物を交換するMS-MAPD-BHS問題を定式化し、ドック予約とバッファ占有率の予測を用いるオンライン制御器HARRを提案することで、スループットの向上とバックログの削減を実現した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、エージェントが地理的に分離された領域に限定され、共有のハンドオーバー・ステーションを介してペイロードを交換するLifelong Multi-Agent Pickup and Delivery (MAPD) を対象としている。ハンドオーバー・ステーションは、単一の排他的なドック頂点、非プリエンプティブな荷役時間、および有限容量のバッファという制約を持つ。これらの制約により、不適切な管理下ではバッファ満了による上流のブロッキングや、荷物の不在による下流のスターベーションが発生するという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のMAPFやMAPDの研究は、有限容量のバッファを介した生涯にわたる荷物の受け渡しや、独立して動作する複数のフリート間での一時保管をモデル化していない。本研究は、オンラインのタスク到着、複数のフリート、明示的なペイロード転送、有限の転送ポイントにおけるストレージ、および時間枠という5つの次元において、既存研究と差別化されている。タスク割り当てやソルバー自体を再設計するのではなく、既存の運動計画サブシステムを維持したまま、明示的なドックおよびバッファのカレンダーを導入することで、スケーラブルな拡張を実現した点が新規である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法HARRは、各サブシステムのToken Passingプランナーを結合するオンラインコントローラである。共有のステーション・マネージャがドックの予約カレンダー $\mathcal{R}_{d}$ と、確定済みの操作に基づくバッファ占有率の予測 $\hat{O}_{d}$ を管理する。ドックへの操作（プッシュまたはプル）は、ドックが予約されておらず、かつ予測されるバッファ占有率が容量 $C_{d}$ の範囲内である $0 \le \hat{O}_{d} \le C_{d}$ を満たす場合にのみ受理される。アルゴリズムはバッファの排出を優先するため、各タイムステップでプルの要求をプッシュよりも先に処理し、ローリングホライゾン $T_{H}$ 内での安全性と衝突回避を保証する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>EmptyおよびWarehouseの2種類のグリッドマップを用い、C++実装のシミュレータで評価を行った。比較対象として、単一のグローバルなトークンを用いるMonoSBTP、およびドック割り当てを固定するFixedDockを用いた。評価指標はサービス時間、スループット、バックログである。実験の結果、中程度の負荷においてHARRはFixedDockと比較してスループットを最大 77% 向上させ、バックログを 92% 削減した。また、MonoSBTPと比較して、同等のサービス品質を維持しつつ計画時間を短縮できることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、ローリングホライゾン $T_{H}$ 内での安全性は保証するが、ホライゾン外の安全性や完全性は保証しない。また、オンライン挿入の順序に依存する問題があり、占有予測を省略した構成では有効な結果が得られない。今後の課題として、より長い階層的なサブシステム・チェーンへの対応、タスクの期限や優先度の考慮、実行の不確実性や双方向転送への対応、および大規模な環境におけるスケーラビリティの検証が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Lifelong Multi-Subsystem Pickup and Delivery with Buffer-Limited Handover Stations</h3><p>本研究では、エージェントが異なる領域に限定され、共有のハンドオーバー・ステーションを介してペイロードを交換する、Lifelong Multi-Agent Pickup and Delivery (MAPD) におけるサブシステム間の連携問題を MS-MAPD-BHS として定式化している。提案手法である Handover-Aware Reservation and Routing (HARR) は、各サブシステムのプランナーを結合するオンライン制御器であり、共有のドック予約カレンダーと、バッファ占有率の決定論的なローリングホライゾン投影を用いる。候補ルートの受理条件は、ドックの予約間隔が空いていること、およびその結果として予測されるバッファ占有率が容量内に収まることの2点であり、これによりドックの衝突回避とバッファ溢れの防止を保証している。シミュレーション実験の結果、中程度の負荷において、HARR は固定ドック方式と比較してスループットを最大 77% 向上させ、バックログを 92% 削減することに成功した。また、ステーションの状態を考慮した Token Passing ベースラインと比較して、計画時間を短縮できることも示されており、モジュール化されたマルチサブシステム輸送における明示的なインターフェース調整の有効性を実証している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究では、異なる管理下にある複数のエージェント群（サブシステム）が、限られた容量のバッファを持つ共有のハンドオーバー・ステーションを介して荷物を交換する、Lifelong Multi-Subsystem MAPD with Buffer-limited Handover Stations (MS-MAPD-BHS) を定式化している。この問題におけるハンドオーバー・ステーションは、単一の排他的なドック頂点、非プリエンプティブな荷役時間、および有限容量のバッファという制約を持ち、これらが不適切に管理されると、バッファ満了による上流のブロッキングや、荷物の不在による下流のスターベーションを引き起こす。提案手法であるHARR (Handover-Aware Reservation and Routing) は、各サブシステムのToken Passing (TP) プランナーを、共有のドック・カレンダーと決定論的なローリングホライゾンによるバッファ占有率予測を用いて結合するオンラインコントローラである。HARRは、ドックの利用間隔が空いており、かつ実行後のバッファ・スケジュールが容量制約を満たす場合にのみ、候補となる計画を承認する。実験では、オンラインのタスク到着下における平均サービス時間を評価指標とし、HARRを結合型TPおよび固定ドックを用いたアブレーションモデルと比較することで、サービス時間、スループット、バックログ、および計画コストの観点からその有効性を検証している。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>既存のマルチエージェント経路計画（MAPF）手法には、最適探索から限定的な劣最適性、大規模近傍探索、優先順位付け、ローリングホライゾン法まで多岐にわたるアプローチが存在するが、これらは有限容量のバッファを介した生涯にわたる（lifelong）荷物の受け渡しを扱っていない。オンラインのマルチエージェント・ピックアップ＆デリバリー（MAPD）では、トークンパッシングや予約テーブルを用いた手法が一般的であり、タスクの期限や運動学的制約、外部エージェント、あるいは交換調整を考慮した拡張も存在するが、独立して動作する複数のフリート間でペイロードを一時保管する単一サーバー型の有限容量転送インターフェースはモデル化されていない。また、異種チーム間の協調や荷物の積み替えに関する研究も存在するが、それらはタスクの分解やターミナルの容量、ソート資源、ブロッキングを扱うものの、個々のロボットの時刻指定された軌道を計画するものではない。提案手法であるMS-MAPD-BHSは、オンラインのタスク到着、複数のフリート、明示的なペイロード転送、有限の転送ポイントにおけるストレージ、および時間枠や期限という5つの次元において既存研究と差別化されており、特に非同期な受け渡しインターフェースで発生するブロッキングや飢餓状態を引き起こすバッファの動態を明示的にモデル化している。本手法は、タスク割り当てやMAPFソルバー自体を再設計するのではなく、運動計画サブシステムをローカルに維持したまま、明示的なドックおよびバッファのカレンダーを導入することで、スケーラブルなオンラインMAPDを拡張するものである。</p></section>
+<section class="secsum"><h3>III Problem Statement</h3><p>本研究では、バッファ容量が制限されたハンドオーバー・ステーションを介してペイロードを転送する、2つのサブシステム間での一方向のマルチ・サブシステム・ピックアップ＆デリバリー（MS-MAPD-BHS）問題を定義している。環境は無向グラフで構成され、各サブシステムは地理的に分離された領域 $V_i$ を持ち、それらは共有のドック頂点集合 $V_{\text{dock}}$ を通じてのみ接続される。各ドック頂点 $v \in V_{\text{dock}}$ は容量 $B_v$ の有限なバッファを持ち、時刻 $t$ におけるバッファ占有量を $b_v(t)$ とすると、$0 \le b_v(t) \le B_v$ を満たす必要がある。上流のサブシステムのエージェントがドックで荷降ろしを開始するには、その時点のバッファが満杯でないこと（$b_v(t) &lt; B_v$）が条件となり、荷降ろし完了時にバッファ占有量が増加する。一方、下流のエージェントは、バッファ内に目的のペイロードが存在する場合にのみ荷積みを開始でき、完了時に占有量が減少する。最適化の目的は、オンラインで発生するタスク集合 $\mathcal{T}$ に対して、衝突を回避しつつ、各タスクの完了時刻 $C_j$ の平均遅延であるサービスタイム $\frac{1}{|\mathcal{T}|} \sum_{j \in \mathcal{T}} (C_j - r_j)$ を最小化するオンライン・ポリシーを決定することである。</p></section>
+<section class="secsum"><h3>IV Handover-Aware Reservation and Routing (HARR)</h3><p>HARR（Handover-Aware Reservation and Routing）は、複数のサブシステム間でバッファ容量の制限があるハンドオーバ・ステーションを介した、オンラインのMAPD（Multi-Agent Pickup and Delivery）スキームである。各サブシステムはToken Passing（TP）を用いてエージェントの経路を決定するが、HARRは共有のステーション・マネージャを介して、ドックの占有予約を行うカレンダー $\mathcal{R}_{d}$ と、確定済みの操作によるバッファ占有状況を予測する $\hat{O}_{d}$ を管理することで、サブシステム間の干渉を防ぐ。ドックへの操作（プッシュまたはプル）の挿入は、ドックが予約されていないこと、バッファ容量 $C_{d}$ が維持されること、および将来の予測占有率 $\hat{O}_{d}$ が $0 \le \hat{O}_{d} \le C_{d}$ の範囲内に収まること、という3つの条件を満たす場合にのみ実行可能（Station-feasible）と定義される。アルゴリズムは、バッファの排出を優先するために、各タイムステップにおいてプルの要求をプッシュよりも先に処理する。タスク選択において、ダウンストリームのエージェントは未割り当てのプル・レグの集合 $\mathcal{U}_{pull}$ から候補を、アップストリームのエージェントは未割り当てのプッシュ・レグの集合 $\mathcal{U}_{push}$ から候補を探索する。計算量は、1回のトークン要求につき、最大で $N_{task} \times N_{dock}$ 回の空間時間A*探索を伴うが、最初の実行可能な候補が見つかり次第探索を終了する。本手法は、ローリングホライゾン $T_{H}$ 内でのバッファの安全性とドックの衝突回避を保証するが、ホライゾン外の安全性や完全性は保証しない。</p></section>
+<section class="secsum"><h3>V Comparators and Ablations</h3><p>本セクションでは、提案手法であるHARRの有効性を検証するために、1つの比較手法と2つのアブレーション研究が実施されている。比較手法のMonoSBTPは、全エージェントに対して単一のグローバルなトークンを用いたToken Passingを行う一方で、各エージェントの探索空間を所属するサブシステム内の頂点に限定しており、ドックの排他制御は共有ドック頂点におけるグローバルな衝突回避によって暗黙的に実現される。アブレーションの一つであるFixedDockは、タスクのリリース時に最小距離のドックを割り当て、オンラインでのドック変更を禁止することで、適応的なドック選択機能の影響を分離している。もう一つのアブレーションであるStartResBufは、ローリングホライゾンによる占有予測を省略し、新規に挿入されたドック操作がドックの空き状況とローカルな開始ガードのみを確認する構成となっている。しかし、オンライン挿入が時系列順に行われないため、StartResBufでは新しく受理された過去のイベントが既に確定済みの後続の操作を無効化する問題が発生し、テスト設定において有効な実行結果が得られなかったため、負の対照実験として扱われている。</p></section>
+<section class="secsum"><h3>VI Experiments</h3><p>提案手法であるHARRの評価は、C++で実装された2サブシステムMS-MAPD-BHSモデルのシミュレータを用いて、開けた領域であるEmptyマップと、棚による混雑が発生しやすいWarehouseマップの2つのグリッドドメインで行われた。実験では、正規化されたドック提供負荷（offered dock load）を変化させ、サービス時間、スループット（tasks/timestep）、およびバックログ（未完了タスク数）の3つの指標を用いて性能を測定している。アダプティブなドック選択の検証において、HARRは固定ドック割り当てを行うFixedDockと比較して、中程度の負荷において高いスループットと大幅に低いバックログを実現し、特にWarehouseマップにおいてその優位性が顕著であった。また、ドック数やバッファ容量を増やした場合、HARRは動的なドック選択能力により、追加のドックからより大きな恩恵を受けることが示された。さらに、エージェント数を変化させたフリートサイズのスウィープ実験では、HARRはグローバルなトークンを用いるMonoSBTPと比較して、サービス品質を維持しつつ、計算コスト（平均計画時間）を低く抑えられることが確認された。ただし、本実験は固定されたワークスペース内での評価に留まっており、マップサイズに対する漸近的なスケーラビリティや、ドック候補数の制限（dock-candidate cap）が有効に機能する大規模なインターフェース環境での検証は今後の課題とされている。</p></section>
+<section class="secsum"><h3>VII Conclusion</h3><p>本研究では、領域限定されたフリートがバッファ容量の制限されたハンドオーバー・ステーションを介してペイロードを交換する、生涯継続的なピックアップ・アンド・デリバリー問題である MS-MAPD-BHS を提案している。提案手法である HARR は、共有のドック予約と、確定済みのバッファイベントに対する決定論的なローリングホライゾン投影を用いることで、サブシステムごとのローカルな Token Passing プランナーを調整する。実行が完璧であるという条件下では、受理されたドック操作は強制されたホライゾン内で衝突およびバッファ溢れが発生しないことが保証されるが、手法自体は不完全（incomplete）である。シミュレーション実験の結果、中程度の負荷において HARR は FixedDock と比較してスループットを最大 77% 向上させ、バックログを 92% 削減することに成功し、さらに同等のサービス時間において MonoSBTP よりも計画時間を短縮できることが示された。今後の課題として、より長い階層的なサブシステム・チェーンの実装、期限や優先度を考慮した割り当て、実行の不確実性や双方向転送への対応、およびワークスペースのサイズやパラメータ感度、安定性のスケーリングに関する研究が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-26
+  </footer>
+</div>
+</body>
+</html>

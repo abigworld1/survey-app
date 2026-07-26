@@ -2910,6 +2910,38 @@
       "url": "http://arxiv.org/abs/2201.06014v2",
       "venue": ""
     },
+    "arxiv:2202.04382": {
+      "added": "2026-07-26",
+      "added_at": "2026-07-26T21:32:03.708646",
+      "arxiv_id": "2202.04382",
+      "authors": [
+        "Nitzan Madar",
+        "Kiril Solovey",
+        "Oren Salzman"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 0,
+      "date": "2022-02-09",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2202.04382.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2202.04382v3",
+      "reading_value": 3,
+      "reading_value_reason": "L-MAPFにおける過去の優先順位の再利用という、実用的な着眼点の提案は評価できる。実験による速度向上も示されているが、手法の新規性は既存のPBSの拡張に留まり、被引用数も現時点では低いため、関連分野の研究者が参照すべきレベルと判断した。",
+      "relevance": 3,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Leveraging Experience in Lifelong Multi-Agent Pathfinding",
+      "tldr": "Lifelong Multi-Agent Pathfinding (L-MAPF) において、連続するタスク間の類似性を活用するために、過去の優先順位を次回の探索の初期値として利用する exRHCR を提案し、計算時間の短縮とシステムスループットの向上を実現する。",
+      "url": "http://arxiv.org/abs/2202.04382v3",
+      "venue": ""
+    },
     "arxiv:2202.10449": {
       "added": "2026-07-15",
       "added_at": "2026-07-15T06:01:11.575040",
@@ -5181,6 +5213,40 @@
       "title": "Stigmergic Graph Memory: An Environment-Aware Approach for Many-to-Many Multi-Agent Pickup and Delivery",
       "tldr": "Many-to-Many Multi-Agent Pickup and Delivery (M2M MAPD) において、静的な割り当てが特定の通路への混雑を招く問題に対し、環境の実行履歴を保持するメモリ層を用いて、エンドポイントの選択と経路の優先順位を動的に最適化する Stigmergic Graph Memory (SGM) を提案する。これにより、衝突回避制約を維持したまま、スループットを大幅に向上させることに成功した。",
       "url": "http://arxiv.org/abs/2607.15182v1",
+      "venue": "arXiv (Cornell University)"
+    },
+    "doi:10.48550/arxiv.2607.17724": {
+      "added": "2026-07-26",
+      "added_at": "2026-07-26T21:32:42.480166",
+      "arxiv_id": "2607.17724",
+      "authors": [
+        "Chuanlong Zang",
+        "Isabelle Barz",
+        "Anna Mannucci",
+        "Philipp Schillinger",
+        "Florian Lier",
+        "Wolfgang Hönig"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-20",
+      "doi": "10.48550/arxiv.2607.17724",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2607.17724.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.17724v1",
+      "reading_value": 4,
+      "reading_value_reason": "有限容量のバッファを介したマルチサブシステム間の荷物交換という、実用上極めて重要な制約を定式化した点が新規。既存のMAPD手法を維持しつつ、予約カレンダーで拡張する設計も実用的で評価できる。",
+      "relevance": 2,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Lifelong Multi-Subsystem Pickup and Delivery with Buffer-Limited Handover Stations",
+      "tldr": "異なる領域を管理する複数のサブシステムが、容量制限のある共有バッファを介して荷物を交換するMS-MAPD-BHS問題を定式化し、ドック予約とバッファ占有率の予測を用いるオンライン制御器HARRを提案することで、スループットの向上とバックログの削減を実現した。",
+      "url": "http://arxiv.org/abs/2607.17724v1",
       "venue": "arXiv (Cornell University)"
     },
     "title:efficient tsp based task group allocation for multi task multi agent pickup and delivery": {
