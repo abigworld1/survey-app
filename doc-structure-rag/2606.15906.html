@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MAGE-RAG: Multigranular Adaptive Graph Evidence for Agentic Multimodal RAG in Long-Document QA | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>MAGE-RAG: Multigranular Adaptive Graph Evidence for Agentic Multimodal RAG in Long-Document QA</h1>
+  <div class="meta">Yilong Zuo, Xunkai Li, Jing Yuan, Qiangqiang Dai, Hongchao Qin, Ronghua Li<br>採択先: arXiv (Cornell University) ・ 2026-06-14 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/99be38871ef855ea0e4264043402c1e0c9972947" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.15906" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 arXiv (Cornell University)</span><span class="chip">公開日 2026-06-14</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">長文マルチモーダルRAGを予算制約下の動的グラフ構築問題として定式化した新規性が高い。多粒度な証拠管理とエージェント的アプローチは実用的で、研究価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 長大なPDFドキュメントにおけるマルチモーダル質問応答において、固定的な検索数や単一の粒度による情報の欠落を解決するため、予算制約下で証拠サブグラフを動的に構築するMAGE-RAGを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、テキスト、表、画像、チャート、レイアウト情報が混在する長大なPDFドキュメントに対するマルチモーダル質問応答である。従来のRAG手法では、固定された検索数（Fixed Top-$k$）や単一の粒度による検索に依存しており、クエリ実行時に動的に証拠を管理する仕組みが欠如している。これにより、分散した証拠の網羅性とコンテキストノイズの抑制を両立させることが困難であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究は、長文マルチモーダルQAを、予算制約下でのクエリ時証拠サブグラフ構築問題として定式化した点に新規性がある。従来のページレベルの視覚的検索や静的なパース手法とは異なり、ページ検索を安定したエントリーポイントとしつつ、クエリに応じて多粒度な証拠グラフを動的に更新・構築するエージェント的なアプローチを実現している。これにより、質問ごとに異なる証拠規模へ柔軟に適応することが可能となった。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>オフライン時に、ページノード $\mathcal{V}_{\text{page}}$ と要素ノード $\mathcal{V}_{\text{elem}}$ からなる異種グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ を構築する。グラフには包含関係 $\mathcal{E}_{\text{cont}}$、読解順序 $\mathcal{E}_{\text{ord}}$、レイアウト $\mathcal{E}_{\text{lay}}$、階層 $\mathcal{E}_{\text{hier}}$、意味的近傍 $\mathcal{E}_{\text{sem}}$ の5種類の関係性がエンコードされる。オンライン時には、まずページ埋め込みの類似度に基づき初期ページを選択した後、証拠コントローラーがノードの状態を「未訪問」「活性化」「展開済み」「削除済み」の4段階で管理する。コントローラーは、予算ベクトル $\mathcal{B}$ の制約下で、ノードの活性化、詳細展開、証拠の再検索、不要なノードの削除といったアクションを反復的に実行し、最終的に構造化されたマルチモーダル入力を生成する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>LongDocURLおよびMMLongBench-Docデータセットを用いて、Qwen3-VL-8B-Instructをリーダーとした比較実験を行った。LongDocURLにおいて52.75%の総合精度を、MMLongBench-Docにおいて53.26%の精度および51.19%のF1スコアを達成し、既存のText RAGやPage-level Visual RAGを上回る性能を示した。アブレーション研究により、グラフ近傍の拡張とオンライン検索が性能向上に不可欠であることが確認された。また、正解サンプルは不正解サンプルと比較して、平均してより多くのノード（17.57対16.58）や画像（21.54対20.42）をリーダーに送る傾向があることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法の性能上限は、オフライン時に構築される証拠グラフの品質に依存するという課題がある。また、コントローラーが追加の評価器呼び出しや状態維持のコストを導入するため、短文やシングルホップの単純な質問に対しては必ずしも費用対効果が高いとは限らない。今後の課題として、コントローラーの推論コストの最適化や、より複雑な視覚的レイアウトへの適応が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>MAGE-RAG: Multigranular Adaptive Graph Evidence for Agentic Multimodal RAG in Long-Document QA</h3><p>MAGE-RAGは、長大なPDFドキュメントにおけるテキスト、表、画像、チャート、レイアウト情報を統合して扱うための、多粒度適応型グラフ証拠フレームワークである。オフライン時に、ページノードと要素ノードからなる証拠グラフを構築し、包含関係、読取順序、レイアウトの隣接性、セクションの階層構造、および意味的な近傍関係をエンコードする。クエリ実行時には、オンライン証拠コントローラーが明示的な予算制約の下で、証拠の活性化、展開、探索、および枝刈りを反復的に行うことで、分散した証拠の網羅性とコンテキストノイズの抑制を両立させる。抽出された証拠のサブグラフは構造化されたマルチモーダル入力としてレンダリングされ、大規模視覚言語モデル（LVLM）が限られたコンテキスト内でコンパクトかつ関連性の高い情報を消費することを可能にする。LongDocURLベンチマークにおいて52.75%の総合精度を、MMLongBench-Docにおいて53.26%の精度および51.19%のF1スコアを達成しており、固定的なTop-$k$ 取得手法と比較して、予算に応じた柔軟な証拠構築が可能であることを示している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>長文マルチモーダル質問応答（Long-document Multimodal QA）において、既存のRAG手法は固定された検索数（Fixed Top-k）や単一の粒度による検索、およびクエリ実行時の動的な証拠管理の欠如という3つの限界（L1: Fixed Top- and static budgets, L2: Single-granularity evidence, L3: Lack of query-time evidence control）を抱えています。本研究では、この課題に対し、予算制約下でのクエリ実行時証拠管理（query-time evidence management under a budget constraint）として問題を定式化し、MAGE-RAGを提案します。MAGE-RAGは、オフライン時にページ全体とページ内の局所的要素を同一の証拠空間に配置した文書証拠グラフを構築し、オンライン時にページレベルの視覚的検索から開始して、証拠コントローラーが証拠の活性化、展開、探索、および削除を反復的に実行することで、コンパクトな証拠サブグラフを動的に構成します。このプロセスにより、粗いページコンテキストと微細な要素レベルの証拠を共通のステート空間内で選択・整理し、最終的に構造化されたマルチモーダル入力としてリーダーに提供することが可能になります。実験では、LongDocURLおよびMMLongBench-Docを用いて、精度、証拠予算、単一ページ・複数ページにわたる質問への対応力、および証拠の追跡可能性の観点から、提案手法の有効性と失敗モードを分析しています。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>長文マルチモーダル質問応答（QA）の分野は、単一ページの認識から、MMLongBench-DocやLongDocURLに代表されるような、分散した証拠の特定、ページを跨いだ情報の統合、およびマルチモーダルな情報の整合性を重視する設定へと進化している。従来のRAGパイプラインは、BM25やColBERTv2を用いたテキストベースの検索に依存しており、ページレイアウトや表構造、図表の幾何学的情報が欠落する課題があった。これに対し、ColPaliのようなページレベルの視覚的検索や、VisRAG、M3DocRAGなどのマルチモーダル検索の研究が進んでいるが、ページ全体を検索した後に静的なパースを行う手法では、生成器に無関係な領域を多く渡してしまう問題がある。また、ReActやSelf-RAGのようなエージェント的なアプローチや、GraphReader、G-Retrieverのようなグラフ構造を用いた探索手法も提案されており、長文QAは単発の検索から、構造化された状態保持型の証拠構築へと移行している。提案手法であるMAGE-RAGは、ページ検索という安定したエントリーポイントを維持しつつ、検索されたページ上に多粒度な証拠グラフを構築し、クエリ実行時にコントローラーが予算制約の下で証拠のサブグラフを動的に更新・構築することで、効率的な回答生成を実現する。</p></section>
+<section class="secsum"><h3>III Problem Formulation</h3><p>本研究では、長大なPDFドキュメントに対するマルチモーダル質問応答（QA）を、予算制約下でのクエリ時証拠サブグラフ構築問題として定式化している。ドキュメントは、ページノード $\mathcal{V}_{\text{page}}$ と、見出し、段落、表、図などの要素ノード $\mathcal{V}_{\text{elem}}$ からなる異種グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ として表現され、各ノードはマルチモーダルな記述 $d_v = (s_v, c_v, b_v, i_v)$ を保持する。システムは、ノードの状態を未選択 $\text{unvisited}$、選択済み $\text{activated}$、詳細展開済み $\text{opened}$、または不要 $\text{pruned}$ の4段階で管理し、これらによって誘導される作業用証拠サブグラフ $\mathcal{G}_{\text{work}}$ を構築する。エージェントの行動空間は、ページや要素の活性化、詳細展開、証拠の再検索、不要なノードの削除、および終了から構成され、これらは初期ページ数や反復回数、最終的な展開ノード数などを制御する予算ベクトル $\mathcal{B}$ の制約を受ける。最適化の目的関数は、回答への支持度 $\mathcal{A}$、ノイズ $\mathcal{N}$、および推論コスト $\mathcal{C}$ を用いて、$\max_{\pi} \mathbb{E} [\mathcal{A}(\mathcal{S}, q) - \lambda_1 \mathcal{N}(\mathcal{S}, q) - \lambda_2 \mathcal{C}(\mathcal{S})]$ と定義される。MAGE-RAGは、ページレベルの視覚的検索で初期ページを特定した後、候補生成器と評価器を用いて、予算内で回答に寄与する証拠を逐次的に選択・展開するオンライン制御プロセスとしてこの問題を解く。</p></section>
+<section class="secsum"><h3>IV Empirical Study</h3><p>本セクションでは、長文マルチモーダルQAにおける「固定的なTop-$k$検索」と「単一の証拠粒度」という2つの限界を検証するための設計指向の実証研究が示されている。MMLongBench-Docを用いた実験では、初期のページ取得数 $k$ を変化させた際、$k$ を増やすことでクロスページの証拠は回収できるものの、一律に精度が向上するわけではなく、過剰なページ取得は回答不能な問題の識別精度を下げ、低密度なページを読者に渡してしまうトレードオフが存在することが示された。LongDocURLを用いた層別分析では、テキスト、表、図表などの要素ごとに必要な粒度が異なることが明らかになり、ページレベルの視覚的アンカーと、表や段落などの高密度な局所証拠を併用するマルチグラニュラ（多粒度）な証拠グラフの必要性が示唆されている。また、MAGE-RAGのコントローラーによる実行トレースの分析によれば、正解サンプルは不正解サンプルと比較して、トレースの長さが極端に長いわけではなく、同程度の反復予算内でより多くの証拠ノードの展開や検索アクションを行っていることが確認された。これらの結果に基づき、MAGE-RAGは、ページレベルの視覚的検索をエントリーポイントとし、クエリ実行時に証拠の状態を拡張、展開、検索、および剪定することで、質問ごとに異なる証拠規模に動的に適応する設計となっている。</p></section>
+<section class="secsum"><h3>V Methodology</h3><p>MAGE-RAGは、長文文書のQAにおいて、ページ単位と要素単位のマルチグラニュラリティ（多粒度）な証拠グラフを活用するエージェント型マルチモーダルRAGフレームワークである。オフライン段階では、ページノードと、見出し、表、図、数式などの詳細な要素ノードからなるグラフを構築し、包含関係 $\mathcal{E}_{\text{cont}}$、読解順序 $\mathcal{E}_{\text{ord}}$、レイアウト $\mathcal{E}_{\text{lay}}$、階層 $\mathcal{E}_{\text{hier}}$、および意味的近傍 $\mathcal{E}_{\text{sem}}$ の5種類の関係性で接続する。オンライン段階では、まず質問 $q$ とページ埋め込みの類似度に基づき、上位 $k$ ページの $\text{Top-}k_{\text{page}}$ を初期接地として選択する。その後、オンライン証拠コントローラーが、証拠の状態 $S$ を「未アクティブ」「アクティブ（要約レベル）」「オープン（詳細内容展開済み）」「削除済み」の4状態で管理しながら、$\text{ActivateNode}$、$\text{OpenNode}$、$\text{SearchEvidence}$、$\text{PruneNode}$ などのアクションを逐次的に決定する。このプロセスは、初期ページ数 $k$、各反復の最大アクティブ数 $m$, 全アクティブ数 $M$, 最大反復回数 $T$, および最終的なオープンノード予算 $B$ という制約条件下で実行される。最終的に、構造化レンダラーが、非削除されたページと要素をXML形式で整理し、ページ画像、要素のローカル画像、およびテキスト要約を組み合わせたマルチモーダルな入力 $\mathcal{M}$ を生成して、LVLM（大規模視覚言語モデル）へと渡す。</p></section>
+<section class="secsum"><h3>VI Experiments</h3><p>MAGE-RAGの実験では、LongDocURLおよびMMLongBench-Docの2つのデータセットを用い、Qwen3-VL-8B-Instructをリーダーとして、Direct MLLM、Text RAG（BM25, ColBERTv2）、Page-level Visual RAG（M3DocRAG, VisRAG等）、および既存のGraph/Agentic RAGと比較評価を行っています。実験結果として、MAGE-RAGはLongDocURLで52.75%の精度、MMLongBench-Docで53.26%の精度および51.19%のF1スコアを達成し、既存手法を上回る性能を示しました。特に、固定粒度の検索では困難な、ページを跨ぐ証拠の組織化や、要素レベルの視覚情報の活用において高い優位性が確認されています。予算感度分析では、初期ページ数 $P_{init}$、コントローラーの反復回数 $I$、および反復あたりのアクション数 $A$ が性能に影響を与えますが、単純なコンテキストの拡大ではなく、証拠の検索軌跡を最適化することが重要であることが示されました。アブレーション研究により、グラフ近傍の拡張（Graph Neighbor Expansion）が最も高い性能を示し、オンライン検索（Online Search）が分散した証拠を補完する上で不可欠であることが明らかになりました。また、トレース分析の結果、正解サンプルは不正解サンプルと比較して、平均してより多くのノード（17.57対16.58）や画像（21.54対20.42）をリーダーに送る傾向にありますが、入力サイズの増大のみが成功を保証するわけではないことが示されています。</p></section>
+<section class="secsum"><h3>VII Conclusion</h3><p>本研究は、長文マルチモーダルQAにおける証拠の整理を、予算制約下でのクエリ時証拠サブグラフ構築問題として定式化し、MAGE-RAGを提案している。この手法は、ページレベルの視覚的エントリーポイント、多粒度な証拠グラフ、オンライン証拠コントローラー、および構造化されたリーダーレンダリングを組み合わせることで、ページ検索、局所的な証拠拡張、およびリーダー入力の構築を、疎でページを跨ぐ視覚的に不均一な証拠を整理するための独立したステップとして実行する。LongDocURLおよびMMLongBench-Docを用いた評価の結果、MAGE-RAGの性能向上は単なるコンテキストの拡大によるものではなく、ページレベルのエントリーから開始し、質問に応じて局所ノードを展開し、グラフ関係に沿って証拠を補完した上で、低価値なコンテンツを削除するプロセスに起因することが示された。システムのトレース記録には、ページのアクティベーション、ノードの展開、集中探索、枝刈り、および停止理由が含まれており、エラーの帰属分析やデバッグに活用できる。本フレームワークの性能上限はオフラインでの証拠グラフの品質に依存し、コントローラーが追加の評価器呼び出しと状態維持コストを導入するという限界がある。そのため、MAGE-RAGは証拠が疎な場合やページを跨ぐ依存関係、複雑な視覚的レイアウトを持つ長文問題には適しているが、短文やシングルホップのケースでは必ずしも費用対効果が高いとは限らない。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-27
+  </footer>
+</div>
+</body>
+</html>

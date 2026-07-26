@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Chain of Evidence: Pixel-Level Visual Attribution for Iterative Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Chain of Evidence: Pixel-Level Visual Attribution for Iterative Retrieval-Augmented Generation</h1>
+  <div class="meta">Peiyang Liu, Ziqiang Cui, Xi Wang, Di Liang, Wei Ye<br>採択先: Proceedings of the 49th International ACM SIGIR Conference on Research and Development in Information Retrieval ・ 2026-05-02 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/889baea00426c2014358c4e378f73e4fced7d462" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.1145/3805712.3809540" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1145/3805712.3809540" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Proceedings of the 49th International ACM SIGIR Conference on Research and Development in Information Retrieval</span><span class="chip">公開日 2026-05-02</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 1</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGにおける視覚情報の欠落という重要な課題に対し、ピクセルレベルの根拠提示とマルチホップ推論を統合した点は新規性が高い。大規模な新ベンチマークの導入も価値がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span></div>
+  <div class="tldr"><strong>一言で:</strong> 反復的な検索拡張生成（iRAG）において、テキスト解析によるレイアウト情報の喪失と根拠提示の粗さを解決するため、ドキュメントのスクリーンショットからピクセルレベルの根拠を特定する視覚的帰属フレームワークChain of Evidence（CoE）を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のテキストベースのRAGは、OCRやテキスト解析による線形化の過程で、図表やレイアウトに含まれる視覚的な意味情報を喪失するという課題がある。また、マルチホップな推論過程において、根拠となる箇所を提示する粒度が粗いことも問題となっている。本研究は、検索された文書候補のスクリーンショットを対象とし、回答 $a$ と共に、推論の根拠となる領域をピクセル単位のバウンディングボックスとして出力することを目的とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のiRAG研究は主に解析済みのテキストに依存しており、視覚的なレイアウト情報を破棄している点や、引用の粒度が粗い点が課題であった。本研究は、単一ステップの視覚的帰属を行う既存手法を拡張し、リトリーバーに依存せず、複数の文書にわたる視覚的証拠の完全な連鎖を構築するマルチホップ視覚推論を実現した。また、視覚的な根拠の局所化を評価するための大規模ベンチマークであるWiki-CoEを新たに導入している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>CoEは、スクリーンショット画像 $\mathcal{I}$ とクエリ $q$ を入力とし、回答 $a$ と根拠の連鎖 $\mathcal{E}$ を単一の自己回帰的な生成プロセスで出力する。根拠の連鎖 $\mathcal{E}$ は、各ステップ $h \in \{1, \dots, H\}$ において、ドキュメント識別子 $i_h$、境界ボックスの集合 $\mathcal{B}_h$、およびサブクエリ $s_h$ で構成される。手法は特定の検索器に依存しない設計であり、上位 $k$ 個の候補集合 $\mathcal{D}$ から論理的な推論順序に従って証拠を選択・接地する。学習には、単一ホップからマルチホップへと段階的に進む2段階のカリキュラム学習を採用し、空間的拡張や根拠の順序入れ替えなどのデータ拡張を導入している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Wiki-CoEおよびSlideVQAの2つのデータセットを用い、Exact Match（EM）、Evidence Localization Accuracy（Loc-Acc）、Reasoning Chain Accuracy（Chain-Acc）を指標として評価した。Wiki-CoEにおいて、微調整されたQwen3-VL-8B-Instructは、EM 82.3%、Chain-Acc 94.4%、Loc-Acc 80.4%を達成した。SlideVQAでは、図解を含む複雑なレイアウトにおいて、OCRベースの手法を大幅に上回る性能を示した。計算コストについては、1問あたり5.6秒の推論時間を要するが、4-bit量子化によりメモリ使用量を28GBから16GBへと約43%削減可能である。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>推論タスクにおいて、文書の選択（Chain-Acc 99.5%）は極めて正確である一方、明示的なテキストとして描画されていない論理的つながりをバウンディングボックスで特定すること（Loc-Acc 38.4%）には課題が残る。また、テキストベースの手法と比較して推論時間にオーバーヘッドが生じるというトレードオフが存在する。今後の課題として、このフレームワークを動的なビデオフレームやインタラクティブなアプリインターフェースなどの異種ウェブコンテンツへと拡張することが挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Chain of Evidence: Pixel-Level Visual Attribution for Iterative Retrieval-Augmented Generation</h3><p>Chain of Evidence (CoE) は、反復的な検索拡張生成（iRAG）において、テキストベースの解析による粒度の粗い根拠提示や、図表を含む文書のレイアウト情報の喪失という課題を解決するための、リトリーバーに依存しない視覚的帰属フレームワークである。本手法は、検索された文書候補のスクリーンショットに対して視覚言語モデル（VLM）を直接適用することで、フォーマット固有のパース処理を排除し、推論過程における根拠となる箇所をピクセルレベルのバウンディングボックスとして出力する。評価には、2WikiMultiHopQAから派生した構造化ウェブページの大規模データセットである Wiki-CoE と、複雑な図解や自由なレイアウトを持つプレゼンテーションスライドを用いた SlideVQA の2つのベンチマークが用いられている。実験の結果、微調整された Qwen3-VL-8B-Instruct は、視覚的なレイアウト理解を必要とするシナリオにおいてテキストベースのベースラインを大幅に上回る性能を示し、解釈可能な iRAG を実現している。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>反復的な検索拡張生成（iRAG）における根拠提示の課題を解決するため、ドキュメントのスクリーンショット上で直接動作する視覚的属性付けフレームワークであるChain of Evidence（CoE）が提案されている。従来のテキストベースのRAGは、OCRやテキスト解析による線形化の過程で、図表やレイアウトに含まれる視覚的な意味情報を喪失するという問題があり、また、マルチホップな推論過程における根拠の連鎖を提示できないという限界がある。CoEは、Vision-Language Models（VLM）を活用して、テキスト段落、表のセル、あるいは図解などの根拠領域をピクセル単位のバウンディングボックスとして特定することで、推論の透明性を確保する。評価のために、2WikiMultiHopQAから構築された構造化されたWikipediaレイアウトを持つ大規模データセットWiki-CoEと、複雑な視覚的推論を必要とするSlideVQAの2つのベンチマークが導入されている。実験の結果、CoEはWiki-CoEにおいて80.4%の根拠位置特定精度を達成し、テキストベースの手法ではレイアウト情報の欠落により失敗するSlideVQAにおいても、視覚的な意味論を保持することで大幅に優れた性能を示すことが確認された。</p></section>
+<section class="secsum"><h3>2. Related Work</h3><p>従来のRAGシステムは、多段階の推論を必要とする複雑なクエリに対して課題があり、これを解決するために複数回の検索を行う反復的RAG（iRAG）が提案されている。近年のiRAGの研究では、検索頻度を動的に制御する適応的戦略や、文脈利用を向上させる検索認識型ファインチューニング、さらには明示的なアクションチェーンや知識トリプルを用いた能動的検索などの最適化が進められており、2WikiMultiHopQAなどのテキストベンチマークで高い性能を示している。しかし、既存のiRAGは主に解析済みのテキストに依存しており、視覚的なレイアウト情報を破棄している点や、引用が粗い粒度にとどまっている点が課題である。また、LLMの信頼性を高めるためのソース帰属（Source Attribution）に関する研究も存在するが、AISフレームワークのような評価手法や、学習プロセスへの帰属目的の統合が行われてきたものの、その多くはテキストレベルの引用に限定されており、ユーザーが文書内の証拠を手動で探す必要がある。最新のVISAのような手法は、単一ステップの検索において視覚的な帰属を実現しているが、本研究はこれを拡張し、リトリーバーに依存しない上位5つの候補設定において、複数の文書にわたる視覚的証拠の完全な連鎖を構築するマルチホップ視覚推論へと発展させている。</p></section>
+<section class="secsum"><h3>3. Wiki-CoE Dataset</h3><p>Wiki-CoEは、マルチホップ推論におけるピクセルレベルの根拠提示（visual attribution）を評価するために設計された、初の広範なベンチマークデータセットである。既存の2WikiMultiHopQAがテキストベースの根拠のみを提供しているのに対し、本データセットはWikipediaのレイアウト、表、インフォボックス、画像などの視覚的要素を保持した高解像度スクリーンショットと、それに対応するバウンディングボックスを提供することで、視覚的な根拠の局所化を可能にしている。データセットの構築には、Selenium WebDriverを用いた高解像度スクリーンショットの取得と、2WikiMultiHopQAの根拠文をレンダリングされた要素（段落、表のセル、リスト項目など）に正確または類似度ベースでマッチングさせ、ピクセル座標のバウンディングボックスを生成するパイプラインが用いられている。構築プロセスでは、質問との関連頻度に基づく優先的なサンプリング、レンダリングの成否、バウンディングボックスの有効性、およびテキストとの対応関係に基づく厳格な品質フィルタリングが実施されている。最終的に、Wiki-CoEは70,418個のマルチホップ質問（訓練用35,210、テスト用35,208）で構成され、これらはエンティティの連鎖（entity-chain）レベルで分割されている。質問のタイプは、比較（Comparison）、推論（Inference）、構成的（Compositional）、およびブリッジ比較（Bridge comparison）の4種類に分類される。</p></section>
+<section class="secsum"><h3>4. Methodology</h3><p>Chain of Evidence (CoE) は、視覚的なレイアウトや書式を保持したスクリーンショット画像 $\mathcal{I}$ を用いて、マルチホップなクエリ $q$ に対する回答 $a$ と根拠の連鎖 $\mathcal{E}$ を生成するマルチモーダル推論タスクを定義する。根拠の連鎖 $\mathcal{E}$ は、各ステップ $h \in \{1, \dots, H\}$ において、選択されたドキュメントの識別子 $i_h$、証拠領域を示す境界ボックスの集合 $\mathcal{B}_h$、およびそのステップで探索すべき情報を記述する自然言語のサブクエリ $s_h$ から構成される。本手法は特定の検索器に依存しない retriever-agnostic な設計となっており、上位 $k$ 個の候補集合 $\mathcal{D}$ が与えられた際、それらの順序に依存せず、論理的な推論順序に従って証拠を選択・順序付け・接地（grounding）する。モデルは、クエリ $q$ と候補画像集合 $\mathcal{I}$ を条件として、回答 $a$ と根拠の連鎖 $\mathcal{E}$ を単一の自己回帰的な生成プロセスによって出力する。実験設定では、SlideVQA では同一のスライドデッキから、Wiki-CoE では Wikipedia のスクリーンショットプールから妨害要素（distractors）をサンプリングし、候補の順序をシャッフルすることで、モデルが位置情報に頼らずに明示的な画像識別子を出力する必要がある環境を構築している。</p></section>
+<section class="secsum"><h3>5. Experiment Setup</h3><p>本研究では、CoEの能力を評価するために、構造化されたWebドキュメントを用いた大規模マルチホップ推論ベンチマークであるWiki-CoEと、自由形式のレイアウトを持つプレゼンテーションスライドを用いたSlideVQAの2つのデータセットを使用する。評価指標として、回答の正確性を測るExact Match（EM）、候補画像とバウンディングボックスの正解性を統合的に評価するEvidence Localization Accuracy（Loc-Acc：IoU $\ge 0.3$ または予測ボックスの中心が正解領域内にある場合に成功とみなす）、および推論パスの正当性を検証するReasoning Chain Accuracy（Chain-Acc）の3つを用いる。比較対象として、KiRAGやSEAKRといった最新のテキストベースiRAG手法、ALCE-VA-citationやIRCOTなどのテキスト引用手法、さらにGPT-5やQwen3-VL-235Bといった強力なVision-Language Model（VLM）をゼロショット設定で用いる。提案手法はQwen3-VL-8B-Instructをバックボーンとし、単一ホップの根拠特定を行う第Iフェーズと、マルチホップの根拠連鎖生成を行う第IIフェーズからなる2段階のカリキュラム学習を採用している。学習時には、レイアウト変化への耐性を高める空間的拡張、解像度変化への対応、および位置情報のショートカットを防ぐための根拠の順序入れ替えといったデータ拡張を導入している。</p></section>
+<section class="secsum"><h3>6. Experimental Results</h3><p>CoEは、構造化されたWebレイアウト（Wiki-CoE）および複雑な自由形式のレイアウト（SlideVQA）の両方において、高い回答精度と検証可能な根拠提示能力を両立する手法である。Wiki-CoEにおいてCoE-8Bは、回答精度（EM）82.3%、根拠の連鎖精度（Chain-Acc）94.4%、位置特定精度（Loc-Acc）80.4%を達成し、GPT-5などの既存の強力なVLMと比較して、回答精度が同等であっても根拠提示の質において大幅に優れている。SlideVQAでは、図解やチャートを含む複雑なレイアウトにおいて、OCRベースの手法が性能を著しく低下させる一方で、CoEは視覚的な接続情報（矢印や線など）を捉えることで高い性能を維持する。アブレーション研究により、単一ホップからマルチホップへと段階的に学習させるカリキュラム学習や、空間的な不変性を学習させるための空間拡張、および高解像度な入力の重要性が示されており、これらが根拠の連鎖構築と精密なピクセルレベルの接地（grounding）に寄与している。推論（Inference）タスクにおいては、根拠となる文書の選択（Chain-Acc 99.5%）は極めて正確であるものの、明示的なテキストとして描画されていない論理的つながりをバウンディングボックスで特定すること（Loc-Acc 38.4%）には課題が残る。計算コスト面では、CoE-8Bの推論時間は1問あたり5.6秒であり、テキストベースの手法（3.2秒）と比較して許容可能なオーバーヘッドに抑えられており、4-bit量子化を用いることでメモリ使用量を28GBから16GBへと約43%削減することも可能である。</p></section>
+<section class="secsum"><h3>7. Conclusion</h3><p>本研究では、従来のテキスト解析に基づく脆弱な手法から、ドキュメントのスクリーンショットを用いた堅牢な視覚的推論へと転換する、反復型検索拡張生成（RAG）の新しいパラダイムであるChain of Evidence (CoE) を提案している。CoEは、マルチホップ推論をピクセルレベルで接地（grounding）させることで、既存システムにおける意味的なレイアウト情報の喪失と、ソース帰属の不透明性という2つの根本的な課題を解決する。新たに構築されたWiki-CoEベンチマークおよび複雑なSlideVQAデータセットを用いた評価の結果、空間的な論理が線形なテキストを凌駕する視覚的に豊かな知識領域においては、視覚モダリティは単なる解釈性の補足ではなく、推論に不可欠な要素であることが示された。微調整されたVLMを用いた実験では、ピクセルレベルの接地がテキストベースのベースラインを大幅に上回り、検証のボトルネックを解消する視覚的な監査証跡を提供できることが実証されている。今後は、この統一的な視覚フレームワークを動的なビデオフレームやインタラクティブなアプリインターフェースなどの異種ウェブコンテンツへと拡張し、真に汎用的な自律エージェントの実現を目指す。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-27
+  </footer>
+</div>
+</body>
+</html>

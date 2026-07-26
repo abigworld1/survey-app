@@ -182,6 +182,39 @@
       "title": "CQC-RAG: Robust Retrieval-Augmented Generation via Cross-Query Consistency",
       "tldr": "CQC-RAGは、意味的に等価だが構文が異なる複数のクエリ間での回答の信頼性の安定性を利用する「Cross-Query Consistency Hypothesis」に基づいた、堅牢な検索拡張生成（RAG）フレームワークである。クエリの書き換えとリランキングを通じて多様な推論コンテキストを構築し、回答の平均信頼性と分散に基づくペナルティを組み合わせたスコアリングにより、外部の教師データなしでノイズに起因するハルシネーションを効果的に除去する。"
     },
+    "arxiv:2606.15906": {
+      "added": "2026-07-27",
+      "added_at": "2026-07-27T06:05:04.455376",
+      "arxiv_id": "2606.15906",
+      "authors": [
+        "Yilong Zuo",
+        "Xunkai Li",
+        "Jing Yuan",
+        "Qiangqiang Dai",
+        "Hongchao Qin",
+        "Ronghua Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-14",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.15906.html",
+      "matched_keywords": [
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.15906",
+      "reading_value": 4,
+      "reading_value_reason": "長文マルチモーダルRAGを予算制約下の動的グラフ構築問題として定式化した新規性が高い。多粒度な証拠管理とエージェント的アプローチは実用的で、研究価値が高い。",
+      "relevance": 4,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "MAGE-RAG: Multigranular Adaptive Graph Evidence for Agentic Multimodal RAG in Long-Document QA",
+      "tldr": "長大なPDFドキュメントにおけるマルチモーダル質問応答において、固定的な検索数や単一の粒度による情報の欠落を解決するため、予算制約下で証拠サブグラフを動的に構築するMAGE-RAGを提案する。",
+      "url": "https://www.semanticscholar.org/paper/99be38871ef855ea0e4264043402c1e0c9972947",
+      "venue": "arXiv (Cornell University)"
+    },
     "arxiv:2606.16661": {
       "added": "2026-06-17",
       "added_at": "2026-06-17T06:00:03.000000",
@@ -1985,6 +2018,38 @@
       "tldr": "知識グラフを用いたGraphRAGに科学データの管理原則であるFAIRを統合し、FAIR Digital Objects (FDOs) を基盤としたFAIR GraphRAGフレームワークを提案することで、複雑なドメイン知識に対する回答の正確性と説明可能性を向上させる。",
       "url": "http://arxiv.org/abs/2607.11464v1",
       "venue": "2025 IEEE International Conference on Knowledge Graph (ICKG), Limassol, Cyprus, 2025, pp. 90-97"
+    },
+    "doi:10.1145/3805712.3809540": {
+      "added": "2026-07-27",
+      "added_at": "2026-07-27T06:04:22.081807",
+      "arxiv_id": "2605.01284",
+      "authors": [
+        "Peiyang Liu",
+        "Ziqiang Cui",
+        "Xi Wang",
+        "Di Liang",
+        "Wei Ye"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 1,
+      "date": "2026-05-02",
+      "doi": "10.1145/3805712.3809540",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2605.01284.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation"
+      ],
+      "pdf_url": "https://doi.org/10.1145/3805712.3809540",
+      "reading_value": 4,
+      "reading_value_reason": "RAGにおける視覚情報の欠落という重要な課題に対し、ピクセルレベルの根拠提示とマルチホップ推論を統合した点は新規性が高い。大規模な新ベンチマークの導入も価値がある。",
+      "relevance": 4,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Chain of Evidence: Pixel-Level Visual Attribution for Iterative Retrieval-Augmented Generation",
+      "tldr": "反復的な検索拡張生成（iRAG）において、テキスト解析によるレイアウト情報の喪失と根拠提示の粗さを解決するため、ドキュメントのスクリーンショットからピクセルレベルの根拠を特定する視覚的帰属フレームワークChain of Evidence（CoE）を提案する。",
+      "url": "https://www.semanticscholar.org/paper/889baea00426c2014358c4e378f73e4fced7d462",
+      "venue": "Proceedings of the 49th International ACM SIGIR Conference on Research and Development in Information Retrieval"
     },
     "doi:10.12732/ijam.v38i3s.163": {
       "added": "2026-07-20",
