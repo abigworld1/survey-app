@@ -1,0 +1,444 @@
+{
+  "date": "2026-07-28",
+  "dry_run": false,
+  "engine": "llm:gemma-4-26b",
+  "fields": [
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2605.16097.html",
+          "id": "2605.16097",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2026-05-15",
+          "reading_value": 4,
+          "reading_value_reason": "MAPF/TAPFの枠組みを「協調輸送」へと拡張した新規性が高い。Incremental Expansionによる探索空間抑制や、タスク衝突拡張のジレンマの特定など、知見が深い。",
+          "relevance": 2,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Multi-Agent Cooperative Transportation: Optimal and Efficient Task Allocation and Path Finding",
+          "venue": "AAMAS 2026: Proc. of the 25th International Conference on Autonomous Agents and Multiagent Systems"
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2603.28968.html",
+          "id": "2603.28968",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2026-03-30",
+          "reading_value": 4,
+          "reading_value_reason": "TAPF-PCという、タスク割り当てとMAPF-PCを統合した新規性の高い問題を扱い、LNSを用いた二段階の具体的な手法提案と大規模な実験検証がなされているため。",
+          "relevance": 2,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Large Neighborhood Search for Multi-Agent Task Assignment and Path Finding with Precedence Constraints",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 187,
+      "fresh_total": 114,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 14,
+      "shortfall": 0,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "2003.07108",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "Lifelong Multi-Agent Path Finding"
+          ],
+          "published": "2020-03-16",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 6,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "abstract",
+          "title": "A Job-Assignment Heuristic for Lifelong Multi-Agent Path Finding Problem with Multiple Delivery Locations",
+          "venue": ""
+        },
+        {
+          "basis": "metadata",
+          "citations": 0,
+          "id": "2209.05057",
+          "matched_keywords": [
+            "MAPD"
+          ],
+          "published": "2022-09-12",
+          "reasons": [
+            "曖昧な略語のみ一致（MAPD）、分野文脈なし"
+          ],
+          "relevance": 4,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "abstract",
+          "title": "MAPD type avalanche photodetectors",
+          "venue": ""
+        },
+        {
+          "basis": "metadata",
+          "citations": 0,
+          "id": "1302.0278",
+          "matched_keywords": [
+            "MAPD"
+          ],
+          "published": "2013-02-01",
+          "reasons": [
+            "曖昧な略語のみ一致（MAPD）、分野文脈なし"
+          ],
+          "relevance": 4,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "abstract",
+          "title": "Investigation of gamma ray detection performance of thin LFS scintillator with MAPD readout",
+          "venue": ""
+        },
+        {
+          "basis": "metadata",
+          "citations": 0,
+          "id": "1205.4864",
+          "matched_keywords": [
+            "MAPD"
+          ],
+          "published": "2012-05-22",
+          "reasons": [
+            "曖昧な略語のみ一致（MAPD）、分野文脈なし"
+          ],
+          "relevance": 4,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "abstract",
+          "title": "Hadron calorimeter with MAPD readout in the NA61/SHINE experiment",
+          "venue": ""
+        }
+      ],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important/q1": {
+          "count": 0,
+          "query": "Multi-Agent Path Finding"
+        },
+        "arxiv/important/q2": {
+          "count": 0,
+          "query": "MAPF"
+        },
+        "arxiv/important/q3": {
+          "count": 0,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "arxiv/important/q4": {
+          "count": 0,
+          "query": "MAPD"
+        },
+        "arxiv/important/q5": {
+          "count": 0,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "arxiv/important/q6": {
+          "count": 0,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q1": {
+          "count": 40,
+          "query": "Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q2": {
+          "count": 40,
+          "query": "MAPF"
+        },
+        "arxiv/recent/q3": {
+          "count": 25,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "arxiv/recent/q4": {
+          "count": 40,
+          "query": "MAPD"
+        },
+        "arxiv/recent/q5": {
+          "count": 16,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "arxiv/recent/q6": {
+          "count": 3,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "openalex/important/q1": {
+          "count": 8,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/important/q2": {
+          "count": 8,
+          "query": "MAPF"
+        },
+        "openalex/important/q3": {
+          "count": 8,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/important/q4": {
+          "count": 8,
+          "query": "MAPD"
+        },
+        "openalex/important/q5": {
+          "count": 8,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/important/q6": {
+          "count": 8,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "openalex/recent/q1": {
+          "count": 8,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/recent/q2": {
+          "count": 8,
+          "query": "MAPF"
+        },
+        "openalex/recent/q3": {
+          "count": 8,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/recent/q4": {
+          "count": 8,
+          "query": "MAPD"
+        },
+        "openalex/recent/q5": {
+          "count": 8,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/recent/q6": {
+          "count": 8,
+          "query": "Online Multi-Agent Path Finding"
+        }
+      }
+    },
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2607.22319.html",
+          "id": "2607.22319",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-07-24",
+          "reading_value": 3,
+          "reading_value_reason": "RAGからAgentic RAGへの進化をデータ統合の観点で論じたロードマップ的な論文。新規手法の提案よりは、既存技術の限界分析と将来像の提示が主であり、概念的理解に有用。",
+          "relevance": 5,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Towards Trustworthy and Cost-Efficient Data Integration: From Naïve RAG to Agentic RAG",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "doc-structure-rag/2607.21951.html",
+          "id": "2607.21951",
+          "matched_keywords": [
+            "RAG"
+          ],
+          "published": "2026-07-24",
+          "reading_value": 4,
+          "reading_value_reason": "RAGの脆弱性を突く自動攻撃手法の提案であり、PAIRの枠組みをコンテンツ汚染に応用した新規性と、詳細な分類体系・評価プラットフォームの構築が極めて実用的。",
+          "relevance": 4,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "SIREN (Luring LLMs onto the Rocks): PAIR-Driven Preference Manipulation in Web-RAG Recommenders",
+          "venue": ""
+        }
+      ],
+      "candidates_total": 155,
+      "fresh_total": 127,
+      "k": 2,
+      "label": "文書構造解析に基づく検索・質問応答・RAG",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 75,
+      "shortfall": 0,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-0a4ace0de437",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-07-07",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 8,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "Retrieval-Augmented Generation for Curated Thematic Corpora: A Critical Survey, Bibliometric Evidence, and the ThemePath-RAG Framework",
+          "venue": "Information"
+        },
+        {
+          "basis": "abstract",
+          "citations": 7,
+          "id": "doi-ccff5fd22e7f",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2025-12-03",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Evaluating Faithfulness in Agentic RAG Systems for e-Governance Applications Using LLM-Based Judging Frameworks",
+          "venue": "Big Data and Cognitive Computing"
+        },
+        {
+          "basis": "abstract",
+          "citations": 1,
+          "id": "doi-6428af65647a",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2025-12-17",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "SPR-RAG: Semantic Parsing Retriever-Enhanced Question Answering for Power Policy",
+          "venue": "Algorithms"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-4ed5820aa6f2",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-06-29",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "CollectivIA: Two-Pipeline Multilingual Legal RAG for Moroccan Territorial Governance with LLM-Assisted and Regex-Based Chunking",
+          "venue": "Big Data and Cognitive Computing"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-a298981bb43c",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2026-02-05",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "Integrating Dense, Sparse, and Graph-Based Approaches in Financial Data Analysis for a Retrieval-Augmented Generation Framework",
+          "venue": "2026 International Conference on Artificial Intelligence, Computer, Data Sciences and Applications (ACDSA)"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-d591bb7eea4b",
+          "matched_keywords": [
+            "Retrieval-Augmented Generation",
+            "RAG"
+          ],
+          "published": "2025-10-10",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "Rag-Based System for Indian Medicinal Plant Knowledge Integration",
+          "venue": "2025 International Conference on Emerging Technologies in Electronics and Green Energy (ICETEG)"
+        }
+      ],
+      "slug": "doc-structure-rag",
+      "source_counts": {
+        "arxiv/important/q1": {
+          "count": 0,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "arxiv/recent/q1": {
+          "count": 40,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "openalex/important/q1": {
+          "count": 40,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "openalex/recent/q1": {
+          "count": 40,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "semanticscholar/important/q1": {
+          "count": 40,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        },
+        "semanticscholar/recent/q1": {
+          "count": 0,
+          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
+        }
+      }
+    }
+  ],
+  "generated_at": "2026-07-28T06:00:01"
+}

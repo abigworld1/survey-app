@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Towards Trustworthy and Cost-Efficient Data Integration: From Naïve RAG to Agentic RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Towards Trustworthy and Cost-Efficient Data Integration: From Naïve RAG to Agentic RAG</h1>
+  <div class="meta">Chuangtao Ma, Arijit Khan<br>採択先: 未取得 ・ 2026-07-24 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.22319v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.22319v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-24</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">RAGからAgentic RAGへの進化をデータ統合の観点で論じたロードマップ的な論文。新規手法の提案よりは、既存技術の限界分析と将来像の提示が主であり、概念的理解に有用。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> エンタープライズ環境のデータ統合におけるLLMの知識不足、ハルシネーション、および膨大な計算コストという課題に対し、従来のRAGから、自律的なマルチエージェントが適応的に推論を行うAgentic RAGへの進化を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>データ統合は、スキーママッチング、エンティティマッチング、列型アノテーション等を通じて、複数のデータソース間の不一致を解消し統一されたビューを提供するタスクである。従来のLLMを用いた手法では、ドメイン知識の欠如による偽陰性や、クラス不均衡および幻覚に起因する偽陽性が発生する。また、膨大な比較回数に伴うAPIコールの増大や、複雑な推論チェーンによる計算コストとトークン消費の増大が、大規模なエンタープライズ規模での適用を困難にしている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究は、単なる外部知識の付与に留まる従来のNaïve RAGや、構造的知識を活用するGraphRAG、大規模知識グラフを用いるKG-RAGの技術的限界を分析している。これらに対し、クエリの複雑さに応じて検索の必要性を判断する適応的検索と、検索結果に基づき意思決定を洗練させる反復的推論を導入したAgentic RAGという新たなパラダイムを提示する。これにより、信頼性（根拠の透明性と一貫性）とコスト効率の両立を目指すロードマップを構築した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案するAgentic RAGは、インターフェース層、エージェント層、ハネス層の3層構造で構成される。エージェント層では、Analyzer AgentがLLM-as-judgeを用いてクエリを容易なケースと曖昧なケースに分類し、曖昧な場合にのみRetriever Agentが異なる粒度で外部知識を検索する適応的検索を行う。推論プロセスは、単一パスのChain-of-Thoughtではなく、検索結果を反映して計画や決定を更新する反復的なプロセスとなる。さらに、構造的類似性を利用したバッチ処理や、グラフ構造を用いた永続的なエージェントメモリにより、コンテキストの共有と計算の最適化を図る。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>本論文は、既存のベンチマークがマルチホップ推論の信頼性や根拠の検証可能性、ハルシネーションへの耐性を十分に評価できていないことを指摘している。そのため、正確性と信頼性の両面を測定できる、スキーママッチングやエンティティ解決などの複数タスクを統合したエンタープライズ規模の新しい評価指標の開発が必要であると述べている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>今後の課題として、スキーマやエンティティの進化に伴い古いメモリが誤った結果を招く知識衝突の問題があり、動的な優先順位付けや増分的なメモリ更新が必要である。また、検索ノイズの定量化や、不確実性に基づく適応的検索ポリシーの確立、ラベル付きデータが不足する環境でのコールドスタート問題への対策が求められる。さらに、ツール呼び出しグラフを用いた高度な自律ループの構築や、信頼性を包括的に測定できるベンチマークの設計が重要な研究機会として示されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Towards Trustworthy and Cost-Efficient Data Integration: From Naïve RAG to Agentic RAG</h3><p>本論文は、エンタープライズ環境におけるデータ統合において、LLMが直面する知識の欠如、精度、およびコストの課題を解決するため、知識に基づいたRAG（Retrieval-Augmented Generation）ワークフローの進化を論じている。信頼性（Trustworthiness）を、検索された知識によって統合の決定が透明性を持って裏付けられ、ハルシネーションに対して堅牢で、タスク間で一貫性がある状態と定義している。具体的には、従来のRAGから、グラフ構造を活用するGraphRAGや知識グラフに基づくKG-RAGへと進化し、パラメトリックな知識と文脈的な知識の橋渡しが行われてきた過程を辿っている。さらに、複雑な統合タスクに対して、自律的なマルチエージェントシステムが適応的に計画、検索、洗練、推論を行うAgentic RAGへの移行を提案している。また、大規模なエンタープライズ設定における計算上のボトルネックに対処し、コスト効率の高い統合を実現するための最適化戦略についても検討している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>データ統合は、スキーママッチング、エンティティマッチング、列型アノテーションなどのサブタスクを通じて、複数のソース間の不一致や矛盾を解消し、統一されたビューを提供する重要なタスクである。従来のルールベースや機械学習、事前学習済み言語モデル（PLM）を用いた手法に対し、近年は大規模言語モデル（LLM）によるインコンテキスト学習へのパラダイムシフトが起きているが、エンタープライズ規模の統合においては、ドメイン固有の知識不足による偽陰性、クラス不均衡や幻覚（hallucination）に起因する偽陽性、および膨大な比較回数に伴う計算コストの増大という深刻な課題が存在する。特に、LLMが内部的なパラメータ知識のみに依存してマッチングを行う「マッチメーカー」として機能する現状では、根拠に基づいた検証可能な推論、すなわち信頼性（trustworthiness）が欠如している。本研究では、LLMを外部知識で補強する知識接地型（knowledge-grounded）パラダイムへの転換を提唱し、従来のNaïve RAGからGraphRAGやKG-RAGへと進化してきた技術的限界を分析した上で、適応的検索、バッチ処理、グラフベースのメモリを組み込んだAgentic RAGによる、信頼性とコスト効率を両立するデータ統合のビジョンを提示する。</p></section>
+<section class="secsum"><h3>2 Bridging the Knowledge Gap for LLM-based Data Integration</h3><p>LLMを用いたデータ統合（スキーママッチング、エンティティマッチング、列型注釈など）は、ゼロショット学習、CoT、Few-shot、SFT（LoRA等）といった手法で適用されているが、閉じた世界におけるパラメータ知識への依存に起因する3つの主要な課題を抱えている。第一に、ドメイン知識の欠如による偽陰性や、表層的な語彙・構文に惑わされる偽陽性といったハルシネーションが発生し、さらにデカルト積によって生成される候補ペアの極端なクラス不均衡が、疎なターゲット分布の学習を困難にしている。第二に、Fine-tuningやFew-shot学習には依然としてラベル付きデータが必要であり、エンティティマッチングでは数千のペアを要する場合があるなど、エンタープライズ規模のシナリオではデータ不足が制約となる。第三に、ペアワイズのマッチングに伴うAPIコールの二次的なスケーリングや、複雑な推論のための長い推論チェーンにより、計算コストとトークン消費が膨大になる。これらの課題に対し、RAG（Retrieval-Augmented Generation）は外部知識（Wikidataやドメイン固有の知識グラフ等）から事実に基づいた証拠を検索・付与することで、推論を文脈に根ざしたものへと補強する。これにより、例えば「MRN」を「Medical Record Number」と正しく定義するような文脈的知識の提供が可能となり、ハルシネーションの抑制、ラベル付きデータへの依存度の低減、および冗長な推論チェーンの削減による計算コストの最適化が実現される。</p></section>
+<section class="secsum"><h3>3 Data Integration with RAG, GraphRAG, and KG-RAG</h3><p>データ統合における知識接地手法は、平坦なテキストに基づくRAGから、構造を考慮したGraphRAG、そして大規模知識グラフを活用するKG-RAGへと進化している。従来のRAGは、データベース設計書などのメタデータを検索してLLMのハルシネーションを抑制するが、平坦なテキストコンテキストに依存するため、複雑な構造的知識の活用に限界がある。GraphRAGは、エンティティ抽出や階層的クラスタリングを用いて構築されたグラフやハイパーグラフを活用することで、テーブル間のパスなどの構造的証拠を提示するが、グラフ構築の計算コストがコーパスサイズに対して線形に増加する点や、知識の網羅性が限定的であるという課題がある。これに対し、KG-RAGはWikidataのような外部の大規模知識グラフから関連するサブグラフを検索することで、マルチホップな推論を可能にし、例えば「beneficiary」と「patient」の階層関係といった深い事実的根拠に基づいたスキーママッチングを実現する。具体的には、RACOONがKG Linkerを用いて列型の注釈精度を向上させ、KG-RAG4SMがベクトル検索とグラフ探索を組み合わせたハイブリッドパイプラインで意味的な衝突を解決するなどの手法が提案されている。しかし、大規模な外部知識グラフからのサブグラフ探索は依然として計算コストと時間がかかる問題があり、クエリの複雑さに応じて検索戦略を変化させる適応性も不足している。</p></section>
+<section class="secsum"><h3>4 Advancing Data Integration with Agentic RAG</h3><p>本セクションでは、従来の静的なRAG、GraphRAG、およびKG-RAGが抱えるスケーラビリティと効率性のボトルネックを解消するため、Agentic RAGを用いた信頼性とコスト効率の高いデータ統合のロードマップを提案している。手法の核となるのは、クエリの複雑さに応じて検索の必要性を判断する適応的検索（Adaptive Retrieval）と、単一パスのChain-of-Thought（CoT）ではなく、検索結果に基づいて意思決定を洗練させる反復的推論（Iterative Reasoning）へのパラダイムシフトである。コスト最適化戦略として、スキーママッチング等のタスクにおける構造的類似性を利用したバッチ処理（Batch Processing）や、フラットなキャッシュに代わる、グラフ構造を用いた永続的なエージェントメモリ（Graph-based Agentic Memory）によるコンテキストの共有が挙げられる。システムアーキテクチャは、ユーザーインターフェースを担うインターフェース層、タスクの分解とエージェントのスケジューリングを行うPlanner Agentやクエリの複雑性を評価するAnalyzer Agentを含むエージェント層、およびこれらを支えるハネス層の3層で構成される。具体的には、Analyzer AgentがLLM-as-judgeを用いてクエリを容易なケースと曖昧なケースに分類し、曖昧なケースに対してのみRetriever Agentがエンティティやマルチホップサブグラフなどの異なる粒度で外部知識を検索することで、不要な計算コストを削減する。これにより、マルチエージェントによる並列処理と適応的な調整が可能となり、大規模なデータ統合における幻覚の抑制と低遅延・低コストな実行を両立させている。</p></section>
+<section class="secsum"><h3>5 Research Gaps and Opportunities</h3><p>Agentic RAGを用いたデータ統合における研究課題として、まずコンテキストとメモリの知識衝突が挙げられ、スキーマやエンティティの進化に伴い、古いメモリが更新されたコンテキストよりも優先されることで誤った結果を招く問題に対し、動的な優先順位付けや増分的なメモリ更新の研究が必要である。次に、バッチ検索によるノイズと適応的検索の推定に関する課題があり、クエリの多様性が高い場合に検索が不足するリスクを回避するため、検索ノイズを定量化する指標の確立や、不確実性に基づいて検索をトリガーする統一的な適応的検索ポリシーの開発が求められる。また、ラベル付きデータが不足する環境下でのパラメータ調整やエージェントの初期化というコールドスタート問題に対し、不確実性に基づく閾値設定やベイズ最適化、メタ学習、あるいは高機能LLMを用いた弱教師あり学習による半教師あり初期化などの戦略が重要となる。さらに、エージェントによるツールオーケストレーションを通じた自律的なデータ統合の実現に向けて、ツール呼び出しグラフを用いて解析、計画、検索、決定、評価の各エージェントを協調させる、より高度な自律ループの構築が機会として示されている。最後に、既存のベンチマークは信頼性（マルチホップ推論の信頼性や根拠の検証可能性、ハルシネーションへの耐性）を十分に評価できていないため、スキーママッチングやエンティティ解決などの複数のタスクを統合し、正確性と信頼性の両面を測定できるエンタープライズ規模の評価指標の開発が必要である。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本論文では、高密度検索を用いる naïve RAG から、ハイブリッド検索を用いた KG-RAG、適応的検索を行う agentic RAG、そしてバッチ処理によってコスト効率を高めた agentic RAG へと進化するデータ統合の軌跡を考察している。この発展に基づき、agentic RAG によって実現される、信頼性とコスト効率を兼ね備えたデータ統合のビジョンを提示している。具体的には、ツール・オーケストレーションを通じて専門化されたエージェントを調整するマルチエージェント・ワークフローを提案している。今後の課題として、完全な自律性、スケーラビリティ、および信頼性を備えた agentic RAG システムを実現するために、信頼性の評価、適応的な検索ポリシー、メモリ管理、およびベンチマーク設計といった研究上のギャップを特定している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-28
+  </footer>
+</div>
+</body>
+</html>

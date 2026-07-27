@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SIREN (Luring LLMs onto the Rocks): PAIR-Driven Preference Manipulation in Web-RAG Recommenders | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>SIREN (Luring LLMs onto the Rocks): PAIR-Driven Preference Manipulation in Web-RAG Recommenders</h1>
+  <div class="meta">Evan Caville, Siamak Layeghy, Billy Sung, Sara Dolnicar, Marius Portmann<br>採択先: 未取得 ・ 2026-07-24 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.21951v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.21951v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-24</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの脆弱性を突く自動攻撃手法の提案であり、PAIRの枠組みをコンテンツ汚染に応用した新規性と、詳細な分類体系・評価プラットフォームの構築が極めて実用的。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> Web-RAG（Retrieval-Augmented Generation）を用いた推薦システムにおいて、特定のエンティティを推薦リストの最上位に操作する自動攻撃手法SIRENを提案する。攻撃者と判定役による反復的なループを用いることで、検索されたウェブソースを逐次的に編集し、ターゲットの順位を目標値まで引き上げることに成功している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>Web検索機能を持つアシスタントが、取得したテキストから上位エンティティのランキングを合成するWeb-RAGレコメンダーを対象とする。攻撃者は、ターゲットとなる実在のビジネスやサービスを本来の順位よりも上位に押し上げることを目的とし、検索結果に含まれる特定のウェブページの内容を編集する権限を持つ。従来の困難として、モデルの内部状態や検索メカニズム、システムプロンプトへのアクセスが制限されたブラックボックス環境下で、いかに効果的にコンテンツを汚染し、競合するエンティティとの間で順位を操作するかが挙げられる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のGEO（Generative Engine Optimisation）やコンテンツ汚染の研究に対し、SIRENは周囲のソースセットを維持したまま、検索された単一のソースを反復的に編集することで、競合する実在のエンティティ間での特定エンティティの推奨を促進する。自由形式の攻撃文字列を直接探索するのではなく、攻撃者と判定役による反復的なループを用いて、ウェブページ編集技術の構造化された分類に基づき、ペイロードの形式や配置がランキングに与える影響を評価する点に新規性がある。また、コンテンツの変更のみによる影響を分離して評価できるカスタムRAGリプレイプラットフォームを導入している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>SIRENは、攻撃者（Attacker）、ターゲット（Target）、判定役（Judge）の3つの役割で構成される。攻撃者が提案した編集セット $E$ が変換関数 $T$ によって適用された後、ターゲットがそのソースを用いて回答を生成し、判定役がターゲットエンティティの順位 $r$ と品質スコア $s$ をフィードバックとして攻撃者に返す。編集プロセスでは、ソースを要素にパースし、挿入（insert）、修正（modify）、属性変更（set_attr）の3つの操作を用いて、元のソース（pristine source）に対して文字レベルのスプライシングを行う。最適化ループは、ターゲットの順位 $r$ が目標値 $r_{\text{target}}$ に達するか、あるいは予算 $B=20$ に達するまで継続される。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Claude Haiku 4.5 および Claude Sonnet 5 をターゲットモデルとして用い、4つの推薦クエリを用いて評価を行った。攻撃成功率（ASR）は、フルスイープで $40\%$、リデューススイープで $50\%$ に達した。手法別では、記述的な形式を用いる「Visible seeding」が $ASR = 75\%$ と最も高い性能を示した。評価指標には、ターゲットが上位 $k$ 位以内に到達したかを示す $\text{Success}@k$、当初上位 $k$ 位外から到達したことを示す $\text{Promote}@k$、および正規化順位利得 $\text{NRG}$ を用いている。また、最初の $t$ 回のイテレーション以内に目標に到達する割合 $\text{ASR}@k,t$ も算出している。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>個別の注入媒体のサニタイズだけでは不十分であり、FAQやメタデータのような宣言的な主張は通常のウェブコンテンツと区別が困難であるというトレードオフが存在する。本研究の限界として、評価が特定のクエリとモデルコンテキストに限定されていること、反復試行による成功が適応的フィードバックによるものか単なる繰り返しによるものかが分離できていないことが挙げられる。また、実験環境が実際のライブ検索パイプラインと完全に同等ではない点も課題である。今後の課題として、機械的な意味制約の検証や、情報の出所（provenance）の検証、複数ソースによる相互照合といった防御策の検討が示唆される。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>1. Introduction</h3><p>本研究は、Web-RAG（Retrieval-Augmented Generation）を用いた推薦システムにおいて、特定のエンティティを推薦リストの最上位に操作する攻撃手法であるSIRENを提案している。SIRENは、プロンプトの脱獄（jailbreak）に用いられるPAIRの「攻撃者（attacker）と判定者（judge）」のループ構造を、検索されたWebソースの反復的な編集に応用したブラックボックス型の自動攻撃手法である。攻撃プロセスでは、23種類のコンテンツ汚染テクニックの分類に基づき、攻撃者が検索ソースを逐次的に編集し、判定者がターゲットモデルの回答から対象エンティティの順位を抽出してフィードバックを与えることで、順位が1位になるか予算に達するまで編集を繰り返す。実験では、提供されるソースの構成と順序を固定したまま、ローカルで編集したページをAnthropicの検索結果ブロックとして再注入するカスタムRAGリプレイプラットフォームを使用し、コンテンツの変更のみによる影響を分離して評価している。Claudeモデルを用いた評価の結果、命令形式の注入よりも、宣言的な順位付けの主張やシード化されたリストを用いる手法の方が、攻撃の有効性が高いことが示された。</p></section>
+<section class="secsum"><h3>2. Related Work</h3><p>本研究は、Web-RAGレコメンダーにおける好みの操作を目的としており、既存のWebコンテンツ汚染手法と比較して、周囲のソースセットを維持したまま、検索された単一のソースを反復的に編集することで、競合する実在のエンティティ間での特定エンティティの推奨を促進する点に特徴がある。既存のGEO（Generative Engine Optimisation）や、それに対抗する好みの操作に関する研究、および検索エンジンにおけるランキング操作の戦略的動態に関する研究に対し、SIRENは自由形式の攻撃文字列を直接探索するのではなく、攻撃者と判定役による反復的なループを用いて、ウェブページ編集技術の構造化された分類に基づき、ペイロードの形式や配置が最終的なエンティティのランキングに与える影響を評価する。また、検索エージェントを標的としたSearchGEOやWARP、EcoGEO、あるいはコンテンツの種類を最適化するCOREといった同時期の研究と比較して、SIRENは固定されたソースセット内で取得されたウェブページを編集し、配置やペイロードの形式による構造化された編集の効果を比較検討する。さらに、間接的プロンプト注入や知識ベースの汚染、メタデータの悪用といった基礎的な研究を踏まえ、本手法は制御されたリプレイ設定において、競争的なエンティティのランキングを操作するための攻撃手法の分類を評価する。</p></section>
+<section class="secsum"><h3>3. Threat Model</h3><p>本研究の脅威モデルでは、Web検索機能を持つアシスタントが、ユーザーのクエリに基づき検索・取得したテキストから上位エンティティのランキングを合成する設定を想定している。攻撃者は、ターゲットとなる実在のビジネスやサービスを、本来の順位よりも上位に押し上げることを目的とし、ターゲットが既に言及されている取得可能なウェブページのうち、特定の1ページの内容を編集する権限を持つ。攻撃者は、モデルの内部状態や検索表現、ユーザーのクエリ、モデルの重み、システムプロンプト、あるいは検索メカニズムにアクセスすることはできず、編集内容は一般的な公開ウェブページとして妥当な範囲に限定される。本評価では、ページがモデルのソースコンテキストに導入された後の操作を対象としており、ソースの構成や順序を固定したまま、編集されたコンテンツのみを変化させることで、攻撃の効果を特定できる実験設定としている。なお、編集された内容が実際のサーバーサイドの検索パイプラインにおける検索、再ランキング、フィルタリング、あるいは変換プロセスを通過できるかについては、本研究の評価範囲外である。</p></section>
+<section class="secsum"><h3>4. Custom-RAG Replay Platform</h3><p>SIRENは、Web-RAG環境における好みの操作を検証するために、ソースの構成と順序を維持したまま特定のソース内容のみを変化させて再実行する、4段階のカスタムRAGリプレイプラットフォームを使用する。第1段階では、ターゲットモデルのサーバーサイドツールを用いて検索を行い、モデルごとに固有のURL集合をソースオブジェクトとして保存する。第2段階では、検索スニペットではなく `web_fetch` ツールを用いて各URLからテキストを取得し、これを編集可能な「未加工のソース（pristine source）」として保持する。第3段階では、要素インデックスを用いたメカニズムにより、ライブのウェブページを変更することなく、キャプチャされたソースのうち1つのみをオフラインで編集する。最終段階では、編集済みのソースを含むソースセットを、ライブ検索を介さずに `search_result` ブロックとしてターゲットモデルに供給し、モデルが生成するランキング回答を評価する。この実験設定により、ライブの検索パイプライン全体ではなく、固定されたコンテキスト内での編集がモデルの最終的なランキングに与える影響を測定している。</p></section>
+<section class="secsum"><h3>5. The SIREN Method</h3><p>SIRENは、Web-RAG（Retrieval-Augmented Generation）における推奨結果を操作するため、PAIRの手法をWebソースの反復的な編集へと適応させた手法である。この手法は、攻撃者（Attacker）、ターゲット（Target）、判定役（Judge）の3つの役割で構成され、攻撃者が提案した編集セット $E$ が変換関数 $T$ によって適用された後、ターゲットがそのソースを用いて回答を生成し、判定役がターゲットエンティティの順位 $r$ と品質スコア $s$ をフィードバックとして攻撃者に返す。編集プロセスでは、ソースをコンテンツブロックやリンクなどの要素にパースし、挿入（insert）、修正（modify）、属性変更（set_attr）の3つの操作を用いて、元のソースに対して文字レベルのスプライシングを行う。各反復では、編集の累積を防ぎ要素の安定性を保つために、常に元のソース（pristine source）から現在の編集セットを適用してソースを再構築する。メタデータ操作などの特定の技術に対しては、攻撃者が平文でペイロードを作成し、システムが決定論的にBase64エンコーディングやUnicodeエスケープなどの変換 $T$ を適用する。最適化ループは、ターゲットの順位 $r$ が目標値 $r_{\text{target}}$ に達するか、あるいは予算 $B=20$ に達するまで継続され、成功判定は品質スコアではなく順位のみに基づいて行われる。</p></section>
+<section class="secsum"><h3>6. Technique Taxonomy</h3><p>SIRENは、Web-RAGレコメンダーに対するコンテンツ・ポイズニング手法を評価するための分類体系を提案している。各攻撃手法は、ペイロードの担い手（carrier）、ペイロードの形式（payload form）、編集操作（edit operation）、および適用時の変換（apply-time transform）という4つの属性によって定義され、これらを組み合わせた互いに排他的な6つの報告ファミリーに分類される。この分類体系は、プロンプトインジェクション、コンテンツ最適化、非可視HTMLキャリア、メタデータ注入といった既存のメカニズムを統合したものである。特にメタデータを用いた手法では、`&lt;head&gt;` セクション内の標準的な Open Graph や Twitter Card、あるいはカスタムな `&lt;meta name=&quot;...&quot;&gt;` フィールドを利用することで、レンダリングされたページ上には表示されずに、`web_fetch` による抽出プロセスを通じてペイロードを注入することが可能である。一方で、JSON-LD ブロックは抽出時に除去されるため、攻撃のキャリアとしては適さないことが示されている。</p></section>
+<section class="secsum"><h3>7. Metrics</h3><p>本セクションでは、Web-RAG推薦システムに対する攻撃の有効性を評価するための指標群を定義している。評価には、リクエストされたリストの長さ $L$、ターゲットエンティティのベースライン順位 $r_{\text{base}}$、および攻撃の各イテレーション $i$ における順位 $r_i$ を用いる。GEO-Benchの指標を拡張し、攻撃ループ全体を通じて到達した最良の順位を評価に用いることで、$\text{Success}@k$（ターゲットが上位 $k$ 位以内に到達したか）および $\text{Promote}@k$（ターゲットが当初上位 $k$ 位外にあり、かつ攻撃によって上位 $k$ 位以内に到達したか）を算出する。また、順位の移動を要約する指標として、$[0, 1]$ の範囲でクリッピングされた正規化順位利得 $\text{NRG}$ を導入している。攻撃の成功率として、各手法の試行における $\text{Success}@k$ の平均値を報告する。さらに、予算に対する感度を測定するため、最初の $t$ 回のイテレーション以内にターゲットが上位 $k$ 位に到達した割合である $\text{ASR}@k,t$ を定義し、成功した試行においてターゲットが発見されるまでに要した平均イテレーション数も算出している。</p></section>
+<section class="secsum"><h3>8. Experimental Setup</h3><p>本実験では、ターゲットモデルとして Claude Haiku 4.5 および Claude Sonnet 5 を用い、攻撃者と判定役（judge）には一貫して Claude Sonnet 5 を使用する設定で評価を行う。クエリは、都市のレストランや野生動物ツアー、欧州のホテルやヴィーガンピザ店といった4つの匿名化された推薦クエリ（Q1–Q4）を用い、エンティティ名やドメインは中立的なラベルに置き換えられている。ターゲットエンティティの選択には、ベースラインの回答に含まれない優先エンティティ（$P$）を優先するルールが適用され、適切なソースがない場合はベースラインで最も順位が低いエンティティ（$F$）をフォールバックとして選択する。ソースの編集対象は、エンティティ自身の第一当事者ページ（$S\text{-}1P$）または独立した第三者ブログ等の記事（$S\text{-}BLOG$）に限定され、各試行では正確に1つのソースのみが改変される。評価プロセスは、全手法を網羅するフルスイープ（R1–R4）と、コスト削減のために判定役の出力に基づき選定された8つの手法を対象とするリデューススイープ（R5–R8）の2段階構成となっており、後者は新しいクエリ（Q3, Q4）に対する手法の転移性能を検証する。最終的な指標として、決定論的なパーサーを用いて抽出された順位に基づき、$\text{NRG}$、$\text{Success}$、$\text{Promote}$、および $\text{ASR}$ を算出する。</p></section>
+<section class="secsum"><h3>9. Results</h3><p>SIRENによるWeb-RAGレコメンダーへの攻撃評価では、攻撃成功率（ASR）がフルスイープで $40\%$、手法を絞ったリデューススイープで $50\%$ に達し、多くの試行でターゲットをランク1に導くことが示された。手法別では、指示的な内容よりも、リストやFAQ、ランキングの主張といった記述的な形式（descriptive claim）を用いる「Visible seeding」が $ASR = 75\%$ と最も高い性能を示し、次いで「Meta-line」などが続いた。ターゲットモデルによる性能差については、フルスイープではHaikuが $ASR = 60\%$ とSonnetの $25\%$ を上回ったが、リデューススイープでは両モデルとも $50\%$ であり、攻撃の成功は特定のモデル特性よりもクエリとモデルの文脈に依存することが示唆された。また、モデル間転移（Cross-Model Success）の実験では、Sonnet由来のペイロードがHaikuへ強く転移する一方で、Haiku由来のペイロードはSonnetへ転移しにくいという非対称性が確認された。反復プロセスにおいては、成功例の多くが最適化ループ外の新しいセッションでもランク1を維持しており、特に「covert_promotion」のような手法では、広範な宣伝文句から、競合他社の統計データに類似した具体的かつ証拠に基づいた主張へと攻撃内容を洗練させることで、ターゲットの回答における情報の扱い（「〜と主張している」から「直接的な事実」へ）を変化させながらランクを上昇させることが実証された。</p></section>
+<section class="secsum"><h3>10. Discussion</h3><p>本研究の防御に関する考察では、個別のキャリア（注入媒体）のサニタイズだけでは不十分であり、命令形式の注入はモデルが検知できる場合があるものの、FAQやメタデータのような宣言的な主張は通常のウェブコンテンツと区別が困難であることが示されている。そのため、キャリアレベルのフィルタリングに加え、情報の出所（プロベナンス）の検証や、独立したソース間での相互照合によって、単一のページが主張するランキングを減衰させるような防御策が必要となる。本研究の限界として、まず統計的範囲が8つのクエリ・モデルコンテキスト内に限定されており、評価結果は広範な母集団ではなくこれら特定のコンテキストを記述するものである。また、反復試行による成功率の向上については、適応的なフィードバックの効果と単なる繰り返し生成の効果が分離されておらず、フィードバックなしの条件との比較が必要である。さらに、評価対象が単一プロバイダーの2つのモデルに限定されており、コンテキストウィンドウの制約により一部のモデル間での評価が実施できていない点や、実験環境が実際のライブ検索パイプラインと完全に同等ではない点も挙げられる。最後に、制約の遵守に関して、判定基準を「ターゲットを明示的に最初に列挙すること」というより厳格なルールに変更した場合、攻撃成功率（ASR）が $0.76$ から $0.43$ へと低下することから、今後の課題として機械的な意味制約の検証とブラインド化された人間による監査が示唆されている。</p></section>
+<section class="secsum"><h3>11. Conclusion</h3><p>SIRENは、Web-RAG（検索拡張生成）を用いたレコメンデーションにおけるエンティティの順位を操作するための、攻撃者と判定役が反復的に対話するフレームワークであり、固定コンテキストのカスタムRAGリプレイプラットフォームを伴う。8つのクエリおよびモデルのコンテキストを用いた評価において、SIRENは特定の条件下で目標とする順位への到達を実現し、成功したペイロードは新規セッションでのリプレイ検証においても平均して高い順位維持率を示す。攻撃手法としては、直接的な指示形式の注入よりも、順位リストやFAQ、あるいは順位に関する主張を提示する手法の方が高い性能を発揮する傾向があり、特に可視的なシーディング（seeding）が最も強力な攻撃手法であることが示された。モデル間の比較では、Haikuがフルスイープにおいて優れた性能を示す一方、Sonnetは一部の指標で僅かに上回るなど、モデル間で一律の性能順位は成立せず、モデル間でのリプレイ結果には非対称な転移が見られる。本研究の限界として、適応的なフィードバック自体の効果を単独で分離できていない点や、プロバイダーや検索パイプラインを跨いだ広範な検証が未完了である点が挙げられるが、防御策としては隠しマークアップのサニタイズだけでなく、宣言的な順位主張に対する情報の出所（provenance）や複数ソースによる裏付けの検討が必要であることが示唆されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-28
+  </footer>
+</div>
+</body>
+</html>

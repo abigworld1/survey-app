@@ -1927,6 +1927,68 @@
       "url": "http://arxiv.org/abs/2607.21324v1",
       "venue": ""
     },
+    "arxiv:2607.21951": {
+      "added": "2026-07-28",
+      "added_at": "2026-07-28T06:06:38.827443",
+      "arxiv_id": "2607.21951",
+      "authors": [
+        "Evan Caville",
+        "Siamak Layeghy",
+        "Billy Sung",
+        "Sara Dolnicar",
+        "Marius Portmann"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-24",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.21951.html",
+      "matched_keywords": [
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.21951v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの脆弱性を突く自動攻撃手法の提案であり、PAIRの枠組みをコンテンツ汚染に応用した新規性と、詳細な分類体系・評価プラットフォームの構築が極めて実用的。",
+      "relevance": 4,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "SIREN (Luring LLMs onto the Rocks): PAIR-Driven Preference Manipulation in Web-RAG Recommenders",
+      "tldr": "Web-RAG（Retrieval-Augmented Generation）を用いた推薦システムにおいて、特定のエンティティを推薦リストの最上位に操作する自動攻撃手法SIRENを提案する。攻撃者と判定役による反復的なループを用いることで、検索されたウェブソースを逐次的に編集し、ターゲットの順位を目標値まで引き上げることに成功している。",
+      "url": "http://arxiv.org/abs/2607.21951v1",
+      "venue": ""
+    },
+    "arxiv:2607.22319": {
+      "added": "2026-07-28",
+      "added_at": "2026-07-28T06:03:55.988731",
+      "arxiv_id": "2607.22319",
+      "authors": [
+        "Chuangtao Ma",
+        "Arijit Khan"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-24",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.22319.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.22319v1",
+      "reading_value": 3,
+      "reading_value_reason": "RAGからAgentic RAGへの進化をデータ統合の観点で論じたロードマップ的な論文。新規手法の提案よりは、既存技術の限界分析と将来像の提示が主であり、概念的理解に有用。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Towards Trustworthy and Cost-Efficient Data Integration: From Naïve RAG to Agentic RAG",
+      "tldr": "エンタープライズ環境のデータ統合におけるLLMの知識不足、ハルシネーション、および膨大な計算コストという課題に対し、従来のRAGから、自律的なマルチエージェントが適応的に推論を行うAgentic RAGへの進化を提案する。",
+      "url": "http://arxiv.org/abs/2607.22319v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -4134,6 +4196,36 @@
       "url": "http://arxiv.org/abs/2603.28803v1",
       "venue": "2026 IEEE ROBOTICS AND AUTOMATION LETTERS"
     },
+    "arxiv:2603.28968": {
+      "added": "2026-07-28",
+      "added_at": "2026-07-28T06:01:51.509394",
+      "arxiv_id": "2603.28968",
+      "authors": [
+        "Viraj Parimi",
+        "Brian C. Williams"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-03-30",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2603.28968.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2603.28968v1",
+      "reading_value": 4,
+      "reading_value_reason": "TAPF-PCという、タスク割り当てとMAPF-PCを統合した新規性の高い問題を扱い、LNSを用いた二段階の具体的な手法提案と大規模な実験検証がなされているため。",
+      "relevance": 2,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Large Neighborhood Search for Multi-Agent Task Assignment and Path Finding with Precedence Constraints",
+      "tldr": "タスクの割り当て、先行制約の遵守、および衝突回避を同時に最適化するTAPF-PC問題を対象とし、大規模近傍探索（LNS）を用いて、タスクの再割り当てと経路計画を統合的に行うことで解の品質を向上させる。",
+      "url": "http://arxiv.org/abs/2603.28968v1",
+      "venue": ""
+    },
     "arxiv:2604.00428": {
       "added": "2026-07-15",
       "added_at": "2026-07-15T06:02:03.184563",
@@ -5313,6 +5405,37 @@
       "tldr": "異なる領域を管理する複数のサブシステムが、容量制限のある共有バッファを介して荷物を交換するMS-MAPD-BHS問題を定式化し、ドック予約とバッファ占有率の予測を用いるオンライン制御器HARRを提案することで、スループットの向上とバックログの削減を実現した。",
       "url": "http://arxiv.org/abs/2607.17724v1",
       "venue": "arXiv (Cornell University)"
+    },
+    "doi:10.65109/wzsb2882": {
+      "added": "2026-07-28",
+      "added_at": "2026-07-28T06:01:17.753566",
+      "arxiv_id": "2605.16097",
+      "authors": [
+        "Ning Zhou",
+        "Nikolai W. F. Bode",
+        "Edmund R. Hunt"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-05-15",
+      "doi": "10.65109/WZSB2882",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2605.16097.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2605.16097v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPF/TAPFの枠組みを「協調輸送」へと拡張した新規性が高い。Incremental Expansionによる探索空間抑制や、タスク衝突拡張のジレンマの特定など、知見が深い。",
+      "relevance": 2,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi-Agent Cooperative Transportation: Optimal and Efficient Task Allocation and Path Finding",
+      "tldr": "複数のエージェントが協力して大型の物体を運搬するCooperative Transportation Task Allocation and Path Finding (CT-TAPF) 問題を定式化し、最適解を得るためのCT-TCBSと、計算効率に優れた劣最適解ソルバーを提案する。",
+      "url": "http://arxiv.org/abs/2605.16097v1",
+      "venue": "AAMAS 2026: Proc. of the 25th International Conference on Autonomous Agents and Multiagent Systems"
     },
     "title:efficient tsp based task group allocation for multi task multi agent pickup and delivery": {
       "added": "2026-07-17",
