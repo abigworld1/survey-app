@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>VecTree-RAG: An Agentic Retrieval-Augmented Generation Framework Combining Vector and Tree Retrieval for Efficiency and Accuracy | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>VecTree-RAG: An Agentic Retrieval-Augmented Generation Framework Combining Vector and Tree Retrieval for Efficiency and Accuracy</h1>
+  <div class="meta">Xinyan Zhong, Yuwei Shi, Yuqi Wei, Chen Shen, Tianhang Zhou, Zhenghao Wu<br>採択先: 未取得 ・ 2026-07-25 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.23006v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.23006v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-25</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">文書構造を活かした検索レベルの分離という新規性が高く、科学論文特有の課題に対し、精度とコストの両面で優れた実験結果を示しているため。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 科学論文のような階層構造を持つ文書に対し、ベクトル検索による文書特定とツリー探索による根拠特定を分離して行うエージェント型RAGフレームワークを提案する。これにより、検索の効率性と回答の正確性、および証拠の局所化精度を同時に向上させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>科学的な質問回答において、関連する論文の特定と、その論文内における具体的な根拠の特定という2つの課題を分離して解決することを目的とする。従来のRAGは文書を固定長のパッセージとして扱うため、科学論文特有の階層構造や図表との文脈的関連性が失われ、情報の断片化や冗長性を招く困難があった。本研究は、文書構造を維持したまま、コーパス全体からの検索と文書内の詳細な探索を段階的に行う入出力を対象とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のRAGがパッセージ単位のベクトルストアに依存するのに対し、文書およびセクションの表現に対して密・疎融合検索を適用し、インデックスのサイズをテキストチャンク数ではなく構造的なエントリ数に依存させる点に新規性がある。既存の階層的検索手法（RAPTORやMemWalkerなど）とは異なり、ベクトル検索による文書横断的な発見と、著者によるセクション階層を辿るツリー検索を分離した検索レベルの分離を実現している。また、回答の質と証拠の局所化精度を同時に測定可能な新しいベンチマークであるMOSAICを導入している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>PDFをMarkdown形式に変換し、LLMを用いてセクションのタイトル、開始ページ、要約を含む検証済みのツリー構造 $\mathcal{T}$ を構築する。各ノードはページ範囲 $[p_{start}, p_{end}]$ を保持し、一定のトークン数やページ数を超える場合は再帰的に分割される。実行時はReActスタイルのエージェントが、Layer 0（SPECTER2による密検索とBM25による疎検索をRRFで統合し、閾値 $\tau$ でフィルタリングする文書検索）、Layer 1（ツリー構造のナビゲーション）、Layer 2（ページ内容の読み取り）の3段階でツールを呼び出す。情報の開示は、検索結果、セクション要約、ページ内容の順に段階的に行われる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>QASPER、LitQA2、MOSAICの3つのベンチマークで評価を行った。QASPERではLLM-judge正解率0.800を記録し、根拠ページの適合率は0.274とベースライン（0.046–0.071）を大幅に上回った。LitQA2では平均精度0.925を達成し、Dense RAG（0.870）やSearch-o1（0.759）を凌駕した。MOSAICでは複合スコア0.547と証拠精度0.221を記録した。アブレーション研究では、ベクトルルーティングを欠く構成と比較して、提案手法は精度を維持しつつ、クエリあたりの累積API課金トークン数を$127,872$から$490,482$へと大幅に削減できることを示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、文書のセクション構造が情報量を持っていることを前提としており、非構造化文書への適用性には課題がある。また、生成されたセクション要約の忠実性や、回答の事実性を完全に保証できるわけではない。QASPERにおける証拠再現率（0.737）がベースライン（0.817–0.899）を下回っていることから、網羅性よりも証拠の集中度を優先するトレードオフが存在する。今後の課題として、評価における証拠の粒度を段落やページ単位からさらに細分化することが挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>VecTree-RAG: An Agentic Retrieval-Augmented Generation Framework Combining Vector and Tree Retrieval for Efficiency and </h3><p>VecTree-RAGは、科学的な質問回答において「関連論文の特定」と「論文内の根拠の特定」という2つの課題を分離して解決するエージェント型フレームワークである。本手法では、ベクトル検索を用いてコーパス全体から文書やセクションのコンパクトな表現をランク付けし、検索空間を絞り込んだ後、検証済みのセクションツリーを推論に基づいて探索することで、選別された論文内の具体的な根拠を特定する。全文データはページストアに保持され、構造的な特定が完了した後に段階的に公開される仕組みとなっており、文書構造を維持したまま効率的な情報抽出を可能にしている。QASPER、LitQA2、MOSAICの3つのベンチマークを用いた評価では、Dense RAGやRAPTORなどの既存手法を上回り、QASPERで0.800のLLM-judge正解率、LitQA2で0.925の精度、MOSAICで0.547の複合スコアを記録した。特にQASPERにおける根拠ページの適合率は0.274に達し、ベースラインの0.046–0.071と比較して大幅に向上している。アブレーション研究により、ベクトル検索によるコーパスレベルの絞り込みとツリー探索による構造的な読み込みを組み合わせた完全なアーキテクチャが、ツリー探索やベクトルルーティングを欠く構成よりも推論トークン数を削減できることが示された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>従来のRAGは文書を固定長のパッセージとしてベクトルインデックスに格納するが、科学論文のような階層構造を無視するため、手法や図表との文脈的な関連性が失われ、検索結果の冗長性や情報の断片化を招く。これに対し、提案するVecTree-RAGは、コーパス全体から文書を特定するベクトル検索と、特定された文書内の階層構造を辿るツリー検索を組み合わせた、エージェントによる「locate-then-read（特定してから読む）」ワークフローを採用している。このフレームワークは、文書とセクションの表現を元のページに紐付けるソース検証済み階層インデックスを構築することで、パッセージ単位のベクトルストアを介さずに、コンパクトなインデックスと追跡可能な証拠の局所化を実現する。また、複数の論文を用いた科学的な統合、比較、マルチホップ推論を評価するためのベンチマークであるMOSAICを導入しており、これは124報の論文と49の自由記述形式の質問で構成され、回答の質と証拠の局所化精度を測定できる。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>従来のRAGは固定サイズのチャンクを用いた密ベクトル検索や、BM25などの語彙的信号を組み合わせたハイブリッド検索、HyDEのようなクエリ変換を用いるが、VecTree-RAGは生のパスゲッジを埋め込む代わりに、文書およびセクションの表現に対して密・疎融合を適用することで、インデックスのサイズをテキストチャンク数ではなく構造的なエントリ数に依存させる。階層的検索の文脈では、クラスタリングによる要約を用いるRAPTORや、要約ツリーを辿るMemWalker、LLMの推論でページやセクションをナビゲートするPageIndexが存在するが、VecTree-RAGは、ベクトル検索によって文書を横断的に発見し、その後、選定された論文内の著者によるセクション階層をツリー検索で辿るという、検索レベルの分離を行っている。エージェント的・反復的な検索手法として、推論と検索を交互に行うReActや、検索の要否を判断するSelf-RAG、チャンク単位の検索を行うPaperQAなどがあるが、VecTree-RAGは検索結果、セクション要約、ページ内容を段階的に大きなペイロードとして提示する。科学文書のQAにおいては、引用構造を利用したSPECTERなどの文書表現が提案されているが、VecTree-RAGはこれらを活用し、生のパスゲッジではなく、タイトル、記述、およびセクション要約を用いた文書横断的な検索を実現している。</p></section>
+<section class="secsum"><h3>3 Method</h3><p>VecTree-RAGは、文書の階層構造を保持したインデックスを活用し、「Locate-then-read（特定してから読む）」という設計思想に基づくエージェント型RAGフレームワークである。インデックス構築段階では、PDFをMarkerを用いてページ境界を維持したMarkdown形式に変換し、LLMを用いてセクションのタイトル、開始ページ、要約を含む検証済みのツリー構造 $\mathcal{T}$ を生成する。各ノードはページ範囲 $[p_{start}, p_{end}]$ を持ち、ノードが20,000トークンまたは10ページを超える場合は再帰的に分割される。クエリ実行時には、ReActスタイルのエージェントが3つの段階的な情報開示レイヤー（Layer 0: 文書検索、Layer 1: ツリー構造のナビゲーション、Layer 2: ページ内容の読み取り）を跨いでツールを呼び出す。Layer 0では、SPECTER2による密ベクトル検索とBM25による疎ベクトル検索を組み合わせ、相互ランク融合（RRF）を用いて候補文書を特定する。この際、密度の類似度またはBM25のスコアが閾値 $\tau$ を下回る文書は、事前融合ゲートによって除外される。最終的に、エージェントは文書内の特定のセクションを特定し、必要なページテキストや画像のみを読み取ることで、計算コストを抑えつつ高精度な回答を生成する。</p></section>
+<section class="secsum"><h3>4 Experiments</h3><p>本研究では、VecTree-RAGの性能をQASPER（単一文書QA）、LitQA2（コーパスレベル検索）、MOSAIC（複数文書合成）の3つの異なる設定で評価している。QASPERでは、300問の質問に対し、VecTree-RAGは正解率0.800を達成し、Dense RAG（0.750）やRAPTOR（0.690）などの全ベースラインを上回った。特に証拠の局所化において、VecTree-RAGの証拠精度（evidence-page precision）は0.274に達し、ベースラインの0.046–0.071と比較して、より集中した関連証拠の特定が可能であることを示した。LitQA2においても、61報の論文からなるコーパスに対してVecTree-RAGは0.925の平均精度を記録し、Dense RAG（0.870）やSearch-o1（0.759）を凌駕した。MOSAICの評価では、事実性F1とスケーリングされたSPECTER類似度を組み合わせた複合スコアにおいて、VecTree-RAGは0.547を記録し、他の手法よりも高い合成品質と、0.221という高い証拠精度を両立させた。手法の限界として、QASPERにおける証拠再現率（0.737）はベースライン（0.817–0.899）を下回っており、完全な網羅性よりも証拠の集中度を優先する特性があること、また、生成された要約の忠実性や回答の事実性を完全に保証するものではないことが挙げられる。</p></section>
+<section class="secsum"><h3>5 Discussion and Limitations</h3><p>VecTree-RAGは、文書をまたぐベクトル検索と文書内のツリー検索を組み合わせることで、高い回答精度と証拠の局所化精度を両立するフレームワークである。実験の結果、QASPERにおいてLLMによる正解率 $0.800$、LitQA2において精度 $0.925$、MOSAICにおいて複合スコア $0.547$ を記録し、既存のDense RAGやRAPTOR、Search-o1を上回る性能を示した。特にQASPERにおける証拠の適合率（precision）は $0.274$ に達し、比較対象の $0.046$ から $0.071$ という数値に対して大幅な改善が見られた。アーキテクチャの特性として、ベクトル検索を用いてコーパス全体から文書やセクションの表現をランク付けし、絞り込まれた候補に対してのみツリー構造を用いた推論を行うことで、計算コストを抑制している。LitQA2のアブレーション研究では、ベクトルによるルーティングを削除して全61報の論文に対してツリー探索を行った場合、クエリあたりの平均累積API課金トークン数が $127,872$ から $490,482$ へと大幅に増加し、精度も $0.925$ から $0.811$ へ低下した。一方で、本手法は文書のセクション構造が情報量を持っていることを前提としており、非構造化文書への適用性や、生成されたセクション要約の忠実性、および評価における証拠の粒度が段落やページ単位に留まっている点に限界がある。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>VecTree-RAGは、コーパス全体からの論文発見をベクトル検索で行い、論文内での根拠特定をツリー検索で行うことで、検索の効率性と正確性を両立させるエージェント型RAGフレームワークである。QASPER、LitQA2、MOSAICの各ベンチマークにおいて、Dense RAG、再ランキングを用いたDense RAG、RAPTOR、Search-o1と比較して、それぞれ $0.800$、$0.925$、$0.547$ という最高水準の回答スコアを記録した。特に根拠の精度において、QASPERでは $0.274$（比較対象は $0.046$ から $0.071$）という大幅な向上を示し、MOSAICでも最高値である $0.221$ を達成した。本手法は、要約された文書やセクションの表現を元のページへと紐付けるソース検証済みの階層構造を構築しており、ページ単位の引用を可能にする検査可能な根拠を提供する。これらの結果は、科学的な質疑応答において、正確性と追跡可能性を確保するために相補的な検索メカニズムを用いることの有効性を裏付けている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-29
+  </footer>
+</div>
+</body>
+</html>

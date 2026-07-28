@@ -1989,6 +1989,71 @@
       "url": "http://arxiv.org/abs/2607.22319v1",
       "venue": ""
     },
+    "arxiv:2607.23006": {
+      "added": "2026-07-29",
+      "added_at": "2026-07-29T06:03:11.120080",
+      "arxiv_id": "2607.23006",
+      "authors": [
+        "Xinyan Zhong",
+        "Yuwei Shi",
+        "Yuqi Wei",
+        "Chen Shen",
+        "Tianhang Zhou",
+        "Zhenghao Wu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-25",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.23006.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.23006v1",
+      "reading_value": 4,
+      "reading_value_reason": "文書構造を活かした検索レベルの分離という新規性が高く、科学論文特有の課題に対し、精度とコストの両面で優れた実験結果を示しているため。",
+      "relevance": 8,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "VecTree-RAG: An Agentic Retrieval-Augmented Generation Framework Combining Vector and Tree Retrieval for Efficiency and Accuracy",
+      "tldr": "科学論文のような階層構造を持つ文書に対し、ベクトル検索による文書特定とツリー探索による根拠特定を分離して行うエージェント型RAGフレームワークを提案する。これにより、検索の効率性と回答の正確性、および証拠の局所化精度を同時に向上させる。",
+      "url": "http://arxiv.org/abs/2607.23006v1",
+      "venue": ""
+    },
+    "arxiv:2607.24332": {
+      "added": "2026-07-29",
+      "added_at": "2026-07-29T06:03:41.044546",
+      "arxiv_id": "2607.24332",
+      "authors": [
+        "Phuong Le Huy",
+        "Nam H. Nguyen",
+        "Quan V. Dang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-27",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.24332.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.24332v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの効率化に直結するチャンク重複除去に対し、クロスアテンションのエントロピーを用いる新規性の高いアプローチを提案しており、実用的な評価もなされている。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Cross-Attention Calibrated Deduplication for Retrieval-Augmented Generation System",
+      "tldr": "RAGシステムにおけるチャンク分割の冗長性を解消するため、クロスエンコーダのアテンション情報を用いて新規情報の量を定量化し、複数の候補チャンクに対する多数決で重複を判定するCACDを提案する。これにより、単一のベクトル比較では困難であったトピックの類似性と真の情報の重複の識別を、高速かつ高精度に行うことが可能になる。",
+      "url": "http://arxiv.org/abs/2607.24332v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -5342,6 +5407,37 @@
       "url": "http://arxiv.org/abs/2402.01446v2",
       "venue": "Proceedings of the AAAI Conference on Artificial Intelligence"
     },
+    "doi:10.48550/arxiv.2304.04217": {
+      "added": "2026-07-29",
+      "added_at": "2026-07-29T06:01:45.169870",
+      "arxiv_id": "2304.04217",
+      "authors": [
+        "Ming-Feng Li",
+        "Min Sun"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 4,
+      "date": "2023-04-09",
+      "doi": "10.48550/arXiv.2304.04217",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2304.04217.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2304.04217v1",
+      "reading_value": 4,
+      "reading_value_reason": "One-shotで用いられたHighwayの概念をLifelong MAPFへ拡張した新規性が高い。デッドロック回避の数学的特性や、高密度下でのスループット向上という知見も有用。",
+      "relevance": 9,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "The Study of Highway for Lifelong Multi-Agent Path Finding",
+      "tldr": "絶え間なくタスクが発生するLifelong Multi-Agent Path Finding (MAPF) において、エージェントの移動方向を制御する「ハイウェイ」の概念を導入することで、計算時間の短縮とデッドロックの抑制を両立する。",
+      "url": "http://arxiv.org/abs/2304.04217v1",
+      "venue": ""
+    },
     "doi:10.48550/arxiv.2607.15182": {
       "added": "2026-07-19",
       "added_at": "2026-07-19T06:01:33.682500",
@@ -5405,6 +5501,41 @@
       "tldr": "異なる領域を管理する複数のサブシステムが、容量制限のある共有バッファを介して荷物を交換するMS-MAPD-BHS問題を定式化し、ドック予約とバッファ占有率の予測を用いるオンライン制御器HARRを提案することで、スループットの向上とバックログの削減を実現した。",
       "url": "http://arxiv.org/abs/2607.17724v1",
       "venue": "arXiv (Cornell University)"
+    },
+    "doi:10.65109/tnmo6004": {
+      "added": "2026-07-29",
+      "added_at": "2026-07-29T06:01:15.043546",
+      "arxiv_id": "1705.10868",
+      "authors": [
+        "Hang Ma",
+        "Jiaoyang Li",
+        "T. K. S. Kumar",
+        "Sven Koenig"
+      ],
+      "basis": "fulltext(ar5iv)",
+      "citations": 332,
+      "date": "2017-05-08",
+      "doi": "10.65109/tnmo6004",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/1705.10868.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Multi-Agent Pickup and Delivery",
+        "MAPD",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/1705.10868v1",
+      "reading_value": 5,
+      "reading_value_reason": "MAPD分野の基礎的な重要論文。分散型手法の理論的保証と、実用的なTP/TPTSの提案、高い被引用数、大規模環境での検証が揃っており、必読。",
+      "relevance": 9,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "Lifelong Multi-Agent Path Finding for Online Pickup and Delivery Tasks",
+      "tldr": "継続的に発生する配送タスクに対し、衝突を回避しながらエージェントを割り当てるオンラインなマルチエージェント・ピックアップ・アンド・デリバリー（MAPD）問題を扱う。分散型の提案手法であるToken Passing（TP）およびToken Passing with Task Swaps（TPTS）は、実用的な条件下で解の存在を保証しつつ、計算効率とタスク完了時間のバランスを実現する。",
+      "url": "https://www.semanticscholar.org/paper/792f19f137323e335b144e548465d483b9786068",
+      "venue": "Adaptive Agents and Multi-Agent Systems"
     },
     "doi:10.65109/wzsb2882": {
       "added": "2026-07-28",

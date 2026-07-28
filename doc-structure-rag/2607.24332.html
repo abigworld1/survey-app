@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Cross-Attention Calibrated Deduplication for Retrieval-Augmented Generation System | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Cross-Attention Calibrated Deduplication for Retrieval-Augmented Generation System</h1>
+  <div class="meta">Phuong Le Huy, Nam H. Nguyen, Quan V. Dang<br>採択先: 未取得 ・ 2026-07-27 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.24332v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.24332v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-27</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの効率化に直結するチャンク重複除去に対し、クロスアテンションのエントロピーを用いる新規性の高いアプローチを提案しており、実用的な評価もなされている。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGシステムにおけるチャンク分割の冗長性を解消するため、クロスエンコーダのアテンション情報を用いて新規情報の量を定量化し、複数の候補チャンクに対する多数決で重複を判定するCACDを提案する。これにより、単一のベクトル比較では困難であったトピックの類似性と真の情報の重複の識別を、高速かつ高精度に行うことが可能になる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>RAG（Retrieval-Augmented Generation）システムにおいて、ドキュメントのチャンク化プロセスで発生する情報の重複は、ベクトルストアの肥大化や検索速度の低下、回答品質の悪化を招く。従来のコサイン類似度を用いたベクトル比較では、単なるトピックの類似性と、内容が真に重複していることの区別が困難であった。また、既存のフィルタリング手法には、微細な表現の違いを捉えられない、言い換えに弱い、あるいは固有表現が少ないテキストに対応できないといった課題が存在する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>提案手法は、単一の最良一致に依存せず、クロスエンコーダのアテンション行列から算出されるNew Information Score (NIS) を導入することで、既存チャンクで説明できない新規情報の量をトークンレベルで定量化する点に新規性がある。また、複数の検索候補に対して多数決を行うプロセスを組み合わせることで、誤った近傍探索結果に左右されない頑健な重複判定を実現している。これにより、従来のセマンティックな比較手法よりも高い精度と高速な処理を両立させている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>CACDは、新しいチャンクを既存のインデックスと比較して追加または破棄を決定する3段階のパイプラインで構成される。まず、新しいチャンクの埋め込みベクトル $\mathbf{v}$ と既存の埋め込み行列 $\mathbf{E}$ とのコサイン類似度を用いて、上位 $K$ 個の候補を抽出する。次に、クロスエンコーダを用いて候補チャンクとの重複確率 $P_{\text{dup}}$ と、アテンションのシャノンエントロピーに基づく $\text{NIS}$ を算出する。$\text{NIS}$ は以下の式で定義される。<br>$$\text{NIS} = \frac{1}{|A|} \sum_{i \in A} \frac{H(i, B)}{\log |B|}$$<br>ここで $H(i, B)$ はチャンク $A$ のトークン $i$ がチャンク $B$ に対して向けているアテンション分布のエントロピーである。最後に、長さ考慮ガードを適用した後、コスト感受性カットオフに基づいた多数決によって最終的な決定を下す。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>SQuAD 1.1の検証セットを用い、9種類のチャンキング戦略と2つのサイズ設定からなる計18の構成において、5つのベースラインと比較評価を行った。CACDは平均で9.75%のドロップ率を達成し、インジェクション時間は51.01秒と、Similarity（356.70秒）やNERExact（69.59秒）よりも大幅に高速であった。精度（Precision: 0.3818）とIoU（0.3263）においてもSimilarityやNERExactを上回る結果を得ている。特にHierarchicalParentChild戦略においては、精度0.5041、IoU 0.4304、ドロップ率14.66%という高い性能を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法のコスト比や $\text{NIS}$ の閾値は、原理的な較正ではなく限定的な実験に基づいている。また、重複と判定されたチャンクに含まれる微量な未説明情報も破棄するため、NoFilterのような手法と比較して適合率や再現率が理論的上限に達しないというトレードオフがある。さらに、重複判定の精度は使用するクロスエンコーダの品質に依存するため、性能向上のためにはモデルのファインチューニングが推奨される。本評価は単一のデータセットに基づく初期的な比較であり、汎用的な性能を保証するものではない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Cross-Attention Calibrated Deduplication for Retrieval-Augmented Generation System</h3><p>RAGシステムにおけるチャンク分割の冗長性を解消するため、単一のベクトル比較によるコサイン類似度閾値判定の限界を克服する手法として、Cross-Attention Calibrated Deduplication (CACD) を提案する。CACDは、既存のチャンクプールに対してクロスエンコーダを用いてトークンレベルの詳細な情報を保持したまま比較を行い、クロスエンコーダの注意エントロピーから算出されるNew Information Score (NIS) によって、既存チャンクで説明できない新規情報の量を定量化する。さらに、単一の最良一致のみに依存せず、複数の候補チャンクに対して多数決を行うプロセスを組み合わせることで、トピックの類似性と真の重複を精度高く識別する。SQuAD 1.1の検証セットを用いた実験では、CACDは平均して9.75%のチャンクを削除し、既存のNERExactよりも約27%高速、コサイン類似度フィルタリングよりも約7倍高速な平均51.0秒での処理を実現した。ただし、本結果は単一のデータセットに基づく初期的な比較であり、汎用的な性能を保証するものではないという限界がある。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>Retrieval-Augmented Generation (RAG) システムにおいて、ドキュメントのチャンク化プロセスで発生する情報の重複は、ベクトルストアの肥大化や検索速度の低下、さらには検索コンテキストの多様性を損なうことによる回答品質の悪化を招く。本論文では、単なるトピックの類似性と、真に重複した情報の区別を目的とした Cross-Attention Calibrated Deduplication (CACD) を提案する。CACD は、新しいチャンクをプールされた類似度ベクトルではなく、増大し続けるインデックス全体に対して比較するクロスエンコーダ、クロスエンコーダのアテンション行列のエントロピーから導出される、候補チャンクによって説明されない情報の量を評価する New Information Score (NIS)、および単一の誤った近傍探索結果に左右されないよう複数の検索候補に対して多数決を行う仕組みの 3 つの要素で構成される。評価実験では、SQuAD 1.1 の検証セットを用い、9 つのチャンク化戦略と 18 の設定において、既存の 5 つのフィルタリング手法と CACD を比較検証している。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>RAGシステムにおけるチャンク分割戦略には、固定長で分割するFixedSizeや、段落・文・単語の順に再帰的に分割するRecursive、文の埋め込み距離に基づき境界を決めるSemantic、スライディングウィンドウを用いるOverlappingなど、多様な手法が存在する。さらに、局所的なエントロピーに応じてサイズを変えるAdaptiveEntropyや、文の平均長に基づき調整するAdaptiveSentenceLen、親チャンクと子チャンクを紐付けるHierarchicalParentChild、文書タイトル等のヘッダーを付与するContextual、k-meansを用いてトピックごとにまとめるTopicBasedといった手法も提案されている。インデックス作成前の冗長なチャンク除去技術としては、正規化後のテキストの一致を確認するExactNorm、文字レベルのshingle集合を用いたJaccard係数の推定に基づくMinHashLSH、チャンクを単一のベクトルに集約してコサイン類似度を計算するSimilarity、および抽出された固有表現集合の一致を確認するNERExactが挙げられる。しかし、ExactNormは微細な表現の違いを捉えられず、MinHashLSHは言い換えに弱く、Similarityはトピックの類似性と情報の重複を区別しにくく、NERExactは固有表現が少ないテキストに対応できないといった、それぞれ固有の限界が存在する。</p></section>
+<section class="secsum"><h3>III Methods</h3><p>Cross-Attention Calibrated Deduplication (CACD)は、ドキュメントの取り込み時にチャンクの重複を判定し、永続インデックスへの追加または破棄を決定する3段階のパイプラインである。第1段階では、新しいチャンクの埋め込みベクトル $\mathbf{v}$ を用いて、メモリ内の既存チャンクの埋め込み行列 $\mathbf{E}$ とのコサイン類似度に基づく厳密な検索を行い、上位 $K$ 個の候補を抽出する。第2段階では、事前学習済みクロスエンコーダを用いて、新しいチャンク $A$ と候補チャンク $B$ を結合したシーケンス $(A, B)$ を入力し、重複確率 $P_{\text{dup}}$ と、アテンション行列から算出されるNew Information Score (NIS) $\text{NIS}$ を得る。$\text{NIS}$ は、チャンク $A$ の各トークンがチャンク $B$ のトークン群にどのように注意を向けているかのシャノンエントロピーに基づき、以下の式で定義される。<br>$$\text{NIS} = \frac{1}{|A|} \sum_{i \in A} \frac{H(i, B)}{\log |B|}$$<br>ここで $H(i, B)$ はトークン $i$ の $B$ に対するアテンションの分布のエントロピーであり、$\text{NIS}$ が $1$ に近いほど $A$ は $B$ に含まれない新しい情報を持つことを示し、$0$ に近いほど $B$ によって説明可能であることを示す。第3段階では、親子関係の除外、ヘッダーの除去、および $\text{NIS} &lt; 0.3$ の場合にのみ長いチャンクを破棄する長さ考慮ガードを適用した後、各候補による多数決で最終的な決定を下す。多数決の閾値は、誤って破棄するコストと誤って保持するコストのバランスを考慮したコスト感受性カットオフに基づき、$\tau_{\text{dup}}$ および $\tau_{\text{NIS}} = 0.5$ と設定される。</p></section>
+<section class="secsum"><h3>IV Results</h3><p>SQuAD 1.1の検証セットを用い、9種類のチャンキング戦略と2つのサイズ設定からなる計18の構成において、提案手法であるCACDの性能をNoFilter、ExactNorm、MinHashLSH、Similarity、NERExactの5つのベースラインと比較評価した。CACDは、対称的なコスト関数 $c(x, y) = c(y, x)$ を用いて、最も高いドロップ率（9.75%）と最小のインデックスサイズ（27.13 MB）を達成しており、インジェクション時間（51.01s）においても、意味的な比較を行うベースラインであるSimilarity（356.70s）やNERExact（69.59s）より大幅に高速である。精度（Precision: 0.3818）とIoU（0.3263）はSimilarityやNERExactを上回る一方で、コンテンツの削除量が極めて少ないNoFilterやMinHashLSHを下回るが、これはCACDがより多くの冗長性を除去した結果である。チャンキング戦略別の分析では、親子関係を持つHierarchicalParentChild構成において、CACDが設計通りに重複を捉えることで、最も高い精度（0.5041）とIoU（0.4304）、および高いドロップ率（14.66%）を示した。一方で、AdaptiveSentenceLenのように元々チャンクが短く冗長性が低い戦略では、ドロップ率が1.90%と低く、Recallが0.8990と最大になるなど、チャンキング手法が導入する重複の性質によってCACDの効果が大きく変動することが明らかになった。</p></section>
+<section class="secsum"><h3>V Conclusion</h3><p>本論文では、クロスエンコーダを用いて既存のインデックス内のチャンクと新規チャンクを比較し、較正された重複確率とアテンションに基づく新規情報スコア（NIS）を組み合わせ、単一の最良一致ではなく複数の検索候補に対する多数決を用いるチャンク重複排除手法であるCACDを提案している。SQuAD 1.1の検証セットを用いた評価では、5つのフィルタリング手法、9つのチャンキング戦略、18の構成において、CACDはテストされた手法の中で最高となる9.75%のドロップ率を達成し、SimilarityやNERExactといったセマンティックレベルのベースラインよりも高速な取り込みを実現している。チャンキング戦略別では、親チャンクと子チャンクの意図的な重複がプールされたベクトルスコアによって誤って冗長と判定される「偽冗長崩壊（false-redundancy collapse）」が発生しやすいHierarchicalParentChild戦略において最大の効果が得られた。一方で、本手法には、コスト比やNISの閾値が原理的な較正手順ではなく限定的な実験に基づいている点、重複と判定されたチャンクに含まれる微量な未説明情報を完全に破棄するため、NoFilterの理論的上限に対して適合率や再現率が及ばない点、および重複確率がクロスエンコーダの品質に依存するという限界がある。特に、nli-deberta-v3-smallやstsb-roberta-largeなどのモデルが良好な結果を示しており、再現率や適合率を向上させるためには、クロスエンコーダのファインチューニングが強く推奨される。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-29
+  </footer>
+</div>
+</body>
+</html>
