@@ -1,7 +1,4 @@
-"""論文ソースのレジストリ。各アダプタは search(keywords, limit) -> [Paper] を実装。
-
-1つのソースが落ちても全体は止めない（ログを出して空リストを返す）。
-"""
+"""論文ソースのレジストリ。各アダプタは search(keywords, limit) -> [Paper] を実装。"""
 from . import arxiv, dblp, openalex, semanticscholar
 
 _SOURCES = {
@@ -19,10 +16,5 @@ def available():
 def search_source(name, keywords, limit, mode="recent"):
     fn = _SOURCES.get(name)
     if not fn:
-        print(f"  [warn] 未知のソース: {name}")
-        return []
-    try:
-        return fn(keywords, limit, mode=mode)
-    except Exception as e:  # ネットワーク/パース失敗は致命にしない
-        print(f"  [warn] ソース '{name}' 取得失敗: {e!r}")
-        return []
+        raise ValueError(f"未知のソース: {name}")
+    return fn(keywords, limit, mode=mode)

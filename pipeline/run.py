@@ -11,6 +11,7 @@
 """
 import argparse
 import datetime
+import dataclasses
 import difflib
 import html
 import json
@@ -210,6 +211,7 @@ TPL = os.path.join(ROOT, "templates")
 DATA = os.path.join(ROOT, "data")
 SEEN = os.path.join(DATA, "seen.json")
 RUNS = os.path.join(DATA, "runs")
+CANDIDATE_CACHE = os.path.join(DATA, "cache", "candidates")
 
 # 安全上限（暴走・肥大化の防止）
 MAX_K = 20                  # 1購読あたり1日に生成する最大ページ数
@@ -220,6 +222,7 @@ MIN_TLDR_CHARS = 40         # 短すぎる要約を落とす
 MIN_SUMMARY_CHARS = 260
 MAX_UNKNOWN_PHRASES = 1
 MIN_READING_VALUE = 2        # 1/5 は誤本文・内容不一致の可能性が高いため自動公開しない
+CANDIDATE_CACHE_LIMIT = 500   # 分野・選定モードごとの未使用候補キャッシュ上限
 
 
 def _basis_is_fulltext(basis):
@@ -396,6 +399,106 @@ def load_sample():
         return [Paper(**p) for p in json.load(f)]
 
 
+def _candidate_cache_path(uslug, cache_dir=None):
+    return os.path.join(cache_dir or CANDIDATE_CACHE, f"{uslug}.json")
+
+
+def _paper_cache_record(paper):
+    return {field.name: getattr(paper, field.name) for field in dataclasses.fields(Paper)}
+
+
+def _load_candidate_cache(uslug, cache_dir=None):
+    path = _candidate_cache_path(uslug, cache_dir)
+    if not os.path.exists(path):
+        return [], []
+    try:
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+        valid_fields = {field.name for field in dataclasses.fields(Paper)}
+
+        def restore(items):
+            papers = []
+            for item in items or []:
+                values = {key: value for key, value in item.items() if key in valid_fields}
+                if values.get("source") and values.get("title"):
+                    papers.append(Paper(**values))
+            return dedup(papers)
+
+        return restore(data.get("recent")), restore(data.get("important"))
+    except Exception as e:
+        print(f"  [warn] 候補キャッシュを読めません: {e!r}")
+        return [], []
+
+
+def _save_candidate_cache(uslug, recent, important, cache_dir=None):
+    path = _candidate_cache_path(uslug, cache_dir)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    data = {
+        "updated_at": datetime.datetime.now().isoformat(timespec="seconds"),
+        "recent": [_paper_cache_record(p) for p in recent[:CANDIDATE_CACHE_LIMIT]],
+        "important": [_paper_cache_record(p) for p in important[:CANDIDATE_CACHE_LIMIT]],
+    }
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2, sort_keys=True)
+    os.replace(tmp, path)
+
+
+def _cacheable_candidates(papers, seen_for_field, keywords, ambiguous, context):
+    patterns = _keyword_patterns(keywords)
+    out = []
+    for paper in papers:
+        if paper.key() in seen_for_field or _relevance(paper, patterns) <= 0:
+            continue
+        matched = _matched_keywords(paper, keywords)
+        if _domain_context_issue(paper, matched, ambiguous, context):
+            continue
+        out.append(paper)
+    return out
+
+
+def _seen_report_item(key, info):
+    return {
+        "id": os.path.basename(info.get("file", "")).removesuffix(".html") or key,
+        "title": info.get("title", ""),
+        "selection": info.get("selection", "fallback"),
+        "selection_label": info.get("selection_label", ""),
+        "published": info.get("date", ""),
+        "venue": info.get("venue", ""),
+        "source": "",
+        "basis": info.get("basis", ""),
+        "source_quality": info.get("source_quality", ""),
+        "citations": info.get("citations", 0),
+        "relevance": info.get("relevance", 0),
+        "matched_keywords": info.get("matched_keywords", []),
+        "file": info.get("file", ""),
+        "reading_value": info.get("reading_value", ""),
+        "reading_value_reason": info.get("reading_value_reason", ""),
+    }
+
+
+def _added_today(seen_for_field, today):
+    return [
+        _seen_report_item(key, info)
+        for key, info in seen_for_field.items()
+        if info.get("added") == today and info.get("selection") != "manual"
+    ]
+
+
+def _remaining_selection_quotas(k, existing_added):
+    remaining = max(0, k - len(existing_added))
+    important_target = _important_quota(k)
+    recent_target = k - important_target
+    existing_important = sum(
+        item.get("selection") == "important" for item in existing_added
+    )
+    existing_recent = sum(item.get("selection") == "recent" for item in existing_added)
+    important = min(remaining, max(0, important_target - existing_important))
+    recent = min(remaining - important, max(0, recent_target - existing_recent))
+    recent += remaining - important - recent
+    return important, recent
+
+
 def _search_groups(sub):
     queries = sub.get("search_queries")
     if not queries:
@@ -422,15 +525,26 @@ def gather(sub, offline, mode="recent"):
     counts = {}
     groups = _search_groups(sub)
     for src in sub.get("sources") or ["arxiv"]:
+        # Semantic Scholar は無鍵時のレート制限が厳しいため、分割語を1検索にまとめて
+        # 代替ソースとして広く取得する。arXiv/OpenAlex は検索語ごとの精度を優先する。
+        source_groups = groups
+        if src == "semanticscholar" and len(groups) > 1:
+            source_groups = [[term for group in groups for term in group]]
         # arXiv は本文取得の主力なので、複数クエリに分割しても各クエリを深めに取る。
         # OpenAlex/S2 は広くノイズも増えやすいため、従来どおり全体上限をクエリ間で分ける。
         per_query_limit = (
             FETCH_CAP
             if src == "arxiv"
-            else max(8, min(FETCH_CAP, (FETCH_CAP + len(groups) - 1) // max(1, len(groups))))
+            else max(
+                8,
+                min(
+                    FETCH_CAP,
+                    (FETCH_CAP + len(source_groups) - 1) // max(1, len(source_groups)),
+                ),
+            )
         )
         src_total = 0
-        for i, terms in enumerate(groups, start=1):
+        for i, terms in enumerate(source_groups, start=1):
             label = f"{src}/{mode}/q{i}"
             try:
                 got = sources.search_source(src, terms, per_query_limit, mode=mode)
@@ -441,7 +555,7 @@ def gather(sub, offline, mode="recent"):
                 print(f"  [warn] {label} 取得失敗: {e!r}")
             src_total += len(got)
             papers += got
-        print(f"  {src}/{mode}: {src_total} 件 ({len(groups)} queries)")
+        print(f"  {src}/{mode}: {src_total} 件 ({len(source_groups)} queries)")
     return papers, counts
 
 
@@ -452,6 +566,11 @@ def main(argv=None):
     ap.add_argument("--dry-run", action="store_true", help="生成・seen更新を行わない")
     ap.add_argument("--reset", action="store_true", help="既存ページとseenを消してから再生成（本文版へ作り直し）")
     ap.add_argument("--render-indexes-only", action="store_true", help="取得・要約をせず既存seenから一覧HTMLだけ再生成")
+    ap.add_argument(
+        "--refresh-candidate-cache",
+        action="store_true",
+        help="論文候補だけを取得して障害時用キャッシュを更新",
+    )
     ap.add_argument("--limit", type=int, default=MAX_PAGES_PER_RUN, help="今回の総生成ページ上限")
     args = ap.parse_args(argv)
 
@@ -475,7 +594,7 @@ def main(argv=None):
         print("完了: 一覧HTMLを再生成")
         return 0
 
-    summarizer = Summarizer(stub=args.offline or args.stub)
+    summarizer = Summarizer(stub=args.offline or args.stub or args.refresh_candidate_cache)
     print(f"要約エンジン: {summarizer.engine}")
 
     if args.reset:
@@ -508,18 +627,51 @@ def main(argv=None):
         if sub.get("manual"):
             print(f"\n=== {display} (slug={uslug}) [manual] ===")
             seen.setdefault(uslug, {})
-            if not args.dry_run:
+            if not args.dry_run and not args.refresh_candidate_cache:
                 render.render_user_index(TPL, ROOT, uslug, display, seen[uslug], sub.get("keywords", []))
             continue
         k = max(1, min(int(sub.get("k", 5)), MAX_K))
-        print(f"\n=== {display} (slug={uslug}, k={k}) ===")
+        useen = seen.setdefault(uslug, {})
+        existing_added = [] if args.offline else _added_today(useen, today)
+        remaining_k = max(0, k - len(existing_added))
+        print(
+            f"\n=== {display} (slug={uslug}, k={k}, "
+            f"本日追加済み={len(existing_added)}, 残り={remaining_k}) ==="
+        )
+
+        if remaining_k == 0 and not args.refresh_candidate_cache:
+            print("  本日の目標件数に到達済み: 取得処理をスキップ")
+            field_report = {
+                "slug": uslug,
+                "label": display,
+                "k": k,
+                "already_added": len(existing_added),
+                "source_counts": {},
+                "candidates_total": 0,
+                "fresh_total": 0,
+                "relevant_total": 0,
+                "picked_initial": 0,
+                "quota": {"important": 0, "recent": 0},
+                "added": existing_added,
+                "skipped": [],
+                "shortfall": 0,
+            }
+            if not args.dry_run:
+                render.render_user_index(TPL, ROOT, uslug, display, useen, sub.get("keywords", []))
+            report["fields"].append(field_report)
+            continue
 
         recent_raw, recent_counts = gather(sub, args.offline, mode="recent")
         important_raw, important_counts = gather(sub, args.offline, mode="important")
-        recent_papers = dedup(recent_raw)
-        important_papers = dedup(important_raw)
+        if args.offline:
+            cached_recent, cached_important = [], []
+        else:
+            cached_recent, cached_important = _load_candidate_cache(uslug)
+            recent_counts["candidate_cache/recent"] = {"count": len(cached_recent)}
+            important_counts["candidate_cache/important"] = {"count": len(cached_important)}
+        recent_papers = dedup(recent_raw + cached_recent)
+        important_papers = dedup(important_raw + cached_important)
         papers = dedup(important_papers + recent_papers)
-        useen = seen.setdefault(uslug, {})
         fresh_recent = [p for p in recent_papers if p.key() not in useen]
         fresh_important = [p for p in important_papers if p.key() not in useen]
         fresh_all = [p for p in papers if p.key() not in useen]
@@ -527,8 +679,44 @@ def main(argv=None):
         ambiguous_keywords = sub.get("ambiguous_keywords", [])
         context_keywords = sub.get("context_keywords", [])
         kw_pats = _keyword_patterns(keywords)
-        important_quota = _important_quota(k)
-        recent_quota = k - important_quota
+        if args.refresh_candidate_cache:
+            recent_cache = _cacheable_candidates(
+                recent_papers, useen, keywords, ambiguous_keywords, context_keywords
+            )
+            important_cache = _cacheable_candidates(
+                important_papers, useen, keywords, ambiguous_keywords, context_keywords
+            )
+            if not args.dry_run:
+                _save_candidate_cache(
+                    uslug,
+                    _rank_recent(recent_cache, kw_pats),
+                    _rank_important(important_cache, kw_pats),
+                )
+            print(
+                f"  候補キャッシュ更新: 新着 {len(recent_cache)} / "
+                f"重要 {len(important_cache)}"
+            )
+            report["fields"].append(
+                {
+                    "slug": uslug,
+                    "label": display,
+                    "k": k,
+                    "already_added": len(existing_added),
+                    "source_counts": {**recent_counts, **important_counts},
+                    "candidates_total": len(papers),
+                    "fresh_total": len(fresh_all),
+                    "relevant_total": len(dedup(recent_cache + important_cache)),
+                    "picked_initial": 0,
+                    "quota": {"important": 0, "recent": 0},
+                    "added": existing_added,
+                    "skipped": [],
+                    "shortfall": 0,
+                }
+            )
+            continue
+        important_quota, recent_quota = _remaining_selection_quotas(
+            k, existing_added
+        )
         used = set()
         picked = []
         # 重要枠: 分野内での被引用数が高い論文を優先。新着枠: 投稿日が新しい論文を優先。
@@ -546,9 +734,12 @@ def main(argv=None):
             selection_kind[p.key()] = "recent"
         picked += recent_pick
         # 片方の枠が不足した場合は、全候補から重要度順に補充して k 本に近づける。
-        if len(picked) < k:
+        if len(picked) < remaining_k:
             fill_pick = _take_ranked(
-                _rank_important(fresh_all, kw_pats), kw_pats, k - len(picked), used
+                _rank_important(fresh_all, kw_pats),
+                kw_pats,
+                remaining_k - len(picked),
+                used,
             )
             for p in fill_pick:
                 selection_kind[p.key()] = "fallback"
@@ -570,18 +761,19 @@ def main(argv=None):
             "slug": uslug,
             "label": display,
             "k": k,
+            "already_added": len(existing_added),
             "source_counts": {**recent_counts, **important_counts},
             "candidates_total": len(papers),
             "fresh_total": len(fresh_all),
             "relevant_total": len(relevant),
             "picked_initial": len(picked),
             "quota": {"important": important_quota, "recent": recent_quota},
-            "added": [],
+            "added": list(existing_added),
             "skipped": [],
         }
         print(
             f"  候補 {len(papers)} / 新規 {len(fresh_all)} / 関連 {len(relevant)} / "
-            f"採用 {len(picked)} (重要枠 {important_quota}, 新着枠 {recent_quota})"
+            f"採用 {len(picked)} (今回の重要枠 {important_quota}, 新着枠 {recent_quota})"
         )
 
         produced_for_sub = 0
@@ -589,7 +781,7 @@ def main(argv=None):
             if produced >= args.limit:
                 print("  [stop] 総ページ上限に到達")
                 break
-            if produced_for_sub >= k:
+            if produced_for_sub >= remaining_k:
                 break
             pid = slugify(p.paper_id(), fallback="paper")
             rel = f"{uslug}/{pid}.html"
@@ -737,21 +929,48 @@ def main(argv=None):
             produced += 1
             produced_for_sub += 1
             print(f"  + {rel}")
-        if produced < args.limit and produced_for_sub < min(k, len(fresh_all)):
-            print(f"  [warn] 生成可能な候補が不足: {produced_for_sub}/{k} ページ")
-        field_report["shortfall"] = max(0, k - produced_for_sub)
+        daily_total = len(existing_added) + produced_for_sub
+        if produced < args.limit and daily_total < k:
+            print(f"  [warn] 本日の生成可能な候補が不足: {daily_total}/{k} ページ")
+        field_report["shortfall"] = max(0, k - daily_total)
+
+        if not (args.offline or args.dry_run):
+            recent_cache = _cacheable_candidates(
+                recent_papers, useen, keywords, ambiguous_keywords, context_keywords
+            )
+            important_cache = _cacheable_candidates(
+                important_papers, useen, keywords, ambiguous_keywords, context_keywords
+            )
+            _save_candidate_cache(
+                uslug,
+                _rank_recent(recent_cache, kw_pats),
+                _rank_important(important_cache, kw_pats),
+            )
 
         if not args.dry_run:
             render.render_user_index(TPL, ROOT, uslug, display, useen, keywords)
         report["fields"].append(field_report)
 
-    if not args.dry_run:
+    if not args.dry_run and not args.refresh_candidate_cache:
         report_paths = _write_run_report(report)
         print(f"実行レポート: {os.path.relpath(report_paths[0], ROOT)} / {os.path.relpath(report_paths[1], ROOT)}")
         render.render_global_index(TPL, ROOT, subs, seen, slugify)
         save_seen(SEEN, seen)
 
+    if args.refresh_candidate_cache:
+        print(f"\n完了: 候補キャッシュを更新 (dry-run={args.dry_run})")
+        return 0
+
+    shortfalls = [field for field in report["fields"] if field.get("shortfall", 0) > 0]
     print(f"\n完了: {produced} ページ生成 (dry-run={args.dry_run})")
+    if shortfalls:
+        labels = ", ".join(
+            f"{field.get('slug')}={field.get('shortfall')}本不足" for field in shortfalls
+        )
+        level = "warn" if args.offline or args.dry_run else "error"
+        print(f"[{level}] 日次目標未達: {labels}")
+        if not (args.offline or args.dry_run):
+            return 2
     return 0
 
 

@@ -6,12 +6,29 @@ cd "$(dirname "$0")/.."
 [ -f .env ] && { set -a; . ./.env; set +a; }
 export LLM_BASE_URL="${LLM_BASE_URL:-http://localhost:8000/v1}"
 export LLM_API_KEY="${LLM_API_KEY:-dummy}"
-.venv/bin/python -m pipeline.run
+attempts="${PIPELINE_ATTEMPTS:-3}"
+retry_delay="${PIPELINE_RETRY_DELAY_SECONDS:-900}"
+status=1
+for ((attempt=1; attempt<=attempts; attempt++)); do
+  echo "$(date +%FT%T) pipeline attempt ${attempt}/${attempts}"
+  set +e
+  .venv/bin/python -m pipeline.run
+  status=$?
+  set -e
+  if [ "$status" -eq 0 ]; then
+    break
+  fi
+  if [ "$attempt" -lt "$attempts" ]; then
+    echo "$(date +%FT%T) daily quota shortfall; retrying in ${retry_delay}s"
+    sleep "$retry_delay"
+  fi
+done
 if [ -n "$(git status --porcelain)" ]; then
-git add -A
-git commit -q -m "daily: $(date +%F)"
-git push -q origin main
-echo "$(date +%FT%T) pushed"
+  git add -A
+  git commit -q -m "daily: $(date +%F)"
+  git push -q origin main
+  echo "$(date +%FT%T) pushed"
 else
-echo "$(date +%FT%T) no changes"
+  echo "$(date +%FT%T) no changes"
 fi
+exit "$status"

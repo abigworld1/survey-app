@@ -1,5 +1,6 @@
 """arXiv Atom API。作法: 説明的な User-Agent + 約3秒間隔。"""
 import re
+import time
 import urllib.parse
 import xml.etree.ElementTree as ET
 
@@ -9,6 +10,7 @@ from ..util import http_get
 ATOM = "{http://www.w3.org/2005/Atom}"
 ARXIV = "{http://arxiv.org/schemas/atom}"
 ENDPOINT = "https://export.arxiv.org/api/query"
+SEARCH_RETRY_DELAYS = (10, 30)
 
 
 def _build_query(keywords):
@@ -40,9 +42,7 @@ def fetch_meta(arxiv_id):
         return None
 
 
-def search(keywords, limit=25, mode="recent"):
-    if mode == "important":
-        return []
+def _search_once(keywords, limit):
     q = urllib.parse.urlencode(
         {
             "search_query": _build_query(keywords),
@@ -83,3 +83,33 @@ def search(keywords, limit=25, mode="recent"):
             )
         )
     return out
+
+
+def search(keywords, limit=25, mode="recent"):
+    if mode == "important":
+        return []
+
+    last_error = None
+    attempts = len(SEARCH_RETRY_DELAYS) + 1
+    for attempt in range(attempts):
+        try:
+            out = _search_once(keywords, limit)
+            if out:
+                if attempt:
+                    print(f"    [recovered] arXiv検索: {attempt + 1}回目で取得")
+                return out
+            last_error = RuntimeError("arXiv API returned an empty feed")
+        except Exception as e:
+            last_error = e
+
+        if attempt < len(SEARCH_RETRY_DELAYS):
+            delay = SEARCH_RETRY_DELAYS[attempt]
+            print(
+                f"    [retry] arXiv検索が空または失敗: {last_error!r}、"
+                f"{delay}秒待機 ({attempt + 1}/{attempts})"
+            )
+            time.sleep(delay)
+
+    raise RuntimeError(
+        f"arXiv検索を{attempts}回試しましたが取得できませんでした: {last_error!r}"
+    ) from last_error
