@@ -4,10 +4,52 @@
   "engine": "llm:gemma-4-26b",
   "fields": [
     {
-      "added": [],
+      "added": [
+        {
+          "basis": "fulltext(oa-pdf)",
+          "citations": 9,
+          "file": "mapf-mapd-warehouse/doi-d3cde2e436bd.html",
+          "id": "doi-d3cde2e436bd",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF",
+            "Lifelong Multi-Agent Path Finding"
+          ],
+          "published": "2023-07-02",
+          "reading_value": 4,
+          "reading_value_reason": "実用上の課題である「計画失敗」を形式化し、システム設計として包括的に解決策を提示している点が極めて高く、スループット向上も顕著で実務的価値が高い。",
+          "relevance": 8,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "fulltext",
+          "title": "Adapting to Planning Failures in Lifelong Multi-Agent Path Finding",
+          "venue": "Symposium on Combinatorial Search"
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 8,
+          "file": "mapf-mapd-warehouse/2408.14527.html",
+          "id": "2408.14527",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2024-08-26",
+          "reading_value": 4,
+          "reading_value_reason": "実ロボットの動力学とタスク間の相互依存性を計画段階から統合する手法に新規性があり、VP*による計算効率化や実機検証も具体的で、実用性が高い。",
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "fulltext",
+          "title": "Multi-Agent Path Finding with Real Robot Dynamics and Interdependent Tasks for Automated Warehouses",
+          "venue": "European Conference on Artificial Intelligence"
+        }
+      ],
       "already_added": 0,
       "candidates_total": 210,
-      "fresh_total": 146,
+      "fresh_total": 134,
       "k": 2,
       "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
       "picked_initial": 2,
@@ -15,58 +57,242 @@
         "important": 1,
         "recent": 1
       },
-      "relevant_total": 45,
-      "shortfall": 2,
+      "relevant_total": 33,
+      "shortfall": 0,
       "skipped": [
         {
-          "basis": "fulltext(ar5iv)",
-          "citations": 332,
-          "file": "mapf-mapd-warehouse/1705.10868.html",
-          "id": "1705.10868",
+          "basis": "abstract",
+          "citations": 6,
+          "id": "doi-494c164d1746",
           "matched_keywords": [
             "Multi-Agent Path Finding",
             "MAPF",
-            "Multi-Agent Pickup and Delivery",
-            "MAPD",
             "Lifelong Multi-Agent Path Finding"
           ],
-          "published": "2017-05-08",
-          "reading_value": 5,
-          "reading_value_reason": "MAPD分野の基礎的な重要論文。分散型手法の理論的保証と、実用的なTP/TPTSの提案、高い被引用数、大規模環境での検証が揃っており、必読。",
+          "published": "2025-04-11",
           "reasons": [
-            "既存論文と判定（別識別子による重複）"
+            "本文未取得（アブストラクトのみ）"
           ],
           "relevance": 9,
           "selection": "important",
           "selection_label": "重要論文",
           "source": "semanticscholar",
-          "source_quality": "fulltext",
-          "title": "Lifelong Multi-Agent Path Finding for Online Pickup and Delivery Tasks",
-          "venue": "Adaptive Agents and Multi-Agent Systems"
+          "source_quality": "abstract",
+          "title": "Concurrent Planning and Execution in Lifelong Multi-Agent Path Finding with Delay Probabilities",
+          "venue": "AAAI Conference on Artificial Intelligence"
         },
         {
-          "basis": "fulltext(ar5iv)",
-          "citations": 4,
-          "file": "mapf-mapd-warehouse/2304.04217.html",
-          "id": "2304.04217",
+          "basis": "abstract",
+          "citations": 3,
+          "id": "doi-b3edbee06018",
           "matched_keywords": [
             "Multi-Agent Path Finding",
             "MAPF",
             "Lifelong Multi-Agent Path Finding"
           ],
-          "published": "2023-04-09",
-          "reading_value": 4,
-          "reading_value_reason": "One-shotで用いられたHighwayの概念をLifelong MAPFへ拡張した新規性が高い。デッドロック回避の数学的特性や、高密度下でのスループット向上という知見も有用。",
+          "published": "2024-08-28",
           "reasons": [
-            "既存論文と判定（別識別子による重複）"
+            "本文未取得（アブストラクトのみ）"
           ],
           "relevance": 9,
           "selection": "recent",
           "selection_label": "新着論文",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "AGV Traffic Management in Automated Industrial Plants: An Enhanced Lifelong Multi-Agent Path Finding Approach",
+          "venue": "2024 IEEE 20th International Conference on Automation Science and Engineering (CASE)"
+        },
+        {
+          "basis": "abstract",
+          "citations": 97,
+          "id": "doi-67a37f53761d",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF",
+            "Multi-Agent Pickup and Delivery",
+            "MAPD"
+          ],
+          "published": "2020-05-05",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 9,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "Research Challenges and Opportunities in Multi-Agent Path Finding and Multi-Agent Pickup and Delivery Problems",
+          "venue": "Adaptive Agents and Multi-Agent Systems"
+        },
+        {
+          "basis": "abstract",
+          "citations": 7,
+          "id": "doi-2ca61808650b",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF",
+            "Lifelong Multi-Agent Path Finding"
+          ],
+          "published": "2025-05-01",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 8,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "A Robust Lifelong Multi-Agent Path Finding With Active Conflict Resolution and Decentralized Execution",
+          "venue": "IEEE Robotics and Automation Letters"
+        },
+        {
+          "basis": "abstract",
+          "citations": 5,
+          "id": "doi-13c0948a9846",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF",
+            "Lifelong Multi-Agent Path Finding"
+          ],
+          "published": "2024-06-01",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 8,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "Adaptive Lifelong Multi-Agent Path Finding With Multiple Priorities",
+          "venue": "IEEE Robotics and Automation Letters"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-66850d8da5c6",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF",
+            "Lifelong Multi-Agent Path Finding"
+          ],
+          "published": "2026-06-19",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 7,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "Energy-Constrained Hybrid Repair for Lifelong Multi-Agent Path Finding in Smart Warehouses",
+          "venue": "Electronics"
+        },
+        {
+          "basis": "abstract",
+          "citations": 32,
+          "id": "doi-3bed8cb2f00e",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF",
+            "Multi-Agent Pickup and Delivery",
+            "MAPD"
+          ],
+          "published": "2023-09-01",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 7,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "A TSP-Based Online Algorithm for Multi-Task Multi-Agent Pickup and Delivery",
+          "venue": "IEEE Robotics and Automation Letters"
+        },
+        {
+          "basis": "abstract",
+          "citations": 6,
+          "id": "doi-fc6e65e7c020",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF",
+            "Multi-Agent Pickup and Delivery",
+            "MAPD"
+          ],
+          "published": "2023-05-30",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 7,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "Multi-Agent Pickup and Delivery in Presence of Another Team of Robots",
+          "venue": "Adaptive Agents and Multi-Agent Systems"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-4340b82c32bd",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF",
+            "Multi-Agent Pickup and Delivery",
+            "MAPD"
+          ],
+          "published": "2025-08-25",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 7,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "Robust Space-Time A* for Human-In-The-Loop Multi-Agent Pickup and Delivery",
+          "venue": "Conference on Control Technology and Applications"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "2003.07108",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "Lifelong Multi-Agent Path Finding"
+          ],
+          "published": "2020-03-16",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 6,
+          "selection": "fallback",
+          "selection_label": "補充候補",
           "source": "arxiv",
-          "source_quality": "fulltext",
-          "title": "The Study of Highway for Lifelong Multi-Agent Path Finding",
+          "source_quality": "abstract",
+          "title": "A Job-Assignment Heuristic for Lifelong Multi-Agent Path Finding Problem with Multiple Delivery Locations",
           "venue": ""
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-e7a209999d5f",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF",
+            "Online Multi-Agent Path Finding"
+          ],
+          "published": "2025-10-19",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 6,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "semanticscholar",
+          "source_quality": "abstract",
+          "title": "Self-Assembly Planning for Modular Robots via Multi-Agent Path Finding on Time-Expanded Networks",
+          "venue": "IEEE/RJS International Conference on Intelligent RObots and Systems"
         }
       ],
       "slug": "mapf-mapd-warehouse",
@@ -120,10 +346,10 @@
           "query": "Online Multi-Agent Path Finding"
         },
         "candidate_cache/important": {
-          "count": 32
+          "count": 30
         },
         "candidate_cache/recent": {
-          "count": 13
+          "count": 43
         },
         "openalex/important/q1": {
           "count": 8,
@@ -200,7 +426,7 @@
           "relevance": 8,
           "selection": "recent",
           "selection_label": "新着論文",
-          "source": "arxiv",
+          "source": "",
           "source_quality": "fulltext",
           "title": "VecTree-RAG: An Agentic Retrieval-Augmented Generation Framework Combining Vector and Tree Retrieval for Efficiency and Accuracy",
           "venue": ""
@@ -220,80 +446,28 @@
           "relevance": 5,
           "selection": "fallback",
           "selection_label": "補充候補",
-          "source": "arxiv",
+          "source": "",
           "source_quality": "fulltext",
           "title": "Cross-Attention Calibrated Deduplication for Retrieval-Augmented Generation System",
           "venue": ""
         }
       ],
-      "already_added": 0,
-      "candidates_total": 155,
-      "fresh_total": 129,
+      "already_added": 2,
+      "candidates_total": 0,
+      "fresh_total": 0,
       "k": 2,
       "label": "文書構造解析に基づく検索・質問応答・RAG",
-      "picked_initial": 2,
+      "picked_initial": 0,
       "quota": {
-        "important": 1,
-        "recent": 1
+        "important": 0,
+        "recent": 0
       },
-      "relevant_total": 77,
+      "relevant_total": 0,
       "shortfall": 0,
-      "skipped": [
-        {
-          "basis": "abstract",
-          "citations": 0,
-          "id": "doi-0a4ace0de437",
-          "matched_keywords": [
-            "Retrieval-Augmented Generation",
-            "RAG"
-          ],
-          "published": "2026-07-07",
-          "reasons": [
-            "本文未取得（アブストラクトのみ）"
-          ],
-          "relevance": 8,
-          "selection": "important",
-          "selection_label": "重要論文",
-          "source": "semanticscholar",
-          "source_quality": "abstract",
-          "title": "Retrieval-Augmented Generation for Curated Thematic Corpora: A Critical Survey, Bibliometric Evidence, and the ThemePath-RAG Framework",
-          "venue": "Information"
-        }
-      ],
+      "skipped": [],
       "slug": "doc-structure-rag",
-      "source_counts": {
-        "arxiv/important/q1": {
-          "count": 0,
-          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
-        },
-        "arxiv/recent/q1": {
-          "count": 40,
-          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
-        },
-        "candidate_cache/important": {
-          "count": 10
-        },
-        "candidate_cache/recent": {
-          "count": 46
-        },
-        "openalex/important/q1": {
-          "count": 40,
-          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
-        },
-        "openalex/recent/q1": {
-          "count": 40,
-          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
-        },
-        "semanticscholar/important/q1": {
-          "count": 40,
-          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
-        },
-        "semanticscholar/recent/q1": {
-          "count": 40,
-          "query": "Document Structure Analysis + PDF Layout Understanding + Document Structure Graph + Retrieval-Augmented Generation + RAG + Evidence Retrieval"
-        }
-      }
+      "source_counts": {}
     }
   ],
-  "generated_at": "2026-07-29T06:00:01"
+  "generated_at": "2026-07-29T12:18:47"
 }

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-Agent Path Finding with Real Robot Dynamics and Interdependent Tasks for Automated Warehouses | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi-Agent Path Finding with Real Robot Dynamics and Interdependent Tasks for Automated Warehouses</h1>
+  <div class="meta">Vassilissa Lehoux-Lebacque, T. Silander, Christelle Loiodice, Seungjoon Lee, Albert Wang, Sofia Michel<br>採択先: European Conference on Artificial Intelligence ・ 2024-08-26 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/493ee4d4b6cc09219440ac7c4dae271b50a1499d" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.48550/arXiv.2408.14527" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 European Conference on Artificial Intelligence</span><span class="chip">公開日 2024-08-26</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 8</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">実ロボットの動力学とタスク間の相互依存性を計画段階から統合する手法に新規性があり、VP*による計算効率化や実機検証も具体的で、実用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 自動倉庫における、相互に依存するタスクと実ロボットの複雑な動力学を考慮したLifelong Multi-Agent Path Finding (MAPF) 問題に対し、タスク割り当てと経路計画を交互に行う手法と、動的な障害物を回避しつつ経由地を巡回する軌道生成アルゴリズムを提案し、その有効性を実証する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>自動倉庫でのオンライン注文配送を対象とし、特定のワークステーションを共有する相互依存的なピックアップおよびデリバリータスクを扱う。従来のグリッドベースのMAPFは、エージェントが単一のセルを占有し離散的な時間ステップで移動することを前提としているが、実環境ではロボットの積載量に依存する加速度・速度の制約、複数ノードにまたがる占有、狭い通路での旋回制約といった複雑な動力学が存在する。入力はタスクの集合であり、出力は衝突のないロボットの軌道列である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のMAPF手法の多くは、慣性を無視した速度モデルや離散的な時間ステップ、あるいは計画段階で運動学的制約を考慮しない後処理的なアプローチに留まっている。本研究は、タスク間の依存関係を考慮して優先順位を動的に割り当てる Interleaved Prioritized Planning と、運動学的制約付き最短経路問題を多項式時間で解けるよう変換した Via-Point Star (VP*) を組み合わせることで、実ロボットの物理的制約とタスクの相互依存性を計画段階から統合的に解決する点に新規性がある。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、タスク割り当てと経路計画を交互に実行する Interleaved Prioritized Planning (IPP) で構成される。タスク割り当てでは、ロボットとワークステーションの利用可能時刻に基づき、FIFO順のオーダーに対して最短経路を仮定したルールベースのヒューリスティックを用いて割り当てを行う。経路計画には Via-Point Star (VP*) を用い、回転・直進・ショートカットを含む専用のルーティング・マルチグラフ上で、積載状態に応じた走行時間を考慮しながら、一連の経由地を通過する最適な軌道を計算する。衝突判定は、各時刻 $t$ におけるロボットの配置 $(x, y, \theta)$ に基づき、占有する2次元領域の交差を確認する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>シミュレーションでは、線形加速度 $a \in [a_{\min}, a_{\max}]$ および角加速度 $\alpha \in [\alpha_{\min}, \alpha_{\max}]$ を考慮したモデルを用い、アブレーション研究により VP* の有効性を検証した。未訪問の経由地数に基づくペナルティを導入することで、探索状態数を削減し、実行時間を中央値で3.2倍改善した。大規模な10台のロボットを用いた実験では、実行時間の増加が劣線形であることを確認した。また、実機実験を通じて、タスク時間の見積もりを調整することで計画と実軌道の乖離を低減できることを示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、各ロボットに干渉のない待機場所が設定されている場合に完全性を有するが、通路が狭く後退やすれ違いが困難なレイアウトでは後悔指標が増大する。不確実性への対策として予約時間に $\pm \Delta t$ のマージンを導入しているが、実環境での予期せぬ遅延をすべて解消するには至っていない。今後の課題として、最新の情報に基づいた定期的な再計画のためのアルゴリズムの高速化や、タスク割り当てと軌道計画をより統合的に最適化する手法の検討が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Multi-Agent Path Finding with Real Robot Dynamics and Interdependent Tasks for Automated Warehouses</h3><p>本研究は、自動倉庫におけるオンライン注文配送を対象とし、相互に依存するピックアップおよびデリバリータスクを、実ロボットの動力学を考慮しながら解くマルチエージェント経路計画（MAPF）問題を扱う。提案手法は、依存関係のあるタスクを処理するために標準的な優先度付き計画法を拡張した Interleaved Prioritized Planning と、動的な障害物を回避しながら一連の目標地点を訪問する最適な動力学適合軌道を計算する Via-Point Star (VP*) アルゴリズムから構成される。VP* は、ロボットの物理的な制約を満たしつつ、一連の経由地を効率的に通過する経路を生成する。提案手法の完全性が証明されており、シミュレーションおよび実際の倉庫環境における実験を通じて、実用的な衝突回避とタスク遂行能力が評価されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、自動倉庫における、空間的制約、相互依存的なタスク、および複雑な実ロボットの動力学を考慮したLifelong Multi-Agent Path Finding (MAPF) 問題を対象としている。従来のグリッドベースのMAPFは、エージェントが単一のセルを占有し、離散的な時間ステップで移動または待機することを前提としているが、本研究が扱う実環境では、ロボットの重量や積載量に依存する加速度・速度の制約、複数ノードにまたがる占有、および狭い通路での旋回制約が存在する。提案手法であるInterleaved Prioritized Planningは、従来のPrioritized Planningを拡張したものであり、相互依存的なタスク間のロボット間の協調を可能にするために、計画プロセス全体を通じて優先順位を動的に割り当てる。また、動的な障害物を回避しつつ、一連の経由地を巡回する最適な軌道を計算するために、目標指向の木探索アルゴリズムであるVP*を提案している。VP*は、衝突を無視した場合の最小コストをヒューリスティックとして利用するが、専用のルーティング用マルチグラフの導入と速度プロファイルの固定により、一般にNP困難な運動学的制約付き最短経路問題を多項式時間で解ける問題へと変換し、効率的な評価を実現している。シミュレーションおよび実環境での予備実験を通じて、実ロボットの動力学を考慮することの必要性と、提案手法の各構成要素の有効性が示されている。</p></section>
+<section class="secsum"><h3>2 Related Works</h3><p>自動倉庫におけるマルチエージェント経路計画（MAPF）およびマルチエージェント・ピックアップ・アンド・デリバリー（MAPD）の研究は、多くの場合、一連のMAPF問題として扱われるが、既存手法の多くは現実的なロボットの挙動を無視した簡略化された仮定に基づいている。既存の改良アプローチには、回転動作を考慮するものの離散的な時間ステップを用いるものや、回転・並進速度を考慮しつつも慣性を無視して加速度・減速度を無限大と仮定するもの、あるいはエージェントの形状を考慮しつつもグラフ上の単位時間ステップでの移動を前提とするものなどが存在する。また、既存のMAPF解を後処理して運動学的制約を満たす実行フレームワークも提案されているが、計画段階で制約が考慮されていないため、計画の有効性が低下するという課題がある。不確実性への対策として、エージェントの遅延を考慮したロバストなMAPFも研究されているが、本研究ではエージェントの数秒程度の早着や遅延に対処するため、時間的マージンを導入することで計画の堅牢性を確保する手法を提案している。既存のシミュレータを用いた評価も増えているが、本研究が対象とするような複雑なロボット力学を伴うケースでは、従来の簡略化された仮定に基づく計画では衝突が頻発するため、より高度な力学モデルの統合が不可欠である。</p></section>
+<section class="secsum"><h3>3 Lifelong MAPF with Interdependent Tasks</h3><p>本研究では、差動駆動型ロボットを用いた、相互依存的なタスクを持つライフロングMAPF（Multi-Agent Path Finding）の定式化を行っている。ロボットは前後進およびその場旋回が可能であり、特定の向きかつ速度ゼロの状態で、棚やワークステーションでの荷物のピックアップまたはドロップオフを実行する。倉庫の作業空間は、物理的な位置を示す頂点 $v \in \mathcal{V}$ と、それらを結ぶエッジ $e \in \mathcal{E}$ からなる一般的な有向グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ で表現され、グリッド構造に限定されないため、ロボットが複数の頂点やエッジを同時に占有する場合も考慮される。オーダーは、複数のオブジェクトを特定のワークステーション間で移動させるタスクの集合として定義され、各タスクはリリース日 $r_i$、対象オブジェクトの場所 $l_i$、およびアクションの所要時間 $d_i$ を持つタプル $(r_i, l_i, d_i)$ で表される。これらのタスクは、同一のワークステーションを共有し、あるオーダーの全タスクが完了するまでそのワークステーションを次のオーダーが使用できないという相互依存関係にある。本問題の目的は、衝突のない軌道列を生成することで、一度に一つのオーダーのみがワークステーションを使用できる制約下において、スループットを最大化することである。</p></section>
+<section class="secsum"><h3>4 Interleaved Prioritized Planning with VP*</h3><p>本セクションでは、相互依存するタスクを持つLifelong MAPF問題を解決するため、タスク割り当てと経路計画を交互に行うInterleaved Prioritized Planning (IPP) 手法を提案している。タスク割り当ては、ロボットの利用可能時刻 $t_{agent}$ とワークステーションの利用可能時刻 $t_{workstation}$ を考慮し、FIFO順のオーダーに対して最短経路を仮定したルールベースのヒューリスティックを用いて、各タスクに最適なロボットとワークステーションを割り当てる。IPPアルゴリズムは、優先順位付き計画法 (PP) を拡張したものであり、オーダーごとに割り当てられたロボットのサブセットに対し、利用可能なロボットから順に Via-Point Star (VP*) を用いて経路を計算することで、ワークステーションでのタスク混在を防ぎつつ、ロボットの動特性を考慮した衝突回避を実現する。経路計算には、ロボットの回転や直進、ショートカットエッジを含む特殊なルーティング・マルチグラフを使用し、各エッジの走行時間をロボットの積載状態に応じて事前計算することで、計算効率を高めている。衝突判定は、各時刻 $t$ におけるロボットの配置 $(x, y, \theta)$ に基づき、ロボットが占有する2次元領域（ポリゴン等）の交差を確認する空間的な手法を採用している。本手法は、各ロボットに干渉のない待機場所が設定されている場合、すべてのタスクを完了させつつ衝突を回避する解を必ず見つけることができる完全性（Completeness）を持つ。</p></section>
+<section class="secsum"><h3>5 Validation</h3><p>本セクションでは、提案手法の有効性をシミュレーションおよび実機実験を通じて検証している。シミュレーションでは、ロボットの線形加速度を $a \in [a_{\min}, a_{\max}]$、角加速度を $\alpha \in [\alpha_{\min}, \alpha_{\max}]$ と定義し、荷物の有無による加速度の変化や、目標速度への加減速を考慮した正確な移動時間を計算するモデルを用いている。アブレーション研究では、経由地を逐次的に計画する手法や待機場所への経路予約を行わない手法と比較し、提案する経由地計画アルゴリズム $VP^*$ および経路予約の重要性を、ロボット数が増加した際の解の失敗率（feasibility failure）の観点から示している。また、$VP^*$ において未訪問の経由地数に基づいたペナルティをヒープスコアに加算することで、探索状態数を大幅に削減しつつ、実行時間を中央値で3.2倍改善できることを確認している。レイアウトの影響については、通路の構造が回避の容易さに影響し、後退やすれ違いが困難な環境では後悔指標（regret）が増大するものの、完了時間（makespan）への影響は限定的である。不確実性への対策として、予約時間に $\pm \Delta t$ のマージンを持たせる手法を検討しており、マージンを大きくすることで衝突までの時間（time to collision）を改善できるが、計算時間は増加する。大規模インスタンス（ロボット10台）へのスケーラビリティ実験では、ロボット数やタスク数の増加に対して実行時間の増加が劣線形（sub-linear）であることを示し、実機実験においても、タスク時間の見積もりを適切に調整することで、計画と実軌道の乖離を低減できることを実証している。</p></section>
+<section class="secsum"><h3>6 Conclusion and Future Work</h3><p>本研究では、倉庫内におけるオンラインのマルチロボット・ピックアップ＆デリバリー・サービスをモデル化するため、相互依存的なタスクを伴う生涯継続的なマルチエージェント経路探索（MAPF）問題を検討している。提案手法である Interleaved Prioritized Planning with VP$^*$ は、ロボットの精密な動特性を考慮して衝突のない軌道を計算するアルゴリズムであり、単純な仮定の下での完全性が示され、その実現可能性が実証されている。既存手法を動特性を考慮するように適応させたものと比較した実験では、既存手法は本設定において実行可能な計画を提示できないことが示されたほか、アブレーション研究によって提案手法の各構成要素の必要性が確認されている。実際の倉庫を用いた実験では、高精度なロボットと制御された環境下であっても計画からの逸脱は避けられず、導入した時間的マージンだけでは予期せぬ遅延に対処しきれないことが明らかになった。今後の課題として、最新の情報に基づいて定期的に再計画を行うためのアルゴリズムの高速化や、タスク割り当てと軌道計画を統合的に最適化する手法の検討が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-29
+  </footer>
+</div>
+</body>
+</html>

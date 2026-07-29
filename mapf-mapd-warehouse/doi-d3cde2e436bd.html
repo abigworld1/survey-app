@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Adapting to Planning Failures in Lifelong Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Adapting to Planning Failures in Lifelong Multi-Agent Path Finding</h1>
+  <div class="meta">Jonathan Morag, Roni Stern, Ariel Felner<br>採択先: Symposium on Combinatorial Search ・ 2023-07-02 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/e774b9ee1a0f683d1f3325809e13a7078785186b" target="_blank" rel="noopener">原典</a> ・ <a href="https://ojs.aaai.org/index.php/SOCS/article/download/27282/27055" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/socs.v16i1.27282" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Symposium on Combinatorial Search</span><span class="chip">公開日 2023-07-02</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 9</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">実用上の課題である「計画失敗」を形式化し、システム設計として包括的に解決策を提示している点が極めて高く、スループット向上も顕著で実務的価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 制限された計算時間内で完全な解を見つけられない可能性があるLifelong Multi-Agent Path Finding (LMAPF) において、計画の失敗を適切に処理するための堅牢なシステム設計を提案し、スループットを大幅に向上させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>自動倉庫などの実用的なアプリケーションにおけるLMAPFでは、厳格な応答性の要求により、プランナーが制限時間内に衝突のない経路を生成できない「計画失敗」が発生する。本研究は、グラフ $G = (V, E)$ 上のエージェント集合 $A$ に対し、継続的に与えられる目的地へ衝突を回避しながら移動させる問題において、解不能な状態や時間切れによる失敗への対処を対象とする。従来のMAPF研究は完全な解の生成に焦点を当てており、オンライン環境での計画失敗への対応は十分に検討されていなかった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>計画失敗を回避・軽減・処理するための、エージェント選択ポリシー、プランナー、および失敗ポリシー（fail policy）からなる包括的なシステム設計を提案している。特に、産業界で利用されながらも学術的な分析が不足していた失敗時の振る舞いを形式化し、衝突回避とスループット維持を両立させる手法を明らかにした。これにより、最先端のベースラインと比較して、システムの処理能力を最大で2倍に向上させることに成功した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案システムは、計画期間の終了時に全エージェントが最初の $k$ ステップにおいて衝突を持たない $k$-safe な状態であることを保証する。エージェント選択では、全エージェントを対象とする AllAgents と、衝突のあるエージェントから範囲 $R$ 内を選択する Fail@LH($R$) を用いる。プランナーには、失敗時に空の解を返す Full、中断された経路を返す Restart、衝突を無視して可能な限り多くの経路を生成する Persist を導入する。失敗ポリシーとして、衝突エージェントを停止させる IStay や、衝突回避のために1ステップの移動とそれに続く待機を許容する IAvoid を定義し、計算可能な時間内での衝突回避を実現する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>8種類のグリッドマップ（Open, Random, Maze, Room, Warehouseなど）を用い、エージェント数を25から1000まで変化させて評価した。RHCRプランナーに Prioritised Planning を用い、タイムホライゾンを10、プランニング頻度を3タイムステップ、最大プランニング時間を1秒として実験を行った。結果として、Fail@LH(5) と Persist、および IAvoid を組み合わせた構成が最も高いスループットを示した。特に IAvoid は AllStay や IStay よりも優れた性能を示し、Fail@LH(5) と Persist の組み合わせはベースラインに対して劇的な向上を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>エージェント選択において、範囲 $R$ を大きくしすぎると衝突から遠いエージェントの計画まで無効化され、探索効率が低下するというトレードオフが存在する。今後の課題として、失敗ポリシーを適用するエージェントの順序の最適化や、リアルタイム探索および手続き型MAPFアルゴリズムとの統合が挙げられる。また、衝突回避のために利用可能なアクションシーケンスをより長く設定するなどの拡張の可能性についても検討されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>Lifelong Multi-Agent Path Finding (LMAPF) は、複数のエージェントが継続的に新しい目的地を受け取り、衝突を回避しながらスループットを最適化するように経路を更新し続ける問題である。自動倉庫のような実世界のアプリケーションでは、厳格な応答性の要求により計画に割り当てられる時間が制限されるため、MAPFアルゴリズムが制限時間内に解を生成できず、計画の失敗が発生する場合がある。本研究では、このような計画の失敗に対して堅牢なLMAPFのシステム設計を提案し、失敗を回避、深刻度を軽減、あるいは発生時に適切に処理するための異なるアプローチを探索する。特に、計画の失敗が発生した際に適用される Fail Policies を定義・分析することで、衝突の回避とスループットの不必要な低下の防止を両立させる手法を検討している。これら Fail Policies は産業界の実務では利用されているものの、学術的な研究はこれまで十分に行われていなかった。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>Lifelong Multi-Agent Path Finding (LMAPF) は、エージェントが現在の目標に到達するたびに新しい目標を受け取り、一連の経路計画を継続的に解く問題であり、自動倉庫などの実用的なアプリケーションにおいて重要である。本研究では、現在の状態が解不能である場合や、アルゴリズムが制限時間内に解を見つけられない場合などの「計画失敗（planning failure）」に対処するための、エージェント選択ポリシー、プランナー、および失敗ポリシー（fail policy）からなる堅牢なシステム設計を提案している。プランナーには Rolling-Horizon Collision Resolution (RHCR) を拡張した手法を用い、計画失敗時に高品質な部分解を返せるようバイアスをかける。失敗ポリシーとして、衝突しないエージェントのみを移動させ衝突エージェントを停止させる IStay と、衝突エージェントに衝突回避のための単一のアクションを許可する IAvoid の2種類を導入しており、これらは衝突を回避しつつ計算可能な時間内で動作することが保証されている。標準的なベンチマークを用いた実験の結果、特定の構成を用いることで、最先端のベースラインと比較してシステムの処理能力（throughput）を最大で2倍に向上させることが示された。</p></section>
+<section class="secsum"><h3>Background and Problem Definition</h3><p>Multi-Agent Path Finding (MAPF) は、グラフ $G = (V, E)$ 上のエージェント集合 $A$ の各要素 $a_i$ に対し、始点 $s_i$ から終点 $g_i$ への衝突のない経路 $\pi$ を割り当てる問題であり、本研究では頂点衝突とスワップ衝突のみを考慮する。Lifelong MAPF (LMAPF) は、エージェントが目標に到達するたびに新たな目標が与えられる設定であり、性能評価には一定時間 $X$ 内の目標到達回数を示すスループットが用いられる。本研究では、一定の再計画間隔と時間ホライゾンを持つ Rolling-Horizon Collision Resolution (RHCR) フレームワークを用い、その内部アルゴリズムとして、優先順位に基づき順次経路を計算する Prioritised Planning (PrP) またはその改良版である Random Restarts を用いた手法を想定している。問題設定として、計画時間が制限されたオンライン環境を想定しており、コントローラーが一定間隔 $k$ ごとにプランナーを呼び出し、各エージェントに少なくとも長さ $k$ の経路を指示する。プランニングの失敗は、解が存在しない状態、あるいはアルゴリズムの不完全性や時間制限により解が見つからない状態として定義され、実用的なシステムではこれらの失敗に対して適切な対処ポリシーが必要となる。</p></section>
+<section class="secsum"><h3>A System Design for Robust LMAPF</h3><p>本セクションでは、Lifelong Multi-Agent Path Finding (LMAPF) における計画失敗（planning failure）に対処するための、堅牢なシステム設計が提案されている。まず、部分解 $\hat{\pi}$ において、エージェント $a_i$ が最初の $k$ ステップ以内に衝突を持つか、あるいは経路が割り当てられていない場合に $k$-invalid であると定義し、全エージェントが $k$-invalid でない状態を $k$-safe な解と定義する。提案システムは、エージェント選択ポリシー、プランナー、および fail policy の3つのコンポーネントで構成され、各計画期間の終了時に $\hat{\pi}$ が $k$-safe であることを保証する不変条件を持つ。エージェント選択には、全エージェントを対象とする AllAgents と、衝突のあるエージェントを基準に範囲 $R$ を広げて選択する Fail@LH($R$) があり、プランナーには、失敗時に空の解を返す Full、中断された反復の経路を返す Restart、および衝突を無視して可能な限り多くの経路を生成する Persist の手法が検討されている。Fail policy としては、全エージェントを停止させる AllStay、衝突のあるエージェントのみを停止させる IStay、および衝突回避のために1ステップの移動を許容する IAvoid が提案されており、IAvoid は $k$-invalid なエージェントに対し、隣接する各位置への移動とそれに続く $k-1$ ステップの待機を試行することで、より多くのエージェントの進行を可能にする。IAvoid の計算量は、グラフの最大次数に依存するが、実用上は無視できるほど小さい。</p></section>
+<section class="secsum"><h3>Experiments</h3><p>本実験では、提案された堅牢なLifelong Multi-Agent Path Finding (LMAPF) システムの性能を評価するため、8種類の異なるグリッドマップ（Open, Random, Maze, Room, Warehouseなど）を用い、エージェント数を25から1000まで変化させてスループットを測定した。実験設定では、RHCRプランナーにPrPを用い、タイムホライゾンを10、プランニング頻度を3タイムステップに設定し、各ステップの最大プランニング時間を1秒、最大200タイムステップとして評価を行った。エージェント選択ポリシーの比較では、Fail@LH($R$)において$R=3$または$R=5$が最も高いスループットを示し、特にFail@LH(5)が多くのマップで最大値を記録したが、$R$を大きくしすぎると衝突が遠いエージェントの計画まで無効化され、探索効率が低下することが確認された。部分解を求めるプランニングポリシーについては、PersistがRestartやFullよりも高い、あるいは同等のスループットを達成し、特にFullはエージェント数が増加すると性能が著しく低下する傾向が見られた。失敗ポリシー（Fail Policy）の比較では、IAvoidがAllStayやIStayよりも優れたスループットを示し、特にAllStayと比較して大幅な性能向上が認められた。アブレーション研究の結果、Fail@LH(5)とPersistを組み合わせた構成が最も高いスループットを実現しており、選択ポリシー、プランナー、失敗ポリシーの各要素を最適化して組み合わせることがLMAPFの解決において極めて有効であることが示された。</p></section>
+<section class="secsum"><h3>Related Work</h3><p>本セクションでは、Lifelong Multi-Agent Path Finding (LMAPF) に関する既存研究が概観されている。Ma et al. (2017) は、エージェントに常にペアとなるタスク（特定の場所でのピックアップとその後のデリバリー）を割り当てるオンラインの Pickup and Delivery タスクとしての MAPD を提案しており、タスク割り当てをアルゴリズムに組み込んでいるが、タイムステップごとの計画時間が厳密に制限されることによる計画の失敗については考慮していない。Li et al. (2021b) は、MAPD 問題の解決に Bounded-Horizon Planning を適用し、将来のタスクの予見可能性を考慮することで、参加可能なエージェント数を増加させる手法を示している。また、Xu et al. (2022) は、最新の MAPF ソルバーの技術を統合することで、実行時間の短縮とスループットの向上を図っている。エージェントが単一のタスクを受け取り、完了後に消滅して新しいエージェントが現れる Online MAPF も存在する。さらに、MAPF-LNS (Li et al. 2021a) やその拡張である MAPF-LNS2 (Li et al. 2022) は、エージェントのサブセットを選択して計画を行うことで解の品質向上や衝突の削減を目指しているが、これらは古典的な MAPF を対象としており、計画の失敗や LMAPF の文脈は考慮されていない。</p></section>
+<section class="secsum"><h3>Conclusions &amp; Future Work</h3><p>本研究では、オンラインでの経路計画時間が厳密に制限され、計画が完全な解を見つけられない可能性があるLifelong Multi-Agent Path Finding (LMAPF) 環境におけるシステム設計を提案している。計画の失敗に対処するため、衝突を回避しながら目標への進行を維持する概念として、部分解（partial solution）と失敗時ポリシー（fail policy）を導入した。具体的には、計画対象となるエージェントの選択、計画手法、および計画失敗時の振る舞いを制御する設計要素を検討している。多様なベンチマークを用いた実験の結果、提案手法を用いることでシステムのスループットが劇的に向上することが示された。今後の展望として、失敗時ポリシーを適用するエージェントの順序の最適化や、リアルタイム探索および手続き型MAPFアルゴリズムとの統合、さらには衝突回避のために利用可能なアクションシーケンスの長文化などが挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-29
+  </footer>
+</div>
+</body>
+</html>
