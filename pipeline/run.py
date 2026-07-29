@@ -23,7 +23,14 @@ import sys
 import yaml
 
 from . import render, sources
-from .dedup import dedup, load_seen, save_seen
+from .dedup import (
+    build_seen_aliases,
+    collapse_seen_duplicates,
+    dedup,
+    load_seen,
+    paper_is_seen,
+    save_seen,
+)
 from .fulltext import fetch_sections
 from .schema import Paper, normalize_title
 from .sources import arxiv as arxiv_src
@@ -446,9 +453,10 @@ def _save_candidate_cache(uslug, recent, important, cache_dir=None):
 
 def _cacheable_candidates(papers, seen_for_field, keywords, ambiguous, context):
     patterns = _keyword_patterns(keywords)
+    seen_aliases = build_seen_aliases(seen_for_field)
     out = []
     for paper in papers:
-        if paper.key() in seen_for_field or _relevance(paper, patterns) <= 0:
+        if paper_is_seen(paper, seen_aliases) or _relevance(paper, patterns) <= 0:
             continue
         matched = _matched_keywords(paper, keywords)
         if _domain_context_issue(paper, matched, ambiguous, context):
@@ -580,6 +588,11 @@ def main(argv=None):
         return 1
 
     seen = load_seen(SEEN)
+    duplicate_records = collapse_seen_duplicates(seen)
+    if duplicate_records:
+        print(f"既出管理の重複を統合: {len(duplicate_records)} 件")
+        if not args.dry_run:
+            save_seen(SEEN, seen)
     if args.render_indexes_only:
         for sub in subs:
             user = (sub.get("username") or "").strip()
@@ -672,9 +685,10 @@ def main(argv=None):
         recent_papers = dedup(recent_raw + cached_recent)
         important_papers = dedup(important_raw + cached_important)
         papers = dedup(important_papers + recent_papers)
-        fresh_recent = [p for p in recent_papers if p.key() not in useen]
-        fresh_important = [p for p in important_papers if p.key() not in useen]
-        fresh_all = [p for p in papers if p.key() not in useen]
+        seen_aliases = build_seen_aliases(useen)
+        fresh_recent = [p for p in recent_papers if not paper_is_seen(p, seen_aliases)]
+        fresh_important = [p for p in important_papers if not paper_is_seen(p, seen_aliases)]
+        fresh_all = [p for p in papers if not paper_is_seen(p, seen_aliases)]
         keywords = sub.get("keywords", [])
         ambiguous_keywords = sub.get("ambiguous_keywords", [])
         context_keywords = sub.get("context_keywords", [])
