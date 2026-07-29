@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Should Multi-Agent Path Finding Algorithms Coordinate Target Arrival Times? | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Should Multi-Agent Path Finding Algorithms Coordinate Target Arrival Times?</h1>
+  <div class="meta">Jonathan Morag, Noy Gabay, Daniel Koyfman, Roni Stern<br>採択先: Proceedings of the International Symposium on Combinatorial Search ・ 2025-07-19 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/a8e56a432d7394b0a2410ca5c3e3cb4704ebf9c1" target="_blank" rel="noopener">原典</a> ・ <a href="https://ojs.aaai.org/index.php/SOCS/article/download/35998/38153" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/socs.v18i1.35998" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Proceedings of the International Symposium on Combinatorial Search</span><span class="chip">公開日 2025-07-19</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 2</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">LMAPFにおける「同時到達制約」という本質的な不整合に着目し、問題定義そのものを再構築するMAPF4Lの提案は新規性が高い。既存手法の拡張も具体的で、実用上の有用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> Lifelong Multi-Agent Path Finding (LMAPF) において、全エージェントが同時に目標に到達することを要求する従来の MAPF 形式が引き起こす不整合を解消するため、目標を通過することのみを目的とする MAPF for Lifelong (MAPF4L) を提案し、スループットの向上を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>自動倉庫などの実世界応用で重要な、エージェントが目標到達のたびに新たな目標を受け取る Lifelong MAPF (LMAPF) を対象とする。従来、LMAPF は一連の MAPF 問題として解かれてきたが、グラフ上で位置の入れ替えが不可能な場合、全エージェントが同時に目標に到達する構成が存在せず、解が見つからないという不一致が生じる。既存の緩和策は計算コストの増大やデッドロック、非効率性を招く課題があった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の MAPF が要求する「経路の終端が目標地点であること」という制約を緩和し、「経路の途中で目標地点を訪問すること」を許容する新しい問題設定 MAPF4L を提案する。これにより、LMAPF の要件と従来の MAPF の間の不一致を直接的に解消する。また、既存の主要な MAPF アルゴリズムを MAPF4L に適応させるための具体的な拡張手法を提示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MAPF4L の評価指標として、目標受領から初訪問までの経過時間の総和である $\text{SST}(\pi) := \sum (\min \{x \mid \pi_i[x] = t_i\} \mid \pi_i \in \pi)$ および、最大初到達時間である MKST を導入する。既存の PrP、LNS、CBS などのアルゴリズムを適用するため、$A^*$ 探索の状態定義を、位置 $v$、時刻 $x$ に加え、目標訪問済みフラグ $b \in \{\text{true, false}\}$ を含む $\langle v, x, b \rangle$ へと拡張する。このフラグは、現在の位置が目標地点であるか、あるいは親の状態のフラグが true であれば true となる。探索時は、位置と時刻が同一でも $b$ が異なる状態を区別して扱い、最終的なゴール状態を $\langle v, x, \text{true} \rangle$ と定義する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>手作りの LMAPF シナリオおよび標準的なベンチマークを用いた実験により、既存手法（PIBT, PrP, CBS）と提案手法（PrPL, CBSL）を比較した。エージェントがすれ違う必要があるシナリオでは、従来の CBS のスループットが 250 で実行時間が 29,198ms であったのに対し、CBSL はスループット 499 を記録し、実行時間も 33ms と劇的に高速化した。また、高密度な warehouse シナリオにおいて、PrPL は PrP よりも高いスループットを達成し、ターゲット数が限定的な環境での有効性が示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、目標地点を通過するだけでよいという制約に基づいているため、エージェントがタスク完了のために目標地点で一定時間滞在しなければならないような、より一般的なアプリケーションへの拡張が今後の課題である。また、PIBT のような 1 ステップ先読みによる計画は、狭い通路が存在する複雑なシナリオでは効果が限定的になる可能性がある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>Lifelong Multi-Agent Path Finding (LMAPF) は、エージェントが現在の目標に到達するたびに新たな目標を受け取るオンライン形式の MAPF 問題であるが、従来の手法では LMAPF を一連の MAPF 問題の列として扱い、全エージェントが同時に目標地点に到達することを要求するため、不必要な制約が生じている。本論文では、既存の緩和手法が失敗するケースを指摘した上で、各エージェントが最終的に目標を訪問することのみを目的とし、全エージェントの同時到達を必須としない新しい問題設定である MAPF for Lifelong (MAPF4L) を提案する。この MAPF4L を解決するために、既存の複数の MAPF アルゴリズムを修正して適用する手法を提示している。限定的な実験評価の結果、MAPF4L アルゴリズムを用いることで、システムの総スループットを大幅に向上させられるケースが存在することが示されている。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>Lifelong Multi-Agent Path Finding (LMAPF) は、エージェントが目標に到達するたびに新たな目標が割り当てられる問題であり、自動倉庫などの実世界応用において重要である。従来、LMAPFは各時点でのエージェントの現在地から目標までの経路を求める一連の MAPF 問題として解かれてきたが、この手法では、グラフ上でエージェントが位置を入れ替えられない場合に、全エージェントが同時に目標に到達する構成が存在しないため、解が見つからないという「MAPF-LMAPF の不一致」が生じる。この問題に対し、限定的なホライゾンでの計画、目標到達時の動的な再計画、目標到達後のダミーパスの定義、あるいは目標のシーケンス割り当てといった緩和策が提案されてきたが、これらは完全な解決策にはなっていない。本研究では、全エージェントが同時に目標に位置する必要はなく、各エージェントが経路のどこかの時点で目標を訪問することを目指す MAPF for Lifelong (MAPF4L) という修正された MAPF 問題を提案する。MAPF4L の特性を議論した上で、既存の主要な MAPF アルゴリズムをこの問題に適応させ、小規模な実験を通じて LMAPF システムにおける MAPF4L の有効性を示す。</p></section>
+<section class="secsum"><h3>Background</h3><p>マルチエージェント経路探索（MAPF）問題は、グラフ $G = (V, E)$、エージェントの集合 $\mathcal{A}$、および各エージェント $a_i \in \mathcal{A}$ に対する始点 $s_i$ と終点 $t_i$ によって定義される。解 $\pi$ は、各エージェントに $s_i$ から $t_i$ へ至る経路 $\pi_i$ を割り当てる写像であり、頂点衝突（ある時刻 $x$ において $\pi_i[x] = \pi_j[x]$ となる状態）およびスワッピング衝突（$\pi_i[x] = \pi_j[x+1]$ かつ $\pi_i[x+1] = \pi_j[x]$ となる状態）を回避する必要がある。評価指標として、全経路の長さの総和である Sum Of Costs (SOC) や、最長経路の長さである Makespan が用いられ、Conflict Based Search (CBS) はこれらに対して最適性を保証するが、Prioritized Planning (PrP) は保証しない。また、エージェントが目標に到達するたびに新たな目標が割り当てられる Lifelong MAPF (LMAPF) は、計画と実行を交互に繰り返すオンライン的な性質を持ち、一定時間内に目標に到達した回数を示すスループットによって性能が評価される。LMAPF の一般的な解法は、各計画期間において MAPF ソルバーを繰り返し呼び出し、エージェントの現在地から現在の目標までの経路を計算する手法である。</p></section>
+<section class="secsum"><h3>MAPF-LMAPF Mismatch and Mitigations</h3><p>Lifelong Multi-Agent Path Finding (LMAPF) において、各計画期間ごとに MAPF 問題を逐次的に解く従来のアプローチは、エージェントの配置が特定の構成に依存するため、不完全なアルゴリズムとなる問題がある。この不完全性を緩和する手法として、ターゲット到達時に全エージェントが即座に再計画を行う動的再計画や、各エージェントにターゲットの順序を事前に割り当てる手法、ターゲット到達後に混雑を避けるためのダミーパスの導入などが提案されているが、計算コストの増大や新たな不完全性の発生、計画の困難化といった課題が残る。また、環境やタスクを修正してエージェントがターゲット上で滞在しやすくする well-formed instances や、将来 $w$ ステップ以降の衝突を無視する Rolling Horizon Collision Resolution (RHCR) のような限定的な計画ホライゾンを用いる手法も存在するが、これらはデッドロックや近視眼的な計画による非効率性を招く可能性がある。さらに、MAPF が解を見つけられなかった場合に備えた fail policies も提案されているが、これらはアドホックであり効率性に欠ける。本研究では、これらの間接的な緩和策とは異なり、各計画期間で解くべき MAPF 問題の形式そのものを直接的に変更することで、この不一致に対処する MAPF for Lifelong (MAPF4L) を提案する。</p></section>
+<section class="secsum"><h3>MAPF for Lifelong (MAPF4L)</h3><p>Lifelong Multi-Agent Path Finding (MAPF4L) は、各エージェント $a_i$ の経路 $\pi_i$ が目標地点 $t_i$ を通過することさえ満たせばよいという制約を持ち、従来の MAPF とは異なり、経路の終端が必ずしも $t_i$ である必要はありません。MAPF4L において、従来の Sum of Costs (SOC) や Makespan を用いると、スループットの指標と乖離が生じるため、本研究では Service Time（目標受領から初訪問までの経過時間）に基づく 2 つの新しいコスト関数を提案しています。一つは SST で、各エージェントが目標に初めて到達するまでのタイムステップの総和を $\text{SST}(\pi) := \sum (\min \{x \mid \pi_i[x] = t_i\} \mid \pi_i \in \pi)$ と定義し、もう一つは MKST で、全エージェントの中で目標への初到達時間が最大となるタイムステップを指します。具体例では、SOC や Makespan を最小化する解が、エージェントが目標に到達した後に不要な待機や移動を強いることで SST を増大させ、結果としてスループットを低下させる可能性があることが示されています。MAPF4L の最適解を求める問題は、一般的なコスト関数において MAPF と同様に NP-Hard であることが証明されています。</p></section>
+<section class="secsum"><h3>Solving the MAPF4L Problem</h3><p>MAPF4L（Multi-Agent Path Finding with Lifetime constraints）を解く手法として、まずIterative MAPFを解くためのPriority Inheritance with Backtracking (PIBT) が挙げられるが、これはエージェントが目標に到達した後に新しい目標を割り当てず、最小の優先度を割り当てることでMAPF4Lへ適応可能である。しかし、PIBTの1ステップ先読みによる計画は、自動倉庫のような狭い通路が存在する複雑なシナリオでは効果が限定的となる。これに対し、PrP、LNS、CBSといったアルゴリズムをMAPF4Lに適用するため、A*探索における状態定義を、位置 $v$、時刻 $x$ に加え、目標を既に訪問したかを示すブール値 $b$ を含む $\langle v, x, b \rangle$ へと拡張する。このフラグ $b$ は、現在の状態が目標地点であるか、あるいは親の状態において $b$ が true であれば true となり、初期値は false である。探索においては、時刻と位置が同一であっても $b$ の値が異なる状態は、重複として破棄せずに異なる状態として区別して扱う必要がある。最終的なゴール状態の定義は、単に位置が目標と一致することではなく、$\langle v, x, \text{true} \rangle$ のように、目標を訪問した履歴を持つ状態に到達することへと変更される。</p></section>
+<section class="secsum"><h3>Case Studies</h3><p>手作りのLMAPF（Lifelong Multi-Agent Path Finding）シナリオを用いた評価では、既存のMAPFアルゴリズム（PIBT, PrP, CBS）と、それらをLMAPF向けに拡張した提案手法（PrPL, CBSL）の比較が行われた。ケーススタディ1では、エージェントが特定の2点間を無限に往復する設定において、計画ホライゾンを10、実行時間を500ステップとした実験の結果、PrPLはPrPと比較して $A^*$ の展開回数を13,509回から11,965回へと削減し、実行時間も56msから50msへと短縮しつつ、PIBTを上回るスループット500を達成した。ケーススタディ2では、エージェントが互いにすれ違う必要があるシナリオにおいて、無限の計画ホライゾンを用いた実験を実施したところ、従来のMAPFソルバー（CBS, PrP）はスループットが250に留まったのに対し、MAPF4Lソルバー（CBSL, PrPL）はスループット499を記録し、実行時間においてもCBSの29,198msに対してCBSLは33msと劇的な高速化を実現した。ケーススタディ3では、標準的なMAPFベンチマークのグリッドを用い、計画ホライゾン $w=10$、計画間隔5ステップの設定で、ターゲット数を10から40の範囲で変化させて評価した。その結果、ターゲット数が限定的な高密度な環境において、例えば500エージェントと20ターゲットが存在する warehouse-20-40-10-2-1 シナリオでは、PrPLのスループット549はPrPのスループット491を上回り、LMAPF特有の課題に対して提案手法が有効であることが示された。</p></section>
+<section class="secsum"><h3>Conclusion and Future Work</h3><p>本研究では、Lifelong Multi-Agent Path Finding (LMAPF) 問題に対し、エージェントが目標地点に到達した後に留まる必要のない MAPF for Lifelong (MAPF4L) という一連の MAPF 変種を順次解く手法を提案した。これは、LMAPF の要件と従来の MAPF との間の不一致を解消するために必要であり、既存の MAPF アルゴリズムを MAPF4L へ適応させる手法を提示している。RHCR フレームワークを用いた評価の結果、病的なケースや目標地点の数が限られている状況において、MAPF4L は従来の MAPF 手法と比較してシステムスループットを向上させることが示された。今後の課題として、エージェントがタスク完了のために目標地点で一定時間滞在しなければならないような、より一般的なアプリケーションへの MAPF4L の拡張が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-30
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TriShieldRAG: A Three-Ring Defense-in-Depth Framework Against Knowledge Corruption in Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>TriShieldRAG: A Three-Ring Defense-in-Depth Framework Against Knowledge Corruption in Retrieval-Augmented Generation</h1>
+  <div class="meta">Susil Kumar Mohanty, Rohit Patel, Kosuru Yuvaraj, Jeenal Chaudhary, Disha Singhania<br>採択先: 未取得 ・ 2026-07-26 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.23838v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.23838v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-26</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの脆弱性である知識汚染に対し、多層防御という実用的なアプローチを提案している。Byzantine quorum等の概念の応用や、攻撃成功率を大幅に低減させた実験結果は、セキュリティ研究者にとって価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGにおける知識汚染攻撃に対し、取り込み時、検索時、生成時の3つの独立した防御層からなる多層防御フレームワークTriShieldRAGを提案し、非適応的攻撃による攻撃成功率を約91%から約13%まで低減させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>Retrieval-Augmented Generation (RAG) システムにおいて、特定のクエリに対して関連性を装う検索トリガーと誤った情報を組み合わせた文書を注入する知識汚染攻撃が問題となっている。従来の防御策は、困惑度フィルタリングや言い換えの一貫性チェックなど、パイプラインの単一の段階にのみ作用するため、攻撃者がそのチェックを回避するように攻撃を調整できる単一障害点となる困難さがある。本研究は、外部攻撃者による文書注入を主な対象とし、知識ベースが複数の書き込み主体を持つオープンな環境を想定している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>単一の防御層では攻撃者に突破されるリスクがある従来の設計に対し、語彙フィルタリング、信頼性再ランキング、およびマルチベンダーによる合意形成を組み合わせた多層的な防御構造を導入した点に新規性がある。特に、リトリーバの類似度信号の重みを意図的に下げ、Byzantine quorum system等のロバスト集約の概念を応用したマルチLLM投票を行うことで、単一の防御策を回避する攻撃への耐性を高めている。また、各防御層の決定プロセスを詳細に追跡できるオーケストレーターの設計により、防御の根拠を検証可能にしている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>TriShieldRAGは、以下の3つの独立したリングで構成される。<br>第1層のIngest Guardは、語彙の多様性と最頻語の割合に基づくperplexity score $S_{\text{perp}}$、不審なパターンを検知するpattern score $S_{\text{pat}}$、および埋め込みベクトルを用いたoutlier score $S_{\text{out}}$を統合したComplexity $C$を用いて、文書を個別に検査・ブロックする。<br>第2層のRetrieval Scorerは、ソースの信頼度に基づくprovenance weight $w_{\text{prov}}$、文書間の整合性を示すconsistency score $S_{\text{con}}$、およびリトリーバーのrelevance score $s_{\text{rel}}$を統合したtrust score $T_{\text{score}} = w_{\text{prov}} \cdot S_{\text{con}} + (1 - w_{\text{prov}}) \cdot s_{\text{rel}}$を用いて再ランキングを行う。ここで $S_{\text{con}}$ は、全取得ドキュメント集合 $B$ と特定のドキュメント集合 $B_i$ の交差比 $\frac{|B \cap B_i|}{|B \setminus B_i|}$ で計算される。<br>第3層のCross-LLM Consensusは、Claude、Mistral Small、Llama 3.2といった異なるアーキテクチャを持つLLMパネルを用いて回答の合意形成を行い、合意閾値 $\tau$ を満たさない場合に限り、下位1/3のコンテキストを除去して最大1回のリトライを行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>5,000件の英語Wikipedia文書を用いた知識ベースに対し、`all-mpnet-base-v2`による埋め込みと`FAISS IndexFlatIP`を用いて評価を行った。攻撃手法には、ターゲット質問に定型文を付加する非適応的なテンプレートを用い、攻撃成功率（ASR）を指標とした。実験の結果、防御なしのベースラインでは攻撃成功率が約91%であったのに対し、TriShieldRAGはこれを約13%まで大幅に低減させた。また、正常なクエリに対する精度（benign-query accuracy）を維持しつつ、複数のLLMを用いたパネル構成においても有効であることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、汚染ドキュメントの割合 $p$ がクリーンなドキュメントの割合 $1-p$ よりも小さいという「少数派汚染仮定」に依存しており、汚染が多数派を占める場合には防御が機能しない限界がある。また、現在の評価は非適応的攻撃者に限定されており、防御機構の設計を把握した適応的攻撃者に対する耐性は今後の課題である。運用面では、複数のLLMを呼び出すことによるレイテンシとAPIコストの増大がトレードオフとなるため、不確実性が高い場合にのみ第3層を起動するゲート制御が必要となる。さらに、200万件規模の大規模な知識ベースへの拡張時には、近似最近傍探索の導入に伴う再現率の低下が防御性能に与える影響を評価する必要がある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>Retrieval-Augmented Generation (RAG) における知識汚染攻撃に対し、本研究は TriShieldRAG という、防御の深度を確保するために独立した3つの層（リング）からなるフレームワークを提案している。第一の層である Ingest Guard は、文書に含まれる語彙的・統計的な汚染の兆候をスクリーニングし、第二の層である Retrieval Scorer は、情報の出所（provenance）と一貫性に基づく信頼度スコアを用いて検索結果を再ランク付けする。第三の層である Cross-LLM Consensus は、アーキテクチャの異なる3つの言語モデル（Claude, Mistral Small, Llama 3.2）による合意形成を行い、意見が分かれた場合には限定的な再検索を許可する。この手法は、汚染された文書が少数派であるという仮定と、明示的な出所タグが存在するという仮定の下で、第2および第3の層が機能するための理論的条件を導出している。5,000件の Wikipedia 文書を用いた実験において、PoisonedRAG で示された非適応的攻撃者による攻撃成功率を、約 91% から約 13% まで大幅に低減させることに成功し、かつ正常なクエリに対する精度も維持している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>Retrieval-Augmented Generation (RAG) における知識汚染攻撃は、特定のクエリに対して関連性を装う検索トリガーと、誤った情報を注入する偽の主張を組み合わせた文書を用いることで、防御のないシステムにおいて 90% 以上の成功率で回答を操作できる。既存の防御策は、困惑度フィルタリングや言い換えの一貫性チェックのようにパイプラインの単一の段階にのみ作用するため、攻撃者がその単一のチェックを回避するように攻撃を調整できる「単一障害点」となる問題がある。これに対し、本研究では IngestGuard（取り込み時）、RetrievalScorer（検索時）、Consensus（生成時）の 3 つの独立した段階で検証を行う多層防御フレームワーク TriShieldRAG を提案する。この手法は、取り込み時の困惑度や出典に基づく検証、検索時の埋め込み外れ値や文書間の一貫性に基づく再スコアリング、そして生成時の複数 LLM による合意形成という異なる信号を検査することで、攻撃者が 3 つの層すべてを同時に突破することを困難にする。評価実験では、5,000 文の知識ベースと 10 個のターゲットクエリを用いた非適応的攻撃者に対する検証を行い、攻撃成功率を約 91% から約 13% まで低減させることに成功した。ただし、本研究の現時点での評価は非適応的攻撃者に限定されており、TriShieldRAG の設計を把握した適応的攻撃者に対する耐性は今後の課題である。</p></section>
+<section class="secsum"><h3>II Related Works</h3><p>本セクションでは、RAG（Retrieval-Augmented Generation）における知識汚染攻撃に対する既存研究と、提案手法であるTriShieldRAGの立ち位置が詳述されている。PoisonedRAGのような攻撃は、クエリとの幾何学的近接性を悪用して、DPRやANCE、Contrieverといった高密度リトリーバを横断して成功する特性を持つ。これに対し、TriShieldRAGは単一の防御層では攻撃者に突破されるリスクがあるため、語彙フィルタリング、信頼性再ランキング、合意形成投票を組み合わせた多層的な防御構造を採用している。特に、Ring 2では攻撃者が制御しやすいリトリーバの類似度信号の重みを意図的に下げ、Ring 3ではByzantine quorum systemやKrum、Bulyanといったロバスト集約の概念を応用したマルチベンダーによる投票を行うことで、少数の汚染された入力が多数派を占めない限り防御が可能となる。また、CorruptRAGのような単一文書攻撃や、RAGShieldのような数値情報の改ざん攻撃といった異なる脅威モデルとの差異についても明確に区別されており、TriShieldRAGは外部攻撃者による文書注入を主な対象としている。</p></section>
+<section class="secsum"><h3>III Threat Model</h3><p>本研究の脅威モデルでは、知識ベースが複数の書き込み主体を持つオープンまたはセミオープンな環境であることを想定しており、これはWikiやユーザー投稿型コーパスを扱う実用的なRAGの運用形態を反映している。攻撃者は、クエリ $q$ に対してリトリーバーが返す上位 $k$ 個のドキュメント集合 $\mathcal{D}$ に対して、限定的な数の汚染ドキュメント $d_{p}$ を挿入できるが、リトリーバーのアーキテクチャ、埋め込みモデル、LLMの重み、および防御機構自体を改変することはできない。攻撃の成功率は、ターゲットとなる質問集合 $\mathcal{Q}$ に対して、汚染ドキュメントがリトリーバーによって選択された場合に $1$、そうでなければ $0$ を返す指示関数 $\mathbb{I}(\cdot)$ を用いて、$\frac{1}{|\mathcal{Q}|} \sum_{q \in \mathcal{Q}} \mathbb{I}(d_{p} \in \text{top-}k(q))$ と定義される。本論文では、ターゲットの質問と書き込み権限のみを持つブラックボックス型の非適応的攻撃者を対象としており、汚染ドキュメントはターゲットの質問をそのまま繰り返し、偽の権威性を持たせた定型文で誤った回答を主張する形式をとる。攻撃者が挿入するドキュメントによって $\mathcal{D}$ の大部分が汚染される極端な状況下では、提案手法の第2および第3の防御層が失敗する可能性があることが示唆されている。</p></section>
+<section class="secsum"><h3>IV TriShieldRAG Overview</h3><p>TriShieldRAGは、標準的なRAGパイプラインの周囲に3つの独立した防御層（リング）を配置することで、知識の汚染を防ぐ防御層防御（Defense-in-Depth）フレームワークである。第1リング（Ingest Guard）は、FAISSなどのインデックス構築時に候補ドキュメントを個別に検査して汚染された文書の混入を防ぐか、あるいは検索後のプロキシとして機能し、Perplexity、Pattern、Outlierの3つの検知器によるスコアに基づいて文書のブロックを判定する。第2リング（Retrieval Scorer）は、第1リングを通過した文書に対して信頼度スコアに基づいた再ランキングを行い、第3リング（Cross-LLM Consensus）は、複数のLLMによる合意形成を行い、合意が得られない場合に限り、1回限定の再検索（bounded re-retrieval）を実行する。防御なしのベースラインでは、検索された上位ドキュメントがそのまま単一のLLMに渡されるため、汚染された文書が多数を占めると攻撃者の意図した回答が生成されるが、TriShieldRAGは個別の文書統計、文書間の信頼性、モデル間の合意という異なる信号を段階的に検証することで、汚染された文書が最終回答に到達することを防ぐ。</p></section>
+<section class="secsum"><h3>V Proposed TriShieldRAG Framework</h3><p>TriShieldRAGは、RAGにおける知識汚染を防ぐための3層の防御フレームワークである。第1層のIngest Guardは、候補ドキュメントに対し、語彙の多様性と単語の反復性を評価するperplexity score $S_{\text{perp}}$、特定の不審なパターン（短文での質問形式、ターゲット質問の verbatim な出現、定型的な断定表現）を検知するpattern score $S_{\text{pat}}$、および埋め込みベクトルを用いたoutlier score $S_{\text{out}}$の3つの指標を組み合わせたComplexity $C$を算出する。具体的には、$S_{\text{perp}}$は語彙多様性 $D$ と最頻語の割合 $T$ を用いて $S_{\text{perp}} = (1 - D) + \mathbb{I}(T &gt; 0.12) \cdot T$ と定義され、これら3つのスコアを統合して閾値判定を行う。第2層のRetrieval Scorerは、第1層を通過したドキュメントに対し、ソースの信頼度に基づくprovenance weight $w_{\text{prov}}$、ドキュメント間の整合性を示すconsistency score $S_{\text{con}}$、およびリトリーバーのrelevance score $s_{\text{rel}}$を統合したtrust score $T_{\text{score}} = w_{\text{prov}} \cdot S_{\text{con}} + (1 - w_{\text{prov}}) \cdot s_{\text{rel}}$を用いて再ランキングを行う。ここで、$S_{\text{con}}$は全取得ドキュメントの集合における単語の集合を $B$、特定のドキュメントの集合を $B_i$ としたとき、$\frac{|B \cap B_i|}{|B \setminus B_i|}$ として計算される。第3層のCross-LLM Consensusは、異種混合のLLMパネルを用いて、フィルタリング後のコンテキストに基づく回答の合意形成を行う。回答が合意閾値 $\tau$ を満たさない場合、信頼度の低い下位1/3のコンテキストを除去して最大1回のリトライを行い、最終的な回答を決定する。</p></section>
+<section class="secsum"><h3>VI The Minority-Poison and Provenance-Tag Assumptions</h3><p>TriShieldRAGの第2層（Ring 2）における一貫性スコアと第3層（Ring 3）における多数決は、検索されたドキュメント集合における汚染ドキュメントの割合 $p$ が、クリーンなドキュメントの割合 $1-p$ よりも小さいという「少数派汚染（Minority-Poison）仮定」に依存している。汚染ドキュメントは同一のペイロードを保持するため、クリーンなドキュメント同士よりも相互の語彙的類似性が高くなる傾向があり、$p &gt; 0.5$ となると汚染ドキュメントが集合の多数派を占め、一貫性スコアや多数決によって誤った情報が正当化されてしまう。Ring 3においても、パネルのコンテキストの過半数が汚染されている場合、パネルは誤った主張に対して一致してしまい、不一致を検知して再検索を行う安全策が機能しなくなる。Ring 2のプロベナンス（由来）重みは、攻撃ドキュメントが信頼できないタグ $T_{\text{untrusted}}$ を持つ限り $p$ に依存せず汚染を抑制できるが、本実験の非適応的および適応的攻撃者はソースメタデータを偽装（spoof）していないため、全てのドキュメントが中立なデフォルト値 $T_{\text{neutral}}$ を受け取っており、実際には少数派汚染仮定が防御の主軸となっている。したがって、Ring 2とRing 3が正解を復元できるのは、汚染の集合的な多数派信号がクリーンな証拠を上回らず、かつ攻撃者が信頼済みタグを偽装できない場合に限られる。これに対し、Ring 1はドキュメントを集合ではなく個別に検査するため、検知器が適切に機能する限り $p$ の増加による性能劣化を受けないという特性を持つ。</p></section>
+<section class="secsum"><h3>VII Implementation</h3><p>TriShieldRAGは、Pythonパッケージとして実装されており、インジェクション、検索、合意形成の各段階を担う3つのモジュールをオーケストレーターが制御する構成をとる。回答生成だけでなく、各リングにおける決定プロセス（ブロック、保持、モデル間の投票結果など）を詳細に追跡できるインターフェースを備えており、事後的なフォレンジック調査を補完するリアルタイムの可視化を実現している。検索エンジンにはFAISSのIndexFlatIP構成を採用して内積による完全探索を行うことで、検索漏れによる再現性の欠如を防ぎ、攻撃の成否を各リングの性能に帰属させている。埋め込みモデルには、汎用的なRAG環境を想定してall-mpnet-base-v2を使用し、知識ベースには5,000件の英語Wikipedia記事を用いた。Ring 3のパネルには、特定のベンダーの学習データへの過学習を防ぐため、Claude、Mistral Small、Llama 3.2という、組織や地域が異なる多様なモデルを選択している。Ring 1のパープレキシティ検出器は、単語の多様性に基づく繰り返し率 $\text{rep} = 1.0 - \frac{|\text{set}(\text{words})|}{|\text{words}|}$ と、最頻単語の出現割合 $\text{top} = \frac{\text{count}(\text{most\_common\_word})}{|\text{words}|}$ を用いて、$\min(1.0, 0.6 \times \text{rep} + 2.0 \times \max(0.0, \text{top} - 0.12))$ という式でスコアを算出する。</p></section>
+<section class="secsum"><h3>VIII Experimental Setup</h3><p>本実験では、5,000件の英語Wikipedia記事からなる知識ベースを対象とし、`all-mpnet-base-v2` による埋め込みと `FAISS IndexFlatIP` によるインデックスを用いて評価を行う。攻撃手法として、ターゲットとなる質問文に「verified records」や「multiple independent sources」といった定型文を付加し、攻撃者が選択した誤った回答を注入する非適応的なテンプレートを用いる。評価対象は、防御なし（生の検索結果を直接LLMへ入力）、先行研究の3つの単一段階防御（perplexity filtering、query paraphrasing、knowledge base expansion）を再現した構成、および提案手法であるTriShieldRAGの全構成（Ring 1, Ring 2, Ring 3）の3種類である。主要な評価指標には攻撃成功率（attack success rate）を用い、各防御リングにおけるドキュメントのブロック、ドロップ、およびパネルの合意形成といった詳細な内訳についても解析を行う。</p></section>
+<section class="secsum"><h3>IX Experimental Results</h3><p>5,000件の文書からなる知識ベースに対し、攻撃者が意図的に注入した汚染文書を用いた実験において、TriShieldRAGは攻撃成功率（ASR）を $100\%$ から $0\%$ へと劇的に低減させることを示した。防御なしのパイプラインでは、リトリーバーが汚染された文書を上位に取得し、LLMが攻撃者の意図した誤った回答を出力するが、TriShieldRAGでは第1層（Ring 1）が文言の一致パターンに基づく検知により汚染文書を個別に排除し、第2層（Ring 2）と第3層（Ring 3）がクリーンな文脈の回復とLLMパネルによる合意形成を行うことで、正しい回答を導出する。実験ではClaude、Mistral-Small、Llama-3.2の複数のモデルを用いたパネル構成でも有効であり、汚染されていない通常のクエリに対する精度（benign-query accuracy）を損なうことなく防御が可能であることが確認されている。本フレームワークのオーケストレーターは、単なる回答だけでなく、どの文書がどの層でブロックされたかや各モデルの投票結果を含む実行軌跡（trace）を公開する設計となっており、防御の根拠を詳細に検証できる。なお、本結果は10個のターゲット質問を用いた評価に基づくものであり、攻撃成功率の低減は、第1層で検知を免れた微細な汚染文書が残存した場合でも、後続の層が補完することで達成される。</p></section>
+<section class="secsum"><h3>X Discussion and Limitations</h3><p>TriShieldRAGは、非適応的な攻撃に対して攻撃成功率を大幅に低減させるものの、完全に排除するには至っておらず、その主な要因はRing 1の語彙・パターン検知を回避するほど自然言語に近い表現を持つ毒性ドキュメントの存在にある。現在の評価は、防御手法の閾値や設計を知らない攻撃者を想定した非適応的な設定に基づいているため、Ring 1の検知を回避するように設計された適応的な攻撃者に対する評価が今後の重要な課題である。また、Ring 2とRing 3が正解を復元できるという「少数派毒性仮定」は、毒性ドキュメントの割合がクリーンな証拠の信号を上回らないという理論的導出に基づいているが、毒性割合の境界を変化させて検証する制御実験による直接的な実証はまだ行われていない。実験規模についても、現在は5,000ドキュメントの知識ベースを用いているが、攻撃手法が本来対象とする200万ドキュメント規模への拡張が必要であり、その際には検索レイテンシを抑えるためにHNSWやプロダクト量子化を用いた近似最近傍探索への移行と、それに伴う再現率の低下が毒性割合に与える影響の評価が不可欠となる。運用コストの観点では、Ring 3において複数のLLM（Claude, Mistral Small, Llama 3.2）を呼び出すことがレイテンシとAPIコストの増大を招くため、Ring 1およびRing 2で不確実性が残った場合にのみRing 3を起動するようなゲート制御が実用的な展開には求められる。</p></section>
+<section class="secsum"><h3>XI Conclusion and Future Work</h3><p>本研究では、RAGシステムにおける知識汚染攻撃に対抗するための、3層の防御構造を持つアーキテクチャであるTriShieldRAGを提案した。このフレームワークは、各防御層を固定の閾値と計算量を持つ明示的なアルゴリズムとして定式化しており、第2層と第3層の根底には少数派汚染の仮定を、第2層にはソースの由来（provenance）に関する仮定を置いている。5,000件のWikipediaドキュメントを用いた、非適応的なPoisonedRAGスタイルの攻撃者に対する評価では、Claude、Mistral Small、Llama 3.2という異なるアーキテクチャを持つ3つのLLMを用いたパネル評価において、攻撃成功率を大幅に低減させることに成功した。今後の課題として、元の攻撃手法の評価設定に合わせるための200万件規模のドキュメントを用いたGPU上での大規模評価、TriShieldRAGの設計を認識した適応的攻撃者に対する評価、および第2層における汚染多数派に強い統計手法の導入や暗号学的な由来証明の検討が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-30
+  </footer>
+</div>
+</body>
+</html>

@@ -2023,6 +2023,39 @@
       "url": "http://arxiv.org/abs/2607.23006v1",
       "venue": ""
     },
+    "arxiv:2607.23838": {
+      "added": "2026-07-30",
+      "added_at": "2026-07-30T06:18:52.283876",
+      "arxiv_id": "2607.23838",
+      "authors": [
+        "Susil Kumar Mohanty",
+        "Rohit Patel",
+        "Kosuru Yuvaraj",
+        "Jeenal Chaudhary",
+        "Disha Singhania"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-26",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.23838.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.23838v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの脆弱性である知識汚染に対し、多層防御という実用的なアプローチを提案している。Byzantine quorum等の概念の応用や、攻撃成功率を大幅に低減させた実験結果は、セキュリティ研究者にとって価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "TriShieldRAG: A Three-Ring Defense-in-Depth Framework Against Knowledge Corruption in Retrieval-Augmented Generation",
+      "tldr": "RAGにおける知識汚染攻撃に対し、取り込み時、検索時、生成時の3つの独立した防御層からなる多層防御フレームワークTriShieldRAGを提案し、非適応的攻撃による攻撃成功率を約91%から約13%まで低減させる。",
+      "url": "http://arxiv.org/abs/2607.23838v1",
+      "venue": ""
+    },
     "arxiv:2607.24332": {
       "added": "2026-07-29",
       "added_at": "2026-07-29T06:03:41.044546",
@@ -2052,6 +2085,37 @@
       "title": "Cross-Attention Calibrated Deduplication for Retrieval-Augmented Generation System",
       "tldr": "RAGシステムにおけるチャンク分割の冗長性を解消するため、クロスエンコーダのアテンション情報を用いて新規情報の量を定量化し、複数の候補チャンクに対する多数決で重複を判定するCACDを提案する。これにより、単一のベクトル比較では困難であったトピックの類似性と真の情報の重複の識別を、高速かつ高精度に行うことが可能になる。",
       "url": "http://arxiv.org/abs/2607.24332v1",
+      "venue": ""
+    },
+    "arxiv:2607.24875": {
+      "added": "2026-07-30",
+      "added_at": "2026-07-30T06:17:57.612297",
+      "arxiv_id": "2607.24875",
+      "authors": [
+        "Dorothy Torres",
+        "Wei Cheng",
+        "Henan Huang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-27",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.24875.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.24875v1",
+      "reading_value": 4,
+      "reading_value_reason": "金融RAGにおける「不確実性に基づく棄権」という実用的な課題に対し、マルチエージェント、共形予測、point-in-time検索を組み合わせた構成が非常に高度で新規性が高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "FinAbstain: Uncertainty-Calibrated Multimodal RAG for Selective Financial Forecasting",
+      "tldr": "証拠の不足や矛盾がある場合にLLMが過剰な自信を持って誤った予測を行う問題を解決するため、不確実性を校正して予測の棄権を可能にするマルチモーダルRAGフレームワークを提案する。",
+      "url": "http://arxiv.org/abs/2607.24875v1",
       "venue": ""
     },
     "doi:10.1038/s41598-026-50062-8": {
@@ -5263,6 +5327,38 @@
       "url": "http://arxiv.org/abs/2404.16162v1",
       "venue": ""
     },
+    "doi:10.1609/socs.v18i1.35998": {
+      "added": "2026-07-30",
+      "added_at": "2026-07-30T06:16:32.590244",
+      "arxiv_id": "",
+      "authors": [
+        "Jonathan Morag",
+        "Noy Gabay",
+        "Daniel Koyfman",
+        "Roni Stern"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 2,
+      "date": "2025-07-19",
+      "doi": "10.1609/socs.v18i1.35998",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/doi-a23411b55e50.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://ojs.aaai.org/index.php/SOCS/article/download/35998/38153",
+      "reading_value": 4,
+      "reading_value_reason": "LMAPFにおける「同時到達制約」という本質的な不整合に着目し、問題定義そのものを再構築するMAPF4Lの提案は新規性が高い。既存手法の拡張も具体的で、実用上の有用性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Should Multi-Agent Path Finding Algorithms Coordinate Target Arrival Times?",
+      "tldr": "Lifelong Multi-Agent Path Finding (LMAPF) において、全エージェントが同時に目標に到達することを要求する従来の MAPF 形式が引き起こす不整合を解消するため、目標を通過することのみを目的とする MAPF for Lifelong (MAPF4L) を提案し、スループットの向上を実現する。",
+      "url": "https://www.semanticscholar.org/paper/a8e56a432d7394b0a2410ca5c3e3cb4704ebf9c1",
+      "venue": "Proceedings of the International Symposium on Combinatorial Search"
+    },
     "doi:10.1613/jair.1.20611": {
       "added": "2026-06-26",
       "added_at": "2026-06-26T13:35:02.000000",
@@ -5365,6 +5461,40 @@
       "tldr": "自動倉庫における、相互に依存するタスクと実ロボットの複雑な動力学を考慮したLifelong Multi-Agent Path Finding (MAPF) 問題に対し、タスク割り当てと経路計画を交互に行う手法と、動的な障害物を回避しつつ経由地を巡回する軌道生成アルゴリズムを提案し、その有効性を実証する。",
       "url": "https://www.semanticscholar.org/paper/493ee4d4b6cc09219440ac7c4dae271b50a1499d",
       "venue": "European Conference on Artificial Intelligence"
+    },
+    "doi:10.48550/arxiv.2507.22282": {
+      "added": "2026-07-30",
+      "added_at": "2026-07-30T06:15:17.050420",
+      "arxiv_id": "2507.22282",
+      "authors": [
+        "Kegan J. Strawn",
+        "Thomy Phan",
+        "Eric Wang",
+        "Nora Ayanian",
+        "Sven Koenig",
+        "Lars Lindemann"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 1,
+      "date": "2025-07-29",
+      "doi": "10.48550/arXiv.2507.22282",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2507.22282.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "",
+      "reading_value": 4,
+      "reading_value_reason": "共形予測（CP）をMAPFに導入し、制御不能な動的エージェントに対する統計的な安全性保証を実現した点が極めて新規かつ実用的。ECBSの拡張手法も具体的で、研究価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi-Agent Path Finding Among Dynamic Uncontrollable Agents with Statistical Safety Guarantees",
+      "tldr": "制御不能な動的エージェント（DUA）が存在する環境下で、統計的な安全性保証を提供しながらマルチエージェント経路計画を行うCP-Solverを提案する。共形予測（CP）を用いて予測の不確実性を定量化し、その区間を衝突回避プロセスに統合することで、指定した失敗確率に基づいた衝突回避を実現する。",
+      "url": "https://www.semanticscholar.org/paper/ca18fb7a8837c0e0bd26a93291db2d4b4c584992",
+      "venue": ""
     },
     "doi:10.48550/arxiv.2607.17724": {
       "added": "2026-07-26",

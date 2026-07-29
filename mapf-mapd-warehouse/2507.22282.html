@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-Agent Path Finding Among Dynamic Uncontrollable Agents with Statistical Safety Guarantees | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi-Agent Path Finding Among Dynamic Uncontrollable Agents with Statistical Safety Guarantees</h1>
+  <div class="meta">Kegan J. Strawn, Thomy Phan, Eric Wang, Nora Ayanian, Sven Koenig, Lars Lindemann<br>採択先: 未取得 ・ 2025-07-29 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/ca18fb7a8837c0e0bd26a93291db2d4b4c584992" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.48550/arXiv.2507.22282" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-07-29</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 1</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">共形予測（CP）をMAPFに導入し、制御不能な動的エージェントに対する統計的な安全性保証を実現した点が極めて新規かつ実用的。ECBSの拡張手法も具体的で、研究価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 制御不能な動的エージェント（DUA）が存在する環境下で、統計的な安全性保証を提供しながらマルチエージェント経路計画を行うCP-Solverを提案する。共形予測（CP）を用いて予測の不確実性を定量化し、その区間を衝突回避プロセスに統合することで、指定した失敗確率に基づいた衝突回避を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>人間やプレイヤーのように、計画や行動が未知で制御不可能な動的エージェント（DUA）が混在する環境におけるマルチエージェント経路計画（MAPF）を対象とする。制御可能なエージェントの集合 $\mathcal{A}_c$ が、未知の行動系列 $\mathcal{A}_u$ に従うエージェントと衝突を避けつつ、開始地点から目標地点への経路を決定する必要がある。一回限りのミッション（one-shot）と、連続的な目標を扱う生涯にわたるミッション（lifelong）の2つの問題設定が存在し、動的な環境下での衝突回避とスループットの維持が困難となる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の確率的MAPFが計算コストの高さや統計的な安全性保証の欠如、および動的な制御不能エージェントへの未対応という課題を持っていたのに対し、本研究は共形予測（CP）を導入することで統計的な保証を実現した。既存のEnhanced Conflict-Based Search（ECBS）を拡張し、予測の不確実性を考慮した衝突解決プロセスを構築した点が新規である。これにより、予測誤差を包含する信頼区間を明示的に扱いながら、効率的な経路探索を可能にしている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、学習済み軌道予測器を用いて動的エージェントの将来の軌道を予測し、その予測誤差に対して共形予測を適用することで、真の軌道が $1-\alpha$ の信頼度で含まれる予測区間 $\mathcal{C}_t$ を構築する。この際、線形相補性問題（LCP）を用いて予測誤差を正規化し、タイトな予測領域を実現する。次に、この連続的な予測区間を、予測値から一定距離 $\epsilon$ 以内にあり、かつ最短経路で到達可能な頂点の集合として離散化する。経路計画には、制御エージェントがこれらの離散化された頂点集合を回避するように制約を課す修正版ECBSを用いる。生涯にわたるミッションに対しては、後退ホライゾン法（Rolling-Horizon Conflict Resolution）を採用し、一定の再計画ウィンドウごとに予測と計画を繰り返すクローズドループ形式で運用する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>倉庫型の3種類のマップおよびビデオゲーム用の2種類のマップを用い、制御対象・非制御エージェント数、共形信頼水準 $\delta$、衝突ホライゾン、再計画ウィンドウを変化させて評価した。比較対象として、動的エージェントを無視するIGNORE-ECBS、非制御エージェントを静止障害物として扱うOBSTACLE-ECBS、および共形区間を用いないPRED-ECBSを用いた。評価指標は、目標達成性能を示すスループット、実行時間、および非制御エージェントとの衝突回数である。実験の結果、開ループ環境では予測誤差の被覆率が $1-\delta$ を達成し、閉ループ環境でも衝突回数が理論的な期待値の境界を下回ることで、統計的な安全性保証が確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、予測ホライゾン $H$ や信頼度 $\delta$ を大きく設定すると、衝突は減少するものの、スループットの低下と実行時間の増大というトレードオフが生じる。性能向上には、予測期間を延ばすことよりも予測器自体の精度を向上させることがより効果的である。今後の課題として、予測精度のさらなる向上や、予測モデルが学習時と異なる分布に変化する分布シフトに対する堅牢性の確保が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Multi-Agent Path Finding Among Dynamic Uncontrollable Agents with Statistical Safety Guarantees</h3><p>本研究では、制御不能な動的エージェントが存在する環境下で、その不確実な挙動を考慮したマルチエージェント経路計画（MAPF）のための新しい手法であるCP-Solverを提案している。この手法は、制御不能なエージェントの動きを予測する学習済み予測器を訓練し、その予測誤差を統計的な不確実性定量化手法である共形予測（Conformal Prediction, CP）を用いて定量化する。得られた不確実性の区間を拡張版衝突ベース探索（Enhanced Conflict-Based Search, ECBS）に統合することで、一回限りのミッションにおいて衝突回避経路の統計的な保証を提供し、さらに後退ホライゾン法を用いることで生涯にわたるミッションへの拡張も可能にしている。倉庫やゲームのマップを用いた実験の結果、提案手法は既存手法と比較して、高いスループットを維持しつつ衝突回数を低減できることが示された。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>本研究では、計画や行動が未知である人間やプレイヤー制御のエージェントといった、制御不能で非協力的な動的エージェント（DUA: Dynamic Uncontrollable Agents）が存在する環境下でのマルチエージェント経路計画（MAPF）問題を定式化している。提案手法であるCP-Solverは、制御不能なエージェントの学習済み予測モデルと、不確実性の区間を算出する共形予測（CP: Conformal Prediction）を、Enhanced Conflict-Based Search（ECBS）と組み合わせたものである。この手法は、予測に不確実性の区間を付与し、ECBSにおける衝突解決プロセスにおいてその予測を優先的に扱うことで、衝突回避に関する統計的な保証を与える。具体的には、一回限りの目標達成を目的とするone-shot DUA向けのオープンループ形式と、連続的な目標に対応するlifelong DUA向けのクローズドループ形式の2つのバリエーションが提案されている。倉庫環境における大小3つのベンチマークを用いた実験の結果、衝突回避の統計的保証を維持しつつ、スループットと実行時間の両面において競争力のある性能を示すことが確認された。</p></section>
+<section class="secsum"><h3>Related Work</h3><p>従来のMAPFは静的な環境における一括計画を対象としており、Conflict-Based Search (CBS) などの手法はエージェント数よりも衝突数に依存して計算量がスケールする性質を持つ。近年の研究は、スケーラビリティやライフロングなシナリオ、遅延への堅牢性に焦点を当てており、ライフロングMAPFでは問題を複数のインスタンスに分割して反復的に衝突を解決する手法が取られている。確率的MAPFは、制御対象エージェントの不確実性を考慮した堅牢な計画を生成するが、計算コストが高く、統計的な安全性の保証を欠き、さらに環境内の動的な制御不能エージェントを考慮していないという限界がある。モデル予測制御 (MPC) は、過去の状態履歴に基づき動的エージェントの予測を用いて再帰的なホライゾン内で最小コストの行動を選択するが、制御不能エージェントのモデルが未知である場合が多い。これに対し、本研究では、不確実性の定量化に用いられるコンフォーマル予測 (CP) の考え方を導入し、既存のECBSを拡張したCP-solverを提案することで、制御不能エージェントが存在する環境下でのMAPFを実現する。</p></section>
+<section class="secsum"><h3>Preliminaries: Multi-Agent Path Finding</h3><p>無向で有限なグラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 上を移動する、制御可能なエージェントの集合 $\mathcal{A}$ を想定し、各エージェント $a \in \mathcal{A}$ は開始地点 $s_a$ から目標地点 $g_a$ への経路を、時間ステップ $t \in \{0, \dots, T\}$ にわたって決定する。エージェントは隣接する頂点への移動または現在の頂点での待機を選択し、エッジ $(u, v) \in \mathcal{E}$ の通行コストを $c(u, v)$ とすると、解の最適性は総コスト $\sum_{a \in \mathcal{A}} \text{cost}(a)$ の最小化によって定義される。衝突は、同一時刻に同じ頂点を占有する頂点衝突 $v_a(t) = v_{a&#x27;}(t)$、または逆方向に同じエッジを通過するエッジ衝突 $(v_a(t), v_a(t+1)) = (v_{a&#x27;}(t+1), v_{a&#x27;}(t))$ として定義され、すべての時刻において衝突がない状態を conflict-free と呼ぶ。代表的なアルゴリズムである Conflict-Based Search (CBS) は、低レベルの $A^*$ 探索と高レベルの制約木構築を組み合わせることで、衝突を回避する制約を順次追加しながら最適な解を探索するが、計算量が指数関数的に増大する課題がある。これに対し、ECBS は低レベルのヒューリスティックを $w$ 倍に膨らませる focal search を用いることで、最適性に対する一定の境界を保ちつつ、探索速度を大幅に向上させた有界劣最適解を得る手法である。</p></section>
+<section class="secsum"><h3>Problem Formulation: MAPF DUA</h3><p>本セクションでは、制御可能なエージェントの集合 $\mathcal{A}_c$ と、未知の行動系列 $\mathcal{A}_u$ に従う動的かつ制御不能なエージェントの集合 $\mathcal{A}_u$ が存在する環境における、Multi-Agent Path Finding among Dynamic Uncontrolled Agents (MAPF DUA) 問題を定義している。一回限りのオープンループ問題では、各制御可能エージェント $a \in \mathcal{A}_c$ に対して、開始地点 $s_a$ から目標地点 $g_a$ までの衝突のない行動系列を求め、サービス時間を最小化することを目指すが、これは制御不能なエージェントの行動系列 $\mathcal{A}_u$ が未知であるため、理想的な最適化問題として記述される。一方、Lifelong MAPF DUA (L-MAPF DUA) と呼ばれるクローズドループ問題では、各エージェントが連続する目標地点のシーケンスを持ち、目的関数はサービス時間の最小化から、設定された時間ホライゾン $T$ 内で達成される目標数 $N(T)$ を最大化するスループットの最大化へと変更される。この問題は、グラフのサイズやエージェント数、最小メイクスパンが増大するにつれて計算困難（intractable）になる性質を持つ。</p></section>
+<section class="secsum"><h3>Approach: CP-Solver</h3><p>本手法は、動的な制御不能エージェントが存在する環境下で、ユーザーが指定した失敗確率 $\alpha$ に基づき確率的な衝突回避を保証するCP-Solverを提案している。まず、軌道予測器を用いて動的エージェントの将来の軌道を予測し、その予測誤差に対してConformal Prediction (CP) を適用することで、真の軌道が $1-\alpha$ の信頼度で含まれる予測区間 $\mathcal{C}_t$ を統計的に構築する。この際、線形相補性問題 (LCP) を用いて各タイムステップの予測誤差を正規化することで、過度に保守的にならないタイトな予測領域を実現している。次に、離散グラフ上でMAPFを解くために、連続的な予測区間 $\mathcal{C}_t$ を、予測値から一定距離 $\epsilon$ 以内にあり、かつ最短経路で到達可能な頂点の集合として離散化し、CP区間頂点集合を定義する。経路計画には、修正されたECBSアルゴリズムを用い、制御エージェントがこれらの頂点集合を回避するように制約を課すことで、衝突回避の確率的保証を維持しながら、最小コストの経路を探索する。さらに、Lifelong MAPFへの適用として、Rolling-Horizon Conflict Resolution (RHCR) フレームワークを採用し、一定の再計画ウィンドウごとに予測と計画を繰り返すクローズドループ形式の運用を可能にしている。</p></section>
+<section class="secsum"><h3>Experimental Evaluation</h3><p>本実験では、Intel Core i9-9900K (5.0 GHz) および 16GB RAM の環境を用い、倉庫型の3種類のマップと2種類のビデオゲーム用マップ（den201d および arena）を対象に、制御対象エージェント数、非制御エージェント数、共形信頼水準 $\delta$、衝突ホライゾン、および再計画ウィンドウの各パラメータを変化させて評価を行いました。提案手法である CP-Solver を、動的エージェントを考慮しない IGNORE-ECBS、非制御エージェントを計画期間中静止障害物として扱う OBSTACLE-ECBS、および予測を用いるが共形区間を用いない PRED-ECBS の3手法と比較しています。評価指標には、目標達成性能を示すスループット、ソルバーの実行可能性を示す実行時間、および安全性を示す非制御エージェントとの衝突回数（衝突が継続する各タイムステップごとにカウント）を用い、初期配置の変動を考慮するため各設定で3回のランダムな初期化による平均値を算出しています。動的エージェントの軌跡データは A* アルゴリズムを用いて生成され、各マップ種別とサイズごとに、過去 $H$ ステップの履歴から将来の軌跡を予測する LSTM ネットワークを用いてモデル化されました。ECBS の劣最適性境界は $\epsilon = 1.1$ に設定されており、タイムアウトが発生した場合には focal weight を $0.1$ ずつ増加させる改良を加えた実装を用いています。</p></section>
+<section class="secsum"><h3>Results</h3><p>提案手法であるCP-Solverは、予測誤差を包含する信頼区間を用いることで、ユーザーが定義した信頼レベル $\delta$ に基づき、動的な非制御エージェントとの衝突を統計的に回避する。実験の結果、開ループ環境における予測誤差の被覆率は $1-\delta$ を達成しており、閉ループ環境においても衝突回数が理論的な期待値の境界を下回ることが確認され、系が定式化された安全性保証に従っていることが示された。スループットに関しては、安全性を考慮しないOBSTACLEや動的エージェントを無視するIGNOREと比較して高い値を実現しており、予測を活用することでエージェントが目標方向へ継続的に移動できるためである。計算時間については、一部の初期化条件で外れ値が見られるものの、他の手法と比較して競争力のある実行時間を維持している。予測ホライゾン $H$ および信頼度 $\delta$ を大きくすると、衝突は減少する一方でスループットと実行時間は増加する傾向にあるが、予測器自体の精度を向上させることが、予測期間を大幅に延長することよりも性能向上に大きく寄与する。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本研究では、制御不能な動的エージェントが存在する環境下でのマルチエージェント経路探索（MAPF）における新たな問題設定であるMAPF DUAを定義し、統計的な安全性保証を提供する手法としてCP-Solverを提案している。CP-Solverは、予測に基づく不確実性の定量化を活用し、Enhanced Conflict-Based Searchを適応させることで、ワンショットおよびライフロングのMAPFにおいて近似解を算出する。倉庫やビデオゲームの環境を用いた実験の結果、CP-Solverは標準的な手法と比較して衝突回数を減少させつつ、スループット、衝突数、実行時間のすべての指標において競争力のある性能を維持していることが示された。今後の課題として、予測精度の向上や、予測モデルの分布シフトに対する堅牢性の確保が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-30
+  </footer>
+</div>
+</body>
+</html>

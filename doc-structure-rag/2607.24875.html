@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>FinAbstain: Uncertainty-Calibrated Multimodal RAG for Selective Financial Forecasting | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>FinAbstain: Uncertainty-Calibrated Multimodal RAG for Selective Financial Forecasting</h1>
+  <div class="meta">Dorothy Torres, Wei Cheng, Henan Huang<br>採択先: 未取得 ・ 2026-07-27 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.24875v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.24875v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-27</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">金融RAGにおける「不確実性に基づく棄権」という実用的な課題に対し、マルチエージェント、共形予測、point-in-time検索を組み合わせた構成が非常に高度で新規性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 証拠の不足や矛盾がある場合にLLMが過剰な自信を持って誤った予測を行う問題を解決するため、不確実性を校正して予測の棄権を可能にするマルチモーダルRAGフレームワークを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>金融予測において、証拠の非同期性や信号間の矛盾、および公開情報の迅速な価格反映といった課題が存在する。既存の言語モデルは、証拠が不完全な状況下でも過剰な自信を持って回答を生成する傾向がある。本研究は、資産の評価時点 $t$ におけるマルチモーダルな情報集合 $\mathcal{E}_t$ とタイムスタンプ $\mathcal{T}_t$ を扱い、将来情報のリークを防ぎつつ、不確実な場合に予測を拒否する仕組みを対象とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の金融LLM研究は専門語彙への適応や数値推論に焦点を当ててきたが、マルチモーダルな証拠に基づく「較正された拒絶」の提供には至っていなかった。本研究は、決定時点での利用可能性を保証するpoint-in-time検索、役割分離型マルチエージェントによる証拠の矛盾の明示、および共形予測を用いたハイブリッドな不確実性スコアによる選択的予測を統合した点に新規性がある。これにより、単なる確率の診断に留まらず、証拠の質に基づいた意思決定（棄権やリスク削減）を可能にしている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>Temporal Multimodal Retrieverを用いて、SEC提出書類、ニュース、価格、テクニカル指標を決定時点のスナップショットとして取得する。ファンダメンタル、ニュース、テクニカル、リスクの各専門エージェントが独立して分析を行い、Verifierが主張の根拠となる引用箇所を検証して矛盾を検出する。不確実性 $U_t$ は、推論の一致度 $\mathcal{U}_{dis}$、検索の不備 $\mathcal{U}_{ret}$、予測エントロピー $\mathcal{U}_{ent}$、および過去の校正ギャップ $\mathcal{U}_{cal}$ を統合し、ロジスティック関数 $\sigma$ を用いて $U_t = \sigma(\sum \omega_i \mathcal{U}_i)$ として算出する。コントローラーは、不確実性が閾値 $\tau$ を下回る場合にのみ予測を行い、それ以外は棄権、追加検索、エクスポージャーの削減、あるいは人間への委譲のいずれかを選択する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>S&amp;P 100構成銘柄の履歴データを用い、1日および5日の異常リターン方向、ならびに20日のボラティリティ予測を対象に評価を行った。比較対象は、勾配ブースティング、FinBERT、単一LLM、標準的なマルチモーダルRAG、およびキャリブレーションなしのマルチエージェントRAGである。評価指標には、精度、AUROC、ECE、selective accuracy、coverage、および純戦略リターン $\text{Net Return} = \sum_{t=1}^{T} (p_t r_t - c v_t)$ が用いられた。実験の結果、提案手法は72%のカバー率において最も優れたキャリブレーション性能と選択的精度を示し、カバー率の低下に伴い他手法に対する優位性が増大することが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、信頼性図において $0.7$ から $0.9$ の領域での過剰な自信を抑制できるが、市場の不可避な不確実性やソース間の相関誤差、戦略的な誤情報の排除までは困難である。また、コンフォーマル予測の妥当性が時間依存性によって低下する可能性や、低ボラティリティ期に適合したマッピングが市場の危機時に失敗するリスクといった限界がある。今後の課題として、レジームシフト下での校正の検証、人間によるレビューの有用性の測定、および流動性や市場インパクトを考慮したポートフォリオレベルの選択に関する研究が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>FinAbstain: Uncertainty-Calibrated Multimodal RAG for Selective Financial Forecasting</h3><p>FinAbstainは、証拠が不足、陳腐化、または矛盾している場合にLLMが過剰な自信を持って誤った予測を行う問題を解決するための、不確実性を校正したマルチモーダルRAGフレームワークである。本手法は、予測時点において公開されている情報のみを扱うpoint-in-time retrieverを用い、ファンダメンタル、ニュース、テクニカル、リスク、検証の各エージェントに対してモダリティ固有の証拠を供給する。不確実性の算出には、検索の関連性、証拠間の矛盾、繰り返しサンプリングによる一貫性、および過去の校正統計を統合し、temperature scaling、isotonic regression、conformal prediction、および提案するハイブリッドな不確実性スコアを用いて評価を行う。コントローラーは、不確実性が検証済みの閾値を下回る場合にのみ強気、弱気、または中立の予測を行い、閾値を超える場合は予測を棄権（abstain）するか、追加証拠の要求、エクスポージャーの削減、あるいは人間によるレビューへとルーティングする。評価は、1日および5日の異常リターン方向、20日のボラティリティ区間、および棄権の決定を対象とし、精度、校正、risk-coverage、引用、トレーディング、レイテンシ、コストの各指標を用いて、校正された棄権がカバレッジを犠牲にしつつも選択的誤差とドローダウンを低減できることを検証する。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>金融予測における課題として、証拠の非同期性や信号間の矛盾、および公開情報の迅速な価格反映が挙げられるが、既存の言語モデルは証拠が不完全な場合でも過剰に自信を持った回答を生成する傾向がある。本研究が提案する FinAbstain は、決定時点における情報の利用可能性を保証する point-in-time マルチモーダル検索、ファンダメンタルズ・ニュース・市場信号の不一致を明示する役割分離型マルチエージェント、および予測を拒否するための不確実性キャリブレーションを備えた選択的コントローラーを統合した手法である。具体的には、決算報告、ニュース、価格、出来高、テクニカル指標などの多様なデータに対し、予測時点での利用可能性を強制する時間的 RAG 仕様を導入している。また、単一のナラティブに集約するのではなく、証拠間の矛盾や引用の裏付けを露出させるエージェントプロトコルを採用し、事後的なキャリブレーションと共形予測（conformal prediction）を用いたハイブリッドな不確実性スコアによって、予測の拒否、ポジションサイズの縮小、あるいは人間への委譲といった意思決定を可能にする。本手法は、バックテストにおける未来情報のリークやデータスヌーピングを防ぐための、時系列に沿った再現可能な評価およびバックテストの設計図を提供している。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>金融分野の言語モデルは、専門的な語彙や開示スタイルに適応したエンコーダや、数値推論に特化したモデルへと発展しているが、既存研究はマルチモーダルな証拠に基づく「較正された拒絶（calibrated refusal）」の提供には至っていない。RAG（Retrieval-Augmented Generation）やマルチモーダルな対照学習は、異種表現を共通の空間で扱う手法を示しているが、金融時系列データにはモダリティ固有のエンコーダと厳密なタイムスタンプの管理が不可欠である。予測の信頼性を高めるための手法として、温度スケーリングや等張回帰、交換可能性を仮定した共形予測（Conformal Prediction）が挙げられるが、市場のレジームシフトによってこれらの仮定が崩れるリスクがある。本研究が提案する FinAbstain は、選択的分類におけるリスクとカバレッジのトレードオフや、自由形式の出力に対する選択的生成の概念を統合し、確率の較正を単なる診断としてではなく、証拠の質や取引への影響を考慮した枠組みとして扱う。</p></section>
+<section class="secsum"><h3>III Problem Formulation</h3><p>資産の評価時点を $t$ とし、その時点での証拠となるマルチモーダルな情報集合を $\mathcal{E}_t$、公開およびシステム取り込みのタイムスタンプを $\mathcal{T}_t$ と定義することで、将来情報のリークを防止する。エージェントはクラス集合 $\mathcal{Y}$ に対する確率分布 $P(\mathcal{Y} | \mathcal{E}_t)$、根拠、および引用された証拠を出力し、エージェント間の不一致は平均 Jensen–Shannon ダイバージェンス $D_{JS}$ によって測定される。検証器が検索された主張のペアに対して矛盾確率 $p_{con}$ を付与する場合、関連度 $r$ で重み付けされた矛盾スコアは $r \cdot \frac{p_{con}}{1 + p_{con}}$ と定義される。提案手法における不確実性 $U_t$ は、繰り返し推論による不一致度 $\mathcal{U}_{dis}$、検索の不備 $\mathcal{U}_{ret}$、正規化された予測エントロピー $\mathcal{U}_{ent}$、および直近のキャリブレーション・ギャップ $\mathcal{U}_{cal}$ を用い、検証データで適合させた重み $\omega$ とロジスティック関数 $\sigma$ を用いて $U_t = \sigma(\sum \omega_i \mathcal{U}_i)$ として算出される。コントローラーは、不確実性が閾値 $\tau$ を下回る場合にのみ予測を受け入れ、それ以外は棄権する。この閾値 $\tau$ は、最小限のカバレッジ $\mathcal{C}_{min}$ を制約条件として選択的リスクを最小化するか、あるいは棄権と誤った取引の両方を考慮したコスト感受性損失を最小化するように、検証データのみを用いて決定される。</p></section>
+<section class="secsum"><h3>IV Proposed FinAbstain Framework</h3><p>FinAbstainは、金融予測において不確実性を考慮し、予測を行うか棄権するかを選択するマルチモーダルRAGフレームワークである。Temporal Multimodal Retrieverは、SEC提出書類、決算説明会、ニュース、および価格やMACD、RSIなどのテクニカル指標を、決定時点における公開状況に基づいた不変のスナップショットとして取得し、テキストはハイブリッドな検索、時系列データはレジームと新近性に基づいてマッチングを行う。役割が分離された複数のエージェント（Fundamental, News, Technical, Risk）が独立して分析を行い、Verifierが各主張の根拠となる引用箇所を検証して矛盾を検出することで、アンカリング効果を抑制しつつ情報の信頼性を高める。不確実性の校正には、Temperature scalingやIsotonic regression、さらにSplit conformal predictionを用いたハイブリッドなスコアが用いられ、非適合度 $S(z)$ に基づくコンフォーマル予測によって予測集合を構成する。予測の不確実性が高い場合には、追加のモダリティの検索、予測の棄権、ターゲット・エクスポージャーの $\alpha$ 倍への削減、あるいは人間によるレビューへの委譲という4つのポリシーから選択される。</p></section>
+<section class="secsum"><h3>V Experimental Methodology</h3><p>本研究では、生存者バイアスを考慮したS&amp;P 100構成銘柄の履歴を用い、SEC EDGARの提出書類と調整済みの市場データからなるコーパスを対象としている。タスクは、訓練時のボラティリティから推定された中立帯域を用いた1日および5日間の異常リターンの符号予測、ならびに20日間の実現ボラティリティの3段階（低・中・高）の予測で構成される。評価指標には、分類精度やAUROC、キャリブレーションの質を示すECE、および選択的予測の性能を測るselective accuracyやcoverageが含まれる。金融戦略の評価として、受容されたポジション $p_t$、資産リターン $r_t$、ターンオーバー $v_t$、および比例コスト $c$ を用いて、純戦略リターンを $\text{Net Return} = \sum_{t=1}^{T} (p_t r_t - c v_t)$ と定義し、平均 $\mu$、標準偏差 $\sigma$、および年率換算係数 $\gamma$ に基づいて算出する。比較対象となるベースラインには、勾配ブースティングによるテクニカル指標分類器、FinBERT、単一LLM、標準的なマルチモーダルRAG、キャリブレーションなしのマルチエージェントRAG、および棄権機能のないキャリブレーション済みモデルが設定されている。統計的な比較には、同一の資産・日付ケースにおけるペア付きブロック再サンプリングを用い、信頼区間にはブロックブートストラップ法を適用する。</p></section>
+<section class="secsum"><h3>VI Results and Discussion</h3><p>シミュレーションに基づく実験結果において、提案手法であるFinAbstainは、72%のカバー率において最も優れたキャリブレーション性能と選択的精度（selective accuracy）を示し、リスクとカバー率のトレードオフ曲線においても、カバー率が低下するほど他の手法に対する優位性が増大することが確認された。キャリブレーションの評価では、信頼性図（reliability diagram）を用いることで、ハイブリッドな信頼度スコアが対角線に近づき、特に $0.7$ から $0.9$ の領域における過剰な自信（overconfidence）を抑制できることが示されている。アブレーション研究では、予測スコアのみでは金融バックテストの妥当性を保証できないことが示唆されており、実運用においては、低ボラティリティ期に適合したマッピングが危機時に失敗するリスクを考慮し、移動平均的な $ECE$ やクラス条件付きのカバー率、証拠の鮮度などを監視する必要がある。本手法の限界として、市場の不可避な不確実性やソース間の相関誤差、戦略的な誤情報の排除は不可能であり、また、コンフォーマル予測の妥当性が時間依存性によって低下する可能性や、シミュレーション結果が必ずしも経済的利益を保証しない点が挙げられる。</p></section>
+<section class="secsum"><h3>VII Conclusion</h3><p>FinAbstainは、時点ごとのマルチモーダル検索、独立した専門エージェント、証拠の検証、不確実性のキャリブレーション、および明示的な棄権（abstention）を統合した、選択的な金融予測システムである。本手法の核心的な設計原則は、有用な金融モデルには、得られた証拠が方向性のある意思決定を正当化できない場合に、それを自覚させる必要があるという点にある。数学的な定式化においては、エージェント間の不一致や証拠の矛盾を、キャリブレーションされた不確実性、カバレッジ、選択的リスク、およびコスト調整後の取引結果へと結びつけている。今後の展望として、事前登録された時系列研究の実行、シミュレーション値の実際の実証データへの置き換え、レジームシフト下でのキャリブレーションの検証、人間によるレビューの有用性の測定、ならびに流動性と市場インパクトの制約を考慮したポートフォリオレベルの選択に関する研究が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-30
+  </footer>
+</div>
+</body>
+</html>
