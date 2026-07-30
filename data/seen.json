@@ -2118,6 +2118,37 @@
       "url": "http://arxiv.org/abs/2607.24875v1",
       "venue": ""
     },
+    "arxiv:2607.25135": {
+      "added": "2026-07-31",
+      "added_at": "2026-07-31T06:40:19.734390",
+      "arxiv_id": "2607.25135",
+      "authors": [
+        "Hilaf Hasson",
+        "Aditya Chakravarty",
+        "Jayant Thomas",
+        "Krishna Gogineni"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-27",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.25135.html",
+      "matched_keywords": [
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.25135v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの課題であるインジェクションコストに対し、Zero-Ingestionという極めて独創的なアプローチを提示している。集計的推論への強みも実験で示されており、実用上の示唆が深い。",
+      "relevance": 4,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "ScalableRAG: High-Quality RAG at Zero Ingestion Cost",
+      "tldr": "従来のRAGにおける高コストな知識構造の構築を回避し、インジェクションコストを最小化しつつ集計的な推論を実現する状態保持型エージェントフレームワークScalableRAGを提案する。",
+      "url": "http://arxiv.org/abs/2607.25135v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -2306,6 +2337,39 @@
       "tldr": "地震教育における情報の正確性と個別化されたフィードバックの不足を解決するため、RAG（検索拡張生成）とルーブリック評価を統合したハイブリッドな教育フレームワークEarthquaker-AIを提案する。本手法は、公式の安全ガイドラインに基づく正確な回答生成と、生徒の発達段階に応じた形成的評価を両立させる。",
       "url": "http://arxiv.org/abs/2607.14046v1",
       "venue": ""
+    },
+    "doi:10.33395/sinkron.v10i3.16477": {
+      "added": "2026-07-31",
+      "added_at": "2026-07-31T06:36:12.199942",
+      "arxiv_id": "",
+      "authors": [
+        "Setio Basuki",
+        "Amelia Khoidir",
+        "Muhammad Ilham Perdana",
+        "Muhammad Daffa Nugraha",
+        "Masatoshi Tsuchiya"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "2026-07-06",
+      "doi": "10.33395/sinkron.v10i3.16477",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/doi-e794360b667f.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://jurnal.polgan.ac.id/index.php/sinkron/article/download/16477/4113",
+      "reading_value": 3,
+      "reading_value_reason": "RAGの失敗要因を検索と生成に分離して分析する手法は有用。特定ドメインへの適用事例として、実験の構成も具体的で参考になる。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "SC-Literature Intelligence: A Retrieval-Augmented Generation Framework for Multi-Category AI Literature Synthesis in Supply Chain",
+      "tldr": "サプライチェーンにおけるAI関連の学術文献を対象に、トレンド分析やギャップ検出などの多様な分析クエリに対応するカテゴリ認識型の検索拡張生成（RAG）フレームワークを提案する。実験の結果、埋め込みモデルの品質が性能の主要なボトルネックであり、BGE-M3を用いた構成がLaBSEを上回る高い精度を達成した。",
+      "url": "https://www.semanticscholar.org/paper/2ee2ebb947d5a96b4bd6cd2bbef538f1670082ac",
+      "venue": "SinkrOn"
     },
     "doi:10.3389/frai.2025.1697169": {
       "added": "2026-07-17",
@@ -4055,6 +4119,37 @@
       "url": "http://arxiv.org/abs/2603.12736v1",
       "venue": ""
     },
+    "arxiv:2603.18866": {
+      "added": "2026-07-31",
+      "added_at": "2026-07-31T06:30:36.305525",
+      "arxiv_id": "2603.18866",
+      "authors": [
+        "Xuemian Wu",
+        "Shizhe Zhao",
+        "Zhongqiang Ren"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-03-19",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2603.18866.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2603.18866v2",
+      "reading_value": 4,
+      "reading_value_reason": "非同期MAPFにおける既存手法の不完全性を理論的に解決し、最適性と完全性を保証した点は非常に価値が高い。制約伝播による効率化も具体的で、実用性も高い。",
+      "relevance": 2,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Conflict-Based Search for Multi Agent Path Finding with Asynchronous Actions",
+      "tldr": "非同期行動を伴うマルチエージェント経路計画（MAPF-AA）において、既存の連続時間CBSが抱えていた不完全性の問題を解決し、解の最適性と完全性を保証するCBS-AAを提案する。",
+      "url": "http://arxiv.org/abs/2603.18866v2",
+      "venue": ""
+    },
     "arxiv:2603.23405": {
       "added": "2026-07-16",
       "added_at": "2026-07-16T06:02:07.407100",
@@ -5427,6 +5522,35 @@
       "tldr": "Lifelong Multi-Agent Path Finding (MAPF) において、エッジの重みを最適化する有向ガイダンスグラフを用いてスループットを向上させる Guidance Graph Optimization (GGO) を提案。ブラックボックス最適化の CMA-ES によるマップ固有の最適化と、交通情報から重みを更新するモデルを学習する Parameterized Iterative Update (PIU) を提示し、大規模マップへの転移可能性と既存アルゴリズムの性能向上を実証した。",
       "url": "http://arxiv.org/abs/2402.01446v2",
       "venue": "Proceedings of the AAAI Conference on Artificial Intelligence"
+    },
+    "doi:10.4108/airo.3449": {
+      "added": "2026-07-31",
+      "added_at": "2026-07-31T06:27:25.367000",
+      "arxiv_id": "",
+      "authors": [
+        "Shambhavi Mishra",
+        "Rajendra Kumar Dwivedi"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 3,
+      "date": "2024-03-18",
+      "doi": "10.4108/airo.3449",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/doi-f1959032c5ae.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://publications.eai.eu/index.php/airo/article/download/3449/3014",
+      "reading_value": 3,
+      "reading_value_reason": "MAPFとMARLの比較という標準的な構成だが、エージェント数増大時の計算量爆発に対するMARLの優位性を実証しており、実用的な知見が得られる。",
+      "relevance": 4,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Designing Automation for Pickup and Delivery Tasks in Modern Warehouses Using Multi Agent Path Finding (MAPF) and Multi Agent Reinforcement Learning (MARL) Based Approaches",
+      "tldr": "倉庫内でのピックアップおよび配送タスクにおいて、衝突のない経路を構築するMAPFアプローチと、環境状態から意思決定を学習するMARLアプローチの性能を比較し、エージェント数や動的な環境への適応性を評価した。",
+      "url": "https://www.semanticscholar.org/paper/b0fbd6a075d0a80b431b794fa5c8d0653952ec04",
+      "venue": "EAI Endorsed Transactions on AI and Robotics"
     },
     "doi:10.48550/arxiv.2408.14527": {
       "added": "2026-07-29",

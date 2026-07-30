@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Designing Automation for Pickup and Delivery Tasks in Modern Warehouses Using Multi Agent Path Finding (MAPF) and Multi Agent Reinforcement Learning (MARL) Based Approaches | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Designing Automation for Pickup and Delivery Tasks in Modern Warehouses Using Multi Agent Path Finding (MAPF) and Multi Agent Reinforcement Learning (MARL) Based Approaches</h1>
+  <div class="meta">Shambhavi Mishra, Rajendra Kumar Dwivedi<br>採択先: EAI Endorsed Transactions on AI and Robotics ・ 2024-03-18 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/b0fbd6a075d0a80b431b794fa5c8d0653952ec04" target="_blank" rel="noopener">原典</a> ・ <a href="https://publications.eai.eu/index.php/airo/article/download/3449/3014" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.4108/airo.3449" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 EAI Endorsed Transactions on AI and Robotics</span><span class="chip">公開日 2024-03-18</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 3</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">MAPFとMARLの比較という標準的な構成だが、エージェント数増大時の計算量爆発に対するMARLの優位性を実証しており、実用的な知見が得られる。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 倉庫内でのピックアップおよび配送タスクにおいて、衝突のない経路を構築するMAPFアプローチと、環境状態から意思決定を学習するMARLアプローチの性能を比較し、エージェント数や動的な環境への適応性を評価した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>現代の倉庫における自動化では、複数のエージェントがアイテムを回収し、指定された目的地へ配送するマルチエージェント・ピックアップ・アンド・デリバリー（MAPD）問題の解決が求められる。対象となる環境は、複数のワークステーションと中央の保管エリア、およびそれらを結ぶ通路から構成される。エージェントは、狭い通路での衝突を回避しながら、無向グラフ $G = (V, E)$ 上の開始頂点 $s_i$ から目標頂点 $f_i$ までの経路を計画する必要がある。従来の課題として、エージェント数や環境規模の増大に伴い、衝突のない経路の組み合わせが爆発的に増加し、計算コストが極めて高くなる点が挙げられる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の新規性は、MAPD問題に対して、代表的なMAPF手法であるConflict-Based Search（CBS）と、MARL手法であるShared Experience Actor-Critic（SEAC）を適用し、環境規模やエージェント数の変化に応じた性能差を明らかにした点にある。特に、単発の解決を目指すsingle-shot形式と、継続的な運用を想定したlifelong形式の両面から比較検討を行っている。これにより、動的な環境下において、再計画に多大な時間を要する従来の探索ベースの手法に対し、学習済みの方策を用いるMARLフレームワークが持つ優位性を提示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法として、2つの異なる戦略を比較している。一つはMAPFに基づくConflict-Based Search（CBS）であり、エッジ衝突や頂点衝突を制約として扱い、衝突のない経路を構築する。もう一つはMARLに基づくShared Experience Actor-Critic（SEAC）であり、エージェントが環境の完全な観測に基づき、累積報酬を最大化するように方策を学習する。SEACでは、各タイムステップ $t$ における環境状態から、エージェントが次にとるべき最適な行動を即座に決定する。Lifelong形式の設定では、配送完了後にエージェントが即座に次の目標へ移動するプロセスを、Single-shot問題を連続的に解くループとして定義している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、中規模および大規模な環境サイズにおいて、エージェント数を変化させて実施された。比較手法として、MAPFのCBSとMARLのSEACを用いている。評価指標には、平均メイクスパン（mean makespan）と平均フロータイム（mean flow time）が用いられた。実験の結果、エージェント数が少ない場合には、再計画の計算コストが低いlifelong形式のCBSが有効であった。しかし、エージェント数が増大すると、CBSは収束の可能性が低下し、解に到達するまでに非常に長い時間を要する。一方で、SEACは環境状態から行動を即座に決定できるため、エージェント数が多い環境においても効率的に機能することが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の限界として、エージェントはあらゆるアイテムを扱える均質な存在として想定されており、個別の能力差は考慮されていない。また、CBSのような探索ベースの手法は、エージェント数の増加に伴う計算量の爆発というトレードオフが存在する。今後の課題として、より複雑な動的環境への対応や、エージェントの多様性を考慮した設計が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>本研究では、倉庫内でのピックアップおよび配送タスクを解決するために、マルチエージェント経路探索（MAPF）とマルチエージェント強化学習（MARL）の2つのアプローチを比較検討している。問題設定は、エージェントが要求されたアイテムを回収し、指定された目的地へ配送するものであり、配送完了を最終目標とするシングルショット形式と、配送後に新たなアイテムを回収し続けるライフロング形式の2種類が定義されている。MAPFアプローチでは衝突のない経路を構築することを目指すが、MARLアプローチでは環境の状態とエージェントの位置に基づき、意思決定の方策を学習する。実験の結果、エージェント数が少ない場合には、再計画の計算コストが低いライフロング形式のConflict-Based Search（CBS）が有効であるが、エージェント数が増大すると再計画に多大な時間を要する。一方で、MARLに基づくShared Experience Actor-Critic（SEAC）は、時刻 $t$ における環境状態から最適な行動を即座に決定できるため、エージェント数が多い環境においてより効率的な選択肢となることが示されている。なお、本研究の対象は、あらゆるアイテムを扱える均質なエージェントを想定している。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>現代の倉庫におけるピッキングおよび配送タスクの自動化では、中央の広大な保管エリアから各ワークステーションへアイテムを運搬するマルチエージェントの経路計画が重要となる。保管エリアの占有により通路が狭窄化し、一度に一台のロボットしか通行できない制約が生じるため、衝突を回避しつつアイテムの損傷を防ぐための効率的な経路探索が求められる。エージェントは目標ノードへ向かう過程で、障害物や他のエージェントを回避しながら、倉庫内の適切な経路を形成する必要がある。本研究の対象となる環境は、複数のワークステーションと、中央の保管エリアから各ステーションへアイテムを配送するために通路を移動する複数のエージェントで構成される。</p></section>
+<section class="secsum"><h3>Motivation</h3><p>マルチエージェント・ピックアップ・アンド・デリバリー問題は、単発の解決を目指す single-shot MAPF と、継続的な運用を想定した lifelong MAPF の両面からアプローチされるが、後者の戦略の内部ループには single-shot MAPF の解が含まれる。エージェント数や環境規模が増大するにつれ、要求されたアイテムを目的地へ運ぶためにエージェントが辿り得る衝突のない経路の組み合わせは爆発的に増加する。このような複雑な環境下において、マルチエージェント強化学習（MARL）は、結合された観測状態と結合された行動空間を考慮して出発地から目的地へと到達する能力を持つため、有効な手法として期待される。</p></section>
+<section class="secsum"><h3>Problem Statement</h3><p>マルチエージェント・ピックアップ・アンド・デリバリー（MAPD）問題は、倉庫内で複数のエージェントが同時に、各リクエストの開始ノードから目標ノードまで衝突を回避しながら移動する経路を計画することを目的とする。この問題は、無向グラフを基盤とした有向グラフ $G = (V, E)$ 上のマルチエージェント経路探索（MAPF）として定式化され、$k$ 個のエージェント $a \in \{1, 2, \dots, k\}$ のそれぞれに対して、開始頂点 $s_i \in V$ と目標頂点 $f_i \in V$ が与えられる。グラフにおける経路 $p$ は、隣接する頂点間のエッジが集合 $E$ に含まれる頂点の列 $p = v_1 v_2 \dots v_m$ として定義される。2つの経路 $p_1$ と $p_2$ が衝突を回避するためには、すべての時刻において同一の頂点を占有しないこと、およびエッジの逆方向移動（エッジの衝突）が発生しないことの2条件を満たす必要がある。</p></section>
+<section class="secsum"><h3>Contribution</h3><p>本研究では、マルチエージェント経路探索（MAPF）に基づく手法とマルチエージェント強化学習（MARL）に基づく手法の2種類を、環境サイズやエージェント数の違いに応じて比較検討している。具体的には、MAPFの代表的な手法である衝突ベース探索（Conflict-based Search）と、MARLのShared Experience Actor-Criticアプローチを、マルチエージェント集荷配送問題（MAPD）に対して適用して評価している。実験の結果、各タイムステップ $t$ において環境状態が変化する動的な状況下では、MARLフレームワークの方が容易に対応できることが示された。また、エージェント数が増加するにつれて、衝突ベース探索は収束の可能性が低下し、解に到達するまでに非常に長い時間を要する傾向がある一方、Shared Experienceアプローチはこのような条件下でも有効に機能する。評価指標には、中規模および大規模な環境サイズにおいて、平均メイクスパン（mean makespan）と平均フロータイム（mean flow time）が用いられている。</p></section>
+<section class="secsum"><h3>Organization</h3><p>本論文の構成は、まず第2節で研究の理解に不可欠な背景知識となる概念を整理し、第3節において既存研究の比較レビューを行う。第4節では、マルチエージェントによるピックアップおよびデリバリー問題（MAPD）に対して採用された2つの異なる戦略とその動作プロセスについて詳細に記述する。第5節では、これら2つの戦略を複数の評価指標に基づいて評価し、得られた結果を比較検討する。最後に第6節において、本研究の結論を述べるとともに、現時点での課題と今後の展望について提示する。</p></section>
+<section class="secsum"><h3>2. Background</h3><p>本セクションは、以降の章で展開される議論を理解するために必要となる基礎概念および予備知識を網羅している。具体的には、倉庫内におけるピックアップおよびデリバリータスクの自動化を実現するための基盤となる、マルチエージェント経路探索（MAPF）およびマルチエージェント強化学習（MARL）に関する背景知識が提供される。ただし、提示された範囲内では、具体的なアルゴリズムの定義や数式、実験設定に関する詳細な記述は含まれていない。</p></section>
+<section class="secsum"><h3>Learning</h3><p>エージェント $a$ は、環境 $\mathcal{E}$ において、各ステップで与えられる報酬とペナルティに基づき、出発地点から目標地点へ到達することを学習する。この環境は完全に観測可能（completely observable）であり、現在の環境状態に基づいて次にとるべき行動が決定される。エージェントは、学習の終了時における累積報酬を最大化するように方策（policy）を学習する。</p></section>
+<section class="secsum"><h3>Multi Agent Reinforcement Learning</h3><p>マルチエージェント強化学習（MARL）は、共通の環境内で複数のエージェントが相互作用する際の、結合された行動や結合された観測を扱う枠組みである。エージェント間の相互作用と振る舞いに基づき、学習は大きく3つのカテゴリに分類される。第一に、各エージェントが環境の局所的な部分観測しか持たない状況において、全体の状況を把握するために他者と調整を行い、共通の目標を達成する協調型エージェントである。第二に、相手の行動に基づいて戦略を練り、自身の目的関数を最大化するために競い合う競争型エージェントであり、例えば「隠れん坊」のようなケースがこれに該当する。第三に、チーム内では協調しつつ、対戦相手に対しては競合するという、協調と競争の両面を併せ持つ混合型であり、ホッケーの試合のように報酬獲得のための戦略構築と、ライバルへの対抗策の策定を同時に行う。</p></section>
+<section class="secsum"><h3>Single shot Multi Agent Path Finding</h3><p>環境内に $n$ 個のエージェント $\{a_1, a_2, \dots, a_n\}$ が存在し、各エージェントは始点と終点の属性を持つ。環境は重みなし無向グラフとして表現され、各タイムステップにおいて、エージェントは現在位置に隣接するノードへ移動するか、あるいは現在位置に留まるかのいずれかを選択でき、移動と待機はいずれもコスト $1$ を要する。この設定における衝突には、2つのエージェントが同一の頂点 $v$ に同時に到達するケースと、2つのエージェントが同一の辺を互いに逆方向に通過するケースの2種類が存在する。エージェントは、これらの衝突や障害物を回避しながら、各アイテムのピックアップから目標地点への到達に至る経路を決定する必要がある。</p></section>
+<section class="secsum"><h3>Lifelong Multi Agent Path Finding</h3><p>Single-shot MAPFでは、エージェントは配送地点に到達してアイテムを荷下ろしした時点で動作を停止するが、Lifelong MAPFでは、配送完了後にエージェントは即座に次の目標地点へと移動し、倉庫内の新たな配送タスクを継続的に遂行する。このアプローチは、内側のループにおいて、多数のSingle-shot問題を連続的に解き続けるプロセスとして定義される。これにより、単発の経路計画ではなく、絶え間なく発生するタスクに対してエージェントを動的に割り当て、継続的な運用を可能にしている。</p></section>
+<section class="secsum"><h3>Path Finding</h3><p>マルチエージェント経路探索（MAPF）において、狭い通路での衝突を回避するために、本研究ではエッジ衝突と頂点衝突の2種類に焦点を当てている。エッジ衝突は、時刻 $t$ において2つのエージェントが同じエッジ $(v_i, v_j) \in V$ を同時に通過しようとする状態を指し、制約木を用いて特定の遷移を禁止することで回避される。頂点衝突は、異なる頂点から出発した2つのエージェントが、同一の頂点に同時に到達することで発生する衝突であり、最終的な解においていずれかの行動を修正することで回避される。なお、サイクル衝突、フォローイング衝突、スワッピング衝突については、衝突のない経路を構築するプロセスでは考慮されない。また、本問題はマルコフゲーム $(N, S, \{O_i\}_{i \in N}, \{A_i\}_{i \in N}, P, \{R_i\}_{i \in N})$ として定義され、各エージェント $a_i \in N$ は環境の完全な観測は行えず、局所的な観測に基づいて行動を選択する。エージェントは、共有された観測を通じて環境の全体像を把握し、個別の報酬 $R_i$ の合計を最大化するように方策を決定する。</p></section>
+<section class="secsum"><h3>Learning (MARL)</h3><p>本セクションでは、マルチエージェントのピックアップおよびデリバリー問題に対処するための2つの主要なアプローチとして、MAPF（Multi Agent Path Finding）とMARL（Multi Agent Reinforcement Learning）が紹介されている。MAPFに基づく手法としては、衝突のない経路を構築することで問題を解決する Conflict-based Search (CBS) が挙げられる。これに対し、MARLに基づく比較対象の手法として、Shared Experience Actor Critic (SEAC) が提示されている。本研究では、これら2つの異なるアプローチである CBS と SEAC を用いて、問題解決における性能の比較および評価を行う。</p></section>
+<section class="secsum"><h3>3. Literature Review</h3><p>倉庫内のピックアップおよびデリバリー問題は、衝突のない経路を構築するマルチエージェント経路探索（MAPF）と、環境状態やエージェントの位置に基づき意思決定方策を学習するマルチエージェント強化学習（MARL）の2つのアプローチで解決される。MAPFには、単一の制御装置がエージェントを導く集中型と、エージェントが自律的に協力する分散型の手法があり、後者では学習時のみ経験を共有し実行時は個別に動く集中学習・分散実行（CTDE）や、教師エージェントが他者にフィードバックを与える手法、ターゲット方策と行動方策を分離するオフポリシーの分散強化学習などが提案されている。MARLにおいては、タスクに基づきエージェントをグループ化して方策を共有する役割特化型学習や、能力や目標の類似性に基づきクラスタリングを行いパラメータ共有を行う選択的パラメータ共有手法が、スケーラビリティや学習効率の向上に寄与している。MAPFの具体的なアルゴリズムとして、優先度に基づき経路を計画する手法があるが、これは高優先度エージェントによって低優先度エージェントの経路が遮断され、目標に到達できないという劣最適性の限界を持つ。また、動的な環境への対応として、古いノードや制約の概念を用いて実行中に新しいエージェントを導入する手法や、解を $k$ 個のセグメントに分割して衝突検証を容易にする説明可能な手法も存在する。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-31
+  </footer>
+</div>
+</body>
+</html>

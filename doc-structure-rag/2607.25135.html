@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ScalableRAG: High-Quality RAG at Zero Ingestion Cost | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>ScalableRAG: High-Quality RAG at Zero Ingestion Cost</h1>
+  <div class="meta">Hilaf Hasson, Aditya Chakravarty, Jayant Thomas, Krishna Gogineni<br>採択先: 未取得 ・ 2026-07-27 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.25135v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.25135v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-27</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの課題であるインジェクションコストに対し、Zero-Ingestionという極めて独創的なアプローチを提示している。集計的推論への強みも実験で示されており、実用上の示唆が深い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 従来のRAGにおける高コストな知識構造の構築を回避し、インジェクションコストを最小化しつつ集計的な推論を実現する状態保持型エージェントフレームワークScalableRAGを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のRAGは、ベクトルデータベースの構築やLLMを用いたナレッジグラフ・スキーマの抽出といった、膨大なインジェクション（取り込み）コストを必要とする課題があった。本研究は、ドキュメントセットと値セットからなるワークスペースを保持し、大規模なコーパスに対しても効率的に動作するRAGシステムの構築を対象とする。入力としてドキュメント群と質問を受け取り、集計的な推論を含む回答を出力する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>ナレッジグラフ構築などの重厚な前処理を一切行わないZero-Ingestion方式を導入し、既存のインジェクション重視型手法を凌駕する性能を達成した。また、ベクトル埋め込みとサンプルに基づくパターン発見を組み合わせたLimited-Ingestion方式により、定数回のLLM呼び出しで高い精度を実現する新規性を提示している。従来のAgentic RAGが永続的なアーティファクトを作成しないのに対し、本手法は状態を保持するレジストリを用いる点で異なる。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>ReActスタイルのエージェントを基盤とし、文書集合 $\mathcal{D}$ に対するレジストリ $\mathcal{R} = \{(n_i, S_i)\}$ と、抽出された値を保持する値セット $\mathcal{V} = \{(v_j, V_j)\}$ を動的に管理する。エージェントは、正規表現を用いた文書集合の分割を行うapply_filter、構造化データを抽出するextract_field、統計計算を行うaggregateといったツールを駆使して、集合演算を通じて探索範囲を絞り込む。ツール実行時には、正規表現のヒット数やターゲット集合に対するアンカー・トークンの被覆率を示す診断情報が提供され、エージェントによる自己修正を可能にする。さらに、オプションとしてコサイン類似度を用いた検索や、文書内の「Label: Value」形式を自動検出するパターン発見モジュールを統合できる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>MuSiQue、2WikiMultiHopQA、Transcripts、FinanceBench、ComplexTR、Hotelsの6つのコーパスを用いて、GPT-4によるLLM-as-a-judge、Exact Match、F1スコアで評価した。Zero-Ingestion ScalableRAGは、3つのデータセットでGraphRAG等の手法を上回り、全データセットの平均精度は次点のベースラインより $7.36\%$ 高かった。特にHotelsでは、インジェクションなしで既存手法に対し $36.23\%$ の精度向上を示した。Limited-Ingestion版は、text-embedding-3-smallを用いた粗いチャンク分割により、構造的なデータセットにおいてZero-Ingestion版を上回る性能を確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、ワークスペース内の各集合がドキュメント集合のサブセットと一対一の対応関係にあることを前提としている。この設計により、集計の基準となるプライマリキーがドキュメントと一対一で対応する限り容易な集計が可能だが、この仮定に反する構造を持つ質問に対しては、ナレッジグラフを用いたアプローチの方が有利になる可能性がある。また、出力結果は基盤となる言語モデルの性能に依存するため、回答を決定的な主張ではなく派生的な証拠として扱う必要がある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>ScalableRAG: High-Quality RAG at Zero Ingestion Cost</h3><p>本研究が提案する ScalableRAG は、ナレッジグラフの構築や SQL テーブルの抽出といった高コストなインジェクション工程を一切必要とせず、ベクトルデータベースすら使用しない Zero-Ingestion ScalableRAG を導入している。この手法は、ドキュメントセットと値セットからなるワークスペースを保持し、全ドキュメントセットのサブセットと一対一の対応関係にあるプライマリキーに基づくグルーピングが必要な場合に、オンザフライで集計的な推論を行うことで、ナレッジグラフを用いた手法を含む既存のベースラインを凌駕する。6つのコーパスを用いた実験では、3つのコーパスでベースラインを上回り、残りの3つでも最大性能に肉薄しており、全データセットを通じた平均精度は次点のベースラインより $7.36\%$ 高い。さらに、LLM の呼び出し回数をコーパスサイズに依存しない定数に制限した Limited-Ingestion ScalableRAG も提案されており、これは最小限のベクトルデータベースとドキュメントのサンプルからの自動的なパターン発見を利用することで、大規模環境における精度をさらに向上させている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>従来のRAGは、コーパスからベクトルデータベースを構築するか、LLMを用いてナレッジグラフやスキーマといった知識データ構造を構築する手法が主流であったが、これらはインジェクション（取り込み）コストが高いという課題がある。本論文では、インジェクションコストを最小化またはゼロにするScalableRAGを提案しており、その核となるZero-Ingestion ScalableRAGは、ベクトルデータベースの作成すら行わず、正規表現を用いてファイル名、数値、日付、リストなどの集合を推論時に動的に生成・永続化する。この手法では、生成された各集合に名前を付与し、集合演算やフィルタリング、集計ツールを用いてエージェントが操作可能にするとともに、集合の差分をコンテキストとして提供することで、フィルタリングの成否に関する判断精度を高めている。実験の結果、このゼロインジェクション方式は、6つのコーパスのうち3つでナレッジグラフ等の重厚な手法を上回り、全データセットの平均精度において次点のベースラインを約7%上回る性能を示した。さらに、精度を向上させるためのLimited-Ingestion ScalableRAGでは、コサイン類似度を用いたベクトル埋め込みや、文書のサンプルを用いた正規表現および抽出ヒントのパターン発見・検証プロセスを追加しており、定数回のLLM呼び出しで抽出が困難なデータセットに対しても高い精度を実現している。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>既存のRAG手法は、密ベクトル検索を核とするBaseline RAG、知識グラフを用いるIngestion-Heavyな手法、およびエージェントを活用するAgentic RAGの3つのカテゴリに分類される。Baseline RAGには、インジェクション時に合成クエリで文書を拡張するHyDEや、生成時の不確実性に基づき検索を行うFLARE、検索と生成を反復・交互に行うIter-RetGenやIRCoTなどがある。知識グラフを用いる手法では、エンティティと関係性のグラフを構築するGraphRAGや、PageRankを活用するHippoRAG、さらに5,000万文書以上のスケールでスキーマを自動誘導するAutoSchemaKGなどが存在するが、これらは文書ごとにLLMによる抽出を必要とする重いインジェクションコストを伴う。Agentic RAGでは、キーワード検索やセマンティック検索などのツールを備えたA-RAGや、検索戦略を動的に制御できるInteract-RAGが提案されているが、これらは将来のステップのための永続的なアーティファクトを作成しないという特徴を持つ。</p></section>
+<section class="secsum"><h3>3 Proposed Method</h3><p>ScalableRAGは、事前の知識グラフ構築やベクトル埋め込みを必要としない「Zero-Ingestion」方式を核としたRAGシステムである。本手法はReActスタイルのエージェントをベースとし、文書集合 $\mathcal{D}$ に対してツール呼び出しを通じて対話を行うが、各ステップで文書のサブセットを管理するレジストリ $\mathcal{R} = \{(n_i, S_i)\}$ と、抽出された値を保持する値セット $\mathcal{V} = \{(v_j, V_j)\}$ を動的に更新・維持する点が特徴である。エージェントは `apply_filter` による正規表現を用いた文書集合の分割や、`extract_field` による構造化データの抽出、`aggregate` による統計計算などのツールを用い、集合演算を通じて段階的に探索範囲を絞り込む。また、ツール実行時には、正規表現の各トークンのヒット数や、ターゲット集合に対するアンカー・トークンの被覆率（`entity_coverage`）などの診断情報（Diagnostic Feedback）が提供され、エージェントはこれを用いてフィルタリングの精度を自己修正できる。さらに、オプションとしてベクトル埋め込みによる `cosine_search` や、文書内の「Label: Value」形式を自動検出する「Automatic Pattern Discovery」モジュールを統合することで、限定的なインジェクションコストで高度な検索性能を実現している。</p></section>
+<section class="secsum"><h3>4 Experiments</h3><p>本実験では、MuSiQue、2WikiMultiHopQA、新たに構築した米連邦議会記録のTranscripts、FinanceBench、ComplexTR、Hotelsの6つのコーパスを用いて、提案手法の性能を評価している。評価指標として、GPT-4を用いたLLM-as-a-judgeによる精度、およびSQuAD形式のExact Match (EM) とF1スコアが用いられ、回答から推論過程を除去する前処理が施されている。実験結果において、Zero-Ingestion ScalableRAGはMuSiQue、Transcripts、Hotelsの3つのデータセットでHippoRAGやGraphRAGなどの高コストなインジェクションを伴う手法を上回る精度を達成しており、特に集約的な推論を要するHotelsでは、SRAGに対してインジェクションなしで36.23%もの精度向上を示した。残りの3つのデータセットにおいても、Zero-Ingestion ScalableRAGは最良のベースラインに対して平均でわずか1.63%の差に留まっており、A-RAGが勝利したケースを除けば極めて高い性能を維持している。また、A-RAGはベクトルデータベースを利用するものの、ScalableRAGのように永続的な集合を書き込み・読み出しを行わないため、HotelsやTranscriptsのような集約的な質問への回答能力で劣る。推論コストの観点では、ScalableRAGのステップ数はA-RAGと同程度であるが、A-RAGは推論時に大幅に多くのトークンを消費する。さらに、Limited-Ingestion ScalableRAGは、text-embedding-3-smallを用いた粗いチャンク分割を採用することで、HotelsやTranscriptsのような構造的なデータセットにおいてZero-Ingestion版よりも性能を向上させている。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>本研究では、知識ベース構築に多大なコストを要する従来手法の集約的推論能力を、極めて低い前処理コストで実現する状態保持型エージェントRAGフレームワークである ScalableRAG を提案している。本手法には、前処理を一切行わない Zero-Ingestion と、ベクトル埋め込みおよびコーパスのサイズに依存しない定数時間で完了するサンプルベースのパターン発見を行う Limited-Ingestion の2つのバリエーションが存在する。これらは共通の集合代数的ワークスペースを利用しており、すべてのツールが名前付きの文書集合および値集合からなる型付きレジストリに対して読み書きを行い、すべての観測結果はワークスペースの状態を参照する診断情報によって強化される。6つの多様なコーパスを用いた評価実験において、ScalableRAG の両バリエーションは、従来のインジェクション重視型およびエージェント型の手法を平均して上回る性能を示した。特に Limited-Ingestion は、パターン発見が適用可能な豊かな構造を持つコーパスにおいて、さらなる性能向上を実現している。</p></section>
+<section class="secsum"><h3>6 Limitations</h3><p>本手法の設計における核心的な制約は、ワークスペース内の各集合がドキュメント集合のサブセットと一対一の対応関係にあることである。この設計により、集計の基準となるプライマリキー自体がドキュメントのサブセットと一対一で対応している限り、容易な集計が可能となる。実用上の検証では、この仮定に反する質問はドキュメントコーパスを用いた質問応答データセットにおいて稀であることが確認されているが、このような構造を持つ質問に対しては、ナレッジグラフを用いたアプローチの方が高い性能を示すことが予想される。</p></section>
+<section class="secsum"><h3>7 Ethical Considerations</h3><p>本研究で使用されたコーパスは、Transcriptsデータセットを除くすべてが許容的なライセンスの下で公開されているものであり、Transcriptsデータセットについても米国政府出版局の公開情報に基づきパブリックドメインの公聴会記録から構成されている。実験において人間を対象とした調査は行われておらず、ScalableRAGは事前学習済みモデルとして公開されるものではないため、個人を特定できる情報（PII）の使用も含まれていない。LLMベースのシステム全般に共通する制約として、出力結果は基盤となる言語モデルに依存するため、下流の利用者は回答を決定的な主張ではなく、派生的な証拠として扱う必要がある。なお、論文の執筆やコード生成の過程でAIツールが使用された場合でも、著者が手動で監視および検証を行っている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-31
+  </footer>
+</div>
+</body>
+</html>

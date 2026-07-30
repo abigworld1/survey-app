@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Conflict-Based Search for Multi Agent Path Finding with Asynchronous Actions | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Conflict-Based Search for Multi Agent Path Finding with Asynchronous Actions</h1>
+  <div class="meta">Xuemian Wu, Shizhe Zhao, Zhongqiang Ren<br>採択先: 未取得 ・ 2026-03-19 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2603.18866v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2603.18866v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-03-19</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">非同期MAPFにおける既存手法の不完全性を理論的に解決し、最適性と完全性を保証した点は非常に価値が高い。制約伝播による効率化も具体的で、実用性も高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 非同期行動を伴うマルチエージェント経路計画（MAPF-AA）において、既存の連続時間CBSが抱えていた不完全性の問題を解決し、解の最適性と完全性を保証するCBS-AAを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、エージェントごとに異なる移動速度を持つ非同期行動（MAPF-AA）下での、衝突を回避するマルチエージェント経路計画を対象としている。無向グラフ $G = (V, E)$ 上で、各エージェント $a \in \mathcal{A}$ はエッジ $(u, v) \in E$ を通過する際に固有の移動時間 $\tau_a(u, v)$ を要する。従来の Continuous-time Conflict-Based Search (CCBS) では、待機時間の継続時間が連続的な値を取り得るため、状態空間が非可算無限となり、解が存在しても見つけられない不完全性の課題があった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存の CCBS が抱えていた、待機行動の制約付与における不完全性と最適性の欠如という理論的問題を回避し、厳密な最適性と完全性を保証する CBS-AA を提案した。また、単一のアクションに制約を課す手法だけでなく、動作の持続時間を利用して複数のアクションや時間間隔に制約を伝播させる技術を導入した。これにより、高レベル探索における分岐数を大幅に削減し、スケーラビリティを向上させている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>高レベル探索では、衝突が発生した際に制約を生成する Conflict-Based Search の枠組みを採用している。低レベルプランナーには、Safe Interval Path Planning (SIPP) を拡張し、到着時刻、セーフインターバルの終了時刻、および待機によるソフトコンフリクト数を保持する SIPPS-WC を用いる。衝突解決には、単一のアクションに制約を課す Constraint on Single Action (CSA) と、動作の持続時間（Duration of Occupancy）を利用して複数のアクションや時間間隔に制約を伝播させる Constraint on Multiple Actions (CMA) の2種類を用いる。CMA において、エッジの移動時間を一定とみなすか中間頂点を挿入することで、無効な制約の生成を防いでいる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>4種類のマップ（empty, random, den312d, warehouse）を用い、エージェント数を10から50、速度を1から20の範囲で変化させて実験を行った。比較対象は CCBS および LS-M* である。評価指標として、高レベルノードの展開数、成功率、実行時間、および経路コストを用いた。結果として、CMA は CSA と比較して高レベルノードの展開数を最大 $90\%$ 削減した。また、warehouse マップの 50 エージェントの条件下でも高い成功率を維持し、特定の条件下では LS-M* と同等のコストで、より高い成功率と短い実行時間で解を導出できることを示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、導入される制約が相互に排他的であることを利用して最適性を担保しているが、CMA においてはエッジの移動時間を一定とみなす仮定や中間頂点の挿入が必要となる。今後の課題として、MAPF-AA における速度の不確実性の考慮や、ターゲットの割り当ておよびシーケンシング問題との統合が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Conflict-Based Search for Multi Agent Path Finding with Asynchronous Actions</h3><p>本研究は、全エージェントの行動が同期し、常に一定の時間単位を要するという従来の制約を排除した、非同期行動を伴うマルチエージェント経路計画（MAPF-AA）を対象としている。既存の Continuous-time Conflict-Based Search (CCBS) は、連続的な待機時間によって状態空間が非可算無限となり、不完全性（completenessの欠如）という理論的な課題を抱えていた。これに対し、提案手法である Conflict-Based Search with Asynchronous Actions (CBS-AA) は、この理論的問題を回避しつつ、解の最適性と完全性を保証する。さらに、CBS-AA のスケーラビリティを向上させるための衝突解決技術を導入しており、実験の結果、探索における分岐数を最大で 90% 削減できることが示されている。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>Multi-Agent Path Finding (MAPF) は、複数のエージェントが衝突を回避しながら各々の目的地へ到達する経路を求める問題であり、従来の手法は全エージェントの行動が同一の離散時間ステップで同期することを前提としていた。しかし、エージェントごとに移動速度が異なる非同期行動（MAPF-AA）を扱う場合、エージェントがエッジを通過する時間範囲 $[t_{start}, t_{end}]$ においてエッジの両端の頂点を占有すると定義すると、既存の Continuous-Time Conflict-Based Search (CCBS) では待機行動の継続時間が無限に存在し得るため、不完全性（解が存在しても見つけられない問題）が生じる。本研究では、この問題を解決する新しい厳密アルゴリズムとして Conflict-Based Search with Asynchronous Actions (CBS-AA) を提案する。CBS-AA では、衝突が発生した際に可能な限り多くの行動、および可能な限り長い時間範囲の行動を禁止する制約伝播技術を導入することで、高レベル探索の反復回数を削減しスケーラビリティを向上させている。実験の結果、CBS-AA は CCBS と比較して成功率が大幅に向上し、高レベルの反復回数を最大 $90\%$ 削減することに成功した。また、既存の LS-M* と比較しても、同等の最適解をより高速に発見できることが示されている。</p></section>
+<section class="secsum"><h3>2. Problem Formulation</h3><p>本研究が扱う Multi-Agent Path Finding with Asynchronous Actions (MAPF-AA) は、エージェントの集合 $\mathcal{A}$ が無向グラフ $G = (V, E)$ 上を移動する問題であり、各エージェント $a$ はエッジ $(u, v) \in E$ を移動する際に、エージェントごとに異なる移動時間 $\tau_a(u, v)$ を要する。エージェントの状態は時空間状態 $s = (v, t)$ で表され、移動アクションでは $v_{next}$ が $v$ に隣接し、待機アクションでは $v_{next} = v$ となる。本モデルでは Duration Occupancy (DO) を定義しており、エージェント $a$ が状態 $s = (v, t)$ から $s&#x27; = (v&#x27;, t + \Delta t)$ へ遷移する際、時刻 $t$ において $v$ が、時刻 $t + \Delta t$ において $v&#x27;$ が、そして区間 $[t, t + \Delta t]$ において $v$ と $v&#x27;$ の両方が占有される。複数のエージェントが同じ頂点を非空な時間区間で同時に占有する場合を Duration Conflict (DC) と呼び、各エージェントのパスのコスト $c(a)$ を、エージェントが目標地点に到達して衝突なく滞在可能となる時刻として定義する。MAPF-AA の目的は、各エージェントが指定された開始地点 $s_a$ から目標地点 $g_a$ へ到達する衝突のないパスの集合を求め、全エージェントのコストの総和 $\sum_{a \in \mathcal{A}} c(a)$ を最小化することである。</p></section>
+<section class="secsum"><h3>3. Preliminaries</h3><p>Conflict-Based Search (CBS) は、高レベルでコストの合計が最小となるノードを選択して衝突を検出し、低レベルで制約を満たす単一エージェントの最適経路を探索する2段階のアルゴリズムである。これを非同期アクション（MAPF-AA）へ拡張した Continue Conflict-Based Search (CCBS) は、エッジの移動時間を実数値として扱い、エージェントの幾何学的形状に基づき衝突を検出する。CCBS は、エージェント $i$ が時刻 $t_i$ にアクション $a_i$ を、エージェント $j$ が時刻 $t_j$ にアクション $a_j$ を実行して衝突する場合、各アクションに対して他のアクションと衝突する最大の時間区間である unsafe interval を計算し、それに基づき特定の時間範囲でのアクション実行を禁止する制約を追加する。しかし、CCBS は待機アクション（wait action）の解決において、特定の継続時間のみを禁止する制約を生成するため、無限の分岐が発生する可能性があり、実装レベルでは「特定の時間での待機」を禁止する制約を「特定の時間範囲内でのいかなる待機」の禁止へと変更しているが、これにより完備性と最適性が損なわれるという問題がある。一方、Loosely Synchronized M* (LS-M*) は、エージェントの位置とアクションの時刻を状態に含む探索を行い、subdimensional expansion を導入することで、非同期アクション下での最適解を求めることが可能だが、扱えるエージェント数に限界がある。</p></section>
+<section class="secsum"><h3>4. Method</h3><p>非同期アクションを伴うマルチエージェント経路計画（MAPF-AA）の最適解を求めるため、本研究ではConflict-Based Search with Asynchronous Action (CBS-AA) を提案している。低レベルプランナーには、連続時間を扱うためにSafe Interval Path Planning (SIPP) を拡張したSIPPS-WCを採用しており、状態に到着時刻、セーフインターバルの終了時刻、および待機によるソフトコンフリクト数を保持することで、待機行動を考慮した効率的な探索を実現している。コンフリクト解消手法として、単一のアクションに対して制約を課すConstraint on Single Action (CSA) と、動作の持続時間（Duration of Occupancy; DO）を利用して複数のアクションや時間間隔に制約を伝播させるConstraint on Multiple Actions (CMA) の2種類を提案している。CMAでは、エージェント間の移動時間の違いにより制約の開始時刻が終了時刻を上回る無効な制約が生成される可能性があるが、エッジの移動時間を一定とみなす仮定（Assumption 1）を置くか、中間頂点を挿入することで解決可能である。CBS-AAは、導入される制約が相互に排他的（Mutually Disjunctive）であることを利用して、最適性と完全性が証明されている。</p></section>
+<section class="secsum"><h3>5. Experimental Results</h3><p>本実験では、提案手法であるCSA、CMA、および低レベルプランナーにSIPPS-WCを導入したCMASを、既存手法のCCBSおよび最適性を保証するLS-M*と比較している。実験設定は、4種類のマップ（empty-32-32, random-32-32-20, den312d, warehouse-10-20-10-2-2）を用い、エージェント数を10から50まで変化させ、各エージェントに1から20の範囲のランダムな速度を割り当てている。実験結果として、CMAはCSAと比較して高レベルノードの展開数を最大90%削減（例：エージェント数25のemptyマップにおいてCSAの平均8286に対しCMAは617）しており、一度の分岐でより多くの衝突を解決できることが示された。また、CMASはSIPPS-WCを用いることで、他のエージェントの経路を考慮した安全な待機間隔を探索でき、warehouseマップにおいて他の手法が困難な50エージェントのケースでも高い成功率を維持している。実行時間の分析では、SIPPS-WCの1コールあたりの平均実行時間はエージェント数の増加に伴いソフト制約が増えるため増加するものの、CMAS全体としてはより迅速に衝突のない解を見つけられることが確認された。最適性の検証において、random-32-32-20マップかつエージェント数8の条件下では、LS-M*の成功率が0%に低下する一方で、CMASはLS-M*と同等のコストで100%の成功率を維持し、より短い実行時間で解を導出できることが示された。</p></section>
+<section class="secsum"><h3>6. Conclusion and Future Work</h3><p>本論文では、非同期アクションを伴うマルチエージェント経路探索（MAPF-AA）に対し、既存のCBSフレームワークを拡張して解の最適性を保証する新しい厳密アルゴリズムであるCBS-AAを提案している。CBS-AAは、非同期アクションを持つエージェント間の衝突を解決するための新しい手法を導入しており、これによりアルゴリズムの実行効率が向上している。実験結果では、複数のベースライン手法と比較して、異なる設定下において提案手法が優位性を持つことが示された。今後の展望として、MAPF-AAにおける速度や不確実性の考慮、あるいはターゲットの割り当てやシーケンシングとの統合が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-31
+  </footer>
+</div>
+</body>
+</html>

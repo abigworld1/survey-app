@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SC-Literature Intelligence: A Retrieval-Augmented Generation Framework for Multi-Category AI Literature Synthesis in Supply Chain | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>SC-Literature Intelligence: A Retrieval-Augmented Generation Framework for Multi-Category AI Literature Synthesis in Supply Chain</h1>
+  <div class="meta">Setio Basuki, Amelia Khoidir, Muhammad Ilham Perdana, Muhammad Daffa Nugraha, Masatoshi Tsuchiya<br>採択先: SinkrOn ・ 2026-07-06 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/2ee2ebb947d5a96b4bd6cd2bbef538f1670082ac" target="_blank" rel="noopener">原典</a> ・ <a href="https://jurnal.polgan.ac.id/index.php/sinkron/article/download/16477/4113" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.33395/sinkron.v10i3.16477" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 SinkrOn</span><span class="chip">公開日 2026-07-06</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">RAGの失敗要因を検索と生成に分離して分析する手法は有用。特定ドメインへの適用事例として、実験の構成も具体的で参考になる。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> サプライチェーンにおけるAI関連の学術文献を対象に、トレンド分析やギャップ検出などの多様な分析クエリに対応するカテゴリ認識型の検索拡張生成（RAG）フレームワークを提案する。実験の結果、埋め込みモデルの品質が性能の主要なボトルネックであり、BGE-M3を用いた構成がLaBSEを上回る高い精度を達成した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>サプライチェーン分野におけるAI活用の研究動向を合成することを目的とし、Scopusにインデックスされた2015年から2025年までの論文抄録6,683件を対象とする。従来のRAGシステムは単一の質疑応答タスクに限定される傾向があり、多様な分析クエリへの対応や、サプライチェーン領域におけるクロスドキュメントな研究知能の欠如が課題となっている。本研究では、トレンド分析、ギャップ検出、比較合成、および根拠に基づく質疑応答という4つの異なる文献分析カテゴリへの対応を目指している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>単一タスクに限定されない、多様な文献分析クエリをサポートするカテゴリ認識型のRAGフレームワークを構築した。また、失敗の要因を検索段階と生成段階に分離して特定する2段階の失敗分類法（failure taxonomy）を導入し、埋め込みモデルやチャンクサイズ、Top-$K$が各クエリカテゴリに与える影響を体系的に評価する設計を実現している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>データのクリーニング、トークン化、10%のオーバーラップを持たせた32または64トークンのチャンク分割、ベクトルデータベース（ChromaDB）への格納、そしてコサイン類似度に基づく意味的検索という5段階のプロセスを経て、LLMによる回答生成を行う。埋め込みモデルにはLaBSEとBGE-M3を採用し、検索された上位 $K$ 個のチャンクをコンテキストとしてllama-3.1-8b-instantに注入する。プロンプトエンジニアリングでは、提供されたコンテキストのみを使用する制約や、回答・批判的分析・出典の3部構成からなる厳格な構造を定義している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>80個のクエリに対し、2種類の埋め込みモデル、2種類のチャンクサイズ、2種類のTop-$K$値を組み合わせた計640回の実験を行った。評価指標にはRAGASを用い、Faithfulness、Answer Relevancy、Context Precision、Context Recallの4つで測定した。結果として、チャンクサイズ64、Top-$K=5$、BGE-M3を用いた構成が、すべての指標においてLaBSEを上回り、最高で62.50%の成功率を記録した。また、失敗の76.15%が検索段階（Retrieval FailureおよびContext Noise）に起因しており、生成段階の失敗（12.97%）よりも支配的であることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法はコーパスが抄録のみで構成されているため、具体的な事実の詳細を検索する能力が制限され、特に根拠に基づく質疑応答においてコンテキストノイズを誘発する限界がある。また、分類フレームワークがRAGASの閾値のみに依存しており、人間による評価を組み込んでいないため、真の正誤の境界を判別できない課題がある。今後は、構造化されたアノテーションによる検証や、比較合成などのタスクに適した全文レベルのチャンクを用いるハイブリッドな検索戦略の検討が必要である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>本文 (1/8)</h3><p>SC-Literature Intelligenceは、サプライチェーンにおけるAI関連の学術文献を対象とした、カテゴリ認識型の検索拡張生成（RAG）フレームワークである。本手法は、従来の単なる質疑応答を超え、トレンド分析、ギャップ検出、比較合成、および根拠に基づく質疑応答という4つの文献分析クエリに対応することを目的としている。Scopusにインデックスされた抄録をデータセットとし、BGE-M3およびLaBSEを用いたチャンクベースの埋め込み、ベクトルストレージ、意味的検索、プロンプト誘導型の生成プロセスを経て、RAGASフレームワークを用いて640回の実験走行による評価を行う。実験の結果、チャンクサイズを64、Top-Kを5に設定したBGE-M3が、忠実性（faithfulness）、回答の関連性（answer relevancy）、文脈の精度（context precision）、文脈の再現率（context recall）のすべての指標において、LaBSEを上回り0.722から0.856のスコアを記録した。クエリカテゴリ別ではギャップ検出が最も高い精度を示したが、比較合成が最も困難なタスクであった。また、失敗分析により、生成段階よりも検索段階の問題が支配的であり、埋め込みの品質が主要なボトルネックであることが明らかになった。</p></section>
+<section class="secsum"><h3>本文 (2/8)</h3><p>本研究では、サプライチェーンにおけるAI活用に関する研究合成を目的とした、カテゴリ認識型のRAGフレームワークであるSC-Literature Intelligenceを提案している。このシステムは、Scopusから取得した論文抄録を対象に、データのクリーニング、トークン化、チャンク分割、ベクトルデータベースの構築、そして意味的類似性に基づくTop-$K$チャンクの検索という5つの段階を経て、LLMによる回答生成を行う。提案手法は、トレンド分析、ギャップ検出、比較合成、根拠に基づくQAという4つの異なる文献分析クエリカテゴリをサポートしており、RAGASを用いて評価を行う。既存研究のレビューに基づき、従来のRAGシステムが単一タスクに限定され、多様な分析クエリに対する回答品質の検証や、サプライチェーン領域におけるクロスドキュメントな研究知能の欠如といった課題を解決することを目指している。また、本研究では、失敗の要因を検索段階と生成段階に分離して特定する2段階の失敗分類法（failure taxonomy）を導入し、埋め込みモデルやチャンクサイズ、Top-$K$が各クエリカテゴリに与える影響を体系的に評価する設計となっている。</p></section>
+<section class="secsum"><h3>本文 (3/8)</h3><p>本研究では、サプライチェーンにおけるAI活用に関する文献合成のためのRAG（Retrieval-Augmented Generation）フレームワークを提案しており、Scopusから取得した2015年から2025年までの6,683件の論文アブストラクトをデータセットとして使用している。データの前処理として、HTMLタグや特殊文字の除去、正規化、小文字化（case folding）を行い、アブストラクトの短さを考慮して、文脈の連続性を保つための10%のオーバーラップを持たせた32および64トークンのチャンクサイズに分割している。埋め込みモデルには、多言語対応のLaBSEと、単語・文・文書レベルの多粒度な情報を捉えることが可能なBGE-M3を採用し、生成されたベクトルはChromaDBに格納される。検索プロセスでは、ユーザーのクエリを同様のモデルでベクトル化し、コサイン類似度を用いてデータベース内のチャンクとの類似度を計算することで、スコアの高い上位 $K$ 個のチャンクを抽出する。最終的に、抽出されたチャンクはコンテキストとしてllama-3.1-8b-instantモデルへのプロンプトに注入され、根拠に基づいた回答の生成に利用される。なお、情報の密度を確保するためにアブストラクトのみを対象としている点は、本手法の限界として挙げられている。</p></section>
+<section class="secsum"><h3>本文 (4/8)</h3><p>本研究では、6,683件の学術論文を対象に、生成モデルのハルシネーションを抑制し、根拠に基づいた一貫性のある回答を生成するためのRAG（Retrieval-Augmented Generation）フレームワークを提案している。プロンプトエンジニアリングでは、提供されたコンテキストのみを使用する制約、ユーザーの言語に合わせた翻訳プロトコル、HTML形式による出力制限、および回答・批判的分析・出典の3部構成からなる厳格な構造を定義している。評価にはRAGASフレームワークを用い、Faithfulness（$\text{supported claims} \div \text{total claims}$）、Answer Relevancy、Context Precision（$\text{relevant chunks} \div \text{total retrieved chunks}$）、Context Recall（$\text{covered concepts} \div \text{total core concepts}$）の4つの指標で測定を行う。実験設定として、トレンド分析やギャップ検出など4つのカテゴリからなる計80個のクエリに対し、2種類の埋め込みモデル（BGE-M3, LaBSE）、2種類のチャンクサイズ（32, 64 tokens）、2種類のTop-K値（3, 5）を組み合わせた計640回の試行を実施している。また、RAGASのスコアが0.5未満となるケースを失敗事例として特定し、検索段階（情報の欠落やノイズ）と生成段階（不完全な回答や意味の逸脱）の2つの観点から失敗分析を行っている。</p></section>
+<section class="secsum"><h3>本文 (5/8)</h3><p>本セクションでは、サプライチェーンにおけるAI文献合成のためのRAG（Retrieval-Augmented Generation）フレームワーク「SC-Literature Intelligence」の動作検証結果が示されている。最適構成として、埋め込みモデルにBGE-M3、チャンクサイズを64、検索件数 $Top\text{-}K=5$ を用いた設定が選定されており、トレンド分析のクエリに対して、予測性能から解釈性やリスク軽減戦略へと研究の焦点が移行していることを示す詳細な合成回答を生成できる。検索プロセスにおいては、コサイン類似度を用いて上位5つのチャンクが抽出され、最も高い類似度は $0.7106$ であった。RAGASを用いた評価指標では、Faithfulness（忠実性）、Context Precision（文脈精度）、Context Recall（文脈再現率）がすべて $1.000$ という満点を示し、Answer Relevancy（回答関連性）も $0.980$ と極めて高い値を得ている。実験の結果、BGE-M3はLaBSEと比較してすべてのRAGAS指標において強力かつ安定した性能を示し、特に $Top\text{-}K$ を3から5に増やすことで性能が向上すること、およびBGE-M3が追加の文脈をより効果的に活用できることが明らかになった。</p></section>
+<section class="secsum"><h3>本文 (6/8)</h3><p>サプライチェーンAI分野の文献合成を目的としたRAGシステムにおいて、BGE-M3とLaBSEの2種類の埋め込みモデルを用いた性能比較実験が行われた。全640件のクエリのうち、4つのRAGAS指標すべてで閾値をクリアした成功率は45.62%であり、BGE-M3を用いた構成が58.75%の成功率を記録したのに対し、LaBSEは32.50%に留まり、BGE-M3が26.25ポイント上回る結果となった。特に、チャンクサイズ64、Top-K 5のBGE-M3構成が62.50%という最高成功率を示し、文脈窓の拡大と広範な検索の組み合わせが信頼性向上に寄与することが示された。失敗要因の分析では、検索段階の失敗（Retrieval FailureおよびContext Noise）が全体の76.15%を占めており、生成段階の失敗（HallucinationおよびSemantic Drift）の12.97%と比較して3倍以上の頻度で発生している。検索失敗のうち、文脈の想起不足を示すRetrieval Failure（平均 $\text{Context Recall} = 0.173$）と、関連性の低い情報が混入するContext Noise（平均 $\text{Context Precision} = 0.134$）が確認された。一方で、Hallucinationは生成段階特有の現象であり、高い $\text{Context Precision}$ (0.904) と $\text{Context Recall}$ (0.909) を維持しながら $\text{Faithfulness}$ が低下（平均 0.267）する傾向があり、検索精度の向上よりもプロンプトによる制御が有効な領域であることが示唆された。</p></section>
+<section class="secsum"><h3>本文 (7/8)</h3><p>本研究では、サプライチェーン分野におけるRAG（Retrieval-Augmented Generation）システムの性能を、クエリカテゴリ別に詳細に分析している。実験の結果、システム全体の失敗の $54.38\%$ が発生しており、その内訳は検索段階の失敗（Retrieval Failure）が $41.41\%$、生成段階の失敗（HallucinationやSemantic Driftを含む）が $12.97\%$ となっている。クエリカテゴリ別の合格率（Pass Rate）は、Gap Detectionの $55.00\%$ からEvidence-based QAの $36.25\%$ まで大きな開きがあり、特にEvidence-based QAではContext Noiseが主要な失敗要因となっている。Comparative Synthesisにおいては、複数の概念を同時に表現する必要があるため、コサイン類似度を用いた検索では抽象的なドメイン知識は得られるものの、比較に必要な具体的なチャンクを特定できず、検索段階の失敗率が $44.38\%$ と最も高くなる傾向がある。分析の結果、BGE-M3はLaBSEと比較して、Context PrecisionやFaithfulnessの観点で一貫して優れた性能を示しており、埋め込みモデルの選択がシステム性能の決定的な要因であることが示唆されている。以上の知見から、Gap DetectionやTrend Analysisには抽象レベルのチャンクが適している一方、Comparative SynthesisやEvidence-based QAには、より詳細な情報を保持する全文レベルのチャンクを用いるハイブリッドな検索戦略が必要であると結論付けている。</p></section>
+<section class="secsum"><h3>本文 (8/8)</h3><p>本研究の限界として、まず分類フレームワークが RAGAS の閾値のみに依存しており、人間による評価を組み込んでいない点が挙げられる。RAGAS のスコアのみでは、すべての閾値を通過したクエリが真に完全に正しいものかどうかの境界を判別できないため、今後は構造化されたアノテーションによる検証が必要である。次に、コーパスが抄録（abstracts）のみで構成されているため、根拠に基づく質問応答（Evidence-based QA）に必要な具体的な事実の詳細を検索する能力が制限されており、これが当該カテゴリにおける高いコンテキストノイズ率に直接影響している。さらに、本研究の知見はサプライチェーンにおける AI ドメインに特化しており、語彙分布やコーパスの特性が異なる他の研究領域には一般化できない可能性がある。最後に、本研究における比較的な主張は記述的な集計に基づいている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-07-31
+  </footer>
+</div>
+</body>
+</html>
