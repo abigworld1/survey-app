@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lifelong Scalable Multi-Agent Realistic Testbed and A Comprehensive Study on Design Choices in Lifelong AGV Fleet Management Systems | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Lifelong Scalable Multi-Agent Realistic Testbed and A Comprehensive Study on Design Choices in Lifelong AGV Fleet Management Systems</h1>
+  <div class="meta">Jingtian Yan, Yulun Zhang, Zhenting Liu, Han Zhang, He Jiang, Jingkai Chen, Stephen F. Smith, Jiaoyang Li<br>採択先: 未取得 ・ 2026-02-17 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2602.15721v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2602.15721v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-02-17</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">現実的なAGVの制約を考慮した初のオープンソース・シミュレータ提案であり、設計指針の体系的な検証を行っている点が、MAPF研究者にとって極めて有用。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 自動搬送車（AGV）を用いたフリート管理システムにおける、運動学的制約や通信遅延、実行時の不確実性を考慮した現実的な評価が困難であるという問題に対し、オープンソースのシミュレータLSMARTを提案し、設計上の重要な選択肢がシステム性能に与える影響を明らかにした。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、自動搬送車（AGV）を用いた中央集権的な生涯型フリート管理システム（FMS）におけるマルチエージェント経路計画（MAPF）の評価を対象としている。従来のLifelong MAPF（LMAPF）研究は、離散的なグリッド上の移動を仮定するpebble motion modelなどの簡略化されたモデルに依存しており、実世界のAGVが持つ動力学的な制約、通信遅延、および実行時の不確実性を十分に考慮できていないという困難があった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のLMAPF研究が無視してきた、物理ベースの運動モデルや実行環境の不確実性を統合的に扱える初のオープンソース・シミュレーション・ソフトウェアであるLSMARTを開発した。単なる経路計画の評価に留まらず、「いつ計画を行うか」「どのように計画を行うか」「計画失敗時にどのようにリカバリを行うか」という、現実的なFMS構築における3つの主要な設計課題を体系的に検証可能な枠組みを提供した点が新規である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LSMARTは、プランナー呼び出しポリシー、インスタンス生成器、MAPFプランナー、失敗時ポリシー、Action Dependency Graph (ADG)、AGVフリート、および物理ベースシミュレータの7つのモジュールで構成される。プランナーの起動には、一定周期で行う周期的なポリシーと、タスク完了等のイベントに応じるイベントベースのポリシーがある。インスタンス生成器はADG上でcommit cutを計算して目標を割り当てる。失敗時ポリシーは、プランナーが解を見つけられない場合に、全エージェントの一時停止や、Guided PIBT、LRGWといった特定の回避策を選択して制御する。各AGVはPID制御器とアクションキューを備え、差動駆動モデルなどの連続時間での動作を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>warehouse、maze、empty、random、roomの6種類のマップを用い、差動駆動ロボットモデル（最大速度 $v_{\text{max}}$、最大加速度 $a_{\text{max}}$、最大角速度 $\omega_{\text{max}}$）を想定して実験を行った。評価指標にはスループットと失敗時方策の呼び出し率を用いた。実験の結果、windowed PBSを用いた設定が計画負荷と失敗率を抑え高いスループットを達成した。また、エージェント密度が高い場合は計画窓 $w$ と呼び出し周期 $T$ を長く設定することが有益である一方、エージェントモデルの精度向上やプランナの最適性を追求すると、解の質は向上するものの計算スケーラビリティが著しく低下するというトレードオフが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の成果は、現実的な不確実性がシステム設計に与える影響を明らかにしたが、シミュレータの拡張性に関する課題も残されている。具体的には、現在の4連結格子以外のグラフ構造への対応や、AGVよりもさらに複雑な運動力学を持つロボットへの対応が今後の課題として挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Lifelong Scalable Multi-Agent Realistic Testbed and A Comprehensive Study on Design Choices in Lifelong AGV Fleet Manage</h3><p>本研究では、自動搬送車（AGV）を用いたフリート管理システム（FMS）におけるマルチエージェント経路計画（MAPF）アルゴリズムを評価するための、オープンソースのシミュレータであるLSMARTを提案している。従来のMAPFやLifelong MAPF（LMAPF）の研究は、エージェントの運動学的な制約や通信遅延、実行時の不確実性を無視した簡略化されたモデルに依存する傾向があったが、LSMARTはこれらを考慮した現実的なシミュレーションを可能にする。具体的には、FMSにおける設計上の重要な選択肢として、計画と実行の並列化に伴う「いつ計画を行うか」、多様なプランナが存在する中での「どのように計画を行うか」、およびプランナが有効な解を返せない場合の「どのようにリカバリを行うか」という3つの課題を統合的に扱っている。本論文では、これらの設計選択肢に対して最先端の手法を用いた実験を行い、中央集権的なLMAPFシステムを効果的に構築するための指針を提示している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>LSMARTは、自動搬送車（AGV）を用いた中央集権的な生涯型フリート管理システム（FMS）において、あらゆるマルチエージェント経路計画（MAPF）アルゴリズムを評価可能な初のオープンソース・シミュレーション・ソフトウェアである。従来のLMAPF研究は、離散的なグリッド上での移動を仮定するpebble motion modelに基づいた簡略化された設定で行われることが多かったが、LSMARTは動力学的な制約、通信遅延、実行時の不確実性を考慮した物理ベースのシミュレーションを可能にする。本システムは、MAPFプランナー、問題インスタンス生成器、プランナーを呼び出すタイミングを決定する呼び出しポリシー、および計画失敗時に回復するための失敗ポリシーという4つの独立したモジュールで構成されている。特に、プランナーの呼び出しタイミングや、最適性とエージェントモデルの精度（計算量とのトレードオフ）の選択、および計画失敗への対処といった設計上の意思決定が、現実的なFMS環境下でどのように性能に影響するかを詳細に検証できる。数千台規模のAGVを用いた大規模な実験が可能であり、理想化されたモデルでは見落とされていた、実行環境の不確実性がシステム全体の設計選択に与える影響を明らかにすることができる。</p></section>
+<section class="secsum"><h3>2 Background</h3><p>本セクションでは、Lifelong Multi-Agent Path Finding (LMAPF) および Automated Guided Vehicle (AGV) Fleet Management System (FMS) の基礎定義と、既存研究における設計上の課題が整理されている。標準的なLMAPFは、エージェントが目標に到達するたびに新たな目標が割り当てられる設定であり、単位時間あたりの目標到達数であるスループットの最大化を目的とする。一方、実世界のFMSにおけるAGVは、連続時間における位置 $\mathbf{p}$、向き $\theta$、時刻 $t$ からなる状態 $s = (\mathbf{p}, \theta, t)$ を持ち、速度や加速度の制約を受ける差動駆動ロボットとしてモデル化される。既存のLMAPF研究の多くは、隣接頂点への移動または待機のみを許容する簡略化された pebble motion agent モデルに基づいているが、これは通信遅延や実行時の不確実性、AGVの運動学的制約を十分に考慮できていない。<br><br>FMSの設計における主要な検討事項として、プランナーの呼び出し方（一定周期で行う periodic または特定のイベント時に行う event-based）、重複する目標への対処法（一時的な目標を割り当てる手法や、目標到達後の動きを許容する MAPF4L など）、およびプランニング失敗時の回避策（待機動作を追加する LRGW や、ルールベースの回避策、Guided PIBT など）が挙げられる。提案手法である LSMART は、従来の pebble motion モデルに依存せず、ADG (Action Dependency Graph) を用いた実行ポリシーを採用することで、多様な呼び出し方、目標生成、および失敗回避策を体系的に比較・検証可能な環境を提供している。</p></section>
+<section class="secsum"><h3>3 LSMART</h3><p>LSMARTは、Lifelong Multi-Agent Path Finding (LMAPF) の評価を目的とした、拡張性の高いマルチエージェント・テストベッドである。システムは、プランナー呼び出しポリシー、インスタンス生成器、MAPFプランナー、失敗時ポリシー、Action Dependency Graph (ADG)、AGVフリート、および物理ベースシミュレータの7つのモジュールで構成される。プランナー呼び出しポリシーには、一定時間ごとにプランナーを起動する周期的なポリシーと、AGVがプランナーの計算完了前に現在のタスクを終える可能性がある場合に起動するイベントベースのポリシーの2種類が用意されている。インスタンス生成器は、ADG上でcommit cutを計算して各AGVの開始状態を決定し、目標地点を割り当てる役割を担い、distinct-one-goal、one-goal、windowed-multi-goalsの3つの形式をサポートする。失敗時ポリシーは、プランナーが衝突回避経路を見つけられなかった際の挙動を制御し、PIBTによるゼロからの再計画や全エージェントの一時停止、あるいは衝突経路を利用したGuided PIBTやLRGWといった手法を選択可能である。本システムは、pebble motionモデルやdifferential driveモデルなど、多様なAGVの運動モデルや連続時間での計画に対応しており、各AGVはPID制御器とアクションキューを備えた状態でシミュレータ上で並列に動作する。</p></section>
+<section class="secsum"><h3>4 Experimental Evaluation</h3><p>本実験では、LSMARTの主要な設計要素であるインスタンス生成器、プランナ呼び出し方策、失敗時方策、およびエージェントモデルとプランナの最適性のトレードオフを評価している。実験は、warehouse、maze、empty、random、roomといった6種類のマップを用い、差動駆動ロボットモデル（最大速度 $v_{\text{max}}$、加速度 $a_{\text{max}}$、角速度 $\omega_{\text{max}}$）を想定し、スループットと失敗時方策の呼び出し率を指標として、エージェント数やマップサイズを変化させて実施された。インスタンス生成器の比較では、windowed PBSを用いたwindowed設定が、計画負荷を軽減し失敗率を抑えることで、一貫して高いスループットを達成することが示された。プランナ呼び出し方策については、エージェント密度が高い場合、計画窓 $w$ を長くし、呼び出し周期 $T$ を長く設定することが有益である一方、実行と計画の不一致（commit cutの推定誤差）により、頻繁な再計画が必ずしも同期を改善しないという課題が明らかになった。失敗時方策の評価では、衝突回避経路の質に応じて、LRGWが有効な場合と、PIBTのように待機を避けて移動を優先する手法が有効な場合があることが示された。最後に、エージェントモデルの精度向上やプランナの最適性（CBS等）の追求は、解の質を向上させるものの、計算スケーラビリティを著しく低下させるというトレードオフが確認された。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>本研究では、運動力学的な制約、通信遅延、および実行時の不確実性を考慮したマルチエージェント経路計画（MAPF）アルゴリズムを評価可能な、初のオープンソースシミュレータであるLSMARTを提案している。LSMARTは、MAPFプランナー、インスタンス生成器、プランナーの呼び出しポリシー、および失敗時の対応ポリシーという4つの設計要素をカスタマイズ可能なモジュールとして統合しており、FMS（フリート管理システム）における新しいアルゴリズムの実験を可能にする。著者らは、従来のMAPF研究では検討されてきたものの、LSMARTのような現実的な設定下では評価されてこなかった既存手法の比較実験を行い、各設計選択肢の有効性を実証した。今後の課題として、シミュレータにおける4連結格子以外のグラフ構造への対応や、AGVよりも複雑な運動力学を持つロボットへの対応が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-01
+  </footer>
+</div>
+</body>
+</html>

@@ -2149,6 +2149,72 @@
       "url": "http://arxiv.org/abs/2607.25135v1",
       "venue": ""
     },
+    "arxiv:2607.28397": {
+      "added": "2026-08-01",
+      "added_at": "2026-08-01T06:23:06.207857",
+      "arxiv_id": "2607.28397",
+      "authors": [
+        "Maya Arseven",
+        "Anette Frank",
+        "Beni Egressy",
+        "Johann Higl",
+        "Moritz Plenz"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-30",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.28397.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.28397v1",
+      "reading_value": 4,
+      "reading_value_reason": "Graph RAGにおける構造と意味の統合という重要課題に対し、LLMをグラフトランスフォーマーへ適応させる新手法を提案。高い転移性能とスケーラビリティを示しており、実用的な価値が高い。",
+      "relevance": 8,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "GLM-RAG: Graph Language Models for Graph-Based Retrieval-Augmented Generation",
+      "tldr": "従来のGraph RAGはグラフ構造とテキスト情報の統合が不十分で未知ドメインへの汎化に課題があったが、本研究は事前学習済み言語モデルをグラフトランスフォーマーへ適応させたGLM-RAGを提案し、マルチホップ推論における高い転移性能を実現した。",
+      "url": "http://arxiv.org/abs/2607.28397v1",
+      "venue": ""
+    },
+    "arxiv:2607.28580": {
+      "added": "2026-08-01",
+      "added_at": "2026-08-01T06:23:41.707438",
+      "arxiv_id": "2607.28580",
+      "authors": [
+        "Jiacheng Tao",
+        "Qingyun Sun",
+        "Haonan Yuan",
+        "Ziwei Zhang",
+        "Jianxin Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-30",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.28580.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.28580v1",
+      "reading_value": 4,
+      "reading_value_reason": "MM-RAGの課題に対し、マクロ・ミクロの二層グラフ構造と動的計画法によるパス抽出という具体的かつ新規性の高い手法を提案しており、性能・速度共に大幅な改善を示しているため。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "DualG-MRAG: Decoupling Macro-Reasoning and Micro-Matching for Multimodal Retrieval-Augmented Generation",
+      "tldr": "マルチモーダル検索拡張生成（MM-RAG）における複雑なマルチホップ推論の困難さを解決するため、マクロな推論とミクロなマッチングを分離した二層構造のフレームワークを提案する。これにより、グラフの肥大化や検索ノイズ、重要な局所情報の欠落というトレードオフを解消し、高い検索精度と生成精度を両立する。",
+      "url": "http://arxiv.org/abs/2607.28580v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -4018,6 +4084,42 @@
       "url": "http://arxiv.org/abs/2602.13999v1",
       "venue": ""
     },
+    "arxiv:2602.15721": {
+      "added": "2026-08-01",
+      "added_at": "2026-08-01T06:21:18.773026",
+      "arxiv_id": "2602.15721",
+      "authors": [
+        "Jingtian Yan",
+        "Yulun Zhang",
+        "Zhenting Liu",
+        "Han Zhang",
+        "He Jiang",
+        "Jingkai Chen",
+        "Stephen F. Smith",
+        "Jiaoyang Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-02-17",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2602.15721.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2602.15721v1",
+      "reading_value": 4,
+      "reading_value_reason": "現実的なAGVの制約を考慮した初のオープンソース・シミュレータ提案であり、設計指針の体系的な検証を行っている点が、MAPF研究者にとって極めて有用。",
+      "relevance": 2,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Lifelong Scalable Multi-Agent Realistic Testbed and A Comprehensive Study on Design Choices in Lifelong AGV Fleet Management Systems",
+      "tldr": "自動搬送車（AGV）を用いたフリート管理システムにおける、運動学的制約や通信遅延、実行時の不確実性を考慮した現実的な評価が困難であるという問題に対し、オープンソースのシミュレータLSMARTを提案し、設計上の重要な選択肢がシステム性能に与える影響を明らかにした。",
+      "url": "http://arxiv.org/abs/2602.15721v1",
+      "venue": ""
+    },
     "arxiv:2602.20512": {
       "added": "2026-07-18",
       "added_at": "2026-07-18T06:02:00.053219",
@@ -4082,6 +4184,38 @@
       "title": "Optimization of Edge Directions and Weights for Mixed Guidance Graphs in Lifelong Multi-Agent Path Finding",
       "tldr": "Lifelong Multi-Agent Path Finding (LMAPF) において、エッジの重みだけでなく方向（一方通行化）も同時に最適化する Mixed Guidance Graph Optimization (MGGO) を提案する。提案手法は、強連結性を保証する Edge Reversal Search (ERS) を備えた二段階最適化 (MGGO-DS) と、Quality Diversity アルゴリズムを用いて方向と重みを同時に学習する Joint MGGO-PU の二種類からなる。実験により、提案手法が従来の GGO 手法を上回るスループットを達成し、特に PIBT のようなプランナーにおいてエッジ方向の最適化が有効であることを示した。",
       "url": "http://arxiv.org/abs/2602.23468v2",
+      "venue": ""
+    },
+    "arxiv:2603.07891": {
+      "added": "2026-08-01",
+      "added_at": "2026-08-01T06:20:52.036515",
+      "arxiv_id": "2603.07891",
+      "authors": [
+        "Bojie Shen",
+        "Yue Zhang",
+        "Zhe Chen",
+        "Daniel Harabor"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-03-09",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2603.07891.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2603.07891v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFにおける最新のLaCAM*を対象とし、動的なトラフィックマップ導入により計算コストと解の質のトレードオフを改善した点は新規性が高い。実験も大規模かつ具体的で、実用的な貢献が見込める。",
+      "relevance": 2,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "A Lightweight Traffic Map for Efficient Anytime LaCAM*",
+      "tldr": "Multi-Agent Path Finding (MAPF) における LaCAM* の計算効率と解の質を向上させるため、探索プロセス中に動的かつ軽量なトラフィックマップを構築する Lightweight Traffic Map (LTM) を提案する。これにより、高コストな事前計算を回避しながら、混雑領域を回避するエージェントの誘導を実現する。",
+      "url": "http://arxiv.org/abs/2603.07891v1",
       "venue": ""
     },
     "arxiv:2603.12736": {

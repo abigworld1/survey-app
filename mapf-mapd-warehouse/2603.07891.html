@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A Lightweight Traffic Map for Efficient Anytime LaCAM* | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>A Lightweight Traffic Map for Efficient Anytime LaCAM*</h1>
+  <div class="meta">Bojie Shen, Yue Zhang, Zhe Chen, Daniel Harabor<br>採択先: 未取得 ・ 2026-03-09 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2603.07891v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2603.07891v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-03-09</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFにおける最新のLaCAM*を対象とし、動的なトラフィックマップ導入により計算コストと解の質のトレードオフを改善した点は新規性が高い。実験も大規模かつ具体的で、実用的な貢献が見込める。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> Multi-Agent Path Finding (MAPF) における LaCAM* の計算効率と解の質を向上させるため、探索プロセス中に動的かつ軽量なトラフィックマップを構築する Lightweight Traffic Map (LTM) を提案する。これにより、高コストな事前計算を回避しながら、混雑領域を回避するエージェントの誘導を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路探索 (MAPF) において、個々の最短距離に基づく近視眼的なヒューリスティックを用いると、高トラフィック領域へのエージェントの集中による深刻な混雑を招く。既存の交通流最適化手法は、混雑回避のために膨大な事前計算や反復的な経路再計画を必要とし、リアルタイム性が求められるオンライン環境への適用が困難である。本研究は、グラフ $V$ と $E$ からなる環境において、エージェント $\mathcal{A}$ の各開始頂点 $s_i$ から目標頂点 $g_i$ への経路を求め、頂点衝突およびエッジ衝突を回避しつつ、Sum-of-loss (SoL) $\text{SoL} = \sum_{t=0}^{T} \sum_{i \in \mathcal{A}} \mathbb{1}(v_{i,t} \neq g_i)$ を最小化することを目的とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の LaCAM* を用いた手法では、交通渋滞回避のために Frank–Wolfe スタイルの最適化を用いて事前に単一エージェントの探索を繰り返していたが、これは大規模問題で多大な計算オーバーヘッドを生じさせ、かつ生成されるガイドパスが静的であるという課題があった。本研究は、探索プロセス中に得られた過去の解データを記録することで、動的で軽量なトラフィックマップを構築する手法を提案する。これにより、高コストな経路再計画を繰り返すことなく、リアルタイムで更新されるマップを用いて後続の探索イテレーションにバイアスをかけ、混雑を回避するエージェントの誘導を可能にする。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、PIBT の実行履歴から動的に交通情報を収集する有向重み付きグラフ $\mathcal{G}_{LTM} = (V, E_{LTM}, w)$ を用いる。重み $w \in [w_{min}, w_{max}]$ は、PIBT 中の確定されたアクションおよびブロックされたアクションに基づき、対応するエッジのコストを $1$ ずつ加算することで更新される。頂点での待機が発生した場合は、その頂点から出るすべてのエッジへコストを伝播させる。LaCAM* への統合では、PIBT の評価関数 $f(v, g_i)$ を LTM 上の最短経路距離に置き換え、エージェントの優先順位決定にも LTM の距離を用いる。また、現在の最良解のコスト $C_{best}$ を超えるノードの探索停止や、ノード予算による制限、および解が見つかった際の早期終了を導入する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Intel Xeon W-2135 CPU を用いた実験において、One-shot MAPF 設定ではエージェント数を最大 2000 まで変化させ、30 秒の制限下で LaCAM*、LaCAM*+TO、LaCAM*+SUO と比較した。その結果、提案手法は特に高密度シナリオにおいて、個々の最短経路コストの総和に対する損失比の総和が最も低く、優れたスケーラビリティを示した。Planning-and-execution MAPF 設定においても、実行時間やコミットメント・ホライゾンを変化させて PIE と比較した結果、提案手法はエージェント数が増加しても損失比を低く抑え、PIE よりも高い堅牢性と追加の計画時間を活用する能力を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、計画・実行型 MAPF において、各実行の終了時に古い PIBT データとそれに関連する交通量の増分を破棄して LTM を再正規化することで、過去の交通情報が将来の計画を歪めることを防いでいる。また、最初の計画ウィンドウ内で解が見つからない場合には、探索を中断した状態で保持し、次のウィンドウで中断した状態から探索を再開する仕組みを備えている。既存の PIE が LNS による局所的な改善に依存し、高密度環境で計算コストが増大するのに対し、提案手法は現在の構成から再スタートし、LTM を通じてグローバルな混雑緩和を継続的に行うことが可能である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>A Lightweight Traffic Map for Efficient Anytime LaCAM*</h3><p>本研究は、Multi-Agent Path Finding (MAPF) における最新の anytime 構成ベースソルバーである LaCAM* の計算効率と解の質を向上させるための、動的かつ軽量なトラフィックマップの構築手法を提案している。従来の LaCAM* を用いた手法では、交通渋滞を回避するために Frank–Wolfe スタイルの最適化を用いて事前に単一エージェントの探索を繰り返し実行していたが、これは大規模な問題において多大な計算オーバーヘッドを生じさせ、かつ生成されるガイドパスが静的であるため、LaCAM* が最初の解を見つける際にしか寄与しないという課題があった。これに対し提案手法は、LaCAM* の探索プロセス中に動的で軽量なトラフィックマップを構築することで、この問題を解決する。実験の結果、提案手法は 2 つの MAPF 問題のバリエーションにおいて、既存の最先端のガイドパスを用いたアプローチよりも高い解の質を達成することが示された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路探索（MAPF）において、従来のLaCAM/LaCAM*などの探索ベースの手法は、個々の最短距離に基づく「近視眼的」なヒューリスティックを用いるため、高トラフィック領域へのエージェントの集中による深刻な混雑を招く課題がある。これに対し、Space Utilization Optimization (SUO) や Traffic Flow Optimisation といった既存のガイダンス手法は、混雑を回避するために事前計算や反復的な経路再計画を行うが、これらは膨大なセットアップオーバーヘッドを伴い、リアルタイム性が求められるオンライン環境への適用が困難である。本研究では、LaCAMの探索プロセス中に高速に構成をサンプリングできる特性を活かし、探索中に得られた過去の解データを記録することで動的な重みマップを構築するLightweight Traffic Map (LTM) を提案する。LTMは、高コストな単一エージェントの経路再計画を繰り返すことなく、リアルタイムで更新されるトラフィックマップを用いて後続の探索イテレーションにバイアスをかけることで、混雑領域を回避するエージェントの誘導を実現する。標準的なベンチマークマップを用いた評価の結果、提案手法は従来のガイダンス手法よりも高速に収束し、より高品質な解を生成することに加え、anytimeな挙動が重視される計画・実行型MAPFの設定においても、最先端のソルバーであるPIEを全ての構成において上回る性能を示す。</p></section>
+<section class="secsum"><h3>2 Problem Definition</h3><p>マルチエージェント経路探索（MAPF）問題では、環境を頂点 $V$ とエッジ $E$ からなるグラフとしてモデル化し、エージェントの集合 $\mathcal{A}$ の各エージェントに対して開始頂点 $s_i$ と目標頂点 $g_i$ を定義する。離散的な時間ステップ $t$ において、各エージェントは現在の頂点に留まるか、隣接する頂点へ移動するかのいずれかを選択し、エージェント $i$ の経路は $v_{i,t} = v_{i,t+1}$ または $(v_{i,t}, v_{i,t+1}) \in E$ を満たす頂点の列として記述される。解は、同一時刻に複数のエージェントが同じ頂点を占有する頂点衝突と、同一のエッジを逆方向に横断するエッジ衝突（スワップ衝突）の両方を回避する経路集合である。本研究では、各時刻 $t$ において目標に未到達のエージェント数を累積する Sum-of-loss（SoL）を最小化することを目的とする。この目的関数は、$\text{SoL} = \sum_{t=0}^{T} \sum_{i \in \mathcal{A}} \mathbb{1}(v_{i,t} \neq g_i)$ と定義され、全エージェントを早期に目標へ到達させることで、最終的な到着時刻だけでなく全体の進捗を評価する。</p></section>
+<section class="secsum"><h3>3 Related Works</h3><p>PIBTは、各エージェントに対して優先順位に基づき評価関数によって行動を選択し、低優先度のエージェントによって行動が阻害された場合には優先権継承とバックトラッキングを再帰的に適用して衝突を解決する手法である。LaCAM*は、PIBTを低レベルの次状態生成器として利用しつつ、高レベルでは深さ優先探索を行うことで、結合状態空間における探索を実現している。LaCAM*は、同じ親ノードから以前に生成された次状態が再訪された際に、制約木を遅延的に拡張することで、エージェントの移動に関する制約を体系的に追加し、結合行動空間を明示的に分岐させることなく、すべての実行可能な次状態を網羅的に列挙できる。また、Dijkstra型の緩和操作を用いて蓄積コストを更新することで最適解への収束を保証し、スワップ演算子を導入することで局所的なライブロックを解消している。既存のPIBTやLaCAM/LaCAM*は、個々の最短経路距離に基づく評価関数を用いるためエージェント間の相互作用を無視し、混雑を招くという課題がある。これに対し、交通流モデルを用いたガイドパスの事前計算や、空間利用最適化（SUO）によるヒートマップに基づいた経路生成を行う手法では、評価関数を交通状況を考慮したものに置き換えることで、エージェントを混雑の少ない領域へと誘導し、スループットの向上や探索コストの削減を図っている。</p></section>
+<section class="secsum"><h3>4 Our Method</h3><p>提案手法であるLightweight Traffic Map (LTM) は、PIBTによる実行履歴から動的に交通情報を収集し、探索をガイドする有向重み付きグラフ $\mathcal{G}_{LTM} = (V, E_{LTM}, w)$ を用いる手法である。各無向エッジ $\{u, v\}$ は、LTMにおいて2つの有向エッジ $(u, v)$ と $(v, u)$ に分解され、重み関数 $w$ は、混雑を避けるために $w \in [w_{min}, w_{max}]$ の範囲で正規化された非負のコストを割り当てる。LTMの更新では、PIBTの実行中に記録された「確定されたアクション（Committed Actions）」および「ブロックされたアクション（Blocked Actions）」に基づき、対応するエッジのコストを $1$ ずつ加算し、頂点での待機（Wait action）が発生した場合は、その頂点から出るすべてのエッジへコストを伝播させることで、明示的な自己ループなしに混雑をモデル化する。LaCAM*への統合では、PIBTの評価関数 $f(v, g_i)$ を、一様コストではなくLTM上の最短経路距離に置き換え、さらにエージェントの優先順位決定にもLTMの距離を用いる。また、探索の効率化のため、現在の最良解のコスト $C_{best}$ を超える評価値を持つノードの探索停止や、ノード予算による制限、および解が見つかった際やより良い解が得られた際の早期終了を導入した。これにより、従来のLaCAM*が陥りやすい探索の停滞を回避し、頻繁な再起動（Restart）を通じて探索空間の異なる領域を効率的に探索することが可能となる。</p></section>
+<section class="secsum"><h3>5 Putting it Together</h3><p>提案手法である LaCAM*+LTM を、単発の MAPF（one-shot MAPF）と計画・実行型 MAPF（planning-and-execution MAPF）の2つの設定に適応させる手法が述べられている。単発の MAPF 設定では、初期解の品質を維持するために第1イテレーションではノード予算を設けず、第2イテレーション以降は探索木が指数関数的に増大するのを防ぐため、各実行のノード予算を現在のメイクスパン（探索木の深さ）の10倍に制限する。計画・実行型 MAPF 設定では、実行時間 $\Delta t$ とコミットメント・ホライゾンに基づく標準的なモデルを採用し、各計画ウィンドウの終了条件を $\Delta t$ に合わせることで、エージェントが計画中にアクションを実行できるようにする。この設定では、各実行においてグローバルな探索木を保持・再利用し、現在の構成に対応する再開ノードを選択した上で、深さ優先探索を用いてそのノードを根とする部分木のみを展開することで、既にコミットされた実行を尊重しつつ将来のアクションの精緻化に集中させる。また、各実行の終了時には、現在の構成から始まる次のアクションのみを返し、古い PIBT データとそれに関連する交通量の増分を破棄して LTM を再正規化することで、過去の交通情報が将来の計画を歪めるのを防ぐ。さらに、最初の計画ウィンドウ内で解が見つからない場合は、探索を中断した状態で保持し、次のウィンドウでルートからではなく中断した状態から探索を再開する。</p></section>
+<section class="secsum"><h3>6 Experiments</h3><p>提案手法であるLaCAM*+LTMは、Intel Xeon W-2135 CPUおよび125 GB RAMを搭載したLinux環境において、標準的なMAPFベンチマークを用いた実験により評価された。One-shot MAPFの設定では、エージェント数を小規模から2000まで変化させ、30秒の実行時間制限下でLaCAM*、LaCAM*+TO、LaCAM*+SUOと比較した結果、提案手法は特にエージェント密度が高いシナリオにおいて、個々の最短経路コストの総和に対する損失比の総和（sum of loss ratio）が最も低く、優れたスケーラビリティを示した。LaCAM*+LTMは、反復計算から得られる混雑パターンを継続的に取得してヒューリスティックなガイダンスを更新する適応的なLightweight Traffic Map（LTM）を用いることで、固定的なガイダンスパスを用いる既存手法よりも高品質な解を効率的に生成できる。Planning-and-execution MAPFの設定においても、実行時間（$E = 0.1\text{ s}$ または $0.5\text{ s}$）やコミットメント・ホライゾン（5, 10, 20ステップ）を変化させてPIEと比較したところ、提案手法はエージェント数が増加しても損失比を低く抑え、PIEよりも高い堅牢性と追加の計画時間を活用する能力を示した。PIEはLNSによる局所的な改善に依存するため高密度環境での計算コスト増大が課題となるが、LaCAM*+LTMは現在の構成から再スタートし、LTMを通じてグローバルな混雑緩和を継続的に行うことが可能である。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>本研究では、探索中に混雑状況を動的に捉えることで LaCAM* の anytime パフォーマンスを向上させる、オンラインかつ低オーバーヘッドなメカニズムである Lightweight Traffic Map (LTM) を提案している。LTM は、オフラインの最適化や手動による目的関数の設計を必要とせず、交通状況を考慮したガイダンスを継続的に更新することで、既存のガイダンスベースの手法よりも高速な収束と高い解の品質を実現する。one-shot 設定および planning-and-execution 設定の両方における実験の結果、密な MAPF（Multi-Agent Pathfinding）シナリオにおいて、提案手法が優れたスケーラビリティと堅牢性を備えていることが示された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-01
+  </footer>
+</div>
+</body>
+</html>
