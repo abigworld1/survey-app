@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi UAVs Preflight Planning in a Shared and Dynamic Airspace | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi UAVs Preflight Planning in a Shared and Dynamic Airspace</h1>
+  <div class="meta">Amath Sow, Mauricio Rodriguez Cesen, Fabiola Martins Campos de Oliveira, Mariusz Wzorek, Daniel de Leng, Mattias Tiger, Fredrik Heintz, Christian Esteve Rothenberg<br>採択先: 未取得 ・ 2026-02-12 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2602.12055v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2602.12055v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.65109/KPWJ5508" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-02-12</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">異種混合UAVや動的NFZを考慮した4Dプランニングは実用性が高く、LNSと方向性枝刈りの組み合わせによる大規模フリートへの対応力も具体的で評価できる。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 動的な飛行禁止区域（NFZ）が存在する共有空域において、異種混合のUAVフリートによる大規模な事前飛行計画を、配送時間を考慮した優先順位付き計画と反復的な衝突解決によって実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>高密度な低高度空域における、往路、待機、復路からなる一連のラウンドトリップを単一の不可分なミッションとして扱うマルチエージェント経路探索（MAPF）問題を対象とする。入力は、異なる開始時刻、速度、サイズを持つ異種UAVのプロファイル、および空間的・時間的に変化する飛行禁止区域（NFZ）である。従来のMAPF手法は、一般的なグラフ問題としての定式化に留まり、無人航空機交通管理（UTM）特有の異種混合なエージェントや動的な時間制約を十分に扱えない困難さがある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のLNSに基づく手法が離散的な時間や均質なエージェントを前提としているのに対し、連続時間における幾何学的なエンベロープを用いて衝突を特定することで、異種混合なエージェントのサイズや速度に柔軟に対応する。また、静的な空域を前提とする既存手法とは異なり、時間的なNFZ制約を直接的に考慮した4Dプランニングを実現している。さらに、緊急度に基づく優先順位付けと、幾何学的衝突グラフを用いた反復的な衝突解決（LNS）を統合することで、都市部における規制準拠とスケーラビリティを両立させた。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>DTAPP-IICRフレームワークは、まず配送の緊急度に基づいてUAVの優先順位を決定する。次に、単一エージェントプランナーであるSFIPP-STを用いて、静的障害物、時間的NFZ、および他機の軌跡をソフト制約として考慮した4D往復軌道を計算する。SFIPP-STは、各頂点における安全な飛行間隔（SFI）を事前計算することで、探索を時間制約付きの区間探索へと効率化している。探索の高速化のため、目標方向への進捗を優先する方向性枝刈りを導入しつつ、完全性を保証するためのフォールバック機構を備える。最後に、衝突グラフ $\mathcal{G}_{\text{coll}}$ に基づく大規模近傍探索（LNS）を用いて、残存する衝突を効率的に解消する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>3Dグリッド環境でのモンテカルロシミュレーションおよびUnityEmuを用いた都市規模マップでの実験により、成功率 $\text{Success rate}$ と平均実行時間 $\text{Average runtime}$ を評価した。最大1,000台のUAVフリートにおいて、従来のPriority PlanningやCBS、ECBSを上回る100%の成功率を達成した。時間的なNFZが存在する条件下では、方向性枝刈りの導入により実行時間を最大50%削減し、都市規模のシミュレーションにおいても実行時間を2〜3倍改善することを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、NFZの数が増加するにつれて計算時間が増大するというトレードオフが存在する。今後の課題として、4D環境に特化したヒューリスティックの設計や、マルチアームドバンディット（MAB）を用いた適応的な学習メカニズムによる運用効率の最適化が挙げられる。また、環境を小領域に分割するSDP/HMAPP手法を統合することで、さらに大規模なフリートへの対応を目指す。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Multi UAVs Preflight Planning in a Shared and Dynamic Airspace</h3><p>提案手法であるDTAPP-IICRは、動的な共有空域における大規模なUAVフリートの事前飛行計画を解決するための、配送時間を考慮した優先順位付き計画および増分・反復的な衝突解決手法である。まず、ミッションの緊急度に基づいて優先順位を決定し、次にSFIPP-STと呼ばれる新しい4D単一エージェントプランナーを用いて往復の軌道を計算する。SFIPP-STは、異種混合のUAVプロファイルや時間的に変化する飛行禁止区域（NFZ）を厳密に遵守しつつ、エージェント間の衝突をソフト制約としてモデル化する。その後、幾何学的な衝突グラフに基づいた反復的な大規模近傍探索（Large Neighborhood Search）を用いることで、残存する衝突を効率的に解消する。さらに、完全性を維持する方向性枝刈り技術を導入することで3D探索を加速させており、時間的NFZが存在するベンチマークにおいて、最大1,000台のUAVフリートでほぼ100%の成功率を達成し、枝刈りによって実行時間を最大50%削減するなど、従来のバッチ処理型Enhanced Conflict-Based Searchを上回る性能を示す。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>低高度の共有空域における高密度なUAV運用を実現するため、本研究では4D空間（3D空間＋時間）におけるマルチエージェント経路探索（MAPF）の変種として、往路、待機、復路からなる一連のラウンドトリップを単一の不可分なミッションとして扱うプランニング問題を定義している。提案手法であるSFIPP-STは、異なる開始時刻、速度、サイズを持つ異種UAVプロファイルをネイティブにサポートし、時間的な飛行禁止区域（NFZ）を厳密に遵守しつつ、エージェント間の衝突をペナルティを伴うソフト制約としてモデル化する4D単一エージェントプランナーである。これに対し、DTAPP-IICRは、緊急度を考慮した優先順位付きプランニングフレームワークであり、Large Neighborhood Search（LNS）に基づく反復的な衝突解決手法を用いることで、幾何学的ヒューリスティックに従って最も重要なエージェントを再計画し、高密度空域におけるスケーラビリティを向上させている。さらに、26接続のボクセルを用いた3Dグリッド上での探索を高速化するため、目標ベクトルと一致する方向の隣接ノードを優先しつつ、探索の完全性を保証するフォールバック機構を備えた方向性枝刈り戦略を導入している。これにより、動的かつ複雑な都市環境において、規制を遵守しながら衝突のない効率的なフライト計画を可能にしている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>マルチエージェント経路計画（MAPF）の研究には、最小コスト解を保証する CBS や ICBS といった最適解ソルバーと、スケーラビリティを重視して最適性を緩和する ECBS や EECBS といった限定的劣最適ソルバーが存在する。また、エージェントに優先順位を割り当てる Prioritized Planning や、優先順位を動的に探索する Priority-Based Search も提案されているが、これらは一般的なグラフ問題として定式化されており、無人航空機交通管理（UTM）特有の課題を十分に解決できていない。LNS（Large Neighborhood Search）に基づく手法は、解の一部を破壊して再構築することで高いスケーラビリティを実現しており、特に LNS2 は SIPPS を用いてグリッド環境での衝突回避を行うが、離散的な時間における頂点やエッジの衝突、均質なエージェント、同期した開始時刻を前提としている。これに対し、提案手法である DTAPP-IICR は、連続時間における幾何学的なエンベロープを用いて衝突を特定することで、異種混合なエージェントのサイズや速度に対応し、さらに SFIPP-ST という単一エージェントプランナーを用いて、動的な飛行禁止区域（NFZ）制約から直接安全な区間を構築する。既存の RCCBS は連続時間での計画を可能にするものの、静的な空域条件を前提とした半都市環境に限定されているが、本手法は緊急度を考慮した優先順位付け、時間的な NFZ への対応、および LNS スタイルの衝突修復を統合することで、都市部における規制準拠の事前飛行計画を実現している。</p></section>
+<section class="secsum"><h3>3 Problem Definition</h3><p>本研究では、配送任務を実行する複数のUAVの経路計画問題を、無向の6面・12辺・8角隣接を許容する立方体格子グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 上で定義している。各UAVは、出発・帰還用のハブ頂点、配送先頂点、出発時刻、一定の巡航速度 $v$, および球状の物理半径 $r$ を持ち、配送先での待機時間を挟む往復経路 $\mathcal{P}_i = \{(x_{i,0}, t_{i,0}), \dots, (x_{i,L_i}, t_{i,L_i})\}$ として記述される。空域には、空間的な領域 $\mathcal{S}_j$ と有効時間間隔 $[t_{j,\text{start}}, t_{j,\text{end}}]$ で定義される時間的に変化する飛行禁止区域（NFZ）が存在し、UAVの時刻 $t$ における位置 $x_{i,t}$ は、その時刻に有効なすべてのNFZの領域に含まれてはならない。また、衝突回避のため、任意の2機 $i, j$ の位置間距離は、両者の半径と安全バッファ $\delta$ を考慮した $dist(x_{i,t}, x_{j,t}) \ge r_i + r_j + \delta$ を常に満たす必要がある。本問題の目的は、これらNFZ遵守および衝突回避の制約を満たしながら、全UAVの総飛行時間であるフロータイム $\sum_{i} (t_{i,L_i} - t_{i,0})$ を最小化する経路集合を求めることである。</p></section>
+<section class="secsum"><h3>4 DTAPP Framework</h3><p>DTAPP（Delivery-Time Aware Prioritized Planning）は、動的な空域におけるスケーラブルで衝突のないマルチUAV事前飛行計画のためのフレームワークである。本手法は、配送の緊急度 $t_{\text{start}}$ に基づいてUAVを順序付け、単一エージェントプランナーであるSFIPP-STを用いて、静的障害物 $\mathcal{O}_{\text{hard}}$、時間的NFZ $\mathcal{O}_{\text{temp}}$、および他のUAVの軌跡であるソフト制約 $\mathcal{O}_{\text{soft}}$ を考慮した4D往復軌道を計算する。SFIPP-STは、各頂点における安全な飛行間隔（SFI）を事前計算することで、4D探索を時間制約付きの区間探索へと効率化しており、探索ノードは位置 $v$、SFIのインデックス $i$、到着時刻 $t$、推定コスト $h$、累積衝突コスト $c$、およびUAVのプロファイル $(r, s)$ のタプルで定義される。探索の高速化のため、目標方向への進捗を優先する方向性枝刈り（Directional Pruning）を導入しているが、全ての隣接ノードを探索するフォールバック機構を備えることで完全性を担保している。DTAPP-IICRは、優先順位に従って順次計画を行うとともに、衝突が発生したUAVの集合を特定して再計画を行う反復的な衝突解決プロセス（Iterative Conflict Resolution）を組み合わせており、衝突グラフ $\mathcal{G}_{\text{coll}}$ を用いた幾何学的な近傍選択により、複雑な衝突領域に対しても効率的に対応する。</p></section>
+<section class="secsum"><h3>5 Experimental Evaluation</h3><p>本研究では、提案手法であるDTAPP-IICRの有効性とスケーラビリティを検証するため、3Dグリッド環境を用いたモンテカルロシミュレーションと、UnityEmuシミュレータによる都市規模の現実的なマップを用いた実験を行っている。評価指標には、制限時間内に解を得られた割合を示す成功率 $\text{Success rate}$ と、平均実行時間 $\text{Average runtime}$ が用いられ、DTAPP-IICRはソフト制約に基づく反復的な衝突解消を行うことで、従来のPriority Planning (PP) やCBS、ECBSと比較して高い堅牢性を示している。実験1および2の結果、DTAPP-IICRはエージェント数が1000体に達する大規模なシナリオにおいても100%の成功率を維持し、指数関数的な計算量を要するbatch CBSや、制約が厳しすぎるために250体を超えると失敗するPPに対し、圧倒的なスケーラビリティを証明した。実験3では、時間的に変化する飛行禁止区域 (NFZ) の導入により、NFZの数が増加するにつれて計算時間は増大するものの、方向ベースの枝刈り（pruning）を適用することでDTAPP-IICRの実行時間を最大50%高速化できることが示された。実験4の都市規模シミュレーションにおいても、DTAPP-IICRはNFZが存在しない条件下で500体規模でも100%の成功率を維持し、枝刈りによって実行時間を2〜3倍改善するなど、動的かつ大規模な都市空域における実用的な性能が確認された。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、時間的に変化する飛行禁止区域（NFZ）が存在する共有・動的な空域において、異種混合のUAVフリートをスケーラブルに運用するためのフレームワークであるDTAPP-IICRを提案した。この手法は、緊急度を考慮した優先順位付け、反復的な衝突回避、および効率的な4D経路計画を統合しており、特に単一エージェントプランナーであるSFIPP-STを用いることで、速度やサイズ、出発時刻が異なるUAVのプロファイルや、連続的な幾何学的コスト関数によるエージェント間の衝突モデリングを実現している。衝突解決においては、幾何学的衝突グラフに導かれた大近傍探索（LNS）を活用して残存する衝突を体系的に解消し、さらに方向性を持たせた枝刈りによって、完全性を損なうことなく3Dグリッドにおける探索速度を最大50%向上させている。モンテカルロシミュレーションおよび現実的な都市シナリオを用いた実験の結果、従来のバッチ処理型CBS/ECBS手法と比較して、UTM（無人航空機交通管理）環境下での優れたスケーラビリティと堅牢性が示された。今後の課題として、4D環境に特化したヒューリスティックの設計や、マルチアームドバンディット（MAB）を用いた適応的な学習メカニズムによる運用効率の最適化、および環境を小領域に分割するSDP/HMAPP手法の統合による、より大規模なフリートへの対応が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-02
+  </footer>
+</div>
+</body>
+</html>

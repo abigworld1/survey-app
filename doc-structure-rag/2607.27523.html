@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Hierarchical Reranking for Scalable Financial RAG System | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Hierarchical Reranking for Scalable Financial RAG System</h1>
+  <div class="meta">Joohyun Lee, Sungwoo Hong<br>採択先: 未取得 ・ 2026-07-29 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.27523v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.27523v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-07-29</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">金融ドメイン特有の表形式データや長文への対策が具体的であり、コンテストでの実績も示す実用性の高い研究。RAGの階層化構成は参考になる。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 金融ドキュメント特有の専門用語、表形式データ、および長大なコンテキストに起因するRAGの失敗を解決するため、階層型リランカーを用いたスケーラブルな金融特化型RAGフレームワークを提案する。本手法は、事前検索の最適化、2段階のランキング、および長文コンテキスト管理を統合することで、高い検索精度と事実の一貫性を実現している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>金融業界における10-K報告書の解釈や表形式データの照合は、専門知識と長大な文書間の相互参照を必要とする。従来のRAGでは、専門用語による埋め込みのドリフト、テキストと表の不整合、および長文入力による推論品質の低下という3つの主要な失敗モードに直面する。本研究の対象は、大規模な金融コーパスからの文書検索と、それに基づく正確な回答生成である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存の金融RAG研究は、事実の正確性や算術的推論に焦点を当てているが、金融ドメイン特有の垂直的な課題解決には不十分であった。本研究は、事前検索の最適化、階層的な再ランキング、およびコンテキスト長の管理を統合した実用的なパイプラインを提案することで、既存手法との差分を示している。これにより、検索精度とスケーラビリティの両立を達成し、ACM-ICAIF ’24 FinanceRAG Challengeにおいて第2位を獲得した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>システムはPre-Retrieval、Retrieval、Generationの3段階で構成される。Pre-Retrievalでは、クエリの正規化やキーワード拡張に加え、Markdown形式の表を数値とヘッダーの整合性を維持したままJSON形式へ変換するtable-to-json処理を行う。Retrievalでは、まずjina-reranker-v3を用いて候補を上位100件まで絞り込み、次に高容量なモデルを用いて上位20件を抽出する2段階の階層的リランキングを実施する。Generationでは、コンテキストが64kトークンの閾値を超える場合、証拠を意味的に一貫したチャンクに分割し、回答の有無や信頼度に基づいて中間回答を統合する証拠認識型マージャーを用いる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>FinQABench、FinQA、ConvFinQA、FinanceBench、TATQAの5つのデータセットを用いて評価を行った。検索性能の指標として $\text{NDCG@20}$ を用い、生成品質はLLM-as-a-Judgeを用いて検証した。実験の結果、事前検索の最適化により $\text{NDCG@20}$ が $0.7918$（$+5.9\%$）に向上し、階層型リランカーの導入により単一構成より $\text{NDCG@20}$ が $6.5\%$ 改善した。また、分割および融合メカニズムの適用により、すべてのLLMにおいて $0.08\%$ から $0.49\%$ の精度向上が確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法はルールベースの処理を組み合わせることで、監査等の規制環境に適した再現性を実現している。しかし、階層型構造による計算オーバーヘッドの増加や、コンテキスト長を $64\text{k}$ トークンに固定していることによる極端に長い文書へのスケーラビリティの制限が課題として残る。今後の課題として、重要度に基づく動的なコンテキスト優先順位付け、第1段階の信頼度に応じた適応的なリランキング、および数値検証ツールを組み込んだエージェント型ワークフローへの拡張が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Hierarchical Reranking for Scalable Financial RAG System</h3><p>本研究では、大規模な金融ドキュメントにおけるテキストと表の混在構造や膨大なデータ量に対応するため、Hierarchical RerankerというRAGフレームワークを提案している。この手法は、クエリの正規化やキーワード拡張、表の変換を行うPre-Retrieval Optimization、2段階のランキング機構を用いるHierarchical Reranker Architecture、そして適応的な入力分割と融合を行うLong-Context Managementの3つの革新的な要素で構成される。FinQA、FinanceBench、ConvFinQAを含む複数のベンチマークにおいて、本システムは $\text{NDCG@20} = 0.7918$ というスコアを達成し、高い事実的一貫性を示した。さらに、ACM-ICAIF ’24 FinanceRAG Challengeにおいて第2位を獲得しており、金融ドキュメントの解析における精度とスケーラビリティの両立が実証されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>金融業界における10-K報告書の解釈や表形式データの照合は、専門知識と長大な文書間の相互参照を必要とするため、従来のRAG（Retrieval-Augmented Generation）では、専門用語による埋め込みのドリフト、テキストと表の不整合、および長文入力による推論品質の低下という3つの主要な失敗モードに直面する。本研究では、これらを解決するために、軽量なモデルによる候補の絞り込みと、高容量なモデルによる詳細な意味判定を組み合わせた2段階の階層型リランカー（Hierarchical Reranker）を提案する。この手法は、事前検索プロセスにおいて、金融特有の単位や略語の正規化、クエリへのドメインキーワードの付加、およびMarkdown形式の表を数値とヘッダーの対応を維持したままJSON形式へ変換する処理を行うことで、検索精度を向上させる。また、入力が64kトークンの閾値を超える長文の場合には、証拠を意味的に一貫したチャンクに分割し、曖昧または矛盾する部分的な回答を明示的に処理する証拠認識型マージャー（evidence-aware merger）を用いて中間回答を統合する。本フレームワークは、ACM-ICAIF ’24 FinanceRAG Challengeにおいて第2位を獲得しており、大規模な機関投資家の監査や投資ワークフローにおける実用性と堅牢性が実証されている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>金融ドメインにおけるRAGの研究は、初期のFinQABenchやFinanceBenchのように、10-K報告書などの文書に基づく事実の正確性やハルシネーションの抑制に焦点を当てたものから、TATQAやFinQA、ConvFinQAのようにテキストと表形式のデータを組み合わせた算術的・比較的な推論を必要とするタスクへと発展してきた。検索技術の観点では、HyDEによるクエリ拡張や再ランキング（reranking）による精度向上が研究されているが、既存手法の多くは水平的なタスクに最適化されており、金融のような垂直的なドメイン特有の課題解決には十分ではない。また、長文コンテキストの推論においても、最新のLLMであっても64kトークンを超えると、特に密な数値参照を伴う金融推論タスクにおいて性能が低下することが指摘されている。既存研究では、推論の一貫性を維持しながら文脈を動的に制約・融合する手法が不足しており、本研究では、事前検索の最適化、階層的な再ランキングによる精緻化、およびコンテキスト長の管理を統合した、実用的な金融RAGパイプラインを提案する。</p></section>
+<section class="secsum"><h3>3 Tasks and Dataset</h3><p>本研究では、金融特化型RAGシステムを構築するために、文書検索（Document Retrieval）と回答生成（Answer Generation）という相互依存する2つのタスクを定義している。文書検索タスクは、大規模な金融コーパスからクエリに対して最も関連性の高い上位20個のパッセージを特定することを目的とし、効率と精度のバランスを取るために、埋め込みベースの粗い検索と、その後の詳細な再ランキングからなる2段階のランキング問題として定式化される。検索性能の評価には、段階的な関連性を評価できる $\text{NDCG@20}$ が用いられる。回答生成タスクは、検索された文書内の証拠に基づき、表や比率、文書間の依存関係を正確に解釈した、事実に基づき数値的に裏付けられた回答を生成することを目指す。生成品質の評価には、事実の一貫性、論理的推論、数値的精度を検証するために LLM-as-a-Judge フレームワークが採用されており、ベンチマークの正解が短く明確な数値や単語であるため、高い精度での評価が可能となっている。使用されるデータセットは、10-K提出書類や決算報告書に基づいた FinQABench、FinQA、ConvFinQA、FinanceBench、TATQA の5種類であり、これらはハルシネーションの検出、多段階の数値推論、対話型クエリ、および表とテキストが混在するハイブリッドデータに対する算術的・論理的推論など、金融ドメインにおける多様な能力を網羅的に評価する構成となっている。</p></section>
+<section class="secsum"><h3>4 Method</h3><p>提案手法は、Pre-Retrieval、Retrieval、Generationの3段階で構成される階層的な金融RAGシステムである。Pre-Retrievalフェーズでは、クエリの正規化、金融特有のキーワード抽出、パラフレーズによる意味拡張、およびHyDEを用いた仮説文書生成を行い、クエリの明瞭性を高める。コーパス側では、文レベルでのセマンティック・チャンキングに加え、ハルシネーションを防ぐためにルールベースのスクリプトを用いてMarkdown形式の表をJSON構造へ変換するtable-to-json処理を行い、数値とヘッダーの整合性を維持する。Retrievalフェーズでは、計算コストと精度のトレードオフを最適化するため、まずjina-reranker-v3を用いて候補を上位100件まで絞り込む軽量フィルタリングを行い、次に高容量のモデルを用いて上位20件を抽出する2段階の階層的リランキングを実施する。Generationフェーズでは、LLMの数値的忠実度が低下する閾値を考慮し、コンテキストサイズを64kトークンに制限する。入力がこの閾値を超える場合は、上位20件のコーパスを2つのサブセットに分割して中間回答を生成し、回答の有無や信頼度に基づいて最終的な回答を選択する条件付き融合プロセスを用いる。</p></section>
+<section class="secsum"><h3>5 Results</h3><p>提案手法の実験結果では、まず事前検索（Pre-Retrieval）の設計において、クエリの正規化、キーワード抽出、および表形式データのJSON変換を組み合わせることで、ベースラインと比較して $\text{NDCG@20}$ が $0.7918$（$+5.9\%$）へと向上し、正規化が意味的な一貫性と検索性能に大きく寄与することが示された。階層型リランカー（Hierarchical Reranker）の構成については、第1段階に軽量な jina-reranker-v3、第2段階に大規模な Qwen3-Reranker-8B を用いることで、単一のリランカー構成よりも $\text{NDCG@20}$ が $6.5\%$ 改善し、推論時間の制約を緩和しつつ検索精度を維持できることが確認された。長文コンテキスト管理においては、提案する分割および融合（split-and-fusion）メカニズムを適用することで、テストしたすべてのLLMにおいて $0.08\%$ から $0.49\%$ の精度向上が見られたが、Claude-4.6 Opus が $64\text{k}$ トークンの閾値下で最高精度（$\text{Accuracy} = 0.8152$）を記録しており、コンテキスト分割による精度への影響は限定的であった。総じて、最適化された事前検索アルゴリズム、階層型リランカー、および長文コンテキスト管理の3要素により、金融ドキュメント分析に適した、信頼性とスケーラビリティの高いシステムが構築されている。</p></section>
+<section class="secsum"><h3>6 Discussion</h3><p>提案手法は、前処理の最適化、階層型リランカー、および長文コンテキスト管理の3つの要素により、検索精度、事実の一貫性、および推論の安定性を向上させている。前処理段階では、決定論的な正規化やMarkdownからJSONへの変換などのルールベースの処理を行うことで、LLMによる幻覚を回避しつつ $\text{NDCG@20}$ をベースラインから $5.9\%$ 向上させており、監査などの規制環境に適した再現性を実現している。階層型リランカーは、軽量な第1段階モデルで計算量を抑えつつ、高容量な第2段階モデルで候補を精査する小規模・大規模モデルの協調モデルであり、単一リランカーと比較して $\text{NDCG@20}$ を $6.5\%$ 改善している。一方で、階層型構造による計算オーバーヘッドの増加や、コンテキスト長を $64\text{k}$ トークンに固定していることによる極端に長い文書へのスケーラビリティの制限、および多言語やリアルタイムデータへの対応といった限界が存在する。今後の展望として、固定閾値に代わる重要度に基づく動的なコンテキスト優先順位付け、第1段階の信頼度に応じて第2段階を呼び出す適応的なリランキング、および数値検証ツールや人間によるフィードバックを組み込んだエージェント型ワークフローへの拡張が挙げられる。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>本研究では、金融ドキュメント分析における研究レベルのRAGと実務レベルのデプロイメントの乖離を埋めるため、Hierarchical Rerankerという金融特化型のRAGフレームワークを提案した。この手法は、決定論的なPre-Retrieval Optimization、小規模および大規模モデルを用いたHierarchical Reranker、そして適応的なLong-Context Managementを単一のパイプラインとして統合したものである。包括的なアブレーション解析により各コンポーネントの有効性が示されており、システム全体として $\text{NDCG@20} = 0.7918$ を達成し、ACM-ICAIF ’24 FinanceRAG Challengeにおいて第2位を獲得した。本フレームワークは、実際の監査や投資のワークフローにおいて既に運用されており、単なるモデルのスケールアップだけでなく、緻密なエンジニアリングがRAGの実用化において不可欠であることを実証している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-02
+  </footer>
+</div>
+</body>
+</html>

@@ -2149,6 +2149,71 @@
       "url": "http://arxiv.org/abs/2607.25135v1",
       "venue": ""
     },
+    "arxiv:2607.26937": {
+      "added": "2026-08-02",
+      "added_at": "2026-08-02T06:18:17.735874",
+      "arxiv_id": "2607.26937",
+      "authors": [
+        "Zijian Lu",
+        "Yonghua Lu",
+        "Mingcai Chen",
+        "Yiping Zuo",
+        "Xin He",
+        "Weijun Wang",
+        "Weibei Fan"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-29",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.26937.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.26937v1",
+      "reading_value": 4,
+      "reading_value_reason": "コーディングRAGにおける「冗長な情報の占有」という実用的な課題に対し、不変性と感度を両立させる「選択的不変性」という独自の設計原則を提示しており、新規性と有用性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "VITAL-RAG: Invariance Race for Context Allocation in Coding Agents",
+      "tldr": "コーディングエージェントにおいて、同一オブジェクトの異なる表現がトークン予算を浪費し、必要な証拠を排除する「権威の乗算」問題を解決するため、冗長性には不変でありつつ新しい意味論には敏感な「選択的不変性」に基づくコンテキスト割り当て手法VITAL-RAGを提案する。これにより、証拠トークン数を削減しながら、限られたコンテキスト窓内での証拠保持率と生成精度を大幅に向上させた。",
+      "url": "http://arxiv.org/abs/2607.26937v1",
+      "venue": ""
+    },
+    "arxiv:2607.27523": {
+      "added": "2026-08-02",
+      "added_at": "2026-08-02T06:17:36.647601",
+      "arxiv_id": "2607.27523",
+      "authors": [
+        "Joohyun Lee",
+        "Sungwoo Hong"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-29",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.27523.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.27523v1",
+      "reading_value": 4,
+      "reading_value_reason": "金融ドメイン特有の表形式データや長文への対策が具体的であり、コンテストでの実績も示す実用性の高い研究。RAGの階層化構成は参考になる。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Hierarchical Reranking for Scalable Financial RAG System",
+      "tldr": "金融ドキュメント特有の専門用語、表形式データ、および長大なコンテキストに起因するRAGの失敗を解決するため、階層型リランカーを用いたスケーラブルな金融特化型RAGフレームワークを提案する。本手法は、事前検索の最適化、2段階のランキング、および長文コンテキスト管理を統合することで、高い検索精度と事実の一貫性を実現している。",
+      "url": "http://arxiv.org/abs/2607.27523v1",
+      "venue": ""
+    },
     "arxiv:2607.28397": {
       "added": "2026-08-01",
       "added_at": "2026-08-01T06:23:06.207857",
@@ -4084,6 +4149,35 @@
       "url": "http://arxiv.org/abs/2602.13999v1",
       "venue": ""
     },
+    "arxiv:2602.14799": {
+      "added": "2026-08-02",
+      "added_at": "2026-08-02T06:15:41.759707",
+      "arxiv_id": "2602.14799",
+      "authors": [
+        "Javier González Villasmil"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-02-16",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2602.14799.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2602.14799v1",
+      "reading_value": 3,
+      "reading_value_reason": "QUBOを用いたMAPFの定式化と変数削減手法は興味深いが、実験規模が小規模で、古典的手法に対する優位性も限定的であるため。",
+      "relevance": 2,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Scalable Multi-Robot Path Planning via Quadratic Unconstrained Binary Optimization",
+      "tldr": "エージェント数の増加に伴い状態空間が指数関数的に増大する従来のマルチエージェント経路計画（MAPF）に対し、全エージェントを単一の最適化問題として扱うQUBOを用いたスケーラブルな定式化を提案する。BFSによる変数削減と時間窓分割を組み合わせることで、現在の量子・量子インスパイア型ハードウェアでも実行可能な、ロボット数に対して線形にスケールするフレームワークを構築した。",
+      "url": "http://arxiv.org/abs/2602.14799v1",
+      "venue": ""
+    },
     "arxiv:2602.15721": {
       "added": "2026-08-01",
       "added_at": "2026-08-01T06:21:18.773026",
@@ -5787,6 +5881,42 @@
       "tldr": "異なる領域を管理する複数のサブシステムが、容量制限のある共有バッファを介して荷物を交換するMS-MAPD-BHS問題を定式化し、ドック予約とバッファ占有率の予測を用いるオンライン制御器HARRを提案することで、スループットの向上とバックログの削減を実現した。",
       "url": "http://arxiv.org/abs/2607.17724v1",
       "venue": "arXiv (Cornell University)"
+    },
+    "doi:10.65109/kpwj5508": {
+      "added": "2026-08-02",
+      "added_at": "2026-08-02T06:16:15.374441",
+      "arxiv_id": "2602.12055",
+      "authors": [
+        "Amath Sow",
+        "Mauricio Rodriguez Cesen",
+        "Fabiola Martins Campos de Oliveira",
+        "Mariusz Wzorek",
+        "Daniel de Leng",
+        "Mattias Tiger",
+        "Fredrik Heintz",
+        "Christian Esteve Rothenberg"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-02-12",
+      "doi": "10.65109/KPWJ5508",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2602.12055.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2602.12055v1",
+      "reading_value": 4,
+      "reading_value_reason": "異種混合UAVや動的NFZを考慮した4Dプランニングは実用性が高く、LNSと方向性枝刈りの組み合わせによる大規模フリートへの対応力も具体的で評価できる。",
+      "relevance": 2,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi UAVs Preflight Planning in a Shared and Dynamic Airspace",
+      "tldr": "動的な飛行禁止区域（NFZ）が存在する共有空域において、異種混合のUAVフリートによる大規模な事前飛行計画を、配送時間を考慮した優先順位付き計画と反復的な衝突解決によって実現する。",
+      "url": "http://arxiv.org/abs/2602.12055v1",
+      "venue": ""
     },
     "title:efficient tsp based task group allocation for multi task multi agent pickup and delivery": {
       "added": "2026-07-17",

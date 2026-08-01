@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Scalable Multi-Robot Path Planning via Quadratic Unconstrained Binary Optimization | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Scalable Multi-Robot Path Planning via Quadratic Unconstrained Binary Optimization</h1>
+  <div class="meta">Javier González Villasmil<br>採択先: 未取得 ・ 2026-02-16 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2602.14799v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2602.14799v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-02-16</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">QUBOを用いたMAPFの定式化と変数削減手法は興味深いが、実験規模が小規模で、古典的手法に対する優位性も限定的であるため。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> エージェント数の増加に伴い状態空間が指数関数的に増大する従来のマルチエージェント経路計画（MAPF）に対し、全エージェントを単一の最適化問題として扱うQUBOを用いたスケーラブルな定式化を提案する。BFSによる変数削減と時間窓分割を組み合わせることで、現在の量子・量子インスパイア型ハードウェアでも実行可能な、ロボット数に対して線形にスケールするフレームワークを構築した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチロボットの経路計画（MAPF）において、エージェント数が増えるにつれて計算量が指数関数的に増大する組合せ爆発が大きな課題となっている。本研究は、グリッド環境における複数のロボットの衝突回避と目標到達を目的とし、各エージェントの軌道をバイナリ変数で表現する入力を扱う。従来の集中型手法では、エージェント間の相互依存関係を扱う際に計算コストが極めて高くなる困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のQUBOを用いた経路計画手法は、マルチエージェントの協調に必要なペナルティ構造が不足しており、現在の量子ハードウェアの制約への対応も不十分であった。本研究は、ロボット固有の制約を組み込んだ構造的なペナルティ設計を導入し、BFSを用いた論理的な前処理によって変数の数を95%以上削減する手法を提案している。これにより、量子ビット数の制限下でも動作する、スケーラビリティと再現性を備えた実用的なベースラインを確立した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>各時刻 $t$ における位置を表現するために、グリッドマップのサイズ $M \times N$、時間 $T$、ロボット数 $R$ に基づく線形エンコーディングを採用する。目的関数 $f(x) = x^\top Q x$ を最小化する問題として、以下の4つのペナルティ項を定義する：位置の一意性を保証するone-hotness、移動の連続性を保つadjacency、開始地点を固定するstart condition、および目標到達を促すend conditionである。計算効率化のため、BFSによる前処理で不要な変数を削除し、時間窓分割法を用いて問題を分解して処理する。また、目標到達を最適化するために、後半の時刻ほどペナルティを大きくするlate-time approachを適用する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>$5 \times 5$ および $10 \times 10$ のグリッド環境において、最大4台のロボットを用いた実験を行った。評価指標として経路の質を用い、高密度なシナリオにおいて経路長が5.3%のペナルティに留まる準最適な解が得られることを確認した。比較対象として古典的な逐次計画法を用いた結果、提案手法は古典的な手法よりも良好なスケーリング特性を示すことが示された。シミュレーション上のQAOAや焼きなまし法は、実機ハードウェアよりも良好な性能を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は前処理への依存度が高く、前処理が不適切になると誤った状況を招く可能性がある。また、スワップ衝突の回避には4次式の性質が必要であり、現在のQUBO形式では変数増大や符号化の改善が課題となる。設計が中央集権的であるため、単一障害点となるリスクがあり、分散型システムへの移行が今後の課題である。さらに、現在の量子デバイスは量子ビット数が不足しており、ノイズの影響を強く受けるため、ノイズ耐性を高めるための冗長性導入や、VQEとの統合、バイナリ符号化による変数削減が求められる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Scalable Multi-Robot Path Planning via Quadratic Unconstrained Binary Optimization</h3><p>本研究は、エージェント数の増加に伴い状態空間が指数関数的に増大する従来の集中型マルチエージェント経路計画（MAPF）に対し、構造的なスケーラビリティを持つ代替案として、二次無制約バイナリ最適化（QUBO）を用いた手法を提案している。提案手法は、幅優先探索（BFS）に基づく論理的な前処理を導入することで、変数の数を $95\%$ 以上削減し、衝突回避や制約遵守のための適応的なペナルティ設計と、現在のハードウェア制約下での実行を可能にする時間窓を用いた分解戦略を組み合わせている。グリッド環境における最大4台のロボットを用いた実験では、高密度なシナリオにおいて準最適な解が得られ、逐次的な古典的計画手法と比較して良好なスケーリング特性が示された。このアプローチは、量子および量子インスパイア型計算を用いた将来的なマルチロボット協調制御のための、実用的かつ再現可能なベースラインを確立するものである。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチロボットの経路計画（MAPF）における組合せ爆発の課題に対し、本研究ではすべてのエージェントを単一のグローバルな最適化問題として扱うQuadratic Unconstrained Binary Optimization（QUBO）を用いた統一的なフレームワークを提案している。提案手法は、ロボット数に対して変数の数が線形にスケールする定式化であり、構造化されたペナルティ設計に基づくロボット特化型のQUBOエンコーディングを導入している。計算効率を高めるため、幅優先探索（BFS）を用いた論理的な前処理戦略により変数の数を95%以上削減することに成功しており、さらに現在の量子および量子インスパイア型ハードウェアの制約下での実行を可能にする時間窓分割法を導入している。実験的な評価を通じて、古典的な計画手法に対するベースライン性能を確立しており、現在のハードウェア規模での量子優位性の主張ではなく、古典的なロボティクスと量子インスパイア型最適化を橋渡しする再現可能かつスケーラブルな定式化の構築を目的としている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>従来のマルチエージェント経路計画（MAPF）では、階層的に衝突を解決する Conflict-Based Search や、エージェントに優先順位を割り当てる優先順位付き計画法が用いられてきたが、これらはエージェント数の増加に対して指数関数的な計算量が必要となる課題がある。一方で、組合せ最適化問題に対する Quadratic Unconstrained Binary Optimization (QUBO) の適用は進んでおり、量子アニーリングを用いた交通流最適化などの研究も存在するが、グリッド環境における衝突回避制約を伴うマルチエージェントの協調制御への直接的な適用は未開拓である。既存の QUBO による経路計画手法は、マルチエージェントの協調に必要なペナルティ構造を欠いており、またロボティクス特有の要件であるグリッド環境での包括的な衝突回避や、現在の量子ハードウェアの制約に対応するための変数削減、分解戦略などの実装面での課題が残されている。本研究は、動的な協調に適したロボット固有のペナルティを含む QUBO 定式化を提案し、幅優先探索（BFS）に基づく前処理とタイムウィンドウ方式を組み合わせることで、変数の数を大幅に削減し、既存の量子ビット数の制限を超えたスケーラビリティを実現する。</p></section>
+<section class="secsum"><h3>3 Optimization Background</h3><p>本セクションでは、マルチエージェント経路計画（MAPF）を解くための数学的枠組みとして、二次無制約バイナリ最適化（QUBO）の基礎が述べられている。QUBOは、バイナリ変数 $x \in \{0, 1\}^n$ と対称行列 $Q \in \mathbb{R}^{n \times n}$ を用いて、目的関数 $f(x) = x^\top Q x$ を最小化する問題として定義される。このモデルは制約条件をコスト関数内のペナルティ項として直接組み込む「無制約」の性質を持ち、変数間の相互作用を $Q$ の非対角成分で、個々の変数の重みを対角成分で表現する。MAPFにおいてQUBOが有効な理由は、衝突回避などのエージェント間の相互依存関係が本質的に二次的な関係として記述でき、全エージェントの計画を単一の最適化問題として同時に扱えるためである。また、QUBOは量子アニーリングや量子近似最適化アルゴリズム（QAOA）への変換が可能であり、特にQAOAでは、QUBOをIsingモデルへ変数変換 $x_i = \frac{1 - \sigma_i^z}{2}$ することで、問題ハミルトニアンとして利用できる。QAOAは、パラメータ化された量子回路と古典的な最適化を繰り返すハイブリッドアルゴリズムであり、問題ハミルトニアンとミキサーハミルトニアンを交互に適用することで、組合せ最適化問題の近似解を探索する。</p></section>
+<section class="secsum"><h3>4 Path Planning</h3><p>本セクションでは、経路計画問題を二次無制約バイナリ最適化（QUBO）として定式化する手法が提案されている。グリッドマップでは $M \times N \times T$ 個、ノードグラフでは $N \times T$ 個のバイナリ変数を、各時刻 $t$ における位置を表現するために用いる線形エンコーディングを採用している。有効な経路を生成するために、以下の4つの主要なペナルティ項を定義している：各時刻で位置を一意にする one-hotness、移動の連続性を保証する adjacency、開始地点を固定する start condition、および目標地点への到達を促す end condition。さらに、障害物回避は隣接リストから障害物セルを除外することで構造的に実現可能であり、目標到達後の待機を制御する goal lock も検討されている。各ペナルティには重み係数が付与されるが、これらは経験的に決定される。計算性能を向上させるため、変数の数に応じて正規化スケールを使い分けることが推奨されており、QAOAでは変数が100個未満なら $2.0$、100個以上なら $1.0$、D-Waveアニーラでは $5.0$ 程度の高いスケールが有効である。また、目標地点への到達を最適化する手法として、後半の時刻ほどペナルティを大きくする late-time approach が、テレポーテーションを防ぎつつ有効な経路を見つける上で最も効果的であると示されている。</p></section>
+<section class="secsum"><h3>5 Benchmark and Results</h3><p>現在のハードウェアを用いたベンチマークの結果、QUBOを用いた手法は、テストされたシナリオにおいて古典的な経路計画アルゴリズムをまだ凌駕するには至っていない。単一ロボットのケースでは、古典的なアルゴリズムがQUBOよりも数桁高速であるが、4台のロボットを用いた $10 \times 10$ のグリッド環境では、QUBOは経路長が $5.3\%$ のペナルティに留まる準最適解を達成しており、古典的な逐次計画法よりも良好なスケーリング特性を示す。QUBOの変数数は $O(M \times N \times T \times R)$ で爆発的に増加するため、高解像度マップへの適用には行列サイズの制約があり、現在はBFSとタイムウィンドウ法を用いた前処理が不可欠である。実験では、シミュレーション上のQAOAや焼きなまし法は実機ハードウェアよりも良好な性能を示したが、量子ビット数が増加すると量子コンピュータでの処理が困難になるという限界が確認された。本研究の目的は古典的なMAPFに対する優位性の証明ではなく、エージェント密度が増加した際のスケーリング挙動の評価と、将来的な量子ハードウェアの利点が発揮されるためのベースライン確立にある。</p></section>
+<section class="secsum"><h3>6 Conclusions and Future Work</h3><p>本研究では、マルチロボット経路計画（MAPF）を組合せ最適化問題として捉え、決定変数の数がエージェント数に対して線形に増加するQUBO（Quadratic Unconstrained Binary Optimization）形式の定式化を提案している。実用的な制約に対処するため、BFSを用いた論理的な前処理によって変数の数を95%以上削減する手法や、ロボットの制約を強制するための適応的なペナルティ戦略、および現在のハードウェア制限下での実行を可能にする時間窓分割フレームワークを導入している。$5 \times 5$ および $10 \times 10$ のグリッド環境において最大4台のロボットを用いた実験では、古典的なプランナーと比較して計算量のトレードオフはあるものの、準最適な性能を達成することを確認した。今後の展望として、真に分散型のシステムに向けた分散型QUBO定式化、量子ビット数を削減するためのバイナリ符号化、および解の質を向上させるための変分量子固有値ソルバー（VQE）との統合が挙げられる。現在の量子ハードウェアではテスト規模において計算上の優位性は示されていないが、提案手法は将来的な量子・古典ハイブリッドソルバーや大規模なロボット展開における実用的な基盤となるものである。</p></section>
+<section class="secsum"><h3>7 Limitations</h3><p>本手法は、前処理への依存度が非常に高いという課題があり、計算量を削減するための前処理が推測に基づいたものになると、誤った状況を招いたり計算時間が増大したりする可能性がある。衝突回避に関しては、単純な衝突は実装済みであるが、スワップ衝突（swap-collision）は本質的に 4 次式（quartic）の性質を持つため、効率的な符号化を新たに導入するか、QUBO 変数の数を大幅に増やす必要がある。また、プロトコルが中央集権的な設計であるため、単一障害点（single-point failure）となるリスクがあり、分散型やサーバーレスを好むロボティクス分野の動向とは乖離がある。解の存在についても、断熱定理（adiabatic theorem）に基づけば理論的な完全性が期待されるものの、実際には解が見つかる保証はなく、符号化の改善によるランダム性の低減が必要となる。さらに、QUBO は量子コンピュータによる解決が理想的であるが、現在の量子デバイスは量子ビット数が不足しており、100〜150 量子ビット程度の利用ではノイズの影響を強く受けるため、冗長性を導入してノイズ耐性を高めるなどの対策が求められる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-02
+  </footer>
+</div>
+</body>
+</html>

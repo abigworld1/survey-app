@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>VITAL-RAG: Invariance Race for Context Allocation in Coding Agents | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>VITAL-RAG: Invariance Race for Context Allocation in Coding Agents</h1>
+  <div class="meta">Zijian Lu, Yonghua Lu, Mingcai Chen, Yiping Zuo, Xin He, Weijun Wang, Weibei Fan<br>採択先: 未取得 ・ 2026-07-29 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.26937v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.26937v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-29</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">コーディングRAGにおける「冗長な情報の占有」という実用的な課題に対し、不変性と感度を両立させる「選択的不変性」という独自の設計原則を提示しており、新規性と有用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> コーディングエージェントにおいて、同一オブジェクトの異なる表現がトークン予算を浪費し、必要な証拠を排除する「権威の乗算」問題を解決するため、冗長性には不変でありつつ新しい意味論には敏感な「選択的不変性」に基づくコンテキスト割り当て手法VITAL-RAGを提案する。これにより、証拠トークン数を削減しながら、限られたコンテキスト窓内での証拠保持率と生成精度を大幅に向上させた。</div>
+<section class="qa"><h2>どんなもの？</h2><p>リポジトリ規模のコーディングタスクにおいて、限られたトークン予算内でどの証拠を優先的にモデルへ入力すべきかというコンテキスト割り当てが課題となっている。従来のRAGでは、同一のコードオブジェクトから生成された関数本体やシグネチャ、ドキュメントといった複数の異なるビューが個別に検索される。その結果、冗長な情報がコンテキストを占有し、他の独立して必要な証拠が切り捨てられる「検索からコンテキストへの失敗」が発生する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存手法は候補の発見に注力しているが、同一オブジェクトの重複した表現を排除しつつ、クエリに関連する補足情報を保持する能力に欠けている。本研究は、冗長な表現に対しては割り当てを安定させつつ、新たな意味論を含む断片が現れた場合には割り当てを変更すべきであるという「不変性レース」の概念を定義した。これにより、オブジェクト単位の不変性と、プロバナンス（由来）単位の感度を両立させる「選択的不変性」という設計原則を導入した点が新規である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>VITAL-RAGは、検索器と生成器の間に配置されるコンテキスト割り当てレイヤーとして機能する。まず、プロバナンスアダプターを用いて同一オブジェクトに属する複数のビューをグループ化し、最も検索スコア $s$ が高いビューのみを選択する。次に、コアとなるオブジェクト集合以外から、クエリに関連し、かつプロバナンスが局所的なオブジェクトを1つだけ追加するプロセスを経て、補助的なコンテキストを確保する。最後に、総予算 $B$ と各オブジェクトの最大サイズ $L_i$ に基づき、後続のオブジェクトのための予算を確保しながらトークン量を動的に決定する。各オブジェクトは、パス、識別子、シグネチャ、およびクエリ中心のコードウィンドウを含むコンパクトな形式でレンダリングされる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>RepoBenchを用いた実験では、4,096トークンの制限下において、証拠トークン数を $35.63\%$ 削減しながら、Recall@4Kを $39.59\%$ から $63.67\%$ へと向上させた。RepoClassBenchのクラスレベル再構成タスクでは、Gpt-5.4、Claude Sonnet 4.6、Qwen3-8Bの各バックエンドでToken-F1およびCharacter similarityにおいて最高水準の性能を示した。また、RepoExecの実行可能性評価においても、全モデルで最高水準のPass@1を達成した。アブレーション研究により、オブジェクトの権威を保護する手法と、予算を考慮したレンダリングの両方が不可欠であることが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、正規化されたパスと識別子に基づくアダプターに依存しているが、より詳細なインデックスを用いることで、修飾されたシンボルやグラフノードなどのより豊かな情報を活用できる可能性がある。実験ではトークン予算を $4,096$ に固定しているが、コンテキストウィンドウのサイズが変化する場合でも、上限値を調整することで割り当ての順序を維持できる。また、コンパニオン（補助オブジェクト）の数については、4つの主要オブジェクトに1つのコンパニオンを加える「4+1」の構成が、網羅性と意味情報の回復のバランスにおいて最適である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>VITAL-RAG: Invariance Race for Context Allocation in Coding Agents</h3><p>コーディングエージェントにおけるコンテキスト割り当ての課題として、同一のコードオブジェクトから生成された断片を個別の検索結果として扱う従来のRAGでは、冗長な情報がコンテキストを占有し、有用なコードを排除してしまう問題がある。本論文では、冗長な表現に対しては割り当てを安定させつつ、タスクに関連する新たな意味論を含む断片が現れた場合には割り当てを変更すべきであるという「不変性レース（invariance race）」の概念を定義し、これを解決する手法としてVITAL-RAGを提案する。VITAL-RAGは、証拠を正規化されたコードオブジェクトごとに整理し、既存の表現に含まれない意味論を付加する場合にのみ、クエリに関連する補完的な断片を保持することで冗長性を排除する。また、選択された証拠は、オブジェクト単位およびグローバルなトークン予算に基づいてレンダリングされる。RepoBenchを用いた実験では、VITAL-RAGは証拠トークン数を $35.63\%$ 削減しながら、Recall@4Kを $39.59\%$ から $63.67\%$ へと大幅に向上させた。さらに、3つのモデルバックエンドにおいて、RepoClassBenchで最新のベースラインと同等以上の性能を示し、RepoExecにおいて最高水準のPass@1を達成している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>リポジトリ規模のコーディングタスクにおいて、限られたトークン予算内でどの証拠を優先的にモデルへ入力すべきかというコンテキスト割り当て問題が、生成の成否を分ける重要な課題となっている。既存手法は検索や再ランキングによる候補の発見に注力しているが、同一のコードオブジェクトに対して関数本体やシグネチャ、ドキュメントといった複数の視点（ビュー）が個別に検索されることで、トークン予算が冗長な情報に占有され、他の独立した必要な証拠が切り捨てられる「検索からコンテキストへの失敗」が発生する。本研究では、冗長なビューに対しては不変（invariant）でありつつ、タスクに関連する新しい情報には敏感であるべきという設計原則を「選択的不変性（selective invariance）」と定義し、この対立を「不変性レース（invariance race）」と呼ぶ。提案手法であるVITAL-RAGは、検索器と生成器の間に配置されるコンテキスト割り当てレイヤーであり、複数の断片を単一の正規コードオブジェクトへとグループ化し、同一ソース領域からはクエリに関連する補足情報を最大1つに制限した上で、オブジェクト単位および全体的な予算管理を通じてトークン割り当てを制御する。実験の結果、RepoBenchにおいて証拠トークン数を $35.63\%$ 削減しながら、Recall@4Kを $39.59\%$ から $63.67\%$ へと大幅に向上させ、RepoExecにおいても複数のモデルバックエンドで最高水準のPass@1を達成した。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>リポジトリレベルのコード生成は、ファイル間を跨ぐ証拠（evidence）に依存しており、近年の研究ではデータフローやリポジトリグラフに基づいた検索タイミングの決定、テキストと構造的信号の統合、チャンク間での意味の保持などが試みられている。RAGにおける証拠選択では、関連性と網羅性のバランスを取るためのMMRや劣モジュラ目的関数に加え、構造的な再ランキングや学習ベースのフィルタリング、さらには相互作用を考慮したチャンクの有用性モデル化が行われている。しかし、既存手法の多くは候補となるテキストを独立したものとして扱っており、同一オブジェクトの異なる表現（multiple renderings）を重複として見逃したり、粗いグルーピングによってクエリに関連する補足情報を隠蔽したりする課題がある。また、取得されたチャンクは、デコーディングへの干渉やチャンク分割による意味の喪失、コンテキスト内の配置による利用可能性の変化といった堅牢性の問題に直面する。特にリポジトリのパイプラインでは、パーサやグラフインデックス、スライディングウィンドウによって一つのコードオブジェクトが複数の形式で表現されるため、冗長なビューを排除しつつ、近接する固有の証拠を保持するコンテキスト割り当てが不可欠となる。</p></section>
+<section class="secsum"><h3>3 Empirical Evidence of Retrieval-to-Context Loss</h3><p>本セクションでは、検索された証拠がモデルの入力コンテキストを構築する過程で失われる現象を、RepoBenchデータセットを用いて定量的に調査している。実験では、2,798のリポジトリから抽出された16,490のタスク（Java 8,556件、Python 7,934件）を対象とし、Entity-First 4+1という手法を用いて、最大4つの正規コードオブジェクトと1つの付随オブジェクトを、各1,024トークン以内に制限して割り当てる設定で評価を行った。評価指標として、検索結果の上位5件に証拠が含まれる割合を示す $\text{Recall@5}$ と、4,096トークンの制限内でラベル付けされたスニペットが完全に保持される割合を示す $\text{Recall@4K}$ を定義し、その差を $\text{gap}$ としている。実験の結果、全タスクにおいて $\text{Recall@5}$ は64.16%であったのに対し、$\text{Recall@4K}$ は39.59%に留まり、Javaで26.37ポイント、Pythonで22.64ポイントという大幅な $\text{gap}$ が確認された。この結果は、検索段階での精度向上（$\text{Recall@5}$ の改善）だけでは不十分であり、限られたトークン予算内で証拠を消失させずに配置するコンテキスト構築能力の重要性を示唆している。</p></section>
+<section class="secsum"><h3>4 Analysis of Evidence Allocation</h3><p>リポジトリ検索において、同一のコードオブジェクトがシグネチャ、本体、呼び出し箇所といった異なる「ビュー」として複数回取得される現象を「権威の乗算（authority multiplication）」と定義する。タスクを $t$、取得されたビューを $v$、インデックスによって割り当てられたオブジェクトを $o(v)$、証拠の予算を $B$ とすると、各ビューを独立に扱う割り当て手法では、あるオブジェクト $o$ が占めるコンテキストの割合は $C(o) = \frac{|\{v \mid o(v) = o\}|}{B}$ となり、予算 $B$ が限られている場合、単一オブジェクトの重複したビューが他の独立した証拠を排除してしまう。既存の制御手法である Exact Dedup、Canonical-5、File Quota、MMR、Entity-First 4+1 を用いた実験（RepoBenchの16,490タスク）では、Recall@5 は約 64% まで改善するものの、Recall@4K は 39.41% から 39.59% の範囲に留まり、これらが検索の多様性やオブジェクトの被覆率は向上させても、トークン予算内でどの意味を生存させるかという根本的な問題は解決できないことが示されている。これに対し、提案する「選択的不変性（selective invariance）」は、オブジェクト単位ではビューの重複に対して不変（invariant）であり、かつプロバナンス・ファイバー（provenance-fiber）単位ではクエリに関連する追加情報に対して敏感（sensitive）であるという二層の原則を用いる。具体的には、候補集合 $\mathcal{C}$ から外部ポジションに割り当てられた代表的なビューの集合を $\mathcal{V}$ としたとき、正規化されたコードオブジェクト $o$ の権威の乗算を $M(o) = |\{v \in \mathcal{V} \mid o(v) = o\}|$ と定義し、この $M(o)$ が 1 になるよう制御することで、オブジェクト単位の不変性を保ちつつ、タスクに必要な局所的な意味論を保持することを目指す。</p></section>
+<section class="secsum"><h3>5 VITAL-RAG</h3><p>VITAL-RAGは、リポジトリの由来（provenance）を保持する検索器とコーディングエージェントの間に位置する、コンテキスト割り当て層である。手法は、まずリポジトリインデックスのプロバナンスアダプターを用いて、同一のコードオブジェクトに属する複数のビューをグループ化し、その中で最も検索スコア $s$ が高いビューのみを代表として選択する「View-Quotiented Authority Allocation」を行う。次に、コアとなるオブジェクト集合 $\mathcal{C}$ 以外から、クエリに関連し、かつプロバナンスが局所的なオブジェクトを1つだけ追加で選択する「Query-Conditioned Provenance Refinement」により、タスクに特化した補助的なコンテキストを確保する。さらに、各オブジェクトに割り当てられるトークン量を、総予算 $B$ と各オブジェクトの最大サイズ $L_i$ に基づき、後続のオブジェクトのための最小限の予算を確保しつつ動的に決定する「Budget-Constrained Token Authority」によって制御し、最終的な入力 $\mathcal{P}$ を構成する。このプロセスにおいて、各オブジェクトはパス、識別子、シグネチャ、およびクエリ中心のコードウィンドウを含むコンパクトな形式でレンダリングされる。また、オプションの拡張として、生成されたプログラム間で構文修復やインターフェースの一貫性などの指標に基づき、より適切なプログラムを選択する「Program-Semantic Transfer」が提供される。本手法は学習を必要とせず、検索手法に依存しない汎用性を持ち、計算量は候補集合に対して線形である。</p></section>
+<section class="secsum"><h3>6 Experimental Evaluation</h3><p>本実験では、リポジトリ内の証拠（evidence）の保持能力を評価するため、RepoBench、RepoClassBench、RepoExecの3つのベンチマークを用いてVITAL-RAGの有効性を検証している。RepoBenchを用いた4,096トークンの予算制限下での評価では、候補となる証拠集合を固定した状態で、VITAL-RAGはRecall@4Kを39.59%から63.67%へと向上させ、かつ証拠トークン量を35.63%削減することに成功しており、これは証拠の発見能力ではなく、レンダリング過程でのトークン割り当ての最適化によるものである。RepoClassBenchにおけるクラスレベルの再構成タスクでは、Token-F1（識別子や型名などの詳細な回復）とCharacter similarity（コード全体の構造的類似性）の両面で、Gpt-5.4、Claude Sonnet 4.6、Qwen3-8Bのいずれのバックエンドにおいても最高水準の性能を示した。RepoExecによるエンドツーエンドの実行可能性評価（Pass@1）においても、VITAL-RAGは全モデルで最も高いPass@1を記録しており、コンテキストの圧縮が実行に必要な依存関係の欠落を招かないことが示された。アブレーション研究により、オブジェクトの権威を保護するprovenance quotientingと、トークンの権威を保護するbudget-aware renderingの両方が、ポートフォリオへの適切な証拠の参入と、レンダリング時のクリッピング防止に不可欠であることが明らかになった。また、コンパニオン（companion）の数を調整する実験では、4つの主要オブジェクトに1つのコンパニオンを加える「4+1」の構成が、グローバルな網羅性とローカルな意味情報の回復を両立させる最適なバランス点であることが特定された。</p></section>
+<section class="secsum"><h3>7 Limitations</h3><p>VITAL-RAGは、リポジトリのインデックスから由来を特定するアダプターを介してオブジェクトの識別情報を受け取るが、評価で使用したアダプターは正規化されたパスと識別子に基づいている。より詳細なインデックスを用いることで、コンテキスト割り当ての順序を変更することなく、修飾されたシンボルやグラフノードなどのより豊かな情報を供給することが可能である。実験では、証拠として利用可能なトークン予算を $4,096$ トークンに固定し、オブジェクト数にも上限を設けているが、コンテキストウィンドウのサイズが変化する場合でも、上限値を調整することで割り当ての順序を維持できる。</p></section>
+<section class="secsum"><h3>8 Conclusion</h3><p>リポジトリレベルのコーディングエージェントにおいて、検索結果が限られたコンテキスト窓内で有効に機能するためには、単なる検索精度の向上だけでなく、コンテキストへの適切な割り当てが不可欠である。本研究では、検索された情報がコンテキスト構築の過程で失われる原因を「権威の増殖（authority multiplication）」と定義し、その解決策として「選択的不変性（selective invariance）」という割り当て原理を導出した。VITAL-RAGは、この原理に基づき、オブジェクト単位の割り当て、タスクに応じた精緻化、および制限付きレンダリングを実装することで、検索されたコード要素がコンテキスト内で保持される能力を高めている。RepoBench、RepoClassBench、およびRepoExecを用いた評価実験では、3種類のモデルバックエンドにおいて、証拠の生存率、クラスの再構成精度、および実行結果の成功率が向上することが示された。結論として、リポジトリ規模のRAGには、検索器による候補の拡大だけでなく、どの検索済みコードオブジェクトに限定されたコンテキストの権威を与えるかを決定する割り当ての仕組みが必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-02
+  </footer>
+</div>
+</body>
+</html>
