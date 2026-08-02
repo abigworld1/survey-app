@@ -2149,6 +2149,37 @@
       "url": "http://arxiv.org/abs/2607.25135v1",
       "venue": ""
     },
+    "arxiv:2607.26843": {
+      "added": "2026-08-03",
+      "added_at": "2026-08-03T06:15:28.469686",
+      "arxiv_id": "2607.26843",
+      "authors": [
+        "Jinhan Kim",
+        "Samuele Pasini",
+        "Paolo Tonella"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-29",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.26843.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.26843v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの評価を静的な正解性から動的な不変性へと拡張するメタモルフィック・テスティングの導入は新規性が高い。既存指標（RAGAS）の限界を実験で示しており、実用的な価値も大きい。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "When Knowledge Changes: Metamorphic Testing of RAG Systems with Mutations",
+      "tldr": "外部知識の更新やノイズ混入といったコーパスの進化に伴うRAGシステムの不整合を検出するため、メタモルフィック・テスティング（MT）のフレームワークを提案する。提案手法は、インデックスとコンテキストの両レベルで系統的な摂動を加えることで、既存の評価指標では見逃される潜在的な故障を特定できる。",
+      "url": "http://arxiv.org/abs/2607.26843v1",
+      "venue": ""
+    },
     "arxiv:2607.26937": {
       "added": "2026-08-02",
       "added_at": "2026-08-02T06:18:17.735874",
@@ -3029,6 +3060,35 @@
       "source_quality": "fulltext",
       "title": "FT-RAG: A Fine-grained Retrieval-Augmented Generation Framework for Complex Table Reasoning",
       "tldr": "FT-RAGは、構造化された表データにおける粒度の粗さと意味理解の不足を解決するための、セルレベルの細粒度なRetrieval-Augmented Generationフレームワークである。表を「cell groups」に分解してSATグラフ（Subject, Attribute, Temporal）を構築し、構造的近傍拡張とマルチモーダル融合を用いることで、複雑な複数表の推論を実現する。"
+    },
+    "title:retrieval augmented generation rag systems and large language models llms in clinical pharmacology decision making": {
+      "added": "2026-08-03",
+      "added_at": "2026-08-03T06:14:43.713812",
+      "arxiv_id": "",
+      "authors": [
+        "João Pedro Oliveira Sequeira"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "2026-07-17",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/t-2fe5f35cc17e.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://repositorio-aberto.up.pt/bitstream/10216/175561/2/786433.pdf",
+      "reading_value": 4,
+      "reading_value_reason": "知識グラフとベクトル検索を統合したGraphRAGの具体的な実装と、臨床分野での厳格な評価手法が示されており、応用研究として価値が高い。",
+      "relevance": 7,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Retrieval-Augmented Generation (RAG) Systems and Large Language Models (LLMs) in Clinical Pharmacology Decision-Making",
+      "tldr": "膨大な生物医学情報の統合が必要な臨床薬理学において、知識グラフとベクトル検索を組み合わせたハイブリッドRAGを用いて、技術報告書を自動生成するシステムを提案する。このシステムは、臨床的な意味を保持しつつ、エビデンスに基づく迅速かつ一貫性のある意思決定支援を実現する。",
+      "url": "https://openalex.org/W7172080280",
+      "venue": "Open Repository of the University of Porto (University of Porto)"
     },
     "title:techgraphrag an agentic graph augmented rag framework for technical literature reasoning": {
       "added": "2026-07-20",
@@ -4080,6 +4140,39 @@
       "title": "Judgelight: Trajectory-Level Post-Optimization for Multi-Agent Path Finding via Closed-Subwalk Collapsing",
       "tldr": "学習ベースのMAPFソルバーが生成する冗長または振動的な軌跡を改善するため、閉じた部分的な歩行を圧縮する事後最適化レイヤーJudgelightを提案する。本手法は、実行可能性制約を維持したまま移動コストを削減するMAPF-Collapse問題を整数線形計画法（ILP）によって解く。",
       "url": "http://arxiv.org/abs/2601.19388v2",
+      "venue": ""
+    },
+    "arxiv:2602.06733": {
+      "added": "2026-08-03",
+      "added_at": "2026-08-03T06:11:25.698959",
+      "arxiv_id": "2602.06733",
+      "authors": [
+        "Rishabh Jain",
+        "Keisuke Okumura",
+        "Michael Amir",
+        "Pietro Lio",
+        "Amanda Prorok"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-02-06",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2602.06733.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2602.06733v2",
+      "reading_value": 4,
+      "reading_value_reason": "ハイパーグラフ導入による帰納バイアスの強化が、パラメータ数とデータ量の劇的な削減と性能向上を両立しており、MAPF分野において極めて示唆に富む。",
+      "relevance": 2,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Pairwise is Not Enough: Hypergraph Neural Networks for Multi-Agent Pathfinding",
+      "tldr": "マルチエージェント経路探索（MAPF）において、従来のペアワイズなグラフニューラルネットワーク（GNN）では高密度環境でのグループ単位の協調を捉えきれず、アテンションの希釈が生じるという課題がある。本研究では、有向ハイパーグラフ上のアテンション機構を用いることで、高次の相互作用を明示的にモデル化するHMAGATを提案し、少ないパラメータ数と訓練データで既存の最先端モデルを上回る性能を達成した。",
+      "url": "http://arxiv.org/abs/2602.06733v2",
       "venue": ""
     },
     "arxiv:2602.12024": {
@@ -5880,6 +5973,43 @@
       "title": "Lifelong Multi-Subsystem Pickup and Delivery with Buffer-Limited Handover Stations",
       "tldr": "異なる領域を管理する複数のサブシステムが、容量制限のある共有バッファを介して荷物を交換するMS-MAPD-BHS問題を定式化し、ドック予約とバッファ占有率の予測を用いるオンライン制御器HARRを提案することで、スループットの向上とバックログの削減を実現した。",
       "url": "http://arxiv.org/abs/2607.17724v1",
+      "venue": "arXiv (Cornell University)"
+    },
+    "doi:10.48550/arxiv.2607.24280": {
+      "added": "2026-08-03",
+      "added_at": "2026-08-03T06:12:42.688286",
+      "arxiv_id": "2607.24280",
+      "authors": [
+        "Junlin Liu",
+        "Jiangwang Chen",
+        "Zixin Song",
+        "Shuaiyu Zhou",
+        "Chunji Lv",
+        "Hank Wu",
+        "Kailin Jiang",
+        "Jinyang Wu",
+        "Bohan Yu",
+        "Chenxi Zhou"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-27",
+      "doi": "10.48550/arxiv.2607.24280",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2607.24280.html",
+      "matched_keywords": [
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.24280v1",
+      "reading_value": 4,
+      "reading_value_reason": "構造化JSONを用いた「認知戦略の蒸留」という着眼点が非常に新規性が高く、強化学習の報酬の疎さを補完する設計も合理的。エージェント研究において実用的な手法。",
+      "relevance": 1,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "From Proprietary to Open-Source: Bridging the Distribution Gap via Multi-Agent Protocol Distillation in Agentic Search",
+      "tldr": "エージェンティック検索において、商用モデルとオープンソースモデル間の分布の乖離を埋めるため、構造化されたJSONプロトコルを用いた蒸留と強化学習を統合するMulti-Agent Protocol Distillation (MAPD) を提案する。これにより、教師モデルの言語的なスタイルを排除しつつ、高度な認知戦略のみを効率的に生徒モデルへ継承させる。",
+      "url": "http://arxiv.org/abs/2607.24280v1",
       "venue": "arXiv (Cornell University)"
     },
     "doi:10.65109/kpwj5508": {

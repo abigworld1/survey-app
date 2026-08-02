@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Pairwise is Not Enough: Hypergraph Neural Networks for Multi-Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Pairwise is Not Enough: Hypergraph Neural Networks for Multi-Agent Pathfinding</h1>
+  <div class="meta">Rishabh Jain, Keisuke Okumura, Michael Amir, Pietro Lio, Amanda Prorok<br>採択先: 未取得 ・ 2026-02-06 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2602.06733v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2602.06733v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-02-06</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">ハイパーグラフ導入による帰納バイアスの強化が、パラメータ数とデータ量の劇的な削減と性能向上を両立しており、MAPF分野において極めて示唆に富む。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチエージェント経路探索（MAPF）において、従来のペアワイズなグラフニューラルネットワーク（GNN）では高密度環境でのグループ単位の協調を捉えきれず、アテンションの希釈が生じるという課題がある。本研究では、有向ハイパーグラフ上のアテンション機構を用いることで、高次の相互作用を明示的にモデル化するHMAGATを提案し、少ないパラメータ数と訓練データで既存の最先端モデルを上回る性能を達成した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路探索（MAPF）は、複数のエージェントが衝突を回避しながら各々の目的地へ到達する問題であり、エージェント間の強い相互依存性からNP困難な問題として定義される。従来の学習ベースの手法は、エージェント間の相互作用をペア単位（pairwise）でモデル化するGNNやTransformerに依存してきた。しかし、高密度な環境においては、複数のエージェントが同時に関与する高度に結合したダイナミクスを捉えることが困難であり、アテンションの希釈が発生するという問題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の新規性は、グループ単位の相互作用を自然にモデル化できるハイパーグラフの表現能力をMAPFに導入した点にある。従来のGNNがペアワイズなメッセージパッシングに限定されていたのに対し、提案手法は有向ハイパーグラフを用いることで、高次のグループダイナミクスを明示的に捉える帰納バイアスを導入している。これにより、モデルの巨大化に頼ることなく、パラメータ数および訓練データ量を大幅に削減しながら、既存の最先端モデルを凌駕する性能を実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法であるHMAGATは、単一のヘッドと複数のテイルノードを持つ有向ハイパーグラフ構造を採用したアテンション付きハイパーグラフニューラルネットワーク（HGNN）である。メッセージパッシングの更新は、ハイパーエッジの特徴量とテイルノードの集約された特徴量に対し、正規化されたアテンション重みを適用することで行われる。具体的には、第 $l$ 層のエージェント $i$ の特徴量 $\mathbf{h}_i^{(l+1)}$ は、$\sigma \left( \mathbf{W}^{(l)} \sum_{e \in \mathcal{E}_i} \alpha_{e,i}^{(l)} (\text{MLP}(\mathbf{e}) + \sum_{j \in \text{tail}(e)} \mathbf{h}_j^{(l)}) \right)$ として計算される。学習には、エキスパートによる軌跡を用いた模倣学習に加え、分布シフトを抑制するオンラインエキスパートによるデータ集約や、予測の信頼性を高める温度サンプリングが組み込まれている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>21,000個のインスタンスを用い、成功率、平均相対コスト（Rel. SoC）、および平均実行時間を指標として評価を行った。比較対象はMAGATおよびMAPF-GPT（2M, 6M, 85M）である。実験の結果、HMAGATはわずか $1 \times 10^6$ 個のパラメータで、85M個のパラメータを持つMAPF-GPTを上回る性能を示した。また、訓練データ量においても、既存の最先端モデルの約10%で同等以上の性能を達成している。特にエージェント密度が高いDense Warehouseマップにおいて、GNNモデルよりも高い成功率と低いRel. SoCを記録した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の結果は、マルチエージェント問題においてモデルの規模よりも適切な帰納バイアスの導入が重要であることを示唆している。アブレーション解析により、強化学習に基づく温度サンプリングの導入は、成功率と解の品質の間にトレードオフを生じさせることが判明した。また、ハイパーグラフによるグループモデリングは有効であるが、複雑な相互作用を正確に識別するためには、適切なハイパーグラフ生成戦略が重要となる。今後の課題として、これらの相互作用をより効率的に扱うためのさらなる検討が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Pairwise is Not Enough: Hypergraph Neural Networks for Multi-Agent Pathfinding</h3><p>本研究では、従来のグラフニューラルネットワーク（GNN）を用いたマルチエージェント経路探索（MAPF）において、エージェント間のペアワイズなメッセージパッシングのみでは、高密度な環境で不可欠なグループ単位の協調を捉えきれず、アテンションの希釈（attention dilution）が生じるという課題を指摘している。この表現能力のボトルネックを解消するため、有向ハイパーグラフ上のアテンション機構を活用してグループのダイナミクスを明示的に捉える新アーキテクチャであるHMAGAT（Hypergraph Multi-Agent Attention Network）を提案する。実験の結果、HMAGATはわずか $1 \times 10^6$ 個のパラメータを持ち、従来の最先端モデルよりも $100$ 倍少ない訓練データを用いながらも、$85 \times 10^6$ 個のパラメータを持つ既存の最先端モデルを上回る性能を達成した。アテンション値の詳細な分析により、ハイパーグラフ表現がGNN特有のアテンションの希釈を抑制し、ペアワイズな手法では失敗する複雑な相互作用を捕捉できることが示されている。この結果は、マルチエージェント問題においては、訓練データの規模やパラメータ数よりも、適切な帰納バイアスを導入することが極めて重要であることを示唆している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路探索（MAPF）は、衝突を回避しながら各エージェントを目的地へ導く問題であり、エージェント間の強い相互依存性からNP困難な問題として知られている。従来の学習ベースのMAPF手法は、グラフニューラルネットワーク（GNN）やTransformerを用いてエージェント間の相互作用をペア単位（pairwise）でモデル化してきたが、これは複数のエージェントが同時に関与する高度に結合したダイナミクスを捉えるには不十分である。本研究では、グループ単位の相互作用を自然にモデル化できるハイパーグラフの表現能力に着目し、新しい模倣学習フレームワークであるHMAGATを提案する。HMAGATは、動的に有向ハイパーグラフを構築するハイパーグラフ生成戦略と、ハイパーグラフアテンションネットワークを活用することで、高次のグループ相互作用を効果的に学習する。実験の結果、HMAGATは既存の最先端の学習モデルを上回る性能を達成しており、従来のモデルと比較して約10倍少ないパラメータ数と約10%の訓練データのみで、高い解の品質とスケーラビリティを実現している。</p></section>
+<section class="secsum"><h3>2 Preliminaries</h3><p>本セクションでは、高次相互作用を捉えるためのハイパーグラフの定義と、マルチエージェント経路計画（MAPF）の定式化、および既存手法であるMAGATの構成について述べている。ハイパーグラフは、ノード集合 $\mathcal{V}$ と、始点 $s$ と終点 $t$ の順序対 $(s, t)$ からなるハイパーエッジ集合 $\mathcal{E}$ によって定義される構造 $\mathcal{H} = (\mathcal{V}, \mathcal{E})$ である。MAPFは、エージェント集合 $\mathcal{A}$、4連結グリッドグラフ $\mathcal{G}$、および各エージェントの開始地点と目標地点が与えられた問題であり、頂点やエッジでの衝突を避けつつ、各エージェント $a$ に衝突のない経路 $\tau_a$ を割り当てることを目的とする。解の質は、各エージェントが目標に到達するまでの移動時間の総和である sum-of-costs (SoC) によって評価される。既存の模倣学習（IL）手法であるMAGATは、半径 $r$ 以内の近接エージェントに基づく通信グラフを用いて、CNNエンコーダ、GNN層、MLPデコーダからなるポリシーを構成するが、本研究ではこれを拡張し、GNNをハイパーグラフニューラルネットワーク（HGNN）に置き換えたHMAGATを提案する。エージェントの観測情報は、障害物、エージェント、目標方向、および正規化されたコスト・トゥ・ゴー（$c(v) / c(v_{start})$）の4チャネルからなる、視野サイズ $F$ に基づく形状 $F \times F \times 4$ のテンソルとして定義される。</p></section>
+<section class="secsum"><h3>3 HMAGAT</h3><p>HMAGATは、マルチエージェント経路探索（MAPF）における既存のグラフニューラルネットワーク（GNN）が抱える、高密度な環境でのアテンションの希釈化およびグループ相互作用の表現不足という課題を解決するために提案された、アテンション付きハイパーグラフニューラルネットワーク（HGNN）に基づく模倣学習モデルである。本手法は、単一のヘッド（head）と複数のテイル（tail）ノードを持つ有向ハイパーグラフ構造を採用しており、メッセージパッシングの更新式は $\mathbf{h}_i^{(l+1)} = \sigma \left( \mathbf{W}^{(l)} \sum_{e \in \mathcal{E}_i} \alpha_{e,i}^{(l)} (\text{MLP}(\mathbf{e}) + \sum_{j \in \text{tail}(e)} \mathbf{h}_j^{(l)}) \right)$ と定義される。ここで、$\mathbf{h}_i^{(l)}$ はエージェント $i$ の第 $l$ 層のノード特徴量、$\mathbf{e}$ はハイパーエッジの特徴量、$\alpha_{e,i}^{(l)}$ は正規化されたアテンション重み、$\sigma$ は非線形活性化関数を表す。ハイパーグラフの生成には、Lloydのアルゴリズムを用いたVoronoi分割に基づくLloyd Hypergraphsや、計算コストを抑えた$k$-means Hypergraphs、および最短経路距離に基づく手法などが提案されている。実験では、21,000個のインスタンス（迷路状環境80%、障害物配置環境20%）を用い、expert solverであるlacam3から得られた軌跡で学習を行う。学習パイプラインには、分布シフトを抑制するためのオンラインエキスパートによるデータ集約や、解の品質を向上させるためのポストトレーニング、および予測の信頼性を高めるための温度サンプリングが含まれる。</p></section>
+<section class="secsum"><h3>4 Evaluation</h3><p>提案手法であるHMAGATの評価では、MAGAT、MAPF-GPT（2M, 6M, 85M）、およびその微調整版であるMAPF-GPT-DDGを比較対象とし、成功率、検索ベースの解であるlacam3に対する平均相対コスト（Rel. SoC）、およびマップあたりの平均実行時間を指標として用いている。実験の結果、HMAGATはMAGATや各種MAPF-GPTモデルよりも一貫して高品質な解を生成し、特に大規模なost003dマップにおいて、スケーラビリティに課題のあるMAPF-GPT (85M) を上回る性能を示した。アブレーション解析では、各モジュールの追加が成功率と解の品質を向上させることが確認されたが、強化学習に基づく温度サンプリングのみ、成功率と解の品質のトレードオフが生じることが示された。GNNとHGNNの直接比較では、HGNNを用いたモデルがすべてのマップ、特にエージェント密度が高いDense Warehouseマップにおいて、GNNモデルよりも高い成功率と低いRel. SoCを達成した。アテンション解析によれば、GNNは高密度環境下でアテンションが希釈される傾向があるのに対し、HGNNは重要なエージェントに対して高いアテンションを維持できる。さらに、手作りのシナリオを用いた検証では、GNNがペアワイズな相互作用に依存するために重要でない領域のエージェント増加によってアテンションが希釈される問題や、グループ間の相互作用を捉えきれない限界が示された一方で、HGNNはShapley値を用いた分析においてグループ間の複雑な影響関係を正確に識別できることが証明された。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>本研究では、複雑な相互作用を伴うマルチエージェント問題の代表例としてMAPF（Multi-Agent Pathfinding）に着目し、高次の相互作用をモデル化するためのハイパーグラフニューラルネットワーク（HGNN）に基づく解法であるHMAGATを提案した。実験の結果、ペアワイズな相互作用のみを考慮する既存の最先端手法を上回る性能を達成しており、より大規模なデータで学習されたMAPF-GPTよりも優れた性能を示すことが確認された。詳細な分析により、HGNNが明示的なグループモデリングを通じて、従来のGNNよりもグループ間の相互作用を効果的に捉えられることが示されている。HMAGATは、先行研究と比較してパラメータ数を大幅に削減しながら最先端の性能を実現しており、ハイパーグラフを用いた相互作用モデリングのような優れた帰納バイアスを導入することが、モデルの巨大化とは別の、困難なマルチエージェント問題に対する補完的な戦略となり得ることを実証した。</p></section>
+<section class="secsum"><h3>Reproducibility Statement</h3><p>提案手法である HMAGAT モデルの詳細なアーキテクチャおよび学習手順については、付録 A にてハイパーパラメータとともに記述されている。研究の再現性を確保するため、学習済みモデルのチェックポイント、および結果を再現するための手順書を含むコードベースが補足資料として提供されている。また、モデルの学習および評価に使用されるインスタンスを生成するためのスクリプトもコードベースに含まれている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-03
+  </footer>
+</div>
+</body>
+</html>

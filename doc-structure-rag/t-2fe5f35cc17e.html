@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Retrieval-Augmented Generation (RAG) Systems and Large Language Models (LLMs) in Clinical Pharmacology Decision-Making | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Retrieval-Augmented Generation (RAG) Systems and Large Language Models (LLMs) in Clinical Pharmacology Decision-Making</h1>
+  <div class="meta">João Pedro Oliveira Sequeira<br>採択先: Open Repository of the University of Porto (University of Porto) ・ 2026-07-17 ・ source: openalex</div>
+  <div class="links"><a href="https://openalex.org/W7172080280" target="_blank" rel="noopener">原典</a> ・ <a href="https://repositorio-aberto.up.pt/bitstream/10216/175561/2/786433.pdf" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 Open Repository of the University of Porto (University of Porto)</span><span class="chip">公開日 2026-07-17</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 7</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">知識グラフとベクトル検索を統合したGraphRAGの具体的な実装と、臨床分野での厳格な評価手法が示されており、応用研究として価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 膨大な生物医学情報の統合が必要な臨床薬理学において、知識グラフとベクトル検索を組み合わせたハイブリッドRAGを用いて、技術報告書を自動生成するシステムを提案する。このシステムは、臨床的な意味を保持しつつ、エビデンスに基づく迅速かつ一貫性のある意思決定支援を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>臨床薬理学における意思決定には、規制当局のデータや公開リポジトリに存在する膨大な生物医学情報の統合が不可欠である。本研究の対象は、単一薬剤評価、比較評価、および投与の開始・継続・中止基準という3つの報告カテゴリにおける技術報告書の自動生成である。従来の課題として、薬理学的エビデンスの合成における信頼性、追跡可能性、および膨大な情報からの正確な情報抽出が挙げられる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の新規性は、知識グラフによる構造化された薬理学的事実の取得と、セマンティック・ベクトル検索を組み合わせたハイブリッドな検索戦略を提案した点にある。従来のRAG手法に対し、グラフ構造を活用することで、単一のベクトル検索のみに依存する場合よりも高い性能と一貫性を実現している。また、オープンソースのコンポーネントのみを用いて、臨床NLPにおける革新的な研究インフラを構築した点も貢献である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、知識グラフとベクトルデータベースを統合したハイブリッドRAGアーキテクチャを採用している。具体的には、Neo4jを用いた知識グラフによる構造化データの取得と、PostgreSQL/pgvectorを用いたPubMedやEMA、NICEなどの文書に対するセマンティック検索を組み合わせる。システムはDockerを用いてコンテナ化されており、モジュール式の設計により各報告セクションを独立して生成できる仕組みとなっている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、Ragasによるパイプライン指標、BERTScore、ROUGE-L、Med-F1、およびSemantic Similarityを用いた自動評価と、2名の臨床薬理学者による人間による評価の二段階で行われた。Semantic Similarityはすべてのカテゴリで $0.88$ から $0.89$ の範囲に達し、臨床的な意味が保持されていることが示された。また、知識グラフに基づくセクションは、ベクトル検索のみに依存するセクションよりも一貫して高い性能を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>Ragasの指標を用いた分析により、生成プロセスそのものの失敗よりも、検索時におけるノイズがシステムのボトルネックとなっている可能性が示唆されている。今後の課題として、検索精度の向上やノイズの低減が挙げられる。本システムは、臨床薬理学者の最終決定を補完する意思決定支援ツールとしての実用性が確認されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>本研究は、膨大な生物医学情報の統合を必要とする臨床薬理学における意思決定を支援するため、Retrieval-Augmented Generation (RAG) と知識グラフを組み合わせた、技術報告書の自動生成システムを提案している。提案手法は、規制当局のソースから構築された知識グラフによる構造化された薬理学的事実の取得と、PubMedやEMA、NICEなどの公開リポジトリからインデックス化された文書に対するセマンティック・ベクトル検索を組み合わせたハイブリッドな検索戦略を採用しており、単一薬剤評価、比較評価、および投与開始・継続・中止基準の3つの報告カテゴリに対応している。システムはDockerを用いてコンテナ化されており、モジュール式の設計によって各報告セクションを独立して生成可能である。評価では、Ragasによるパイプライン指標、BERTScore、ROUGE-L、Med-F1、およびSemantic Similarityを用いた自動評価と、2名の臨床薬理学者による人間による評価の二段階で行われた。自動評価の結果、Semantic Similarityはすべてのカテゴリで $0.88$ から $0.89$ の範囲にあり、臨床的な意味が保持されていることが示されたが、Ragasの指標からは、生成の失敗よりも検索時のノイズがボトルネックとなっている可能性が示唆された。また、知識グラフに基づくセクションは、ベクトル検索のみに依存するセクションよりも一貫して高い性能を示しており、人間による評価においても、臨床薬理学者の最終決定を補完する意思決定支援ツールとしての実用性が確認された。</p></section>
+<section class="secsum"><h3>Keywords: Retrieval-Augmented Generation • Large Language Models • Clinical Pharmacology •</h3><p>本セクションは、臨床薬理学における意思決定支援のための検索拡張生成（RAG）と大規模言語モデル（LLM）の活用に関する研究のキーワードを定義している。主な研究領域として、臨床意思決定支援システム、生物医学自然言語処理、および医療情報検索が挙げられる。技術的な側面では、生成AIや、グラフ構造を活用した GraphRAG が重要な要素として示されている。これらは、ヘルスケア分野におけるAIの応用を包括的に示す構成要素となっている。</p></section>
+<section class="secsum"><h3>Development Goals</h3><p>本研究は、Hospital de São Joãoにおける臨床薬理学レポートの自動生成を支援するAIシステムを開発することで、国連の持続可能な開発目標（SDGs）の達成に寄与することを目的としている。具体的には、SDG 3（すべての人に健康と福祉を）に対し、レポート作成時間の短縮と、専門家が作成した正解データに対する意味的類似度 $\text{Semantic Similarity} \ge 0.88$ を指標とした、迅速かつ一貫性のあるエビデンスに基づく推奨事項の提供を目指す。また、RAGAS評価における忠実度（Faithfulness scores）や人間による評価での幻覚検出率を指標として、薬理学的エビデンス合成の信頼性と追跡可能性を向上させる。SDG 9（産業と技術革新の基盤をつくろう）に向けては、知識グラフ、ベクトルデータベース、およびLLMを統合したハイブリッドRAGアーキテクチャを提案し、10種類の構成を評価するとともに、Neo4jやPostgreSQL/pgvector、Ollamaといったオープンソースコンポーネントを採用することで、臨床NLPにおける革新的な研究インフラを構築する。さらに、SDG 17（パートナーシップで目標を達成しよう）に基づき、FEUP、ISEP、HSJ/UFCの3機関による学術・臨床の連携や、PubMed、ClinicalTrials.gov、EMA、FDAなどの5つ以上のオープンアクセスデータソースおよびオープンソースツールのみを利用するモデルを通じて、持続可能なヘルスケア技術の展開を目指している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-03
+  </footer>
+</div>
+</body>
+</html>

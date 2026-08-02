@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>From Proprietary to Open-Source: Bridging the Distribution Gap via Multi-Agent Protocol Distillation in Agentic Search | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>From Proprietary to Open-Source: Bridging the Distribution Gap via Multi-Agent Protocol Distillation in Agentic Search</h1>
+  <div class="meta">Junlin Liu, Jiangwang Chen, Zixin Song, Shuaiyu Zhou, Chunji Lv, Hank Wu, Kailin Jiang, Jinyang Wu, Bohan Yu, Chenxi Zhou<br>採択先: arXiv (Cornell University) ・ 2026-07-27 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.24280v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.24280v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2607.24280" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 arXiv (Cornell University)</span><span class="chip">公開日 2026-07-27</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">構造化JSONを用いた「認知戦略の蒸留」という着眼点が非常に新規性が高く、強化学習の報酬の疎さを補完する設計も合理的。エージェント研究において実用的な手法。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> エージェンティック検索において、商用モデルとオープンソースモデル間の分布の乖離を埋めるため、構造化されたJSONプロトコルを用いた蒸留と強化学習を統合するMulti-Agent Protocol Distillation (MAPD) を提案する。これにより、教師モデルの言語的なスタイルを排除しつつ、高度な認知戦略のみを効率的に生徒モデルへ継承させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>エージェンティック検索は、質問 $q$ に対して言語モデルが最大 $T$ 回のターンにわたり検索環境と相互作用するマルチターン形式のタスクである。従来の知識転移では、商用モデルとオープンソースモデル間でのトークナイザーの不一致やロジットへのアクセスの欠如、さらに自然言語の軌跡を直接模倣する際に生じるスタイルドリフトやハルシネーションが課題となっていた。また、既存の強化学習手法は最終回答の正誤に基づく疎な報酬に依存しており、中間的な推論プロセスへの詳細なクレジット割り当てが困難である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の新規性は、推論ロジックと言語的な外殻を分離するために、スタイルが正規化された構造化JSONプロトコルを蒸留の単位として導入した点にある。従来のテキストベースの思考過程（CoT）の模倣とは異なり、マルチエージェントシステム（MAS）を用いてオフラインで合成されたプロトコルを特権情報として利用する。これにより、推論時の計算コストを増大させることなく、教師モデルのセマンティックな戦略のみを生徒モデルへ転移させることを可能にした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>手法は、オフラインのプロトコル合成フェーズとオンラインのポリシーアライメントフェーズで構成される。まず、オーケストレーター、検索エージェント、修復エージェントが協調するMASパイプラインを用い、タスク種別や推論計画、抽出された根拠事実を含む5つの次元からなるJSON形式のプロトコルを生成する。学習時は、生徒モデルの条件付きブランチにこのプロトコルを特権情報 $\mathcal{I}$ として入力し、プロトコルに基づく密なトークンレベルの蒸留損失 $\mathcal{L}_{\text{PSD}}$ と、環境報酬に基づく疎な強化学習損失 $\mathcal{L}_{\text{GRPO}}$ を組み合わせた $\mathcal{L}_{\text{total}} = \lambda \mathcal{L}_{\text{PSD}} + (1 - \lambda) \mathcal{L}_{\text{GRPO}}$ を最小化する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>7つのQAベンチマークを用いた評価において、MAPDはQwen3-1.7Bで平均成功率 $35.4\%$、Qwen3-4Bで $46.5\%$ を達成し、既存のSDARなどの手法を上回った。教師モデルとしてClaude-Opus-4.6、GPT-5.5、Gemini-3.1-Proのいずれを用いても、追加のチューニングなしで高い性能を実現している。アブレーション研究では、損失重み $\lambda = 0.1$ が蒸留と方策の安定性のバランスにおいて最適であることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法の限界として、蒸留の重み $\lambda$ が大きすぎると、モデルが推論を省略して検索のみを行う「retrieve-without-reasoning」という挙動に陥るトレードオフが存在する。また、プロトコルの生成には高品質なMASによるオフラインのデータ合成が必要となる。今後の課題として、より複雑な環境におけるプロトコルの汎用性や、さらなる効率的な知識転移の経路の開拓が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>From Proprietary to Open-Source: Bridging the Distribution Gap via Multi-Agent Protocol Distillation in Agentic Search</h3><p>本研究は、エージェンティック検索における商用モデルとオープンソースモデル間の分布の乖離を埋めるため、Multi-Agent Protocol Distillation (MAPD) という、蒸留と強化学習を統合したフレームワークを提案している。MAPDは、従来のロジット一致が困難な状況や、自然言語の軌跡を模倣する際に生じる表面的なスタイルの転移を回避するため、構造化されスタイルが正規化された中間表現としてJSON形式のプロトコルを用いる。オフラインのマルチエージェントシステムを用いて、クエリの分解、証拠の検索、失敗した検索の修復を行い、その探索プロセスをタスク種別、推論計画、および抽出された根拠事実を含むプロトコルへと変換する。学習フェーズでは、特権的なブランチを持つ生徒モデルに対してのみこのプロトコルを提供することで、疎な強化学習の目的関数に加えて、密な蒸留信号を供給する。7つのQAベンチマークを用いた評価の結果、MAPDはQwen3-1.7Bで平均成功率 $35.4\%$、Qwen3-4Bで $46.5\%$ を達成し、既存の蒸留手法や強化学習手法を上回る性能を示した。さらに、本手法は多様な商用モデルを教師として用いても、生徒モデルにおけるスタイルのドリフトや冗長性の悪化を効果的に抑制し、堅牢な汎化性能を発揮する。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究では、プロプライエタリなモデルからオープンソースモデルへの知識転移における、トークナイザーの不一致やロジットへのアクセスの欠如、および自然言語による軌跡蒸留が引き起こすスタイルドリフトやハルシネーションといった課題を解決するため、Multi-Agent Protocol Distillation (MAPD) を提案している。MAPDは、プロプライエタリなモデルを用いたマルチエージェントシステム（MAS）によって、探索の軌跡を構造化されたJSON形式のプロトコルへと変換するオフラインのプロトコル合成フェーズと、オンラインのポリシーアライメントフェーズから構成される。学習段階では、このプロトコルを特権的な情報として学生モデルの条件付きブランチに入力し、同じモデル内の学生ブランチとの間で密な自己蒸留（self-distillation）を行うことで、報酬に基づく強化学習（RLVR）を補完する。この手法により、プロプライエタリなモデルのロジットやトークナイザーに依存することなく、言語的な表面形式を排除した認知戦略の転移が可能となる。実験では、Claude-Opus-4.6、GPT-5.5、Gemini-3.1-Proの3つの最先端モデルを教師として用いており、MAPDが異なる教師モデル間で再調整なしに性能向上を転移できることが示されている。</p></section>
+<section class="secsum"><h3>2 Problem Formulation &amp; Preliminaries</h3><p>エージェントによる検索（Agentic Search）は、質問 $q$ に対して言語モデルのポリシーが最大 $T$ 回のターンにわたり検索拡張環境と相互作用するマルチターン形式として定式化される。各ターンでエージェントは推論ステップを生成し、必要に応じて検索クエリを発行して環境から関連する文章を観測として受け取り、全ターンを通じた軌跡を単一のトークン列 $\tau$ として扱う。エージェントが最終回答を出力するか最大ターン数に達すると終了し、最終回答と正解との完全一致（EM）に基づき、軌跡レベルの疎なバイナリ報酬 $r$ が与えられる。学習手法として用いられるGRPOは、プロンプト $q$ に対して複数のロールアウトをサンプリングし、報酬から算出されたアドバンテージを用いて、クリップされた代理目的関数と参照モデルに対するトークンごとのKLペナルティを最適化する。これに対し、提案手法に関連するOPSDは、訓練時のみ利用可能な特権情報 $\mathcal{I}$ を用いて、学生ブランチは $(q, \tau_{&lt;t})$ に、教師ブランチは $(q, \tau_{&lt;t}, \mathcal{I})$ に条件付けることで、学生パスに対してのみ勾配を流し、トークンごとの逆KLダイバージェンス $\mathbb{E}_{x \sim \pi_{\theta_{\text{student}}}} [\log \frac{\pi_{\theta_{\text{student}}}(x | q, \tau_{&lt;t})}{\pi_{\theta_{\text{teacher}}}(x | q, \tau_{&lt;t}, \mathcal{I})}]$ を最小化する。しかし、標準的なOPSDでは特権情報 $\mathcal{I}$ が学生自身の正解軌跡から得られるため、教師の質が学生の既存の推論能力に制限されるという課題がある。</p></section>
+<section class="secsum"><h3>3 Methodology</h3><p>本手法は、プロプライエタリなモデルの認知戦略をオープンソースモデルへ効率的に継承させるためのMAPDフレームワークを提案している。まず、蒸留の基本単位として、モデル固有の言語パターンや冗長性を排除し、認知戦略を分離したStructured JSON Protocolを導入する。このプロトコルは、$\text{task\_type}$、$\text{reasoning\_plan}$、$\text{grounding\_facts}$、$\text{partial\_findings}$、および$\text{answer\_grounded}$の5つの次元で構成され、特権情報（PI）を $\text{PI} = \text{Protocol}$ と定義することで、学生モデルのネイティブなトークン分布を維持しつつ、追跡可能な推論プロセスを形式化する。次に、このプロトコルを自動生成するために、オーケストレーター、検索エージェント、および修復エージェントが協調する3段階のマルチエージェント・システム（MAS）パイプラインを用いる。このパイプラインでは、検索が失敗した場合に正解を診断ガイドとして用いて推論過程を遡る修復プロセスや、事後知識の混入を防ぐ「No Hindsight」および抽出された事実のみを用いる「Extractive Grounding」といった制約を課した上で、スキーマ検証や漏洩検知を含む厳格な品質ゲートを通過したデータのみを学習に使用する。最終的な学習目的関数は、プロトコルに基づくトークンレベルの蒸留信号 $\mathcal{L}_{\text{PSD}}$ と、環境報酬に基づく疎な強化学習信号 $\mathcal{L}_{\text{GRPO}}$ を組み合わせた $\mathcal{L}_{\text{total}} = \lambda \mathcal{L}_{\text{PSD}} + (1 - \lambda) \mathcal{L}_{\text{GRPO}}$ であり、ハイパーパラメータ $\lambda$ によって両者のバランスを制御することで、ステップごとのクレジット割り当てと最終的なタスク成功の両立を図っている。</p></section>
+<section class="secsum"><h3>4 Experiments and Analysis</h3><p>提案手法であるMAPD（Multi-Agent Protocol Distillation）は、強化学習（RL）と、マルチエージェントシステム（MAS）によって生成された構造化プロトコルに基づくトークンレベルの密な蒸留を統合したフレームワークである。実験では、Qwen3-1.7Bおよび4Bを学習対象とし、NQやHotpotQAなどの単一ホップおよびマルチホップの知識集約型QAベンチマークを用いて評価を行った。MAPDは、既存の高度なハイブリッド手法であるSDARを上回り、Qwen3-1.7Bで$39.4\%$、Qwen3-4Bで$44.4\%$の平均成功率を達成した。特に、複雑なマルチホップタスクにおいて顕著な改善が見られ、これはMASによる問題分解と証拠集約の戦略が、構造化プロトコルを通じて効果的に学生モデルへ蒸留された結果である。アブレーション研究により、教師モデルの生の自然言語軌跡を直接蒸留するのではなく、JSON形式の構造化プロトコルを用いることが、教師特有の文体（style drift）を排除し、学習を安定させるために不可欠であることが示された。また、OPSD（Online Policy Self-Distillation）の損失重み $\lambda$ に関する分析では、$\lambda = 0.1$ が蒸留の強さと方策の安定性のバランスを最適化する「スイートスポット」であることが判明し、重みが大きすぎるとモデルが推論を省略して検索のみを行う「retrieve-without-reasoning」という挙動に陥るリスクが示された。さらに、本手法は教師モデルの転移性にも優れており、Claude-Opus-4.6、GPT-5.5、Gemini-3.1-Proのいずれを教師としても、追加のチューニングなしでSDARを上回る性能を実現している。</p></section>
+<section class="secsum"><h3>5 Related Work</h3><p>LLMの推論パラダイムは、静的な単一ターンから外部環境との継続的な相互作用を必要とする動的なマルチターン・エージェントタスクへと移行しており、その一環であるエージェント検索では、論理的推論と環境拡張型の検索を交互に行うことが求められる。既存のWebRLやSearch-R1、RAGENといったフレームワークは、検索プロセスを強化学習（RL）の最適化問題として定式化しているが、これらは最終的な回答の正誤に基づく疎な報酬信号に依存しており、中間段階の計画や検索、診断ステップに対する詳細なクレジット割り当てが困難であるという課題がある。また、プロプライエタリなモデルからオープンソースモデルへの知識蒸留においては、出力確率分布の直接的な一致が困難であるため、思考過程（CoT）などのテキストレベルの模倣が行われるが、これは教師モデルの冗長な言語パターンや口調への過学習、およびスタイルドリフトやハルシネーションを引き起こす。これに対し、提案手法であるMAPDは、教師モデルのセマンティックな戦略をスタイル正規化された構造化JSONプロトコルとして抽出することで、推論ロジックと言語的な外殻を分離し、安全なオンライン自己蒸留を可能にする。さらに、マルチエージェントシステム（MAS）は複雑な推論において高い性能を示すものの、推論時の計算コストや遅延が実用的ではないという問題があるが、MAPDはMASを推論時ではなく、オフラインの学習時における知識合成器としてのみ利用し、エージェント群の協調的な問題解決戦略を単一の生徒モデルへと蒸留する。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本論文では、エージェント型検索におけるプロプライエタリな教師モデルとオープンソースの生徒モデル間の異種分布ギャップを埋めるための、蒸留と強化学習を統合した新しいフレームワークである Multi-Agent Protocol Distillation (MAPD) を提案している。MAPDは、生の軌跡を模倣する際に生じるスタイルドリフトや冗長性の崩壊を回避するため、構造化された JSON プロトコルを用いて、核となる認知戦略を個別の言語的スタイルから分離する。このプロトコルは、堅牢なマルチエージェントシステムによってオフラインで合成された特権情報として機能し、推論時のオーバーヘッドを増やすことなく、疎な結果駆動型強化学習を補完する密なガイダンスを提供する。7つの知識集約型 QA ベンチマークを用いた広範な評価の結果、MAPD はすべてのベースラインを一貫して上回るだけでなく、再調整なしで異なるプロプライエタリな教師モデルに対してもシームレスに汎化することが示された。意味的な推論を特有のスタイルのアーティファクトから分離することで、MAPD は異種モデルのアライメントに向けた、より安全で効率的な経路を切り拓いている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-03
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>When Knowledge Changes: Metamorphic Testing of RAG Systems with Mutations | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>When Knowledge Changes: Metamorphic Testing of RAG Systems with Mutations</h1>
+  <div class="meta">Jinhan Kim, Samuele Pasini, Paolo Tonella<br>採択先: 未取得 ・ 2026-07-29 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.26843v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.26843v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-29</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの評価を静的な正解性から動的な不変性へと拡張するメタモルフィック・テスティングの導入は新規性が高い。既存指標（RAGAS）の限界を実験で示しており、実用的な価値も大きい。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 外部知識の更新やノイズ混入といったコーパスの進化に伴うRAGシステムの不整合を検出するため、メタモルフィック・テスティング（MT）のフレームワークを提案する。提案手法は、インデックスとコンテキストの両レベルで系統的な摂動を加えることで、既存の評価指標では見逃される潜在的な故障を特定できる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>RAGシステムは、外部知識ベース $\mathcal{C}$ から検索されたコンテキストを用いて回答を生成するが、知識の更新や事実の変化、ノイズの混入といったコーパスの進化に対して、システムの挙動がどのように変化するかを評価することが困難である。従来の評価手法は固定されたコーパスに対するスナップショット性能の測定に留まっており、動的な知識の変化に伴う不整合や、検索設定・チャンク分割などの実装詳細への過適合を捉えきれないという問題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究は、単一の時点での正解性を測る従来の静的なベンチマークとは異なり、コーパスの進化下におけるRAGパイプライン全体の挙動を検証するメタモルフィック・テスティングのパラダイムを導入した。先行研究の応答レベルの検証に対し、ドキュメントインデックスと取得コンテキストの両方に作用する2つの変異スコープを定義し、11種類のミューテーション・オペレータと、ノイズ感度やアーキテクチャの脆弱性に基づく新しい故障分類体系を提案している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>RAGシステムを、クエリ $q$、コーパス $\mathcal{C}$、リトリーバーのパラメータ $\theta_R$、ジェネレーターのパラメータ $\theta_G$ を用いた合成関数 $f(q, \mathcal{C}, \theta_R, \theta_G)$ として定式化する。提案手法では、まず知識ベースの再インデックスを伴うPre-chunk Scopeにおいて、チャンクの結合・分割や設定変更などの変異を適用する。次に、検索後のコンテキストを直接操作するPost-chunk Scopeにおいて、意味的なノイズや事実と矛盾する情報の注入を行う。これらの変異後の出力 $y&#x27;$ が、元の出力 $y$ と定義されたメタモルフィック関係 $MR$ を満たすかを、LLMを用いたテストオラクルによって検証する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>T2-RAGBenchおよびRepLiQAを含む5つのデータセットと、28,500件以上の変異サンプルを用いて評価を行った。メタモルフィック違反率は $4.9\%$ から $10.2\%$ の範囲で発生し、特に反事実的な内容を注入する変異では $27.0\%$ から $27.6\%$ の高い違反率を記録した。提案するメタモルフィック・オラクルは、RepLiQAで $F1$ スコア $0.927$、その他のデータセットで $1.000$ を達成したが、既存のRAGAS指標の最高値は $0.570$ に留まった。また、検索予算の増加やリランキング等の介入により、検出された故障の $43.1\%$ が修復可能であることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法の判定器として用いるLLMには、意味の保存や等価性を誤分類するリスクがあるが、人間による評価との一致率は $93\%$ から $95\%$ と高い。修復実験においては、検索設定の変更やモデルのアップグレードが有効である一方で、RepLiQAのようなデータセットでは修復率が $10.2\%$ まで低下するケースがあり、既存の対策では対処困難な故障モードが存在する。今後は、これらの限定的な修復効果を克服するための、新たな修復戦略の検討が課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>When Knowledge Changes: Metamorphic Testing of RAG Systems with Mutations</h3><p>本研究は、外部知識の更新や事実の変化、ノイズの混入といったコーパスの進化に伴うRAGシステムの不整合を検出するため、メタモルフィック・テスティング（MT）のフレームワークを提案している。提案手法では、検索インデックス（pre-chunk）と検索されたコンテキスト（post-chunk）の両レベルにおいて、システムを系統的に摂動させる11種類のミューテーション・オペレータと、欠陥の分類体系（fault taxonomy）を定義している。5つのデータセットと28,000件以上のミュータントを用いた実証評価の結果、メタモルフィック違反率が $4.9\%$ から $10.2\%$ の範囲で発生することが明らかになった。メタ評価において、提案するメタモルフィック・オラクルは $F1$ スコア $0.927$ から $1.000$ を達成した一方で、既存の評価指標であるRAGASの最高値は $0.570$ に留まり、提案手法の優位性が示された。本研究は、検索設定の再構成、生成器のアップグレード、LLMを用いたリランキングなどの具体的な対策についても示唆を与えている。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>本研究は、外部知識の更新に伴い動的に変化するRAGシステムの挙動を評価するため、メタモルフィックテスト（MT）のパラダイムを提案している。従来の評価手法は固定されたコーパスに対するスナップショット性能の測定に留まるが、提案手法ではコーパスに対して制御された意味的変換を行い、その出力の変化が定義されたメタモルフィック関係（MR）に従うかを検証することで、システムの不変性や適応性を評価する。具体的には、先行研究の故障分類に基づき、ドキュメントインデックスを摂動させる「pre-chunk mutations」と、取得されたコンテキストを直接変更する「post-chunk mutations」の2つの範囲において、11種類のミューテーションオペレータを設計している。5つのデータセットを用いた実験では、28,000件以上のミュータントを生成して評価を行った結果、違反率は4.9%から10.2%の範囲で検出され、2つのミューテーション範囲は互いに補完的な故障を特定することが示された。評価指標の比較では、提案するMRオラクルがF1スコアで0.927から1.000を達成したのに対し、既存のRAGAS指標は最高でも0.570にとどまり、提案手法が既存指標で見逃される潜在的な故障を捉えられることが示された。また、故障の修復可能性については、検索予算の増加、生成器のアップグレード、およびLLMベースのリランキングを組み合わせることで、検出された故障の43.1%が解決されるが、データセットによっては修復率が10.2%まで低下するケースもあり、既存の手法では対処困難な故障モードの存在が明らかになった。</p></section>
+<section class="secsum"><h3>2. Background</h3><p>Retrieval-Augmented Generation (RAG) は、言語モデルに外部の文書集合を組み合わせる手法であり、オフラインのインデックス作成フェーズで文書をチャンクに分割し、埋め込みモデルを用いて高次元ベクトルとしてベクトルデータベースに格納する。オンラインの推論フェーズでは、ユーザーのクエリを同様のモデルでベクトル化し、コサイン類似度などの距離尺度を用いて上位 $k$ 個のチャンクを検索し、それらをコンテキストとして生成モデルに与える。RAGの評価には、検索レベルでの Context Precision（検索されたチャンクのうちクエリに関連するものの割合）や Context Relevance（検索された文のうち回答に不可欠な文の割合）、生成レベルでの Response Relevancy（生成された回答から逆生成された質問と元のクエリの類似度）や Faithfulness（回答の原子的な言明が検索されたコンテキストによって裏付けられている割合）といった、LLMを判定器として用いる指標が用いられる。しかし、これらの指標は知識ベースが変化する際の挙動を評価するには不十分である。そこで、正解となるオラクルが不明確なシステムに対して、関連する入力間の出力の関係性を定義する Metamorphic Testing (MT) を適用する。本研究では、文書コーパスに制御された意味的変化を加えた際、元のコーパスと変異させたコーパスの間でシステム出力が満たすべき Metamorphic Relations (MRs) を定義することで、知識の進化に伴うシステムの構造的な欠陥や推論エラーを検出する。</p></section>
+<section class="secsum"><h3>3. System Model and Fault Taxonomy</h3><p>RAGシステムを、コーパス $\mathcal{C}$ 上で動作するリトリーバー $R$ とジェネレーター $G$ の合成関数 $f(q, \mathcal{C}, \theta_R, \theta_G)$ として定式化する。ここで $q$ はクエリ、$\theta_R$ はリトリーバーのハイパーパラメータ（top-$k$ やチャンクサイズなど）、$\theta_G$ はジェネレーターのハイパーパラメータ（LLMの温度やモデルバージョンなど）を表す。本研究では、システム状態を変化させる変異オペレータ $\mu$ を導入し、元の出力 $y$ と変異後の出力 $y&#x27;$ の間の意味的な関係性を評価するメタモルフィック関係 $MR$ を定義することで、正解（オラクル）が動的に変化する環境下でのテストを実現する。故障（fault）は、変異後の出力が期待される意味的関係を満たさない状態、すなわち $MR(y, y&#x27;) = \text{False}$ と定義される。故障の分類（Fault Taxonomy）は、(1) ノイズへの感度に基づく Noise Sensitivity Faults（文脈への過適合、知識の衝突、入力の堅牢性不足）、(2) 形式への不適応に基づく Format Intolerance Faults（異種データへの対応失敗、構文フィルタリングの失敗）、(3) アーキテクチャの脆弱性に基づく Architectural Brittleness Faults（セグメンテーション境界や設定への過適合）の3つのクラスに整理される。特に、アーキテクチャの脆弱性については、意味的な内容ではなく、チャンク分割やリトリーバーの設定 $\theta_R$ といった実装の詳細に正解が強く依存してしまう状態を指す。</p></section>
+<section class="secsum"><h3>4. Mutation Operators and Test Oracles</h3><p>本セクションでは、RAGシステムの堅牢性を評価するために、11種類のミューテーションオペレータとメタモーフィックリレーション（MR）によるテストオラクルを提案している。ミューテーションの適用範囲は、知識ベースの再インデックスを伴うシステムレベルのPre-chunk Scope（$\mathcal{S} \to \mathcal{S}&#x27;$ により出力 $y \to y&#x27;$）と、検索後のコンテキストを直接操作する入力レベルのPost-chunk Scope（$c \to \text{perturb}(c)$）の2段階に定義される。オペレータは、意味的なノイズを注入するSemantic Noise (SeN)、異種データを混入させるDatatype Noise (DN)、構文的に破綻した文を挿入するIllegal Sentence Noise (ISN)、事実と矛盾する情報を生成するCounterfactual Noise (CN)、無意味な充填句を加えるSupportive Noise (SuN)、誤字を導入するOrthographic Noise (ON) のノイズ系、チャンクの結合・分割・位置ずれを行うChunking系、および埋め込みモデルの変更や取得件数の調整を行うRAG Configuration系で構成される。テストオラクルは、意味的な不変性を求める不変関係（$y \equiv y&#x27;$）と、注入された事実を反映することを求める分散関係（$y&#x27; \approx \text{injected\_fact}$）の2種類に分類される。評価にはLLM-as-a-Judgeを用い、ミューテーションが意図した通りに意味を保持しているか、あるいは変化させているかを判定した上で、回答の等価性を検証する。</p></section>
+<section class="secsum"><h3>5. Experimental Setup</h3><p>本研究では、RAGシステムの堅牢性を評価するためのメタモルフィック・テスティング（MT）フレームワークを提案し、3つのリサーチクエスチョン（RQ）に基づいた実験設定を行っている。RQ1では、変異オペレータごとのMR（Metamorphic Relation）違反率を測定し、システムレベル（pre-chunk）と入力レベル（post-chunk）の変異の有効性を比較するとともに、LLM-as-a-Judgeの信頼性を人間による検証で評価する。RQ2では、既存のRAGAS指標（Faithfulness, Answer Relevancy, Context Precision, Context Recall）とMRの故障検出能力を、正解ラベル（GT）を用いたメタ評価により、適合率、再現率、F1スコアを用いて比較する。RQ3では、検索予算の増加、生成モデルのアップグレード、LLMベースのリランキング導入という3つの介入策による故障の緩和効果を検証する。実験では、文脈依存性を担保するために、クローズドブック（検索なし）では誤答し、RAGパイプラインでは正解するデータのみを抽出するフィルタリングを行い、T2-RAGBenchおよびRepLiQAの計28,500個の変異サンプルを用いて評価を行う。評価指標として、変異後の回答 $a&#x27;$ と元の回答 $a$ の論理的一貫性を判定するメタモルフィック述語 $P(a, a&#x27;)$ を用いる。</p></section>
+<section class="secsum"><h3>6. Results</h3><p>提案手法であるメタモルフィック・テスティング（MR）フレームワークは、RAGシステムの欠陥検出において、チャンク分割前（pre-chunk）とチャンク分割後（post-chunk）の2つの変異スコープを用いることで、相互補完的な欠陥を特定できることを示した。実験の結果、変異による違反率は4.9%から10.2%の範囲にあり、特に反事実的な内容を注入するCN変異は、検索の関連性と生成の忠実度の両方を低下させ、高い違反率（27.0%〜27.6%）を記録した。2つのスコープ間のJaccard指数による欠陥の重複は12%から45%と低く、両方のスコープを併用することで欠陥の網羅性を広げられることが確認された。また、本手法の評価指標としての信頼性を検証するため、人間によるラベル付けを行った結果、LLM判定器との一致率は93%〜95%に達し、判定の安定性も高いことが示された。既存のRAGAS指標との比較では、MRはRepLiQAで$F_1=0.927$、その他のデータセットで$F_1=1.000$という極めて高い精度を達成しており、最高で$F_1=0.570$であったRAGASを大幅に上回る診断能力を示した。修復実験においては、検索設定の変更、リランキング、生成モデルのアップグレードを組み合わせることで、全体の43.1%の欠陥を修復できたが、RepLiQAでは修復率が10.2%に留まるなど、データセットや変異の種類によって修復の有効性が大きく異なるという限界も明らかになった。</p></section>
+<section class="secsum"><h3>7. Related Work</h3><p>RAGASやARESといった既存のフレームワークは、固定されたコーパスのスナップショットに対して個別のクエリと回答のペアを評価する静的なベンチマークであるが、コーパスの進化に伴うシステムの挙動の一貫性を捉えることはできない。MetaRAGはRAGシステムにメタモルフィックテストを適用する点で本研究に近いが、生成された回答から抽出された事実を変換して検索された文脈による裏付けを確認する応答レベルの検証に留まるのに対し、本手法はコーパスの進化下におけるRAGパイプライン全体の挙動を検証する。具体的には、ドキュメントやチャンク分割、インデックス、検索設定を変更するプリチャンク変異と、検索後の生成器の挙動を分離して検証するポストチャンク変異を導入している。また、Wu et al. によるRAGのノイズ分類を拡張し、フォーマットへの耐性の欠如（Format Intolerance）やアーキテクチャの脆弱性（Architectural Brittleness）といったクラスを、自動オラクルを備えた実行可能な変異オペレータとして定義している。さらに、PoisonedRAGなどの敵対的攻撃に関する研究は、数個の細工されたテキストを注入することで高い攻撃成功率を実現するセキュリティ上の脆弱性を扱うが、本研究はコーパスのメンテナンス過程で生じる再フォーマットや更新、ノイズといったエンジニアリング上の欠陥を明らかにするメタモルフィックなアプローチをとる点でこれらと補完的な関係にある。</p></section>
+<section class="secsum"><h3>8. Threats to Validity</h3><p>本研究の内部妥当性における脅威として、LLMを用いた判定器が意味の保存や回答の等価性を誤分類する可能性が挙げられるが、人間による評価では $93\%$ から $95\%$ の一致率が確認されており、金融データセットでは数値の完全一致を用いることでこの依存性を低減している。また、変異生成プロセスにおける確率的な変動については、変異、検索コンテキスト、生成回答を固定して判定のみを5回繰り返す安定性分析により、多数決判定が初期判定と $97\%$ の割合で一致することを確認している。外部妥当性については、単一のRAGアーキテクチャとLLMに依存しており、全変異（計28,000個）に対してRAGASを適用するコストを抑えるために各データセットから300個のインスタンスをサンプリングしているが、5つの独立したデータセットで一貫したパターンが得られている。構成妥当性に関しては、メタ評価におけるフィルタリング手順が、意味保存的な変異においてMR判定と正解（GT）との間に推移律による相関を生じさせ、評価の循環性に繋がる懸念がある。しかし、このフィルタリングは誤ったベースラインへの変異適用を防ぐために不可欠であり、意味変更的な変異においてはGTによる検証が注入された反事実を独立して検証できること、さらにRepLiQAにおいてMRのF1スコアが $0.927$ であり完全一致ではないことから、自然言語回答におけるLLM判定とGT比較は十分に分離可能であることが示されている。</p></section>
+<section class="secsum"><h3>9. Conclusion</h3><p>本研究では、コーパスの進化に伴うRAGシステムの評価を目的とした、メタモルフィックテスティングのフレームワークを提案している。このフレームワークは、単一の時点における正解性を評価するのではなく、インデックスレベル（前処理段階）とコンテキストレベル（生成器分離段階）の2つのスコープにおいて、11種類の変異オペレータを適用し、挙動の一貫性を検証するメタモルフィック関係を定義している。5つのデータセットを用いた実験の結果、標準的なRAGAS指標では検出できない欠陥を、4.9%から10.2%の違反率で検出することに成功し、その自動判定の妥当性は人間による検証でも確認されている。変異スコープの違いにより相補的な欠陥が露出することが示されており、検索予算の増加、生成器のアップグレード、およびLLMベースのリランキングを組み合わせることで、検出された欠陥の43.1%が解消される。しかし、RepLiQAデータセットにおいてはこれらの修復策の効果が限定的であったことから、代替となる修復戦略の検討が今後の課題として残されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-03
+  </footer>
+</div>
+</body>
+</html>
