@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Relaxing Constraints in Anonymous Multi Agent Path Finding for Large Agents | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Relaxing Constraints in Anonymous Multi Agent Path Finding for Large Agents</h1>
+  <div class="meta">Stepan Dergachev, Dmitry Avdeev<br>採択先: 未取得 ・ 2026-03-25 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2603.24442v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2603.24442v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-03-25</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv PDF)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">連続空間のAMAPFにおける幾何学的制約の緩和という理論的貢献はあるが、実験による検証が不足しており、実用性や性能の評価が今後の課題となっているため。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> エージェントのサイズを考慮した連続空間における匿名マルチエージェント経路計画（AMAPF-LA）において、従来手法が要求していた初期位置と目標位置間の厳格な分離距離の制約を緩和し、理論的な安全性と目標到達性を維持する手法を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>半径 $1$ の円盤としてモデル化される $m$ 個のエージェントが、障害物を含む連続空間 $W \subseteq \mathbb{R}^2$ 内で、個別の目標指定なしに目標地点の集合 $T$ へ衝突を避けながら到達する問題を扱う。従来の連続空間におけるAMAPFアルゴリズムは、アルゴリズムの正当性を保証するために、任意の2つのエージェントの開始・目標位置間の距離を $\|v-v&#x27;\|_2 \ge 4$、および開始・目標位置と障害物との距離を $\|v-x\|_2 \ge \sqrt{5}$ とするという非常に厳しい制約を課していた。この制約により、エージェントの密度が高い実世界のシナリオへの適用が困難であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>先行研究のアルゴリズムが保持していた「すべてのエージェントが衝突することなく最終的に目標を達成する」という理論的性質を損なうことなく、開始・目標位置間の最小分離距離の制約を $4$ から $2\sqrt{3}$ へと緩和した点が新規性である。これにより、従来の制約下では解の存在が保証できなかった、より高密度なエージェント配置においても解を導出することが可能となった。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、全エージェント間の最短経路に基づき、総経路長を最小化する目標割り当てを行う。次に、他の経路を妨げない「スタンドアロンな目標」を順次選択してエージェントを移動させる。移動中にエージェント $i$ が目標 $\tau$ への経路を妨げる衝突点 $\gamma_j(t)$ が発生した場合、その衝突点と目標 $\tau$ の距離が $2$ 以上であれば、開始位置から衝突点までの直線と残りの経路を組み合わせた経路を割り当てる。距離が $2$ 未満である場合には、$\|\gamma_j(t&#x27;) - \tau\|_2 = 2$ を満たす一意な点 $\gamma_j(t&#x27;)$ を選択し、開始位置から $\gamma_j(t&#x27;)$ までの直線と、$\gamma_j(t&#x27;)$ から $\tau$ までの直線で構成される経路を割り当てる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>本研究では、提案手法が緩和された制約条件下においても、エージェントの移動が他のエージェントとの衝突を引き起こさないことを幾何学的な証明を通じて示した。理論的な解析により、制約を $4$ から $2\sqrt{3}$ へ緩和しても、元のアルゴリズムが持つ目標到達性の性質が維持されることが確認されている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の主な貢献は理論的な制約の緩和と正当性の証明であるが、提案手法の実験的な検証および既存手法との詳細な比較は今後の課題として残されている。また、入力データに対する制約のさらなる緩和についても、今後の検討事項として挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>本研究は、どのエージェントがどの目標に到達するかを問わない、匿名マルチエージェント経路計画（AMAPF）における制約の緩和を扱っている。既存のMAPFアルゴリズムの多くは格子状の離散空間を前提とし、エージェントの大きさを考慮していないため、倉庫内の移動ロボットのような実世界のシナリオへの適用が困難である。一方で、連続空間で動作する手法は、初期位置・目標位置・障害物間の距離に対して厳しい制約を課す傾向がある。本論文では、エージェントを等しい半径を持つ円盤としてモデル化し、開始・目標位置間にエージェント半径の4倍という厳格な最小分離距離を要求する既存の連続空間AMAPFアルゴリズムに着目している。この制約を $2\sqrt{3}$ まで緩和する修正手法を提案しており、この変更によって、すべてのエージェントが衝突することなく安全に最終的に目標を達成するという元の理論的性質が維持されることを理論的に証明している。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>本研究は、エージェントのサイズを考慮した連続空間における匿名マルチエージェント経路探索（AMAPF-LA）において、従来手法が課していた厳格な制約を緩和する手法を提案している。既存のAMAPF-LAアルゴリズムでは、障害物を多角形、エージェントを半径 $1$ の円盤としてモデル化しており、アルゴリズムの正当性を保証するために、任意の2つのエージェントの開始・目標位置間の距離を $4$ 以上、および開始・目標位置と障害物との距離を $\sqrt{5}$ 以上に保つという制約が存在する。本論文では、この第一の制約を $4$ から $2\sqrt{3}$ へと緩和することを提案している。理論的な検証を通じて、この制約緩和を行っても、すべてのエージェントが割り当てられた目標に到達するという元のアルゴリズムの根本的な性質が維持されることを証明している。</p></section>
+<section class="secsum"><h3>Related work</h3><p>マルチエージェント経路計画（MAPF）は、各エージェントに特定の目標が割り当てられる古典的な定式化と、目標の割り当てが限定されない匿名マルチエージェント経路計画（AMAPF）に分類される。エージェントの物理的なサイズを考慮する場合、(Anonymous) Multi-Agent Path Finding for Large Agents と呼ばれ、古典的な MAPF において特定の目標への到達を保証する最適解の探索は NP困難であることが示されている。AMAPF において、メイクスパンを指標とした場合にはグラフにおける最大流アルゴリズムを用いることで多項式時間での最適解の導出が可能であるが、大規模な問題への直接的な適用は困難である。既存の AMAPF アルゴリズムには、連続空間で動作するものの障害物やエージェントのサイズを無視するものや、障害物の構造に特殊な制約を課すもの、あるいは開始地点と目標地点の距離に制限を設けるものなどが存在する。また、強化学習や模倣学習を用いた学習ベースの手法も提案されているが、これらは経験的な性能は有望であるものの、安全性や目標到達性に関する理論的な保証を欠いているという限界がある。</p></section>
+<section class="secsum"><h3>Problem Statement</h3><p>共通の作業空間 $W \subseteq \mathbb{R}^2$ において、半径 $1$ の開円盤として表される $m$ 個のエージェントの集合 $M = \{1, 2, \dots, m\}$ を考える。各エージェントの状態は円盤の中心位置で定義され、初期位置の集合 $S = \{s_1, \dots, s_m\}$ と目標地点の集合 $T = \{\tau_1, \dots, \tau_m\}$ が与えられる。障害物領域を $O \subset W$ とすると、エージェントが障害物と衝突しない自由空間 $F$ は、中心位置 $p$ に対して半径 $1$ の開円盤 $B_1(p)$ が $O$ と交わらない条件 $F = \{x \in W \setminus O \mid B_1(x) \cap O = \emptyset\}$ によって定義される。各エージェントの経路 $\pi_i$ は連続時間 $T = \mathbb{R}^+ \cup \{0\}$ 上の連続写像であり、すべての経路の集合 $\Pi = \{\pi_1, \dots, \pi_m\}$ が解となるためには、任意の時刻 $t \in T$ においてエージェント同士が衝突しない条件 $\nexists t \in T : B_1(\pi_i(t)) \cap B_1(\pi_j(t)) \neq \emptyset$ を満たし、かつ各経路が初期位置 $s_i$ から開始して目標地点の集合 $T$ のいずれか一意の点に到達する必要がある。本問題のコストは各経路の長さの総和 $\sum_{i=1}^{m} |\pi_i|$ として定義されるが、本研究ではコストの最適化を必須条件とはせず、より低いコストを持つ解を優先的に扱う。</p></section>
+<section class="secsum"><h3>Anonymous Multi-Agent Pathfinding for Large Agents</h3><p>本手法は、大規模なエージェントを扱う匿名マルチエージェント経路探索（Anonymous MAPF）において、従来のアルゴリズムが課していた初期配置および目標配置に関する制約を緩和するものである。ベースとなるアルゴリズムは、まず全エージェント間の最短経路を計算してハンガリー法等で総経路長を最小化する目標割り当てを行い、次に他の経路を妨げない「スタンドアロンな目標」 $\tau$ を順次選択してエージェントを移動させる。従来のアルゴリズムでは、開始位置または目標位置間の距離が $\|v-v&#x27;\|_2 \ge 4$、および障害物との距離が $\|v-x\|_2 \ge \sqrt{5}$ であることが要求されていた。提案手法では、衝突を回避するエージェント $i$ が目標 $\tau$ への経路を妨げている場合、その衝突点 $\gamma_j(t)$ と $\tau$ の距離が $2$ 以上であれば、開始位置から衝突点までの直線と残りの経路を組み合わせた経路を割り当てる。一方で、距離が $2$ 未満である場合には、$\|\gamma_j(t&#x27;) - \tau\|_2 = 2$ を満たす一意な点 $\gamma_j(t&#x27;)$ を選択し、開始位置から $\gamma_j(t&#x27;)$ までの直線と、$\gamma_j(t&#x27;)$ から $\tau$ までの直線で構成される経路を割り当てる。理論的解析により、この緩和された条件下においても、エージェントの移動が他のエージェントとの衝突を引き起こさないことが幾何学的な証明（Lemma 2, 4等）を通じて示されている。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本研究では、エージェントの個体識別を必要とせず、初期位置から目標位置の集合へ衝突のない経路を構築する、匿名マルチエージェント経路計画（Anonymous Multi-Agent Path Finding）におけるエージェントのサイズを考慮した問題を扱っている。先行研究で提案された、平面上でエージェントの大きさを考慮しつつ解を求めるアルゴリズムは、初期位置と目標位置の相対的な配置に対して特定の制約を課していた。本論文では、元のアルゴリズムが持つ理論的特性を維持したまま、これらの制約を $13\%$ 緩和する修正手法を提案している。この緩和により、エージェントの密度が高い問題において解を見つけやすくなり、元のアルゴリズムでは制約により適用不可能であったケースにおいても、提案手法は解を導出できることが示された。今後の課題として、提案手法の実験的な検証および既存手法との比較、さらには入力データに対する制約のさらなる緩和が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-04
+  </footer>
+</div>
+</body>
+</html>

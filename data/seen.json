@@ -2311,6 +2311,40 @@
       "url": "http://arxiv.org/abs/2607.28580v1",
       "venue": ""
     },
+    "arxiv:2607.29019": {
+      "added": "2026-08-04",
+      "added_at": "2026-08-04T06:14:34.893564",
+      "arxiv_id": "2607.29019",
+      "authors": [
+        "Yang Gao",
+        "Gang Quan",
+        "Scott Piersall",
+        "Qian Lou",
+        "Dongdong Wang",
+        "Liqiang Wang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-31",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.29019.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.29019v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGのプライバシー保護において、計算量を$O(n^2)$から$O(n)$へ削減する非対話型手法は極めて実用的。近似誤差を制御する数学的工夫も具体的で価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "GoldenRetriever: Non-Interactive Homomorphic Encrypted Retrieval for Privacy-Preserving RAG",
+      "tldr": "プライバシーを保護した検索拡張生成（RAG）において、従来のランキング手法が抱える二次関数的な計算コストの課題に対し、閾値ベースの選択を用いることで線形時間 $O(n)$ での検索を実現する非対話型フレームワークを提案する。",
+      "url": "http://arxiv.org/abs/2607.29019v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -2340,6 +2374,37 @@
       "tldr": "監査結果公告の分析において、LLMのハルシネーションを抑制し、複雑な意味関係の推論精度を向上させるための「DC-RAG (Dual-Channel Retrieval-Augmented Generation)」フレームワークを提案する。本手法は、非構造化テキストから情報を抽出する「テキストチャネル」と、知識グラフ（KG）から構造化されたサブグラフを抽出する「知識グラフチャネル」の二系統の検索メカニズムを構築し、それらを統合・再ランキングすることで、監査ドメインにおける高度な意味理解と構造的推論を両立させる。",
       "url": "https://www.semanticscholar.org/paper/2573267d55c020314255f19f54316d5a1a56e487",
       "venue": "Scientific Reports"
+    },
+    "doi:10.1109/access.2025.3589499": {
+      "added": "2026-08-04",
+      "added_at": "2026-08-04T06:14:02.188894",
+      "arxiv_id": "2607.29402",
+      "authors": [
+        "Domen Vake",
+        "Jernej Vičič",
+        "Aleksandar Tošić"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-31",
+      "doi": "10.1109/ACCESS.2025.3589499",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.29402.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.29402v1",
+      "reading_value": 4,
+      "reading_value_reason": "HyDEの課題である推論時の計算コストを、インデックス作成時への処理移行により解決する実用的な提案。実験も多角的で、RAG研究者にとって有用。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Bridging the Question-Answer Gap in Retrieval-Augmented Generation: Hypothetical Prompt Embeddings",
+      "tldr": "RAGにおけるユーザーの質問（疑問文）と文書（叙述文）の文体的な不一致を解消するため、インデックス作成時に各チャンクに対する仮説的な質問を事前に生成・埋め込むHypothetical Prompt Embeddings (HyPE) を提案する。これにより、推論時の計算コストを増大させることなく、検索プロセスを「質問と質問の照合」へと変換し、検索精度を大幅に向上させる。",
+      "url": "http://arxiv.org/abs/2607.29402v1",
+      "venue": "IEEE Access, vol. 13, pp. 129952-129961, 2025"
     },
     "doi:10.1109/iccit68739.2025.11490128": {
       "added": "2026-07-03",
@@ -4535,6 +4600,35 @@
       "url": "http://arxiv.org/abs/2603.23503v1",
       "venue": ""
     },
+    "arxiv:2603.24442": {
+      "added": "2026-08-04",
+      "added_at": "2026-08-04T06:12:44.037175",
+      "arxiv_id": "2603.24442",
+      "authors": [
+        "Stepan Dergachev",
+        "Dmitry Avdeev"
+      ],
+      "basis": "fulltext(arxiv-pdf)",
+      "citations": 0,
+      "date": "2026-03-25",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2603.24442.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2603.24442v1",
+      "reading_value": 3,
+      "reading_value_reason": "連続空間のAMAPFにおける幾何学的制約の緩和という理論的貢献はあるが、実験による検証が不足しており、実用性や性能の評価が今後の課題となっているため。",
+      "relevance": 1,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Relaxing Constraints in Anonymous Multi Agent Path Finding for Large Agents",
+      "tldr": "エージェントのサイズを考慮した連続空間における匿名マルチエージェント経路計画（AMAPF-LA）において、従来手法が要求していた初期位置と目標位置間の厳格な分離距離の制約を緩和し、理論的な安全性と目標到達性を維持する手法を提案する。",
+      "url": "http://arxiv.org/abs/2603.24442v1",
+      "venue": ""
+    },
     "arxiv:2603.25121": {
       "added": "2026-07-16",
       "added_at": "2026-07-16T06:01:26.275646",
@@ -4693,6 +4787,40 @@
       "title": "Certificate-Driven Closed-Loop Multi-Agent Path Finding with Inheritable Factorization",
       "tldr": "有限ホライゾンに基づく閉ループ型MAPFにおいて、衝突のないフォールバック計画とコストの上界を提供する「証明書（certificate）」と「フリート予算（fleet budget）」を導入する。これにより、タイムステップ間で継承可能な「予算制限付き分解（budget-limited factorization）」を実現し、高密度な環境下でも一貫した解の質とスケーラビリティを両立するCDCBSアルゴリズムを提案する。",
       "url": "http://arxiv.org/abs/2604.00428v1",
+      "venue": ""
+    },
+    "arxiv:2604.05416": {
+      "added": "2026-08-04",
+      "added_at": "2026-08-04T06:12:15.099916",
+      "arxiv_id": "2604.05416",
+      "authors": [
+        "Hongkai Fan",
+        "Qinjing Xie",
+        "Bo Ouyang",
+        "Yaonan Wang",
+        "Zhi Yan",
+        "Jiawen He",
+        "Zheng Fang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-04-07",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2604.05416.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.05416v1",
+      "reading_value": 4,
+      "reading_value_reason": "非単位整数コストという新しい問題設定を提案し、CBSとSIPPを組み合わせた効率的な解決策を提示している。離散化の最適化にベイズ最適化を用いる点も新規性が高い。",
+      "relevance": 1,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi-Agent Pathfinding with Non-Unit Integer Edge Costs via Enhanced Conflict-Based Search and Graph Discretization",
+      "tldr": "エッジコストが $1$ ではない整数値をとる $\\text{MAPF}_{\\mathbb{Z}}$ という新しい問題設定を提案し、時間区間ベースの衝突検知とグラフ離散化最適化を組み合わせた手法 CBS-NIC-B によって、大規模シナリオでの高い成功率と計算効率を両立する。",
+      "url": "http://arxiv.org/abs/2604.05416v1",
       "venue": ""
     },
     "arxiv:2604.07970": {

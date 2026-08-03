@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-Agent Pathfinding with Non-Unit Integer Edge Costs via Enhanced Conflict-Based Search and Graph Discretization | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi-Agent Pathfinding with Non-Unit Integer Edge Costs via Enhanced Conflict-Based Search and Graph Discretization</h1>
+  <div class="meta">Hongkai Fan, Qinjing Xie, Bo Ouyang, Yaonan Wang, Zhi Yan, Jiawen He, Zheng Fang<br>採択先: 未取得 ・ 2026-04-07 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2604.05416v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2604.05416v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-04-07</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">非単位整数コストという新しい問題設定を提案し、CBSとSIPPを組み合わせた効率的な解決策を提示している。離散化の最適化にベイズ最適化を用いる点も新規性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> エッジコストが $1$ ではない整数値をとる $\text{MAPF}_{\mathbb{Z}}$ という新しい問題設定を提案し、時間区間ベースの衝突検知とグラフ離散化最適化を組み合わせた手法 CBS-NIC-B によって、大規模シナリオでの高い成功率と計算効率を両立する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のマルチエージェント経路探索（MAPF）は、単位コストのグラフや同期的な動きを前提としていた。一方、実数値コストと連続時間を扱う MAPF R は、幾何学的な衝突モデルにより状態空間が非有界となり、計算効率が著しく低下するという課題がある。本研究では、正の整数コスト $c(u, v)$ を持つグラフ $G = (V, E)$ 上で、全エージェントの経路コストの最大値であるメイクスパン $\max_{a_i \in \mathcal{A}} \text{cost}(p_i)$ を最小化する $\text{MAPF}_{\mathbb{Z}}$ を対象とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のグラフ設計手法は、時間離散化と衝突解決の相互作用を明示的に考慮して MAPF 問題と共同最適化されておらず、高密度な環境でのスケーラビリティに課題があった。本研究は、時間区間に基づく衝突検知と制約追加を行う CBS-NIC を導入し、さらに離散化パラメータを最適化する BOGD フレームワークを提案することで、計算効率と精度のバランスを最適化する。BOGD は、反復回数に対して劣線形なリグレット界を持つことが保証されている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法 CBS-NIC は、高レベルの Conflict-Based Search と低レベルの拡張 Safe Interval Path Planning (SIPP) で構成される。高レベルでは、エージェントの占有を半開区間 $[t_s, t_e)$ として定義し、頂点衝突およびエッジ衝突を検出して、滞在禁止制約やエッジ占有禁止制約を課す。探索には、正負の制約を組み合わせた Disjoint Splitting (DS) 技術を用いる。低レベルの SIPP は、離散時間ドメインで整数エッジ重みを直接扱い、制約を遵守しながら最短経路を計算する。また、BOGD フレームワークにより、計算時間 $T(\delta)$ と離散化誤差 $\mathcal{E}(\delta) = \sum_{i \in \mathcal{A}} \sum_{e \in \pi_i} |w_e - \lfloor w_e / \delta \rfloor \cdot \delta|$ の二目的最適化を通じて、最適な離散化パラメータ $\delta$ を決定する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Moving AI のグリッドマップおよび制約付きドロネー三角形分割（CDT）を用いたロードマップ環境で、成功率、makespan、実行時間を指標に評価した。Berlin グリッドマップの 50 エージェント環境では、makespan が 5.83% 増加するものの、成功率が 68% 向上した。ロードマップ環境において、CCBS が 40 エージェントを超えると解を見つけられなくなるのに対し、CBS-NIC-B は 100 エージェントでも 100% の成功率を維持し、実行時間においても数桁の高速化を実現した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>倉庫マップのような狭い通路が多い環境では、障害物によって近傍ノードが遮断されやすく、BOGD による改善効果が限定的になるという限界がある。今後の課題として、より大規模な環境への拡張や、リアルタイムの実行制約をより正確に反映させるための時空間計画の導入が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Multi-Agent Pathfinding with Non-Unit Integer Edge Costs via Enhanced Conflict-Based Search and Graph Discretization</h3><p>本研究では、エッジコストが $1$ ではない整数値をとるグラフ上でのマルチエージェント経路探索問題である MAPF Z を提案している。従来の MAPF R は実数値コストと連続時間アクションを扱うが、幾何学的な衝突モデルにより状態空間が非有界となり計算効率が著しく低下するという課題があった。これに対し、提案手法である CBS-NIC は、高レベルで時間区間に基づく衝突検知と制約追加を行い、低レベルで改良された Safe Interval Path Planning (SIPP) を用いることで、有限な状態空間を維持しつつ効率的な探索を実現する。さらに、非単位エッジコストを扱うための離散化手法として Bayesian Optimization for Graph Design (BOGD) を提案しており、これは計算効率と精度のバランスを最適化し、時間の経過とともに性能が向上することを保証する劣線形レグレット（sub-linear regret bound）を持つ。実験の結果、提案手法は多様なベンチマークシナリオにおいて、実行時間と成功率の両面で既存の最先端手法を上回ることが示された。</p></section>
+<section class="secsum"><h3>I INTRODUCTION</h3><p>本研究では、従来のMAPFが前提としていた単位コストのグラフや同期的なエージェントの動きという制約を緩和し、非単位整数コストのグラフを扱う新しい問題設定であるMAPF Zを提案している。MAPF Zは、幾何学的な衝突判定を必要とするMAPF Rのような連続時間モデルが抱える、状態空間の非有界性による計算効率の低下という課題を解決し、現実的なモデリングと計算効率のバランスを両立させることを目的としている。この問題に対し、時間間隔ベースの衝突検知、制約定義、および改良されたSIPPアルゴリズムを導入したCBS-NICという新しいConflict-Based Searchの変種を提案している。さらに、非単位コストのグラフを効率的な探索が可能な離散グラフへ変換するため、多目的ベイズ最適化を用いた二段階最適化フレームワークであるBOGDを導入しており、これはグラフ構造の探索（上位レベル）とCBS-NICによる評価（下位レベル）によって構成される。BOGDは、元のコスト構造への忠実度と経路探索の効率性のバランスを最適化するように設計されており、反復回数に対して劣線形なリグレット界を持つことが示されている。</p></section>
+<section class="secsum"><h3>II RELATED WORK</h3><p>マルチエージェント経路探索（MAPF）の研究は、コストの性質や時間表現、グラフ設計の観点から分類される。単位コストのMAPFにおいて、最適解を保証するCBSは、高レベルでの衝突に基づく二分木探索と低レベルでのA*を用いた探索を行うが、複雑な環境では計算コストが膨大になる。これに対し、解の質と速度のバランスを取る限定的な劣最適解ソルバーとして、高レベルと低レベルの両方でフォーカルサーチを用いるECBSや、高レベルで明示的な推定探索を行うEECBSがあり、解の質は $\epsilon$ の値に依存する。非単位コストや連続時間を扱う手法としては、コスト区間を用いたMDDを構築するICTSの拡張や、SIPPを統合して連続時間と幾何学的制約に対応するCCBS、階層的な移動抽象化を用いるCBS-CLなどが提案されている。グラフ設計においては、連続空間から衝突のない構成をサンプリングするPRMや、時空間情報を組み込んだCTRM、分散システム向けのMRPTなどのロードマップ構築手法が存在する。しかし、既存のグラフ設計手法の多くは、時間離散化と衝突解決の相互作用を明示的に考慮してMAPF問題と共同最適化されておらず、高密度かつ大規模なシナリオにおけるスケーラビリティに課題を残している。</p></section>
+<section class="secsum"><h3>III Problem definition</h3><p>本セクションでは、エッジコストが $1$ ではない正の整数値をとる新しい問題設定である $\text{MAPF}_{\mathbb{Z}}$ が定義されている。この問題は、正の重みを持つグラフ $G = (V, E)$ 上で定義され、各エッジ $(u, v) \in E$ には、エージェントがそのエッジを通過するのに要する時間を示す正の整数コスト $c(u, v)$ が割り当てられている。エージェントの集合を $\mathcal{A} = \{a_1, \dots, a_n\}$ とし、各エージェント $a_i$ に対して、単射写像 $s: \mathcal{A} \to V$ と $g: \mathcal{A} \to V$ によって開始地点と目標地点が与えられる。エージェント $a_i$ の計画は、時刻 $t$ における頂点のシーケンス $p_i = (v_{i,0}, v_{i,1}, \dots, v_{i,T_i})$ で表され、待機アクションは $v_{i,t} = v_{i,t+1}$ として表現される。解の目的は、全エージェントの経路コストの最大値であるメイクスパン $\max_{a_i \in \mathcal{A}} \text{cost}(p_i)$ を最小化する衝突のない計画を求めることである。また、既存手法として、低レベルで制約を満たす最短経路を探索し、高レベルで制約ツリー（CT）を探索する Conflict-based Search (CBS) が挙げられ、衝突の種類（cardinal, semi-cardinal, non-cardinal）に基づいて解決順序を決定する PC ヒューリスティックや、正負の制約を用いて探索の重複を減らす Disjoint Splitting (DS) 戦略についても述べられている。</p></section>
+<section class="secsum"><h3>IV Method</h3><p>CBS-NICは、エッジコストが整数であるMAPF Zの設定に対応した、高レベルのConflict-Based Search（CBS）と低レベルの拡張SIPP（Safe Interval Path Planning）を組み合わせた手法である。高レベルでは、エージェント $i$ が時刻 $t_s$ から $t_e$ までエッジ $e$ を通過する際の占有を半開区間 $[t_s, t_e)$ として定義し、頂点衝突（$pos_i(t) = pos_j(t)$）および、逆方向に同じエッジを通過する時間区間が重なるエッジ衝突（$[t_{s,i}, t_{e,i}) \cap [t_{s,j}, t_{e,j}) \neq \emptyset$）を検出する。衝突解決のために、頂点衝突には特定の時刻での滞在禁止制約を、エッジ衝突には特定の時間区間でのエッジ占有禁止制約を課す。さらに、探索効率を高めるため、負の制約（特定の時刻に特定の頂点にいないこと）と、複数の負の制約の集合として定義される正の制約（特定の時刻に特定の頂点にいること）を組み合わせたDisjoint Splitting（DS）技術を導入している。低レベルのSIPPは、離散時間ドメインで動作し、整数エッジ重みを直接扱うことで、与えられた制約（頂点の安全区間の分割やエッジの通過禁止区間の除去）を遵守しながら最短経路を計算する。また、グラフ離散化の最適化のためにBOGDフレームワークを提案しており、計算時間 $T(\delta)$ と離散化誤差 $\mathcal{E}(\delta) = \sum_{i \in \mathcal{A}} \sum_{e \in \pi_i} |w_e - \lfloor w_e / \delta \rfloor \cdot \delta|$ の二目的最適化を、ベイズ最適化とNSGA-IIを用いて解くことで、離散化パラメータ $\delta$ を決定する。</p></section>
+<section class="secsum"><h3>V Experiments</h3><p>本実験では、提案手法であるCBS-NICおよびその改良版であるCBS-NIC-Bの有効性を、Moving AIリポジトリのグリッドマップおよび制約付きドロネー三角形分割（CDT）を用いて構築したロードマップ環境の両方で評価している。評価指標として成功率、makespan、実行時間の3点を用い、30秒の制限時間内で比較を行っている。実験の結果、CBS-NIC-BはBOGD戦略によって最適な離散化パラメータを選択できるため、既存のMA-CBSやEPEA、および連続空間を扱うCCBSと比較して、100エージェントを超える大規模なシナリオでも100%の成功率を維持しつつ、実行時間を大幅に短縮できることが示された。具体的には、Berlinグリッドマップにおいて50エージェントの場合、makespanが5.83%増加する代わりに成功率が68%向上するという、解の質と成功率のトレードオフにおける顕著な利点が確認された。一方で、倉庫マップのような狭い通路が多い環境では、障害物によって近傍ノードが遮断されやすく、BOGD戦略による改善効果が限定的になるという限界も示されている。ロードマップ環境においても、CBS-NIC-BはCCBSが40エージェントを超えると解を見つけられなくなるのに対し、100エージェントでも100%の成功率を維持し、実行時間においても数桁の高速化を実現している。</p></section>
+<section class="secsum"><h3>VI CONCLUSIONS</h3><p>本論文では、エッジのコストが $1$ ではない整数値を取り得る、より現実的な異種エッジ重みを持つシナリオをモデル化した新しいマルチエージェント経路探索問題である $\text{MAPF}_{\mathbb{Z}}$ を提案している。この問題を効率的に解くために、時間区間ベースの衝突検知、洗練された制約定式化、拡張された SIPP アルゴリズム、および BOGD フレームワークを統合した手法である CBS-NIC-B を提案した。実験結果により、CBS-NIC-B は解の品質において競争力を維持しつつ、成功率を大幅に向上させることが示されている。今後の展望として、大規模な環境への拡張や、リアルタイムの実行制約をより正確に反映させるための時空間計画の導入が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-04
+  </footer>
+</div>
+</body>
+</html>

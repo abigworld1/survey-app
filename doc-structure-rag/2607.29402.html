@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Bridging the Question-Answer Gap in Retrieval-Augmented Generation: Hypothetical Prompt Embeddings | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Bridging the Question-Answer Gap in Retrieval-Augmented Generation: Hypothetical Prompt Embeddings</h1>
+  <div class="meta">Domen Vake, Jernej Vičič, Aleksandar Tošić<br>採択先: IEEE Access, vol. 13, pp. 129952-129961, 2025 ・ 2026-07-31 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.29402v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.29402v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/ACCESS.2025.3589499" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 IEEE Access, vol. 13, pp. 129952-129961, 2025</span><span class="chip">公開日 2026-07-31</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">HyDEの課題である推論時の計算コストを、インデックス作成時への処理移行により解決する実用的な提案。実験も多角的で、RAG研究者にとって有用。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGにおけるユーザーの質問（疑問文）と文書（叙述文）の文体的な不一致を解消するため、インデックス作成時に各チャンクに対する仮説的な質問を事前に生成・埋め込むHypothetical Prompt Embeddings (HyPE) を提案する。これにより、推論時の計算コストを増大させることなく、検索プロセスを「質問と質問の照合」へと変換し、検索精度を大幅に向上させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>Retrieval-Augmented Generation (RAG) において、ユーザーが入力する疑問文形式のクエリと、コーパスに含まれる叙述文形式のドキュメントとの間には文体的な乖離が存在する。この不一致はクエリとドキュメントの埋め込みの整合性を妨げ、検索精度を低下させる要因となる。従来のHyDEのような手法は、推論時にLLMを用いて仮説的な回答を生成するため、実行時の計算コストとレイテンシが増大するという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の新規性は、仮説的なコンテンツの生成プロセスを推論時ではなくインデックス作成フェーズへと移行させた点にある。既存のDoc2Queryのような手法がインデックスの肥大化を招いたり、HyDEが実行時のオーバーヘッドやドメイン知識不足による性能低下を抱えたりするのに対し、HyPEはオフラインで複数の仮説的な質問を事前に計算・保存することで、効率性と精度の両立を実現している。また、本手法はリランキングやマルチベクトル検索といった既存の高度なRAG技術とも互換性を持つモジュールとして機能する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、コーパスを意味のある単位であるチャンクに分割する。次に、各チャンクに対してLLMを用いて複数の仮説的な質問を事前に生成し、それらを事前学習済みのエンコーダでベクトル化する。インデックスには、生成された質問のベクトルと元のチャンクのペアを格納する。検索時には、ユーザーのクエリ（質問形式）と、インデックス内の仮説的な質問（質問形式）を直接照合する。これにより、共通の文体によるベクトル空間上の近接性を利用し、標準的な近似最近傍探索のみで高速な検索を可能にする。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>MS MARCO、Ragas-WikiQA、RAG-dataset-12000、MultiHopRAG、RAGBench、Single-Topic RAGの6つのデータセットを用い、RAGCheckerフレームワークで評価した。比較対象はNaïve retrieverおよびHyDEである。評価指標には、context precision、claim recall、faithfulness、hallucination rate、context utilization、noise sensitivityなどを用いた。実験の結果、HyPEはNaive RAGと比較して、平均でcontext precisionを約20ポイント、claim recallを約16ポイント向上させた。特にSingle-Topic RAGでは、精度で40ポイント以上、再現率で44.6ポイント以上の改善が見られた。また、Wilcoxon符号付順位検定により、多くの指標で有意な優位性が確認され、効果量 $Cliff&#x27;s \delta$ も0.44から0.72の範囲に達した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法には、関連する文脈にノイズが含まれる場合、関連チャンクの冗長な複製を検索してしまう性質があるため、noise sensitivityにおいてNaive RAGよりも低いスコアを示す傾向がある。また、MS MARCOのようにパッセージが短くクエリとの語彙的重複が大きいケースでは、改善の幅が限定的となる。今後の課題として、GraphRAGとの統合によるマルチホップ推論の強化、コンテキストウィンドウの拡大に伴うチャンクサイズと埋め込みの具体性のトレードオフの調査、および多言語ベンチマークでの検証が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Bridging the Question-Answer Gap in Retrieval-Augmented Generation: Hypothetical Prompt Embeddings</h3><p>Retrieval-Augmented Generation (RAG) におけるユーザーのクエリと文書テキスト間のスタイル差を解消するため、本論文は Hypothetical Prompt Embeddings (HyPE) というフレームワークを提案している。従来の HyDE のような手法は推論時に仮説的な回答を生成するため計算コストが増大するが、HyPE は仮説的なコンテンツの生成をインデックス作成フェーズへと移行させることで、推論時のレイテンシを発生させずに検索を「質問と質問の照合」タスクへと変換する。具体的には、各データチャンクに対して事前に複数の仮説的なプロンプトを生成し、そのプロンプトの代わりにチャンク自体を埋め込むことで、クエリと関連コンテキスト間のアライメントを強化する。6つの一般的なデータセットを用いた実験の結果、HyPE は標準的な手法と比較して、検索コンテキストの適合率（precision）を最大で 42 ポイント、クレーム再現率（claim recall）を最大で 45 ポイント向上させることが示された。また、本手法はリランキングやマルチベクトル検索、クエリ分解といった既存の RAG の高度な技術とも互換性を有している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>Retrieval-Augmented Generation (RAG) において、ユーザーの質問（疑問文形式）とコーパスの内容（叙述文形式）との間の文体的な不一致が、クエリ埋め込みとドキュメント埋め込みの整合性を妨げ、検索精度を低下させる課題がある。既存手法である Hypothetical Document Embeddings (HyDE) は、推論時に LLM を用いて合成回答を生成し、それをクエリとして利用することでこの問題を解決するが、実行時の計算コストが増大するという欠点がある。本論文が提案する Hypothetical Prompt Embeddings (HyPE) は、インデックス作成時に各コーパスチャンクに対して複数の仮説的な質問を事前に生成・埋め込み・保存することで、検索プロセスを「質問と質問の照合」へと変換し、実行時の LLM 呼び出しによるオーバーヘッドを回避する。複数のデータセットを用いた精度、再現率、忠実度（faithfulness）に基づく評価実験の結果、HyPE は Naive RAG や HyDE と比較して、計算負荷を低減しつつ、同等以上の検索精度と文脈的関連性を実現できることが示された。</p></section>
+<section class="secsum"><h3>II Related Works</h3><p>従来のRAGフレームワークは、ユーザーの質問形式とドキュメントの記述形式との間に生じる「語彙的・概念的な乖離」により、検索精度が低下するという課題がある。これに対し、Doc2Queryのようにドキュメントに合成質問を付与してBM25などの語彙検索を強化する手法や、ドメイン特化の擬似クエリを用いてデュアルエンコーダを微調整する手法が存在するが、前者はインデックスの肥大化を招き、後者は大規模な再学習コストを必要とする。また、HyDEはクエリ実行時にLLMを用いて仮説回答を生成し、その埋め込みを利用することで検索精度を向上させるが、推論時の追加コストや、LLMが知識を持たないニッチなドメインでの性能低下が限界として存在する。これらに対し、提案手法であるHypothetical Prompt Embeddings (HyPE) は、インデックス作成時に仮説的な質問形式のプロンプトを事前に計算しておくことで、LLMによる生成の負荷をオフラインフェーズへと移行させ、検索時の効率性と精度の両立を図るものである。</p></section>
+<section class="secsum"><h3>III Methodology</h3><p>HyPEは、ユーザーのクエリと関連コンテンツの形式的な乖離を解消するため、インデックス作成段階で仮説的なプロンプトを事前に計算する手法である。具体的には、コーパスを意味のあるチャンクに分割した後、各チャンクに対してLLMを用いて複数の仮説的な質問を生成し、それらを事前学習済みのエンコーダでベクトル化して、ベクトルとチャンクのペアとしてインデックスに格納する。この手法は、クエリ実行時にLLMによる生成を行わないため、HyDEのような実行時の推論オーバーヘッドが発生せず、標準的な近似最近傍探索（ANN）のみで高速な検索が可能である。質問と質問をマッチングさせることで、疑問文という共通のスタイルによるベクトル空間上の近接性を利用できるほか、複数の質問を生成することで意味的なカバー範囲を広げ、チャンクのサイズが大きくなることで生じる埋め込みの精度低下というトレードオフも緩和している。現時点では、生成されたすべての仮説的質問を等しく扱い、質問の質を評価・選別するプロセスは含まれていない。</p></section>
+<section class="secsum"><h3>IV Experiments</h3><p>本実験では、提案手法であるHyPEと、比較対象としてNaïve retrieverおよび推論時に仮説回答を生成するHyDEを含む3つのRAGパイプラインの性能を、Amazon Scienceが開発したRAGCheckerフレームワークを用いて評価している。評価指標には、検索の有効性を測るcontext precisionやclaim recall、生成の質を測るfaithfulness、hallucination rate、context utilization、および堅牢性を測るnoise sensitivityやself-knowledgeが含まれ、さらに検索と応答の総合的な精度としてprecision、recall、F1スコアが算出される。データセットは、MS MARCOやRagas-WikiQAによる汎用的な検索、RAG-dataset-12000やMultiHopRAGによるマルチホップ推論、RAGBenchによるハイブリッドタスク、そしてSingle-Topic RAGによる特定ドメインへの精度を検証するため、計6種類が用いられている。データの前処理として、RAG-dataset-12000とMultiHopRAGについては、文脈の整合性を保つために最大500トークンのセグメントを作成し、50トークンのオーバーラップを持たせる分割処理を全パイプラインに共通して適用している。実験設定では、埋め込みモデルにbge-m3を使用し、生成LLMには再現性と性能のバランスからMistral-NeMoを採用しており、検索深度 $k$ の変化や、類似度計算におけるcosine similarityとEuclidean distanceの影響についても検証が行われている。</p></section>
+<section class="secsum"><h3>V Results with analysis</h3><p>提案手法であるHyPEは、インデックス作成フェーズで仮説的な質問を事前計算することで、クエリと検索対象の間の意味的な不一致を解消し、検索精度を向上させる。6つのデータセットを用いた評価において、HyPEはNaive RAGと比較して、平均してコンテキスト精度（context precision）を約20ポイント、クレーム再現率（claim recall）を約16ポイント向上させた。特にSingle-Topic RAGなどのデータセットでは、精度で40ポイント以上、再現率で44.6ポイント以上の顕著な改善が見られ、検索ドキュメント数 $k$ が増加するにつれて、HyDEやNaive RAGよりも一貫して高い精度と低い分散を示す。生成器の指標においても、HyPEはコンテキスト利用率（context utilization）と忠実性（faithfulness）を高め、ハルシネーション（hallucination）率を低下させる効果が確認された。一方で、関連する文脈にノイズが含まれる場合のノイズ感受性（noise sensitivity in relevant contexts）については、HyPEが関連チャンクの冗長な複製を検索する性質上、Naive RAGよりも高い（＝悪い）スコアを示す傾向がある。MS MARCOデータセットにおいては、パッセージが短くクエリとの語彙的重複が大きいため、HyPEの優位性は他のデータセットほど顕著ではない。統計的な検証としてWilcoxon符号付順位検定を用いた結果、多くの指標でHyPEがベースラインに対して有意な優位性を示し、効果量（Cliff&#x27;s $\delta$）も0.44から0.72の範囲にあり、実用的な改善が確認された。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究では、インデックス作成時に仮説的なプロンプトを事前計算することで、RAGパイプラインにおける検索プロセスを「プロンプト対プロンプト」のマッチングへと変革するHypothetical Prompt Embeddings (HyPE) を提案している。実験の結果、HyPEはNaive RAGやHyDEと比較して、複数のデータセットおよび評価指標において精度（precision）と再現率（recall）の両面で優れた性能を示した。HyDEのようなクエリ実行時の合成回答生成を必要とせず、オフラインで戦略的に生成された質問を用いることで、効率性を向上させつつユーザーのクエリと関連コンテンツ間の整合性を強化している。HyPEは既存のチャンキング、リランキング、マルチベクトル検索、LLMのファインチューニングといった技術とも互換性が高く、モジュール式のアップグレードとして機能する。今後の展望として、GraphRAGとの統合によるマルチホップ推論の強化、コンテキストウィンドウの拡大に伴うチャンクサイズと埋め込みの具体性のトレードオフの調査、および多言語ベンチマークでの検証が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-04
+  </footer>
+</div>
+</body>
+</html>

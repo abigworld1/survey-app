@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>GoldenRetriever: Non-Interactive Homomorphic Encrypted Retrieval for Privacy-Preserving RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>GoldenRetriever: Non-Interactive Homomorphic Encrypted Retrieval for Privacy-Preserving RAG</h1>
+  <div class="meta">Yang Gao, Gang Quan, Scott Piersall, Qian Lou, Dongdong Wang, Liqiang Wang<br>採択先: 未取得 ・ 2026-07-31 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2607.29019v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.29019v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-31</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGのプライバシー保護において、計算量を$O(n^2)$から$O(n)$へ削減する非対話型手法は極めて実用的。近似誤差を制御する数学的工夫も具体的で価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> プライバシーを保護した検索拡張生成（RAG）において、従来のランキング手法が抱える二次関数的な計算コストの課題に対し、閾値ベースの選択を用いることで線形時間 $O(n)$ での検索を実現する非対話型フレームワークを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>検索拡張生成（RAG）において、クエリの機密性や検索結果のプライバシーを保護しつつ、効率的に関連ドキュメントを抽出する仕組みを対象としている。従来の準同型暗号を用いたトップ$k$検索では、膨大なペアワイズ比較や高コストな多項式近似が必要となり、計算量がコーパスサイズに対して二次関数的に増大するため、実用的な遅延が得られないという困難があった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の暗号化検索が多段階の対話や反復的な探索を必要としていたのに対し、検索サーバが単一の暗号化クエリを受け取り、一度の処理で結果を返す非対話的な構成を実現している。また、CKKSスキームの近似計算に伴う数値誤差が離散的なトークン再構成を妨げる問題に対し、精度安定型のマスク偏極法を導入することで、近似的な準同型選択と正確なトークン復元の乖離を解消している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>クライアント、検索サーバ、LLMサーバの3者構成を採用し、LLMサーバが秘密鍵を保持することで検索サーバによる復号を防止する。検索プロセスでは、平文の文書埋め込み行列 $\mathbf{E}$ と暗号化されたクエリ $\mathbf{c}_q$ の積により、CKKSのSIMDパッキングを用いた効率的なコサイン類似度計算 $\mathbf{c}_s = \mathbf{E} \cdot \mathbf{c}_q$ を行う。文書の選択には、チェビシェフ近似を用いた多項式インジケータ関数 $m_i = \mathbb{I}(s_i &gt; \tau)$ を用いて閾値 $\tau$ を超えるドキュメントを特定する。さらに、近似誤差を $\epsilon \cdot |x - \text{target}|^3$ のオーダーで収縮させるため、境界付近で3次の平坦性を持つ7次多項式 $P(x)$ を用いたマスク偏極法を適用し、語彙サイズ $V$ に対して $|\delta| &lt; \frac{1}{V}$ の精度条件を満たすように設計されている。最終的に、暗号化されたマスクを用いてトークン行列 $\mathbf{T}$ に対して列ごとの要素積 $\mathbf{c}_{T,j} = \mathbf{m} \odot \mathbf{T}_{:,j}$ を計算し、全行を含む暗号化行列を返送する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>MS MARCO、Natural Questions、HotpotQA、FiQAのデータセットを用い、BGE-baseモデルによる384次元の正規化埋め込みを対象に評価を行った。Recall、Token Accuracy、Document Accuracy、Latencyなどの指標を用いた結果、提案手法は平文およびランキングベースの暗号化手法と同等の精度を維持しながら、実行時間を16579.9秒から1051.8秒へと大幅に短縮した。計算コストの内訳では、類似度計算が31.9%を占め、トークンの復号と再構成を合わせると全体の約半分に達することが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法はクエリと選択プロセスのプライバシー保護に特化しており、検索サーバ上に平文で保存されているドキュメントコーパス自体の秘匿性は保護対象外である。また、閾値 $\tau$ の設定にはトレードオフが存在し、閾値を高く設定しすぎると、選択されるドキュメント数が平均1つに減少する一方でRecallが0.5まで低下する。今後の課題として、ドキュメントの復元処理がエンドツーエンドのパイプラインにおける主要なボトルネックとなっている点が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>GoldenRetriever: Non-Interactive Homomorphic Encrypted Retrieval for Privacy-Preserving RAG</h3><p>本研究は、プライバシーを保護した検索拡張生成（RAG）を実現するために、閾値選択に基づく非対話型の準同型暗号化検索フレームワークであるGoldenRetrieverを提案している。従来の暗号化検索手法は、暗号化状態でのランキング処理に多大な計算コストを要し、計算量がコーパスサイズに対して二次関数的になる課題があったが、本手法は類似度スコアが事前に定義された閾値を超えるドキュメントを選択することで、計算量を $O(n)$ の線形時間へと削減している。実装にはCKKSスキームを用いた準同型演算を採用しており、クエリ内容や中間スコア、選択されたインデックスを一切明かすことなく、完全に暗号化された状態での類似度評価とドキュメント選択を可能にしている。また、近似的な暗号計算と離散的なトークン再構成の乖離を埋めるため、選択されたドキュメントの正確な復元を保証する精度安定型のマスク偏極法を導入している。標準的な検索ベンチマークを用いた実験の結果、本手法はランキングベースの暗号化手法と比較して、検索の有効性を維持しつつレイテンシを大幅に低減できることが示された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>RAG（Retrieval-Augmented Generation）におけるプライバシー保護の課題に対し、本研究は非対話的な準同型暗号を用いた検索フレームワークであるGoldenRetrieverを提案している。従来の準同型暗号を用いたトップ$k$検索は、膨大なペアワイズ比較や高コストな多項式近似を必要とするため、計算量がコーパスサイズに対して二次関数的に増大し、実用的な遅延を実現できないという問題がある。これに対し、提案手法はドキュメントを明示的にソートする代わりに、類似度スコアが事前に定義された閾値を超えるドキュメントを選択する閾値ベースの選択手法を採用しており、計算量をコーパスサイズに対して線形 $O(n)$ に削減している。具体的には、CKKS準同型暗号スキーム下で多項式インジケータ関数を用いて暗号化された類似度評価とフィルタリングを行い、さらにCKKSの近似計算に伴う精度低下を克服するために、離散的なトークン再構成を可能にする精度安定なマスク偏極法（mask polarization method）を導入している。複数のベンチマークを用いた実験の結果、提案手法はプレーンテキストのベースラインと同等の検索性能を維持しつつ、従来のトップ$k$ランキング方式と比較して大幅な低遅延化を実現している。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>既存のプライバシー保護型RAG研究であるRemoteRAGやSecureRAGなどは、埋め込みの摂動やセキュアな距離計算、文書アクセスの制御を導入しているが、多くは多段階または対話的な検索手順に依存しており、通信オーバーヘッドやアクセスパターンの漏洩が課題となっている。また、PIRやMPC、HEを用いたセキュアな検索技術は、クエリ内容や検索行動を隠蔽できるものの、反復的な探索や複数回のインタラクションを必要とする場合が多い。CKKSスキームを用いた多項式近似による準同型的なランキングやトップ $k$ 選択の手法は、暗号化されたベクトル上での類似度計算を可能にするが、近似計算に伴う数値誤差により、出力が完全な決定値ではなく近傍の二値的な値に留まるという問題がある。このような近似性はランキング指標としては許容されるが、RAGパイプラインにおいて離散的なトークン列を再構成する後続処理においては、正確な決定が求められるため致命的な問題となり得る。これに対し、提案手法であるGoldenRetrieverは、検索サーバが単一の暗号化クエリを受け取り、インタラクションなしに一度の処理で暗号化された結果を返す非対話的な暗号化検索フレームワークを提供し、近似的な準同型選択と離散的なトークン再構成の間のギャップを埋めることで、生成タスクに向けた信頼性の高い文書抽出を実現している。</p></section>
+<section class="secsum"><h3>3 Problem Setup and Threat Model</h3><p>本研究では、クライアント、検索サーバー、LLMサーバーの3者構成による、CKKS準同型暗号を用いた非対話的な検索アーキテクチャを想定している。LLMサーバーが公開鍵と評価鍵を生成して配布し、秘密鍵を独占的に保持することで、検索サーバーはクエリや類似度スコア、最終的な出力を復号できない。検索サーバーは「誠実だが好奇心旺盛（honest-but-curious）」なモデルと定義され、暗号化された類似度スコアに対して閾値ベースの選択メカニズムを適用することで、追加の通信なしに暗号領域内で文書の特定を行う。検索サーバーは、選択された文書のトークン値は保持し、それ以外の文書を暗号文内でゼロにマスクする処理を行うため、どの文書が選択されたかというインデックス情報やアクセスパターンを漏洩させることなく、候補セットの暗号化表現をLLMサーバーへ返送できる。本フレームワークの目的は、検索サーバーに公開されている平文の文書コーパス自体を保護することではなく、クエリの機密性、中間的な類似度スコアの保護、および選択された文書インデックスの秘匿性を、非対話的なパイプライン内で実現することにある。</p></section>
+<section class="secsum"><h3>4 Method</h3><p>GoldenRetrieverは、クライアント、検索サーバ、LLMサーバの3者構成による、非対話型の機密保持RAGフレームワークを提案している。LLMサーバがCKKS準同型暗号の秘密鍵を保持し、クライアントがクエリを暗号化して検索サーバに送ることで、検索サーバはクエリ内容や選択された文書インデックスを一切知ることなく、暗号化されたドメイン内のみで処理を行う。検索プロセスでは、検索サーバが保持する平文の文書埋め込み行列 $\mathbf{E}$ と暗号化されたクエリ $\mathbf{c}_q$ を用いて、コサイン類似度を $\mathbf{c}_s = \mathbf{E} \cdot \mathbf{c}_q$ として計算し、CKKSのSIMDパッキングを活用して効率的なバッチ評価を実現する。文書の選択には、閾値 $\tau$ を用いたインジケータ関数 $m_i = \mathbb{I}(s_i &gt; \tau)$ に基づく手法を採用しており、これはチェビシェフ近似を用いた多項式によって同型計算される。特に、CKKSの近似誤差によるトークン復元失敗を防ぐため、境界付近で3次の平坦性を持つ7次多項式 $P(x)$ を用いてマスクを極性化し、誤差を $\epsilon \cdot |x - \text{target}|^3$ のオーダーで収縮させることで、語彙サイズ $V$ に対する精度条件 $|\delta| &lt; \frac{1}{V}$ を満たす設計となっている。最終的に、検索サーバは暗号化されたマスクを用いてトークン行列 $\mathbf{T}$ に対して列ごとの要素積 $\mathbf{c}_{T,j} = \mathbf{m} \odot \mathbf{T}_{:,j}$ を計算し、全行を含む暗号化された行列をLLMサーバへ返すことで、アクセスパターンの漏洩を防ぎつつ、LLMサーバ側での正確なトークン復元と生成を可能にしている。</p></section>
+<section class="secsum"><h3>5 Complexity and Security Analysis</h3><p>GoldenRetrieverの計算量とセキュリティに関する分析によれば、本手法は反復的な相互作用やランキング手順を排除したシングルパスの評価設計により、ドキュメント数 $n$ に対して線形な計算量 $O(n)$ を実現している。類似度計算では、ドキュメントの埋め込みを平文で保持することで暗号文同士の乗算を避け、CKKSのSIMDパッキングを活用して複数の類似度スコアを並列計算することで乗算深度とノイズの増大を抑制している。閾値に基づく選択は、ソートやペアごとの比較を行わず、多項式を用いたインジケータ関数によって暗号化されたスコアベクトルに対して独立に実行される。トークン抽出は、トークン行列の各列に暗号化されたマスクベクトルを乗算する処理であり、行列のサイズに依存するため全体の計算コストの大部分を占める。セキュリティ面では、CKKSの準同型暗号のセマンティックな安全性に基づき、クエリの埋め込みおよび中間的な類似度スコアの機密性が保証される。また、検索サーバーは選択されたドキュメントのインデックスを知ることができず、全候補セットに対してマスク処理を施した結果を返すため、アクセスパターンの漏洩も軽減されている。ただし、本手法はクエリと選択プロセスのプライバシー保護に特化しており、サーバー上に平文で保存されているドキュメントコーパス自体の秘匿性は対象外であるという限界がある。</p></section>
+<section class="secsum"><h3>6 Experiments</h3><p>MS MARCO、Natural Questions、HotpotQA、FiQAのデータセットを用い、BGE-baseモデルで384次元の正規化埋め込みを生成する設定で、提案する閾値ベースの暗号化検索手法を評価している。評価指標には、Recall、Token Accuracy、Document Accuracy、Latency、およびクエリあたりの平均選択ドキュメント数を用い、候補ドキュメント数を100から1000へと変化させることでスケーラビリティも検証している。実験結果では、提案手法は平文およびランキングベースの暗号化手法と同等の検索・再構成精度を維持しつつ、ランキングベースの手法と比較して実行時間を16579.9秒から1051.8秒へと大幅に短縮することに成功している。計算コストの内訳では、類似度計算が全体の31.9%を占め、トークンの復号と再構成を合わせると全体の約半分に達するため、ドキュメントの復元がエンドツーエンドのパイプラインにおける主要なボトルネックとなっている。また、閾値 $\tau$ の影響については、低いまたは中程度の閾値ではRecallを維持しつつ平均2つのドキュメントを選択できるが、閾値を高く設定しすぎると、選択されるドキュメント数が平均1つに減少する一方でRecallが0.5まで低下するという、出力サイズと検索性能のトレードオフが確認されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-04
+  </footer>
+</div>
+</body>
+</html>
