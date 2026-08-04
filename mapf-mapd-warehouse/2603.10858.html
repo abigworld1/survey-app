@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>GRACE: A Unified 2D Multi-Robot Path Planning Simulator &amp; Benchmark for Grid, Roadmap, And Continuous Environments | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>GRACE: A Unified 2D Multi-Robot Path Planning Simulator &amp; Benchmark for Grid, Roadmap, And Continuous Environments</h1>
+  <div class="meta">Chuanlong Zang, Anna Mannucci, Isabelle Barz, Philipp Schillinger, Florian Lier, Wolfgang Hönig<br>採択先: 未取得 ・ 2026-03-11 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2603.10858v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2603.10858v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-03-11</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">異なる抽象化レベル（グリッド、ロードマップ、連続空間）を同一プロトコルで比較可能にする統合基盤の提案は、MAPF/MRMP研究において極めて価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> グリッド、ロードマップ、連続空間という異なる抽象化レベルのマルチロボット経路計画を、同一のプロトコルで公平に比較・評価できる統合シミュレータおよびベンチマークであるGRACEを提案する。表現の忠実度と計算コストのトレードオフを定量化し、理論的な研究と実用的な計画手法の橋渡しを行う。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチロボット経路計画（MRMP）およびマルチエージェント経路計画（MAPF）において、離散的なグリッド環境に特化した研究と、連続的な時空間を扱う研究の間で、公平な比較や抽象化の影響を検証することが困難であるという問題がある。対象は、多角形障害物を持つ2Dの有界な作業空間 $\mathcal{W}$ 内で動作する複数のエージェントである。入力として開始位置、フットプリント、動作モデルが与えられ、障害物およびエージェント間の衝突を回避する経路を出力する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のベンチマークが、簡略化されたグリッド環境でのスケーラビリティか、あるいは高忠実度だが比較可能性の低い計測器のいずれかに偏っていた課題に対し、3つの異なる環境表現（Rep-G, Rep-R, Rep-C）を単一のAPIで統合した点に新規性がある。明示的な抽象化オペレータと変換メカニズムを導入することで、同一のシナリオに対して異なる抽象化レベルでの実行を可能にし、表現間の性能差を定量的に比較できる枠組みを提供した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>Box2Dをベースとした決定論的な連続時間シミュレーションコアを中心に、統一インターフェースを介して外部プランナーと接続するアーキテクチャを採用している。連続空間では二重積分器と任意の凸形状のフットプリント $\mathcal{R}_i$ を扱い、ロードマップでは単一積分器と共通半径 $r_{\text{eff}}$ を持つグラフ抽象化を行い、グリッドではタイルサイズの円盤モデルを用いる。シミュレーションは $100 \text{ Hz}$ で動作し、決定論的な状態トレースを保証するためにサブステップを実行する。プランナー間の入出力は、タイムスタンプ付きの経路やコストとして正規化される。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>4種類のマップ（empty, maze, warehouse, window）と最大$N=100$台の不均一なロボットを用いて、成功率、経路長（SoC）、メイクスパン、計画時間、およびReal-Time Factor ($\text{RTF}$) を評価した。ロードマップ表現は、連続環境に対しSoCを$108\text{--}118\%$程度に抑えつつ、メイクスパンを$52\text{--}61\%$、計画時間を$0.16\text{--}1.6\%$に削減できる。グリッド表現は計画時間を平均$2.4\%$まで短縮するが、SoCは平均$123\%$に増大する。また、グリッド環境でのメモリ使用量はエージェント数に対して線形に増加し（傾き $1.25 \text{ MB/agent}$）、$\text{RTF} &gt; 1$ を維持するスケーラビリティを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の現在の限界として、環境が2Dに限定されていること、マップが静的であること、およびエージェントの形状が凸形状に固定されていることが挙げられる。また、ロードマップやグリッドにおけるエージェントの抽象化プロセスも課題である。今後の展望として、動的な環境や不確実性の導入、より豊かな運動力学の採用、抽象化レベルの自動選択、およびROS 2などの運用スタックとの連携による実環境への展開が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>GRACE: A Unified 2D Multi-Robot Path Planning Simulator &amp; Benchmark for Grid, Roadmap, And Continuous Environments</h3><p>GRACEは、グリッド、ロードマップ、および連続空間という異なる抽象化レベルにおいて、同一のタスクを再現可能なオペレータを用いてインスタンス化できる、統一された2Dマルチロボット経路計画シミュレータおよびベンチマークである。既存のツールが、グリッドや均質なエージェントといった簡略化された仮定の下でのスケーラビリティ、あるいは高忠実度だが比較可能性の低い計測器のいずれかに偏っている課題に対し、GRACEは共通の評価プロトコルを提供することで、異なる表現形式間での公平な比較を可能にする。実験では、公開マップと代表的なプランナを用いて、表現の忠実度と計算コストのトレードオフを定量化しており、MRMP（Multi-Robot Motion Planning）は高忠実度なインスタンスを解く一方で速度が低く、グリッドやロードマップを用いたプランナはより大規模な問題へのスケーラビリティに優れることを示している。本研究は、表現、実行、および評価を統合することで、マルチロボット計画における表現間の比較研究を促進し、理論から実用への橋渡しを目指している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究では、グリッド、ロードマップ、および連続空間の各表現を単一のAPIと評価プロトコルで統合的に扱える2Dマルチロボット経路計画シミュレータおよびベンチマークプラットフォームであるGRACEを提案している。従来のMAPF（Multi-Agent Pathfinding）研究は離散的なグリッド環境に特化してスケーラビリティに優れる一方、MRMP（Multi-Robot Motion Planning）研究は連続的な時空間と運動学的制約を扱うが、両者の表現間での公平な比較や、抽象化レベルの違いが結論に与える影響の検証が困難であった。GRACEは、同一のシナリオに対して、4連結の離散アクションを用いるグリッド、単一積分器（single integrator）に基づくグラフ抽象化、および二重積分器（double integrator）と不均一なフットプリントを用いる連続空間の3つのモデルを、明示的な抽象化オペレータと変換メカニズムを通じて一貫して実行可能にする。実験では、共通のインスタンスセットを用いた表現間の比較、グリッド上でのプランナ群のベンチマーク、および最大2,000エージェント規模における決定論的動作とスケーラビリティの検証が行われ、表現の忠実度と計算コストのトレードオフが示されている。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>既存のマルチエージェント経路計画（MAPF）およびマルチロボット移動計画（MRMP）のベンチマークは、離散的なグリッド環境における探索ベースや学習ベースの手法に集中しており、エージェントの均一性や離散的な時間ステップを前提とするものが多く存在する。近年の研究では、ロボットのサイズや運動学的制約、人間との共有環境といったより表現力の高い設定への移行が進んでいるが、依然として多くのベンチマークはグリッドベースのプランナーを前提としている。本研究が提案するGRACEは、グリッド（Rep-G）、ロードマップ（Rep-R）、連続空間（Rep-C）の3つの環境表現を統一的に扱うことで、これまでの研究の隙間を埋めるものである。Rep-Gでは、頂点やエッジの衝突制約下で総コスト $\text{SoC}$ を最小化するConflict-Based Search (CBS) や、計算効率のために最適性を犠牲にするLarge-Neighborhood Search (LNS) が用いられる。Rep-Rでは、環境を有向グラフとして抽象化し、Safe Interval Path Planning (SIPP) を基盤としたContinuous Conflict-Based Search (CCBS) 等により、非一様な時間経過を扱う。Rep-Cでは、エージェントのダイナミクスやフットプリントを考慮したサンプリングベースの手法や、離散的な衝突推論と動的な実行可能性チェックを組み合わせた手法が用いられる。</p></section>
+<section class="secsum"><h3>III Problem Formulation</h3><p>GRACEは、多エージェント経路計画問題を、連続空間（Continuous）、ロードマップ（Roadmap）、グリッド（Grid）の3つの抽象化レベルで定式化する。作業空間は多角形障害物を持つ閉じた有界な2D領域 $\mathcal{W}$ であり、自由空間は $\mathcal{F} = \mathcal{W} \setminus \mathcal{O}$ と定義される。エージェント $i$ は、開始位置 $s_i$、凸形状のフットプリント $\mathcal{R}_i$、および動作モデル $\mathcal{M}_i$ を持ち、各抽象化レベルにおいて、連続空間では任意の凸形状、ロードマップでは共通半径 $r_{\text{eff}}$ を持つ単一積分器モデル、グリッドではタイルサイズの円盤モデルへと抽象化される。計画の実行可能性（Feasibility）は、障害物回避およびエージェント間の衝突回避の制約を満たすこととして定義され、連続空間では時刻 $t$ における占有領域 $\mathcal{A}_i(t) = \text{Rot}(\theta_i(t)) \mathcal{R}_i + p_i(t)$ が $\mathcal{F}$ 内にあり、かつ任意の $i \neq j$ に対して $\mathcal{A}_i(t) \cap \mathcal{A}_j(t) = \emptyset$ であることが条件となる。ロードマップでは頂点の容量制限やエッジの交差回避、グリッドではセル間の同時占有や対角線移動の禁止といった、各表現に応じた幾何学的・離散的制約が課される。本フレームワークは、環境が静的かつ既知であることを前提とし、完了時間（Makespan）やエネルギー消費（SoC）などの最適化指標を、異なる抽象化レベル間で一貫して計算可能にする。</p></section>
+<section class="secsum"><h3>IV GRACE Architecture</h3><p>GRACEは、Box2DをベースとしたC++20による決定論的な連続時間シミュレーションコア、SFMLとImGuiを用いたインタラクティブなUI、および統一インターフェースを介して外部プランナーと接続されるアーキテクチャを持つ。環境表現として、OMPLを用いて構築された有向ロードマップ、セル幅 $s$ でラスタライズされたグリッド、およびそれらを組み合わせたグラフ制約付きグリッドなど、複数の抽象化レベルを同一の物理シナリオ上で実現できる。連続空間におけるロボットの経路検証では、ロボットの形状を円盤 $D(p, r)$ で近似し、ロードマップ上の経路セグメントが障害物を回避しているかをスイープ集合を用いて判定する。マルチエージェント計画パイプラインでは、問題定式化器が時間モデルや容量・回避ルールを遵守したインスタンスを生成し、統一プランナーがグリッドMAPF、ロードマップMAPF、および連続MRMPの各プランナー間で入力と出力（タイムスタンプ付きの経路やコスト等）を正規化する。シミュレーションコアは $100 \text{ Hz}$ ($\Delta t = 0.01 \text{ s}$) で動作し、接触安定性のためにデフォルトで $10$ 回のサブステップを実行し、同一のシードとパラメータ条件下でビット単位で一致する状態トレースを保証する。UIは環境やエージェントの動的な編集をサポートし、占有マップやクリアランスのヒートマップ、エージェントごとのタイムラインなどのオーバーレイ表示が可能である。</p></section>
+<section class="secsum"><h3>V Experiments and Results</h3><p>GRACEは、連続環境（MRMP）、ロードマップ（MAPF）、グリッド（MAPF）の異なる抽象化レベルにおけるマルチロボット経路計画のトレードオフを評価するベンチマークとして機能する。実験では、4種類のマップ（empty, maze, warehouse, window）と最大$N=100$台の不均一なロボットを用い、成功率、経路長（SoC）、メイクスパン、計画時間、およびシミュレーション速度を示すReal-Time Factor ($\text{RTF} = \text{simulated time} / \text{wall time}$) を指標としている。ロードマップ表現は、連続環境のSoCの$108\text{--}118\%$程度を維持しつつ、メイクスパンを$52\text{--}61\%$、計画時間を$0.16\text{--}1.6\%$にまで削減できる「十分な性能」を持つことが示された。グリッド表現は、計画時間を極めて短縮（平均$2.4\%$）できる一方で、SoCが平均$123\%$へと増大する傾向がある。グリッド環境におけるMAPFプランナーの比較では、LaCAMが広範なエージェント数において高い成功率を示す一方、CBSH2-RTCは成功したインスタンスにおいて最小のSoCを達成するなど、堅牢性と最適性のトレードオフが明らかになった。スケーラビリティの評価では、グリッド表現においてエージェント数が増加しても$\text{RTF} &gt; 1$を維持し、ピークメモリはエージェント数に対して線形に増加する（傾き $1.25 \text{ MB/agent}$、決定係数 $R^2 = 0.99$）ことが確認された。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究では、グリッド、ロードマップ、および連続空間の各表現において、離散的なマルチエージェント経路計画（MAPF）と運動学的に忠実なマルチエージェント移動計画（MAMP）を単一のプロトコルで公平に評価可能な統合シミュレータおよびベンチマークであるGRACEを提案している。実験を通じて、環境の変換可能性や異種エージェント・障害物への対応といった汎用性、表現手法とアルゴリズムのトレードオフを明らかにする再現可能な比較手法としての有用性、そして標準的なハードウェア上で高速再生と決定論的なログ記録が可能な実用性を検証した。現在の限界として、2D環境に限定されている点、マップが静的である点、凸形状の幾何学形状に固定されている点、およびロードマップやグリッドにおけるエージェントの抽象化が挙げられる。今後の展望として、不確実性や動的変化、生涯学習や複数目標の設定、より豊かな運動力学や目的関数の導入、抽象化やロードマップ選択の自動化に加え、ROS 2やフリート管理システム（FMS）などの運用スタックとの連携による実環境への展開を目指している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-05
+  </footer>
+</div>
+</body>
+</html>

@@ -2345,6 +2345,74 @@
       "url": "http://arxiv.org/abs/2607.29019v1",
       "venue": ""
     },
+    "arxiv:2608.02011": {
+      "added": "2026-08-05",
+      "added_at": "2026-08-05T06:15:30.676273",
+      "arxiv_id": "2608.02011",
+      "authors": [
+        "Daeyoung Roh",
+        "Donghee Han"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-03",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.02011.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.02011v1",
+      "reading_value": 4,
+      "reading_value_reason": "Agentic RAGにおける「検索後の読み飛ばし」という新たな失敗モードを特定し、モデルの重みに依存しない環境制約（Read-Gate）で精度を大幅に改善した点は、実用性と新規性の両面で価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Before Reasoning Fails: Pre-Evidence Procedural Failures in Agentic RAG",
+      "tldr": "Agentic RAGにおいて、エージェントが検索結果を精査せずに回答を確定させてしまう「証拠提示前の規律失敗（pre-evidence discipline failures）」を特定し、検索後の読解を強制する実行時制約Read-Gateを提案する。",
+      "url": "http://arxiv.org/abs/2608.02011v1",
+      "venue": ""
+    },
+    "arxiv:2608.02195": {
+      "added": "2026-08-05",
+      "added_at": "2026-08-05T06:14:33.774281",
+      "arxiv_id": "2608.02195",
+      "authors": [
+        "Weidong Bao",
+        "Yingying Sun",
+        "Jun Yang",
+        "Yilin Wang",
+        "Zili Wei",
+        "Yubin Bao",
+        "Fangling Leng",
+        "Minghe Yu",
+        "Tiancheng Zhang",
+        "Ge Yu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-03",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.02195.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.02195v1",
+      "reading_value": 4,
+      "reading_value_reason": "マルチホップRAGの課題に対し、証拠の粒度を動的に制御する手法は新規性が高く、実験による効率性と精度の両立も具体的で、実用上の価値が高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "MEGRAG: Multi-Granular Evidence Graphs for Answer-Aware Multi-Hop RAG",
+      "tldr": "マルチホップ推論における情報の密度とノイズの不均衡、および中間ステップの誤り蓄積という課題に対し、多粒度エビデンスグラフを用いた回答認識型RAGフレームワークを提案する。回答の充足度に応じて証拠の粒度を動的に選択し、推論の継続または停止を判断することで、高精度かつ効率的な回答生成を実現する。",
+      "url": "http://arxiv.org/abs/2608.02195v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -4470,6 +4538,39 @@
       "url": "http://arxiv.org/abs/2603.07891v1",
       "venue": ""
     },
+    "arxiv:2603.10858": {
+      "added": "2026-08-05",
+      "added_at": "2026-08-05T06:13:05.365103",
+      "arxiv_id": "2603.10858",
+      "authors": [
+        "Chuanlong Zang",
+        "Anna Mannucci",
+        "Isabelle Barz",
+        "Philipp Schillinger",
+        "Florian Lier",
+        "Wolfgang Hönig"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-03-11",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2603.10858.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2603.10858v1",
+      "reading_value": 4,
+      "reading_value_reason": "異なる抽象化レベル（グリッド、ロードマップ、連続空間）を同一プロトコルで比較可能にする統合基盤の提案は、MAPF/MRMP研究において極めて価値が高い。",
+      "relevance": 1,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "GRACE: A Unified 2D Multi-Robot Path Planning Simulator & Benchmark for Grid, Roadmap, And Continuous Environments",
+      "tldr": "グリッド、ロードマップ、連続空間という異なる抽象化レベルのマルチロボット経路計画を、同一のプロトコルで公平に比較・評価できる統合シミュレータおよびベンチマークであるGRACEを提案する。表現の忠実度と計算コストのトレードオフを定量化し、理論的な研究と実用的な計画手法の橋渡しを行う。",
+      "url": "http://arxiv.org/abs/2603.10858v1",
+      "venue": ""
+    },
     "arxiv:2603.12736": {
       "added": "2026-07-17",
       "added_at": "2026-07-17T06:01:30.614299",
@@ -5520,6 +5621,38 @@
       "tldr": "Many-to-Many Multi-Agent Pickup and Delivery (M2M MAPD) において、静的な割り当てが特定の通路への混雑を招く問題に対し、環境の実行履歴を保持するメモリ層を用いて、エンドポイントの選択と経路の優先順位を動的に最適化する Stigmergic Graph Memory (SGM) を提案する。これにより、衝突回避制約を維持したまま、スループットを大幅に向上させることに成功した。",
       "url": "http://arxiv.org/abs/2607.15182v1",
       "venue": "arXiv (Cornell University)"
+    },
+    "arxiv:2608.01024": {
+      "added": "2026-08-05",
+      "added_at": "2026-08-05T06:12:32.799780",
+      "arxiv_id": "2608.01024",
+      "authors": [
+        "Xiangjie Luo",
+        "Yulun Zhang",
+        "Miyuki Koshimura",
+        "Makoto Yokoo",
+        "Jiaoyang Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-02",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2608.01024.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.01024v1",
+      "reading_value": 4,
+      "reading_value_reason": "シミュレーションを介さず、グラフ理論的なストレス場を用いてレイアウト最適化を行う手法の新規性が高い。計算効率とスループットの両立が実験で示されており、MAPF研究者にとって実用的な知見を与える。",
+      "relevance": 1,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Stress-Relief Annealing: Polynomial-Time Simulation-Free Layout Optimization for Automated Warehouses",
+      "tldr": "自動倉庫のレイアウト最適化において、膨大なシミュレーションを必要とする従来の進化計算手法に代わり、タスク需要から算出されるストレス場を用いて多項式時間で最適化を行うStress-Relief Annealing (SRA) を提案する。本手法は、シミュレーションなしでスループットの限界を予測し、ボトルネック負荷と平均移動距離を同時に最小化することで、高い計算効率とスループットの両立を実現する。",
+      "url": "http://arxiv.org/abs/2608.01024v1",
+      "venue": ""
     },
     "doi:10.1016/j.artint.2022.103752": {
       "added": "2026-06-14",

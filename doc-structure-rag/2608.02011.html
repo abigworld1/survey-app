@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Before Reasoning Fails: Pre-Evidence Procedural Failures in Agentic RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Before Reasoning Fails: Pre-Evidence Procedural Failures in Agentic RAG</h1>
+  <div class="meta">Daeyoung Roh, Donghee Han<br>採択先: 未取得 ・ 2026-08-03 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.02011v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.02011v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-03</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">Agentic RAGにおける「検索後の読み飛ばし」という新たな失敗モードを特定し、モデルの重みに依存しない環境制約（Read-Gate）で精度を大幅に改善した点は、実用性と新規性の両面で価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> Agentic RAGにおいて、エージェントが検索結果を精査せずに回答を確定させてしまう「証拠提示前の規律失敗（pre-evidence discipline failures）」を特定し、検索後の読解を強制する実行時制約Read-Gateを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>Agentic RAGシステムにおいて、エージェントが外部ツールを用いて検索を行ったにもかかわらず、得られた証拠を十分に読み取らずに回答を生成してしまう問題に対処する。対象はマルチホップ質問回答（QA）タスクにおけるエージェントの実行軌跡であり、従来の評価では、検索結果の確認という手続き的なプロセスがスキップされる問題が十分に扱われていなかった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>誤答の要因を、エビデンスの確認不足による規律失敗と、正解エビデンスを読解した後でも発生する正解読み飛ばし失敗に分解し、これらが非冗長な失敗モードであることを明らかにした。また、モデルの重みや検索プロセスを変更することなく、検索後に読解アクションを強制する環境レベルの制約Read-Gateを提案し、エビデンスの精査が推論能力とは独立した軌跡レベルの制御問題であることを示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>エージェントの軌跡を、規律の欠如、正解読解後の失敗、検索失敗、およびその他の曖昧さの4つの排他的なカテゴリに分類する。規律失敗は、読み取り回数が0であるケース、検索スニペットのみを参照し読み取りチャンクを参照しないケース、および質問内のエンティティの被覆率が80%未満であるケースに細分化される。対策として、検索後に回答を行う前に必ず読み取り動作を要求し、読み取り回数が0の場合に修正指示を返す決定論的なルールであるRead-Gateを導入する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>HotpotQA、2WikiMultiHopQA、MuSiQueの3つのデータセットを用い、計12,000件の軌跡を評価した。コントローラーにはgpt-4o-miniおよびgpt-5-miniを使用し、評価指標にはLLM-AccおよびContain-Accを用いた。Read-Gateの導入により、読み飛ばしが発生していた軌跡のLLM-Accが14.9〜19.9ポイント向上し、全最小推論セルにおいても3.2〜9.4ポイントの向上が確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>Read-Gateは規律エラーが高い場合には有効な救済策となるが、エージェントが既に安定して読解を行っている場合には効果が限定的であるというトレードオフがある。また、思考の予算を増やしても必ずしも証拠の精査が増えるわけではなく、場合によっては逆にゼロ読解の発生率を高めるリスクがある。本手法は検索品質そのものを改善するものではなく、検索結果が有用な候補を返していることを前提としている。今後の課題として、より大規模なモデルや非英語ドメインへの汎用性、および検索と生成が密結合したシステムへの適用が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Before Reasoning Fails: Pre-Evidence Procedural Failures in Agentic RAG</h3><p>Agentic RAGシステムにおいて、エージェントが検索した候補スニペットを精査せずに回答を確定させてしまう「証拠提示前の規律失敗（pre-evidence discipline failures）」という現象を特定している。本研究では、誤答を「証拠提示前の規律失敗」と、検索された正解の文章を読み飛ばす「正解読み飛ばし失敗（post-gold-read failures）」に分解し、ツール呼び出しの履歴、検索された証拠、読み取られた文章、最終回答を用いて、これらが非冗長な失敗モードであることを示した。HotpotQA、2WikiMultiHopQA、MuSiQueを用いた12,000件の軌跡の評価では、正規表現やspaCyを用いたエンティティ抽出器のいずれを用いても、両方の失敗が同時に発生する割合は低いことが確認された。対策として、検索後かつ最終回答の前に必ず文章の読み取りを強制する実行時不変条件であるRead-Gateを提案しており、これにより読み飛ばしが発生していた軌跡のLLM精度（LLM-Acc）を14.9〜19.9ポイント、全最小推論セルにおいて3.2〜9.4ポイント向上させた。さらに、思考の予算（thinking budget）を大きくしても必ずしも証拠の精査が増えるわけではないことを示しており、証拠収集は回答側の推論とは別に、軌跡レベルの制御問題として評価すべきであると結論付けている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>Agentic RAGシステムにおいて、エビデンスに基づく推論が開始される前に、検索結果を読み取らずに回答を終了してしまう手続き的な失敗を特定し、これを従来の推論失敗と区別することを提案している。本研究では、誤答の軌跡を、エビデンスの確認が不十分な「discipline failures」と、必要なエビデンスを読み取った後でも誤答する「post-gold-read failures」の2種類に分解して定義する。この分解は、ツール呼び出し、読み取り回数、検索されたスニペット、読み取られた本文、正解エビデンスの注釈、および最終回答の正誤に基づき、決定論的に測定される。提案手法であるRead-Gateは、検索後に回答を行う前に必ず読み取り動作を強制する環境レベルの制約であり、モデルやリトリーバー、推論予算を変更することなく、回答前の終了を拒否して読み取りを促す。HotpotQA、2WikiMultiHopQA、MuSiQueを用いた評価では、読み取りなしで回答を終了するケースにおいて、Read-Gateの導入によりLLMの正解率（LLM-Acc）が14.9〜19.9ポイント向上し、全最小推論セルにおいても3.2〜9.4ポイントの向上が確認された。さらに、コンテキスト注入による制御実験の結果、エビデンスの確認は単に推論予算を増やすことの副産物ではなく、回答側の推論とは独立した制御軸であることが示されている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>Agentic RAGは、パラメトリックな言語モデルと非パラメトリックな証拠検索を組み合わせた手法であり、WebGPTやReAct、Toolformerなどのエージェントシステムは推論と外部ツールの使用を交互に行い、IRCoTやFLAREなどの検索指向システムは多段階のQAにおける検索・読解プロセスを研究している。Self-RAGやCRAG、あるいは強化学習を用いたエージェントは、リフレクション・トークンや学習済みの評価器を通じて検索ポリシーを訓練するが、これらは検索後に証拠を検証せずに回答へスキップしてしまう実行時の問題を分離して扱っていない。これに対し、Read-Gateは検索後に読解アクションが行われるまで最終回答を拒否するという実行時の不変条件を課しており、既存の信頼度や不確実性に基づく検索トリガーとは異なり、本研究では「候補を検索したにもかかわらず、回答前にそれらを検証していない」という観測可能な軌跡の違反をトリガーとする。評価の側面では、既存の研究が回答の正確性や根拠への忠実性、あるいはChain-of-Thoughtのような回答側の推論プロセスを重視しているのに対し、本研究はエージェントが最終回答を生成する前に証拠の読解アクションを正しく実行したかという、外部アクションのシーケンスそのものを評価対象としている。</p></section>
+<section class="secsum"><h3>3 Framework: Pre-Evidence Failures in Agentic RAG</h3><p>本研究では、Agentic RAGにおける誤答の要因を特定するため、エージェントの軌跡（trajectory）を分類するフレームワークを提案している。誤答は優先順位に基づき、手続き的な不備を示すdiscipline、正解の根拠となる情報を読み取った後も誤答するpost-gold-read、検索自体が失敗するretrieval、およびそれらに該当しないresidual ambiguityの4つの排他的なカテゴリに割り当てられる。discipline失敗は、読み取り回数が0であるno-read final、検索スニペットのみを参照し読み取りチャンクを参照しないsnippet-only final、および質問内のエンティティの被覆率が80%未満であるlow-evidence finalの3つのサブタイプに分類される。この課題に対し、推論時の環境制約として、検索後に回答を行う前に必ず読み取りを要求するRead-Gateを導入しており、これはモデルの重みや検索プロセスを変更せずに、読み取り回数が0の場合に修正指示を返す決定論的なルールである。本フレームワークは、disciplineとpost-gold-readが独立した失敗軸であることを示す仮説（H1）や、Read-Gateの精度向上がreasoningの能力よりもdisciplineの誤り率に依存するという仮説（H2）などを検証可能にする。</p></section>
+<section class="secsum"><h3>4 Experimental Setup</h3><p>本実験では、HotpotQA、2WikiMultiHopQA、およびMuSiQueの3つのWikipedia形式マルチホップQAデータセットを用いて評価を行う。エージェントのインターフェースは、BM25と密ベクトル検索を相互ランク融合（RRF）で組み合わせ、上位5つのチャンクIDとスニペットを返すハイブリッド検索ツールと、選択したチャンクの全文を取得する読み取りツールの2つで構成される。コントローラーモデルにはOpenAIのgpt-4o-miniおよびgpt-5-miniを使用し、推論コストの異なる設定（minimalおよびmedium）を含む計12,000の軌跡を、各データセットから1,000問ずつ抽出して分析する。評価指標として、gpt-5-miniをジャッジとした意味的等価性に基づくLLM-Accを主指標とし、短文回答が利用可能な場合はContain-Accを副指標として用いる。実験設定は、0.6Bパラメータの密ベクトル埋め込みモデル、ハイブリッド検索の上位$k$取得、最大ループ回数10、最大トークン数$128\text{k}$、温度$0.0$に固定されている。統計的な有意差検定には、ペア比較におけるMcNemar検定や、同一質問の繰り返し評価を考慮したロジスティックモデルにおける質問クラスター化標準誤差が用いられる。</p></section>
+<section class="secsum"><h3>5 Experiments</h3><p>本セクションでは、エージェント型RAGにおける「規律違反（discipline failures）」と「証拠確認後の失敗（post-gold-read failures）」の非冗長性、および提案手法であるRead-Gateの有効性が検証されている。実験の結果、規律違反はモデルの推論努力（reasoning effort）が低い場合にピークを迎え、証拠確認後の失敗とは異なる挙動を示すことが示され、両者が独立したエラーカテゴリであることが確認された。Read-Gateを導入することで、証拠を読み込まずに回答を終了してしまう「ゼロ読解（zero-read）」のケースを大幅に改善でき、HotpotQAや2WikiMultiHopQAなどのデータセットにおいて、LLMの精度（LLM-Acc）を14.9〜19.9ポイント向上させる「救済効果」が確認された。また、Read-Gateの精度向上は単なるコンテキストへの情報の注入（ctx-inject）によるものではなく、エージェント自身が「読み込みアクション」を実行することに起因することが、3群比較実験（no-Read-Gate, Read-Gate, ctx-inject）を通じて示されている。さらに、Read-Gateは規律違反（discipline error）が高い場合に最も効果的であり、推論努力の増大とは異なる軌跡のシグネチャを持つことが、ロジスティック回帰モデルを用いた解析により明らかになった。一方で、Gemini 2.5 Flashを用いた実験では、思考予算（thinking budget）を増やすことが逆にゼロ読解の発生率を高め、精度を低下させるという、隠れた思考が証拠の確認を保証しないリスクも示されている。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>Agentic RAGシステムにおいて、エビデンスに基づいた推論が始まる前に失敗が発生する「Pre-Evidence Procedural Failures」の存在を指摘している。Wikipedia形式のマルチホップQAを用いた検証により、エージェントが検索を行い、もっともらしい表面的なエビデンスを観測したものの、十分な読解を行わずに回答を確定させてしまうエラーが、通常の推論エラーとは異なる独立したエラー領域として存在することを明らかにした。このボトルネックを測定するために、規律の欠如による失敗（discipline failures）と、正解となるエビデンスを読解した後の失敗（post-gold-read failures）を分離する軌跡レベルの分解手法を提案している。提案された制御策であるRead-Gateは、規律エラーが高い場合には「読解なしの失敗」を回収できるが、エージェントが既に安定して読解を行っている場合には効果が限定的であり、これはRead-Gateが普遍的な最適制御策ではなく、エビデンスの精査自体がボトルネックであるかを判定するための診断的介入であることを示唆している。最終的な回答精度のみを評価指標とすることは不十分であり、エビデンスの精査プロセスを軌跡レベルで測定することの重要性を強調している。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>本研究の実験は、コスト効率を重視したエージェントコントローラーである gpt-4o-mini および gpt-5-mini に焦点を当てており、より大規模なフロンティアモデルや非英語設定への汎用性は今後の課題である。提案手法の検証において、チャネルとアクションの分解に関する分析は単一のデータセットとバックボーンで行われており、自己発行アクションの効果が他の環境でも同様に一般化するかは未解明である。また、本フレームワークは検索、読み取り、最終回答といった離散的なツールアクションを前提としており、検索と生成を暗黙的に交互に行うエージェントでは、読み取りの境界を観測・制御できないという限界がある。使用したデータセットは英語の Wikipedia スタイルのマルチホップ QA ベンチマークに限定されており、ドメインごとにエンティティの網羅率の閾値やゲートの挙動を再調整する必要がある。さらに、Read-Gate は検索品質そのものを改善するものではなく、検索結果が有用な候補を十分に返すことを前提としているため、実用システムにおいては強制的な読み取りメカニズムと、検索品質のモニタリングや回答側の検証を組み合わせることが推奨される。</p></section>
+<section class="secsum"><h3>Ethics Statement</h3><p>本研究は、HotpotQA、2WikiMultiHopQA、MuSiQueといった公開されているQAベンチマークを使用しており、人間を対象とした実験やプライベートなユーザーデータの使用は含まれていない。提案する手続き的なゲート（procedural gate）は証拠の検証を改善するものの、事実の正確性を保証するものではないため、高リスクな環境下では回答の検証、ログ記録、およびドメイン固有の安全性チェックを併用すべきである。実験では、PyTorchやHuggingFaceライブラリ、Qwen3-Embedding-0.6Bなどのオープンソースツールに加え、エージェントの制御やLLM-as-judgeによるスコアリングのためにOpenAIのAPI（gpt-4o-mini, gpt-5-mini）およびGoogleのGemini API（Gemini 2.5 Flash, Gemini 2.5 Pro）を使用している。執筆およびコーディングの補助としてGoogle GeminiやAnthropic Claudeを利用しているが、最終的な科学的主張、実験設計、および分析はすべて著者自身が行い、AI生成コンテンツは著者の確認と検証を経て使用されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-05
+  </footer>
+</div>
+</body>
+</html>

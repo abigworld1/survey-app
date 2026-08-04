@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Stress-Relief Annealing: Polynomial-Time Simulation-Free Layout Optimization for Automated Warehouses | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Stress-Relief Annealing: Polynomial-Time Simulation-Free Layout Optimization for Automated Warehouses</h1>
+  <div class="meta">Xiangjie Luo, Yulun Zhang, Miyuki Koshimura, Makoto Yokoo, Jiaoyang Li<br>採択先: 未取得 ・ 2026-08-02 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.01024v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.01024v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-02</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">シミュレーションを介さず、グラフ理論的なストレス場を用いてレイアウト最適化を行う手法の新規性が高い。計算効率とスループットの両立が実験で示されており、MAPF研究者にとって実用的な知見を与える。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 自動倉庫のレイアウト最適化において、膨大なシミュレーションを必要とする従来の進化計算手法に代わり、タスク需要から算出されるストレス場を用いて多項式時間で最適化を行うStress-Relief Annealing (SRA) を提案する。本手法は、シミュレーションなしでスループットの限界を予測し、ボトルネック負荷と平均移動距離を同時に最小化することで、高い計算効率とスループットの両立を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>自動倉庫におけるロボットの搬送効率（スループット）を最大化するための、棚の配置レイアウト最適化問題を対象とする。従来の進化計算を用いた手法は、候補となるレイアウトごとに多ロボットシミュレーションを繰り返して評価する必要があり、計算コストが極めて高いという課題があった。本問題は、4近傍グリッドグラフ $\mathcal{V}$ 上の棚の集合 $\mathcal{S}$ とワークステーションの集合 $\mathcal{W}$ の配置を決定し、移動可能頂点が連結成分を形成しつつ、単位時間あたりの平均完了タスク数を最大化することを目指す。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>解析モデルの「シミュレーション不要性」と、進化計算手法が持つ「混雑への感度」を両立させた点が新規性である。従来の混雑予測手法は固定レイアウト上での誘導に留まっていたが、本手法はストレス場を代理モデルとして用いることで、レイアウト自体を直接最適化することを可能にした。これにより、既存の進化計算ベースの手法と同等以上のスループットを、シミュレーションを一切介さずに、極めて低い計算コストで達成している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>各頂点 $v$ におけるストレス場 $\mathcal{S}(v)$ を、最短経路における頂点媒介中心度を需要 $d$ で重み付けした値として定義する。具体的には、$\mathcal{S}(v) = \sum_{s, w} d_{s,w} \frac{\sigma_{s,w}(v)}{\sigma_{s,w}}$ と計算し、ここで $\sigma_{s,w}$ は $s$ から $w$ への最短経路数、$\sigma_{s,w}(v)$ は $v$ を通る最短経路数である。ボトルネック負荷 $\mathcal{B} = \frac{\mathcal{T}}{\mathcal{C} \cdot \min_v \mathcal{S}(v)}$ と平均移動距離 $\mathcal{L}$ を用いたエネルギー関数 $E = \alpha \mathcal{B} + (1-\alpha) \mathcal{L}$ を定義し、焼きなまし法によってこれを最小化する。各ステップでは、ストレス値と移動コストに基づいて選ばれた棚を、配置コストの低い候補地へ移動させ、メトロポリス基準に従って受理判定を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>既存手法であるDSAGEおよびNCAと比較し、需要の偏りや異なるMAPFアルゴリズム（RHCR/PBSおよびPIBT）を用いて検証した。SRAは単一のCPUコアで数分以内に最適化を完了し、64コアを用いて数時間を要する既存手法と同等以上のスループットを達成した。特に需要の偏りが大きい場合に優位性が顕著であり、人間が設計したレイアウトと比較して収容可能なロボット数を約2倍に増加させた。また、予測されたストレス場と実際のトラバーサル回数の間には高いSpearman相関が確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>現在の限界として、単一頂点の容量設定がシミュレータの設定ごとに一度のみ行われるため、その境界値の厳密性が保証されていない点が挙げられる。また、現在の実装では各エンドポイントごとにストレス場を再計算しているため、大規模な倉庫では計算時間が膨大になる可能性がある。今後の課題として、Brandes スタイルの累積アルゴリズムの導入や、配置変更に伴うストレス場の増分更新、およびバッチ処理による配置変更を実現することで、さらなる大規模化への対応を目指している。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Stress-Relief Annealing: Polynomial-Time Simulation-Free Layout Optimization for Automated Warehouses</h3><p>本研究では、自動倉庫におけるロボットの搬送効率を最大化するためのレイアウト最適化手法として、シミュレーションを必要としない多項式時間アルゴリズムであるStress-Relief Annealing (SRA) を提案している。従来の進化計算に基づく手法は、倉庫全体をブラックボックスとして扱い、候補解の評価に膨大な回数のシミュレーションを必要とするため、サンプル効率が極めて低いという課題があった。これに対しSRAは、タスクの需要を各頂点におけるストレス場（stress field）へと変換することで、倉庫内のトラフィックが集中する箇所を予測し、そのストレス場のピーク値がスループットの上限を理論的に規定することを利用して最適化を行う。実験の結果、SRAは人間が設計した倉庫と比較して、収容可能なロボット数を約2倍に増加させ、スループットとスケーラビリティの両面を向上させた。また、SRAは進化計算ベースの既存手法と同等以上のスループットを達成しつつ、計算時間は1コアのCPUで数分程度に抑えられており、マルチエージェント経路探索（MAPF）アルゴリズムの違いや非一様なタスク需要、倉庫規模の拡大に対しても高い汎用性を示すことが確認された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>自動倉庫のレイアウト最適化において、スループット（単位時間あたりのタスク完了数）を最大化することは重要であるが、従来の進化計算を用いた手法は、候補レイアウトごとに多ロボットシミュレーションを繰り返す必要があり、計算コストが極めて高いという課題がある。本研究では、シミュレーションを介さずに棚の需要（shelf demand）のみからロボットの交通集中を予測するストレスフィールド（stress field）を導入し、これを代理モデルとして用いるStress-Relief Annealing (SRA) を提案する。SRAは、現在のレイアウトにおけるストレスフィールドを計算し、最もストレスの高い領域から棚を移動させる操作を焼きなまし法（simulated annealing）に基づき繰り返すアルゴリズムであり、多ロボットシミュレーションを一切行わずに多項式時間で動作する。実験の結果、SRAは64コアを用いて数時間を要する既存の進化計算手法と同等以上のスループットを、単一のCPUコアで数分以内に達成し、対応可能なロボット数を約2倍に向上させた。この手法の有効性は、検索ベースのRHCRやルールベースのPIBTといった異なるMAPFプランナー、および非一様な需要や大規模なマップに対しても汎用的に示されている。</p></section>
+<section class="secsum"><h3>2 Problem Formulation</h3><p>本研究では、自動倉庫のレイアウト最適化問題を、4近傍グリッドグラフ $\mathcal{V}$ 上の棚の配置問題として定式化している。レイアウトは、棚の集合 $\mathcal{S}$ と、固定されたワークステーションの集合 $\mathcal{W}$ からなるストレージエリアとマージンに分割され、意思決定変数は棚の位置のみに限定される。各棚 $s \in \mathcal{S}$ には、ロボットが荷役を行うための隣接する移動可能頂点であるエンドポイントの集合 $\mathcal{E}(s)$ が、棚の配置に応じて決定される。有効なレイアウトの条件は、移動可能頂点が単一の連結成分を形成すること、および全ての棚が少なくとも1つのエンドポイントを持つことである。ロボットのタスクは、棚のエンドポイントとワークステーションを交互に訪問するものであり、各棚には需要重み $w_s$ が割り当てられ、需要の偏りを $\sigma$ と定義する。スループット $\Phi$ は、単位時間あたりの平均完了タスク数として定義され、ロボット数 $n$ の増加に伴い、混雑によるデッドロック（congestion collapse）が発生する直前で最大値 $\Phi^*(n)$ を取る。レイアウト最適化の目的は、与えられた需要構造 $\mathcal{D}$ とロボット数 $n$ に対して、スループット $\Phi$ を最大化する有効なレイアウトを求めることである。</p></section>
+<section class="secsum"><h3>3 Preliminaries</h3><p>Lifelong MAPFは、エージェントに継続的に新しい目標を割り当て、スループットを最大化することを目的とする問題であり、探索ベースの手法は高品質だがスケーラビリティに欠け、ルールベースの手法は高速だが解の質が保証されないという特性を持つ。既存の混雑近似手法は、頂点の占有状況やエッジコスト、データ駆動型の予測、あるいはグラフの媒介中心性を用いて混雑を予測するが、これらは固定されたレイアウト上でのロボットの誘導やソルバー性能の予測に留まっている。一方、従来の倉庫レイアウト最適化における解析モデルは、シミュレーション不要でスループットを推定できるものの、ロボット間の干渉による混雑崩壊を考慮できず、進化計算に基づく最新手法は混雑を考慮できるが、候補レイアウトごとにLifelong MAPFのシミュレーションを必要とするため大規模運用には不向きである。本研究で提案するStress-Relief Annealing（SRA）は、単一エージェントの最短経路を頂点ごとの混雑代理指標として集約するストレスフィールドを用いることで、シミュレーションを一切介さずにレイアウト自体を最適化し、混雑の影響を考慮したスループットの境界を扱う。これにより、解析モデルの「シミュレーション不要性」と進化計算手法の「混雑への感度」の両立を実現している。</p></section>
+<section class="secsum"><h3>4 Method</h3><p>本手法は、自動倉庫のレイアウト最適化において、シミュレーションを介さずにボトルネック負荷 $\mathcal{B}$ と平均移動距離 $\mathcal{L}$ を同時に最小化するStress-Relief Annealing (SRA) を提案している。まず、各頂点 $v$ におけるストレス場 $\mathcal{S}(v)$ を、最短経路における頂点媒介中心度を需要 $d$ で重み付けした変数として定義し、$\mathcal{S}(v) = \sum_{s, w} d_{s,w} \frac{\sigma_{s,w}(v)}{\sigma_{s,w}}$ （ここで $\sigma_{s,w}$ は $s$ から $w$ への最短経路数、$\sigma_{s,w}(v)$ は $v$ を通る最短経路数）として算出する。ボトルネック負荷は $\mathcal{B} = \frac{\mathcal{T}}{\mathcal{C} \cdot \min_v \mathcal{S}(v)}$ と定義され、スループットの限界を決定する。SRAは、エネルギー関数 $E = \alpha \mathcal{B} + (1-\alpha) \mathcal{L}$ を最小化する焼きなまし法であり、$\alpha$ は初期レイアウトでの両項の比率が等しくなるよう自動的に調整される。各ステップでは、ストレス値 $\mathcal{S}(v)$ と移動コスト $d \cdot \text{dist}(v, \text{workstation})$ に基づいて選ばれた棚を、配置コストが低い候補地へ移動させ、メトロポリス基準に従って受理判定を行う。本手法の計算量は、各ステップでストレス場を再計算する場合 $O(T \cdot |V| \cdot |E|)$ であり、シミュレーションを必要とせず多項式時間で動作する。</p></section>
+<section class="secsum"><h3>5 Experiments</h3><p>本実験では、提案手法であるStress-Relief Annealing (SRA) の有効性を、既存手法であるDSAGEおよびNCAと比較して検証している。実験は、ワークステーションが左右の端に配置され、高頻度・低頻度棚が格納エリアに配置された倉庫レイアウトを用い、需要の偏り（demand skew）や異なるLifelong MAPFアルゴリズム（RHCR/PBSおよびPIBT）を変数として実施された。SRAは、シミュレーションを介さずストレス場（stress field）の評価を用いることで、単一のCPUコアで数分以内に最適化を完了し、DSAGEやNCAが64コアのマシンで数時間を要するのと対照的に、極めて高い計算効率を実現している。<br><br>性能面では、SRAはすべての需要の偏りにおいて、既存手法と同等以上のスループットを達成しており、特に需要の偏りが大きい場合にその優位性が顕著になる。ロボット数の増加に伴うスループットの推移において、人間が設計した元のレイアウトが早期に崩壊（collapse）するのに対し、SRAで最適化されたレイアウトは、より多くのロボット数において高いスループットを維持し、飽和状態を遅らせることに成功している。また、SRAはプランナーに依存しない（planner-agnostic）特性を持ち、一度最適化したレイアウトをRHCRやPIBTといった異なるプランナーにそのまま適用可能である。<br><br>アブレーション研究により、エネルギー関数における混雑項（congestion term）の重要性が示されており、これを削除して移動距離のみを最適化すると、高頻度棚が中央に密集してデッドロックを引き起こす。また、棚の再配置ルールにおいて、マップ全体から最適な頂点を選択するrelocate手法が、近傍のみを対象とするhop手法やランダムなrandom手法よりも大幅に高いスループットを実現することが確認された。最後に、予測されたストレス場と実際のトラバーサル回数との間には高いSpearman相関があり、ストレス場がボトルネックとなる経路を正確に捉えていることが示された。</p></section>
+<section class="secsum"><h3>6 Conclusion and Future Work</h3><p>本論文では、自動倉庫のレイアウト最適化を目的とした、シミュレーションを必要としない多項式時間アルゴリズムである Stress-Relief Annealing (SRA) を提案している。SRAはタスク需要を各頂点におけるストレス場へと変換し、そのピーク値によって定常状態のスループットの上限を決定する手法であり、このストレス場に基づいて、移動距離を短く保ちつつストレス値を最小化するように棚の配置を再構成する。実験の結果、SRAは人間が設計した倉庫からロボット数が $10^4$ 台規模の倉庫まで、Lifelong MAPF のスケーラビリティを向上させ、進化計算ベースの手法と比較して、数コアの計算資源を数時間要する手法に対し、単一の CPU コアで数分以内に同等以上の性能を達成した。現在の限界として、単一頂点の容量設定がシミュレータの設定ごとに一度のみ行われ、その境界値の厳密性が保証されていない点、およびプロトタイプ実装において、Brandes スタイルの累積アルゴリズムではなく、各エンドポイントごとにストレス場を再計算しているため、大規模な倉庫では計算時間が膨大になる点が挙げられる。今後の展望として、累積アルゴリズムの導入や、単一の配置変更に伴うストレス場の増分更新、およびバッチ処理による配置変更を実現することで、さらに大規模な倉庫への適用を目指している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-05
+  </footer>
+</div>
+</body>
+</html>
