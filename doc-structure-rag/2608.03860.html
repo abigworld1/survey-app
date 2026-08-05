@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SciRet: A Compute-Aware Empirical Study of Retrieval and Reranking for Scientific RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>SciRet: A Compute-Aware Empirical Study of Retrieval and Reranking for Scientific RAG</h1>
+  <div class="meta">Kaysarul Anas Apurba, Md. Hasibul Hasan, Rofiqul Alam Shehab, Asab Azad<br>採択先: 未取得 ・ 2026-08-04 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.03860v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.03860v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-08-04</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">科学ドメインにおける再ランキングの負の影響を実証した点は興味深いが、評価クエリ数が15個と極めて少なく、評価指標の循環性も指摘されており、信頼性に課題がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 科学文献を対象としたRetrieval-Augmented Generation (RAG) において、コーパスの規模が検索および再ランキングの挙動に与える影響を調査した実証的研究である。BM25とBGE-M3を組み合わせたハイブリッド検索は堅牢な性能を示す一方、汎用的なクロスエンコーダによる再ランキングはドメインの不一致により精度を低下させることが明らかになった。</div>
+<section class="qa"><h2>どんなもの？</h2><p>科学的な質問応答（QA）において、正確な用語や略語を含む文献から適切なエビデンスを抽出することは困難である。本研究は、CORD-19データセットを用い、論文のタイトルと抄録を対象として、コーパスの規模が検索および生成の品質に与える影響を調査することを目的としている。入力は科学的なクエリであり、出力は検索された文脈に基づく回答である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存の生成モデルの学習ではなく、実用的な科学的RAGパイプラインにおける検索と再ランキングの挙動に焦点を当てた実証的な知見を提供している。特に、ウェブ検索データで学習された汎用的な再ランキング手法を科学ドメインに適用した際の負の影響を明らかにした点が新規である。また、計算資源を考慮し、コーパスの規模を1K、5K、15Kと段階的に変化させた制御された実験設計を提示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>sentence-window chunkingを用いた前処理の後、BM25による疎な検索（Sparse）とBGE-M3による密な検索（Dense）を行い、それらをReciprocal Rank Fusion (RRF) で統合するハイブリッド検索を提案している。オプションとして、MS MARCOで学習されたクロスエンコーダによる再ランキングを導入している。生成フェーズではGPT-4o-miniを使用し、検索された文脈のみに基づきインデックスを引用して回答するよう指示を与える。評価にはRAGASを用い、Faithfulness、Answer Relevancy、Context Precision、Context Recallの4指標で生成品質を測定している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>CORD-19データセットを用い、チャンク数が1,034、5,160、15,480の3段階の規模で評価を行った。検索性能において、ハイブリッド検索は$15\text{K}$スケールで $\text{Recall@10} = 1.000$ を達成し、単一手法より堅牢であった。一方で、クロスエンコーダの適用は$1\text{K}$スケールの $\text{P}@5$ を$0.600$から$0.04$へ低下させるなど、精度を悪化させた。RAGASによる評価では、規模の拡大に伴いFaithfulnessが$0.917$から$0.960$へ、Answer relevancyが$0.680$から$0.870$へと向上した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の検索評価は、ハイブリッド検索の結果から導出した擬似的な関連性ラベルを使用しているため、手法が有利に働く循環性が存在する。また、評価クエリが15個と限定的であり、インデックスがタイトルと抄録のみに制限されている点も限界である。再ランキングについては、ドメイン不一致が利点を上回る可能性があるため、導入にはドメイン適応の検証が不可欠である。今後の課題として、独立したアノテーションによる評価、論文全文への対象拡大、および主張レベルでの引用検証が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>SciRet: A Compute-Aware Empirical Study of Retrieval and Reranking for Scientific RAG</h3><p>本研究は、CORD-19データセットを用いた科学的質問応答におけるRetrieval-Augmented Generation (RAG) パイプラインの計算資源を考慮した実証的研究である。提案手法は、sentence-window chunking、BM25による疎な検索、BGE-M3による密な検索、Reciprocal Rank Fusion (RRF) による統合、およびオプションとしてのCross-encoderによる再ランキングを組み合わせた固定のパイプラインであり、コーパスの規模を1,034チャンク（1K論文）、5,160チャンク（5K論文）、15,480チャンク（15K論文）の3段階で評価している。実験の結果、ハイブリッド検索は疎な検索または密な検索のみを用いる手法よりも堅牢であり、1Kおよび15Kの規模において $\text{Recall@10} = 1.000$ を達成した。一方で、MS MARCOで学習されたCross-encoderを用いた再ランキングは、科学ドメインにおける精度を低下させており、ドメインの不一致がクエリとパッセージ間の強力な相互作用による利点を上回る可能性が示唆された。生成の忠実度はRAGASを用いて測定され、本設定ではコーパスの規模が増大するにつれて向上する傾向が見られた。なお、検索の評価にはハイブリッドシステムから導出された擬似的な関連性ラベルを使用しているため、本結果はベンチマークとしての主張ではなく、制御された比較証拠として扱う必要がある。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、科学文献を対象としたRetrieval-Augmented Generation (RAG) において、コーパスの規模が検索および再ランキングの挙動に与える影響を調査する実証的な研究である。CORD-19データセットを用い、前処理、チャンク分割、埋め込みモデル、生成設定を固定した状態で、論文サンプル数を $1\text{K}$、$5\text{K}$、$15\text{K}$ と段階的に変化させる制御された実験設計を行っている。手法としては、BM25による疎な検索とBGE-M3による密な検索をReciprocal Rank Fusion (RRF) で統合する手法を提案し、さらにMS MARCOで学習された既存のクロスエンコーダーによる再ランキングの効果を比較している。実験の結果、BM25とBGE-M3を融合させた手法が単独のコンポーネントよりも堅牢であることが示された一方で、MS MARCOで学習されたクロスエンコーダーを適用すると科学文献における精度が低下するという、ドメイン不一致による負の結果が明らかになった。本研究は、リソース制約のある科学的RAGにおける実用的な設計選択肢を、15個の評価クエリを用いた再現可能な形式で提示している。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>科学的な質問応答（QA）において、BioASQやSciFact、COVID-QA、CORD-19といったベンチマークは、検索品質と根拠となるエビデンスの接地が極めて重要であることを示している。本研究は、新しい生成器の学習ではなく、実用的な科学的RAGパイプラインにおける検索および再ランキングの挙動に焦点を当てている。検索手法については、正確な用語や略語が重要な科学文献においてBM25が強力な語彙的ベースラインとして機能する一方、DPRやSPECTER、BGE-M3などの密ベクトル検索は語彙の重複を超えた意味的な一致を可能にする。これらを組み合わせたハイブリッド検索では、相互順位融合（RRF）を用いることで、疎な検索と密な検索の相補的な利点を活用できる。再ランキングに関しては、クエリとパッセージを同時にエンコードするクロスエンコーダが精度向上に寄与するが、MS MARCOで学習された再ランカーを科学的設定に適用すると精度が低下することが確認されている。評価指標としては、自動的な比較信号としてRAGASを用いるが、LLMベースの評価には判定モデルのバイアスが含まれる可能性があり、今後はFActScoreのような主張レベルの事実性指標を用いた引用の整合性評価が重要となる。</p></section>
+<section class="secsum"><h3>3 Method</h3><p>本研究では、CORD-19データセットを用い、計算コストと再現性を考慮して論文のタイトルと抄録を対象とした、1K、5K、15Kの3つのコーパス規模（チャンク数はそれぞれ1,034、5,160、15,480）による評価プロトコルを提案している。検索手法として、BGE-M3を用いたベクトル検索によるDense、BM25によるSparse、およびそれらをReciprocal Rank Fusion (RRF) で統合するHybridの3種類を比較しており、各手法から上位50件の候補を抽出して融合を行う。さらに、オプションとしてcross-encoder/ms-marco-MiniLM-L-6-v2を用いたリランキングを導入しているが、これはウェブ検索データで学習されているため、科学論文の抄録に対する有効性は経験的な検証が必要であるとしている。生成フェーズでは、GPT-4o-miniに対し、検索された文脈のみに基づきインデックスを引用して回答するよう指示を与え、RAGASの指標であるFaithfulness、Answer Relevancy、Context Precision、Context Recallを用いて評価を行う。検索性能の評価には、クエリごとにHybrid検索の上位3件を正解とする擬似的な関連性ラベルを用いたRecall@$k$およびPrecision@$k$を使用しているが、この手法はHybridシステムを有利にする循環性を孕んでいることや、15クエリという限定的なデータセットによる統計的精度の限界がある。</p></section>
+<section class="secsum"><h3>4 Results</h3><p>検索スケール（$1\text{K}$ および $15\text{K}$）における検索性能の評価では、ハイブリッド検索が最も堅牢であり、特に $15\text{K}$ スケールの $\text{Recall}@10$ において $1.000$ に達する。小規模なスケールでは密ベクトル検索（Dense retrieval）が競争力を持つ一方、BM25は特に $15\text{K}$ スケールの $\text{Recall}@1$ において高い性能を維持しており、ハイブリッド検索は単一のコンポーネントを用いるよりも大きなカットオフにおいて優れた性能を示す。一方で、MS MARCOで学習された汎用的なクロスエンコーダによる再ランキングを適用すると、精度が低下する傾向があり、$1\text{K}$ スケールの $\text{P}@5$ は $0.600$ から $0.04$ へ、$5\text{K}$ スケールでは $0.600$ から $0.368$ へと減少する。RAGASを用いた生成品質の評価では、スケールの拡大に伴い忠実度（Faithfulness）が $0.917$ から $0.960$ へ、回答の関連性（Answer relevancy）が $0.680$ から $0.870$ へと向上する。しかし、文脈精度（Context precision）は低い水準に留まっており、検索された文脈にはトピックに関連する内容は含まれるものの、常に厳密にターゲットを絞った箇所が抽出されているわけではないという限界が示されている。</p></section>
+<section class="secsum"><h3>5 Discussion</h3><p>計算資源が限られた環境下での科学分野向けRAGにおいては、BM25による疎な表現とBGE-M3による密な表現を組み合わせる手法が強力なデフォルト設定となる。これらは互いに補完的な証拠を抽出でき、Reciprocal Rank Fusion (RRF) を用いることで、計算規模を問わず簡便に統合が可能である。一方で、再ランキング（reranking）が常に有効とは限らず、MS MARCOで学習されたクロスエンコーダを科学ドメインのコーパスに適用すると、むしろランキング精度を低下させる結果が得られたため、導入前にドメイン適応の検証が必要である。また、計算資源を考慮した評価の重要性も示されており、1K規模の小規模な実験はデバッグには有用だが、15K規模になると検索挙動が変化するため、小規模実験の結果を最終的な性能の証拠として扱うべきではない。</p></section>
+<section class="secsum"><h3>6 Limitations</h3><p>本研究にはいくつかの限界が存在する。まず、インデックスの対象が論文のタイトルと抄録のみに限定されており、論文全文や図表が含まれていない。次に、検索の評価においてハイブリッド検索による上位3件の結果から擬似的な関連性ラベルを生成しているため、評価がハイブリッド手法に有利に働く可能性があり、独立したアノテーションによる評価の代替にはなり得ない。また、評価セットが15個のクエリで構成されているため、統計的な検出力が限定的である。さらに、RAGASを用いた評価は自動化された指標を提供するものの、人間による評価や主張レベルでの引用検証を完全に代替するものではない。以上の点から、本研究は完全な科学的QAベンチマークではなく、再現可能な実証研究および今後の研究の基礎として位置づけられる。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>本研究では、CORD-19データセットを用いた科学的RAGにおける検索と再ランキングの計算コストを考慮した実証的研究であるSciRetを提示した。1K、5K、15Kの論文サンプルを用いた実験の結果、BM25とBGE-M3を組み合わせたハイブリッド検索は、単一のコンポーネントを用いるよりも堅牢であることが示された。一方で、MS MARCOで学習されたクロスエンコーダによる再ランキングは、本設定においては一貫して精度を低下させる結果となった。これらの知見は、標準的なRAGコンポーネントがウェブ検索の設定からそのまま転用できるとは限らず、科学的な質疑応答においては慎重な検証が必要であることを示唆している。本研究の検索評価は擬似関連性ラベルと小規模なクエリセットに基づいているため、今後の課題として、擬似ラベルによる循環性を排除するための独立した関連性アノテーション、タイトルや抄録を超えた全文ベースのエビデンス、科学文献に特化したドメイン適応型再ランキングモデル、および生成された回答を検証可能な根拠に結びつけるための主張レベルの引用検証が挙げられる。</p></section>
+<section class="secsum"><h3>Ethics Statement</h3><p>本研究の評価は科学文献に基づいて行われており、新たな被験者データは導入されていない。科学的な質疑応答システムは生物医学的根拠に対するユーザーの解釈に影響を与える可能性があるため、生成された回答は専門家の査読なしに医療上の意思決定に使用すべきではない。現在のシステムはタイトルと抄録の根拠のみを使用しており、全文に含まれる重要な文脈を省略する可能性があるという限界がある。また、原稿の推敲や読みやすさの向上、校閲のために Claude や ChatGPT を利用しているが、核心となるアイデア、技術的な手法、および実験的な評価はすべて著者によって開発されており、最終的な内容については著者が全責任を負う。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-06
+  </footer>
+</div>
+</body>
+</html>

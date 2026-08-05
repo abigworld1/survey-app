@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Game-Theoretic and Algorithmic Analyses of Multi-Agent Routing under Crossing Costs | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Game-Theoretic and Algorithmic Analyses of Multi-Agent Routing under Crossing Costs</h1>
+  <div class="meta">Tesshu Hanaka, Nikolaos Melissinos, Hirotaka Ono<br>採択先: 未取得 ・ 2026-02-03 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2602.03455v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2602.03455v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-02-03</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">対向エージェント間の衝突をコストとする新モデルを提案し、ゲーム理論的性質と計算複雑性を理論的に解明している。FPTアルゴリズムの提示も具体的で、MAPF分野の研究者にとって価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 対向するエージェント間の衝突リスクをコストとして評価する Crossing Cost Multi-Agent Routing (CC-MAR) モデルを提案し、そのゲーム理論的性質と計算複雑性を解明した。本研究は、ナッシュ均衡の存在と収束性を証明するとともに、最適化問題の困難性に対して構造的パラメータを用いたアルゴリズムを提示している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>非同期的な環境における分散型マルチエージェント・ルーティングにおいて、エージェントが異なる方向にエッジを通過する場合に発生する衝突リスクを扱う。対象は混合グラフ上のエージェント群であり、入力として各エージェントの始点・終点ペアとエッジの重みが与えられる。従来の混雑ゲームがエッジ上の全エージェント数に基づくコストを扱うのに対し、本設定では対向するエージェント間の相互作用のみをペナルティとする非対称なコスト構造を持つ。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>衝突をハードな制約ではなく、対向エージェント数の積に基づくソフトなコストとして定義する新しい混雑ゲームモデルを導入した。ゲーム理論的には、純粋ナッシュ均衡の存在、最良応答ダイナミクスの収束性、および安定性の価格が $1$ であることを理論的に示した。また、最適化問題が Steiner Orientation 問題を一般化した NP 困難な問題であることを明らかにし、複数の構造的指標に基づく FPT および XP アルゴリズムを開発した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>エッジ $e$ におけるエージェント $i$ の使用回数を $n_i(e)$ としたとき、パス集合 $\mathcal{P}$ の総コストを $\sum_{e \in E \cup A} w(e) \cdot n_i(e) \cdot n_j(e)$ の形式で定義する。ゲーム理論的解析ではポテンシャル関数を用い、ナッシュ均衡の探索には各エージェントのコストをエッジ重みとして反映した有向グラフ上の最短経路問題への帰着を用いる。最適化においては、頂点数、エージェント数、無向辺数、直径、または頂点被覆数などのパラメータを用いたパラメータ化アルゴリズムを設計している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>ナッシュ均衡の計算複雑性において、重みが入力サイズに対して多項式で抑えられる場合は多項式時間で解けるが、一般には PLS 完全であることを示した。最適化の観点では、コスト $0$ の解の存在判定が NP 困難であることを示した。パラメータ化解析では、エージェント数 $k$ による $O(2^{k^2 \cdot |V|} \cdot \text{poly}(|V|, |E|))$ のアルゴリズムや、頂点被覆数 $k$ とエージェント数 $m$ を用いた FPT アルゴリズムなどの計算量を導出した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>無政府状態の価格 (Price of Anarchy) は、3頂点の完全グラフを用いた反例により非有界となる。最適化問題は Steiner Orientation 問題を一般化しているため、一般的なインスタンスに対しては計算が極めて困難である。今後の課題として、特定のパラメータに関する計算量のさらなる解明や、実用的なインスタンスに対する効率的なヒューリスティックおよび近似スキームの探索が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Game-Theoretic and Algorithmic Analyses of Multi-Agent Routing under Crossing Costs † † thanks: Tesshu Hanaka is partial</h3><p>本研究では、非同期的な環境下での分散型マルチエージェント・ルーティングを扱うため、衝突をハードな制約ではなく、対向するエージェント間のリスクとして評価する「Crossing Cost」モデルを混合グラフ上で提案している。このモデルにおける Crossing Cost は、逆方向にエッジを通過するエージェントの数の積として定義され、混雑や遅延のリスクを定量化する。ゲーム理論的側面では、この設定を非標準的なコスト関数を持つ混雑ゲームとして定式化しており、純粋 Nash equilibrium の存在を証明するとともに、特定の条件下では多項式時間で均衡を求められる一方、一般には PLS-complete であることを示している。最適化の観点からは、Crossing Cost が 0 となる解の存在判定が Steiner Orientation 問題を一般化しており NP-complete であることを明らかにした上で、エッジ数、エージェント数、または頂点被覆数などの構造的指標をパラメータとした XP または FPT アルゴリズムを設計している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究では、エージェントが異なる方向にエッジを通過する場合にのみコストが発生する、Crossing Cost Multi-Agent Routing (CC-MAR) という新しい混雑ゲームモデルを提案している。従来のネットワーク混雑ゲームがエッジ上の全エージェント数に基づくコストを扱うのに対し、CC-MARは対向するエージェント間の衝突リスクのみをペナルティとして課す非対称なコスト構造を持つ。ゲーム理論的側面において、本モデルは常に純戦略ナッシュ均衡が存在し、最良応答ダイナミクスは最大エッジ重みを $w_{\max}$ としたとき $2^{O(w_{\max})}$ ステップ以内に収束すること、および安定性の価格 (Price of Stability) が $1$ であることを証明している一方で、無政府状態の価格 (Price of Anarchy) は非有界となることを示している。ナッシュ均衡の計算複雑性は、重みが入力サイズに対して多項式で抑えられる場合は多項式時間で解けるが、一般には PLS 完全である。中央集権的な最適化の観点では、コスト $0$ の解の存在判定が Steiner Orientation 問題に帰着するため、最適解の導出は NP 困難である。これに対し、パラメータ化複雑性の枠組みを用いて、ターミナルペアの数 $k$ による XP アルゴリズムや、エッジ数、あるいは弧の数と $k$ の組み合わせによる FPT アルゴリズムなどの一連のアルゴリズムを提示している。</p></section>
+<section class="secsum"><h3>2 Preliminaries</h3><p>本セクションでは、混合グラフ $G = (V, E, A)$ におけるマルチエージェント・ルーティング問題の定義と、計算量解析のためのパラメータ化複雑性の枠組みが示されている。エッジの重みを正の整数 $w(e)$ としたとき、2つのパス $P_i$ と $P_j$ が同じエッジを逆方向に使用する場合の交差コスト（crossing cost）は、逆方向に使用されたエッジの重みの総和として定義される。具体的には、エッジ $e$ におけるエージェント $i$ の使用回数を $n_i(e)$ とすると、パス集合 $\mathcal{P}$ の総コストは $\sum_{e \in E \cup A} w(e) \cdot n_i(e) \cdot n_j(e)$ の形式で表される。交差コスト・マルチエージェント・ルーティング（CC-MAR）問題は、与えられた始点・終点のペアに対して、各エージェントがパスを選択し、総コストを最小化する、あるいは実現可能なパス集合を見つける問題として定式化される。最適解の計算における困難性を克服するため、パラメータ $k$ を導入したパラメータ化複雑性の概念が用いられ、計算時間が $f(k) \cdot |I|^{O(1)}$ で抑えられる固定パラメータ計算可能（FPT）なアルゴリズムや、$|I|^{f(k)}$ で解けるスライス多項式（XP）なアルゴリズムの存在が議論の基礎となる。</p></section>
+<section class="secsum"><h3>3 Game Theoretic Results</h3><p>Crossing Costs under Multi-Agent Routing (CC-MAR) におけるナッシュ均衡の性質を、ゲーム理論およびアルゴリズムの観点から解析している。まず、エッジの最大重みを $w_{\max}$ とすると、ナッシュ均衡は常に存在し、ナッシュ・ダイナミクスは高々 $O(w_{\max} \cdot |E|)$ ステップで収束することが、ポテンシャル関数を用いた証明により示されている。また、最小コスト解がナッシュ均衡となるため、安定性の価格（Price of Stability）は $1$ であるが、単調なエッジコストであっても、3頂点の完全グラフを用いた反例により、無政府状態の価格（Price of Anarchy）は非有界となる。ナッシュ均衡の判定および改善パスの探索は、各エージェントのコストをエッジ重みとして反映した有向グラフ上での最短経路問題に帰着させることで、$O(|E| + |V|\log |V|)$ の時間計算量で実行可能である。さらに、本研究では、二次閾値ゲーム（Quadratic Threshold Game; QTG）からの多項式時間還元を用いることで、CC-MAR においてナッシュ均衡を求める問題が PLS 完全であることを証明している。この還元では、グリッド状のグラフ構造と、エッジを複数のパスに置き換える混合パス構成、およびリソース・ガジェットを組み合わせることで、QTG の戦略選択を CC-MAR のパス選択へと一対一に写像している。</p></section>
+<section class="secsum"><h3>4 Minimum-Cost Solution via Parameterization</h3><p>本セクションでは、交差コストを伴うマルチエージェント・ルーティング（CC-MAR）問題において、最小コスト解を求めるためのパラメータ化アルゴリズムが提案されている。まず、入力グラフを無向サイクルや次数1の頂点を持たない非巡回グラフ（DAGかつ森）に簡略化できること、および同一の端点ペアは最適解においてすべて同一のパスを使用するという構造的性質（Observation 1, 2）が示されている。<br><br>以下の4つのパラメータに基づく固定パラメータ計算可能（FPT）アルゴリズムが提示されている。<br><br>1. **頂点数 $|V|$ によるパラメータ化**: 各端点ペアが選択しうるパスの数は高々 $2^{|V|}$ であるため、各ペアのパスを列挙してコストを計算することで、計算量 $O(2^{|V| \cdot k})$ で最小コスト解を求められる。<br>2. **エージェント数 $k$ によるパラメータ化**: 最適解において、任意の2エージェントは高々1つの無向パス上で交差するという性質を利用する。交差の有無と交差するパスを列挙し、残りの非交差パスの決定を Steiner Orientation 問題に帰着させることで、計算量 $O(2^{k^2 \cdot |V|} \cdot \text{poly}(|V|, |E|))$ で解ける。<br>3. **無向辺数 $|E_{undir}|$ によるパラメータ化**: 無向辺の端点集合に基づき、到達可能性を保持した新しいグラフを構成する簡約化手法を用いることで、計算量 $O(2^{2^{|E_{undir}|}} \cdot \text{poly}(|V|, |E|))$ で解ける。<br>4. **無向辺数 $|E_{undir}|$ と直径 $D$ によるパラメータ化**: 無向辺の次数と直径の制約から、グラフの頂点数が $|V| \le (2|E_{undir}|)^D$ で抑えられることを利用し、頂点数によるFPTアルゴリズムを適用することで、FPT時間での計算が可能となる。</p></section>
+<section class="secsum"><h3>5 Minimum-Cost Solution on Restricted Settings</h3><p>重みなしグラフにおけるCrossing Costs Multi-Agent Routing (CC-MAR) 問題について、頂点被覆数 $k$ を用いたパラメータ化解析が示されている。まず、頂点被覆数とエージェント数 $m$ の両方にパラメータ化された場合、頂点被覆 $S$ とそれに基づく独立集合 $I$ を用い、各頂点の近傍（無向エッジ、入次数、出次数）に基づいた「タイプ」を定義することで、各タイプにつき高々 $m$ 個の頂点に削減したサイズ $O(k+m)$ の等価なインスタンスを構成でき、固定パラメータ計算可能 (FPT) であることが示される。次に、ターミナル対が重複しないという制約下では、頂点被覆数 $k$ のみのパラメータ化でも FPT となる。この証明では、ターミナル対、頂点、およびパスの「タイプ」を定義し、最適解において各頂点タイプがパスの中間頂点として現れる回数は高々2回であること（Claim 3）、および中間頂点として使用される頂点やターミナル対を事前に特定の集合 $\mathcal{S}_{\text{term}}$ や $\mathcal{S}_{\text{non-term}}$ に限定できること（Claim 4, 5）が示される。さらに、同一タイプのターミナル対はすべて同じパスタイプを使用できる（Claim 6）ことを利用し、パスのタイプを推測することで、計算量をパラメータの指数関数に抑えたアルゴリズムが構築可能となる。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、エージェント間の正面衝突を硬い制約ではなくソフトなコスト関数として扱う、非同期マルチエージェントルーティングの枠組みである Crossing Cost Multi-Agent Routing (CC-MAR) モデルを提案した。ゲーム理論的観点からは、ナッシュ均衡の存在と収束的なダイナミクスによる到達可能性を証明しており、緩やかな仮定の下では多項式時間で計算可能である一方、一般には PLS 完全であることが示された。最適化の観点では、本問題が Steiner Orientation 問題を一般化していることから NP 困難であることが明らかになったが、これに対し、弧の数、辺の数、ターミナル対の数、および頂点被覆数などの構造的パラメータに基づく FPT および XP 補償を持つパラメータ化アルゴリズムを開発した。今後の課題として、特定のパラメータに関するパラメータ化計算量の解明や、実用的なインスタンスに対する効率的なヒューリスティックおよび近似スキームの探索が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-06
+  </footer>
+</div>
+</body>
+</html>

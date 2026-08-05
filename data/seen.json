@@ -2413,6 +2413,71 @@
       "url": "http://arxiv.org/abs/2608.02195v1",
       "venue": ""
     },
+    "arxiv:2608.03487": {
+      "added": "2026-08-06",
+      "added_at": "2026-08-06T06:30:55.310794",
+      "arxiv_id": "2608.03487",
+      "authors": [
+        "Haiqiang Zhang",
+        "Yuanqing Lei",
+        "Wanting Li",
+        "Tao Zhang",
+        "Wenqi Jiang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-04",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.03487.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.03487v1",
+      "reading_value": 5,
+      "reading_value_reason": "RAGの品質と性能のトレードオフを、デプロイなしで共同最適化する手法は極めて実用的かつ新規性が高い。実験結果の改善幅も大きく、システム設計者にとって必読の論文である。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "RAG-Stack: Co-Optimizing RAG Serving Performance and Quality",
+      "tldr": "RAGにおける回答品質とサービング性能のトレードオフを示すパレート境界を、実際のデプロイを介さずに効率的に探索するフレームワークRAG-Stackを提案する。",
+      "url": "http://arxiv.org/abs/2608.03487v1",
+      "venue": ""
+    },
+    "arxiv:2608.03860": {
+      "added": "2026-08-06",
+      "added_at": "2026-08-06T06:30:11.427063",
+      "arxiv_id": "2608.03860",
+      "authors": [
+        "Kaysarul Anas Apurba",
+        "Md. Hasibul Hasan",
+        "Rofiqul Alam Shehab",
+        "Asab Azad"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-04",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.03860.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.03860v1",
+      "reading_value": 3,
+      "reading_value_reason": "科学ドメインにおける再ランキングの負の影響を実証した点は興味深いが、評価クエリ数が15個と極めて少なく、評価指標の循環性も指摘されており、信頼性に課題がある。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "SciRet: A Compute-Aware Empirical Study of Retrieval and Reranking for Scientific RAG",
+      "tldr": "科学文献を対象としたRetrieval-Augmented Generation (RAG) において、コーパスの規模が検索および再ランキングの挙動に与える影響を調査した実証的研究である。BM25とBGE-M3を組み合わせたハイブリッド検索は堅牢な性能を示す一方、汎用的なクロスエンコーダによる再ランキングはドメインの不一致により精度を低下させることが明らかになった。",
+      "url": "http://arxiv.org/abs/2608.03860v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -3890,6 +3955,38 @@
       "url": "http://arxiv.org/abs/2308.11234v5",
       "venue": ""
     },
+    "arxiv:2401.11257": {
+      "added": "2026-08-06",
+      "added_at": "2026-08-06T06:28:43.823716",
+      "arxiv_id": "2401.11257",
+      "authors": [
+        "Tianyi Hu",
+        "Zhiqiang Pu",
+        "Xiaolin Ai",
+        "Tenghai Qiu",
+        "Jianqiang Yi"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-01-20",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2401.11257.html",
+      "matched_keywords": [
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2401.11257v2",
+      "reading_value": 4,
+      "reading_value_reason": "MAPDという汎用的な距離尺度の提案が新規であり、三角不等式を満たす設計が理論的に強力。動的なパラメータ共有への応用も具体的で、MARL研究者にとって有用。",
+      "relevance": 1,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Measuring Policy Distance for Multi-Agent Reinforcement Learning",
+      "tldr": "マルチエージェント強化学習において、エージェント間の方策の差異を定量化する汎用的な指標であるMulti-Agent Policy Distance (MAPD) を提案し、これを用いて学習中にパラメータ共有を動的に制御するMADPSアルゴリズムを開発することで、方策の多様性と学習効率の両立を実現した。",
+      "url": "http://arxiv.org/abs/2401.11257v2",
+      "venue": ""
+    },
     "arxiv:2403.13421": {
       "added": "2026-07-12",
       "added_at": "2026-07-12T06:01:03.059794",
@@ -4273,6 +4370,36 @@
       "title": "Judgelight: Trajectory-Level Post-Optimization for Multi-Agent Path Finding via Closed-Subwalk Collapsing",
       "tldr": "学習ベースのMAPFソルバーが生成する冗長または振動的な軌跡を改善するため、閉じた部分的な歩行を圧縮する事後最適化レイヤーJudgelightを提案する。本手法は、実行可能性制約を維持したまま移動コストを削減するMAPF-Collapse問題を整数線形計画法（ILP）によって解く。",
       "url": "http://arxiv.org/abs/2601.19388v2",
+      "venue": ""
+    },
+    "arxiv:2602.03455": {
+      "added": "2026-08-06",
+      "added_at": "2026-08-06T06:28:06.555642",
+      "arxiv_id": "2602.03455",
+      "authors": [
+        "Tesshu Hanaka",
+        "Nikolaos Melissinos",
+        "Hirotaka Ono"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-02-03",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2602.03455.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2602.03455v1",
+      "reading_value": 4,
+      "reading_value_reason": "対向エージェント間の衝突をコストとする新モデルを提案し、ゲーム理論的性質と計算複雑性を理論的に解明している。FPTアルゴリズムの提示も具体的で、MAPF分野の研究者にとって価値が高い。",
+      "relevance": 1,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Game-Theoretic and Algorithmic Analyses of Multi-Agent Routing under Crossing Costs",
+      "tldr": "対向するエージェント間の衝突リスクをコストとして評価する Crossing Cost Multi-Agent Routing (CC-MAR) モデルを提案し、そのゲーム理論的性質と計算複雑性を解明した。本研究は、ナッシュ均衡の存在と収束性を証明するとともに、最適化問題の困難性に対して構造的パラメータを用いたアルゴリズムを提示している。",
+      "url": "http://arxiv.org/abs/2602.03455v1",
       "venue": ""
     },
     "arxiv:2602.06733": {

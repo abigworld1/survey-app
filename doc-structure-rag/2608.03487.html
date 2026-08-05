@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>RAG-Stack: Co-Optimizing RAG Serving Performance and Quality | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>RAG-Stack: Co-Optimizing RAG Serving Performance and Quality</h1>
+  <div class="meta">Haiqiang Zhang, Yuanqing Lei, Wanting Li, Tao Zhang, Wenqi Jiang<br>採択先: 未取得 ・ 2026-08-04 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.03487v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.03487v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-04</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 5/5</span><div class="rating-reason">RAGの品質と性能のトレードオフを、デプロイなしで共同最適化する手法は極めて実用的かつ新規性が高い。実験結果の改善幅も大きく、システム設計者にとって必読の論文である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGにおける回答品質とサービング性能のトレードオフを示すパレート境界を、実際のデプロイを介さずに効率的に探索するフレームワークRAG-Stackを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>検索拡張生成（RAG）のサービングにおいて、回答の品質を決定するアルゴリズム設計空間 $\mathcal{A}$ と、サービング速度を決定するシステム設計空間 $\mathcal{S}$ の両方を同時に最適化する必要がある。従来の設計では、ステージ間の相互作用の無視、アルゴリズムとシステム設計の分離、およびハードウェア変更に伴う再評価コストの増大という課題が存在する。本研究は、これら両方の空間における候補集合 $\mathcal{C}$ と目的ベクトル $\mathbf{v} \in \mathcal{V}$ を考慮したパレート・フロンティアの探索を対象とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>アルゴリズム構成とシステム設計を分離して扱うことで、物理的なデプロイを介さずに結合構成空間を探索可能にする。既存手法がアルゴリズムのみ、あるいは固定されたアルゴリズムに対するシステム設定のみを最適化していたのに対し、本手法は両者の相互作用を考慮した共同最適化を実現する。また、システム非依存の中間表現を用いることで、既存のパレート境界を新しいハードウェアへ低コストで転移させる手法を確立した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>RAG-Stackは、多目的ベイズ最適化を行うRAG-PE、ワークロードを抽象化するRAG-IR、性能を予測するRAG-CMの3要素で構成される。RAG-PEは、$\mathcal{X}_{\text{alg}}$ に対して $\text{LogNEHVI}$ を用いて探索を行い、$\mathcal{X}_{\text{sys}}$ についてはRAG-CMに最適化を委ねる。RAG-IRは、スループット予測用のワークフロー・スキーマと、レイテンシ評価用の実行DAGからなる中間表現を保持する。RAG-CMは、アルゴリズム、性能、通信、アセンブリの4層構造を持ち、Rooflineモデルや離散イベントシミュレーションを用いて、スループット $\mathcal{T}_{\text{sat}}$ と平均遅延 $\mathcal{L}_{\text{sat}}$ を予測する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>NVIDIA H100およびA100を搭載した2種類のサーバーを用い、RAGEvalおよびMS MARCOデータセットで評価した。RAGEvalにおいて正規化ハイパーボリュームで52.5%、MS MARCOにおいて153.2%の改善を、最強のベースラインに対して示した。RAG-CMの精度については、レイテンシとQPSのSpearmann相関が0.968から0.978に達している。また、システム転送実験では、20回の評価予算において、再最適化を行う手法よりも182.2%広い範囲をカバーする境界を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>現在のエージェント型RAGへの対応はトレース駆動型であるため、RAG-CMが性能を予測するにはRAG-IRによる実行時の制御フローの観測が必要となる。この制約により、RAG-PEが品質評価を行う前にパフォーマンス目的関数のみを密にサンプリングすることが困難である。今後は、エージェント型RAGにおいて実行前のパフォーマンス予測を可能にすることや、マルチタスクガウス過程を用いてサンプル効率を向上させることが課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>RAG-Stack : Co-Optimizing RAG Serving Performance and Quality</h3><p>RAG-Stackは、多様なRAGアプリケーションとサービングシステムにおいて、回答の品質とサービング性能のトレードオフを示すパレート境界を効率的に探索するためのフレームワークである。本手法は、次に評価すべきRAG構成を選択する反復的な設計空間探索アルゴリズムであるRAG-PE、多様なRAGアルゴリズムを扱うためのワークロード抽象化層であるRAG-IR、および特定のハードウェア上での最適なデプロイメントとサービング性能を予測する性能モデルであるRAG-CMの3つのコンポーネントで構成される。これにより、すべての候補構成を実際にデプロイすることなく、アルゴリズムとシステムの結合構成空間を探索でき、既存のパレート境界を新しいサービングシステムへ転移させることも可能である。実験では、同一の最適化反復回数において、RAG-Stackが発見するパレート境界は、既存の最先端の構成探索手法と比較して、正規化された品質・性能空間を $52.5\%$ から $153.2\%$ 多くカバーすることが示されている。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>RAG-Stackは、検索拡張生成（RAG）における回答品質とサービング性能の間のパレート最適解（Pareto frontier）を効率的に探索するためのフレームワークである。既存手法には、ステージ間の相互作用や中間信号の無視（P1）、アルゴリズム構成とシステム設計（バッチングや並列化戦略など）の分離（P2）、およびハードウェア変更に伴う再評価コストの増大（P3）という課題がある。本手法は、多目的ベイズ最適化を行うRAG-PE、アルゴリズム構成をワークフローのスキーマと実行トレースに変換するRAG-IR、およびMLと解析的手法を融合して性能を予測するRAG-CMの3つのコンポーネントで構成される。RAG-CMは、RAG-IRが生成したシステム非依存のワークロード表現と利用可能なハードウェア資源を入力とし、システム設計空間内を探索して最適なデプロイメントと性能を予測することで、物理的なデプロイを介さずに性能評価を可能にする。RAGEvalおよびMS MARCOを用いた実験では、RAG-Stackは既存の構成探索手法と比較して、正規化された品質・性能空間をそれぞれ52.5%および153.2%多くカバーするパレート境界を特定した。また、新しいシステムへのパレート境界の転移において、ゼロから再最適化を行う手法よりも182.2%広い範囲をカバーする境界を、極めて少ない追加反復回数で実現している。</p></section>
+<section class="secsum"><h3>2. Background and Motivation</h3><p>RAGのサービングにおいては、回答の品質を決定するアルゴリズム設計空間 $\mathcal{A}$ と、サービングの速度を決定するシステム設計空間 $\mathcal{S}$ の両方を考慮した共同最適化が不可欠である。アルゴリズム設計空間 $\mathcal{A}$ はチャンクサイズやリランキング、生成モデルの選択を含み、システム設計空間 $\mathcal{S}$ は配置、バッチング、並列化などの手法を含んでいる。本研究では、これら両方の空間における候補集合を $\mathcal{C}$、目的ベクトルを $\mathbf{v} \in \mathcal{V}$ と定義し、ある候補が他のすべての候補によって支配されない状態であるパレート・フロンティア（Pareto frontier）を探索することを目標とする。既存手法には、アルゴリズムのみを最適化する手法や、固定されたアルゴリズムに対してシステム設定のみを最適化する手法が存在するが、これらはステージ間の相互作用（例：リトリーバルの $top\text{-}k$ を増やした際の品質への影響がチャンクサイズに依存する現象）を見落としたり、システム設計空間を無視したりするという課題がある。また、デプロイメントに基づく性能測定はコストが高く、ハードウェア構成が変わると再測定が必要になるため、移植性の高いフルスタックな推定モデルが求められている。</p></section>
+<section class="secsum"><h3>3. RAG-Stack : System Overview</h3><p>RAG-Stackは、RAGシステムの品質 $Q$ とサービング性能 $P$ のパレート境界を、各候補を実際にデプロイすることなく探索する効率的なフレームワークである。本手法は、回答内容を変化させるアルゴリズム設計空間 $\mathcal{A}$ と、固定された計算の提供方法のみを変化させるシステム設計空間 $\mathcal{S}$ を分離して扱う。最適化プロセスは、アルゴリズム構成を提案するRAG-PE、品質を評価する評価器、実行結果をワークロード表現に抽象化するRAG-IR、およびその表現に基づきシステム設計空間 $\mathcal{S}$ を探索して性能を予測するRAG-CMの3つのコンポーネントによる反復ループで構成される。RAG-PEは、品質評価の結果から得られるステージレベルのサブメトリクス（例：コンテキスト再現率や忠実度）を利用して探索をガイドしつつ、エンドツーエンドのパレート境界を最適化する。また、RAG-CMが性能を予測値として扱うことで、システム設計空間の網羅的な探索を実時間コストをほぼかけずに行えるほか、既存の最適化結果と新しいハードウェア仕様を用いることで、品質評価を再利用した低コストなシステム転送（system-transfer mode）も可能にしている。</p></section>
+<section class="secsum"><h3>4. RAG-PE : Plan Exploration</h3><p>RAG-PEは、RAGの設計空間を、回答の論理的計算を変更するアルゴリズム設計空間 $\mathcal{X}_{\text{alg}}$ と、計算の実行方法のみを変更するシステム設計空間 $\mathcal{X}_{\text{sys}}$ に分割して管理する手法である。全構成空間を $\mathcal{X}$、回答品質の目的関数を $f_{\text{qual}}$、サービング性能の目的関数を $f_{\text{perf}}$ とすると、$\mathcal{X}_{\text{alg}}$ は両方の目的に影響を与えるパラメータを含み、$\mathcal{X}_{\text{sys}}$ は $f_{\text{perf}}$ のみに影響を与えるパラメータで構成されるため、$\mathcal{X}_{\text{alg}} \subseteq \mathcal{X}$ かつ $\mathcal{X}_{\text{sys}} = \mathcal{X} \setminus \mathcal{X}_{\text{alg}}$ という関係が成り立つ。RAG-PEは、$\mathcal{X}_{\text{alg}}$ に対しては多目的ベイズ最適化（MOBO）を用いて、回答品質と性能のパレート境界を探索し、$\mathcal{X}_{\text{sys}}$ についてはコストモデルを用いてRAG-CMに最適化を委ねる。<br><br>最適化の基盤として、ノイズを含む品質スコアに対応するため、ガウス過程（GP）を用いた期待ハイパーボリューム改善量（EHVI）のノイズを考慮した版である $\text{LogNEHVI}$ を採用している。具体的には、各目的関数に対して数値変数用のMatérnカーネルとカテゴリ変数用のHammingカーネルを組み合わせた混合カーネルを用いたGPを構築し、$\text{LogNEHVI}$ を最大化する構成を選択する。さらに、RAG-PEは単なるエンドツーエンドの最適化に留まらず、各ステージの診断指標（コンテキスト再現率やリソース使用率など）を用いて、有望な領域を特定するステージ指向の候補生成メカニズムを導入している。<br><br>候補生成は、Sobol列、ステージ指向の候補、離散局所探索（DLS）、およびパレートテンション・クロスオーバーの4つのチャネルからなる不均一な候補プール $\mathcal{C}$ を用いて行われる。DLSは、ある構成 $x$ から階層的に有効な近傍 $x&#x27; \in \mathcal{N}(x)$ を探索し、目的関数を改善するまで貪欲に適用される。また、パレートテンション・クロスオーバーは、一方の目的関数に優れた構成から他方の目的関数を改善するパラメータを抽出する操作である。最終的な意思決定（仲裁）では、通常のラウンドでは $\text{LogNEHVI}$ に基づいて候補を選択するが、探索が停滞した場合には、パレート境界のギャップを埋めるために、事後標準偏差の積に基づいて候補をランク付けする強制チャネルが作動する。</p></section>
+<section class="secsum"><h3>5. RAG-IR : Intermediate Representation</h3><p>RAG-IRは、品質評価とRAG-CM（コストモデル）を共通のワークロード表現で橋渡しする中間表現であり、システムやワークフローに依存しない設計となっている。この表現は、論理的な作業内容をデプロイメントから分離することで、ハードウェア構成の変更に伴う再計算を容易にするシステム非依存性を備えている。RAG-IRは、スループット予測のための順序に依存しないワークフロー・スキーマと、レイテンシ評価のためのリクエストごとの実行トレースの2つの属性を保持する。ワークフロー・スキーマは、各ステージのパフォーマンスに関連する属性と集約された論理的作業を要約したものであり、RAG-CMがスループットを予測するために用いられる。一方、リクエストごとの実行トレースは、各ノードがステージの呼び出し、ステージの型、および入出力のトークン数を保持する実行DAG（有向非巡回グラフ）として記録され、エッジは呼び出し間の依存関係を示す。反復的またはエージェント的なパイプラインにおける繰り返しの呼び出しは、順序と重複性を維持したまま個別のノードとして記録される。</p></section>
+<section class="secsum"><h3>6. RAG-CM : Cost Model</h3><p>RAG-CMは、RAG-Stackにおける性能推定コンポーネントであり、アルゴリズム構成とシステム設計パラメータの組み合わせに対して、スループット $\mathcal{T}$ とエンドツーエンド遅延 $\mathcal{L}$ を予測します。このモデルは、アルゴリズム、性能、通信、アセンブリの4層構造で構成されており、各層が段階的に計算を行います。アルゴリズム層では、RAG-IRのワークフローに基づき、ハードウェアに依存しない演算量 $\text{ops}$ とデータ移動量 $\text{bytes}$ を含むOperator Work Profileを出力します。具体的には、IVF系のインデックスに対しては、データ分布による不均衡を補正するセル不均衡係数 $\alpha$ を用いてスキャン回数 $N_{\text{scan}}$ を $N_{\text{scan}} = \alpha \cdot \frac{k}{M} \cdot N$ （$k$ は近傍リスト数、$M$ は全リスト数、$N$ はコーパスサイズ）と定式化し、HNSWに対しては、データの局所固有次元 $\text{LID}$ を特徴量とした勾配ブースティング回帰により、データ依存的なグラフホップ数 $H$ と距離計算数 $D$ を予測します。性能層では、Rooflineモデルを用いて各フェーズの時間を $\min(\frac{\text{ops}}{\text{peak\_ops}}, \frac{\text{bytes}}{\text{peak\_bw}})$ と推定し、Amdahlの法則を用いて並列実行による遅延を合成します。通信層では、デバイス間の帯域幅 $B_{i,j}$ とレイテンシ $L_{i,j}$ を用いてペイロード移動コストを算出します。最終的なアセンブリ層では、離散イベントシミュレーションを用いて、連続バッチングやプレフィックスキャッシュ、リソース競合を考慮した飽和状態のスループット $\mathcal{T}_{\text{sat}}$ と平均遅延 $\mathcal{L}_{\text{sat}}$ を算出します。</p></section>
+<section class="secsum"><h3>7. Evaluation</h3><p>本セクションでは、RAG-Stackの性能と品質のトレードオフを評価するため、4つの研究課題（RQ）に基づいた実験が行われている。実験環境として、4基のNVIDIA H100を搭載したSysAと、8基のNVIDIA A100を搭載したSysBの2種類のNUMAサーバーを使用し、データセットにはRAGEvalおよびMS MARCOを用い、品質指標にはRAGASの回答の正確性（answer correctness）を採用している。エンドツーエンドの評価において、RAG-Stackは正規化ハイパーボリューム（normalized hypervolume）を用いて既存手法と比較され、RAGEvalで平均0.514、MS MARCOで0.635を記録し、最強のベースラインであるGP+LogNEHVIに対してそれぞれ52.5%および153.2%の相対的な改善を示した。最適化器の構成要素を調査するアブレーション実験では、RAG-PEが予算50の時点でRAGEvalにおいて14.8%、MS MARCOにおいて13.8%の相対的なハイパーボリューム向上を達成し、他の手法よりも一貫して高い性能を示した。コストモデルであるRAG-CMの精度評価では、レイテンシおよびQPSのSpearman相関が0.968から0.978という高い値を示しており、絶対誤差（MAPE）が11.2%から15.3%（IVF-PQ-FS等の特定ケースでは20.1%）であっても、構成の順序付けに必要なランキング信号を十分に保持していることが確認された。最後に、SysAからSysBへのシステム転送実験では、20回の評価予算において、キャリブレーション済みのRAG-CMを用いた転送が、ゼロからの再最適化と比較して正規化ハイパーボリュームを182.2%向上させる結果となった。</p></section>
+<section class="secsum"><h3>8. Limitations and Discussion</h3><p>現在のエージェント型RAGへの対応はトレース駆動型であり、RAG-CMがパフォーマンスを予測するためには、RAG-IRがパイプラインを実行して実行時の制御フローを観測する必要がある。この制約により、RAG-PEは品質評価を行う前にパフォーマンス目的関数を密にサンプリングすることができず、マルチタスクガウス過程（MTGP）を用いて豊富なパフォーマンスのみの観測結果を活用してサンプル効率を向上させたり、SLOに違反する構成を候補プールから事前に除外したりすることが困難である。なお、構成情報のみから制御フローが既知となる逐次型RAGについては、トレースを必要としない静的なRAG-IRおよびRAG-CMのパスを実装済みである。エージェント型RAGにおいて、実行前のパフォーマンス予測を拡張することは今後の課題として残されている。</p></section>
+<section class="secsum"><h3>9. Conclusion</h3><p>本研究では、RAGアルゴリズムとサービングシステムの品質と性能のパレート境界を効率的に探索するシステムであるRAG-Stackを提案している。RAG-Stackは、サブメトリクスを考慮した多目的探索を行うRAG-PE、実行された逐次型およびエージェント型ワークフローを表現するRAG-IR、そして全候補をデプロイすることなくサービング性能を予測しシステム構成を探索するRAG-CMの3つのコンポーネントで構成される。実験の結果、RAG-Stackは強力なエンドツーエンドのベースラインと比較して正規化ハイパーボリュームを向上させており、3回のシードを用いた平均利得において、RAGEvalで $52.5\%$、MS MARCOで $153.2\%$ の改善を達成した。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-06
+  </footer>
+</div>
+</body>
+</html>

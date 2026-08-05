@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Measuring Policy Distance for Multi-Agent Reinforcement Learning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Measuring Policy Distance for Multi-Agent Reinforcement Learning</h1>
+  <div class="meta">Tianyi Hu, Zhiqiang Pu, Xiaolin Ai, Tenghai Qiu, Jianqiang Yi<br>採択先: 未取得 ・ 2024-01-20 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2401.11257v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2401.11257v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2024-01-20</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPDという汎用的な距離尺度の提案が新規であり、三角不等式を満たす設計が理論的に強力。動的なパラメータ共有への応用も具体的で、MARL研究者にとって有用。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチエージェント強化学習において、エージェント間の方策の差異を定量化する汎用的な指標であるMulti-Agent Policy Distance (MAPD) を提案し、これを用いて学習中にパラメータ共有を動的に制御するMADPSアルゴリズムを開発することで、方策の多様性と学習効率の両立を実現した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント強化学習（MARL）において、パラメータ共有は学習効率を高める一方で、過度な共有は方策の多様性を損ない、複雑なタスクへの適応力や探索能力を低下させる課題がある。既存の多様性向上手法には、エージェントのインデックスの利用や役割に基づく制御、クラスタリングによるグループ化などがあるが、エージェント間の方策の差異を正確かつ汎用的に定量化できる指標が欠如している。従来の行動選択比率やKLダイバージェンス、最大平均偏差（MMD）などの指標は、三角不等式を満たさない、あるいは低次元への写像による情報損失が生じるといった困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の貢献は、観測条件付きの行動分布を潜在空間上の表現として学習することで、三角不等式を満たし、かつ多様な方策形式に適用可能な汎用的な距離尺度であるMAPDを提案した点にある。また、特定の報酬や特徴量に焦点を当てて方策の差異を測定できるカスタマイズ可能な拡張版も提供している。さらに、この距離指標をオンラインで活用し、エージェント間のパラメータ共有を動的に調整するMADPSアルゴリズムを開発し、既存の固定的なパラメータ共有手法やクラスタリング手法を上回る性能を達成した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MAPDは、オートエンコーダを用いて観測 $o$ と行動分布 $\pi(a|o)$ から潜在空間上の分布 $q(z|o, \pi)$ への条件付き表現を学習する。エンコーダは潜在変数の事後分布のパラメータを出力し、デコーダは潜在変数 $z$ と観測 $o$ から元の行動分布を再構成する。学習は再構成誤差 $\mathcal{L}_{\text{rec}}$ と、潜在分布を事前分布 $p(z)$ に近づけるKLダイバージェンス $\mathcal{L}_{\text{KL}}$ の和を最小化することで行われる。最終的な方策距離は、共通の観測空間における潜在分布間の距離 $D$ の期待値 $d(\pi_1, \pi_2) = \mathbb{E}_{o \in \mathcal{O}_{\text{com}}} [D(q(z|o, \pi_1), q(z|o, \pi_2))]$ として算出される。カスタマイズ版では、行動分布の代わりに特定の特性 $f$ の条件付き分布を予測するように学習を行う。MADPSは、MAPDに基づき、距離が融合閾値 $\tau_{\text{fus}}$ 未満のエージェント間ではパラメータを共有（fusion）し、距離が分離閾値 $\tau_{\text{div}}$ を超える場合には分離（division）を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Multi-Agent Particle Environment (MPE) の拡散タスクおよびStarCraft II のマイクロマネジメント (SMAC) 環境を用いて評価を行った。比較対象として、パラメータ共有を行わないNPS、完全共有のFPS、インデックスを付与したFPS-id、および潜在表現に基づくクラスタリングを用いるSePSを用いた。拡散タスクの実験では、カスタマイズされた方策距離が特定のランドマークへの傾向を正確に捉えられることを示した。SMACの実験では、MADPSが既存のパラメータ共有手法と比較して、高い報酬と優れた性能を示すことが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>MADPSにおいて、安定したパラメータ共有構造を構築するためには、三角不等式の性質に基づき $\tau_{\text{div}} &gt; \tau_{\text{fus}}$ という条件を満たす必要がある。既存のSePSのような手法は学習中に固定されたグループ分けを行うためシナリオごとのハイパーパラメータ調整が必要だが、MADPSは単一のハイパーパラメータで動的な調整が可能である。今後の課題として、より複雑な環境におけるパラメータ共有の最適化や、計算コストのさらなる削減などが考えられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Measuring Policy Distance for Multi-Agent Reinforcement Learning</h3><p>本研究では、マルチエージェント強化学習（MARL）においてエージェント間の方策の差異を定量化するための汎用的な指標である Multi-Agent Policy Distance (MAPD) を提案している。MAPDは、エージェントの意思決定における条件付き表現を学習することで、任意のペアとなるエージェント間の方策距離を算出することが可能であり、さらに特定の側面における方策の違いを定量化できるカスタマイズ可能な拡張版も提供される。この指標の応用例として、MAPDをオンライン展開することでエージェント間のパラメータ共有を動的に制御する Multi-Agent Dynamic Parameter Sharing (MADPS) アルゴリズムを設計している。広範な実験の結果、提案手法はエージェントの方策や特定の行動傾向の差異を効果的に測定できることが示され、既存のパラメータ共有手法と比較してMADPSが優れた性能を発揮することが確認された。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>マルチエージェント強化学習（MARL）において、パラメータ共有は学習の効率化に寄与する一方で、過度な共有は方策の多様性を損ない、複雑なタスクへの適応力や探索能力を低下させる課題がある。既存の多様性向上手法には、エージェントのインデックスを観測に含める方法や、役割（role）に基づいたパラメータ制御、クラスタリングによるグループ化などがあるが、エージェント間の方策の差異を定量化できる汎用的な指標が欠如している。従来の指標として、行動選択比率、KLダイバージェンス、最大平均偏差（MMD）、あるいは軌跡の占有測度に基づく $f$-divergence などが提案されてきたが、これらは三角不等式を満たさない、あるいは低次元ベクトルへの写像による情報損失が生じるといった問題がある。本研究では、観測条件付きの行動分布としてエージェントの方策をモデル化し、各観測下における意思決定の潜在的な条件付き表現を学習することで、その表現間の差異の累積を測定する汎用的な指標であるMAPDを提案する。さらに、特定の側面に焦点を当てて方策の差を測定できるカスタマイズ版MAPDと、MAPDを用いて学習中にパラメータ共有のスキームを自動調整し、多様性と共有のバランスを最適化するマルチエージェント動的パラメータ共有（MADPS）アルゴリズムを開発した。提案手法の有効性は、Multi-Agent Particle Environment (MPE) および StarCraft II のマイクロマネジメント環境における実験を通じて示されている。</p></section>
+<section class="secsum"><h3>2. Background</h3><p>部分観測マルコフゲーム（POMG）は、エージェントの集合 $\mathcal{I}$、グローバルな状態空間 $\mathcal{S}$、各エージェント $i$ に対する観測空間 $\mathcal{O}_i$、観測関数 $\mathcal{O}_i(s)$、行動空間 $\mathcal{A}_i$、報酬関数 $r_i(s, \mathbf{a})$、状態遷移関数 $P(s&#x27; | s, \mathbf{a})$、および割引率 $\gamma$ の 8 つの要素からなるタプルとして定義される。各エージェントは、時刻 $t$ におけるグローバルな状態 $s_t$ から得られる部分観測に基づき、期待累積報酬を最大化する最適な方策を学習することを目指す。エージェントの方策は、特定の観測 $o_i$ が与えられた条件下での行動の条件付き確率分布 $\pi_i(a_i | o_i)$ として一般的に定義される。この定義は、方策勾配法を用いる確率的方策だけでなく、ソフトマックス関数を用いて行動価値を確率分布に変換する価値ベースの手法や、選択した行動に確率 1 を割り当てる決定論的な方策にも適用可能である。これにより、離散的な行動空間を持つ場合は離散条件付き分布として、連続的な行動空間を持つ場合は連続分布として、方策を統一的に扱うことができる。</p></section>
+<section class="secsum"><h3>3. Measuring Policy Distance between Agents</h3><p>本セクションでは、マルチエージェントシステムにおける任意の2エージェント間の方策の差異を測定する手法であるMulti-Agent Policy Distance (MAPD) を提案している。MAPDは、対称性 $d(\pi_1, \pi_2) = d(\pi_2, \pi_1)$、非負性 $d(\pi_1, \pi_2) \ge 0$、同一性の識別不能性（方策が同一なら距離は0、パラメータが同一でも方策が異なれば距離は正となり得る）、および三角不等式 $d(\pi_1, \pi_3) \le d(\pi_1, \pi_2) + d(\pi_2, \pi_3)$ を満たす距離尺度として設計されている。直接的な行動分布の比較は、離散的な行動インデックスの非順序性や分布の型の違いにより困難であるため、オートエンコーダを用いて観測 $o$ と行動分布 $\pi(a|o)$ から潜在空間上の分布 $z$ への条件付き表現を学習する。この学習では、エンコーダが $o$ と $\pi(a|o)$ を入力として潜在変数の事後分布のパラメータを出力し、デコーダが潜在変数 $z$ と $o$ から元の行動分布 $\pi(a|o)$ を再構成する。学習時の損失関数は、再構成誤差 $\mathcal{L}_{\text{rec}}$ と、潜在分布を事前分布 $p(z)$ に近づけるためのKLダイバージェンス $\mathcal{L}_{\text{KL}}$ の和で定義される：<br>$$\mathcal{L} = \mathcal{L}_{\text{rec}} + \mathcal{L}_{\text{KL}}$$<br>最終的な方策距離は、共通の観測空間 $\mathcal{O}_{\text{com}}$ における潜在分布間の距離 $D$ の期待値として計算される：<br>$$d(\pi_1, \pi_2) = \mathbb{E}_{o \in \mathcal{O}_{\text{com}}} [D(q(z|o, \pi_1), q(z|o, \pi_2))]$$<br>実験ではモンテカルロサンプリングを用いて積分を近似しており、マルチエージェント・スプレッド・タスクにおいて、同じ色のエージェント間では距離が小さく、異なる色のエージェント間では距離が大きくなることを示し、観測空間の差異に関わらず方策の違いを効果的に定量化できることを実証している。</p></section>
+<section class="secsum"><h3>4. Measuring Customized Policy Distance</h3><p>特定の側面におけるエージェントの振る舞いの違いを定量化するため、提案手法は「カスタマイズされた方策距離（customized policy distance）」を導入している。この手法では、環境からの報酬などの特定の側面を「カスタマイズされた特徴量」 $f$ と定義し、観測 $o$ に条件付けられた確率分布としてモデル化する。学習プロセスでは、方策そのものを再構成する代わりに、特徴量 $f$ の条件付き分布を予測するように潜在変数 $z$ を学習し、その目的関数として以下の証拠下限（ELBO）を用いる。<br>$$\mathcal{L}(\theta, \phi) = \mathbb{E}_{q_\phi(z|o)}[\log p_\theta(f|z, o)] - \text{D}_{\text{KL}}(q_\phi(z|o) || p(z))$$<br>ここで $q_\phi(z|o)$ はエンコーダによる事後分布、$p_\theta(f|z, o)$ はデコーダによる特徴量の再構成分布、$\text{D}_{\text{KL}}$ は事前分布とのKLダイバージェンスを表す。エージェント $\pi_1$ と $\pi_2$ の間のカスタマイズされた方策距離 $d_{\text{cust}}(\pi_1, \pi_2)$ は、それぞれの潜在表現 $z_1, z_2$ を用いて計算される。マルチエージェントの拡散タスクを用いたケーススタディでは、エージェントとランドマークとの距離を特徴量として用いて評価しており、特定のランドマークへ向かう傾向を測る場合にはエージェントの色によって距離が大きく変動する一方、自身の色のランドマークへ向かう傾向を測る場合には全ての距離が $0.01$ 未満と極めて小さくなることが示され、特定の側面における方策の類似性を正確に捉えられることが確認された。</p></section>
+<section class="secsum"><h3>5. Dynamic Parameter Sharing: an application of MAPD for MARL</h3><p>MADPS（Multi-Agent Dynamic Parameter Sharing）は、マルチエージェント強化学習における方策の多様性とパラメータ共有による学習効率のバランスを動的に最適化する手法である。MAPD（Multi-Agent Policy Distance）を用いてエージェント間の方策の類似性を測定し、方策が近いエージェント間ではネットワークパラメータの一部を共有する融合（fusion）を行い、方策に大きな差がある場合にはパラメータを分離（division）する。融合と分離の判断にはそれぞれ閾値が用いられ、MAPDの三角不等式の性質に基づき、分離閾値 $\tau_{\text{div}}$ は融合閾値 $\tau_{\text{fus}}$ に対して $\tau_{\text{div}} &gt; \tau_{\text{fus}}$ を満たす必要がある。実験ではハイパーパラメータを削減するために $\tau_{\text{div}} = 2\tau_{\text{fus}}$ と設定されており、SMAC（StarCraft Multi-Agent Challenge）のマルチエージェント拡散タスクや超高難易度タスクにおいて、既存手法と比較して高い性能を示すことが確認されている。この手法は、学習の各ステップで方策距離行列を計算し、安定したパラメータ共有構造が構築されるまで融合と分離を繰り返すことで、創発的な多様性への適応とサンプル効率の向上を両立させる。</p></section>
+<section class="secsum"><h3>6. Experiments</h3><p>本実験では、提案手法であるMADPSおよびその基盤となるMAPDの有効性を検証するため、難易度の高いマルチエージェント拡散タスクとStarCraft II micromanagement (SMAC) 環境を用いて評価を行っている。マルチエージェント拡散タスクでは、エージェントがランドマークに到達した後に互いに接近することを促す疎な報酬が導入されており、エージェントとランドマークの距離が閾値未満の場合にのみ、距離の減少およびエージェント数の減少に応じて報酬が与えられる。比較対象として、パラメータ共有を行わないNPS、完全共有のFPS、インデックスを付与したFPS-id、および潜在表現に基づくクラスタリングを用いるSePSが用いられている。実験の結果、FPSは異なる目標を持つエージェント間で経験が不適切に共有されることで学習に失敗する一方、NPSは多様性は確保できるものの、SMACのMMM2のようなタスクでは他者の経験を利用できないため学習が遅いという課題が示された。SePSは学習中に固定されたグループ分けを行うためシナリオごとのハイパーパラメータ調整が必要だが、MADPSは単一のハイパーパラメータで学習中にパラメータ共有の構成を自動的に調整でき、適切な方策の多様性とパラメータ共有を両立することで高い性能を実現している。</p></section>
+<section class="secsum"><h3>7. Conclusion</h3><p>本論文では、マルチエージェント強化学習（MARL）におけるエージェントの方策の差異を定量化する手法であるMAPDを提案している。MAPDは方策を直接測定するのではなく、エージェントの意思決定の条件付き表現を学習し、潜在分布間の距離を積分することで方策距離を算出する手法であり、多様な方策形式に適用可能である。また、特定の方策の側面における行動の違いを測定できるカスタマイズされた方策距離のバリアントも提案されている。このMAPDに基づき、学習過程においてエージェントの方策を動的に融合・分離できる動的パラメータ共有アルゴリズム（MADPS）を設計しており、実験の結果、MAPDはエージェントの方策の多様性を正確に定量化でき、MADPSは他のパラメータ共有のベースライン手法を上回る性能を示すことが確認された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-06
+  </footer>
+</div>
+</body>
+</html>
