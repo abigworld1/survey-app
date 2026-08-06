@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PURPOSE: Poisoning Conflict Resolution in RAG via Proxy-Fact-Grounded Updates | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>PURPOSE: Poisoning Conflict Resolution in RAG via Proxy-Fact-Grounded Updates</h1>
+  <div class="meta">Zijian Wang, Yubo Zhu, Muzhi Dong, Yanjun Lou, Yisheng Li, ZiLiang Zhang, Wei Tong, Yuan Zhang, Jingyu Hua, Sheng Zhong<br>採択先: 未取得 ・ 2026-08-05 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.04756v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.04756v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-08-05</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの防御策であるコンフリクト解消を「更新」という形で回避する攻撃手法の新規性が高い。実験も最新モデルや複数の防御手法を対象に詳細に行われている。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGにおけるコンフリクト解消プロセスを標的とした、ブラックボックス型の知識汚染攻撃手法Purposeを提案する。既存の事実と矛盾を最小限に抑えた「更新」として情報を注入することで、解消器の検知を回避しつつ生成器を誤った回答へと誘導する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>Retrieval-Augmented Generation (RAG) システムにおいて、検索された文書間の矛盾やモデルの内部知識との不一致を解決するコンフリクト解消プロセスを対象とする。従来のブラックボックス型知識汚染攻撃は、ターゲットとする回答を直接的に主張するため、解消器によって矛盾として検知されやすいという課題があった。本研究は、リトリーバーや生成器へのアクセスを持たない攻撃者が、いかにして検知を回避しつつ誤情報を注入できるかを問題とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の攻撃手法が「反論」の形式をとるのに対し、本手法は既存の事実と矛盾を最小限に抑えた「更新」として情報を再構成する点で新規性がある。公開LLMから抽出した知識を代理指標として利用し、既存知識との整合性を保ちながら結論を転換させるアプローチを導入した。これにより、既存の強力な攻撃手法を平均で $+9.7$ ポイント上回る攻撃成功率（ASR）を達成し、現在のコンフリクト解消メカニズムの脆弱性を明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>攻撃者は、公開LLMから抽出したクエリ関連の事実を代理事実 $\mathcal{F}_{\text{proxy}}$ として利用する。汚染文書 $d_{\text{poison}}$ は、(1) $\mathcal{F}_{\text{proxy}}$ と矛盾しないこと、(2) $\mathcal{F}_{\text{proxy}} \cup \{d_{\text{poison}}\}$ がターゲット回答 $a_{\text{target}}$ を導くこと、(3) $d_{\text{poison}}$ 単体で $a_{\text{target}}$ を導くこと、の3条件を満たすように設計される。具体的には、既存の事実を維持したまま結論を転換させるためのピボットイベントを導入し、信頼性を高めるための権威ある出典の付与（Credibility Scaffolding）や、リトリーバーのスコアを高めるためのクエリとの類似性向上（Align）を含む5段階のパイプラインで構成される。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>NQ、HotpotQA、MS-MARCOの3つのベンチマークを用い、5種類の生成モデル（GPT-5.2、Gemini-3-Flash、Qwen3.5-Plus、DeepSeek-V3.2、Llama-3.3-70B-Instruct）と3種類のコンフリクト解消手法（AstuteRAG、FaithfulRAG、MADAM-RAG）を対象に評価した。DeepSeek-V3.2をLLMジャッジとして用い、正解率 $\text{ACC}$ と攻撃成功率 $\text{ASR}$ を指標とした。実験の結果、45の設定のうち35において、Purposeは既存の攻撃手法（PoisonedRAG、AuthChain、PARADOX）を上回り、最も高い $\text{ASR}$ を記録した。また、検索統計量（Hit@5等）は既存手法と同等でありながら、検索後の条件付き $\text{ASR}$ において極めて高い値を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、攻撃に利用するプロービング用LLMがターゲットのクエリに対して十分な世界知識を持っていることを前提としている。そのため、高度に専門化された領域やロングテールなドメインでは、攻撃の有効性が制限される可能性がある。また、現在の防御策は情報の内部的一貫性や外部との矛盾チェックに依存しており、情報の更新内容の追跡可能性や時間的な妥当性を検証する仕組みが不足している。今後の課題として、医療や法律などの専門的なQAドメインへの拡張が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Purpose : Poisoning Conflict Resolution in RAG via Proxy-Fact-Grounded Updates</h3><p>本研究では、Retrieval-Augmented Generation (RAG) における検索後のコンフリクト解消プロセスを標的とした、新しいブラックボックス型の知識汚染攻撃手法であるPurposeを提案している。従来の攻撃手法は、解消器が既知の事実として扱う情報と正面から矛盾する回答を注入するため検知されやすいという課題があったが、Purposeは注入内容を「反論」ではなく、既存の事実と矛盾を最小限に抑えた「更新」として再構成する。具体的には、クエリに関連する事実を抽出して解消器が参照し得る知識の近似値を作成し、それらに基づいてピボットとなるイベントを接地（grounding）させることで、解消器による検証を回避しつつ生成器をターゲットの回答へと誘導する。3つのQAベンチマーク、5つの生成器、および3つのコンフリクト解消手法を用いた実験の結果、45の設定のうち35において最も高い攻撃成功率（ASR）を記録し、既存の強力な攻撃手法を平均で $+9.7$ ポイント上回るASRを達成した。この結果は、矛盾のない注入がRAGの防御策を突破する実用的な攻撃モードであることを示している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>Retrieval-Augmented Generation (RAG) におけるコンフリクト解消（conflict resolution）は、検索された文書間の矛盾やモデルの内部知識との不一致を解決する重要なプロセスであるが、知識汚染攻撃（knowledge poisoning attack）に対して脆弱である。既存のブラックボックス型攻撃は、ターゲットとなる回答を直接的に主張する手法が主流であり、これはコンフリクト解消メカニズムによって検知されやすいという課題がある。本研究では、コンフリクト解消を回避するために提案された攻撃手法である Purpose (Pivot Update RAG Poisoning via proxy-facts and Source-backed Events) を導入する。この手法は、直接的な反論を行うのではなく、公開されているLLMからクエリに関連する事実を抽出してプロキシ（代理）を構築し、それらと矛盾を最小限に抑えつつターゲットの回答を導出できるピボットイベントを中心に文書を構成する。実験では、3つのQAベンチマーク、5種類の生成モデル、および3つのコンフリクト解消手法を用いて評価を行い、Purpose が既存のベースラインと比較して高い攻撃成功率（ASR）を達成しつつ、汚染された文書の流暢性も維持していることを示した。この結果は、現在のコンフリクト解消手法が、正面からの矛盾を避ける更新型の注入攻撃に対して依然として脆弱であることを示唆している。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>Retrieval-Augmented Generation (RAG) は、外部コーパスから情報を取得して生成を条件付けることで、ハルシネーションの抑制や知識集約型タスクへの対応を実現する手法である。RAGにおける矛盾解決（Conflict Resolution）の手法は、指示による調整を行うプロンプトベース、情報を明示的な単位に整理する構造化エビデンス、並列な推論経路を用いるマルチブランチ検討、モデル内部の信号を利用してパラメータ知識と取得知識の依存度を制御するモデル信号制御、そしてアライメントや微調整を用いる学習ベースの5つのカテゴリに分類される。一方で、RAGに対する知識汚染攻撃（Knowledge Poisoning Attack）は、悪意のある文書をコーパスに注入してLLMを誤った出力へ誘導するものであり、リトリーバーの勾配を利用するホワイトボックス手法や、クエリにLLM生成の支持文を付加するPoisonedRAG、権威信号を用いたAuthChain、あるいはLLMを用いて古い回答を流暢な敵対的知識に書き換えるCorruptRAG-AKなどのブラックボックス手法が存在する。これらの攻撃の目的には、回答の妨害（jamming）や意見の反転（flipping opinion）なども含まれる。</p></section>
+<section class="secsum"><h3>3 Method</h3><p>本手法であるPurposeは、RAGシステムにおける知識の不整合検知（Conflict Resolution）を回避しつつ、ターゲットとなる誤った回答 $a_{\text{target}}$ へと誘導する知識汚染攻撃である。攻撃者は、リトリーバーや生成器へのアクセスを持たない厳格なブラックボックスモデルを想定し、公開されているLLMから抽出した知識を、ターゲットシステムが参照するであろう事実の代理指標（Proxy Facts） $\mathcal{F}_{\text{proxy}}$ として利用する。汚染文書の構築にあたっては、既存の知識 $\mathcal{F}_{\text{proxy}}$ と矛盾させずに、新たな出来事（Pivot Event）を導入することで、既存の事実を維持したまま結論を $a_{\text{target}}$ へと転換させる手法をとる。具体的には、汚染文書 $d_{\text{poison}}$ は、(1) $\mathcal{F}_{\text{proxy}}$ と矛盾しないこと、(2) $\mathcal{F}_{\text{proxy}} \cup \{d_{\text{poison}}\}$ が $a_{\text{target}}$ を導くこと、(3) $d_{\text{poison}}$ 単体で $a_{\text{target}}$ を導くこと、という3つの条件を満たすように設計される。さらに、信頼性を高めるための権威ある出典の付与（Credibility Scaffolding）や、リトリーバーのスコアを高めるためのクエリとの類似性向上（Align）を行う5段階のパイプラインにより、検知を回避しつつ効果的に誤情報を注入する。</p></section>
+<section class="secsum"><h3>4 Experimental Setup</h3><p>本実験では、RAGへのポイズニング攻撃に対する耐性を評価するため、NQ、HotpotQA、MS-MARCOの3つのQAベンチマークにおける各100ペアの評価サブセットを使用する。RAGパイプラインは、Contrieverを用いたドット積類似度による上位5件の検索を採用し、生成器としてGPT-5.2、Gemini-3-Flash、Qwen3.5-Plus、DeepSeek-V3.2、Llama-3.3-70B-Instructの計5モデルを用いる。対象とする知識競合解決手法には、パラメータ知識を明示的に引き出し反復的に統合するAstuteRAG、事実レベルで検索内容を検証するFaithfulRAG、および検索文書間のマルチエージェント討論を行うMADAM-RAGの3種を含め、比較対象として解決手法を用いないVanilla RAGも設定する。攻撃手法の比較対象（Baseline）として、PoisonedRAG、AuthChain、PARADOXの3つの代表的なポイズニング攻撃を、同一の検索器および生成器の下で再実装して用いる。評価指標は、DeepSeek-V3.2をLLMジャッジとして用いて、出力が「Correct（正解のみ支持）」「Incorrect（不正解のみ支持）」「Both（両方を支持）」「Neither（拒否または脱線）」の4分類でラベル付けを行い、正解率 $\text{ACC}$、攻撃成功率 $\text{ASR}$、およびそれらの組み合わせに基づく指標を算出する。なお、曖昧な回答であるBothは、完全な攻撃成功でも完全な防御でもないため、$\text{ACC}$ と $\text{ASR}$ の両方にカウントされる。</p></section>
+<section class="secsum"><h3>5 Results</h3><p>提案手法であるPurposeは、対立解消型RAG（conflict-resolution RAG）に対する強力な攻撃手法であり、DeepSeek-V3.2を評価用LLMとして用いた実験において、AstuteRAG、FaithfulRAG、MADAM-RAGのすべての対立解消器に対し、最も高い平均攻撃成功率（ASR）を達成した。Purposeの優位性は検索性能に起因するものではなく、検索後の影響力に由来しており、検索統計量（Hit@5や平均検索順位）は既存手法と同等である一方、検索後の条件付きASRにおいて極めて高い値を示している。手法の核心は、代理事実（ProxyFact）との直接的な矛盾を避けつつターゲットとなる主張を支持する「適合性の高いピボットイベント」の構築にあり、評価指標である対立スコア（conflict score）において最小値を、ターゲット支持スコア（support score）において高い値を同時に実現している。構成要素の解析（Ablation Study）では、制約のないピボットの追加、代理事実に基づく接地、匿名権威を用いた文書生成、明示的な権威情報の付与という段階的な導入により、攻撃性能が向上することが示された。さらに、Purposeは異なるプロンプングLLMや、ANCEおよびBGE-baseといった異なるリトリーバー（ドット積類似度やコサイン類似度を用いるもの）に対しても高い汎用性を示し、一貫して最も低い正確度（ACC）と最も高いASRを記録した。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究で提案された攻撃手法であるPurposeは、厳格なブラックボックス設定下において、標準的なRAGおよび矛盾解消機能を持つRAGの両方に対して、より効果的なポイズニング戦略となることが示された。3つのQAベンチマーク、5種類の生成器、および3種類の矛盾解消手法を用いた計45通りの実験設定のうち、35の設定においてPurposeは最も高い攻撃成功率（ASR）を達成した。この結果は、注入された文書の信憑性と説得力を高める上で、Purposeが実用的なポイズニング手法であることを示唆している。本研究の広範な示唆として、RAGのセキュリティ確保には、単に証拠の内部的な一貫性や外部との矛盾をチェックするだけでは不十分であることが明らかになった。今後の防御策においては、提示された情報の更新内容が追跡可能かつ検証可能であり、かつ時間的な妥当性を備えているかまでを検証する仕組みが必要である。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>提案手法であるPurposeは、APIレベルのアクセスのみを許容する厳格なブラックボックス脅威モデルを前提としているが、攻撃の成功にはターゲットとなるクエリに対して十分な世界知識を持つ、公開されたプロービング用LLMが必要となる。そのため、プロービング用LLMの知識範囲が限定的な、高度に専門化された領域やロングテールなドメインにおいては、攻撃の有効性が制限される可能性がある。本研究の評価は、既存の攻撃手法との直接的な比較可能性を確保するために、NQ、HotpotQA、MS-MARCOといった標準的なAdversarial-RAGプロトコルに従って実施されている。したがって、医療や法律などの専門的なQAドメインや、より広範なRAGベンチマークへの拡張は今後の課題として残されている。</p></section>
+<section class="secsum"><h3>Ethics Statement</h3><p>本研究は、知識汚染（knowledge poisoning）を通じて、対立解消を行うRAGシステムの脆弱性を明らかにし、より強力な防御策を促すことを目的としている。提案手法は、もっともらしい証拠の捏造やデプロイ済みのRAGシステムの操作に悪用される可能性があるデュアルユース（二重用途）の性質を持つが、すべての実験は公開されているQAベンチマークと評価コーパスを用いた隔離された研究環境内でのみ実施されており、プライベートなデータへのアクセスや、公開コーパスへの汚染文書の挿入、実システムへの攻撃は一切行っていない。科学的な検証と悪用リスクのバランスを取るため、手法の設計、評価プロトコル、および集計された結果は報告するものの、完全なプロンプトテンプレートや、ベンチマーク規模の生成された汚染文書コレクション、および即座に攻撃に転用可能なアーティファクトの公開は控えるという段階的な開示ポリシーを採用している。この方針は、誤情報の拡散や権威ある主張の捏造、知識リポジトリの操作といった、高リスクな領域における深刻な悪用リスクを低減しつつ、評価の透明性を維持することを意図している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-07
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PRIMAL3: Pathfinding via Reinforcement and Imitation Multi-Agent Learning - Leveraging LaCAM3 | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>PRIMAL3: Pathfinding via Reinforcement and Imitation Multi-Agent Learning - Leveraging LaCAM3</h1>
+  <div class="meta">Chengyang He, Tanishq Duhan, Gadiel Sznaier Camps, Fangyuan Wang, Yuhong Cao, Jiankai Sun, Ge Sun, Mac Schwager, Guillaume Sartoretti<br>採択先: 未取得 ・ 2026-08-05 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.04905v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.04905v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-05</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">二重グラフ通信とエキスパート介入を統合した手法に高い新規性があり、超大規模環境での高い成功率とスケーラビリティの実証も具体的で、MAPF分野の研究者にとって価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 超大規模なマルチエージェント経路探索（MAPF）において、トポロジー情報を考慮した二重グラフ通信と、エキスパートによる指導付き学習および行動修正を統合することで、高い成功率とスケーラビリティを両立する学習フレームワークを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>無向グラフ $G = (V, E)$ 上で、エージェントの集合 $\mathcal{A}$ が各々の開始頂点 $s_a$ から目標頂点 $g_a$ へ、頂点衝突および辺衝突を回避しながら最短時間で到達する経路を求める問題を扱う。従来の学習ベースの手法では、高密度な環境や複雑なトポロジーを持つマップにおいて、エージェント間の適切な協調やボトルネックの回避が困難であった。また、既存の探索ベースの手法は、エージェント数の増加に伴い計算コストが爆発的に増大するというスケーラビリティの課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>先行研究との差分として、エージェントの意図に基づき「追従」と「衝突」の相互作用を分離して扱う二重グラフ表現を導入している。学習フェーズにおいて、方策のエントロピーを用いて不確実な状態を検出し、LaCAM3による信頼度に基づいた介入とラベル平滑化を適用する仕組みを構築した点が新規である。これにより、行き止まりやボトルネックといったトポロジー的に重要な局面での学習失敗を抑制している。さらに、実行時にLaCAM3を必要とせず、PIBTを用いた優先度管理による行動精緻化を行うことで、推論の効率化と衝突回避の両立を実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>エージェントのノード特徴量 $\mathbf{x}_i$ には、次数 $d(v)$、行き止まり、切断点、および参照経路から導出される7次元のトポロジー認識ベクトルを用いる。通信機構は、進行方向が一致するエージェント間でメッセージを伝播するfollowingブランチと、衝突リスクのあるエージェント間でマスク付きアテンションを用いて相対情報を抽出するconflictブランチの二重構造を持つ。学習時は、エージェントの隠れ状態 $h_a^{(t)}$ を、近傍 $\mathcal{N}_a(t)$ からのメッセージパッシング $h_a^{(t)} = \text{update}(h_a^{(t-1)}, \text{aggregate}(\{m(h_a^{(t-1)}, h_b^{(t-1)}) \mid b \in \mathcal{N}_a(t)\})) $ によって更新する。実行フェーズでは、累積待機時間、学習された優先度、ゴールまでの距離を組み合わせた優先度を用いて、PIBTモジュールが衝突のない行動へと精緻化を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>ランダムマップおよび迷路マップを用いた評価において、学習ベースの手法の中で最高水準の成功率（SR）を達成した。最大7500エージェント規模の超大規模インスタンスにおいても0.8以上のSRを維持し、既存のHMAGATと比較して、有効失敗負荷 $\Lambda(n) = \sum_{i=1}^{n} (1 - \text{SR}_i)$ が約16倍低いことを示した。アブレーション研究により、LaCAM3によるガイダンス、二重グラフ通信、およびヒューリスティックな経路情報のすべてが、迷路環境での高いSRと短いエピソード長（EL）に寄与することが確認された。通信コストについては、各エージェントが選択するパートナーを制限することで、平均次数を2以下に抑え、エージェント数 $n$ に依存しない設計を実現している。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、切断点や行き止まりといった高レベルな特徴量に依存しており、地図のトポロジーに関する明示的な事前知識を必要とする点が限界である。また、LaCAM3による介入がアクションレベルに留まっており、エキスパートが生成する完全な結合計画の時間的・エージェント間の依存関係を十分に符号化できていない。学習プロセスにおいても、LaCAM3の繰り返し呼び出しが計算コストを増大させる課題がある。今後の課題として、生の観測からトポロジー情報を復元する表現学習や、教師・生徒蒸留を用いた設計済み特徴量の活用、および軌跡レベルの模倣学習による長期的な依存関係のモデル化が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>PRIMAL3: Pathfinding via Reinforcement and Imitation Multi-Agent Learning - Leveraging LaCAM3 Project Page: https://marm</h3><p>PRIMAL3は、強化学習、トポロジーを考慮した通信、LaCAM3によるガイド付き学習、およびPIBTに基づく行動精緻化を統合した、超大規模マルチエージェント経路探索（MAPF）のための学習フレームワークである。各エージェントは、カット頂点、行き止まり領域、最短経路距離、およびブロッキング推定値から導出された特徴量を用いて表現され、エージェント間の相互作用を捉えるために、同じ方向へ進むエージェント間のコンテキストを伝播するグラフと、異なる方向へ進むエージェント間の競合をマスク付きアテンションで識別するグラフの2種類が用いられる。学習フェーズでは、方策のエントロピーを用いて不確実なエージェントを特定し、それらに対してLaCAM3による信頼度に基づく行動介入とラベル平滑化された模倣学習ターゲットを提供することで、ボトルネックや行き止まりなどのトポロジー的に重要な状態での失敗を抑制する。実行フェーズでは、学習された優先度や距離を考慮した優先度を用いて、PIBTモジュールが衝突のない行動へと精緻化を行うため、推論時にLaCAM3を必要とせずに構造化されたエキスパートの知見を活用できる。実験では、最大100,000エージェントという都市規模の超大規模インスタンスにおいて、既存の学習ベースの手法を大幅に上回る性能を示し、実機ロボットへの展開可能性も実証されている。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>PRIMAL3は、グラフ上の多エージェント経路探索（MAPF）において、トポロジーを考慮した通信、LaCAM3による指導付き学習、および優先度を考慮したPIBTベースの行動修正を統合した学習フレームワークである。本手法は、エージェントの意図を推定するA*に基づく参照経路から、経路の重なりに基づいた「追従グラフ」と「衝突グラフ」からなる二重グラフ表現を構築し、ボトルネックや到達可能性などの構造的特徴をノード特徴量として明示的に取り込むことで、エージェント間の異種的な相互作用を捉える。学習フェーズでは、エージェントの行動分布のエントロピーを用いて意思決定の不確実性を検出し、不確実性が高い場合にのみLaCAM3による専門家介入を行うことで、決定論的かつ協調的な行動を促す。実行時には、PIBT（Priority Inheritance Backtracking）を拡張した修正モジュールを用い、累積された待機時間や学習された優先度、ゴールまでの距離を組み合わせた優先度管理を行うとともに、ポリシーが持つ代替行動への選好を維持することで、高密度環境における不当なブロックや不整合な行動を抑制する。実験の結果、ランダムマップにおいてLNS2やLaCAM3といった最先端の探索ベースの手法に匹敵する成功率を達成し、最大100,000エージェント規模の超大規模インスタンスへのスケーラビリティも示されている。</p></section>
+<section class="secsum"><h3>II Prior Work</h3><p>マルチエージェント経路探索（MAPF）の研究は、従来の計画手法と学習ベースの手法に大別される。従来の最適解を求める手法には、衝突が発生した際にのみ結合探索を行うM*や、制約木を用いて高レベルで衝突を解決し低レベルで個別の経路を計算するConflict-Based Search (CBS) があり、これらは対称性推論や分割戦略によって効率化が進められてきた。また、計算効率と近似保証のバランスを取るECBSなどの有界劣最適解手法や、大規模環境でのスケーラビリティに優れたLaCAMシリーズのような無界劣最適解手法が存在する。学習ベースの手法では、強化学習（RL）を用いたアプローチがあり、PRIMALのように模倣学習（IL）を探索の補助として用いるものや、G2RLのようにA*の経路を観測に含めるもの、さらにPICOやSCRIMPのように通信メカニズムを導入して協調性を高めるものがある。一方で、模倣学習（IL）を中心とした手法も発展しており、グラフニューラルネットワークを用いた行動クローニング（BC）によるMAGATや、エキスパートアルゴリズムを衝突回避モジュールとして組み込む手法、さらには8500万のパラメータを持つMAPF-GPTのような基盤モデルを活用した手法が登場している。最新のHMAGATは、効率的な局所通信、エキスパートによるシールド、および大規模な学習能力を統合することで、学習ベースのMAPFにおける最先端の性能を実現している。</p></section>
+<section class="secsum"><h3>III Problem Statement</h3><p>本研究では、無向グラフ $G = (V, E)$ 上で定義される古典的なワンショット・マルチエージェント経路探索（MAPF）問題を扱う。エージェントの集合を $\mathcal{A}$ とし、各エージェント $a \in \mathcal{A}$ は開始頂点 $s_a \in V$ と目標頂点 $g_a \in V$ を持ち、時刻 $t \in \{0, 1, \dots, T\}$ におけるエージェント $a$ の位置を $p_a(t)$ と表す。有効な解は、すべてのエージェントが目標に到達すること、同一時刻に同じ頂点を占有しないこと（頂点衝突の回避）、および同一の辺を逆方向に同時に通行しないこと（辺衝突の回避）の条件を満たし、かつ全体の完了時間を最小化する経路の集合である。学習の枠組みとして、物理的な環境グラフ $G$ に加え、エージェント間の相互作用を記述する動的な相互作用グラフ $\mathcal{G}_t = (\mathcal{A}, \mathcal{E}_t)$ を導入する。ここで、エージェント $a$ の隠れ状態 $h_a^{(t)}$ の更新は、近傍集合 $\mathcal{N}_a(t)$ を用いて $h_a^{(t)} = \text{update}(h_a^{(t-1)}, \text{aggregate}(\{m(h_a^{(t-1)}, h_b^{(t-1)}) \mid b \in \mathcal{N}_a(t)\})) $ と定式化され、メッセージ関数 $m$ と置換不変な集約関数 $\text{aggregate}$ を介したメッセージパッシングによって、空間的な近接性や衝突リスクに基づく構造化された協調を実現する。</p></section>
+<section class="secsum"><h3>IV PRIMAL3</h3><p>PRIMAL3は、マルチエージェント経路計画（MAPF）において、マップのトポロジーとエージェント間の相互作用を考慮したDual-Graph表現学習を提案している。まず、A*アルゴリズムで計算された参照経路に基づき、進行方向が一致する「following graph」と、衝突や進行方向の不一致、あるいは停止中のエージェントへの接近を含む「conflict graph」の2種類の隣接行列 $\mathcal{W}_{\text{f}}$ および $\mathcal{W}_{\text{c}}$ を構築する。これらの行列は、重み付きの密な行列として定義されるが、通信のスパース性と安定性を確保するため、各エージェントに対して固定された少数の近傍のみを選択する手法を用いて、最終的な通信グラフ $\mathcal{G}_{\text{f}}$ および $\mathcal{G}_{\text{c}}$ を構成する。エージェントのノード特徴量 $\mathbf{x}_i$ は、自由空間の次数 $d(v)$、行き止まり領域の有無、切断点（cut vertex）の有無、現在の位置 $v_i$、目標位置 $g_i$、および参照経路 $\mathcal{P}_i$ から導出される7次元のトポロジー認識ベクトルとして構成される。<br><br>通信モジュールは2つのブランチで構成され、followingブランチでは、1ホップおよび2ホップのメッセージをゲート機構を用いて統合するマルチホップ集約を行い、経路に沿った一貫した動きを促進する。一方、conflictブランチでは、マスク付きアテンションを用いて選択された衝突近傍との相互作用を計算し、エージェント自身の特徴量、アテンションによる文脈、その差分、および要素ごとの積を組み合わせたメッセージ $\mathbf{m}_{i, \text{c}}$ を生成することで、譲り合いなどの非対称な意思決定に必要な相対情報を抽出する。最終的な表現 $\mathbf{z}_i$ は、これら2つのブランチの出力を独立したゲート $\mathbf{g}_{i, \text{f}}$ と $\mathbf{g}_{i, \text{c}}$ によって適応的に融合することで得られる。</p></section>
+<section class="secsum"><h3>V Results</h3><p>PRIMAL3は、強化学習と模倣学習を組み合わせたマルチエージェント経路探索（MAPF）手法であり、LaCAM3によるガイダンス、二重グラフ通信、および修正PIBTシールド機構を特徴とする。ランダムマップおよび迷路マップを用いた評価において、PRIMAL3は学習ベースの手法の中で最高水準の成功率（SR）を達成し、従来の探索ベースの手法（LaCAM3やLNS2）との差を大幅に縮めている。特に、エージェント数が増加しても高いSRを維持し、到着率（AR）もほぼ $1.0$ に近い値を保つことで、渋滞時でも個々のエージェントが目標に到達しやすい堅牢性を示す。超大規模実験では、エージェント数が $7500$ に達する規模においても $0.8$ 以上のSRを維持し、既存の強力な学習ベース手法であるHMAGATと比較して、有効失敗負荷 $\Lambda(n) = \sum_{i=1}^{n} (1 - \text{SR}_i)$ が極めて低く、エージェントあたりの失敗リスクが平均で約16倍低いことが示された。アブレーション研究では、LaCAM3の専門家ガイダンス、二重グラフ（conflict graphとfollowing graph）による通信、およびヒューリスティックな経路情報のすべてが、迷路環境における高いSRと短いエピソード長（EL）の実現に不可欠であることが確認された。手法の拡張性については、各エージェントがグラフ内で高々1つのパートナーを選択するため、通信コストがエージェント数 $n$ に依存せず、平均次数が $2$ 以下に抑えられる設計が寄与している。</p></section>
+<section class="secsum"><h3>VI Limitation and Future Work</h3><p>PRIMAL3には主に2つの限界が存在する。第一に、現在の表現手法は切断点や行き止まり領域、遮蔽推定といった手動設計された高レベルな特徴量に依存しており、これらは地図のトポロジーへの明示的なアクセスと、調整に有用な構造的特性に関する事前知識を必要とする。第二に、エキスパートであるLaCAM3の利用において、オンラインでの介入がアクションレベルの指導に留まっており、LaCAM3が生成する完全な結合計画の根底にある時間的・エージェント間の依存関係を明示的に符号化できていない。また、学習中にLaCAM3を繰り返し呼び出すことは、計算コストの増大を招き、学習プロセスを時間のかかるものにしている。今後の展望として、生の観測から大規模なトポロジー情報を直接復元するスケーラブルな表現学習手法の検討や、補助的な予測または教師・生徒蒸留を用いて、実行時には不要な設計済み特徴量を学習時の特権的な教師信号として利用する手法が挙げられる。さらに、軌跡レベルの模倣学習やオフラインデータセットの活用により、長期的な依存関係をモデル化しつつ、学習中のオンラインでのLaCAM3への問い合わせ回数を大幅に削減することが期待される。</p></section>
+<section class="secsum"><h3>VII Conclusion</h3><p>PRIMAL3は、トポロジー情報を考慮したマルチエージェント経路探索（MAPF）のための学習フレームワークである。本手法は、構造的なノード特徴量、関係性に応じたデュアルグラフ通信、LaCAM3による確信度向上、および優先度を考慮したPIBTによる行動精緻化を組み合わせている。通信機構においては、互換性のある参照パスを持つエージェント間でマルチホップの文脈を伝播するブランチと、共有スペースを競合するエージェント間で差別化された意思決定に必要な相対情報を保持するコンフリクトブランチの2系統を用いる。トポロジー認識特徴量により、切断点、行き止まり領域、ゴールまでの残り距離、および潜在的なブロッキング効果を抽出する。学習時にはLaCAM3が選択的な介入とラベル平滑化された模倣ターゲットを提供し、実行時にはPIBTモジュールが、持続的・学習済み・距離依存的な優先度と方策を考慮したフォールバック設定を組み合わせることで、衝突のない一歩ごとの行動を生成する。実験では、既存の学習ベースのベースラインに対して一貫した改善を示し、最大で数百エージェント規模のインスタンスへのスケーラビリティと、各構成要素の有効性が検証されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-07
+  </footer>
+</div>
+</body>
+</html>

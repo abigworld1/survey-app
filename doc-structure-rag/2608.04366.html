@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Combating Knowledge Corruption in Agent Systems: A Byzantine-Tolerant Secure Collaborative RAG Framework | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Combating Knowledge Corruption in Agent Systems: A Byzantine-Tolerant Secure Collaborative RAG Framework</h1>
+  <div class="meta">Zhaoqi Wang, Daqing He, Zijian Zhang, Ye Liu, Jiamou Liu, Zhirui Zeng, Zhan Qin, Zhen Li, Xin Li, Hongwei Yao, Jincheng An, Yong Liu<br>採択先: Proceedings of the ACM Web Conference 2026, pages 2661-2672, 2026 ・ 2026-08-05 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.04366v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.04366v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1145/3774904.3792200" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Proceedings of the ACM Web Conference 2026, pages 2661-2672, 2026</span><span class="chip">公開日 2026-08-05</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの知識汚染をビザンチン耐性の観点から定式化した新規性が高い。GNNと常識推論を組み合わせた防御手法は具体的で、攻撃手法の提案も含め研究として非常に充実している。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGシステムにおける知識汚染攻撃に対し、複数の情報源から得られる文書の信頼性を動的なグラフ構造を用いて検証する、ビザンチン耐性を備えた協調型フレームワークSecureCollaRAGを提案する。これにより、悪意のあるソースが混在する環境下でも、ドメイン知識の完全性を維持しながら攻撃を効果的に阻止できる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>検索拡張生成（RAG）システムにおいて、攻撃者が外部知識を汚染して大規模言語モデル（LLM）の出力を操作する知識汚染攻撃が深刻な脅威となっている。既存の防御策は、汚染率が極めて低いという非現実的な前提を必要としたり、統計的な特徴に依存するため意味論的な操作に弱かったりするという困難がある。本研究は、複数の情報源から提供される文書の中に悪意ある主体が含まれる状況を、分散システムにおけるビザンチン耐性集約問題としてモデル化し、その解決を目指す。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の防御手法が単一文書内の汚染率の閾値に依存していたのに対し、本研究は知識汚染をビザンチン耐性の観点から捉え直し、マルチソースの検証メカニズムを導入した点が新規である。また、プロンプトエンジニアリングによって検知を回避する高度な隠蔽性を備えた新たな攻撃手法であるAdaptive Tampering Attack（ATA）を提案している。さらに、動的なグラフ構造と常識推論を組み合わせることで、非独立同一分布（non-IID）なデータ環境下でも高い堅牢性を実現している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、まず複数のソースから取得した文書をノード、文書間の類似度をエッジとする動的グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ を構築する。エッジの重み $w_{ij}$ は、コンテンツのコサイン類似度とカテゴリの一致度を融合した指標 $\text{sim}(d_i, d_j) = (1-\alpha) \cdot \text{sim}_{\text{sem}}(d_i, d_j) + \alpha \cdot \text{sim}_{\text{cat}}(d_i, d_j)$ によって決定される。次に、グラフニューラルネットワーク（GNN）を用いて各文書の信頼度 $C_i$ を算出する。信頼度が不確実な文書に対しては、LLMを用いたPost Auditにより常識との乖離を示すペナルティスコア $P_i$ を算出し、信頼度を再計算する。学習時には、分類損失 $\mathcal{L}_{\text{cls}}$ とトポロジー認識損失 $\mathcal{L}_{\text{topo}}$ を組み合わせた複合損失 $\mathcal{L} = \mathcal{L}_{\text{cls}} + \lambda(t) \mathcal{L}_{\text{topo}}$ を最適化する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Natural Questions、HotpotQA、MediNote、Finance Alpacaの4つのデータセットを用い、DeepSeek-V3やLLaMA3-8BなどのLLMと各種リトリーバーを組み合わせて評価した。比較対象として、SS-RAG、MS-RAG、RobustRAG、FilterRAGなどの既存手法および、提案するATAを含む複数の攻撃シナリオを用いた。評価指標には攻撃成功率（ASR）、真陽性率（TPR）、真陰性率（TNR）等を用いた。結果として、MediNoteにおけるPoisonedRAG攻撃に対し、MS-RAGのASR 78.80%に対して5.24%という極めて低いASRを達成した。また、常識推論の導入により、SAA攻撃下でのTPRが88.40%から95.00%へ、TNRが86.50%から94.33%へと向上した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、悪意のあるソースが全体の50%未満である場合に、汚染文書が検証を通過する確率を閾値 $\epsilon$ 未満に抑えられることが理論的に保証されている。しかし、攻撃者がソースの過半数を占めるような状況下では、ビザンチン耐性の限界により防御が困難になる可能性がある。今後の課題として、より複雑な攻撃シナリオへの適応や、計算コストと防御性能のトレードオフの最適化が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Combating Knowledge Corruption in Agent Systems: A Byzantine-Tolerant Secure Collaborative RAG Framework</h3><p>本研究では、検索拡張生成（RAG）システムにおける知識汚染攻撃に対抗するための、ビザンチン耐性を備えた安全な協調型RAGフレームワークであるSecureCollaRAGを提案している。この手法は、マルチソース知識検証メカニズムを活用することで、攻撃者がRAGシステムに提供するドキュメントを汚染し、大規模言語モデル（LLM）の出力を操作する脆弱性を防ぐことを目的としている。具体的には、動的なグラフニューラルネットワーク（GNN）を用いた信頼性スコアリングにより、エージェントシステムがドキュメントの由来を安全に検証することを可能にし、ドメイン知識の完全性を維持しながら隠密な知識汚染攻撃を効果的に阻止する。広範な評価と形式的な分析を通じて、SecureCollaRAGは非独立同一分布（non-IID）のデータ分布下においても、攻撃者に対して堅牢性を維持できることが示されている。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>Retrieval-Augmented Generation (RAG) は、外部知識を利用して大規模言語モデル（LLM）のハルシネーションを抑制する手法であるが、情報の収集源が増えることで、勾配ベースの最適化を用いたCorpus Poisoning Attack (CPA) や、LLMに欺瞞的な文書を自動生成させるPoisonedRAGのような、知識の汚染に対する攻撃面が拡大している。既存の防御策であるRobustRAGは、単一文書内の悪意ある段落が50%未満であるという非現実的な閾値を必要とし、FilterRAGはキーワード密度の統計的特徴に依存しているため、意味論的な操作を行う高度な攻撃に対して脆弱である。本研究では、知識の汚染問題を分散システムにおけるビザンチン耐性（Byzantine fault tolerance）の観点から捉え、複数の情報源から提供される情報の中に悪意ある主体が含まれる状況下でのビザンチン耐性集約問題としてモデル化する。提案手法であるSecureCollaRAGは、複数の情報源の文書特徴を用いて動的なグラフを構築する分散知識グラフ構築、グラフのトポロジーを利用して悪意あるパターンを特定し信頼度を算出するGNNベースの信頼度スコアリング、および検証された信頼度に基づいて情報を重み付けして汚染文書を排除する検証ベースの集約という3つのコンポーネントで構成される。実験では、4つのデータセットと3つのオープンソースモデルを用い、プロンプトエンジニアリングによって隠蔽性を高めた新たなAdaptive Tampering Attack (ATA) を含む複数の攻撃シナリオに対して、提案手法が既存手法よりも高い防御性能を持つことを示している。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>AIエージェントシステムは、LLMの能力を拡張するためにツール統合や、外部知識に基づきハルシネーションを抑制するRAG（Retrieval-Augmented Generation）を活用しているが、近年はコンテンツの発見性を高めるGEO（Generative Engine Optimization）という新たなパラダイムが登場している。Model Coordination Protocol (MCP) のようなオープンなアーキテクチャによる相互運用性の向上は、GEOの手法を悪用して汚染されたソースドキュメントを体系的に拡散させるTool Poisoning Attacks (TPA) という新たな攻撃面を生み出しており、特に医療分野ではわずか $0.001\%$ のデータ汚染が臨床LLMの信頼性を著しく損なうリスクがある。既存の攻撃手法には、勾配ベースの最適化を用いて検索コーパスに「敵対的パッセージ」を挿入するものや、攻撃者が指定した回答を生成させるために悪意のあるテキストを注入するPoisonedRAGなどが存在する。これに対し、隔離後に集約を行うRobustRAGは、汚染率が $50\%$ 未満という非現実的な条件下でしか機能せず、計算コストも極めて高い。また、キーワード密度に基づいて文書をフィルタリングするFilterRAGは、統計的な信号を残さずに意味論的な操作を行う高度な攻撃に対しては無力であり、実用的な制約下で動作する信頼性を考慮した検証メカニズムの必要性が示されている。</p></section>
+<section class="secsum"><h3>III Problem Formulation</h3><p>本研究のシステムモデルは、ターゲットとなるLLM、集約サーバー、および善意の文書集合 $\mathcal{D}_{\text{benign}}$ と悪意のある文書集合 $\mathcal{D}_{\text{malicious}}$ からなる知識ソース集合で構成される。集約サーバーは、各ソースに対して検索操作を行い、得られた各ソースの脱感作済み文書集合 $\mathcal{D}_i$ の和集合として、集約された文書集合 $\mathcal{D}_{\text{agg}} = \bigcup_{i=1}^n \mathcal{D}_i$ を形成する。LLMは、事前学習済みのパラメータに基づく外部知識の使用を厳格に禁止し、集約された文書と与えられたコンテキストのみに基づいて応答空間 $\mathcal{R}$ から応答 $r$ を生成する制約下にある。攻撃者は、全ソースの半数未満（$n_{\text{malicious}} &lt; 0.5n$）という少数派であり、他のソースのデータセットやLLMの内部パラメータにアクセスできないブラックボックス設定において、LLMに有害な「脱獄」応答 $\mathcal{J}$ を生成させることを目的として、$\max P(r_t \in \mathcal{J})$ を最大化しようとする。本研究のセキュリティ目標は、悪意のあるソースが全体の50%未満である場合に、汚染された文書 $d \in \mathcal{D}_{\text{malicious}}$ が検証を通過してLLMに到達する確率を閾値 $\epsilon$ 未満に抑え、それによってLLMの出力が敵対的な影響を受ける確率 $P(r_t \in \mathcal{A})$ を制限することである。</p></section>
+<section class="secsum"><h3>IV Design of SecureCollaRAG</h3><p>SecureCollaRAG (SCR)は、分散合意に基づき外部RAGシステムの文書を検証する、ビザンチン耐性を備えた協調検証フレームワークである。本手法は、複数の独立したソースから取得した文書をノード、文書間の類似度をエッジとする動的グラフ $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ を構築し、グラフニューラルネットワーク（GNN）を用いて各文書の信頼度 $C_i$ を算出する。エッジの重み $w_{ij}$ は、コンテンツのコサイン類似度とカテゴリの一致度を融合した指標 $\text{sim}(d_i, d_j) = (1-\alpha) \cdot \text{sim}_{\text{sem}}(d_i, d_j) + \alpha \cdot \text{sim}_{\text{cat}}(d_i, d_j)$ によって決定され、ソースの信頼度 $R_s$ は、Dynamic Feature Gate &amp; Projection機構を通じて学習可能なパラメータとして動的に更新される。信頼度が不確実な領域にある文書に対しては、常識的なLLMを用いたPost Auditが適用され、常識との乖離を示すペナルティスコア $P_i$ を用いて信頼度を再計算する。学習時は、バイナリクロスエントロピーを用いた分類損失 $\mathcal{L}_{\text{cls}}$ と、分散正則化およびクラスター対照学習を含むトポロジー認識損失 $\mathcal{L}_{\text{topo}}$ の複合損失 $\mathcal{L} = \mathcal{L}_{\text{cls}} + \lambda(t) \mathcal{L}_{\text{topo}}$ を最適化する。理論的には、悪意のあるソースが全体の50%未満である場合、悪意のある文書を受け入れるリスクが指数関数的に小さくなることが定理によって保証されている。</p></section>
+<section class="secsum"><h3>V Evaluation</h3><p>本研究では、Natural Questions、HotpotQA、および実社会への影響が大きい医療（MediNote）と金融（Finance Alpaca）のデータセットを用い、提案手法であるSCRフレームワークの堅牢性を評価している。評価指標には、LLM-as-a-judgeによる正規化スコアを用いた攻撃成功率（ASR）のほか、モデルの分類能力を示す真陽性率（TPR）、真陰性率（TNR）、偽陽性率（FPR）、偽陰性率（FNR）が用いられる。実験設定では、DeepSeek-V3、Qwen-2.5-14B、LLaMA3-8BなどのLLMと、Contriever、ClinicalBERT、FinBERTなどのリトリーバーを組み合わせ、ディリクレ分布を用いた分割により悪意のあるソースが50%未満となるヘテロジニアスな環境をシミュレートしている。攻撃手法としては、提案するATA、静的なSAA、および動的なPoisonedRAGを比較対象とし、防御手法としてはSS-RAG、MS-RAG、RobustRAG、FilterRAGと対照させている。結果として、SCRはMediNoteにおけるPoisonedRAG攻撃に対し、MS-RAGのASR 78.80%に対して5.24%という極めて低いASRを達成しており、高い防御性能を示した。また、常識推論メカニズムを導入することで、SAA攻撃下でのTPRが88.40%から95.00%へ、TNRが86.50%から94.33%へと向上することが確認された。さらに、ソースの信頼性スコアの分析により、SCRが攻撃の種類を識別し、特に隠蔽性の高いATA攻撃に対しても適応的な識別能力を持つことが示されている。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究は、RAG（Retrieval-Augmented Generation）システムにおける知識汚染攻撃への脆弱性を軽減することを目的としている。提案手法であるSecureCollaRAGは、マルチソースのドキュメントグラフを構築し、動的グラフニューラルネットワークを用いて各ドキュメントの信頼度を算出することで、複数の情報源を用いた堅牢な知識検証を実現する。また、プロンプトエンジニアリングを活用して検知を回避する高度な攻撃手法であるAdaptive Tampering Attackを提案している。評価実験の結果、SecureCollaRAGは非独立同一分布（non-IID）なデータ分布下においても攻撃者に対して堅牢性を示すことが確認され、安全なマルチエージェント協調のための新たなパラダイムを確立した。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-07
+  </footer>
+</div>
+</body>
+</html>

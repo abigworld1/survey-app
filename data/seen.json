@@ -2478,6 +2478,44 @@
       "url": "http://arxiv.org/abs/2608.03860v1",
       "venue": ""
     },
+    "arxiv:2608.04756": {
+      "added": "2026-08-07",
+      "added_at": "2026-08-07T06:16:10.543247",
+      "arxiv_id": "2608.04756",
+      "authors": [
+        "Zijian Wang",
+        "Yubo Zhu",
+        "Muzhi Dong",
+        "Yanjun Lou",
+        "Yisheng Li",
+        "ZiLiang Zhang",
+        "Wei Tong",
+        "Yuan Zhang",
+        "Jingyu Hua",
+        "Sheng Zhong"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-05",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.04756.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.04756v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの防御策であるコンフリクト解消を「更新」という形で回避する攻撃手法の新規性が高い。実験も最新モデルや複数の防御手法を対象に詳細に行われている。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "PURPOSE: Poisoning Conflict Resolution in RAG via Proxy-Fact-Grounded Updates",
+      "tldr": "RAGにおけるコンフリクト解消プロセスを標的とした、ブラックボックス型の知識汚染攻撃手法Purposeを提案する。既存の事実と矛盾を最小限に抑えた「更新」として情報を注入することで、解消器の検知を回避しつつ生成器を誤った回答へと誘導する。",
+      "url": "http://arxiv.org/abs/2608.04756v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -2600,6 +2638,50 @@
       "tldr": "知識グラフを用いたGraphRAGに科学データの管理原則であるFAIRを統合し、FAIR Digital Objects (FDOs) を基盤としたFAIR GraphRAGフレームワークを提案することで、複雑なドメイン知識に対する回答の正確性と説明可能性を向上させる。",
       "url": "http://arxiv.org/abs/2607.11464v1",
       "venue": "2025 IEEE International Conference on Knowledge Graph (ICKG), Limassol, Cyprus, 2025, pp. 90-97"
+    },
+    "doi:10.1145/3774904.3792200": {
+      "added": "2026-08-07",
+      "added_at": "2026-08-07T06:16:47.900202",
+      "arxiv_id": "2608.04366",
+      "authors": [
+        "Zhaoqi Wang",
+        "Daqing He",
+        "Zijian Zhang",
+        "Ye Liu",
+        "Jiamou Liu",
+        "Zhirui Zeng",
+        "Zhan Qin",
+        "Zhen Li",
+        "Xin Li",
+        "Hongwei Yao",
+        "Jincheng An",
+        "Yong Liu",
+        "Yi Li",
+        "Qi Sun",
+        "Xiulei Liu",
+        "Liehuang Zhu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-05",
+      "doi": "10.1145/3774904.3792200",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.04366.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.04366v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの知識汚染をビザンチン耐性の観点から定式化した新規性が高い。GNNと常識推論を組み合わせた防御手法は具体的で、攻撃手法の提案も含め研究として非常に充実している。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Combating Knowledge Corruption in Agent Systems: A Byzantine-Tolerant Secure Collaborative RAG Framework",
+      "tldr": "RAGシステムにおける知識汚染攻撃に対し、複数の情報源から得られる文書の信頼性を動的なグラフ構造を用いて検証する、ビザンチン耐性を備えた協調型フレームワークSecureCollaRAGを提案する。これにより、悪意のあるソースが混在する環境下でも、ドメイン知識の完全性を維持しながら攻撃を効果的に阻止できる。",
+      "url": "http://arxiv.org/abs/2608.04366v1",
+      "venue": "Proceedings of the ACM Web Conference 2026, pages 2661-2672, 2026"
     },
     "doi:10.1145/3805712.3809540": {
       "added": "2026-07-27",
@@ -5779,6 +5861,42 @@
       "title": "Stress-Relief Annealing: Polynomial-Time Simulation-Free Layout Optimization for Automated Warehouses",
       "tldr": "自動倉庫のレイアウト最適化において、膨大なシミュレーションを必要とする従来の進化計算手法に代わり、タスク需要から算出されるストレス場を用いて多項式時間で最適化を行うStress-Relief Annealing (SRA) を提案する。本手法は、シミュレーションなしでスループットの限界を予測し、ボトルネック負荷と平均移動距離を同時に最小化することで、高い計算効率とスループットの両立を実現する。",
       "url": "http://arxiv.org/abs/2608.01024v1",
+      "venue": ""
+    },
+    "arxiv:2608.04905": {
+      "added": "2026-08-07",
+      "added_at": "2026-08-07T06:13:59.186302",
+      "arxiv_id": "2608.04905",
+      "authors": [
+        "Chengyang He",
+        "Tanishq Duhan",
+        "Gadiel Sznaier Camps",
+        "Fangyuan Wang",
+        "Yuhong Cao",
+        "Jiankai Sun",
+        "Ge Sun",
+        "Mac Schwager",
+        "Guillaume Sartoretti"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-05",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2608.04905.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.04905v1",
+      "reading_value": 4,
+      "reading_value_reason": "二重グラフ通信とエキスパート介入を統合した手法に高い新規性があり、超大規模環境での高い成功率とスケーラビリティの実証も具体的で、MAPF分野の研究者にとって価値が高い。",
+      "relevance": 1,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "PRIMAL3: Pathfinding via Reinforcement and Imitation Multi-Agent Learning - Leveraging LaCAM3",
+      "tldr": "超大規模なマルチエージェント経路探索（MAPF）において、トポロジー情報を考慮した二重グラフ通信と、エキスパートによる指導付き学習および行動修正を統合することで、高い成功率とスケーラビリティを両立する学習フレームワークを提案する。",
+      "url": "http://arxiv.org/abs/2608.04905v1",
       "venue": ""
     },
     "doi:10.1016/j.artint.2022.103752": {
