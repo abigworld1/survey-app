@@ -2516,6 +2516,67 @@
       "url": "http://arxiv.org/abs/2608.04756v1",
       "venue": ""
     },
+    "arxiv:2608.06223": {
+      "added": "2026-08-08",
+      "added_at": "2026-08-08T06:16:15.828607",
+      "arxiv_id": "2608.06223",
+      "authors": [
+        "Yixiong Xiao",
+        "Congxi Xiao",
+        "Jingbo Zhou"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-06",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.06223.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.06223v1",
+      "reading_value": 4,
+      "reading_value_reason": "時系列予測にRAGを導入する際、単なる結合ではなく専用トークンによる構造的融合を提案した点が新規。実験も多角的で、実用的な検索手法の比較も含まれる。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "TS-RAG: Retrieval Augmented Generation for Time Series Forecasting",
+      "tldr": "時系列予測において、外部の類似シーケンスを効果的に活用するための検索拡張生成（RAG）フレームワークであるTS-RAGを提案する。専用のリファレンストークンを導入することで、入力シーケンスと検索された参照情報の構造的な融合を実現し、既存の最先端手法を上回る予測精度を達成する。",
+      "url": "http://arxiv.org/abs/2608.06223v1",
+      "venue": ""
+    },
+    "arxiv:2608.06292": {
+      "added": "2026-08-08",
+      "added_at": "2026-08-08T06:15:49.899327",
+      "arxiv_id": "2608.06292",
+      "authors": [
+        "Jonas Gann",
+        "Michael Gertz"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-06",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.06292.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.06292v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの課題である根拠の帰属と透明性を、Prolog合成と階層的検索で解決する手法は新規性が高い。知識ギャップ検出も実用的で、研究者にとって読む価値がある。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "NeSy-RAG: Neuro-Symbolic RAG for Explainable Question Answering",
+      "tldr": "従来のRAGにおける推論過程の不透明性や根拠の帰属の困難さを解決するため、検索されたテキストから帰属可能なPrologモジュールを合成し、記号推論を用いるNeSy-RAGを提案する。本手法は、決定論的な回答と詳細な実行トレースを提供するとともに、不足しているユーザー情報を特定して対話を促す知識ギャップ検出機能を備えている。",
+      "url": "http://arxiv.org/abs/2608.06292v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -5897,6 +5958,42 @@
       "title": "PRIMAL3: Pathfinding via Reinforcement and Imitation Multi-Agent Learning - Leveraging LaCAM3",
       "tldr": "超大規模なマルチエージェント経路探索（MAPF）において、トポロジー情報を考慮した二重グラフ通信と、エキスパートによる指導付き学習および行動修正を統合することで、高い成功率とスケーラビリティを両立する学習フレームワークを提案する。",
       "url": "http://arxiv.org/abs/2608.04905v1",
+      "venue": ""
+    },
+    "arxiv:2608.05588": {
+      "added": "2026-08-08",
+      "added_at": "2026-08-08T06:03:27.428895",
+      "arxiv_id": "2608.05588",
+      "authors": [
+        "He Jiang",
+        "Jingtian Yan",
+        "Yulun Zhang",
+        "Yimin Tang",
+        "Tanishq Duhan",
+        "Rishi Veerapaneni",
+        "Guillaume Sartoretti",
+        "Jiaoyang Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-06",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2608.05588.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.05588v1",
+      "reading_value": 4,
+      "reading_value_reason": "回転制約や後続衝突等の現実的な制約下で、探索と強化学習を統合し、数百規模のエージェントへのスケーラビリティと実機検証まで示した点は非常に価値が高い。",
+      "relevance": 8,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Search-Aided Joint Agent-Environment Reinforcement Learning for Robust Lifelong Multi-Agent Path Finding with Rotations",
+      "tldr": "回転制約と堅牢な安全制約を持つ現実的なLifelong Multi-Agent Path Finding (LMAPF-R2) において、エージェントの局所的な衝突回避と環境のグローバルな誘導を同時に最適化するSearch-Aided Joint Reinforcement Learning (SJRL) を提案し、高密度環境でのスループットを大幅に向上させた。",
+      "url": "http://arxiv.org/abs/2608.05588v1",
       "venue": ""
     },
     "doi:10.1016/j.artint.2022.103752": {

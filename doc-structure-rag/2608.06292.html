@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>NeSy-RAG: Neuro-Symbolic RAG for Explainable Question Answering | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>NeSy-RAG: Neuro-Symbolic RAG for Explainable Question Answering</h1>
+  <div class="meta">Jonas Gann, Michael Gertz<br>採択先: 未取得 ・ 2026-08-06 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.06292v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.06292v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-08-06</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの課題である根拠の帰属と透明性を、Prolog合成と階層的検索で解決する手法は新規性が高い。知識ギャップ検出も実用的で、研究者にとって読む価値がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 従来のRAGにおける推論過程の不透明性や根拠の帰属の困難さを解決するため、検索されたテキストから帰属可能なPrologモジュールを合成し、記号推論を用いるNeSy-RAGを提案する。本手法は、決定論的な回答と詳細な実行トレースを提供するとともに、不足しているユーザー情報を特定して対話を促す知識ギャップ検出機能を備えている。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のRAGは外部知識を活用して回答を生成するが、Chain-of-Thoughtによる推論過程の透明性や、生成された回答の根拠となるソーステキストへの帰属（attribution）の保証が不十分である。特に医療や法律などの高リスク領域では、推論の根拠が不明瞭であることや、大規模な知識ベースにおいてスケーラブルなクエリ構築が困難であること、さらに推論に必要な情報が不足している場合にそれを検知できないことが課題となっている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>先行研究では、LLMを用いたコード合成による論理プログラミングの統合が試みられているが、生成されたルールを元のソース知識へ一意に紐付ける手法は確立されていない。本研究は、テキストチャンクから帰属可能なPrologモジュールを直接合成するアプローチを導入し、非構造化ドメイン知識から直接動作する点に新規性がある。また、LLMが能動的な情報収集に苦戦するという課題に対し、記号推論中に欠落した情報を検出してフォローアップ質問を生成する知識ギャップ検出メカニズムを導入している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>各テキストチャンクからLLMを用いて、ルール集合 $\mathcal{R}$ と事実集合 $\mathcal{F}$ からなるPrologモジュールを合成し、各要素をソースチャンクに紐付ける。知識は、普遍的事実と、外部情報から値を確定させる動的事実 $f(\text{name}: \text{type} = \text{value})$ に分類される。質問回答時には、まずベクトル検索で関連チャンクを特定し、次に $0\text{-arity}$ 述語抽象化（引数を持たない論理式）を自然言語とPrologの共同埋め込みモデルを用いて検索・ランク付けする。この階層的検索により、LLMが扱う述語の範囲を限定してクエリを構成する。実行中に動的述語に遭遇した場合は、ユーザーにフォローアップ質問を行い、回答不能を意味する $\text{more}$ を予測する仕組みを持つ。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>ShARCベンチマークを用い、gpt-oss:20bとgpt-5-miniを使用し、3つのスニペットを提示する設定で評価を行った。NeSy-RAGは、ドメイン特化の学習なしで61.1%の精度を達成し、LLM RAG Baselineの42.8%を大きく上回った。実行時間は11.4秒から7.4秒へと短縮されている。また、不足情報を特定する $\text{more}$ クラスの分類精度において、ベースラインの19%に対し61%を記録した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、動的述語を過剰に生成してしまうことで、本来回答可能な事例を保守的に $\text{more}$ と誤判定する傾向がある。これは、高リスクな領域において誤った確信を与えるよりも望ましい側面もあるが、精度向上のための課題である。今後の課題として、動的述語の生成の最適化が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>NeSy-RAG: Neuro-Symbolic RAG for Explainable Question Answering</h3><p>NeSy-RAGは、検索されたテキストチャンクから帰属可能なPrologモジュールを合成することで、推論過程の透明性を確保するモジュール型のニューロシンボリックRAGフレームワークである。各チャンクから、ユーザーの事実（user facts）に依存し得る論理値の主張をエンコードした意味的な述語を生成し、自然言語とコードの共同埋め込みを用いることで、これらの述語を検索・構成してPrologクエリを構築する。また、クエリの実行結果に影響を与える欠落したユーザー事実を特定するシンボリックな知識ギャップ検出メカニズムを備えており、不足している情報を自動的に特定してフォローアップの対話を促すことが可能である。Prologクエリの実行により、各推論ステップを元の情報源に紐付けた透明な実行トレースと共に決定論的な回答を得られる。ShARCベンチマークを用いた実験では、ドメイン特化の学習なしで61.1%の精度を達成し、同モデルを用いた従来のRAGベースラインの42.8%を大きく上回る性能を示した。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>従来のRAGは外部知識を活用して事実に基づいた回答を生成するが、Chain-of-Thought（CoT）による推論過程の透明性や、生成された回答の根拠となるソーステキストへの帰属（attribution）の保証が不十分であり、医療や法律などの高リスク領域での信頼性に課題がある。提案手法であるNeSy-RAGは、検索されたテキストチャンクから帰属可能なPrologモジュールを合成・実行するモジュール式のニューロシンボリックRAGフレームワークである。本手法では、PrologモジュールをBooleanの主張として抽出する $0\text{-arity predicate abstraction}$ を導入しており、これにより自然言語からコードへの検索を通じて、制約付きかつスケーラブルなクエリ構築を可能にしている。さらに、シンボリックな知識ギャップ検出メカニズムを備えており、不足しているユーザー情報を認識してフォローアップの質問を通じて対話的に解決できる。ShARCベンチマークを用いた実験の結果、NeSy-RAGはドメインに依存しないLLMベースラインを上回る性能を示すことが確認されている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>既存研究では、LLMを用いたコード合成を通じて論理プログラミングや述語論理を統合する試みが行われており、特にPrologの宣言的な性質を利用した説明可能で信頼性の高い推論が提案されているが、生成されたルールや事実を元のソース知識（テキストチャンク）へ一意に紐付ける手法は確立されていない。また、複雑なドメインにおけるPrologルールの生成については、手動による仕様策定に依存する手法が存在するが、提案手法は非構造化ドメイン知識から直接的に動作する。推論時に必要なユーザーコンテキストが不足している問題に対し、先行研究ではLLMが能動的な情報収集に苦戦することが示されているが、本研究では記号推論中に欠落した情報を検出し、対象を絞った質問を能動的に生成する知識ギャップ検出を導入している。大規模な知識ベースの運用においては、単一の巨大な知識ベースを構築する手法では保守性や一貫性の維持が困難になるため、提案手法ではモジュール化されたアプローチにより、スケーラビリティと記号的な整合性を保ちつつ、関連するサブセットに対して選択的な推論を行う。さらに、ユーザーの意図と利用可能な記号知識を一致させるクエリ生成の困難さを解決するため、階層的な述語検索戦略を採用し、クエリ生成の対象を質問に関連する少数の 0-arity 述語に制限することで、スケーラビリティとクエリ精度の向上を実現している。</p></section>
+<section class="secsum"><h3>3 NeSy-RAG Framework</h3><p>NeSy-RAGは、既存のRAGシステムを拡張し、テキストチャンクから論理的な推論を行うためのニューロ・シンボリックなフレームワークである。まず、各チャンクからLLMを用いて、ルール集合 $\mathcal{R}$ と事実集合 $\mathcal{F}$ からなるPrologモジュールを合成し、各要素をソースチャンクに紐付けることで、推論過程の粒度の高い説明性と検証可能性を確保する。知識は、すべての引数が定義済みの普遍的事実と、推論時にユーザー等の外部情報から値を確定させる必要がある動的事実 $f(\text{name}: \text{type} = \text{value})$ に分類される。質問回答時には、まずベクトル検索により関連チャンクを特定し、次にモジュール合成時に生成された0項ルール（引数を持たない論理式）をNL-PL埋め込みモデルを用いて質問との類似度でランク付けする。この2段階の階層的検索により、LLMが扱う述語の範囲を限定することで、大規模な知識ベースにおいてもスケーラブルかつハルシネーションを抑制したクエリ生成が可能となる。最終的に、Prologの実行結果と、各ルールや事実のソースチャンクへの参照を含む実行トレースを用いて、自然言語による回答と根拠の提示を行う。</p></section>
+<section class="secsum"><h3>4 Experiments</h3><p>NeSy-RAGは、ShARCベンチマークを用いて、対話的な質問応答における説明可能な推論能力を評価している。本手法は、LLMがスニペットからPrologモジュールを合成し、0-arityのルールを埋め込みベクトルを用いて検索・ランク付けした後、LLMがPrologクエリを構成するプロセスをとる。実行中に動的述語に遭遇すると、システムはユーザー（シミュレートされたLLM）にフォローアップ質問を行い、その回答がクエリ結果に影響を与える場合にのみ、回答不能を意味する $\text{more}$ を予測する。実験では、gpt-oss:20bとgpt-5-miniを使用し、3つのスニペット（ターゲット1つとランダムな妨害スニペット2つ）を提示する設定で、精度と平均実行時間を測定した。結果として、NeSy-RAGはgpt-oss:20bを用いたLLM RAG Baselineの精度42.8%を大きく上回る61.1%（$k=10$ の場合）を達成し、実行時間も11.4秒から7.4秒へと短縮した。特に、$\text{more}$ クラスの分類精度においてLLM RAG Baselineの19%を大幅に上回る61%を記録しており、記号的な知識ギャップ検出メカニズムの有効性が示された。一方で、$\text{yes}$ を $\text{more}$ と誤判定する傾向があり、これは動的述語の生成が過剰であることが原因として示唆されている。</p></section>
+<section class="secsum"><h3>5 Discussion and Conclusion</h3><p>NeSy-RAGは、検索されたテキストチャンクから帰属可能なPrologモジュールを合成・実行することで、説明可能な質問応答を実現するモジュール型のニューロシンボリックRAGフレームワークである。本手法は、高密度検索とシンボリック推論を組み合わせることで、根拠の帰属が不明瞭な推論、大規模知識ベースにおけるクエリ構築の拡張性の欠如、および不足情報の検出不能という標準的なRAGの課題を解決している。具体的には、0-arity（引数なし）述語抽象化と自然言語・Prologの共同検索を用いることで、チャンクおよび述語レベルの階層的検索を行い、コンテキストウィンドウを小さく保ちつつハルシネーションを抑制している。ShARCベンチマークを用いた評価では、NeSy-RAGは61.1%の精度を達成し、ドメインに依存しないLLM RAGベースラインの42.8%を上回ったほか、モジュールの再利用性とコンテキストの縮小により平均実行時間も短縮している。また、知識ギャップ検出メカニズムにより、ベースラインの19%に対し61%の割合で不足情報を正しく分類することに成功している。現在の限界として、動的述語の過剰生成により、回答可能な事例を保守的に「more」と分類してしまう傾向があるが、これは高リスクな領域においては誤った確信を与えるよりも望ましい側面もある。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-08
+  </footer>
+</div>
+</body>
+</html>

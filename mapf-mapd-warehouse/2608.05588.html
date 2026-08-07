@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Search-Aided Joint Agent-Environment Reinforcement Learning for Robust Lifelong Multi-Agent Path Finding with Rotations | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Search-Aided Joint Agent-Environment Reinforcement Learning for Robust Lifelong Multi-Agent Path Finding with Rotations</h1>
+  <div class="meta">He Jiang, Jingtian Yan, Yulun Zhang, Yimin Tang, Tanishq Duhan, Rishi Veerapaneni, Guillaume Sartoretti, Jiaoyang Li<br>採択先: 未取得 ・ 2026-08-06 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.05588v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.05588v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-06</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">回転制約や後続衝突等の現実的な制約下で、探索と強化学習を統合し、数百規模のエージェントへのスケーラビリティと実機検証まで示した点は非常に価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 回転制約と堅牢な安全制約を持つ現実的なLifelong Multi-Agent Path Finding (LMAPF-R2) において、エージェントの局所的な衝突回避と環境のグローバルな誘導を同時に最適化するSearch-Aided Joint Reinforcement Learning (SJRL) を提案し、高密度環境でのスループットを大幅に向上させた。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、実世界の自動倉庫システムを模した、回転制約と堅牢な安全制約を含むLMAPF-R2モデルを対象としている。エージェントは4近傍の格子グラフ上で、前進、回転、待機の行動を選択するが、非ホロノミックな性質により隣接頂点への移動に最大3タイムステップを要する場合がある。また、頂点衝突に加え、エージェントが位置を入れ替える後続衝突も禁止される。従来の学習ベースのプランナーでは、これらの制約がデッドロックやライブロックを引き起こし、高度な協調が困難であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>先行研究が小規模なシナリオや単純な運動モデルに限定されていたのに対し、本研究は数百規模のエージェントが存在する高密度なライフロング・シナリオへの適用を可能にした。探索アルゴリズムを学習と推論の両方にシームレスに統合し、Causal PIBTの変種をエージェントの方策に組み込むことで、衝突解決と意図の伝播を同時に実現している。さらに、環境のガイダンスグラフを強化学習の枠組みでエージェントの方策と共同で最適化する手法を導入した点が新規である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>SJRLは、エージェント方策と環境方策を統合的に最適化する。環境方策は、各エッジのコストをガウス分布からサンプリングし、エージェントは逆方向Dijkstra探索で計算されたヒューリスティック距離を報酬および入力として利用する。エージェントの報酬は、ステップごとのペナルティ $r_{step}$、サブゴール到達時の進捗報酬 $r_{progress} = d(s_{prev}, g) - d(s_{curr}, g)$、およびチーム報酬で構成される。衝突回避には、優先順位に基づきbusy状態のエージェントを障害物として扱う同期型Causal PIBTを導入し、エージェントの意図を伝播させる。環境方策の学習にはMAPPOを用い、エッジコストを $\sigma(x) = \frac{1}{1 + e^{-x}}$ と線形変換を用いて $[0, 1]$ の範囲に制御する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>6種類のマップを用い、エージェント数や初期状態の変化に対する汎化性能を評価した。比較対象として、エージェントのみを学習するSARL、環境のみを学習するSERL、および探索ベースのCausal-PIBTを用いた。評価指標にはスループットのほか、エージェント間の空間的分散を示す平均ペアワイズ距離 $MPD = \sum_{u,v} \mathbb{P}(u,v) d(u,v)$ を用いた。実験の結果、SJRLは高密度マップにおいてCausal-PIBTを大幅に上回り、エージェント数が増加した際にも高いスループットを維持した。また、8台の実機ロボットと248台の仮想ロボットを用いた混合現実環境でも有効性が検証された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、環境レイアウトを固定したままガイダンスグラフのみを最適化することでスケーラビリティを確保しているが、学習の安定化のために、まず一様なエッジコストを用いてエージェントポリシーのウォームアップを行う必要がある。また、Causal PIBTによる衝突回避は、優先度継承と深さ優先探索による意図伝播に依存しており、これらが複雑な制約下での探索を支えている。今後の課題として、より多様な制約や環境レイアウトへの適応、および実世界へのさらなる展開が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Search-Aided Joint Agent-Environment Reinforcement Learning for Robust Lifelong Multi-Agent Path Finding with Rotations</h3><p>本研究では、実世界の自動倉庫システムを模した、回転制約と堅牢な安全制約を含むLMAPF-R2モデルを提案している。このモデルは、エージェントがその場での回転制約を持つことで、従来の学習ベースのプランナーでは困難な高度な協調を必要とする。提案手法であるSearch-Aided Joint Reinforcement Learning (SJRL) は、まず単一ステップの探索ベースのプランナーであるCausal PIBTを用いてニューラルポリシーを拡張し、エージェント間の衝突回避と意図の伝播を実現する。さらに、エージェントのポリシーと環境のポリシーを統合的に最適化する強化学習の定式化を導入しており、環境ポリシーは逆方向のDijkstra探索を通じてグローバルな移動指針を与えるグラフエッジのコストを学習する。実験の結果、SJRLは高密度なマップにおいて強力な探索ベースのプランナーであるCausal-PIBTを大幅に上回る性能を示し、8台の実機ロボットと248台の仮想ロボットを用いた混合現実の倉庫環境においてもその有効性が検証された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究では、高密度かつ制約の強い環境下でのLifelong Multi-Agent Path Finding (LMAPF) において、より現実的な運動モデルであるLMAPF-R2を導入し、その複雑な調整課題に対処するSearch-Aided Joint Reinforcement Learning (SJRL) を提案している。LMAPF-R2は、エージェント間の最小安全距離を確保する堅牢な安全制約と、差動駆動ロボット等の非ホロノミックな性質を反映したその場での回転制約を特徴としており、これらは環境の混雑を悪化させ、デッドロックやライブロックを引き起こす要因となる。提案手法であるSJRLは、局所的な反応的調整を行うエージェント方策と、グローバルな誘導を行う環境方策を同時に最適化する統一的な強化学習フレームワークであり、両者が互いに補完し合うことで交通流を改善する。具体的には、衝突を回避するためにCausal PIBTの変種を用いた衝突シールド技術を統合してエージェントの意図を伝播させるとともに、誘導グラフの最適化を通じてエージェント方策を補完する。実験の結果、この共同学習アプローチは、従来の学習ベースの手法と比較して、現実的な制約下でのスループット向上と効率的な交通制御を実現することが示されている。</p></section>
+<section class="secsum"><h3>2 Problem Formulation</h3><p>本研究で扱う LMAPF-R2 は、4近傍の格子グラフ上で $N$ 台のエージェントが動作する Lifelong Multi-Agent Path Finding の変種であり、各エージェントは初期位置の頂点と向き $\theta$ を持ち、離散的なタイムステップごとに「前進」「時計回りに回転」「反時計回りに回転」「待機」のいずれかの行動を選択する。制約条件として、同一時刻に複数のエージェントが同じ頂点を占有する頂点衝突と、エージェントが前の時刻に他者がいた頂点へ移動する、あるいはエージェント同士が位置を入れ替えるといった後続衝突（following collision）の両方を禁止する。この「Robust」な制約により、先行エージェントが遅延した場合でも後続エージェントが安全な距離を保てるよう保証される。また、回転制約（Rotational constraints）により、隣接する頂点への移動に最大で3タイムステップを要する場合がある。本設定は、エージェントが目標に到達するたびに外部のタスク割り当て器から新たな目標が与えられる生涯（lifelong）設定であり、固定されたタイムホライゾンにおいて、全エージェントのタイムステップあたりの平均目標到達数であるスループットを最大化することを目的とする。</p></section>
+<section class="secsum"><h3>3 Related Work</h3><p>学習ベースのマルチエージェント経路探索（MAPF）における既存研究は、強化学習（RL）によるゼロからの学習、エキスパート探索アルゴリズムを用いた模倣学習（IL）、あるいは両者の組み合わせに分類されるが、回転制約や頑健な制約、複雑な運動学的制約を扱う研究は限定的である。先行研究では、推論時にアクション回数に基づくアドホックなデッドロック回避機構を用いる手法も存在するが、本研究は探索アルゴリズムを学習と推論の両方にシームレスに統合することで、回転制約下での効率的な協調を実現する。衝突解決に関しては、エージェントの動きを停止させる非効率な手法から、軽量な探索アルゴリズムであるPIBTを適用したCS-PIBTへと発展してきたが、本手法はCausal PIBTの変種をエージェントの方策学習に組み込むことで、衝突解決と意図の伝播、および回転制約への対応を同時に行う。環境側の方策については、地図上のエッジコストとしてガイダンスグラフを定式化し、CMA-ESを用いてコストまたはその生成ネットワークを最適化するGuidance Graph Optimization（GGO）を拡張し、RLの枠組みの中でエージェントの方策と共同で学習を行う。従来の環境とエージェントの共同設計に関する研究は、最大16エージェント程度の小規模なシナリオに限定されていたが、本手法は環境レイアウトを固定したままガイダンスグラフのみを最適化することで、数百規模のエージェントが存在する高密度なライフロング・シナリオへの適用を可能にしている。</p></section>
+<section class="secsum"><h3>4 Method</h3><p>本手法は、エージェントと環境の双方を強化学習で最適化するSJRL（Search-Aided Joint Agent-Environment Reinforcement Learning）を提案している。MDPの定式化において、環境ポリシーは各エッジのコストをガウス分布からサンプリングし、エージェントはそれに基づき逆方向Dijkstra探索で計算されたヒューリスティック距離を報酬および入力特徴量として利用する。エージェントの報酬は、各ステップの行動に対するペナルティ $r_{step}$、サブゴール到達時の進捗報酬 $r_{progress} = d(s_{prev}, g) - d(s_{curr}, g)$、およびローカルビュー内の全エージェントの平均報酬からなるチーム報酬で構成される。エージェントの学習には、CNN、通信モジュール、MLPを用いたアーキテクチャを採用し、候補となる次頂点へのヒューリスティック距離をスキップ接続により直接注入することで、環境ポリシーの誘導を強化している。衝突回避と意図伝播のため、同期型Causal PIBTを導入しており、これは自由なエージェントが優先順位に基づきサブゴールを選択し、busy状態のエージェントを障害物として扱うことで、廊下のような環境での効率的な探索を可能にする。環境ポリシーの学習にはMAPPOを用い、エッジコストを $[0, 1]$ の範囲に写像する $\sigma(x) = \frac{1}{1 + e^{-x}}$ と線形変換を組み合わせて制御している。学習の安定化のため、まず一様なエッジコストを用いてエージェントポリシーのウォームアップを行い、その後に両者を共同で学習させる。</p></section>
+<section class="secsum"><h3>5 Experiments</h3><p>Moving-AIおよびSILLMのベンチマークから選定された6種類のマップを用い、エージェント数や初期状態、ゴール位置の変化に対する汎化性能を評価している。提案手法であるSJRLは、エージェントの行動を学習するSARLや環境のガイダンスグラフを学習するSERLを統合した共同学習（Joint Learning）を行っており、スループットにおいてこれらを一貫して上回り、特にエージェント数が増加した際に強力な探索ベースの基準手法であるCausal-PIBTを大きく凌駕する。評価指標として平均ペアワイズ距離 $MPD = \sum_{u,v} \mathbb{P}(u,v) d(u,v)$ （ここで $\mathbb{P}(u,v)$ は頂点 $u, v$ がそれぞれエージェントによって占有される経験的確率、$d(u,v)$ は最短経路距離）を用いると、SJRLはエージェント間の空間的な分散を促進し、混雑を緩和していることが示される。また、最新手法であるSILLMやMAGAT+と比較した場合、SJRLは回転を考慮したLMAPF-R2モデルを採用しているため、標準的なLMAPFモデルに基づく既存手法よりも一貫して高い性能を示す。衝突回避メカニズムの比較では、単純な行動ベース（NACS）や頂点ベース（NVCS）の衝突シールドと比較して、優先度継承と深さ優先探索による意図伝播を備えたCausal-PIBTが、倉庫や狭い通路のあるマップにおける探索の困難さを克服し、極めて高い性能を達成している。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、現実世界のロボットシステムへの適用を見据え、堅牢性と回転制約を組み込んだ、より現実的かつスケーラブルな学習ベースのLifelong Multi-Agent Path Finding（LMAPF）モデルであるLMAPF-R2を提案している。このLMAPF-R2における協調の課題を解決するため、探索と学習の相補的な強みを活用し、エージェントと環境の両方の観点から協調を最適化するSJRLという手法を導入した。本研究の成果は、学習ベースのLMAPFにおいて、現実的な制約とスケーラビリティを両立させた問題定式化の研究を促進し、実世界への展開を容易にすることを目指している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-08
+  </footer>
+</div>
+</body>
+</html>

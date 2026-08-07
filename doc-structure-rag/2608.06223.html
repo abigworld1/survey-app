@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TS-RAG: Retrieval Augmented Generation for Time Series Forecasting | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>TS-RAG: Retrieval Augmented Generation for Time Series Forecasting</h1>
+  <div class="meta">Yixiong Xiao, Congxi Xiao, Jingbo Zhou<br>採択先: 未取得 ・ 2026-08-06 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.06223v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.06223v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-06</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">時系列予測にRAGを導入する際、単なる結合ではなく専用トークンによる構造的融合を提案した点が新規。実験も多角的で、実用的な検索手法の比較も含まれる。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 時系列予測において、外部の類似シーケンスを効果的に活用するための検索拡張生成（RAG）フレームワークであるTS-RAGを提案する。専用のリファレンストークンを導入することで、入力シーケンスと検索された参照情報の構造的な融合を実現し、既存の最先端手法を上回る予測精度を達成する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>時系列予測において、モデルのパラメータ規模や訓練データの不足により、外部の類似履歴をプロンプトに連結するだけの単純なRAG手法では十分な効果が得られないという課題がある。対象は多変量時系列データ $\mathbf{X} \in \mathbb{R}^{C \times L}$ であり、入力シーケンスに対して過去の類似パターンをデータベースから取得して予測に活用することを目指す。従来のDynamic Time Warping（DTW）を用いた類似性検索は、計算コストが高くリアルタイム性に欠けるという困難も存在する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のRAGを時系列に適用する際、単に類似シーケンスを入力に結合する手法とは異なり、入力と参照情報を効果的に融合させるための専用のリファレンストークンを導入した点が新規である。また、計算負荷の高いDTWに代わり、精度と推論効率を両立するベクトル検索技術を採用している。これにより、内部的な特徴抽出のみに依存する標準的なTransformerベースのモデルに対し、外部の構造化された情報を活用して未知の非定常なパターンへの適応力を高めている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>入力シーケンスの各チャネルを長さ $P$ の非重複なパッチに分割し、検索された各参照系列に対応する学習可能な参照トークン $\mathbf{r}_i$ を入力パッチの先頭に付加して入力埋め込み $\mathbf{Z}_{\text{in}}$ を構成する。参照系列についても同様のパッチ化を行い、埋め込み $\mathbf{Z}_{\text{ref}}$ を算出する。処理の流れとして、まず自己注意機構を用いて入力系列内の時間的依存関係を捉え、次に交差注意機構を用いて参照系列の情報を入力系列に整合させ、有用な情報を選択的に抽出する。最終的に、これらの情報を統合した隠れ表現をフィードフォワードネットワークに通すことで、予測値 $\hat{\mathbf{X}}$ を出力する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>ECL、ETTh1、ETTh2、ETTm1、ETTm2、Weatherの6つのベンチマークデータセットを用いて評価を行った。チャネル間の依存関係を考慮するTS-RAG-CMは、全データセットにおいて平均 $\text{MSE} = 0.310$、$\text{MAE} = 0.348$ という最高水準の精度を達成した。予測長720において、単純なシーケンス結合手法と比較してMSEを18.2%削減している。検索手法の比較では、Temporal Convolutional Network（TCN）を用いた検索が、ユークリッド距離（ED）やDTWと比較して、精度と推論効率の両面で優れていることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>アブレーション研究により、参照するシーケンス数は1つが最適であり、2つまたは4つと増やすとノイズが増加し精度が低下するというトレードオフが判明している。本手法は、計算コストの高いDTWを回避して高速な推論を実現しているが、参照情報の選択精度が予測性能に直結する。今後の課題として、より多様な分布や稀なイベントが発生するシナリオにおける、外部情報の活用方法の最適化が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>TS-RAG: Retrieval Augmented Generation for Time Series Forecasting</h3><p>TS-RAGは、時系列予測において外部の類似シーケンスをリファレンスとして活用する、Retrieval Augmented Generation (RAG) の枠組みを導入した手法である。従来の言語モデルにおけるRAGのようにリファレンスをプロンプトに連結する手法では、時系列モデルの限定的なパラメータ規模や訓練データの不足により十分な効果が得られないという課題に対し、本手法は入力シーケンスと検索された類似シーケンスの情報を効果的に融合させるために設計された専用のリファレンストークンを導入している。この設計により、複雑な時間的ダイナミクスをより堅牢に捉えることが可能となる。実験では、ECL、ETTh1、ETTh2、ETTm1、ETTm2、およびWeatherといった複数の実世界の予測ベンチマークを用いて評価が行われ、TS-RAGが既存のモデルを上回る最先端（state-of-the-art）の性能を一貫して達成することが示されている。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>時系列予測において、Transformerベースのモデルは長期依存関係のモデリングに優れているが、既存研究の多くはマルチスケール混合などのモデル訓練の強化に焦点を当てており、外部情報を活用する検索拡張生成（RAG）の適用は限定的である。NLPにおけるRAGは、推論時に外部の関連情報を取得することでモデルの汎化性能を向上させるが、時系列予測に単純に適用して類似の履歴シーケンスを入力に結合する手法は、時系列モデルが大規模言語モデル（LLM）ほどの生成能力を持たないため、効果的な情報融合が困難であるという課題がある。また、Dynamic Time Warping（DTW）のような従来の類似性検索手法は計算コストが高く、推論のリアルタイム性に欠ける問題も存在する。本研究では、これらの課題を解決するためにTS-RAGを提案しており、これは入力シーケンスと検索された類似シーケンスの両方から情報を効果的に統合する、特別に設計されたリファレンストークンを導入するフレームワークである。さらに、ベクトル検索技術を採用することで、DTWと比較して計算負荷を大幅に軽減し、予測精度を維持しつつ高速な推論を実現している。複数の実世界の時系列予測ベンチマークを用いた評価の結果、TS-RAGは既存の最先端手法を一貫して上回る性能を示し、外部情報を構造化された方法で活用できる可能性を証明している。</p></section>
+<section class="secsum"><h3>2. Related Work</h3><p>時系列予測の分野では、CNNによる局所的な特徴抽出や、RNNおよびLSTM/GRUによる長期依存性のモデル化が行われてきたが、RNNは勾配消失や逐次計算の非効率性という課題がある。Transformerの登場により、self-attentionを用いた効率的な長距離依存性の捕捉が可能となり、LogTransの畳み込みself-attentionやInformerのprobSparse self-attention、Autoformerの季節性・トレンド分解、FedFormerの周波数領域アテンションなど、多様な派生モデルが提案されてきた。近年では、TimeGPT-1やTimesFM、MOIRAIのような、大規模なマルチドメイン事前学習を通じてゼロショット予測能力を実現する時系列基盤モデル（TSFMs）が台頭しているが、これらは事前学習時の暗黙的な知識に依存するため、未知の非定常なパターンへの適応には限界がある。一方、自然言語処理におけるRAGは、外部知識を動的に取得することでモデルの知識カットオフやハルシネーションを抑制する手法として確立されており、画像生成や構造化データ領域にも応用されている。時系列予測における検索拡張手法としては、ReTimeのような関係性検索や、訓練データから入力に類似した履歴パターンを明示的に選択するRAFTなどが提案されており、これらは自己注意機構のみに頼らず、外部の過去シーケンスを統合することで多様な分布への汎化性能を向上させている。</p></section>
+<section class="secsum"><h3>3. Methodology</h3><p>TS-RAGは、多変量時系列データ $\mathbf{X} \in \mathbb{R}^{C \times L}$ に対し、過去の類似パターンをデータベースから検索して予測に活用するRetrieval-Augmented Generation（RAG）の枠組みを提案している。手法では、入力系列の各チャネルを長さ $P$ の非重複なパッチに分割し、検索された各参照系列に対応する学習可能な参照トークン $\mathbf{r}_i$ を入力パッチの先頭に付加することで、入力埋め込み $\mathbf{Z}_{\text{in}}$ を構成する。参照系列についても同様にパッチ化を行い、埋め込み $\mathbf{Z}_{\text{ref}}$ を算出する。モデルの統合プロセスでは、まず自己注意機構を用いて入力系列内の時間的依存関係を捉え、次に交差注意機構を用いて参照系列の情報を入力系列に整合させ、有用な情報を選択的に抽出する。最終的に、これらの情報を統合した隠れ表現をフィードフォワードネットワークに通すことで、入力系列のみでは捉えきれない広範な時間的コンテキストを考慮した予測値 $\hat{\mathbf{X}}$ を出力する。</p></section>
+<section class="secsum"><h3>4. Experiments</h3><p>本研究では、ETTh1/2、ETTm1/m2、Electricity、Weatherの6つのベンチマークデータセットを用い、長期時系列予測におけるTS-RAGの有効性を検証している。提案手法は、入力シーケンスに対して最も類似した履歴パターンを検索するリトリーバーを備えた検索拡張生成（RAG）構造を採用しており、特にチャネル間の依存関係を考慮するTS-RAG-CMは、全データセットにおいて平均 $\text{MSE} = 0.310$、$\text{MAE} = 0.348$ という最高水準の精度を達成した。実験では、検索したシーケンスを単に結合する手法（Direct Sequence Concatenation）と比較して、TS-RAGは予測ホライゾンが長くなるほど高い改善効果を示し、例えば予測長720においてTS-RAG-CMはMSEを18.2%削減しており、提案する参照融合フレームワークの重要性が示された。アブレーション研究により、参照するシーケンス数は1つが最適であり、複数（2つまたは4つ）の参照を用いるとノイズが増加し精度が低下することが判明した。また、検索手法の比較では、Temporal Convolutional Network（TCN）を用いた検索が、ユークリッド距離（ED）や動的時間伸縮法（DTW）と比較して、精度と推論効率（DTWより大幅に高速）の両面で優れた性能を示すことが確認された。</p></section>
+<section class="secsum"><h3>5. Conclusion</h3><p>本研究では、検索された過去の時系列シーケンスを予測プロセスに効果的に統合する、時系列予測のための新しい検索拡張生成（RAG）フレームワークであるTS-RAGを提案している。この手法は、参照トークンを通じて外部情報を組み込むことで、既存の深層学習モデルの限界を克服し、複雑な時間的依存関係の構造的な融合を促進する。計算コストの高い動的時間伸縮法（DTW）の代わりに効率的なベクトル検索技術を活用することで、高い予測精度を維持しつつ高速な推論を実現している。複数の実世界の時系列予測ベンチマークを用いた広範な評価により、TS-RAGは最先端のモデルを一貫して上回り、一般的なシナリオだけでなく稀なイベントが発生するシナリオにおいても予測性能を向上させることが示された。内部的な特徴抽出のみに依存する標準的なTransformerベースのアーキテクチャとは異なり、関連する外部シーケンスを検索・利用することで、訓練データが不足している場合や多様性に欠ける場合でも、より情報に基づいた予測が可能となる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-08
+  </footer>
+</div>
+</body>
+</html>
