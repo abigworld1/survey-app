@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>42+ Flavors of Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>42+ Flavors of Multi-Agent Path Finding</h1>
+  <div class="meta">David Zahrádka, Michal Kulich, Jiří Švancara, Roman Barták<br>採択先: Journal of Artificial Intelligence Research ・ 2026-08-05 ・ source: openalex</div>
+  <div class="links"><a href="https://openalex.org/W7172505669" target="_blank" rel="noopener">原典</a> ・ <a href="https://jair.org/index.php/jair/article/download/21183/27348" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1613/jair.1.21183" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Journal of Artificial Intelligence Research</span><span class="chip">公開日 2026-08-05</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 5/5</span><div class="rating-reason">MAPFの派生問題を48種類に及ぶ膨大な数で体系化した極めて網羅性の高いサーベイであり、研究者が適切な問題設定や手法を選択するための決定的なカタログとなるため。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、マルチエージェント経路探索（MAPF）から派生した48種類の多様な問題設定（flavors）を体系的に整理・分類し、それらの定義的特徴や解決手法、問題間の関係性をマッピングしたサーベイである。</div>
+<section class="qa"><h2>どんなもの？</h2><p>標準的なMAPFは、離散的なグラフ $G=(V, E)$ 上で、エージェントの集合 $\mathcal{A}$ が各エージェント $a \in \mathcal{A}$ の開始地点 $v_{a,s}$ から目標地点 $v_{a,g}$ への衝突のないパス $\Pi$ を見つける問題である。しかし、実世界の応用では、連続空間での移動、タスク割り当てとの結合、環境やエージェントの不確実性、非ホロノミックな制約など、標準的な仮定を緩和した複雑な問題が数多く存在する。既存のサーベイは特定の応用や手法に偏っており、Combinatorial MAPFやMAPDといった重要なバリエーションが欠落しているという課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のサーベイが主に古典的なMAPFに焦点を当てているのに対し、本研究は近年派生した広範な問題群を網羅的に収集・分類している点が新規である。MAPFの前提条件を「目標」「エージェント」「環境」「通信」「時間」の5つの主要カテゴリに分類し、それらを変更することで生じる派生問題を体系化した。また、単なる問題の列挙に留まらず、各問題の定義的特徴、解決手法の概要、および問題間の類似性と相違性をマッピングすることで、研究者が適切なベースライン手法や関連問題を見つけやすくするためのカタログを提供している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MAPFの派生問題を分類するために、5つの基本仮定（問題情報の事前既知性、実行の確実性、環境の離散性・均質性、エージェントのモデル、時間）に基づいたフレームワークを用いている。目標ベースのバリエーションについては、タスク割り当て（TA）の有無、マルチゴール（MG）特性、サブゴール（SG）の数、目的地（Destination）の定義、目標への制約（Goal constraints）といった軸で整理している。解決手法は、決定問題への帰着を用いるreduction-based approach、Conflict-Based Search (CBS) を中心としたsearch-based approach、メタヒューリスティクスを用いたLarge Neighborhood Search、および学習ベースの手法に大別して整理している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>本論文は特定の実験結果を報告するものではなく、既存のMAPF研究における多様な問題設定と解決手法のカタログ化を行っている。目標ベースの具体的な問題として、グローバルな期限 $T_{dl}$ を扱うMAPF-DL、個別の期限と遅延の最小化を扱うMAPF-DT、複数のサブゴールを訪問するMG-MAPF、および匿名的な目標割り当てを行うAMAPFなどが挙げられている。これらの問題に対し、ネットワークフロー、整数線形計画法、SMT、CBSの修正版といった既存の解決手法の適用可能性が整理されている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>MAPFの解決手法には、解の質とスケーラビリティの間にトレードオフが存在する。例えば、reduction-based approachは強力なソルバーを利用できるが、マップサイズが大きくなるとスケーラビリティが低下する傾向がある。また、CBSのような最適アルゴリズムは、衝突数が増加するとツリーの分岐が爆発的に増えるという課題がある。これに対し、PIBTや学習ベースの手法は高いスケーラビリティを実現する一方で、解のコストが増大する傾向がある。今後の課題として、複雑な制約や不確実性を伴う実世界の動的な環境への適応が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>本文 (1/8)</h3><p>本論文は、マルチエージェント経路探索（MAPF）から派生した多様な問題設定、すなわち「MAPF flavors」を体系的に整理したサーベイである。標準的なMAPFは、離散的な環境、完全な同期、エージェントの均質性、および環境と全エージェントの位置が完全に既知であることを前提としているが、実世界の応用では連続空間での移動やタスク割り当てとの結合（TAPF）など、これらの仮定を緩和した問題が数多く存在する。著者らは、既存のMAPF研究を網羅するために48種類の派生問題を収集し、それらを定義する主要な特徴に基づいて分類し、問題間の関係性をマッピングした。本サーベイの目的は、新しい研究者や既存手法の限界を探る研究者に対し、関連する問題の特定、最新の解決手法の俯瞰、および使用されるデータセットへのアクセスを容易にすることにある。既存のサーベイが主に古典的なMAPFに焦点を当てているのに対し、本研究は近年派生した広範な問題群を対象としている点が特徴である。</p></section>
+<section class="secsum"><h3>本文 (2/8)</h3><p>既存のMAPFに関するサーベイは、特定の応用分野や解決手法に焦点を当てたものが多く、Combinatorial MAPFやMulti-Agent Pickup and Delivery (MAPD) といった重要なバリエーションが欠落している、あるいはOnline MAPFなどの定義が不十分であるといった課題がある。本論文は、MAPFの多様なバリエーション（flavors）を網羅的に収集・分類し、それらの定義的特徴、解決手法の概要、および問題間の類似性と相違性をマッピングすることを目的としている。MAPFはグラフ $G=(V, E)$ とエージェントの集合 $\mathcal{A}$ によって定義され、各エージェント $a \in \mathcal{A}$ は開始地点 $v_{a,s} \in V$ から目標地点 $v_{a,g} \in V$ への移動を、離散的なタイムステップ $t \in \{0, 1, \dots, \infty\}$ にわたって行う。エージェントの行動 $\alpha_a = (v, v&#x27;)$ は、隣接する頂点への移動または待機を表し、一連の行動の順序 $\pi(a) = (\alpha_{a,1}, \alpha_{a,2}, \dots, \alpha_{a,n})$ がパスとなる。本研究の目的は、衝突のないパスの集合 $\Pi = (\pi(a_1), \pi(a_2), \dots, \pi(a_m))$ を見つける問題において、頂点衝突、エッジ衝突、スワップ衝突、フォロー衝突、およびサイクル衝突といった異なる衝突形態を整理し、研究者が適切なベースライン手法を見つけやすくするためのカタログを提供することである。</p></section>
+<section class="secsum"><h3>本文 (3/8)</h3><p>MAPFにおける衝突の定義は、一般的に頂点衝突とスワップ衝突の回避に焦点を当てているが、実行の不完全性を考慮する場合、同期を前提とするフォローイング衝突やサイクル衝突の認識も重要となる。最適化の目的関数には、全エージェントの経路長の総和であるflowtime（またはSOC, SIC）と、全タスクが完了するまでの時間であるmakespanの2種類があり、flowtimeは燃料消費などの最小化に適している一方、makespanは最後のエージェントが到着するまでの時間を最小化する。解決手法は、解の質とスケーラビリティの観点から、最適（Optimal）、限定的な劣解（Bounded-suboptimal）、劣解（Suboptimal）の3つのクラスに分類される。アルゴリズムの原理別では、MAPFをSATやネットワークフローなどの決定問題に帰着させるreduction-based approachと、個別の経路計画と衝突解消を組み合わせるsearch-based approachに大別される。reduction-based approachは強力な既存ソルバーを利用できる利点があるが、マップサイズが大きくなるとスケーラビリティが低下する傾向にある。一方、代表的なsearch-based手法であるConflict-Based Search (CBS) は、低レベルでの経路計画と高レベルでの制約ツリー構築による衝突解消を行う2レベルの最適アルゴリズムであるが、衝突数が増加するとツリーの分岐が爆発的に増える課題がある。これに対し、Enhanced CBS (ECBS) は限定的な劣解を、Prioritized Planningは優先順位に基づく逐次的な計画を、Large Neighborhood Searchはメタヒューリスティクスを用いた反復的な解の改善をそれぞれ提供する。</p></section>
+<section class="secsum"><h3>本文 (4/8)</h3><p>MAPFの解決手法として、ルールベースのPriority Inheritance via Backtracking (PIBT) や、PIBTを構成生成器として探索手順と組み合わせるLazy Constraint Addition Searchなどのハイブリッド手法が挙げられ、これらは複雑なインスタンスに対して高いスケーラビリティを示す一方で、解のコストが増大する傾向がある。また、PRIMALやRAILGUNといった学習ベースの手法も、解の質を犠牲にすることで有望なスケーラビリティを実現している。MAPFの応用範囲は極めて広く、自律型倉庫や生産ラインにおける移動ロボット群、農業用ロボット、ビデオゲームのキャラクター移動、さらにはUAVスウォームの3Dロードマップ上での経路計画や、隊列形成、UAV交通管理など多岐にわたる。鉄道のルーティングや可変長列車、道路上のエッジを占有する車列（convoy）の計画、避難時におけるリーダーとフォロワーによるスウォーム制御、自動運転車のバリパークや交差点管理、空港での牽引車両の計画にも適用されている。その他、仮想ネットワーク埋め込み、3D配管ルーティング、ビンピッキングにおける協調ロボットアームなど、リソース割り当てや物理的な制約を伴う多様な問題にMAPFの枠組みが活用されている。MAPFの前提条件は、エージェントの目標に関する仮定、エージェントの性質、環境の性質、通信、および時間に関する5つの主要なカテゴリに分類される。</p></section>
+<section class="secsum"><h3>本文 (5/8)</h3><p>本セクションでは、マルチエージェント経路探索（MAPF）における多様な問題設定（flavors）を分類するための5つの基本仮定と、それらを拡張・変更することで生じる問題カテゴリについて詳述している。基本仮定には、問題情報の事前既知性、実行の確実性、環境の離散性や均質性、およびエージェントのモデル（ホロノミック性や運動学的制約の欠如など）が含まれる。これらを変更することで、エージェントの目的地割り当てを伴う問題、実行中に新たな目標や障害物が出現する時間拡張型割り当て問題、移動時間の変動や行動失敗を考慮する行動の不確実性を含む問題などが定義される。さらに、連続空間や連続時間といった特殊な環境、あるいは非ホロノミックな車両や複数頂点を占有するエージェントといった特殊なエージェントモデルを用いる問題、および多目的最適化などの固有の問題へと拡張される。各カテゴリの記述では、タスク割り当ての有無などの影響力の大きい特徴から順に整理され、既存の解法（帰着ベースやCBSベース、メタヒューリスティクス、学習ベースなど）の適用可能性についても言及される。</p></section>
+<section class="secsum"><h3>本文 (6/8)</h3><p>目標ベースのMAPF（Goal-Based Variations）は、エージェントが到達すべき目標の数や性質を変化させた問題群であり、タスク割り当て（Task Assignment, TA）の有無、マルチゴール（MG）特性、サブゴール（SG）の数、目的地（Destination）の定義、目標への制約（Goal constraints）によって分類される。TAが存在する場合、どのエージェントにどの目標を割り当てるかという匿名性（Anonymity）が重要となり、全エージェントが対象となる完全匿名（Full）から、特定のサブセットのみが対象となる選択的匿名（Selective）まで存在する。マルチゴール問題では、1つの目標が複数のサブゴール（$N$個など）を持つ場合があり、目標の完了はすべてのサブゴールが達成された時点と定義される。目的地については、最後に訪れた目標を終点とする「Last goal」のほか、目標とは別の特定の場所を終点とする「Distinct subset」や、終了後に自由に移動できる「None」などのタイプが定義される。目標制約には、全エージェントに適用されるグローバルな期限（G-deadline）や各目標に個別の期限がある形式（I-deadline）、遅延に対してペナルティを課す形式（Tardiness penalty）があり、さらに目標間やサブゴール間の順序制約（G-precedence, S-precedence, Order）や、複数のエージェントによる協力（Cooperation）が含まれる。既存の解決手法としては、問題への帰着を用いる手法（R）、Conflict-Based Search（CBS）に基づく手法（C）、およびその他の手法（O）が用いられている。</p></section>
+<section class="secsum"><h3>本文 (7/8)</h3><p>本セクションでは、エージェントの目標達成条件や制約が異なる複数のMAPFのバリエーションが定義されている。MAPF-DLはグローバルな期限 $T_{dl}$ を持ち、全エージェントが期限内に目標に到達できない場合、到達したエージェント数を最大化することを目的とし、CBSの修正版やネットワークフロー、制約充足問題への帰着によって解かれる。MAPF-DTは各エージェントに個別の期限（due time）が設定され、遅延（tardiness）を最小化する問題であり、最大遅延、合計遅延、または合計単位ペナルティの最適化が検討され、整数線形計画法への帰着により解かれる。MG-MAPFは各エージェントが順序不定の複数のサブゴールを訪問する必要があり、訪問順序の最適化と衝突回避経路の探索の二段階で構成され、SMTを用いた帰着手法などが提案されている。OMG-MAPFはサブゴールの訪問順序が既定である問題であり、MAPF-PCはエージェント間でも適用可能な先行制約（precedence constraints）を導入したMG-MAPFの一般化である。AMAPFは目標がエージェントに紐付けられていない匿名的な問題であり、ネットワークフローへの帰着によって、makespanの最適化において多項式時間で解けるという特性を持つ。</p></section>
+<section class="secsum"><h3>本文 (8/8)</h3><p>AMAPFwIDは、各匿名ゴールに対して、そのゴールがエージェントによって占有されなければならない期限（deadline）が設定されたAMAPFの一般化問題である。この問題におけるゴールの獲得とは、エージェントがそのゴール上に位置することを指し、MAPF-DLにおける「完了したゴールの数を最適化する」というグローバルな期限の概念とは異なり、個別の期限が厳密に定義されている。本セクションでは、エージェントの挙動に基づいた3つのバリエーションが提示されており、第一に、エージェントがターゲットに到達した時点で環境から消失するケース、第二に、エージェントがターゲット上に留まり続けるケース、そして第三に、期限が切れた後もゴールが占有されている限りエージェントがターゲットから離脱できるケースが挙げられている。特に第一のケースでは、期限の時点でゴール上に位置しているすべてのエージェントが環境から消失するという制約を持つ。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-09
+  </footer>
+</div>
+</body>
+</html>

@@ -2345,6 +2345,35 @@
       "url": "http://arxiv.org/abs/2607.29019v1",
       "venue": ""
     },
+    "arxiv:2608.01450": {
+      "added": "2026-08-09",
+      "added_at": "2026-08-09T06:17:18.616849",
+      "arxiv_id": "2608.01450",
+      "authors": [
+        "Aradhya Chakrabarti"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-02",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.01450.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.01450v1",
+      "reading_value": 4,
+      "reading_value_reason": "エッジデバイスでのRAG実現に向け、双曲幾何を用いた軽量な投影手法とハイブリッド検索を組み合わせた実用性の高い提案。実験も具体的で評価に値する。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Real-Time Hybrid Retrieval in Hyperbolic Space for Retrieval-Augmented Generation on Edge Devices",
+      "tldr": "エッジデバイス上でのRAG（Retrieval-Augmented Generation）を実現するため、自然言語の階層構造を効率的に表現できるローレンツ双曲空間を用いたハイブリッド文書検索システムを提案する。軽量な投影モジュールと2段階のリランキングにより、高い検索精度と極めて低い推論遅延を両立している。",
+      "url": "http://arxiv.org/abs/2608.01450v1",
+      "venue": ""
+    },
     "arxiv:2608.02011": {
       "added": "2026-08-05",
       "added_at": "2026-08-05T06:15:30.676273",
@@ -2411,6 +2440,37 @@
       "title": "MEGRAG: Multi-Granular Evidence Graphs for Answer-Aware Multi-Hop RAG",
       "tldr": "マルチホップ推論における情報の密度とノイズの不均衡、および中間ステップの誤り蓄積という課題に対し、多粒度エビデンスグラフを用いた回答認識型RAGフレームワークを提案する。回答の充足度に応じて証拠の粒度を動的に選択し、推論の継続または停止を判断することで、高精度かつ効率的な回答生成を実現する。",
       "url": "http://arxiv.org/abs/2608.02195v1",
+      "venue": ""
+    },
+    "arxiv:2608.02678": {
+      "added": "2026-08-09",
+      "added_at": "2026-08-09T06:16:46.699423",
+      "arxiv_id": "2608.02678",
+      "authors": [
+        "Abay Zhurekbay",
+        "Tao Liu",
+        "Fan Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-02",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.02678.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.02678v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの脆弱性を突く新しい攻撃手法「埋め込まれた否定」の提案が独創的。既存の防御策への耐性も検証されており、セキュリティ研究者にとって価値が高い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "DenialRAG: Single-Document RAG Poisoning via Embedded Parametric Denial",
+      "tldr": "RAGシステムにおいて、単一の注入文書を用いてLLMを誤った回答へ誘導するポイズニング攻撃手法DenialRAGを提案する。正解知識を明示的に提示した上でそれを否定する「埋め込まれた否定」を用いることで、モデルのパラメータ知識と外部コンテキストの矛盾を解消させ、攻撃者の意図する誤答を優先させる。",
+      "url": "http://arxiv.org/abs/2608.02678v1",
       "venue": ""
     },
     "arxiv:2608.03487": {
@@ -6411,6 +6471,38 @@
       "tldr": "強化学習と探索ベースのプランニングを統合し、Lifelong Multi-Agent Path Finding (MAPF) における動的な優先順位割り当てを最適化するフレームワーク「RL-RH-PP」を提案する。Transformerベースのアテンション機構を用いてエージェント間の時空間的な相互作用をモデル化し、高密度な倉庫環境において既存手法を上回るスループットと高い汎化性能を実現する。",
       "url": "http://arxiv.org/abs/2603.23838v1",
       "venue": "Journal of Artificial Intelligence Research, Vol. 85, Article 28. Publication date: March 2026"
+    },
+    "doi:10.1613/jair.1.21183": {
+      "added": "2026-08-09",
+      "added_at": "2026-08-09T06:09:34.013266",
+      "arxiv_id": "",
+      "authors": [
+        "David Zahrádka",
+        "Michal Kulich",
+        "Jiří Švancara",
+        "Roman Barták"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "2026-08-05",
+      "doi": "10.1613/jair.1.21183",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/doi-5e9968f1e0a0.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://jair.org/index.php/jair/article/download/21183/27348",
+      "reading_value": 5,
+      "reading_value_reason": "MAPFの派生問題を48種類に及ぶ膨大な数で体系化した極めて網羅性の高いサーベイであり、研究者が適切な問題設定や手法を選択するための決定的なカタログとなるため。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "42+ Flavors of Multi-Agent Path Finding",
+      "tldr": "本論文は、マルチエージェント経路探索（MAPF）から派生した48種類の多様な問題設定（flavors）を体系的に整理・分類し、それらの定義的特徴や解決手法、問題間の関係性をマッピングしたサーベイである。",
+      "url": "https://openalex.org/W7172505669",
+      "venue": "Journal of Artificial Intelligence Research"
     },
     "doi:10.24963/ijcai.2024/35": {
       "added": "2026-07-10",

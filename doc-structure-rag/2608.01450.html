@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Real-Time Hybrid Retrieval in Hyperbolic Space for Retrieval-Augmented Generation on Edge Devices | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Real-Time Hybrid Retrieval in Hyperbolic Space for Retrieval-Augmented Generation on Edge Devices</h1>
+  <div class="meta">Aradhya Chakrabarti<br>採択先: 未取得 ・ 2026-08-02 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.01450v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.01450v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-02</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">エッジデバイスでのRAG実現に向け、双曲幾何を用いた軽量な投影手法とハイブリッド検索を組み合わせた実用性の高い提案。実験も具体的で評価に値する。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> エッジデバイス上でのRAG（Retrieval-Augmented Generation）を実現するため、自然言語の階層構造を効率的に表現できるローレンツ双曲空間を用いたハイブリッド文書検索システムを提案する。軽量な投影モジュールと2段階のリランキングにより、高い検索精度と極めて低い推論遅延を両立している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のユークリッド空間を用いた密ベクトル検索では、半径 $r$ の球の体積が多項式的にしか増加しないため、意味的に異なる階層的文書が近接してしまう「混雑現象」が発生する。本研究は、エッジデバイスというリソース制約下において、自然言語の持つ階層的な分岐構造を適切に表現しつつ、リアルタイムな検索を行うことを目的としている。対象は中規模の文書集合であり、入力としてクエリと文書チャンク、出力として再ランキングされた文書候補を扱う。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>先行研究のHypRAGなどが高度なプーリング演算子を用いるのに対し、本研究は既存のBGE-small埋め込みを軽量な2層の非線形変換によって双曲空間へ写像するHyTE-H投影モジュールを導入している。これにより、エンコーダ自体の微調整やGPU推論を必要とせずに、単語埋め込みのみで階層的な表現を獲得できる。また、BM25による語彙検索とローレンツ内積による密ベクトル検索を組み合わせた、エッジ向けに最適化されたハイブリッドな検索パイプラインを構築した点に新規性がある。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>システムは、オフラインのインデックス作成とオンラインの2段階検索で構成される。インデックス作成では、文書をチャンク化し、BGE-smallから得た384次元の埋め込み $x$ を、HyTE-H投影モジュール $f(x) = W_2 \text{ReLU}(W_1 x)$ を通じてローレンツ双曲面へ写像する。この際、時間座標 $x_0$ は $\cosh(\sqrt{-\kappa} x_0) = \sqrt{1 + \sum_{i=1}^d x_i^2}$ の制約に基づき決定される。検索フェーズでは、まずBM25で候補を抽出した後、語彙スコア $S_{\text{lex}}$ と、ローレンツ内積をロジスティック関数で $[0, 1]$ に写像したスコア $S_{\text{hyp}}$ を用いて、式 $S = \alpha \cdot S_{\text{lex}} + (1 - \alpha) \cdot S_{\text{hyp}}$ により再ランキングを行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>BEIRベンチマークの5つのデータセットを用いて評価を行った。NDCG@10において、SciFactで0.654、NFCorpusで0.304、ArguAnaで0.342、SciDocsで0.150、FiQAで0.217を達成した。最大59,216チャンクのFiQAではクエリあたり29 msのレイテンシであったが、Android端末での実装では、1,500チャンクのインデックスを10 ms未満でロードし、全検索プロセスを約3 msで完了するリアルタイム性を確認した。また、概念の具体性が増すにつれてローレンツ埋め込みの動径座標が原点から遠ざかるという、期待通りの放射状階層特性も検証された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、検索品質がランキングメカニズムよりも単語埋め込み自体に強く依存することを示しており、今後はHyTE-FHのような微調整済み双曲エンコーダへの置換が課題となる。また、現在はコーパスサイズに対してレイテンシが線形に増加するため、百万規模のコーパスへスケールさせるには、双曲ランダム投影やグラフベースのナビゲーションを用いた近似最近傍探索の導入が必要である。さらに、原点からの距離を利用した検索深度の適応や、双曲LLMとの統合による幾何学的な整合性の確保も今後の展望として挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Real-Time Hybrid Retrieval in Hyperbolic Space for Retrieval-Augmented Generation on Edge Devices</h3><p>本研究は、エッジデバイス上でのRAG（Retrieval-Augmented Generation）を想定し、ローレンツ・モデルに基づく双曲幾何空間内で完結するハイブリッド文書検索システムを提案している。手法として、事前学習済みの単語埋め込みを学習済みのHyTE-H変換を用いて双曲空間へ投影し、自然言語の階層構造に適した指数関数的な体積成長を利用して文書をインデックス化する。検索プロセスは、まずBM25による語彙的スコアリングを行い、次に候補をローレンツ内積類似度を用いて再ランキングする2段階のパイプラインで構成され、調整可能なパラメータによって両スコアを混合する。BEIRベンチマークのSciFact、NFCorpus、ArguAna、SciDocs、FiQAの5つのデータセットを用いた評価では、微調整されたニューラルエンコーダやクロスアテンションを用いたリランカーを使用せずに、単語埋め込みのみでNDCG@10においてそれぞれ0.654、0.304、0.342、0.150、0.217を達成した。本システムは、数万件規模の中規模文書に対してリソース効率の高いクエリ実行を可能にし、エッジデバイス上でのインタラクティブな遅延での動作を実現している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>現代のRAG（Retrieval-Augmented Generation）において、従来のユークリッド空間を用いた密ベクトル検索は、自然言語の階層構造を表現する際に、半径 $r$ の球の体積が多項式的にしか増加しないために生じる「混雑現象（crowding phenomenon）」により、意味的に異なる階層的文書が近接してしまう課題がある。これに対し、定曲率 $\kappa &lt; 0$ のローレンツ双曲面モデルを用いることで、球の体積が半径に対して指数関数的に増加するため、自然言語の階層的な分岐構造を効率的に表現でき、原点からの距離によって概念の具体性を表現することが可能となる。本研究では、エッジデバイス向けに最適化された、以下の4つのコンポーネントからなるハイブリッドな双曲空間検索システムを提案する。まず、既存のBGE-small埋め込みを、MS MARCOの文書ペアを用いた対照学習に基づく2層の非線形変換によってローレンツ双曲面へ写像するHyTE-H投影モジュール、次に、float32のローレンツベクトルとして文書チャンクを格納し、内積最大化により全探索を行うローレンツインデックス、さらに、BM25による語彙スコアとローレンツ類似度を $\alpha$ によって混合して再ランキングを行うハイブリッドBM25-Lorentzリランキングパイプライン、そしてこれら全ての処理を自己完結的なC++共有ライブラリとしてパッケージ化したエンドツーエンドのランタイムである。本システムは、BEIRの5つのデータセットを用いた評価を通じて、その有効性とエッジデバイスへの実装における工学的課題が検討される。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>双曲幾何を用いた表現学習は、階層構造を持つデータを低歪度で埋め込めるポアンカレ球モデルから、数値的安定性に優れたローレンツ（双曲面）モデルへと発展しており、後者は内積を用いた測地線距離の計算が可能なため、ニューラル双曲学習の主流となっている。先行研究のHypRAGでは、トークンレベルの点を集約する際に、単純なユークリッド的な平均では階層情報が消失する問題を解決するため、Outward Einstein Midpoint (OEM) というプーリング演算子が導入されている。OEMは、ミンコフスキー空間における重み付き和 $s = \sum_{i=1}^{n} w_{\tau_i} x_i$ を計算した後、半径方向の再スケーリング $x_{\text{agg}} = \frac{s}{\sqrt{\langle s, s \rangle_{\mathcal{L}} + 1}}$ によって双曲面上へ再投影する手法であり、重み $w_{\tau_i} = \exp(\alpha \tau_i)$ によって時間座標 $\tau_i$ が大きい（より具体的な）概念を強調する。この $\alpha$ の値により、標準的なアインシュタイン中点（$\alpha=0$）、緩やかな特異性バイアス（$\alpha=1$）、あるいは最大値プーリング（$\alpha \to \infty$）へと挙動が変化し、HypRAGはこれを用いてMTEB等のベンチマークでユークリッド基盤手法に対し最大29%の精度向上を達成している。本研究のシステムは、エッジデバイスの制約下で、BM25による疎な語彙検索で候補集合を抽出した後、ローレンツ内積を用いた類似度計算によって再ランキングを行う、疎・密ハイブリッド検索の構成を採用している。</p></section>
+<section class="secsum"><h3>3 Methodology</h3><p>本手法は、エッジデバイス上での動作を想定した、双曲空間におけるハイブリッド検索システムである。システムは、オフラインでのインデックス作成フェーズと、オンラインでの2段階検索フェーズで構成される。インデックス作成では、ドキュメントをスライディングウィンドウを用いてチャンク化し、BGE-small-en-v1.5から抽出した384次元の単語埋め込みを、2層の非線形変換を行うHyTE-H投影モジュールを用いて、定曲率 $\kappa &lt; 0$ のローレンツ双曲モデル上の点へと写像する。この投影は、入力 $x$ に対して $f(x) = W_2 \text{ReLU}(W_1 x)$ という形式で計算され、得られた空間座標から時間座標 $x_0$ を $\cosh(\sqrt{-\kappa} x_0) = \sqrt{1 + \sum_{i=1}^d x_i^2}$ の制約に基づき決定することで、双曲空間内の点を得る。検索フェーズでは、まずBM25による語彙検索で候補を絞り込み、次にクエリのローレンツ埋め込みと候補のローレンツ内積を用いた類似度スコアを線形補間する式 $S = \alpha \cdot S_{\text{lex}} + (1 - \alpha) \cdot S_{\text{hyp}}$ によって再ランキングを行う。ここで $S_{\text{hyp}}$ は、計算コストの高い測地線距離の代わりに、ロジスティック関数を用いてローレンツ内積を $[0, 1]$ の範囲に写像したものである。HyTE-Hの投影重みはMS MARCO v1.1を用いて対照学習されており、学習パラメータ数は196,608個と極めて軽量であるため、エッジデバイスへの展開に適している。</p></section>
+<section class="secsum"><h3>4 Implementation Results</h3><p>BEIRベンチマークに含まれるSciFact、NFCorpus、ArguAna、SciDocs、FiQAの5つのデータセットを用い、BGE-small-en-v1.5の単語埋め込みをHyTE-H投影（曲率 $\kappa$、OEM電力）を用いて評価した。実験では500単語のウィンドウと90単語のオーバーラップを持つチャンク分割を使用し、評価指標としてNDCG@10、MAP@100、Recall@100を用いた。結果として、$\alpha$ の値やセクションタイトルを用いたチャンク分割、BM25とLorentzを用いた2段階リランキングの有無にかかわらず、NDCG@10の変化は0.001未満であり、検索品質はランキングメカニズムよりも単語埋め込み自体に依存することが示された。検索レイテンシはコーパスサイズに対して線形に増加し、最大のFiQA（59,216チャンク）ではクエリあたり29 msを要したが、SciFactではNDCG@10 = 0.654という高い性能を示し、HyTE-H投影がドメイン固有の用語を保持できることが確認された。また、HyTE-H投影が期待通りの放射状階層を生成するかを検証したところ、概念ペアの多くで、より具体的な用語のLorentz埋め込みの動径座標が、より一般的な用語よりも原点から遠くなるという特性が確認された。Android端末（Samsung SM-S721）への実装では、1,500チャンクのインデックスを10 ms未満でロードでき、BM25検索とLorentzによるリランキングを含む全検索プロセスをクエリあたり約3 msで完了するリアルタイム性を実現している。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>本研究は、エッジデバイス向けに設計された、双曲空間におけるハイブリッドな検索システムを提案している。この手法は、凍結された BGE-small 単語埋め込み、ローレンツ双曲面への HyTE-H による学習済み投影、BM25 による語彙スコアリング、および調整可能なローレンツ再ランキングを組み合わせたものである。わずか $200\text{K}$ 個のパラメータを持つ軽量な学習済み投影を用いることで、エンコーダの微調整や GPU 推論を必要とせず、5 つの BEIR データセットにおいて競争力のあるゼロショット検索を実現しており、クエリあたり $3\text{ms}$ 未満というインタラクティブな遅延で動作する。今後の展望として、埋め込みの品質向上に向けた HyTE-FH のような微調整済み双曲エンコーダへの置換、双曲ランダム投影やグラフベースのナビゲーションを用いた近似ローレンツ最近傍探索による百万規模のコーパスへのスケールアップ、原点からの距離が特異性を表す放射状階層を利用した検索深度の適応、そして HELM のような双曲 LLM との統合による幾何学的な整合性の確保が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-09
+  </footer>
+</div>
+</body>
+</html>

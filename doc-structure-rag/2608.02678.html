@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>DenialRAG: Single-Document RAG Poisoning via Embedded Parametric Denial | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>DenialRAG: Single-Document RAG Poisoning via Embedded Parametric Denial</h1>
+  <div class="meta">Abay Zhurekbay, Tao Liu, Fan Li<br>採択先: 未取得 ・ 2026-08-02 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.02678v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.02678v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-08-02</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの脆弱性を突く新しい攻撃手法「埋め込まれた否定」の提案が独創的。既存の防御策への耐性も検証されており、セキュリティ研究者にとって価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGシステムにおいて、単一の注入文書を用いてLLMを誤った回答へ誘導するポイズニング攻撃手法DenialRAGを提案する。正解知識を明示的に提示した上でそれを否定する「埋め込まれた否定」を用いることで、モデルのパラメータ知識と外部コンテキストの矛盾を解消させ、攻撃者の意図する誤答を優先させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>検索拡張生成（RAG）システムにおいて、攻撃者がコーパス内にわずか1つの短い文書を挿入することで、リトリーバーや生成器へのアクセスなしに誤った回答を生成させる「単一文書コーパス・ポイズニング」を対象とする。攻撃者はターゲットとなるクエリ $q$、正解 $a_{\text{correct}}$、および意図する誤答 $a_{\text{target}}$ のみを既知とするブラックボックス設定である。従来の攻撃は正解を回避しようとするが、本研究では生成器が参照するコンテキスト内に直接的な矛盾を埋め込むことを問題とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の攻撃手法が正解を明示的に言及せず回避するのに対し、正解をあえて記述した上でそれを否定し、誤答を支持する論理を付与するという新しいコンテンツ戦略を提案している。これにより、LLMが外部コンテキストと自身のパラメータ知識が衝突した際に、文脈内で矛盾を解決したと誤認させる仕組みを実現した。既存の推論時防御策を適用しても、この否定メカニズムに基づく攻撃に対しては防御効果が限定的であることを明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>攻撃パイプラインは、質問から意図と証拠ノードを抽出するフェーズと、それらを用いて100語以内のポイズニング文書を生成するフェーズで構成される。生成される文書は、攻撃者の意図する回答を断定する導入部、検索適合性を高めるための証拠ノードの織り込み、正解を誤解や古い情報として明示的に否定しその理由を説明する否定プロセス、および回答を再確認する結びの4要素で構成される。この「埋め込まれた否定（embedded denial）」により、生成器がコンテキスト内で知識の衝突を解決済みであると判断するように誘導する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Natural Questions、HotpotQA、MS-MARCOの3つのデータセットを用い、Contrieverをリトリーバーとして、Mistral-7Bを含む8種類のLLMを対象に評価した。攻撃成功率（ASR）は、生成結果に誤答が厳密な部分一致で含まれる割合 $ASR = \frac{n_{target}}{n_{queries}}$ で定義される。実験の結果、Mistral-7Bにおいて最も高いASRを記録し、GPT-4oにおいても高い競争力を示した。また、Paraphrase、InstructRAG、TrustRAG、RobustRAG、AstuteRAGの5つの防御策を比較対象とした。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>アブレーション解析により、正解を明示的に否定するコンポーネントが攻撃の核心であり、これを削除するとASRが大幅に低下することが判明している。モデルの規模が大きくなるフロンティア層では全体のASRは低下する傾向にあるが、DenialRAGは他の手法と比較してASRの低下幅が大きく、高度なアライメントを持つモデルに対しても脆弱である可能性が示唆されている。単一の防御策では、否定や更新に基づく巧妙な文脈を含む攻撃を完全に防ぐことは困難である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>DenialRAG: Single-Document RAG Poisoning via Embedded Parametric Denial</h3><p>DenialRAGは、検索拡張生成（RAG）システムにおいて、単一の文書を注入することでLLMを攻撃者が意図する誤った回答へと誘導する、単一文書ポイズニング攻撃手法である。従来の攻撃が正解を明示的に言及しないのに対し、DenialRAGは注入する文書内に正解を明示的に記述した上で、それを否定し、攻撃者が制御する誤った回答を支持する説明を提示することで、生成器が参照するコンテキスト内に直接的な矛盾を埋め込む。3つのオープンドメイン質問応答データセット、4つのベンダーによる8つのターゲットLLM、および5つの推論時防御策を用いて評価した結果、攻撃成功率（ASR）はモデルに強く依存し、Mistral-7Bを用いたすべてのデータセットにおいて最も高いASRを記録した。コンポーネント分析により、埋め込まれた否定（embedded denial）が最も影響力のある要素であることが特定されており、既存の防御策を適用してもASRの減少は限定的で、設定によって防御効果に不均一性が生じることが示された。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>Retrieval-augmented generation (RAG) は、推論時に外部文書を検索して生成を条件付けることで、LLMの静的なパラメータ知識の限界を補完する手法であるが、外部コーパスへの攻撃面という脆弱性を抱えている。本研究では、攻撃者が検索コーパス内にわずか1つの短い文書を挿入するだけで、モデルやリトリーバーにアクセスすることなく誤った回答へ誘導する「単一文書コーパス・ポイズニング」を対象とする。提案手法であるDenialRAGは、従来の攻撃手法が正解を回避しようとする傾向があるのに対し、正解となる知識 $A$ を明示的に挙げた上で、それを否定し、攻撃者が意図する回答 $B$ を優先すべき理由を文書内で即座に説明することで、正解を中和する。この手法は、生成器が $A$ を既知の事実として認識しつつも、文脈内で $B$ に置き換えられた状態を作り出すことを目的としている。評価実験では、3つのオープンドメインQAデータセット、8種類のターゲットLLM、および4つの既存の単一文書ポイズニング手法を用いて、5つの推論時防御策に対する有効性を検証している。実験の結果、攻撃の有効性はメカニズムに強く依存しており、DenialRAGは複数の防御策下でも高い効果を維持する一方で、モデルの特性や防御手法によって最適な攻撃手法が異なることが示された。</p></section>
+<section class="secsum"><h3>II Background and Related Work</h3><p>RAGは、クエリ $q$ に対してコーパス $\mathcal{C}$ からリトリーバー $R$ が上位の文脈集合 $\mathcal{D} = \{d_1, \dots, d_k\}$ を選択し、ジェネレータ $G$ が $q$ と $\mathcal{D}$ に基づいて回答を生成するアーキテクチャである。本研究が対象とするのは、攻撃者がリトリーバーやジェネレータの内部情報にアクセスできないブラックボックス設定における、単一文書によるコーパス汚染攻撃である。既存の攻撃手法であるPoisonedRAG-N1やAuthChainは、誤った回答の直接的な主張や偽の引用を用いた構成を行うが、提案手法であるDenialRAGは、正しい回答を明示的に挙げた上でそれを否定し、攻撃者が意図する回答を支持する理由を付与するという、より高度なコンテンツ戦略を用いる。この攻撃は、LLMが外部コンテキストと自身のパラメータ知識が衝突した際に、一貫性のある権威的な情報を優先するという性質を悪用しており、単に誤答を提示するだけでなく、コンテキスト内で知識の衝突を解決する論理を埋め込むことで、モデルのパラメータ知識を効果的に上書きする。評価においては、クエリの書き換え、防御的なプロンプティング、文脈のフィルタリング、回答の集約といった、推論時に動作する5つの既存の防御策（Paraphrase, InstructRAG, TrustRAG, RobustRAG, AstuteRAG）の有効性を検証する。</p></section>
+<section class="secsum"><h3>III Threat Model</h3><p>DenialRAGは、RAGシステムの知識ベース $\mathcal{C}$ に対して単一の文書を注入することで、特定のクエリ $q$ に対して攻撃者が指定した誤った回答 $a_{\text{wrong}}$ を生成させることを目的とした、ブラックボックス型の標的整合性攻撃である。攻撃者は、ターゲットとなるクエリ $q$、正解 $a_{\text{correct}}$、および注入したい誤答 $a_{\text{wrong}}$ のみを既知とし、リトリーバー $\mathcal{R}$ のインデックスや生成器 $\mathcal{G}$ のパラメータ、システムプロンプト $s$ には一切アクセスできない。攻撃者の能力は、最大100語以内の巧妙に作成された文書を $\mathcal{C}$ に1つだけ挿入することに限定されており、これは公開情報の改ざんや外部寄稿を通じた現実的な脅威をモデル化している。攻撃の成功は、生成器が $q$ に対して出力した回答の中に $a_{\text{wrong}}$ が厳密な部分一致で含まれているかどうかで判定される。本研究では、防御側が推論時にクエリの書き換えや文書のフィルタリングなどの対策を講じている可能性を考慮し、Paraphrase、InstructRAG、TrustRAG、RobustRAG、AstuteRAGの5種類の防御手法に対する耐性を評価対象としている。</p></section>
+<section class="secsum"><h3>IV The DenialRAG Attack</h3><p>DenialRAGは、RAG（Retrieval-Augmented Generation）システムにおいて、検索された文脈とLLMのパラメータ知識が矛盾する場合に、モデルが文脈を優先する性質を悪用した単一文書によるポイズニング攻撃である。攻撃者は、ターゲットとなる質問 $q$、正しい回答 $a_{\text{correct}}$、および攻撃者が意図する誤った回答 $a_{\text{target}}$ のみを持ち、リトリーバーや生成器へのアクセスを必要としない。攻撃パイプラインは、質問から意図（intent）と証拠ノード（evidence nodes）を抽出するフェーズと、それらを用いて100語以内のポイズニング文書を生成するフェーズで構成される。生成される文書は、(1) $a_{\text{target}}$ を断定的に述べる導入部、(2) 検索クエリとの適合性を高めるための証拠ノードの織り込み、(3) $a_{\text{correct}}$ を誤解や古い情報として明示的に否定し、その理由を説明する否定プロセス、(4) 権威ある情報として $a_{\text{target}}$ を再確認する結び、という4つの構成要素を持つ。この「埋め込まれた否定（embedded denial）」メカニズムにより、生成器は $a_{\text{correct}}$ と $a_{\text{target}}$ の矛盾を文書内で既に解決済みであると判断し、攻撃者が意図した $a_{\text{target}}$ を出力するように誘導される。生成された文書は、質問 $q$ を文頭に付与した上でコーパスに注入され、検索時の適合性を最大化する。</p></section>
+<section class="secsum"><h3>V Evaluation</h3><p>本セクションでは、提案手法であるDenialRAGの有効性、防御手法に対する堅牢性、および構成要素の寄与度を評価している。実験は、BEIRベンチマークのNatural Questions (NQ)、HotpotQA、MS-MARCOの3つのデータセットを用い、Contrieverをリトリーバーとして、8種類のLLM（Mistral-7B等のコスト層とGPT-4o等のフロンティア層に分類）を対象に実施された。攻撃成功率（ASR）は、ターゲットとする誤答が生成結果に厳密な部分一致で含まれる割合 $ASR = \frac{n_{target}}{n_{queries}}$ として定義される。実験の結果、DenialRAGはMistral-7Bにおいて最も高いASRを記録し、GPT-4oにおいても高い競争力を示す一方、PIA-directのような直接的な注入手法が一部のモデルでより高いASRを示すなど、攻撃の有効性はモデルの性質や注入メカニズムとの相互作用に強く依存することが示された。<br><br>推論時防御（Paraphrase, InstructRAG, TrustRAG, AstuteRAG, RobustRAG）の評価では、多くの防御がASRを低下させるものの、DenialRAGのような「否定」や「更新」に基づく巧妙な文脈を含む攻撃に対しては、単一の防御策では不十分であり、依然として無視できないASRが残存することが明らかになった。アブレーション解析では、DenialRAGの構成要素のうち、正解 $a_{correct}$ を否定するコンポーネントが攻撃の核心であり、これを削除するとASRが大幅に低下することを確認した。さらに、正解を明示的に命名すること、証拠の織り込み（evidence weaving）によって検索適合性を高めること、および否定を文の冒頭付近に配置することが、攻撃の成功に寄与している。最後に、モデルの規模や性能が向上するフロンティア層への移行に伴い、すべての攻撃のASRは低下する傾向にあるが、DenialRAGは他の手法と比較してASRの低下幅が最も大きく、モデルの高度なアライメントに対して脆弱である可能性が示唆された。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究では、制約された脅威モデル下における単一ドキュメントを用いたRAGコーパス汚染攻撃であるDenialRAGを提案した。この手法の核心的な設計は、正解と攻撃者が選択した誤答との間の矛盾を、検索されるパス（passage）の中に直接埋め込む点にある。評価の結果、単一ドキュメントによる汚染リスクは、対象となるLLM、攻撃メカニズム、および防御策によって変動し、ある攻撃スタイルを軽減する防御策が別の攻撃スタイルに対しては依然として攻撃成功率（ASR）を残す可能性があることが示された。アブレーション研究により、正解を明示的に否定することがDenialRAGの有効性の中心的な要因であることが特定され、安定性分析からは、異なる汚染メカニズムがモデルのグループごとに異なる挙動を示すことが明らかになった。これらの知見は、RAGへの汚染リスクが対象モデル、攻撃手法、および防御策によってどのように変化するかを詳細に検証することの重要性を強調している。</p></section>
+<section class="secsum"><h3>LLM Usage Statement</h3><p>著者らは本論文の作成過程において、文法、明瞭性、構成、および提示方法の改善や、説明文の草案作成および改訂を支援するために大規模言語モデル（LLM）を執筆・編集アシスタントとして使用した。しかし、技術的なアイデア、脅威モデル、実験設計、実装、データ分析、結果、および結論のすべては著者ら自身によって開発、確認、および検証されている。著者らは、提出された研究の正確性、独創性、および完全性に対して全責任を負うことを明記している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-09
+  </footer>
+</div>
+</body>
+</html>
