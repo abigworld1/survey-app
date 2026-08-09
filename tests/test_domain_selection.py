@@ -24,12 +24,18 @@ CONTEXT = [
     "Robot",
     "Warehouse",
 ]
+CONTEXT_GROUPS = {
+    "MAPF": [["path", "finding"], ["pathfinding"]],
+    "MAPD": [["pickup", "delivery"]],
+}
 
 
 class DomainSelectionTest(unittest.TestCase):
     def _issue(self, paper):
         matched = _matched_keywords(paper, KEYWORDS)
-        return _domain_context_issue(paper, matched, AMBIGUOUS, CONTEXT)
+        return _domain_context_issue(
+            paper, matched, AMBIGUOUS, CONTEXT, CONTEXT_GROUPS
+        )
 
     def test_rejects_mapd_photodetector_acronym_collision(self):
         paper = Paper(
@@ -47,7 +53,7 @@ class DomainSelectionTest(unittest.TestCase):
             abstract="A scintillator, contrast agent, and photodiode detector are evaluated.",
         )
 
-        self.assertIn("分野文脈なし", self._issue(paper))
+        self.assertIn("必須の分野語なし", self._issue(paper))
 
     def test_accepts_mapd_acronym_with_multi_agent_context(self):
         paper = Paper(
@@ -66,6 +72,24 @@ class DomainSelectionTest(unittest.TestCase):
         )
 
         self.assertEqual(self._issue(paper), "")
+
+    def test_rejects_multi_agent_protocol_distillation_mapd(self):
+        paper = Paper(
+            source="arxiv",
+            title="Multi-Agent Protocol Distillation in Agentic Search",
+            abstract="We call the proposed policy-distance objective MAPD.",
+        )
+
+        self.assertIn("必須の分野語なし", self._issue(paper))
+
+    def test_rejects_measuring_policy_distance_mapd(self):
+        paper = Paper(
+            source="arxiv",
+            title="Measuring Policy Distance for Multi-Agent Reinforcement Learning",
+            abstract="MAPD is a metric for comparing learned policies between agents.",
+        )
+
+        self.assertIn("必須の分野語なし", self._issue(paper))
 
 
 if __name__ == "__main__":

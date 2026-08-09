@@ -5,6 +5,7 @@ from unittest import mock
 from pipeline import sources
 from pipeline.run import (
     _added_today,
+    _enrich_fulltext_source,
     _load_candidate_cache,
     _remaining_selection_quotas,
     _save_candidate_cache,
@@ -28,12 +29,28 @@ VALID_FEED = """<?xml version="1.0" encoding="UTF-8"?>
   </entry>
 </feed>
 """
+SEARCH_HTML = """
+<ol>
+  <li class="arxiv-result">
+    <p class="list-title"><a href="https://arxiv.org/abs/2608.05588v1">arXiv</a></p>
+    <p class="title is-5">Reliable <span>Multi-Agent</span> Path Finding</p>
+    <p class="authors">Authors: <a>A. Researcher</a>, <a>B. Researcher</a></p>
+    <p class="abstract">
+      <span class="abstract-full">We plan collision-free warehouse paths. <a>Less</a></span>
+    </p>
+    <p class="is-size-7"><span>Submitted</span> 6 August, 2026;</p>
+  </li>
+</ol>
+"""
 
 
 class SourceResilienceTest(unittest.TestCase):
+    @mock.patch.object(arxiv, "_search_html_once", return_value=[])
     @mock.patch.object(arxiv.time, "sleep")
     @mock.patch.object(arxiv, "http_get")
-    def test_arxiv_empty_feed_retries_and_recovers(self, http_get, sleep):
+    def test_arxiv_empty_feed_retries_and_recovers(
+        self, http_get, sleep, search_html
+    ):
         http_get.side_effect = [EMPTY_FEED, EMPTY_FEED, VALID_FEED]
 
         papers = arxiv.search(["Multi-Agent Path Finding"], limit=40)
@@ -42,9 +59,12 @@ class SourceResilienceTest(unittest.TestCase):
         self.assertEqual(sleep.call_count, 2)
         self.assertEqual(papers[0].arxiv_id, "2601.00001")
 
+    @mock.patch.object(arxiv, "_search_html_once", return_value=[])
     @mock.patch.object(arxiv.time, "sleep")
     @mock.patch.object(arxiv, "http_get", return_value=EMPTY_FEED)
-    def test_arxiv_repeated_empty_feed_becomes_error(self, http_get, sleep):
+    def test_arxiv_repeated_empty_feed_becomes_error(
+        self, http_get, sleep, search_html
+    ):
         with self.assertRaisesRegex(RuntimeError, "3回試しました"):
             arxiv.search(["MAPF"], limit=40)
 
@@ -84,6 +104,17 @@ class SourceResilienceTest(unittest.TestCase):
 
         self.assertEqual(loaded_recent[0].arxiv_id, "2601.00002")
         self.assertEqual(loaded_important[0].citations, 100)
+
+    @mock.patch("pipeline.run._find_arxiv_by_title")
+    def test_existing_oa_pdf_skips_arxiv_title_lookup(self, find_arxiv):
+        paper = Paper(
+            source="openalex",
+            title="Open access MAPF paper",
+            pdf_url="https://example.org/paper.pdf",
+        )
+
+        self.assertIs(_enrich_fulltext_source(paper), paper)
+        find_arxiv.assert_not_called()
 
     def test_added_today_counts_only_automatic_papers(self):
         seen = {
@@ -152,9 +183,78 @@ class SourceResilienceTest(unittest.TestCase):
         search_source.assert_called_once_with(
             "semanticscholar",
             ["Multi-Agent Path Finding", "MAPD"],
-            40,
+            100,
             mode="recent",
         )
+
+    @mock.patch("pipeline.run.sources.search_source", return_value=[])
+    def test_arxiv_important_reuses_recent_pool_without_second_query(
+        self, search_source
+    ):
+        papers, counts = gather(
+            {
+                "sources": ["arxiv"],
+                "search_queries": ["Multi-Agent Path Finding", "MAPD"],
+            },
+            offline=False,
+            mode="important",
+        )
+
+        self.assertEqual(papers, [])
+        self.assertTrue(counts["arxiv/important"]["reused_recent"])
+        search_source.assert_not_called()
+
+    @mock.patch("pipeline.run.sources.search_source", return_value=[])
+    def test_arxiv_recent_uses_one_deep_combined_query(self, search_source):
+        gather(
+            {
+                "sources": ["arxiv"],
+                "search_queries": ["Multi-Agent Path Finding", "MAPD"],
+            },
+            offline=False,
+            mode="recent",
+        )
+
+        search_source.assert_called_once_with(
+            "arxiv",
+            ["Multi-Agent Path Finding", "MAPD"],
+            200,
+            mode="recent",
+        )
+
+    @mock.patch.object(arxiv, "http_get", return_value=VALID_FEED)
+    def test_arxiv_important_search_is_sorted_by_relevance(self, http_get):
+        arxiv.search(["Multi-Agent Path Finding"], limit=20, mode="important")
+
+        self.assertIn("sortBy=relevance", http_get.call_args.args[0])
+
+    @mock.patch.object(arxiv, "http_get", return_value=SEARCH_HTML)
+    def test_arxiv_html_fallback_extracts_fulltext_metadata(self, http_get):
+        papers = arxiv._search_html_once(
+            ["Multi-Agent Path Finding"], limit=20, mode="recent"
+        )
+
+        self.assertEqual(len(papers), 1)
+        self.assertEqual(papers[0].arxiv_id, "2608.05588")
+        self.assertEqual(papers[0].published, "2026-08-06")
+        self.assertEqual(papers[0].authors, ["A. Researcher", "B. Researcher"])
+        self.assertEqual(
+            papers[0].pdf_url, "https://arxiv.org/pdf/2608.05588"
+        )
+        self.assertNotIn("Less", papers[0].abstract)
+        self.assertIn("order=-announced_date_first", http_get.call_args.args[0])
+
+    @mock.patch.object(arxiv, "_search_html_once", return_value=[])
+    @mock.patch.object(arxiv, "time")
+    @mock.patch.object(arxiv, "http_get", return_value=EMPTY_FEED)
+    def test_arxiv_search_can_disable_retries(
+        self, http_get, time_module, search_html
+    ):
+        with self.assertRaises(RuntimeError):
+            arxiv.search(["Paper title"], limit=5, retries=False)
+
+        http_get.assert_called_once()
+        time_module.sleep.assert_not_called()
 
 
 if __name__ == "__main__":

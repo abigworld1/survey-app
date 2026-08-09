@@ -45,8 +45,9 @@ git add -A && git commit -m "update" && git push origin main
 
 品質管理:
 - 自動更新では、関連キーワードが弱い候補、本文が取れずアブストラクトのみの候補、要約が短すぎる候補、不明項目が多い候補は公開せず、次候補を試します。
-- arXivが空応答や一時エラーを返した場合は待機して3回まで再試行します。MAPF分野はSemantic Scholar/OpenAlexも代替取得元として使います。
+- arXiv Atom APIが空応答や一時エラーを返した場合は、arXiv公式検索HTMLへ自動的に切り替えます。MAPF分野はSemantic Scholar/OpenAlexも代替取得元として使います。
 - 正常取得時の未使用候補を `data/cache/` に保持し、API不調時はキャッシュ候補も品質判定した上で利用します（キャッシュはGit管理外）。
+- `MAPF` / `MAPD` の略称だけが一致する候補は、`path finding` / `pickup + delivery` の分野語も確認し、別分野で同じ略称を使う論文を除外します。
 - 日次処理が2件に届かなければ15分間隔で最大3回実行します。同日追加数を記録しているため、再試行では不足分だけを生成します。
 - 実行ごとに `data/runs/YYYY-MM-DD.json` と `data/runs/YYYY-MM-DD.html` に、追加・スキップ・取得失敗・LLM失敗の概要を残します。
 - 一覧ページでは、本文/アブストラクトの区別、被引用数、関連度、読む価値、選定枠（重要論文/新着論文）を表示します。ブラウザ上だけで「既読」「あとで」「お気に入り」「非表示」も管理できます。
@@ -140,10 +141,12 @@ subscriptions:
       - "Multi-Agent Pickup and Delivery"
     search_queries:                        # 任意。取得用検索語を keywords と分けたい時に使う
       - "Multi-Agent Path Finding"
-      - "MAPF"
+      - "Multi-Agent Pathfinding"
       - "Multi-Agent Pickup and Delivery"
-      - "MAPD"
     ambiguous_keywords: ["MAPF", "MAPD"] # 他分野でも使われる曖昧な略語
+    ambiguous_context_groups:              # 内側AND・外側OR
+      MAPF: [["path", "finding"], ["pathfinding"]]
+      MAPD: [["pickup", "delivery"]]
     context_keywords:                      # 略語だけの一致時に必須とする分野文脈
       - "Multi-Agent"
       - "Path Finding"
@@ -173,10 +176,10 @@ python3 -m venv .venv
 1. **取得**: 各 `sources` から候補を集める。`search_queries` があれば取得にはそちらを使い、無ければ `keywords` を使う。
 2. **名寄せ**: DOI / arXiv ID / 正規化タイトルで重複排除（`pipeline/dedup.py`）。
 3. **採用**: `k: 2` では重要論文1本＋新着論文1本を採用。
-   重要論文は `関連度 → 被引用数 → 本文の取りやすさ → 新しさ` の順、新着論文は `関連度 → 本文の取りやすさ → 新しさ` の順。
+   重要論文は `関連度 → 本文の取りやすさ → 被引用数 → 新しさ` の順、新着論文は `関連度 → 本文の取りやすさ → 新しさ` の順。
    関連度＝キーワードのタイトル一致(×3)＋アブストラクト一致(×1)。略語は単語境界判定（`RAG`が`storage`に誤マッチしない）。
    適合0の論文は除外する。`ambiguous_keywords` だけで一致した候補は `context_keywords` の分野文脈も確認し、
-   条件を満たさない場合は次候補を試す。
+   `ambiguous_context_groups` があれば略語ごとの必須語も検査し、条件を満たさない場合は次候補を試す。
 4. **本文取得**: arXiv HTML を優先（`arxiv.org/html/<id>`）。無ければ OA PDF（Unpaywall/OpenAlex → PyMuPDF）。取れなければ abstract。
    自動更新では abstract のみの候補も低品質ページ防止のため公開せず、次候補を試す。
 5. **多段要約**: 本文を主要セクション（Introduction / Methods / Experiments …）に分割し、

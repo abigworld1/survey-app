@@ -21,15 +21,22 @@ subscriptions:
       - "Robotic Warehouse"
     search_queries:
       - "Multi-Agent Path Finding"
-      - "MAPF"
+      - "Multi-Agent Pathfinding"
       - "Multi-Agent Pickup and Delivery"
-      - "MAPD"
+      - "Multi-Task Multi-Agent Pickup and Delivery"
       - "Lifelong Multi-Agent Path Finding"
       - "Online Multi-Agent Path Finding"
     # MAPF/MAPD は他分野でも使われるため、略語だけの一致には下記の文脈を必須にする。
     ambiguous_keywords:
       - "MAPF"
       - "MAPD"
+    # 略称だけが一致した場合に必須とする語の組。内側はAND、外側はOR。
+    ambiguous_context_groups:
+      MAPF:
+        - ["path", "finding"]
+        - ["pathfinding"]
+      MAPD:
+        - ["pickup", "delivery"]
     context_keywords:
       - "Multi-Agent"
       - "Multi Agent"

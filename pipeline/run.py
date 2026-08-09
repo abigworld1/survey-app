@@ -61,7 +61,9 @@ def _title_similarity(a, b):
 
 def _find_arxiv_by_title(title):
     try:
-        results = arxiv_src.search([title], limit=5, mode="recent")
+        results = arxiv_src.search(
+            [title], limit=5, mode="recent", retries=False
+        )
     except Exception as e:
         print(f"      [warn] arXivタイトル補完失敗: {e!r}")
         return None
@@ -73,7 +75,7 @@ def _find_arxiv_by_title(title):
 
 def _enrich_fulltext_source(paper):
     """採択先・被引用数を保ったまま、本文取得用のarXiv/PDF情報を補完する。"""
-    if paper.arxiv_id:
+    if paper.arxiv_id or paper.pdf_url:
         return paper
     arxiv_paper = _find_arxiv_by_title(paper.title)
     if not arxiv_paper:
@@ -130,7 +132,26 @@ def _has_domain_context(paper, context_keywords):
     return any(pt.search(text) for pt in _keyword_patterns(context_keywords))
 
 
-def _domain_context_issue(paper, matched_keywords, ambiguous_keywords, context_keywords):
+def _matches_required_context(text, groups):
+    """外側OR・内側ANDの語群のいずれかを本文が満たすか。"""
+    for group in groups or []:
+        terms = group if isinstance(group, list) else [group]
+        required = [str(term).strip().lower() for term in terms if str(term).strip()]
+        if required and all(
+            re.search(r"\b" + re.escape(term) + r"\b", text)
+            for term in required
+        ):
+            return True
+    return False
+
+
+def _domain_context_issue(
+    paper,
+    matched_keywords,
+    ambiguous_keywords,
+    context_keywords,
+    ambiguous_context_groups=None,
+):
     """曖昧な略語だけで一致した別分野の論文を検出する。"""
     ambiguous = {
         str(keyword).strip().casefold()
@@ -144,6 +165,23 @@ def _domain_context_issue(paper, matched_keywords, ambiguous_keywords, context_k
     }
     if not ambiguous or not matched or not matched.issubset(ambiguous):
         return ""
+    if ambiguous_context_groups:
+        text = f"{paper.title or ''}\n{paper.abstract or ''}".lower()
+        configured = {
+            str(keyword).strip().casefold(): groups
+            for keyword, groups in ambiguous_context_groups.items()
+        }
+        missing = [
+            keyword
+            for keyword in matched
+            if keyword in configured
+            and not _matches_required_context(text, configured[keyword])
+        ]
+        if missing:
+            labels = ", ".join(sorted(keyword.upper() for keyword in missing))
+            return f"曖昧な略語のみ一致（{labels}）、必須の分野語なし"
+        if all(keyword in configured for keyword in matched):
+            return ""
     if _has_domain_context(paper, context_keywords):
         return ""
     labels = ", ".join(sorted(matched_keywords, key=str.casefold))
@@ -222,7 +260,11 @@ CANDIDATE_CACHE = os.path.join(DATA, "cache", "candidates")
 
 # 安全上限（暴走・肥大化の防止）
 MAX_K = 20                  # 1購読あたり1日に生成する最大ページ数
-FETCH_CAP = 40              # 各ソース・各採用モードから取得する最大件数
+FETCH_CAP = 40              # 未指定ソースの取得上限
+ARXIV_RECENT_LIMIT = 200
+ARXIV_IMPORTANT_LIMIT = 200
+OPENALEX_PER_QUERY = 25
+SEMANTIC_SCHOLAR_LIMIT = 100
 MAX_PAGES_PER_RUN = 100     # 1回の実行で生成する総ページ数の上限
 MIN_RELEVANCE = 1           # 自動採用に必要な最低キーワード適合度
 MIN_TLDR_CHARS = 40         # 短すぎる要約を落とす
@@ -451,7 +493,14 @@ def _save_candidate_cache(uslug, recent, important, cache_dir=None):
     os.replace(tmp, path)
 
 
-def _cacheable_candidates(papers, seen_for_field, keywords, ambiguous, context):
+def _cacheable_candidates(
+    papers,
+    seen_for_field,
+    keywords,
+    ambiguous,
+    context,
+    ambiguous_context_groups=None,
+):
     patterns = _keyword_patterns(keywords)
     seen_aliases = build_seen_aliases(seen_for_field)
     out = []
@@ -459,7 +508,9 @@ def _cacheable_candidates(papers, seen_for_field, keywords, ambiguous, context):
         if paper_is_seen(paper, seen_aliases) or _relevance(paper, patterns) <= 0:
             continue
         matched = _matched_keywords(paper, keywords)
-        if _domain_context_issue(paper, matched, ambiguous, context):
+        if _domain_context_issue(
+            paper, matched, ambiguous, context, ambiguous_context_groups
+        ):
             continue
         out.append(paper)
     return out
@@ -533,24 +584,33 @@ def gather(sub, offline, mode="recent"):
     counts = {}
     groups = _search_groups(sub)
     for src in sub.get("sources") or ["arxiv"]:
+        if src == "arxiv" and mode == "important":
+            # arXivには被引用数がない。新着検索で得た深いarXivプールを後段で
+            # 重要候補にも再利用し、同じサービスへの重複検索と429を避ける。
+            counts["arxiv/important"] = {"count": 0, "reused_recent": True}
+            print("  arxiv/important: 新着候補を再利用")
+            continue
         # Semantic Scholar は無鍵時のレート制限が厳しいため、分割語を1検索にまとめて
-        # 代替ソースとして広く取得する。arXiv/OpenAlex は検索語ごとの精度を優先する。
+        # 代替ソースとして広く取得する。arXivはOR検索1回、OpenAlexは検索語ごとに取る。
         source_groups = groups
         if src == "semanticscholar" and len(groups) > 1:
             source_groups = [[term for group in groups for term in group]]
-        # arXiv は本文取得の主力なので、複数クエリに分割しても各クエリを深めに取る。
-        # OpenAlex/S2 は広くノイズも増えやすいため、従来どおり全体上限をクエリ間で分ける。
-        per_query_limit = (
-            FETCH_CAP
-            if src == "arxiv"
-            else max(
-                8,
-                min(
-                    FETCH_CAP,
-                    (FETCH_CAP + len(source_groups) - 1) // max(1, len(source_groups)),
-                ),
+        elif src == "arxiv" and len(groups) > 1:
+            # arXiv はOR結合した1検索にまとめ、レート制限を避けつつ深く取得する。
+            source_groups = [[term for group in groups for term in group]]
+
+        if src == "arxiv":
+            per_query_limit = (
+                ARXIV_IMPORTANT_LIMIT
+                if mode == "important"
+                else ARXIV_RECENT_LIMIT
             )
-        )
+        elif src == "openalex":
+            per_query_limit = OPENALEX_PER_QUERY
+        elif src == "semanticscholar":
+            per_query_limit = SEMANTIC_SCHOLAR_LIMIT
+        else:
+            per_query_limit = FETCH_CAP
         src_total = 0
         for i, terms in enumerate(source_groups, start=1):
             label = f"{src}/{mode}/q{i}"
@@ -683,7 +743,9 @@ def main(argv=None):
             recent_counts["candidate_cache/recent"] = {"count": len(cached_recent)}
             important_counts["candidate_cache/important"] = {"count": len(cached_important)}
         recent_papers = dedup(recent_raw + cached_recent)
-        important_papers = dedup(important_raw + cached_important)
+        # arXiv新着検索は200件を取るため、これを重要候補にも再利用する。
+        # OpenAlex/S2とタイトル名寄せされれば、本文リンクと被引用数を両立できる。
+        important_papers = dedup(important_raw + recent_papers + cached_important)
         papers = dedup(important_papers + recent_papers)
         seen_aliases = build_seen_aliases(useen)
         fresh_recent = [p for p in recent_papers if not paper_is_seen(p, seen_aliases)]
@@ -692,13 +754,24 @@ def main(argv=None):
         keywords = sub.get("keywords", [])
         ambiguous_keywords = sub.get("ambiguous_keywords", [])
         context_keywords = sub.get("context_keywords", [])
+        ambiguous_context_groups = sub.get("ambiguous_context_groups", {})
         kw_pats = _keyword_patterns(keywords)
         if args.refresh_candidate_cache:
             recent_cache = _cacheable_candidates(
-                recent_papers, useen, keywords, ambiguous_keywords, context_keywords
+                recent_papers,
+                useen,
+                keywords,
+                ambiguous_keywords,
+                context_keywords,
+                ambiguous_context_groups,
             )
             important_cache = _cacheable_candidates(
-                important_papers, useen, keywords, ambiguous_keywords, context_keywords
+                important_papers,
+                useen,
+                keywords,
+                ambiguous_keywords,
+                context_keywords,
+                ambiguous_context_groups,
             )
             if not args.dry_run:
                 _save_candidate_cache(
@@ -768,7 +841,11 @@ def main(argv=None):
         for p in fresh_all:
             matched = _matched_keywords(p, keywords)
             if _relevance(p, kw_pats) > 0 and not _domain_context_issue(
-                p, matched, ambiguous_keywords, context_keywords
+                p,
+                matched,
+                ambiguous_keywords,
+                context_keywords,
+                ambiguous_context_groups,
             ):
                 relevant.append(p)
         field_report = {
@@ -804,7 +881,11 @@ def main(argv=None):
             p.matched_keywords = matched_keywords
             kind = selection_kind.get(p.key(), "fallback")
             context_issue = _domain_context_issue(
-                p, matched_keywords, ambiguous_keywords, context_keywords
+                p,
+                matched_keywords,
+                ambiguous_keywords,
+                context_keywords,
+                ambiguous_context_groups,
             )
             if context_issue:
                 reasons = [context_issue]
@@ -950,10 +1031,20 @@ def main(argv=None):
 
         if not (args.offline or args.dry_run):
             recent_cache = _cacheable_candidates(
-                recent_papers, useen, keywords, ambiguous_keywords, context_keywords
+                recent_papers,
+                useen,
+                keywords,
+                ambiguous_keywords,
+                context_keywords,
+                ambiguous_context_groups,
             )
             important_cache = _cacheable_candidates(
-                important_papers, useen, keywords, ambiguous_keywords, context_keywords
+                important_papers,
+                useen,
+                keywords,
+                ambiguous_keywords,
+                context_keywords,
+                ambiguous_context_groups,
             )
             _save_candidate_cache(
                 uslug,
