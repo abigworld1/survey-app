@@ -19,6 +19,12 @@ _PREPRINT_VENUES = {
     "researchsquare",
     "ssrn",
 }
+_CONFERENCE_ACRONYMS = {
+    "aaai", "aamas", "acl", "aistats", "cikm", "coling", "corl", "cpaior",
+    "cvpr", "ecai", "eccv", "emnlp", "icaps", "iccv", "icdar", "iclr",
+    "icml", "icra", "ijcai", "iros", "kdd", "naacl", "neurips", "rss",
+    "sigir", "socs", "uai", "wsdm", "www",
+}
 
 
 def _usable_venue(value):
@@ -29,6 +35,26 @@ def _usable_venue(value):
         and venue.lower() not in {"unknown", "n/a", "none", "-", "未取得"}
         and normalized not in _PREPRINT_VENUES
     )
+
+
+def _is_conference_venue(value):
+    venue = re.sub(r"\s+", " ", str(value or "")).strip()
+    lowered = venue.lower()
+    if re.search(r"\b(conference|symposium|workshop|congress|proceedings)\b", lowered):
+        return True
+    tokens = set(re.findall(r"[a-z0-9]+", lowered))
+    return bool(tokens & _CONFERENCE_ACRONYMS)
+
+
+def venue_with_year(value, published=""):
+    """会議名に年が無い場合だけ、論文の公開年を表示用に補う。"""
+    venue = re.sub(r"\s+", " ", str(value or "")).strip()
+    if not _usable_venue(venue) or not _is_conference_venue(venue):
+        return venue
+    if re.search(r"\b(?:19|20)\d{2}\b", venue):
+        return venue
+    year_match = re.search(r"\b((?:19|20)\d{2})\b", str(published or ""))
+    return f"{venue} {year_match.group(1)}" if year_match else venue
 
 
 def _title_similarity(left, right):
@@ -134,6 +160,7 @@ def _merge_metadata(paper, candidate):
 def enrich_venue(paper):
     """採択先が無いPaperを照合し、得られた書誌情報をその場で補完する。"""
     if _usable_venue(paper.venue):
+        paper.venue = venue_with_year(paper.venue, paper.published)
         return paper
     paper.venue = ""
     lookups = []
@@ -155,6 +182,7 @@ def enrich_venue(paper):
             print(f"      [warn] 採択先照合失敗 {label}: {exc!r}")
             continue
         if _merge_metadata(paper, candidate):
+            paper.venue = venue_with_year(paper.venue, paper.published)
             print(f"      採択先: {paper.venue} ({label}で確認)")
             return paper
     print(f"      採択先: 未取得（{' / '.join(checked)}を確認）")

@@ -463,7 +463,9 @@ def main(argv=None):
                 "title": paper.title,
                 "file": rel,
                 "date": paper.published,
-                "venue": render._venue_label(paper.venue, missing=""),
+                "venue": render._venue_label(
+                    paper.venue, missing="", published=paper.published
+                ),
                 "url": paper.url,
                 "pdf_url": paper.pdf_url,
                 "arxiv_id": paper.arxiv_id,

@@ -142,7 +142,7 @@ def _rebuild_one(rel, info, keywords=None, dry_run=False):
     ctx = {
         "title": render._esc(title),
         "authors": render._esc(authors_text),
-        "venue": render._esc(render._venue_label(venue)),
+        "venue": render._esc(render._venue_label(venue, published=date)),
         "published": render._esc(date),
         "source": render._esc(source),
         "links": links,

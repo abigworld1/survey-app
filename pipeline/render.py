@@ -9,6 +9,7 @@ import os
 import re
 
 from .summarize import SECTIONS
+from .venue import venue_with_year
 
 
 def _esc(s):
@@ -112,7 +113,7 @@ def _is_preprint_venue(venue):
     return v in {"arxiv", "arxivorg", "arxivcornelluniversity"}
 
 
-def _venue_label(venue, missing="未取得"):
+def _venue_label(venue, missing="未取得", published=""):
     venue = _clean_venue(venue)
     if (
         not venue
@@ -121,7 +122,7 @@ def _venue_label(venue, missing="未取得"):
         or _is_preprint_venue(venue)
     ):
         return missing
-    return venue
+    return venue_with_year(venue, published)
 
 
 def _entry_reason_chips(entry, keywords=None):
@@ -155,7 +156,11 @@ def _paper_facts(paper, summary):
     )
     if selection:
         chips.append(_chip(selection, f"selection-{_class_token(getattr(paper, 'selection_type', ''))}"))
-    venue = _venue_label(getattr(paper, "venue", ""), missing="")
+    venue = _venue_label(
+        getattr(paper, "venue", ""),
+        missing="",
+        published=getattr(paper, "published", ""),
+    )
     if venue:
         chips.append(_chip(f"採択先 {venue}", "venue"))
     chips.append(_chip(f"公開日 {paper.published or '-'}"))
@@ -250,7 +255,9 @@ def _entry_authors(entry, root=None):
 
 
 def _entry_venue(entry, root=None):
-    venue = _venue_label(entry.get("venue", ""), missing="")
+    venue = _venue_label(
+        entry.get("venue", ""), missing="", published=entry.get("date", "")
+    )
     if venue:
         return venue
     if not root or not entry.get("file"):
@@ -268,7 +275,9 @@ def _entry_venue(entry, root=None):
         return ""
     rest = html.unescape(re.sub(r"<[^>]+>", "", m.group(1))).strip()
     venue_text = rest.split("・", 1)[0].strip()
-    return _venue_label(venue_text, missing="")
+    return _venue_label(
+        venue_text, missing="", published=entry.get("date", "")
+    )
 
 
 def render_paper_page(tpl_dir, paper, summary):
@@ -301,7 +310,7 @@ def render_paper_page(tpl_dir, paper, summary):
         "title": _esc(paper.title),
         "tldr": _multiline(summary.get("tldr", "")),
         "authors": _esc(", ".join(paper.authors[:12])),
-        "venue": _esc(_venue_label(paper.venue)),
+        "venue": _esc(_venue_label(paper.venue, published=paper.published)),
         "published": _esc(paper.published),
         "source": _esc(paper.source),
         "links": " ・ ".join(links),
