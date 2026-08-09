@@ -8,7 +8,8 @@
 
 ```
 取得(arXiv/Semantic Scholar/OpenAlex) → 名寄せ → 重要論文1本＋新着論文1本を採用 → 本文取得(arXiv HTML/OA PDF)
-  → セクション分割 → 各セクションをLLM要約 → 落合フォーマット合成 → HTML生成 → git push → GitHub Pages
+  → セクション分割 → 要約・本文照合 → 落合フォーマット合成 → 読みやすさ推敲 → 全文による最終事実確認
+  → HTML生成 → git push → GitHub Pages
 ```
 
 要約エンジンは研究室サーバー（sankaku01, LAN内）の **vLLM（Gemma 4 26B-A4B FP8, OpenAI互換）** を
@@ -45,6 +46,9 @@ git add -A && git commit -m "update" && git push origin main
 
 品質管理:
 - 自動更新では、関連キーワードが弱い候補、本文が取れずアブストラクトのみの候補、要約が短すぎる候補、不明項目が多い候補は公開せず、次候補を試します。
+- 各セクションの初稿を元セクション本文と照合してから使用し、全体要約の完成後にも「読みやすさの推敲」と「元論文全文による最終事実確認」を別々のLLM呼び出しで行います。最終校閲に失敗した初稿は公開しません。
+- 数式は原則として文章で説明します。必要な場合もTeXは使わず、`G = (V, E)` や `O(n log n)` のような短いプレーンテキストだけを使用します。
+- 採択先が空の場合は、arXivの明示的な採択コメント、Crossref、DBLP、OpenAlex、Semantic Scholarを照合します。投稿中・査読中の記述は採択先として扱いません。
 - arXiv Atom APIが空応答や一時エラーを返した場合は、arXiv公式検索HTMLへ自動的に切り替えます。MAPF分野はSemantic Scholar/OpenAlexも代替取得元として使います。
 - 正常取得時の未使用候補を `data/cache/` に保持し、API不調時はキャッシュ候補も品質判定した上で利用します（キャッシュはGit管理外）。
 - `MAPF` / `MAPD` の略称だけが一致する候補は、`path finding` / `pickup + delivery` の分野語も確認し、別分野で同じ略称を使う論文を除外します。
@@ -180,12 +184,13 @@ python3 -m venv .venv
    関連度＝キーワードのタイトル一致(×3)＋アブストラクト一致(×1)。略語は単語境界判定（`RAG`が`storage`に誤マッチしない）。
    適合0の論文は除外する。`ambiguous_keywords` だけで一致した候補は `context_keywords` の分野文脈も確認し、
    `ambiguous_context_groups` があれば略語ごとの必須語も検査し、条件を満たさない場合は次候補を試す。
-4. **本文取得**: arXiv HTML を優先（`arxiv.org/html/<id>`）。無ければ OA PDF（Unpaywall/OpenAlex → PyMuPDF）。取れなければ abstract。
+4. **採択先照合**: arXivコメント、Crossref、DBLP、OpenAlex、Semantic Scholarをタイトル・DOIで照合する。
+5. **本文取得**: arXiv HTML を優先（`arxiv.org/html/<id>`）。無ければ OA PDF（Unpaywall/OpenAlex → PyMuPDF）。取れなければ abstract。
    自動更新では abstract のみの候補も低品質ページ防止のため公開せず、次候補を試す。
-5. **多段要約**: 本文を主要セクション（Introduction / Methods / Experiments …）に分割し、
-   各セクションを個別に詳しく要約 → それらを根拠に落合フォーマット5項目を合成（`pipeline/summarize.py`）。
-6. **品質判定・読む価値評価**: 要約後に短すぎる要約や「提供された情報からは不明」が多い要約を除外し、LLMで読む価値（1〜5）を評価。
-7. **生成**: 各ページに「落合5項目＋セクション別の詳細要約＋選定理由＋情報源・原典リンク・AI自動生成の注記」を出力。数式は MathJax で描画。
+6. **多段要約**: セクションごとに初稿を作り、同じセクション本文との照合・修正を行う。
+7. **最終校閲**: 落合フォーマットを合成後、読みやすさを推敲し、最後に元論文本文との事実確認を行う。
+8. **品質判定・読む価値評価**: 要約後に短すぎる要約や「提供された情報からは不明」が多い要約を除外し、LLMで読む価値（1〜5）を評価。
+9. **生成**: 各ページに「落合5項目＋セクション別の詳細要約＋選定理由＋情報源・原典リンク・AI自動生成の注記」を出力する。
 
 ---
 
@@ -196,6 +201,7 @@ python3 -m venv .venv
 | `LLM_BASE_URL` | `http://vllm:8000/v1` | vLLM の OpenAI互換エンドポイント（sankaku01 は `http://localhost:8000/v1`） |
 | `LLM_API_KEY` | `dummy` | vLLM 用（LAN内なのでダミー可） |
 | `LLM_MODEL` | （未設定） | 指定すれば最優先。未設定なら `/models` の先頭 id を自動採用、それも無ければ `RedHatAI/gemma-4-26B-A4B-it-FP8-Dynamic` |
+| `SUMMARY_REVIEW_CONTEXT_CHARS` | `48000` | 最終事実確認でGemmaに渡す元論文本文の最大文字数 |
 | `S2_API_KEY` | （未設定） | 任意。Semantic Scholar のレート制限(429)緩和 |
 
 秘密情報は `.env`（gitignore 済み）に置きます。`deploy/run-daily.sh` が起動時に読み込みます:

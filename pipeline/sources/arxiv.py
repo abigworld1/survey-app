@@ -21,6 +21,18 @@ def _build_query(keywords):
     return " OR ".join(terms) if terms else "all:multi-agent path finding"
 
 
+def _venue_from_comment(comment):
+    """arXivコメント中の明示的な採択・掲載表現だけからvenueを得る。"""
+    text = " ".join(str(comment or "").split())
+    match = re.search(
+        r"(?:accepted\s+(?:at|to|for)|to\s+appear\s+(?:at|in)|published\s+(?:at|in))"
+        r"\s*[:：]?\s*(.+?)(?:[.;]|$)",
+        text,
+        re.I,
+    )
+    return match.group(1).strip(" ,") if match else ""
+
+
 def fetch_meta(arxiv_id):
     """arXiv ID 単体のメタデータ(Paper)を取得。失敗時 None。"""
     try:
@@ -30,13 +42,14 @@ def fetch_meta(arxiv_id):
         if e is None:
             return None
         authors = [a.findtext(ATOM + "name") for a in e.findall(ATOM + "author")]
+        comment = e.findtext(ARXIV + "comment") or ""
         return Paper(
             source="arxiv",
             title=" ".join((e.findtext(ATOM + "title") or "").split()),
             abstract=(e.findtext(ATOM + "summary") or "").strip(),
             authors=[a for a in authors if a],
             published=(e.findtext(ATOM + "published") or "")[:10],
-            venue=e.findtext(ARXIV + "journal_ref") or "",
+            venue=e.findtext(ARXIV + "journal_ref") or _venue_from_comment(comment),
             url=(e.findtext(ATOM + "id") or "").strip(),
             arxiv_id=arxiv_id,
             doi=e.findtext(ARXIV + "doi") or "",
@@ -66,7 +79,8 @@ def _search_once(keywords, limit, mode="recent"):
         arxiv_id = re.sub(r"v\d+$", "", id_url.rsplit("/abs/", 1)[-1])
         authors = [a.findtext(ATOM + "name") for a in e.findall(ATOM + "author")]
         doi = e.findtext(ARXIV + "doi") or ""
-        venue = e.findtext(ARXIV + "journal_ref") or ""
+        comment = e.findtext(ARXIV + "comment") or ""
+        venue = e.findtext(ARXIV + "journal_ref") or _venue_from_comment(comment)
         pdf = ""
         for link in e.findall(ATOM + "link"):
             if link.get("title") == "pdf":
@@ -100,6 +114,7 @@ class _SearchResultParser(HTMLParser):
         self.authors_depth = None
         self.abstract_depth = None
         self.meta_depth = None
+        self.comment_depth = None
 
     @staticmethod
     def _classes(attrs):
@@ -117,6 +132,7 @@ class _SearchResultParser(HTMLParser):
                 "authors": [],
                 "abstract": [],
                 "meta": [],
+                "comments": [],
             }
         if self.current is None:
             return
@@ -131,6 +147,8 @@ class _SearchResultParser(HTMLParser):
             self.authors_depth = self.depth
         elif tag == "span" and "abstract-full" in classes:
             self.abstract_depth = self.depth
+        elif tag == "p" and "comments" in classes:
+            self.comment_depth = self.depth
         elif tag == "p" and "is-size-7" in classes and self.meta_depth is None:
             self.meta_depth = self.depth
 
@@ -142,6 +160,8 @@ class _SearchResultParser(HTMLParser):
                 self.authors_depth = None
             if self.abstract_depth == self.depth:
                 self.abstract_depth = None
+            if self.comment_depth == self.depth:
+                self.comment_depth = None
             if self.meta_depth == self.depth:
                 self.meta_depth = None
             if tag == "li":
@@ -163,6 +183,8 @@ class _SearchResultParser(HTMLParser):
             self.current["abstract"].append(text)
         if self.meta_depth is not None:
             self.current["meta"].append(text)
+        if self.comment_depth is not None:
+            self.current["comments"].append(text)
 
 
 def _parse_search_date(text):
@@ -220,6 +242,7 @@ def _search_html_once(keywords, limit, mode="recent"):
                     abstract=abstract,
                     authors=authors,
                     published=_parse_search_date(" ".join(item["meta"])),
+                    venue=_venue_from_comment(" ".join(item["comments"])),
                     url=f"https://arxiv.org/abs/{arxiv_id}",
                     pdf_url=f"https://arxiv.org/pdf/{arxiv_id}",
                     arxiv_id=arxiv_id,

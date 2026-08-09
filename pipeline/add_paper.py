@@ -24,6 +24,7 @@ from .schema import Paper
 from .sources import arxiv as arxiv_src
 from .summarize import Summarizer
 from .util import http_get, slugify
+from .venue import enrich_venue
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TPL = os.path.join(ROOT, "templates")
@@ -109,6 +110,7 @@ def main(argv=None):
             raise SystemExit("URL の中身が PDF ではありません。")
         paper, sections, basis = _from_pdf_bytes(data, args.title, url=args.url)
 
+    paper = enrich_venue(paper)
     print(f"タイトル: {paper.title}")
     print(f"セクション数: {len(sections)} / 根拠: {basis}")
 

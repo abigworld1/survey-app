@@ -36,6 +36,7 @@ from .schema import Paper, normalize_title
 from .sources import arxiv as arxiv_src
 from .summarize import Summarizer
 from .util import slugify
+from .venue import enrich_venue
 
 
 def _fulltext_score(p):
@@ -906,6 +907,7 @@ def main(argv=None):
                 print(f"      [skip] {context_issue}")
                 continue
             if not args.offline:
+                p = enrich_venue(p)
                 p = _enrich_fulltext_source(p)
             # 本文をセクション分割して多段要約（取れなければ abstract にフォールバック）
             if args.offline:

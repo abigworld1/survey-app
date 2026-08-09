@@ -24,6 +24,7 @@ from .schema import Paper, normalize_title
 from .sources import arxiv as arxiv_src
 from .summarize import Summarizer
 from .util import http_get, slugify
+from .venue import enrich_venue
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TPL = os.path.join(ROOT, "templates")
@@ -404,6 +405,7 @@ def main(argv=None):
             skipped += 1
             print("  [skip] メタデータを再取得できません")
             continue
+        paper = enrich_venue(paper)
         if not render._venue_label(paper.venue, missing=""):
             try:
                 fallback = info.get("venue", "") or _existing_paper(info).venue

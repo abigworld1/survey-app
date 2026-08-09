@@ -24,6 +24,7 @@ VALID_FEED = """<?xml version="1.0" encoding="UTF-8"?>
     <title>Reliable Multi-Agent Path Finding</title>
     <summary>Agents find collision-free paths on a shared graph.</summary>
     <published>2026-01-01T00:00:00Z</published>
+    <arxiv:comment>Accepted at AAMAS 2026. 12 pages.</arxiv:comment>
     <author><name>A. Researcher</name></author>
     <link title="pdf" href="https://arxiv.org/pdf/2601.00001v1" />
   </entry>
@@ -39,6 +40,7 @@ SEARCH_HTML = """
       <span class="abstract-full">We plan collision-free warehouse paths. <a>Less</a></span>
     </p>
     <p class="is-size-7"><span>Submitted</span> 6 August, 2026;</p>
+    <p class="comments is-size-7"><span>Comments:</span> Accepted to AAAI 2027. 10 pages.</p>
   </li>
 </ol>
 """
@@ -238,11 +240,24 @@ class SourceResilienceTest(unittest.TestCase):
         self.assertEqual(papers[0].arxiv_id, "2608.05588")
         self.assertEqual(papers[0].published, "2026-08-06")
         self.assertEqual(papers[0].authors, ["A. Researcher", "B. Researcher"])
+        self.assertEqual(papers[0].venue, "AAAI 2027")
         self.assertEqual(
             papers[0].pdf_url, "https://arxiv.org/pdf/2608.05588"
         )
         self.assertNotIn("Less", papers[0].abstract)
         self.assertIn("order=-announced_date_first", http_get.call_args.args[0])
+
+    def test_arxiv_comment_requires_explicit_acceptance(self):
+        self.assertEqual(
+            arxiv._venue_from_comment("Accepted at AAMAS 2026. 12 pages."),
+            "AAMAS 2026",
+        )
+        self.assertEqual(
+            arxiv._venue_from_comment("To appear in ICAPS 2027; camera ready."),
+            "ICAPS 2027",
+        )
+        self.assertEqual(arxiv._venue_from_comment("Submitted to AAAI 2027."), "")
+        self.assertEqual(arxiv._venue_from_comment("Under review."), "")
 
     @mock.patch.object(arxiv, "_search_html_once", return_value=[])
     @mock.patch.object(arxiv, "time")
