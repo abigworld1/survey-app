@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MAPF-HD: Multi-Agent Path Finding in High-Density Environments | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>MAPF-HD: Multi-Agent Path Finding in High-Density Environments</h1>
+  <div class="meta">Hiroya Makino, Seigo Ito<br>採択先: IEEE Robotics &amp;amp; Automation Magazine ・ 2025-09-08 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2509.06374v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2509.06374v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/ARXIV.2509.06374" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 IEEE Robotics &amp;amp; Automation Magazine</span><span class="chip">公開日 2025-09-08</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 2</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">高密度環境におけるMAPF-HDという新問題を定義し、空きマスをエージェントと見なす独創的なPHANS手法を提案。大規模環境での計算速度に優位性がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 高密度環境において目的地を持つターゲットエージェントと、空間を占有する目的地を持たない妨害エージェントが混在するMAPF-HD問題を定義し、空きマスとエージェントを段階的に入れ替えるPHANS手法を提案することで、大規模環境でも数秒以内での経路計画を実現した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>自動倉庫や自動駐車のような高密度環境におけるマルチエージェント経路計画（MAPF）を対象とする。この環境では、特定の目的地を持つターゲットエージェントに加え、目的地を持たず空間を占有してターゲットの移動を妨げる妨害エージェントが多数存在する。従来の整数線形計画法（ILP）を用いた手法は、全エージェントの経路を同時に最適化するため計算コストが非常に高く、小規模な環境でも数十から数百秒を要するため、大規模な実環境への適用が困難であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>全エージェントの経路を同時に最適化するILPベースの手法に対し、ターゲットの経路計画と妨害エージェントの退避を分離して行うヒューリスティックなアプローチを導入した。妨害エージェントに一時的な目標を与える既存手法とは異なり、空きマスをnull agentと見なしてエージェントと位置を入れ替えるメカニズムにより、計算コストを大幅に削減した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>PHANSは2段階のプロセスで動作する。第1段階では、A*アルゴリズムを用いてターゲットエージェントの経路を計画する。この際、妨害エージェントが最寄りの空き頂点へ移動するまでの予測待ち時間を考慮した独自のヒューリスティック関数を用いて、ターゲットの移動コストを算出する。第2段階では、ターゲットの経路を塞ぐ妨害エージェントを順次退避させる。具体的には、妨害エージェントと、割り当てられた空き頂点（null agent）との間で位置を入れ替える操作を繰り返す。複数のターゲットが存在する場合は、開始地点から目標地点までの距離が長いターゲットを優先し、さらに妨害エージェントの中でもターゲットの目標地点までの残り経路が長いものを優先的に処理する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>ILP、PIBT、EECBSを比較手法として、格子グラフ環境および静止障害物（柱）が存在する環境で評価を行った。評価指標には、全ターゲットが目的地に到達するまでの時間であるメイクスパンと計算時間を用いた。実験の結果、PHANSは小規模環境において極めて短い計算時間を実現した。また、ILPが制限時間内に解を見つけられない大規模かつ高密度な環境においても、PHANSは数秒という極めて低い計算時間で経路計画を完了した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>PHANSはILPと比較してメイクスパンが長くなる傾向がある。また、静止障害物が非常に多い環境や、ターゲットエージェントの割合が高い環境では、妨害エージェントの退避中にデッドロックが発生し、計画に失敗する可能性がある。本手法は動的な障害物を明示的に扱う設計ではないが、計算速度が非常に速いため、障害物の出現に合わせて頻繁に再計画を行うことで対応できる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>MAPF-HD: Multi-Agent Path Finding in High-Density Environments</h3><p>本研究は、高密度な環境下でのマルチエージェント経路計画（MAPF）を目的とした、新しいフレームワークであるMAPF-HDを提案している。従来の整数線形計画法（ILP）を用いた手法は、全エージェントの経路を同時に最適化しようとすると、小規模なグリッド環境であっても計算に数十から数百秒を要するため、大規模な自動倉庫や自動駐車への適用が困難であった。これに対し、提案手法であるPHANS（Phased Null-Agent Swapping）は、エージェントと空の頂点との間で位置を段階的に入れ替えるヒューリスティックなアプローチを採用している。この手法を用いることで、数千のセルを含む大規模な環境においても、MAPF-HDの問題を数秒以内で解決できる。本手法は、物流倉庫、交通管理、群衆制御といった実世界の多様なアプリケーションにおける効率向上に寄与する可能性がある。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>高密度な環境におけるマルチエージェント経路計画（MAPF）は、自動倉庫や自動駐車システムにおいて空間効率を高める一方で、従来の技術では困難な課題を抱えています。高密度環境では、特定の目的地を持つターゲットエージェントの他に、目的地を持たず空間を占有して移動を妨げるエージェントが多数存在することが特徴です。これに対し、整数線形計画法を用いて全エージェントの経路を同時に最適化する手法は計算時間が膨大になる傾向があり、妨害エージェントに一時的な目標を与えて既存のMAPF手法を適用する手法は、妨害エージェントの移動が最適化されないためターゲットの経路が長くなるという限界があります。本研究では、これらの課題に対応するために高密度環境に特化したMAPF-HDを提案し、空きマス（null agent）とエージェントの位置を入れ替えることで移動させる、段階的なヒューリスティック技術を用いたPHANS（phased null-agent swapping）というアルゴリズムを開発しました。この手法により、エージェントが密集した環境下においても、数秒以内という短い計算時間で経路計画を解くことが可能です。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>マルチエージェント経路計画（MAPF）には、最適解を求める手法と、スケーラビリティを向上させるために劣最適解を求める手法がある。最適解を求める手法として、衝突解消のために高レベルの探索と低レベルの経路計画を組み合わせるConflict-based search（CBS）や、整数線形計画法（ILP）を用いた組合せ最適化問題への帰着が提案されているが、MAPFはNP困難であるため計算量の増大が課題となる。一方、劣最適解を求める手法には、焦点探索を用いるEnhanced CBS（ECBS）や、エージェントに動的な優先順位を割り当ててバックトラッキングを可能にする分散型アルゴリズムであるPriority inheritance with backtracking（PIBT）があり、PIBTは高密度環境においてもスケーラビリティを持つ。高密度環境における移動を扱う研究として、車両の入庫、出庫、および移動を最適化するCooperative Automated Valet Parking（CoAVP）などが存在するが、これらはILPを用いるため計算複雑度が高く、実用的な環境での適用には課題がある。また、高密度環境特有の衝突形態や、隣接するエージェントがほぼ完全に同期して動かなければならないといった現実的な制約に関する検討も不十分である。</p></section>
+<section class="secsum"><h3>III Multi-Agent Path Finding Problem in High-Density Environments</h3><p>MAPF-HDは、高密度に存在する障害物エージェントの間を通り抜け、ターゲットエージェントが目的地へ到達する問題を定義している。環境は4連結の格子グラフで構成され、ターゲットエージェントは開始地点と目標地点のペアを持ち、目標を持たない障害物エージェントは開始地点のみが指定される。各エージェントは、各タイムステップにおいて現在の頂点に留まるか隣接する頂点へ移動する動作を行い、複数のエージェントが同時に同じ頂点を占有する頂点衝突と、あるエージェントが直前のタイムステップで別のエージェントが占有していた頂点へ移動する追従衝突の両方を回避しなければならない。高密度環境ではエージェント間の十分な間隔確保が困難であるため、本問題では追従衝突を禁止している。本問題の目的は、すべてのターゲットエージェントが目標に到達するまでの総タイムステップ数であるメイクスパンを最小化することである。これは、目標を持たない多数の障害物エージェントの影響を受けやすい合計コストではなく、運用上のボトルネックを反映する指標としてメイクスパンを採用している。</p></section>
+<section class="secsum"><h3>IV Proposed Method</h3><p>高密度環境におけるマルチエージェント経路探索を効率化するため、PHANSと称する2段階のヒューリスティック手法を提案している。第1段階では、ターゲットとなるエージェントに対し、A*アルゴリズムを用いて始点から目標点までの経路を計画するが、この際、経路上の妨害エージェントを退避させるコストを最小化するため、妨害エージェントが最寄りの空き頂点へ移動するまでの予測待ち時間を考慮した独自のヒューリスティック関数をコスト計算に導入している。第2段階では、ターゲットの経路を塞ぐ妨害エージェントを順次退避させるため、空きスペースを「null agent」と見なし、妨害エージェントとnull agentの間で位置を入れ替える「null-agent swapping」というメカニズムを実行する。複数のターゲットが存在する場合、開始地点から目標地点までの距離が長いターゲットを優先する優先度付き計画を採用し、さらに妨害エージェントの中でも目標地点までの残り経路が長いものを優先的に処理することで、全体の完了時間の短縮を図っている。本手法の計算量は、ターゲット数をN、最大経路長をLとするとO(N * L^2)の多項式時間であり、指数関数的な計算量を要する従来の整数線形計画法ベースの手法と比較して、計算コストを大幅に削減できる。</p></section>
+<section class="secsum"><h3>V Numerical Experiments</h3><p>提案手法であるPHANSの性能を、既存手法であるILP、PIBT、EECBSと比較する4つの実験結果が示されています。小規模な環境を用いた実験1および2では、PHANSは様々な密度において最も低い計算時間を実現し、高密度環境でも安定した成功率を維持しましたが、最適解を求めるILPと比較すると、PHANSのmakespan（全エージェントの完了時間）は長くなる傾向にありました。大規模な環境を用いた実験3では、PHANSの優れたスケーラビリティが示され、ILPが制限時間内に解を見つけられないような大規模かつ高密度な環境においても、PHANSは極めて低い計算時間で経路計画を完了できました。特に、高密度環境においてPHANSの計算時間が減少する傾向が見られ、これは空きセルが少ないことで妨害エージェントへの割り当てプロセスが簡略化されるためです。障害物のある複雑な環境を用いた実験4においても、PHANSは高い計算効率を維持しましたが、極めて高い密度では静的障害物とターゲットエージェントの優先順位が干渉し、デッドロックが発生して計画に失敗する事例が確認されました。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究では、高密度環境におけるマルチエージェント経路探索（MAPF-HD）を定義し、効率的な解決手法としてPHANSという新しいヒューリスティック手法を提案している。PHANSは、まず目標となるエージェントの経路を計画し、次にその経路を塞いでいるエージェントを順次退避させるという2段階のプロセスで動作し、エージェントと空き頂点の位置を入れ替えることで経路を確保する。数値実験の結果、既存手法であるILP、EECBS、PIBTなどは、妨害エージェントの密度が高まると計算コストが大幅に増大したり、完了時間（makespan）が悪化したりする傾向があるが、PHANSは極端な高密度環境や静止障害物がある環境下でも、高速な計算時間と競争力のある完了時間を一貫して維持できることが示された。一方で、静止障害物が非常に多い場合や目標エージェントの割合が高い場合には性能が低下するという限界がある。また、PHANSは動的な障害物を明示的に扱う設計ではないが、計画速度の速さにより、障害物が出現した際の頻繁な再計画による対応が可能である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-10
+  </footer>
+</div>
+</body>
+</html>

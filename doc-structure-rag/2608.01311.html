@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>RH-RAG: Trustworthy Long-Form Generation for Privacy-Constrained Settings | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>RH-RAG: Trustworthy Long-Form Generation for Privacy-Constrained Settings</h1>
+  <div class="meta">Raj Shekhar Singh<br>採択先: 未取得 ・ 2026-08-02 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.01311v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.01311v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2608.01311" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-08-02</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">プライバシー重視のローカルLLM環境に特化した、実用性の高いマルチエージェントRAG。検証を生成プロセスに組み込む設計が具体的で、評価も多角的。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> プライバシー制約のある環境下で、ローカルのオープンウェイトモデルを用いて信頼性の高い長文を生成するマルチエージェントフレームワークRH-RAGを提案する。計画、執筆、検証のプロセスを分離し、自然言語推論に基づく修正ループを組み込むことで、事実に基づいた一貫性のある生成を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>医療、金融、法律などの機密性の高い分野では、クラウド型LLM APIの利用が制限されるため、ローカル環境での7Bから8B規模のモデル活用が求められる。しかし、従来のRAG手法を用いた長文生成では、文脈の飽和による情報の欠落、事実の誤認（ハルシネーション）、および文書全体の構造的な一貫性の欠如という課題がある。本研究は、限られた計算資源を用いながら、これらの方策を克服し、正確かつ一貫した長文コンテンツを生成することを目的とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のRAGやグラフ構造を用いた手法は、個別の事実への回答には適しているが、長文生成における全体的な物語の一貫性の維持には課題がある。また、従来の事実検証は生成後の事後評価に留まることが多かった。本手法は、文書全体の計画、メモリ制限下でのセクション単位の生成、および生成プロセスに直接組み込まれた検証メカニズムを単一のフレームワークで統合しており、検証結果を生成の修正に直接結びつける点が新規である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>文書を、計画用の要約を含む大規模セグメントと、詳細な事実を保持する断片という二段階のインデックス構造で管理する。処理は以下の3段階で行われる。まずPlanner Agentが要約を用いて文書の構成案と、各セクションの執筆時に使用する検索用のアンカーを作成する。次にWriter Agentが、直前のセクションの要約と文書全体の要約からなる「限定的な一貫性メモリ」を用いて、セクションごとに内容を執筆する。最後にChecker Agentが、生成された主張を自然言語推論を用いて「支持」「不支持」「矛盾」の3段階で検証する。事実の網羅率が設定された閾値に満たない場合は、失敗した主張を検索クエリに変換して追加の証拠を取得し、Revision Agentが該当箇所を修正するループを最大3回まで実行する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>文学、金融、法律の3ドメインのコーパスを用い、Mistral-7B、LLaMA-3.1-8B、Qwen-2.5-7Bをバックボーンとして評価した。比較対象は、標準的なRAG、階層型RAG、商用LLM、および検証器を除去したRH-RAGである。評価指標には、LLM-as-a-judgeによる品質、文レベルの含意に基づくSUMMAC、およびチャンク単位の整合性を測るAlignScoreを用いた。結果として、すべての指標で標準的なRAGや階層型RAGを上回り、商用LLMの信頼性に迫る性能を示した。特に金融ドメインでは、検証器を除去するとAlignScoreが78.5から74.2へ、SUMMACが48.7から42.8へと低下し、検証プロセスの有効性が確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は7Bから8B規模のモデルを前提としているため、極めて複雑な論理推論が必要な場合には修正サイクルが増加する可能性がある。また、検証の閾値を厳しく設定しすぎると、検索結果に存在しないドメイン特有の表現に対して不必要な修正が繰り返され、文章の流暢性が低下するというトレードオフが存在する。今後の課題として、ドメインに適応した検証閾値の設定、エージェント特化型のファインチューニング、および計算コストを削減するための効率的な特化型NLIモデルの開発が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>RH-RAG: Trustworthy Long-Form Generation for Privacy-Constrained Settings</h3><p>RH-RAGは、機密性の高い内部レポートから長文コンテンツを生成する際、プライバシー保護のためにローカルのオープンウェイトモデルを活用するマルチエージェントフレームワークである。この手法は生成プロセスを3つの段階に分解しており、まずPlanner Agentが意味的な要約から全体的な構成案を作成し、次にWriter Agentが境界付きのコヒーレンスメモリを用いて各セクションの内容を生成する。最後にChecker Agentが自然言語推論に基づく検証と、証明駆動型の修正ループによってハルシネーションを抑制する。効率的な計画立案と詳細な文脈生成を消費者向けハードウェア上で実現するため、二段階の検索インデックスを採用している。文学、金融、法律の各ドメインにおける評価では、従来のRAG手法と比較して事実に基づいた正確性、意味的な一貫性、および文書全体の整合性が向上しており、データのプライバシーを維持しつつ商用のクラウドシステムに近い信頼性を達成している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>プライバシー制約の厳しい医療や金融などの分野では、クラウドAPIの利用が困難なため、ローカル環境での7Bから8B規模のオープンウェイトモデルの活用が求められますが、長文生成においては事実の誤認、文脈の飽和、構造的な一貫性の欠如という3つの課題が生じます。従来のRAG手法は、平坦な証拠集合を一度の生成プロセスで処理するため、文脈が長くなるにつれてモデルが統計的なパターンに引きずられ、内容の重複や矛盾が発生しやすくなります。これに対し、提案手法であるRH-RAGは、計画、執筆、検証という人間の執筆ワークフローを模倣したマルチエージェントフレームワークであり、ローカル環境での動作を前提としています。具体的には、ルーティング用の要約と証拠チャンクからなる二段階のインデックス構造を用い、プランナー、ライター、チェッカーの各エージェントが、グローバルな構成案の作成、限定的な一貫性メモリを用いたセクションごとの執筆、そして自然言語推論に基づく事実性の検証を段階的に行います。このプロセスにより、カバレッジに基づく事実性指標を用いた修正ループを実現し、根拠のない主張を体系的に排除することで、限られた計算資源下でも信頼性の高い長文生成を可能にしています。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>既存の研究では、密な埋め込みを用いた標準的なRAGや、グラフ構造や階層的な粒度を利用して知識を検索する手法、さらにマルチホップのグラフ探索を用いて複雑なクエリに対応する手法が提案されている。これらの手法は構造化された知識ベースにおける事実の精度を向上させるが、非構造的な生テキストからグラフを構築するコストの高さや、離散的な事実への回答に特化しているため、長文生成における全体的な物語の一貫性を維持することには課題がある。また、FActScoreなどの既存の事実検証手法は、生成された出力を原子的な主張に分解して事後的に評価するオフラインの仕組みに留まっている。これに対し、提案手法であるRH-RAGは、検証を生成プロセスに組み込む生成制御メカニズムを採用している。具体的には、Checker Agentが自然言語推論（NLI）に基づいた検証を行うことで、事実性の測定と出力の改善を直接的に結びつけ、生成中の修正を促す。既存研究には、文書全体の計画、メモリ制限下でのセクションごとの生成、決定論的な主張レベルの検証、およびプライバシーを保護するローカル環境でのデプロイを単一のフレームワークで同時に実現するものは存在せず、RH-RAGはこのギャップを埋めることを目的としている。</p></section>
+<section class="secsum"><h3>3 The RH-RAG Framework</h3><p>RH-RAGは、前処理、生成、検証の3つの段階を専用のエージェントが担うフレームワークである。前処理では、文書を2つの粒度でインデックス化しており、計画段階で関連領域を特定するための要約を含む大規模なセグメント（レベル1）と、事実に基づいた生成や検証のために埋め込みモデルを用いてベクトル化された詳細な断片（レベル2）を使い分ける。Planner Agentは、レベル1の要約を用いて文書の論理的な構成案を作成し、各セクションに対して、後の段階でレベル2の証拠を検索するための具体的な検索アンカーを生成する。Writer Agentは、構成案と検索された証拠、および文脈の飽和を防ぐための「限定的な一貫性メモリ」を用いて、セクションごとに内容を生成する。このメモリは、直前のセクションからの遷移を記述する局所的な要約と、文書全体のテーマを保持する大域的な要約の2要素で構成される。Checker Agentは、生成された各セクションから原子的な事実主張を抽出し、自然言語推論モデルを用いて、検索された証拠との整合性を「支持」「不支持」「矛盾」の3段階で検証する。検証の結果、事実の網羅率が設定した閾値に達しない場合は、失敗した主張を検索クエリに変換して追加の証拠を取得し、Revision Agentが不足している箇所のみを修正するフィードバックループが最大3回まで実行される。</p></section>
+<section class="secsum"><h3>4 Experiments</h3><p>本実験では、長文生成の異なる側面を検証するために、文学、金融、法律の3つのドメインからなる独自の評価コーパスを使用しています。実装においては、Mistral-7B-Instruct、LLaMA-3.1-8B-Instruct、Qwen-2.5-7B-Instructの3つのオープンソースモデルをバックボーンとして採用し、NVIDIA T4 GPU 2枚のローカル環境で動作させています。手法の構成要素として、bge-base-en-v1.5による高密度エンコーディング、XSumで微調整されたモデルによる要約生成、およびDeBERTa-v3-largeを用いたテキスト含意分類による検証プロセスを組み込んでいます。評価指標には、GPT-4oを用いたLLM-as-a-judgeによる出力品質の勝率に加え、文レベルの含意に基づくSUMMACと、チャンク単位の整合性を測るAlignScoreを用いて事実への忠実度を測定しています。比較対象のベースラインには、標準的なRAG、階層型RAG、商用LLM、および検証器を除去したRH-RAGの4種類を設定し、各構成要素の寄与を評価しています。</p></section>
+<section class="secsum"><h3>5 Results and Discussion</h3><p>RH-RAGは、文学、金融、法律の3つのドメインにおけるすべての評価指標において、標準的なRAGおよび階層型RAGを上回る性能を示しました。文学ドメインでは、階層型RAGは標準的なRAGよりも主題の適合性は高いものの、詳細な情報の整合性を示すAlignScoreは低下する傾向があり、RH-RAGによる構造的な計画と検証に基づく修正が、検索構造の改善のみでは得られない効果をもたらすことが確認されました。特に数値の正確性が重要となる金融ドメインでは、検証を行うChecker Agentを削除すると、AlignScoreが78.5から74.2へ、SUMMACが48.7から42.8へと大幅に低下し、検証ループが事実に基づいた根拠付けに不可欠であることが示されました。また、情報の網羅性を求める閾値を厳しく設定するほど忠実度は向上しますが、法務ドメインのように検索結果に含まれない特有の表現がある場合、不必要な修正サイクルが発生し流暢性が低下する側面もあります。さらに、オープンソースのMistral-7BをバックボーンとしたRH-RAGは、外部へのデータ送信を行わず、かつモデル容量も大幅に小さいにもかかわらず、検証パイプラインを持たないGPT-4oやClaudeといった商用モデルの忠実度指標に肉薄する性能を達成しました。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>RH-RAGは、プライバシー制約のある環境下での長文生成を目的としたマルチエージェント型のRAGフレームワークである。本手法は、二段階の検索プロセス、限定的な一貫性メモリを用いた構造的なセクション単位の生成、および証明駆動型の自然言語推論（NLI）に基づく事実検証を組み合わせている。実験の結果、RH-RAGは標準的なRAGや階層型RAGのベースラインを大幅に上回り、機密データを外部プロバイダーに送信することなく、商用のクラウドシステムに近い忠実度を達成した。今後の展望として、ドメインに適応した検証閾値の設定、エージェントごとの微調整、および技術領域における検証コストを削減するための、より効率的な特化型NLIモデルの開発が挙げられている。</p></section>
+<section class="secsum"><h3>7 Limitations</h3><p>本手法には3つの限界がある。第一に、フレームワークを7Bから8Bパラメータ規模のモデルに意図的に制限しているため、極めて複雑な多段階の論理推論や緻密な物語の転換においては基盤モデルの能力が課題となり、修正サイクルが増加する場合がある。第二に、パイプラインの全コンポーネントが汎用的な指示学習済みモデルを使用しており、検証を行うChecker Agentに対してドメイン適応させた自然言語推論モデルなどのエージェント特化型ファインチューニングを適用することで、不要な修正の削減と計算コストの低減が可能である。第三に、文学的な評価においてパブリックドメインの既知のテキストを使用しているため、モデルの事前学習データに含まれている可能性があり、モデルが持つ潜在的な知識が物語の一貫性を助長している恐れがある。これは、完全に未知の機密文書を用いた場合と比較して、性能が上振れしている可能性を示している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-10
+  </footer>
+</div>
+</body>
+</html>

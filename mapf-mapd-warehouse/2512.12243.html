@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CAHC:A General Conflict-Aware Heuristic Caching Framework for Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>CAHC:A General Conflict-Aware Heuristic Caching Framework for Multi-Agent Path Finding</h1>
+  <div class="meta">HT To, S Nguyen, NH Pham<br>採択先: 未取得 ・ 2025-12-13 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2512.12243v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2512.12243v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2512.12243" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-12-13</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">制約ベースのMAPFにおけるキャッシュの不正確性を、制約の符号化により解決する汎用的な枠組みが新規。実験も具体的で高速化効果も高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 制約ベースのマルチエージェント経路探索において、制約が探索空間を変化させるために従来の「状態のみ」をキーとするキャッシュでは不正確な値を返す問題を、状態と関連制約のペアを管理する汎用フレームワークCAHCによって解決する。これにより、解の最適性を維持したまま計算時間を大幅に削減し、従来タイムアウトしていた問題の解決も可能にする。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路探索（MAPF）における制約ベースの探索アルゴリズム（CBS、MAPF-LNS、MAP2など）では、衝突回避のために生成される制約が探索空間を変化させるため、ヒューリスティック値が状態だけでなく制約の文脈に依存する。従来のキャッシュ手法はヒューリスティックが状態のみに依存すると仮定しているため、制約が存在する状況下で誤った値を返す。特に、車両型ロボットを扱うCL-CBSでは、Reeds-Shepp曲線を用いたヒューリスティック計算の負荷が極めて高いことが課題となっている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のキャッシュ手法との差分は、ヒューリスティック値を状態単体ではなく、関連する制約を効率的に符号化した衝突フィンガープリントと組み合わせて保存する点にある。これにより、制約の文脈に応じた正確な値を保持し、キャッシュの的中率と正確性を両立させている。また、フィルタリングや符号化をドメインごとにカスタマイズできるモジュール式設計を採用することで、特定のアルゴリズムに限定されない汎用的な最適化フレームワークを実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>CAHCは、Relevance Filter、Conflict Fingerprint、Conflict-Aware Cacheの3つのモジュールで構成される。Relevance Filterは、時間窓、空間的距離、およびゴールへの到達可能領域という3つの幾何学的基準を用いて、状態のヒューリスティックに影響を与える制約のみを抽出し、不要な制約の90%を排除する。Conflict Fingerprintは、抽出された制約ID、空間領域、時間間隔を平均88バイトの軽量な形式で符号化する。これらをキーとしてヒューリスティック値をマッピングすることで、制約の文脈を考慮したキャッシュを実現する。さらに、CAR-CHASEでは、ゴールからの距離や探索の進捗に応じて、近似的な計算と正確な計算を切り替える適応型ハイブリッドヒューリスティックを組み合わせている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>100×100のマップ上でエージェント数（10、20、25、30）と障害物密度（0%および50%）を変化させた480個のCL-CBSベンチマークを用いて評価を行った。提案手法を適用したCAR-CHASEは、ベースラインと比較して実行時間の幾何平均で2.46倍の高速化を達成し、総実行時間を70.1%削減した。キャッシュヒット率は87.65%に達し、成功率は77.9%から84.8%へと向上した。特に30エージェントかつ障害物がある複雑な設定では、幾何平均で最大4.06倍の高速化を記録した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>元のヒューリスティック関数が許容的であれば、キャッシュされた値も制約下での最短経路を正しく反映し、解の最適性が維持されることが理論的に保証されている。メモリ使用量は、エントリあたり平均140バイトとコンパクトであり、20エージェントのケースでも2.8 MB程度の追加消費に抑えられている。今後の課題として、学習を用いたRelevance Filterの開発や、MAP2、MAPF-LNS、ECBSといった他の制約ベースのアルゴリズムへの適用および検証が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>CAHC:A General Conflict-Aware Heuristic Caching Framework for Multi-Agent Path Finding</h3><p>従来のMAPFアルゴリズムにおけるヒューリスティック計算のコストを削減するため、状態だけでなく関連する制約の文脈も考慮して値を保存するCAHC（Conflict-Aware Heuristic Caching）という汎用的なフレームワークを提案する。従来のキャッシュ手法はヒューリスティックが状態のみに依存すると仮定していたが、CBSやMAPF-LNSなどの制約ベースの探索では、衝突解決による制約が探索空間に影響を与えるため、状態と制約の両方に基づいたキャッシュが必要となる。CAHCは、どの制約が状態のヒューリスティックに影響を与えるかを効率的に符号化する衝突フィンガープリントと、空間・時間・幾何学的基準を用いて制約の関連性を判断するフィルタリング機能を備えている。このフレームワークを車型ロボット向けのCL-CBSに適用したCAR-CHASEを用いた実験では、解の最適性を維持したまま、480個のベンチマークインスタンスにおいて幾何平均で2.46倍の高速化を達成した。さらに、成功率は77.9%から84.8%に向上し、総実行時間を70.1%削減することで、従来は解決できなかった33個のインスタンスを追加で解決することに成功している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>マルチエージェント経路探索（MAPF）における制約に基づく探索アルゴリズムでは、衝突解決時に生成される制約が探索空間を変化させるため、従来の「状態のみ」をキーとするヒューリスティック・キャッシングでは不正確な値を返すという課題があります。本研究では、状態と制約のペアに基づいてヒューリスティック値を保存する、汎用的かつモジュール式のフレームワークであるCAHC（Conflict-Aware Heuristic Caching）を提案します。CAHCは、どの制約が状態のヒューリスティックに影響するかを効率的に符号化するConflictFingerprint、空間・時間・幾何学的基準を用いて制約の関連性を判定するドメイン適応型Relevance Filter、およびペアを値にマッピングする汎用的なキャッシング・インターフェースの3つの要素で構成されます。このフレームワークを、非ホロノミック制約を持つ車両型ロボット向けのCL-CBSに適用した事例研究として、近似計算と厳密計算を適応的に切り替えるCAR-CHASEを実装しました。480個のCL-CBSベンチマークを用いた実験の結果、CAR-CHASEは解の最適性を維持したまま、ベースラインと比較して実行時間の幾何平均で2.46倍の高速化を達成し、総実行時間を70.1%削減しました。また、成功率は77.9%から84.8%へと向上し、従来タイムアウトしていた33個のインスタンスも解決可能になるなど、問題の複雑さが増すほど最大4.06倍の高速化が得られることが示されました。</p></section>
+<section class="secsum"><h3>II Background and Related Work</h3><p>マルチエージェント経路計画（MAPF）は、複数のエージェントが衝突を避けながら開始地点から目標地点まで移動する経路を求め、その合計コストを最小化するNP困難な問題である。現在の主流であるConflict-Based Search（CBS）は、制約を管理する高レベルの探索と、個々のエージェントの経路を計算する低レベルの探索からなる2層構造のアルゴリズムである。既存のECBSやICBSなどの手法は主に高レベルの探索効率の向上に焦点を当てているが、提案手法であるCAHCは低レベルにおけるヒューリスティック計算の最適化を目的としており、既存手法と組み合わせることで相乗的な高速化が可能である。特に、非ホロノミックな車両型ロボットを扱うCL-CBSでは、Reeds-Shepp曲線を用いたヒューリスティック計算が大きな計算負荷となっている。CAHCは、制約の文脈によってヒューリスティック値が変化するという課題に対し、制約を考慮したキャッシュを導入することで、動的な制約下でも正確な値を保持できる。実験では、制約を無視したキャッシュの理論的なヒット率68%に対し、CAHCは87.65%の高いヒット率を達成し、CL-CBSにおいて最適性を維持したまま2.46倍から4.06倍の高速化を実現している。さらに、目標までの距離や探索の進捗に応じて、近似計算と厳密なReeds-Shepp計算を適応的に切り替えるハイブリッドなヒューリスティックも導入されている。</p></section>
+<section class="secsum"><h3>III Problem Analysis</h3><p>ベンチマークを用いたプロファイリングの結果、CL-CBSにおける主なボトルネックはReeds-Sheppヒューリスティックの計算であり、探索中に数百万回のクエリが発生することが判明した。従来のキャッシュ手法は、現在の状態のみに依存してヒューリスティック値を保存するが、CBSにおいては衝突回避のための制約集合が探索可能な空間を変化させるため、制約の有無によって同じ状態であっても最適な経路が異なる。そのため、従来のキャッシュでは制約の文脈を無視して誤った値を返してしまい、結果として再計算が必要になるなどキャッシュの有効性が低下する。これに対し、提案手法であるCAHCは、制約の情報を指紋（fingerprint）としてキャッシュのキーに含めることで、制約の文脈に応じた正しいヒューリスティック値を保持し、キャッシュの的中率と正確性を向上させている。</p></section>
+<section class="secsum"><h3>IV CAHC Framework: Conflict-Aware Heuristic Caching</h3><p>CAHCは、制約に基づく探索においてヒューリスティック値を効率的に再利用するための汎用的なキャッシュフレームワークです。このフレームワークは、状態のヒューリスティックに影響を与える制約を抽出するRelevance Filter、抽出された制約をコンパクトに符号化するConflict Fingerprint、およびこれらをキーとしてヒューリスティック値を保持するConflict-Aware Cacheの3つのモジュールで構成されます。Relevance Filterは、時間窓、状態からゴールへの経路との空間的距離、およびゴールへ向かう到達可能領域という3つの幾何学的基準を用いて制約を判定し、不要な制約の90%を排除します。Conflict Fingerprintは、制約ID、空間領域、時間間隔を含み、平均88バイトの軽量なサイズで設計されています。実験では87.65%のキャッシュヒット率を達成しており、元のヒューリスティック関数が許容的であれば、キャッシュされた値も制約下での最短経路を正しく反映するため、許容性が維持されることが理論的に保証されています。また、Relevance Filterが指紋の数を制限することで、キャッシュサイズが訪問するユニークな状態数と状態あたりの平均的な制約コンテキスト数の積に比例する範囲に抑えられ、指数関数的な増大が防がれます。</p></section>
+<section class="secsum"><h3>V Adaptive Hybrid Heuristic</h3><p>本セクションでは、計算コストの高いReeds-Shepp距離の計算を効率化するため、目標地点からの距離に応じて近似計算と厳密計算を切り替える適応型ハイブリッドヒューリスティックを提案している。近似計算には、位置と向きを離散化したルックアップテーブルと三線形補間を用いることで、メモリ効率を維持しつつ、真の最適コストに対して一定の誤差範囲内に収まるε-許容的な性質を持たせている。適応的な切り替え戦略では、探索の初期段階では近似ヒューリスティックを用いて高速化を図り、探索が進むにつれて閾値を減少させることで、目標付近では厳密な計算に切り替える。理論的な保証として、この手法を用いたA*探索は、近似の精度と閾値戦略に基づいた小さな定数εを用いた、最適コストの (1 + ε) 倍以内の解を見つけることが示されている。この戦略により、目標から遠く経路の柔軟性が高い領域では近似を利用して高速化し、目標付近では厳密な計算で精度を確保することで、解の品質を維持しながら計算速度を向上させている。</p></section>
+<section class="secsum"><h3>VI CAR-CHASE: CAHC Case Study for CL-CBS</h3><p>CAR-CHASEは、CAHCフレームワークを車型ロボット向けのCL-CBSに適用した具体例であり、衝突を考慮したキャッシュ機構と適応型ハイブリッドヒューリスティックを組み合わせることで、キャッシュミス時にも効率的な計算を可能にしています。この統合により、実験では幾何平均で2.46倍の高速化が達成されており、既存のMAPFアルゴリズムのヒューリスティック計算関数を修正するだけで容易に導入できることが示されています。CAHCフレームワークは、制約に基づく探索、高コストなヒューリスティック計算、および制約の文脈に依存するヒューリスティックという3つの条件を満たすあらゆるMAPFアルゴリズムに適用可能です。フレームワークは、制約を符号化する制約フィンガープリント、どの制約が状態に影響するかを判定する関連性フィルタ、および汎用的なキャッシュインターフェースの3つのモジュールで構成されます。これにより、MAP2やMAPF-LNS、グリッドベースのCBSといった異なるドメインに対しても、コアとなるキャッシュ機構を変更することなく、ドメイン固有のフィルタリングや符号化をカスタマイズすることで最適化を適用できます。</p></section>
+<section class="secsum"><h3>VII Experimental Evaluation</h3><p>本実験では、100×100のマップ上でエージェント数（10, 20, 25, 30）と障害物密度（0%および50%）を変化させたCL-CBSベンチマークを用い、提案手法であるCAR-CHASEと最適化なしのCL-CBSを比較評価しています。全480インスタンスの評価において、CAR-CHASEは成功率を77.9%から84.8%へ向上させ、全体の幾何平均加速率2.46倍、累積実行時間の70.1%削減を達成しました。問題の複雑さが増すにつれて性能向上が顕著になり、30エージェントかつ障害物のある設定では、幾何平均加速率が4.04倍に達し、実行時間を91.5%削減するなど、制約コンテキストが多様な環境でCAHC（衝突認識キャッシュ）が極めて有効であることが示されました。リソース使用量の分析では、キャッシュのエントリあたり140バイトというコンパクトな設計により、20エージェントの典型的なケースで2.8 MBのメモリ消費に抑えつつ、87.65%という高いキャッシュヒット率を実現しています。このメモリ効率は、時空間的な閾値を用いて不要な制約の90%を排除する関連性フィルタリングと、ビットセットを用いたコンパクトな指紋（fingerprint）表現によって実現されており、計算コストの削減に対して極めて低いメモリオーバーヘッドで動作します。</p></section>
+<section class="secsum"><h3>VIII Conclusion</h3><p>制約ベースのマルチエージェント経路計画（MAPF）アルゴリズムを最適化するための汎用的なフレームワークであるCAHCを提案する。CAHCは、制約ベースの探索におけるヒューリスティックが状態と制約の両方に依存するという知見に基づき、衝突の指紋抽出、ドメイン適応型の関連性フィルタリング、および汎用的なキャッシュインターフェースの3つのモジュールで構成される。このフレームワークを、適応型ハイブリッドヒューリスティックを組み合わせたCL-CBS用のCAR-CHASEに適用して評価した結果、480個のベンチマークインスタンスにおいて、解の最適性を維持したままベースラインに対して幾何平均で2.46倍の高速化を達成した。具体的には、成功率が77.9%から84.8%へと6.9ポイント向上し、総実行時間を70.1%削減したほか、以前はタイムアウトしていた33個のインスタンスの解決が可能になった。この性能向上は問題の複雑さに比例し、30エージェントの障害物シナリオのような困難なケースでは最大4.06倍の高速化に達する。CAHCはモジュール設計であるため、指紋の符号化やフィルタリングをドメインに合わせて調整するだけで、運動学的制約を持つMAP2や大規模近傍探索（LNS）、グリッドベースのCBS、およびECBSなどの限定的な劣最適解を求めるソルバーなど、幅広いMAPFアルゴリズムへ体系的に統合できる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-10
+  </footer>
+</div>
+</body>
+</html>

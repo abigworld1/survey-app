@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>From Cloud to Crowd: Democratizing LLM Service with Decentralized Edge Collaboration for RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>From Cloud to Crowd: Democratizing LLM Service with Decentralized Edge Collaboration for RAG</h1>
+  <div class="meta">Jiaxing Li, Hengzhi Wang, Feng Wang, Chi Xu, Danyang Song, Ruixiao Zhang, Edith C. H. Ngai, Jiangchuan Liu<br>採択先: IEEE Transactions on Mobile Computing ・ 2026-08-02 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.00922v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.00922v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2608.00922" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 IEEE Transactions on Mobile Computing</span><span class="chip">公開日 2026-08-02</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">エッジ分散型RAGという極めて現代的な課題に対し、知識グラフの圧縮共有とベイズ最適化による動的構成選択を組み合わせた提案は新規性が高い。実験も異種デバイスを用いた実用的な構成で、精度とコストのトレードオフを定量的に示しており、計算機科学の研</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> クラウドLLMの運用コストとスケーラビリティの課題に対し、異種混合のエッジデバイス間で知識と計算リソースを協調させる分散型RAGシステムDEFRAGを提案する。エッジ間の知識共有とクエリ適応型の最適化により、低コストでクラウドLLMに近い精度を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>クラウドに依存する大規模言語モデル（LLM）サービスは、高額な費用とスケーラビリティの限界、負荷時の性能不安定さが課題である。一方、エッジデバイス上で小規模言語モデル（SLM）を用いた検索拡張生成（RAG）を行う場合、個々のデバイスの限られたリソースにより知識の網羅性が不足し、クラウドLLMとの精度差が生じる。また、クエリの複雑さに応じて最適なモデル構成や検索パラメータを動的に選択することも困難である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>単一デバイスの制約を打破するため、知識グラフを軽量な表現に圧縮してデバイス間で共有し、知識の網羅性を拡大する分散型アーキテクチャを提案する。さらに、クエリの特性に応じてSLMのサイズ、量子化精度、およびRAGの取得パラメータを適応的に選択する、ベイズオンライン学習に基づくクエリ適応型オプティマイザを導入した。これにより、エッジ環境における精度とコスト効率のトレードオフを最適化できる。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>検索プロセスでは、まずエンティティと関係性のみで構成される軽量な知識グラフに対して、用語ベースの疎な検索を行い、関連するエンティティを特定する。次に、特定されたエンティティに基づき、近隣のピアデバイスのベクトルデータベースからデータチャンクと埋め込みを取得する密な検索を行う。生成プロセスでは、コンテキスト付き多目的マルチアームドバンディット問題として定式化されたオプティマイザが、ガウス過程を用いたベイズオンライン学習により、SLMの構成とRAGのパラメータを決定する。この際、精度と効率性のバランスを制御する重みパラメータを、過去の精度やリソース使用量に基づき動的に調整し、UCB（Upper Confidence Bound）を用いて探索と活用のバランスを取りながら期待効用を最大化する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Jetsonシリーズ、Galaxy S25 Ultra、RTX 4090/5090などの異種混合デバイスを用いたテストベッドにおいて、Natural Questions（NQ）およびHotpotQAデータセットを用いて評価した。比較対象は中央集約型のサービスである。評価の結果、DEFRAGは中央集約型と比較してコストを最大98.4%削減し、ピーク時のスループットを最大97.8%向上させた。また、SLMとLLMの精度差を、NQでは12.7%から6.4%へ、HotpotQAでは7.1%から2.3%へと縮小させた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>ガウス過程の計算量に伴うオーバーヘッドを抑えるため、定期的なモデル更新やスライディングウィンドウによる学習データの制限を行っているが、これは計算負荷と予測精度のトレードオフの関係にある。また、初期の探索ステップ数（T0）の設定が収束性に影響を与える。今後の課題として、クエリの構造や複雑さをより詳細に捉えるためのコンテキスト特徴量の高度化や、関連性スコアの分布を用いたクエリ解釈の精度向上が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>本文 (1/8)</h3><p>本論文は、クラウド集約型のLLMサービスにおける高コストとスケーラビリティの限界を解消するため、異種混合のエッジデバイス間で分散協調を行うRAGシステム「DEFRAG」を提案している。DEFRAGは、検索フェーズにおいて知識グラフを圧縮・共有し、ハイブリッド検索を用いることで知識の網羅性を拡大する。生成フェーズでは、クエリごとに最適な小規模言語モデル（SLM）とRAGのパラメータを適応的に選択する、ベイズ最適化に基づくクエリ適応型オプティマイザを導入している。このオプティマイザは、クエリ、検索コンテキスト、生成設定の間の複雑な非線形相互作用をモデル化することで、限られたデータでも高い精度を実現する。異種混合のエッジテストベッドを用いた評価の結果、DEFRAGは中央集約型サービスと比較して、コストを最大98.4%削減し、ピーク時のスループットを最大97.8%向上させるとともに、SLMとLLMの間の精度差を縮小させている。</p></section>
+<section class="secsum"><h3>本文 (2/8)</h3><p>提案手法であるDEFRAGは、異種混合なエッジデバイス間でデータストレージと計算リソースを共有する、分散型エッジ協調RAGアーキテクチャである。本手法は、知識グラフを埋め込みを用いない軽量なエンティティ・関係表現に圧縮してデバイス間で共有することで、個々のデバイスのストレージ制限を克服し、知識の断片化を防ぐ。また、クエリごとにRAGの生成パラメータとSLMの構成を適応的に選択するオプティマイザを備えており、履歴データに基づいたオンライン更新によって精度とコスト効率のバランスを最適化する。実験の結果、DEFRAGは2つのQAベンチマークにおいて、エッジベースのSLMとクラウドベースのLLMとの精度差を、それぞれ12.7%と7.1%から6.4%と2.3%へと縮小させた。コスト面では、ピア間のリソース共有により最大98.4%の費用削減を実現し、スケーラビリティにおいても、同時ユーザー数の増加に伴い中央集権型サービスより最大97.8%高いピークスループットを達成した。</p></section>
+<section class="secsum"><h3>本文 (3/8)</h3><p>本研究では、エッジデバイスにおける小規模言語モデル（SLM）の性能を評価するため、Qwen3シリーズの1.7Bから14Bのモデルを用い、4ビット、8ビット、および半精度での量子化を対象とした実験を行っています。評価にはJetsonシリーズやGalaxy S25 Ultra、RTX 4090などの多様なデバイスを使用し、Natural Questions（単一ホップ質問）とHotpotQA（マルチホップ質問）のデータセットを用いて、標準的なRAGおよび知識グラフを活用したGraphRAGの精度をGPT-4.1により測定しています。実験の結果、標準的なRAGは単一ホップの質問においてLLMとの精度差を大幅に縮める一方で、マルチホップの質問では論理的関係を捉えきれず精度向上が限定的であることが示されました。これに対し、SLMの処理能力に合わせて、取得するエンティティ、関係性、およびデータチャンクの数を制限した簡略版GraphRAGを導入することで、HotpotQAにおける推論精度を向上させ、LLMとの精度差をさらに縮小させています。また、検索結果の関連性スコアの閾値を高く設定すると、カバー範囲は減少するものの、SLMの精度は向上するという傾向が確認されています。これらの結果から、クエリの特性や関連性スコアに応じて、SLMの規模やRAGのパラメータを動的に選択することが、精度向上とリソース効率の維持に有効であると考えられます。</p></section>
+<section class="secsum"><h3>本文 (4/8)</h3><p>DEFRAGは、エッジデバイス間の分散型コラボレーションを通じて、RAG（検索拡張生成）の知識範囲と生成品質を向上させるアーキテクチャである。検索フェーズでは、ベクトルデータベースと比較して約35分の1と軽量な、エンティティと関係性のみで構成される知識グラフを各デバイス間で共有する。まず、共有された知識グラフに対してBM25などの手法を用いた疎な検索を行い、関連するエンティティを特定する。次に、特定されたエンティティに基づき、近隣のピアデバイスから対応するベクトルデータベースを探索してデータチャンクと埋め込みを取得する密な検索を行うことで、知識の広さと深さを両立させている。生成フェーズでは、検索時に得られたコンテキスト特徴量に基づき、小規模言語モデル（SLM）の設定やRAGのパラメータを動的に調整する最適化手法を用いる。この最適化は、コンテキスト付き多目的マルチアームドバンディット（CMOMAB）問題として定式化されており、期待される精度と効率性のバランスを考慮した効用関数を最大化するように設計されている。例えば、複数の関連エンティティを含む複雑な推論が必要なクエリには高性能なモデルを、単一のエンティティに基づく単純なクエリには軽量なモデルを選択することで、異種混合なエッジ環境においてクラウドLLMに近い精度と効率的な動作を実現している。</p></section>
+<section class="secsum"><h3>本文 (5/8)</h3><p>DEFRAGは、クエリごとに最適な生成パラメータを選択するために、多目的最適化を用いた適応的な生成手法を提案している。アクション空間は、小規模言語モデル（SLM）のサイズや量子化精度、およびRAGによる構造化情報（エンティティや関係性）と非構造化情報（データチャンク）の取得数の組み合わせで構成される。各アクションの評価には、正解との一致度に基づく精度と、モデルのコストおよび入力トークン長に基づく効率性の2つの指標を用いる。精度と効率性のバランスは、加重幾何平均を用いた短期的な目的関数によって決定される。この重みパラメータは、平均精度が目標値を下回った場合に精度を重視し、目標値を上回った場合に効率を重視するように動的に調整される。また、コンテキストとアクションの間の非線形な関係を捉えるため、ガウス過程を用いたベイズオンライン学習を採用しており、Matérnカーネルを用いることで、予測の不確実性を考慮した探索と活用のバランスを実現している。</p></section>
+<section class="secsum"><h3>本文 (6/8)</h3><p>DEFRAG-BOLは、ガウス過程を用いたベイズオンライン学習により、分散エッジ環境におけるRAGの精度と効率を最適化するアルゴリズムです。この手法は、目標精度を下回った際に精度重視の重みを増やし、入力トークン長やモデルコストが制限を超えた際に効率性の重みを調整することで、リソース利用の最適化を図ります。アルゴリズムは、初期のランダム探索フェーズを経て、ガウス過程の予測平均と不確実性を組み合わせたUCB（Upper Confidence Bound）に基づく効用関数を最大化する活用フェーズへと移行します。計算負荷を軽減するため、ガウス過程の更新は毎クエリではなく一定周期ごとに行い、さらに直近のクエリのみを保持するスライディングウィンドウを用いることで、計算量の増大とデータの陳腐化を防いでいます。理論的な解析では、累積リグレットが時間Tに対して O(sqrt(T * log(1 + sigma^-2))) のオーダーで抑えられることが示されています。実験では、NVIDIA JetsonシリーズやRTX 5090を搭載したワークステーションなど、異なる計算能力を持つ複数のエッジデバイスを用いたテストベッドを構築し、WikipediaやHotpotQAのデータセットを用いて評価を行っています。</p></section>
+<section class="secsum"><h3>本文 (7/8)</h3><p>提案手法であるDEFRAGは、ガウス過程を用いることで累積リグレットの理論的な上限が、時間Tの平方根に比例するオーダー、すなわち O(sqrt(T) * lambda_I) で抑えられることが証明されています。実験では、スマートフォンやNVIDIA Jetsonを含む6台の異種エッジデバイスを用いたプロトタイプ環境において、NQデータセットとHotpotQAデータセットを用いて評価を行いました。評価指標には回答精度、推論とネットワーク転送を合わせた総コスト、およびスループットが用いられています。実験の結果、DEFRAGはLLM-235Bとの精度差を大幅に縮小させるとともに、デバイス間の相互リソース共有によりコストを最大98.4%削減し、同時実行ユーザー数が増加した場合でも中央集権的な手法より最大97.8%高いピークスループットを実現する優れたスケーラビリティを示しました。アブレーション研究では、初期探索ステップ数（T0）が精度と効率性の収束に与える影響を調査しており、T0が200以上の設定において両指標が収束することを確認したため、最終的な設定としてT0 = 200を採用しています。</p></section>
+<section class="secsum"><h3>本文 (8/8)</h3><p>提案手法であるDEFRAGは、エッジデバイス間の分散協調を利用してRAG（検索拡張生成）を実行することで、クラウドベースのLLMとエッジベースのSLM（小規模言語モデル）の間の精度差を大幅に縮小させます。NQおよびHotpotQAという2つのベンチマークデータセットを用いた実験では、精度を重視した設定において、SLM-14Bの精度がNQで61.5%、HotpotQAで76.6%まで向上することが示されました。クエリの構造や複雑さを捉えるコンテキスト特徴量を組み込むことで、最適化器が動的にアクションを調整できるようになります。さらに、関連性スコアの分布に関する豊かな表現を用いることで、最適化器がクエリをより適切に解釈することが可能となります。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-10
+  </footer>
+</div>
+</body>
+</html>

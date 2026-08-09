@@ -3343,6 +3343,71 @@
       "url": "https://www.semanticscholar.org/paper/4efdbaf25911c73272c4c5ec0fe4fe3dd1e7b82f",
       "venue": ""
     },
+    "doi:10.48550/arxiv.2608.00922": {
+      "added": "2026-08-10",
+      "added_at": "2026-08-10T06:08:47.060976",
+      "arxiv_id": "2608.00922",
+      "authors": [
+        "Jiaxing Li",
+        "Hengzhi Wang",
+        "Feng Wang",
+        "Chi Xu",
+        "Danyang Song",
+        "Ruixiao Zhang",
+        "Edith C. H. Ngai",
+        "Jiangchuan Liu"
+      ],
+      "basis": "fulltext(arxiv-pdf)",
+      "citations": 0,
+      "date": "2026-08-02",
+      "doi": "10.48550/arxiv.2608.00922",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.00922.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.00922v1",
+      "reading_value": 4,
+      "reading_value_reason": "エッジ分散型RAGという極めて現代的な課題に対し、知識グラフの圧縮共有とベイズ最適化による動的構成選択を組み合わせた提案は新規性が高い。実験も異種デバイスを用いた実用的な構成で、精度とコストのトレードオフを定量的に示しており、計算機科学の研",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "From Cloud to Crowd: Democratizing LLM Service with Decentralized Edge Collaboration for RAG",
+      "tldr": "クラウドLLMの運用コストとスケーラビリティの課題に対し、異種混合のエッジデバイス間で知識と計算リソースを協調させる分散型RAGシステムDEFRAGを提案する。エッジ間の知識共有とクエリ適応型の最適化により、低コストでクラウドLLMに近い精度を実現する。",
+      "url": "http://arxiv.org/abs/2608.00922v1",
+      "venue": "IEEE Transactions on Mobile Computing"
+    },
+    "doi:10.48550/arxiv.2608.01311": {
+      "added": "2026-08-10",
+      "added_at": "2026-08-10T06:07:21.905844",
+      "arxiv_id": "2608.01311",
+      "authors": [
+        "Raj Shekhar Singh"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-02",
+      "doi": "10.48550/arxiv.2608.01311",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.01311.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.01311v1",
+      "reading_value": 4,
+      "reading_value_reason": "プライバシー重視のローカルLLM環境に特化した、実用性の高いマルチエージェントRAG。検証を生成プロセスに組み込む設計が具体的で、評価も多角的。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "RH-RAG: Trustworthy Long-Form Generation for Privacy-Constrained Settings",
+      "tldr": "プライバシー制約のある環境下で、ローカルのオープンウェイトモデルを用いて信頼性の高い長文を生成するマルチエージェントフレームワークRH-RAGを提案する。計画、執筆、検証のプロセスを分離し、自然言語推論に基づく修正ループを組み込むことで、事実に基づいた一貫性のある生成を実現する。",
+      "url": "http://arxiv.org/abs/2608.01311v1",
+      "venue": ""
+    },
     "doi:10.5753/latinoware.2025.16269": {
       "added": "2026-07-02",
       "added_at": "2026-07-02T06:00:02.000000",
@@ -6635,6 +6700,67 @@
       "title": "Multi-Agent Path Finding Among Dynamic Uncontrollable Agents with Statistical Safety Guarantees",
       "tldr": "制御不能な動的エージェント（DUA）が存在する環境下で、統計的な安全性保証を提供しながらマルチエージェント経路計画を行うCP-Solverを提案する。共形予測（CP）を用いて予測の不確実性を定量化し、その区間を衝突回避プロセスに統合することで、指定した失敗確率に基づいた衝突回避を実現する。",
       "url": "https://www.semanticscholar.org/paper/ca18fb7a8837c0e0bd26a93291db2d4b4c584992",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2509.06374": {
+      "added": "2026-08-10",
+      "added_at": "2026-08-10T06:02:05.596248",
+      "arxiv_id": "2509.06374",
+      "authors": [
+        "Hiroya Makino",
+        "Seigo Ito"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 2,
+      "date": "2025-09-08",
+      "doi": "10.48550/ARXIV.2509.06374",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2509.06374.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2509.06374v2",
+      "reading_value": 4,
+      "reading_value_reason": "高密度環境におけるMAPF-HDという新問題を定義し、空きマスをエージェントと見なす独創的なPHANS手法を提案。大規模環境での計算速度に優位性がある。",
+      "relevance": 8,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "MAPF-HD: Multi-Agent Path Finding in High-Density Environments",
+      "tldr": "高密度環境において目的地を持つターゲットエージェントと、空間を占有する目的地を持たない妨害エージェントが混在するMAPF-HD問題を定義し、空きマスとエージェントを段階的に入れ替えるPHANS手法を提案することで、大規模環境でも数秒以内での経路計画を実現した。",
+      "url": "http://arxiv.org/abs/2509.06374v2",
+      "venue": "IEEE Robotics &amp; Automation Magazine"
+    },
+    "doi:10.48550/arxiv.2512.12243": {
+      "added": "2026-08-10",
+      "added_at": "2026-08-10T06:05:32.141905",
+      "arxiv_id": "2512.12243",
+      "authors": [
+        "HT To",
+        "S Nguyen",
+        "NH Pham"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-12-13",
+      "doi": "10.48550/arxiv.2512.12243",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2512.12243.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2512.12243v2",
+      "reading_value": 4,
+      "reading_value_reason": "制約ベースのMAPFにおけるキャッシュの不正確性を、制約の符号化により解決する汎用的な枠組みが新規。実験も具体的で高速化効果も高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "CAHC:A General Conflict-Aware Heuristic Caching Framework for Multi-Agent Path Finding",
+      "tldr": "制約ベースのマルチエージェント経路探索において、制約が探索空間を変化させるために従来の「状態のみ」をキーとするキャッシュでは不正確な値を返す問題を、状態と関連制約のペアを管理する汎用フレームワークCAHCによって解決する。これにより、解の最適性を維持したまま計算時間を大幅に削減し、従来タイムアウトしていた問題の解決も可能にする。",
+      "url": "http://arxiv.org/abs/2512.12243v2",
       "venue": ""
     },
     "doi:10.48550/arxiv.2607.17724": {
