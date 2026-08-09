@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Extended Abstract: Lifelong Path Planning with Kinematic Constraintsfor Multi-Agent Pickup and Delivery | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Extended Abstract: Lifelong Path Planning with Kinematic Constraintsfor Multi-Agent Pickup and Delivery</h1>
+  <div class="meta">Hang Ma, Wolfgang Hönig, T. K. S. Kumar, Nora Ayanian, Sven Koenig<br>採択先: Symposium on Combinatorial Search ・ 2021-09-01 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/472dc04a2e24559d95fd85624c8e9284f176b408" target="_blank" rel="noopener">原典</a> ・ <a href="https://ojs.aaai.org/index.php/SOCS/article/download/18485/18276" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/socs.v10i1.18485" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Symposium on Combinatorial Search</span><span class="chip">公開日 2021-09-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 1</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">MAPDに運動学的制約とSIPPを組み合わせた新規性はあるが、Extended Abstractであり、実験規模や詳細な理論的裏付けが限定的であるため。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 離散的な移動を前提とする従来のMAPDアルゴリズムに対し、エージェントの運動学的制約を考慮した連続的な経路計画を可能にするTP-SIPPwRTを提案し、実環境に近い制約下でも安全なタスク遂行を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>$L \times L$ の2次元グリッド上で、$m$ 台のエージェントが次々と発生するタスク集合 $\mathcal{T}$ を処理するMulti-Agent Pickup and Delivery (MAPD) 問題を対象とする。各タスクはピックアップ地点 $s_j$ とデリバリー地点 $g_j$ を持つ。従来のMAPFを繰り返す手法では、エージェントの動きを離散的な移動と仮定するため、連続的な速度や旋回といった実環境の運動学的制約を考慮した最適解を得ることが困難である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>離散的なセルと時刻のペアを扱う従来の時空間 $A^*$ に代わり、セルと安全な時間間隔のペアを扱うSIPPの概念を拡張し、運動学的制約を直接組み込んだTP-SIPPwRTを提案する。また、動的な障害物による安全な時間間隔を効率的に管理するために、予約テーブル（reservation table）という新しいデータ構造を導入した。これにより、従来のSIPPにおける計算コストの課題を解決し、連続的な前進移動および旋回を考慮した経路計画を実現している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>各エージェントが共有メモリ上のトークンを用いてタスクを貪欲に割り当て、他のエージェントを動的障害物と見なして経路を計画する。エージェントは半径 $L/2$ 以下のディスクとしてモデル化され、指定された回転速度による $\pi/2$ rad の点旋回、および指定された並進速度による隣接セルへの前進移動というアクションを選択する。予約テーブルでは、各セルのエントリを、そのセルを占有する動的障害物の最大連続区間を下限値の昇順で保持する優先度付きキューとして構成する。この構造を用いて、安全な時間間隔の算出、予約エントリの追加、および不要なエントリの削除を効率的に行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>2.50 GHz Intel Core i5-2450Mおよび6 GB RAMの環境において、最大250エージェントおよび2,000タスクの条件下で評価を行った。その結果、TP-SIPPwRTの計画時間は16秒未満であった。また、モデル化されていない運動学的制約や運動ノイズが存在するロボットシミュレータを用いた実験においても、すべてのロボットが計画された経路を安全に追従できることが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、指定された速度に基づく連続的な前進移動および旋回を計算するが、ロボットシミュレータにおけるモデル化されていない運動学的制約やノイズが存在する場合でも、安全な追従が可能であることを示している。今後の課題として、より複雑な運動特性や、さらなる大規模なタスク環境への適応が考えられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Introduction</h3><p>Multi-Agent Pickup and Delivery (MAPD) 問題は、$L \times L$ のサイズを持つ 2 次元 4 近傍グリッド上で、$m$ 台のエージェントが次々と発生するタスク集合 $\mathcal{T}$ を処理する問題であり、各タスク $\tau_j$ はピックアップ地点 $s_j$ とデリバリー地点 $g_j$ を持ちます。従来の MAPD アルゴリズムは、エージェントの動きを離散的な移動と仮定して衝突のない経路を計算する Multi-Agent Pathfinding (MAPF) を繰り返し解く手法が一般的ですが、これは最適解を求めることが NP 困難な問題です。本研究では、離散的な移動を前提とする Token Passing (TP) アルゴリズムを拡張し、後処理として連続的な速度を用いた移動を適応させる手法に代わり、TP と Safe Interval Path Planning with Reservation Table (SIPPwRT) を組み合わせた新しいアルゴリズム TP-SIPPwRT を提案します。この手法は、与えられた速度に基づく連続的な前進移動および旋回を直接計算し、エージェント間の安全距離を保証しながら、自動倉庫などの実環境をモデル化した well-formed な MAPD インスタンスのすべてを解くことが可能です。</p></section>
+<section class="secsum"><h3>TP-SIPPwRT</h3><p>TP手法は、各エージェントが共有メモリ上のトークンを用いてタスク集合 $\mathcal{T}$ からタスク $\tau_j$ を貪欲に割り当て、他のエージェントの経路を動的障害物と見なして時空間 $A^*$ を用いて衝突回避経路を計画する手法である。本研究では、この時空間 $A^*$ を、与えられた速度に基づき連続的な前進移動と点旋回を計算する SIPPwRT に置き換えることを提案している。エージェントは半径 $L/2$ 以下のディスクとしてモデル化され、待機以外に、指定された回転速度による $\pi/2$ rad の点旋回、および指定された並進速度による隣接する空きセルへの前進移動というアクションを選択する。従来の時空間 $A^*$ がセルと離散的な時刻のペアを扱うのに対し、SIPP はセルと安全な時間間隔（あるセルが占有されていない連続した時刻の範囲）のペアを扱う。SIPPwRT は、この安全な時間間隔の概念を拡張し、エージェントの運動学的制約を考慮しながら経路を計算する。</p></section>
+<section class="secsum"><h3>Kinematic Constraints for Multi-Agent Pickup and Delivery∗</h3><p>SIPPwRTは、動的な障害物による安全な時間間隔（safe interval）を効率的に扱うために、予約テーブル（reservation table）という新しいデータ構造を導入した手法である。この予約テーブルにおいて、各セルのエントリは、そのセルを占有する動的障害物の最大連続区間を、下限値の昇順で保持する優先度付きキューとして構成される。この構造により、特定のセルの全安全間隔の算出、新しい経路計算後の予約エントリの追加、および過去の無関係なエントリの削除が効率的に行えるようになり、従来のSIPPにおける計算コストの課題を解決している。実験では、2.50 GHz Intel Core i5-2450Mおよび6 GB RAMの環境において、エージェントシミュレータを用いた評価が行われ、最大250エージェントおよび2,000タスクの条件下で、TP-SIPPwRTの計画時間が16秒未満であることが示された。また、モデル化されていない運動学的制約や運動ノイズが存在するロボットシミュレータにおいても、すべてのロボットが経路を安全に追従できることが確認されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-09
+  </footer>
+</div>
+</body>
+</html>
