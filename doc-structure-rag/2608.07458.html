@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CoinRAG: Contextualized Information Nugget KV Cache Reuse for Long-Context RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>CoinRAG: Contextualized Information Nugget KV Cache Reuse for Long-Context RAG</h1>
+  <div class="meta">Gyuwan Kim, Cheoneum Park, Tao Yang<br>採択先: 未取得 ・ 2026-08-07 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.07458v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.07458v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-07</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">KVキャッシュの再利用において、チャンク単位ではなく「ナゲット」という粒度で制御し、RoPEのオフセット調整や専用のファインチューニングを行う手法は新規性が高く、実用的な低遅延制約下での性能向上も示されており、RAG研究者にとって価値が高い</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 長文コンテキストのRAGにおいて、チャンク単位のキャッシュ再利用に伴う情報の冗長性とノイズを解消し、低遅延な応答制約下で回答精度を最大化する手法である。テキストチャンクから重要な情報断片であるナゲットを抽出し、そのKVキャッシュを再利用することで、効率的かつ正確な文脈構成を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>検索拡張生成（RAG）において、文書や大きなテキストチャンクをそのまま処理すると、推論時の計算コストが増大し、プリフィル時の遅延や計算の冗長性が生じる。特に、P99のTime-to-First-Token（TTFT）を100ミリ秒以内に抑えるという厳しい低遅延制約下では、検索範囲を絞る必要があり、回答精度が低下するという課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のキャッシュ拡張型生成（CAG）がチャンク全体を再利用するのに対し、本手法はより粒度の細かいナゲット単位でキャッシュを構成することで、メモリ使用量と遅延を低減しつつ、文書レベルの文脈情報を維持する。また、クエリごとにLLMを用いてナゲットを生成する既存手法とは異なり、クエリに依存しない形でオフラインでナゲットを抽出するため、推論時の計算コストを抑えられる。さらに、ナゲットを元のテキストスパンとして扱うことで、推論時にソースチャンクの広範な文脈を復元できる点に新規性がある。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>オフライン段階では、各チャンクを一度エンコードしてフルコンテキストのKVキャッシュを保存し、LLMを用いて重要な情報を含む連続したトークンスパンであるナゲットの開始・終了位置を特定する。オンライン推論時には、まずチャンクを特定し、次にその中のナゲットをクエリとの類似度に基づき選択する2段階の検索を行う。選択されたナゲットは、事前に計算済みのキャッシュから該当範囲をスライスして抽出される。複数のナゲットを結合する際は、回転位置エンコーディング（RoPE）のオフセットを動的に計算し、元の文書の順序を保ちながら連続的な位置インデックスを割り当てる。また、非連続なキャッシュ構成による学習時と推論時の構造的な乖離を埋めるため、ナゲットの構成を模したデータを用いたナゲット認識型ファインチューニングを行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>LongBenchのマルチホップ質問回答タスクを含む3つのベンチマークを用い、Standard RAG、TurboRAG、CacheBlend、KVLinkと比較評価を行った。評価指標には、回答の正確性を示すF1スコア、TTFTのP99レイテンシ、およびプリフィル時のコンテキスト長を用いた。P99の遅延を100ミリ秒に制限した条件下において、TurboRAGと比較してF1スコアを平均で5.3%相対的に向上させ、コンテキスト長を1.84トークン短縮した。遅延制限を撤廃した場合でも、3つのデータセットの平均F1スコアで5.2%の改善が確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、コーパスの規模に比例したディスク容量の増大や、ナゲット抽出のためのオフライン計算コストという課題がある。保存されたKV表現は特定のモデルの重みや位置エンコーディングに依存するため、モデル更新時には再エンコードが必要となる。また、回答品質は検索パイプラインの再現率に依存し、異なるチャンクに由来するナゲット間ではアテンション計算が行われないという制約がある。今後の課題として、連続するクエリ間で同じドキュメントが共有される場合のKVキャッシュ再利用の検討が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>CoinRAG: Contextualized Information Nugget KV Cache Reuse for Long-Context RAG</h3><p>CoinRAGは、長文コンテキストのRAGにおいて、チャンク単位のKVキャッシュ再利用に伴う情報の冗長性とノイズを解消し、低遅延なプリフィル制約下で精度を最大化する手法である。本手法は、チャンク全体をエンコードする代わりに、2段階の検索プロセスを通じて検索されたチャンク内からクエリに関連する意味的な単位を特定し、それらのスライスされたKV表現をチャンクレベルのコンテキストと組み合わせて構成する。このメカニズムにより、意味的に関連性が高く、かつコンパクトな文脈表現を効率的に構築することが可能となる。LongBenchのマルチホップ質問回答タスクを用いた評価では、標準的な高速プリフィル遅延の予算内で、既存のベースラインと比較して回答品質のF1スコアを平均で5.3%相対的に向上させ、新たなパレート最適解を提示している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>RAG（検索拡張生成）は外部知識を利用して大規模言語モデルの事実整合性を高める手法ですが、文書や大きなテキストチャンク単位で処理を行うと、推論時の計算コストが増大し、プリフィル時の遅延や計算の冗長性を引き起こします。本研究では、P99のTime-to-First-Token（TTFT）を100ミリ秒以内に抑えるという低遅延な応答予算の下で、回答精度を最大化するCoinRAGを提案します。CoinRAGは、テキストチャンクから事前に抽出した軽量な表現である「情報ナゲット」を扱うことで、推論時にチャンク全体をエンコードする負荷を軽減し、長大なノイズ混じりのコンテキストによる情報の損失も防ぎます。具体的な手法として、オフラインでのテキストスパンに基づくナゲット抽出、ナゲットを意識したファインチューニング、多数の候補から関連ナゲットを選択する2段階のオンライン検索、および同一チャンク内のクエリに関連するナゲットを組み合わせる文脈依存的なKVキャッシュ構成を導入しています。LongBenchのマルチホップ質問回答ベンチマークを用いた評価では、P99の遅延を100ミリ秒に制限した条件下において、標準的なRAGやCAGと比較して平均で5.3%（41.7対39.6）の回答品質向上を達成しました。また、遅延制限を撤廃した場合でも、3つのデータセットの平均F1スコアで5.2%の改善が見られました。</p></section>
+<section class="secsum"><h3>2 Proposed Method: CoinRAG</h3><p>CoinRAGは、長文RAGにおける計算冗長性の削減と低レイテンシ化を目的とし、テキストチャンクから重要な情報断片である「ナゲット」を抽出し、そのKVキャッシュを再利用する手法を提案している。オフライン段階では、各チャンクを一度だけエンコードしてフルコンテキストのKVキャッシュを保存し、LLMを用いてチャンク内の重要な情報を含む連続したトークンスパン（ナゲット）の開始・終了位置を特定する。オンライン推論時には、クエリに対して密ベクトル検索でチャンクを特定した後、その中のナゲットをクエリとの類似度に基づき再ランク付けして選択する。選択されたナゲットは、事前に計算済みのチャンクキャッシュからインデックスを用いてスライスすることで、チャンク全体の文脈情報を保持したまま抽出される。複数のナゲットを結合する際は、各ナゲットの元の位置情報を維持しつつ、回転位置エンコーディングのオフセットを動的に調整して連続的な位置インデックスを割り当てることで、モデルの構造を変更せずにメモリ節約と高速化を実現する。さらに、非連続なキャッシュ構成による学習時と推論時の乖離を埋めるため、ナゲットの構成を模したデータを用いたナゲット認識型ファインチューニングを行い、クロスエントロピー誤差を最小化するように最適化を行う。</p></section>
+<section class="secsum"><h3>3 Comparison to Prior RAG Paradigms</h3><p>CoinRAGは、既存のRAGパラダイムにおけるキャッシュ活用とナゲット利用の観点から、その位置付けを明確にしている。標準的なRAGは、検索された全文に対してオンラインで計算を行うため、長いシーケンスではプリフィル時の遅延が深刻になる。これに対し、TurboRAGに代表されるキャッシュ拡張型生成（CAG）は、チャンク単位のKVキャッシュをオフラインで事前計算・再利用することで、オンラインでのエンコーディングを回避し、Time To First Token（TTFT）を短縮する。CacheBlendやKVLinkは、事前計算されたキャッシュを利用しつつ、一部のトークンの再計算や学習可能なリンクトークンの挿入によってチャンク間の相互作用を復元しようとする。CoinRAGは、CAGと同様にチャンクを独立してオフラインでエンコードするが、チャンク全体ではなく、より粒度の細かいナゲット単位でキャッシュを構成することで、文書レベルのセマンティックな接地性を維持しながらメモリ使用量と遅延を低減する。また、GINGERやCrucibleのようなナゲットベースの手法は、クエリごとにLLMを用いてオンラインでナゲットを生成するためプリフィル時の計算コストが高いが、CoinRAGはクエリに依存しない形でオフラインでナゲットを抽出する。さらに、CoinRAGのナゲットは元の文書のテキストスパンであり、推論時にソースチャンクの広範な文脈を復元できる点で、文脈を持たない既存のナゲットベース手法と異なる。</p></section>
+<section class="secsum"><h3>4 Experiments</h3><p>本実験では、提案手法であるCoinRAGを、Standard RAG、TurboRAG、CacheBlend、KVLinkの各手法と比較し、複数の文書にまたがる推論を必要とする3つのベンチマークを用いて評価しています。評価指標には、回答の正確性を示すトークンレベルのF1スコア、推論の効率性を示す最初のトークン生成までの時間（TTFT）のP99レイテンシ、およびKVキャッシュのメモリ使用量の指標となるプリフィル時のコンテキスト長を用いています。実験の結果、CoinRAGはレイテンシおよびコンテキスト長の制約がある条件下において、他のすべての手法を上回るパレート最適性を達成しており、3つのデータセットの平均において、TurboRAGと比較してF1スコアが5.3%向上し、コンテキスト長が1.84トークン短縮されました。アブレーション研究により、ナゲット（情報の断片）を文脈を含めてエンコードすること、チャンクからナゲットへと段階的に検索を行う2段階検索、位置合わせ、およびナゲットを意識したファインチューニングの各要素が精度向上に寄与することが示されました。特に、ナゲットを意識したファインチューニングは、非連続なナゲットを繋ぎ合わせる際に生じる位置埋め込みのズレを補正することで、F1スコアを大幅に改善する効果が確認されています。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>CoinRAGは、文脈に基づいた情報の断片である「ナゲット」のKVキャッシュを再利用することで、軽量かつ効果的な長文コンテキストRAGを実現するフレームワークである。本手法は、テキストのスパンに基づく重要な情報の断片をオフラインで抽出するプロセス、ナゲットを意識したファインチューニング、クエリに応じたナゲットを選択する2段階のオンライン検索パイプライン、および文脈化されたKVキャッシュの構成という技術的要素で構成される。実験では、P99レイテンシが100ミリ秒という制約下において、既存手法であるTurboRAGに対し、3つのデータセットで平均5.3%のF1スコア向上を達成した。レイテンシの制限を設けない場合でも、ノイズや不要な文脈を排除する効果が相互作用の欠如による損失を上回るため、ベースラインに対して平均5.2%以上のF1スコアの改善が見られる。また、オンラインでのキャッシュ構成時に位置合わせを行う手法は、P99レイテンシの予算が75ミリ秒以下と厳しい場合に最も効果的であることが示されている。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>CoinRAGは低遅延の制約下で長文コンテキストRAGの新たなパレート境界を提示しているが、いくつかのシステム上の制約がある。テキストを静的なKV表現として事前エンコードすることでオンラインのプリフィル時間は短縮されるものの、コーパスの規模に比例したディスク容量の増大や、ナゲットを考慮した事前学習に伴うオフラインの計算コストが発生する。保存されたKV表現は特定のモデルの重みや位置エンコーディングの構造に強く依存しているため、言語モデルの更新やアーキテクチャの変更を行う場合は、ドキュメントの再エンコードが必要となる。回答の品質は、チャンク単位およびナゲット単位の検索における再現率に依存しており、検索パイプラインが適切な根拠となる範囲を提示できない場合は、後続のモデルが正しい回答を合成できない。また、本手法はチャンク単位でキャッシュ表現を構成するため、異なるチャンクに由来するナゲット間でのアテンション計算が行われないという、チャンクレベルのキャッシュ手法に共通する制約がある。最後に、評価においてはオンラインキャッシュの容量制限を想定しており、連続するクエリ間で同じドキュメントが共有される場合に発生し得るクエリ間のKVキャッシュ再利用については検討されていない。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-11
+  </footer>
+</div>
+</body>
+</html>

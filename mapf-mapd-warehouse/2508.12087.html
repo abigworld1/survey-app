@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MAPF-World: Action World Model for Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>MAPF-World: Action World Model for Multi-Agent Path Finding</h1>
+  <div class="meta">Zhanjiang Yang, Yang Shen, Yueming Li, Meng Li, Lijun Sun<br>採択先: 未取得 ・ 2025-08-16 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2508.12087v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2508.12087v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/ARXIV.2508.12087" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-08-16</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 2</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">二重プロセス理論をMAPFに適用し、ワールドモデルによる先見的な意思決定を実現した点が独創的。モデルサイズとデータ量を大幅に削減しつつSOTAを達成した点も実用的。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 将来の状態と他者の行動を予測する自己回帰的なアクション・ワールドモデルを提案することで、現在の観測のみに依存する従来の反応的な経路計画手法の限界を克服し、複雑な環境下での先見的な意思決定を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>多数のエージェントが衝突を避けながら目的地へ到達する経路計画（MAPF）を対象とする。従来の学習ベースの手法は、現在の観測のみに基づいて行動を決定する反応的なポリシーに依存しているため、複雑な環境レイアウトやエージェント間の時間的な動態、部分観測下での長期的な計画において性能が低下するという課題がある。また、既存のベンチマークマップは、実世界の都市構造のような複雑なトポロジーを十分に反映できていない。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>二重プロセス理論に着想を得て、迅速な意思決定を行う方策（Fast system）と将来を予測するワールドモデル（Slow system）を統合した、Transformerベースのアクション・ワールドモデルを提案した。これにより、空間的特徴や時間的依存関係、エージェント間の相互作用を明示的にモデル化し、局所的な観測を超えた先見的な判断を可能にした。さらに、OpenStreetMapを活用して実世界の都市構造を反映したマップを自動生成するパイプラインを導入し、評価の汎用性を向上させた。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>Transformerアーキテクチャを用い、共有エンコーダと2つのデコーダ（方策用と予測用）で構成される。入力は11×11のローカルコストマップと、最大13エージェントの相対位置、目標位置、行動履歴、推定行動を含む計256トークンである。空間的な関係性を強化するため、距離と方向を保持する3Dベクトルや、開始位置・目標位置・変位を個別にエンコードするSpatial Relational Encoding（SRE）を用いる。動作モードは、即座に行動を出力するFast、将来の観測と他者の行動を自己回帰的に予測するSlow、および予測に基づき長期的な計画を行うThinkingの3種類がある。学習時は、方策の損失と、将来の状態および行動の予測に関する損失の加重和を最小化する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>LaCAM*を用いて生成した80Mの訓練サンプルを使用し、これはMAPF-GPTと比較して92%少ないデータ量である。評価は、random、mazes、warehouse、puzzles、MovingAI、および提案手法で生成したEuropean cityの6種類のマップを用い、成功率を指標とした。実験の結果、MAPF-World-Slowは、MAPF-GPT-DDGを含む最先端の学習ベース手法を、特にwarehouse、puzzles、European cityなどのマップにおいて上回った。また、提案モデルはMAPF-GPTと比較してモデルサイズを96.5%削減しながら、高い性能を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>モデルが自己回帰的に予測を繰り返す「思考」プロセスにおいて、実際の環境からのフィードバックなしに予測のみで目的地まで到達することはできず、予測の累積誤差によって性能が低下するという限界がある。これは、モデルが絶対座標ではなくエージェント中心の相対的な視点に基づいていることに起因する。今後の課題として、グローバルな文脈の導入や、より適切な状態表現の検討が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>MAPF-World: Action World Model for Multi-Agent Path Finding</h3><p>MAPF-Worldは、マルチエージェント経路計画（MAPF）において、状況理解と行動生成を統合した自己回帰的なアクション・ワールドモデルを提案する手法である。従来の分散型学習モデルは、環境の時系列的な動態やエージェント間の依存関係のモデリングが不十分であり、複雑で長期的な計画において性能が低下するという課題があった。これに対し、MAPF-Worldは将来の状態と行動を予測することで、空間的特徴と時間的依存関係を含む環境の動態を明示的にモデル化し、局所的な観測を超えた先見的な意思決定を可能にする。また、実世界のシナリオに基づいた自動マップ生成器を導入することで、実践的なレイアウトでの学習と評価を実現している。実験の結果、MAPF-Worldは既存の最先端の学習型ソルバーを上回り、分布外のケースに対しても優れたゼロショット汎化性能を示した。さらに、本手法は従来手法と比較して、モデルサイズを96.5%削減し、データ量を92%削減した状態で学習が可能である。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>マルチエージェント経路計画（MAPF）は、多数のエージェントが衝突を避けながら目的地へ到達する問題であり、大規模かつ複雑な環境下ではNP困難な問題となる。従来のCBSやPBSといった手法は最適性を追求する一方でスケーラビリティに課題があり、PIBTやLaCAM*は効率性と解の質のトレードオフが存在する。近年の学習ベースの手法は、現在の観測のみに基づいて行動を決定する反応的なポリシーに依存しているため、複雑な環境レイアウトやエージェント間の時間的な動態、部分観測下での長期的な計画において性能が低下するという限界がある。これに対し、本研究では二重プロセス理論に着想を得た、Transformerアーキテクチャに基づく自己回帰的なアクション・ワールドモデルであるMAPF-Worldを提案する。この手法は、迅速な意思決定を行うポリシー（高速システム）と、将来の状態を予測するワールドモデル（低速システム）を共有エンコーダと二系統のデコーダによって統合しており、将来の予測結果を現在の意思決定に組み込むことで、空間的特徴や時間的動態、エージェント間の依存関係を考慮した高度な状況把握と先見的な判断を可能にする。また、都市のレイアウトから現実的なマップを自動生成するパイプラインを導入しており、実験では高密度かつ大規模なシナリオにおいて、よりコンパクトなモデルと少ない学習データでありながら、既存手法を上回る性能を示すことを確認している。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>マルチエージェント経路探索（MAPF）のベンチマークは、マップ、エージェント、および開始・目標位置で構成され、既存のものは迷路や倉庫、都市の街路などのトポロジーに分類されますが、実世界の都市データに基づくマップは不足しており、解決策の汎用性を評価する上での課題となっています。MAPFの解法には、CBSやPBSのような探索ベースの古典的手法や、効率と解の品質のトレードオフを図るLaCAM*のようなプランナー、そして模倣学習や強化学習を用いた学習ベースの手法が存在します。学習ベースの手法は、アルゴリズムの一部を学習モジュールに置き換えるハイブリッド型と、通信や優先順位付けを完全に学習に委ねるエンドツーエンド型に分けられますが、これらは主に反応的なアプローチに留まっています。これに対し、提案手法であるMAPF-Worldは、アクションワールドモデルを導入することで、将来の状態やエージェント間の相互作用を自己回帰的に予測し、より先を見据えた計画を可能にします。本手法は、カーネマンの高速・低速の二重過程理論に基づき、パラメータを共有することで高速システムを低速システムに組み込む構成をとっています。</p></section>
+<section class="secsum"><h3>III Background</h3><p>マルチエージェント経路探索（MAPF）は、2次元グリッドマップ上で複数のエージェントが、各々の開始位置から目標位置まで、頂点衝突およびエッジ衝突を回避しながら移動する問題です。この問題は、分散的な意思決定と部分観測を制約とする分散部分観測マルコフ決定過程（Dec-POMDP）として定式化され、全エージェントの座標からなる状態空間、上下左右の移動および待機を含む結合アクション空間、および結合観測空間を用いて定義されます。アクション・ワールドモデルは、過去の観測履歴に基づいて反応的な行動を決定する方策モデルと、過去の観測およびアクションから将来の状態を予測して環境のダイナミクスを捉えるワールドモデルの2つの構成要素から成ります。これら2つのモデルは、方策モデルの損失とワールドモデルの損失の加重和を最小化するように、定数を用いた目的関数を通じて同時に学習されます。</p></section>
+<section class="secsum"><h3>IV Method</h3><p>MAPF-Worldは、Transformerアーキテクチャに基づき、即座に次の一手を出力する高速なFast systemと、将来の状態や他エージェントの行動を予測する低速なSlow systemを統合した、自己回帰的なアクション・ワールドモデルである。動作モードは、現在の観測から即座に次の一手を出力するPolicy model、予測された他者の行動を次ステップの入力に用いて協調的な意思決定を行うAction world model、そして予測に基づき長期的な計画を行うLong-horizon action world modelの3種類があり、反応性と計画性のトレードオフが可能である。入力には、11×11のローカルコストマップと最大13エージェントの状態情報（相対位置、目標位置、行動履歴、推定行動）を含む計256トークンが用いられる。提案するSpatial Relational Encoding (SRE)は、ユークリッド座標を距離と方向を保持する極座標形式に変換する手法や、エージェントの開始位置、目標位置、変位を分離してエンコードする手法を組み合わせることで、空間的な文脈と動的な意図をモデルに明示的に伝達する。学習は、行動予測の精度を優先するために行動関連トークンに大きな重みを置いたクロスエントロピー誤差を用いて、Fast systemとSlow systemを同時に最適化する。また、OpenStreetMapのデータから歩行可能な領域と障害物を識別してグリッドマップを自動生成するパイプラインを備えており、実世界の都市構造を反映したマップを用いた評価が可能である。</p></section>
+<section class="secsum"><h3>V Experiment</h3><p>MAPF-Worldの実験では、LaCAM*を用いて生成した80Mの訓練サンプル（randomおよびmazesマップ）を使用しており、これはMAPF-GPTと比較して92%削減されたデータ量です。評価は、random、mazes、warehouse、puzzles、MovingAI、および提案手法のマップ生成器によるEuropean cityの6種類のマップを用い、成功率を指標としています。提案手法のMAPF-World-Slowは、他エージェントの行動を予測してシミュレーションを行うことで、MAPF-GPT-DDGを含む既存の最先端モデルを、特に複雑なシナリオや高密度な環境において上回る性能を示しました。アブレーション研究では、空間関係エンコーディング（SRE）が空間的な類似性や距離関係を豊かに捉えることに寄与しており、これを削除すると性能が平均で10%低下することが確認されました。また、MAPF-World-Thinkingのような長期的な予測に基づく思考能力については、予測ステップが進むにつれて性能が低下し、実際の環境からのフィードバックなしに予測のみで目的地まで到達することは困難であるという限界も示されています。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究では、カーネマンの二重過程理論に着想を得た、自己回帰的なアクション・ワールドモデルであるMAPF-Worldを提案している。この手法は、即時的な反応を行う高速な方策と、将来を予測する低速なワールドモデルを統合することで、部分観測環境下における純粋な反応型モデルの限界を克服している。実験の結果、既存の主要なベースラインと比較して、モデルサイズを96.5%削減し、学習データ量を92%削減しながら、最先端の先見的な計画性能を達成した。また、現実世界の都市データから現実的なベンチマークを生成するパイプラインを導入しており、生成されたマップは既存のマルチエージェント経路探索ソルバーに対して新たな課題を提示している。MAPF-Worldとこのマップ生成手法は、より堅牢で汎用性の高いマルチエージェント経路探索ソリューションの開発に向けた重要な進展である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-11
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Scalable Long-Horizon Planning with Staggered Updates for Lifelong MAPF | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Scalable Long-Horizon Planning with Staggered Updates for Lifelong MAPF</h1>
+  <div class="meta">Vaibhav Sanjay, Jiaoyang Li<br>採択先: 未取得 ・ 2026-08-07 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.06702v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.06702v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-07</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 6</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">LMAPFにおけるスケーラビリティと長期的展望の両立という重要課題に対し、再帰的な押し出し機構とずらした計画ウィンドウを組み合わせた提案は新規性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 数千規模のエージェントを扱うLifelong MAPFにおいて、長期的な経路計画と高いスケーラビリティを両立するPUSHを提案する。ずらした計画ウィンドウによる部分集合の再計画と、再帰的な優先度押し出し機構を組み合わせることで、高密度な環境下でも高いスループットを実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>エージェントが目標到達後に新たな目標を次々と受け取るLifelong Multi-Agent Path Finding (LMAPF)を対象とする。グラフ上で複数のエージェントが衝突を回避しながら移動し、目標到達後の滞留時間（Task Completion Time: TCT）を含めてスループットを最大化することが目的である。従来のウィンドウ計画法は全エージェントの同時再計画による計算コストが課題であり、一方でリアクティブな計画法は時間的な近視眼性から、狭い通路や目標地点での滞留による深刻な渋滞を引き起こすという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>部分集合の再計画を行うToken Passingの概念、ローリングホライゾンによる先読み、および優先度継承とバックトラッキングを統合した点が新規である。既存のウィンドウ計画法のような全エージェント一括処理を避けつつ、リアクティブな手法が持つ長期的展望の欠如を、ずらした計画ウィンドウを用いることで解消している。また、高優先度エージェントが低優先度エージェントを能動的に退避させる再帰的な押し出し機構を導入し、汎用的なマップ構造においてもスケーラビリティと計画能力を両立させている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>各タイムステップにおいて、まず全エージェントの既存経路の先頭を削除し、末尾に待機アクションを追加することで、常に衝突のない安全なフォールバック経路を維持する。次に、再計画が必要なエージェントのサブセットを特定し、優先度順にPushPlanを実行する。PushPlanでは、あるエージェントが経路を選択する際、衝突が発生した場合はその低優先度エージェントを再帰的に退避させる。この際、計算量を抑えるために再帰回数に上限を設け、また高優先度エージェントやタスク実行中のエージェントを保護セットとして、退避対象から除外する。さらに、実行時間の残りに応じて、一部のエージェントの経路を削除して再計画を繰り返すLarge Neighborhood Searchを適用し、エージェントの目標までの距離の総和を最小化するように解を改善する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>タスク完了時間（TCT）が存在するシナリオや、長い通路と行き止まりを持つ複雑なマップを用いて、RHCR-PBS、PIBT、EPIBT-LNS、および再帰的押し出しを除いたPUSH-liteと比較評価を行った。評価指標は1,000タイムステップにおける平均スループットである。実験の結果、PUSHおよびPUSH-LNSは、エージェント密度が増加してRHCRが計算予算を使い果たす状況や、TCTの増加に伴いEPIBT-LNSの性能が著しく低下する状況においても、高いスループットを維持した。特に、random-32-32-20マップにおいてEPIBT-LNSに対して最大300%のスループット向上を記録した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、グラフが二連結であり、かつタスク完了時間が0である場合にデッドロックフリーであることが保証されているが、タスク完了時間が0でない場合にはデッドロックが発生する可能性がある。今後の課題として、ロボットの速度や加速度といった運動学的制約の導入、エージェント密度に応じた計画ホライゾンの動的変更、および一度に複数の低優先度エージェントを押し出す機能の拡張が挙げられる。また、タスクの緊急度を優先順位に反映させることや、一部のエージェントをまとめて最適化する手法の検討も展望されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Scalable Long-Horizon Planning with Staggered Updates for Lifelong MAPF</h3><p>Lifelong Multi-Agent Path Finding (LMAPF)において、数千規模のエージェントをリアルタイムに制御しつつ、長期的な経路計画を実現するPUSHを提案する。PUSHは、各タイムステップでエージェントのサブセットのみを計画対象とする「ずらした計画ウィンドウ（staggered planning windows）」を用いることで、計算量を抑えつつ、一般的なマップ上において複数ステップ先を見据えた経路計画を行う。また、混雑した環境下でのスループットを維持するため、優先順位の継承、バックトラッキング、および逐次的な改善手法を計画プロセスに統合している。実験では、長期的な推論が必要な2つの現実的なシナリオにおいて、EPIBTと同等の大規模なエージェント数（例：10,000エージェント）に対応可能であり、かつ既存のすべてのベースライン手法よりも高いシステムスループットを達成することを示している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>Lifelong Multi-Agent Path Finding (LMAPF)は、エージェントが現在の目標に到達するたびに新たな目標を受け取る継続的な計画サイクルを扱う問題であり、自動倉庫などの実世界への応用が想定されている。従来のRHCRは、固定された長期的な時間窓の中で全エージェントを同時に再計画するため、スケーラビリティに課題がある。一方、(E)PIBTは再帰的な優先度継承を用いることで高いスケーラビリティを実現しているが、時間的な近視眼性により、荷役作業による一時的な滞留や狭い通路での交通状況を予測できず、深刻な渋滞を引き起こす可能性がある。本論文が提案するPUSHは、全エージェントに対して安全なフォールバックパスを保持しつつ、時間的にずらしたウィンドウを用いてエージェントの部分集合に対してのみ選択的に再計画を行うことで、RHCRのような長期的推論能力と(E)PIBTのような高いスケーラビリティの両立を図っている。PUSHは、(E)PIBTに着想を得た再帰的な押し出し機構を備えており、高優先度のエージェントが低優先度のエージェントを能動的に退避させ、再帰的な再計画を誘発することで、混雑したシナリオでも効率的な計画を可能にする。さらに、ずらしたウィンドウ構造に最適化された局所的なLarge Neighborhood Searchを組み込むことで、厳格なリアルタイム実行予算内で計画の最適化を継続的に行う。長期的推論を必要とする2つのベンチマークを用いた実験の結果、PUSHは既存のベースラインと比較してシステムのスループットにおいて大幅に優れた性能を示す。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>Lifelong MAPF（LMAPF）のスケールアップ手法には、主に3つのパラダイムが存在する。第一のサブセット計画は、現在の経路を完了したエージェントのみを再計画する手法であり、Token Passing（TP）はその代表例だが、既存の経路を優先度の高いエージェントとして扱うため、ボトルネックのあるマップではデッドロックが発生しやすい。第二のウィンドウ計画は、固定された時間範囲内で経路を最適化する手法であり、Rolling Horizon Collision Resolution（RHCR）は計画ホライゾンと実行ホライゾンの2つのパラメータを用いて全エージェントの経路を一定期間ごとに生成するが、大規模または高密度な環境では全エージェントの同時再計画に伴う計算コストが課題となる。第三のリアクティブ計画は、短期間の移動を最適化する手法であり、Priority Inheritance with Backtracking（PIBT）は、優先順位に基づきエージェントが順次行動を選択し、衝突時には優先権の継承とバックトラッキングを行う。Enhanced PIBT（EPIBT）は、PIBTを拡張して数ステップ先までの経路予約を可能にしているが、リアクティブ計画全般として、長期的展望に欠けるという課題がある。また、計画の空き時間に解を改善する手法としてLarge Neighborhood Search（LNS）があり、既存の解から一部のエージェントの経路を削除して再計画を繰り返すことで、解の品質を向上させる。</p></section>
+<section class="secsum"><h3>III Problem Formulation</h3><p>Lifelong Multi-Agent Path Finding (LMAPF)は、グラフ上で複数のエージェントが現在の位置から割り当てられた目標地点へと移動し、目標到達後にスケジューラから新たな目標が与えられ続ける問題である。時間は離散的なタイムステップとして扱われ、各ステップでエージェントは隣接する頂点への移動またはその場での待機を行う。衝突には、同一のタイムステップに複数のエージェントが同じ頂点を占有する頂点衝突と、連続するタイムステップでエージェント同士が頂点を入れ替えるエッジ衝突がある。本研究の目的は、衝突を回避しながら、タイムステップあたりの平均目標到達数であるスループットを最大化することである。さらに、目標到達後の作業時間を模したTask Completion Time (TCT)を導入しており、エージェントは目標到達後、指定された期間その場に留まる必要がある。このTCTは確率的で事前に未知であると仮定されており、TCTが0の場合は標準的なLMAPFの定式化に帰着する。</p></section>
+<section class="secsum"><h3>IV Method</h3><p>PUSH（Path Updates over Staggered Horizons）は、長期間の計画、高いスケーラビリティ、および汎用的なマップへの適用を同時に実現するLMAPFアルゴリズムです。本手法は、エージェントのサブセットのみを再計画し、衝突のないフォールバックパスを維持するToken Passingの概念を拡張し、さらにRHCRのローリングホライゾンによる先読みと、EPIBTの優先度継承およびバックトラッキング機構を統合しています。計画パラメータとして、計画ホライゾンH、実行ホライゾンh、および再帰探索時の訪問回数上限vを設定し、各ステップで再計画が必要なエージェントのサブセットを優先度順に特定して、PushPlan手続きを実行します。PushPlanは、あるエージェントが最大で1つの低優先度エージェントとの衝突を許容する経路を探索し、衝突が発生した場合はそのエージェントを保護セットに加え、再帰的にそのエージェントの経路を更新することで、優先度に基づく経路の押し出しを実現します。探索には修正されたウィンドウ付き時空間A*を用い、経路が見つからない場合は失敗した衝突を制約として記録することで、計算コストを抑えつつ効率的に代替経路を探索します。理論的には、再帰の深さがエージェント数によって制限されるため、有限時間内に衝突のない経路を返すことが保証されており、特定の条件下（グラフが二連結で、目標到達時のタスク実行がない場合など）ではデッドロックフリーであることが証明されています。</p></section>
+<section class="secsum"><h3>V Experimental Results</h3><p>提案手法であるPUSHおよびそのAnytime最適化版であるPUSH-LNSの性能を、タスク完了時間（TCT）が異なる複数のマップを用いて評価しています。実験では、ウィンドウ計画法のRHCR-PBS、反応型計画法のPIBTおよびEPIBT-LNS、そして再帰的な優先度押し出しを省略したPUSH-liteを比較対象として用いています。評価指標には、1,000タイムステップにおける1タイムステップあたりの平均スループットと平均意思決定時間を用いています。実験の結果、PUSHおよびPUSH-LNSは、狭い通路や障害物が多い環境、およびTCTが0より大きいシナリオにおいて、EPIBT-LNSやRHCRを上回るスループットを達成しました。RHCRはエージェント密度の増加に伴い計算予算を使い果たしてPIBTへフォールバックする傾向があり、EPIBT-LNSはTCTが増加すると性能が低下する脆弱性が見られました。また、計画ウィンドウサイズを拡大した場合、EPIBT-LNSは計算量の指数関数的な増加により性能が急落しますが、PUSH-LNSは長期間の計画能力を維持できることが示されました。</p></section>
+<section class="secsum"><h3>VI Conclusion and Future Directions</h3><p>本研究では、長期間の計画能力と大規模なエージェント数の同時制御を両立するLMAPFフレームワークであるPUSHを提案している。PUSHは、部分集合計画とウィンドウ計画を組み合わせて計画キューのための長期間の計画を生成し、高混雑環境下ではEPIBT形式の再帰的なバックトラッキング構造を用いることで、最大10,000エージェントの協調を可能にしている。今後の展望として、低レベルのA*プランナーにロボットの速度や加速度といった運動学的制約を組み込むことで、数千規模のエージェントへの対応を拡張できる可能性がある。また、タスクの緊急度を動的な優先順位構造に統合することや、エージェントの密度に応じて計画ホライゾンを動的に変化させる手法、さらに複数の低優先度エージェントを同時に押し出す機能の追加などが挙げられる。加えて、一部のエージェントをメタエージェントとして統合して共同最適化を行う手法や、学習ベースの改善、混雑を考慮したガイダンスの導入といったアルゴリズムの高度化も検討されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-11
+  </footer>
+</div>
+</body>
+</html>

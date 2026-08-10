@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TA-RAG: Tone Awareness as a Design Imperative for Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>TA-RAG: Tone Awareness as a Design Imperative for Retrieval-Augmented Generation</h1>
+  <div class="meta">Yong-Bin Kang, Anthony McCosker<br>採択先: 未取得 ・ 2026-08-07 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.06672v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.06672v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-08-07</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの課題を事実の正確性だけでなく「文脈的デカップリング」という通信の観点から定義した点が非常に新規性が高い。設計指針として実用的。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 従来のRAGは検索文書の文体に引きずられ、ユーザーの意図するトーンを無視する「文脈的デカップリング」という課題があります。本論文は、事実の正確性とコミュニケーションの整合性を同時に最適化する設計フレームワークであるTA-RAGを提案します。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のRAGシステムは、検索された文書が持つ専門用語やフォーマルな文体が、生成プロセスにおける指示よりも強くモデルに影響を与えるという構造的な問題を抱えています。これにより、事実は正確であっても、受信者の社会的・運用的文脈から乖離した回答が生成される「文脈的デカップリング」が発生します。この問題は、言語的、認知的、関係的な3つのコミュニケーションの失敗を引き起こしますが、既存の評価指標は事実の正確性に特化しているため、これらの失敗を検知できません。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>トーンの制御を生成時のプロンプトのみに依存させるのではなく、検索から検証に至るパイプラインの全工程に組み込むアーキテクチャを提案しています。従来のRAGが事実の正確性のみを最適化対象としていたのに対し、事実の精度と通信パラメータの適合性を並列に扱う二重最適化アプローチを提示した点が新規性です。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>TA-RAGは、以下の4つの制約をパイプラインの各フェーズに適用します。<br>1. スティグマのない言語：ドメイン固有の用語基準に従う。<br>2. 読みやすさの調整：受信者の読解レベルに合わせる。<br>3. 受信者への適応：受信者の属性や状況に合わせる。<br>4. 共感的フレーミング：適切な感情的表現を用いる。<br><br>処理の流れは以下の通りです。まずクエリ処理フェーズで、受信者のプロフィールと感情信号を抽出します。検索フェーズでは、意味的な関連性に加え、用語の適切さや読みやすさの観点から文書をランク付けします。文脈構築フェーズでは、不適切な用語の置換案や簡略化の指示を文脈に付与します。生成フェーズで制約に基づいた回答を作成した後、制約検証フェーズで回答を監査し、制約を満たさない場合は修正プロセスを実行します。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価には、4つの制約に対応する指標と、情報の正確性を維持するための指標を組み合わせて用います。読みやすさは、音節数や文の長さに基づく指標やLLMによる自動評価で測定します。受信者への適応は、専門家によるルーブリック評価やドメイン固有のガイドラインを用いて評価します。また、トーンの修正が内容を歪めていないかを検証するため、埋め込みベースの類似度やBERTScoreを用いて、修正前後の回答間における意味の保存性を評価します。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>情報の正確性とコミュニケーションの整合性の間にはトレードオフが存在します。例えば、説明を簡略化することで重要なニュアンスが失われたり、共感を優先することで情報の緊急性が弱まったりする可能性があります。TA-RAGは、ドメイン固有の閾値を設定することで、このトレードオフを明示的に管理することを目指しています。今後の課題として、言語スタイルや読解レベルを考慮できる検索メカニズムの開発、専門家の判断を反映できる自動分類器の構築、および正確性と整合性を同時に評価できるベンチマークの確立が挙げられます。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>TA-RAG: Tone Awareness as a Design Imperative for Retrieval-Augmented Generation</h3><p>従来のRAGシステムは、検索された文書が持つ専門用語やフォーマルな文体といった通信スタイルに影響を受け、ユーザーが指定したトーンの指示を無視してしまう「文脈的デカップリング（contextual decoupling）」という構造的な限界を抱えています。これは、システムが事実の正確性を最適化する一方で、受信者の社会的または運用的文脈から乖離してしまう現象であり、言語的、認知的、関係的な3つのコミュニケーションの不一致を引き起こします。これらは、正確性のみを重視する従来の評価指標では検知が困難な「コミュニケーション変換の失敗」として定義されます。本論文は、事実の正確性とコミュニケーションの整合性を並列に扱う概念的フレームワークであるTA-RAGを提案しています。TA-RAGは、検索、文脈構築、生成、制約検証の各フェーズにおいて、スティグマのない言語、読みやすさの調整、受信者に配慮した適応、共感的なフレーミングという4つの制約を運用します。これにより、社会的感度が高く重要な文脈におけるRAGの設計指針を示しています。</p></section>
+<section class="secsum"><h3>1 The Problem: Why Tone-awareness is Critical for RAG</h3><p>従来のRAG（検索拡張生成）は、検索された文書が持つ特有の文体や専門用語といったコミュニケーション上の規範が、生成プロセスに強く影響を与えるという構造的な課題を抱えています。検索された文書は中立的な情報ではなく、臨床プロトコルの形式的なトーンや専門的な言語分布を内包しており、これらがプロンプトの文脈として組み込まれることで、生成段階で与えられる「共感的に」といった指示の効果を弱めてしまいます。この現象は、事実は正確であっても社会的な文脈や利用者の状況に適合しない「文脈のデカップリング（乖離）」を引き起こします。具体的には、不適切な用語の使用による言語的不一致、専門知識レベルの差による認知的不一致、および感情的な配慮の欠如による関係的な不一致という3つの失敗モードが存在します。既存のRAG評価指標は、忠実性や回答の関連性といった事実に基づく評価に特化しているため、これらのコミュニケーション上の失敗を検出することが困難です。本研究では、検索された文書のスタイルが固定される前に、検索と生成のインターフェースにおいてコミュニケーションの整合性を強制する制約レイヤーを導入するTA-RAGという枠組みを提案します。</p></section>
+<section class="secsum"><h3>2 TA-RAG: Framing, Architecture, and Operationalisation</h3><p>TA-RAGは、従来のRAGが事実の正確性のみを最適化対象としていたのに対し、事実の精度と通信パラメータの適合性を同時に満たすことを目的とした二重最適化アプローチを提案する。本手法は、トーンの制御を生成段階のプロンプトのみに依存せず、検索から検証に至る全工程に組み込むアーキテクチャを採用している。具体的には、スティグマのない言語、読みやすさの調整、受信者への適応、共感的フレーミングという4つの通信制約を定義し、これらをパイプライン全体で制御する。<br><br>システムは5つのフェーズで構成される。第1フェーズのクエリ処理では、受信者の属性を示すプロファイルと、感情的な緊急度を示す感情信号を抽出する。第2フェーズの検索では、意味的な類似性に加え、用語の適切さ、読みやすさ、役割への関連性に基づく3つの信号を用いて文書をランク付けする。第3フェーズの文脈構築は本アーキテクチャの核心であり、不適切な用語の置換案や簡略化の指示を付与し、受信者メタデータを付加することで、生成のための文脈を形成する。第4フェーズの生成では、構築された文脈と制約指示に基づき、適切な用語、読みやすさ、説明の深さ、感情への配慮を適用する。最終的な第5フェーズの制約検証では、生成された回答を監査し、用語や読みやすさが基準を満たさない場合は、最大3サイクルまでの反復的な修正、あるいは人間によるレビューへと繋げる。</p></section>
+<section class="secsum"><h3>3 Evaluation agenda and criteria for Communicative Alignment in TA-RAG</h3><p>TA-RAGは、コミュニケーションの整合性をアーキテクチャ上の制約として強制するために、その検証を可能にする測定指標が不可欠であると主張しています。評価基準として、スティグマのない言語、読みやすさ、受信者への適応、共感的フレーミングの4つの制約を検討しており、スティグマのない言語は既存の用語集との比較で判定可能ですが、文脈に応じた語彙の使い分けが課題となります。読みやすさは、音節数や文の長さに基づく決定論的な指標や、LLMによる自動評価が有効であり、受信者への適応は専門家によるルーブリック評価やドメイン固有のガイドラインに基づく構造化された基準を用いることが提案されています。共感的フレーミングについては、AIの感情の真実性ではなく、状況に応じた感情表現の適切さを評価対象とします。さらに、これらの制約を満たすための修正が事実の正確性を損なわないよう、埋め込みベースの類似度やBERTScoreを用いた意味保存性の評価を、制約固有の指標と組み合わせて共同で行う必要があります。</p></section>
+<section class="secsum"><h3>4 Implications and Research Roadmap</h3><p>TA-RAGは、情報の正確性とコミュニケーションの整合性（トーンの適切さ）の間に生じるトレードオフを、システムのデフォルトの挙動に任せるのではなく、明示的かつ測定可能なものとして管理することを目指している。例えば、制約検証フェーズにおいてドメイン固有の閾値を設定することで、ピアサポートにおける差別的な用語の排除や、緊急時における共感よりも情報の迅速性を優先するといった、専門知識に基づいた調整が可能になる。今後の研究課題として、意味的な関連性に加えて言語スタイルや読解レベルにも対応できる検索メカニズムの開発、専門家の判断を反映できる堅牢な自動分類器の構築、および正確性と整合性の両方を同時に評価できる共同ベンチマークの確立が挙げられる。さらに、閾値の設定や見直しを行うためのガバナンス体制の確立には、自然言語処理の研究者とドメインの専門家、および当事者コミュニティとの連携が不可欠である。本手法は、プロンプトや後処理のみに頼るのではなく、RAGのアーキテクチャ自体にコミュニケーションの制約を統合することで、情報の伝え方が受容性に大きく影響するヘルスケアや教育などの領域における課題解決への道筋を提示している。</p></section>
+<section class="secsum"><h3>Declarations</h3><p>本研究は、オーストラリア政府のARC（Australian Research Council）を通じて資金提供される、ADM+S（Automated Decision-Making and Society）センターの支援を受けて実施されました。著者貢献として、Y.K.が論文の概念化、文献調査、概念的アーキテクチャの開発、および原稿の作成と全体的な枠組みの構築を主導しました。A.M.は理論的な枠組みの構築、解釈、および原稿の改訂に寄与しました。両著者は最終的な原稿を確認し、承認しています。なお、倫理承認、参加への同意、出版への同意、および臨床試験登録に関する事項は、本研究においては該当しません。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-11
+  </footer>
+</div>
+</body>
+</html>
