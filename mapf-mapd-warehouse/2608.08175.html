@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>AOC-CBS: Anytime-Optimal Continuous-time Conflict-Based Search for Generalised Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>AOC-CBS: Anytime-Optimal Continuous-time Conflict-Based Search for Generalised Multi-Agent Path Finding</h1>
+  <div class="meta">Alvin Combrink, Sabino Francesco Roselli, Martin Fabian<br>採択先: 未取得 ・ 2026-08-08 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.08175v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.08175v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-08</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">連続時間・異種エージェント・タスク順序という高度に一般化されたMAPFに対し、Anytime性と最適性保証を両立させた点は新規性が高く、実用上の価値も大きい。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 連続時間、異種エージェント、タスクの順序、および目標到達後の移動を許容する一般化されたマルチエージェント経路計画問題を対象とし、最適解の保証と、実行中に最適性ギャップの上限が既知である暫定解を逐次報告するAnytime特性を両立したAOC-CBSを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のマルチエージェント経路計画（MAPF）は、離散的な時間、単一の目標、円形の移動体、および全エージェントが目標到達後に停止することを前提としていた。そのため、エージェントごとの異なる運動モデル、非幾何学的な衝突、タスクのシーケンス、およびタスク完了後に移動を続けるエージェントを扱うことが困難であった。本研究では、各エージェントが独自のグラフと状態空間を持ち、連続的な時間軸上で順序付けられたタスクを実行する、より汎用的な問題設定を扱う。入力としてエージェントのグラフ構造、タスクのシーケンス、および衝突定義を受け取り、制約を満たす経路を出力する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存の厳密な連続時間ソルバーであるOC-CBSに対し、最適解が見つかるまで解を返さないという制約を解消し、探索のあらゆる段階で最適性ギャップの上限が既知である暫定解を提供できるAnytime性を導入した。また、複数の探索ポリシーや修復関数を組み合わせたモジュール式のポートフォリオ構成を採用することで、複数のプロセッサによる並列実行を可能にした。これにより、厳密な最適解の発見能力を維持したまま、扱えるエージェント数を数十規模から数百規模へと拡張した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>高レベル探索では、制約ツリー（CT）を管理し、未展開のノードから一つを選択する選択ポリシーと、既存の計画を修正する修復メソッドの集合からなるポートフォリオを用いる。修復メソッドの一つであるTP-SIPPは、エージェントのデッドラインに基づき優先度を3つの階層に分けて計画を行い、タスク完了後の退避を可能にする。探索が進むにつれて、CTノードから得られる下界が上昇し、修復や分岐によって得られる暫定解の上界が低下することで、最終的に両者が一致して最適解に到達する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>MovingAIベンチマークのグリッドマップおよびロードマップを用い、円形エージェント、連続的なエッジ軌道、および多角形形状のエージェントを含むモデルで検証した。評価指標として、解の発見能力、エージェント数に対するスケーラビリティ、および最適性ギャップを用いた性能比較を行った。実験の結果、修復関数を使用する構成は、緩い最適性ギャップにおいては解の発見能力を向上させるが、最適解の証明を目指す段階では下界の更新を遅らせるトレードオフがあることが示された。また、複数のポリシーを並列運用する構成は、難易度の高いインスタンスにおいて高速化を実現し、最適性ギャップに応じてポリシーを切り替える構成は、迅速な解の発見と下界の引き上げの両立に成功した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、最適性の証明と解の発見が異なる負荷であることを示している。修復関数は、許容される最適性ギャップが大きい場合にはスケーラビリティを向上させるが、最適解の証明を優先する場合には計算コストとなる。また、並列化は問題の難易度が高まった際のスループット向上に寄与するが、単一コアで解ける容易な問題に対しては管理オーバーヘッドが生じる。今後の課題として、3次元空間への拡張、非分離的な衝突の導入、および計算資源と最適性の間のトレードオフをより動的に制御する仕組みの検討が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>AOC-CBS: Anytime-Optimal Continuous-time Conflict-Based Search for Generalised Multi-Agent Path Finding</h3><p>本研究では、離散的な時間、単一の目標、円形の移動体といった従来のマルチエージェント経路計画（MAPF）の制約を解消し、連続時間、非幾何学的な衝突、タスクの順序、および目標到達後の移動を許容する一般化されたMAPFの定式化を提案している。提案手法であるAOC-CBSは、最終的に最適解を返すことを保証しつつ、実行中には既知の最適性ギャップの上限を持つ暫定解を逐次報告する、厳密かつ解の完全性を備えたソルバーである。この手法は、複数のプロセッサコアを活用できるほか、新たに導入されたTier-Prioritized Safe Interval Path Planningを含む複数の修復関数のポートフォリオを選択可能である。非凸な形状を持つ多様なエージェントが滑らかで動力学的に実行可能な軌道を描く混合フリートを用いた実験において、AOC-CBSは既存の厳密ソルバーであるOC-CBSと同等の最適解発見能力を持ちつつ、最適性のギャップを許容することで、扱えるエージェント数を数十規模から数百規模へと拡張できることを示した。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究では、各エージェントが独自のグラフと状態空間を持ち、連続的な時間軸上で動作する汎用的なマルチエージェント経路計画（MAPF）問題を扱う。提案手法であるAOC-CBSは、最適解が見つかるまで解を返さないという既存手法の課題を解決するAnytimeアルゴリズムであり、実行中いつでも、最適解との差（最適性のギャップ）の上限が既知である暫定解を提供できる。この手法は、エージェントごとに異なる運動モデルを持つ異種混合フリートや、幾何学的な衝突だけでなく、ドローンのダウンウォッシュのような抽象的なペアワイズの衝突を許容する。さらに、頂点での滞在時間やエッジの通過をタスクとする設定に加え、タスク完了後にエージェントが移動を継続できることや、待機不可能な頂点の存在も考慮されている。具体的な構成要素として、優先度に基づいた経路計画手法であるTP-SIPPを導入している。実験では、MovingAIベンチマークにおいて、既存手法と同等の最適解性能を維持しつつ、対応可能なエージェント数を数十から数百へと大幅に向上させている。</p></section>
+<section class="secsum"><h3>2 Background and Related Work</h3><p>本セクションでは、マルチエージェント経路計画（MAPF）における既存の定式化と、Conflict-Based Search（CBS）の基礎について述べている。古典的なMAPFは離散的な時間とグラフ構造を前提とするが、エージェントの物理的な体積や非一様な移動時間を考慮できない制約がある。これに対し、連続時間MAPF（MAPF R）は実数値の時間と軌道を扱えるものの、全エージェントが同一のグラフを共有するため、移動モデルが最も制限的なエージェントに制約される。一方、マルチエージェント・モーション・プランニング（MAMP）はエージェントごとに個別のグラフを定義できるが、空間をセルに離散化して衝突判定を行うため、精度と計算コストのトレードオフが生じる。本研究では、空間の離散化を避け、グラフ要素間の不適合性を直接保持する手法を採用している。また、従来のMAPFは全エージェントが同時に目標地点に到達し停止することを要求するが、本研究は目標到達後に移動を継続できる到達可能性（reachability）の概念を取り入れている。CBSアルゴリズムは、制約ツリー（CT）を探索する高レベルと、個別の経路を計画する低レベルの二層構造で構成される。高レベルの探索では、衝突が発生するたびに制約を追加して子ノードを生成し、低レベルの経路計画によって制約を満たす新たな経路を再計算することで、最適解を導出する。</p></section>
+<section class="secsum"><h3>3 Problem Formulation</h3><p>本セクションでは、異種エージェントによる連続時間での経路計画問題を、グラフ構造とタスクの実行として定式化しています。各エージェントは、状態を表す頂点と、それらを結ぶ軌跡を表すエッジからなる有向マルチグラフ上で移動し、エッジの通過または頂点での待機というアクションを通じて、順序付けられたタスクを一つずつ完了させます。タスクには、エッジを通過するエッジタスクと、特定の時間以上頂点に留まる頂点タスクがあり、これらは指定された順序で実行される必要があります。各アクションにはドメイン固有のコストが割り当てられ、多くの場合、コストはアクションの継続時間と一致しますが、エネルギー消費のように時間とは異なる定義も可能です。衝突は、2つのエージェントが特定の時刻に占有する状態の組み合わせに対して定義される関数として抽象化されており、幾何学的な衝突だけでなく、ドローンのダウンウォッシュによる干渉のような非幾何学的な事象も扱えます。この定式化は、エージェントの運動学的制約をグラフの構築段階に集約することで、エージェントの物理的性質に依存しない汎用的な協調計画を可能にしています。</p></section>
+<section class="secsum"><h3>4 Anytime-Optimal Continuous-Time Conflict-Based Search</h3><p>AOC-CBSは、従来のOC-CBSが持つ「最適解のみを対象とする」「逐次的な探索により並列化が困難」という2つの制限を解消した、Anytime-Optimalな連続時間衝突ベース探索手法である。高レベル探索において、複数のポリシーからなるモジュール式のポートフォリオを採用しており、各ポリシーは独立してノードの選択と修復を行うため、複数のプロセッサによる並列実行が可能である。各ポリシーは、未展開のノードから一つを選択する選択ポリシーと、既存の計画を修正して解を試みる修復メソッドの集合で構成される。選択ポリシーには、最適性を保証するために少なくとも一つは最小コスト下界に基づくものが含まれる必要があるが、解が見つかった後はランダム選択などの多様な手法へ切り替えが可能である。<br><br>低レベルの経路計画には、複数の連続するタスクとエージェントの待機を扱えるMG-CSIPPが用いられ、A*探索と安全区間の概念を組み合わせることで、制約条件下での最小所要時間を保証する。また、修復メソッドの一つであるTP-SIPPは、エージェントのデッドラインに基づき優先順位を3つの階層に分けて計画を行うことで、タスク完了後にエージェントが退避して他のエージェントの経路を確保することを可能にしている。本手法は、探索が進むにつれて下界が上昇し、修復や分岐によって得られる上界が低下することで、最終的に両者が一致して最適解に到達する仕組みを持つ。</p></section>
+<section class="secsum"><h3>5 Theoretical Guarantees</h3><p>AOC-CBSは、最適解のみを返す厳密性と、解が存在する場合に有限時間内に解を返す解の完全性を備えたアルゴリズムである。計算機における有限精度の浮動小数点演算を用いるため、極めて微小な時間スケールでの衝突判定には限界があるものの、実世界のセンサー誤差等を考慮すれば十分な精度を持つ。本手法の核心となる不変性は、各反復の開始時点で、未展開のノードを通じて最適解への到達可能性が維持されているか、あるいは既に最適解が見つかっているかのいずれかが成立することである。この性質により、ノードキューが空になった時点で得られる解は必ず最適解となり、探索中に維持される下界と上界は常に正しく、任意の停止時点において有効な最適性ギャップを算出できる。また、既に解が見つかっている場合、または下界を最小化するノードを常に選択する方策がポートフォリオ内に存在する場合のいずれかにおいて、有限回数の反復で最適解に到達することが理論的に保証されている。</p></section>
+<section class="secsum"><h3>6 Experimental Evaluation</h3><p>AOC-CBSの実験評価では、円形エージェントかつ一定速度の直線移動を仮定したモデル、任意の連続的なエッジ軌道を含むモデル、および多角形形状のエージェントを含むモデルの3段階で検証が行われています。評価にはMovingAIのグリッドマップおよびそれらをサンプリングしたロードマップが使用され、エージェントの半径は0.5、エージェント数が増加するまで解を探索するシナリオ設定でベンチマークが行われました。アブレーション研究では、単一または複数のポリシー（CPUコアごとに異なる探索戦略を実行）の構成、修復関数（TP-SIPP）の有無、およびノード選択ルール（最小コスト、最小衝突回数、最小合計衝突時間など）による性能差を調査しています。実験結果によれば、修復関数を使用する構成は解の発見には寄与するものの、衝突木（CT）の展開による下界の更新を遅らせるトレードオフが存在しますが、解の最適性ギャップに応じてポリシーを切り替える構成C6は、迅速な解の発見と下界の引き上げの両立に成功しています。また、マルチポリシー構成（C3）は、集計的な成功率では単一ポリシー（C1）に対し劇的な向上は見られないものの、難易度の高いインスタンスにおいて顕著な高速化を実現することが示されました。事前処理については、全対最短経路の計算や幾何学的な衝突情報の抽出が行われ、これらは円形エージェント・直線移動モデルにおいて実用的な時間内で完了することが確認されています。</p></section>
+<section class="secsum"><h3>7 Discussion</h3><p>AOC-CBSは、最適解のみを返すOC-CBSに対し、限定的な最適性のギャップを許容することで、同一の計算予算内で解決可能な問題数を増加させる手法である。実験の結果、グリッドマップやロードマップにおいて、AOC-CBSはOC-CBSとほぼ同等の最適性を維持しつつ、マップの規模が大きくなるほど、劣最適性を許容することによる解決可能問題数の増加幅が拡大することが示された。アブレーション解析により、解の発見と最適性の証明は異なる負荷であることが明らかになり、修復関数TP-SIPPは到達可能なエージェント数を増やす一方で、修復に時間を費やすことでノード展開や下界の更新が遅れるというトレードオフが確認された。また、並列化は問題の難易度が高まった際にスループットを向上させ、実行時に動的にポリシーを切り替えることで、静的な設定よりも広い範囲の問題に対応できる。本手法の汎用性は、幾何学的な形状や衝突の定義を事前処理として切り離すことで実現されており、円形エージェントや非凸多角形エージェントなど、異なる特性を持つエージェントを同一のソルバーで扱える。現在の実装はPythonによるもので、C++実装のOC-CBSと比較して実行速度は劣るものの、データ構造や事前処理の選択が言語の差を上回る重要性を持つことが示唆されている。</p></section>
+<section class="secsum"><h3>8 Conclusion</h3><p>本研究では、異種エージェント、個別のグラフ、連続時間、抽象的なペアワイズ衝突、エッジおよび頂点タスクのシーケンス、およびタスク完了後の自由移動を許容する、より一般的なマルチエージェント経路計画（MAPF）問題を定義し、その解決手法としてAOC-CBSを提案した。AOC-CBSは、下界を確定させる探索と、構成可能な複数の修復関数を用いて暫定解を探索するプロセスを分離することで、探索のあらゆる段階で暫定解と、その解が最適解からどの程度離れているかを示す保証付きの最適性ギャップを提示できるAnytime特性を持つ。修復関数の一つであるTP-SIPPは、タスク完了後にエージェントがその場を離れる必要がある状況に対応しており、これらを並列に実行することで、従来のOC-CBSと同等の最適解の発見・検証能力を維持しつつ、許容可能な最適性ギャップ内での解の発見においては、エージェント数を数十から数百へと拡張することに成功した。アブレーション解析の結果、修復関数は緩い最適性ギャップにおいてエージェント数のスケーラビリティを向上させる一方で、最適解の証明を目指す段階では下界の更新を遅らせるコストとなることが示された。また、複数のポリシーを並列運用する構成は、単一コアで解ける容易な問題よりも困難な問題において、解の到達可能性を高める効果がある。AOC-CBSは、最適解を証明するまで解を返さない厳密解法と、品質保証のない高速な近似解法の間のトレードオフを解消し、用途に応じて高速なヒューリスティック解法としても厳密解法としても利用可能な柔軟性を実現している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-12
+  </footer>
+</div>
+</body>
+</html>

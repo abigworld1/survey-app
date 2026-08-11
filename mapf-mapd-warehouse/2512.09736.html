@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Analyzing Planner Design Trade-offs for MAPF under ADG-based Realistic Execution | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Analyzing Planner Design Trade-offs for MAPF under ADG-based Realistic Execution</h1>
+  <div class="meta">Jingtian Yan, Zhifei Li, William Kang, Stephen F. Smith, Jiaoyang Li<br>採択先: Proceedings of the International Conference on Automated Planning and Scheduling ・ 2025-12-10 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2512.09736v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2512.09736v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/icaps.v36i1.42860" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Proceedings of the International Conference on Automated Planning and Scheduling</span><span class="chip">公開日 2025-12-10</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">実環境の物理制約と計画モデルの乖離に着目した、実用性の高い研究。モデル精度と計算量のトレードオフを体系的に分析しており、MAPFの実装者にとって示唆に富む。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 既存のMAPF評価は簡略化されたモデルに依存しており、実環境での実行性能との乖離がある。本研究は、アクション依存グラフを用いた評価フレームワークSMARTを活用し、プランナーの設計選択が実際の実行性能に与える影響を体系的に分析した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>産業用倉庫などの実環境におけるマルチエージェント経路計画（MAPF）を対象とする。従来の評価手法は簡略化されたロボットモデルに依存しているため、計画段階での最適性と、物理的制約を伴う実環境での実行性能との間に乖離が生じるという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のMAPF研究が計画時のコスト最適化に集中していたのに対し、本研究はアクション依存グラフ（ADG）に基づく現実的な実行プロセスを組み込んだ評価を行っている点が新しい。解の最適性と実行性能の関係、運動学的モデルの不正確さに対する感度、およびモデルの精度と計画の最適性の間のトレードオフという3つの観点から、設計上の意思決定が性能に及ぼす影響を明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>評価フレームワークSMARTを用い、計画された経路をアクション依存グラフ（ADG）という有向グラフに変換して実行を管理する。このADGは、同一ロボット内の動作順序を示すエッジと、ロボット間の衝突を防ぐ優先順位を規定するエッジの2種類で構成される。ロボットの実行器は、このADGに従いながら、運動限界、遅延、外乱などの物理的制約を考慮して動作コマンドを発行し、物理シミュレーションを通じて実行結果を得る。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>MovingAIベンチマークに基づく6種類のマップを使用し、全ロボットの完了時間合計をロボット数で割った平均実行時間（AET）を評価指標として実験を行った。計画の目的関数であるコスト合計（SoC）とAETの間には強い正の線形相関が見られたが、SoCだけでは回転動作数などの影響を完全に説明できないことが示された。また、標準的なモデル、回転を考慮したモデル、速度や加速度を含む完全な運動学モデルを比較した結果、詳細なモデルを用いるほどAETが改善される一方で、計算複雑性の増大によりスケーラビリティが低下するトレードオフが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>実行性能を正確に予測するためには、従来の完了時間だけでなく、実行に関連する特徴量を組み込んだ実行認識型の目的関数が必要である。より正確なモデルの使用は実行性能を向上させる一方でスケーラビリティを著しく低下させるため、計算予算に応じてモデルの精度と計画の最適性のバランスを適応的に調整する手法が求められる。また、通信遅延や制御のばらつきといった実行誤差を軽減するために、ロボット間の通過順序を動的に調整できるような、柔軟な実行フレームワークの構築が今後の課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Analyzing Planner Design Trade-offs for MAPF under ADG-based Realistic Execution</h3><p>本研究は、産業用倉庫などの実環境における物理的制約を考慮したマルチエージェント経路計画（MAPF）において、プランナーの設計選択が実行性能に与える影響を調査している。既存の評価手法は簡略化されたロボットモデルに依存しているため、ベンチマークと実環境での性能との間に乖離がある。そこで本研究では、アクション依存グラフ（ADG）を用いた運動学的・動力学的モデリングと実行を組み合わせた評価フレームワークSMARTを活用し、3つの要因を体系的に分析している。具体的には、解の最適性と実行性能の関係、運動学的モデルの不正確さに対するシステム性能の感度、およびモデルの精度と計画の最適性の間のトレードオフを検証している。実験を通じて、現実的なシナリオにおける設計上の意思決定が性能に及ぼす影響を明らかにし、実社会への展開に向けた研究課題を提示している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路計画（MAPF）の評価において、既存の枠組みの多くは簡略化されたロボットモデルに依存しており、現実的な運動学的・動力学的制約や実行時の変動が考慮されていない。そのため、プランナーの設計上の選択が実際の実行性能にどのように反映されるかを正確に評価することが困難となっている。本研究では、アクション依存グラフ（ADG）に基づき、物理ベースのシミュレーションを通じて数千台規模のロボットによる実行を考慮した評価が可能なテストベッドであるSMARTを用い、プランナーの設計要素が実行性能に与える影響を体系的に調査する。具体的には、計画時の経路の最適性、計画時に用いる運動学的・動力学的モデルの精度、およびモデルの精度と経路の最適性の間に存在するトレードオフという3つの基本要素に焦点を当てる。制御された実験を通じて、これらの要因が実際の実行挙動にどのように影響するかを明らかにし、MAPFを実世界へ展開するための設計上のトレードオフを分析する。</p></section>
+<section class="secsum"><h3>2 Background</h3><p>マルチエージェント経路計画（MAPF）は、離散的な無向グラフ上で、各ロボットが開始地点から目標地点へ衝突を避けながら到達する経路を求める問題である。既存の手法には、最適性や近似解の保証を重視するもの、数千台規模のロボットに対応するスケーラビリティを重視するもの、計算効率と解の質を両立させる逐次改善型のアルゴリズム、および運動特性や遅延などの要因を考慮するものがある。MAPFの評価には、ロボットの運動特性や実行時の不確実性、通信遅延を明示的にモデル化できるSMARTというテストベッドが用いられる。SMARTでは、計画された経路をアクション依存グラフ（ADG）という有向グラフに変換して実行を管理する。このADGは、同一ロボット内の動作の順序を示すエッジと、衝突を防ぐために異なるロボット間の動作の優先順位を規定するエッジの2種類で構成される。ロボットの実行器はこのADGに従い、運動限界や遅延、外乱を考慮しながら動作コマンドを発行し、物理シミュレーションを通じて現実的な実行結果が得られる。</p></section>
+<section class="secsum"><h3>3 From MAPF to Realistic Scenarios</h3><p>本セクションでは、マルチエージェント経路計画（MAPF）の計画段階と、ロボットによる現実的な実行段階との間にある乖離を調査しています。実験では、MovingAIベンチマークに基づく6種類のマップを使用し、全ロボットが割り当てられた経路を完了するまでのシミュレーション時間の総和をロボット数で割った平均実行時間（AET）を評価指標としています。まず、計画の目的関数であるコスト合計（SoC）とAETの関係を分析した結果、両者には強い正の線形相関があるものの、SoCのみでは実行時間を完全に説明できず、回転動作数などの他の要素も実行時間に影響を与えることが判明しました。次に、標準的なMAPFモデル、回転を考慮したモデル、および速度や加速度を含む完全な運動学（kinodynamics）を考慮したモデルを比較したところ、より詳細なモデルを用いるほどAETが改善される一方で、計算複雑性の増大によりスケーラビリティが低下するというトレードオフが確認されました。さらに、不完全なモデルで最適解を求めるよりも、より正確なロボットモデルを計画に組み込む方が、実行時のAETを大幅に改善できることが明らかになりました。</p></section>
+<section class="secsum"><h3>4 Challenges and Future Directions</h3><p>本研究は、実環境におけるマルチエージェント経路計画（MAPF）の展開に向けた課題を整理しており、実行性能をより正確に予測するために、従来の完了時間（SoC）に加えて実行に関連する追加の特徴量を組み込んだ、実行認識型の目的関数やプランナーを設計する必要性を指摘している。より正確なMAPFモデルを用いることは実行性能を大幅に向上させる一方で、スケーラビリティを著しく低下させるという課題があるため、運動学的制約を考慮しつつ大規模な問題にも対応できる効率的なプランナーの開発が求められる。計算時間が限られている状況では、SoCを厳密に最適化することよりも、モデルの精度を高める方が実行性能の向上に寄与する場合があり、計算予算に応じてプランナーの最適性とモデルの精度のバランスを適応的に調整する手法の重要性が示唆されている。さらに、通信遅延や制御のばらつきといった実行誤差の影響を軽減するため、ロボット間の通過順序を動的に調整するような、従来の保守的な実行フレームワークを超えた柔軟な実行フレームワークの構築も今後の研究方向である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-12
+  </footer>
+</div>
+</body>
+</html>

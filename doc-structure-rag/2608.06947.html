@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>When Context Bites: Detecting RAG Poisoning via Document-Level Attention Collapse | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>When Context Bites: Detecting RAG Poisoning via Document-Level Attention Collapse</h1>
+  <div class="meta">Yingtao Ren, Ziyi Zhao, Yiwei Fu, Xiao Luo, Yu-Cheng Chang, Chin-Teng Lin<br>採択先: SIGIR &#x27;26: The 49th International ACM SIGIR Conference on Research and Development in Information Retrieval ・ 2026-08-07 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.06947v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.06947v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1145/3805712.3809904" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 SIGIR &#x27;26: The 49th International ACM SIGIR Conference on Research and Development in Information Retrieval</span><span class="chip">公開日 2026-08-07</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの脆弱性であるポイズニング攻撃に対し、出力の不確実性ではなく内部のアテンション動態に着目した点が非常に独創的。検知手法も軽量で実用的。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGにおけるポイズニング攻撃は、モデルの注意力を悪意のある文書へ過度に集中させる「Attention Collapse（アテンション崩壊）」を引き起こす。本研究は、この内部動態を監視することで攻撃を検知する軽量なフレームワークD-SCANを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>検索拡張生成（RAG）において、攻撃者がデータベースに悪意のある文書を混入させ、生成モデルの出力を操作するポイズニング攻撃が問題となっている。従来の検知手法は、生成されたテキストのパープレキシティや一貫性といった出力側の信号に依存していた。しかし、巧妙な攻撃は生成確率を最大化するように設計されるため、攻撃を受けた出力が正常な出力よりも高い生成確率を示す「Blind Confidence（盲目的な自信）」を引き起こし、従来の不確実性ベースの指標では検知が困難である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究は、攻撃が最終的な出力結果として現れる前の、モデル内部の生成メカニズムに着目した点が新しい。具体的には、攻撃時にアテンションが特定の毒性文書へ不均衡に集中し、他の事実に基づいた文書への注意が抑制される「Attention Collapse」という特有のシグネチャを特定した。これにより、出力の不確実性に頼らず、アテンションの分布変化を通じて攻撃を識別する手法を提示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法D-SCANは、推論時のモデル内部の状態から直接特徴量を抽出する軽量なフレームワークである。具体的には、トークンレベルおよびドキュメントレベルのアテンション分布に関する指標（エントロピー、分散、および文書長で正規化して集計したドキュメントレベルの注意密度）を特徴量として、線形分類器を学習させる。このプロセスにより、モデルの注意メカニズムが特定の文書に占有されている状態を捉え、低計算コストで攻撃の検知と、原因となっている毒入りドキュメントの特定を可能にする。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>HotpotQA、2Wiki、Musiqueの3つのマルチホップQAベンチマークを用い、E5-base-v2で取得した文書の一部をPoisonedRAGで生成された毒性文書に置き換えたデータセットで評価した。比較対象として、汎用的なLLMベースの検知器や、HaloScope、ReDeep、RevPRAGを用いた結果、D-SCANはすべてのベンチマークで最高の検知性能を達成した。単一の生成サンプルを用いた標準的な推論設定でもAUCが0.8を超える性能を示し、アブレーション研究では、特にドキュメントレベルのアテンション指標が検知において不可欠であることが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>大規模な言語モデルは、指示追従性の学習によって検索されたコンテキストを過度に信頼する傾向があり、検知が困難になる可能性がある。また、D-SCANは攻撃が成功して誤った回答を導く場合だけでなく、攻撃が失敗して意図した回答に至らなかった場合でも検知が可能であるが、生成サンプル数を増やすほど検知性能が向上するという、計算コストと精度のトレードオフが存在する。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>When Context Bites: Detecting RAG Poisoning via Document-Level Attention Collapse</h3><p>検索拡張生成（RAG）におけるポイズニング攻撃は、悪意のある文書を注入することで生成器の出力を操作する手法である。従来の不確実性に基づく検知手法は、パープレキシティ（困惑度）などの出力側の信号に依存していたが、意図的な攻撃は通常の出力よりも低いパープレキシティを示す「偽の自信」を引き起こすことがあり、これらの手法では検知が困難である。本研究では生成器の内部動態を分析し、攻撃を受けた際にアテンションがポイズニングされた文書へ過度に集中することで、アテンションの分散度を示すエントロピーが減少する現象をAttention Collapseと定義した。この知見に基づき、アテンションの動態を監視して攻撃を特定する軽量な検知フレームワークであるD-SCANを提案する。複数の攻撃ベンチマークを用いた実験により、D-SCANは最終的な回答自体が変化しないような攻撃であっても検知できることが示されている。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>Retrieval-Augmented Generation (RAG) における毒性注入攻撃は、攻撃者がデータベースに悪意のある文書を混入させることで、生成モデルに特定の有害な回答を強制させる手法であり、法務や医療などの高リスクな領域において深刻な脅威となる。従来の検知手法は、生成されたテキストの不確実性や一貫性、あるいはブラックボックス分類器を用いるが、これらはRAGの文脈が複数の文書チャンクに分散しているという性質を無視しており、かつ生成プロセスの内部メカニズムを探索しないため解釈性に欠けるという限界がある。本研究では、攻撃者が生成確率を最大化するように文書を最適化するため、毒性のある回答はクリーンな回答よりも高い平均トークン確率を示すという「偽の自信」の状態に陥り、従来の不確実性ベースの指標が機能しないことを明らかにする。さらに、攻撃時にはモデルの注意が巧妙に作成された毒性コンテンツに占有される「Attention Collapse（アテンション崩壊）」という現象を特定し、トークンレベルの注意重みを文書長で正規化して集計する「文書レベルの注意密度」を用いることで、この現象を捉える。提案手法であるD-SCAN (Document-level Signal Collapse Analysis) は、生成物の意味内容ではなく、LLMの内部的な生成ダイナミクスを検査することで、攻撃が最終的な出力エラーとして現れる前であっても、注意メカニズムの変化から攻撃の意図をリアルタイムかつ軽量に検知できる。3つのマルチホップQAベンチマークを用いた実験により、D-SCANは既存の最先端手法を上回る検知精度を達成し、攻撃が成功するか否かにかかわらず、頑健に攻撃を識別できることが示されている。</p></section>
+<section class="secsum"><h3>2. Related Work</h3><p>RAGに対するポイズニング攻撃は、単純な注入からLLMを用いた高度な敵対的サンプルの生成へと進化しており、検索と生成の両方に影響を与えるトリガーを埋め込む手法や、特定のニューロンを標的とする進化計算を用いた手法が存在する。また、偽の権威ある参照を用いて証拠の連鎖を捏造しモデルの信頼性を乗っ取る手法や、自律型エージェントの長期記憶を汚染して誤りの自己強化サイクルを引き起こす攻撃も報告されている。これらに対する防御策としては、矛盾グラフを用いた構造的・意味的な整合性の検証や、検索された文脈を分離して推論パスの安定性を確認する合意形成アプローチなどが提案されている。しかし、既存の検知手法の多くは出力レベルのハルシネーション検知に留まっており、ニューロンの活性化パターンを監視して事実の想起とポイズニングによるハルシネーションを区別する試みはあるものの、ポイズニング攻撃の内部メカニズムを調査して効果的な検知フレームワークを構築するという点では依然として課題が残っている。</p></section>
+<section class="secsum"><h3>3. Empirical Study and Solution</h3><p>Llama-3.1-8B-Instructと2Wikiデータセットを用いた実証研究により、RAGにおける毒入れ攻撃がモデルの生成プロセスに与える影響を分析した。その結果、攻撃を受けたサンプルは、生成トークンの平均確率が高く標準偏差が低いという「盲目的確信（Blind Confidence）」現象を示すことが明らかになった。この現象は、複数回のサンプリングにおける出力のコサイン類似度が高まり、発散が低くなることからも裏付けられ、攻撃によってモデルの確率的な振る舞いが抑制され、生成空間が決定論的に崩壊していることが示された。さらに、ドキュメント単位の注意密度の解析から、攻撃下では注意の分布が特定の毒入りドキュメントに過度に集中し、他の事実に基づいたドキュメントへの注意が抑制される「注意の崩壊（Attention Collapse）」が発生することが特定された。これらの知見に基づき、推論時のトークンレベルおよびドキュメントレベルの注意分布（エントロピー、分散、密度など）を特徴量として用いる、軽量な検知手法D-SCANを提案する。この手法は、低計算コストで攻撃の検知と、崩壊を引き起こしている特定の毒入りドキュメントの特定を可能にする。</p></section>
+<section class="secsum"><h3>4. Experiment</h3><p>提案手法であるD-SCANの性能を評価するため、HotpotQA、2Wiki、Musiqueの3つのマルチホップ推論ベンチマークを用い、既存のLLMベースの検知器やHaloScope、ReDeep、RevPRAGといった最新の検知手法と比較実験を行った。実験では、E5-base-v2を用いてWikipediaから取得した5つの文書のうち、2つをPoisonedRAGで生成された毒性文書に置き換えたデータセットを使用し、D-SCANはすべてのベンチマークにおいて最も高い検知性能を達成した。LLMをゼロショット検知器として用いた場合、モデルのパラメータサイズと検知精度の間に正の相関は見られず、大規模モデルほど指示追従性の学習によって検索されたコンテキストを過度に信頼し、検知が困難になる傾向が確認された。また、攻撃が成功してモデルが毒性文書を優先してしまう場合だけでなく、攻撃が失敗して意図した回答を導けなかった場合でも、D-SCANは高い検知精度を維持しており、アテンションの崩壊が攻撃の成否に依存しない毒性文書固有の兆候であることが示された。生成サンプル数を増やすほど精度は向上するものの、単一の生成サンプルを用いた標準的な推論設定でもAUCが0.8を超える高い性能を維持しており、リアルタイム検知への適性が示された。アブレーション研究の結果、トークンレベルとドキュメントレベルの両方の指標を組み合わせることが不可欠であり、特にドキュメントレベルのアテンション指標を除去した際の性能低下が顕著であったことから、文書間をまたぐアテンションの乗っ取りが主要な攻撃信号であることが明らかになった。</p></section>
+<section class="secsum"><h3>5. Conclusion</h3><p>本研究では、メカニズム解釈可能性の手法を用いて、RAG（検索拡張生成）へのポイズニング攻撃下における大規模言語モデルの内部動態を調査しました。分析の結果、モデルの注意力がポイズニングされた証拠に集中する一方で、本来の正しい証拠を抑制してしまうAttention Collapse（注意力の崩壊）という現象が明らかになりました。この知見から、ポイズニング攻撃はモデルの注意力の割り当てメカニズムを乗っ取ることで成功していることが判明しました。これに基づき、推論時の注意力の動態を監視する軽量な攻撃検知手法であるD-SCANを提案します。D-SCANは複数のベンチマークにおいて既存の最先端手法を上回る性能を示し、攻撃が失敗した場合であっても攻撃の試行を検知することが可能です。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-12
+  </footer>
+</div>
+</body>
+</html>

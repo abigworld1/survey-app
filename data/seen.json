@@ -2667,6 +2667,40 @@
       "url": "http://arxiv.org/abs/2608.06672v1",
       "venue": ""
     },
+    "arxiv:2608.07006": {
+      "added": "2026-08-12",
+      "added_at": "2026-08-12T06:09:34.433039",
+      "arxiv_id": "2608.07006",
+      "authors": [
+        "Jiankun Wang",
+        "Yisen Gao",
+        "Ziwei Zhang",
+        "Xingcheng Fu",
+        "Jiaxin Bai",
+        "Chen Gao"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-07",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.07006.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.07006v1",
+      "reading_value": 4,
+      "reading_value_reason": "拡散言語モデル特有の「ソース一貫性の喪失」という現象を鋭く分析しており、エントロピーを用いた学習不要な適応的選択手法は、実用性と新規性のバランスが良い。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Does More Retrieved Evidence Help Visual Retrieval-Augmented Generation with Diffusion Language Models?",
+      "tldr": "拡散言語モデルを用いた視覚的RAGでは、検索候補を増やすと情報の網羅性は向上するものの、矛盾する情報の混入により回答精度が低下する。本研究は、デコード前の初期段階で証拠の有用性を評価し、追加すべき証拠を適応的に選択する手法を提案する。",
+      "url": "http://arxiv.org/abs/2608.07006v1",
+      "venue": ""
+    },
     "arxiv:2608.07458": {
       "added": "2026-08-11",
       "added_at": "2026-08-11T06:06:13.492478",
@@ -2896,6 +2930,40 @@
       "tldr": "反復的な検索拡張生成（iRAG）において、テキスト解析によるレイアウト情報の喪失と根拠提示の粗さを解決するため、ドキュメントのスクリーンショットからピクセルレベルの根拠を特定する視覚的帰属フレームワークChain of Evidence（CoE）を提案する。",
       "url": "https://www.semanticscholar.org/paper/889baea00426c2014358c4e378f73e4fced7d462",
       "venue": "Proceedings of the 49th International ACM SIGIR Conference on Research and Development in Information Retrieval"
+    },
+    "doi:10.1145/3805712.3809904": {
+      "added": "2026-08-12",
+      "added_at": "2026-08-12T06:10:33.603326",
+      "arxiv_id": "2608.06947",
+      "authors": [
+        "Yingtao Ren",
+        "Ziyi Zhao",
+        "Yiwei Fu",
+        "Xiao Luo",
+        "Yu-Cheng Chang",
+        "Chin-Teng Lin"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-07",
+      "doi": "10.1145/3805712.3809904",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.06947.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.06947v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの脆弱性であるポイズニング攻撃に対し、出力の不確実性ではなく内部のアテンション動態に着目した点が非常に独創的。検知手法も軽量で実用的。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "When Context Bites: Detecting RAG Poisoning via Document-Level Attention Collapse",
+      "tldr": "RAGにおけるポイズニング攻撃は、モデルの注意力を悪意のある文書へ過度に集中させる「Attention Collapse（アテンション崩壊）」を引き起こす。本研究は、この内部動態を監視することで攻撃を検知する軽量なフレームワークD-SCANを提案する。",
+      "url": "http://arxiv.org/abs/2608.06947v1",
+      "venue": "SIGIR '26: The 49th International ACM SIGIR Conference on Research and Development in Information Retrieval"
     },
     "doi:10.12732/ijam.v38i3s.163": {
       "added": "2026-07-20",
@@ -6181,6 +6249,37 @@
       "url": "http://arxiv.org/abs/2608.06702v1",
       "venue": ""
     },
+    "arxiv:2608.08175": {
+      "added": "2026-08-12",
+      "added_at": "2026-08-12T06:03:52.365203",
+      "arxiv_id": "2608.08175",
+      "authors": [
+        "Alvin Combrink",
+        "Sabino Francesco Roselli",
+        "Martin Fabian"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-08",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2608.08175.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.08175v1",
+      "reading_value": 4,
+      "reading_value_reason": "連続時間・異種エージェント・タスク順序という高度に一般化されたMAPFに対し、Anytime性と最適性保証を両立させた点は新規性が高く、実用上の価値も大きい。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "AOC-CBS: Anytime-Optimal Continuous-time Conflict-Based Search for Generalised Multi-Agent Path Finding",
+      "tldr": "連続時間、異種エージェント、タスクの順序、および目標到達後の移動を許容する一般化されたマルチエージェント経路計画問題を対象とし、最適解の保証と、実行中に最適性ギャップの上限が既知である暫定解を逐次報告するAnytime特性を両立したAOC-CBSを提案する。",
+      "url": "http://arxiv.org/abs/2608.08175v1",
+      "venue": ""
+    },
     "doi:10.1016/j.artint.2022.103752": {
       "added": "2026-06-14",
       "added_at": "2026-06-14T00:00:00.000005",
@@ -6465,6 +6564,39 @@
       "tldr": "Lifelong Multi-Agent Path Finding (LMAPF) において、CMA-ESを用いて交通パターンに基づきエッジ重みを動的に更新するオンライン・ガイダンス・ポリシーを最適化する手法を提案。PIBTやGPIBTと組み合わせることで、静的なガイダンスや人間が設計したルールよりも高いスループットを達成し、動的なタスク分布下でも有効であることを示した。",
       "url": "http://arxiv.org/abs/2411.16506v2",
       "venue": ""
+    },
+    "doi:10.1609/icaps.v36i1.42860": {
+      "added": "2026-08-12",
+      "added_at": "2026-08-12T06:04:46.041882",
+      "arxiv_id": "2512.09736",
+      "authors": [
+        "Jingtian Yan",
+        "Zhifei Li",
+        "William Kang",
+        "Stephen F. Smith",
+        "Jiaoyang Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-12-10",
+      "doi": "10.1609/icaps.v36i1.42860",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2512.09736.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2512.09736v2",
+      "reading_value": 4,
+      "reading_value_reason": "実環境の物理制約と計画モデルの乖離に着目した、実用性の高い研究。モデル精度と計算量のトレードオフを体系的に分析しており、MAPFの実装者にとって示唆に富む。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Analyzing Planner Design Trade-offs for MAPF under ADG-based Realistic Execution",
+      "tldr": "既存のMAPF評価は簡略化されたモデルに依存しており、実環境での実行性能との乖離がある。本研究は、アクション依存グラフを用いた評価フレームワークSMARTを活用し、プランナーの設計選択が実際の実行性能に与える影響を体系的に分析した。",
+      "url": "http://arxiv.org/abs/2512.09736v2",
+      "venue": "Proceedings of the International Conference on Automated Planning and Scheduling"
     },
     "doi:10.1609/socs.v10i1.18485": {
       "added": "2026-08-09",
