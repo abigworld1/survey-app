@@ -25,11 +25,17 @@ fi
 git_retry() {
   local label="$1"
   shift
-  local attempt
+  local attempt result
   for ((attempt=1; attempt<=git_attempts; attempt++)); do
     echo "$(date +%FT%T) ${label} ${attempt}/${git_attempts}"
     if "$@"; then
       return 0
+    else
+      result=$?
+      # 競合など、待っても直らない状態は無駄に再試行しない。
+      if [ "$result" -eq 2 ]; then
+        return 2
+      fi
     fi
     if [ "$attempt" -lt "$git_attempts" ]; then
       echo "$(date +%FT%T) ${label} failed; retrying in ${git_retry_delay}s"
@@ -40,9 +46,61 @@ git_retry() {
   return 1
 }
 
+rebase_in_progress() {
+  local git_dir
+  git_dir="$(git rev-parse --git-dir)"
+  [ -d "$git_dir/rebase-merge" ] || [ -d "$git_dir/rebase-apply" ]
+}
+
+resolve_generated_index_conflicts() {
+  local conflicts file
+  while rebase_in_progress; do
+    conflicts="$(git diff --name-only --diff-filter=U)"
+    if [ -z "$conflicts" ]; then
+      echo "$(date +%FT%T) rebase stopped without generated-index conflicts"
+      return 2
+    fi
+    while IFS= read -r file; do
+      case "$file" in
+        index.html|mapf-mapd-warehouse/index.html|doc-structure-rag/index.html|reading/index.html)
+          ;;
+        *)
+          echo "$(date +%FT%T) manual rebase resolution required: $file"
+          return 2
+          ;;
+      esac
+    done <<< "$conflicts"
+
+    echo "$(date +%FT%T) rebuilding generated indexes to resolve rebase"
+    .venv/bin/python -m pipeline.run --render-indexes-only
+    git add index.html mapf-mapd-warehouse/index.html \
+      doc-structure-rag/index.html reading/index.html
+
+    if GIT_EDITOR=true git rebase --continue; then
+      continue
+    fi
+    # 次のcommitでも一覧が競合した場合は、whileの先頭で再生成する。
+    if ! rebase_in_progress; then
+      return 2
+    fi
+  done
+  return 0
+}
+
+sync_main() {
+  if git pull --rebase --autostash origin main; then
+    return 0
+  fi
+  if rebase_in_progress; then
+    resolve_generated_index_conflicts
+    return $?
+  fi
+  return 1
+}
+
 # 前日の手動pushや、前回pushに失敗して残ったローカルcommitを統合する。
 before_sync="$(git rev-parse HEAD)"
-git_retry "git sync before pipeline" git pull --rebase --autostash origin main
+git_retry "git sync before pipeline" sync_main
 after_sync="$(git rev-parse HEAD)"
 if [ "$before_sync" != "$after_sync" ] && [ "${SURVEY_DAILY_REEXEC:-0}" != "1" ]; then
   echo "$(date +%FT%T) repository updated; restarting the latest daily script"
@@ -77,7 +135,7 @@ fi
 published=0
 for ((attempt=1; attempt<=git_attempts; attempt++)); do
   echo "$(date +%FT%T) git publish ${attempt}/${git_attempts}"
-  if git pull --rebase --autostash origin main && git push -q origin main; then
+  if sync_main && git push -q origin main; then
     published=1
     echo "$(date +%FT%T) pushed"
     break
