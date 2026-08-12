@@ -2899,6 +2899,38 @@
       "url": "http://arxiv.org/abs/2608.04366v1",
       "venue": "Proceedings of the ACM Web Conference 2026, pages 2661-2672, 2026"
     },
+    "doi:10.1145/3788853.3801609": {
+      "added": "2026-08-13",
+      "added_at": "2026-08-13T06:05:58.728758",
+      "arxiv_id": "2608.09214",
+      "authors": [
+        "Geonho Lee",
+        "Jeongho Park",
+        "Donghyoung Han",
+        "Min-Soo Kim"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-10",
+      "doi": "10.1145/3788853.3801609",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.09214.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.09214v1",
+      "reading_value": 4,
+      "reading_value_reason": "ベクトル・グラフ・リレーショナルの3要素を単一の実行計画で統合する手法は新規性が高く、既存構成に対し数倍〜数桁の性能向上を示しており、RAG研究者にとって有用。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "AkasicDB: Demonstrating Omni RAG with a Unified Vector-Graph-Relational DBMS",
+      "tldr": "ベクトル、グラフ、リレーショナルデータの3要素を単一の実行フレームワーク内でネイティブに統合し、Omni RAGを実現するデータベースシステムAkasicDBを提案する。",
+      "url": "http://arxiv.org/abs/2608.09214v1",
+      "venue": "SIGMOD Companion 2026, pp. 70-73"
+    },
     "doi:10.1145/3805712.3809540": {
       "added": "2026-07-27",
       "added_at": "2026-07-27T06:04:22.081807",
@@ -3535,6 +3567,36 @@
       "title": "RH-RAG: Trustworthy Long-Form Generation for Privacy-Constrained Settings",
       "tldr": "プライバシー制約のある環境下で、ローカルのオープンウェイトモデルを用いて信頼性の高い長文を生成するマルチエージェントフレームワークRH-RAGを提案する。計画、執筆、検証のプロセスを分離し、自然言語推論に基づく修正ループを組み込むことで、事実に基づいた一貫性のある生成を実現する。",
       "url": "http://arxiv.org/abs/2608.01311v1",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2608.09331": {
+      "added": "2026-08-13",
+      "added_at": "2026-08-13T06:05:03.881326",
+      "arxiv_id": "2608.09331",
+      "authors": [
+        "Ambuj Mehrish",
+        "Sebastiano Vascon"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-10",
+      "doi": "10.48550/arxiv.2608.09331",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.09331.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.09331v1",
+      "reading_value": 4,
+      "reading_value_reason": "脳信号からの音声再構成における「事前分布による支配」という重要な課題を特定し、RAGの概念を潜在軌道の初期化に応用した点が非常に独創的。実験も多角的に検証されている。",
+      "relevance": 7,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "RAG-Audio: Retrieval-Augmented Generation for Faithful Brain-to-Audio Reconstruction",
+      "tldr": "脳信号からの音声再構成において、強力な生成器の事前知識が微弱な脳由来信号を上書きしてしまう「事前分布による支配」という課題に対し、検索された音声例示を用いて生成器のサンプリング軌道を初期化するRAG-Audioを提案する。これにより、生成能力を維持したまま、再構成された音声の識別精度を検索ベースラインと同等のレベルまで回復させる。",
+      "url": "http://arxiv.org/abs/2608.09331v1",
       "venue": ""
     },
     "doi:10.5753/latinoware.2025.16269": {
@@ -6988,6 +7050,71 @@
       "tldr": "高密度環境において目的地を持つターゲットエージェントと、空間を占有する目的地を持たない妨害エージェントが混在するMAPF-HD問題を定義し、空きマスとエージェントを段階的に入れ替えるPHANS手法を提案することで、大規模環境でも数秒以内での経路計画を実現した。",
       "url": "http://arxiv.org/abs/2509.06374v2",
       "venue": "IEEE Robotics &amp; Automation Magazine"
+    },
+    "doi:10.48550/arxiv.2511.22685": {
+      "added": "2026-08-13",
+      "added_at": "2026-08-13T06:03:25.508318",
+      "arxiv_id": "2511.22685",
+      "authors": [
+        "Haoyi Wang",
+        "Licheng Luo",
+        "Yiannis Kantaros",
+        "Bruno Sinopoli",
+        "Mingyu Cai"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 1,
+      "date": "2025-11-27",
+      "doi": "10.48550/ARXIV.2511.22685",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2511.22685.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2511.22685v2",
+      "reading_value": 4,
+      "reading_value_reason": "RLの反応性とMAPFの整合性を、デッドロック検知時のみ介入する形で統合した点が極めて実用的。分散制御の利点を活かしつつ、ボトルネック問題を解決する構成は、マルチロボット航行の研究者にとって優先的に読む価値がある。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Deadlock-Free Hybrid RL-MAPF Framework for Zero-Shot Multi-Robot Navigation",
+      "tldr": "強化学習による分散型ナビゲーションが狭い通路などでデッドロックに陥る問題に対し、デッドロック検知時のみ局所的なマルチエージェント経路計画（MAPF）を起動するハイブリッドフレームワークを提案し、高い成功率を実現した。",
+      "url": "http://arxiv.org/abs/2511.22685v2",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2512.06796": {
+      "added": "2026-08-13",
+      "added_at": "2026-08-13T06:02:20.829177",
+      "arxiv_id": "2512.06796",
+      "authors": [
+        "Akmaral Moldagalieva",
+        "Keisuke Okumura",
+        "Amanda Prorok",
+        "Wolfgang Hönig"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 1,
+      "date": "2025-12-07",
+      "doi": "10.48550/ARXIV.2512.06796",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2512.06796.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2512.06796v3",
+      "reading_value": 5,
+      "reading_value_reason": "MAPFの拡張性と動力学制約の両立という難題に対し、不連続性を許容する新原理とHEST等の具体的な手法で解決しており、実機検証も含む極めて完成度の高い研究である。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "db-LaCAM: Fast and Scalable Multi-Robot Kinodynamic Motion Planning with Discontinuity-Bounded Search and Lightweight MAPF",
+      "tldr": "ロボットの動力学制約を考慮しつつ、大規模なマルチロボット環境でも高速かつスケーラブルに動作する、不連続性を許容する探索ベースの経路計画手法db-LaCAMを提案する。運動プリミティブ間の厳密な連続性をユーザー定義の範囲内で緩和することで、計算負荷を抑えながら動力学的に実行可能な軌道を生成する。",
+      "url": "http://arxiv.org/abs/2512.06796v3",
+      "venue": "Proceedings of the International Conference on Automated Planning and Scheduling 2025"
     },
     "doi:10.48550/arxiv.2512.12243": {
       "added": "2026-08-10",

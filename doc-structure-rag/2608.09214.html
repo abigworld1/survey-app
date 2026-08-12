@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>AkasicDB: Demonstrating Omni RAG with a Unified Vector-Graph-Relational DBMS | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>AkasicDB: Demonstrating Omni RAG with a Unified Vector-Graph-Relational DBMS</h1>
+  <div class="meta">Geonho Lee, Jeongho Park, Donghyoung Han, Min-Soo Kim<br>採択先: SIGMOD Companion 2026, pp. 70-73 ・ 2026-08-10 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.09214v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.09214v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1145/3788853.3801609" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 SIGMOD Companion 2026, pp. 70-73</span><span class="chip">公開日 2026-08-10</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">ベクトル・グラフ・リレーショナルの3要素を単一の実行計画で統合する手法は新規性が高く、既存構成に対し数倍〜数桁の性能向上を示しており、RAG研究者にとって有用。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> ベクトル、グラフ、リレーショナルデータの3要素を単一の実行フレームワーク内でネイティブに統合し、Omni RAGを実現するデータベースシステムAkasicDBを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>検索拡張生成（RAG）では、非構造化テキストのベクトル類似度検索、エンティティ間の関係性を辿るグラフ探索、および構造化属性に基づくリレーショナルなフィルタリングの統合が求められる。しかし、従来のアーキテクチャでは、複数の専門的なデータベースをアプリケーション層で組み合わせる手法による中間データの転送オーバーヘッドや、既存データベースの拡張機能を用いる手法による実行効率の低下が課題となっていた。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>グラフと関係データの統合クエリ処理を実現した先行研究Chimeraに対し、ネイティブなベクトルサポートを拡張することで、3つのデータモダリティを単一の実行フレームワーク内で調整可能なアーキテクチャを実現した。これにより、ベクトル・グラフ・リレーショナルの各操作を単一の実行計画内でシームレスに構成することを可能にした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>ストレージ層では、隣接リストによるグラフ構造、PostgreSQLベースのリレーショナル構造、およびセグメントと呼ばれるディスクベースのベクトル構造を共存させ、共通のトランザクションマネージャによってデータの一貫性を保証する。クエリ処理層では、グラフ探索とリレーショナルな結合を同時に行うTraversal-Join演算子を拡張し、近似最近傍探索をイテレータ形式の演算子として組み込んでいる。これにより、各検索様式を単一の実行計画内で逐次的に生成し、最終的な件数制限を効率的に適用する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Agriculture、CS、Legal、Mixの4つのデータセットを用い、PostgreSQLの拡張機能構成、Neo4jとMilvusの外部統合構成、およびNeo4jのベクトル拡張構成と比較した。評価指標には、LLMによる回答の勝率と、最初のトークン生成までの時間（TTFT）を用いた。実験の結果、Omni RAGはVector RAGと比較して回答の勝率が4から28パーセントポイント向上した。また、選択率20%の設定において、AkasicDBは最も低い検索時間を達成し、PGVector+AGE構成と比較して数桁、Neo4jとMilvusの構成と比較して2から9倍のレイテンシ削減を実現した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>生成時間は主にLLMの推論に依存するため、検索時間の短縮が必ずしも全体のレイテンシ削減に直結しない場合がある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>AkasicDB: Demonstrating Omni RAG with a Unified Vector-Graph-Relational DBMS Conference: Companion of the International </h3><p>AkasicDBは、ベクトル類似性検索、グラフ探索、およびリレーショナルなフィルタリングを単一の実行フレームワーク内で統合的に実行することで、Omni RAGと呼ばれる検索拡張生成ワークフローをネイティブにサポートするデータベースシステムです。従来のRAGシステムは、ベクトル検索と構造化知識を組み合わせる際に、データベース外のパイプラインや非ネイティブな統合に依存していたため、高いオーバーヘッドが生じるという課題がありました。本システムは、先行研究であるChimeraにネイティブなベクトルサポートを拡張することで、ベクトル・グラフ・リレーショナルの3要素を統合した実行を実現しています。デモンストレーションでは、対話型のチャット形式を通じて、ベクトルのみの手法と比較した際の検索および推論における優位性を示すとともに、既存のデータベースアーキテクチャがOmni RAGをサポートする際の限界を可視化しています。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>Retrieval-Augmented Generation (RAG)は、外部知識を用いて大規模言語モデルの事実性と推論能力を向上させる手法ですが、既存の多くはベクトル類似度に基づく検索に依存しています。近年の研究では、グラフ探索を用いるGraph RAGや、関係述語を用いて検索範囲を制限するFiltered vector searchが登場していますが、これらは個別に発展しており、ベクトル、グラフ、関係データの3要素を単一のワークフロー内で統合的に扱う仕組みは存在しません。この課題は、これら全ての検索様式を単一の実行フレームワーク内でネイティブに統合できるデータベースアーキテクチャが欠如していることに起因します。本論文では、グラフと関係データの統合クエリ処理を実現したChimeraを基盤とし、ベクトル検索機能をネイティブに拡張したAkasicDBを提案します。AkasicDBは、ベクトル類似度検索、グラフ探索、および関係フィルタリングを同一の実行フレームワーク内で実現するOmni RAGを可能にします。本研究では、Webインターフェースを通じてこれら3つのデータ形式を可視化しながらRAGを実行するデモンストレーションを行い、従来のベクトルのみの手法や、外部システムを組み合わせた統合手法、あるいは拡張機能を用いた非ネイティブな統合手法と比較して、Omni RAGの有効性と実用的な優位性を示します。</p></section>
+<section class="secsum"><h3>2. Omni RAG</h3><p>Vector RAGは、ユーザーの質問と文書の断片を共通のベクトル空間に埋め込み、その類似度に基づいて関連するテキストを検索する手法であり、大規模な非構造化テキストの活用に有効である。これに対しGraph RAGは、文書内のエンティティ間の関係性を明示的に構築した知識グラフを利用し、個別のテキスト断片ではなくエンティティ間のつながりを辿ることで、より包括的な文脈を提供することを目指す。また、Filtered vector searchは、タイムスタンプやエンティティの種類といった構造化されたメタデータを用いて検索範囲を制限することで、検索の精度を向上させる。本論文では、これら補完的な手法を統合したOmni RAGを定義しており、これは非構造化テキストに対するベクトル類似度検索、エンティティ間の関係性を辿るグラフ探索、および構造化属性に基づくリレーショナルなフィルタリングを、各モダリティから何を検索すべきかを明示的に指定しながら共同で行う枠組みである。</p></section>
+<section class="secsum"><h3>3. AkasicDB System Overview</h3><p>既存のOmni RAGの実装では、複数の専門的なデータベースを個別に操作してアプリケーション層で結果を統合する手法が一般的ですが、各システムの選択性が事前に不明なため、必要以上に多くの中間データを生成・転送することになり、遅延やリソースの浪費を招く課題があります。また、拡張機能を用いて単一のクエリで記述できるシステムであっても、グラフ探索がリレーショナルな結合に変換されたり、ベクトル検索が汎用的な配列として処理されたりするため、実行効率が低いという問題があります。AkasicDBは、ベクトル、グラフ、リレーショナルデータの専用ストレージと、それらを単一の実行フレームワーク内で調整する統合クエリ処理層を備えた、ネイティブな統合アーキテクチャを採用しています。ストレージ面では、隣接リストによるグラフ構造、PostgreSQLベースのリレーショナル構造、およびセグメントと呼ばれるディスクベースのベクトル構造を共存させ、共通のトランザクションマネージャによってデータの一貫性を保証しています。クエリ処理においては、グラフの探索とリレーショナルな結合を同時に行うTraversal-Join演算子を拡張し、近似最近傍探索をイテレータ形式の演算子として組み込んでいます。これにより、ベクトル、グラフ、リレーショナル操作を単一の実行計画内でシームレスに構成し、最終的な件数制限を効率的に適用することが可能になります。</p></section>
+<section class="secsum"><h3>4. Demonstration Scenarios</h3><p>AkasicDBのデモンストレーションは、RAGモードと対象システムの選択、知識ドメイン、LLM、および質問の入力から始まり、回答生成と検索統計の確認に至る6つのステップで構成される。検索統計の検証では、グラフの頂点やエッジの走査数、リレーショナルな実体の選択数、テキストチャンクの取得数といったモダリティごとの詳細を確認でき、グラフ、リレーショナル、チャンクの各ビューを用いて視覚的な詳細調査が可能である。シナリオ1では、同一の質問に対してVector RAGとOmni RAGの回答を並べて表示し、ユーザーによる投票とLLMを用いた評価の両面から回答の質を比較できる。シナリオ2では、バックエンドシステムや日付範囲を変更して検索の選択性を制御することで、検索時間と生成時間を個別に計測し、データベースアーキテクチャがRAGの応答性能に与える影響を直接比較できる。</p></section>
+<section class="secsum"><h3>5. Experiments</h3><p>UltraDomainベンチマークから派生したAgriculture、CS、Legal、Mixの4つのデータセットを用い、AkasicDBの性能を、PostgreSQLの拡張機能を用いた構成、Neo4jとMilvusを組み合わせた外部統合構成、およびNeo4jのベクトル拡張を用いた構成と比較評価しています。評価指標として、LLMを用いた回答の勝率と、検索および生成時間を含む最初のトークン生成までの時間（TTFT）を用いています。実験の結果、Omni RAGはすべてのデータセットにおいてVector RAGよりも回答の勝率が4から28パーセントポイント高く、特にMixデータセットで最大の改善が見られました。これは、グラフ、リレーショナル、ベクトルの情報を統合的に活用することが、ベクトルのみの検索よりも正確な回答につながることを示しています。システム効率の面では、選択率20パーセントの設定において、AkasicDBはすべてのデータセットで最も低い検索時間を達成し、PGVector+AGEと比較して数桁、Neo4jとMilvusの構成と比較して2から9倍のレイテンシ削減を実現しています。</p></section>
+<section class="secsum"><h3>6. Conclusions</h3><p>本デモンストレーションでは、ベクトル、グラフ、リレーショナルデータを単一のシステム内で効率的に処理し、Omni RAGを実現する統合データベース管理システムであるAkasicDBを提示した。既存のアーキテクチャではOmni RAGの実装が困難であるという課題に対し、AkasicDBはこれらを統合的に扱うことで対応している。インタラクティブなシナリオを通じて、ユーザーはベクトル検索のみを用いたRAGとOmni RAGによる応答の品質を比較できるほか、システム間での性能差を直接確認することが可能である。総じて、本デモンストレーションは、新たなRAGワークロードにおいて、ベクトル・グラフ・リレーショナル処理を統合することの実用的な利点を示している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-13
+  </footer>
+</div>
+</body>
+</html>

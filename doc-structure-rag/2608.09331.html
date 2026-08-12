@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>RAG-Audio: Retrieval-Augmented Generation for Faithful Brain-to-Audio Reconstruction | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>RAG-Audio: Retrieval-Augmented Generation for Faithful Brain-to-Audio Reconstruction</h1>
+  <div class="meta">Ambuj Mehrish, Sebastiano Vascon<br>採択先: 未取得 ・ 2026-08-10 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.09331v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.09331v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2608.09331" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-08-10</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 7</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">脳信号からの音声再構成における「事前分布による支配」という重要な課題を特定し、RAGの概念を潜在軌道の初期化に応用した点が非常に独創的。実験も多角的に検証されている。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 脳信号からの音声再構成において、強力な生成器の事前知識が微弱な脳由来信号を上書きしてしまう「事前分布による支配」という課題に対し、検索された音声例示を用いて生成器のサンプリング軌道を初期化するRAG-Audioを提案する。これにより、生成能力を維持したまま、再構成された音声の識別精度を検索ベースラインと同等のレベルまで回復させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>被験者が聴取した音声とそれに対応するfMRI信号のペアデータを用い、未知のスキャンデータから元の音声を再構成する。fMRIは時間的に粗い測定であるため、波形レベルではなくCLAPを用いた意味的な音声空間での再構成を対象とする。従来の「デコード後に生成する」手法では、事前学習済み生成器が脳由来の条件信号よりも自身の学習済み分布を優先してしまい、音響的には自然だが刺激内容とは異なる音声を生成してしまう「事前分布による支配」という困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>音声ドメインにおいて、生成器の事前知識が脳由来の条件付けを圧倒する「事前分布による支配」という現象を定量的に特定した。これに対し、検索によって得られた音声例示を生成プロセスの初期値として利用する「エグゼンプラー・アンカリング」を提案する。単なる検索結果の利用ではなく、潜在空間におけるサンプリング軌道の初期化を行うことで、検索手法と同等の識別性を保ちつつ、新しい音声を生成できる新規性を実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>fMRI信号をCLAP埋め込みへとデコードし、メモリバンクから最も類似度の高い訓練データの音声例を検索する。拡散モデルであるAudioLDMを用いる場合は、検索された例の潜在変数を部分的にノイズ化して中間的な拡散ステップまで戻してから逆拡散を開始する。フローベースモデルであるTangoFluxを用いる場合は、例の潜在変数とガウスノイズを決定論的に補間することで軌跡を初期化する。このアンカリング強度の調整により、検索された音声への忠実度と生成される音声の新規性の間のトレードオフを制御する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Brain2Musicデータセットを用い、5名の被験者の音楽聴取データで評価を行った。比較手法として、直接生成、検索のみ、および提案手法を、AudioLDM、TangoFlux、MusicGenの各生成器で検証した。10クラスの刺激識別率において、直接生成では0.14から0.18（偶然レベルに近い）であったものが、提案手法では0.40から0.43へと向上し、検索手法に匹敵する精度を示した。また、AudioLDMを用いた場合、FAD（Fréchet Audio Distance）を13.49から1.25へと約1桁減少させた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、初期化可能な潜在軌道を持つ拡散モデルやフローベースモデルには適用できるが、軌跡を持たない自己回帰モデルには適用できない。また、メモリバンクの内容は学習時の刺激に限定されるため、学習に含まれないコンテンツを再構成することはできない。アンカリング強度はハイパーパラメータであり、最適な値は生成器やデータセットに依存する。今後の課題として、音楽以外の音声や環境音への転用、および波形レベルでの正確な復元に関する検証が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>RAG-Audio: Retrieval-Augmented Generation for Faithful Brain-to-Audio Reconstruction</h3><p>脳信号からの音声再構成において、事前学習済み生成器が弱い神経信号に依存しすぎることで、音響的には自然だが刺激内容とは異なる音声を生成してしまう「事前知識の支配」という課題に対し、RAG-Audioを提案する。この手法は、fMRI信号から意味的な音声埋め込みをデコードし、それに対応する実音声の例示を検索することで、凍結された生成器のサンプリング軌道をその例示から初期化しつつ、デコードされた埋め込みを条件付けとして保持する。Brain2Musicデータセットを用いた実験では、直接生成による10クラスの刺激識別率が、偶然レベルに近い値から、検索手法に匹敵する高い精度へと向上した。また、AudioLDMを用いた場合のFréchet Audio Distance（FAD）を、18.4から1.8へと約1桁分減少させている。初期化可能な潜在軌道を欠く自己回帰的なネガティブコントロールでは同様の改善が見られなかったことから、この性能向上は軌道の初期化に起因すると示されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>脳活動から音声を再構成する際、既存の「デコード後に生成する」手法では、強力な事前学習済み生成器が脳由来の微弱な条件信号よりも自身の学習済み分布を優先してしまう「事前分布による支配（prior domination）」という問題が発生します。Brain2Musicデータセットを用いた実験では、fMRIからCLAP埋め込みへのデコード精度は0.43と高いものの、その埋め込みをAudioLDMやMusicGenなどの生成器に渡すと、生成された音声の識別精度は偶然レベルまで低下することが示されています。この課題に対し、本研究では「エグゼンプラー・アンカリング（exemplar anchoring）」という検索拡張生成の手法を提案します。具体的には、デコードされた表現に最も近い訓練データの音声クリップを検索し、その潜在変数にノイズを加えて拡散モデルのサンプリング途中の初期値として使用するか、あるいはフローベースモデルにおいて決定論的な軌道補間を行うことで、生成器が検索された音声の構造を維持したまま細部を洗練できるようにします。この手法は、アンカリング強度を調整することで忠実度と新規性のトレードオフを制御可能であり、MusicGenのような初期化軌道を持たない自己回帰モデルでは改善が見られないことから、単なる検索ではなく潜在軌道の初期化が有効であることが示されています。結果として、提案手法は生成能力を維持したまま、識別精度を非生成的な検索ベースラインと同等まで回復させ、AudioLDMではFADを15.4、TangoFluxでは11.3減少させることに成功しました。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>脳信号からの音声再構成に関する既存研究は、近傍探索による手法から拡散モデルを用いた制約のない生成手法まで多岐にわたるが、脳信号が生成器の事前知識に対して弱い場合に、出力が元の刺激から乖離してしまう「事前知識による支配（prior domination）」という課題がある。本研究では、この現象を音声ドメインにおいても定量的に示し、聴覚皮質の階層構造に基づいたデコーダの局在化分析を行う。提案手法であるRAG-Audioは、検索によって得られた音声の例示を初期値として生成プロセスを開始する。具体的には、デコーダがfMRI応答からCLAP埋め込みを抽出し、それに基づき最も近い音声例示を検索して、その埋め込みに対してノイズを加えて中間的な拡散ステップまで戻した後、凍結された生成器でデノイズを行う。このプロセスにおいて、加えるノイズの強さを調整することで、検索された音声の忠実度と生成される音声の新規性のバランスを制御することが可能である。</p></section>
+<section class="secsum"><h3>3 Problem Setup</h3><p>本研究では、被験者が聴取した音声クリップと、それに対応するfMRIによる脳活動記録のペアデータを用いて、未知のスキャンデータから元の音声を再構成する問題を定義している。fMRIは神経活動の間接的かつ時間的に粗い測定であるため、波形レベルではなく、CLAPを用いた意味的な音声空間での再構成を目的とする。手法は、学習済みのデコーダがfMRI応答から予測される意味的埋め込みを生成し、その後に凍結された事前学習済み音声生成器を用いて音声を合成する、デコード後に生成を行うパイプラインを採用している。評価指標にはk-way identificationを用い、真の刺激と複数の妨害刺激の中から、再構成された音声が真の刺激とどれだけ意味的に一致しているかをコサイン類似度に基づいて測定する。この指標は、波形の正確な復元ではなく、意味内容の保持を評価するものである。また、音声生成器が持つ強力な事前知識が、脳由来のノイズの多い条件付けを上回ってしまう「事前知識による支配（prior domination）」という現象を考慮しており、生成器が音響的な妥当性を保ちつつも、デコードされた埋め込みに含まれる刺激情報を捨ててしまう課題を解決することを目指している。</p></section>
+<section class="secsum"><h3>4 Method</h3><p>RAG-Audioは、fMRI応答から音声を再構成するための検索拡張生成パイプラインである。まず、fMRI信号をCLAP埋め込みへとデコードし、メモリバンクから最も類似度の高い訓練データの例を検索した後、その例を凍結された生成モデルのサンプリング軌跡の中間時刻における初期値として利用する。デコーダは、CLAPターゲットとの関連性に基づいてランク付けされたボクセルを選択し、InfoNCE損失を用いることで、デコードされたスキャンが対応する音声埋め込みに近く、かつバッチ内の他のクリップから離れるように学習される。生成プロセスにおいて、AudioLDMのような拡散モデルでは、検索された例の潜在変数を部分的にノイズ化してから逆拡散を開始し、TangoFluxのようなフローベースのモデルでは、例の潜在変数とガウスノイズを決定論的に補間することで軌跡を初期化する。このアンカリング強度の調整により、検索された内容への忠実度と生成される新規性の間のトレードオフを制御でき、実験では0.2から0.8の範囲が有効な動作範囲として示されている。Brain2Musicデータセットを用いた評価では、この手法により識別性能が検索レベルまで向上し、AudioLDMおよびTangoFluxにおいてFADを最大で4.5減少させたが、潜在軌跡を持たないMusicGenでは同様の効果は得られなかった。</p></section>
+<section class="secsum"><h3>5 Experimental Setup</h3><p>本実験では、5名の被験者がGTZANの10ジャンルからなる15秒間の音楽を聴取した際のfMRI記録を含むBrain2Musicデータセットを用い、480個の訓練用クリップと60個のテスト用クリップを用いて評価を行います。音声生成器には、中間時刻の軌道初期化が可能なAudioLDMおよびTangoFlux、ならびに例示による初期化が不可能な自己回帰モデルであるMusicGenの3種類を使用し、いずれもパラメータは固定します。比較手法として、脳活動のみを用いるDirect、訓練データから最も近い実音源を返すRetrieval、および提案手法である中間時刻の例示アンカリングを適用するRAG-Audioの3つを設定します。評価指標は、CLAP空間における10クラス分類の識別精度を用いて意味的な忠実度を、FAD、FD、およびKLダイバージェンスを用いて音声のリアリズムを、さらに訓練データとのコサイン類似度を用いて新規性を測定します。実装においては、ANTsPyによる剛体運動補正を行った後、上位ボクセルを選択し、アンカリング強度を変化させながら温度パラメータを用いて対照学習デコーダを訓練します。</p></section>
+<section class="secsum"><h3>6 Results</h3><p>対照学習を用いたfMRIからCLAP埋め込みへのデコーダは、回帰ベースの手法と比較して次元ごとの相関は低いものの、10クラス識別において高い精度を達成し、刺激の識別能力に優れています。このデコーダが注目するボクセルは、聴覚処理に関連する両側の側頭上回に集中しており、スキャナのアーティファクトではなく刺激に関連した聴覚活動に基づいていることが示されています。従来の「デコード後に生成する」手法では、生成器が自身の事前学習済み知識に強く支配される「事前分布による支配（prior domination）」が発生し、デコードされた情報が十分に活用されず、識別精度やCLAP類似度が著しく低下します。提案手法であるRAG-Audioは、検索された例示を用いて潜在拡散モデルの軌道を初期化する「例示アンカリング（exemplar anchoring）」を行うことで、識別精度を検索結果と同等のレベルまで回復させ、FADなどの評価指標を大幅に改善します。RAG-Audioは、検索された音声をそのまま返すのではなく、刺激の構造を維持しつつ新しい音声を生成するため、検索手法と同等の識別性を保ちながら、より高い新規性を実現しています。この性能向上は、単に例示を条件として与えるだけでは不十分であり、潜在空間における中間的な軌道の初期化が、刺激の忠実度を回復させる鍵であることを示しています。</p></section>
+<section class="secsum"><h3>7 Discussion</h3><p>脳信号から音声を再構成する際、事前学習済み生成器が持つ自然な音声の強い事前分布が、ノイズの多い脳信号による条件付けを圧倒してしまい、入力刺激とは無関係な流暢な音声が生成されることが失敗の主な要因である。RAG-Audioは、検索された実音声の例示を用いてサンプリングの軌跡を固定することで、生成器の事前分布による支配を抑制し、アンカリングの強さに応じて忠実性と新規性のトレードオフを制御可能にする。この手法は潜在空間における連続的な軌跡の初期化を利用しているため、潜在拡散モデルやRectified Flowモデルには適用できるが、軌跡を持たない自己回帰モデルには適用できない。実験では、自己回帰モデルであるMusicGenでは検索例を用いても識別精度がわずかに向上するのみであったが、AudioLDMやTangoFluxでは検索レベルの精度まで回復しており、単なる検索結果の利用ではなく軌跡の初期化が動作の核心であることを示している。本手法は、FAD（Fréchet Audio Distance）において検索のみを行う手法を上回ることはできないが、直接生成と比較してFADを約1桁改善しており、既存の訓練データをそのまま再生するのではなく、聴取した刺激への忠実性を保ちつつ新しい音声を生成できる点に独自の価値がある。</p></section>
+<section class="secsum"><h3>8 Limitations</h3><p>本研究にはいくつかの限界が存在する。まず、単一のデータセットかつ音楽という単一のモダリティのみを対象としているため、音声や環境音への転用については未検証である。メモリバンクの内容は学習時の刺激に限定されており、RAG-Audioは参照可能な範囲内のコンテンツにアンカー（固定）されるため、学習に含まれない内容を再構成することはできない。また、事例へのアンカリングには初期化可能な潜在軌跡が必要となるため、自己回帰型の生成器には拡張できない。評価指標として用いた識別手法は、CLAP空間における意味的な一致度を測定するものであり、波形のサンプル単位での正確な復元を保証するものではないため、スペクトログラムの結果を厳密な再構成の証拠と見なすべきではない。最後に、アンカリングの強さはハイパーパラメータであり、最適な値は生成器やデータセットによって異なる可能性がある。</p></section>
+<section class="secsum"><h3>9 Conclusion</h3><p>本研究では、脳信号から音声を再構成する際、デコードされた埋め込み表現が識別可能であっても、強力な生成モデルを適用すると再構成結果が偶然と同程度の精度まで崩壊してしまう「prior domination（事前分布による支配）」という失敗モードを特定した。この問題に対し、検索された実音声クリップを初期値として生成器のサンプリング軌道を制御する「exemplar anchoring」を提案し、拡散モデルにおけるノイズ付加やフローモデルにおける補間を用いることで、生成の自由度を保ちつつ検索レベルの識別性能を回復させた。実験の結果、この手法はFAD（Fréchet Audio Distance）を約1桁改善することに成功した。自己回帰的なネガティブコントロール実験により、この改善効果は検索そのものではなく、潜在空間における軌道の初期化に起因することが示された。本研究は、脳信号から画像への変換タスクで定性的に報告されていた失敗モードを、生成器の性能向上に伴いより顕著になる定量的な特性として定義した。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-13
+  </footer>
+</div>
+</body>
+</html>

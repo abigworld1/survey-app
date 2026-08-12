@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Deadlock-Free Hybrid RL-MAPF Framework for Zero-Shot Multi-Robot Navigation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Deadlock-Free Hybrid RL-MAPF Framework for Zero-Shot Multi-Robot Navigation</h1>
+  <div class="meta">Haoyi Wang, Licheng Luo, Yiannis Kantaros, Bruno Sinopoli, Mingyu Cai<br>採択先: 未取得 ・ 2025-11-27 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2511.22685v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2511.22685v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/ARXIV.2511.22685" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-11-27</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 1</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RLの反応性とMAPFの整合性を、デッドロック検知時のみ介入する形で統合した点が極めて実用的。分散制御の利点を活かしつつ、ボトルネック問題を解決する構成は、マルチロボット航行の研究者にとって優先的に読む価値がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 強化学習による分散型ナビゲーションが狭い通路などでデッドロックに陥る問題に対し、デッドロック検知時のみ局所的なマルチエージェント経路計画（MAPF）を起動するハイブリッドフレームワークを提案し、高い成功率を実現した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>障害物のある静的な2次元空間において、複数の円形エージェントが各々の目標地点へ到達するマルチロボット航行を対象とする。従来の強化学習ベースの分散型手法は、学習時とは異なる未知の環境構成や、狭い通路・閉鎖的な空間において、エージェント同士が相互回避を繰り返すことで進展できなくなるデッドロックが発生するという課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>デッドロックの兆候を検知した際のみ限定的に介入するトリガー型の構成を採用している点が新規である。分散的な高速応答性を維持する強化学習ポリシーをベースとしつつ、必要に応じてのみMAPFを用いてエージェントの順序を再構成することで、計算負荷を抑えながらトポロジカルな停滞を解消する枠組みを実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>通常時、エージェントはグローバルなウェイポイントを追従しながら、近傍の幾何学的特徴や衝突までの時間などの観測に基づき、強化学習ポリシーによって速度増分を出力する。エージェントの進展停滞や衝突リスクを監視する検知層がデッドロックを特定すると、関与する最小限のエージェントと周辺のサブグリッドを対象に、Push-and-Rotateアルゴリズムを用いたMAPFを実行する。MAPFによって生成された高密度なウェイポイントリストを、既存の強化学習ポリシーが追従することで、動的な回避能力を維持したままデッドロックを解消する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>ドアウェイ（短いボトルネック）と廊下（長い単一車線のボトルネック）の2つのシナリオにおいて、全エージェントが衝突なく目標に到達した割合である成功率を評価指標として、強化学習のみの手法と比較した。ドアウェイでは譲り合いによる停滞を解消し、高密度な廊下シナリオでは強化学習のみの手法で見られた成功率の急激な低下を抑制して、高い成功率を維持できることを示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>デッドロック検知の適応化、介入対象となるサブ領域のサイズの動的な決定、および成功率と計算効率のバランスを最適化するためのソルバー選択が今後の課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Deadlock-Free Hybrid RL-MAPF Framework for Zero-Shot Multi-Robot Navigation</h3><p>本研究は、複雑な環境下でのマルチロボット航行において、強化学習による反応的な衝突回避と、必要に応じて呼び出されるマルチエージェント経路計画（MAPF）を統合したハイブリッドフレームワークを提案している。従来の強化学習ベースの手法は、学習時とは異なる未知の環境構成に遭遇すると、狭い通路や閉鎖的な空間でデッドロックが発生し、汎化性能が低下するという課題がある。提案手法は、エージェントの進行状況を監視してデッドロックを検知するセーフティレイヤーを備えており、検知時には影響を受けるエージェントに対して調整コントローラーを起動する。このコントローラーは、MAPFを通じてグローバルに実行可能な軌道を構築し、ウェイポイントへの進行を制御することで、エージェント間の衝突を抑制する。高密度なマルチエージェントのベンチマークを用いた評価では、タスク完了率が大幅に向上し、デッドロックと衝突が減少することが示された。さらに、階層的なタスク計画と組み合わせることで、異種ロボット間での協調航行においても、ゼロショットでの堅牢な性能を発揮する。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>障害物が多い環境でのマルチエージェント長距離ナビゲーションにおいて、強化学習を用いた分散型手法は未知の環境への汎化性能に課題があり、またウェイポイント追従型であっても、エージェントが狭い通路などで相互回避を繰り返して進展できなくなるデッドロックが発生する問題があります。本研究では、デッドロックを検知した際のみ局所的な調整を行う、トリガー型のハイブリッドフレームワークを提案します。通常時、エージェントはグローバルなウェイポイントを追従しながら、強化学習ポリシーと相互回避を用いて自律的に移動します。軽量なデッドロック検知器がボトルネック付近での停滞を検知すると、関与するエージェントのみを対象に、局所的なグリッド上でのマルチエージェント経路計画（MAPF）を実行して、時間順に並んだ高密度なウェイポイントリストを生成します。低レベルの制御器には強化学習ポリシーをそのまま使用するため、生成された高密度なウェイポイントを追従しつつ、動的な回避行動を継続することが可能です。この手法により、デッドロック解消時のみ限定的に調整を行うことで、分散型の効率性を維持しながら、狭い通路やすれ違いが発生する場面でのデッドロックを回避します。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>深層強化学習を用いたマルチロボットナビゲーションは、近傍の観測から連続的な制御出力を得る分散型の衝突回避手法として発展しており、アテンション機構の導入やセンサーレベルでの学習により、多様な環境やエージェント数への対応が進んでいます。これらの手法は短期間の反応性やスケーラビリティに優れる一方、ボトルネックや対称的な状況において、局所的な判断に陥り長距離の整合性が失われる課題があります。一方、MAPF（Multi-Agent Path Finding）は離散的な抽象空間で衝突のない経路を計画する手法であり、Conflict-Based Searchなどのアルゴリズムによって解の品質や実現可能性が保証されます。既存のハイブリッド手法では、グローバルな経路計画と局所的な回避制御を組み合わせ、デッドロックの兆候を検知した際にMAPFを呼び出す構成が取られています。本研究は、この構成において局所制御部分を、RVO（Reciprocal Velocity Obstacle）の概念を取り入れて報酬設計を行った強化学習ポリシーに置き換えることで、分散的な高速応答性を維持しつつ、必要に応じてのみMAPFを用いてエージェントの順序を再構成し、デッドロックを解消する枠組みを提案しています。</p></section>
+<section class="secsum"><h3>3 Problem Formulation</h3><p>本研究では、障害物のある静的な2次元空間において、円形の複数のエージェントが各々の開始地点から目標地点へ到達することを目指す問題を扱う。各エージェントは半径、状態、位置、速度、および速度制限を持ち、一定の通信範囲内にある近傍エージェントと、衝突回避やデッドロック解消に必要な局所的な情報のみを交換する。通常時は、局所的な観測に基づいて目標への進行と衝突回避を両立させる分散型のハイブリッド制御ポリシーに従い、各エージェントが瞬時の速度を選択する。エージェントの進行が停滞したり、互いに譲り合って動けなくなるような状況が発生したりした場合、特定の述語条件に基づきデッドロックを検出し、関与するエージェントと障害物を含むグリッド状の局所領域に対して、マルチエージェント経路計画（MAPF）のサブ問題を構築する。このサブ問題では、現在の位置を開始地点、局所的なウェイポイントを目標地点として、MAPFソルバーが短期間の共同計画を計算し、エージェントはそれを同期的に実行した後に再び分散型ポリシーへと戻る。本フレームワークの目的は、未知の混雑した環境において、分散型ポリシーの効率性と応答性を維持しつつ、デッドロック検知、局所領域の構築、およびMAPFソルバーを統合することで、チーム全体の成功率を最大化することである。</p></section>
+<section class="secsum"><h3>4 Methodology</h3><p>本手法は、分散型の強化学習（RL）によるナビゲーションと、局所的なマルチエージェント経路計画（MAPF）を組み合わせたハイブリッドフレームワークである。各エージェントは、グリッドベースの経路計画によって生成されたグローバルなウェイポイントリストに従い、分散型のRLポリシーを用いて速度増分を出力することで移動する。このRLポリシーは、速度障害物（VO/RVO）に基づく近傍エージェントの幾何学的特徴や衝突までの時間などの情報を観測として受け取り、目標への進行と相互の安全性を両立させるように学習されている。デッドロックを検知するために、速度の低下、ウェイポイントの停滞、および衝突リスクの高いペアの存在という3つのトリガーを監視しており、これらが作動した際のみ、関与する最小限のエージェントの集合を対象として、切り出されたサブグリッド上でのみMAPFを実行する。MAPFの解決にはPush-and-Rotate（PnR）アルゴリズムを用い、得られた高密度なウェイポイントリストを再びRLポリシーが追従することで、デッドロックを解消しつつ、他のエージェントには計算負荷をかけない設計となっている。理論的には、PnRが解を持つ場合に有限ステップ内でデッドロックを解消すること、および調整のオーバーヘッドがサブグリッドのサイズとエージェント数に対して多項式時間内に収まることが証明されている。</p></section>
+<section class="secsum"><h3>5 Experiment</h3><p>本実験では、幾何学的なボトルネックによってエージェント間の膠着状態が生じやすい、ドアウェイ（短いボトルネック）と廊下（長い単一車線のボトルネック）という2つの静的な2Dマップを用いて評価を行っています。評価指標には、全エージェントが衝突することなく目標に到達した割合を示す成功率を用い、強化学習のみの手法と、デッドロック検知およびPush-and-Rotate（PnR）を用いた局所的なMAPFモジュールを統合した提案手法（Hybrid）を比較しています。ドアウェイのシナリオでは、強化学習のみの手法がドアの前で譲り合いによる停滞を起こすのに対し、提案手法は一部のエージェントを一時的に調整することで双方向の通行を回復させ、成功率を向上させています。廊下のシナリオにおいても、エージェント密度が高まると強化学習のみの手法では成功率が急激に低下しますが、提案手法は必要に応じて局所的なMAPFを介入させることで高い成功率を維持しています。これらの結果は、デッドロックが発生した箇所においてのみ再配置などの調整を行うという、提案手法の設計が有効であることを示しています。</p></section>
+<section class="secsum"><h3>6 Conclusions</h3><p>本研究では、分散型強化学習と、必要に応じて局所的な範囲で実行されるマルチエージェント経路計画（MAPF）を統合した、モデルに依存しないハイブリッドなナビゲーションフレームワークを提案した。この手法は、ロボットの進行が停滞した際のみ介入するラッパー構造を持ち、停滞が発生した領域を切り出した部分領域に対して、Push-and-Rotateと呼ばれる回避操作を適用することで、強化学習による制御を再開させる。ドアウェイや廊下のような狭い経路のシナリオにおいて、本手法は局所的な調整に留めつつ、停滞した相互作用を成功的な完了へと一貫して導くことが確認された。今後の課題として、デッドロック検知の適応化、部分領域のサイズの動的な決定、および成功率と効率性のバランスを最適化するためのソルバー選択が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-13
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>db-LaCAM: Fast and Scalable Multi-Robot Kinodynamic Motion Planning with Discontinuity-Bounded Search and Lightweight MAPF | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>db-LaCAM: Fast and Scalable Multi-Robot Kinodynamic Motion Planning with Discontinuity-Bounded Search and Lightweight MAPF</h1>
+  <div class="meta">Akmaral Moldagalieva, Keisuke Okumura, Amanda Prorok, Wolfgang Hönig<br>採択先: Proceedings of the International Conference on Automated Planning and Scheduling 2025 ・ 2025-12-07 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2512.06796v3" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2512.06796v3" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/ARXIV.2512.06796" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Proceedings of the International Conference on Automated Planning and Scheduling 2025</span><span class="chip">公開日 2025-12-07</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 1</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 5/5</span><div class="rating-reason">MAPFの拡張性と動力学制約の両立という難題に対し、不連続性を許容する新原理とHEST等の具体的な手法で解決しており、実機検証も含む極めて完成度の高い研究である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> ロボットの動力学制約を考慮しつつ、大規模なマルチロボット環境でも高速かつスケーラブルに動作する、不連続性を許容する探索ベースの経路計画手法db-LaCAMを提案する。運動プリミティブ間の厳密な連続性をユーザー定義の範囲内で緩和することで、計算負荷を抑えながら動力学的に実行可能な軌道を生成する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>動力学的な制約を持つ複数のロボットが、衝突を回避しながら全ロボットの到着時刻の総和を最小化する経路計画問題を対象とする。従来の動力学を考慮した手法は計算コストが高く、大規模なロボット群への適用が困難であった。一方で、既存のマルチエージェント経路探索（MAPF）は計算効率に優れるものの、ロボットを点として扱うため実際の動力学的な実行可能性を無視するという課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>運動プリミティブ間の不連続性をユーザー定義の範囲内に制限することを許容する原理を導入し、MAPFの拡張性と動力学的な実行可能性を両立させた。これにより、ユニサイクルモデルや3D二重積分器など任意の動力学をサポートしつつ、既存の最先端手法が解を見つけられない複雑なシナリオでも効率的な計画を可能にした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>高レベルの探索を行うLaCAMと、局所的な協調を行うdb-PIBTを組み合わせた構成をとる。db-PIBTは、目標までの距離に基づいた優先度に従い、高優先度のロボットの動作との衝突や、低優先度のロボットとの整合性を再帰的に確認しながら動作を割り当てる。探索プロセスでは、k-d木を用いて不連続性の範囲内にある動作プリミティブを抽出し、階層的なExpansive Space Tree（HEST）を用いて目標までのコストを近似的に推定する。さらに、動作候補の多様性を確保するため、目標への近さで分類するGOCと、空間的な広がりを重視するSC-GOCという2種類のクラスタリング手法を用いて動作を選択する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>2Dのユニサイクルモデルおよび3Dの二重積分器モデルを用い、成功率、初解発見までの計算時間、全ロボットの制御時間の総和を指標として、db-CBSおよびdb-ECBSと比較した。実験の結果、db-LaCAMはすべての環境において他の手法を凌駕し、特にロボット数が最大50台に達するシナリオや3D環境、異種ロボットが混在する問題において、既存手法と比較して最大10倍高速な実行時間を達成した。また、ドローンやトレーラー付き車両を用いた実機実験により、計画された軌道の安全な実行も確認されている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法はヒューリスティックに基づく探索型プランナーであるため、ヒューリスティックが不正確な場合には局所解に陥る可能性がある。また、トレーラー付き車両のような複雑なシステムでは、HESTによるコスト推定の計算コストが増大し、実行時間が大幅に増加するというトレードオフが存在する。現在は集中制御方式であり、リアルタイム実行には設計されていないため、今後は学習ベースのヒューリスティックによる効率化や、分散型のリアルタイム実行への拡張が課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>db-LaCAM: Fast and Scalable Multi-Robot Kinodynamic Motion Planning with Discontinuity-Bounded Search and Lightweight MA</h3><p>本研究では、従来のマルチロボット動力学モーションプランナーにおける計算負荷の高さとスケーラビリティの課題を解決するため、最新のマルチエージェント経路探索（MAPF）の高速性と動力学を考慮したプランニングを組み合わせたdb-LaCAMを提案する。この手法は、ロボットの動力学を遵守する事前に計算されたモーションプリミティブの集合を用いて一定のホライゾン長を持つ運動シーケンスを生成するが、連続する運動の間にユーザーが定義可能な不連続性を許容する。提案手法は、使用するモーションプリミティブに対して解の完全性を持ち、ユニサイクルモデルや3D二重積分器のような任意のロボット動力学をサポートしている。2Dおよび3D環境における実験では、既存の最先端手法と比較して、解の品質を維持しつつ実行時間を最大10倍高速化し、多数のロボットを用いたシナリオにおいても効率的にスケールすることを示している。さらに、飛行ロボットやトレーラー付き車両を用いた実機実験を通じて、計画された軌道の安全な実行も実証されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究では、ロボットの動力学的な制約を考慮しつつ、大規模なマルチロボット環境でも高速かつスケーラブルに動作する、db-LaCAMと呼ばれる探索ベースの経路計画手法を提案する。従来の動力学を考慮した手法は計算コストが高く大規模なロボット群への適用が困難であり、一方でMAPF（Multi-Agent Path Finding）に基づく手法は計算効率に優れるものの、ロボットを2次元の点として扱うため実際の動力学的な実行可能性を無視するという課題があった。提案手法は、連続的な運動プリミティブ間での厳密な連続性を緩和し、不連続性を一定の範囲内に制限することで探索を効率化するdiscontinuity-bounded principleを核としている。具体的には、LaCAMを連続領域へ拡張し、局所的な協調にはdb-PIBTを用いることで、デッドロックを回避しながら長期間の探索を実現している。また、ヒューリスティックな誘導として、連続的かつ動力学を考慮した設定における目標までのコストを近似する階層的なExpansive Space Tree（EST）を採用している。実験では、db-LaCAMが既存の最先端手法であるdb-CBSやdb-ECBSが失敗するようなユニサイクルロボットのインスタンスを解決できることや、飛行ロボットやトレーラー付きの車型ロボットを用いた実機での動作が可能であることを示している。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>マルチエージェント経路計画（MAPF）は、グラフ上の離散的な状態空間において、ロボットが同一の頂点やエッジを同時に占有しないように経路を求める問題であり、最適解の算出はNP困難であるためスケーラビリティに課題があります。既存のMAPFソルバーは高いスケーラビリティを持ち効率的な解を提供しますが、ロボットの動力学を考慮していないため、実機への適用が困難な場合があります。多ロボットの動力学を考慮した運動計画では、全ロボットの結合空間を扱う手法は数台程度のロボットにしか適用できず、MAPFの最適ソルバーにモデル予測制御やサンプリングベースの手法、あるいはモーションプリミティブを組み合わせる手法が提案されています。しかし、手設計のプリミティブを用いる手法は複雑な動力学への汎用性に欠け、計算コストが非常に高いという問題があります。また、混合整数線形計画法を用いる手法は軌道の周囲に安全領域を確保する必要があり、保守的すぎて不完全性を招く恐れがあるほか、ベジェ曲線を用いる手法は微分平坦なシステムに限定されます。総じて、既存の多ロボット動力学運動計画は、ロボット数の増加に対して計算速度が低下し、スケーラビリティが低い状態にあります。</p></section>
+<section class="secsum"><h3>3 Preliminaries</h3><p>本研究では、不均一なロボット群が衝突を回避し、各ロボットの動力学制約を満たしながら、全ロボットの到着時刻の総和を最小化することを目的とした運動学的・動力学的（kinodynamic）なマルチロボット経路計画問題を扱う。ロボットの状態は制御入力によって更新され、本研究ではオイラー積分を用いた離散化モデルを想定している。既存のMAPFアルゴリズムであるPIBTは、エージェントの優先度に基づき各ステップで逐次的に位置を割り当てる貪欲法であり、優先度の継承によって衝突を回避するが、デッドロックが発生しうる不完全な性質を持つ。これに対し、LaCAMは全エージェントの構成を探索する高レベルの探索と、各ノードに対してどの位置をどのエージェントが占有するかを指定する低レベルの制約生成を組み合わせた二段階の探索手法である。提案手法であるdb-LaCAMは、これらを連続的な状態空間へ拡張するため、動力学制約を遵守する状態と制御のシーケンスであるモーションプリミティブを導入しており、非線形最適化を用いた二点境界値問題の解決によってこれらのプリミティブを生成する。</p></section>
+<section class="secsum"><h3>4 Approach</h3><p>db-LaCAMは、ロボットの動力学を考慮したマルチロボット経路計画手法であり、その中核として、優先順位に基づき動的に実行可能な動作を逐次割り当てるdb-PIBTを備えています。db-PIBTは、高優先度のロボットの動作との衝突や、低優先度のロボットとの整合性を再帰的な探索によって確認しながら、固定ホライゾンの動作系列を決定します。db-LaCAMの探索プロセスでは、k-d木を用いて不連続性の範囲内にある適切な動作プリミティブを効率的に抽出し、それらを制約木に反映させながら高レベルの探索を進めます。コスト推定には、目標から逆方向に探索する高レベルの探索と、現在の状態から前方向に探索する低レベルの探索を組み合わせた階層的なHESTを用いることで、計算コストを抑えつつ精度の高い推定を実現しています。また、動作候補の膨大化に対しては、目標への近さで分類するGOCと、空間的な広がりを重視するSC-GOCという2種類のクラスタリング手法を導入しており、特にSC-GOCは、ロボットが目標付近で停滞するライブロックを回避するために多様な空間カバーを提供します。ライブロックの検知には、高レベルノード間でのヒューリスティック値の変化の符号が交互に入れ替わる現象を利用し、検知時にはSC-GOCによって多様な動作を供給することで回避を図ります。本手法は、クラスタ内の要素を重みに基づいて確率的に選択する場合、確率的解像度完全性（Probabilistic Resolution-Completeness）を有しています。</p></section>
+<section class="secsum"><h3>5 Experimental Evaluation</h3><p>本実験では、提案手法であるdb-LaCAMの性能を、不連続性制約付きのCBS（db-CBS）およびその劣最適版であるdb-ECBSと比較検証しています。評価指標として、成功率、初解発見までの計算時間、および全ロボットの制御時間の総和である解のコストを用いています。2Dのユニサイクルモデルや3Dの二重積分器モデルを用い、障害物配置やロボットの形状、環境の複雑さを変えた多様なシナリオで実験を行った結果、db-LaCAMはすべての環境において他の手法を凌駕し、特にロボット数が増加するスケーラビリティ試験や、計算負荷の高い3D環境、異種ロボットが混在する問題において、高い成功率と最小の実行時間を達成しました。アブレーション解析では、計算時間の大部分がヒューリスティック推定に費やされており、オンデマンドで探索を行うHESTを用いた手法が、逆方向のdb-A*探索よりも大幅に高速であることが示されました。また、動作プリミティブのクラスタリング手法については、目標志向のGOCよりも、相対距離とヒューリスティック値を考慮して空間のカバー率を高めるSC-GOCの方が、ロボット間のデッドロックを回避しやすく解の質を向上させることが確認されました。最後に、ドローンや地上走行ロボットを用いた実機実験により、提案手法による軌道の安全な実行が実証されています。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>db-LaCAMは、離散的なマルチエージェント経路計画の拡張性と、運動学的制約を考慮したキナダイナミックな計画の実行可能性を組み合わせた手法です。動作プリミティブ間の不連続性を一定範囲内に制限することを許容することで、任意のダイナミクスを持つマルチロボットシステムに対して効率的かつ柔軟な軌道生成を可能にします。db-PIBTの調整メカニズムを基盤とし、局所的な動的実行可能性と長期間の探索を統合することで、既存のキナダイナミック・プランナーと比較して解の質を維持しつつ、計算速度を桁違いに向上させています。一方で、本手法はヒューリスティックに基づく探索型プランナーであるため、ヒューリスティックが不正確な場合には局所解に陥る可能性があります。また、トレーラー付き車両の入れ替え問題のような複雑なシステムでは、ヒューリスティックの計算コストが増大し、実行時間が大幅に増加するという課題があります。現在は集中制御方式でありリアルタイム実行には設計されていないため、今後は学習ベースのヒューリスティックによる効率化や、分散型のリアルタイム実行への拡張が検討課題となります。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-13
+  </footer>
+</div>
+</body>
+</html>
