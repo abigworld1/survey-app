@@ -441,6 +441,45 @@ li {{ margin:6px 0; }}
     return json_path, html_path
 
 
+def _should_preserve_existing_report(report, produced, runs_dir=None):
+    """0件の再実行で、同日のより詳細なレポートを上書きしない。"""
+    if produced != 0:
+        return False
+    runs_dir = runs_dir or RUNS
+    date = report.get("date") or datetime.date.today().isoformat()
+    path = os.path.join(runs_dir, f"{date}.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            existing = json.load(f)
+    except (OSError, ValueError, TypeError):
+        return False
+
+    existing_fields = {
+        field.get("slug"): field
+        for field in existing.get("fields", [])
+        if field.get("slug")
+    }
+    for current in report.get("fields", []):
+        previous = existing_fields.get(current.get("slug"))
+        if previous is None:
+            return False
+        current_ids = {item.get("id") for item in current.get("added", []) if item.get("id")}
+        previous_ids = {item.get("id") for item in previous.get("added", []) if item.get("id")}
+        if not current_ids.issubset(previous_ids):
+            return False
+
+    def detail_score(data):
+        return sum(
+            int(field.get("candidates_total", 0) or 0)
+            + int(field.get("fresh_total", 0) or 0)
+            + int(field.get("relevant_total", 0) or 0)
+            + len(field.get("skipped", []))
+            for field in data.get("fields", [])
+        )
+
+    return detail_score(existing) > detail_score(report)
+
+
 def load_subscriptions():
     with open(os.path.join(ROOT, "subscriptions.yml"), encoding="utf-8") as f:
         data = yaml.safe_load(f) or {}
@@ -1064,8 +1103,11 @@ def main(argv=None):
         report["fields"].append(field_report)
 
     if not args.dry_run and not args.refresh_candidate_cache:
-        report_paths = _write_run_report(report)
-        print(f"実行レポート: {os.path.relpath(report_paths[0], ROOT)} / {os.path.relpath(report_paths[1], ROOT)}")
+        if _should_preserve_existing_report(report, produced):
+            print(f"実行レポート: 既存の詳細版を保持 ({os.path.relpath(RUNS, ROOT)}/{today})")
+        else:
+            report_paths = _write_run_report(report)
+            print(f"実行レポート: {os.path.relpath(report_paths[0], ROOT)} / {os.path.relpath(report_paths[1], ROOT)}")
         render.render_global_index(TPL, ROOT, subs, seen, slugify)
         save_seen(SEEN, seen)
 
