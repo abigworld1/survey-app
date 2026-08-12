@@ -28,9 +28,11 @@ sankaku01 では user cron に登録済みで、追加操作は不要です（�
 手動で1回まわす場合:
 ```bash
 cd ~/survey-app
-LLM_BASE_URL=http://localhost:8000/v1 LLM_API_KEY=dummy .venv/bin/python -m pipeline.run
-git add -A && git commit -m "update" && git push origin main
+./deploy/run-daily.sh
 ```
+
+このスクリプトは開始時とpush前に `main` をrebaseで同期し、Git通信を既定で3回再試行します。
+別端末から更新した翌日や、前回のpushだけが失敗した場合も、残ったcommitを統合して公開します。
 
 主なオプション:
 | オプション | 意味 |
@@ -227,7 +229,7 @@ Docker も sudo も使いません（vLLM はサーバー上で稼働中、`loca
    # 毎日 06:00（サーバーTZ）:
    0 6 * * * /bin/bash /home/hirayama/survey-app/deploy/run-daily.sh >> /home/hirayama/survey-app/cron.log 2>&1
    ```
-   `deploy/run-daily.sh` が「`.env`読込 → `pipeline.run` → 変更があれば commit & push」を行います。
+   `deploy/run-daily.sh` が「多重起動防止 → `main`同期 → `.env`読込 → `pipeline.run` → commit → 再同期・push」を行います。
 5. `abigworld1.github.io` の `research.html` に survey-app へのリンクを設置済み。
 
 > `deploy/` 配下の Docker/systemd 用ファイルは未使用（参考用）。実運用は上記の venv＋user cron です。
