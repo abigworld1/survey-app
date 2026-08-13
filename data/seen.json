@@ -3504,6 +3504,82 @@
       "url": "https://www.semanticscholar.org/paper/4efdbaf25911c73272c4c5ec0fe4fe3dd1e7b82f",
       "venue": ""
     },
+    "doi:10.48550/arxiv.2606.01482": {
+      "added": "2026-08-14",
+      "added_at": "2026-08-14T06:10:00.646963",
+      "arxiv_id": "2606.01482",
+      "authors": [
+        "Francielle Vargas",
+        "João Robiatti",
+        "Diego Alves",
+        "Lucas Pascotti Valem",
+        "Maximilian Seeth",
+        "Sebastián Ferrada",
+        "Ameeta Agrawal",
+        "Daniel Pedronette",
+        "André Freitas"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-05-31",
+      "doi": "10.48550/ARXIV.2606.01482",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2606.01482.html",
+      "matched_keywords": [
+        "RAG",
+        "Evidence Retrieval"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.01482",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの課題であるトピック類似性への依存を、アテンション整列と対照学習で解決するアプローチが独創的。実験も多角的な指標で検証されており、実用性が高い。",
+      "relevance": 7,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Beyond Topical Similarity: Contrastive Evidence Retrieval with Interpretable Attention Alignment in RAG",
+      "tldr": "RAGにおけるトピックの類似性のみに依存した検索が、事実に基づかないノイズを誤認する課題に対し、主観性に基づくハードネガティブ選択とアテンション整列を組み合わせたCERAを提案し、検索精度と解釈性の向上を両立した。",
+      "url": "https://arxiv.org/abs/2606.01482",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2607.22597": {
+      "added": "2026-08-14",
+      "added_at": "2026-08-14T06:08:01.466369",
+      "arxiv_id": "2607.22597",
+      "authors": [
+        "Hong-Yu An",
+        "Yun-Jian Zhang",
+        "Chen-Wei Liang",
+        "Tian-Yi Zhang",
+        "Jian Ding",
+        "Yi-Lun Wu",
+        "Ao-Bo Li",
+        "Wei-Cong Su",
+        "Saifullah",
+        "Mujiangshan Wang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-12",
+      "doi": "10.48550/ARXIV.2607.22597",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.22597.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG",
+        "Evidence Retrieval"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.22597",
+      "reading_value": 4,
+      "reading_value_reason": "ハイパーグラフを用いた高次な関連性モデル化と信頼度伝播による証拠連鎖の構築は、既存のGraphRAGの限界を打破する新規性が高い。実験結果も極めて顕著である。",
+      "relevance": 9,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "HyCE-RAG: Hypergraph Chain-of- Evidence Retrieval -Augmented Generation for Explainable Multi-hop Question Answering",
+      "tldr": "分散した証拠を繋ぎ合わせる必要があるマルチホップ質問回答に対し、ハイパーグラフを用いて構造的な証拠連鎖を構築するHyCE-RAGを提案する。ハイパーエッジによる高次な関連性のモデル化と信頼度伝播により、正確で説明可能な推論を実現する。",
+      "url": "https://arxiv.org/abs/2607.22597",
+      "venue": ""
+    },
     "doi:10.48550/arxiv.2608.00922": {
       "added": "2026-08-10",
       "added_at": "2026-08-10T06:08:47.060976",
@@ -7050,6 +7126,70 @@
       "tldr": "高密度環境において目的地を持つターゲットエージェントと、空間を占有する目的地を持たない妨害エージェントが混在するMAPF-HD問題を定義し、空きマスとエージェントを段階的に入れ替えるPHANS手法を提案することで、大規模環境でも数秒以内での経路計画を実現した。",
       "url": "http://arxiv.org/abs/2509.06374v2",
       "venue": "IEEE Robotics &amp; Automation Magazine"
+    },
+    "doi:10.48550/arxiv.2510.07276": {
+      "added": "2026-08-14",
+      "added_at": "2026-08-14T06:03:57.979320",
+      "arxiv_id": "2510.07276",
+      "authors": [
+        "Pulkit Rustagi",
+        "Kyle Hollins Wray",
+        "Sandhya Saisubramanian"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-10-08",
+      "doi": "10.48550/ARXIV.2510.07276",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2510.07276.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2510.07276v2",
+      "reading_value": 4,
+      "reading_value_reason": "多目的MAPFにおいて、計算負荷の高いパレート境界探索を回避し、辞書式順序による直接最適化を実現した点が極めて実用的かつ新規性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi-Objective Multi-Agent Path Finding with Lexicographic Cost Preferences",
+      "tldr": "優先順位（辞書式順序）が定義された多目的マルチエージェント経路探索において、パレート境界の算出や重み付けを介さず、優先度の高い目的から順に直接最適化を行うLexicographic Conflict-Based Search (LCBS) を提案する。これにより、目的関数の数が増大しても高い成功率とスケーラビリティを実現する。",
+      "url": "http://arxiv.org/abs/2510.07276v2",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2511.13961": {
+      "added": "2026-08-14",
+      "added_at": "2026-08-14T06:02:58.416993",
+      "arxiv_id": "2511.13961",
+      "authors": [
+        "Jiarui Li",
+        "Alessandro Zanardi",
+        "Federico Pecora",
+        "Runyu Zhang",
+        "Gioele Zardini"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 5,
+      "date": "2025-11-17",
+      "doi": "10.48550/ARXIV.2511.13961",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2511.13961.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2511.13961v3",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFを制御理論の観点から再定義し、計画と実行を統合したモデルを提案している点が新規。大規模環境での高速性と堅牢性の両立が実験で示されており、実用性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "FICO: Finite-Horizon Closed-Loop Factorization for Unified Multi-Agent Path Finding",
+      "tldr": "マルチエージェント経路探索（MAPF）において、計画と実行をフィードバックループ内で統合するシステムレベルのモデルと、有限の予測期間に基づく閉ループアルゴリズムFICOを提案する。これにより、不確実な環境下でも大規模なエージェント群に対してリアルタイムな応答と高いスループットを実現する。",
+      "url": "http://arxiv.org/abs/2511.13961v3",
+      "venue": ""
     },
     "doi:10.48550/arxiv.2511.22685": {
       "added": "2026-08-13",

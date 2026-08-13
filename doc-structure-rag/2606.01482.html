@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Beyond Topical Similarity: Contrastive Evidence Retrieval with Interpretable Attention Alignment in RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Beyond Topical Similarity: Contrastive Evidence Retrieval with Interpretable Attention Alignment in RAG</h1>
+  <div class="meta">Francielle Vargas, João Robiatti, Diego Alves, Lucas Pascotti Valem, Maximilian Seeth, Sebastián Ferrada, Ameeta Agrawal, Daniel Pedronette, André Freitas<br>採択先: 未取得 ・ 2026-05-31 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2606.01482" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2606.01482" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/ARXIV.2606.01482" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-05-31</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 7</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの課題であるトピック類似性への依存を、アテンション整列と対照学習で解決するアプローチが独創的。実験も多角的な指標で検証されており、実用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">RAG</span><span class="tag">Evidence Retrieval</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGにおけるトピックの類似性のみに依存した検索が、事実に基づかないノイズを誤認する課題に対し、主観性に基づくハードネガティブ選択とアテンション整列を組み合わせたCERAを提案し、検索精度と解釈性の向上を両立した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来の検索拡張生成（RAG）は、クエリと文書のトピックの類似性に依存するため、話題は関連していても事実とは無関係、あるいは矛盾する内容を証拠として誤って選択する問題がある。本研究は、臨床試験報告書のコーパスを対象とし、介入、比較対象、アウトカム（ICO）の3要素からなるクエリに対して、適切な証拠となるテキストチャンクを特定・ランク付けすることを目的とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>単なる意味的な類似性ではなく、証拠に基づいた表現を学習させるための「証拠的帰納バイアス」を導入した点が新規である。先行研究がグラフ構造の利用や単純な対照学習を用いる中で、本手法は人間がアノテーションした根拠（rationale）を用いてアテンション分布を直接制御する手法を提案している。これにより、検索性能を維持しながら、モデルの注目箇所を人間の推論プロセスに近づける解釈性を実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>Transformerベースのデュアルエンコーダを用い、正解チャンク、主観性スコアが高いハードネガティブ、および無関係なチャンクの3つ組（トリプレット）による対照学習を行う。同時に、CLSトークンから各トークンへのアテンション分布を、人間が指定した根拠に近づけるためのアテンション整列損失を導入する。この際、品詞（POS）に基づき、名詞や動詞には高い、冠詞や接続詞には低い重みを割り当てたマスキング分布を用いることで、言語構造を考慮した根拠信号を生成する。最終的には、コサイン類似度に基づくトリプレット損失と、KLダイバージェンスを用いたアテンション整列損失を同時に最適化する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Evidence Inference 2.0データセットを用い、Contrieverおよび従来のハードネガティブ手法と比較した。検索性能において、Recall@1で0.0768、Recall@5で0.1307、Recall@10では0.63566から0.74426へ、MRRでは0.32880から0.42965へと改善した。説明性の評価では、アテンションの整列により検索性能を維持しつつ、説明の十分性を示すSufficiencyスコアを0.2073から0.0939へと改善した。また、LLMを用いた評価においても、CERAはContrieverを上回る事実性と接地性を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>アライメントの重みを大きくしすぎると、Recall@1やNDCG@5などの初期ランクの性能が低下するというトレードオフが存在する。また、アテンションの重みが必ずしもモデルの推論を完全に反映しているとは限らないという限界がある。さらに、学習には専門家による高コストな根拠アノテーションが必要であり、評価も特定のデータセットに限定されている。今後の課題として、他のドメインへの汎用性の検証や、マルチホップ推論および長距離依存性への対応が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Beyond Topical Similarity: Contrastive Evidence Retrieval with Interpretable Attention Alignment in RAG</h3><p>RAGにおける事実性と解釈性の向上を目指すCERAは、主観性に基づくハードネガティブ選択と、補助的なアテンション整列損失を導入した新しい検索フレームワークである。この手法は、トリプレット形式の対照学習に加えて、人間がアノテーションした事実に基づく根拠（rationale）を用いて、CLSトークンから各トークンへのアテンションを監督するアテンション整列損失を組み合わせている。具体的には、品詞の重み付けを用いたマスキング分布によって、アテンションが根拠となるトークンに集中するように学習を行う。臨床試験報告書のコーパスを用いた実験では、主観性に基づくハードネガティブ選択がContrieverや従来のハードネガティブ選択手法と比較して検索性能を向上させることが示された。さらに、根拠へのアテンション整列は、検索性能を維持しつつ回答の忠実性を高めており、アテンションがモデルの振る舞いを説明する指標になり得ることを示している。これにより、単なるトピックの類似性にとどまらず、根拠となる特定のトークンを特定できる解釈性の高い検索が可能となる。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>検索拡張生成（RAG）における従来の検索手法は、トピックの類似性のみに依存するため、事実に基づかない誤情報や単に話題が関連しているだけのノイズを証拠として誤って選択してしまう課題がある。本研究では、主観的な観点に基づいたハードネガティブ選択と、補助的なアテンション整列損失を用いた対照学習を組み合わせた、解釈可能な高密度検索フレームワークであるContrastive Evidence Rationale Attention（CERA）を提案する。CERAは、人間がアノテーションした証拠根拠を教師信号としてアテンション分布を人間の推論プロセスに近づける「解釈可能なアテンション整列」と、トピックの類似性ではなく証拠に基づいた表現を学習させる「証拠的帰納バイアス」を導入している。具体的には、デュアルエンコーダ構成において、CLSトークンから各トークンへのアテンション分布に対し、品詞タグによる重み付けを施した正解の証拠根拠を用いて、KLダイバージェンスによる最適化を行う。臨床試験レポートのコーパスを用いた実験では、CERAは既存のContrieverやハードネガティブを用いた手法と比較して、Recall@1で0.07681、Recall@3で0.10730、Recall@5で0.13070の向上を達成した。さらに、アテンションの整列を強めることで、検索性能を維持しつつ、説明の忠実度を示すSufficiencyスコアを0.2073から0.0939へと改善している。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>本研究は、トピックの類似性だけでなく、モデルの予測を裏付ける具体的な根拠を特定するために、対照学習を用いた証拠ベースのRAG（Retrieval-Augmented Generation）を調査している。関連研究として、グラフ構造を用いて医療情報とユーザー入力を結びつけ、階層的な検索戦略により事実性と解釈性を高めたMedGraphRAGや、放射線科のレポート生成において画像とテキストの事実的一致度を計算し、対照学習を用いて画像とレポートのペアを学習させるFactMM-RAGが挙げられる。また、対照学習を用いてテーマや文体が類似した詩を検索することで、文学的な生成の忠実度を向上させる手法や、GPT-4による蒸留や人間によるアノテーションを活用して、複雑な事実検証における検索精度と真偽分類の正確性を向上させた対照学習ベースの密なリトリーバーの研究も存在する。</p></section>
+<section class="secsum"><h3>3 Evidence Inference Dataset</h3><p>本研究では、臨床試験報告書における証拠に基づく推論を評価するためのベンチマークである、Evidence Inference 2.0データセットを使用します。各データインスタンスは、介入、比較対象、アウトカムの3要素からなるICOクエリで構成されています。このデータセットでは、テキストファイルに含まれる証拠に基づき、報告された効果が「有意に増加した」、「有意に減少した」、あるいは「有意な差がない」のいずれであるかを予測することが求められます。データセットの構造やアノテーションの形式に加え、ICOクエリと臨床試験文書、および専門家が作成した証拠の根拠を組み合わせた具体的な事例が提供されています。</p></section>
+<section class="secsum"><h3>4 Contrastive Evidence Rationale Attention (CERA)</h3><p>CERAは、クエリに対して正解となる証拠（ゴールドエビデンス）を含むチャンクを最上位にランク付けすることを目的とした、対照学習と解釈可能なアテンション整列を組み合わせた手法である。学習には、正解チャンク、同一文書内の非重複チャンクから主観性スコアが高いものを選んだハードネガティブ、および無関係なチャンクからなる3つ組（トリプレット）を用い、コサイン類似度に基づくトリプレット損失によってチャンク間の埋め込み表現を最適化する。さらに、正解範囲内のトークンに対して品詞（POS）に基づいた重みを割り当てた証拠根拠マスキングを定義し、名詞や動詞には高い重みを、冠詞や接続詞には低い重みを付与することで、言語構造を考慮した根拠信号を生成する。モデルの最終層におけるCLSトークンから各トークンへのアテンション分布を、この品詞重み付き根拠信号に近づけるため、KLダイバージェンスを用いてアテンションの整列を行う。最終的な学習は、検索精度を向上させる対照学習の目的関数と、説明の忠実性を強制するアテンション整列の目的関数の両方を最適化するマルチオブジェクティブな形式で行われ、ハイパーパラメータによって両者のトレードオフを制御する。</p></section>
+<section class="secsum"><h3>5 Experimental Setup</h3><p>3,393件の臨床試験文書を、再現性を確保するため固定のシードを用いて80%の訓練データと20%のテストデータに分割しました。文書はアノテーションの長さの平均と標準偏差に基づく統計的基準を用いて固定長のチャンクに分割され、正解のエビデンスを含むチャンクをポジティブ、それ以外をネガティブ、さらに主観性の高いチャンクをハードネガティブとして、計13,004個の訓練用トリプレットを構成しました。モデルは事前学習済みのContrieverをベースとしたTransformerエンコーダであり、[CLS]トークンの最終隠れ状態から得られるL2正規化済みの埋め込みを用いて、コサイン類似度に基づくトリプレット損失と、[CLS]アテンション分布に対するKLダイバージェンスを用いた補助的な根拠誘導アライメント損失を同時に最適化します。検索性能の評価には、Recall@K、Precision@K、NDCG@K、MAP@K、MRR@Kを用い、同一文書内のチャンクを対象としたローカル評価設定によって、微細な検索能力を測定します。説明性の評価では、人間との整合性を示すIoU F1やToken-F1、およびモデルの決定プロセスを反映しているかを示す包括性と十分性を指標として用います。さらに、検索されたスパンの事実に基づいた妥当性を評価するため、3種類のLLMを用いて、検索順位ごとのスコアおよび複数のLLMによる評議スコアを0から3の範囲で算出します。</p></section>
+<section class="secsum"><h3>6 Results and Discussion</h3><p>提案手法であるCERAは、主観性に基づくハードネガティブ選択を用いることで、ベースラインのContrieverや従来のハードネガティブ手法を全ての指標で一貫して上回り、特にRecall@1やMRRといった上位ランクの性能を大幅に向上させています。アライメント目的関数は、検索性能を大きく損なうことなく、解釈可能性や忠実性、特に根拠の十分性を向上させ、モデルがよりコンパクトで適切な証拠に依存するように促します。事実性の評価においては、複数のLLMを用いた評価においてCERAがContrieverを上回り、検索された証拠の事実性とクエリへの接地性が改善されていることが確認されました。アブレーション研究では、アライメントの重みを大きくするとRecall@1やNDCG@5などの初期ランクの性能が低下することから、中程度の重みが検索の有効性と根拠に基づく指導のバランスを最適に保つことが示されています。また、バッチサイズや学習率などの学習設定を変化させた検証においても、CERAは一貫してハードネガティブ手法を上回り、主観性に基づくネガティブサンプルが従来のハードネガティブよりも識別力の高い検索表現の獲得に寄与することが示されました。</p></section>
+<section class="secsum"><h3>7 Conclusions</h3><p>本論文では、RAG（検索拡張生成）において単なるトピックの類似性を超え、根拠に基づいた解釈可能な検索を実現するフレームワークであるCERA（Contrastive Evidence Rationale Attention）を提案している。この手法は、主観性に基づいたハードネガティブの選択と、根拠（Rationale）を用いたアテンションの整列を組み合わせることで、対照学習において証拠に基づいた帰納バイアスを導入するものである。Evidence Inference 2.0データセットを用いた実験では、Recall、NDCG、MAP、MRRの全指標において性能向上が確認され、特に最適な設定では、Contrieverおよびハードネガティブ選択を用いたベースラインと比較して、Recall@10が0.63566から0.74426へ、MRRが0.32880から0.42965へと向上した。また、根拠との整列を行うことで、検索性能を維持しつつ解釈性を向上させている。以上の結果は、信頼性が求められる領域において、検索システムは意味的な関連性だけでなく、証拠としての裏付けと解釈可能性を最適化すべきであることを示唆している。</p></section>
+<section class="secsum"><h3>8 Limitations</h3><p>本研究にはいくつかの限界が存在する。第一に、実験がEvidence Inference 2.0データセットに限定されているため、他のドメインや検索設定への汎用性は未検証である。第二に、アライメントの目的関数が専門家による根拠のアノテーションに依存しており、コストや主観性の問題がある。第三に、提案手法により妥当性や忠実度は向上しているものの、アテンションの重みが必ずしもモデルの推論を反映しているとは限らない。第四に、評価したアライメントのハイパーパラメータが限定的であり、マルチホップ推論や長距離の依存関係については扱っていない。最後に、CERAは人間による監視なしに、単独の臨床意思決定システムとして使用すべきではない。</p></section>
+<section class="secsum"><h3>9 Ethics Statement</h3><p>本研究は、公開されている臨床試験データを用いて生物医学分野の自然言語処理における解釈可能な根拠検索を改善するものであり、患者との対話や個人健康情報は含まれていません。提案手法であるCERAは、根拠の整合性を高めることで解釈性を向上させますが、アテンションに基づく説明が必ずしも事実の正確性や臨床的な信頼性を保証するものではないという限界があります。また、モデルが学習に使用した基礎データに含まれるバイアスを継承する可能性があるため、本手法はあくまで研究用プロトタイプであり、医学的判断に代わるものではありません。本研究は、より透明性が高く責任ある根拠検索システムの実現に寄与することを目指しています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-14
+  </footer>
+</div>
+</body>
+</html>

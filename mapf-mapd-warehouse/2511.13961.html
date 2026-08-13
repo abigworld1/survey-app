@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>FICO: Finite-Horizon Closed-Loop Factorization for Unified Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>FICO: Finite-Horizon Closed-Loop Factorization for Unified Multi-Agent Path Finding</h1>
+  <div class="meta">Jiarui Li, Alessandro Zanardi, Federico Pecora, Runyu Zhang, Gioele Zardini<br>採択先: 未取得 ・ 2025-11-17 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2511.13961v3" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2511.13961v3" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/ARXIV.2511.13961" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-11-17</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 5</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFを制御理論の観点から再定義し、計画と実行を統合したモデルを提案している点が新規。大規模環境での高速性と堅牢性の両立が実験で示されており、実用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチエージェント経路探索（MAPF）において、計画と実行をフィードバックループ内で統合するシステムレベルのモデルと、有限の予測期間に基づく閉ループアルゴリズムFICOを提案する。これにより、不確実な環境下でも大規模なエージェント群に対してリアルタイムな応答と高いスループットを実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>多数のロボットが衝突を避けながら目的地へ到達する経路を計算するマルチエージェント経路探索（MAPF）を対象とする。従来の多くの手法は、実行前に全経路を決定するオープンループ形式の探索問題として扱われてきた。しかし、実環境では移動の遅延や目標の変更といった不確実性が伴うため、計画と実行を分離して扱う従来のモデルでは、動的な変化への対応や継続的な運用に困難が生じる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の計画と実行が分離したモデルに対し、コントローラ、アクチュエータ、環境の3要素からなる、計画と実行を単一のフィードバックループ内で扱う「MAPFシステム」という統一的なモデルを提案する。また、後退水準制御の考え方を取り入れ、有限の予測期間に基づき問題を階層的に分解するFICOアルゴリズムを導入する。これにより、分解とクローズドループな実行を体系的に統合している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>FICOは、kステップの先読み計画を立て、その最初の1ステップのみを実行しては状態を更新し再計画を行う有限ホライゾン制御を用いる。処理は二段階の因数分解スキームで行われる。まず、空間ハッシュを用いて衝突が発生するエージェントを検出し、衝突フリーなエージェントを分離して固定する。次に、残りの衝突が発生するエージェントを、ホライゾン内の到達可能領域に基づいてグループ化し、並列に計画を行う。各グループの計画は、分解互換性を維持しながら、優先度の高いエージェントや固定されたエージェントと衝突しないように構成される。計画が困難な場合は、近傍の高優先度エージェントをグループに含めて制約を緩和する混雑解消プロセスを実行する。また、動的計画法を用いたタイブレーク手法により、最短経路の分布を均一化する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>単発および生涯（lifelong）のMAPF、および大規模な倉庫ベンチマークを用いて評価を行った。比較手法として、オープンループ手法やPIBTなどのクローズドループ手法を用いた。評価指標には、移動コストの総和（SOC）およびスループットを用いた。結果として、FICOは実行応答時間においてオープンループ手法を最大で2桁高速化し、SOCにおいてもPIBTより優れた結果を示した。生涯MAPFでは、PIBTよりも高いスループットを記録し、実行遅延やエージェントの追加といった不確実な環境下でも、オープンループ手法を大幅に上回るアイテム配送数を実現した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、有限の予測期間（ホライゾン）を設定することで計算量と実行可能性のバランスを取っている。今後の課題として、FICOのモジュール構造を利用して既存のMAPFアルゴリズムを閉ループ型へ拡張するFICO+の開発が挙げられる。また、フィードバックや不確実性、継続的な運用をより明示的に考慮した新しいベンチマークおよび評価指標の設計が必要である。さらに、マルチロボット操作や混合自律交通システムといった、より広範な領域への応用が検討されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>FICO: FI nite-Horizon C l O sed-Loop Factorization for Unified Multi-Agent Path Finding</h3><p>本論文は、マルチエージェント経路探索（MAPF）において、計画と実行を統合し、不確実性を明示的にモデル化するシステムレベルのフレームワークを提案している。提案手法の核となるFICO（Finite-Horizon Closed-Loop Factorization）は、後退ホライゾン制御に着想を得た分解ベースのアルゴリズムであり、有限ステップの先読みを行うことで、構成的な構造を利用した効率的なクローズドループ動作を実現する。この手法は、数千規模のエージェントに対してもスケーラビリティを持ち、実行時の不確実性に対してミリ秒単位でのリアルタイムな応答が可能である。実験の結果、FICOはオープンループのベースラインと比較して計算時間を最大で2桁削減し、エージェントの到着や確率的な遅延が発生する環境下においても、大幅に高いスループットを達成することを示している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>マルチエージェント経路計画（MAPF）は、多数のロボットが衝突を避けながら目的地へ到達する経路を計算する問題であり、従来の多くの手法は実行前に全経路を決定するオープンループ形式の探索問題として扱われてきました。しかし、実環境では遅延や目標の変更といった不確実性が伴うため、本論文では計画と実行を単一のフィードバックループ内で統合する「MAPFシステム」というシステムレベルのモデルを提案しています。このモデルに基づき、後退水準制御の考え方を取り入れたFICOという閉ループアルゴリズムを導入しており、これは有限の予測期間に基づき、空間的・時間的な到達可能性に応じて問題を階層的に分解する二段階の因数分解スキームを用いています。この因数分解により、大規模な問題でも並列計算が可能となり、実行開始までの時間を15ミリ秒以内に抑えつつ、オープンループ手法と比較して計算時間を削減し、不確実な環境下でのスループットや配送効率を向上させています。実験では、古典的な一回限りの問題から、動的な目標変更を伴うライフロングMAPF、大規模な倉庫ベンチマークまで幅広く評価されており、FICOが計算速度、スケーラビリティ、および堅牢性のバランスにおいて優れた性能を示すことが確認されています。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>マルチエージェント経路探索（MAPF）の研究は、単一の開始地点と目標地点を扱う単発的な設定から、継続的なタスクを扱うライフロングMAPF、実行時の不確実性への対応、そしてスケーラビリティ向上のための分解や並列化へと発展してきた。単発MAPFにおいて、全エージェントの配置を一つの状態として扱う結合状態空間の探索は、エージェント数や行動の選択肢の増加に伴い計算量が指数関数的に増大するため、最適または準最適な手法であってもNP困難性の問題に直面する。ライフロングMAPFでは、オンラインで次々と与えられる目標に対応するため、単発の計画を繰り返し実行する手法や、一定の予測期間のみを計画するウィンドウ化手法、あるいは軌道を事前に計算せず逐次的に移動を決定するPIBTのような手法が提案されている。実行フェーズにおける動作の遅延などの不確実性に対しては、事前に計算された計画に待機動作を挿入するような事後処理的な対応が一般的だが、これらは計画と実行が分離しているため、ライフロングの設定や未知の不確実性への汎用性に課題がある。また、スケーラビリティ向上のための分解手法は、エージェント間の強い結合により完全な独立性を保つことが難しく、既存の枠組みでは分解とクローズドループな実行を体系的に統合できていない。</p></section>
+<section class="secsum"><h3>III Classical Search Model of MAPF</h3><p>本セクションでは、マルチエージェント経路探索（MAPF）における古典的な探索モデルを、一括処理型のOne-shot MAPFと、目標が逐次的に与えられるLifelong MAPFの2つの形式で定義しています。One-shot MAPFは、全エージェントの開始地点と目標地点が事前に固定されており、全ての頂点衝突およびエッジ衝突を回避する一連の軌跡をオフラインで一括計算するタスクです。このモデルにおける解の評価指標には、全エージェントの軌跡の共通長であるMakespanと、全エージェントの移動コストの総和であるSum of Cost (SOC)が用いられます。一方、Lifelong MAPFは、エージェントが目標を達成するたびに次の目標が提示される継続的なシナリオを想定しており、固定された時間地平内でどれだけの目標を達成できたかを示すThroughput（スループット）によって解の質が評価されます。いずれのモデルも、実行中の環境からのフィードバックを計画プロセスに組み込まない探索モデルに基づいているため、Lifelong MAPFにおいても、将来の目標が未知である中でウィンドウ分割などの手法を用いて繰り返し探索を行うといった制約が生じます。</p></section>
+<section class="secsum"><h3>IV System-Level Model of MAPF</h3><p>本セクションでは、従来のマルチエージェント経路探索（MAPF）を、計画と実行が相互作用する動的な制御ループとして捉える「MAPFシステム」という統一的なモデルを提案している。このモデルは、移動コマンドを発行するコントローラ、不確実性の中でコマンドを実行するアクチュエータ、および状態やインスタンスを更新する環境の3つの構成要素で定義される。コントローラは、事前に全経路を決定するオープンループ型と、各ステップのフィードバックに基づき逐次的に決定するクローズドループ型に分類される。アクチュエータは、確率的な遅延によって計画通りの移動が妨げられる不完全な実行をモデル化でき、環境はエージェントの動的な追加や目標の更新といった変化を包含できる。このフレームワークを用いることで、従来のOne-shot MAPF、Lifelong MAPF、およびMAPF-DPといった異なる問題設定を、アクチュエータや環境の性質、および終了条件の差異として単一の形式で統合して扱うことが可能となる。</p></section>
+<section class="secsum"><h3>V FICO Algorithm</h3><p>FICOは、マルチエージェント経路探索（MAPF）を制御理論の再帰的ホライゾン制御の枠組みで捉え直し、計算効率と頑健性を両立させた閉ループ型アルゴリズムである。本手法は、全エージェントがゴールに到達するまでの無限ステップの計画を立てる従来のオープンループ型手法とは異なり、有限のステップ数であるkステップの先読み計画を立て、その最初の1ステップのみを実行しては状態を更新し再計画を行う。この有限ホライゾン化により、エージェント間の相互作用を限定的な範囲に抑えることが可能となり、大規模な問題でも計算量を抑えつつ、局所的な混雑を回避できる。<br><br>アルゴリズムの核となるのは、階層的な分解と、分解可能であることを保証する「分解互換性のある軌跡」の概念である。まず、空間ハッシュを用いて他者と干渉しない衝突フリー（CF）エージェントを分離して固定し、次に残りの衝突（C）エージェントを到達可能性に基づきグループ化して並列に計画を行う。各グループの計画は、優先度の高いエージェントやCFエージェントの軌跡と衝突しないよう、分解互換性を維持しながら実行される。もしグループ内で実行可能な計画が見つからない場合は、混雑解消プロセスとして、近傍の高優先度エージェントをグループに含めて制約を緩和し、計画の実現可能性を確保する。また、個別の計画段階では、動的計画法を用いて最短経路の分布を均一化するタイブレーク手法を用いることで、エージェント間の意図しない衝突確率を低減させている。</p></section>
+<section class="secsum"><h3>VI Experiments</h3><p>FICOの評価実験では、単発および生涯（lifelong）のマルチエージェント経路探索（MAPF）における性能、各構成要素の寄与、および不確実性下での堅牢性が検証されています。単発MAPFにおいて、FICOは実行応答時間（ERT）でオープンループ手法を大幅に上回る高速性を実現しつつ、解の質（SOC）ではクローズドループ手法のPIBTよりも優れた結果を示し、応答性と質のバランスが取れた性能を達成しています。生涯MAPFの評価では、FICOはPIBTよりも一貫して高いスループットを記録し、特にエージェントが密集する環境や10,000エージェント規模のケースでその優位性が顕著になります。アブレーション研究により、並列計算による高速化、一様性を保つバランスの取れたタイブレーク手法による解の質の向上、および計画ホライゾン（先読み期間）の調整が性能に直結することが示されました。また、実行遅延やエージェントの追加といった不確実性が存在する環境下でも、FICOはオープンループ手法のような頻繁な再計画による遅延を避けつつ、PIBTよりも高いスループットを維持できることが確認されています。</p></section>
+<section class="secsum"><h3>VII Conclusion and Future Work</h3><p>本論文では、計画と実行をフィードバックループ内で統合する実行認識型の統一モデルと、後退水準制御に着想を得た閉ループ分解アルゴリズムであるFICOを提案している。FICOは、有限の予測期間における先読みと二段階の分解手法を組み合わせることで、MAPFの構成的な構造を活用し、スケーラビリティ、応答性、および堅牢性を実現している。一回限りの計画、生涯継続的な運用、および不確実性を考慮した設定における実験の結果、FICOはリアルタイムの応答性を維持しながら、競争力の高い解の質を達成することが示された。今後の展望として、FICOのモジュール構造を利用して既存のMAPFアルゴリズムを閉ループ型へ拡張するFICO+の開発や、フィードバックや不確実性、継続的な運用を明示的に考慮した新しいベンチマークおよび評価指標の設計が挙げられる。さらに、マルチロボット操作や混合自律交通システムといったより広範な領域への応用も検討されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-14
+  </footer>
+</div>
+</body>
+</html>

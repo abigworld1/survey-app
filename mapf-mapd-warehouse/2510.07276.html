@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-Objective Multi-Agent Path Finding with Lexicographic Cost Preferences | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi-Objective Multi-Agent Path Finding with Lexicographic Cost Preferences</h1>
+  <div class="meta">Pulkit Rustagi, Kyle Hollins Wray, Sandhya Saisubramanian<br>採択先: 未取得 ・ 2025-10-08 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2510.07276v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2510.07276v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/ARXIV.2510.07276" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-10-08</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">多目的MAPFにおいて、計算負荷の高いパレート境界探索を回避し、辞書式順序による直接最適化を実現した点が極めて実用的かつ新規性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 優先順位（辞書式順序）が定義された多目的マルチエージェント経路探索において、パレート境界の算出や重み付けを介さず、優先度の高い目的から順に直接最適化を行うLexicographic Conflict-Based Search (LCBS) を提案する。これにより、目的関数の数が増大しても高い成功率とスケーラビリティを実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>グラフ上で複数のエージェントが、複数のコスト関数からなるコストベクトルを考慮しながら、衝突を回避して始点から終点へ移動する経路を求める問題である。従来の多目的マルチエージェント経路探索では、パレート境界（非劣解の集合）をすべて算出するか、目的関数を重み付けによって単一のコストに統合する手法が主流であった。しかし、これらは目的関数の数が増えると計算コストが膨大になるか、あるいは適切な重みの設定が困難であるという課題があった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>パレート境界の計算や目的関数のスカラー化を必要とせず、ユーザーが定義した優先順位に従って直接的に単一の解を導出するフレームワークを提案した点に新規性がある。既存手法が目的関数の増加に伴い計算負荷が急増するのに対し、提案手法は計算量が目的関数の数に対して線形にスケールする。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>Conflict-Based Search (CBS) の二層構造を拡張した手法である。高レベル探索では制約木を用いてエージェント間の衝突を解消し、各ノードが保持する結合コストベクトルを辞書式順序で最小化するように探索を進める。低レベル探索にはLexicographic A* (LA*) を採用しており、時間拡張された状態空間において、優先度の高い目的関数から順に最適化することで、個々のエージェントの辞書式最適経路を計算する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>10種類のベンチマークマップを用い、5つのベースライン手法と比較評価を行った。評価指標は、2分間の制限時間内に有効な共同計画を見つけられる成功率と、解の最適性である。実験の結果、3つの目的関数を持つ標準的なシナリオで高い成功率を示した。また、目的関数が4つ以上に増える設定においても、既存手法が失敗する中でLCBSは成功を収め、最大10個の目的関数を持つ設定までスケーラビリティを実証した。さらに、パレート最適解を算出する手法と比較して、LCBSが同一の最適コストベクトルを導出することも確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、目的の優先順位が既に定義されている設定に焦点を当てたモデリングに基づくものであり、優先順位が不明な場合に用いられるパレート境界探索手法の代替ではない。提案手法は辞書式順序においてパレート境界上の解を得ることを理論的に保証しているが、計算量の線形性は目的関数の数に基づくものであり、高レベルおよび低レベルの各探索におけるヒープ操作やベクトル演算のコスト自体は目的関数の次元数に依存する。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Introduction</h3><p>本研究は、複数の目的関数に対して優先順位（辞書式順序）が定義されているマルチエージェント経路探索（MO-MAPF）を効率的に解くための、Lexicographic Conflict-Based Search (LCBS) というフレームワークを提案している。従来のMO-MAPF手法は、パレート最適解の集合をすべて算出してから優先順位に沿った解を選択する手法や、重み付けによって目的関数を単一のコストに統合するスカラー化手法が主流であったが、これらは目的関数の数が増えると計算コストが膨大になる、あるいは適切な重みの設定が困難であるといった課題があった。提案手法であるLCBSは、パレートフロントの計算や重みの決定を必要とせず、優先順位の高い目的から順に逐次的に最適化を行うことで、直接的に優先順位に適合した単一の解を導出する。具体的には、下位レベルの探索において辞書式A*（LA*）を用いることで、制約を満たしつつ優先順位に従った最短経路を計算し、上位レベルではConflict-Based Search（CBS）の枠組みに基づき、エージェント間の衝突を制約として分岐させながら解消していく。標準的なベンチマークおよびランダムなMO-MAPFの設定を用いた評価実験では、最大で10個の目的関数と35個のエージェントが存在する条件下においても、既存の最先端手法を上回る成功率を達成し、高いスケーラビリティを示すことが確認されている。</p></section>
+<section class="secsum"><h3>Multi-Objective MAPF</h3><p>Multi-Objective MAPF (MO-MAPF)は、グラフ上で各エージェントが始点から終点へ移動する際、複数のコスト関数に基づくコストベクトルを考慮し、頂点やエッジの衝突を回避する経路を求める問題である。従来のMO-MAPFはパレート境界上の非支配的な解を生成するが、目的間の優先順位を計画プロセスに直接組み込むことができず、解の生成後に事後的に適用されるという課題がある。これに対し、Lexicographic MO-MAPFは、目的間に厳格な優先順位を定義することで、最も優先度の高い目的から順に最適化を行う。ある計画が最適であるとは、そのコストベクトルが、優先度の高い次元から順に他のすべての有効な計画と比較して、辞書式順序において最小となることを指す。この手法は、人間とロボットの相互作用においてエネルギー消費よりも安全性を優先するといった、実用的な優先順位を計画段階から直接反映できる。</p></section>
+<section class="secsum"><h3>Lexicographic Conflict-Based Search</h3><p>LCBSは、複数の目的関数に対して辞書式順序による優先順位付けを行うConflict-Based Search (CBS) を拡張した手法です。高レベル探索では制約木を用いてエージェント間の衝突を解消し、各ノードが保持する結合コストベクトルを辞書式順序で最小化するように探索を進めます。低レベル探索にはLexicographic A* (LA*)が用いられ、時間拡張された状態空間において、優先度の高い目的関数から順に最適化することで、個々のエージェントの辞書式最適経路を計算します。この手法は、得られる解がパレートフロント上に存在することを理論的に保証しています。また、計算量は目的関数の数に対して線形にスケールし、高レベルおよび低レベルの各探索におけるヒープ操作やベクトル演算のコストは、目的関数の次元数に対して線形な依存関係に留まります。</p></section>
+<section class="secsum"><h3>Experiments</h3><p>本実験では、提案手法であるLCBSを、標準的およびランダムなシナリオを含む10種類のMAPFベンチマークを用いて、5つのベースライン手法と比較評価しています。比較対象には、低レベル探索の異なる手法を用いる4つのバリエーション（計算負荷を抑えた単一解の提示、5解または10解の提示によるパレート解の網羅性評価、および重複する衝突を統合して計算量を削減する手法）と、非支配的な経路を枝刈りして高速化を図る手法が含まれます。評価指標として、エージェント数の増加に伴う成功率、目的関数の数が増加した際の性能推移、および最適性を測定しています。実験はC++を用いて実装され、Apple M3 Proチップを搭載したmacOS上で実施されました。また、パレート支配の粒度を制御するパラメータについても、先行研究に基づいた設定を用いています。</p></section>
+<section class="secsum"><h3>Results and Discussion</h3><p>提案手法であるLCBSの性能を、エージェント数や目的関数の数が増加する条件下で、パレート最適解に基づく既存手法と比較して評価しました。2分間の制限時間内に有効な共同計画を見つけられる割合を成功率として定義し、標準的なシナリオおよびランダムなシナリオを用いた10種類のベンチマークマップで実験を行いました。その結果、3つの目的関数を持つ標準的なシナリオにおいて、LCBSは他の手法よりも高い成功率を示しました。目的関数が4つ以上に増える設定では、パレート境界の近似に伴う計算負荷の増大により既存手法は失敗しますが、LCBSは成功を収めており、目的関数の数に対するスケーラビリティの高さが示されています。また、パレート最適解を求める手法と比較した解の最適性評価において、LCBSはパレート境界全体を計算することなく、辞書式順序において同一の最小コストベクトルを算出できることが確認されました。</p></section>
+<section class="secsum"><h3>Related Works</h3><p>多目的経路計画では、パレート境界全体を計算する手法が存在するが、目的関数の数が増えるとスケーラビリティが低下し、近似手法ではパレート最適性が保証されないという課題がある。多目的マルチエージェント経路探索（MO-MAPF）においては、低レベル探索で各エージェントのパレート最適経路を求め、高レベルプランナーで衝突を解決する手法が一般的である。MO-CBSは制約木を用いて非支配経路を列挙することでパレート境界を構築し、BB-MO-CBSはその衝突解決を改善している。また、近似的な支配関係を用いて計算コストを削減する手法や、複数の目的を単一のコストに統合するスカラー化手法も存在する。これに対し、本研究が採用する辞書式順序（Lexicographic）フレームワークは、優先度の高い順に目的を逐次的に最適化することで、ユーザーの好みを直感的に反映しつつスケーラブルな計画を可能にする。本研究は、目的の優先順位が指定されているMO-MAPFの設定に焦点を当てており、優先順位が不明な場合に用いられるパレート境界探索手法の代替ではなく、特定のモデリング選択に基づくものである。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本研究では、優先順位付けされた目的関数に対して最適解を計画できる、辞書式順序を用いた多目的マルチエージェント経路探索（MO-MAPF）の定式化と、辞書式CBS（LCBS）アルゴリズムを提案している。LCBSは、低レベルの探索プロセスに優先順位を考慮したLA*を統合することで、パレート境界の計算やスカラー化を行うことなく、目的の優先順位に従った効率的な計画を実現する。ベンチマークを用いた評価の結果、LCBSは既存のベースライン手法と比較して一貫して高い成功率を示した。また、エージェント数の増加や目的関数の増加に対しても、性能を維持できることが確認された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-14
+  </footer>
+</div>
+</body>
+</html>
