@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Conflict-Based Search and Prioritized Planning for Multi-Agent Path Finding Among Movable Obstacles | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Conflict-Based Search and Prioritized Planning for Multi-Agent Path Finding Among Movable Obstacles</h1>
+  <div class="meta">Shaoli Hu, Shizhe Zhao, Zhongqiang Ren<br>採択先: 未取得 ・ 2025-09-30 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2509.26050v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2509.26050v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/ARXIV.2509.26050" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-09-30</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 1</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">MAPFに移動可能障害物を加えたM-PAMOという難易度の高い設定に対し、既存のCBSやPPを拡張して適用した点は実用的で興味深い。実験も具体的だが、手法の完備性や最適性が失われる点に課題が残る。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 移動可能な障害物が存在するマルチエージェント経路計画（M-PAMO）において、エージェントと障害物の相互作用による状態空間の増大と、空間的・時間的な強い結合という課題に対し、既存のCBSおよびPPを拡張した3つの手法を提案し、その性能を評価した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>2次元グリッド上の作業空間において、複数のエージェントが静止障害物および移動可能な障害物（箱）を避けながら、各々の目的地へ到達する経路を求める問題を対象とする。エージェントは移動や待機のほかに、隣接する箱を押し出すアクションが可能である。エージェント数や箱の数に応じて状態空間が指数関数的に増大することに加え、あるエージェントが動かした箱が後続のエージェントの経路を遮断するといった、エージェント間での複雑な結合が生じる点が困難である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のマルチエージェント経路探索手法を、移動可能な障害物を扱うM-PAMOへ適応・融合させた点に新規性がある。具体的には、高レベル探索で箱の動きを扱うCBS-MOH、低レベル探索に時空間での単一エージェント計画アルゴリズムであるST-PAMO*を組み込んだCBS-MOL、および優先順位に基づき箱を扱うPP-PAMO*を提案した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>CBS-MOHは、高レベル探索でエージェント同士、エージェントと箱、箱同士、および箱と環境の衝突を検出し、低レベルでは箱を無視して単一エージェントの経路を計算する。CBS-MOLは、低レベルのプランナーとしてエージェントと箱の状態を時空間グラフ上で扱うST-PAMO*を用い、高レベルから与えられた制約を満たす経路を探索する。衝突解決においては、原因となるエージェントに対し、特定の頂点の占有禁止や、箱を押し出す動作の禁止といった制約を課す。PP-PAMO*は、エージェントに固定の優先順位を割り当て、高優先度エージェントの経路を妨げないように箱を扱う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>最大20のエージェントと数百の箱を含むグリッドマップを用い、静止障害物の有無や箱の密度を変化させて評価した。比較手法はCBS-MOH、CBS-MOL、およびPP-PAMO*である。評価指標として成功率、実行時間、経路コスト、生成ノード数を用いた。結果として、箱の密度が増すと両CBS手法の成功率は低下するが、低レベルで箱を考慮するCBS-MOLの方が高い成功率を示す傾向がある。また、エージェント数が多い場合は、計算が高速なCBS-MOHの方が制限時間内の反復回数を稼げるため成功率が高くなるが、解に到達した際の生成ノード数はCBS-MOLの方が少ない。また、PP-PAMO*はCBS手法と比較して成功率が低く、実行時間も長い傾向にある。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>CBS-MOHは低レベルで箱を考慮しないため、経路コストが大きくなる場合がある。CBS-MOLは、低レベル探索時に他エージェントによる箱の移動を事前に把握できないため、完備性や最適性が失われるケースがある。また、ST-PAMO*において高優先度エージェントの経路を妨げないかを確認する処理が計算コストを増大させる。今後の課題として、CBSベースの手法では押し出された箱の情報を低レベル探索へより詳細に伝達する戦略や、制約の統合による性能向上が挙げられる。PP-PAMO*については、優先順位の動的な決定や、経路チェック回数の削減による高速化が検討課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Conflict-Based Search and Prioritized Planning for Multi-Agent Path Finding Among Movable Obstacles</h3><p>本研究は、複数のエージェントが静止障害物および移動可能な障害物の間を、衝突を避けながら始点から終点へ移動する経路を求める、移動可能障害物のあるマルチエージェント経路探索（M-PAMO）を対象としている。移動可能な障害物の存在により、エージェントと障害物の両方を含む状態空間がエージェント数や障害物数に対して指数関数的に増大し、エージェント同士が空間的・時間的に密接に結合するという課題が生じる。本論文では、マルチエージェント経路探索で用いられるConflict-Based Search（CBS）や優先度付き計画法（PP）、および単一エージェント向けのPAMO*を、M-PAMOに適応・融合させる試みを行っている。最大20のエージェントと数百の移動可能な障害物を用いた比較実験を通じて、各アプローチの長所と短所を明らかにしている。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究では、エージェントが動かせる障害物（オブジェクト）が存在する環境下での複数エージェント経路計画問題であるM-PAMOを扱う。この問題は、エージェントとオブジェクトの両方の数に応じて状態空間が指数関数的に増大し、あるエージェントが移動させたオブジェクトが後続のエージェントの経路を遮断するといった、空間的・時間的な強い結合が生じる点が大きな課題である。本論文では、既存のMAPF手法であるConflict-Based Search (CBS) と優先度付き計画法 (PP) をM-PAMOへ拡張した3つの手法を提案する。具体的には、高レベル探索においてオブジェクトとの衝突を新たな制約として扱うCBS-MOH、低レベル探索に時空間での単一エージェント計画アルゴリズムであるST-PAMO*を組み込んだCBS-MOL、およびエージェントに優先順位を割り当て、高優先度エージェントの経路を妨げないようにオブジェクトを扱うPP-PAMO*である。最大20のエージェントと数百のオブジェクトを含む様々なマップを用いた実験により、CBS-MOHおよびCBS-MOLはM-PAMOにおいて最適解を保証しないことが示されている。</p></section>
+<section class="secsum"><h3>II Problem Statement</h3><p>本研究が扱う移動可能障害物のあるマルチエージェント経路計画問題（M-PAMO）は、2次元のグリッド状グラフで構成される作業空間において、複数のエージェントが各々の目的地へ到達する経路を求めるものである。作業空間の各セルは、エージェントが移動可能な自由空間、移動不能な静止障害物、およびエージェントによって動かせる箱（移動可能障害物）のいずれかに分類される。エージェントは、その場での待機、上下左右への移動、または隣接する箱を押し出す「プッシュ」というアクションが可能であり、これらはいずれも1単位の時間ステップを消費する。箱をプッシュする条件は、エージェントが箱に隣接して移動を行うこと、かつ、移動先のセルが自由空間であり、かつ他のエージェントや箱によって占有されていないことである。衝突には、エージェント同士や箱同士が同じ位置を同時に占有する頂点衝突、反対方向から同じエッジを通過するエッジ衝突、およびエージェントと箱が同じ位置やエッジを同時に占有するエージェント・箱衝突が含まれる。本問題の目的は、これらすべての衝突を回避しつつ、全エージェントの経路コスト、すなわち目的地への到着時刻の総和を最小化することである。</p></section>
+<section class="secsum"><h3>III Method</h3><p>本セクションでは、移動可能な障害物が存在するマルチエージェント経路計画（M-PAMO）を解くための、Conflict-Based Search（CBS）を拡張した2つの手法、CBS-MOHとCBS-MOLが提案されている。CBS-MOHは、高レベルの探索においてエージェントの経路に基づきボックスの動きをシミュレーションして衝突を検出し、低レベルのプランナーではボックスを無視して単一エージェントの最短経路を計算する。一方、CBS-MOLは、低レベルのプランナーとして、エージェントとボックスの両方の状態を時空間グラフ上で扱うST-PAMO*を用い、ボックスの初期位置を考慮しながら高レベルから与えられた制約を満たす経路を探索する。衝突解決においては、エージェント同士（AA）、エージェントとボックス（AB）、ボックス同士（BB）の衝突、およびボックスがマップ外や静止障害物に押し出されるボックス押し出しルール（BPR）の違反に対し、ボックス自体ではなく、それらを引き起こすエージェントに対して特定の頂点の占有禁止や特定の押し動作の禁止といった制約を課す。実験的な分析により、CBS-MOHはボックスの動きを考慮しないため最適性を欠く場合があり、CBS-MOLは低レベルで他エージェントによるボックスの移動を把握できないため、完備性や最適性が失われるケースがあることが示されている。</p></section>
+<section class="secsum"><h3>IV Experimental Results</h3><p>動かせる障害物（ボックス）が存在するマルチエージェント経路計画において、CBS-MOH、CBS-MOL、およびPP-PAMO*の性能を、静的障害物がないマップと10%の静的障害物があるランダムマップを用いて評価しました。ボックスの密度を変化させた実験では、ボックスが増えるほど相互作用が複雑になるため、CBS-MOHとCBS-MOLの成功率は共に低下しますが、低レベル探索においてボックスを考慮するCBS-MOLの方が一般に高い成功率を示します。エージェント数を増やした実験では、エージェント数が多い場合にCBS-MOHがCBS-MOLを上回る成功率を記録しており、これは低レベル探索でボックスを無視するCBS-MOHの方が計算が高速であるため、制限時間内に多くの衝突解決の反復処理を行えることに起因します。一方で、両手法が共通して解けたインスタンスにおける生成ノード数を比較すると、CBS-MOLの方が少ないノード数で解に到達しており、低レベル探索でのボックス考慮が反復回数の削減に寄与していることが示されています。優先度付き計画であるPP-PAMO*と比較すると、CBS系の手法は成功率と実行時間の両面で優れていますが、経路コストに関しては、低レベル探索でボックスを考慮するCBS-MOLやPP-PAMO*の方が、ボックスを無視するCBS-MOHよりも小さなコストを実現する傾向があります。</p></section>
+<section class="secsum"><h3>V Conclusion and Future Work</h3><p>本研究では、移動可能な障害物が存在する環境下でのマルチエージェント経路計画問題であるM-PAMOを定式化し、既存のCBS（Conflict-Based Search）およびPP（Prioritized Planning）を基盤とした3つの手法を提案して、様々なマップにおける性能比較を行いました。エージェントと箱の複雑な相互作用がエージェント間の結合を強めるため、計算上の困難が生じ、既存のCBSやPPの手法に大きな負荷がかかることが示されました。今後の展望として、CBSベースの手法については、押し出された箱の情報を低レベルの探索へさらに伝達することや、エージェントや箱に対して異なる制約を付与する戦略を組み合わせて制約を統合することで、性能向上を図ることが挙げられます。また、PP-PAMO*については、優先順位を固定ではなく動的に決定することや、影響のない計画経路のチェック回数を減らすことで探索を高速化することが検討課題として示されています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-15
+  </footer>
+</div>
+</body>
+</html>

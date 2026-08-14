@@ -33,6 +33,39 @@
       "url": "https://www.semanticscholar.org/paper/a8118bc48586e25e5d6f6d60ccfd895074a12b97",
       "venue": "arXiv (Cornell University)"
     },
+    "arxiv:2605.25379": {
+      "added": "2026-08-15",
+      "added_at": "2026-08-15T06:11:59.860207",
+      "arxiv_id": "2605.25379",
+      "authors": [
+        "Miaohe Niu",
+        "Pengxiang Li",
+        "Jingbo Zhu",
+        "Tong Xiao"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-07-29",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2605.25379.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG",
+        "Evidence Retrieval"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2605.25379",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの制御を「型付きの状態管理」として定式化した新規性が高い。多角的な評価指標と実験による優位性の証明も具体的で、実用的なRAG設計において読む価値がある。",
+      "relevance": 6,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "StateRAG: Typed State Contracts for Complex Retrieval-Augmented Generation",
+      "tldr": "複雑な検索拡張生成（RAG）における検索制御を、最終的な回答生成器から分離された型定義済みの状態として管理するStateRAGを提案する。これにより、検索計画、探索経路、証拠の検証、および成果物の再利用を厳密に制御し、回答精度と効率性を向上させる。",
+      "url": "https://arxiv.org/abs/2605.25379",
+      "venue": ""
+    },
     "arxiv:2605.28120": {
       "added": "2026-06-23",
       "added_at": "2026-06-23T00:00:00.000000",
@@ -2730,6 +2763,38 @@
       "title": "CoinRAG: Contextualized Information Nugget KV Cache Reuse for Long-Context RAG",
       "tldr": "長文コンテキストのRAGにおいて、チャンク単位のキャッシュ再利用に伴う情報の冗長性とノイズを解消し、低遅延な応答制約下で回答精度を最大化する手法である。テキストチャンクから重要な情報断片であるナゲットを抽出し、そのKVキャッシュを再利用することで、効率的かつ正確な文脈構成を実現する。",
       "url": "http://arxiv.org/abs/2608.07458v1",
+      "venue": ""
+    },
+    "arxiv:2608.12335": {
+      "added": "2026-08-15",
+      "added_at": "2026-08-15T06:10:53.272986",
+      "arxiv_id": "2608.12335",
+      "authors": [
+        "Siyuan Chen",
+        "Hua Tan",
+        "You Li",
+        "Jiajun Liang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-06-03",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.12335.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.12335",
+      "reading_value": 4,
+      "reading_value_reason": "金融文書特有の階層構造とテキスト・表の混在に対し、グラフ構造と意図に基づくルーティングで解決を図る手法は極めて実用的。新規ベンチマークの提案も価値が高い。",
+      "relevance": 8,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "HC-RAG: Evidence-Centric Retrieval-Augmented Generation over Heterogeneous Financial Filings",
+      "tldr": "金融年次報告書の階層構造とテキスト・表の混在に対応するため、文書・セクション・証拠単位の階層パスを用いた検索と、質問の意図に基づく動的な情報ルーティングを行うフレームワークHC-RAGを提案する。",
+      "url": "https://www.semanticscholar.org/paper/a238b88595514068a785fe39db37a0d4b0669ec5",
       "venue": ""
     },
     "doi:10.1038/s41598-026-50062-8": {
@@ -6418,6 +6483,37 @@
       "url": "http://arxiv.org/abs/2608.08175v1",
       "venue": ""
     },
+    "arxiv:2608.12955": {
+      "added": "2026-08-15",
+      "added_at": "2026-08-15T06:02:20.559869",
+      "arxiv_id": "2608.12955",
+      "authors": [
+        "Maichi Zhang",
+        "Naoyuki Kamiyama",
+        "Kanae Yoshiwatari"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-13",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2608.12955.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.12955v1",
+      "reading_value": 4,
+      "reading_value_reason": "LA-MAPFの複雑性をNP困難からPSPACE完全へと引き上げた理論的に重要な研究。幾何学的制約を用いた還元手法の構成が非常に具体的で、MAPF研究者にとって価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "PSPACE-Completeness of Multi-Agent Path Finding for Large Agents",
+      "tldr": "エージェントを半径を持つ円盤としてモデル化し、物理的な重なりを考慮する大規模エージェントのマルチエージェント経路探索（LA-MAPF）が、PSPACE完全であることを証明した。",
+      "url": "http://arxiv.org/abs/2608.12955v1",
+      "venue": ""
+    },
     "doi:10.1016/j.artint.2022.103752": {
       "added": "2026-06-14",
       "added_at": "2026-06-14T00:00:00.000005",
@@ -7126,6 +7222,37 @@
       "tldr": "高密度環境において目的地を持つターゲットエージェントと、空間を占有する目的地を持たない妨害エージェントが混在するMAPF-HD問題を定義し、空きマスとエージェントを段階的に入れ替えるPHANS手法を提案することで、大規模環境でも数秒以内での経路計画を実現した。",
       "url": "http://arxiv.org/abs/2509.06374v2",
       "venue": "IEEE Robotics &amp; Automation Magazine"
+    },
+    "doi:10.48550/arxiv.2509.26050": {
+      "added": "2026-08-15",
+      "added_at": "2026-08-15T06:03:49.669510",
+      "arxiv_id": "2509.26050",
+      "authors": [
+        "Shaoli Hu",
+        "Shizhe Zhao",
+        "Zhongqiang Ren"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 1,
+      "date": "2025-09-30",
+      "doi": "10.48550/ARXIV.2509.26050",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2509.26050.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2509.26050v1",
+      "reading_value": 3,
+      "reading_value_reason": "MAPFに移動可能障害物を加えたM-PAMOという難易度の高い設定に対し、既存のCBSやPPを拡張して適用した点は実用的で興味深い。実験も具体的だが、手法の完備性や最適性が失われる点に課題が残る。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Conflict-Based Search and Prioritized Planning for Multi-Agent Path Finding Among Movable Obstacles",
+      "tldr": "移動可能な障害物が存在するマルチエージェント経路計画（M-PAMO）において、エージェントと障害物の相互作用による状態空間の増大と、空間的・時間的な強い結合という課題に対し、既存のCBSおよびPPを拡張した3つの手法を提案し、その性能を評価した。",
+      "url": "http://arxiv.org/abs/2509.26050v1",
+      "venue": ""
     },
     "doi:10.48550/arxiv.2510.07276": {
       "added": "2026-08-14",

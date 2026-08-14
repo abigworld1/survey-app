@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>StateRAG: Typed State Contracts for Complex Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>StateRAG: Typed State Contracts for Complex Retrieval-Augmented Generation</h1>
+  <div class="meta">Miaohe Niu, Pengxiang Li, Jingbo Zhu, Tong Xiao<br>採択先: 未取得 ・ 2026-07-29 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2605.25379" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2605.25379" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-07-29</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 6</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの制御を「型付きの状態管理」として定式化した新規性が高い。多角的な評価指標と実験による優位性の証明も具体的で、実用的なRAG設計において読む価値がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span><span class="tag">Evidence Retrieval</span></div>
+  <div class="tldr"><strong>一言で:</strong> 複雑な検索拡張生成（RAG）における検索制御を、最終的な回答生成器から分離された型定義済みの状態として管理するStateRAGを提案する。これにより、検索計画、探索経路、証拠の検証、および成果物の再利用を厳密に制御し、回答精度と効率性を向上させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>複雑なクエリへの対応には、情報の分解、複数の証拠領域の探索、証拠の十分性の評価、および検索計画の修正といった逐次的な制御が必要となる。従来のRAGでは、これらの決定プロセスがモデルのコンテキスト、自由形式の共有メモリ、あるいは特定の探索手順の中に埋め込まれており、制御変数や更新ルールが手法ごとに個別化されているため、一連のライフサイクル内での整合的な管理が困難であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>先行研究におけるエージェント的な軌跡生成や、自由形式の共有メモリを用いた手法に対し、StateRAGは役割ごとに所有権が割り当てられた「型付きのクエリ状態」を導入した点が新しい。検索意図、探索経路、証拠、検証結果、再利用可能な成果物の識別子を分離したスキーマとして定義し、コントローラーが各役割からの提案を検証・確定する統治メカニズムを構築した。これにより、制御変数の型、更新ソース、終了条件、および永続化の範囲を単一のインターフェースで管理することを実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>StateRAGは、検索意図、探索軌跡、取得された証拠、検証結果、および再利用可能な成果物の識別子という5つのフィールドを持つ状態を管理する。まず、Typed Abstraction Memory (TAM) がトピックや関係性をノードとする有向非巡回グラフを構築し、探索空間を制約する。次に、Multi-Agent Retrieval System (MARS) において、Planner、Navigator、Retriever、Verifierの4つの役割が、それぞれの担当フィールドに対する更新を提案する。コントローラーはこれらの提案がスキーマや整合性ルールに適合するかを検証し、承認されたもののみを確定させる。各サイクル終了後、コントローラーは検証結果と残り予算に基づき、計画を修正するRevise、回答生成へ進むRelease、またはFallbackのいずれかを選択する。また、Shared Memory Pool (SMP) が、役割やスコープに応じた制約の下で、成果物の実体を保持・管理する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>LongBench (HotpotQA, 2WikiMQA, MuSiQue)、QASPER、およびDocVQAのデータセットを用いて評価を行った。比較対象はVanilla RAG、ReAct、Self-RAG、RAPTOR、GraphRAG、MemoRAG、HippoRAG2である。評価指標には、EM、F1、精度、ANLS、およびモデルサイズで重み付けしたLLMトークン使用量を示すRETを用いた。StateRAGは、報告された11の品質指標のうち10個で最高スコアを記録した。LongBenchのマクロ平均では、ReActをEMで6.3ポイント、F1で6.1ポイント上回った。また、MuSiQueではF1が9.8ポイント向上した。自由形式の共有キャリアを用いた比較では、StateRAGは精度（EM, F1, Accuracy）で優位性を示しつつ、RETを6.2%削減した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、品質と遅延のトレードオフにおいて、高いF1スコアを維持する品質重視の設計となっている。現在の実装では、役割の実行が逐次的であり、回答生成器の呼び出しは最大1回に限定されている。限界として、型付きフィールド、所有権、検証プロセスを一つの契約としてまとめて評価している点が挙げられる。今後の課題は、これらの要素を個別に分離して検証すること、並列スケジューリングや反復的な回答生成プロセスへの拡張、および永続化ポリシーや再利用期間の最適化である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>StateRAG: Typed State Contracts for Complex Retrieval-Augmented Generation</h3><p>StateRAGは、複雑な検索拡張生成（RAG）における検索制御を、最終的な読み手モデルから分離された型定義済みの状態として表現する手法である。この状態には、クエリ計画、型定義された探索パス、候補となる証拠、検証結果、および再利用可能な成果物が記録され、各フィールドには明確な意味と更新ソースが割り当てられている。制御プロセスでは、役割に基づいたオペレータが各フィールドに値を提案し、コントローラがその妥当性を検証して確定させることで、情報の整合性を保つ。コントローラは、証拠の十分性を判定して検索をスキップするか、あるいは残りの予算に応じて、検索の継続、計画の修正、またはフォールバックを選択する。LongBench、QASPER、DocVQAを用いた評価において、StateRAGは多くの品質指標で最高スコアを記録し、特にMuSiQueタスクではF1スコアが9.8ポイント向上した。また、ReActと比較して、クエリあたりの平均LLMトークン使用量を抑えつつ、LongBenchのQAタスクにおいてEMおよびF1スコアでそれぞれ6.3および6.1パーセントポイント上回る性能を示した。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>複雑なクエリに対するRAGは、情報の分解や複数の証拠領域の探索、証拠の十分性の評価、および検索計画の修正といった逐次的な制御問題として捉える必要があります。本研究では、検索プロセスを最終的な回答生成器から切り離し、型定義されたクエリ状態として外部化するStateRAGを提案します。この手法は、計画、型付きの探索経路、候補となる証拠、検証結果、および再利用可能な成果物を記録するインターフェースを持ち、プランナー、ナビゲーター、リトリーバー、ベリファイアといった各役割が指定されたフィールドに対して提案を行い、コントローラーがそれらを検証して確定させます。検証プロセスでは、証拠の十分性を判断する判定と、それに基づく実行アクションであるバイパス、リリース、修正、フォールバックを分離しており、予算や条件に応じた遷移を制御します。実験の結果、LongBenchにおいてReActを上回る0.3817のEMおよび0.4753のF1スコアを記録しました。また、型定義された役割所有型のキャリアは、自由形式の共有キャリアと比較して、平均RET（検索トークン量）を6.2%削減しながら、EM、F1、および精度において優れた性能を示すことが確認されました。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>既存の研究では、推論と行動を交互に行うエージェント的手法や、リフレクション・トークンによる検索の判断、信頼度に基づくドキュメントの精緻化、あるいは状態遷移モデルを用いたタスク実行など、多様な形式で検索制御が試みられてきた。これに対しStateRAGは、進化する計画、型付けされた探索パス、候補となる証拠、検証結果、および再利用可能なアーティファクトを、役割ごとに所有権が割り当てられた型付きのクエリ状態として整理する。また、再帰的な要約ツリーやエンティティグラフ、階層的な知識構造を用いる構造化検索手法が存在するが、StateRAGはTAMという型付きの検索基盤を提供することで探索空間を制約し、選択されたパスや証拠を動的なクエリ状態に記録する。さらに、仮想コンテキスト管理や共有ワークスペースを用いたメモリ管理の研究もあるが、StateRAGはSMPを通じて、クエリを跨ぐグローバルメモリ、クエリ範囲内のタスクメモリ、および役割固有のプライベートメモリを分離し、役割ごとの権限に基づいてアーティファクトの読み書きを制御する。このようにStateRAGは、制御変数の型付きドメイン、指定された更新ソース、終了条件、および永続化の範囲を、単一のライフサイクル内で厳密に管理・統治することに焦点を当てている。</p></section>
+<section class="secsum"><h3>3 Method</h3><p>StateRAGは、回答生成の前にクエリレベルの検索状態を維持するフレームワークであり、検索意図、探索軌跡、取得された証拠、証拠の検証結果、および再利用可能なアーティファクトの識別子という5つのフィールドで状態を管理します。核となるTyped Abstraction Memory (TAM)は、トピックや関係性などの型を持つノードからなる有向非巡回グラフであり、Navigatorはこのグラフにおける型遷移の制約に従って、適切な検索領域を探索します。Multi-Agent Retrieval System (MARS)では、Planner、Navigator、Retriever、Verifierの4つの役割が順次状態の更新を提案し、コントローラーがそれらの妥当性を検証して確定させるサイクルを繰り返します。各サイクルでは、検証結果に基づき、次のサイクルへ進むRevise、検索を終了して回答生成へ進むRelease、または予算上限によるFallbackのいずれかの遷移が行われます。また、Shared Memory Pool (SMP)は、役割やスコープの制約に基づき、再利用可能なアーティファクトの本体を検索状態とは別に保持・管理します。最終的に、検証を通過した証拠のみがReaderに渡され、回答合成に利用されます。</p></section>
+<section class="secsum"><h3>4 Experiments</h3><p>本実験では、LongBench（HotpotQA、2WikiMQA、MuSiQue）、QASPER、およびDocVQAの各タスクを用いてStateRAGの性能を評価しています。評価指標には、回答の正確性を示すEMやF1、精度、ANLSに加え、計算リソースの指標として、最終リーダーのモデルサイズで重み付けしたトークン使用量であるRET（reader-equivalent tokens）を用いています。実験の結果、StateRAGは報告された11の品質指標のうち10個で最高スコアを記録し、LongBenchのマクロ平均F1においても、次点のReActを6.1ポイント上回る0.4753を達成しました。コンポーネントのアブレーション解析では、TAM、MARS、SMPの各要素を削除すると全ての品質指標が低下し、特にMARSの削除がLongBenchにおいて最も大きな性能低下を招くことが示されました。また、型定義されたキャリアを用いるStateRAGは、自由形式のキャリアを用いる手法と比較して、LongBenchにおいて高い精度と6.2%低いRETを実現しています。品質と遅延の関係については、StateRAGはLongBenchとQASPERの両方で最高水準のF1スコアを維持しており、品質重視の観点から優れた性能を示しています。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>複雑なRAG（検索拡張生成）の本質を状態管理の問題と捉え、検索計画、探索経路、根拠、検証結果、および再利用可能な成果物を型定義された状態契約として外部化するStateRAGを提案する。この手法は、役割ごとに定義された更新権限とコントローラーによる検証および確定プロセスを通じて状態の進化を制御し、計画、検索、検証、修正、永続化、そして読者への提供に至る一連のライフサイクルを統一的に管理する。マルチホップ、長文、および視覚ドキュメントを用いたQAの評価において、共通の評価プロトコル下で最高品質を達成した。また、自由形式の共有軌跡と比較して、StateRAGは回答の質と正規化されたトークン効率の両面を向上させることを示した。本研究では、型定義されたフィールド、書き込み権限、および確定前の検証を一つの状態契約として一括して評価している。今後は、これらの要素を分離して検証することや、クエリスケジュール、永続化ポリシー、および再利用期間の検討が課題となる。現在は逐次的な役割スケジューリングと最大一度の読者承認を採用しているが、並列スケジューリングや反復的な読者プロセスへの拡張が可能である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-15
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>HC-RAG: Evidence-Centric Retrieval-Augmented Generation over Heterogeneous Financial Filings | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>HC-RAG: Evidence-Centric Retrieval-Augmented Generation over Heterogeneous Financial Filings</h1>
+  <div class="meta">Siyuan Chen, Hua Tan, You Li, Jiajun Liang<br>採択先: 未取得 ・ 2026-06-03 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/a238b88595514068a785fe39db37a0d4b0669ec5" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.12335" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-06-03</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">金融文書特有の階層構造とテキスト・表の混在に対し、グラフ構造と意図に基づくルーティングで解決を図る手法は極めて実用的。新規ベンチマークの提案も価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 金融年次報告書の階層構造とテキスト・表の混在に対応するため、文書・セクション・証拠単位の階層パスを用いた検索と、質問の意図に基づく動的な情報ルーティングを行うフレームワークHC-RAGを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>年次報告書を用いた金融分野の質問応答では、膨大な文書量、階層的なセクション構造、およびテキストと表の混在が特徴である。従来のRAG手法は、文書を順序のない断片に平坦化して扱うため、文書構造が破壊され、重要な証拠の特定が困難になる。また、テキストと表の情報の不整合や、質問の意図（計算、傾向、事実、比較）に応じた適切な証拠の選択ができないという課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>金融アナリストの調査プロセスを模倣し、文書、セクション、テキスト単位、表単位、メタデータの各要素を型付きノードとして保持する異種金融証拠グラフを構築した。従来の平坦な検索とは異なり、グラフ上の有効なパスを通じて証拠を特定する階層的な検索構造と、質問の意図に基づいてテキストと表の証拠を動的に組み合わせるクエリ認識型のルーティング戦略を導入した点が新規である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、文書、セクション、テキスト単位、表単位、メタデータの各ノードを包含関係や関連性で結んだ金融証拠グラフを構築する。検索は、文書、セクション、証拠単位の3段階の階層パスで行われる。テキストと表の情報を共通の検索空間で扱うため、オフライン時にテキスト用エンコーダと表用エンコーダを用いて両者を整列させる。オンライン推論時には、分類器が質問を計算、傾向、事実、比較の4つの意図に分類し、その意図に応じてテキストと表の証拠を適切に選択・統合するルーティングを行う。最終的なコンテキストは、選択された証拠の内容、ソース文書、セクション、モダリティ情報を含めて構成される。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>S&amp;P 500企業のSEC 10-K報告書から構築された、2,327件のQAペアを含むMulti-Doc-2025ベンチマークおよび既存の金融QAベンチマークを用いて評価した。比較対象はGraphRAG、RAPTOR、TAPEX-RAG、Self-RAG、BM25-RAG、DPR-RAGなどである。評価指標には、回答の正確性を示すF1スコア、Exact Match、数値計算の正確性、ハルシネーション率、および証拠の特定精度（文書・セクション・表のヒット率やクロス文書再現率）を用いた。結果として、Multi-Doc-2025においてF1スコア60.2を記録し、GraphRAGを10.9ポイント、TAPEX-RAGを6.1ポイント上回った。また、3層の階層型インデックスを削除した場合、F1スコアが11.1ポイント低下することを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法はSEC形式の比較的規則的なHTML構造に依存しており、スキャンされたPDFやレイアウトが不規則な文書への適用には課題がある。また、結合セルや不明瞭な単位を含む複雑な表の抽出精度が結果に影響を与える可能性がある。さらに、意図分類器が誤った分類を行った場合、テキストまたは表のどちらかに過剰な重み付けがなされ、不適切なコンテキストが選択されるトレードオフが存在する。今後の課題として、堅牢な文書解析手法の導入、複雑な表構造の理解力の向上、および証拠グラフの柔軟な更新機能の実現が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>HC-RAG: Evidence-Centric Retrieval-Augmented Generation over Heterogeneous Financial Filings</h3><p>HC-RAGは、年次報告書を用いた金融分野の質問応答において、文書、セクション、テキスト、表、およびメタデータをノードとする階層的な金融証拠グラフを構築するフレームワークである。従来のRAGが文書を順序のない断片に平坦化するのに対し、本手法は文書からセクション、そして各ユニットへと至るパスを通じて証拠を検索し、テキストと表の証拠を共通の検索空間で整合させる。さらに、質問の意図を計算、傾向、事実、比較の4つの意味的な意図に分類し、その意図に応じて証拠を振り分ける意図認識型のテキスト・表融合戦略を採用している。評価には、S&amp;P 500企業のSEC 10-K報告書から作成された、意図や難易度、構造的属性のラベルを含む2,327件の専門家検証済みQAペアからなるベンチマークMulti-Doc-2025を用いている。実験の結果、HC-RAGはDocFinQAにおいてRAPTORをF1スコアで6.6ポイント、Multi-Doc-2025においてGraphRAGを10.9ポイント上回り、特に長文、表に関連する質問、および複数文書にまたがる設定において、回答の質と証拠の特定精度の両方を向上させている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>年次報告書のような構造化された金融文書を用いた質問応答では、テキストと表が混在し、文書・セクション・単位が階層的な関係にあるため、従来のRAGでは文書構造の破壊や、テキストと表の情報の不整合、質問の意図に応じた証拠選択の失敗といった課題がある。これに対し、提案手法であるHC-RAGは、文書、セクション、テキスト単位、表単位を型付きノードとして持つ異種金融証拠グラフを構築し、グラフ上の有効なパスを通じて証拠を選択する階層的な検索を行う。また、非対称なオフライン・オンライン設計によってテキストと表の表現を整合させ、計算、傾向、事実、比較という4つの意味的意図に基づいたクエリ認識型の特徴ルーティングを用いることで、マルチモーダルな推論を可能にする。評価用ベンチマークとして、S&amp;P 500企業の2022年から2024年のSEC 10-K報告書から作成された2,327件のQAペアを含むMulti-Doc-2025を導入しており、これは文書間、年度間、マルチモーダル、および意図に応じた評価を可能にする。実験の結果、最終的な回答の正確性は、文書、セクション、表、および文書間証拠の検索精度の向上と密接に関連していることが示された。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>既存のRAG手法には、木構造やグラフ構造を用いて多段階の証拠検索を行うRAPTORやGraphRAG、人間の記憶メカニズムの概念を取り入れたHippoRAGなどがあるが、HC-RAGは金融アナリストの証拠探索プロセスをモデル化することに焦点を当てている。HC-RAGは、提出書類、セクション、テキスト単位、表、企業、会計年度といった要素間で型付けされた証拠グラフを構築することで、金融文書の構造に沿った検索を可能にしている。金融QAの分野では、FinBERTなどの言語モデルや、算術推論、事実の根拠付け、証拠の特定を必要とするFinQAやFinanceBenchなどのベンチマークが発展してきたが、既存研究の多くは単一の文書や局所的な表の文脈に留まっている。実際の金融分析では、企業間の比較や会計年度を跨ぐ変化の追跡、記述的な説明と財務諸表の併用が求められる。これに対し、HC-RAGはクエリの意図を計算、トレンド分析、事実確認、比較のクラスに分類し、予測された意図に基づいてテキストと表の候補へ証拠を振り分けるクエリ認識型のルーティングを採用している。これにより、流動性比率の計算のように表のセルに依存する問いと、流動性リスクのように説明文に依存する問いを、クエリの性質に応じて適切に処理することが可能となる。</p></section>
+<section class="secsum"><h3>3 Methodology</h3><p>HC-RAGは、金融アナリストの調査プロセスを模倣し、階層的な金融証拠グラフを用いて情報の検索と生成を行う手法である。このグラフは、文書、セクション、テキスト単位、テーブル単位、メタデータの各ノードを、包含関係や順序、企業・年度間の関連性を示すエッジで結んでおり、文書からセクション、そして具体的な証拠単位へと段階的に絞り込む階層的検索を実現している。検索プロセスでは、まず質問の意味的な類似度とメタデータの整合性に基づいて文書を特定し、次に質問の意図に応じたセクションの優先順位付けを行い、最終的に詳細な証拠単位を抽出する。テキストとテーブルの情報の差異を埋めるため、オフライン時に専門的なエンコーダを用いて両者を共通のベクトル空間へ写像する非対称な整列を採用しており、オンライン推論時にはテーブルをテキスト形式に変換することで、効率的な検索を可能にしている。さらに、質問の意図を分類するルーティングモジュールにより、計算、傾向、事実、比較の各意図に応じてテキストとテーブルの重み付けを動的に調整し、証拠を再ランキングする。最終的な生成フェーズでは、抽出された証拠にソース情報や種類を付与したコンテキストを構築し、質問の意図に応じた個別のプロンプト指示を与えることで、根拠に基づいた回答を生成する。</p></section>
+<section class="secsum"><h3>4 Proposed Benchmark: Multi-Doc-2025</h3><p>Multi-Doc-2025は、SEC Form 10-K（年次報告書）を用いた証拠中心の金融QAを評価するためのベンチマークであり、S&amp;P 500に属する87社の179の報告書から抽出された2,327件のQAペアで構成されています。データ分割は、主要なクエリ対象となる企業が訓練、検証、テストの各セットで重複しないように設計されており、未知の企業に対する汎化性能を評価できます。本ベンチマークは、単一文書内の事実確認や計算、単一文書内の表推論、年度を跨ぐ傾向推論、企業間比較、およびこれらを組み合わせた複合的な推論の5つのサブセットに分類されています。既存のFinQAやFinanceBenchなどのベンチマークが数値推論や事実に基づいた根拠付けに重点を置いているのに対し、Multi-Doc-2025は文書間、年度間、およびテキストと表の混合モダリティを跨ぐ推論を同時にテストできる点が特徴です。評価指標には、完全一致（EM）、トークンレベルのF1スコア、数値計算の正確性、およびハルシネーション率が含まれ、これらを意図やサブセット、難易度ごとに詳細に分析することが可能です。</p></section>
+<section class="secsum"><h3>5 Experimental Setup</h3><p>本実験では、数値推論、表とテキストの推論、長文からの根拠特定、事実に基づく根拠付け、および複数文書の集約を評価するため、FinQA、TAT-QA、DocFinQA、FinanceBench、および新たに提案されたMulti-Doc-2025の5つのデータセットを使用する。Multi-Doc-2025は、企業間、年度間、およびハイブリッドなモダリティを跨ぐ推論を対象としたベンチマークである。比較対象として、BM25-RAGやDPR-RAGなどの検索ベースの手法に加え、Self-RAGやGraphRAGのような構造化・自己反省型RAG、さらにTAPEX-RAGなどの表認識に特化した金融QAモデルを用いる。評価指標は、Exact Match（EM）やF1スコア、実行精度（Exec-Acc）、幻覚率（Hall-Rate）、忠実度（Faithful Accuracy）といった回答の質に加え、文書、セクション、根拠単位、表、および複数文書にわたる根拠の特定精度を測定する指標を用いる。実装面では、SECの10-K報告書から構築された根拠グラフを用い、文書、セクション、および根拠単位の各レベルでルーティングを行う。テキストエンコーダにはFinBERTなどの金融ドメイン向けモデルを、表の表現にはTAPASを用い、意図分類器によって計算、傾向、事実、比較の各タスクを予測する。</p></section>
+<section class="secsum"><h3>6 Results and Analysis</h3><p>5つの金融QAベンチマークにおいて、HC-RAGは回答精度の面で最も優れた性能を示し、特に長文や複数文書の設定で大きな改善が見られました。Multi-Doc-2025データセットではF1スコア60.2を達成し、GraphRAGを10.9ポイント、TAPEX-RAGを6.1ポイント上回っています。根拠の特定能力については、文書単位のヒット率ではGraphRAGに僅かに譲るものの、セクション単位の特定、詳細な根拠ユニットの再現率、表の検索、および文書を跨いだ検索において最も高い性能を示しました。アブレーション研究により、文書・セクション・ユニットからなる3層の階層型インデックスが最も重要であることが示され、これを削除するとF1スコアが11.1ポイント低下しました。また、文書間を繋ぐエッジの削除は文書を跨ぐ回答能力を著しく低下させ、クロスモーダルな整合性機能はハイブリッドな質問の精度に寄与しています。効率性については、インデックス構築に1文書あたり4.8分、推論に1クエリあたり3.1秒を要し、GraphRAGやRAPTORと比較して同等の実行速度を維持しつつ、階層構造によるノイズフィルタリング効果で頑健性も確保しています。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>本研究では、年次報告書を用いた金融分野の質問応答のための証拠検索フレームワークであるHC-RAGを提案している。この手法は、報告書を単純な断片に分割するのではなく、文書、セクション、ユニットという階層構造を維持したまま、関連する文書からセクション、そしてテキストや表形式の証拠へと段階的に絞り込むプロセスを採用している。さらに、クエリの意図に応じてテキストと表の証拠の利用度を調整する機能を備えており、計算、傾向、事実、比較といった異なる種類の質問に対して、より的を絞った証拠取得を可能にしている。企業間、年度、およびマルチモーダルな金融QAを対象としたベンチマークであるMulti-Doc-2025を用いた実験では、セクションの特定、表の根拠付け、および複数文書にわたる証拠の集約において、回答精度と証拠の局所化精度の両面で改善が示された。一方で、本手法はSEC形式の構造化されたHTML報告書に依存しており、スキャンされたPDFやレイアウトが不規則な文書への対応、結合セルを含む複雑な表の抽出精度、および意図分類器の誤判定が検索結果に与える影響といった課題がある。今後の展望として、より堅牢な文書解析手法の導入や、複雑なヘッダーや単位を持つ表の理解力の向上、さらには証拠グラフの柔軟性の確保が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-15
+  </footer>
+</div>
+</body>
+</html>
