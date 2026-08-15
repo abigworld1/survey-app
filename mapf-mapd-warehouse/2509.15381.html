@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Dynamic Agent Grouping ECBS: Scaling Windowed Multi-Agent Path Finding with Completeness Guarantees | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Dynamic Agent Grouping ECBS: Scaling Windowed Multi-Agent Path Finding with Completeness Guarantees</h1>
+  <div class="meta">Tiannan Zhang, Rishi Veerapaneni, Shao-Hung Chan, Jiaoyang Li, Maxim Likhachev<br>採択先: AAAI 2025 ・ 2025-09-18 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2509.15381v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2509.15381v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/AAAI.V40I35.40238" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 AAAI 2025</span><span class="chip">公開日 2025-09-18</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">WinC-MAPFの枠組みで、劣最適ソルバーを用いながら完全性を維持する理論的拡張が極めて独創的。MAPFのスケーラビリティと完備性のトレードオフを解決する実用的な提案である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 窓付きマルチエージェント経路探索（WinC-MAPF）において、完全性を維持しながら計算効率を高めるため、エージェントを動的にグループ化して各グループの解がw-劣最適であることを保証するDAG-ECBSを提案する。これにより、従来の窓付き手法が抱えていたデッドロックやライブロックの問題を回避しつつ、スケーラビリティを向上させている。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路計画（MAPF）は、複数のエージェントが衝突を避けながら各々の目的地へ到達する経路を求める問題である。エージェント数や混雑度が増すと計算量が指数関数的に増加するため、一定の期間（窓）のみを計画する窓付き手法が用いられる。しかし、多くの窓付き手法は理論的な完全性を欠いており、局所的な判断によってデッドロックやライブロックが発生するという課題がある。既存の完全性を保証するWinC-MAPFフレームワークは、窓内の最適解を求めるソルバーを必要とするため、高密度な環境では計算コストが膨大になる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のWinC-MAPFは完全性を維持するために窓内の最適解を求める必要があったが、本研究は有界劣最適ソルバーを用いても完全性を維持できることを示した。各エージェントグループの解が個別にw-劣最適性を維持することを保証することで、従来の窓付きECBSでは困難だった完全性の証明を可能にしている。これにより、完全性の保証を持たない手法よりも高い成功率を実現し、最適解を求める手法よりも優れたスケーラビリティを提供している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>DAG-ECBSは、エージェントを動的なグループとして管理し、各グループの窓内解がw-劣最適であることを保証しながら計画を行う。まず、各エージェントを個別のグループとして初期化する。次に、各グループに対してGroup-ECBSを実行して窓内の経路を求める。計画されたグループ間で衝突が発生した場合、それらのグループを統合して新たなグループとして再投入し、衝突がなくなるまでこのプロセスを繰り返す。Group-ECBSでは、低レベルおよび高レベルの探索において、ヒューリスティックのペナルティを考慮した修正版のFocal探索を用いる。これにより、エージェント間の相互作用に応じてグループ化が動的に変化しつつ、各グループのヒューリスティックがw-許容であることを維持する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>標準的なベンチマークマップを用い、DAG-ECBS、完全性を保証する最適解法であるSS-CBS、および完全性の保証がないwindowed ECBSと比較した。実験の結果、DAG-ECBSはSS-CBSよりも優れたスケーラビリティを示し、windowed ECBSと比較して、窓サイズが小さい場合や混雑したマップにおいて高い成功率を達成した。また、非最適性の許容度wを大きく設定することで、1イテレーションあたりの実行時間を一貫して短縮できることが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>DAG-ECBSは、混雑の少ない大規模なマップにおいて、計算時間の増大によりタイムアウトが発生しやすい傾向がある。また、ウィンドウサイズを大きくすると1イテレーションあたりの実行時間が増加し、その影響はDAG-ECBSにおいてより顕著に現れる。非最適性の許容度を上げると実行時間は短縮されるが、解のコストが増加するというトレードオフが存在する。今後の課題として、より高度な有界劣最適アルゴリズムへの適用や、分散型アルゴリズムへの拡張が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Dynamic Agent Grouping ECBS: Scaling Windowed Multi-Agent Path Finding with Completeness Guarantees</h3><p>本研究は、部分的な経路計画を行う窓付きマルチエージェント経路探索（WinC-MAPF）の枠組みにおいて、完全性を維持しつつ計算効率を高める手法であるDynamic Agent Grouping ECBS（DAG-ECBS）を提案している。従来のWinC-MAPFは、完全性を保証するために最適解を求めるソルバーを必要とするという制約があったが、本手法は限定的な劣最適性を許容するソルバーを組み込むことでこの制約を解消している。DAG-ECBSは、エージェントのグループを動的に生成および計画し、各グループの解が限定的な劣最適性の範囲内に収まることを保証しながら、WinC-MAPFの枠組み内で完全性を維持できることを証明している。実験の結果、DAG-ECBSはSS-CBSと比較してスケーラビリティが向上しており、完全性の保証を持たない窓付きECBSを上回る性能を示すことが確認された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路計画（MAPF）は、共有環境内の全エージェントが衝突を回避しながら始点から終点へ移動する経路を求める問題であり、エージェント数が増えると計算量が指数関数的に増大する。混雑時や計算時間が限られる状況では、全行程の経路を計画することは困難なため、一定の時間ステップ分のみを計画するウィンドウ型MAPFが用いられる。しかし、多くのウィンドウ型手法は理論的な完全性を欠いており、局所的な判断によってデッドロックやライブロックが発生するという課題がある。これに対し、WinC-MAPFフレームワークは、エージェントの構成（結合状態）に対するヒューリスティック値を更新することで、ウィンドウ型ソルバーを用いながらも理論的な完全性を保証する手法を提案している。本研究では、このフレームワークを拡張し、有界劣最適性を維持したまま完全性を保証するDynamic Agent Grouping ECBS（DAG-ECBS）を提案する。DAG-ECBSはエージェントのグループを動的に生成・計画する手法であり、各グループのウィンドウ内解が有界劣最適であることを維持しつつ、WinC-MAPFの枠組みにおいて完全性を保てることを証明している。実験の結果、完全性の保証がない従来のウィンドウ型ECBSと比較して、DAG-ECBSは成功率を向上させることが示された。</p></section>
+<section class="secsum"><h3>2 Preliminaries</h3><p>本セクションでは、衝突のない経路を探索するマルチエージェント経路計画（MAPF）の定義、関連研究、および本研究の基礎となるWindowed Complete MAPF（WinC-MAPF）フレームワークについて述べる。MAPFは、各エージェントを始点から終点へ移動させる問題であり、本稿では、一定のタイムステップ（ウィンドウ）内のみ衝突を解決し、それ以降は個別の経路に従うWindowed MAPFに焦点を当てる。WinC-MAPFは、リアルタイム・ヒューリスティック探索の概念を導入することで、ウィンドウ内での最適解を求めるアクションジェネレータを用い、デッドロックやライブロックを回避して完備性を保証する。<br><br>WinC-MAPFの効率化の鍵は、全エージェントの結合状態空間ではなく、相互作用するエージェントのみをまとめた「互いに素なエージェントグループ（Disjoint Agent Groups）」に対してヒューリスティックなペナルティを更新することにある。具体的には、エージェントが特定の構成を通過するたびに、そのグループのヒューリスティック値を増加させることで、同じ状態の繰り返しを防ぐ。先行研究のSingle-Step CBS（SS-CBS）は、ウィンドウ内の最適解を求めるアクションジェネレータとして機能するが、高密度な混雑状況下では計算時間が膨大になるという限界がある。本研究は、このWinC-MAPFの枠組みを拡張し、制約に基づいた探索（CBS）の枠組みにおいて、完備性を維持しつつスケーラビリティを向上させることを目指している。</p></section>
+<section class="secsum"><h3>3 Dynamic Agent Grouping ECBS</h3><p>Dynamic Agent Grouping ECBS (DAG-ECBS)は、WinC-MAPFフレームワークにおいて、各エージェントグループの解が個別にw-劣最適性を維持することを保証する手法である。従来のECBSをそのまま適用した場合、全体のコストはw倍の範囲内に収まっても、個別のグループのコストが各グループの最適値のw倍を超えてしまう可能性があり、これがWinC-MAPFの完全性の証明を妨げる要因となる。DAG-ECBSは、各エージェントを個別のグループとして初期化し、衝突やヒューリスティック上の競合が発生したグループ同士を動的に統合して再計画を繰り返すことで、各グループが互いに独立した状態になるまで処理を行う。Group-ECBSと呼ばれる内部アルゴリズムでは、低レベルおよび高レベルの両方の探索において、ヒューリスティックのペナルティを考慮した修正版のFocal探索を用いることで、グループのヒューリスティックが常にw-許容であることを維持する。この設計により、エージェント間の距離に応じてグループ化が動的に変化しつつ、WinC-MAPFの枠組みにおける完全性を保ったまま、計算効率の高いw-劣最適解を導出できる。</p></section>
+<section class="secsum"><h3>4 Experimental Results</h3><p>標準的なベンチマークマップを用い、提案手法であるDAG-ECBS、従来のwindowed ECBS、および完全性を保証する最適解法であるSS-CBSの比較実験を行っています。スケーラビリティの評価において、DAG-ECBSはSS-CBSよりも優れた性能を示しており、これはエージェントのグループ化や非最適性の導入が有効であることを示しています。windowed ECBSはウィンドウサイズが小さい場合にデッドロックやライブロックに陥りやすく性能がウィンドウサイズに強く依存しますが、DAG-ECBSはヒューリスティックの更新によりこれらの問題を軽減しています。ただし、DAG-ECBSは混雑の少ない大規模なマップにおいて、計算時間の増大によりタイムアウトが発生しやすい傾向があります。ウィンドウサイズを大きくすると、DAG-ECBSとwindowed ECBSのいずれも1イテレーションあたりの実行時間は増加しますが、DAG-ECBSにおいてその影響がより顕著です。また、DAG-ECBSは非最適性の許容度を大きく設定することで、1イテレーションあたりの実行時間を一貫して短縮できる一方、解のコストは増加する傾向にあります。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>本研究では、窓関数を用いた計画においても完全性を保証するWinC-MAPFフレームワークに対し、有界劣最適ソルバーを適用可能にする手法としてDynamic Agent Grouping ECBS (DAG-ECBS)を提案している。DAG-ECBSは、エージェントをグループ化して独立に計画を行うことで各グループのヒューリスティックの許容性を維持し、衝突が発生した際にグループを統合して再計画を行う。この手法は、既存の劣最適MAPFアルゴリズムをWinC-MAPFのAction Generatorへと変換するためのテンプレートとして機能する汎用性を備えている。実験の結果、DAG-ECBSは単一ステップの最適解を用いる手法と比較してスケーラビリティを向上させ、さらに窓サイズが小さい場合や混雑したマップにおいても、完全性の保証がないWindowed ECBSを上回る性能を示した。今後の展望として、より高度な有界劣最適アルゴリズムへの適用や、分散型アルゴリズムへの拡張が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-16
+  </footer>
+</div>
+</body>
+</html>

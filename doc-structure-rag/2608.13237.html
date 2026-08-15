@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>When Should Multi-Round RAG Stop? Structured Stopping Judgments and Retrieval Reduction in Search-R1 | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>When Should Multi-Round RAG Stop? Structured Stopping Judgments and Retrieval Reduction in Search-R1</h1>
+  <div class="meta">Weimeng Luo<br>採択先: 未取得 ・ 2026-08-13 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.13237v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.13237v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-13</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">マルチラウンドRAGの停止判定という実用的な課題に対し、構造化された判断を用いる新規性がある。ただし、検索回数の削減幅が小さく、判定器のコストや安全性に課題が残る。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチラウンドRAGにおいて、構造化された充足度と不足情報の判断を用いることで、回答精度を一定の許容範囲内に維持しつつ、検索回数を削減する停止判定手法を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>反復的な検索拡張生成（RAG）では、検索を停止するタイミングの決定が重要である。検索が少なすぎると根拠が不足して精度が低下し、多すぎると計算コストが増大するだけでなく、追加の文脈が誤った回答を誘発する可能性がある。既存の停止判定手法は、個々の状態を分類する精度に焦点を当てているが、実際の運用では「最初に停止条件を満たした時点」でプロセスが終了するため、状態分類の精度と実際の停止ポリシーの挙動には乖離が生じる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>Search-R1の推論モデル、検索器、コーパス、プロンプト、検索予算を固定したまま、外部の判定器による停止判断のみを導入する。単なる充足・不充足の二値分類ではなく、充足の真偽と不足している情報のリストを同時に出力する構造化された判断メカニズムをSearch-R1のインターフェースに適応させた点が新規性である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>Qwen3.5-2Bを判定器として学習させる。判定器は、検索コンテキスト、推論履歴、次に行うべきアクションからなる状態に対し、充足度を示す真偽値と、不足している情報のリストをJSON形式で出力する。オンラインの停止ポリシーは、充足度の論理値に対応する対数確率のマージンに基づき、設定された閾値を超えた最初の状態で検索を停止する。学習時には、充足度と不足情報の両方を予測させることで、判定器が不足情報を明示的に認識できるよう正則化を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>HotpotQAデータセットの1,000問を用い、Native Search-R1と比較検証を行った。評価指標にはExact Match（EM）と平均検索回数を用いた。検証の結果、提案手法はNative Search-R1と比較して、平均検索回数を2.60125回から2.50500回へと3.70%削減した。EMについては、0.44875から0.44250へと0.625ポイント低下したが、これは事前に設定した許容限界である2ポイント以内の低下に収まっている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は回答精度を許容範囲内で維持しつつ検索回数を削減できるが、精度を向上させるものではない。また、早期停止の判断が必ずしも安全ではなく、早期停止のうち39.13%が不適切な停止（unsafe stop）であった。さらに、検索回数の削減は、判定器自体の推論コスト（計算量、メモリ、遅延）を考慮した総推論コストの低減を意味しない。今後は、判定器の較正（キャリブレーション）の改善や、判定器のコストを含めた総効率の評価が課題となる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>When Should Multi-Round RAG Stop? Structured Stopping Judgments and Retrieval Reduction in Search-R1</h3><p>本研究は、マルチラウンドの検索拡張生成（RAG）において、証拠の蓄積に応じていつ検索を停止すべきかという課題に対し、構造化された十分性とギャップの判断に基づく停止判定手法を提案している。具体的には、既存のSearch-R1パイプラインに対し、S2G-RAGの構造化された判断手法を適応させ、HotpotQAの900個の独立した質問から得られた3,009個の状態を用いてQwen3.5-2Bを判定器として学習させた。実験では、Search-R1の推論器、検索器、コーパス、プロンプト、および検索予算は固定し、検証データに基づいて判定器のチェックポイントと停止閾値を決定している。評価の結果、提案手法はNative Search-R1と比較して、回答の正確性を示すExact Matchの低下を0.625パーセントポイントに留めつつ、検索呼び出し回数を77回（3.70パーセント）削減した。この結果は、検索回数を削減しつつ回答精度を概ね維持できることを示しているが、回答精度の維持や安全な停止、あるいは総推論コストの低減を保証するものではない。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>反復的な検索を行うRAGにおいて、検索の停止タイミングの判断は、回答の根拠不足や、過剰な検索による計算コストの増大およびコンテキストの変化に伴う回答精度の低下を招く。既存手法には検索の継続判断を明示的に行うものがあるが、状態ごとの分類精度と、実際の推論軌跡において最初に停止条件を満たした際に決定されるオンラインポリシーの挙動との間には乖離がある。本研究では、検索軌跡を変化させずに現在の状態から正しい回答が生成可能かを確認する到達可能性の監査を行い、停止タイミングの変更のみで改善できる品質とコストの余地を定量化する。手法として、回答の十分性と不足情報の両方を予測する構造化された判断メカニズムをSearch-R1に適応させ、Qwen3.5-2Bを用いた判定器を訓練する。実験ではHotpotQAデータセットを用い、候補の到達可能性、状態のランキング、最初の閾値超過によるポリシーの挙動、回答の品質、およびコストを分離して評価する定式化を提案する。検証の結果、提案するポリシーは回答精度の低下を2パーセントポイント以内の許容範囲に抑えつつ、検索回数を削減できることを示した。</p></section>
+<section class="secsum"><h3>2 Related Work and Positioning</h3><p>本研究は、マルチラウンドの検索型RAGにおいて、検索をいつ停止すべきかを判断する「停止判断」に焦点を当てている。既存の適応的検索手法には、クエリレベルのルーティングや生成中の制御トークンによるトリガー、回答レベルの制御などが存在するが、本研究ではSearch-R1という既存の推論モデルと検索パイプラインを固定し、その状態に対して早期停止を判断する外部の判定器を導入する。この判定器には、充足か不充足かという二値分類ではなく、何が不足しているかを明示する構造化された判断メカニズムを導入しており、充足の真偽を示す論理値と不足情報のリストを含むJSON形式の情報を出力する。実験では、7Bの推論モデル、E5による上位3件の検索、Wiki-2018コーパス、および最大4回の検索予算を固定した条件下で、判定器が検索回数を削減できるかを検証する。評価指標には、停止の精度、早期停止の安全性、平均精度、キャリブレーション、および最終的な回答の正確性（EM）を用いるが、判定器自体の計算コストを含めた総効率ではなく、検索呼び出し回数の削減をコストの終着点として報告する。</p></section>
+<section class="secsum"><h3>3 Problem Formulation</h3><p>本セクションでは、マルチラウンドRAGにおける停止判断を評価するためのフレームワークを定義している。Search-R1が生成する、蓄積された検索コンテキスト、推論履歴、および次に行うべきアクションからなる状態の軌跡に対し、固定された回答生成器を用いて現在のコンテキストから正解を導き出せるかを確認する「到達可能な正解状態」を定義する。評価には、正解を導き出せる最初の状態を特定する品質オラクルと、元のモデルが既に正解できる場合にのみ早期停止を適用して検索回数を削減するコストオラクルを用い、学習可能な停止モデルの改善余地を診断する。停止判断モデルは各状態に対してスカラー値のスコアを出力し、設定された閾値を超えた最初の状態で停止を決定するが、閾値を超えない場合は元のモデルの挙動に従う。評価指標として、状態レベルの平均適合率、停止判断の適合率と再現率、早期停止の安全性、最終的な回答の正確性、および平均検索回数によるコストを用いる。</p></section>
+<section class="secsum"><h3>4 Experimental Design</h3><p>本実験では、マルチラウンドRAGの停止判断を最適化するため、Search-R1 Qwen2.5-7B PPOモデルをベースとした構成で評価を行っています。実験データにはHotpotQAのdistractor開発セットの最初の1,000問を使用し、700問を学習用、100問をグループ検証用、200問を予備用として分割しています。提案手法である拡張された構造化ジャッジ（Expanded Structured Judge）はQwen3.5-2Bを用いて3エポック学習されており、情報の充足度を示すキーの順序と不足項目を出力する形式をとります。評価においては、検証データを用いて停止の適合率が0.90以上かつ予測される停止状態が少なくとも10件となるように閾値を設定しており、拡張ジャッジの閾値は約7.875に固定されています。性能評価では、拡張されたポリシーが元のネイティブな挙動と比較して、回答の正確性を示すEM（Exact Match）の低下が2ポイント以内に収まることを統計的な非劣性基準として検証しています。比較対象には、構造化ベースのモデルおよび旧バージョンのS2G LoRAが含まれ、これらはすべて同一の状態表現とスコア抽出プロセスを用いて評価されます。</p></section>
+<section class="secsum"><h3>5 Results</h3><p>既存のSearch-R1を用いた探索的解析により、検索アクションの27.3%がすでに正解が得られている状態で実行されており、検索回数を削減できる余地があることが示されました。提案手法である拡張S2Gポリシーを、確認用テストセットを用いて評価した結果、正解率（EM）の低下を事前に設定した許容範囲である2%以内に抑えつつ、平均検索回数を2.60回から2.51回へと削減しました。一方で、状態のランキング精度を示すSTOP APは向上したものの、実際の停止判断においては、システムレベルの早期停止のうち39.13%が不適切な判断となるリスクが確認されました。また、モデルの信頼度スコアの較正については、Brier scoreや期待較正誤差（ECE）において既存手法よりも数値が悪化しており、較正が不十分な状態にあります。本手法は回答の質を維持しながら検索コストを削減できることを示していますが、停止判断が完全に安全であるとは言えず、リスクの存在が重要な境界条件となります。</p></section>
+<section class="secsum"><h3>6 Discussion</h3><p>本研究では、Search-R1の各状態に対してQwen3.5-2Bを用いた構造化された判定メカニズムを導入し、回答精度の損失を事前に設定した2パーセント以内に抑えつつ、検索呼び出し回数を削減できることを示しました。到達可能性の監査によりSearch-R1において削減可能な検索呼び出しが存在することが確認され、判定器の評価には質問レベルでの最初の誤判定を考慮する必要があることが診断によって明らかになりました。一方で、この判定器は回答の質を向上させるものではなく、Exact Match指標においてネイティブな状態をわずかに下回る結果となりました。また、早期停止の判断は必ずしも安全ではなく、検証時の精度制約が最終評価でも維持されるわけではないため、実運用には別途リスク管理の手順が必要です。さらに、検索回数の減少が必ずしも総コストの削減を意味するわけではなく、判定器自体の計算コストや遅延を考慮した評価が今後の課題として残されています。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>S2G形式の構造化判定メカニズムを凍結されたSearch-R1に適応させ、Search-R1の状態に特化して学習させたQwen3.5-2Bの判定器を構築しました。確認用テストセットを用いた実験では、提案手法を適用したポリシーは、従来のNative Search-R1と比較して平均検索回数を2.60125回から2.50500回へと約3.70%削減しました。正解率を示すEMは0.44875から0.44250へと0.625ポイント低下しましたが、これは評価前に設定した許容損失範囲である2ポイント以内に収まっています。この結果は、学習済みのS2G形式の判定器が、回答の精度を概ね維持しながら検索回数を削減できることを示しています。しかし、早期停止の69例中27例が不適切な停止であったため、選択的停止のリスクは39.13%に達しており、現時点では安全な停止ルールとは言えません。全体の回答精度を許容範囲内に保つことと、すべての早期停止を安全にすることは、それぞれ異なる目的です。</p></section>
+<section class="secsum"><h3>Ethics and Responsible Reporting</h3><p>本研究は公開されている質問応答ベンチマークを使用しており、人間を対象とした実験や個人データの扱いは含まれていない。報告における主なリスクは科学的な誇張であると認識しており、その対策として、探索的、検証的、確認的、および記述的な母集団を明確に区別して報告している。また、計算インフラストラクチャやブラインドテストにおける不測の事態についても開示し、肯定的な結果だけでなく、否定的な境界についても明示することで、責任ある報告を徹底している。</p></section>
+<section class="secsum"><h3>AI-Assistance Disclosure</h3><p>生成AIは、コードの記述補助、実験のモニタリング支援、言語の校閲、および原稿の構成整理のために使用されました。一方で、実験計画の策定、実験の実行権限の保持、証拠の検証、統計的な解釈、および論文内のあらゆる科学的主張については、著者が全責任を負います。AIによって生成されたテキストは、固定された実験結果や引用された一次資料と照合されました。</p></section>
+<section class="secsum"><h3>Data, Code, Funding, and Competing Interests</h3><p>本研究の公開リポジトリには、S2G JudgeおよびSearch-R1の実装、固定されたプロトコル、集計された実験結果、および論文のソースコードが含まれています。一方で、質問ごとの推論プロセス、ベンチマークのラベル、およびモデルの重みは再配布の対象外です。モデルのチェックポイントやベンチマークデータについては、それぞれが元のライセンスに従います。なお、外部からの資金提供や競合する利益の存在は報告されていません。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-16
+  </footer>
+</div>
+</body>
+</html>

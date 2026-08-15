@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Who Speaks Matters: Authority-Aware Multi-View RAG over Italian Parliamentary Proceedings | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Who Speaks Matters: Authority-Aware Multi-View RAG over Italian Parliamentary Proceedings</h1>
+  <div class="meta">Mirko Tritella, Riccardo Pozzi, Matteo Palmonari<br>採択先: ISWC 2026 In-Use Track ・ 2026-08-13 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.13410v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.13410v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 ISWC 2026 In-Use Track</span><span class="chip">公開日 2026-08-13</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">知識グラフを用いた権威性モデリングと、引用の正確性を構造的に保証する設計が極めて実用的。RAGの信頼性向上に関する具体的かつ高度な手法が示されている。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> イタリア下院の議事録を対象に、発言者の権威性を考慮して各政党の立場を多角的に要約するRAGシステムParliamentRAGを提案する。実験の結果、引用の忠実度や政党間の網羅性において商用のNotebookLMを上回る性能を示した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>膨大な議会録から特定のトピックに関する各政党の立場を正確に要約する際、発言頻度の高い人物の意見が過剰に反映される、メタデータが無視され内容の類似性のみで判断される、あるいは引用の誤帰属が発生するといった課題がある。本研究は、イタリア下院の議事録を対象とし、クエリの内容に応じて発言者の専門性や権威性を動的に評価しながら、多角的な視点で情報を抽出・要約する入出力を目的としている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存の議会向け自然言語処理研究には、クエリに応じた権威モデリングと多角的な視点での生成を統合したRAGアーキテクチャが存在しない。本研究は、知識グラフを活用してトピック依存の権威性を計算し、各政党の立場を網羅するマルチビューな表現を実現する点に新規性がある。また、生成されるすべての引用がソース文書の逐語的な部分文字列であることを構造的に保証する仕組みを導入している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>イタリア議会の知識グラフ上で、ベクトル類似度に基づくDense Channelと、立法活動の履歴を辿るGraph Channelを組み合わせた二系統の検索を行う。検索された証拠は、関連性、多様性、政党の網羅性、権威性、重要性の5要素で再ランク付けされる。権威性スコアは、議員の属性や過去の介入実績に基づき算出される。生成プロセスでは、各政党の立場を個別に生成した後に統合するマルチビュー構成を採用し、ハルシネーションを防ぐため、言語モデルには引用文そのものではなく文字オフセットを含むプレースホルダーのみを出力させてから原文に置き換える処理を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>15の政策トピックを用い、自動評価指標と6名の専門家によるブラインドA/Bテストを通じてGoogle NotebookLMと比較した。自動評価では、引用の正確性を示すQuotation FaithfulnessにおいてParliamentRAGが1.00を達成し、NotebookLMの0.95を上回った。また、政党グループのカバー率においても0.97対0.95で上回った。人間評価では、NotebookLMが文章の流暢さで優位だった一方、ParliamentRAGは出典の関連性、権威、網羅性、情報のバランスにおいて一貫して高い評価を得た。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は情報の信頼性と多角的な視点の確保に優れるが、文章の流暢さにおいてはNotebookLMに譲るというトレードオフがある。また、比較対象のNotebookLMはあらかじめ選別された文脈を使用しており、膨大な議事録から証拠を検索するタスクの困難さが十分に考慮されていない可能性がある。また、政党の網羅性は、関連する証拠が検索できた場合にのみ成立する。今後の課題として、ベンチマーク規模の拡大やアブレーション実験の実施、ユーザーの好みに応じたランキングのパーソナライズ、および他の議会制度への汎用化が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>本研究では、イタリア下院の議事録を対象に、発言者の権威性を考慮した検索拡張生成（RAG）システムであるParliamentRAGを提案している。従来のRAGを議事録に適用する場合、発言頻度の高い人物が結果を支配することや、専門性に基づく重み付けが困難であること、政治的に敏感な文脈で引用の誤帰属が発生するといったリスクがある。ParliamentRAGは、クエリの内容に応じて、職業、学歴、過去の発言などの解釈可能な要素を組み合わせ、各発言者の権威性を推定するトピック依存型の権威モデルを中核としている。このシステムは、関連する発言の断片を検索し、各政党グループからトピックに関連する専門家を特定した上で、根拠となる引用を伴う多角的な要約を生成する。15の政策トピックを用いたGoogle NotebookLMとの比較実験では、自動評価指標と6名の専門家によるブラインドA/Bテストを実施した結果、ParliamentRAGは政党グループ間のカバー率（0.97対0.95）や引用の忠実度（1.00対0.95）において上回る性能を示し、情報源に関する評価でも専門家から高い支持を得た。一方で、文章の記述的な側面についてはNotebookLMの方が優れているという結果が得られている。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>本研究では、イタリア下院の膨大な議事録から、特定のトピックに関する各政党の立場を多角的な視点で正確に要約するRAGシステム「ParliamentRAG」を提案している。従来のLLMを用いた要約では、発言頻度の高い議員の意見が過剰に反映される、メタデータが無視され内容の類似性のみで判断される、あるいは引用の誤りが発生するといった課題がある。これに対し、ParliamentRAGは知識グラフを活用することで、各政党の立場を網羅する多角的表現、トピックに応じた専門性を動的に評価する権威性の考慮、および公式記録からの逐語的な引用による追跡可能性の確保という3つの原則を実現している。評価では、自動指標による構造的特性の検証と、6名の専門家によるブラインドテストの二段階プロトコルを用い、商用のNotebookLMと比較を行っている。実験の結果、ParliamentRAGは引用の忠実度や政党の網羅性においてNotebookLMを上回り、特に情報源の網羅性の観点では5.7対1という高い好選率を示した。</p></section>
+<section class="secsum"><h3>Related Work</h3><p>本研究は、議会ドメインにおける自然言語処理、知識グラフ、専門家・権威モデリング、公平性・多様性、および忠実な引用の5つの研究領域に関連している。既存の議会における自然言語処理研究では、政治的立場の推定や大規模言語モデルを用いた検索が行われているが、クエリに応じた権威モデリングや多角的な視点での生成を統合したRAGアーキテクチャは存在しない。また、欧州各国の議会知識グラフは構造化データの探索や統合には適しているものの、クエリ依存の推論や多角的な解釈には対応していない。専門家探索の分野では、既存の信頼性推定は単一の正解を前提とするが、本研究は複数の正当な視点が共存する議会討論に対応するため、時間経過による減衰や連立政権の変化による無効化を考慮した、クエリ依存の解釈可能な権威計算を行う。さらに、既存の多様性確保手法や引用の検証手法とは異なり、提案手法であるParliamentaryRAGは、生成されるすべての引用が特定のソース文書の逐語的な部分文字列であることを構造的に保証する。</p></section>
+<section class="secsum"><h3>Parliamentary Knowledge Graph</h3><p>ParliamentRAGは、イタリア下院の公開データから議事録、メタデータ、および立法活動を統合した知識グラフ上で動作する。このシステムは、RDF形式のソースデータをNeo4j上のプロパティグラフに変換しており、時間的な有効性を持つ関係性の表現、ベクトル類似度検索、グラフ探索、およびキーワード検索を単一のインフラストラクチャで実行できる。議事録はセッション、討論、フェーズ、発言、チャンクという階層構造で構成され、最小の検索単位となるチャンクには、テキスト内容、1,536次元のベクトル埋め込み、および原文の正確な位置を示す文字オフセットが格納されている。グラフには、387人の議員、10の議会グループ、80の委員会、40,416件の発言、27,576件の立法法案などが含まれ、全体で232,755個のノードと488,487個の関係性を有する。さらに、議員の学歴や職業といった追加情報や、立法法案の主署名者および共同署名者との関係性も保持されており、これらは発言内容を補完する権威性のモデリングや、特定の時点における所属関係の特定に活用される。</p></section>
+<section class="secsum"><h3>ParliamentRAG</h3><p>ParliamentRAGは、イタリア議会の議事録を対象に、検索拡張生成（RAG）を用いて多角的な回答を提供するWebアプリケーションです。検索プロセスでは、ベクトル類似度に基づくDense Channelと、議案の署名者や委員会所属情報をグラフ構造から辿るGraph Channelを組み合わせた二系統の手法を採用しており、内容の類似性に加えて、立法活動を通じた専門性も考慮しています。検索された証拠は、クエリとの関連性、多様性、政党の網羅性、権威性、および重要性の5つの要素を用いた重み付きスコアによって再ランク付けされます。権威性スコアは、議員の属性と、時間減衰を考慮した立法活動や発言実績を統合して算出され、各政党から最も権威のある議員をエキスパートとして選出するために用いられます。生成パイプラインは、分析、生成、統合、引用の4段階で構成され、各政党の立場をまとめたセクションを個別に生成した後に一つの物語として統合します。特に、引用の正確性を担保するため、言語モデルには引用文そのものを生成させず、文字オフセットを含むプレースホルダーのみを出力させて後から原文の逐語録に置き換えることで、ハルシネーションを構造的に防止しています。</p></section>
+<section class="secsum"><h3>Experimental Evaluation</h3><p>本実験では、提案手法であるParliamentRAGと、汎用的な高機能RAGシステムであるGoogle NotebookLMを比較し、議会討論の分析品質を評価しています。評価には、政治的偏向や議論の激しさが異なる15の政策トピックを用いたベンチマークが使用されました。自動評価では、引用された政党の割合を示すGroups with Quotation、記述の網羅性を示すCompleteness、引用の正確性を示すQuotation Faithfulness、および引用された発言者の権威スコアの平均であるMean Authorityを指標としています。自動評価の結果、ParliamentRAGはQuotation Faithfulnessにおいて1.00という完全な正確性を達成し、NotebookLMの0.95を上回りました。専門家による人間評価では、回答の質や明快さ、情報のバランス、出典の関連性などの観点から5段階のリッカート尺度による採点とA/Bテストが行われました。その結果、NotebookLMは回答の質や明快さといった文章の流暢さに関する指標で優位性を示した一方、ParliamentRAGは出典の関連性、権威、網羅性、および情報のバランスに関する指標において一貫して高い評価を得ており、アーキテクチャによって構造的に強制された制約が、情報の信頼性と多角的な視点の確保に寄与することが示されました。</p></section>
+<section class="secsum"><h3>Discussion</h3><p>評価実験の結果、提案手法であるParliamentRAGは、情報源の権威性、網羅性、関連性、および政治的バランスといった情報源に焦点を当てた側面で優位性を示した一方、NotebookLMは回答の質や明快さといった流暢さに焦点を当てた側面で高い評価を得るという、互いに補完的な特性が明らかになった。ParliamentRAGの強みは、明示的なマルチビュー検索と権威を考慮した証拠選択によって構造的な保証を優先している点にあり、特に議事録のオフセットに基づく検索を通じて引用を直接抽出する設計により、引用の忠実性を構造的に担保している。対照的に、NotebookLMの流暢さは単一の生成パイプラインや基盤モデルの性能に起因すると考えられるが、引用の正確性やグループ間の網羅性といった性質は、プロンプトのみでは確実に強制できず、ParliamentRAGのようなアーキテクチャによる支援が必要となる。なお、NotebookLMはあらかじめ選別された文脈を用いて評価されており、ParliamentRAGのように膨大な議事録全体から証拠を検索するタスクの困難さは考慮されていない点に注意が必要である。本研究の限界として、ベンチマークの規模が15トピックと小さく統計的な検出力が限定的であること、および内部的なアブレーション実験を行わず外部の強力なベースラインとの比較に留まっていることが挙げられる。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本研究では、イタリア議会の議事録を対象に、発言者の権威性を考慮したマルチビューRAGシステムであるParliamentRAGを提案した。15のトピックを用いたベンチマークにおける専門家によるA/B評価の結果、総合的な満足度において商用ベースラインであるNotebookLMと同等の性能を示した。一方で、設計の主眼であったグループの網羅性、引用の忠実性、および情報源の権威性の各評価次元においては、提案手法が優れた性能を発揮した。今後の展望として、ユーザーの好みに応じたランキングのパーソナライズ、ドメイン特化型の埋め込みモデルの開発、対象範囲の上院や過去の会期への拡大、および欧州の他の議会制度への汎用化が挙げられる。</p></section>
+<section class="secsum"><h3>Use of Generative AI</h3><p>本研究の準備過程において、言語の洗練を目的として生成AIツールが活用されました。具体的には、選択された文章の言い換えを行い、英語の記述における明快さ、流暢さ、および全体的な品質を向上させるためにこれらのツールが用いられました。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-16
+  </footer>
+</div>
+</body>
+</html>

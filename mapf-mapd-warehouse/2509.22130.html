@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-Agent Path Finding via Offline RL and LLM Collaboration | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi-Agent Path Finding via Offline RL and LLM Collaboration</h1>
+  <div class="meta">Merve Atasever, Matthew Hong, Mihir Nitin Kulkarni, Qingpei Li, Jyotirmoy V. Deshmukh<br>採択先: 未取得 ・ 2025-09-26 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2509.22130v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2509.22130v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/ARXIV.2509.22130" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-09-26</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">オフライン強化学習(DT)とLLMの協調により、MAPFの学習時間短縮と動的環境への適応を両立した点が新規かつ実用的。研究の方向性として非常に興味深い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> オフライン強化学習を用いたDecision Transformer（DT）と大規模言語モデル（LLM）を組み合わせることで、学習時間を大幅に短縮しつつ、動的な環境変化へ適応可能な分散型マルチエージェント経路探索（MAPF）フレームワークを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>複数のエージェントが障害物や他者との衝突を避けながら各々の目標地点へ到達する、マルチエージェント経路探索（MAPF）を対象とする。本問題は、各エージェントが自身の周囲のみを観測できる分散部分観測マルコフ決定過程（Dec-POMDP）として定式化される。従来の分散型強化学習手法では、エージェントが自己中心的な行動をとることで衝突が頻発することや、複雑な通信モジュールの学習に数週間を要することが課題であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>オフライン強化学習を採用することで、従来の分散型強化学習が要していた数週間の学習時間を数時間に短縮した。また、標準的な強化学習では困難な、報酬が疎で遅延が発生する環境における長期的な報酬割り当て問題への対応と、LLMによる動的な介入を通じた環境変化への適応力の向上を実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>古典的なMAPFソルバーを用いて生成したエキスパートの軌跡をデータセットとして、Decision Transformer（DT）を学習させる。DTは、近傍エージェント、自身の目標、近傍の目標、障害物の位置を示す4つの2次元配列を畳み込みエンコーダで処理し、移動または待機の行動を決定する。環境の変化が発生した場合、環境情報や制約、思考の連鎖（CoT）を用いた事例を含むプロンプトをGPT-4oに送る。GPT-4oは、DTの意思決定を補完するように5ステップ分の行動を生成し、エージェントを新たな目標へと誘導する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>静止環境の実験では、Pogemaフレームワークのマップを用い、全エージェントの到達までの総コスト（SoC）と協力成功率（CSR）を評価した。DTベースの手法は、DCCやSCRIMPと比較してSoCが低く、より効率的なナビゲーションを実現した。動的シナリオでは、720の環境設定において成功率、完了までの時間（makespan）、衝突率を評価した。GPT-4oとの協調により、特に目標が以前の軌道とは逆方向に変更された場合にmakespanが大幅に短縮され、DT単体よりも高い成功率と低い衝突率を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>LLMの活用には、モデルが文脈にそぐわない出力を生成するハルシネーションのリスクが伴う。また、本研究ではLLMのMAPFへの応用が未開拓であるため、入力をテキスト形式に限定している。今後の課題として、視覚言語モデル（VLM）を用いた視覚的な入力によるアプローチへの拡張が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Multi-Agent Path Finding via Offline RL and LLM Collaboration</h3><p>本研究は、ロボティクスや物流において重要となる、組み合わせ爆発や部分観測性に起因する困難なマルチエージェント経路探索（MAPF）に対し、オフライン強化学習と大規模言語モデル（LLM）を組み合わせた効率的な分散型計画フレームワークを提案している。従来の分散型強化学習では、エージェントが自己中心的な行動をとることで衝突が頻発する点や、複雑な通信モジュールの学習に数週間を要する点が課題であった。これに対し、提案手法ではDecision Transformer（DT）を用いたオフライン強化学習を採用することで、学習時間を数週間から数時間へと大幅に短縮し、報酬が疎で遅延が発生する環境下における長期的な報酬割り当ての問題を改善している。さらに、環境の変化に対する適応性を高めるため、GPT-4oを統合してエージェントのポリシーを動的に誘導する仕組みを導入している。静的および動的な環境の両方を用いた実験により、DTベースの手法にLLMによる補完を加えることで、適応性と性能が向上することが示されている。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>本研究は、マルチエージェント経路探索（MAPF）において、オフライン強化学習を用いたDecision Transformer（DT）と大規模言語モデル（LLM）であるGPT-4oを組み合わせた新しい分散型アプローチを提案しています。従来の分散型強化学習では、エージェントの自己中心的な行動による衝突や、複雑な通信モジュールの導入に伴う膨大な学習時間が課題でした。提案手法では、長期的な依存関係のモデリングに長けたDTをオフラインデータで学習させることにより、性能を維持したまま学習時間を数週間から数時間へと大幅に短縮しています。さらに、環境の変化に対してDT単体では非効率な探索行動が生じる課題に対し、GPT-4oを断続的に介入させることで、動的な環境変化時の一時的な全観測状態への移行と戦略的な経路修正を実現しています。実験では、静的な環境と、推論中に目標位置が変更される動的な環境の2つのシナリオで検証を行いました。動的なシナリオにおいて、目標変更直後の5タイムステップのみGPT-4oによる意思決定を行い、その後DTのポリシーに戻す設定では、GPT-4oの介入がエージェントを新しい目標へ直接導くことが確認されました。</p></section>
+<section class="secsum"><h3>Preliminaries</h3><p>本研究は、グリッドワールド上で複数のエージェントが障害物や他者との衝突を避けつつ、全エージェントが目標地点に到達するまでの総時間を最小化する、決定論的かつ部分観測なマルチエージェント経路探索（MAPF）問題を扱う。この問題は、各エージェントが自身の局所的な観測に基づいて意思決定を行う分散部分観測マルコフ決定過程（Dec-POMDP）として定式化される。手法のバックボーンには、オフライン強化学習をシーケンスモデリング問題として扱うDecision Transformer（DT）を採用しており、これは目標とする累積報酬、観測、行動を時系列トークンとしてデコーダーのみのTransformerに入力することで、事前の環境との相互作用なしに学習が可能である。DTの採用理由は、オンライン学習が不要なため訓練時間を短縮できること、報酬がエピソード終了時にのみ与えられる長期的なMAPFにおける報酬割当問題をTransformerの構造によって効果的に解決できること、および目標報酬による条件付けにより詳細な報酬設計なしで性能を発揮できることの3点である。さらに、本研究では大規模言語モデル（LLM）を活用しており、プロンプト内に具体的な入出力例を与えるインコンテキスト学習（ICL）や、複雑な推論を段階的に行わせる思考の連鎖（CoT）を用いる。</p></section>
+<section class="secsum"><h3>Method</h3><p>本手法は、オフライン強化学習を用いたDecision Transformer (DT) とGPT-4oを組み合わせたマルチエージェント経路探索フレームワークである。まず、古典的なMAPFソルバーであるODrM*を用いて、様々なエージェント数、グリッドサイズ、障害物密度を持つ環境下でエキスパートの軌跡を収集し、DTの学習データを作成する。DTは、エージェントの視野内における近傍エージェント、自身の目標、近傍の目標、および障害物の位置を示す4つの2次元配列を畳み込みエンコーダで処理し、各ステップで移動または待機のアクションを出力する。DTが目標に到達できない場合に備え、GPT-4oによる支援プロセスを導入しており、環境情報や制約を記述したプロンプトと、DTが失敗した事例に基づく例題を組み合わせて入力することで、5ステップ分の次の一手を生成する。なお、DTの学習において、全エージェントが目標に到達した際に報酬を追加する設定は、標準的な報酬設定を用いた場合と比較して性能が低下することが確認されている。</p></section>
+<section class="secsum"><h3>Experimental Results</h3><p>静止環境における実験では、Pogemaフレームワークのランダムおよび迷路マップを用い、エージェント数やグリッドサイズを変化させて評価を行いました。評価指標には、全エージェントが目標に到達するまでのタイムステップの総和であるsum-of-costs (SoC) と、協力成功率であるCSRを用いました。提案手法であるDTベースのエージェントは、48エージェントの場合を除き、すべての設定においてベースラインを上回る高い成功率を示し、64エージェント時に最高の性能を発揮しました。DTはDCCやSCRIMPと比較して経路がわずかに長くなる傾向があるものの、SoCはより低く、グローバルに効率的なナビゲーションを実現しています。動的シナリオの実験では、グリッドサイズ、エージェント数、障害物密度を組み合わせた計720の環境において、成功率、最後のエージェントが目標に到達するまでの時間であるmakespan、および成功したエピソードにおける衝突率を評価しました。GPT-4oとの協調により、特に目標地点が移動前の軌道と逆方向に変更された場合にmakespanが大幅に短縮され、DT単体よりも高い成功率と低い衝突率、すなわちより安全な挙動が確認されました。また、DTによるオフライン強化学習は、学習時の環境とのリアルタイムな相互作用を不要にしつつ、広範なデータセットを用いることで、未知の環境における分布シフトの問題を回避し、オンライン強化学習に匹敵する性能を達成しています。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本研究は、オフライン強化学習をマルチエージェント経路探索（MAPF）に導入し、目標の変化といった動的な環境変化にも迅速に適応可能な柔軟なフレームワークを提案している。LLM（大規模言語モデル）の活用においては、モデルが事実に基づかない回答を行うハルシネーションのリスクがあるものの、MAPFにおける特定の課題を解決する手段としてLLMの能力を活用できることを示している。本手法の現時点での限界として、LLMのMAPFへの応用が未開拓であることからテキスト入力に限定して検討を行っている点が挙げられる。今後の展望として、視覚的な入力を用いることで、VLM（視覚言語モデル）を活用したアプローチへと拡張することが期待される。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-16
+  </footer>
+</div>
+</body>
+</html>

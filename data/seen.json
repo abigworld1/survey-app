@@ -2797,6 +2797,66 @@
       "url": "https://www.semanticscholar.org/paper/a238b88595514068a785fe39db37a0d4b0669ec5",
       "venue": ""
     },
+    "arxiv:2608.13237": {
+      "added": "2026-08-16",
+      "added_at": "2026-08-16T06:07:12.767400",
+      "arxiv_id": "2608.13237",
+      "authors": [
+        "Weimeng Luo"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-13",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.13237.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.13237v1",
+      "reading_value": 3,
+      "reading_value_reason": "マルチラウンドRAGの停止判定という実用的な課題に対し、構造化された判断を用いる新規性がある。ただし、検索回数の削減幅が小さく、判定器のコストや安全性に課題が残る。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "When Should Multi-Round RAG Stop? Structured Stopping Judgments and Retrieval Reduction in Search-R1",
+      "tldr": "マルチラウンドRAGにおいて、構造化された充足度と不足情報の判断を用いることで、回答精度を一定の許容範囲内に維持しつつ、検索回数を削減する停止判定手法を提案する。",
+      "url": "http://arxiv.org/abs/2608.13237v1",
+      "venue": ""
+    },
+    "arxiv:2608.13410": {
+      "added": "2026-08-16",
+      "added_at": "2026-08-16T06:05:50.604420",
+      "arxiv_id": "2608.13410",
+      "authors": [
+        "Mirko Tritella",
+        "Riccardo Pozzi",
+        "Matteo Palmonari"
+      ],
+      "basis": "fulltext(arxiv-pdf)",
+      "citations": 0,
+      "date": "2026-08-13",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.13410.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.13410v1",
+      "reading_value": 4,
+      "reading_value_reason": "知識グラフを用いた権威性モデリングと、引用の正確性を構造的に保証する設計が極めて実用的。RAGの信頼性向上に関する具体的かつ高度な手法が示されている。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Who Speaks Matters: Authority-Aware Multi-View RAG over Italian Parliamentary Proceedings",
+      "tldr": "イタリア下院の議事録を対象に、発言者の権威性を考慮して各政党の立場を多角的に要約するRAGシステムParliamentRAGを提案する。実験の結果、引用の忠実度や政党間の網羅性において商用のNotebookLMを上回る性能を示した。",
+      "url": "http://arxiv.org/abs/2608.13410v1",
+      "venue": "ISWC 2026 In-Use Track"
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -6799,6 +6859,39 @@
       "url": "http://arxiv.org/abs/2411.16506v2",
       "venue": ""
     },
+    "doi:10.1609/aaai.v40i35.40238": {
+      "added": "2026-08-16",
+      "added_at": "2026-08-16T06:03:39.675086",
+      "arxiv_id": "2509.15381",
+      "authors": [
+        "Tiannan Zhang",
+        "Rishi Veerapaneni",
+        "Shao-Hung Chan",
+        "Jiaoyang Li",
+        "Maxim Likhachev"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-09-18",
+      "doi": "10.1609/AAAI.V40I35.40238",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2509.15381.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2509.15381v1",
+      "reading_value": 4,
+      "reading_value_reason": "WinC-MAPFの枠組みで、劣最適ソルバーを用いながら完全性を維持する理論的拡張が極めて独創的。MAPFのスケーラビリティと完備性のトレードオフを解決する実用的な提案である。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Dynamic Agent Grouping ECBS: Scaling Windowed Multi-Agent Path Finding with Completeness Guarantees",
+      "tldr": "窓付きマルチエージェント経路探索（WinC-MAPF）において、完全性を維持しながら計算効率を高めるため、エージェントを動的にグループ化して各グループの解がw-劣最適であることを保証するDAG-ECBSを提案する。これにより、従来の窓付き手法が抱えていたデッドロックやライブロックの問題を回避しつつ、スケーラビリティを向上させている。",
+      "url": "http://arxiv.org/abs/2509.15381v1",
+      "venue": "AAAI 2025"
+    },
     "doi:10.1609/icaps.v36i1.42860": {
       "added": "2026-08-12",
       "added_at": "2026-08-12T06:04:46.041882",
@@ -7222,6 +7315,39 @@
       "tldr": "高密度環境において目的地を持つターゲットエージェントと、空間を占有する目的地を持たない妨害エージェントが混在するMAPF-HD問題を定義し、空きマスとエージェントを段階的に入れ替えるPHANS手法を提案することで、大規模環境でも数秒以内での経路計画を実現した。",
       "url": "http://arxiv.org/abs/2509.06374v2",
       "venue": "IEEE Robotics &amp; Automation Magazine"
+    },
+    "doi:10.48550/arxiv.2509.22130": {
+      "added": "2026-08-16",
+      "added_at": "2026-08-16T06:02:37.919713",
+      "arxiv_id": "2509.22130",
+      "authors": [
+        "Merve Atasever",
+        "Matthew Hong",
+        "Mihir Nitin Kulkarni",
+        "Qingpei Li",
+        "Jyotirmoy V. Deshmukh"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-09-26",
+      "doi": "10.48550/ARXIV.2509.22130",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2509.22130.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2509.22130v1",
+      "reading_value": 4,
+      "reading_value_reason": "オフライン強化学習(DT)とLLMの協調により、MAPFの学習時間短縮と動的環境への適応を両立した点が新規かつ実用的。研究の方向性として非常に興味深い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi-Agent Path Finding via Offline RL and LLM Collaboration",
+      "tldr": "オフライン強化学習を用いたDecision Transformer（DT）と大規模言語モデル（LLM）を組み合わせることで、学習時間を大幅に短縮しつつ、動的な環境変化へ適応可能な分散型マルチエージェント経路探索（MAPF）フレームワークを提案する。",
+      "url": "http://arxiv.org/abs/2509.22130v1",
+      "venue": ""
     },
     "doi:10.48550/arxiv.2509.26050": {
       "added": "2026-08-15",
