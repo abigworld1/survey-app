@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Privacy-Preserving RAG by Concealing Sensitive Information from External LLMs | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Privacy-Preserving RAG by Concealing Sensitive Information from External LLMs</h1>
+  <div class="meta">Saleh Almohaimeed, Saad Almohaimeed, Mousa Jari, Fahad Alotaibi, Khalid A. Alobaid<br>採択先: 未取得 ・ 2026-08-13 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.12675v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.12675v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2608.12675" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-13</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGにおける外部LLMへの機密情報流出という実用的な課題に対し、軽量なローカルモデルによる置換という具体的かつ新規性のある手法を提案している。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGシステムにおいて外部LLMへ機密情報が流出するリスクに対し、機密エンティティを意味的な別名に置換して隠蔽するフレームワークSEAGを提案し、回答精度を維持したままプライバシー保護を実現した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>RAG（検索拡張生成）システムにおいて、ユーザーによる機密情報への不正アクセスに加え、外部のサードパーティ製LLM（生成器）がクエリや検索された文書に含まれる機密情報にアクセスし、悪用されるリスクが課題となっている。既存の研究は主に権限のないユーザーによるアクセス防止に焦点を当てており、外部生成器への機密情報流出を防ぎつつ、生成器の能力を最大限に活用するという問題は十分に解決されていない。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>検索器や生成器の微調整ではなく、機密情報の認識と置換に特化した軽量なローカルモデルを導入するSEAGフレームワークを提案した点が新規である。先行研究の合成データ利用や差分プライバシーとは異なり、外部生成器に機密内容を直接見せない仕組みを実現している。また、モデルの微調整用およびフレームワーク全体の評価用に、複数のドメインをカバーする2種類の新しいデータセットを構築した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>SEAGは、検索器と外部生成器の間に配置されるローカルの微調整済み小規模言語モデルで構成される。まず、ユーザーのクエリと検索された文書をモデルに入力し、機密エンティティを特定して、文脈上の意味を維持した別名（エイリアス）と元の値を紐付ける置換テーブルを作成する。次に、このテーブルを用いてクエリと文書内の該当箇所をすべて別名に置換したプロンプトを外部生成器へ送る。生成器から返された回答内の別名は、置換テーブルを用いて元のエンティティへと復元され、最終的な回答としてユーザーに提供される。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>LLaMA-3.2、Qwen-3、Phi-4の3モデルをQLoRAを用いて微調整し、GPT-5やClaude-4 sonnetを生成器として用いて評価した。評価指標には、生成器が本来の情報を得た際の正解率を示すORG、機密情報の隠蔽成功率を示すPrivacy、および機密を隠蔽した状態でユーザーに正しい回答を提示できたかを示すUserを用いた。実験の結果、User指標においてLLaMA-3.2とClaude-4 sonnetの組み合わせが83.67%の最高スコアを記録した。また、機密エンティティの隠蔽能力の分析では、Qwen-3、LLaMA-3.2、Phi-4がそれぞれ77.83%、76.73%、74.91%の精度を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、平均約300語で15個程度の機密エンティティを含む文書を対象としており、極めて多数のエンティティを含む文書や大幅に長い文書における性能は検証されていない。文書が長大化したりエンティティ密度が高まったりすると、すべての機密エンティティを正確に特定・置換し、一貫して復元することが困難になり、プライバシー保護と回答品質の間にトレードオフが生じる可能性がある。今後は、大規模な文書や複雑な文脈依存関係を持つエンティティに対するスケーラビリティと堅牢性の検証が課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Privacy-Preserving RAG by Concealing Sensitive Information from External LLMs Journal: Knowledge-Based Systems</h3><p>本研究は、外部の生成AI（LLM）にクエリや検索結果を送信する際に、機密情報が漏洩することを防ぐためのプライバシー保護フレームワークであるSensitive Entity Alias Generator (SEAG)を提案している。SEAGは、機密性の高いエンティティを特定し、それらに対応する別名（エイリアス）を生成して置換テーブルを作成する軽量なモデルで構成され、外部LLMへ情報を送る前にクエリと検索ドキュメント内の機密単語をこのテーブルに基づいて置換する。評価のために、SEAGモデルの微調整用およびフレームワーク全体の評価用という2つのデータセットが新たに構築された。実験の結果、外部LLMに機密情報を隠蔽しつつユーザーへ正しい回答を提供する能力を示すユーザー指標において、すべてのSEAGモデルが80%を超える精度を達成した。また、Qwen-3、LLaMA-3.2、Phi-4を用いた機密エンティティの隠蔽能力の分析では、それぞれ77.83%、76.73%、74.91%の総精度を示した。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>RAG（検索拡張生成）システムにおける、ユーザーによる機密情報への不正アクセスと、外部のサードパーティ製LLM（生成器）へのデータ流出という2つのプライバシーリスクを解決するため、SEAG（Sensitive Entity Alias Generator）フレームワークを提案する。この手法は、検索器と生成器の間に配置される軽量なローカルモデルを用いて、ユーザーのクエリと検索された文書内の機密エンティティを、意味的な一貫性を保ったエイリアス（別名）に置換する。生成器には匿名化された情報のみが送られ、生成された回答内のエイリアスを置換テーブルを用いて元のエンティティに復元することで、外部LLMの性能を活かしつつ機密性を保持する。実験では、3Bから4B程度のパラメータを持つQwen-3、LLaMA-3.2、Phi-4の3モデルに対し、QLoRAを用いたパラメータ効率の良い微調整を行い、8つのドメインからなる640サンプルのデータセットで学習を実施した。評価指標として、機密情報を適切に隠蔽できているかを測るPrivacy指標と、機密情報の隠蔽と正しい回答生成の両立を測るUser指標を用い、GPT-5やClaude-4 sonnetを生成器として用いて検証した。結果として、LLaMA-3.2をSEAGモデルに、Claude-4 sonnetを生成器に組み合わせた構成が、User指標において83.67%という最高スコアを記録した。本手法の限界として、文書の長さや文書内に含まれる機密エンティティの数に制約があることが示されている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>RAG（検索拡張生成）は金融や医療、法律などの分野で広く活用されているが、機密性の高い個人データの漏洩リスクが課題となっている。既存の研究では、構造化されたプロンプトを用いた医療記録の抽出や、エージェントによる敵対的プロンプトを用いた知識ベースへの攻撃、特定の記録の有無を推論するメンバーシップ推論攻撃、さらには悪意ある回答を誘発するデータポイズニング攻撃などの脅威が報告されている。これに対し、合成データを生成してLLMに提供するSAGEや、差分プライバシーを用いて重要な概念のみを提示する手法が提案されているが、権限を持つユーザーには情報を返しつつ、外部の生成器LLMには機密内容を直接見せないという課題は十分に解決されていない。また、RAGの効率化に向けて、LoRAやQLoRAといったパラメータ効率の良い微調整（PEFT）を用いて生成器をドメイン適応させる研究や、生成タスクの目的に基づいて検索器を微調整する研究も存在する。本研究では、検索器や生成器の微調整ではなく、機密情報を認識して置換を行うための専用のLLMを微調整するSEAGフレームワークを提案する。この手法では、検索器が返した文書を生成器が使用する前に、微調整したLLMによって機密情報を隠蔽する処理を行う。</p></section>
+<section class="secsum"><h3>3 Datasets</h3><p>本研究では、LLMのファインチューニングとSEAGフレームワーク全体の評価を目的として、2種類のデータセットを構築した。1つ目のデータセットは、機密情報を意味的に関連のある代替語に置き換える能力を評価するためのもので、ニュースや法律、医療など8つのドメインから計640サンプルを収集している。このデータセットの作成にはDeepSeek-V3を用い、全ての固有名詞を抽出すること、置換語の整合性を保つこと、表記揺れに対応すること、および元のテキストと完全に一致させることといった厳格な基準を適用してエンティティ置換表を生成した。2つ目のデータセットは、SEAGフレームワーク全体の性能、すなわち機密情報の隠蔽能力と、外部生成モデルが修正された質問および文書に基づいて正解を生成できるかを評価するためのものである。このデータセットは経済や教育など6つのドメインから構成され、計600個の質問と300個の文書（1文書につき2つの質問）で構成されている。質問には数値、日付、個人識別子などの機密エンティティが含まれるよう、チームメンバーが手動で作成している。</p></section>
+<section class="secsum"><h3>4 Methodology</h3><p>提案手法であるSEAGフレームワークは、外部の生成器（Generator）に機密情報を直接渡さずにRAGを実行するための仕組みであり、従来のRAGプロセスに機密エンティティ置換モデルを組み込んでいる。まず、ユーザーのクエリと検索器（Retriever）によって取得された上位k個の文書を、ローカルに展開された微調整済みの小規模言語モデルに入力する。このモデルは、クエリと文書内の機密エンティティを特定し、文法構造や意味的関係を維持したまま、元のエンティティとそれに対応する別名（エイリアス）を紐付けるエンティティ置換テーブルを作成する。このテーブルを用いて、クエリと文書内のすべての該当箇所を一貫して別名へと置換したプライバシー保護済みプロンプトを生成し、外部の生成器へ送る。生成器から返された中間回答に含まれる別名は、再びエンティティ置換テーブルを用いて元の値へと復元された後、ユーザーに最終的な回答として届けられる。本手法の有効性は、微調整済みモデルがすべての機密エンティティを漏れなく、かつ一貫して正確に置換できるかどうかに依存している。</p></section>
+<section class="secsum"><h3>5 Experiments</h3><p>本実験では、機密情報を隠蔽するSEAGフレームワークの有効性を検証するため、LLaMA-3.2、Qwen-3、Phi-4の3つのモデルを同一のハイパーパラメータで微調整し、GPT-5またはClaude-4 sonnetを外部生成器として用いて評価を行いました。評価指標には、元の文書と質問から正解を導けるかを示すORG、回答に必要なエンティティを隠蔽できた割合を示すPrivacy、およびエイリアスを復元した後にユーザーへ正しい回答を提示できた割合を示すUserの3つを用いました。実験の結果、ORGは99.33%から99.67%と非常に高い値を示し、問題の難易度が評価に影響しないことが確認されました。PrivacyとUserの指標において、LLaMA-3.2は両方の生成器を用いた場合に最も高いスコアを記録し、外部生成器から機密情報を守りつつユーザーへの回答精度を維持できることが示されました。また、検索された文書内の全エンティティの置換精度を調査したところ、経済ドメインでは86.01%から87.46%の高い精度を記録した一方、微調整に使用した金融や法律ドメインでは、エンティティの境界が複雑で文脈依存性が高いため、精度が相対的に低下する傾向が見られました。</p></section>
+<section class="secsum"><h3>6 Limitations</h3><p>本研究の評価は、平均約300語で15個程度の機密エンティティを含む文書を対象としており、これはモデルのコンテキスト制限内で回答に必要な情報を保持する実用的なRAGのチャンクサイズを反映しています。しかし、大幅に長い文書や、極めて多数のエンティティを含む文書におけるフレームワークの性能については評価が行われていません。文書の長さが増大すると、すべての機密エンティティを特定、置換、および一貫して復元することが困難になる可能性があり、プライバシー保護と回答の品質の両面に影響を及ぼす恐れがあります。そのため、より困難な状況下での堅牢性を理解するために、大規模な文書や多数の機密エンティティを持つ文書に対するSEAGフレームワークのスケーラビリティを検証することが今後の課題です。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>本研究では、外部のLLMに対して機密情報を隠蔽することでプライバシーを保護するRAGフレームワークであるSensitive Entity Alias Generator (SEAG)を提案している。この手法は、リトリーバーとジェネレーターの間にローカルで展開され、クエリや文書内の機密エンティティを検出した上で、それらと意味的に整合性のあるエイリアスを生成することで、外部モデルには元の機密情報ではなくエイリアスのみが渡るように設計されている。評価のために、機密エンティティ検出用の微調整データセットと、複数ドメインにおけるフレームワーク全体の評価用データセットを構築して実験を行った結果、回答の品質を高く維持しつつ機密情報を隠蔽することに成功した。モデル間の比較では、LLaMA-3.2が最も優れた性能を示し、GPT-5やClaude-4 sonnetをジェネレーターとして用いた場合でも、高いプライバシースコアとユーザー精度を両立した。また、検出モデルの比較ではLLaMA-3.2とQwen-3が僅差で高い性能を示したが、Phi-4は全6ドメインにおいて他のモデルより2%低い結果となった。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-17
+  </footer>
+</div>
+</body>
+</html>

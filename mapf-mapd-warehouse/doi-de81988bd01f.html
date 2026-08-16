@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Maximizing Throughput in Lifelong Multi-Agent Path Finding with Unassigned Agents | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Maximizing Throughput in Lifelong Multi-Agent Path Finding with Unassigned Agents</h1>
+  <div class="meta">Omer Onn, Ariel Felner, Roni Stern<br>採択先: Proceedings of the International Symposium on Combinatorial Search 2026 ・ 2026-08-14 ・ source: openalex</div>
+  <div class="links"><a href="https://openalex.org/W7203493327" target="_blank" rel="noopener">原典</a> ・ <a href="https://ojs.aaai.org/index.php/SOCS/article/download/43080/50640" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/socs.v19i1.43080" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Proceedings of the International Symposium on Combinatorial Search 2026</span><span class="chip">公開日 2026-08-14</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">LMAPFの拡張として「未割り当てエージェント」の戦略的活用を提案しており、新規性と実用性が高い。LaCAMの変種や新停止条件の導入、体系的な実験も充実している。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> タスクが継続的に発生する環境において、目的地を持たない未割り当てエージェントを戦略的に活用するLMAPFUAフレームワークを提案し、エージェントの総数と同時実行タスク数のバランスを制御することでスループットを最大化する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>タスクが継続的に流入するLifelong Multi-Agent Path Finding（LMAPF）において、目的地を持つ「割り当て済みエージェント」と、進路確保のために移動する目的地を持たない「未割り当てエージェント」が混在するLMAPFUA問題を扱う。入力は、グラフ、エージェント集合、各エージェントの開始地点、タスクのストリーム、および同時に実行可能な最大タスク数である。従来のLMAPFでは全エージェントを常にタスクに割り当てることが一般的であったが、タスク流入率が低い場合に未割り当てエージェントをどのように活用し、スループットを向上させるかが課題であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>未割り当てエージェントの存在を許容するLMAPFUAの汎用的なフレームワークを提案した。MAPFUAに対応したLaCAMの変種であるLaCAMUAを導入し、さらに、少なくとも1つのエージェントが目標に到達した時点で探索を打ち切るCFETという新しい終了条件を導入した。これにより、スループットを維持したまま計算時間を大幅に削減できることを示した。また、エージェント総数と同時実行タスク数の組み合わせがスループットに与える影響を体系的に調査し、意図的に未割り当てエージェントを増やすことが有効であることを明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LaCAMUAの低レベル探索では、未割り当てエージェントの目的地をグラフ内の全頂点と見なし、隣接頂点への移動が割り当て済みエージェントの助けになる場合にのみ移動を選択する。LMAPFUAフレームワークでは、タスク完了時にエージェントを未割り当て状態に戻し、新規タスク発生時に未割り当てエージェントへ割り当てることで、常に一定数のタスクを進行させる。エージェントの割り当てには、ランダムな選択と、タスク地点に最も近いエージェントを選択するClosest手法を用いる。CFETは、最初の目標到達時に探索を停止し、即座に次回のタスク割り当てと再探索を行うことで、計算コストを抑えつつ最新の状況に基づいた経路計画を実現する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>32×32のグリッド、16×16のグリッド、Maze、Warehouseなどの異なるドメインを用いて検証を行った。評価指標はスループットとし、全エージェントを割り当て済みとする構成（AAA）と比較した。32×32のグリッドでは、エージェント総数N=600、同時タスク数C=400の構成が最も高いスループットを記録した。CFETは、従来のRHCRと比較して、1ステップあたりの計算時間が最大5倍高速であった。複雑なマップ（MazeやWarehouse）では、未割り当てエージェントを活用することで、AAA構成と比較してスループットが大幅に向上することが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>エージェント総数を増やすことは、タスクに近いエージェントを割り当てやすくする利点がある一方で、環境の密度を高めて衝突を増やし、経路を長くするというトレードオフが存在する。本研究の限界として、特定の環境において割り当て済みエージェントと未割り当てエージェントの最適な数を自動的に決定する手法は確立されていない。今後の課題は、機械学習を用いた最適なエージェント構成の学習、LaCAMUAやCFETのさらなる改良、およびより複雑なタスクやタスク供給メカニズムへの拡張である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>本論文は、目標を持つ「割り当て済みエージェント」と、目標を持たず割り当て済みエージェントの進路を確保するために移動する「未割り当てエージェント」の2種類が存在する、実用的なマルチエージェント経路探索の変種であるMAPFUAを扱っています。特に、新しいタスクが継続的に発生するLifelong（生涯型）の設定において、スループットを最大化することを目的としています。著者らは、MAPFUAに対応したLaCAMの新しい変種と、LMAPFUAのための汎用的なフレームワークを提案しています。研究では、高いスループットを実現するために、利用可能なエージェントの総数と、そのうち何数を割り当て済みとするかの最適なバランスに焦点を当てています。実験の結果、割り当て済みのエージェントの一部を、将来のタスクに対してより有利な位置に移動できる未割り当てエージェントへと転換させることで、通常はより高いスループットが達成されることが示されています。</p></section>
+<section class="secsum"><h3>Introduction and Overview</h3><p>マルチエージェント経路計画（MAPF）において、タスクが継続的に発生するLifelong MAPF（LMAPF）では、完了したタスクの総数であるスループットの最大化が目的となります。本研究では、タスクの流入率が低い場合に一部のエージェントが目標を持たない「未割り当てエージェント」として存在する、Lifelong MAPF with Unassigned Agents（LMAPFUA）という設定を扱います。提案するフレームワークでは、同時に実行するタスク数を固定し、タスク完了時にエージェントを未割り当てに戻し、新規タスク発生時に未割り当てエージェントへ割り当てることで、LaCAMの新しい変種を用いて未割り当てエージェントの移動を制御します。また、最初のエージェントが目標に到達した時点で探索を停止し、即座に次回のタスク割り当てと再探索を行う新しい終了条件を導入することで、スループットを維持したまま実行時間を大幅に削減できることを示します。さらに、タスクの流入率を意図的に下げて未割り当てエージェントを増やすことが、将来のタスクへの対応力を高めスループット向上に寄与する場合があることを明らかにし、使用するエージェント数や割り当てタスク数の最適化に関する体系的な調査を行います。</p></section>
+<section class="secsum"><h3>Background: MAPFUA</h3><p>MAPFUAは、グラフG=(V, E)において、特定の目的地を持つ「割り当て済みエージェント」と、目的地を持たない「未割り当てエージェント」が混在するマルチエージェント経路計画問題である。解決策は、割り当て済みエージェントが各々の目的地を通過しつつ、全エージェントの経路が衝突しないように構成される。コスト関数には、割り当て済みエージェントが目的地に到達した時刻の総和であるSST（Sum of Service Time）や、移動した未割り当てエージェントの数、全エージェントの総移動回数などが存在する。本研究では、LaCAMアルゴリズムをMAPFUAに適用したLaCAMUAを用いる。LaCAMは、各エージェントの位置の集合である構成空間を深さ優先探索する高レベル探索と、次の衝突のない構成を選択する低レベル探索の二段階で構成される。LaCAMUAの低レベル探索では、未割り当てエージェントに対してグラフ内のすべての頂点を目的地候補として扱う。具体的には、未割り当てエージェントはまず待機を選択するが、隣接頂点への移動が一つ以上の割り当て済みエージェントの移動を助ける場合には、その移動を選択する。</p></section>
+<section class="secsum"><h3>LMAPFUA</h3><p>LMAPFUAは、継続的にタスクが発生するLifelong MAPFを拡張し、未割り当てのエージェントが存在する状況を扱うフレームワークである。この設定では、グラフ、エージェント集合、各エージェントの開始地点、タスクのストリーム、および同時に割り当て可能なタスク数Cを入力とする。アルゴリズムは、割り当てられたエージェントがタスクを完了して未割り当て状態になると、未割り当てのエージェントに新しいタスクを割り当て、その都度パス探索を実行することで、常にC個のタスクが進行している状態を維持する。エージェントの割り当てには、ランダムに選ぶ手法と、タスク地点に最も近いエージェントを選ぶClosest手法の2種類が検討されている。パス探索には、少なくとも1つのエージェントが目標に到達した時点で探索を打ち切るCFET（Conflict Free Early Termination）というLaCAMの新しいバリアントが提案されており、従来のRolling Horizon Collision Resolution（RHCR）を用いた手法と比較して、スループットを維持しつつ最大5倍の高速化を実現している。タスクの種類として、目標地点への到達（AT）、目標地点での一定時間の待機を伴う到着（AW）、および集荷と配送（PD）の3つが定義されており、それぞれに合わせたアルゴリズムの拡張がなされている。</p></section>
+<section class="secsum"><h3>Experimental Results</h3><p>本研究では、Lifelong Multi-Agent Path Finding (LMAPF) において、割り当て済みエージェントと未割り当てエージェントを混在させる手法（LMAPFUA）の有効性を、様々なドメインを用いて検証しました。32×32の空のグリッドを用いた実験では、全エージェントを割り当て済みとする構成と比較して、同時にタスクを実行するエージェント数（C）と、未割り当てのエージェント数を適切に分離する混合構成の方が高いスループットを達成できることが示されました。エージェントの総数（N）を増やすことは、新しいタスクに対してより近い位置にいるエージェントを割り当てることを可能にしますが、一方で環境の密度が高まり衝突が増加して経路が長くなるというトレードオフが生じます。そのため、スループットを最大化するには最適なNとCの組み合わせが存在し、例えば32×32のグリッドでは、N=600、C=400の構成が最も高いスループットを実現しました。この改善効果は、目標に到着するだけのATタスクで最も顕著であり、待機を伴うAWタスクや配送を伴うPDタスクでも確認されました。また、MazeやWarehouseなどの複雑なマップでは、未割り当てエージェントによる割り当ての最適化が経路長を短縮する効果がより強く働き、全エージェントを割り当て済みとする構成に対するスループットの向上率がさらに高まることが示されました。</p></section>
+<section class="secsum"><h3>Summary and Conclusions</h3><p>本研究では、割り当てられていないエージェントが存在する生涯マルチエージェント経路探索（LMAPFUA）のための汎用的なフレームワークを提案し、LaCAMUAの新しいバリアントおよびLMAPFアルゴリズムのための新しい停止条件を導入した。実験を通じて、総エージェント数を制限することや、未割り当てのエージェントを追加することがスループットに与える影響を調査し、これらの手法が有効であることを示した。今後の課題として、与えられた環境において割り当て済みエージェントと未割り当てエージェントの最適な数を決定する手法の確立が挙げられる。また、提案したLaCAMUAの低レベル処理やCFETの停止条件といったアルゴリズムの改良に関するさらなる研究や、タスクの割り当て関数およびタスク供給メカニズムを拡張した設定への適用も検討されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-17
+  </footer>
+</div>
+</body>
+</html>

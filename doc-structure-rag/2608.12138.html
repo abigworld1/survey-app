@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A corpus-specific clinical RAG system matches or outperforms newer frontier LLMs on HealthBench | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>A corpus-specific clinical RAG system matches or outperforms newer frontier LLMs on HealthBench</h1>
+  <div class="meta">Praveen Reddy, Charuta Mandke, Suvrankar Datta, Sarah Khan, Siddharth Reddy Anthireddy, Shitij Arora, Vishal Singh<br>採択先: 未取得 ・ 2026-08-12 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.12138v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.12138v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2608.12138" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-12</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">特定ドメインのRAGが最新の汎用LLMを凌駕する可能性を実証しており、設計変数としてのコーパスの重要性を示す点は、RAG研究者にとって非常に示唆に富む。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 特定の臨床文脈に特化したRAGシステムであるVITAが、HealthBenchベンチマークにおいて最新の汎用大規模言語モデルと同等、あるいはそれ以上の性能を示すことを明らかにした。</div>
+<section class="qa"><h2>どんなもの？</h2><p>インドなどの低・中所得国（LMIC）における臨床現場を対象とした、文脈特化型の検索拡張生成（RAG）システムの性能評価を目的としている。入力は英語による臨床的な質問であり、出力はそれに対する回答である。従来の汎用的な大規模言語モデルは、特定の地域特有の疾患ガイドラインや資源制約のある医療環境に即した正確な情報提供が困難であるという課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>特定の地域や臨床状況に最適化されたコーパスを用いることが、RAGベースの臨床AIにおける根拠の正確性を向上させる有効な設計変数であることを示した。汎用モデルが優位とされるベンチマークにおいて、専門特化したシステムが臨床的な正確性、網羅性、文脈への適応性において最先端の汎用モデルを凌駕、あるいは匹敵できることを示した点が新規である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>VITAは、疾患別のガイドライン、インド固有の薬剤耐性データ、国の医薬品集の制約、および資源制約下でのケアプロトコルから構成される、精査されたコーパスから情報を検索する仕組みを持つ。検索された専門的な情報を基に回答を生成するRAGアーキテクチャを採用している。評価では、医師が作成したルーブリックに基づき、臨床的な価値を考慮したポイント加重スコアや、単独で最高スコアを獲得した回数を用いて多角的に測定している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>4,023件の英語のHealthBench質問を用いた評価では、VITAはルーブリックの獲得率で51.9%を記録し、GPT-5.4（46.1%）、o4-mini（44.3%）、Gemini 3.1 Pro（42.6%）、Claude Sonnet 4.6（37.3%）を上回り、45.4%の質問で最高スコアを獲得した。また、最新モデルと中立的な評価者を用いた500問の感度分析では、VITAの平均スコア51.0%はGPT-5.5の52.0%と統計的に区別がつかないレベルに達したが、ポイント加重スコアおよび単独での最高回答回数ではVITAが優位であった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>コーパスの専門性を高めることで臨床的な正確性や網羅性は向上するが、コミュニケーションの洗練度や指示への追従性においては汎用モデルに劣るというトレードオフが存在する。本研究の限界として、評価指標や評価者が主に西洋の臨床文脈に基づいて設計されており、低・中所得国の状況を過小評価する可能性があること、および評価が英語のみに限定されていることが挙げられる。今後の課題として、文脈に応じた継続的かつ層別化された評価フレームワークの構築が必要である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>本文 (1/2)</h3><p>インドの特定の臨床文脈に特化した検索拡張生成（RAG）システムであるVITAの性能を、HealthBenchベンチマークを用いて評価した研究である。VITAは、疾患別のガイドライン、インド固有の薬剤耐性データ、国の医薬品集、および資源制約下でのケアプロトコルから情報を検索する。4,023件の英語の質問を用いた評価において、VITAはルーブリックに基づく合計得点で51.9%を獲得し、GPT-5.4（46.1%）やClaude Sonnet 4.6（37.3%）などの汎用LLMを上回る総合1位の結果を示した。特に、臨床的な正確性、回答の網羅性、および文脈への適応性において汎用モデルよりも高いスコアを記録し、個別の質問比較においても次点のモデルの2.6倍にあたる1,827問で最高スコアを獲得した。検証として、より新しいモデル群と中立的な評価モデルを用いた500問のサブセット評価においても、VITAは臨床的な価値を重視した加重スコアや、単独で最高回答を出した回数において優位性を維持した。一方で、汎用LLMはコミュニケーションの質や指示への追従性においてVITAを上回る結果となった。</p></section>
+<section class="secsum"><h3>本文 (2/2)</h3><p>臨床特化型RAGシステムであるVITAは、4,023問の英語によるHealthBenchを用いた評価において51.9%のスコアを獲得し、GPT-5.4の46.1%などの最新の汎用大規模言語モデルを上回る性能を示しました。医師による評価では、VITAは根拠の質、正確性、および情報の網羅性において利点がある一方、コミュニケーションの洗練度には課題があることが示されています。中立的な評価者による感度分析では、VITAの平均スコアは51.0%となり、GPT-5.5の52.0%との差は統計的な有意差がなく、最先端モデルと同等の性能であることが確認されました。本研究の限界として、評価指標や評価者が主に西洋の臨床文脈に基づいて作成されているため、低中所得国（LMIC）の状況を過小評価する可能性や、英語のみの評価であるため多言語能力が十分に検証されていない点が挙げられます。結論として、特定の臨床コンテキストや評価基準に依存するものの、専用設計された臨床AIシステムが汎用モデルと同等以上の性能を発揮し得ることを示しています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-17
+  </footer>
+</div>
+</body>
+</html>

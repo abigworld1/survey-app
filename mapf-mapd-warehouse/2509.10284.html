@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A Holistic Architecture for Monitoring and Optimization of Robust Multi-Agent Path Finding Plan Execution | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>A Holistic Architecture for Monitoring and Optimization of Robust Multi-Agent Path Finding Plan Execution</h1>
+  <div class="meta">David Zahrádka, Denisa Mužíková, David Woller, Miroslav Kulich, Jiří Švancara, Roman Barták<br>採択先: ICAART ・ 2025-09-12 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2509.10284v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2509.10284v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1007/978-3-032-25029-2_15" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 ICAART</span><span class="chip">公開日 2025-09-12</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">MAPFの実行時における再計画のタイミングを、Action Dependency Graphのスラック変動に基づき決定する実用的な手法を提案している。新規性は中程度だが、監視と最適化を統合したアーキテクチャは、実環境でのロボット運用を研究す</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> ロボットの遅延による実行時間の増大を抑えるため、Action Dependency Graphを用いて再計画の最適なタイミングを予測する、監視と最適化を統合したアーキテクチャを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路計画（MAPF）の実行において、実環境でのロボットの遅延は衝突やデッドロックのリスクを生むだけでなく、全体の実行時間を大幅に増大させる。既存の堅牢な実行手法は安全性を確保できるものの、遅延が蓄積した際に、計算コストの高い再計画を実行して代替案を探すべきか、あるいは現在の計画を継続すべきかの判断基準が欠如している。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>堅牢な実行、進捗のモニタリング、および最適化のプロセスを一つの包括的なアーキテクチャに統合した点が新規である。Action Dependency Graph（ADG）から算出されるスラック（時間的余裕）の変動を利用して、代替計画の策定が実行時間の短縮に寄与するかを予測するメカニズムを導入している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>エージェントの各動作をノード、動作間の時間的先行関係をエッジとする有向非巡回グラフであるAction Dependency Graph（ADG）を用いる。ADGには、同一エージェント内の連続する動作間の依存関係（Type 1）と、異なるエージェント間の頂点占有順序に関する依存関係（Type 2）が含まれる。実行中は、完了した動作の実際の時刻に基づき、後続動作の完了予定時刻を逐次更新する。遅延の影響は、Type 2エッジにおけるスラックの計算を通じて評価される。スラックの変動が設定した閾値を超えた場合、まず低コストな再スケジューリングを試行し、それでも改善が見込めない場合に高コストな再計画を実行する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実機ロボットを用いたデモンストレータと、侵入者（intruder）による遅延をモデル化したリアルタイムシミュレータを用いて検証した。4種類のマップと異なるエージェント数を用い、全エージェントの完了時刻の総和であるSOCを評価指標とした。提案手法を、侵入者出現後にランダムなタイミングで再計画を行う手法と比較した結果、提案手法は侵入者によるSOCの増加を、ランダムな手法よりも平均して大幅に抑制できることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、再計画が実行の比較的早い段階で行われる傾向があるため、エージェントが目標に到達して問題が単純化している状況で再計画を行うランダムな手法と比較して、計算時間が長くなる場合がある。また、シミュレーションの特性上、再計画によってかえって実行コストが増加する外れ値が発生する可能性がある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>A Holistic Architecture for Monitoring and Optimization of Robust Multi-Agent Path Finding Plan Execution</h3><p>本研究は、マルチエージェント経路計画（MAPF）の実行において、ロボットの遅延による衝突リスクを回避しつつ、実行時間の増大を抑えるための包括的なアーキテクチャを提案している。提案手法では、Action Dependency Graphと呼ばれる堅牢な実行手法を活用することで、計画実行中に期待される完了時間の推定値を維持する。この推定値に基づき、元の計画を継続するよりも、計算コストの高い再計画を行って代替案を探索した方が、全体の実行時間を短縮できる可能性を予測する。評価実験では、自律走行ロボットを用いた実際の倉庫環境を模したリアルタイムシミュレータを使用し、提案する監視および最適化メカニズムの有効性を検証している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路探索（MAPF）において、実ロボットの遅延による衝突やデッドロックを防ぐための堅牢な実行手法が重要視されている。既存手法には、エージェントの遅延を考慮して事前に余裕を持たせる計画策定や、時間的ネットワークを用いて実行時のタイミングを調整する手法、さらには再スケジューリングや再計画によって遅延に対応する手法が存在する。しかし、いつ再スケジューリングを行い、いつ計算コストの高い再計画に切り替えるべきかという判断基準には課題が残っている。本研究では、堅牢な実行、進捗のモニタリング、および最適化を統合した包括的なアーキテクチャを提案する。このアーキテクチャは、蓄積された遅延の影響をslackと呼ばれる余裕量の計算によって推定し、代替計画が実行時間の短縮に寄与するかを判断する手法をサポートする。評価にあたっては、実機ロボットを用いたデモンストレーターと、現実的な遅延モデルを備えたシミュレータを用い、改良されたslackに基づく予測的再計画手法の有効性を複数のベンチマークマップと多様な規模のエージェント群に対して検証している。</p></section>
+<section class="secsum"><h3>2 Background</h3><p>マルチエージェント経路探索（MAPF）は、グラフ上の複数のエージェントに対し、各々の開始地点から目標地点までの衝突のない経路を割り当てる問題である。衝突には、同一時刻に同じ頂点を占有する頂点衝突、エージェント同士が逆方向に同じエッジを通過するスワップ衝突、エージェントが頂点を離れる時刻と別のエージェントがその頂点に進入する時刻が一致するフォローイング衝突、およびエージェントが円状に移動するサイクル衝突がある。本研究では、あるエージェントが前の時刻に他のエージェントによって占有されていた頂点に、次の時刻に進入することを禁止する、すべての衝突を回避する1-robustな解を対象とする。計画の品質は、全エージェントの経路長の総和であるSOC（Sum of Costs）や、最長経路の長さであるmakespanによって評価される。実行時の依存関係を管理する手法として、エージェントの各動作をノード、動作間の時間的先行関係をエッジとする有向非巡回グラフであるAction Dependency Graph（ADG）を用いる。ADGでは、単一エージェント内の連続する動作間の依存関係（Type 1）と、異なるエージェント間での頂点の占有順序に関する依存関係（Type 2）を定義しており、すべての先行する動作が完了した後にのみ次の動作を実行するretimingを行うことで、有限の遅延が発生しても安全な実行を保証する。</p></section>
+<section class="secsum"><h3>3 Execution Architecture</h3><p>本セクションでは、マルチエージェント経路探索（MAPF）の実行における堅牢な監視と最適化のための統合的なアーキテクチャを提案している。このアーキテクチャは、エージェントの遅延が実行コストやメイクスパンを増大させる要因となることを前提とし、アクション依存グラフ（ADG）を用いて実行中の計画を動的に管理する。ADGには、エージェント自身の行動間の依存関係を示すType 1エッジと、交差点などでエージェント間の順序制約を示すType 2エッジが含まれる。実行開始前に、各アクションの開始時刻と完了時刻の推定値を計算し、実行が進むにつれて、完了したアクションの実際の完了時刻を用いて、Type 1およびType 2エッジを通じて後続のアクションの推定値を逐次更新することで、計画全体の完了時間の精度を高める。<br><br>遅延による影響を評価するため、Type 2エッジに基づき、あるアクションが他のエージェントの影響で待機しなければならない時間を示すスラックを算出する。具体的には、あるアクションの現在のスラックと、実行開始時に計算された初期スラックの差分であるデルタ・スラックを求め、これが正の値かつ閾値を超えた場合に、再スケジューリングや再計画の検討を行う。デルタ・スラックが正であることは、あるエージェントの遅延によって他のエージェントが当初の計画よりも長く待機することを意味し、この値が大きいほど、経路変更や順序変更によって実行コストを削減できる可能性が高い。介入の判断においては、まず計算コストの低い再スケジューリングを試し、効果がない場合にのみ、より高コストな再計画を実行するという段階的なアプローチをとる。</p></section>
+<section class="secsum"><h3>4 Experimental Environment</h3><p>本研究では、提案アーキテクチャの検証のために、実機デモンストレータ、大規模実験用のシミュレータ、および遅延をモデル化する手法の3つを用いて実験環境を構築している。実機デモンストレータはTurtleBot2を用いた自律走行ロボット群と中央サーバで構成され、サーバはADG（実行計画の依存関係を示すグラフ）に基づき、各ロボットへの動作指示と完了報告の管理を行う。シミュレータは実機と同様のアーキテクチャを持ち、各動作の実行をスレッドでシミュレートし、動作時間は一定であると仮定することでロボットの動特性による影響を排除している。遅延のモデル化には、計画外の存在である「侵入者（intruder）」を導入しており、特定の頂点を一定時間占有することでロボットの進行を妨げる。評価指標として、全エージェントの最終動作完了時間の総和であるSOCと、全エージェントの完了時間における最大値であるmakespanを用いている。シミュレーションにおいて、元の計画におけるSOCとmakespanの差は、シミュレーション値との比較において5%未満の誤差に収まっている。</p></section>
+<section class="secsum"><h3>5 Experimental Evaluation</h3><p>本実験では、4種類のマップを用いて、侵入者によってエージェントの経路が妨害される状況下での再計画の有効性を評価しました。評価指標には、全エージェントの実行コストの総和であるSOCを用い、最大Slackが閾値を超えた瞬間に再計画を行う提案手法と、侵入者の出現から実行終了までの間でランダムなタイミングで再計画を行う手法を比較しました。実験の結果、提案手法は再計画の必要性を適切に判断でき、再計画を実行した場合にはランダムな手法よりもSOCの増加を抑え、侵入者の影響を緩和する能力において高い数値を示しました。エージェント数による性能への大きな影響は見られませんでしたが、再計画の計算時間については、提案手法は多くのエージェントが目的地へ向かっている早い段階で実行されるため、ランダムな手法よりも計算時間が長くなる傾向があります。なお、シミュレーションの性質上、再計画によってエージェント間に新たな時間的依存関係が生じ、実行コストが増加する外れ値も確認されています。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、マルチエージェント経路計画（MAPF）の実行における堅牢性を監視し、最適化するためのアーキテクチャを提案している。このアーキテクチャは、スラックと呼ばれる指標を計算することで、遅延したエージェントが全体の実行時間に与える影響を推定する手法を実装している。自動倉庫のロボット群を模したシミュレータを用い、共有空間内の頂点を占有してロボットを一定時間停止させる侵入者による遅延をシミュレートして評価を行った。4種類の異なるマップとロボット規模を用いた実験において、侵入発生後にランダムなタイミングで再計画を行う手法と比較した結果、提案するスラックに基づく手法は、再計画を行うべき適切なタイミングを効率的に判断できることが示された。さらに、本手法は、代替計画の策定が実行コストの削減に寄与するケースと、ほとんど効果がないケースを判別できる能力も備えている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-17
+  </footer>
+</div>
+</body>
+</html>

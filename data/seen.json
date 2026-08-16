@@ -3800,6 +3800,74 @@
       "url": "http://arxiv.org/abs/2608.09331v1",
       "venue": ""
     },
+    "doi:10.48550/arxiv.2608.12138": {
+      "added": "2026-08-17",
+      "added_at": "2026-08-17T06:06:10.482926",
+      "arxiv_id": "2608.12138",
+      "authors": [
+        "Praveen Reddy",
+        "Charuta Mandke",
+        "Suvrankar Datta",
+        "Sarah Khan",
+        "Siddharth Reddy Anthireddy",
+        "Shitij Arora",
+        "Vishal Singh"
+      ],
+      "basis": "fulltext(arxiv-pdf)",
+      "citations": 0,
+      "date": "2026-08-12",
+      "doi": "10.48550/arxiv.2608.12138",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.12138.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.12138v1",
+      "reading_value": 4,
+      "reading_value_reason": "特定ドメインのRAGが最新の汎用LLMを凌駕する可能性を実証しており、設計変数としてのコーパスの重要性を示す点は、RAG研究者にとって非常に示唆に富む。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "A corpus-specific clinical RAG system matches or outperforms newer frontier LLMs on HealthBench",
+      "tldr": "特定の臨床文脈に特化したRAGシステムであるVITAが、HealthBenchベンチマークにおいて最新の汎用大規模言語モデルと同等、あるいはそれ以上の性能を示すことを明らかにした。",
+      "url": "http://arxiv.org/abs/2608.12138v1",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2608.12675": {
+      "added": "2026-08-17",
+      "added_at": "2026-08-17T06:05:30.133652",
+      "arxiv_id": "2608.12675",
+      "authors": [
+        "Saleh Almohaimeed",
+        "Saad Almohaimeed",
+        "Mousa Jari",
+        "Fahad Alotaibi",
+        "Khalid A. Alobaid"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-13",
+      "doi": "10.48550/arxiv.2608.12675",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.12675.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.12675v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGにおける外部LLMへの機密情報流出という実用的な課題に対し、軽量なローカルモデルによる置換という具体的かつ新規性のある手法を提案している。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Privacy-Preserving RAG by Concealing Sensitive Information from External LLMs",
+      "tldr": "RAGシステムにおいて外部LLMへ機密情報が流出するリスクに対し、機密エンティティを意味的な別名に置換して隠蔽するフレームワークSEAGを提案し、回答精度を維持したままプライバシー保護を実現した。",
+      "url": "http://arxiv.org/abs/2608.12675v1",
+      "venue": ""
+    },
     "doi:10.5753/latinoware.2025.16269": {
       "added": "2026-07-02",
       "added_at": "2026-07-02T06:00:02.000000",
@@ -6574,6 +6642,40 @@
       "url": "http://arxiv.org/abs/2608.12955v1",
       "venue": ""
     },
+    "doi:10.1007/978-3-032-25029-2_15": {
+      "added": "2026-08-17",
+      "added_at": "2026-08-17T06:03:30.504873",
+      "arxiv_id": "2509.10284",
+      "authors": [
+        "David Zahrádka",
+        "Denisa Mužíková",
+        "David Woller",
+        "Miroslav Kulich",
+        "Jiří Švancara",
+        "Roman Barták"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-09-12",
+      "doi": "10.1007/978-3-032-25029-2_15",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2509.10284.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2509.10284v1",
+      "reading_value": 3,
+      "reading_value_reason": "MAPFの実行時における再計画のタイミングを、Action Dependency Graphのスラック変動に基づき決定する実用的な手法を提案している。新規性は中程度だが、監視と最適化を統合したアーキテクチャは、実環境でのロボット運用を研究す",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "A Holistic Architecture for Monitoring and Optimization of Robust Multi-Agent Path Finding Plan Execution",
+      "tldr": "ロボットの遅延による実行時間の増大を抑えるため、Action Dependency Graphを用いて再計画の最適なタイミングを予測する、監視と最適化を統合したアーキテクチャを提案する。",
+      "url": "http://arxiv.org/abs/2509.10284v1",
+      "venue": "ICAART"
+    },
     "doi:10.1016/j.artint.2022.103752": {
       "added": "2026-06-14",
       "added_at": "2026-06-14T00:00:00.000005",
@@ -7054,6 +7156,38 @@
       "tldr": "Lifelong Multi-Agent Path Finding (LMAPF) において、全エージェントが同時に目標に到達することを要求する従来の MAPF 形式が引き起こす不整合を解消するため、目標を通過することのみを目的とする MAPF for Lifelong (MAPF4L) を提案し、スループットの向上を実現する。",
       "url": "https://www.semanticscholar.org/paper/a8e56a432d7394b0a2410ca5c3e3cb4704ebf9c1",
       "venue": "Proceedings of the International Symposium on Combinatorial Search"
+    },
+    "doi:10.1609/socs.v19i1.43080": {
+      "added": "2026-08-17",
+      "added_at": "2026-08-17T06:01:42.168174",
+      "arxiv_id": "",
+      "authors": [
+        "Omer Onn",
+        "Ariel Felner",
+        "Roni Stern"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "2026-08-14",
+      "doi": "10.1609/socs.v19i1.43080",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/doi-de81988bd01f.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://ojs.aaai.org/index.php/SOCS/article/download/43080/50640",
+      "reading_value": 4,
+      "reading_value_reason": "LMAPFの拡張として「未割り当てエージェント」の戦略的活用を提案しており、新規性と実用性が高い。LaCAMの変種や新停止条件の導入、体系的な実験も充実している。",
+      "relevance": 8,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Maximizing Throughput in Lifelong Multi-Agent Path Finding with Unassigned Agents",
+      "tldr": "タスクが継続的に発生する環境において、目的地を持たない未割り当てエージェントを戦略的に活用するLMAPFUAフレームワークを提案し、エージェントの総数と同時実行タスク数のバランスを制御することでスループットを最大化する。",
+      "url": "https://openalex.org/W7203493327",
+      "venue": "Proceedings of the International Symposium on Combinatorial Search 2026"
     },
     "doi:10.1613/jair.1.20611": {
       "added": "2026-06-26",
