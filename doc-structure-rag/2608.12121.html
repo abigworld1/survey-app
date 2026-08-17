@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>QV-PIC: Query-Aware Visual Position-Independent Caching for Efficient RAG Serving | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>QV-PIC: Query-Aware Visual Position-Independent Caching for Efficient RAG Serving</h1>
+  <div class="meta">Yilin Liu, Rui Meng, Wangze Ni, Jianxin Yan, Heng Cao, Libin Zheng, Peng Cheng, Jinfei Liu<br>採択先: 未取得 ・ 2026-08-12 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.12121v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.12121v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2608.12121" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-12</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの効率化に向け、視覚的圧縮とKVキャッシュ再利用を組み合わせた新規性の高い提案。精度と低遅延の両立を実験で実証しており、実用上の価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGにおける画像ベースのキャッシュ再利用は、文脈の不一致や詳細情報の欠落により精度が著しく低下します。本研究は、モデル固有のテンプレートを用いた事前コンパイルと、クエリの関連度に応じた動的な二重解像度割り当てにより、高精度かつ低遅延なキャッシュ再利用を実現するQV-PICを提案します。</div>
+<section class="qa"><h2>どんなもの？</h2><p>検索拡張生成（RAG）では、同一のテキストチャンクを繰り返し処理するため、冗長な計算が発生します。位置に依存しないKey-Value（KV）キャッシュの再利用（PIC）によりこれを軽減できますが、従来のテキストベースのPICは、コンテキスト長に比例してKVキャッシュの転送および計算コストが増大します。テキストを画像としてレンダリングして視覚トークンに圧縮する手法は、コスト削減の可能性がありますが、コンパイル時の文脈の不一致や、視覚圧縮による微細なテキスト情報の欠落により、テキストベースのPICよりも精度が大幅に低下するという課題があります。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>画像ベースのPICにおける「コンパイル時の文脈不一致」と「微細な証拠情報の欠落」という二つの課題を同時に解決した点が新規性です。モデル固有のテンプレート条件下でキャッシュを事前生成することで文脈の不一致を抑え、かつクエリとの関連性に基づいて解像度を動的に制御することで、計算コストを抑えつつ情報の欠落を補完するフレームワークを提案しました。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>オフライン工程では、各チャンクを低解像度と高解像度の2種類の画像としてレンダリングし、モデル固有のチャットテンプレートの接頭辞条件下でKVキャッシュを事前コンパイルします。この際、テンプレート部分のKVエントリのみを削除して保存することで、推論時のプロンプト形式の不一致を防ぎます。オンライン工程では、クエリと各チャンクのテキスト埋め込みのコサイン類似度を用いて関連度を算出します。累積的な関連度スコアが閾値に達するまで、関連度の高いチャンクから順に高解像度キャッシュへと昇格させます。最終的に、選択された解像度のキャッシュを現在のコンテキスト順に組み立て、M-RoPE（Multimodal Rotary Positional Embedding）を用いて各キャッシュをリクエスト内の適切な位置に再配置します。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>LongBenchの6つの長文QAタスクを用いて、Glyph 9B、GLM-4.1V、LLaVA-OneVision-2で評価しました。比較対象は、標準的なレンダリング画像PIC、最適化されたテキストPIC、一律の解像度を用いた画像PICです。評価指標はF1スコアと最初のトークン生成までの時間（TTFT）です。結果として、QV-PICは標準的な画像PICと比較して平均F1スコアを21.6ポイント向上させ、最適化されたテキストPICを2.58ポイント上回る精度を達成しました。また、TTFTはテキストPICより17.2%削減され、フルプリフィルと比較して83.8%の削減を実現しました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、計算予算内でクエリに関連する詳細情報を復元するために、解像度による情報の保持と計算コストのトレードオフを管理しています。解像度を均一に引き上げた場合には、F1スコアの向上が非単調になるなど、解像度割り当ての制御が重要となります。また、特定のモデルに依存せず、異なるアーキテクチャを持つ汎用的な視覚言語モデルにおいても、精度と遅延のバランスにおいて有効であることが示されています。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>QV-PIC: Query-Aware Visual Position-Independent Caching for Efficient RAG Serving</h3><p>Retrieval-Augmented Generation (RAG)において、同一のテキストチャンクを繰り返しプリフィルすることで生じる冗長な計算を削減するため、位置に依存しないKey-Valueキャッシュの再利用（PIC）が提案されていますが、テキストを画像としてレンダリングしてトークン数を圧縮する手法では、コンテキストの不一致や詳細な情報の欠落により品質が著しく低下するという課題があります。本研究が提案するQV-PICは、モデル固有のテンプレートに基づいたクエリ認識型の二重解像度キャッシュ再利用フレームワークです。オフライン処理では、モデルのチャットテンプレートの接頭辞の下で視覚キャッシュをコンパイルすることで、オンラインでの再計算なしにキャッシュの品質を向上させます。オンライン処理では、低解像度のキャッシュによってグローバルな文脈を維持しつつ、クエリとの関連性スコアの累積に基づいて、高解像度の予算内で詳細なテキスト情報を復元することで、視覚圧縮の効率性を保ちながら精度を向上させます。6つのタスクを用いた実験の結果、QV-PICは従来の画像ベースPICと比較して平均F1スコアを21.6ポイント改善し、最適化されたテキストベースPICをも2.58ポイント上回る精度を達成しました。また、フルプリフィルと比較して、最初のトークン生成までの時間（TTFT）を83.8%削減しています。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>RAG（検索拡張生成）において、長文ドキュメント内の重複するチャンクを効率的に再利用するPosition-Independent Caching（PIC）は、テキストベースの手法ではKVキャッシュの転送および計算コストがコンテキスト長に比例するという課題があります。テキストを画像としてレンダリングし、視覚言語モデルを用いて複数のテキスト単位を少数の視覚トークンに圧縮する手法は、情報密度を高めつつKVシーケンスを短縮できる可能性がありますが、従来のテキストPICと比較して、コンパイル時のコンテキスト不一致や微細な情報の欠落により精度が低下するという問題があります。本研究では、この課題を解決するために、モデル固有のチャットテンプレートを適用してコンテキストの不一致を抑え、かつクエリに関連性の高い画像のみを高解像度で扱うクエリ認識型デュアル解像度フレームワークであるQV-PICを提案します。QV-PICは、低解像度と高解像度の両方のキャッシュを事前にコンパイルしておき、推論時にクエリの関連度に基づいて高解像度への昇格を制御することで、効率性と精度の両立を図ります。実験の結果、QV-PICは従来のレンダリング画像PICと比較して平均F1スコアを21.6ポイント向上させ、テキストPICとの精度差を解消しただけでなく、テキストPICを2.58ポイント上回る精度を達成しつつ、最初のトークン生成までの時間（TTFT）を17.2%削減しました。また、フルプリフィルと比較して、オンラインでのプリフィル時間を83.8%削減しています。</p></section>
+<section class="secsum"><h3>Background</h3><p>RAG（検索拡張生成）における従来のPrefix Cachingは、共通の接頭辞や定義済みのレイアウトがある場合にのみKVキャッシュを再利用するため、動的な検索によって同じテキストチャンクが異なる文脈や順序で出現する場合の対応が困難である。これに対し、テキストのPosition-Independent Caching（PIC）は、チャンクを独立したKVキャッシュとしてコンパイルし、オンライン実行時にそれらを連結する手法であるが、トークンの選択や再計算、スケジューリングによるオンラインのオーバーヘッドが課題となる。また、テキストを画像として扱う手法は情報の密度を高めトークン数を圧縮できるものの、レンダリング解像度への依存や、OCRの可読性だけでは長距離の検索および推論の品質を反映できないという限界がある。マルチモーダルなキャッシュ手法も存在するが、固定解像度では微細なテキスト情報の欠落を招く恐れがあり、再計算による計算コストも依然として発生する。</p></section>
+<section class="secsum"><h3>Methodology</h3><p>QV-PICは、レンダリングされた画像を用いたKVキャッシュの再利用におけるキャッシュ状態の不一致と、詳細なテキスト情報の欠落という2つの課題を解決する手法である。オフラインフェーズでは、モデル固有のチャットテンプレートを条件として、低解像度と高解像度の両方の画像キャッシュ、およびソーステキストの埋め込みを事前に生成する。この際、テンプレートのKVエントリ自体は削除するが、テンプレート条件下で計算された画像部分のKVエントリを保持することで、推論時のプロンプト形式の不一致を抑制する。オンラインフェーズでは、クエリと各チャンクのテキスト間のコサイン類似度に基づき、関連度が高いと判断されたチャンクのみを高解像度キャッシュに昇格させる。昇格させるチャンクの数は、設定された閾値または予算に基づいて決定され、すべてのチャンクは現在のコンテキスト順序に従って組み立てられる。組み立てられたキャッシュは、M-RoPEによる再アンカリング処理によって現在のリクエスト内の適切な位置に配置され、VLMはクエリのプリフィルと回答生成のみをオンラインで行う。</p></section>
+<section class="secsum"><h3>Experiments</h3><p>本実験では、LongBenchに含まれる6つの長文QAタスクを用いて、提案手法であるQV-PICの有効性を評価しています。まず、モデル固有のテンプレート条件付きコンパイルの効果を検証した結果、ダミーのプレフィックスを用いる手法よりも、モデルの学習済み入力インターフェースに適合させることで、レンダリング済み画像キャッシュのF1スコアが大幅に向上することが示されました。次に、解像度（DPI）を均一に上げた場合、最初のトークンまでの時間（TTFT）は一貫して増加する一方で、F1スコアの向上は非単調で不安定になることが確認されました。これに対し、QV-PICはクエリに関連性の高い画像のみを120-DPIの高解像度で割り当て、それ以外を72-DPIの低解像度で保持するデュアル解像度戦略をとることで、一律に高解像度化する場合よりも高いF1スコアと低いTTFTを同時に実現しています。さらに、テンプレート条件付きコンパイルとクエリ認識による解像度割り当てを組み合わせることで、テキストベースのPICを上回るF1スコアを達成できることが示されました。最後に、Glyph以外の汎用的な視覚言語モデル（GLM-4.1VおよびLLaVA-OneVision-2）を用いた検証においても、QV-PICは高い汎用性を持ち、既存のPIC手法と比較して優れたF1スコアと低遅延の両立を実現しています。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本研究では、レンダリングされた画像を用いるPrefix Injection Caching（PIC）において、キャッシュ状態の不一致や微細な証拠情報の欠落により再利用の品質が低下する課題に対し、クエリを考慮した視覚的PICフレームワークであるQV-PICを提案する。この手法は、モデル固有のテンプレート条件付きキャッシュコンパイルと、クエリに応じた二重解像度キャッシュアセンブリを組み合わせることで、コンパイル時の文脈との不一致を軽減し、クエリに関連するテキスト情報の保持を可能にする。LongBench QAの6つのタスクを用いた評価では、QV-PICは従来のレンダリング画像PICと比較してF1スコアを21.6ポイント向上させ、最適化されたテキストPICや一律の解像度を用いた画像PICを、より短い最初のトークン生成までの時間（TTFT）で上回る性能を示した。フルプリフィルと比較した場合、オンラインでのプリフィル時間を83.8%削減しており、再利用可能な視覚・テキストキャッシュを用いることで、高速かつ正確な長文ドキュメントRAGを実現している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-18
+  </footer>
+</div>
+</body>
+</html>

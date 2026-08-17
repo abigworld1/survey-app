@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PANAMA: A Network-Aware MARL Framework for Multi-Agent Path Finding in Digital Twin Ecosystems | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>PANAMA: A Network-Aware MARL Framework for Multi-Agent Path Finding in Digital Twin Ecosystems</h1>
+  <div class="meta">Arman Dogru, R. Irem Bor-Yaliniz, Nimal Gamini Senarath<br>採択先: GC Workshops ・ 2025-08-09 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2508.06767v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2508.06767v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/GCWKSHPS68340.2025.11590994" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 GC Workshops</span><span class="chip">公開日 2025-08-09</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">通信品質（SINR）と経路探索を統合した点は新規性があり、実環境への適用可能性が高い。ただし、ワークショップ論文であり、実験規模や理論的裏付けの深さにおいて検証の余地がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> デジタルツイン・エコシステムにおけるマルチエージェント経路探索において、通信品質を考慮しながらエージェントの自律的な移動を実現する、ネットワーク認識型のマルチエージェント強化学習フレームワークを提案する。通信の安定性と経路の効率性の間に存在するトレードオフを管理し、大規模な環境でも高いスケーラビリティと成功率を達成する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>6Gネットワークやデジタルツインが活用される高度な自動化環境において、複数のエージェントが衝突を避けながら目的地へ到達する経路探索問題を対象とする。従来の経路探索手法では、通信環境の動的な変化が考慮されておらず、通信品質の低下によるデータ通信の遮断が発生する可能性がある。本研究では、通信品質とエージェント間の協調を同時に考慮する必要がある、分散型部分観測マルコフ決定過程としてこの問題を定式化する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の経路探索手法に対し、通信品質を示すSINR（信号対干渉雑音比）を観測情報に組み込み、通信の安定性と移動効率を両立させた点に新規性がある。また、集中学習・分散実行（CTDE）パラダイムにおいて、エージェントが自身のコピーと協力できない問題を解決するため、高優先度エージェントの計画経路のみを観測する非対称優先度ベースの観測手法を導入した。これにより、エージェント間の優先度の差を利用した効率的な協調学習を可能にしている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>非同期なアクター・ラーナー構造を採用し、CTDEパラダイムに基づき、複数のアクターが収集した経験を中央のラーナーが統合して学習を行う。学習にはDouble DQN、優先度付き経験再生（PER）、重要度サンプリング（IS）を用いる。エージェントの観測は、障害物、他エージェントの位置、高優先度エージェントの計画経路、および正規化されたSINRマップからなる空間テンソルと、目標への相対座標等を含む特徴量ベクトルで構成される。報酬設計には、ゴール到達報酬、衝突ペナルティ、A*距離に基づくポテンシャルベースの報酬整形、および通信品質に基づくペナルティを組み合わせる。さらに、環境の複雑さを段階的に高めるカリキュラム学習を用いて学習を制御する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>倉庫環境でのシミュレーションにおいて、11時間の訓練の結果、推論成功率はエピソード5,000付近で90%の閾値を突破し、平均ステップ数は初期の約450から約100へと減少した。MovingAIベンチマークを用いたLaCAM*との比較では、256エージェントを超える大規模なシナリオにおいても、高い成功率と優れた解の長さ（makespan）を維持した。通信ブラックアウトが発生する条件下での検証では、PANAMAは高いSINRと堅牢性を維持する一方で、通信カバレッジを優先した経路選択によりmakespanが増大するという結果が得られた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>経路の短縮（makespanの最小化）と、良好な通信品質（SINR）の維持との間には明確なトレードオフが存在する。また、複雑な環境下でエージェント数をさらに増大させるための既存ベンチマークが不足していることが課題である。今後の課題として、異種エージェントの混在環境への対応や、エージェントによる遅延耐性ネットワーク（DTN）への統合が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>PANAMA: A Network-Aware MARL Framework for Multi-Agent Path Finding in Digital Twin Ecosystems</h3><p>PANAMAは、デジタルツイン・エコシステムにおけるマルチエージェント経路探索（MAPF）を目的とした、ネットワークの状態を考慮する新しいマルチエージェント強化学習（MARL）フレームワークである。この手法は、優先度の非対称性（Priority Asymmetry）を取り入れることで、アプリケーション提供者とネットワーク提供者の間の動的な相互作用に対応している。学習においては、集中学習・分散実行（CTDE）フレームワークと非同期的なアクター・ラーナー構造を採用しており、学習の加速とエージェントによる自律的なタスク実行を両立させている。シミュレーション実験の結果、PANAMAは既存のベンチマークと比較して、経路探索の精度、速度、およびスケーラビリティにおいて優れた性能を示すことが確認された。本手法は、ネットワークを意識した意思決定とマルチエージェントの協調を統合することで、複雑な実環境における自動化システムのレジリエンス向上に寄与するものである。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>高度な自動化を実現するEmbodied AIにおいて、6Gネットワークによる通信やセンシング、および複雑な環境での検証を可能にするデジタルツイン（DT）の活用が期待されている。本研究では、ネットワークプロバイダーとアプリケーションプロバイダー間におけるデータ公開の課題に対し、DTをデータ公開の緩衝地帯として機能させるエコシステムを提案する。このエコシステムでは、人間、ロボット、ネットワークなどの実世界のエンティティに対応するDTが相互作用し、制御機能やデータ処理機能を持つデジタルツインネットワーク（DTN）を動的に構築する。提案手法であるPANAMAは、協調的なマルチエージェント経路探索（MAPF）問題を、分散型部分観測マルコフ決定過程（Dec-POMDP）として定式化し、集中学習・分散実行（CTDE）パラダイムを用いて解く。学習時にエージェントが自身のコピーと協力できない問題を解決するため、観測情報を非対称にする非対称優先度ベース観測を導入している。PANAMAは、ネットワークの制約を考慮したネットワーク認識型のアルゴリズムであり、既存のベンチマークと比較して、学習効率とスケーラビリティの両面で優れた性能を示す。</p></section>
+<section class="secsum"><h3>II System Model</h3><p>本システムモデルは、デジタルツイン（DT）エコシステムにおけるマルチエージェント経路探索を、分散型部分観測マルコフ決定過程（Dec-POMDP）として定式化しています。ネットワーク環境は、基地局の送信電力、アンテナ利得、および3GPPのUrban Micro環境に基づくパスロスを用いた物理層モデルによって表現され、各エージェントは受信信号強度が最大となるセクターからサービスを受けます。エージェントの通信品質は、他セクターからの干渉とノイズを考慮した信号対干渉雑音比（SINR）によって決定され、このSINRを標準的な変調符号化方式（MCS）のルックアップテーブルに基づいて正規化した値が、エージェントの観測情報として提供されます。エージェントの観測空間は、視野内の静的障害物、他エージェントの位置、高優先度エージェントの計画経路、および正規化されたSINRマップの4チャネルからなる空間テンソルと、目標への相対座標やA*経路のウェイポイントを含む特徴量ベクトルで構成されます。行動空間は離散的な移動アクションであり、複数のエージェントが同一セルに移動しようとする衝突が発生した場合は、優先度の低いエージェントがその場に留まるという解決メカニズムが適用されます。</p></section>
+<section class="secsum"><h3>III The PANAMA Method</h3><p>PANAMAは、中央集中型学習・分散実行（CTDE）アーキテクチャを採用したマルチエージェント強化学習フレームワークであり、非同期なアクター・ラーナー構造によってスケーラビリティを確保している。学習には過大評価バイアスを抑制するDouble DQNを用い、TD誤差に基づき重要な遷移を優先的に抽出する優先度付き経験再生（PER）と、サンプリングの偏りを補正する重要度サンプリング（IS）を組み合わせて学習効率を高めている。ネットワークの安定化のため、ターゲットネットワークの更新にはPolyak平均によるソフトアップデートを用い、最適化にはAdamWと勾配クリッピングを適用している。また、エージェント数やマップの複雑さを段階的に増やすカリキュラム学習を導入しており、成功率が事前に定義された閾値を超えた段階で次のステージへ移行する。環境設定では、デッドロックを回避するために、エージェントのゴールまでのA*距離に基づく動的な優先度システムと、高優先度エージェントの計画経路のみを観測する非対称な観測空間を導入している。報酬設計には、ゴール到達時の報酬、衝突や時間経過へのペナルティに加え、A*距離の変化に基づくポテンシャルベースの報酬整形（PBRS）、高優先度エージェントの経路を占有した際のペナルティ、および通信品質（SINR）に基づくネットワークペナルティが含まれる。</p></section>
+<section class="secsum"><h3>IV Experiments and Results</h3><p>PANAMAフレームワークは、倉庫や部屋の特性を反映した環境パラメータを用いて、カリキュラム学習スケジュールに従い11時間の訓練を実施した結果、訓練成功率が1.0に向かって着実に上昇し、推論成功率もエピソード5,000付近で卒業閾値である90%を迅速に突破した。エージェントが協調を学習するにつれて、問題解決に必要な平均ステップ数は初期の約450ステップから、約100ステップまで大幅に減少して安定した。MovingAIベンチマークを用いた比較実験では、ネットワーク認識なしの条件下でLaCAM*と比較した際、256エージェントを超えるシナリオにおいても高い成功率を維持し、解の長さ（makespan）においてもLaCAM*を上回ることで、PANAMAの優れた汎用性とスケーラビリティが示された。ネットワーク認識の有無に関する検証では、通信が不可能になるブラックアウト事象を考慮した際、PANAMAは混雑したシナリオでも高い信号対干渉雑音比（SINR）とブラックアウトに対する堅牢性を維持する一方で、良好な通信カバレッジを確保するための経路選択により、makespanが増大するというトレードオフの関係が確認された。</p></section>
+<section class="secsum"><h3>V Conclusions and Future Work</h3><p>PANAMAは、経路選択と通信品質の維持との間にトレードオフが存在すること、および複雑な環境下でエージェント数を増大させるためのベンチマークが不足していることを明らかにしました。混雑したシナリオにおいては、信号対干渉雑音比（SINR）を維持し、通信断絶を防ぐためのネットワーク認識の重要性が示されています。これらの知見は、アクセスポイントとネットワークパートナー間の安全でプライバシーを保護したデータ交換を可能にする、6G以降のデジタルツイン・エコシステム向けネットワーク設計に寄与します。今後の展望として、PANAMAを異種エージェントに対応させることや、エージェントによる遅延耐性ネットワーク（DTN）へ統合することが計画されています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-18
+  </footer>
+</div>
+</body>
+</html>

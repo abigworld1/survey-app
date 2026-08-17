@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Neural Algorithmic Reasoners informed Large Language Model for Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Neural Algorithmic Reasoners informed Large Language Model for Multi-Agent Path Finding</h1>
+  <div class="meta">Pu Feng, Size Wang, Yuhong Cao, Junkang Liang, Rongye Shi, Wenjun Wu<br>採択先: IJCNN ・ 2025-08-25 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2508.17971v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2508.17971v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/IJCNN64981.2025.11227551" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 IJCNN</span><span class="chip">公開日 2025-08-25</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">LLMの空間把握能力をGNNで補完する構成が独創的。学習効率の高さと実機検証による具体性も高く、MAPFとLLMの融合領域において優先的に読むべき研究。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 大規模言語モデル（LLM）の空間把握能力を補うため、グラフニューラルネットワーク（GNN）を用いたニューラルアルゴリズム推論器（NAR）とクロスアテンション機構を統合したLLM-NARを提案する。これにより、言語的な計画能力とグラフ構造に基づく空間理解を融合させ、マルチエージェント経路探索（MAPF）における高い成功率と経路効率を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>無向グラフ上で複数のエージェントが、衝突を避けながら各々の目的地へ最短時間で到達することを目指すマルチエージェント経路探索（MAPF）を対象とする。エージェントは各時刻において隣接する頂点への移動または待機を選択するが、同一頂点の同時占有やエージェント間の位置入れ替えによる衝突を回避する必要がある。従来のLLMを用いたアプローチでは、複雑な地図構造やエージェント間の空間的な関係性を正確に把握し、協調的な意思決定を行うことが困難であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>GNNを用いたNARを導入し、地図情報とLLMをクロスアテンション機構によって統合した点が新規である。従来の学習ベースの手法が数十万から数百万ステップの膨大な学習を必要とするのに対し、本手法はクロスアテンション層のみを訓練することで、数千ステップという効率的な学習を実現している。また、様々なLLMモデルに容易に適応可能なフレームワークである。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、最適解を算出するConflict-Based Search（CBS）を用いて生成した教師データに基づき、マップ構造やエージェント間の関係性を捉えるGNN-NARを事前学習させる。LLM側では、エージェントの現在位置、目標、テキスト形式のマップ記述、障害物座標を記述する専用プロンプトと、一定回数の失敗やラウンド経過時に状態を初期化するリセットメカニズムを用いる。推論時には、LLMが出力するトークンとGNNが抽出したグラフ表現をクロスアテンション機構で融合し、最終的な行動を決定する。学習プロセスでは、LLMとGNNのパラメータは固定し、クロスアテンション層のみをCBSの最適行動との誤差を最小化するように更新する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>シミュレーションおよびLIMOモバイルロボットを用いた実機実験において、成功率と、総移動ステップ数をエージェント数と最大許容ステップ数の積で正規化した平均ステップ数を評価指標として用いた。LLaMA3やGPTなどのLLMベースの手法と比較した結果、20x20の障害物なしマップにおいてエージェント数が10の場合、GPTの成功率62.50%に対しLLM-NARは80.00%に達した。また、エージェント数が増加してもLLM-NARは他の手法より高い成功率を維持し、平均ステップ数も最小であった。学習効率の面では、100個の実行ケースを用いた5,000ステップの訓練で動作する。実行時間についても、CBSなどの計画ベースの手法より短縮されており、エージェント数が増えるほどその差は拡大する。実機実験（2〜4台のロボット）においても、他のLLMが失敗する条件下で、すべてのロボットを目標に到達させることに成功した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>今後の課題として、時系列グラフニューラルネットワーク（Temporal GNN）などの活用によるさらなる性能向上などが挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Neural Algorithmic Reasoners informed Large Language Model for Multi-Agent Path Finding Thanks: *Corresponding author: W</h3><p>本研究は、マルチエージェント経路探索（MAPF）における大規模言語モデル（LLM）の性能向上を目的とした、LLM-NARという新しいフレームワークを提案しています。この手法は、グラフニューラルネットワーク（GNN）に基づき事前学習されたニューラルアルゴリズム推論器（NAR）を活用して、LLMに地図情報を統合し、経路探索の計画とエージェント間の調整を支援します。LLM-NARは、MAPFタスクを実行するLLM、事前学習済みNAR、および両者を結びつけるクロスアテンション機構の3つの主要コンポーネントで構成されており、様々なLLMモデルへ容易に適応可能です。シミュレーションおよび実世界での実験の結果、提案手法は既存のLLMベースのアプローチと比較して、MAPF問題の解決において優れた性能を示すことが確認されました。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究は、複数のエージェントが衝突を避けながら目的地へ到達するマルチエージェント経路探索（MAPF）において、大規模言語モデル（LLM）の空間把握能力や協調戦略立案の課題を解決するための新フレームワークLLM-NARを提案する。この手法は、MAPF用に設計されたプロンプト戦略を用いて各エージェントへの指示を生成するLLM、地図の複雑な構造やエージェント間の空間的関係をグラフ表現として抽出するグラフニューラルネットワーク（GNN）ベースのニューラルアルゴリズム推論器（NAR）、および両者の出力を統合するクロスアテンション機構の3要素で構成される。クロスアテンション機構は、LLMの言語的な出力とNARによるグラフ表現を融合させることで、言語的な指示と空間データの整合性を高め、文脈理解を強化する。このネットワークは、最終層のアクション出力と、エキスパート戦略であるConflict-Based Search（CBS）から得られる戦略との間の損失を最小化するように学習される。LLM-NARは、従来の学習ベースの手法が数十万から数百万ステップの学習を必要とするのに対し、わずか数千ステップの学習でクロスアテンション機構を訓練できる高い学習効率を実現しており、様々なLLMへ容易に適応可能である。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>マルチエージェント経路探索（MAPF）の手法は、特定のルールに基づいて最適または準最適な経路を計算するConflict-Based Search（CBS）などの伝統的な計画アルゴリズムと、強化学習やグラフニューラルネットワーク（GNN）、Transformerを用いた学習ベースの手法の2つのカテゴリに大別される。近年、大規模言語モデル（LLM）をマルチエージェントシステムに適用し、エージェント間の通信や調整、意思決定を強化する試みが始まっているが、MAPFへのLLMの適用に関する研究は比較的少ない。一方で、ニューラルアルゴリズム推論（NAR）は、厳密だが柔軟性に欠ける古典的アルゴリズムと、適応力はあるが解釈性に欠けるニューラルネットワークの橋渡しを目指す概念であり、論理的推論や計画を必要とするタスクの汎用性を高める。特にGNNは、グラフ構造データの処理に長けているため、最短経路計算などの古典的アルゴリズムを近似することが可能であり、エージェントの関係性や環境がグラフとして表現されるMAPFに適している。本研究は、LLMとGNNを組み合わせることで、MAPFにおける協調能力を向上させることを目指している。</p></section>
+<section class="secsum"><h3>III Problem Formulation</h3><p>マルチエージェント経路探索（MAPF）は、無向グラフ上で複数のエージェントが衝突を避けながら、各々の目的地へ最短時間で到達することを目指す問題である。各エージェントは初期位置から一意の目的地へと移動し、各時刻において隣接する頂点への移動またはその場に留まるという行動を選択できる。有効な共同行動の条件として、任意の時刻において複数のエージェントが同一の頂点を占有しないこと、およびエージェント同士が隣接する頂点間で位置を入れ替えるような衝突を起こさないことが定義されている。本問題の目的は、すべてのエージェントが目的地に到達するまでの総ステップ数を最小化する、一連の有効な共同行動の列を決定することである。</p></section>
+<section class="secsum"><h3>IV Method</h3><p>LLM-NARは、大規模言語モデル（LLM）の計画能力と、グラフニューラルネットワーク（GNN）に基づくNeural 提案手順c Reasoner（NAR）の空間理解能力を、クロスアテンション機構を介して統合するフレームワークである。まず、最適解を算出するCBSを用いて生成した教師データに基づき、エージェント間の関係性やマップの構造を捉えるGNN-NARを事前学習させる。LLM側では、エージェントの現在位置、目標、テキスト形式のマップ記述、障害物座標などを段階的に提供する専用のプロンプト形式を採用し、さらに性能低下時にプロンプトを初期化して現在の位置から再開するリセットメカニズムを導入している。推論時には、LLMが出力するトークンをクエリとし、GNNが抽出したグラフ表現をキーおよびバリューとしてクロスアテンションを適用することで、言語情報と空間情報を融合した最終的な行動を決定する。学習プロセスにおいては、LLMと事前学習済みGNNのパラメータは固定し、クロスアテンション層のみをCBSの最適行動との誤差を最小化するように更新する。この手法は、強化学習と比較して少ないサンプル数とステップ数で学習が可能であり、LLMとGNNの拡張性を活かして様々な規模のマルチエージェント経路探索（MAPF）タスクに対応できる。</p></section>
+<section class="secsum"><h3>V Experiment Results</h3><p>本研究では、LLM-NARがマルチエージェント経路探索（MAPF）において、シミュレーションおよび実機実験の両面で既存手法を上回る性能を示すことを検証しています。評価指標として、全エージェントが目標に到達した割合を示す成功率と、全エージェントの総移動ステップ数を、エージェント数とマップの最大許容ステップ数の積で正規化した平均ステップ数を用いています。シミュレーション実験では、エージェント数や障害物の有無、マップサイズを変化させた条件下でLLaMA3やGPTなどのLLMベースの手法と比較しており、LLM-NARはエージェント数が増加しても高い成功率を維持し、かつ平均ステップ数が少ない効率的な経路を実現しています。また、強化学習手法と比較して学習に必要なステップ数が大幅に少なく、計画ベースの手法であるCBSと比較して実行時間が短いため、エージェント数の増加に対するスケーラビリティの利点も示されています。実機を用いたLIMOモバイルロボットによる実験においても、エージェント数が増えた際にGPTやLLaMA3では目標到達に失敗するケースが見られましたが、LLM-NARはすべてのロボットを目標に到達させ、より短い経路でタスクを完了しました。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究では、マルチエージェント経路探索（MAPF）における大規模言語モデル（LLM）の性能不足を解消するため、LLM-NARを提案しています。この手法は、MAPF向けに改良されたLLMプロンプティング手法と、MAPFに特化したグラフニューラルネットワーク（GNN）に基づくニューラル・アルゴリズム・リーズナーの2つの要素で構成されています。これら両方の要素から得られる情報をクロスアテンション機構を通じて統合することで、LLM-NARポリシーを実現しています。シミュレーションおよび実世界での実験の結果、提案手法は様々なマップ設定やエージェント数において、他のLLMモデルを上回る性能を示しました。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-18
+  </footer>
+</div>
+</body>
+</html>

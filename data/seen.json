@@ -2857,6 +2857,37 @@
       "url": "http://arxiv.org/abs/2608.13410v1",
       "venue": "ISWC 2026 In-Use Track"
     },
+    "arxiv:2608.14210": {
+      "added": "2026-08-18",
+      "added_at": "2026-08-18T06:05:41.979715",
+      "arxiv_id": "2608.14210",
+      "authors": [
+        "Souvick Das",
+        "Sallam Abualhaija",
+        "Domenico Bianculli"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-14",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.14210.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.14210v1",
+      "reading_value": 4,
+      "reading_value_reason": "主張レベルでの密度と頻度を分離する詳細な評価枠組みが新規であり、専門家による検証も含まれ、RAGの信頼性向上に向けた示唆が具体的であるため。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "How Much Do Legal RAG Systems Still Hallucinate?",
+      "tldr": "法務領域のRAGシステムにおけるハルシネーションの実態を、回答レベルと主張レベルの両面から詳細に分析した。ハルシネーションは依然として蔓延しており、特に誤った前提を含む質問に対して発生しやすいことが明らかになった。",
+      "url": "http://arxiv.org/abs/2608.14210v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -3798,6 +3829,42 @@
       "title": "RAG-Audio: Retrieval-Augmented Generation for Faithful Brain-to-Audio Reconstruction",
       "tldr": "脳信号からの音声再構成において、強力な生成器の事前知識が微弱な脳由来信号を上書きしてしまう「事前分布による支配」という課題に対し、検索された音声例示を用いて生成器のサンプリング軌道を初期化するRAG-Audioを提案する。これにより、生成能力を維持したまま、再構成された音声の識別精度を検索ベースラインと同等のレベルまで回復させる。",
       "url": "http://arxiv.org/abs/2608.09331v1",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2608.12121": {
+      "added": "2026-08-18",
+      "added_at": "2026-08-18T06:06:48.060215",
+      "arxiv_id": "2608.12121",
+      "authors": [
+        "Yilin Liu",
+        "Rui Meng",
+        "Wangze Ni",
+        "Jianxin Yan",
+        "Heng Cao",
+        "Libin Zheng",
+        "Peng Cheng",
+        "Jinfei Liu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-12",
+      "doi": "10.48550/arxiv.2608.12121",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.12121.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.12121v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの効率化に向け、視覚的圧縮とKVキャッシュ再利用を組み合わせた新規性の高い提案。精度と低遅延の両立を実験で実証しており、実用上の価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "QV-PIC: Query-Aware Visual Position-Independent Caching for Efficient RAG Serving",
+      "tldr": "RAGにおける画像ベースのキャッシュ再利用は、文脈の不一致や詳細情報の欠落により精度が著しく低下します。本研究は、モデル固有のテンプレートを用いた事前コンパイルと、クエリの関連度に応じた動的な二重解像度割り当てにより、高精度かつ低遅延なキャッシュ再利用を実現するQV-PICを提案します。",
+      "url": "http://arxiv.org/abs/2608.12121v1",
       "venue": ""
     },
     "doi:10.48550/arxiv.2608.12138": {
@@ -6740,6 +6807,71 @@
       "tldr": "動的環境下でのマルチエージェント経路計画（MAPF）に対し、MAPPOをベースとした「MA-DyRoLT」を提案する。本手法は、環境の開放度に応じた動的ウェイポイント生成、学習可能な通信トポロジー、Transformerによる時系列エンコーダ、および歩行者の軌道予測に基づくリスクペナルティを統合することで、大規模かつ動的なシナリオにおいて高い成功率と効率性を実現する。",
       "url": "https://openalex.org/W7166797487",
       "venue": "Scientific Reports"
+    },
+    "doi:10.1109/gcwkshps68340.2025.11590994": {
+      "added": "2026-08-18",
+      "added_at": "2026-08-18T06:03:31.212428",
+      "arxiv_id": "2508.06767",
+      "authors": [
+        "Arman Dogru",
+        "R. Irem Bor-Yaliniz",
+        "Nimal Gamini Senarath"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-08-09",
+      "doi": "10.1109/GCWKSHPS68340.2025.11590994",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2508.06767.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2508.06767v1",
+      "reading_value": 3,
+      "reading_value_reason": "通信品質（SINR）と経路探索を統合した点は新規性があり、実環境への適用可能性が高い。ただし、ワークショップ論文であり、実験規模や理論的裏付けの深さにおいて検証の余地がある。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "PANAMA: A Network-Aware MARL Framework for Multi-Agent Path Finding in Digital Twin Ecosystems",
+      "tldr": "デジタルツイン・エコシステムにおけるマルチエージェント経路探索において、通信品質を考慮しながらエージェントの自律的な移動を実現する、ネットワーク認識型のマルチエージェント強化学習フレームワークを提案する。通信の安定性と経路の効率性の間に存在するトレードオフを管理し、大規模な環境でも高いスケーラビリティと成功率を達成する。",
+      "url": "http://arxiv.org/abs/2508.06767v1",
+      "venue": "GC Workshops"
+    },
+    "doi:10.1109/ijcnn64981.2025.11227551": {
+      "added": "2026-08-18",
+      "added_at": "2026-08-18T06:02:32.501565",
+      "arxiv_id": "2508.17971",
+      "authors": [
+        "Pu Feng",
+        "Size Wang",
+        "Yuhong Cao",
+        "Junkang Liang",
+        "Rongye Shi",
+        "Wenjun Wu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-08-25",
+      "doi": "10.1109/IJCNN64981.2025.11227551",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2508.17971.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2508.17971v1",
+      "reading_value": 4,
+      "reading_value_reason": "LLMの空間把握能力をGNNで補完する構成が独創的。学習効率の高さと実機検証による具体性も高く、MAPFとLLMの融合領域において優先的に読むべき研究。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Neural Algorithmic Reasoners informed Large Language Model for Multi-Agent Path Finding",
+      "tldr": "大規模言語モデル（LLM）の空間把握能力を補うため、グラフニューラルネットワーク（GNN）を用いたニューラルアルゴリズム推論器（NAR）とクロスアテンション機構を統合したLLM-NARを提案する。これにより、言語的な計画能力とグラフ構造に基づく空間理解を融合させ、マルチエージェント経路探索（MAPF）における高い成功率と経路効率を実現する。",
+      "url": "http://arxiv.org/abs/2508.17971v1",
+      "venue": "IJCNN"
     },
     "doi:10.1109/iros58592.2024.10802597": {
       "added": "2026-07-22",

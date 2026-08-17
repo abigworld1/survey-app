@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>How Much Do Legal RAG Systems Still Hallucinate? | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>How Much Do Legal RAG Systems Still Hallucinate?</h1>
+  <div class="meta">Souvick Das, Sallam Abualhaija, Domenico Bianculli<br>採択先: 未取得 ・ 2026-08-14 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.14210v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.14210v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-14</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">主張レベルでの密度と頻度を分離する詳細な評価枠組みが新規であり、専門家による検証も含まれ、RAGの信頼性向上に向けた示唆が具体的であるため。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 法務領域のRAGシステムにおけるハルシネーションの実態を、回答レベルと主張レベルの両面から詳細に分析した。ハルシネーションは依然として蔓延しており、特に誤った前提を含む質問に対して発生しやすいことが明らかになった。</div>
+<section class="qa"><h2>どんなもの？</h2><p>根拠に基づかない回答が重大な法的帰結を招く恐れのある法務分野を対象とする。英語のGDPRとフランス語の国内民法という2つの法務コーパスを用い、検索器と生成器を組み合わせた8つのRAGシステムを評価する。従来の評価は集計指標に留まるものが多かったが、本研究では質問カテゴリやユーザー属性による性能差、および検証可能な最小単位である主張レベルでの詳細な挙動を明らかにすることを目的とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のベンチマークがハルシネーションの集計的な評価に留まっていたのに対し、主張レベルでの密度（ハルシネーションの多さ）と深刻度（ハルシネーションの頻度）を分離して測定する詳細な分析枠組みを提示している。また、法律専門家が作成した独立した質問セットを用いて、観察されたハルシネーションのパターンがベンチマーク特有のものではなく、汎用的なものであることを検証した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>BM25またはE5の検索器と、GPT-4、GPT-5、Llama3-8B、Mixtral-8x7Bの4つの生成器を組み合わせた8つのシステムを評価対象とする。評価指標として、全主張のうちハルシネーションが含まれる割合を示す主張レベルのハルシネーション率（CL）と、少なくとも1つのハルシネーションを含む回答の割合を示す回答レベルのハルシネーション率（AL）を用いる。さらに、事実と明示的に矛盾する場合のみをカウントする厳格な指標（CLsおよびALs）を定義し、ハルシネーションの密度と頻度を測定する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>ClaimRAG-LAWベンチマークおよび専門家による142個の独立した質問セットを用いて検証を行った。結果、最も優れたBM25とGPT-5の組み合わせではハルシネーション率が8%から20%の範囲であったのに対し、Llama3-8Bベースのシステムでは回答の約半分に発生することが示された。また、誤った前提を含む質問（FP）では、多くのシステムが前提を鵜呑みにし、ハルシネーション率が高くなる傾向が確認された。ユーザー属性別では、法律専門家向けの質問よりも、市民向けの質問の方がハルシネーション率が高くなる傾向が見られた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究は2つの法的ソースと8つのシステムに限定されており、他の法域や言語、モデルへの完全な一般化には課題がある。また、プロンプト、チャンク分割戦略、検索パラメータ、あるいは最新モデルのバージョンが与える影響は評価に含まれていない。誤った前提（FP）や期間・管轄指定（JT）などの質問カテゴリはサンプル数が少ないため、結果の安定性に影響を与える可能性がある。ハルシネーションの軽減には、検索精度の向上だけでなく、検索された証拠への忠実性の向上や、誤った前提を検証・拒絶する能力の強化が必要である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>How Much Do Legal RAG Systems Still Hallucinate?</h3><p>本研究では、根拠に基づかない回答が重大な結果を招く恐れのある法務領域のRAGシステムにおいて、ハルシネーション（幻覚）の発生状況を詳細に分析している。英語のGDPRとフランス語の国内民法という2つの法務コーパスを用い、8つのRAGシステムを対象として、主張レベルおよび回答レベルでの評価を実施した。評価指標としてハルシネーションの密度と深刻度を測定し、質問のカテゴリやユーザーの属性による性能差を分析するとともに、法務専門家が作成した142個の独立した質問セットを用いて結果の妥当性を検証している。実験の結果、ハルシネーションは依然として蔓延しており、最も優れたシステムでも回答の10%未満、最悪のケースでは回答の約半分に達することが示された。特に、拒絶すべき誤った仮定を含む「誤った前提の質問（false-premise questions）」に対しては、ハルシネーションが発生する割合が高くなることが明らかになった。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>法務分野における検索拡張生成（RAG）システムは、検索コンポーネントや生成コンポーネント、あるいはその相互作用に起因するハルシネーションのリスクを抱えており、既存研究では6回に1回の割合で誤った出力が生成されることが報告されています。本研究では、回答全体が誤っている割合を測る回答レベルの分析と、検証可能な最小単位の事実である「クレーム（主張）」単位でその密度や深刻度を測るクレームレベルの分析を組み合わせ、ハルシネーションの挙動を詳細に調査しています。実験では、BM25またはE5の検索器と、GPT-4、GPT-5、Llama3-8B、Mixtral-8x7Bの4つの生成器を組み合わせた8つの最新RAGシステムを対象に、英語のGDPRとフランス語の民法典のデータセットを用いて評価を行いました。その結果、ハルシネーションは全システムで蔓延しており、BM25とGPT-5の組み合わせでは回答の8%から20%に、Llama3-8Bベースのシステムでは回答の約半分に発生することが示されました。また、誤った前提を含む質問においてハルシネーションが特に発生しやすく、ユーザーの属性（専門家、公務員、市民）によっても発生率が異なることが明らかになりました。これらの傾向は、手動で作成された142個の独立した法務質問を用いた外部検証によっても再現されており、特定のベンチマークに依存しない一般的なパターンであることが確認されています。</p></section>
+<section class="secsum"><h3>2 Related
+Work</h3><p>ハルシネーション検出手法は、外部知識を用いないリファレンスフリー手法と、信頼できる根拠と比較するリファレンスベース手法に大別される。リファレンスフリー手法には、同一モデルによる複数の出力の整合性を測定するSelfCheckGPTや、LLMを事実整合性の判定器として用いる法務分野のアプローチがある。一方、本研究が属するリファレンスベース手法では、生成された回答を検証可能な個々の主張に分解し、根拠となる文書と照合する主張レベルの検証が主流である。具体的には、個々の主張を検証するFActScore、主張の抽出と含意関係の分析を組み合わせるFENICE、主張を主語・述語・目的語の三つ組として構造化しRAGに適応させたRefCheckerなどが存在する。法務分野の評価においては、LexGLUEやLegalBench-RAGなどの言語理解や推論能力を測るベンチマークから、LLeQAのようなRAGの事実信頼性に焦点を当てたものへと研究が移行している。最新のClaimRAG-LAWは、複数の管轄区域や言語、ユーザー属性を網羅した詳細な評価枠組みを提供するが、分析がハルシネーションの集計指標に留まっており、質問カテゴリやユーザー視点による挙動の違い、あるいはベンチマーク外への汎用性については検証されていない。</p></section>
+<section class="secsum"><h3>3 Empirical Evaluation</h3><p>本研究では、法務分野のRAGシステムにおけるハルシネーション（幻覚）の実態を、GDPR（英語）と民法（フランス語）のデータセットからなるベンチマークClaimRAG-LAWを用いて評価しています。評価指標として、生成された全主張のうちハルシネーションが含まれる割合を示す主張レベルのハルシネーション率（CL）と、少なくとも1つのハルシネーションを含む回答の割合を示す回答レベルのハルシネーション率（AL）を定義し、さらに事実と明示的に矛盾する場合のみをカウントする厳格な指標（CLsおよびALs）を用いて、ハルシネーションの密度と頻度を分析しています。実験では、2種類の検索器（BM25、E5）と4種類の生成器（Llama3-8B、Mixtral-8x7B、GPT-4、GPT-5）を組み合わせた8つのシステムを対象としています。分析の結果、GPT系のシステムはCLとALの両方で低い値を示し、特にBM25とGPT-5の組み合わせが最も堅牢であることが示されました。一方で、Llama3-8B系のシステムはハルシネーション率が高く、特に誤った前提を含む質問（FP）に対しては、多くのシステムがその前提を鵜呑みにして回答を生成するという課題が明らかになりました。また、ハルシネーションの性質として、多くの回答にわずかな誤りが含まれるパターンよりも、少数の回答にハルシネーションが集中するパターンが多く見られ、回答に含まれる誤った主張の数は1つであることが支配的ですが、稀に多数の誤った主張を含む深刻なケースも存在することが確認されました。</p></section>
+<section class="secsum"><h3>4 Validation on Expert-Authored Questions</h3><p>第三者の法律専門家が作成したGDPRと民法に関する計142問の質問を用いて検証した結果、GPTベースのシステムが最も低く、Llama3-8Bベースのシステムが最も高いハルシネーション率を示すという、既存のベンチマークと同様の傾向が確認された。カテゴリ別の分析では、誤った前提を含む質問において回答レベルのハルシネーション率が高くなる傾向があり、多くのシステムが誤った前提を拒絶せずに受け入れてしまうという、前提検証の重要性が示された。GPT-4とGPT-5の比較では、全体的なハルシネーション率は同程度であるものの、GPT-5は提供された証拠と直接矛盾する主張を生成する割合が低く、深刻なハルシネーションを回避する点で優れていることが示された。これらの結果は、法律分野のRAGシステムにおけるハルシネーションの軽減には、検索精度の向上だけでなく、検索された証拠への忠実性の向上や、誤った前提を含む質問に対する検証能力の強化が必要であることを示している。</p></section>
+<section class="secsum"><h3>5 Threats to Validity and Limitations</h3><p>本研究の内部妥当性は、使用したベンチマークであるClaimRAG-LAWの注釈や評価指標の正確性に依存しており、それらの誤りがハルシネーション率の分析に影響を及ぼす可能性がある。この脅威に対しては、専門家によって検証されたQAペアと標準化された評価パイプラインを用いることで、分析対象となるすべてのRAGシステム間での一貫した比較を確保している。外部妥当性については、対象がGDPRとCIVILという2つの法的ソースおよび8つのRAGシステムに限定されているため、他の法域、言語、検索器、あるいは基盤モデルに対して結果が一般化できない可能性があるが、異なる法域や言語、複数の検索器と生成器の組み合わせを評価することで部分的に緩和している。また、本分析はベンチマークの出力に基づいているため、異なるプロンプト、チャンク分割戦略、検索パラメータ、あるいは最新のモデルバージョンが与える影響については評価できていない。さらに、誤った前提に基づく質問や法域・時期に特化した質問といった一部のカテゴリはサンプル数が比較的少ないため、それらの結果の安定性に影響を与える可能性がある。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、GDPRおよびCIVILという2つの法的コーパスを用いて、8種類の法的RAG（検索拡張生成）システムにおけるハルシネーションの微細な分析を行いました。回答レベルおよび主張レベルの両面から評価した結果、ハルシネーションは依然として継続的な課題であることが示されました。ハルシネーションの発生率はシステム構成によって大きく異なり、BM25とGPT-4を組み合わせた最も堅牢な構成から、生成された回答の約半分でハルシネーションが発生するLlama3-8Bベースの構成まで、幅広い範囲に及びます。ハルシネーションの多くは、回答全体にわたる広範な誤りではなく、回答内の一部に含まれる根拠のない孤立した主張という形態をとっています。また、事実の想起や誤った前提に基づく質問、および非専門家ユーザーによるクエリにおいてハルシネーションが発生しやすい傾向があり、質問のカテゴリやユーザーの属性によって挙動が大きく異なることが判明しました。これらの知見は、専門家が作成した独立した質問セットを用いた検証によって、特定のベンチマークに依存しない一般的な傾向であることが示されています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-18
+  </footer>
+</div>
+</body>
+</html>
