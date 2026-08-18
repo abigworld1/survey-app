@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>WinkTPG: An Execution Framework for Multi-Agent Path Finding Using Temporal Reasoning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>WinkTPG: An Execution Framework for Multi-Agent Path Finding Using Temporal Reasoning</h1>
+  <div class="meta">Jingtian Yan, Stephen F. Smith, Jiaoyang Li<br>採択先: IEEE Trans Autom. Sci. Eng. ・ 2025-08-02 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2508.01495v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2508.01495v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/TASE.2026.3688563" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 IEEE Trans Autom. Sci. Eng.</span><span class="chip">公開日 2025-08-02</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFの離散計画を実機の動力学制約と不確実性に適合させる実行フレームワークとして、kTPGや再計画メカニズムの提案に新規性がある。大規模実験と実機検証による裏付けも強力。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 離散的なマルチエージェント経路計画（MAPF）の結果を、ロボットの動力学的制約を満たしつつ、実行時のタイミングの不確実性にも対応可能な速度プロファイルへと変換する実行フレームワークWinkTPGを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路計画（MAPF）において、計算された離散的な経路を、ロボットの速度や加速度の制限といった動力学的制約を満たす連続的な実行計画へと変換する問題。従来のAction Dependency Graph（ADG）などの手法では、各エージェントが他者の動きを予測せずに独立して速度を計画するため、時間的な柔軟性が不足し、不要な減速が生じる。また、制御ノイズや通信遅延といった実行時のタイミングの不確実性への対応も困難である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>先行研究であるADGが先行者の離脱を待機する保守的な戦略をとるのに対し、提案手法はTemporal Plan Graph（TPG）に基づき、エージェント間の優先順位を維持したまま共有地点の予約区間を共同で計画することで、グローバルな時間的結合を捉える。また、不確実性を考慮した安全マージンを導入し、決定論的または確率的な衝突回避の保証を与える。さらに、ウィンドウベースの再計画メカニズムにより、実行中の情報を動的に取り込んで不確実性を低減する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>kinodynamic Temporal Plan Graph（kTPG）は、各ウェイポイントを予約された時間区間として管理し、制約を解消するエージェントを順次選択して、運動制約を満たしつつ到達時刻を最小化する速度プロファイルを生成する。不確実性に対しては、有界累積遅延、有界一様ノイズ、ガウスノイズの3つのモデルに基づき、エージェント間の出発・到着時刻に最小限の間隔を強制する安全マージンを算出する。WinkTPGは、エージェントの実際の到達時刻に基づき、一定の頂点数を含むウィンドウ範囲を特定して再計画を行う。ウィンドウ外から内への先行制約がある場合は、ウィンドウを再帰的に拡張して実行順序を維持する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>最大1,000台のエージェントを用いた実験において、kTPGは1秒以内に速度プロファイルを生成でき、混合整数線形計画法を用いるKDNと比較して優れた計算効率を示した。解の品質については、既存のADGと比較して最大51.7%向上した。不確実性下での評価では、ガウスノイズ等の条件下で、ADGよりも高い平均速度と低い停止回数を実現した。また、NVIDIA Isaac Simを用いた高精度な物理シミュレーションおよび実機ロボットを用いた検証により、物理的な実行可能性と堅牢性が確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、ロボットの故障や重大なシステム障害といった、重い裾を持つ（heavy-tailed）不確実性には明示的に対応していない。今後の課題として、より高度な再計画技術との統合、分散型計画・実行メカニズムの導入、および複雑な不確実性モデルへの拡張が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>WinkTPG: An Execution Framework for Multi-Agent Path Finding Using Temporal Reasoning</h3><p>本研究では、離散的なマルチエージェント経路計画（MAPF）の結果を、実機の運動学的・動力学的制約を満たす実行可能な速度プロファイルへと変換する実行フレームワークであるWinkTPGを提案している。提案手法の核となるkinodynamic Temporal Plan Graph（kTPG）は、MAPFが示すエージェント間の優先順位関係を維持しつつ、速度を最適化することで、動力学的に実行可能な速度計画を効率的に生成する。WinkTPGは、このkTPGにウィンドウベースのメカニズムと後退ホライゾンによる再計画を組み合わせることで、実行中のエージェント情報の変化や、外乱やセンシングノイズによるタイミングの偏差に動的に対応する。実験では、最大1,000台のエージェントに対して1秒以内に速度プロファイルを生成できる計算効率を示し、既存のMAPF実行手法と比較して解の品質を最大51.7%向上させている。さらに、高精度な物理シミュレーションおよび実機ロボットを用いた検証により、その実用性が示されている。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究は、マルチエージェント経路探索（MAPF）において、速度や加速度の制限といった動力学的制約と、実行時のタイミングの不確実性を考慮した実行フレームワークであるWinkTPGを提案する。従来のADGは、各エージェントが他者の将来の動きを考慮せずに独立して速度プロファイルを計画するため、時間的な柔軟性を十分に活用できず実行効率が低下するという課題がある。提案手法の核となるkTPGは、TPG（Temporal Plan Graph）によって定義された通過順序に基づき、予約区間を用いて共有地点を各エージェントに割り当てることで、全エージェントの速度プロファイルを共同で計画し、グローバルな時間的結合を捉える。さらに、実行時の不確実性に対しては、安全マージン機構と、実行中の最新情報を用いて動的に再計画を行うウィンドウ実行メカニズムを組み合わせることで、衝突回避と順序遵守を保証する。実験の結果、WinkTPGはADGと比較して解の質を最大51.7%向上させ、かつ1,000エージェントに対して1秒以内で速度プロファイルを生成できる高いスケーラビリティを示した。</p></section>
+<section class="secsum"><h3>II Preliminaries</h3><p>マルチエージェント経路探索（MAPF）問題は、無向グラフ上で複数のエージェントが各々の始点から終点へ、衝突を避けながら移動する問題である。衝突フリーの条件は、エージェントが同一時刻に同じ場所を占有しないこと、および同一時刻に隣接する頂点間で位置を入れ替えないことと定義される。MAPFの計画を表現するTemporal Plan Graph（TPG）は、エージェントが訪れる場所を頂点とし、エージェント自身の経路内の順序を規定するType-1エッジと、共有する場所を訪れる順序を規定するType-2エッジを持つ有向非巡回グラフである。既存手法であるAction Dependency Graph（ADG）は、TPGを用いて実行時の依存関係を管理し、先行する頂点が完了状態になるまで次の移動を待機させることで堅牢性を確保している。しかし、ADGは先行するエージェントの速度プロファイルに基づいた予測的な判断ができず、先行者が場所を離れるまで待機を強いる保守的な戦略をとるため、不要な減速が生じるという課題がある。</p></section>
+<section class="secsum"><h3>III Kinodynamic TPG (kTPG)</h3><p>kTPG（Kinodynamic Temporal Plan Graph）は、マルチエージェント経路計画で得られた離散的な経路を、エージェントの物理的な運動特性を考慮した連続的な実行計画へと変換するフレームワークである。本手法は、各エージェントがウェイポイントを通過する時間を予約された時間区間として管理し、MAPFのグラフ構造に基づく時間的な制約を通じて衝突回避を実現する。アルゴリズムは、現在未解決の制約を最も多く解消できるエージェントを順次選択し、そのエージェントの速度プロファイルを生成することで、予約された時間区間を反復的に更新していく。速度プロファイルの生成においては、各ウェイポイントの予約区間内で運動制約を満たしつつ、目標地点への到達時刻を最小化する単一エージェントの計画手法が用いられる。更新の際は、選択されたエージェントが共有地点を離れる時刻を分割点として、他のエージェントの予約区間を調整することで、先行関係の維持と衝突のない実行を保証する。このプロセスは、すべての制約が解消され、全エージェントの速度プロファイルが目標地点まで確定するまで継続される。</p></section>
+<section class="secsum"><h3>IV kTPG with Uncertainty</h3><p>本研究では、制御ノイズやアクチュエーションの遅延といった実行時の不確実性を考慮するため、従来のkTPGを拡張したkTPGuを提案している。不確実性モデルとして、各移動ごとに一定の確率で固定遅延が発生するが総遅延量が制限される有界累積遅延モデル、移動時間が特定の範囲内で一様分布に従う有界一様ノイズモデル、および独立した微小な摂動の累積を平均0の正規分布で表すガウスノイズモデルの3種類を定義している。kTPGuは、エージェント間の優先順位制約を確率的または決定論的に満たすために、各モデルの特性に基づいた安全マージンを算出する。有界な2つのモデルでは、最悪のケースを想定したマージンを用いることで決定論的な優先順位の遵守を保証でき、ガウスノイズモデルでは標準正規分布の逆累積分布関数を用いて、指定された確率閾値に基づく確率的な保証を行う。最終的に、このマージンを用いてエージェント間の出発時刻と到着時刻の間に最小限の時間間隔を強制し、予約区間を更新することで、不確実性下でも衝突のない実行を維持する。</p></section>
+<section class="secsum"><h3>V Windowed kTPG (WinkTPG)</h3><p>WinkTPGは、エージェントの経路進行に伴い到達時刻の不確実性が増大し、安全マージンの拡大が解の品質を低下させる問題を解決するための実行フレームワークである。本手法は、エージェントが各地点に到着した際に報告する実際の到達時刻と現在の運動学的状態を利用して、後続の頂点の推定到達時刻を再計算することで不確実性を低減する。具体的には、一定時間ごとに再計画を行うウィンドウ化された再計画手法を採用しており、各エージェントの最新の報告地点から、事前に設定されたハイパーパラメータに基づく一定数の頂点までを、既存の速度プロファイルを維持する範囲として特定する。再計画の対象となるウィンドウは、これら特定された頂点の直後から開始されるが、ウィンドウ外からウィンドウ内の頂点へ向かう先行制約がある場合は、実行順序を維持するためにウィンドウを再帰的に拡張して制約を満たすようにする。最終的に、ウィンドウ内の全エージェントに対してkTPGuを用いて速度プロファイルを計算し、これを実行することで、頑健性を保ちつつ解の品質を向上させている。</p></section>
+<section class="secsum"><h3>VI Theoretical Analysis</h3><p>提案手法であるkTPGおよび安全マージンを導入したkTPGuは、衝突がなくサイクル衝突も存在しないMAPF計画が与えられた場合、先行制約を維持したまま動力学的に実行可能な解を有限時間内に生成できる。kTPGは、各反復において分割時間を決定する手法により、ロックされた頂点が存在する場合に少なくとも1つの衝突するエッジを解消することで進捗を保証し、有限回数の反復で全ての頂点を解除できる。kTPGuにおいても、安全マージンの導入は各反復における有効な速度プロファイルの存在に影響を与えないため、kTPGと同様の完全性が維持される。WinkTPGは、各プランニングウィンドウにおいてエージェントが前回のウィンドウの最終頂点まで以前の速度プロファイルに従うことを許容することで、実行時のタイミングの不確実性下でも、全てのエージェントが有限時間内に目標地点に到達し、衝突回避と先行制約の遵守を両立できる。計算量については、kTPGおよびkTPGuの反復回数は、各反復で少なくとも1つの新しいType-2エッジが満たされ、1つのロックされた頂点が解除されることから、頂点数をNとすると最大でN回となる。したがって、WinkTPG全体の総反復回数は、プランニングウィンドウの数をWとすると、最大でW * N回となる。</p></section>
+<section class="secsum"><h3>VII Empirical Evaluation</h3><p>提案手法であるWinkTPGの有効性を、運動学的制約下での計画、実行時の不確実性、および物理シミュレーションの3つの観点から評価しています。運動学的制約下での比較では、kTPGは既存手法であるADGやKDNと比較して、大規模なマップや多数のエージェント（最大1,000台）に対しても高い成功率と優れた解の品質を維持し、特に混合整数線形計画法を用いるKDNがエージェント数の増加に伴い計算量が指数関数的に増大するのに対し、kTPGは高い拡張性を示しました。実行時のタイミング不確実性（ガウスノイズ、累積遅延、一様ノイズ）を用いた実験では、WinkTPGは理論的な安全確率の閾値内で先行関係の違反率を抑えつつ、ADGよりも高い平均速度と低い停止回数を実現し、滑らかで効率的な移動を可能にしました。また、実行ウィンドウを小さく設定することで、より頻繁な再計画が可能となり、解の品質が向上することも確認されました。通信オーバーヘッドについても、WinkTPGは1,000台のエージェント規模でも標準的な無線ネットワークの容量内に収まることが示されています。最後に、NVIDIA Isaac Simを用いた高精度な物理シミュレーションを通じて、提案手法が現実的なロボットの動特性や制御遅延に対しても信頼性の高い速度プロファイルを提供できることが検証されました。</p></section>
+<section class="secsum"><h3>VIII Conclusion</h3><p>本論文では、実行タイミングに不確実性が存在する環境において、マルチエージェント経路計画（MAPF）を効率的かつ堅牢に実行するためのフレームワークであるWinkTPGを提案している。WinkTPGは、提案手法であるkTPGを用いて全エージェントの衝突のない速度プロファイルを生成し、エージェントの位置更新に基づいた動的な再計画を行うことで、遅延が一定範囲内に収まる決定論的な保証や、確率モデルに基づく確率的な保証を提供する。実験の結果、最大1,000台のエージェントに対して1秒以内に速度プロファイルを生成できる計算効率を示し、既存手法と比較して解の質を最大51.7%向上させるとともに、中程度の不確実性下でADGを上回る性能を確認した。さらに、物理シミュレータや実機のモバイルロボットを用いた検証により、生成された速度プロファイルが物理的に実行可能であり、実行時の変動に対して堅牢であることを実証している。今後の課題として、高度な再計画技術との統合や、より複雑な不確実性モデルへの拡張、および分散型計画・実行メカニズムの導入が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-19
+  </footer>
+</div>
+</body>
+</html>

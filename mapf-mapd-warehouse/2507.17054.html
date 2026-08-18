@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>New Mechanisms in Flex Distribution for Bounded Suboptimal Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>New Mechanisms in Flex Distribution for Bounded Suboptimal Multi-Agent Path Finding</h1>
+  <div class="meta">Shao-Hung Chan, Thomy Phan, Jiaoyang Li, Sven Koenig<br>採択先: SOCS 2025 ・ 2025-07-22 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2507.17054v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2507.17054v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/SOCS.V18I1.35975" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 SOCS 2025</span><span class="chip">公開日 2025-07-22</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFの重要課題である有界劣最適性と探索効率の両立に対し、フレックス分配の制御という具体的かつ新規性のあるアプローチを提案しており、実用的な貢献度が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチエージェント経路探索において、個々のエージェントに許容される経路コストの余裕（フレックス）を貪欲に割り当てると、全体の総コストが指定された境界を超えてしまう課題に対し、衝突数や予測される遅延に基づいた新しい分配メカニズムを提案することで、解の質と探索効率の両立を実現した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、共有環境内で複数のエージェントが衝突を避けつつ、全エージェントの移動時間の総和（SOC）を最小化するマルチエージェント経路探索（MAPF）を対象としている。ユーザーが指定した最適解の倍率（劣最適性係数）の範囲内で解を保証する「境界付きサブオプティマル」な設定において、既存のEECBSアルゴリズムは、各エージェントの経路閾値を動的に拡張する手法を用いる。しかし、この拡張が過剰になると、全体のSOCが許容範囲を超えてしまい、特定の経路集合での衝突解決ではなく、異なる経路集合間での探索の切り替えが頻発して効率が低下するという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のGreedy-Based Flex Distribution（GFD）が、利用可能なフレックスをすべて使い切ることで全体のコストを急増させていたのに対し、衝突数や制約による遅延を考慮してフレックスを制御する手法を導入した。具体的には、衝突数に比例して分配するConflict-Based Flex Distribution（CFD）、予測遅延を優先配分するDelay-Based Flex Distribution（DFD）、およびこれらを階層的に組み合わせたMixed-Strategy Flex Distribution（MFD）という3つの新しいメカニズムを提案している。これにより、EECBSの完全性と境界付きサブオプティマリティを維持したまま、解の質と探索成功率の向上を実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法であるMFDは、まず制約による経路コストの増加を予測するDFDを用いて、頂点やエッジの制約、あるいは廊下やターゲットでの衝突パターンに基づいた推定遅延を優先的に割り当てる。その後、残りのフレックスをCFDを用いて、エージェントが関与する衝突数の比率に応じて分配する。MFDは、これらの分配によって全体のSOCが境界を超える場合には、CFDへの切り替えや、最小のSOLBを持つノードを用いた再計算を行うことで、フレックスの過剰な利用を抑制する。さらに、混雑した環境向けに、FOCALリストのノードを優先展開しつつ、OPENリストの展開によって下界の精度を高めるよう再設計されたFocal-A*探索を併用する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>6種類のMAPFベンチマークグラフを用い、成功率とグローバルな劣最適度を指標として、既存のEECBSおよびEECBS-GFDと比較評価を行った。実験の結果、EECBS-MFDはEECBS-GFDよりも高い成功率を達成し、かつEECBSと比較した際のグローバルな劣最適度の増大割合が53%と、GFDの56%を下回る結果を示した。また、エージェント数が増加しても、探索木の深さとノード展開数の比率を高く維持できることが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、衝突数と劣最適度の間で優れたトレードオフを実現している。しかし、混雑した迷路グラフを用いた実験では、再設計したFocal-A*探索を併用しない限り、混雑環境における最適なフレックス配分を決定することには依然として課題が残ることが示されている。今後の課題として、制約に対するより正確な遅延の推定手法や、混雑した環境に特化したメカニズムの検討が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>New Mechanisms in Flex Distribution for Bounded Suboptimal Multi-Agent Path Finding</h3><p>本研究は、各エージェントの移動時間を最小化する経路集合を求めるマルチエージェント経路探索（MAPF）において、解の総コストが最適解の指定された倍率を超えないように制御する境界付きサブオプティマルな問題を対象としている。既存の主要なアルゴリズムであるEECBSは、経路の閾値を調整するFlex Distributionを用いて探索を高速化しているが、閾値を増やすことで総コストが境界を超え、衝突解決の効率が低下するという課題があった。これに対し、本論文では衝突数に比例して柔軟性を分配するConflict-Based Flex Distributionと、制約を満たすために必要な追加の遅延時間を推定して分配するDelay-Based Flex Distributionを提案している。さらに、これらを階層的な枠組みで組み合わせたMixed-Strategy Flex Distributionを導入することで、EECBSの完全性と境界付きサブオプティマリティを維持している。実験の結果、提案手法は従来の貪欲なFlex Distributionよりも優れた性能を示し、混雑した環境向けに再設計したFocal-A*探索によってさらなる効率向上を実現している。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>マルチエージェント経路探索（MAPF）において、全エージェントの移動時間の総和であるSOCを最小化する最適解の算出はNP困難であるため、ユーザーが指定した劣最適性係数の範囲内で解を保証する有界劣最適アルゴリズムが用いられる。既存の代表的な手法であるEECBSは、各エージェントの経路が個別に劣最適性の範囲内に収まることを要求するが、これでは経路全体のSOCが範囲内であっても、個々の経路が範囲を超えると探索から除外されてしまう。この制約を緩和するために、他のエージェントの経路コストと下限値の差分であるフレックスを特定の経路の閾値に割り当てる手法があるが、フレックスをすべて割り当てるとSOCが許容範囲を超えて探索が非効率になる問題や、下限値の過小評価によって本来見つかるべき解を見落とす問題が存在する。本研究では、SOCの増大を抑えるためにフレックスのすべてを使用しない新しい分配メカニズムと、混雑した環境下でエージェントの経路探索時に下限値を高めるよう設計されたFocal-A*の再設計を提案する。実験の結果、提案手法は120秒の実行時間制限内において、従来のEECBSと比較して成功率を向上させることが示された。</p></section>
+<section class="secsum"><h3>Preliminary</h3><p>マルチエージェント経路探索（MAPF）は、無向グラフ上の複数のエージェントに対し、衝突のない経路集合を求める問題であり、全エージェントの経路コストの総和（SOC）を最小化する最適解、またはユーザー指定の係数wを用いたw倍以内のSOCに収まる限定劣最適解を求める。既存手法であるEECBSは、高レベルで制約木（CT）を構築し、低レベルのFocal Searchを用いて各エージェントの経路を探索する2段階のアルゴリズムである。低レベルの探索では、各エージェントの経路が個別に限定劣最適であることを保証する閾値を用いて探索を行う。これに対し、Greedy-Based Flex Distribution（GFD）は、CTノードにおける各エージェントの経路が個別に限定劣最適である必要はないという性質を利用する。GFDは、他のエージェントが持つコストの余裕分を閾値に加算することで、探索時の閾値を動的に拡張する手法である。GFDを用いることで、各CTノードにおけるSOCが限定劣最適性の範囲内に収まることが保証され、EECBSの完全性と限定劣最適性を維持したまま探索を行う。</p></section>
+<section class="secsum"><h3>Conflict-Based Flex Distribution (CFD)</h3><p>既存のGFD（Greedy Flex Distribution）は、エージェントが経路探索時に許容される柔軟性をすべて使い切ることで、CTノードのSOC（Suboptimality Over Cost）を急増させ、グローバルな劣最適性の境界を超えてしまう課題があります。これにより、EECBSは本来探索すべき枝ではなく、SOCが低い別の枝を探索し続けることになり、探索効率が低下します。提案手法であるCFD（Conflict-Based Flex Distribution）は、エージェントが直面する衝突数に応じて柔軟性を分数的に分配することで、この問題を解決します。具体的には、あるエージェントが経路探索を行う際、そのエージェントが関与する衝突数と、CTノード内の全エージェント間の総衝突数の比率に基づいて、許容される柔軟性を割り当てます。この手法により、フォーカルサーチ中に制約を明示的に追加する代わりに柔軟性を活用して衝突を暗黙的に解消しつつ、将来の衝突解消のために柔軟性を温存することが可能になります。ただし、柔軟性の最大許容値が負になる場合は、CTノードの劣最適性を保証するためにGFDへと切り替えます。実験の結果、この分配手法はEECBSの探索効率を効果的に向上させることが示されています。</p></section>
+<section class="secsum"><h3>Delay-Based Flex Distribution (DFD)</h3><p>Delay-Based Flex Distribution (DFD)は、制約を満たすための経路再計画によって生じる経路コストの増加、すなわち遅延を予測し、許容される柔軟性（flex）を事前に配分することで探索を高速化する手法である。DFDでは、制約による推定遅延を優先的に割り当てた後、残りの柔軟性をCFD（Conflict-Based Flex Distribution）の比率に従って各エージェントに分配する。具体的な遅延の推定にはルールベースの戦略を用い、頂点やエッジの制約に対しては待機アクションによる遅延を1と仮定する。また、対称性推論に基づく廊下衝突に対しては、エージェントが廊下の出口に到達する時刻に基づいた遅延を割り当て、目標衝突に対しては、一方の制約では遅延を0、もう一方の制約では目標到達時刻を遅らせるための遅延を割り当てる。この手法を組み込んだEECBSは、分配される柔軟性の合計が最大許容値を超えないよう制御されているため、完全性と有界劣最適性が維持される。</p></section>
+<section class="secsum"><h3>Mixed-Strategy Flex Distribution (MFD)</h3><p>Mixed-Strategy Flex Distribution (MFD)は、一部のエージェントが過剰に柔軟性（flex）を利用することで全体の解の質（SOC）が悪化することを防ぐための手法である。MFDは、まずDFDを用いて柔軟性の閾値を計算し、その値と他エージェントのSOCの合計がグローバルな劣最適性の境界内に収まるかを確認する。境界を超える場合はCFDに切り替えて柔軟性をゼロに設定し、再度境界条件を検証する。それでも条件を満たさない場合は、リスト内で最小のSOLBを持つCTノードを用いて柔軟性を再計算し、計算された柔軟性が正であり、かつ新たなSOCがグローバルな劣最適性の範囲内に収まる場合にのみ、その柔軟性を適用する。これら全ての条件を満たさない場合は柔軟性をゼロとして配布する。このメカニズムにより、柔軟性の過剰な利用を抑制しつつ、EECBSアルゴリズムの完全性と境界付き劣最適性を維持している。</p></section>
+<section class="secsum"><h3>Re-design Low-level Focal-A* Search (FA*)</h3><p>混雑したグラフにおいてGFDが下界の改善に苦戦するという課題に対し、本研究ではFocal-A*（FA*）探索を簡略化して再設計している。提案手法では、まずFOCALリストにあるノードを優先的に展開して経路を見つけ、次にOPENリストにあるノードを展開することで、最適経路が見つかるか、あるいは現在のノードの推定コストがステップ1で見つかった経路のコストを上回るまで下界の改善を試みる。従来のFA*は展開回数が閾値を超えると最適経路を返すが、提案手法はFOCALリストに基づいた経路を返しつつ、OPENリストの展開によって得られた、少なくともFOCAL探索による下界と同等以上の値を持つ下界を併せて返す。この設計により、探索木を共有したまま、優先順位の異なるノード展開を通じて、計算の複雑さやハイパーパラメータの調整を抑えつつ下界の精度を向上させている。</p></section>
+<section class="secsum"><h3>Empirical Evaluation</h3><p>MAPFベンチマークの6種類のグラフを用い、提案手法であるEECBS-MFDの性能を、既存のEECBSおよび貪欲な柔軟性配分を行うEECBS-GFDと比較して評価しています。評価指標として、解の発見効率を示す成功率と、解の質を示すグローバルな劣最適度を用いています。実験の結果、EECBS-MFDはEECBS-GFDよりも高い成功率を達成し、かつEECBSと比較してグローバルな劣最適度が増大する割合が53%と、EECBS-GFDの56%よりも低いことから、解の質と効率のバランスに優れていることが示されました。また、探索の集中度を示す指標として、探索木（CT）の深さとノード展開数の比率を定義して評価したところ、エージェント数が増加してもEECBS-MFDは高い比率を維持し、効率的な探索が可能であることが確認されました。ケーススタディでは、EECBS-GFDが過剰な柔軟性配分によりグローバルな劣最適度を増大させやすいのに対し、EECBS-MFDは柔軟性の配分を抑制することで、衝突数と劣最適度の間でより優れたトレードオフを実現し、制限時間内に解を見つけることに成功しています。一方で、混雑した迷路グラフを用いた実験では、FA*探索を併用しない限り、混雑環境における最適な柔軟性配分手法については依然として課題が残ることが示されました。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本研究では、エージェントに柔軟性を割り当てる際に貪欲な手法を用いると、衝突回避コストが最適値を超えて増加してしまう課題に対処している。この問題に対し、衝突ベースの柔軟性配分、遅延ベースの柔軟性配分、およびこれらを組み合わせた混合戦略という3つの新しい配分メカニズムを提案した。また、混雑したマルチエージェント経路探索のインスタンスにおいて、既存手法であるEECBSの探索速度を向上させるためにFA*探索を導入している。実験の結果、提案手法は最先端のEECBSよりも効率的であることが示された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-19
+  </footer>
+</div>
+</body>
+</html>

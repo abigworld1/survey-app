@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>When Context Misleads: Intent-Guided Decoding for Robust Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>When Context Misleads: Intent-Guided Decoding for Robust Retrieval-Augmented Generation</h1>
+  <div class="meta">Haolin Jin, Pengyue Yang, Huaming Chen<br>採択先: 未取得 ・ 2026-08-17 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.16515v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.16515v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-17</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGにおける忠実性と事実性のトレードオフに対し、再学習不要なデコーディング制御で解決を図る手法は新規性が高く、実験も多角的な指標で詳細に行われている。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 検索された文脈が誤っている場合にモデルがそれを過度に信頼してしまう問題に対し、ユーザーの意図に応じて文脈と内部知識のどちらを優先するかを動的に制御するIntent-Guided Decoding（IGD）を提案する。これにより、文脈への忠実性と事実性のトレードオフを解消する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>検索拡張生成（RAG）は外部知識を利用して大規模言語モデルの性能を向上させるが、検索された文脈が不適切であったり、誤解を招く情報を含んでいたりする場合、モデルがそれらを過度に信頼してしまう「ソースの信頼性」の問題が生じる。本研究は、ユーザーの指示が「文脈に忠実に従うこと」を求めているのか、「事実に基づいた正確な回答」を求めているのかという意図に応じて、検索された文脈とモデルの内部知識（パラメトリックメモリ）のどちらを優先すべきかを決定することを目的とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のRAG研究は、検索精度の向上やモデルの再学習、あるいは一律に文脈への準拠を強める手法が中心であった。これに対し本研究は、検索プロセスそのものではなく、生成時のデコーディング分布において、プロンプトのモードに応じて文脈とメモリのどちらを優先するかを裁定するという新しい制御点を提供する。モデルの再学習や検索パイプラインの変更を必要とせず、軽量なロジット仲裁によってユーザーの意図に沿った柔軟な制御を実現した点が新規性である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>IGDは、回答レベルのフィルタリングとトークンレベルの補正という2段階のプロセスで構成される。まず、回答レベルのメモリフィルタにより、メモリ側の回答の確信度が極めて高い場合に回答を置換する。次に、トークンレベルの補正では、元のプロンプトに基づくユーザー枝、文脈に従う文脈枝、内部知識を用いるメモリ枝の3つの分布を比較する。Jensen-Shannonダイバージェンスを用いてこれら枝の分布の乖離を測定し、有意な衝突がある場合にのみ介入を行う。補正の方向は、ユーザーの指示に基づく事前分布とエントロピーに基づく各枝の確信度によって決定される。さらに、補正の強さは、選択されたソースの信頼性（文脈が回答をどの程度裏付けているか、またはメモリ側の回答がどれほど一貫しているか）に基づいてスケーリングされる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>5つの大規模言語モデルを用い、文脈が正しいことを前提としたfaithful QAベンチマーク3種と、文脈が誤っているfactual-conflictベンチマーク3種の計6種で評価した。比較対象は、Direct RAG、内部知識のみを用いる手法、信頼性を推論する手法、およびマルチエージェント手法である。評価指標には正解率のほか、ユーザーの意図への合致度を示すIntent-Aligned Score（IA）を用いた。検証の結果、factual-conflictベンチマークにおいて、Direct RAGと比較して最大65.4パーセントポイントの事実回復の向上を達成し、同時にstrict modeにおける文脈への忠実性も維持または向上することを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法には、介入強度を強めると事実性は向上するが、文脈への忠実性が低下するというトレードオフが存在する。現在は介入強度が固定のハイパーパラメータであるため、例題ごとに適応的な強度を決定することが今後の課題である。また、文脈から根拠となる箇所を特定する局所化の精度が、必ずしもデコーディング時のロジットレベルの仲裁性能に直結しないという、セマンティックな正しさと生成制御の乖離も示唆されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>When Context Misleads: Intent-Guided Decoding for Robust Retrieval-Augmented Generation</h3><p>検索拡張生成（RAG）は外部知識を活用して大規模言語モデルの性能を向上させるが、検索された文脈が不適切であったり誤解を招く情報を含んでいたりする場合、モデルがそれらを過度に信頼してしまう問題がある。本研究では、ユーザーの意図に応じて検索された文脈とモデル自身の内部知識（パラメトリックメモリ）のどちらを優先するかを調整する、Intent-Guided Decoding（IGD）というフレームワークを提案する。IGDは、回答レベルでのフィルタリングとトークンレベルでの修正を用いることで、最終的な生成の軌道を検索された文脈と内部知識の間で制御する。3つの忠実な質問応答ベンチマークと3つの事実矛盾ベンチマークを用いた5つの大規模言語モデルによる評価の結果、IGDはDirect RAGと比較して、事実矛盾ベンチマークにおいて最大で65.4パーセントポイントの事実回復の向上を達成した。同時に、文脈に厳密に従う挙動も維持または向上させており、RAGにおける事実性と忠実性のバランスを取ることの重要性を示している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>RAG（検索拡張生成）では、検索された文脈への忠実性と、モデルの内部知識に基づく事実性の間でトレードオフが生じる課題がある。提案手法であるIntent-Guided Decoding (IGD) は、生成プロセスを、元のプロンプトに基づくユーザー分岐、検索文脈に従う文脈分岐、および内部知識のみで回答するメモリ分岐の3つに分解して扱う。IGDは、まず回答レベルのメモリフィルタリングにより、検索文脈が誤っている可能性が高い場合にメモリ側の回答を選択する。さらに、文脈とメモリの分岐間で分布の衝突が検出された場合に限り、トークンレベルの修正メカニズムを適用する。この修正では、エントロピーに基づく信頼度やプロンプトのモードを用いて、生成を文脈またはメモリのどちらに寄せるかを決定し、信頼度に応じた強さで介入を行う。本手法は、検索精度の向上やモデルの再学習を必要とせず、生成時のロジット仲裁を通じて、ユーザーの意図に応じた柔軟な制御を実現する。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>検索拡張生成（RAG）は、言語モデルのパラメータ知識に外部の証拠を組み合わせる手法であり、デコーダ内で証拠を融合する手法や、プロンプトに直接文書を挿入する手法など、証拠の利用方法によって多様なアプローチが存在する。近年の研究では、生成中の予測内容に基づき検索を行う手法や、反省トークンを用いて検索と出力を批判的に評価する手法、検索品質を評価し低信頼度の証拠を修正する手法のように、検索プロセスを適応させる試みがなされている。また、RAGにおけるハルシネーションや知識の衝突に関する研究も進んでおり、検索された証拠があっても根拠のない生成が排除されないことや、モデルが自身の内部知識が正しい場合でも誤った検索内容を採用してしまう現象が明らかにされている。さらに、文脈への忠実性を高めるための最適化手法や、事実レベルの衝突をモデル化する手法、外部文脈への信頼度を内部の自信に基づいて調整すべきとする研究も存在する。提案手法であるIntent-Guided Decoding (IGD)は、これらの信頼度調整の動機を共有しつつ、検索文脈への一律な準拠を強制するのではなく、デコーディング分布においてプロンプトのモードに応じて文脈とメモリ（内部知識）のどちらを優先するかを意図に基づいて裁定するという異なる制御点を持つ。</p></section>
+<section class="secsum"><h3>III Method</h3><p>Intent-Guided Decoding (IGD)は、検索拡張生成（RAG）において文脈（コンテキスト）とモデルの内部知識（メモリ）が衝突する問題に対処するため、2段階の意思決定プロセスを提案している。第1段階の「回答レベルのメモリフィルタ」では、メモリ側の回答の尤度がコンテキスト側の回答よりも大幅に高く、かつ元のユーザープロンプトがコンテキストを強く支持していない場合に限り、メモリ側の回答へと強制的に置換を行う。第2段階の「トークンレベルの補正」では、コンテキスト枝とメモリ枝の分布の差をJensen-Shannonダイバージェンスを用いて測定し、両者の分布が乖離している場合にのみ介入を行う。補正の方向は、ユーザーの指示に基づく信頼方針と、各枝の分布のエントロピーに基づく信頼度を組み合わせて決定される。さらに、補正の強さは、コンテキスト枝が選択されたスニペットによって回答をどの程度裏付けているか、あるいはメモリ枝の複数のプロンプトによる回答がどの程度一貫しているかという信頼性に基づいてスケーリングされる。これにより、文脈が誤解を招く場合に、ユーザーの意図に沿いつつ、より信頼できる情報源へと生成を動的に調整することが可能となる。</p></section>
+<section class="secsum"><h3>IV Experiment Setup</h3><p>本研究では、検索拡張生成（RAG）を用いた短文回答タスクを対象に、提案手法であるIntent-Guided Decoding（IGD）の評価実験を行っています。実験は、文脈に厳密に従うよう指示するstrict modeと、文脈が誤っている可能性を考慮して世界知識を優先するtruth modeの2つのプロンプトモードを用いて実施されます。評価データは、文脈が正解を支持するfaithful groupと、文脈と世界知識が矛盾するfactual-conflict groupの2グループに分けられた計6つのベンチマークで構成されます。評価対象には、異なる規模や特性を持つ5つの指示学習済み大規模言語モデル（LLM）を用い、比較対象として、文脈を用いない手法、通常のRAG、モデルに信頼性を明示的に推論させる手法、ルールベースの信頼性評価を行う3つの手法、およびマルチエージェント手法を用います。評価指標には正規化されたエイリアス照合による正解率を用い、factual-conflict groupにおいては、strict modeでは文脈への正確性を、truth modeでは世界知識の正確性をそれぞれ測定します。最終的な主要指標として、faithful groupの正解率と、factual-conflict groupにおける「strict modeの文脈正確性とtruth modeの世界知識正確性の平均」をマクロ平均したIntent-Aligned Score（IA）を定義しており、モデルの挙動がユーザーの意図した信頼ポリシーに合致しているかを評価します。</p></section>
+<section class="secsum"><h3>V Results</h3><p>本研究では、提案手法であるIntent-Guided Decoding (IGD) の有効性を、文脈に忠実な回答が求められる設定と、誤った文脈から事実を回復する設定の両面から評価しています。まず、検索文脈を与えないクローズドブック設定での評価により、モデルが本来持つ知識（パラメトリック・メモリ）の回復可能性を確認したところ、CounterFactやNQ-Swapなどのベンチマークでは高い回復能力が示されました。実験の結果、単に真実を求める指示を与えるだけのDirect RAGや、既存の推論・エージェントベースの手法では、誤った文脈に引きずられて正解率が大幅に低下する課題が明らかになりました。これに対し、IGDはすべての評価モデルにおいて、文脈に忠実な回答の精度を維持しつつ、事実の衝突が発生するタスクでの正解率を大幅に向上させており、例えばQwen3-32BではCounterFactにおいてDirect RAGから65.4ポイントの改善が見られました。また、IGDによる事実回復の度合いは、Direct RAGとクローズドブック設定の性能差をどれだけ埋められたかを示す指標であるParametric Recovery Rate (PRR) によって示されており、モデルが持つ知識を効果的に引き出せていることが確認されました。さらに、ユーザーが「文脈に従え」と明示的に指示する設定においても、IGDは文脈への追従性を損なうことなく、指示に応じてデコーディングの方向性を制御できることが示されました。</p></section>
+<section class="secsum"><h3>VI Factuality and Faithfulness Trade-off</h3><p>本セクションでは、提案手法であるIGDが、外部コンテキストへの忠実性とパラメトリックメモリによる事実性の間でどのようにバランスを取るかを分析しています。Qwen2.5-14Bを用いたアブレーション実験の結果、トークンレベルの修正機能が最も重要であり、これを削除すると事実に基づく回答精度が大幅に低下することから、誤解を招くコンテキスト下でデコーディングをメモリ側へ誘導する主要なメカニズムであることが示されました。また、メモリアンサンブルを用いない場合は事実回復能力が著しく低下する一方、アクティベーションゲートや信頼性スケーリングの削除は忠実性と事実性の両方を損なうため、介入は意味のある衝突に基づいて適切に制御される必要があります。ハイパーパラメータの感度分析では、介入強度を強めると事実性は向上するもののコンテキストへの忠実性が低下するというトレードオフが存在し、固定値による制御が現在のフレームワークの限界であることが示されています。回答の分類分析によれば、IGDは従来のRAGが陥りやすい誤ったコンテキストの模倣を大幅に抑制し、正しい回答への転換に成功しています。最後に、スニペットの局所化精度とIGDの性能には乖離があり、LLMによる高精度な意味的局所化が、必ずしもデコーディング時のロジットレベルのソース仲裁に寄与するわけではないことが示唆されています。</p></section>
+<section class="secsum"><h3>VII Conclusion</h3><p>本研究では、検索拡張生成（RAG）における事実性と忠実性のトレードオフを解決するための、デコーディング時のフレームワークであるIntent-Guided Decoding（IGD）を提案する。IGDは、検索されたコンテキストを画一的に信頼、あるいは疑うのではなく、ユーザーのプロンプト、検索されたコンテキスト、およびモデルのパラメータメモリの三者間において、ユーザーの意図に基づいたソースの裁定を行う。忠実性と事実性の衝突を扱うベンチマークを用いた実験の結果、IGDは複数の大規模言語モデルにおいて、意図に沿った生成を向上させることが示された。アブレーション解析により、この性能向上は、情報のルーティング、衝突の活性化、信頼性のスケーリング、およびメモリの安定化を協調的に行うことで実現されていることが確認された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-19
+  </footer>
+</div>
+</body>
+</html>

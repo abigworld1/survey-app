@@ -2888,6 +2888,73 @@
       "url": "http://arxiv.org/abs/2608.14210v1",
       "venue": ""
     },
+    "arxiv:2608.16515": {
+      "added": "2026-08-19",
+      "added_at": "2026-08-19T06:07:34.761472",
+      "arxiv_id": "2608.16515",
+      "authors": [
+        "Haolin Jin",
+        "Pengyue Yang",
+        "Huaming Chen"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-17",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.16515.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.16515v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGにおける忠実性と事実性のトレードオフに対し、再学習不要なデコーディング制御で解決を図る手法は新規性が高く、実験も多角的な指標で詳細に行われている。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "When Context Misleads: Intent-Guided Decoding for Robust Retrieval-Augmented Generation",
+      "tldr": "検索された文脈が誤っている場合にモデルがそれを過度に信頼してしまう問題に対し、ユーザーの意図に応じて文脈と内部知識のどちらを優先するかを動的に制御するIntent-Guided Decoding（IGD）を提案する。これにより、文脈への忠実性と事実性のトレードオフを解消する。",
+      "url": "http://arxiv.org/abs/2608.16515v1",
+      "venue": ""
+    },
+    "arxiv:2608.16628": {
+      "added": "2026-08-19",
+      "added_at": "2026-08-19T06:06:07.442579",
+      "arxiv_id": "2608.16628",
+      "authors": [
+        "Shenao Chen",
+        "Yidan Xu",
+        "Xiangmin Han",
+        "Rundong Xue",
+        "Duanpo Wu",
+        "Yuhan Gao",
+        "Chenggang Yan",
+        "Yue Gao"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-17",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.16628.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.16628v1",
+      "reading_value": 4,
+      "reading_value_reason": "ハイパーグラフを用いた高次相関のモデリングと、計算量を抑えた増分精緻化の提案は新規性が高い。マルチモーダルRAGの重要課題に対し、具体的かつ効果的な解決策を提示している。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Hypergraph-based Multimodal Retrieval-Augmented Generation with Incremental Refinement",
+      "tldr": "従来の二項関係に基づくグラフ構造では捉えきれない、テキスト・画像・表の間の複雑な高次相関を、ハイパーグラフと局所的な構造再構成によって解決するHyper-M2RAGを提案する。これにより、マルチモーダル文書における検索精度と回答の整合性を向上させた。",
+      "url": "http://arxiv.org/abs/2608.16628v1",
+      "venue": "the 34th ACM International Conference on Multimedia (ACM MM 2026)"
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -7023,6 +7090,37 @@
       "url": "http://arxiv.org/abs/2512.03194v3",
       "venue": ""
     },
+    "doi:10.1109/tase.2026.3688563": {
+      "added": "2026-08-19",
+      "added_at": "2026-08-19T06:02:57.760372",
+      "arxiv_id": "2508.01495",
+      "authors": [
+        "Jingtian Yan",
+        "Stephen F. Smith",
+        "Jiaoyang Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-08-02",
+      "doi": "10.1109/TASE.2026.3688563",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2508.01495.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2508.01495v2",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFの離散計画を実機の動力学制約と不確実性に適合させる実行フレームワークとして、kTPGや再計画メカニズムの提案に新規性がある。大規模実験と実機検証による裏付けも強力。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "WinkTPG: An Execution Framework for Multi-Agent Path Finding Using Temporal Reasoning",
+      "tldr": "離散的なマルチエージェント経路計画（MAPF）の結果を、ロボットの動力学的制約を満たしつつ、実行時のタイミングの不確実性にも対応可能な速度プロファイルへと変換する実行フレームワークWinkTPGを提案する。",
+      "url": "http://arxiv.org/abs/2508.01495v2",
+      "venue": "IEEE Trans Autom. Sci. Eng."
+    },
     "doi:10.1109/tmech.2026.3704386": {
       "added": "2026-07-08",
       "added_at": "2026-07-08T06:00:02.000000",
@@ -7256,6 +7354,38 @@
       "tldr": "本論文は、2023年のLeague of Robot Runners (LRR) コンペティションの優勝手法に基づき、Lifelong Multi-Agent Path Finding (LMAPF) を実世界に近い大規模・高密度・現実的な制約下へスケールさせるための3つの主要な研究課題（限られた計画時間、交通渋滞と近視眼的挙動、モデルと実世界の乖離）を提示している。",
       "url": "http://arxiv.org/abs/2404.16162v1",
       "venue": ""
+    },
+    "doi:10.1609/socs.v18i1.35975": {
+      "added": "2026-08-19",
+      "added_at": "2026-08-19T06:04:14.769590",
+      "arxiv_id": "2507.17054",
+      "authors": [
+        "Shao-Hung Chan",
+        "Thomy Phan",
+        "Jiaoyang Li",
+        "Sven Koenig"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-07-22",
+      "doi": "10.1609/SOCS.V18I1.35975",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2507.17054.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2507.17054v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFの重要課題である有界劣最適性と探索効率の両立に対し、フレックス分配の制御という具体的かつ新規性のあるアプローチを提案しており、実用的な貢献度が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "New Mechanisms in Flex Distribution for Bounded Suboptimal Multi-Agent Path Finding",
+      "tldr": "マルチエージェント経路探索において、個々のエージェントに許容される経路コストの余裕（フレックス）を貪欲に割り当てると、全体の総コストが指定された境界を超えてしまう課題に対し、衝突数や予測される遅延に基づいた新しい分配メカニズムを提案することで、解の質と探索効率の両立を実現した。",
+      "url": "http://arxiv.org/abs/2507.17054v1",
+      "venue": "SOCS 2025"
     },
     "doi:10.1609/socs.v18i1.35998": {
       "added": "2026-07-30",
