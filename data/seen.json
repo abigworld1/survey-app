@@ -2955,6 +2955,65 @@
       "url": "http://arxiv.org/abs/2608.16628v1",
       "venue": "the 34th ACM International Conference on Multimedia (ACM MM 2026)"
     },
+    "arxiv:2608.17153": {
+      "added": "2026-08-20",
+      "added_at": "2026-08-20T06:07:36.056183",
+      "arxiv_id": "2608.17153",
+      "authors": [
+        "Mehrdad Ghassabi"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-17",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.17153.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.17153v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの脆弱性に対し、System 2推論能力に着目した新たなセキュリティ原則と、検知と制御の乖離を測る新指標を提案しており、研究の新規性と実用性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Towards Safer RAG: Only Agents Capable of System 2 Thinking may Access Untrusted Documents",
+      "tldr": "RAGにおける知識汚染攻撃に対し、誤情報を検知しても回答生成時に影響を受けてしまう「モニタリング・コントロール・ギャップ」を解決するため、System 2推論が可能なエージェントのみに未検証文書へのアクセスを許可する新たなセキュリティ原則を提案する。",
+      "url": "http://arxiv.org/abs/2608.17153v1",
+      "venue": ""
+    },
+    "arxiv:2608.17960": {
+      "added": "2026-08-20",
+      "added_at": "2026-08-20T06:06:43.684073",
+      "arxiv_id": "2608.17960",
+      "authors": [
+        "Chinmay Gondhalekar",
+        "Urjitkumar Patel"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-18",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.17960.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.17960v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの脆弱性を「文書間の構成的推論」という新たな観点から定義した新規性が高い。因果的影響力を用いた防御策も具体的で、実在のCVEを用いた検証も説得力がある。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "COMA: A Compositional Misleading Attack Class on Security-RAG, and a Causal Counterfactual Defense",
+      "tldr": "個々の文書は真実かつ矛盾がなく指示も含まないが、それらの組み合わせによってLLMの推論を誤らせる攻撃手法COMAを提案し、回答への因果的な影響力を測定することで攻撃文書を特定する防御策ccdを提示する。",
+      "url": "http://arxiv.org/abs/2608.17960v1",
+      "venue": "the IEEE Conference on Generative AI for Secure Systems (GAISS) 2026"
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -6776,6 +6835,38 @@
       "url": "http://arxiv.org/abs/2608.12955v1",
       "venue": ""
     },
+    "arxiv:2608.17928": {
+      "added": "2026-08-20",
+      "added_at": "2026-08-20T06:02:07.324527",
+      "arxiv_id": "2608.17928",
+      "authors": [
+        "Alex DeWeese",
+        "Jiaoyang Li",
+        "Guannan Qu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-18",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2608.17928.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.17928v1",
+      "reading_value": 4,
+      "reading_value_reason": "L-MAPFをMDPとして定式化し、RHCRの近最適性を理論的に証明した上で、空間分割による並列化手法を提案しており、理論と実用の両面で新規性と価値が高い。",
+      "relevance": 6,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "A Theoretical Framework for Parallel Lifelong MAPF Using Group Decentralized Planning",
+      "tldr": "Lifelong Multi-Agent Path Finding (L-MAPF) における計算コストの増大に対し、既存のRHCRフレームワークの理論的性質を解明した上で、エージェントを空間的に分割して並列計画を行うGroup Decentralized RHCR (GD-RHCR) を提案し、高いスループットと計算効率の両立を実現した。",
+      "url": "http://arxiv.org/abs/2608.17928v1",
+      "venue": ""
+    },
     "doi:10.1007/978-3-032-25029-2_15": {
       "added": "2026-08-17",
       "added_at": "2026-08-17T06:03:30.504873",
@@ -7614,6 +7705,36 @@
       "tldr": "自動倉庫における、相互に依存するタスクと実ロボットの複雑な動力学を考慮したLifelong Multi-Agent Path Finding (MAPF) 問題に対し、タスク割り当てと経路計画を交互に行う手法と、動的な障害物を回避しつつ経由地を巡回する軌道生成アルゴリズムを提案し、その有効性を実証する。",
       "url": "https://www.semanticscholar.org/paper/493ee4d4b6cc09219440ac7c4dae271b50a1499d",
       "venue": "European Conference on Artificial Intelligence"
+    },
+    "doi:10.48550/arxiv.2507.16874": {
+      "added": "2026-08-20",
+      "added_at": "2026-08-20T06:03:55.790002",
+      "arxiv_id": "2507.16874",
+      "authors": [
+        "Raz Beck",
+        "Roni Stern"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-07-22",
+      "doi": "10.48550/ARXIV.2507.16874",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2507.16874.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2507.16874v2",
+      "reading_value": 4,
+      "reading_value_reason": "RT-MAPFにおける計算予算の配分という実用的な課題に対し、PID制御やMABを用いた新規性の高いアプローチを提案しており、研究の具体性と有用性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Budget Allocation Policies for Real-Time Multi-Agent Path Finding",
+      "tldr": "限られた計算予算内で衝突を避けつつ目的地へ到達するリアルタイム多エージェント経路計画（RT-MAPF）において、エージェント間で予算を適切に分配する方策を提案し、状況に応じた方策の選択が問題解決率を向上させることを示した。",
+      "url": "http://arxiv.org/abs/2507.16874v2",
+      "venue": ""
     },
     "doi:10.48550/arxiv.2507.22282": {
       "added": "2026-07-30",

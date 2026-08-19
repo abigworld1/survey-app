@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A Theoretical Framework for Parallel Lifelong MAPF Using Group Decentralized Planning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>A Theoretical Framework for Parallel Lifelong MAPF Using Group Decentralized Planning</h1>
+  <div class="meta">Alex DeWeese, Jiaoyang Li, Guannan Qu<br>採択先: 未取得 ・ 2026-08-18 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.17928v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.17928v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-18</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 6</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">L-MAPFをMDPとして定式化し、RHCRの近最適性を理論的に証明した上で、空間分割による並列化手法を提案しており、理論と実用の両面で新規性と価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> Lifelong Multi-Agent Path Finding (L-MAPF) における計算コストの増大に対し、既存のRHCRフレームワークの理論的性質を解明した上で、エージェントを空間的に分割して並列計画を行うGroup Decentralized RHCR (GD-RHCR) を提案し、高いスループットと計算効率の両立を実現した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>エージェントが目的地を繰り返し移動し続けるLifelong MAPFにおいて、衝突を回避しながら高いスループットを維持することが求められる。既存のRolling-Horizon Collision Resolution (RHCR) は高品質な解を提供するが、エージェント数の増加に伴い計算コストが指数関数的に増大し、実用的なエージェント数でも適用が困難になる課題がある。また、単純な分散型手法では、エージェント間の相互作用を無視することで、完了までのステップ数が大幅に増加する問題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>L-MAPFを割引報酬型マルコフ決定過程 (MDP) として定式化し、RHCRの計画ホライゾンを広げることでその劣最適性が指数関数的に減少することを理論的に証明した。この理論的基盤に基づき、時間的な制約に基づくRHCRに対し、空間的な分割に基づくGroup Decentralized RHCR (GD-RHCR) という新たな並列化の枠組みを提示した。これにより、分散型では得られない理論的な近最適性の保証と、中央集権型を上回るスケーラビリティを両立させた。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>エージェント間の最短経路距離に基づき、Union-Findデータ構造を用いて連結成分を特定することでグループ分割を行う。各グループ内で計画の不一致が生じた場合のみ再計算を行う遅延評価を導入して再計画頻度を制御し、他グループとの衝突回避のために前ステップの計画をソフト制約として低レベルプランナーに導入する。さらに、グループサイズが閾値を超えた場合には、計算負荷を抑えるためにPIBTのような高速な二次ソルバーへ動的に切り替える仕組みを備えている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>倉庫型や部屋型などの多様なマップを用い、MAPDおよびL-MAPFの設定でPIBTおよびRHCRと比較した。評価指標として、各タイムステップにおける並列グループの完了までの平均最大時間を計画時間として用いた。実験の結果、warehouse-10-20-10-2-1マップにおいて、RHCRが計算不能になる高密度な状況下でも、PIBTに対して57.7%のスループット向上を達成し、RHCRに近い性能を維持できることを示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>マップのトポロジーが性能に影響を与え、障害物が少なくグループが巨大化しやすい環境や、マップが小さい場合には、グループが即座にPIBTへ移行するためGD-RHCRの利点が限定的になる。また、マップが二連結でない場合にPIBTへ移行するとデッドロックが発生する可能性がある。今後の課題として、グループ分散化の概念を学習ベースの手法や他のアルゴリズムと統合し、さらなる並列化を実現することが挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>A Theoretical Framework for Parallel Lifelong MAPF Using Group Decentralized Planning</h3><p>Lifelong Multi-Agent Path Finding (L-MAPF) において、エージェントが目的地を繰り返し移動しながら衝突を回避する問題に対し、本論文は既存の Rolling-Horizon Collision Resolution (RHCR) フレームワークの理論的性質を解明し、新たな手法を提案している。まず、L-MAPF を割引報酬型マルコフ決定過程 (MDP) として定式化することで、RHCR が理論的に最適解に極めて近いことを証明した。この結果に基づき、エージェントを推移的な通信スキームによって分割し、各グループに対して並列に計画を行う Group Decentralized RHCR (GD-RHCR) を提案している。理論面では、RHCR が時間的な制約に基づくのに対し、GD-RHCR は空間的な分割に基づくという二重性を持ち、両者が共に最適解に対して指数関数的に近い保証を持つことを示した。実験では、GD-RHCR が多様なマップにおいて、計画あたりの計算コストを大幅に抑えつつ、エージェント数の増加に伴って高いスループットを維持できることを示している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>Lifelong MAPF（L-MAPF）は、エージェントが目的地に到着後すぐに次の目的地が割り当てられる継続的な移動を扱う問題であり、衝突を回避しながら高いスループットを維持することが求められる。既存手法のRolling-Horizon Collision Resolution（RHCR）は高いスループットを実現する一方で、エージェント数の増加に伴い計算コストが指数関数的に増大するという課題がある。本研究では、RHCRを割引報酬型マルコフ決定過程としてモデル化し、計画ホライゾンを広げることでRHCRの性能が最適解に指数関数的に収束することを理論的に示した。この理論的基盤に基づき、エージェントを距離に基づいてグループ分割するGroup Decentralized RHCR（GD-RHCR）を提案する。GD-RHCRは、グループごとの独立した計算や非同期な再計画、さらにはグループの規模に応じた異なるMAPFソルバーの割り当てを可能にすることで、RHCRと同等の性能を維持しつつ計算コストを大幅に削減する。実験の結果、GD-RHCRはRHCRと比較して計画時間を短縮し、かつPIBTや計算コストが膨大になったRHCRよりも高いスループットを維持できることが示された。</p></section>
+<section class="secsum"><h3>2 Related Works</h3><p>マルチエージェント経路計画（MAPF）の研究は、理論的な保証を伴う手法と、計算速度を優先する貪欲法に大別されます。CBSやECBSなどの手法は、最適または近最適な解を提供しますが、問題がNP困難であるため、エージェント数の増加に伴い計算時間が膨大になる傾向があります。一方、PBSやPIBT、LaCAMなどの貪欲法は、高いスケーラビリティを持つ反面、理論的な近最適性は保証されません。Lifelong MAPFの設定においても、RHCRのような高品質だが低速な手法と、PIBTのように高速だがグラフの二連連結性に依存してデッドロックが生じ得る手法が存在します。エージェントをグループ化して計算を高速化する試みには、マップを領域分割する静的な手法や、独立したグループを動的に特定する手法がありますが、これらは主に完全性を維持するアルゴリズムの高速化を目的としています。本研究では、局所的な相互作用を扱うLI-MDPという理論モデルに着目しており、可視性に基づいてエージェントを推移的に接続するグループ分散型設定を用いることで、グループ単位での並列計画を可能にしつつ、分散型では得られない理論的な保証を実現します。</p></section>
+<section class="secsum"><h3>3 Motivation: Natural Extension to RHCR</h3><p>本セクションでは、再計画を伴う継続的なマルチエージェント経路計画（RHCR）の計算負荷を軽減するために、手法を並列化する動機が述べられている。RHCRは、一定の計画期間ごとに衝突のない経路を再計算する手法であるが、本研究ではエージェント間の相互作用を空間的な距離の閾値に基づいて無視することで、エージェントを並列なグループに分割する手法を検討している。通信を行わずエージェントが個別に計算を行う単純な分散型手法では、前方のエージェントが動くまで後方のエージェントが動けないといった状況が生じ、中央集権的な手法に比べて完了までのステップ数が大幅に増加する問題がある。これに対し、提案するグループ分散型設定では、エージェントを頂点とし、指定された距離内にあるエージェント間にエッジを張ったグラフを構築し、その連結成分をグループとして定義することで、各グループを独立して計画する。この手法は、Lifelong MAPFをLocally Independent Multi-Agent MDP（LI-MDP）モデルとして定式化することで、性能を大きく損なうことなく並列化を実現できることを示している。</p></section>
+<section class="secsum"><h3>4 Theory: LI-MDP Analysis of RHCR</h3><p>Lifelong Multi-Agent Path Finding (L-MAPF) を、割引報酬を用いた局所相互作用マルコフ決定過程 (LI-MDP) として定式化しています。各エージェントの状態は、現在の位置、直前の移動方向、および目標地点の集合で構成され、報酬関数は目標到達時の正の報酬と、頂点衝突またはエッジ衝突が発生した際の負のペナルティの総和として定義されます。このモデルにおいて、RHCR がある一定の近最適性を備えた軌道生成器であるならば、計画ホライゾンを大きくすることで、その劣最適性は指数関数的に減少することが示されています。この理論的保証は再計画ウィンドウの幅に依存しないため、計算時間を短縮するために再計画の間隔を広げても、理論的な近最適性が維持されることが裏付けられています。さらに、異なるグループに属するエージェント間では一定ステップ内での衝突が起こり得ないという性質を利用し、計算負荷を抑えつつ近最適性を維持できるグループ分散型ポリシーの正当性が、LI-MDP の枠組みを通じて示唆されています。</p></section>
+<section class="secsum"><h3>5 Our Method: Group Decentralized RHCR</h3><p>提案手法であるGroup Decentralized RHCRは、4つの要素から構成される並列的な生涯マルチエージェント経路計画アルゴリズムである。まず、最短経路距離とUnion-Findデータ構造を用いて、各タイムステップでエージェント間の連結成分を特定し、グループ分割を行う。次に、グループ内の全エージェントが同一の計画を参照している間は既存の計画に従い、計画の不一致が生じた場合のみ再計算を行う遅延評価を導入することで、再計画の頻度を動的に制御し、計算負荷を軽減する。また、他グループのエージェントとの衝突を回避するため、前タイムステップの計画に基づいたソフト制約を低レベルプランナーにコストとして導入し、並列計算時の精度を高める。さらに、グループサイズが特定の閾値を超えた場合に、高コストな計算を避けるためPIBTのような高速な二次ソルバーへ即座に切り替える仕組みを備えている。この設計により、混雑が激しい場合に高速なソルバーが活用されるため、従来のRHCRとは異なり、混雑状況に応じて計算効率が向上するという特性を持つ。</p></section>
+<section class="secsum"><h3>6 Theory: Near Optimality of GD-RHCR</h3><p>本セクションでは、割引報酬MDPとしてモデル化されたL-MAPF問題に対し、GD-RHCRの近最適性を理論的に解析しています。解析を簡略化するため、二次ソルバーやソフト制約コストを用いない設定を想定していますが、これは実用上の計算効率と理論的保証の整合性を考慮したものです。定理によれば、GD-RHCRが生成する軌道の割引報酬の期待値は、空間的な制限（グループ内のエージェントから一定距離外の存在を無視すること）と時間的な制限（依存関係に基づき衝突が起こり得ない時間範囲）の二面性によって規定されます。グループ分散型スキームにおいて、異なるグループに属するエージェントは特定のタイムステップ内では衝突できないため、並列グループごとに計算を行っても解の質に影響を与えず、計算時間を削減できます。この理論的枠組みは、RHCRにおける再計画ウィンドウの設定に加え、提案するグループ分散型並列化スキームや遅延評価スキームの妥当性を裏付けています。</p></section>
+<section class="secsum"><h3>7 Simulations</h3><p>提案手法であるGD-RHCRの性能を、PIBTおよびPIBTをフォールバックとして用いるRHCRと比較するシミュレーションを行いました。実験は、エージェントがランダムな回収・配送地点間を移動するMAPD設定と、ランダムな開けた空間へ目標が割り当てられるL-MAPF設定の2つの環境で行われ、倉庫型や部屋型など多様なマップ構成が用いられています。評価指標として、各タイムステップにおける並列グループの完了までの平均最大時間を計画時間として比較しています。実験の結果、RHCRの性能が崩壊する高密度な状況下でも、GD-RHCRはRHCRに近いスループットを維持できることが示されました。具体的には、warehouse-10-20-10-2-1マップにおいて、RHCRが崩壊した際のピーク時でPIBTに対して57.7%のスループット向上を達成しています。この優位性は、GD-RHCRがエージェントを小さなグループに限定して計画を行うことで、混雑が生じた際も一部のグループがPIBTへ移行しつつ、他のグループの計画を継続できる点に起因します。一方で、マップのトポロジーが性能に影響を与え、障害物が少なくグループが巨大化しやすい環境や、マップが小さい場合には、グループが即座にPIBTへ移行するため、GD-RHCRの利点が限定的になることも確認されました。</p></section>
+<section class="secsum"><h3>8 Conclusion and Future Work</h3><p>本研究では、限定情報マルコフ決定過程の知見を用いることで、リソース制約付き階層的衝突回避に対する理論的基盤を構築しました。この解析手法に基づき、RHCRと同等の理論的保証を満たしつつ、エージェント数が増加した場合でもRHCRより優れた性能を示すグループ分散型RHCR（GD-RHCR）フレームワークを提案しました。今後の展望として、グループ分散化という概念を、学習ベースの手法やPIBTなどの他のアルゴリズムと統合し、並列化を実現することが挙げられます。また、本研究で構築した、異なる場所や設定において異なるアルゴリズムを適用できる構成は、マルチエージェント経路計画における多くの新たな研究方向を切り拓くものです。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-20
+  </footer>
+</div>
+</body>
+</html>

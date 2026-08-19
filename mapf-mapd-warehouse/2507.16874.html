@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Budget Allocation Policies for Real-Time Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Budget Allocation Policies for Real-Time Multi-Agent Path Finding</h1>
+  <div class="meta">Raz Beck, Roni Stern<br>採択先: 未取得 ・ 2025-07-22 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2507.16874v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2507.16874v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/ARXIV.2507.16874" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-07-22</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RT-MAPFにおける計算予算の配分という実用的な課題に対し、PID制御やMABを用いた新規性の高いアプローチを提案しており、研究の具体性と有用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 限られた計算予算内で衝突を避けつつ目的地へ到達するリアルタイム多エージェント経路計画（RT-MAPF）において、エージェント間で予算を適切に分配する方策を提案し、状況に応じた方策の選択が問題解決率を向上させることを示した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>ロボット倉庫やドローン群の運用を想定し、各計画期間に許容される計算予算B（探索ノードの展開数）と、エージェントが次に実行すべきステップ数w（実行ウィンドウ）が制限された環境下での、リアルタイム多エージェント経路計画（RT-MAPF）を対象とする。従来のウィンドウ計画法では、予算内に解が見つからない場合に単に計算を停止するのみであり、予算の有無や配分を明示的に考慮できていないという困難があった。入力としてエージェントの現在位置と目的地、グラフ構造を受け取り、衝突のない長さwの経路の接頭辞を出力する必要がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存手法が計算予算を単なる打ち切り条件として扱っていたのに対し、予算をエージェント間の配分対象として明示的に扱う予算認識型RT-MAPFのフレームワークを提案した。最新のMAPF-LNS2アルゴリズムに対し、衝突数や制御理論、マルチアームドバンディット（MAB）の概念を取り入れた複数の予算配分方策（BAP）を導入した点が新規である。単一の方策が全ての環境で万能ではないことを明らかにし、設定ごとに最適な方策を選択するオラクル的なアプローチの有効性を提示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MAPF-LNS2をベースとし、選択されたエージェントの近傍集合に対してどれだけの計算予算を割り当てるかを決定する予算配分方策（BAP）を用いる。具体的な方策として、近傍の衝突数に比例して予算を割り当てるConflictProportion、衝突の少ないエージェントを優先して予算を割り当てるReverseConflictProportion、衝突数の変化量に基づきPID制御の概念を用いて予算を割り当てる方策がある。さらに、MABを用いて、各方策による衝突削減の成否に応じて方策の重みを更新し、オンラインで最適な方策を選択する仕組みを構築している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Room、Random、Mazeの3種類のグリッドマップを用い、実行ウィンドウとエージェントあたりの予算の組み合わせを変えて評価した。比較対象は、全エージェントが単一の共有予算プールから予算を消費するShared、および高速な初期解生成を行うPIBTである。評価指標には成功率とAUCを用いた。実験の結果、RandomマップではMABが、RoomやMazeではConflictProportionが最も高い成功率を示した。また、最適な方策を選択するSingle Policy Oracle（SPO）は、ベースラインを上回る成功率を得た。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>単一の予算配分方策が全てのパラメータ設定や環境において常に優れているわけではないというトレードオフが存在する。今後の課題として、実行中にエージェントへの予算配分を動的に調整するためのオンライン学習メカニズムの組み込みや、目標が動的に変化するライフロングMAPF設定への適用が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Budget Allocation Policies for Real-Time Multi-Agent Path Finding</h3><p>本研究は、ロボット倉庫やドローン群などの実世界での運用を想定し、限られた計画時間（計画予算）と一定の実行ステップ（実行ウィンドウ）の中で、エージェントが衝突を避けつつ目的地へ到達するリアルタイム多エージェント経路計画（RT-MAPF）を扱う。既存手法は、計画予算の大きさを明示的に考慮せず、各計画期間においてウィンドウ化されたMAPFアルゴリズムを繰り返し呼び出すのみであったが、本論文では最新のMAPFアルゴリズムであるMAPF-LNS2に対し、計画予算をどのように配分するかという異なる方策を調査している。実験の結果、全エージェントが単一の共有予算プールから計算資源を消費するベースライン手法は、困難なシナリオにおいて効果的ではないことが示された。一方で、エージェント間で計画予算を適切に分配する方策は、より少ない時間でより多くの問題インスタンスを解決できる。なお、単一の方策がすべてのパラメータ設定において常に優れているわけではないため、各設定に対して最適な方策を選択するオラクル的なアプローチを提案している。例えばランダムマップの実験では、ベースラインが最も高い成功率を達成できた構成が44パーセントであったのに対し、このオラクル的なアプローチはすべての構成において最高の成功率を達成した。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>マルチエージェント経路計画（MAPF）において、限られた計画予算内でエージェントが次に実行すべき一連の動作を決定しなければならない、リアルタイムMAPF（RT-MAPF）という問題を扱う。従来のウィンドウ計画法は予算内に解を返せない可能性があり、既存の失敗回避策も予算の有無を考慮せず計算を停止するのみであった。本研究では、利用可能な予算を明示的に考慮する予算認識型RT-MAPFのフレームワークを提案し、MAPF-LNS2アルゴリズムをベースに構築している。このフレームワークでは、予算配分方策（BAP）を用いて、選択されたエージェントの近傍集合に対してどれだけの計画予算を割り当てるかを決定し、予算が尽きた場合はその近傍の計画を維持する。提案するBAPには、衝突数に応じて予算を増減させるもの、PID制御に着想を得たもの、およびマルチアームドバンディット（MAB）法に基づくものがある。実験の結果、単一のBAPが全てのケースで最適となるわけではないが、設定に応じて最適な方策を選択することで、ベースラインと比較して問題解決率を大幅に向上させることが確認された。</p></section>
+<section class="secsum"><h3>II Background and Problem Definition</h3><p>マルチエージェント経路探索（MAPF）は、グラフ上の各エージェントに、頂点衝突や入れ替わり衝突のない経路を割り当てる問題であり、全エージェントの移動コストの総和であるSOCや、全エージェントが目標に到達するまでの時間であるMakespanの最小化を目的とする。本研究では、リアルタイム性に優れた非最適解アルゴリズムとして、優先度継承とバックトラッキングを用いるPIBTや、近傍探索を用いて衝突解消と解の改善を行うMAPF-LNS2に焦点を当てる。MAPF-LNS2は、特定の近傍エージェント群を繰り返し選択して経路を再計画する手法であり、単一エージェントの経路計算にはSIPPやその拡張であるSIPPSが用いられる。また、目標が動的に変化するLifelong MAPFに対しては、実行ウィンドウと計画ホライゾンを設定して計画と実行を交互に行うRolling Horizon Collision Resolution（RHCR）という枠組みが一般的である。さらに、計算資源である計画予算が制限された状況下での探索として、局所的な先読み、ヒューリスティック関数の更新、行動の実行を繰り返すリアルタイム・ヒューリスティック探索（RTHS）の概念が示されており、これらをMAPFに適用したBMAA*やWinC-MAPFといった手法が存在する。</p></section>
+<section class="secsum"><h3>III Problem Definition</h3><p>本研究が扱うリアルタイム多エージェント経路探索（RT-MAPF）は、古典的なMAPFに、各計画期間に許容される計算予算Bと、各エージェントが次の計画期間までに実行すべきステップ数wを加えた問題として定義される。RT-MAPFアルゴリズムは、各計画期間の開始時に、すべてのエージェントに対して長さwの経路を割り当てる解の接頭辞を出力する必要があり、その経路は頂点衝突やスワップ衝突を含んではならない。本研究では、計算予算Bを各計画期間内に展開可能な単一エージェント探索ノードの最大数として定義している。既存手法として、計画期間を短く設定して予算内に収める方法や、予算を使い果たすまで計画期間を段階的に伸ばす方法があるが、これらは衝突の発生や、予算不足により有効な計画が見つからない計画失敗を招く可能性がある。これに対し、計画に失敗した際に部分的な解から衝突のない経路を合成する「失敗ポリシー」を用いる枠組みが提案されており、衝突するエージェントのみをその場に留め、他のエージェントは移動を継続させるIStayなどの手法が、実行中の計画と改善を重視するPIEフレームワークにおいて有効であることが示されている。</p></section>
+<section class="secsum"><h3>IV Finding Useful Partial Solutions</h3><p>既存の研究であるMoragらの手法とPIEは、計画が失敗した際に部分解を返すプランナーを必要とするが、いずれも計算予算を単なる打ち切り条件として扱うのみで、予算を直接的に考慮していない。Moragらの手法はPrPを応用しており、PIEではまず高速で劣最適な解を求めるLaCAM*を実行して初期解を見つけ、その後にMAPF-LNSを用いて解を改善する。PIEにおいて初期計画フェーズで失敗した場合は、それまでにLaCAM*によって探索された中で最も優れたノードを選択し、その後の計画フェーズで失敗した場合は、LaCAM*によって得られた初期解を部分解として返す。本セクションでは、これら既存手法に対し、MAPF-LNSを拡張して有用な部分解を返すための、計算予算を意識した新しい手法を提案する。</p></section>
+<section class="secsum"><h3>V Budget Allocation Policies for MAPF-LNS2</h3><p>MAPF-LNS2において、特定の近傍に計算予算を過剰に投入することで他のエージェントの計画を阻害する問題を回避するため、複数の予算配分方策（BAP）を提案している。ConflictProportionは、選択された近傍に含まれるエージェントの衝突数に比例して予算を割り当てるが、探索に必要な最小ノード数を下限値として設定することで、予算不足による計画失敗を防いでいる。ReverseConflictProportionは、衝突の少ないエージェントに優先的に予算を割り当てて経路を早期に確定させることで、問題全体の複雑さを軽減することを目指している。また、PID方策は、衝突数の変化量や近傍が選択された回数に基づき、残余予算の割合ではなく絶対値として予算を割り当てる。さらに、Multi-Armed Bandit（MAB）フレームワークを用いることで、各方策の重みを経路の衝突削減の成否に応じて更新し、状況に応じて最適な予算配分方策をオンラインで選択する仕組みを導入している。</p></section>
+<section class="secsum"><h3>VI Experimental Results</h3><p>本実験では、MAPF-LNS2における複数の予算配分ポリシー（Shared, PID, CPB, RCPB, MAB）と、高速な初期解生成を行うPIBTを比較評価しています。Room、Random、Mazeの3種類のグリッドマップを用い、実行ウィンドウとエージェントあたりの予算の組み合わせを変えて、成功率と解の品質を示すAUC（曲線下の面積）を指標として検証を行いました。実験の結果、単一のポリシーが常に優れているわけではなく、RoomやMazeではCPB、RandomではMABが最も高い成功率を示すなど、環境やパラメータに依存することが示されました。各パラメータ構成において最も成功率の高いポリシーを選択するSingle Policy Oracle（SPO）は、成功率とAUCの両面でベースラインを上回る結果を得ています。ただし、SPOは成功率の最大化を目的としているため、予算が実行ウィンドウに対して極端に少ない場合など、特定の条件下では解の品質（AUC）においてベースラインに劣るケースも確認されました。アブレーション解析の結果、ポリシーの重要度は環境に依存するものの、PIDはSPOの性能維持に大きく寄与し、RCPBは寄与が低い傾向にあることが明らかになりました。</p></section>
+<section class="secsum"><h3>VII Conclusion and Future Work</h3><p>本研究では、各計画期間が固定された短い時間予算内で終了し、予算終了後はエージェントが事前に定義された一連の移動を実行しなければならないリアルタイムMAPF（RT-MAPF）問題を扱っています。既存のMAPFアルゴリズムを単に予算内で停止させるのではなく、エージェント間で計画予算を適切に配分することの重要性を指摘し、最先端のMAPF-LNS2アルゴリズムに対して予算を分配する複数の手法を提案しました。具体的には、エージェントの近傍に割り当てる予算を算出するConflictProportion、ReverseConflictProportion、およびPIDという手法に加え、動的な方策適応のためのマルチアームドバンディット機構を導入しました。実験の結果、最適な方策はシナリオによって異なるため、最適な方策を選択するアルゴリズムの実装が重要であることを示し、賢明な予算配分方策を用いることでエージェントをより迅速に目標へ移動させられることを確認しました。今後の展望として、実行中に異なるエージェントへの予算配分を調整するためのオンライン学習メカニズムの組み込みや、ライフロングMAPF設定への適用が挙げられています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-20
+  </footer>
+</div>
+</body>
+</html>

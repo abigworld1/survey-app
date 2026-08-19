@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>COMA: A Compositional Misleading Attack Class on Security-RAG, and a Causal Counterfactual Defense | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>COMA: A Compositional Misleading Attack Class on Security-RAG, and a Causal Counterfactual Defense</h1>
+  <div class="meta">Chinmay Gondhalekar, Urjitkumar Patel<br>採択先: the IEEE Conference on Generative AI for Secure Systems (GAISS) 2026 ・ 2026-08-18 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.17960v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.17960v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 the IEEE Conference on Generative AI for Secure Systems (GAISS) 2026</span><span class="chip">公開日 2026-08-18</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの脆弱性を「文書間の構成的推論」という新たな観点から定義した新規性が高い。因果的影響力を用いた防御策も具体的で、実在のCVEを用いた検証も説得力がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 個々の文書は真実かつ矛盾がなく指示も含まないが、それらの組み合わせによってLLMの推論を誤らせる攻撃手法COMAを提案し、回答への因果的な影響力を測定することで攻撃文書を特定する防御策ccdを提示する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>セキュリティ分野の検索拡張生成（Security-RAG）システムを対象とし、検索された文書集合を用いて脆弱性の深刻度、修正策、および悪用可能性の判定を誤らせる問題を扱う。従来の防御策は、文書内の不自然な命令の検知、文書間の矛盾のフィルタリング、あるいは文書間の共同推論の禁止、回答の不確実性の検証に依存してきた。しかし、個々の文書が事実として正しく、かつ互いに整合している場合に、モデルに推論を強いて誤った結論を導かせる攻撃への対処が困難であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存の防御手法が前提とする「不自然な形式」「矛盾」「不確実性」という特徴を一切持たず、すべての文書が真実かつ分布的に正常であるという条件下で成立する攻撃クラスCompositional Misleading（COMA）を定義した。また、文書の矛盾に頼るのではなく、特定の文書を除外した際の影響度を測定することで、一貫した文書群による構成的な攻撃を検知できる因果的反事実的防御（ccd）を提案した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>攻撃手法COMAは、推奨策を不適切な回避策へ誘導するaction-corruptionと、到達可能性の連鎖により判定を不安定化させるverdict-flipの2つのメカニズムを用いる。防御手法ccdは、leave-one-out方式を採用し、検索された文書集合から特定の文書を一つずつ除外して回答を再生成することで、各文書が回答に与える因果的な影響度を算出する。文書は信頼ティア（高・中・低）に基づいて分類され、低信頼ドキュメントの除外によって回答が変化した場合にのみ、攻撃の可能性をフラグ立てする。さらに、影響力を複数の文書に分散させる攻撃に対しては、低信頼ドキュメントの集合を一括で除外して評価する集約型のccdを用いる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>5つのモデル（llama3.1:8b, gemma4:31b, nemotron-3-super:120b, gpt-5.5, deepseek-v4-pro）を用い、合成ドメインと実在の脆弱性（CVE-2021-33813）で評価した。action-corruptionはすべてのモデルで100%の成功率を示し、verdict-flipはモデルの能力向上に伴い減少するものの、フロンティアモデルでも60%から67%の成功率を維持した。防御策ccdは、攻撃用ドキュメントを単独で取り除いた際に回答を正解へ復帰させることで攻撃箇所を特定し、4つの正常な文書群に対しては偽陽性を発生させなかった。また、集約型のccdを用いることで、影響力を分散させた適応的な攻撃も全モデルにおいて検知できた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の限界として、評価が少数の手作りのシードに基づいているため、大規模なコーパスにおける攻撃の普及率が不明であることや、防御の評価が判定の反転という離散的なレベルに留まっていることが挙げられる。今後の課題は、連続的な影響度スコアの活用や適切な閾値の設定、および独立したレッドチーミングによる検証である。また、攻撃者が予算を増やして影響力を分散させる場合、防御の堅牢性は攻撃者の注入予算と検知回避のための影響範囲のトレードオフの関係になる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>COMA: A Compositional Misleading Attack Class on Security-RAG, and a Causal Counterfactual Defense Accepted at the IEEE </h3><p>本研究は、セキュリティ分野の検索拡張生成（RAG）システムを標的とした、Compositional Misleading（COMA）と呼ばれる攻撃手法を提案している。この攻撃は、個々の検索文書が事実として正しく、指示を含まず、矛盾もしていないにもかかわらず、それらの組み合わせによってモデルの回答を誤らせるものである。攻撃には、脆弱性の修正策を不適切なものへ誘導するaction-corruptionと、脆弱性の判定を覆すverdict-flipの2つの形態がある。実験では、2つの合成ドメインと実在の脆弱性（CVE-2021-33813）を用いて5つのモデルを評価しており、action-corruptionはすべてのモデルで発生し、verdict-flipはモデルの能力向上に伴い減少するものの依然として発生することが示された。攻撃が成功する原理は、回答を確定させるための事実が直接読み取れるものではなく、文書間の推論を必要とする場合に発生する。これに対し、著者らはCausal Counterfactual Defense（ccd）という防御策を提案しており、これは特定の文書を一つずつ除外して回答への因果的な影響を測定する手法を用いて、信頼性の低い文書の影響力が集中している回答を検知するものである。ccdは、攻撃者が制御する文書を特定でき、かつ複数の文書を用いた正常なシナリオにおいて誤検知が発生しないことが確認されている。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究は、セキュリティ分野の検索拡張生成（Security-RAG）において、個々の文書は事実として正しく、指示命令を含まず、他の文書とも矛盾しないにもかかわらず、それらを組み合わせることで大規模言語モデル（LLM）を誤導する攻撃クラスであるCompositional Misleading（COMA）を提案している。この攻撃は、脆弱性の深刻度は正しく診断させつつ不適切な修正策へと誘導するaction-corruptionや、脆弱性の判断を不安定にするverdict-flipという2つのメカニズムを通じて実行される。COMAは、判断の決め手となる事実を明示せず、推論によってのみ導き出せる状態にすることで、既存のコンテンツスキャン、合意形成フィルタリング、不確実性検証といった防御手法を構造的に回避する。これに対し、提案する防御手法であるCausal Counterfactual Defense（ccd）は、特定の文書を一つずつ除外して再実行する手法を用い、回答に対する各文書の因果的な影響力を測定することで攻撃文書を特定する。実験では、action-corruptionが最新の推論モデルを含む5つのモデルに対して有効であることを示し、ccdが合成データおよび実在の脆弱性（CVE-2021-33813）を用いた攻撃において、誤検知なく攻撃文書を特定できることを確認している。さらに、影響力を複数の文書に分散させる適応的な攻撃に対しては、低信頼度文書群の影響力を合算して閾値判定を行う集約型のccdを用いることで、検知が可能であることを示している。</p></section>
+<section class="secsum"><h3>II Background and Related Work</h3><p>本研究が対象とする脅威は、プロンプトインジェクションから発展し、検索された文書内に攻撃ペイロードを混入させることでRAG（検索拡張生成）システムを乗っ取る手法に基づいています。既存の防御策は、命令文の形式を検知する手法、文書間の矛盾を検知する手法、文書を個別に評価して多数決を行う手法、およびモデルの自己反省を利用する手法の4つの分類に分けられます。しかし、これらの防御策は、攻撃的な文書が不自然な形式であることや、他の文書と矛盾すること、あるいは回答の確信度を下げることを前提としており、すべての文書が真実かつ命令を含まず、かつ互いに整合している「Compositional Misleading」攻撃には対応できません。これに対し、提案手法であるccdは、文書間の矛盾に頼るのではなく、どの文書が回答の生成に因果的な影響を与えたかを個別に監査することで、一貫した文書群による攻撃を検知します。本研究は、LLMが脅威インテリジェンスの分析を行うセキュリティオペレーションセンター（SOC）を対象としており、個別の記事のスコアリングに留まる既存の分類器とは異なり、検索された文書集合全体に対する構成的な攻撃に対処します。</p></section>
+<section class="secsum"><h3>III Threat Model and Compositional Misleading</h3><p>本研究の脅威モデルは、精査済み、半精査済み、および公開情報の3つの信頼階層からなるコーパスを利用するRAGベースのセキュリティ・コパイロットを対象としている。攻撃者は、埋め込みモデルやインデックスにはアクセスできないが、公開コーパスに最大10個の文書を注入できる。提案するCompositional Misleading攻撃は、すべての主張が真実であり、指示形式を含まず、既存の文書と矛盾せず、かつ統計的な特徴が正常な文書と区別できないという4つの制約を満たしながら、モデルの推論を誤らせる手法である。この攻撃は、モデルが文書から直接読み取れる事実ではなく、文書の欠落から推論しなければならない事実に依存して成功するという原理に基づいている。具体的なメカニズムとして、脆弱性への恒久的な対策ではなく、特定の条件下でのみ有効な脆弱な回避策を推奨させるAction-corruptionと、到達可能性の判断を循環参照によって決定不能にし、判定を確率的に誤らせるVerdict-flipの2種類が定義されている。既存の防御手法であるコンテンツ検知、矛盾検知、不確実性検知、および文書の隔離は、攻撃文書が個別の文書としては正常かつ一貫しているため、構造的にこの攻撃を検知できない。</p></section>
+<section class="secsum"><h3>IV The Attack</h3><p>COMA（Compositional Misleading Attack）は、個々の文書はすべて真実を述べているものの、それらを組み合わせることでモデルに誤った推論をさせる攻撃手法である。この攻撃には、推奨される修正策を不適切な回避策へと誘導するアクションの汚染（Action-corruption）と、真実の文書間で循環的な依存関係を構築して脆弱性の到達可能性を決定不能にすることで、誤って「悪用不可能」と判断させる判定の反転（Verdict-flip）の2種類がある。実在の脆弱性であるJDOMライブラリのXXE脆弱性（CVE-2021-33813）を用いた検証では、過去にセキュリティ強化が行われたという事実を強調することで、モデルに「既に保護されているため悪用不可能である」という誤った推論を誘発させる。この攻撃の有効性は、情報の矛盾を解消するための明示的な記述が欠如しているかどうかに依存しており、曖昧さを解消する文書を挿入するとモデルは正しい回答を導き出せるようになる。</p></section>
+<section class="secsum"><h3>V Causal Counterfactual Defense ( ccd )</h3><p>Causal Counterfactual Defense (ccd)は、生成された回答が攻撃者の制御下にある低信頼ドキュメントに依存しているかを検知する手法である。具体的には、検索されたドキュメント集合から特定のドキュメントを一つずつ除外した際に回答が変化するかを評価するleave-one-out方式を用い、回答の変化をドキュメントの因果的な影響度として算出する。セキュリティに関するクエリでは、脆弱性の判定結果や推奨される対策の内容が変化するかを指標とし、生成器のサンプリングノイズを分離するために複数回の実行結果に基づく統計的な頻度を用いて影響度を測定する。ドキュメントは、ソースURLのホワイトリスト等に基づき、高信頼、中信頼、低信頼の3段階の信頼ティアに分類され、ccdは低信頼ドキュメントの除外によって回答が変化した場合にのみ、回答を保留して「証拠不十分」としてアナリストに通知する。単一のドキュメントによる誤誘導は正確に特定できるが、誤誘導を複数のドキュメントに分散させる攻撃に対しては、低信頼ドキュメントの集合を一括で除外して影響を評価するaggregate ccdを用いることで検知が可能となる。なお、本手法は追加の生成器呼び出しを必要とするため、低信頼ドキュメントが含まれる場合や重要度の高いクエリに限定して適用するなどの運用上の検討が想定される。</p></section>
+<section class="secsum"><h3>VI Evaluation</h3><p>本評価では、5種類のオープンウェイトモデルおよびフロンティアモデルを用い、攻撃手法であるCOMAの有効性と防御手法であるccdの性能を検証しています。攻撃の評価指標として、推奨される最初の対策が恒久的な修正ではなく回避策となるaction-corruptionと、脆弱性の判定を誤らせるverdict-flipの2軸を用いています。実験の結果、action-corruptionは合成ドメインや実在のCVEを問わず、全モデルにおいて決定論的に成功しました。verdict-flipはモデルの能力向上に伴い成功率が低下する傾向にあるものの、フロンティアモデルにおいても60%から67%程度の成功率が確認されました。防御手法であるccdは、攻撃用ドキュメントを単独で取り除いた際に正解へ復帰させる局所化性能を示し、誤誘導のない正常なドキュメント群に対しては偽陽性を発生させませんでした。また、攻撃者が誤誘導を複数のドキュメントに分散させる適応的な攻撃に対しても、個別のドキュメント削除では回避されるものの、それらをまとめて削除する集約的なccdを用いることで、全モデルにおいて確実に検知できることが示されました。</p></section>
+<section class="secsum"><h3>VII Discussion, Limitations, and Ethics</h3><p>提案された因果的反事実的防御（CCD）は、生成器に通常の推論を行わせた上で、どの検索文書が回答に寄与したかを特定する監査パラダイムの一種であり、証拠の集約を標的とする攻撃への対抗策として機能する。本研究では、診断結果は正しいものの修正策のみを誤らせる「アクション汚染（action-corruption）」という攻撃メカニズムが、分析者の信頼を悪用するため極めて危険であることを指摘している。本研究の限界として、評価が手作業で作成された少数のシードに基づいているため、大規模なコーパスにおける攻撃の普及率を測定できていないことや、防御の評価が判定の反転の有無という離散的なレベルに留まっており、連続的な影響度スコアや適切な閾値の設定が今後の課題であることが挙げられる。また、シードの作成者が検証者も兼ねているため、独立したレッドチーミングによる検証が必要であることや、攻撃者が予算を増やして影響力を分散させる適応的な戦略をとった場合、防御の堅牢性は予算と影響範囲のトレードオフの関係になることが示唆されている。倫理的側面については、本研究は防御を目的としたものであり、使用したシードには実効性のあるエクスプロイトは含まれず、実験もローカル環境で行われたものであると述べている。</p></section>
+<section class="secsum"><h3>VIII Conclusion</h3><p>Compositional Misleading攻撃は、個々の検索ドキュメント自体には嘘や矛盾、不自然な指示が含まれておらず、すべてが真実かつ平易な内容であるため、不正なドキュメントを検知する従来の防御手法では見逃されるという特徴を持ちます。この攻撃は、回答を修正するために必要な事実を直接読み取るのではなく、複数の情報の組み合わせから推論させる必要がある場合に、その構成の仕方を悪用して成立します。提案する防御手法であるccdは、どのドキュメントが誤っているかを探すのではなく、どのドキュメントが現在の回答を導き出す要因となったかを特定することで、攻撃者が制御するドキュメントを正確に特定し、ドキュメントごとの監査を回避しようとする適応的な攻撃に対しても有効に機能します。実験を通じて明らかになった重要な知見は、テストしたすべてのモデルにおいて、セキュリティ支援AIは脆弱性の診断は正確に行えても、その修正策の提示においては脆弱性が残るという点です。したがって、セキュリティ用途のAIを評価するベンチマークは、診断の正確性だけでなく、修正策の妥当性についても評価すべきであると結論付けています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-20
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Towards Safer RAG: Only Agents Capable of System 2 Thinking may Access Untrusted Documents | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Towards Safer RAG: Only Agents Capable of System 2 Thinking may Access Untrusted Documents</h1>
+  <div class="meta">Mehrdad Ghassabi<br>採択先: 未取得 ・ 2026-08-17 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.17153v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.17153v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-17</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの脆弱性に対し、System 2推論能力に着目した新たなセキュリティ原則と、検知と制御の乖離を測る新指標を提案しており、研究の新規性と実用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGにおける知識汚染攻撃に対し、誤情報を検知しても回答生成時に影響を受けてしまう「モニタリング・コントロール・ギャップ」を解決するため、System 2推論が可能なエージェントのみに未検証文書へのアクセスを許可する新たなセキュリティ原則を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>検索拡張生成（RAG）において、検索された文書内の誤情報がモデルの最終出力に影響を与える知識汚染攻撃への脆弱性が問題となっている。モデルは文書内の誤情報を正しく検知できたとしても、回答を合成する際にその誤情報に引きずられてしまうという課題がある。従来の対策であるコードン原則は、回答生成を担うモデルが未検証の証拠に直接アクセスすることを禁じる厳格な隔離を行うが、計算コストの増大やシステムの柔軟性の低下を招く。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の厳格な隔離手法に代わり、熟考的なSystem 2思考が可能なエージェントのみに信頼できない文書へのアクセスを許可するという、より洗練されたセキュリティ原則を提案した。また、誤情報の検知と、その後の回答への影響の乖離を定量化するCordon Rateと、明示的な無視指示に対する耐性を測るContamination Rateという2つの新しい評価指標を導入した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>Cordon Rateは、モデルが誤情報を検知したにもかかわらず、最終的な回答がその誤情報に影響された事例の割合を算出する。Contamination Rateは、外部知識を無視するよう明示的に指示した場合でも、モデルが暗黙的に誤情報に引きずられる度合いを、外部知識を一切与えない場合と比較することで測定する。汚染データの生成には、正解と矛盾する一文を作成し、それを500語程度の文章に拡張する手法を用いる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>BEIRベンチマークのSciFact、FiQA、MS-MARCOの各サブセットを用い、標準的なDeepSeek-Chatと推論強化型のDeepSeek-Reasonerを比較した。SciFactにおいて、DeepSeek-ChatのContamination Rateは0.25であったのに対し、DeepSeek-Reasonerは0.12へと抑制された。また、Cordon Rateにおいて、DeepSeek-ReasonerはSciFactおよびFiQAで0となり、DeepSeek-ChatがSciFactで0.175、FiQAで0.025を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>知識集約的な科学的事実の検証のような複雑なタスクほど、モニタリング・コントロール・ギャップが顕著になり、脆弱性が高まる。この現象は、マルチエージェントシステムにおいて、あるエージェントが誤情報を検知しても、受信側のエージェントのSystem 1メカニズムが無意識に影響を受けるリスクを示唆している。今後の課題として、エージェントのアーキテクチャにおける検知と合成の分離手法や、このギャップがハルシネーションの種類やドメインによってどのように変化するかを調査する必要がある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Towards Safer RAG: Only Agents Capable of System 2 Thinking may Access Untrusted Documents</h3><p>検索拡張生成（RAG）は、検索された文書内の誤情報がモデルの最終出力に影響を与える知識汚染攻撃に対して脆弱である。従来のCordon Principleは、最終回答を合成するモデルが未検証の証拠に直接アクセスすることを禁止する厳格な隔離を行うが、これには多大な計算コストを伴う。本研究では、熟考的なSystem 2推論が可能なエージェントのみが信頼できない文書へのアクセスを許可するという、より洗練されたセキュリティ原則を提案している。評価のために、誤情報の検出能力とそれが下流タスクに与える影響の乖離を定量化する新しい指標を導入した。最先端の推論能力を持つ言語モデルと標準的な言語モデルを比較した実験の結果、推論能力の高いモデルは、Cordon Principleによる厳格な隔離を必要とせずとも、汚染された証拠に対して大幅に高い堅牢性を示すことが明らかになった。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>RAG（検索拡張生成）における知識汚染攻撃は、悪意のある文書がモデルの回答を操作する深刻な脆弱性であり、モデルが汚染を検知しても回答生成時にその影響を受けてしまう問題があります。従来の対策である「コードン原則」は、回答生成を行うエージェントが未検証の証拠に直接アクセスすることを禁じる厳格な隔離手法ですが、計算コストの増大や柔軟性の欠如が課題でした。本研究では、連合的なパターンマッチングのみに頼るエージェントは隔離し、熟考的なSystem 2思考が可能なエージェントにのみ未検証文書へのアクセスを許可するという、洗練された原則を提案します。この原則を検証するため、汚染を検知したにもかかわらず影響を受けてしまう度合いを示すCordon Rateと、無視する意図があるにもかかわらず汚染される度合いを示すContamination Rateという2つの新しい評価指標を導入しました。実験の結果、System 2思考能力を持つエージェントは、厳格な隔離を行わなくても高い堅牢性を維持できることが示されました。</p></section>
+<section class="secsum"><h3>2 Approach</h3><p>本研究は、言語モデルが誤情報を検知しても回答生成時にその影響を排除できない「モニタリング・コントロール・ギャップ」という問題に対し、System 2（遅い思考）的な推論能力の欠如が根本原因であるという仮説を立てている。この問題を定量化するため、まずCordon Rateという指標を導入しており、これはモデルが誤情報を正しく検知したにもかかわらず、最終的な回答がその誤情報に影響されてしまった事例の割合を、有効なサンプル全体に対して算出するものである。次に、明示的にコンテキストを無視するよう指示した場合でも、モデルが暗黙的に誤情報に引きずられる度合いを測るContamination Rateを定義しており、これは外部知識なしの回答と、外部知識を無視するよう指示した回答を比較することで、モデルのパラメータ知識による影響を排除して評価する。毒性データの生成には、正解と矛盾する一文を作成し、それを500語程度の文章に拡張するという単純な手法を用いており、高度な攻撃への耐性を試すのではなく、System 2推論能力の有無が誤情報への脆弱性にどう直結するかを分離して検証することを目的としている。</p></section>
+<section class="secsum"><h3>3 Experiments</h3><p>本実験では、推論能力（System 2思考）を持つエージェントが信頼できない文書にアクセスした際の安全性と、文脈による影響を検証しています。BEIRベンチマークのSciFact、FiQA、MS-MARCOの各サブセットを用い、標準的なDeepSeek-Chatと推論強化型のDeepSeek-Reasonerを比較しています。評価指標として、誤情報に影響される割合を示すcordon rateと、無視するよう指示しても文脈に引きずられる度合いを示すContamination Rateを算出しました。実験の結果、SciFactにおいてDeepSeek-Chatは0.25というContamination Rateを示したのに対し、DeepSeek-Reasonerは0.12へと抑制されており、推論能力が文脈による汚染を軽減することが示されました。また、これらの影響はMS-MARCOのようなオープンドメインの検索タスクよりも、SciFactのような知識集約的な科学的事実検証タスクにおいて顕著に現れます。問題の複雑さが増すほど、モデルの脆弱性が高まり、監視と制御のギャップが拡大することが明らかになりました。</p></section>
+<section class="secsum"><h3>4 Conclusion</h3><p>本研究は、信頼できない文書へのアクセスは、システム2の思考能力を持つエージェントのみに限定すべきであるという、RAGにおける新たなセキュリティ原則を提案している。提案した隔離率と汚染率という指標を用いた実験の結果、DeepSeek-Reasonerのようなシステム2思考が可能なモデルは、SciFactおよびFiQAにおいて隔離率が0となり、高い防御性能を示した。一方で、DeepSeek-Chatのようなシステム2の能力を持たないモデルは、文脈を無視するよう明示的に指示しても、その内容に影響を受ける汚染が確認され、監視と制御の間にギャップが存在することが実証された。この現象はマルチエージェントシステムにおいても、あるエージェントが生成した誤情報を別のエージェントが検知したとしても、受信側のシステム1メカニズムが無意識にその誤情報に影響を受けるリスクを示唆している。今後は、エージェントのアーキテクチャにおいて検知と合成をいかに分離するか、また、このギャップがハルシネーションの種類やドメインによってどのように変化するかを調査する必要がある。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-20
+  </footer>
+</div>
+</body>
+</html>
