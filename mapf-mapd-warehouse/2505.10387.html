@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-Agent Path Finding For Large Agents Is Intractable | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi-Agent Path Finding For Large Agents Is Intractable</h1>
+  <div class="meta">Artem Agafonov, Konstantin Yakovlev<br>採択先: 未取得 ・ 2025-05-15 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2505.10387v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2505.10387v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-05-15</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">LA-MAPFのNP困難性を初めて証明した理論的に重要な研究。3SATからの還元手法も具体的で、実世界のロボティクスにおける計算限界を示す価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> エージェントが物理的な大きさを持つ「Large Agents」を考慮したマルチエージェント経路探索（LA-MAPF）の決定問題が、NP困難であることを初めて証明した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のMAPFはエージェントを点として扱い、同一頂点の占有や同一エッジの同時使用のみを衝突として扱う。しかし、実世界のロボティクスではエージェントの大きさを考慮しなければ安全な実行ができない。本研究の対象は、ユークリッド平面上に埋め込まれた無向グラフ上で、半径 r を持つ円盤としてモデル化されたエージェント群の経路計画問題である。入力はグラフ、エージェントの初期配置、目標配置、および半径であり、出力は衝突を回避して目標配置へ到達する遷移の列である。衝突には、エージェントの体が重なる頂点衝突に加え、移動中のエージェントの体が、同じエッジを使用していない静止中のエージェントの体と重なるエッジ衝突が含まれる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>エージェントに幾何学的な形状を持たない従来のMAPFは、無向グラフにおける決定問題が多項式時間で解けることが知られている。これに対し、エージェントのサイズを考慮するLA-MAPFが、従来のMAPFと同様に多項式時間で解けるのか、あるいは計算困難なのかという未解決の問いに対し、NP困難であることを理論的に示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>NP完全問題である3SAT問題からLA-MAPF問題への多項式時間還元を用いて、問題の困難性を証明する。構成は、変数、節、およびブロッキングの3つのガジェット（部分グラフ）から成る。変数ガジェットは各変数に対応するエージェントを配置し、その位置で真偽を表現する。節ガジェットは各節に対応するエージェントを配置し、節内のリテラルが真である場合にのみ目的地へ到達できる衝突条件を設計する。ブロッキングガジェットは、特定の役割を持つエージェントを用いて変数の値を固定する。各ガジェット内の頂点間距離をエージェントの半径未満に設定することで、エージェントの存在が互いの移動を制限する仕組みを構築している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>3SATの充足可能性と、構築されたLA-MAPFの解の存在が同値であることを論理的に証明した。3SATの解が存在する場合、変数エージェントを真偽に対応する頂点へ移動させ、ブロッキングエージェントで領域を確保した後、節エージェントがリテラルに対応する頂点を通って目的地へ到達できる経路が存在することを示した。逆に、LA-MAPFの解が存在する場合、最終的な占有状況を逆方向に辿ることで、全ての節を充足する3SATの解を導出できることを示した。この還元において、グラフの頂点数やエージェント数は元の3SATの変数および節の数に対して多項式となる。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究は、一度に一つのエージェントのみが移動する設定を前提としている。複数のエージェントが互いの占有位置を順次入れ替える「閉じた鎖」のような、単一の移動の連続に分解できない同時移動を許容する設定については、本帰着は成立しないため、その複雑性は今後の課題である。また、LA-MAPFがNPに属するかどうか、すなわち多項式時間の長さの解が常に存在するかどうかの解明も必要である。今後は、平面グラフやグリッドグラフといった特定のグラフ構造への限定による問題の簡略化や、同時移動を許容する設定への拡張が研究の方向性として挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Multi-Agent Path Finding For Large Agents Is Intractable</h3><p>従来のMAPF（Multi-Agent Path Finding）は、エージェントのサイズを無視し、同一頂点の占有や同一エッジの同時使用のみを衝突として扱うが、実世界のロボティクス等の応用ではエージェントの大きさを考慮することが不可欠である。エージェントが大きくなると、あるエージェントがエッジを移動する際に、その身体の一部が同じエッジを使用していない別のエージェント（静止しているエージェントなど）と重なるという、新たな種類の衝突が発生する。本論文は、このような大きなエージェントを考慮したMAPFがNP困難であることを初めて証明した。この証明は、NP完全問題である3SAT問題から、特定のグラフ、開始頂点、および目標頂点を持つMAPFのインスタンスを構成する帰着手法に基づいている。具体的には、任意の3SATの論理式が充足可能であることと、対応するMAPFの経路計画問題に解が存在することが同値であることを示している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路探索（MAPF）は、グラフ上の各エージェントに対して、衝突を避けながら始点から終点へ移動する経路を求める問題である。従来のMAPFではエージェントを点として扱い、同じ時刻に同じ頂点やエッジを使用することを衝突と定義するが、実世界の制約を十分に反映できていない。これに対し、エージェントが物理的な体積を持ち、頂点での占有やエッジ移動時の空間の掃引を考慮するMAPF for Large Agents（LA-MAPF）という、より現実的な定式化が提案されている。LA-MAPFでは、エージェントの体積によって、従来のMAPFでは衝突が発生しない経路であっても衝突が生じる場合がある。本研究では、無向グラフにおけるMAPFの決定問題が多項式時間で解けることが知られている一方で、LA-MAPFの決定問題（解が存在するか否かの判定）はNP困難であることを証明した。</p></section>
+<section class="secsum"><h3>2 Related works</h3><p>本研究に関連する先行研究は、エージェントに形状やサイズを持たせる拡張手法と、計算複雑性の解析という2つの観点に大別される。点エージェントを対象とした従来のMAPFでは、Push and Rotateのような多項式時間で動作するアルゴリズムが存在するが、これを大型エージェント（LA-MAPF）へ適応させた手法は、多項式時間で動作するものの、解が存在する場合でも解を見つけられない不完全なものである。一方、Conflict-Based Search（CBS）をLA-MAPFへ適応させた研究では、制約の追加による枝刈りの強化や、問題をより少ないエージェント数を持つ小さな部分問題へ分解する手法が提案されているが、これらは依然として指数関数的な計算時間を要する。既存の複雑性解析に関する研究は、エッジの方向性やグラフの構造、決定問題か最適化問題かといった条件下でPやNPの判定結果を示しているが、いずれもエージェントに幾何学的な形状を持たないことを前提としている。したがって、LA-MAPFが従来のMAPFと同様に多項式時間で解けるのか、あるいは計算困難なのかという問いは未解決のままである。</p></section>
+<section class="secsum"><h3>3 Problem Statement</h3><p>本研究では、ユークリッド平面上に埋め込まれた無向グラフ上で、半径 r を持つ円盤としてモデル化されたエージェント群の経路計画問題を定義している。エージェントの配置は離散的な時刻におけるグラフの頂点の集合として表され、ある時刻から次の時刻への遷移は、一つのエージェントがエッジに沿って移動し、他のすべてのエージェントがその場に留まる場合にのみ許容される。衝突の定義として、二つのエージェントが同じ頂点を占有する頂点衝突と、移動中のエージェントの円盤が、特定の頂点に留まっているエージェントの円盤と重なるエッジ衝突の二種類を考慮する。エッジ衝突は、移動中のエージェントの中心点と、留まっているエージェントの頂点と次の頂点を結ぶ線分との距離が、エージェントの半径 r 未満になる場合に発生する。LA-MAPF問題の目的は、初期配置から目標配置まで、これらの衝突を一切回避しながら遷移の列を見つけることであり、遷移回数などのコスト最小化ではなく、解を見つけること自体を対象としている。</p></section>
+<section class="secsum"><h3>4 Reduction Of 3-SAT To LA-MAPF</h3><p>本セクションでは、巨大なエージェントのマルチエージェント経路探索（LA-MAPF）がNP困難であることを示すため、3-SAT問題をLA-MAPF問題へ帰着させる手法を述べている。この帰着では、グラフのサイズとエージェント数が元の3-SATの変数および節の数に対して多項式となるように構成され、エージェントの半径は節の数に設定される。構成は3つのガジェット（部分グラフ）から成り、変数ガジェットは各変数に対応するエージェント（v-agent）を配置し、その位置によって変数の真偽を表現する。節ガジェットは各節に対応するエージェント（c-agent）を配置し、節内のリテラルが真である場合にのみ、c-agentが目的地へ到達できるような衝突条件を設計している。ブロッキングガジェットは、b-agentを用いてv-agentの移動を制限し、変数の値を固定する役割を担う。各ガジェット内の特定の頂点間の距離をエージェントの半径未満に設定することで、エージェントが同時に存在すると衝突が発生するように設計されており、これにより3-SATの充足可能性とLA-MAPFの解の存在が等価になる。</p></section>
+<section class="secsum"><h3>5 Correctness of reduction</h3><p>本セクションでは、3-SAT問題と構築されたLA-MAPF問題の間の等価性を証明している。3-SATの解からLA-MAPFの解を構成する手法では、まず変数エージェントを真偽に対応する頂点へ移動させ、次にバッファエージェントを移動させて特定の領域を空けた後、節エージェントが各節を充足するリテラルに対応する頂点を通るように移動させる。その後、節エージェントを目的地へ移動させ、最後に最初に行った変数エージェントとバッファエージェントの移動を逆順に実行することで、全エージェントが衝突することなく目的地へ到達できることが示されている。逆に、LA-MAPFの解から3-SATの解を構成する手法では、全エージェントが目的地にいる最終状態から、特定の頂点が占有されるまでエージェントの動きを逆方向に辿る。このとき、特定の頂点の占有状況に基づいて変数の真偽を決定することで、全ての節が充足されるような3-SATの解が得られることが証明されている。</p></section>
+<section class="secsum"><h3>6 On The Intractability Of LA-MAPF Problem</h3><p>本セクションでは、エージェントのサイズが大きいマルチエージェント経路探索（LA-MAPF）問題がNP困難であることを証明している。具体的には、NP完全問題である3-SAT問題からLA-MAPF問題への多項式時間還元を用いることで、元の3-SAT式に解が存在する場合に限り、構築されたLA-MAPF問題も解が存在するように構成されている。この還元によって生成されるグラフの頂点数やエージェントの数は、元の3-SAT式のサイズに対して多項式的な大きさとなる。3-SATの解の存在とLA-MAPFの解の存在が同値であることが示されており、この還元を通じてLA-MAPF問題がNP困難であることが結論付けられている。</p></section>
+<section class="secsum"><h3>7 Discussion</h3><p>本研究では、エージェントをグラフ上のディスクとしてモデル化し、一度に一つのエージェントのみが移動する設定を前提としている。本論文で示したLA-MAPFの特定のバリアントがNP困難であることを示すことで、より一般的な定式化も同様にNP困難であると推論できる。また、複数のエージェントが同時に移動する同期的な設定についても、ある状態から次の状態への遷移が単一エージェントの移動の連続として分解可能である限り、本研究の帰着は有効である。しかし、複数のエージェントが互いの占有位置を順次入れ替える「閉じた鎖」のような移動は、単一の移動の連続に分解できないため、この帰着は成立しない。このような分解不可能な同時移動を許容する設定におけるLA-MAPFの計算複雑性を評価することが、今後の研究課題として挙げられる。</p></section>
+<section class="secsum"><h3>8 Conclusions And Future Work</h3><p>本研究では、エージェントのサイズを考慮するLA-MAPF問題の決定問題における計算複雑性を調査し、3-SAT問題からの帰着を用いることで、この問題がNP困難であることを示した。これにより、通常のMAPFとは異なり、LA-MAPFはP=NPでない限り多項式時間では解けないことが理論的に示された。問題が困難である主な要因は、MAPFグラフが埋め込まれている計量空間におけるエージェント間の近接性を考慮する必要がある点にある。今後の研究方向として、平面グラフやグリッドグラフのような特定のグラフ構造やレイアウトに限定することで、問題が簡略化される可能性がある。また、複数のエージェントが同時に移動できる設定への拡張や、LA-MAPFがNPに属するかどうか、すなわち任意のインスタンスに対して多項式時間の長さの解が存在するかどうかの解明も課題である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-21
+  </footer>
+</div>
+</body>
+</html>

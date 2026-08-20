@@ -3014,6 +3014,38 @@
       "url": "http://arxiv.org/abs/2608.17960v1",
       "venue": "the IEEE Conference on Generative AI for Secure Systems (GAISS) 2026"
     },
+    "arxiv:2608.18489": {
+      "added": "2026-08-21",
+      "added_at": "2026-08-21T06:06:35.321499",
+      "arxiv_id": "2608.18489",
+      "authors": [
+        "Hang Wang",
+        "Hang Dong",
+        "Lu Liu",
+        "Chuanru Ren"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-19",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.18489.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.18489v1",
+      "reading_value": 4,
+      "reading_value_reason": "KG-RAGの課題である知識の不完全性に対し、単なる性能低下の測定ではなく、欠損の構造的要因を分離して診断するフレームワークの提案は新規性が高く、実用的な評価指針を与える。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "MissDiag: Diagnostic Evaluation of Incomplete-Knowledge Robustness in KGQA and KG-RAG",
+      "tldr": "知識グラフを用いた質問応答（KGQA）や検索拡張生成（KG-RAG）において、知識の欠損が性能に与える影響を、欠損した証拠の構造的な種類ごとに分解して診断するフレームワークMissDiagを提案する。",
+      "url": "http://arxiv.org/abs/2608.18489v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -4061,6 +4093,35 @@
       "url": "http://arxiv.org/abs/2608.12675v1",
       "venue": ""
     },
+    "doi:10.5281/zenodo.21874580": {
+      "added": "2026-08-21",
+      "added_at": "2026-08-21T06:08:21.543969",
+      "arxiv_id": "2608.15919",
+      "authors": [
+        "Nicola Cogotti"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-16",
+      "doi": "10.5281/zenodo.21874580",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.15919.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.15919v1",
+      "reading_value": 4,
+      "reading_value_reason": "Graph-RAGの課題に対し、双方向探索、AIMDによる並列制御、ドメイン適応型量子化という多角的な解決策を提示しており、極めて具体的かつ実用的な新規性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Noesis: Bidirectional Graph-RAG with Adaptive Parallelism and Cross-Knowledge-Base Semantic Discovery",
+      "tldr": "既存のGraph-RAGにおける概念の断片化、スケーラビリティの欠如、および複数知識ベース間の孤立という課題に対し、双方向グラフ探索と適応的な並列・量子化制御を備えた分散型知識システムNoesisを提案する。これにより、長距離の依存関係の抽出、計算リソースに応じた動的なスループット最適化、およびドメインを跨いだ知識の自動発見を実現する。",
+      "url": "http://arxiv.org/abs/2608.15919v1",
+      "venue": ""
+    },
     "doi:10.5753/latinoware.2025.16269": {
       "added": "2026-07-02",
       "added_at": "2026-07-02T06:00:02.000000",
@@ -5009,6 +5070,36 @@
       "title": "Neural ATTF: A Scalable Solution to Lifelong Multi-Agent Path Planning",
       "tldr": "本論文は、Lifelong Multi-Agent Pickup and Delivery (MAPD) 問題に対し、タスク割り当てのPGTMと経路計画のNeural STA*を組み合わせた「Neural ATTF」を提案する。本手法は、学習済みヒューリスティックを用いることで、大規模なエージェント数においても高いスループットと極めて低い計算コストを両立し、既存の最先端アルゴリズム（LNS-PBS等）が計算量爆発を起こす環境下でもスケーラブルに動作する。",
       "url": "http://arxiv.org/abs/2504.15130v1",
+      "venue": ""
+    },
+    "arxiv:2505.10387": {
+      "added": "2026-08-21",
+      "added_at": "2026-08-21T06:03:09.147321",
+      "arxiv_id": "2505.10387",
+      "authors": [
+        "Artem Agafonov",
+        "Konstantin Yakovlev"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-05-15",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2505.10387.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2505.10387v1",
+      "reading_value": 4,
+      "reading_value_reason": "LA-MAPFのNP困難性を初めて証明した理論的に重要な研究。3SATからの還元手法も具体的で、実世界のロボティクスにおける計算限界を示す価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi-Agent Path Finding For Large Agents Is Intractable",
+      "tldr": "エージェントが物理的な大きさを持つ「Large Agents」を考慮したマルチエージェント経路探索（LA-MAPF）の決定問題が、NP困難であることを初めて証明した。",
+      "url": "http://arxiv.org/abs/2505.10387v1",
       "venue": ""
     },
     "arxiv:2505.22753": {
@@ -7705,6 +7796,37 @@
       "tldr": "自動倉庫における、相互に依存するタスクと実ロボットの複雑な動力学を考慮したLifelong Multi-Agent Path Finding (MAPF) 問題に対し、タスク割り当てと経路計画を交互に行う手法と、動的な障害物を回避しつつ経由地を巡回する軌道生成アルゴリズムを提案し、その有効性を実証する。",
       "url": "https://www.semanticscholar.org/paper/493ee4d4b6cc09219440ac7c4dae271b50a1499d",
       "venue": "European Conference on Artificial Intelligence"
+    },
+    "doi:10.48550/arxiv.2505.07779": {
+      "added": "2026-08-21",
+      "added_at": "2026-08-21T06:04:02.805057",
+      "arxiv_id": "2505.07779",
+      "authors": [
+        "Jiarui Li",
+        "Alessandro Zanardi",
+        "Gioele Zardini"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 2,
+      "date": "2025-05-12",
+      "doi": "10.48550/arXiv.2505.07779",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2505.07779.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2505.07779v1",
+      "reading_value": 4,
+      "reading_value_reason": "大規模MAPFにおけるオンライン実行の遅延解消という実用的な課題に対し、階層的分解と並列化を用いた具体的な手法を提案しており、実験結果も極めて有望である。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi-Agent Path Finding via Finite-Horizon Hierarchical Factorization",
+      "tldr": "大規模なマルチエージェント経路計画（MAPF）において、有限の時間範囲を用いた階層的な分解と後退ホライゾン方式を組み合わせることで、解の品質を維持しながら実行開始までの遅延を大幅に削減するオンラインアルゴリズムを提案する。",
+      "url": "http://arxiv.org/abs/2505.07779v1",
+      "venue": ""
     },
     "doi:10.48550/arxiv.2507.16874": {
       "added": "2026-08-20",

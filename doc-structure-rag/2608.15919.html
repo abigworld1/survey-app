@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Noesis: Bidirectional Graph-RAG with Adaptive Parallelism and Cross-Knowledge-Base Semantic Discovery | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Noesis: Bidirectional Graph-RAG with Adaptive Parallelism and Cross-Knowledge-Base Semantic Discovery</h1>
+  <div class="meta">Nicola Cogotti<br>採択先: 未取得 ・ 2026-08-16 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.15919v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.15919v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.5281/zenodo.21874580" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-16</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">Graph-RAGの課題に対し、双方向探索、AIMDによる並列制御、ドメイン適応型量子化という多角的な解決策を提示しており、極めて具体的かつ実用的な新規性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 既存のGraph-RAGにおける概念の断片化、スケーラビリティの欠如、および複数知識ベース間の孤立という課題に対し、双方向グラフ探索と適応的な並列・量子化制御を備えた分散型知識システムNoesisを提案する。これにより、長距離の依存関係の抽出、計算リソースに応じた動的なスループット最適化、およびドメインを跨いだ知識の自動発見を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のGraph-RAGシステムは、文書を固定サイズのチャンクに分割して個別に処理するため、チャンクを跨ぐ概念の連続性が失われ、グラフの密度が低下するという問題がある。また、取り込みパイプラインが計算リソースに応じて動的にスケーリングできず、メモリ不足（OOM）やリソースの未活用を招く。さらに、複数の専門知識ベース（KB）を運用する場合、それらを統合すると検索精度が低下し、分離するとドメイン間の暗黙的な接続を探索できないという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>抽出プロセス中に既存のグラフ構造をコンテキストとして伝播させ、後方からの再接続を行う双方向探索を導入することで、従来の単方向抽出では不可能な長距離の依存関係の解消を実現した。また、既存の並列化手法が低レイヤーの制御に依存するのに対し、文書単位の粒度でバックエンドの負荷やエラー状態に適応するAIMD制御を提案している。さらに、ドメイン特有の活性化パターンに基づく選択的量子化と、統計的な自然分割法を用いた知識ベース間の構造的発見を組み合わせた点に新規性がある。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>システムは、双方向探索を行うNeuron、並列度を制御するSynapsis、MoEモデルを最適化するMoēsis、およびルーティングを行うMeshの4つのアルゴリズムで構成される。双方向探索では、直近の概念を重視しつつ距離に応じて減衰する前方パスと、接続数の少ないノードを後方の関連ノードへ再接続する後方パスを組み合わせる。並列処理では、TCPの輻輳制御の原理を応用し、成功回数に応じて並列数を段階的に増やし、失敗時には大幅に削減するAIMD制御を用いる。Moēsisは、ドメインサンプルを用いたプロファイリングにより、頻繁に使用されるエキスパートには高精度な量子化を、それ以外には低ビット量子化を適用し、さらにドメイン変更時には元のフル精度モデルから再量子化を行う。Meshは、コミュニティの重みや埋め込みの平均値からなるフィンガープリントを用いて適切な知識ベースを選択し、統計的な傾きの変化点（Natural Break）を利用して知識ベース間の潜在的な接続を特定する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>13.4MBのコーパス取り込みにおいて、逐次処理の25分に対し、約1分6秒という23倍の高速化を達成した。HotpotQAベンチマーク（1,000問）では、グラフ構築に35Bのオンプレミスモデルを使用した場合、GraphRAGと比較してEM（Exact Match）で27.8ポイント高い59.5、F1スコアで74.7を記録した。193ページの文書を用いた検証では、抽出された長距離の因果関係において90%の精度を達成した。また、Meshによるルーティング遅延は2ms未満であり、2.3Bパラメータの小規模モデルでも、Meshを用いることでクロスドメインの多段推論が可能であることを示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>AIMDによる並列化やMoēsisによる処理速度の向上率は、使用するハードウェアやコーパスの特性に依存するため、環境によって絶対値が変動する。また、Meshによるクロスドメイン推論の有効性は、特定のクエリタイプや知識ベースの構成に依存する可能性がある。今後の課題として、より広範なベンチマークや多様なドメイン、異なる構成を持つ知識ベースにおける性能特性の解明が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Noēsis: Bidirectional Graph-RAG with Adaptive Parallelism and Cross-Knowledge-Base Semantic Discovery Thanks: Patent pen</h3><p>Noēsisは、静的なチャンク分割による文脈の断絶、スケーラビリティの欠如、および複数ドメイン展開時の検索精度の低下という課題を解決する、分離型のGraph-RAGアーキテクチャである。本手法は、人間の逐次的な読解と記憶の減衰を模倣して双方向にグラフを探索し、より密なグラフを生成するGraph-Feedback Context Resolver、TCPの輻輳制御から着想を得てメモリ不足を防ぎつつ処理速度を最適化するAIMD Concurrency Controller、12GBのコンシューマ向けGPU上で混合専門家モデルのプロンプト処理を高速化するMoēsis、そして複数の知識ベース間で明示的な接続がない領域を動的に発見するMeshというルーティングシステムの4つのアルゴリズムで構成される。評価実験では、13.4MBのコーパスの取り込み時間を従来の逐次処理の25分から1分6秒へと短縮し、Meshによる知識ベース間のルーティング遅延を2ms未満に抑えた。HotpotQAベンチマークにおいて、GPT-4oではなく35Bのオンプレミスモデルを用いてグラフを構築した際、GraphRAGと比較してEM（Exact Match）で27.8ポイント高い59.5を記録した。また、193ページの文書を用いた検証では、抽出された長距離の因果関係において90%の精度を達成しており、双方向探索が従来のチャンク独立的な抽出では困難なセクション間の関係性を捉えられることを示している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>既存のGraph-RAGシステムには、固定サイズのチャンク分割によって概念が断片化する問題、計算リソースに応じた並列度の調整が困難な硬直的なパイプライン、および複数の知識ベース間の暗黙的な接続を探索できないドメイン間の孤立という3つの課題があります。本論文が提案するNoesisは、これらを解決するための分散型知識システムです。まず、n-gramスコアリングと直近性の減衰を用いた前方パスのコンテキスト解決と、次数に基づく後方パスの再接続を組み合わせた双方向グラフ探索アルゴリズムを導入しています。次に、TCPの輻輳制御の原理を応用したAIMD並列度制御コントローラーにより、Redisを用いた永続的な状態管理を通じて、実行時の動的な並列度調整とクラッシュからの復旧を実現します。さらに、Moēsisによるドメインに応じたMixture-of-Expertsモデルの自動プロファイリングと選択的量子化、およびMeshによる階層的なフィンガープリントを用いた知識ベース間のルーティングと構造的発見により、複数の専門知識ベースを跨いだ検索を可能にします。</p></section>
+<section class="secsum"><h3>2 System Architecture</h3><p>Noesisは、HTTP RESTとRedisメッセージキューを介して通信する5つの独立したコンポーネントからなる疎結合なアーキテクチャを採用しています。LLM推論エンジンであるCortexは専用GPU上で動作し、知識グラフ抽出ライブラリのNeuronは双方向探索やエンティティの重複排除、クロスリンキングを実行します。オーケストレーション層のSynapsisは分散ジョブキューとAIMDコントローラを備え、音声・動画の取り込みを行うRetina、およびミリ秒単位の低遅延で動作するクロス知識ベース・セマンティックルーターのMeshによって構成されます。この設計により、推論バックエンドを外部API等へ容易に差し替え可能であり、消費者向けGPUからマルチGPUサーバーまで手動設定なしで自動スケーリングできます。また、NeuronはPDFやWebページ、音声・動画の文字起こし、ソースコードなど、あらゆるテキストコーパスを対象とするため、パイプラインを変更せずに多様な入力源からドメイン固有の知識グラフを構築できます。</p></section>
+<section class="secsum"><h3>3 Bidirectional Graph Traversal</h3><p>Noesisは、長大な文書の処理において概念の断絶を防ぐため、双方向のグラフ探索手法を提案している。順方向パスでは、人間の作業記憶を模倣して、直近の概念を重視しつつ文書の距離に応じて減衰するGraph-Feedback Context Resolverを用いて、スライス間の意味的な連続性を維持しながらグラフを構築する。後方パスでは、文書が十分に長い場合にのみ作動し、接続数が少ない初期のノードを、意味的に関連する後方のノードへと再接続することで、順方向パスでは捉えきれなかった長距離の依存関係を補完する。エンティティの重複排除には、シャノンエントロピーによる情報量の判定やLeidenコミュニティによるスコア向上、LLMによる判定を含む4段階のパイプラインを用いる。ノード間の結合については、グラフが小さい場合はコサイン類似度を用いるPistol、グラフが大きい場合はLLMを用いて非自明な因果関係を探索するCannonという戦略を使い分ける。193ページの心理学書籍を用いた実験では、後方パスによって、序盤の概念と数百ページ後の治療結果を結ぶ928個の文書内因果エッジが生成された。GPT-4oを用いた精度検証では、外部知識なしの評価で72%であったものが、原文の検証を行うことで90%に向上しており、この差は提案手法が抽出する関係性が極めてドメイン特化型であることを示している。</p></section>
+<section class="secsum"><h3>4 AIMD Adaptive Parallel Processing</h3><p>Noesisは、双方向探索に必要なコンテキストを構築するためにドキュメント内のスライスを順次処理する制約を守りつつ、複数のドキュメントを同時に処理するハイブリッド並列性を実現している。推論バックエンドの容量やエラー特性が未知である状況に対応するため、TCPの輻輳制御に由来するAIMD（加法的増加・乗法的減少）の原理を分散RAGパイプラインの制御に適用している。具体的には、連続した成功回数に基づいて並列処理するドキュメント数を段階的に増やし、連続した失敗が発生した場合には並列数を大幅に削減することで、バックエンドの負荷に適応する。この制御機構はRedisを用いた共有ストアにより、ワーカーのクラッシュや再起動後も状態を保持できるため、ウォームアップ期間なしで継続的な動作が可能である。実験では、計13.4MBのPDFドキュメント3件の処理において、逐次処理では25分を要したのに対し、適応的並列処理を用いることで1分6秒まで短縮され、約23倍の高速化を達成した。また、すべてのテスト構成においてメモリ不足によるエラーは発生せず、バックエンドの種類に依存しない動作が確認されている。</p></section>
+<section class="secsum"><h3>5 Moēsis: Domain-Aware Selective Quantization</h3><p>Moēsisは、Mixture-of-Experts (MoE) モデルにおいて、ドメイン特有の知識に基づいた適応的な量子化を行う手法である。まず、ユーザーが提供するドメイン代表サンプルを用いてCPUのみで推論を行い、各層および各エキスパートの活性化頻度を記録するプロファイリングを実施することで、頻繁に使用される「ホット」なエキスパートと、それ以外の「コールド」なエキスパートを特定する。次に、エキスパートの活性化の集中度と頻度に基づくスコアリング関数を用いて層を分類し、ホットな層には高精度な6ビット量子化を、コールドな層には2ビットの積極的な量子化を適用することで、モデルサイズを21GBから16GBへと約24%削減する。この削減により、量子化後の層をCPUからGPUへ順次転送してVRAMを埋めていく「promote-only」戦略が可能となり、メモリ制約下での推論遅延の主因となるCPUとGPU間の繰り返されるデータ転送を排除している。さらに、ドメインの変化に応じて、保存しておいた元のフル精度モデルから再量子化を行うランタイム再適応機能を備えており、適応を繰り返すことによる累積的な精度低下を防いでいる。実験では、6GBのVRAMという極めて厳しい制約下においても、システムをクラッシュさせることなく安定して動作させることが可能であり、VRAM容量が増えるほどより多くの層をGPUへ配置できるため処理速度が向上することが示されている。</p></section>
+<section class="secsum"><h3>6 Mesh: Cross-KB Routing and Discovery</h3><p>Meshは、複数の専門知識ベース（KB）を統合的に扱うための、階層的なフィンガープリントを用いたルーティングと、実行時の構造的発見を組み合わせた手法である。ルーティングでは、各KBが持つコミュニティの集合、重み、およびコミュニティに属するノードの埋め込みの平均値からなるセマンティック・フィンガープリントを用い、クエリの埋め込みとのコサイン類似度、コミュニティレベルのセマンティックな重なり、および語彙の一致という3段階の戦略で適切なKBを選択し、スレッドプールを用いて並列にクエリを実行する。検索後には、取得したチャンク間の類似度に基づくチャンクレベルの発見と、ノードの次数やコミュニティ所属などのグラフ上の役割を考慮したノードレベルの構造的発見により、異なるKB間に存在する潜在的な接続を特定する。接続を判定する閾値には、類似度の降順における傾きの変化点を統計的に算出するNatural Break法を採用しており、ドメイン間の親和性に応じて閾値を動的に調整することで、ノイズの抑制と真の接続の発見を両立させている。実験では、2.3BパラメータのGemma 4 E2Bモデルを用い、健康、行動科学、対人関係の3つの異なるKBを跨ぐ複雑なクエリに対して、単一のKBやMeshなしの状態では不可能な、ホルモンと対人関係を結びつけるような高度なクロスドメイン推論を実現した。また、ルーティングと発見の処理をAPIプロセス内で実行するShared Kernelアーキテクチャにより、ルーティングの遅延を2msに抑えつつ、リアルタイムなクロスKB推論を可能にしている。</p></section>
+<section class="secsum"><h3>7 Evaluation</h3><p>HotpotQAの検証セットを用いたマルチホップ推論の評価において、Noesisはグラフ構築に35Bパラメータのオンプレミスモデルを使用し、回答生成にGPT-4oを用いる構成で、Exact Match（EM）59.50、F1スコア74.74を記録しました。これは、グラフ構築にGPT-4oを用いるGraphRAGや、密ベクトル検索（BGE）を上回る結果であり、Noesisがチャンク単位の検索を用いるという検索予算上の不利な条件下でも高い性能を示しています。アブレーション研究では、回答生成モデルを2.3Bパラメータの軽量モデルに置き換えた場合でも、より大規模なモデルを用いた密ベクトル検索と同等の性能を維持しており、QA性能の約80%が検索アーキテクチャに起因することが示唆されました。また、検索予算を2倍に増やしてもEMスコアの向上は限定的であったことから、グラフ誘導型の検索が低予算で適切な証拠を捉えられていることが確認されました。さらに、Pythonソースコードを用いた評価では、複数のファイルから構築された知識グラフを用いて複雑な実行フローを正確に特定することに成功しており、ドメインに依存しないアーキテクチャの汎用性が実証されました。</p></section>
+<section class="secsum"><h3>8 Related Work</h3><p>Graph-RAGの分野では、コミュニティベースの要約やインデックスコストの削減、事前要約の省略などの試みがあるものの、文書間の連続性や密なグラフ構造の構築には課題が残ります。提案手法は、抽出プロセス中に既存のグラフ構造をコンテキストとして伝播させ、さらに後方からの再接続パスを行う双方向探索により、長距離の依存関係を解消します。LLMの並列制御において、既存手法がGPUキャッシュやエージェント単位で動作するのに対し、提案手法は抽出手法の制約に基づき文書単位の粒度で制御を行い、容量が不明なバックエンドや分散ワーカー環境でも耐障害性を維持しながら動作します。MoEの最適化に関しては、既存研究が混合精度割り当てやキャッシュ最適化に焦点を当てる中で、提案手法はドメイン特有の活性化パターンに基づく量子化決定、CPUとGPU間の転送を最小化する配置戦略、および適応サイクルにおける精度損失を防ぐためのフル精度重みの保持を統合的に実現しています。また、マルチナレッジベースのルーティング研究がクエリの転送先決定に主眼を置くのに対し、提案手法は適応的な自然分割閾値を用いて異なるナレッジグラフ間のノードやチャンクを比較することで、単一のインデックスには存在しない構造的な接続を動的に発見します。</p></section>
+<section class="secsum"><h3>9 Limitations and Future Work</h3><p>AIMD並列化やMoēsisによるプロンプト処理で得られた速度向上率は、使用するハードウェアやコーパスに依存するため、異なる環境下では絶対値が変動する可能性があるが、定性的な傾向は維持されると考えられる。評価実験は、マルチホップ質問応答ベンチマークであるHotpotQA、異なる言語や形式の長文ドキュメント2種、ソフトウェアのコードベース、および3つの異なるドメインの知識ベースを用いて行われた。Meshによる知識ベース間ルーティングの評価は、3つのドメイン特化型知識ベースにわたる代表的なクエリを通じてそのメカニズムを実証している。今後の課題として、より広範なベンチマークやドメインでの評価を通じてシステムの境界を特定すること、および、より多様なクエリタイプや知識ベースの構成における性能特性を明らかにすることが挙げられる。</p></section>
+<section class="secsum"><h3>10 Conclusion</h3><p>Noesisは、既存のGraph-RAGの限界を克服するために4つのアルゴリズム的革新を導入したシステムである。Graph-Feedbackを用いた双方向探索により、従来のチャンク分割手法よりも高密度な知識グラフを構築でき、193ページの文書から抽出された長距離の因果関係エッジにおいて90%のソース検証済み精度を達成している。AIMD並列性制御器は、双方向探索に不可欠な文書内での逐次性を維持しつつ、実行時に文書レベルの並列度を適応的に調整することで、手動設定なしに多様なハードウェアで安全なスループットを実現する。また、ドメインを考慮した選択的量子化により、MoEモデルをコンシューマ向けGPUでも動作可能にし、Mesh技術によって知識ベースを統合することなくドメインを跨いだ自動的な推論とマルチホップな知識発見を可能にしている。60以上の文書や170MBを超える多様な形式のデータセットを用いた検証では、HotpotQAにおいて、グラフ構築に35Bのオンプレミスモデルを使用しながらも、従来のGraphRAGをEMで27.8ポイント上回るマルチホップ検索品質を示した。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-21
+  </footer>
+</div>
+</body>
+</html>

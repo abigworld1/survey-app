@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MissDiag: Diagnostic Evaluation of Incomplete-Knowledge Robustness in KGQA and KG-RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>MissDiag: Diagnostic Evaluation of Incomplete-Knowledge Robustness in KGQA and KG-RAG</h1>
+  <div class="meta">Hang Wang, Hang Dong, Lu Liu, Chuanru Ren<br>採択先: 未取得 ・ 2026-08-19 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.18489v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.18489v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-19</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">KG-RAGの課題である知識の不完全性に対し、単なる性能低下の測定ではなく、欠損の構造的要因を分離して診断するフレームワークの提案は新規性が高く、実用的な評価指針を与える。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 知識グラフを用いた質問応答（KGQA）や検索拡張生成（KG-RAG）において、知識の欠損が性能に与える影響を、欠損した証拠の構造的な種類ごとに分解して診断するフレームワークMissDiagを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>KGQAおよびKG-RAGのタスクでは、知識グラフの不完全性が避けられない課題である。従来の評価手法は、証拠となるグラフから情報を削除した際の回答品質の全体的な変化（集計スコアの低下）のみを測定する。そのため、性能低下の原因が「欠損した証拠の種類」「システムの応答」「評価指標の感度」のいずれに起因するのかを特定できないという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存研究の多くは欠損に対して回答品質を維持する手法に焦点を当てているが、本研究は既存システムを診断対象とし、制御された証拠の操作を通じて欠損の構造的な形態ごとに回答品質への影響を比較する点に新規性がある。単一の集計スコアでは隠蔽されてしまう、欠損の種類、システムの応答、深刻度、および評価指標の感度という複数の要因を分離して分析することを可能にした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MissDiagは、質問、正解、および評価対象システムを固定した状態で、サポートグラフに対して以下の4種類の構造的な欠損操作を行う。<br>1. ランダム削除：全ての辺を対象に、一様にランダムな順序で削除する。<br>2. ソースコンテキスト削除：質問に関連するソースエンティティに隣接するが、正解エンティティには隣接しない辺を優先的に削除する。<br>3. リレーションレベル削除：辺を関係型の種類ごとにグループ化し、出現頻度の高いものからブロック単位で削除する。<br>4. 回答隣接削除：正解エンティティに隣接する、または1ホップ以内の辺を優先的に削除する。<br>各操作において、削除する辺の総数によって深刻度を制御する。完全なグラフでの予測結果と、欠損条件下での予測結果を比較することで、特定の深刻度と評価指標における「ペア劣化プロファイル」を出力する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>KGQAGen-10kデータセットを用い、学習済みKGQAモデル、グラフプロンプティング、KGエージェント、および直接的なLLMベースラインの4つのシステムを対象に評価を行った。評価指標には、完全な状態でのF1スコアと、エッジ削除による性能変化を示すペアリングされたF1スコアを用いた。実験の結果、すべてのシステムにおいて回答に隣接するエッジの欠落が最も深刻な性能低下（10.3から21.3ポイントの低下）を招くことが示された。一方で、ソースコンテキストの欠落は、一部の学習済みKGQAモデルにおいて性能を向上させる（負のF1スコアを示す）ことが確認された。また、回答に隣接するエッジの欠落による影響は、正解が複数ある場合やサポートグラフが小さい場合に最も顕著になることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>不完全な知識に対する堅牢性は、単一の集計スコアではなく、欠損の型に応じた劣化プロファイルとして捉えるべきである。ソースコンテキストの削除が性能を向上させる場合があることは、ソース側の証拠がノイズとなり、証拠選択の負荷を高めている可能性を示唆している。本研究は、完全な知識条件下で高いスコアを持つモデルであっても、特定の欠損パターンに対して脆弱である可能性を浮き彫りにしており、今後はこれらの特性を考慮したモデル開発が課題となる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>MissDiag: Diagnostic Evaluation of Incomplete-Knowledge Robustness in KGQA and KG-RAG</h3><p>KGQAおよびKG-RAGにおける知識の欠損に対する頑健性を評価するため、MissDiagという診断的評価フレームワークを提案する。従来の評価手法は、証拠となるグラフから情報を削除した際の回答品質の全体的な変化のみを測定するため、性能低下の原因が欠損した証拠の種類、システムの応答、あるいは評価プロトコルのいずれに起因するのかを特定できないという課題があった。MissDiagは、質問と正解を固定したまま、ベンチマークのサポートグラフに対して構造的な型に基づいた欠損介入を行うことで、性能の変化を証拠の型、システムの応答、評価プロトコルの各要素に分解して比較することを可能にする。実験の結果、不完全な知識に対する頑健性は一様な特性ではなく、型に応じた劣化現象であることが示された。具体的には、回答に隣接する証拠の消失が最も大きな性能低下を招く一方で、ソースコンテキストの削除は中立的、あるいは性能向上に寄与する場合があること、さらに意味的な回答一致判定を用いても、主要な劣化パターンは維持されることが明らかになった。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>KGQAやKG-RAGにおいて、知識グラフの不完全性は避けて通れない課題ですが、既存の評価手法は証拠の削除による性能低下の総量のみを報告するため、低下の根本原因が証拠の欠如にあるのか、システムの推論失敗や評価指標の特性によるものなのかを区別できないという問題があります。本研究では、この問題を解決するために、不完全な知識に対する頑健性を診断的に評価するフレームワークであるMissDiagを提案します。MissDiagは、質問と正解を固定したまま、局所的なサポートグラフに対して、ランダムな損失、ソースコンテキストの損失、リレーションレベルの削除、および回答に隣接する証拠の削除といった、構造的に異なる欠損条件を適用します。この手法により、欠損のタイプ、システムの応答、および評価指標の感度という、従来は混同されていた3つの要因を分離して分析することが可能になります。評価は、完全なグラフと各欠損条件下のグラフで同一のシステムを比較するペア評価形式で行われ、欠損のタイプ、深刻度、システム、評価指標ごとに整理された劣化プロファイルとして結果が示されます。これにより、単なるスコアの低下ではなく、どの種類の証拠が失われた際にシステムがどのように反応するかという詳細な頑健性のパターンを明らかにできます。</p></section>
+<section class="secsum"><h3>Related Work</h3><p>KGQAおよびグラフに基づくQAの研究は、質問を論理形式に変換する手法から、局所的な証拠サブグラフを用いた推論、さらには大規模言語モデルが検索された知識を利用する手法へと発展しており、LC-QuAD 2.0やGrailQAなどのベンチマークによって構成性や汎用性の評価が行われてきました。知識の欠損に対処する既存研究では、部分的なグラフ構造での推論やグラフ補完、補助的なテキスト情報の活用などが提案されていますが、これらは主に欠損時にいかに回答品質を維持するかという手法に焦点を当てています。これに対し、MissDiagは既存システムを診断対象とし、制御された証拠の操作を通じて、欠損の構造的な形態ごとに回答品質への影響を比較します。また、従来の評価指標がデータの不備や異なる失敗メカニズムを隠蔽してしまう可能性を指摘した先行研究を踏まえ、MissDiagは欠損の種類、システムの応答、深刻度、および指標の感度へと評価を分解することで、単一の集計スコアでは捉えきれない堅牢性の解釈を可能にしています。</p></section>
+<section class="secsum"><h3>Method</h3><p>MissDiagは、知識グラフを用いた質問応答（KGQA）および知識グラフを用いた検索拡張生成（KG-RAG）において、不完全な知識に対する堅牢性を診断するための評価フレームワークである。本手法は、質問、正解、および評価対象システムを固定した状態で、支持グラフから特定のルールに基づき辺を削除し、全ての辺が存在する完全な状態の予測結果と比較することで性能の変化を測定する。欠落操作には、全ての辺を対象とするランダムな削除、ソースエンティティに隣接する辺を優先するソースコンテキスト削除、関係型の頻度に基づいてブロック単位で削除するリレーションレベル削除、および正解エンティティの近傍を優先する回答隣接削除の4種類があり、これらは共通の削除予算内で異なる構造的な証拠の喪失をシミュレートする。欠落の深刻度は、削除する辺の総数に基づく予算制約によって制御される。最終的な出力は、特定の深刻度と評価指標において、欠落のタイプごとにシステムがどのように性能を変化させるかをまとめたペア劣化プロファイルであり、これによりシステムがどの種類の知識欠落に対して脆弱であるかを特定できる。</p></section>
+<section class="secsum"><h3>Experiments</h3><p>本研究では、知識グラフ質問応答（KGQA）および知識グラフを用いた検索拡張生成（KG-RAG）における不完全な知識への堅牢性を、欠落のタイプに応じた劣化プロファイルとして評価する。実験では、KGQAGen-10kデータセットを用い、学習済みKGQAモデル、グラフプロンプティング、KGエージェント、および直接的なLLMベースラインの4つのシステム群を対象に、ランダム、ソースコンテキスト、リレーションレベル、および回答隣接という4種類の欠落条件で比較を行った。評価指標には、完全なサポート状態でのF1スコアと、エッジ削除による性能変化を示すペアリングされたF1スコアを用い、正の値は性能低下、負の値は性能向上を表す。実験の結果、すべてのシステムにおいて回答に隣接するエッジの欠落が最も深刻な性能低下を招くことが示された。一方で、ソースコンテキストの欠落は、一部の学習済みKGQAモデルにおいて性能を向上させる（負のF1スコアを示す）ことが明らかになった。また、欠落の深刻度が増しても劣化のパターン自体は変化せず、回答が複数ある場合やサポートグラフのサイズが小さい場合に、回答隣接による劣化が最も顕著になるという構造的な特性が特定された。</p></section>
+<section class="secsum"><h3>Discussion</h3><p>実験結果は、不完全な知識に対する堅牢性を単一の集計スコアで評価するのではなく、欠落のタイプに応じた劣化プロファイルとして捉えるべきであることを示しています。最も支配的な影響は回答に隣接する証拠の消失によって生じますが、ソースコンテキストの削除は影響が小さいか、あるいは性能が向上する場合さえあります。これは、ソース側の証拠が混乱を招いたり証拠選択の負荷を増大させたりする可能性があるためです。対照的に、回答に隣接する証拠の削除は一貫して最大の性能低下を招いており、システムが回答エンティティに近い証拠に強く依存していることが明らかになりました。単一の平均スコアでは、これら性質の異なる失敗メカニズムが混同されてしまいます。MissDiagは、完全な知識条件下でのF1スコアが高いモデルであっても、特定の欠落パターンに対しては脆弱である可能性を浮き彫りにし、システムの平均的な精度だけでなく、証拠の欠落に対する応答特性を詳細に明らかにする役割を果たします。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本研究は、知識グラフを用いた質問応答（KGQA）および知識グラフを用いた検索拡張生成（KG-RAG）における、不完全な知識に対する堅牢性を診断問題として捉え、評価手法であるMissDiagを提案している。従来の評価では、知識の欠落によるスコアの低下が、証拠の不足、システムの応答、あるいは評価プロトコルのいずれに起因するのかが不明確であったが、MissDiagは質問、正解、ソースとなるエンティティ、およびノードの目録を固定した上で、サポートエッジに対して欠落の深刻度と型を制御した操作を適用することで、この曖昧さを解消している。実験の結果、学習済みKGQAモデル、グラフプロンプティング、KGエージェント、およびLLMベースラインのいずれにおいても、正解に隣接する証拠が失われることが最も一貫した性能低下を招く一方で、ソースとなる文脈の削除は性能に中立的、あるいは向上させる場合があることが示された。深刻度、評価指標、およびグラフ構造の解析を通じて、これらの型に応じた劣化パターンがどのように維持または増幅されるかも明らかにしている。結論として、不完全な知識に対する堅牢性は、単一の集約されたスコア低下として報告するのではなく、欠落の型に応じた劣化プロファイルとして報告すべきであるという手法論的な示唆を与えている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-21
+  </footer>
+</div>
+</body>
+</html>

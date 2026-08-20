@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-Agent Path Finding via Finite-Horizon Hierarchical Factorization | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi-Agent Path Finding via Finite-Horizon Hierarchical Factorization</h1>
+  <div class="meta">Jiarui Li, Alessandro Zanardi, Gioele Zardini<br>採択先: 未取得 ・ 2025-05-12 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2505.07779v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2505.07779v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arXiv.2505.07779" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-05-12</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 2</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">大規模MAPFにおけるオンライン実行の遅延解消という実用的な課題に対し、階層的分解と並列化を用いた具体的な手法を提案しており、実験結果も極めて有望である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 大規模なマルチエージェント経路計画（MAPF）において、有限の時間範囲を用いた階層的な分解と後退ホライゾン方式を組み合わせることで、解の品質を維持しながら実行開始までの遅延を大幅に削減するオンラインアルゴリズムを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>自動倉庫のような大規模かつ動的な環境における、多数のロボットの衝突回避経路計画を対象とする。エージェント数の増加に伴い探索空間が指数関数的に増大するため、計算量が爆発的に増加する点が課題である。従来のオフラインアルゴリズムは、全エージェントの計画が完全に完了するまでロボットの移動を開始できず、大規模環境では実行開始までの待ち時間が長くなる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>全エージェントの計画完了を待たずに、計算された最初のステップを即座に実行できるオンラインフレームワークを提案する。有限の時間範囲内における衝突と到達可能性に基づき、ロボットを動的にグループ化して階層的に問題を分解する手法を導入した。これにより、個別の計画とグループ単位の再計画の両方を並列化し、既存のオフライン手法と比較して応答時間を短縮しつつ、高い解の品質を実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>各反復において、まず全ロボットが逆方向の幅優先探索を用いた貪欲なプランナーにより、個別の経路を並列に計算する。次に、空間ハッシュを用いて将来のタイムステップにおける衝突を検出し、衝突のないロボットを確定させる。確定したロボットを動的障害物として扱うことで、残りのロボットを分離する第一段階の分解を行う。続いて、衝突が発生しているロボットを、限定された時間範囲内での到達可能性に基づいて再帰的にグループ化し、適応させたPIBTアルゴリズムを用いてグループ単位で並列に再計画を行う。再計画が失敗した場合は、混雑解消モジュールがグループの範囲を拡大して柔軟性を確保する。最後に、得られた軌道を統合し、最初の1ステップのみを実行する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>倉庫マップとランダムマップのベンチマークを用い、LaCAM*を比較対象として評価した。評価指標には、実行開始までの待ち時間（TNBE）と、衝突を無視した場合の下限値に対する総移動時間（SOC）の比率を用いた。900台のロボットを用いた実験では、TNBEを最大で60%削減した。各計画ステップは30ミリ秒未満で完了する。倉庫マップでは計画ホライゾンを長くするほど解の品質が向上するが、ランダムマップではロボット数に応じて最適なホライゾンが変化する結果となった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>ランダムマップにおいては、計画ホライゾンを長く設定しすぎると、衝突のないエージェントの割合が減少し、グループ単位の再計画が頻発することで解の品質が低下するというトレードオフが存在する。今後の課題として、より一般的なタスク割り当て設定への拡張、生涯継続的な経路計画への適用、ネットワークとの共同設計、学習を用いた改善、および理論的な保証の強化が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Multi-Agent Path Finding via Finite-Horizon Hierarchical Factorization</h3><p>本研究は、自動倉庫のような動的な環境における大規模なマルチエージェント経路計画（MAPF）を高速かつスケーラブルに実現する、有限ホライゾン階層分解を用いた新しいアルゴリズムを提案している。この手法は、後退ホライゾン方式で一歩ずつ計画を進めるフレームワークであり、まず各ロボットが個別の計画を並列に計算した後、時空間的な衝突や到達可能性に基づいて動的にグループ化を行う。このフレームワークは、衝突解決、即時実行、および並行計画を考慮することで、オフラインアルゴリズムと比較して応答時間を短縮している。ベンチマークマップを用いた実験の結果、提案手法は高品質な解を維持しつつ、最初の行動を開始するまでの時間を最大で60%削減しており、様々な問題規模や計画ホライゾンにおいて最先端のオフライン手法を上回る性能を示している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>大規模な自動倉庫におけるマルチエージェント経路探索（MAPF）は、エージェント数の増加に伴い探索空間が指数関数的に増大するため、計算の複雑さが課題となります。既存手法の多くは、全エージェントの計画が完了するまで実行を開始できないオフライン方式であり、計算待ちによる遅延や、大規模環境におけるスケーラビリティの欠如、並列化の活用不足といった問題があります。本研究では、有限ホライゾン階層分解と高度な並列化を組み合わせた、新しいオンラインアルゴリズムを提案します。この手法は、個々のエージェントに対して一様な貪欲最適プランナーを用い、有限の時間範囲内における衝突や到達可能性に基づいてロボットを動的にグループ化することで、問題の構造を利用して計算量を削減します。衝突解決にはPIBTに基づくルーチンを使用し、各ステップを計算後すぐに実行できるため、オフライン手法と比較して実行開始までの遅延を短縮できます。実験の結果、多様なシナリオにおいて、迅速な実行開始と競争力のある解の品質が示されています。</p></section>
+<section class="secsum"><h3>II Finite-Horizon Hierarchical Factorization</h3><p>提案手法は、並列化可能な複数の段階からなる階層的な分解アルゴリズムである。各反復において、まず全ロボットが逆方向の幅優先探索に基づく貪欲なプランナーを用いて、個別の経路を並列に計算する。次に、空間ハッシュを用いて将来のタイムステップにおける衝突を検出し、衝突のないロボットを確定させ、残りのロボットは確定済みロボットを動的障害物として扱うことで再計画を行う第一段階の分解を行う。続いて、衝突が発生しているロボットを、限定されたホライゾン内での到達可能性に基づいて再帰的にグループ化し、適応させたPIBTアルゴリズムを用いてグループ単位で並列に再計画を行う。再計画が失敗した場合には、混雑解消モジュールがグループの範囲を拡大することで、時空間的な柔軟性を高めて解決を図る。最後に、軌道を統合して最初のステップのみを実行する。この手法は、個別の計画とグループ単位の再計画の両方が並列化可能であるため高速であり、多くのロボットがホライゾン内で衝突を回避できる特性を利用して、既存のオフライン手法に匹敵する解の質を実現し、同等の速度を持つLaCAM*を大幅に上回る性能を示す。</p></section>
+<section class="secsum"><h3>III Experimental Results</h3><p>本実験では、MAPFベンチマークの倉庫マップとランダムマップの2種類を用い、200回の試行に基づく平均性能を評価しています。提案手法は、実行開始までの待ち時間（TNBE）においてLaCAM*と比較して大幅な高速化を実現しており、例えばロボット数が900台の場合にはTNBEを60%削減しています。各計画ステップは30ミリ秒未満で完了するため、大規模な環境においても、ロボットの実際の動作時間と並行して次ステップの計画を行うことが可能です。解の品質については、全エージェントの総移動時間であるSOCを、衝突を無視した場合の下限値に対する比率で評価しています。倉庫マップでは、計画ホライゾンを長くするほど解の品質が単調に向上しますが、ランダムマップでは、ホライゾンが長すぎると衝突のないエージェント数が減少し、グループ単位の再計画が頻発するため、ロボット数に応じて最適なホライゾンが変化します。</p></section>
+<section class="secsum"><h3>IV Discussion and Conclusion</h3><p>本研究では、有限ホライゾン階層分解に基づく、スケーラブルなオンラインのマルチエージェント経路計画（MAPF）アルゴリズムを提案している。この手法は、衝突や到達可能性に基づく動的な2レベルのグルーピング、並列的な個別プランニング、および効率的なオンザフライの衝突解決を組み合わせることで、即時実行を可能にし、プランニングの遅延を削減する。実験により、計算速度と解の品質の両面において高い性能が確認されており、リアルタイムのマルチロボット協調における既存のオフライン手法に対する実用的な選択肢となる。今後の課題として、より一般的なタスク割り当て設定への拡張、生涯継続的なMAPFへの適用、ネットワークとの共同設計、学習を用いた改善、および理論的な保証の強化が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-21
+  </footer>
+</div>
+</body>
+</html>
