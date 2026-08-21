@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Real-Time LaCAM for Real-Time MAPF | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Real-Time LaCAM for Real-Time MAPF</h1>
+  <div class="meta">Runzhe Liang, Rishi Veerapaneni, Daniel Harabor, Jiaoyang Li, Maxim Likhachev<br>採択先: the International Symposium on Combinatorial Search 2025 (SoCS 2025) ・ 2025-04-08 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2504.06091v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2504.06091v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/socs.v18i1.35993" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 the International Symposium on Combinatorial Search 2025 (SoCS 2025)</span><span class="chip">公開日 2025-04-08</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFのリアルタイム計画において、理論的完全性とミリ秒単位の計算効率を両立させた点は非常に新規性が高く、実用上の重要性も大きい。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 従来のリアルタイムなマルチエージェント経路計画（MAPF）は、計算時間の制約によりデッドロックやライブロックが発生しやすく、理論的な完全性が保証されていませんでした。本研究は、LaCAMの探索木を増分的に構築・再利用することで、ミリ秒単位の計算制限下でも完全性を保証するReal-Time LaCAMを提案します。</div>
+<section class="qa"><h2>どんなもの？</h2><p>混雑した環境において、複数のエージェントが衝突を回避しながら目的地へ到達するMAPFを対象としています。実世界のロボットシステムでは、全期間の経路を事前に計算するのではなく、限られた時間内で次の行動を決定し、実行と計画を繰り返すリアルタイムな運用が求められます。しかし、計算時間を抑えるために探索範囲を制限する従来のウィンドウ化手法は、理論的な完全性を欠いており、エージェントが動けなくなるデッドロックや、同じ状態を繰り返すライブロックに陥るという困難がありました。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のリアルタイム手法や、完全性を実現しつつも計算コストが高いWinC-MAPFに対し、Real-Time LaCAMは計算効率と理論的な完全性の両立を実現しました。LaCAMの深さ優先探索（DFS）を増分的な形式で活用することで、デッドロックを防ぎつつ、ミリ秒単位の極めて短い計算時間でも動作する初の完全なリアルタイムMAPF手法を提供します。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>毎ステップごとに探索をゼロからやり直すのではなく、過去の探索履歴を保持した「グローバルなDFS木」を反復的に構築します。探索中に計算時間の制限に達した際は、探索中の最新の構成から現在の構成までをバックトラックすることで、次の移動先を決定します。エージェントが移動するたびに、現在の構成が常に木の根となるよう親ポインタを入れ替えるリルーティングを行います。これにより、バックトラック時に必ず現在の構成に到達できることを保証します。また、以前に訪れた構成を再訪した際には、エージェントの行動に制約を追加することで、同じ構成を繰り返し探索して停滞することを防ぎます。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>標準的なベンチマークを用い、Naive Real-Time LaCAM（毎ステップ探索をやり直す手法）、PIBT、および全期間を一度に計画する全ホライゾン版LaCAMと比較しました。各反復にミリ秒単位のカットオフ時間を設定した実験において、Real-Time LaCAMはカットオフ時間に関わらず、成功率および総実行時間の両面で全ホライゾン版LaCAMと一致する結果を示しました。一方で、カットオフ時間が極めて短い場合には、近視眼的な計画となるため、解の品質が10倍から100倍程度悪化することも確認されました。また、学習済みMAPFポリシーと組み合わせることで、単独のCS-PIBTよりも高い性能が得られることも示されました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、制約を組み込める構成生成器であればどのような設定でも動作する汎用的なフレームワークです。しかし、カットオフ時間が極端に短い設定では、解の品質が低下するというトレードオフが存在します。今後の課題として、LaCAMの制約利用とWinC-MAPFのヒューリスティック更新を統合して解の質を維持しつつ高速化することや、Engineering LaCAM*へと拡張してリアルタイムにおける解の質をさらに向上させることが挙げられます。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Real-Time LaCAM for Real-Time MAPF</h3><p>従来のマルチエージェント経路計画（MAPF）手法の多くは、全期間の経路を事前に計画する必要があり、計算時間が膨大になるため実世界への適用が困難でした。本研究では、限られた時間内で計画と実行を繰り返すリアルタイム計画の枠組みにおいて、初めて完全性を証明可能な手法であるReal-Time LaCAMを提案しています。この手法は、LaCAMを増分的な形式で活用することで、デッドロックやライブロックを回避しながら、ミリ秒単位の制限時間内でも混雑した環境に対して反復的な計画を可能にします。実験の結果、Real-Time LaCAMは全期間を計画するLaCAMと同等の成功率を維持しつつ、単一ステップの学習済みMAPFポリシーとも併用できることが示されました。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路計画（MAPF）は、混雑した環境下で複数のエージェントが衝突を回避する経路を求める問題であり、倉庫自動化などの分野で重要となる。実世界の応用では限られた計算時間内で次の行動を決定するリアルタイムな計画が求められ、一定の期間のみを計画するウィンドウ化手法が一般的に用いられる。しかし、既存のウィンドウ化手法の多くは理論的な完全性を欠き、デッドロックやライブロックが発生する可能性があるほか、完全性を保証する最新のフレームワークも計算に数秒を要するため、実用的なリアルタイム性は確保できていない。本研究では、深さ優先探索に基づくLaCAMを逐次的に構築するReal-Time LaCAMを提案し、理論的な完全性を実現する。実験により、Real-Time LaCAMは各反復の打ち切り時間をミリ秒単位以下に抑えつつ、全行程を計画するLaCAMと同等の成功率と実行時間を達成できることを示す。さらに、本手法が学習ベースのMAPFポリシーと併用可能であることも示す。</p></section>
+<section class="secsum"><h3>2 Related Works</h3><p>マルチエージェント経路計画（MAPF）のリアルタイム計画では、全期間の経路を一度に求めるのではなく、各ステップで制限時間内に最適な部分経路を探索し、実行と計画を繰り返す。既存のウィンドウ型手法は固定の探索範囲を持つが、リアルタイム手法は時間制限に合わせて探索範囲を調整する。PIBTやLNSを用いた既存のリアルタイム・ウィンドウ型ソルバーは、理論的な完全性が欠如しており、デッドロックやライブロックが発生する可能性がある。完全性を実現するWinC-MAPFフレームワークも存在するが、1ステップの計画に数秒を要する場合がある。提案手法であるReal-Time LaCAMは、LaCAMの探索木を再利用し、以前に訪れた構成を再訪した際に制約を追加することで、PIBTのような高速な手法を用いながらもデッドロックを防ぎ、完全性を保証する。この手法は、単一エージェントの探索手法であるTime-Bounded A*をMAPFに拡張したものと解釈できる。</p></section>
+<section class="secsum"><h3>3 Real-Time LaCAM</h3><p>Real-Time LaCAMは、毎ステップごとにLaCAMの深さ優先探索（DFS）をゼロからやり直すのではなく、過去の探索履歴を保持した「グローバルなDFS木」を反復的に構築・実行する手法である。各反復において、探索は前回の続きから開始され、計算時間の制限に達した際に、探索中の最新の構成から現在の構成までをバックトラックすることで、次の移動先を決定する。探索が進むたびに、現在の構成が常に木の根となるように親ポインタを入れ替える「リルーティング」を行うことで、バックトラック時に必ず現在の構成に到達できることを保証している。この手法は、探索済みの構成を記憶し続けるため、毎ステップ再計算を行うナイーブな手法とは異なり、異なる反復間で同じ構成を繰り返し探索して停滞することを防ぐことができる。理論的には、リルーティングは探索構成や制約に影響を与えないため、フルホライゾン版のLaCAMと同様の完全性を持ち、全反復の合計計算時間もフルホライゾン版とほぼ同等である。実験の結果、Real-Time LaCAMは、タイムアウト時間を短く設定した場合においても、ナイーブな手法と比較して高い成功率を示すことが確認されている。</p></section>
+<section class="secsum"><h3>4 Experimental Results</h3><p>標準的なベンチマークのサブセットを用い、提案手法であるReal-Time LaCAMを、毎反復ゼロから再計画を行うNaive Real-Time LaCAM、PIBT、および全ホライゾンを対象とするLaCAMと比較した。実験では、各反復にミリ秒単位のカットオフ時間を設け、累積の計画タイムアウトを60秒に設定して、計画と実行を交互に行う手法と、一度のみ計画を行う手法を評価した。結果として、Real-Time LaCAMはカットオフ時間に関わらず、全ホライゾンLaCAMと同一の深さ優先探索木を構築するため、成功率や実行時間の面では全ホライゾン版と完全に一致することが確認された。一方で、カットオフ時間が極めて短い場合、特定のマップにおいて近視眼的な計画となることで、解の品質が10倍から100倍程度悪化することが示された。また、学習済みMAPFポリシーの予測結果をPIBTのバックワード・ダイクストラ・ヒューリスティックの代わりに用いることで、Real-Time LaCAMを衝突回避のポストプロセスとして統合でき、既存のCS-PIBTよりも性能を向上させることが示された。</p></section>
+<section class="secsum"><h3>5 Future Work and Conclusion</h3><p>Real-Time LaCAMは、制約を組み込める構成生成器であればどのような設定でも動作し、制約のあるエージェントを特定の場所に固定することで、未制約のエージェントのみの構成生成問題へと簡略化できる。本手法は、任意のMAPFプランナーをウィンドウ化された計画において完全性を持つものへと変換するフレームワークと見なすことができ、最適ソルバーやヒューリスティックの更新、エージェントのグループ分割を必要とするWinC-MAPFとは異なり、制約の適用のみで動作する。制約はどのエージェントが動くかを明示的に指示するため、ヒューリスティックによるコスト評価よりも迅速に新しい構成を探索できる可能性がある。将来的な課題として、LaCAMの制約利用とWinC-MAPFのヒューリスティック更新を統合し、解の質を維持しつつ高速化を図ることや、Engineering LaCAM*へと拡張してリアルタイムにおける解の質を向上させることが挙げられる。Real-Time LaCAMは、完全性を保証する初のリアルタイムMAPF手法であり、既存手法がデッドロックやライブロックに陥るようなミリ秒単位の極めて短い反復時間制限下においても、高い成功率を示す。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-22
+  </footer>
+</div>
+</body>
+</html>

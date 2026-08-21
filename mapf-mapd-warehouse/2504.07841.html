@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Anytime Single-Step MAPF Planning with Anytime PIBT | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Anytime Single-Step MAPF Planning with Anytime PIBT</h1>
+  <div class="meta">Nayesha Gandotra, Rishi Veerapaneni, Muhammad Suhail Saleem, Daniel Harabor, Jiaoyang Li, Maxim Likhachev<br>採択先: 未取得 ・ 2025-04-10 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2504.07841v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2504.07841v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arXiv.2504.07841" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-04-10</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 5</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">PIBTのAnytime化という新規なアプローチと理論的保証は評価できるが、上位プランナーへの統合時に全体の性能向上に寄与しないという実験結果は、実用上の重要性に疑問を残す。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 高速な単一ステップ解法であるPIBTは、貪欲な性質ゆえに解の質が低く、利用可能な計算時間を使い切れない課題がある。本研究は、PIBTの迅速な初期解生成能力を維持しつつ、与えられた時間内で解を継続的に改善し、最終的に最適解へ収束するAnytime PIBTを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路探索（MAPF）における単一ステップの計画問題を対象とする。これは、各エージェントが次の一手を実行した後に、他者との干渉を無視して個別の最適経路を辿ると仮定し、全エージェントの目標到達コストの総和を最小化する行動を決定する問題である。従来のPIBTは、数百のエージェントに対してミリ秒未満で解を返せる極めて高速な手法であるが、優先順位に基づいた極めて貪欲な決定を行うため解の質が低く、追加の計算時間を活用して解を改善することができない。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>PIBTの速度を維持しながら、計算資源に応じて解を逐次的に改善できるAnytimeな性質を導入した点が新規である。単一ステップのMAPF問題を再帰的な深さ優先探索として捉え、エージェントを相互作用するグループに分割して扱うことで、計算効率と最適性の両立を実現している。十分な計算時間が与えられれば、単一ステップにおける最適な解に収束することが理論的に証明されている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、PIBTを用いて相互作用のあるエージェントを分離されたエージェントグループ（DJAG）に分割する。次に、各グループに対して、現在の最良解を上回る累積コストが発生した時点で探索を打ち切る枝刈りを伴う深さ優先探索を実行する。探索中にグループ外のエージェントとの衝突が検知された場合は、動的にグループを統合して再計画を行う。また、高優先度エージェントが低優先度エージェントを押し退けられずに停滞する問題を回避するため、個々のエージェントの最小コストを持つ行動間でのみ探索を行うAnytime PIBT Tiebreakという派生手法も用いる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>標準的なMAPFベンチマークマップを用い、20から1000エージェント規模で評価を行った。評価指標として、各エージェントの最小コストの総和との差分を示す正規化されたf値を用いた。実験の結果、Anytime PIBTは初期のPIBTと比較して一貫してf値を改善し、多くの場合で最適な単一ステップ解を見つけることが確認された。一方で、LaCAMやLaCAM*といった上位のプランナーに組み込んだ場合、フルホライゾン（全期間）のコストについては、PIBTと比較して顕著な改善は見られなかった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>単一ステップの解の質を向上させることが、必ずしも全期間を通じた経路コストの低減に寄与しないという、単一ステップ解法と上位プランナー間の乖離が明らかになった。LaCAM*においてAnytime PIBTの計算時間を長く設定しすぎると、1ステップあたりの計算時間が増大して生成できる高レベルノードの数が減少し、混雑した環境での成功率が低下するというトレードオフが存在する。今後の課題として、A*探索を用いるOperator Decomposition（OD）との理論的な関連性の解明、単一ステップの改善が全体の計画に与える影響の調査、および混雑状況を考慮したオンラインヒューリスティックとの統合が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Anytime Single-Step MAPF Planning with Anytime PIBT</h3><p>PIBTは、数百のエージェントに対して1ミリ秒未満で衝突のない単一ステップの解を返せる非常に高速な手法ですが、優先順位に基づいた極めて貪欲な性質を持つため解の質が低く、最初に見つけた解を返すだけで利用可能な計算時間を使い切れないという欠点があります。本研究で提案するAnytime PIBTは、PIBTと同様に迅速に最初の単一ステップ解を見つけた後、与えられた時間内で継続的にその解を改善していく手法です。この手法は、十分な計算時間が与えられれば最適解に収束することが証明されており、実験においても数ミリ秒以内に単一ステップの解の質を急速に向上させ、最適解に到達できることが確認されています。しかし、単一ステップの解の質を向上させることが、全期間を通じた経路コストの低減に大きく寄与しないという結果も示されています。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路探索（MAPF）において、Priority Inheritance with Backtracking（PIBT）は、数百のエージェントに対してミリ秒未満で次の一手を決定できる極めて高速かつ簡潔な貪欲法アルゴリズムです。しかし、従来のPIBTは利用可能な計算時間に関わらず常に即座に解を返してしまうため、追加の計算時間を用いて解の質を向上させる「Anytime」な性質を持たないという課題があります。本研究では、PIBTと同一の解を迅速に生成した後、計算時間が許す限り解を継続的に改善するAnytime PIBTを提案します。この手法は、単一ステップのMAPF問題を深さ優先探索を用いた再帰的な問題として捉えて全アクションを探索し、中間解の保存や枝刈りを行うとともに、相互作用するエージェントをグループ化して結合アクション空間を独立した部分空間に分割することで探索効率を高めています。理論的には、十分な計算時間があれば最適な単一ステップ解に収束することが証明されており、20から1000エージェント規模の実験においても単一ステップのコストを継続的に改善できることが示されています。ただし、LaCAMやLaCAM*と組み合わせた場合、フルホライゾン（全行程）のコストについてはPIBTと比較して顕著な改善は見られませんでした。</p></section>
+<section class="secsum"><h3>2 Preliminaries and Related Work</h3><p>マルチエージェント経路探索（MAPF）のシングルステップ問題は、各エージェントが次の一手を実行した後は他者との干渉を無視して個別の最適経路を辿ると仮定し、全エージェントの目標到達コストの総和を最小化する行動を決定するものである。既存の高速な手法であるPIBTは、エージェントに優先順位を割り当て、高優先度のエージェントが場所を確保し、低優先度のエージェントが道を譲る「優先順位継承」を行う貪欲法的なアルゴリズムであるが、シングルステップの最適性を保証せず、極端に悪い解を返す可能性がある。本研究では、エージェントを互いに干渉しない「分離されたエージェントグループ（DJAG）」に分割して扱う考え方を利用しており、DJAG内のエージェント間でのみ相互作用が発生するという性質に基づき、グループごとに個別に最適化を行う。提案手法であるAnytime PIBTは、まずPIBTを用いてDJAGを検出し、各グループに対して再帰的な探索を行うことで、制限時間内でより良い解を逐次的に改善していく。各DJAGに対して個別に最適解を求めることは、グループ間の干渉がないという性質により、最終的にグローバルな最適解に到達することを保証する。</p></section>
+<section class="secsum"><h3>3 Anytime PIBT</h3><p>Anytime PIBTは、単一ステップのマルチエージェント経路計画を、エージェントの行動木を探索する深さ優先探索として捉え、中間解の保存と枝刈りを行う手法である。本手法は、相互作用のあるエージェントを「分離されたエージェントグループ」に分解することで、計算量を抑えつつスケーラビリティを向上させている。まず、PIBTの優先度継承とバックトラッキングを用いてエージェントをグループ化し、次に各グループに対して、累積コストが現在の最良解を上回った場合に探索を打ち切る枝刈りを伴う深さ優先探索を実行する。探索中にグループ外のエージェントとの衝突が検知された場合は、動的にグループを統合して再計画することで、最適性を維持する仕組みを備えている。十分な探索時間が確保されれば、全エージェントに対して最適な単一ステップ解を見つけることが理論的に保証されている。また、最適性を追求するあまり高優先度エージェントが停滞する問題を回避するため、個々のエージェントの最良のコストを持つ行動間でのみタイブレークを行うAnytime PIBT Tiebreakという派生手法も提案されている。</p></section>
+<section class="secsum"><h3>4 Experiments</h3><p>標準的なMAPFベンチマークマップを用い、エージェント数や計算時間制限を変化させてAnytime PIBTの性能を評価しました。実験の結果、Anytime PIBTは単一ステップの解において、初期のPIBTによる結果よりも一貫してf値（各エージェントの最小コストの総和との差分）を改善でき、多くの場合で最適な単一ステップ解を見つけられることが示されました。この計算効率にはエージェントをグループ化する論理が不可欠であり、グループ化を行わない場合は再帰呼び出しの回数がエージェント数に対して指数関数的に増加するため、100エージェント規模でも1分以内に計算が終了しないことが確認されました。一方で、単一ステップの解の質が向上しても、LaCAMやLaCAM*を用いたフルホライゾン（全期間）プランニングにおける解の質には、有意な向上は見られませんでした。LaCAM*においては、Anytime PIBTのカットオフ時間を長く設定すると、1ステップあたりの計算時間が増えることで生成できる高レベルノードの数が減少し、混雑した環境での成功率が低下するというトレードオフが確認されました。以上の結果から、単一ステップ解法の改善が必ずしも全体のプランニング性能の向上に直結しないという、単一ステップ解法とLaCAM手法の間の隔たりが明らかになりました。</p></section>
+<section class="secsum"><h3>5 Conclusion and Future Work</h3><p>Anytime PIBTは、高速な単一ステップ解法であるPIBTの速度を維持しながら、時間の経過とともに解の質を向上させる手法である。本手法は、単一ステップのMAPFを再帰的な問題として解釈し、枝刈りを伴うAnytime深さ優先探索を用いることで、中間解の保存と効率的な探索を実現している。また、エージェントを互いに独立したグループに分解して問題を小規模化し、動的にグループを更新することで、最終的に最適な単一ステップ解を見つけることが可能である。実験では、ミリ秒単位で単一ステップのコストを改善し、多くのケースで最適解を導出できることが示されたが、LaCAMやLaCAM*に組み込んだ場合には、単一ステップの改善が全体の計画コストの改善に直結しないという結果が得られた。今後の展望として、A*探索を用いるOD（Operator Decomposition）との理論的な関連性の解明や、複数のエージェントの構成に依存するグループコストへの対応、単一ステップの改善が全体の計画に与える影響の調査、および混雑状況を考慮したオンラインヒューリスティックとの統合などが挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-22
+  </footer>
+</div>
+</body>
+</html>

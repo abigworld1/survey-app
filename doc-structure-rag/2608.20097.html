@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TrustRAG: Blockchain-Enhanced RAG via Committee-Based Credibility Scoring | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>TrustRAG: Blockchain-Enhanced RAG via Committee-Based Credibility Scoring</h1>
+  <div class="meta">Baixiang Liu, Haotian Che, Yuan Li<br>採択先: 未取得 ・ 2026-08-20 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.20097v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.20097v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-20</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの信頼性向上にブロックチェーンと秘密計算を組み合わせた独創的な提案。検証可能性と軽量性を両立する設計は、高信頼性が求められる分野の研究者にとって価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 中央集権的な管理に起因する情報の不透明性と改ざんリスクに対し、ブロックチェーンと委員会方式を用いた分散型かつ検証可能なRAGフレームワークTrustRAGを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>Retrieval-Augmented Generation (RAG)は、外部知識を大規模言語モデルに付与して情報の正確性を高める手法である。しかし、既存のRAGシステムは中央集権的なデータベースやインデックスに依存しており、情報の出所、改ざんの有無、ランキングの決定プロセスが不透明である。このため、医療、金融、法律、物流などの、情報の正確性と監査可能性が極めて重要となるドメインにおいて、誤った情報や操作された文書が意思決定に悪影響を及ぼすリスクがある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>検索プロセスの不透明性とランキングの監査不能性を解決するため、文書の登録から検索までを暗号学的に検証可能にする。再帰的な証明を用いる複雑な手法を避け、各チェーンの集計結果をハッシュ値で結合する軽量なバインディング層を採用することで、プライバシーを保護した専門家によるスコアリングと、クロスチェーンでの整合性検証を両立させた点が新規である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>システムは、データチェーン、アグリゲーター結合層、RAGサービス層の3層で構成される。まず、文書登録時にコンテンツのハッシュ値を記録し、不変の識別子を確立する。次に、専門家委員会がゼロ知識証明を用いて、自身の身元や具体的な評価値を明かさずに、正当な権限に基づいたスコアリングを行う。集計フェーズでは、Shamirの秘密分散法を用いたマルチパーティ計算（MPC）により、個々の評価値を秘匿したまま信頼性スコアを算出する。検索時には、アグリゲーターが各チェーンのスコアと候補リストのハッシュを結合した単一のダイジェストを作成する。RAGサービスは、このダイジェストと取得した候補セットを照合し、決定論的な再実行ルールに基づいて、意味的な関連性と検証済みの信頼性を組み合わせたランキングを行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>プロトタイプを用いて、ゼロ知識証明の生成時間、回路の規模、委員会集計の効率性を評価した。Groth16を用いた場合、PLONKと比較して証明生成時間が大幅に短縮された。Merkle木の深さが10から20に増加すると、R1CSのサイズは702 KBから3.6 MBへと増加するが、WASMのサイズは1.7から1.9 MBの範囲に収まる。集計コストについては、BLS閾値署名集約が主な負荷となるが、両方の処理は閾値サイズに対してほぼ線形にスケールする。アブレーション研究により、Pedersenコミットメント、Shamirの秘密分散、閾値認可の各メカニズムが、設計通りにデータの整合性とセキュリティを担保することが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、各コンセンサスドメインにおいて誠実な参加者が閾値を超えて存在することを前提としている。また、算出される信頼性スコアは検証者による承認を示すものであり、内容の事実的正当性そのものを保証するものではない。LLMの出力における事実性、プロンプトインジェクション、および検証ドメイン全体の完全な崩壊（検証者の結託など）を防ぐことはできない。しかし、文書の出所、集計結果、チェーンの欠落、ランキングの操作といった不正な試みが行われた場合には、それを公的に検知・監査できることを保証している。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>TrustRAG: Blockchain-Enhanced RAG via Committee-Based Credibility Scoring</h3><p>Retrieval-Augmented Generation (RAG)は、大規模言語モデルが学習データ以外の最新かつ専門的な情報を取得することを可能にするが、既存のシステムは中央集権的なデータベースに依存しているため、情報の出所や改ざんの有無、信頼性を検証することが困難であるという課題がある。本研究が提案するTrustRAGは、ブロックチェーンを活用した委員会方式のRAGシステムである。ドメインエキスパートで構成される委員会が、ゼロ知識証明プロトコルを用いて文書の認証を行う。各専門家による非公開の評価スコアは、秘密計算を用いて統合され、クライアントが検証可能な信頼スコアとして算出される。文書データとスコアは、ハッシュコミットメントを用いて複数のチェーン間で共同管理されるため、文書やスコアの密かな改ざんや削除を防ぎ、すべてのランキング結果を独立して再現および検証できる仕組みとなっている。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>既存のRAGシステムは、検索パイプラインやランキングのロジックが中央集権的に管理されているため、情報の出所や改ざんの有無、フィルタリングの透明性を検証できないという構造的な脆弱性を抱えています。本論文が提案するTrustRAGは、ブロックチェーンを活用して、文書の登録から検索までの一連のプロセスを分散化・検証可能にするフレームワークです。文書登録時には、コンテンツと埋め込みのハッシュ値を不変の証跡として記録し、専門家委員会によるプライバシーを保護した信頼性評価を実施します。評価の集計プロセスでは、Shamirの秘密分散法とMP-SPDZを用いた安全な集計インターフェースを組み合わせることで、個々の評価値を明かすことなく、委員会による信頼スコアを算出します。また、再帰的な証明を用いる代わりに、各チェーンの集計結果をハッシュコミットメントで結合する軽量なバインディング層を採用しており、クライアントは公開されたメタデータを用いてランキングの決定論的な再現と検証が可能です。この設計により、医療、金融、法律といった、情報の正確性と監査可能性が極めて重要となる高リスクなドメインにおいて、信頼できる知識基盤の構築を実現します。</p></section>
+<section class="secsum"><h3>II Challenges and Design Overview</h3><p>現在のRAGシステムは、検索プロセスの中央集権性、信頼信号の不透明さ、およびランキングの監査不能性というガバナンス上の課題を抱えています。TrustRAGは、検証者の身元や個別のスコアを秘匿しつつ、登録済みの文書識別子に対して正当なスコアリングが行われたことをゼロ知識証明によって示し、隠蔽されたスコア成分を委員会側のマルチパーティ計算（MPC）で集計することで、分散的な信頼性スコアの生成を実現します。このスコアはクエリ実行前に文書単位で確定されるものであり、検索時にはサービスが取得した候補リストのハッシュ値と、事前に確定した文書ごとのスコアをアグリゲーターを介して紐付けることで、候補セットの改ざんやランキングの不正操作を防止します。最終的に、検索レイヤーは確定したスコアとゼロ知識証明を公開するため、クライアントはスコアリングと集計の妥当性に加え、返された回答のハッシュが正しく紐付けられているかを検証できます。本手法は、再帰的な証明の複雑さを回避しながら、プライバシーを保護した候補スコアリング、チェーン内での検証可能な集計、およびクロスチェーンでの紐付けを両立させています。</p></section>
+<section class="secsum"><h3>III Preliminaries</h3><p>Retrieval-Augmented Generation (RAG)は、クエリと文書集合に対してエンコーダを用いて密ベクトル表現を抽出し、コサイン類似度を用いて類似度の高い上位の文書を選択することで、大規模言語モデルに外部知識を付与する手法である。このプロセスにより、モデルの再学習なしに最新情報へのアクセスが可能となり、事実の正確性の向上とハルシネーションの抑制が期待される。ゼロ知識証明（ZKP）は、ある命題が真であることを、その根拠となる証拠の詳細を明かすことなく検証者に証明するプロトコルであり、Groth16やPLONKといった構成を用いることで、短い証明と高速な検証が可能となる。また、秘密計算（MPC）は、複数の参加者が互いの入力値を秘匿したまま、共同で関数を計算する技術である。本フレームワークでは、ゼロ知識投票後の集計段階においてMPCを活用しており、委員会ノードが持つ秘匿されたスコア成分を共同で統合することで、各ノードの寄与を隠したまま最終的な集計結果のみを算出する。</p></section>
+<section class="secsum"><h3>IV Threat Model and Trust Assumptions</h3><p>本システムは、ユーザー、RAGサービス、ドキュメントの履歴と信頼性メタデータを保持する複数のデータチェーン、秘密計算を用いてスコアを集計する各チェーンの委員会、およびチェーン間の結合ハッシュを記録するアグリゲーターの5つの要素で構成されます。攻撃者は、オンチェーンデータの観測や悪意あるデータの注入、検証者の結託、委員会の汚染、プロトコルの逸脱を行う能力を持つと想定されますが、各コンセンサスドメインにおいて誠実な参加者が閾値を超えて存在することを前提としています。信頼性スコアは検証者による承認を示すものであり、内容の事実的正当性を保証するものではなく、検証可能性も事前に合意されたチェーンの集合に対してのみ保証されます。セキュリティ目標として、チェーン内集計結果の改ざん防止、個々の検証者のスコアと身元の秘匿、正当な投票によるのみスコアが上昇する整合性、および決定論的なルールに基づくランキングの検証可能性を掲げています。プライバシー保護のため、個別のスコア、投票者の身元、およびユーザーのクエリは非公開とし、公開されるのは暗号学的コミットメント、ゼロ知識証明、および各チェーンの集計結果を紐付けるハッシュ値などの最小限の情報に限定されます。本手法は、LLMの出力の事実性やプロンプトインジェクション、検証ドメイン全体の完全な崩壊を防ぐものではありませんが、不正な操作が行われた場合にそれを公的に検知・監査できることを保証します。</p></section>
+<section class="secsum"><h3>V System Overview</h3><p>TrustRAGは、データチェーン、アグリゲーター結合層、RAGサービス層の3層で構成されるアーキテクチャを採用しています。各データチェーンでは、マルチパーティ計算（MPC）を用いてバリデーターの個別のスコアを秘匿したままドキュメントごとの信頼性スコアを算出し、その結果を不変の履歴として記録します。アグリゲーター層は、各チェーンのスコアハッシュと候補ドキュメントリストのハッシュを結合して単一のダイジェストを作成することで、再帰的な証明を用いずにチェーンの欠落やデータの差し替えを防ぐ軽量なクロスチェーン結合を実現します。クエリ実行時、RAGサービス層は各チェーンから候補ドキュメントと確定済みの信頼性スコアを取得し、セマンティックな関連度と信頼性を組み合わせたランキング計算を行います。最終的な回答は、ランキングの再現性を担保するハッシュ値を含む検証用パッケージと共にユーザーへ返され、ユーザーはチェーンの状態確認と計算の決定論的なリプレイを通じて、回答の整合性を独立して検証できます。</p></section>
+<section class="secsum"><h3>VI Protocol Design</h3><p>TrustRAGのプロトコルは、ドキュメントの登録、ゼロ知識証明を用いたスコアリング、および信頼性の集計と検証のプロセスで構成されます。まず、各データチェーンはドキュメントのコンテンツ、埋め込み、およびメタデータのハッシュ値を登録することで、検索や検証の基盤となる不変の識別子を確立します。次に、専門家であるバリデータは、自身の身元を明かさずにMerkle木による所属証明と、二重投票を防ぐヌリファイアを用いてドキュメントにスコアを付与します。このスコアリングにはPedersenコミットメントとzk-SNARKが用いられ、個々の投票内容や投票者の身元を秘匿したまま、スコアが規定の範囲内であることや投票の正当性を検証できます。集計フェーズでは、委員会ノードがマルチパーティ計算を用いて隠蔽されたスコアの総和を計算し、各ドキュメントの信頼性重みを算出します。最終的に、RAGサービスは検索時に、各チェーンから取得した重みや候補リストのハッシュを、アグリゲーターが発行するバインディングハッシュと照合することで、ドキュメントの改ざんや欠落を防ぎ、検証可能な信頼性に基づいた回答生成を実現します。</p></section>
+<section class="secsum"><h3>VII Security and Privacy Analysis</h3><p>TrustRAGは、標準的な暗号学的仮定、各チェーンにおける不正バリデータ数が閾値未満であること、および検証ロジックの決定論的な動作を前提として、高度なセキュリティとプライバシーを実現する。データの整合性については、ゼロ知識証明とPedersenの一貫性方程式を用いることで、オンチェーンに記録された投票コミットメントと集計結果が一致することを保証している。投票のプライバシーは、コミットメントの隠蔽性とゼロ知識証明の性質により、公開された出力以外の投票内容は秘匿される。信頼性メタデータの整合性に関しては、登録済みバリデータによる投票、ヌリファイアによる二重投票の防止、および範囲チェックにより、公開されるメタデータが受理された投票プロセスを忠実に反映することを保証している。検索の検証可能性については、クライアントがチェーン上の確定済み状態を取得し、スコア、候補リスト、ランキング、および応答のハッシュを再計算することで、サービス側による改ざんを検知できる。さらに、クロスチェーンのバインディング整合性と検索の原子性を確保することで、スコアや候補、チェーンの順序変更を検知し、検証済みの証拠セットのみから応答を生成することを保証している。</p></section>
+<section class="secsum"><h3>VIII Implementation and Evaluation</h3><p>TrustRAGのプロトタイプは、ドキュメント検索、ゼロ知識証明による投票妥当性検証、Shamirの秘密分散法を用いた委員会集計、およびSolidityによるオンチェーン検証の4つの要素で構成される。ゼロ知識証明の比較実験では、Groth16がPLONKよりも大幅に低い証明生成時間を実現しており、証明生成がオンラインのクエリパスではなく投票時のみ行われることから、Groth16が実用的であることが示された。回路のスケール性については、Merkle木の深さが増すにつれてR1CSのサイズがほぼ線形に増加するものの、コンパイル後のWASMサイズは一定の範囲内に収まることが確認された。委員会集計の評価では、BLS閾値署名集約とShamirの復元処理の双方が閾値サイズに対してほぼ線形にスケールするが、集計コストの大部分はBLS集約が占める。アブレーション研究により、Pedersenコミットメントによる改ざん検知、Shamirの秘密分散によるノード脱落への耐性、および閾値認可による不正提出の防止という、各暗号学的メカニズムが設計通りの役割を果たしていることが実証された。全体として、証明生成や委員会認可といった主要なコストはオンラインのクエリパス外で発生するため、RAGパイプラインへの導入における計算コストは許容範囲内である。</p></section>
+<section class="secsum"><h3>IX Conclusion</h3><p>本論文は、委員会方式に基づいた分散型かつ検証可能なRAGアーキテクチャであるTrustRAGを提案している。この手法では、専門家委員会がゼロ知識スコアリングとコミットメントの一貫性を保つ安全な集約を用いることでドキュメントを認証し、再利用可能な信頼スコアを生成する。これらのスコアは、軽量なハッシュコミットメントを通じてチェーン間で紐付けられ、再帰的な集約証明を用いることなく決定論的なリプレイによって検証される。評価実験の結果、計算負荷の大部分はスコアの確定および委員会の承認段階に集中しており、オンラインでの検索やチェーン間の調整プロセスは軽量であることが示された。TrustRAGは、検索された知識の由来と信頼性が極めて重要であり、ドメイン専門家による検証が不可欠な医療などの高リスクな領域に適している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-22
+  </footer>
+</div>
+</body>
+</html>

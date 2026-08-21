@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>From Retrieved Context to Runtime Control: Adaptive Compression for Edge-based RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>From Retrieved Context to Runtime Control: Adaptive Compression for Edge-based RAG</h1>
+  <div class="meta">Zlatan Feric, Amir Taherin, Yanzhi Wang, David Kaeli<br>採択先: appear in the Proceedings of the ACM AI Leadership Summit 2026 ・ 2026-08-20 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.19535v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.19535v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 appear in the Proceedings of the ACM AI Leadership Summit 2026</span><span class="chip">公開日 2026-08-20</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">エッジSoCの計算資源と圧縮コストのトレードオフを「正味の利得」として定量化した点が非常に実用的で新規性が高い。エッジRAGの実装者にとって優先度の高い知見である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> エッジデバイスにおけるRAGの実行において、コンテキスト圧縮の計算コストと生成コストのトレードオフを分析し、デバイスのリアルタイムな状態に基づいて圧縮率を動的に制御する適応的圧縮の枠組みを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>エッジデバイス上でRAGを実行する際、検索されたコンテキストの増大は、生成時の遅延、KVキャッシュの占有、メモリ帯域の消費、およびエネルギー消費の増大を招く。従来のコンテキスト圧縮は、圧縮率が固定されているか、推論前にオフラインで決定されることが一般的である。しかし、圧縮処理自体も同じSoC上で動作するため、圧縮による生成コストの削減分が、圧縮器自体の遅延やエネルギー消費によって相殺される可能性がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のエッジRAG研究は、検索の効率化や固定的なコンテンツ削減に主眼を置いていた。これに対し本研究は、デバイスのテレメトリ情報に基づき、圧縮の実行有無や圧縮率を動的に決定する実行時制御の視点を導入した点に新規性がある。また、生成コストの削減分から圧縮器のオーバーヘッドを差し引いた「正味の利得」を評価指標として重視し、エッジSoCの計算資源を考慮した適応手法の必要性を明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>NVIDIA Jetson AGX Thorを用い、RAGの各ステージにおける遅延とエネルギー消費を測定する。圧縮手法には、抽出的なハード圧縮であり、連続的な圧縮率の調整が可能なLLMLingua-2を採用する。評価では、プロンプト短縮による生成コストの削減分が、圧縮プロセスに伴う遅延とエネルギー消費を上回る場合のみを正味の利得として算出する。ワークロードの特徴やデバイスのリアルタイムな状態（遅延、エネルギー、メモリ帯域、熱余裕など）に応じて、最適な圧縮率を選択する実行時ポリシーの構築を目指す。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>LlamaおよびQwenの1Bから8Bパラメータのモデルを用い、Natural QuestionsおよびHotpotQAデータセットで評価を行った。7Bから8Bのモデルでは、生成プロセスがクエリあたりのレイテンシの約90%、GPUエネルギーの約91%を占めることが確認された。圧縮率を変化させた検証では、回答品質の低下を最小限に抑えつつ、GPUエネルギーを最大53.2%、SoC全体のエネルギーを最大48.2%削減できる中間的な圧縮領域が存在することを示した。一方で、1B程度の小規模モデルでは、埋め込みや検索の割合が増加するため、圧縮による改善の余地が減少することが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>圧縮による生成コストの削減が圧縮器の固定コストを上回る場合にのみ圧縮は有効であり、圧縮率が低すぎる（削減トークンが少ない）領域ではオーバーヘッドが削減分を上回るというトレードオフがある。実用的なコントローラーは、連続的な探索ではなく、モデルの識別子、コンテキストの長さ、直近のレイテンシ、熱余裕などの実行時信号に基づき、離散的な決定を行うことが考えられる。今後の課題として、より軽量な圧縮器の検討、量子化モデルへの適用、および検索の深さやリランカーの制御など、RAGパイプライン全体のパラメータを統合的に管理するコントローラーの構築が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>From Retrieved Context to Runtime Control: Adaptive Compression for Edge-based RAG Note: Accepted to appear in the Proce</h3><p>本研究は、エッジデバイスにおける検索拡張生成（RAG）の課題に対し、テレメトリ情報に基づいた適応的なコンテキスト圧縮手法を提案している。従来のコンテキスト圧縮は圧縮率が固定されていることが多いが、エッジのSoCでは圧縮処理自体も計算資源を消費するため、圧縮による生成コストの削減分が圧縮のオーバーヘッドによって相殺される可能性がある。NVIDIA Jetson AGX Thorを用いた実験では、LlamaやQwenなどのモデル、Natural QuestionsやHotpotQAのデータセット、LLMLingua-2による圧縮を用いて、生成プロセスと圧縮プロセスのトレードオフを評価している。その結果、7Bから8Bパラメータのモデルでは、生成プロセスがクエリあたりのレイテンシの約90%、GPUエネルギーの約91%を占めることが判明した。適切な中間的な圧縮率を選択することで、推論品質の低下を最小限に抑えつつ、GPUエネルギーを最大53.2%、SoC全体のエネルギーを最大48.2%削減できることが示された。以上の知見に基づき、ワークロードの特徴とエッジデバイスのリアルタイムな状態に応じて、圧縮率を動的に管理する実行時ポリシーの重要性を論じている。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>エッジデバイスで検索拡張生成（RAG）を実行する場合、検索されたコンテキストのトークン量が増加すると、生成時の遅延、KVキャッシュの占有量、メモリ帯域、および消費電力が増大するという課題があります。本研究では、指示文などは保持したまま検索された文書のみを圧縮するコンテキスト圧縮に着目し、エッジSoCのテレメトリ（遅延、エネルギー、メモリ帯域など）に基づいて実行時に圧縮率を動的に決定する適応的圧縮の枠組みを提案します。圧縮処理自体もSoCのリソースを消費するため、評価指標として、圧縮による生成コストの削減分から圧縮器自体のオーバーヘッドを差し引いた純利益を重視します。Jetson AGX Thor上で1Bから8BパラメータのLlamaおよびQwenモデルを用い、Natural QuestionsやHotpotQAデータセットで評価した結果、7Bから8Bのモデルでは生成プロセスが遅延やエネルギー消費の約90%以上を占めることが判明しました。適切な圧縮率を選択することで、回答の品質への影響を抑えつつ、GPUエネルギーを最大53.2%、SoC全体のエネルギーを最大48.2%削減できることが示されました。</p></section>
+<section class="secsum"><h3>2. Background and Motivation</h3><p>RAG（検索拡張生成）は、オフラインでのインデックス作成と、オンラインでの検索および生成のフェーズで構成されます。検索された文脈が増えるほど生成モデルのプロンプト長が長くなり、メモリ帯域や電力、熱設計電力に制限のあるエッジデバイスでは、計算コストやエネルギー消費が増大するという課題があります。コンテキスト圧縮は、生成前に文脈を削減してこのコストを抑える手法であり、本研究では検索された文脈のうち保持するトークンの割合をrateと定義し、システムプロンプト等は維持したまま文脈のみを圧縮対象とします。圧縮手法にはテキストを直接編集するハード圧縮と潜在表現に変換するソフト圧縮がありますが、本研究では既存のパイプラインに組み込みやすく、圧縮後の長さが生成コストに直結する抽出的なハード圧縮に焦点を当てます。具体的には、軽量で連続的なrateの調整が可能なLLMLingua-2を代表的な圧縮器として用い、生成コストの削減、圧縮器自体のオーバーヘッド、および回答品質のトレードオフを評価します。既存のエッジRAG研究は検索の効率化や固定的なコンテンツ削減を主眼としていますが、デバイスのリアルタイムな制約に基づき、圧縮の実行有無やそのrateを動的に決定するランタイム制御の視点が欠落しています。</p></section>
+<section class="secsum"><h3>3. Methodology and Evaluation</h3><p>NVIDIA Jetson AGX Thorを用い、RAGMarkおよびHydraフレームワークを通じて、検索・圧縮・生成の各ステージにおける遅延とエネルギー消費を評価しました。圧縮の評価では、プロンプトの短縮による生成コストの削減分が、圧縮プロセス自体の遅延とエネルギー消費を上回る場合のみを正味の利得として算出しています。実験の結果、Llama-3.1-8Bなどの大規模モデルでは生成ステージが遅延の90%以上、GPUエネルギーの91%以上を占めるのに対し、Llama-3.2-1Bのような小規模モデルでは埋め込みと検索の割合が増加し、生成プロンプトの圧縮による改善の余地が減少することが示されました。圧縮率を変化させた評価では、F1スコアが急落する直前の圧縮率と、圧縮によるエネルギー削減が圧縮の計算コストを上回る開始点の間に、適応的に運用すべき領域が存在します。この領域において、品質を維持しつつエネルギーを節約できる「safe-aggressive」な圧縮率の設定は、モデルサイズや検索されるコンテキストの長さに応じて、正味のエネルギー節約効果が変動します。</p></section>
+<section class="secsum"><h3>4. Discussion and Research Agenda</h3><p>エッジデバイスにおける適応的圧縮は、圧縮による生成コストの削減分が圧縮処理自体の固定コストを上回る場合にのみ有効であり、実験では8Bパラメータのモデルを用いた重いワークロードで最大53%、軽いワークロードで30%のGPUエネルギー削減が確認された。圧縮率が低い領域では、圧縮器のオーバーヘッドが削減分を上回るため、実用的なコントローラーは連続的な探索ではなく、モデルの識別子、検索されたコンテキストの長さ、直近のレイテンシ、熱余裕などの実行時信号に基づき、圧縮の実行や圧縮率の選択をワークロードに応じて切り替える離散的な決定を行うべきである。今後の研究課題として、ストリーミング方式やハードウェアを意識した軽量な圧縮器を用いることで、圧縮が利益をもたらす領域を拡大できるか、また、4ビット量子化やより大規模なモデルを用いた場合にエネルギー効率の分岐点がどのように変化するかを検証する必要がある。さらに、圧縮を単独の処理としてではなく、検索の深さやリランカーのカットオフ、クエリの書き換えといったRAGパイプライン全体の制御パラメータと統合し、テレメトリ情報に基づいて最適化する多変数コントローラーの構築が、エッジにおける効率的なグラウンデッド生成を実現する鍵となる。</p></section>
+<section class="secsum"><h3>5. Conclusion</h3><p>本研究は、エッジ環境におけるRAG（検索拡張生成）において、コンテキスト圧縮を固定的な前処理ではなく、実行時のシステム制御パラメータとして扱うべきであるという展望を実証的な証拠に基づき提示している。Jetson AGX Thorを用いた測定により、エッジRAGのパイプラインでは生成プロセスがコストの大部分を占めること、圧縮の導入が正味のエネルギー消費量の大幅な削減に寄与すること、そしてその効果はワークロードや圧縮率に依存することが明らかになった。エネルギー消費量と生成品質のトレードオフにおいて、両者が最適となる地点に乖離があることが観測されており、これはテレメトリ情報に基づいた適応的な圧縮の可能性を示している。今後のエッジRAGシステムは、ワークロードの特徴やSoC（System on Chip）のリアルタイムな状態を利用して、圧縮の計算コストを上回るメリットがあるか、およびどの程度の強度で圧縮を適用すべきかを決定すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-22
+  </footer>
+</div>
+</body>
+</html>

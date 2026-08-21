@@ -3046,6 +3046,69 @@
       "url": "http://arxiv.org/abs/2608.18489v1",
       "venue": ""
     },
+    "arxiv:2608.19535": {
+      "added": "2026-08-22",
+      "added_at": "2026-08-22T06:07:24.999061",
+      "arxiv_id": "2608.19535",
+      "authors": [
+        "Zlatan Feric",
+        "Amir Taherin",
+        "Yanzhi Wang",
+        "David Kaeli"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-20",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.19535.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.19535v1",
+      "reading_value": 4,
+      "reading_value_reason": "エッジSoCの計算資源と圧縮コストのトレードオフを「正味の利得」として定量化した点が非常に実用的で新規性が高い。エッジRAGの実装者にとって優先度の高い知見である。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "From Retrieved Context to Runtime Control: Adaptive Compression for Edge-based RAG",
+      "tldr": "エッジデバイスにおけるRAGの実行において、コンテキスト圧縮の計算コストと生成コストのトレードオフを分析し、デバイスのリアルタイムな状態に基づいて圧縮率を動的に制御する適応的圧縮の枠組みを提案する。",
+      "url": "http://arxiv.org/abs/2608.19535v1",
+      "venue": "appear in the Proceedings of the ACM AI Leadership Summit 2026"
+    },
+    "arxiv:2608.20097": {
+      "added": "2026-08-22",
+      "added_at": "2026-08-22T06:06:25.848206",
+      "arxiv_id": "2608.20097",
+      "authors": [
+        "Baixiang Liu",
+        "Haotian Che",
+        "Yuan Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-20",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.20097.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.20097v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの信頼性向上にブロックチェーンと秘密計算を組み合わせた独創的な提案。検証可能性と軽量性を両立する設計は、高信頼性が求められる分野の研究者にとって価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "TrustRAG: Blockchain-Enhanced RAG via Committee-Based Credibility Scoring",
+      "tldr": "中央集権的な管理に起因する情報の不透明性と改ざんリスクに対し、ブロックチェーンと委員会方式を用いた分散型かつ検証可能なRAGフレームワークTrustRAGを提案する。",
+      "url": "http://arxiv.org/abs/2608.20097v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -7569,6 +7632,39 @@
       "url": "http://arxiv.org/abs/2507.17054v1",
       "venue": "SOCS 2025"
     },
+    "doi:10.1609/socs.v18i1.35993": {
+      "added": "2026-08-22",
+      "added_at": "2026-08-22T06:03:39.193758",
+      "arxiv_id": "2504.06091",
+      "authors": [
+        "Runzhe Liang",
+        "Rishi Veerapaneni",
+        "Daniel Harabor",
+        "Jiaoyang Li",
+        "Maxim Likhachev"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-04-08",
+      "doi": "10.1609/socs.v18i1.35993",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2504.06091.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2504.06091v2",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFのリアルタイム計画において、理論的完全性とミリ秒単位の計算効率を両立させた点は非常に新規性が高く、実用上の重要性も大きい。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Real-Time LaCAM for Real-Time MAPF",
+      "tldr": "従来のリアルタイムなマルチエージェント経路計画（MAPF）は、計算時間の制約によりデッドロックやライブロックが発生しやすく、理論的な完全性が保証されていませんでした。本研究は、LaCAMの探索木を増分的に構築・再利用することで、ミリ秒単位の計算制限下でも完全性を保証するReal-Time LaCAMを提案します。",
+      "url": "http://arxiv.org/abs/2504.06091v2",
+      "venue": "the International Symposium on Combinatorial Search 2025 (SoCS 2025)"
+    },
     "doi:10.1609/socs.v18i1.35998": {
       "added": "2026-07-30",
       "added_at": "2026-07-30T06:16:32.590244",
@@ -7796,6 +7892,40 @@
       "tldr": "自動倉庫における、相互に依存するタスクと実ロボットの複雑な動力学を考慮したLifelong Multi-Agent Path Finding (MAPF) 問題に対し、タスク割り当てと経路計画を交互に行う手法と、動的な障害物を回避しつつ経由地を巡回する軌道生成アルゴリズムを提案し、その有効性を実証する。",
       "url": "https://www.semanticscholar.org/paper/493ee4d4b6cc09219440ac7c4dae271b50a1499d",
       "venue": "European Conference on Artificial Intelligence"
+    },
+    "doi:10.48550/arxiv.2504.07841": {
+      "added": "2026-08-22",
+      "added_at": "2026-08-22T06:02:43.085918",
+      "arxiv_id": "2504.07841",
+      "authors": [
+        "Nayesha Gandotra",
+        "Rishi Veerapaneni",
+        "Muhammad Suhail Saleem",
+        "Daniel Harabor",
+        "Jiaoyang Li",
+        "Maxim Likhachev"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 5,
+      "date": "2025-04-10",
+      "doi": "10.48550/arXiv.2504.07841",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2504.07841.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2504.07841v1",
+      "reading_value": 3,
+      "reading_value_reason": "PIBTのAnytime化という新規なアプローチと理論的保証は評価できるが、上位プランナーへの統合時に全体の性能向上に寄与しないという実験結果は、実用上の重要性に疑問を残す。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Anytime Single-Step MAPF Planning with Anytime PIBT",
+      "tldr": "高速な単一ステップ解法であるPIBTは、貪欲な性質ゆえに解の質が低く、利用可能な計算時間を使い切れない課題がある。本研究は、PIBTの迅速な初期解生成能力を維持しつつ、与えられた時間内で解を継続的に改善し、最終的に最適解へ収束するAnytime PIBTを提案する。",
+      "url": "http://arxiv.org/abs/2504.07841v1",
+      "venue": ""
     },
     "doi:10.48550/arxiv.2505.07779": {
       "added": "2026-08-21",
