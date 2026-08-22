@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>An Agentic RAG and Evaluation Framework for Assurance Case Generation: Industrial Use Case for the EU Cyber Resilience Act Compliance | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>An Agentic RAG and Evaluation Framework for Assurance Case Generation: Industrial Use Case for the EU Cyber Resilience Act Compliance</h1>
+  <div class="meta">Fariz Ikhwantri, Iker Lasa Ojanguren, Dusica Marijan, Maria I. Maslioukova, José Arias Marin, Pavlos Kosmides<br>採択先: ISSRE 2026 (Industry track) ・ 2026-08-19 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.19509v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.19509v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 ISSRE 2026 (Industry track)</span><span class="chip">公開日 2026-08-19</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">Agentic RAGによる論理構造生成と、NLIを用いた解釈可能な評価、合成データによる汎化検証という構成が非常に高度で、実用性と新規性のバランスが良い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> EUサイバーレジリエンス法（CRA）への準拠に必要なアシュアランスケース（AC）の構築を自動化するため、技術文書から主張・論拠・証拠の論理構造を生成するエージェント型RAGフレームワークを提案する。本手法は、分散した非構造的な文書から根拠を特定し、自然言語推論（NLI）を用いて生成された論理の一貫性を評価することで、中小企業の規制遵守プロセスを支援する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>EUサイバーレジリエンス法（CRA）への準拠には、主張、論拠、証拠という木構造の論理構成を持つアシュアランスケース（AC）の構築が必要である。しかし、設計書やテスト報告書などの分散した技術文書から適切な証拠を見出し、規制要件と体系的に紐付ける作業は、高度な専門知識と多大な労力を要する。従来のLLMを用いた手法は、定義済みのテンプレートへの当てはめに限定されることや、製品の実際のエビデンスに基づかない事実誤認、さらには技術的推論の評価が困難であるといった課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のテンプレート依存型やLLMの内部知識に頼る手法とは異なり、分散した非構造的ドキュメントから反復的な検索と洗練を通じて根拠を見出すエージェント的なアプローチを導入している。また、実世界のラベル付きデータが不足している状況に対応するため、エージェント型RAGで生成した構造化データから合成データを作成し、未知の監査要件へ汎化させるSynthetic-to-Realアプローチを提案している。さらに、自然言語推論（NLI）を用いた解釈可能な評価フレームワークを組み合わせることで、トレーサビリティと論理的一貫性の検証を可能にしている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>ReActメソッドに基づくエージェント型RAGを用い、規制要件と製品コンテキストを初期入力として、検索クエリの生成、情報の取得、クエリの洗練を繰り返すことで、主張・論拠・証拠からなる階層的なJSON形式のACを構築する。ドキュメント処理にはDoclingを用い、3000文字のチャンクに分割してChromaDBにインデックス化し、L2距離による意味検索とファイル名フィルタリングを組み合わせたハイブリッド検索を行う。評価においては、生成された構造化データからNLIのペアを作成して学習を行い、独立した監査人の記録をマルチホップ推論タスクに変換して汎化性能を検証する。また、トークンレベルのヒートマップを用いて、NLIモデルの説明がドメイン専門家の判断と一致するかを検証する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Catalink社の森林火災監視システムを対象としたケーススタディでは、CRAの7つの要件に対し計70件のACを生成し、1つのACあたり平均4.4個のアーティファクトというグラウンディング密度を達成した。証拠ノードの86.2%が技術文書への直接参照を含む高いトレーサビリティを示した。NLI評価器の性能では、BERTを用いた教師あり微調整がLLaMAを用いたインコンテキスト学習を最大35%上回り、未知の監査データに対して精度0.88、F1スコア0.85を記録した。専門家による妥当性調査では、3.06というスコアを得て、BERTによる説明の技術的な忠実度が高いことが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、生成された論理的整合性が必ずしも法的な適合性を保証するものではないため、最終的な形式的なコンプライアンス判定には依然として専門家による評価が必要である。評価プロセスにおいて、LLM JudgeはLLaMAによる説明を過大評価する妥当性バイアスを示す傾向がある。また、推論において階層的な構造を保持するChain設定よりも、線形化された設定の方が実世界の監査データに対して高い汎化性能を示すというトレードオフが存在する。今後の課題として、法務専門家を巻き込んだ形式的な適合性確認の検証が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>An Agentic RAG and Evaluation Framework for Assurance Case Generation: Industrial Use Case for the EU Cyber Resilience A</h3><p>本研究は、EUサイバーレジリエンス法（CRA）への準拠に必要なアシュアランスケース（AC）の生成を自動化するため、主張・論拠・証拠の論理構造に基づいたエージェント型RAGフレームワークを提案している。この手法は、技術文書の要件を体系的にマッピングすることで、従来は手動で行われていた文書検索とAC構築のプロセスを効率化し、透明性の高い意思決定支援を実現する。Catalink社の森林火災監視システムを用いたケーススタディでは、エージェント型RAGによって70個のACが生成され、1つのACあたり平均4.4個のアーティファクトというグラウンディング密度を達成した。評価においては、自然言語推論（NLI）を用いた評価器が0.88の精度を記録してトレーサビリティを確保しており、さらに専門家による妥当性の検証でも3.06というスコアを得て、解釈可能な正当性が示されている。このフレームワークは、中小企業にとってリソース集約的な規制遵守プロセスを、スケール可能かつ解釈可能な形で自動化する手段を提供する。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>安全・セキュリティに重要な要件定義において、主張、議論、証拠という木構造の論理構成を持つアシュアランスケース（AC）の構築は、専門知識を要する多大な労力が必要なプロセスであり、EUサイバーレジリエンス法（CRA）の施行に伴い、特に中小企業にとって大きな負担となっている。既存のLLMを用いた自動化手法は、定義済みのテンプレートへの当てはめに限定されることや、断片的な技術文書との深いトレーサビリティの確保、機密保持のためのローカル環境での動作、さらには技術的推論の評価の難しさといった課題がある。本研究では、組織固有のローカルな知識源から取得した技術文書に基づき、主張・議論・証拠（CAE）構造を持つACを構築するAgentic RAGフレームワークを提案する。この手法は、証拠自体の正当性ではなく、生成された主張が関連する証拠や下位の主張によって意味的に支持されているかという論理的一貫性の検証に焦点を当てている。評価には、生成された要素間の意味的サポートを測定する自然言語推論（NLI）ベースの解釈可能なフレームワークを用い、さらにドメインエキスパートによる妥当性調査を組み合わせている。Catalink社の森林火災監視システムを用いた産業事例での検証では、CRAの7つの要件に対応する計70件のACを自動構築し、1つのACあたり平均4.4個の根拠に基づいた構成要素を生成した。また、NLI評価器は未知の監査データに対して、精度0.88、F1スコア0.85を達成している。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>アシュアランスケースの生成に関する従来研究は、安全パターンや再利用可能なテンプレートを用いる手法から、大規模言語モデルを用いて高レベルな要件からGSN構造を合成する手法へと進化してきました。また、議論の弱点となる打ち消し要素を自動生成して議論を強化する手法も存在しますが、多くの手法は大規模言語モデルの内部知識に依存しており、製品の実際のエビデンスに基づかないため、構文的には正しくても事実関係が誤るという産業界の課題があります。既存のフレームワークは構造化されたテンプレートを前提としがちですが、分散した非構造的なドキュメントから根拠を見出すには、反復的な検索と洗練を行うエージェント的なアプローチが必要です。評価手法については、構造的な基準やグラフ解析から、証拠が主張を論理的に含意するかを検証するマルチホップNLI（自然言語推論）へと発展しており、近年では大規模言語モデルを判定員として用いる手法も提案されています。しかし、大規模言語モデルによる評価は外部の技術的文脈へのアクセスが不足しているため、評価が曖昧になる傾向があります。本研究は、これらに対し、エージェント型RAGによる生成と、合成データから実データへと評価を拡張する手法を組み合わせることで、この課題に対処します。</p></section>
+<section class="secsum"><h3>III Industrial Use Case: Cyber Resilience Act in Fire Detection System</h3><p>PATROLIoTは、農村地域の監視や火災検知を支援するために、環境センサーやカメラを備えたIoTシステムです。このシステムはデータをバックエンドへ送信するため、EUのサイバーレジリエンス法（CRA）の対象となりますが、重要またはクリティカルな製品の基準には該当しないため、中小企業による自己評価が求められます。しかし、専門のサイバーセキュリティや規制遵守の担当者が不在の中小企業にとって、どの技術文書が適切な証拠となるか、またそれらをどのように整理してCRAの各条文と体系的に紐付けるべきかを判断することは困難です。関連情報は設計書やテスト報告書、内部記録などに分散しており、保証論証の作成には高度な専門知識と多大な時間を要することが、迅速な法令遵守への大きな障壁となっています。</p></section>
+<section class="secsum"><h3>IV Methodology</h3><p>本手法は、ReActメソッドに基づくエージェント型RAGを用いて、規制要件に根ざしたアシュアランスケースを反復的に生成するフレームワークを提案している。エージェントは、規制要件と製品コンテキスト（製品説明やセキュリティ機能等を含む1800文字未満のJSON）を初期入力とし、検索クエリの生成と情報の取得、クエリの洗練を繰り返すことで、主張、論拠、証拠からなる階層的なJSON形式の成果物を構築する。ドキュメント処理にはDoclingを用い、3000文字のチャンク（500文字のオーバーラップあり）として分割してChromaDBにインデックス化し、L2距離を用いた意味検索と、ファイル名に基づくフィルタリングを組み合わせたハイブリッドな検索ツールを活用することで、産業用ドキュメントにおける高い再現性を確保している。評価手法として、実データが不足している状況を想定したSynthetic-to-Realアプローチを導入しており、まずAgentic RAGで生成した構造化データから自然言語推論のペアを作成して合成データによる学習を行い、次に独立した監査人の記録をマルチホップ推論タスクに変換して、学習した論理が実務的な監査要件に汎化できるかを検証する。さらに、自然言語推論モデルの解釈性を評価するため、トークンレベルのヒートマップがドメイン専門家の判断と一致するかを5段階のリッカート尺度を用いて検証する専門家妥当性調査を実施している。</p></section>
+<section class="secsum"><h3>V Experimental Settings</h3><p>本研究では、生成された保証主張と技術的証拠の間の根拠付けと追跡可能性、合成データで訓練された自然言語推論（NLI）モデルの未知の産業用アセスメント文書への汎化性能、およびNLIモデルの説明の妥当性を評価するための3つのリサーチクエスチョンを設定しています。比較実験では、技術文書へのアクセスなしにLLMの内部知識のみで合成データを作成するVanilla-LLMをベースラインとし、提案するAgentic RAGを用いて特定の技術的証拠に基づいたデータで訓練する手法と比較します。NLIモデルの構成として、教師あり微調整を行うBERTと、勾配ベースの説明抽出を計算可能にするために1B規模のLLaMAを用いたインコンテキスト学習の2種類を検討し、専門家による妥当性評価にはQwen2.5-32B-Instructを使用します。データセットはEUサイバーレジリエンス法（CRA）の7つの要件に基づき、4つの要件から生成された計4,200件（Chainあり）または2,700件（Chainなし）のインスタンスペアを訓練セットとし、残りの3つの未知の要件からなる計30件（Chainあり）または24件（Chainなし）のインスタンスペアをテストセットとして用いることで、新しい規制条項への汎化能力を評価します。なお、機密性の高い技術文書を外部サービスに送信しないよう、すべてのプロセスはローカル環境で実行されます。</p></section>
+<section class="secsum"><h3>VI Results and Discussion</h3><p>本研究では、EUサイバーレジリエンス法（CRA）への準拠を支援するエージェント型RAGフレームワークの有効性を検証している。根拠の追跡可能性に関する評価では、生成された証拠ノードの86.2%が技術文書への直接的な参照を含んでおり、不整合なメタデータを持つ産業用リポジトリにおいても高いトレーサビリティを維持できることが示された。自然言語推論（NLI）評価器の性能実験では、エージェント型RAGを用いて生成した合成データで学習したモデルが、通常のLLMによる合成データを用いた場合よりも高い精度を示し、ドキュメントへの接地（Grounding）の重要性が確認された。また、推論プロセスにおいて階層的な構造を保持するChain設定よりも、線形化された設定の方が実世界の監査データに対して高い汎化性能を示し、BERTを用いたファインチューニングはLLaMAを用いたインコンテキスト学習（ICL）を最大35%上回る性能を記録した。専門家による説明の妥当性評価では、BERTによる説明が技術的な忠実度において高く評価された一方、LLM JudgeはLLaMAの説明を過大評価する妥当性バイアスを示す傾向が確認された。本手法は、中小企業における自己評価の負担を軽減し、監査前に文書の欠落を特定する診断ツールとして機能する可能性があるが、生成される論理的整合性が必ずしも法的な適合性を保証するものではない。</p></section>
+<section class="secsum"><h3>VII Conclusion</h3><p>本研究では、EUサイバーレジリエンス法（CRA）への準拠に向けた、アシュアランスケースの自動生成および評価のためのエージェント型RAGフレームワークを提案した。このフレームワークは、性質の異なる技術文書から情報の検索とアシュアランスケースの構築を自動化し、情報の出所に関するトレーサビリティを維持する。実世界のラベル付きデータが不足している状況においても、エージェントに基づいた合成データを用いることで、未知の監査要件への汎化を支援できる。また、解釈可能な自然言語推論を導入することで、エンジニアがコンプライアンス関連の決定における技術的根拠を検証することを可能にする。本手法は、CRAのワークフローにおいて追跡可能かつ解釈可能な支援を提供するが、最終的な形式的なコンプライアンス判定には依然として専門家による評価が必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-23
+  </footer>
+</div>
+</body>
+</html>

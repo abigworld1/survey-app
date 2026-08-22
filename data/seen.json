@@ -3046,6 +3046,40 @@
       "url": "http://arxiv.org/abs/2608.18489v1",
       "venue": ""
     },
+    "arxiv:2608.19509": {
+      "added": "2026-08-23",
+      "added_at": "2026-08-23T06:07:03.173585",
+      "arxiv_id": "2608.19509",
+      "authors": [
+        "Fariz Ikhwantri",
+        "Iker Lasa Ojanguren",
+        "Dusica Marijan",
+        "Maria I. Maslioukova",
+        "José Arias Marin",
+        "Pavlos Kosmides"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-19",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.19509.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.19509v1",
+      "reading_value": 4,
+      "reading_value_reason": "Agentic RAGによる論理構造生成と、NLIを用いた解釈可能な評価、合成データによる汎化検証という構成が非常に高度で、実用性と新規性のバランスが良い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "An Agentic RAG and Evaluation Framework for Assurance Case Generation: Industrial Use Case for the EU Cyber Resilience Act Compliance",
+      "tldr": "EUサイバーレジリエンス法（CRA）への準拠に必要なアシュアランスケース（AC）の構築を自動化するため、技術文書から主張・論拠・証拠の論理構造を生成するエージェント型RAGフレームワークを提案する。本手法は、分散した非構造的な文書から根拠を特定し、自然言語推論（NLI）を用いて生成された論理の一貫性を評価することで、中小企業の規制遵守プロセスを支援する。",
+      "url": "http://arxiv.org/abs/2608.19509v1",
+      "venue": "ISSRE 2026 (Industry track)"
+    },
     "arxiv:2608.19535": {
       "added": "2026-08-22",
       "added_at": "2026-08-22T06:07:24.999061",
@@ -4156,6 +4190,35 @@
       "url": "http://arxiv.org/abs/2608.12675v1",
       "venue": ""
     },
+    "doi:10.48550/arxiv.2608.19526": {
+      "added": "2026-08-23",
+      "added_at": "2026-08-23T06:05:44.229366",
+      "arxiv_id": "2608.19526",
+      "authors": [
+        "Pranav Chandaliya"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-20",
+      "doi": "10.48550/arxiv.2608.19526",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.19526.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.19526v1",
+      "reading_value": 3,
+      "reading_value_reason": "RAGの課題や数値データのテキスト変換手法など、実用的な知見が含まれる。ただし、実験規模が限定的で、評価指標の限界も示されており、基礎研究としての価値に留まる。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Automated Summarization of Financial News Using Large Language Models and Retrieval-Augmented Generation: An Early Empirical Study (Fall 2023)",
+      "tldr": "金融ニュースの膨大な量に対し、大規模言語モデル（LLM）を用いた自動要約の有効性を検証した。Summarize Chainsを用いたFalcon-7Bが最も正確で網羅的な要約を実現したが、RAGは小規模モデルにおいて情報の繰り返しや事実の捏造を引き起こす課題があることが判明した。",
+      "url": "http://arxiv.org/abs/2608.19526v1",
+      "venue": ""
+    },
     "doi:10.5281/zenodo.21874580": {
       "added": "2026-08-21",
       "added_at": "2026-08-21T06:08:21.543969",
@@ -5103,6 +5166,72 @@
       "tldr": "Lifelong Multi-Agent Path Finding (L-MAPF) において、一時保管用の「キャッシュ」グリッドと、ロック機構を備えた Task Assigner (TA) を導入することで、エージェントの移動効率とスループットを向上させる L-MAPF-CM を提案する。",
       "url": "http://arxiv.org/abs/2501.02803v1",
       "venue": ""
+    },
+    "arxiv:2503.02992": {
+      "added": "2026-08-23",
+      "added_at": "2026-08-23T06:03:21.256185",
+      "arxiv_id": "2503.02992",
+      "authors": [
+        "Yimin Tang",
+        "Xiao Xiong",
+        "Jingyi Xi",
+        "Jiaoyang Li",
+        "Erdem Bıyık",
+        "Sven Koenig"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-03-04",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2503.02992.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2503.02992v2",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFにおいて、エージェント単位ではなくグリッド単位で行動を生成する集中型学習アプローチは極めて新規性が高い。未知の環境やエージェント数へのゼロショット汎化も強力である。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "RAILGUN: A Unified Convolutional Policy for Multi-Agent Path Finding Across Different Environments and Tasks",
+      "tldr": "エージェント数やマップサイズが変動するマルチエージェント経路探索（MAPF）に対し、マップ全体を対象とする初の集中型学習ベースのポリシーを提案する。CNNを用いたアーキテクチャにより、未知の環境や異なるエージェント数に対してもゼロショットでの汎化を実現する。",
+      "url": "http://arxiv.org/abs/2503.02992v2",
+      "venue": "2025 IEEE/RSJ International Conference on Intelligent Robots and Systems"
+    },
+    "arxiv:2503.03779": {
+      "added": "2026-08-23",
+      "added_at": "2026-08-23T06:02:18.571912",
+      "arxiv_id": "2503.03779",
+      "authors": [
+        "Yimin Tang",
+        "Zhenghong Yu",
+        "Jiaoyang Li",
+        "Sven Koenig"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-03-04",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2503.03779.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2503.03779v2",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFの焦点探索における下限値の課題に対し、二段階探索でタイトな下限を得るという明確な新規性と、大規模な実験による高い実証性が示されている。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Accelerating Focal Search in Multi-Agent Path Finding with Tighter Lower Bounds",
+      "tldr": "マルチエージェント経路計画における焦点探索において、下限値の増加が遅いために探索空間が制限される課題に対し、最短経路探索を先行させてタイトな下限値を決定するdouble-ECBS（DECBS）を提案し、探索効率を向上させる。",
+      "url": "http://arxiv.org/abs/2503.03779v2",
+      "venue": "2025 IEEE/RSJ International Conference on Intelligent Robots and Systems"
     },
     "arxiv:2504.15130": {
       "added": "2026-07-06",

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Automated Summarization of Financial News Using Large Language Models and Retrieval-Augmented Generation: An Early Empirical Study (Fall 2023) | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Automated Summarization of Financial News Using Large Language Models and Retrieval-Augmented Generation: An Early Empirical Study (Fall 2023)</h1>
+  <div class="meta">Pranav Chandaliya<br>採択先: 未取得 ・ 2026-08-20 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.19526v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.19526v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2608.19526" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-20</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">RAGの課題や数値データのテキスト変換手法など、実用的な知見が含まれる。ただし、実験規模が限定的で、評価指標の限界も示されており、基礎研究としての価値に留まる。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 金融ニュースの膨大な量に対し、大規模言語モデル（LLM）を用いた自動要約の有効性を検証した。Summarize Chainsを用いたFalcon-7Bが最も正確で網羅的な要約を実現したが、RAGは小規模モデルにおいて情報の繰り返しや事実の捏造を引き起こす課題があることが判明した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>投資家が日々直面する膨大な金融ニュースを効率的に把握するため、特定の企業に関する日次の要約レポートを自動生成するシステムを対象とする。入力データは、News APIから取得したニュース記事、Wikipediaの企業背景、およびYahoo Financeの株価データである。LLMが数値データの算術計算や表形式の解析において誤りを犯しやすいという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>一般的な計算資源で動作するオープンソースモデルの活用に焦点を当てている。数値データの処理において、LLMに直接計算させるのではなく、事前にPythonで騰落率などの計算を行い、自然言語の記述へ変換してから入力するStructured-to-Textアプローチを提案している。これにより、モデルの計算ミスを防ぎつつ、構造化データを要約可能な形式で提供できる。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>収集したテキストデータは1,000文字ずつのチャンクに分割され、all-MiniLM-L6-v2を用いてベクトル化された後、FAISSによってインデックス化される。要約手法には、全チャンクを個別に要約してから統合するmap_reduce方式のSummarize Chainsと、クエリに対して類似度の高いチャンクを検索してコンテキストとして利用するRAGの2種類を用いる。株価データについては、日付、銘柄、終値、および事前に計算された騰落率を含む自然言語のテンプレートに変換する処理フローを通す。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>10社の企業データを対象に、Falcon-7B-Instruct、DistilBART-CNN-12-6、BART-Large-XSumの3つのオープンソースモデルを用いて比較評価を行った。評価指標にはROUGE-1を用い、記事の冒頭3文のみを用いるLead-3ベースラインと比較した。結果、両LLMアプローチともにLead-3を上回るROUGE-1スコアを記録した。定性的には、Falcon-7Bを用いたSummarize Chainsが、ニュースの出来事や数値詳細を最も正確かつ網羅的に記述した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>RAGを用いると、検索された情報の重複によりFalconモデルに深刻な繰り返しが発生したり、BART-Largeでは検索コンテキストの矛盾から事実誤認が生じたりするという問題がある。また、ROUGEスコアではDistilBARTが高い値を示す一方で、情報の網羅性や正確性ではFalcon-7Bが勝るという、指標と実態の乖離も確認された。本研究の限界として、計算コストによるモデルサイズの制限、チャンク分割による境界情報の欠落、評価対象企業の限定が挙げられる。今後の課題として、最大マージナル関連性（MMR）による検索の最適化や、財務チャートを含むマルチモーダル情報の統合が示唆されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Automated Summarization of Financial News Using Large Language Models and Retrieval-Augmented Generation: An Early Empir</h3><p>本研究は、金融ニュースの要約を自動化するために、大規模言語モデル（LLM）と検索拡張生成（RAG）を用いたパイプラインの有効性を検証した初期の経験的研究である。10社の主要企業を対象に、News APIからのニュース記事、Wikipediaの企業背景、Yahoo Financeの株価データを収集し、数値データを自然言語の記述に変換するテンプレートを用いてLLMが処理可能な形式に変換する手法を導入している。要約手法として、Summarize ChainsとFAISSを用いたRAGの2種類を、Falcon-7B-Instruct、DistilBART-CNN-12-6、BART-Large-XSumといったオープンソースモデル、および株価要約用のGPTを用いて比較評価した。実験の結果、Summarize Chainsを用いたFalcon-7Bが、ニュースの出来事を正確かつ一貫して網羅し、最も優れた結果を示した。一方で、RAGはFalconにおいて深刻な内容の繰り返しを引き起こし、BART-Largeでは入力が大きくなると事実の捏造が発生するという課題が明らかになった。定量的な評価では、両LLMベースのアプローチともに、記事の冒頭3文のみを用いるLead-3ベースラインをROUGE-1指標において上回った。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、膨大な金融ニュースを効率的に把握するため、大規模言語モデル（LLM）を用いて特定の企業に関する日次の要約レポートを自動生成するシステムの構築と評価を目的としています。システムはNews API、Wikipedia、Yahoo Financeから取得したニュース、企業背景、株価履歴を統合するマルチソースのデータパイプラインを備えており、10社（AAPL、MSFT、GOOGL、AMZN、META、TSLA、JPM、NVDA、WMT、DIS）を対象としています。数値データの扱いにおける課題に対し、株価や出来高の変化をあらかじめ自然言語の文章に変換するテンプレートベースのコンバータを導入することで、LLMが誤りやすい算術計算やパーセンテージの計算を前処理に切り出し、モデルには要約しやすい自然言語の文章のみを渡す設計を採用しています。実験では、Summarize ChainsとRAG（検索拡張生成）の2つの手法を比較し、Falcon-7B、DistilBART、BART-Largeの3つのオープンソースモデルを用いてニュース要約の性能を検証しました。その結果、Summarize Chainsを用いたFalcon-7Bは良好な結果を示しましたが、RAGは特に大きな数値を取り扱う際に深刻な繰り返しやハルシネーション（幻覚）を引き起こすことが明らかになりました。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>テキスト要約の研究は、既存の文を選択する抽出型と、新たな文を生成する生成型に大別され、近年ではBARTやT5といったTransformerベースのモデルがCNN/DailyMailやXSumなどのベンチマークで高い性能を示しています。金融分野の自然言語処理では、FinBERTによる感情分析や、500億パラメータを持つBloombergGPTのような大規模モデルの研究が進んでいますが、本研究は個人や小規模企業でも利用可能な、消費者向け計算資源で動作するオープンソースモデルの活用に焦点を当てています。また、構造化データから自然言語を生成する手法として、本研究では株価の時系列データである始値・高値・安値・終値・出来高の数値を自然言語の記述に変換し、LLMへの入力として用いることで、構造化データと言語モデルの橋渡しを行っています。さらに、モデルの学習データに含まれない知識を扱うために、高密度な検索と生成モデルを組み合わせるRAG（Retrieval-Augmented Generation）を採用しており、効率的な類似性検索を実現するFAISSや、RAGアプリケーション構築のためのフレームワークであるLangChainを活用しています。</p></section>
+<section class="secsum"><h3>3 Data Collection and Preprocessing</h3><p>本研究では、金融ニュースの要約に向けた知識ベース構築のため、3種類のデータソースを収集・加工している。まず、News APIを用いて、AAPLやMSFTを含む10社のティッカーシンボルをキーワードに、2023年9月から10月にかけての7日間の英語ニュース記事（タイトル、説明、ソース名、タイムスタンプ、URLを含む）を取得した。次に、企業の背景知識としてWikipediaから構造化された要約を取得し、さらにYahoo Financeから4日間の株価データ（始値、高値、安値、終値、出来高）を収集した。数値データの扱いについては、LLMによる計算ミスや形式解析エラーを防ぐため、Pythonを用いて事前に価格と出来高の騰落率を計算し、日付、銘柄、終値、および騰落率を含む自然言語の文章に変換する手法を採用している。最終的に、これら全てのテキスト情報を企業ごとに一つのファイルに統合し、RAG（検索拡張生成）や要約チェーンの検索対象となるコーパスを構築した。なお、ニュースの収集期間（7日間）と株価データの観測期間（4日間）が異なる点は、今後の課題として挙げられている。</p></section>
+<section class="secsum"><h3>4 Methodology</h3><p>本システムは、ニュースAPI、Wikipedia、Yahoo Financeから収集したデータを基に、大規模言語モデルを用いた金融情報の要約と可視化を行う。知識ベースは1,000文字ずつのチャンクに分割され、10文字の重なりを持たせた上で、all-MiniLM-L6-v2モデルを用いて384次元のベクトル空間へ変換され、FAISSによってインデックス化される。要約手法には、全チャンクを個別に要約した後に統合するmap_reduce方式のSummarize Chainsと、ユーザーのクエリに対してFAISSで類似度の高いチャンクを検索してコンテキストとして利用するRAG方式の2種類を用いる。Summarize Chainsは、文脈ウィンドウに収まらない長文の処理に適しているが、チャンク間で情報が断絶する可能性がある。一方、RAGは特定の質問への回答に適しているが、検索されるチャンクの品質や、設定したチャンクの重なりが少ないことによる境界情報の欠落に影響を受ける。評価においては、コスト制約に基づき、株価データの要約にはGPT (text-davinci-003) を、ニュースの要約には3つのオープンソースモデルをそれぞれ個別のタスクとして使用している。最終的な出力は、Streamlitを用いたダッシュボードを通じて、動的なチャートとLLMによる自動生成された洞察として提供される。</p></section>
+<section class="secsum"><h3>5 Experiments and Results</h3><p>本研究では、金融ニュースおよび株価データの要約における大規模言語モデルと検索拡張生成（RAG）の有効性を検証しています。株価データの要約では、構造化データをテキストに変換してからGPTに入力する手法により、数値を捏造することなく一貫した解説を生成できることが示されました。ニュース要約の比較実験では、Falcon-7B-Instructを用いたSummarize Chains手法が、3つの主要なニュースイベントすべてを網羅し、解雇者数などの数値詳細も保持しており、最も優れた定性的性能を示しました。一方で、RAGを用いた手法では、特定のキーワードへの偏りによる情報の欠落や、情報の過度な繰り返し、あるいは検索ステップで導入される事実誤認といった課題が確認されました。定量評価では、ROUGEスコアを用いて評価を行いましたが、抽出的なコピーを行うDistilBARTがスコアで高い値を示す一方、抽象的な要約を行うFalcon-7Bはスコアこそ低いものの、情報の網羅性や正確性において優れた結果を出しており、ROUGE単体では要約の質を十分に評価できないことが示されました。</p></section>
+<section class="secsum"><h3>6 Discussion</h3><p>単純な抽出ベースラインであるLead-3法と比較して、DistilBARTやFalcon-7Bを用いた大規模言語モデルによる要約はROUGE-1などの指標で上回り、単なる文選択以上の価値があることが示されました。オープンソースモデルの中では、指示に従う能力と7Bのパラメータ数を持つFalcon-7B-Instructを用いたSummarize Chainsが、最も完全で正確かつ一貫性のある要約を生成しました。一方で、検索拡張生成（RAG）を用いると、検索された類似文書の影響でFalconモデルに深刻な繰り返しが発生したり、BART-Large-XSumのような小規模モデルでは検索コンテキストの矛盾により事実誤認が生じたりする課題が確認されました。数値データの扱いについては、Pythonを用いて事前に変化率の計算や方向性の記述を行うテンプレートベースの手法を用いることで、モデルに算術計算を行わせずに正確な数値を維持することに成功しました。本研究の限界として、計算コストの制約から10GB未満のモデルに限定したこと、コンテキストウィンドウの制限によりチャンク分割が必要となり境界に不自然さが生じたこと、および評価が特定の1社に限定されていることが挙げられます。今後の展望として、より多様な指標を用いた評価の拡充、大規模モデルの検証、最大マージナル関連性（MMR）を用いたRAGの最適化、および財務チャートなどのマルチモーダル情報の統合が示唆されています。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>本研究は、大規模言語モデル（LLM）が特定の企業に関する金融ニュースを信頼性高く要約できるかを検証した。実験の結果、Summarize Chainsを用いたFalcon-7Bは、ニュースイベントを正確に網羅し、ニュースの冒頭3文のみを用いるLead-3手法よりもROUGE-1指標において優れた性能を示した。一方で、検索拡張生成（RAG）の導入は、小規模モデルにおいて情報の繰り返しや実在しないエンティティの生成を引き起こし、追加の調整なしでは実用環境において信頼性に欠けることが明らかになった。また、構造化された株価データをテキストに変換する手法は、GPTを用いてテンプレート形式の記述から分析官のような精緻な要約を生成することに成功し、数値の誤りも発生しなかった。このことから、構造化データとLLMを繋ぐ変換ステップは有効であることが示された。本研究のパイプラインはStreamlitを用いたダッシュボードとして実装されており、将来的にRAGのチューニングやモデルの大型化、リアルタイムデータの統合を行うことで、日々の市場分析に資するツールへと発展する可能性がある。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-23
+  </footer>
+</div>
+</body>
+</html>

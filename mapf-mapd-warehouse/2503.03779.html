@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Accelerating Focal Search in Multi-Agent Path Finding with Tighter Lower Bounds | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Accelerating Focal Search in Multi-Agent Path Finding with Tighter Lower Bounds</h1>
+  <div class="meta">Yimin Tang, Zhenghong Yu, Jiaoyang Li, Sven Koenig<br>採択先: 2025 IEEE/RSJ International Conference on Intelligent Robots and Systems ・ 2025-03-04 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2503.03779v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2503.03779v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 2025 IEEE/RSJ International Conference on Intelligent Robots and Systems</span><span class="chip">公開日 2025-03-04</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFの焦点探索における下限値の課題に対し、二段階探索でタイトな下限を得るという明確な新規性と、大規模な実験による高い実証性が示されている。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチエージェント経路計画における焦点探索において、下限値の増加が遅いために探索空間が制限される課題に対し、最短経路探索を先行させてタイトな下限値を決定するdouble-ECBS（DECBS）を提案し、探索効率を向上させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>複数のエージェントを衝突なしに開始地点から目標地点まで導く経路集合を求めるマルチエージェント経路計画（MAPF）を対象とする。従来のECBSなどの手法では、未展開ノードを格納するOPENリスト内の最小コストを最適コストの下限値として用いるが、探索初期段階ではこの値が小さいため、焦点リスト（FOCAL list）に含まれるノードが極端に少なくなる。その結果、探索空間が制約され、有効な解の発見が遅れるという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の焦点探索が、探索の過程で得られた経路コストに基づいて下限値を逐次的に更新していたのに対し、DECBSは最短経路探索によって事前に最適コストの上限を特定し、それに基づいたよりタイトな下限値を活用する点が新規である。これにより、焦点リストに含めるノードの範囲を最大化し、衝突の少ない経路を選択する確率を高めることで、高レベルの制約木（CT）および低レベルの経路探索の両方におけるノード展開を抑制できる。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>低レベルの経路探索において、最短経路探索と最良優先探索を組み合わせたdouble searchを導入する。まず、最短経路探索を実行して各エージェントの最適な経路コストを特定する。次に、このコストを上限として、劣最適化の範囲を超えるノードを排除した上で、衝突数をヒューリスティック関数として用いる最良優先探索を行う。この二段階のプロセスにより、焦点リストの選択肢を広げつつ、計算コストの高い焦点探索のノード生成数を抑える。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>6種類のマップ、異なるエージェント数、および異なる劣最適化係数を用いた計270,000件のテストケースで、ECBSおよび最適化手法（BC、TR）と比較評価を行った。DECBSはECBSと比較して、低レベルの焦点探索ノードを平均で約50%、高レベルの制約木ノード展開数を約30%削減した。エージェント密度が高い小・中規模マップにおいて、BCとTRを併用した場合、DECBSはECBSに対して平均23.5%の実行時間の向上を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>エージェント密度が極めて低い大規模マップでは、衝突が稀であるために焦点探索が通常の探索に近い挙動となり、二度の探索を行うDECBSはECBSよりも実行時間が遅くなるトレードオフが存在する。これは、追加の最短経路探索による計算コストが、ノード削減によるメリットを上回るためである。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Accelerating Focal Search in Multi-Agent Path Finding with Tighter Lower Bounds</h3><p>マルチエージェント経路計画（MAPF）において、ECBSやEECBSといった手法は、焦点探索を用いて解の品質と計算効率のバランスを取りますが、探索の初期段階では焦点リストにノードを追加するための下界の値が緩やかにしか増加せず、探索空間が制限されて解の発見が遅れるという課題があります。本論文では、この問題を解決するために、まず最大の下界値を決定した上で、その下界に基づいて最良優先探索を行う新しい限定劣最適アルゴリズムであるdouble-ECBS（DECBS）を提案します。実験の結果、DECBSはECBSと比較して、高レベルの制約木におけるノード数を約30%、低レベルの焦点探索におけるノード数を約50%削減できることが示されました。特にエージェントの密度が高い設定において、DECBSはECBSと同じ劣最適性境界および最適化技術を用いた場合と比較して、平均実行時間を23.5%向上させています。</p></section>
+<section class="secsum"><h3>I INTRODUCTION</h3><p>マルチエージェント経路計画（MAPF）において、解の品質をユーザー指定の範囲内に保証する限定劣最適解法としてEnhanced CBS（ECBS）がある。ECBSはFocal Searchを用いて、未展開のノードを格納するOPENリストから、補助的なヒューリスティックに基づき候補を選択するFOCALリスト内のノードを展開する。従来のECBSでは、最適コストが未知であるため、OPENリスト内の最小コストを最適コストの下限値（LB）として用いるが、このLB値が小さいとFOCALリストに含まれるノードが少なくなり、標準的な最良優先探索に近い挙動や探索木の不均衡な拡大を招く。本論文では、低レベルの経路計画におけるFocal Searchを改良したdouble-ECBS（DECBS）を提案する。DECBSは、最短経路探索によって最適コストを特定し、それをLB値として用いるdouble searchという手法を用いる。この手法により、FOCALリストに多くのノードが保持されるため、衝突の少ない経路を選択できる確率が高まり、高レベルおよび低レベルの両方のノード展開を抑制できる。また、Focal Searchのノード計算は補助的なヒューリスティックの計算を伴いコストが高いが、事前に最短経路探索を行うことでFocal Search自体のノード生成数を減らせるため、計算効率が向上する。実験の結果、エージェント密度が高い条件下において、DECBSはECBSと比較して高レベルの制約ツリーのノード数を約30%、低レベルのFocal Searchのノード数を約50%削減し、平均実行時間を23.5%改善することを確認した。</p></section>
+<section class="secsum"><h3>II Problem Definition</h3><p>マルチエージェント経路探索（MAPF）問題は、エージェントの集合と、頂点が位置を、エッジが単位コストの移動を表す無向グラフが与えられた際に、各エージェントを衝突なしに開始地点から目標地点まで導く経路を求める問題である。エッジにはその場に留まる「待機」を意味する自己ループが含まれ、移動および待機のいずれも1タイムステップのコストを要する。衝突には、2つのエージェントが同時に同じ頂点を占有する頂点衝突と、2つのエージェントが同じエッジを互いに逆方向に移動するエッジ衝突の2種類が存在する。各エージェントは目標に到達した後はその地点に留まるものとする。本問題の目的は、すべてのエージェントが開始地点から目標地点へ到達し、かつ衝突を回避しながら、全エージェントの移動時間の総和である総フロータイムを最小化する経路集合を見つけることである。</p></section>
+<section class="secsum"><h3>III Related work</h3><p>Focal searchは、ユーザーが指定した劣最適化係数に基づき、最適解のコストのw倍以内の解を保証する境界付き劣最適化探索アルゴリズムである。この手法は、すべての候補ノードをコストの昇順で管理するOPENリストと、OPEN内の最小コストから一定の範囲内にあり、かつ追加のヒューリスティック関数によってソートされたFOCALリストの2つのキューを用いて探索を進める。マルチエージェント経路探索（MAPF）においては、CBSという最適解を求める2レベル探索アルゴリズムを基礎として、ECBSやBCBSといった境界付き劣最適化アルゴリズムが提案されている。ECBSは、低レベルの経路探索と高レベルの制約木探索の両方にFocal searchを導入しており、高レベルのノードに低レベルの経路コストの下限値の合計を持たせることで、全体の解のコストが最適解のw倍以内であることを保証する。BCBSも同様に両レベルでFocal searchを用いるが、高レベルのノードの下限値を低レベルの経路コストの合計として定義しており、高レベルと低レベルで異なる劣最適化係数を設定することが可能である。</p></section>
+<section class="secsum"><h3>IV Method</h3><p>DECBSは、マルチエージェント経路探索において、低レベルの経路探索にダブルサーチという手法を導入することで、高レベルの探索効率を向上させるアルゴリズムである。従来のECBSでは、焦点探索で見つかった経路コストに基づいて下限値を決定していたが、下限値の増加が遅いため、焦点リストに含まれる候補ノードが限定的になる課題があった。DECBSでは、まず最短経路探索を実行して各エージェントの最適な経路コストを特定し、それを用いてよりタイトな下限値を算出することで、焦点リストに含めることができるノードの範囲を最大化する。このプロセスでは、最短経路探索によって得られたコストを上限として、それを超えるノードを排除した上で、衝突数をヒューリスティック関数として用いる最良優先探索を行う。一見すると二度の探索は冗長に見えるが、より大きな下限値によって焦点リストの選択肢が増えることで、高レベルおよび低レベルの両方で展開されるノード数が削減される。実験の結果、DECBSはECBSと比較して、低レベルの探索ノード数および高レベルのCTノード数の両方において、展開するノード数を抑制できることが示されている。</p></section>
+<section class="secsum"><h3>V Experimental Results</h3><p>提案手法であるDECBSの性能を、既存手法であるECBSおよびその最適化手法であるBypassing Conflicts（BC）とTarget Reasoning（TR）を用いて比較評価しました。6種類のマップ、異なるエージェント数、および異なる劣最適化係数を用いた計270,000件のテストケースによる検証の結果、DECBSはECBSと比較して、低レベルのFOCALノード探索数を平均で約50%、高レベルのCTノード展開数を約30%削減しました。追加の最短経路探索コストが発生するものの、ノード探索数の削減がそのコストを上回るため、特にエージェント密度が高い小・中規模マップにおいて実行時間の短縮を実現しています。BCとTRの最適化を併用した場合、小・中規模マップにおいてDECBSはECBSよりも平均で23.5%高速であり、エージェント数や劣最適化係数が増加するほどその改善効果は顕著になります。一方で、エージェント密度が極めて低い大規模マップでは、衝突が稀であるためにFOCAL探索が通常の探索に近い挙動となり、DECBSが実質的に2回の探索を行うことになるため、ECBSよりも実行時間が遅くなる傾向があります。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本論文では、従来のFocal Searchを、短経路探索と最良優先探索からなる2段階のアプローチに置き換える、double-ECBS（DECBS）という新しい有界劣最適アルゴリズムを提案している。広範な実験の結果、この二段階探索による最適化は、特にエージェント密度が高いシナリオにおいて、低レベルのFOCALノード数と高レベルのCTノード数の両方を大幅に削減することが示された。また、DECBSは他の最適化手法とも互換性があり、同一の最適化を適用したECBSと比較して、より高い高速化を実現している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-23
+  </footer>
+</div>
+</body>
+</html>

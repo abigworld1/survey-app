@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>RAILGUN: A Unified Convolutional Policy for Multi-Agent Path Finding Across Different Environments and Tasks | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>RAILGUN: A Unified Convolutional Policy for Multi-Agent Path Finding Across Different Environments and Tasks</h1>
+  <div class="meta">Yimin Tang, Xiao Xiong, Jingyi Xi, Jiaoyang Li, Erdem Bıyık, Sven Koenig<br>採択先: 2025 IEEE/RSJ International Conference on Intelligent Robots and Systems ・ 2025-03-04 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2503.02992v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2503.02992v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 2025 IEEE/RSJ International Conference on Intelligent Robots and Systems</span><span class="chip">公開日 2025-03-04</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFにおいて、エージェント単位ではなくグリッド単位で行動を生成する集中型学習アプローチは極めて新規性が高い。未知の環境やエージェント数へのゼロショット汎化も強力である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> エージェント数やマップサイズが変動するマルチエージェント経路探索（MAPF）に対し、マップ全体を対象とする初の集中型学習ベースのポリシーを提案する。CNNを用いたアーキテクチャにより、未知の環境や異なるエージェント数に対してもゼロショットでの汎化を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>複数のエージェントが衝突を回避しながら始点から終点へ移動する経路を、総移動時間（SoC）を最適化するように見つけるマルチエージェント経路探索（MAPF）問題を対象とする。従来の学習ベースの手法は、各エージェントの局所的な視野情報に基づく分散型アプローチが主流であった。そのため、エージェント数やマップサイズの変動に合わせて特徴量を設計する必要があり、中央集権的な方策を構築することが困難であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>個々のエージェントの特徴量に依存するのではなく、マップのグリッドセルに対して行動を生成する、初の中央集権的な学習ベースのMAPFソルバーを提案する。エージェントごとの特徴量設計の課題を克服し、エッジ重みの設計思想をニューラルネットワークに統合した点が新規性である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MAPFの解を、各時刻において各グリッドセルが5つの移動方向（上下左右および待機）のうち1つを選択する有向グラフの連続として捉える。モデルのバックボーンにはU-Netを採用し、エンコーダで特徴マップの解像度を下げつつチャネル数を増やし、デコーダで転置畳み込みを用いて解像度を復元することで、異なるサイズのマップへの適応を可能にしている。入力には、通行不能なセル情報、エージェントの現在地と目的地、目的地までの最短経路コスト、および目的地へ近づく方向を示すコストの勾配の5種類を用いる。出力は各グリッドセルにおける5つのアクションの確率分布であり、推論時には現在の状態から次のアクションを繰り返し予測することで軌道を生成する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>POGEMAベンチマークを用い、LaCAM-v1によって生成された180種類の迷路マップと、エージェント数16から128までの計127通りのシナリオを用いて教師あり学習を行った。評価指標として、解の質（SoC/スループット）、成功率（CSR）、スケーラビリティ、協調性、最短経路探索能力、および未知環境への適応力（OOD）を用いた。実験の結果、実行時間がエージェント数ではなくマップサイズに依存する特性により、スケーラビリティにおいて他の学習ベースの手法を上回った。また、学習に含まれないLifelong MAPF（LMAPF）タスクに対しても、最短経路探索能力や協調性、スケーラビリティにおいて性能を示すゼロショット汎化性能を確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>解の質（SoCやスループット）に関しては、学習データであるLaCAM-v1の特性を模倣することを優先しているため、検索ベースの手法や一部の学習ベースの手法に劣る傾向がある。また、教師あり学習のみでは不十分な場合があり、強化学習の併用が示唆されている。今後の課題として、より高品質なデータを収集して基盤モデルとして訓練することや、タスク固有のコスト関数を用いた強化学習によるファインチューニングを行い、実世界のアプリケーションにおける解の質と成功率を向上させることが挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>RAILGUN: A Unified Convolutional Policy for Multi-Agent Path Finding Across Different Environments and Tasks</h3><p>RAILGUNは、エージェント数やマップサイズが変動するマルチエージェント経路探索（MAPF）問題に対し、従来の分散型アプローチではなく、マップ全体を対象とする初の集中型学習ベースのポリシーである。CNN（畳み込みニューラルネットワーク）を用いたマップベースのアーキテクチャを採用することで、異なるマップ形状や任意の数のエージェントに対しても汎用的に対応できる。学習手法としては、ルールベースの手法から収集した軌跡データを用いた教師あり学習を用いている。実験の結果、RAILGUNは多くのベースライン手法を上回る性能を示し、訓練データに含まれていない異なるタスク、マップ、エージェント数に対しても優れたゼロショット汎化性能を発揮することが確認された。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>マルチエージェント経路探索（MAPF）は、複数のエージェントが衝突を回避しながら始点から終点へ移動する経路を、指定されたコスト関数を最適化しつつ見つけるNP困難な問題であり、倉庫自動化などの分野に応用されている。既存の学習ベースの手法は、各エージェントが自身の視野情報に基づいて行動を決定する分散型アプローチが主流であり、エージェント数やマップサイズの変動には対応できるものの、個々のエージェントの特徴に基づいた行動生成に焦点を当てている。これに対し、本論文が提案するRAILGUNは、個々のエージェントではなくマップのグリッドセルに対して行動を生成する、初の学習ベースの中央集権型MAPFアルゴリズムである。各タイムステップにおいて、各ノードがちょうど1つの出力を有する有向グラフを生成する設計を採用することで、マップ上のエージェント数に依存しない制御を実現している。また、モデルのバックボーンにU-Netを用いることで、入力特徴量と同じ次元の出力を得られるようにし、異なるサイズのマップにも適応可能としている。実験では、特定のマップタイプで学習したモデルが未知のマップやシナリオへ効果的に汎化することを示し、POGEMAベンチマークにおいて多くのベースライン手法を上回る性能を達成している。</p></section>
+<section class="secsum"><h3>II Problem Definition</h3><p>マルチエージェント経路探索（MAPF）問題は、エージェントの集合、頂点と単位コストの辺で構成される無向グラフ、および各エージェントの開始地点と目標地点として定義される。本研究では、上下左右の4方向に接続された2Dグリッドマップを対象とし、その場に留まる「待機」アクションを自己ループ辺として扱う。各エージェントは、開始地点から目標地点まで、衝突を回避しながら各ステップで1単位の時間を用いて移動または待機を行う。衝突には、同じ時刻に複数のエージェントが同一の頂点を占有する頂点衝突と、同じ辺を互いに逆方向に同時に通過する辺衝突の2種類が存在する。本問題の目的は、すべてのエージェントが開始地点から出発して目標地点に到達し、かつ衝突が発生しない経路集合を、総移動時間（SoC: flowtime）を最小化するように見つけることである。</p></section>
+<section class="secsum"><h3>III Related Work</h3><p>マルチエージェント経路探索（MAPF）には、各エージェントの経路を個別に計画する分離型、全エージェントの計画を同時に行う結合型、および衝突時のみ協調する動的結合型の戦略が存在する。Conflict-Based Search（CBS）に代表される探索ベースの手法は、最適性を保証できる一方で、問題規模の拡大に伴う探索空間の次元爆発により、制限時間内に解を生成することが困難になる課題がある。これに対し、学習ベースの手法は大量のデータから学習することで、経路コストの低減とスケーラビリティのトレードオフを解決できる可能性がある。既存の学習ベースの手法には、エッジの重みを予測してコストとして利用する段階的なアプローチや、エージェント自身に焦点を当てた分散型のアプローチが存在するが、前者は最適化の探索空間を肥大化させる恐れがあり、後者はエージェント数やマップサイズが変化する場合に中央集権的な方策を設計することが困難である。提案手法であるRAILGUNは、エージェントの特徴量設計の課題を克服し、エッジ重みの設計思想をニューラルネットワークベースのソルバーに統合した、初の中央集権的なMAPFソルバーである。</p></section>
+<section class="secsum"><h3>IV Method</h3><p>RAILGUNは、エージェントごとの特徴量を用いる従来の集中型手法では、マップサイズやエージェント数に応じて入力次元が膨大になり、異なるマップへの汎用性が失われる課題を解決する手法である。本手法は、有効なマルチエージェント経路探索の解を、各時刻において各グリッドセルに最大1つのエージェントが存在し、各エージェントが5つの移動方向のうち1つを選択する「特殊なグラフ」の連続として捉え、このグラフを生成する問題に置き換えている。モデルのアーキテクチャにはU-Netを採用しており、エンコーダで特徴マップの解像度を下げつつチャネル数を増やし、デコーダで転置畳み込みを用いて解像度を復元することで、推論時に異なるサイズのマップへの対応を可能にしている。入力特徴量には、通行不能なセルを示すマップ情報、エージェントのインデックスで表現された現在地と目的地、事前計算された目的地までの最短経路コスト、および目的地へ近づく方向を示すコストの勾配の5種類を用い、出力は各グリッドセルにおける5つのアクションの確率分布となる。このモデルは約3000万個のパラメータを持ち、推論時には現在の状態から次のアクションを繰り返し予測することで軌道を生成する。</p></section>
+<section class="secsum"><h3>V Experiments &amp; Results</h3><p>POGEMAベンチマークを用い、LaCAM-v1によって生成された180種類の迷路マップと、エージェント数16から128までの計127通りのシナリオを学習データとして、クロスエントロピー誤差を用いた教師あり学習を行っています。評価指標には、解の質や成功率を測るPerformance、未知の環境への適応力を示すOOD、協力性能を示すCooperation、エージェント数増加に伴う実行時間の増大度を示すScalability、無効な行動の頻度を示すCoordination、および単一エージェントの最短経路探索能力を示すPathfindingの6つを用いています。実験の結果、RAILGUNはScalabilityにおいて、各タイムステップで特定の有向グラフを生成することで、理論上、実行時間がエージェント数ではなくマップサイズのみに依存するため、他の学習ベースの手法を上回る性能を示しました。また、学習時に含まれていないLMAPFタスクに対しても、Pathfinding、Coordination、Scalabilityにおいて高い性能を示すことで、強力なゼロショット汎化性能を示しています。一方で、解の質（SoCやスループット）に関しては、学習データであるLaCAM-v1の特性を模倣することを優先しているため、検索ベースの手法や一部の学習ベースの手法（SCRIMPなど）に劣る傾向があります。</p></section>
+<section class="secsum"><h3>VI Conclusion and Future Work</h3><p>本論文では、マルチエージェント経路探索（MAPF）問題に対する初の集中学習ベースの手法として、RAILGUNを提案している。個々のエージェントの行動を予測する代わりに、マップの各グリッドセルにおけるエッジの方向を予測する手法を採用することで、入力特徴量の次元の変化に伴う困難を克服した。これにより、任意のマップサイズやエージェント数に対応可能なCNNベースのアーキテクチャを実現している。POGEMAベンチマークを用いた実験では、6つの評価指標すべてにおいて高い性能を示し、未知のマップや異なるエージェント数、さらにはLMAPF問題といった異なるタスクに対しても優れた汎化性能を発揮した。今後の展望として、より高品質なデータを収集してRAILGUNを基盤モデルとして訓練することや、タスク固有のコスト関数を用いた強化学習によるファインチューニングを行い、実世界のアプリケーションにおける解の質と成功率を向上させることを計画している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-23
+  </footer>
+</div>
+</body>
+</html>
