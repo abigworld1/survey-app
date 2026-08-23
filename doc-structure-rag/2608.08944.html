@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>What Would Fix This RAG Failure? Auditing Counterfactual Response with Paired Evidence Interventions | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>What Would Fix This RAG Failure? Auditing Counterfactual Response with Paired Evidence Interventions</h1>
+  <div class="meta">Wenzhang Du<br>採択先: 未取得 ・ 2026-08-09 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.08944v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.08944v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-09</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの失敗原因を「情報の欠落」と「干渉」に分離して診断するPair-IDの提案は、デバッグの観点から非常に新規性が高く、実用的な洞察に富んでいる。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGの失敗が情報の欠落か干渉によるものかを特定するため、根拠の追加と削除を交差させて反事実的な応答を測定する監査手法Pair-IDを提案し、失敗の性質が読者モデルに依存することを明らかにした。</div>
+<section class="qa"><h2>どんなもの？</h2><p>RAGシステムが誤答した際、その原因が検索情報の欠落、検索結果による干渉、あるいは証拠の編集後も残る問題（残差）であるかを特定することは困難である。既存の診断手法は、異なる反事実的な応答を同一の修復アクションへと集約してしまうため、失敗が支持情報の感度、干渉の感度、あるいはそれらの混合によるものかを正確に区別できない。本研究は、クエリ、検索状態、および読者モデルを固定した条件下での、失敗原因の精密な診断を対象としている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>先行研究が証拠の追加・削除やノイズ耐性、あるいは検索の有無といった単一の操作を対象としていたのに対し、本研究はこれらを交差させた応答ベクトルを経験的な解析対象とするPair-IDを提案している。失敗したインスタンスに対して2つの修復要因を組み合わせ、応答の出現頻度、観測情報からの回復可能性、および読者モデルへの依存性を検証する点に新規性がある。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>Pair-IDは、失敗したクエリに対し、正解に必要な支持情報を追加する操作と、検証済みの非支持情報を削除する操作を独立に、あるいは組み合わせて行う。これにより、追加のみ、削除のみ、追加と削除の組み合わせ、あるいはどちらも行わない場合の4つの応答パターンを生成し、正規化された完全一致を用いて評価する。入力の長さや位置の影響を排除するため、トークン数や位置を一致させた意味的に無関係な制御用ブロックを導入している。さらに、質問、文脈、回答をベクトル化して介入結果を予測する攻撃モデルを設計し、元の観測情報が修復後の応答を特定するのに十分かを測定する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>HotpotQAおよび2WikiMultiHopQAを用い、Qwenモデルの失敗事例から抽出された1,200件のサンプルで検証を行った。支持情報の追加のみで修復される割合は600件中197件（32.8%）、削除のみによる修復は1,190件中162件（13.6%）であった。応答の分類では、全失敗の64.6%が編集後も誤答のままであり、追加に敏感なものが12.8%、削除に敏感なものが10.8%、両方の編集を必要とするものが7.5%であった。応答ベクトルの正確度は0.637であり、多数決に基づくベースラインの0.646を下回った。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は情報の理論的な不可能証明ではなく、特定の条件下におけるオフラインの回答監査として機能する。修復の感度が読者モデルに依存しており、根拠の有用性がLLMに依存するという性質が示されている。実験は英語のマルチホップ・ベンチマーク、特定のモデル、および正解の根拠へのアクセスを前提としており、実稼働中のRAGシステムや多言語環境への直接的な適用については対象外である。また、修復アクションの選択が必ずしも診断の妥当性を意味しないことも示唆されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>What Would Fix This RAG Failure? Auditing Counterfactual Response with Paired Evidence Interventions</h3><p>本研究では、RAG（検索拡張生成）の失敗原因を診断するために、クエリ、検索状態、および読者モデルを固定したまま、不足している根拠の追加と、根拠とならない情報の削除という2つの操作を組み合わせるPair-IDというオフライン監査手法を提案している。19,981件のベンチマーククエリから抽出されたQwenモデルの失敗事例のうち、SHA-256を用いた順序付けによって選出された1,200件のサンプルを用いて検証を行った。その結果、根拠の追加と削除を同時に行う操作では、600件中197件（32.8%）が修復されたのに対し、削除のみによる修復は1,190件中162件（13.6%）に留まった。既存の失敗状態から個々の回答の変化を予測する信号は一部存在するものの、ベクトルとしての正確度は0.637であり、多数決に基づくベースラインの0.646を下回った。また、4つの異なる読者モデルを用いた実験では、修復の感度が読者モデルに依存することが示されており、本手法は情報の理論的な不可能証明ではなく、フレームに限定されたオフラインの回答監査として機能する。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>RAG（検索拡張生成）システムが誤答した際、その原因が検索情報の欠落、検索結果による干渉、あるいは証拠の編集による残差であるかを特定することは困難である。既存の観測ベースの診断手法は、異なる反事実的な応答を同一の行動として集約してしまうため、失敗が支持情報の感度や干渉の感度、あるいはそれらの混合によるものかを正確に検証できない。本研究では、失敗したクエリに対し、不足している支持情報の追加と、検証済みの非支持情報の削除という2つの要因を独立に切り替えるPair-IDを提案する。これにより、同一の失敗状況下でどのような応答が生じるかを記録する応答ベクトルを生成し、失敗の性質を詳細に分析する。実験の結果、支持情報の追加と非支持情報の削除の両方が有効なケースが確認されたが、応答ベクトルは読者（モデル）に依存しており、クエリ固有の性質ではなく読者条件付きの応答であることが示された。また、完全な文脈を用いたモデルでは、各セルの較正は改善されるものの、多数派のベースラインを超える正確な3ビットの応答ベクトルを完全に回復することはできなかった。</p></section>
+<section class="secsum"><h3>2 Counterfactual response auditing</h3><p>本セクションでは、RAGの失敗原因を特定するための反事実的な応答監査手法を定義している。まず、クエリと検索された文脈に対し、正解に必要な根拠を追加する操作、不要な文脈を削除する操作、およびその両方を行う操作を組み合わせた応答パターンを生成し、正規化された完全一致やF1スコアを用いて評価する。監査の目的は、元の応答から最小の編集コスト（操作回数）で正解に到達できるアクションを予測することであり、予測されたアクションと実際の最小損失アクションとの差である平均後悔を用いて、観測可能な情報が十分であるかを測定する。この手法におけるアクションラベルは、複数の応答ベクトルを最小損失アクションへと集約したものであり、観測のみに基づく攻撃者が平均後悔0.02以下を達成できれば、現在の観測情報がアクションを特定するのに十分であると判断する。この枠組みは、観測された状態が十分であるか、あるいは反事実的な応答がクエリ固有の性質であるかを検証するための診断的なものであり、情報理論的な不可能を証明するものではない。</p></section>
+<section class="secsum"><h3>3 Study design</h3><p>本研究では、HotpotQAおよび2WikiMultiHopQAデータセットを用い、RAG（検索拡張生成）における回答失敗の要因を分析するための実験設計を行っている。まず、Qwen3-4Bを用いて、元の回答が誤っており、かつ文脈から削除可能な段落が存在する11,105件の失敗事例を特定し、その中からハッシュ関数に基づき決定論的に選択された1,190件の有効な失敗事例を解析対象としている。介入実験において、根拠となる情報の追加や削除が入力の長さや位置に与える影響を排除するため、トークン数や位置を一致させた意味的に一致する制御用ブロックを導入している。また、欠落した文脈が予測情報を隠蔽しているかを検証するため、質問、文脈、回答をBGEやQwen3-4Bを用いてベクトル化し、介入結果を予測する観測のみによる吸収攻撃を設計している。さらに、手法の汎用性を確認するため、Qwen3-4B、Gemma-3-4B-IT、Llama-3.1-8B-Instruct、Mistral-7B-Instruct-v0.3の4つのモデルを用いて再現実験を行い、複数のモデル間で共通して発生する失敗の特性を評価している。評価にはAUROC、F1スコア、Brierスコア、およびベクトルの一致度などの指標を用い、統計的な信頼性を確保するために層化ブートストラップ法による再サンプリングを適用している。</p></section>
+<section class="secsum"><h3>4 Results</h3><p>本セクションでは、RAG（検索拡張生成）における失敗原因を特定するための反事実的介入実験の結果が示されている。根拠情報の追加と削除による応答の変化を分析した結果、追加はJOINT（追加と削除の両方の編集が必要な失敗）の32.8%を修復し、削除はJOINTおよびCOMPLETE（追加と削除のいずれか一方の編集で修復可能な失敗）を合わせた失敗の13.6%を修復することが確認された。応答の分類では、全失敗の64.6%は編集後も誤ったままであり、追加に敏感なものが12.8%、削除に敏感なものが10.8%、両方の編集を必要とするものが7.5%という分布を示した。プロンプトの長さや位置の影響を排除するための対照実験においても、追加と削除の修復効果は正の値を示しており、これらの効果が単なるプロンプトの長さの変化に起因するものではないことが示された。モデルの応答を予測する攻撃手法の評価では、損失に整合させた修復が改善を見せたものの、依然として評価基準である0.02を上回っており、完全な予測には至っていない。最後に、異なるLLM間での比較において、根拠への感度自体は共通して見られるものの、特定のクエリに対する具体的な応答はモデルごとに異なることが示され、根拠の有用性がLLMに依存するという性質が示された。</p></section>
+<section class="secsum"><h3>5 Relation to prior work</h3><p>提案手法であるPair-IDは、既存のRAG（検索拡張生成）における介入や診断手法と比較して、既に失敗が確認されたクエリに対し、検証済みの2種類の証拠修復を独立して組み合わせる点に新規性があります。既存研究は証拠の追加や削除、ノイズ耐性の評価、あるいは検索の有無といった行動選択を対象としていますが、Pair-IDはこれらを組み合わせた3つの応答セルからなるベクトルを経験的な解析対象として扱います。具体的には、失敗したインスタンスに対して2つの修復要因を交差させ、その結果生じる応答の出現頻度、元の視点からの観測による回復可能性、および読者（生成モデル）への依存性を検証します。RAGの評価指標や頑健性を扱う先行研究は診断の動機付けとなっていますが、Pair-IDは、元の視点に基づく情報だけでは、2つの特定の編集に対する応答を予測する際に大きな予測誤差が生じることを示します。また、診断から修復行動へ繋げる既存のシステムは、失敗状態からの行動選択の学習可能性を示していますが、Pair-IDはより困難な、失敗済み実行における3セルの交差応答の監査に焦点を当てており、完全な視点を持つ学習器を用いても正確な回復は困難であることを明らかにしています。</p></section>
+<section class="secsum"><h3>6 Implications and limitations</h3><p>本研究の分析では、Qwenモデルの失敗事例のうち、不足している根拠を補完することで約3分の1、検証済みの不要な根拠を削除することで約7分の1のケースで回答が変化することが示された。完全な情報を持つ学習モデルはランキングや較正の精度を向上させるものの、ベクトルベースの精度やF1スコアは低く、回答の変化を完全に特定するには至っていない。本実験は英語のマルチホップ・ベンチマークや特定のモデル、および正解の根拠へのアクセスを前提とした編集に依存しており、実稼働中のRAGシステムや多言語環境、低遅延性が求められる状況への直接的な適用を記述するものではない。評価指標として厳格な完全一致を用いているが、トークン単位のF1スコアを用いた感度分析でも同様の傾向が見られる一方、評価に用いたモデル間での合意形成が低いため、影響の大きさやラベルを普遍化することには注意が必要である。なお、本研究における「因果」という言葉は、制御された行動変化を指すものであり、モデル内部の神経メカニズムを特定したものではない。</p></section>
+<section class="secsum"><h3>7 Reproducibility</h3><p>本研究の再現性を確保するためのアーティファクトパッケージには、サンプリングされた1,200個の行列、1,190個の有効な失敗事例、追加および削除に関する各種分子データ、全サンプルに基づく境界値、対照実験の結果、4人の読者による要因効果、複数のベクトル一致度、および観測のみに基づく攻撃の結果が含まれています。このパッケージには、サンプル識別子、実行された解析コード、12,000行に及ぶ読者データ、ホールドアウト予測、簡潔な結果レポート、および報告された数値を検証するためのバリデータが同梱されています。ニューラルネットワークのワークロードに関しては、チェックポイントの改訂、デバイス配置、GPUの識別、ピークVRAM使用量、精度、実行コマンド、およびフォールバックの有無が記録されており、計算時間は合計で1.177 RTX-5090時間です。公開データセットやモデルのチェックポイント自体は同梱されていませんが、リリース版や不変の改訂番号によって特定可能です。また、論文内の図についても、生成プロンプトやハッシュ値とともに、画像生成モデルによるものや、簡潔なJSONレポートから決定論的に再生成されるものとして記録されています。</p></section>
+<section class="secsum"><h3>8 Ethical considerations</h3><p>本研究では、公開されているQAベンチマークとローカル環境で実行される公開モデルのチェックポイントを使用しており、人間を対象とした実験、個人データの収集、有料APIの利用、および実稼働環境へのデプロイメントは含まれていない。主な倫理的リスクは、ベンチマークの注釈や正解に基づく修正を、現実世界における因果関係の診断として過剰に解釈してしまうことである。このリスクに対しては、主張の範囲を修正可能な失敗の枠組みに限定し、対抗的な失敗や残存する失敗を考慮に入れることで対処している。さらに、読者の解釈への依存性を報告し、実行時のポリシーや普遍的なメカニズムに関する主張を明示的に除外することで、解釈の誤用を防いでいる。</p></section>
+<section class="secsum"><h3>9 Conclusion</h3><p>本研究で提案されたPair-IDは、一つのRAGの回答失敗に対して複数の反事実的な証拠の組み合わせが考えられる曖昧さを、証拠の追加と非支持証拠の削除を組み合わせることで測定する手法である。Qwenによる選別を用いた検証では、定義された枠組み内で両方の感度が意味のある割合で発生することが示された。完全な視点を持つモデルを用いた実験では、一部の信号は検出できるものの、多数決ベクトルを基準とした正確な復元には至らなかった。4人の読者による評価では、周辺的な効果は維持されるものの、結合された応答ベクトルについては意見が分かれる結果となった。結論として、観測された状態に情報が含まれていないのではなく、評価された有限のモデル群では正確な反事実的応答を解決できないことが示された。また、421件の非残差ケースにおいて、ほぼ一定の操作が低コストでありながら説明に失敗したことから、操作の有用性が必ずしも診断の妥当性を意味しないことが示された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-24
+  </footer>
+</div>
+</body>
+</html>

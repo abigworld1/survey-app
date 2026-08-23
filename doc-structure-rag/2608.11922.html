@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>LODESTAR: Robust Entropy-Based Answer Selection in Retrieval-Augmented Generation for Question Answering -- Directing Frozen-LLM Entropy with a Reinforcement-Learned Prompt Polarizer under Misleading Passages | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>LODESTAR: Robust Entropy-Based Answer Selection in Retrieval-Augmented Generation for Question Answering -- Directing Frozen-LLM Entropy with a Reinforcement-Learned Prompt Polarizer under Misleading Passages</h1>
+  <div class="meta">Hung-Chun Hsu, Po-Jen Ko, Che-Cheng Wu, Li-Yang Chang, Chuan-Ju Wang<br>採択先: 未取得 ・ 2026-08-12 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.11922v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.11922v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2608.11922" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-12</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの脆弱性である「誤導的パッセージへの高い確信度」に対し、プロンプト操作（Polarizer）と強化学習（GRPO）でエントロピーを制御するという着眼点が非常に独創的で、実用性も高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 検索拡張生成（RAG）において、誤導的なパッセージを読み込んだ際にモデルが誤答を高い確信度（低いエントロピー）で出力してしまう問題に対し、プロンプトへの短い文字列挿入によってエントロピーの挙動を制御するLODESTARを提案し、回答選択の精度を向上させた。</div>
+<section class="qa"><h2>どんなもの？</h2><p>RAGにおいて、検索された候補の中に、トピックは関連しているが事実が誤っている「誤導的なパッセージ」が含まれる場合、凍結された回答生成モデルは誤答に対して低いエントロピーを出力し、不確実性が低い信号として誤答を選択してしまう。従来の、回答トークンのエントロピーが最小となる候補を選択する手法では、この誤導的なパッセージを正解として誤認する課題がある。本研究は、質問に対する複数の候補パッセージから、最も適切な回答を生成できるものを選択するタスクを対象とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存の不確実性推定手法は、モデルの重みの更新や生成プロセスの解析、あるいは生成された回答の評価を行うが、入力プロンプト自体を操作してモデルの応答特性を変化させるものではない。本研究は、モデルの重みを更新することなく、入力に短い自然言語の文字列を挿入するPolarizerを導入することで、パッセージ間のエントロピーの差を意図的に拡大させるDirected Entropyを実現した点が新規である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LODESTARは、パッセージと質問の間にPolarizerと呼ばれる短い自然言語の文字列を挿入する。Polarizerは、GRPOを用いた強化学習によって、支持的なパッセージのエントロピーは低く保ちつつ、誤導的なパッセージのエントロピーを上昇させるように最適化される。学習時の報酬は、回答の正誤ではなく、Polarizerの挿入によって生じる支持的パッセージと誤導的パッセージ間のエントロピーの差を最大化するように設計されている。推論時には、学習済みの固定されたPolarizerをプロンプトに含めて回答を生成し、回答の最初のトークンのエントロピーが最小となるパッセージを選択する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Natural Questions、SQuAD、TriviaQA、EntityQuestions、WebQuestionsの5つのQAベンチマークを用いて評価を行った。比較対象として、既存の不確実性指標を用いた14の構成や、学習済みのリランカーなどを用いた。実験の結果、LODESTARは平均F1スコア0.5339、平均Exact Match 0.4136、GPT-4oによる評価スコア0.6435を記録し、すべてのデータセットにおいて既存の推論可能手法を上回る最高精度を達成した。また、アブレーション解析により、Polarizerの導入によって誤導的なパッセージを選択してしまう割合が30.3%から26.0%へと減少することを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、学習に使用していない異なるモデルファミリー（Llama-3.1、Qwen2.5、Qwen3.5）に対しても有効な転移性を示す。学習時には2つのLLMジャッジによる合意に基づいたラベルを必要とするが、推論時にはこれらのモデルや正解ラベルは一切必要としない。推論コストとして、候補パッセージごとにモデルのフォワードパスを1回行う必要がある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>LODESTAR: Robust Entropy-Based Answer Selection in Retrieval-Augmented Generation for Question Answering Directing Froze</h3><p>既存の検索拡張生成（RAG）における回答選択では、凍結された大規模言語モデルが出力する回答トークンのエントロピーが最小となる候補を選択する手法が有効ですが、誤解を招く文脈が含まれる場合にモデルが誤った回答に対して低いエントロピー（高い確信度）を示し、選択に失敗するという課題があります。本研究では、モデルの重みを更新するのではなく、入力プロンプトに短い自然言語の文字列を挿入するPolarizerを導入し、その挿入によって引き起こされる回答モデルの不確実性をスコアとして利用するLODESTARを提案します。Polarizerは、正解データと2つの大規模言語モデルによる判定器を用いてオフラインで強化学習により訓練され、推論時にはこれらを一切必要としません。5つのQAベンチマークを用いた評価実験において、LODESTARは既存の14の構成と比較して、平均Exact MatchやGPT-4oによる評価において最高精度を達成し、既存手法の平均Exact Matchを0.52から0.64へと向上させました。アブレーション解析の結果、Polarizerの導入により、誤解を招く文脈を誤って選択してしまう割合を43.8%から15.2%へと抑制できることが示されました。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>検索拡張生成（RAG）では、検索された文書の中に、トピックは関連しているものの事実が誤っている「誤導的なパッセージ」が含まれると、回答モデルが誤った情報を確信を持って出力してしまう問題があります。従来の、回答トークンのエントロピー、すなわち不確実性が最小となるパッセージを選択する手法では、誤導的なパッセージにおいて逆にエントロピーが低下し、モデルが自信を持って誤答する現象が発生するため、選択の信頼性が低いことが示されています。本研究では、凍結された回答モデルの前に、強化学習によって最適化された短い自然言語のプロンプトであるPolarizerを挿入する手法LODESTARを提案します。この手法は、正解を支持するパッセージのエントロピーは低く保ちつつ、誤導的なパッセージのエントロピーを意図的に高めるように学習することで、パッセージ間のエントロピーの差を拡大させるDirected Entropyを実現します。5つのQAデータセットを用いた実験において、LODESTARは既存の14の選択手法を上回り、平均回答精度や完全一致率において最も高い性能を示しました。推論時には追加のモデルやサンプリングを必要とせず、学習済みの固定された文字列であるPolarizerのみを使用する点が特徴です。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>既存研究では、言語モデルの予測エントロピーが低いことが必ずしも正解を意味しない「自信満々な誤答（confidently-wrong）」の問題が指摘されており、強力な検索システムほど予測エントロピーを低下させる傾向があります。従来の選択手法は、エントロピーが最小となる候補を選ぶことで、誤解を招く文章が引き起こす誤答を誤って選択してしまう課題があります。不確実性推定の分野には、意味的エントロピーや内部状態の分散、生成軌跡のスコア化、あるいは学習データの既知性を測る手法などがありますが、これらは入力自体を操作するものではありません。Lodestarは、凍結された応答モデルに対して、誤解を招く文章がより高いエントロピーを持つように、強化学習を用いてプロンプトを調整するPolarizerを学習させます。本手法は、単一の質問における複数の候補間で、テキスト介入が応答モデルに引き起こす不確実性の変化を評価指標として用いる点で、既存の情報の読み取りのみを行う手法や応答モデル自体を訓練する手法と異なります。</p></section>
+<section class="secsum"><h3>3 Methodology</h3><p>LODESTARは、誤解を招く文章を読み込んだ際に、凍結された回答生成モデルが低いエントロピー（確信度が高い状態）を示して誤答を選択してしまう問題に対処する手法である。本手法では、強化学習によって最適化されたPolarizerと呼ばれる自然言語のプロンプトを、文章と質問の間に挿入することで、回答生成時のエントロピーを制御する。Polarizerは、同一の質問に含まれる誤解を招く文章のエントロピーを上昇させ、支持的な文章のエントロピーを維持するように、GRPOアルゴリズムを用いて学習される。学習時の報酬関数は、生成された回答の内容や正解ラベルを直接参照せず、Polarizerの挿入によって生じた、誤解を招く文章と支持的な文章のエントロピーの差を最大化するように設計されている。推論時には、学習済みのPolarizerをプロンプトに含めた状態で各候補文章から回答を生成し、その際の回答トークンの平均正規化エントロピーが最小となる回答を選択する。なお、学習に用いる文章のラベルは、異なるモデルファミリーを持つ2つのLLMジャッジが合意した結果に基づいている。</p></section>
+<section class="secsum"><h3>4 Experimental Settings</h3><p>本研究では、Retrieval-Augmented Generation (RAG) における回答選択の堅牢性を向上させる手法Lodestarの実験設定を詳述している。評価には、Natural Questionsをドメイン内、SQuAD、TriviaQA、EntityQuestions、WebQuestionsをドメイン外とする5つのオープンドメインQAデータセットを用い、各データセットに対しbge-m3で取得した上位10個の候補文を評価プールとして使用する。回答生成モデルはパラメータを固定したLlama-3.1-8B-Instructを使用し、回答の正誤はExact MatchおよびGPT-4oによる意味的等価性の判定によって評価される。提案手法の極性化器（polarizer）の学習にはQwen3-4B-Instructを用い、GRPOアルゴリズムを用いてNQ-Openの学習用データセットで訓練を行う。エントロピーの推定においては、計算コストを削減しつつ精度を維持するため、全トークンの平均ではなく、生成された回答の最初のトークンのみのエントロピーを用いる。比較対象のベースラインには、既存の不確実性指標を用いた手法、学習済みリランカー、および探索ベースのガイダンス手法が含まれる。</p></section>
+<section class="secsum"><h3>5 Main Results</h3><p>LODESTARは、凍結されたLLMを用いた回答選択手法において、最初のトークンのエントロピーに基づく選択やリトリーバーの最上位パッセージを選択する手法と比較して、最も高い平均精度を達成しています。この手法は、完全一致（Exact Match）のスコアおよびGPT-4oによる評価スコアにおいても、比較対象となった凍結LLM構成の中で最高値を記録しました。この優位性は、NQ（Natural Questions）のドメイン内データだけでなく、SQuAD、TriviaQA、EntityQuestions、WebQuestionsの平均においても一貫しており、セマンティック・エントロピーを用いた手法をも上回っています。実験では、学習データの質問の順序やグループ化のみを変更した3つの異なるシードを用いて検証が行われ、LODESTARの各指標における優位性は、t検定およびウィルコクソンの符号付き順位検定の両方において統計的に有意であることが示されました。</p></section>
+<section class="secsum"><h3>6 The Polarizer Ablation</h3><p>LODESTARの構成要素であるPolarizer（極性化プロンプト）の影響を検証するため、Polarizerを除去し、回答者モデルや選択ルール、パッセージのプールを固定した状態でのアブレーション実験を行いました。実験の結果、Polarizerを挿入することで、選択されたパッセージが誤解を招くものである割合が、エントロピーに基づく選択のみの場合と比較して、TriviaQAからEntityQuestionsにかけて減少することが確認されました。この改善は、エントロピー選択単体では到達できない水準に達しています。3つの学習シードの平均において、Polarizerを除去した構成と比較して、回答精度で平均15.4%の向上が見られ、誤解を招くパッセージの選択率も低下しました。また、Llama-3.1-8B、Qwen2.5-7B、Qwen3.5-9Bといった異なるモデルファミリーを用いたクロス・レスポンデント転移実験においても、Polarizerの導入は、学習に使用していない未知の回答者モデルに対しても、回答精度と誤解を招くパッセージの回避能力の両面で有効に機能することが示されました。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>本研究では、回答生成モデルの最初のトークンのエントロピーを用いた回答選択において、既存の指標では検知できない問題があることを明らかにした。標準的なエントロピー選択法はエントロピーが最も低い候補を選択するが、誤解を招く文章に対してエントロピーが低くなる傾向があり、ランダムな選択よりも誤った文章を選びやすい。これに対し提案手法であるLODESTARは、回答生成モデルを凍結したまま、GRPOを用いて学習されたポリシーがエントロピーの方向性を制御するための短い自然言語のプロンプトであるPolarizerを生成することで、この問題を解決する。5つのQAベンチマークを用いた実験の結果、LODESTARは既存の14種類の構成と比較して、すべてのデータセットにおいて最も高い平均精度を達成した。この性能向上は、学習されたプロンプト単体による寄与であることが示されており、追加の計算コストは候補ごとのフォワードパス1回分のみで、正解ラベルも必要としない。結論として、エントロピーは受動的に測定するのではなく、学習された文字列によって適切に誘導することで、誤解を招く文章を回避し正しい回答を選択するための有効な信号となる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-24
+  </footer>
+</div>
+</body>
+</html>

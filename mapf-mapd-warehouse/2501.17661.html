@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-Agent Path Finding Using Conflict-Based Search and Structural-Semantic Topometric Maps | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi-Agent Path Finding Using Conflict-Based Search and Structural-Semantic Topometric Maps</h1>
+  <div class="meta">Scott Fredriksson, Yifan Bai, Akshit Saradagi, George Nikolakopoulos<br>採択先: the 2025 IEEE International Conference on Robotics and Automation (ICRA), May 19-23, 2025, Atlanta, USA ・ 2025-01-29 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2501.17661v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2501.17661v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 the 2025 IEEE International Conference on Robotics and Automation (ICRA), May 19-23, 2025, Atlanta, USA</span><span class="chip">公開日 2025-01-29</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">トポメトリックマップへの転換と衝突概念の再定義による新規性が高い。実機実験による検証も具体的で、実用的なMAPF研究として読む価値がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 従来のConflict-Based Search (CBS) が抱える計算負荷の高さと、グリッドベースのマップによる現実的でない移動仮定を解決するため、構造的・意味的なトポメトリックマップを用いた新しいマルチエージェント経路計画手法を提案する。これにより、計算プロセスの加速と連続的な時間軸での運用を可能にする。</div>
+<section class="qa"><h2>どんなもの？</h2><p>共有環境内で複数のエージェントが衝突を避けながら、総経路コストを最小化して目的地へ到達するマルチエージェント経路探索（MAPF）を対象とする。従来のCBSはグリッドベースのマップを使用するため、エージェント数やセル数の増加に伴い計算時間が増大し、通路の対称性に起因する計算の停滞が発生する。また、ロボットが1ステップで隣接セルへ移動できるという単純な仮定に基づいているため、実際のロボットのサイズや移動時間の制約を考慮できないという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のグリッドベースの探索から、交差点や通路、行き止まりといった意味的な領域で構成される疎なトポメトリックマップ上での探索へと転換した点が新規である。衝突概念を、エージェントが同一の領域を重複して占有する領域衝突と、同一の開口部を同時に通過しようとする開口部衝突の2種類に再定義し、連続時間への一般化を実現している。これにより、従来のCBSと比較して計算効率と、特に通路の対称性が存在する状況下での衝突検知・解決能力を向上させている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>高レベル探索では、制約木を用いて領域または開口部に関する制約を検出し、衝突したエージェントに制約を課すことで、低レベル探索での再計算を繰り返す。計算効率向上のため、最適性を一定範囲内に保ちつつ探索速度を高めるFocal Searchを用いた有界劣最適化手法を導入している。低レベル探索では、A*アルゴリズムをベースとし、各領域に割り当てられた利用可能な時間スロットと、領域間の移動時間を考慮しながら経路を計画する。具体的には、現在のノードから、利用可能な時間スロットの開始時刻、領域の移動完了時刻、および時間スロットの終了時刻の条件を満たす子ノードを生成する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>385セルのグリッドマップを用いたシミュレーションにおいて、エージェント数を4から10まで変化させ、成功率、実行時間、平均合計移動距離を評価した。10エージェント時において、従来のCBSの成功率が35.4%まで低下するのに対し、提案手法のPM-CBSは88.8%を維持し、PM-ECBSは実行時間の中央値6.02 msという高い効率を達成した。また、4台のTurtleBot3を用いた実機実験では、PM-CBSが中央値1.34 msの計算時間と98.31%の成功率を記録し、物理的な衝突なしに目的地へ到達できることを示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、各領域に1つのエージェントのみを許可するという制約を課しているため、エージェント数の増加に伴い展開ノード数が増大し、解の選択肢が制限されるというトレードオフがある。今後の課題として、衝突のリスクがない限り複数のエージェントが同一領域を走行可能にするための、より高度な衝突検知機能の開発が挙げられる。また、リアルタイムなマルチエージェント計画フレームワークへの適応も検討事項である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Multi-Agent Path Finding Using Conflict-Based Search and Structural-Semantic Topometric Maps</h3><p>本研究は、従来のConflict-Based Search (CBS) が抱える計算負荷の高さと、環境やエージェントに関する現実的でない仮定という課題を解決するため、構造的・意味的なトポメトリックマップを活用したマルチエージェント経路計画手法を提案している。具体的には、大規模なグリッドベースのマップ上でCBSを実行する代わりに、交差点、通路、行き止まりといった構造的・意味的なセルで構成される疎なトポメトリックマップ上でCBSを動作させることで、計算プロセスを加速させ、CBSが処理すべき衝突解決の回数を削減している。また、ロボットが1ステップで隣接するセルへ移動できるという従来の仮定を排し、トポメトリック領域間を移動するための時間範囲をロボットに割り当てることで、連続的な時間軸での運用を可能にしている。実世界の非ホロノミックロボットを用いた実験およびベンチマークシミュレーションの結果、提案手法は従来のCBSと比較して計算効率が向上しており、特に通路の対称性が存在する状況下での衝突検知と解決能力が改善されることが示された。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>マルチエージェント経路探索（MAPF）は、共有環境内で複数のエージェントが衝突を避けながら、総経路コストなどの基準を最小化して各々の目的地へ到達する経路を求める問題であり、倉庫自動化やロボティクスなどの分野で重要視されています。本論文では、完全性と最適性を備える一方で、計算速度と実用性に課題があるConflict-Based Search（CBS）およびEnhanced Conflict-Based Search（ECBS）に対し、構造的・意味的なトポメトリックマップを用いる新しい手法を提案しています。従来のCBSはグリッドベースのマップを使用するため、エージェント数やセル数の増加に伴う計算時間の増大や、通路などの対称性に起因する計算の停滞、さらにはロボットのサイズや移動時間の制約を考慮できないといった限界がありました。提案手法は、交差点や通路などの構造的・意味的な領域を抽出したトポメトリックマップ上で、連続時間におけるCBSおよびECBSを再定義することで、これらの問題を解決します。具体的には、トポメトリックセルにおけるエッジおよび頂点の衝突概念を連続時間へと一般化して検出し、エージェントの移動時間を考慮した経路計画アルゴリズムを導入しています。本手法の有効性は、標準的なCBSおよびECBSとのシミュレーション比較による性能向上、および非ホロノミックロボットを用いた実機実験による実用性の検証を通じて示されています。</p></section>
+<section class="secsum"><h3>II Problem Description</h3><p>本研究では、幅と長さを持つ平面上のグリッド世界におけるマルチエージェント経路探索（MAPF）問題を定義している。環境は、交差点や通路、行き止まりといった意味のある領域の集合であるトポメトリックマップを用いて表現され、各領域は開口部を介して隣接する領域とエッジで接続されている。MAPFのインスタンスは、トポメトリックマップ上のエージェントの集合、各エージェントの異なる開始地点と目標地点のペア、および各時刻におけるエージェントの位置によって構成される。エージェントの経路は、目標地点に到達した後はその場に留まることを条件として、連続した位置の列として定義される。解は、すべてのエージェントの経路が互いに衝突しない状態を指す。各エージェントは、他のエージェントが特定の領域を通過している時間範囲を避けるという制約に従う必要がある。最終的な目的は、各エージェントが目標に到達するまでの総移動時間と待機時間の合計であるsum-of-costsを最小化することである。</p></section>
+<section class="secsum"><h3>III Methodology</h3><p>本手法は、構造的・意味的なトポメトリックマップ上で動作するConflict-Based Search (CBS) の拡張アルゴリズムを提案している。トポメトリックマップの特性に合わせ、従来の衝突概念を、エージェントが同一の領域を重複して占有する領域衝突と、同一の開口部を同時に通過しようとする開口部衝突の2種類に再定義している。高レベル探索では、制約木を用いて衝突を検出し、衝突したエージェントに領域または開口部に関する制約を課すことで、制約を満たす経路を低レベル探索で再計算する。計算効率を高めるため、高レベル探索には、最適性を一定の範囲内に保ちつつ探索速度を向上させるFocal Searchを用いた有界劣最適化手法を導入している。低レベル探索では、A*アルゴリズムをベースとし、エージェントの行動として「待機」「領域内移動」「隣接領域への移動」の3つを組み合わせ、制約から抽出された利用可能な時間スロットに基づいて経路を計画する。探索木の拡張においては、現在の時刻、利用可能な時間スロット、および領域間の移動時間を考慮し、目標地点へのユークリッド距離をヒューリスティックとして用いることで、制約を遵守した経路を生成する。</p></section>
+<section class="secsum"><h3>IV Validation</h3><p>提案手法であるPM-CBSおよびPM-ECBSの有効性を検証するため、従来のCBSおよびECBSと比較するシミュレーションと実機実験が行われました。385セルのグリッドマップを用いたシミュレーションでは、エージェント数を4、6、8、10と増やしながら、500回の試行に基づき成功率、実行時間、および全エージェントの平均合計移動距離を評価しました。その結果、PM-CBSはCBSよりも高い成功率を示し、10エージェント時でも88.8%を維持したのに対し、CBSは35.4%まで低下しており、長い通路を持つマップにおけるPM-CBSの優位性が示されました。実行時間については、10エージェント時においてPM-ECBSが中央値6.02 msという高い効率を達成したほか、PM-CBSもCBSと比較して大幅に高速でした。提案手法は、各領域に1つのエージェントのみを許可するという制約を課すため、エージェント数の増加に伴い探索における展開ノード数が増大し、解の選択肢が制限される傾向があります。実機実験では、4台のTurtleBot3を用いた検証において、PM-CBSは中央値1.34 msの計算時間、98.31%の成功率を記録し、物理的な衝突なしに目的地へ到達できることが実証されました。</p></section>
+<section class="secsum"><h3>V Conclusion</h3><p>本研究は、従来のConflict-based Search（CBS）に構造的・意味的なトポメトリックマップを統合することで、マルチエージェント経路計画（MAPF）の新たな手法を提案している。提案手法では、領域の衝突や開口部の衝突に関する定義を一般化し、連続的な時間制約や時間制限付きの経路計画を組み込んでいる。これにより、従来のCBSにおけるロボットの動きに関する単純な仮定や計算効率の低さといった課題の克服を図っている。このアプローチは、ベンチマークシミュレーションおよび非ホロノミックなTurtlebot3ロボットを用いた実験シナリオの両方で検証された。今後の課題として、衝突のリスクがない限り複数のエージェントが同一領域を走行可能にするための高度な衝突検知機能の開発や、リアルタイムなマルチエージェント計画フレームワークへの適応が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-24
+  </footer>
+</div>
+</body>
+</html>

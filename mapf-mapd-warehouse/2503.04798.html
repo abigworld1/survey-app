@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Advancing MAPF Toward the Real World: A Scalable Multi-Agent Realistic Testbed (SMART) | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Advancing MAPF Toward the Real World: A Scalable Multi-Agent Realistic Testbed (SMART)</h1>
+  <div class="meta">Jingtian Yan, Zhifei Li, William Kang, Kevin Zheng, Yulun Zhang, Zhe Chen, Yue Zhang, Daniel Harabor, Stephen F. Smith, Jiaoyang Li<br>採択先: IEEE Robot. Autom. Lett. ・ 2025-03-03 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2503.04798v3" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2503.04798v3" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/LRA.2026.3688062" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 IEEE Robot. Autom. Lett.</span><span class="chip">公開日 2025-03-03</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">実世界の不確実性を考慮した大規模なMAPF評価基盤として、極めて実用性が高い。物理エンジンとの統合やADGによる実行管理、実機検証まで網羅しており、研究者が自身のアルゴリズムを検証する際に優先して参照すべきツールである。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 従来のマルチエージェント経路計画（MAPF）研究は簡略化されたモデルに依存しており、実世界の運動力学や不確実性を考慮できていない。本研究は、物理エンジンとアクション依存グラフを活用し、数千台規模のロボットまでスケーラブルに評価可能な現実的なテストベッドSMARTを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路計画（MAPF）は、多数のロボットが衝突を回避しながら目的地へ移動する経路を求める問題である。既存の評価手法は、ロボットの運動力学的な制約や実行時の不確実性を考慮しない簡略化されたモデルに依存しており、実世界での性能が不明確である。また、既存の物理エンジンを用いたシミュレータは、ユーザー定義のマップや新しいプランナの統合に多大な工数を要する点や、扱えるロボット数が数百台未満に限定されるというスケーラビリティの課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>SMARTは、物理エンジンベースのシミュレーションと、アクション依存グラフ（ADG）を用いた実行監視フレームワークを組み合わせることで、簡略化されたモデルで生成された経路の堅牢な実行を可能にする。既存の評価ツールとは異なり、多様なMAPFプランナやロボットモデルを容易に統合できるモジュール式設計を採用している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>システムは、シミュレータ、実行監視（EM）サーバ、および各ロボットの実行器（エグゼキュータ）の3つのモジュールで構成される。シミュレータは大規模実験向けのARGoS3と高精度なIsaac Simをサポートする。EMサーバは標準的なMAPF計画を解析し、各ロボットの動作の連続性を保証するType-1エッジと、ロボット間の通過順序を規定するType-2エッジを持つアクション依存グラフ（ADG）を構築する。ADGの構築時には、サイクル衝突によるデッドロックを防ぐため、連続する頂点の間に新たな頂点を挿入してグラフを非巡回化する。各エグゼキュータは、RPCを用いてサーバからアクションを受け取り、PID制御器を用いてシミュレータへ制御コマンドを送信する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>MAPF-LNS2、CBS、PBSといった多様なプランナや、運動力学を考慮した複数のロボットモデルを用いた検証において、実行成功率100%を達成した。ARGoS3を用いた実験では、最大2,000台のロボットをサポートし、大規模な倉庫環境でも約10.0のシミュレーション速度を維持した。また、7台のJetBotを用いた実機検証においても、10回の試行すべてにおいて成功した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>Isaac Simは高精度なモデル化が可能である反面、CPUおよびメモリの消費が激しく、ロボット数が増えるとシミュレーション速度が実時間を下回るというトレードオフがある。今後の課題として、タスクが継続的に発生する生涯MAPFへの拡張、人間との協調を想定した高度な動的障害物モデルの統合、および代替的な実行フレームワークのサポートが挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Advancing MAPF Toward the Real World: A Scalable Multi-Agent Realistic Testbed (SMART)</h3><p>SMART（Scalable Multi-Agent Realistic Testbed）は、マルチエージェント経路計画（MAPF）アルゴリズムを評価するための、現実的かつ効率的なソフトウェアツールです。従来のMAPF研究は簡略化されたロボットモデルに依存することが多く、実世界での性能が不明確であるという課題があります。SMARTは物理エンジンベースのシミュレータを用いることで、ロボットの運動力学や実行時の不確実性といった複雑な要因を考慮した現実的なシミュレーション環境を実現しています。また、アクション依存グラフに基づく実行監視フレームワークを採用しており、多様なMAPFプランナやロボットモデルとのシームレスな統合が可能です。本ツールは数千台規模のロボットへとスケールすることができ、研究者や産業界の専門家が、自身の環境におけるプランナの性能を効率的にテストすることを可能にします。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>マルチエージェント経路計画（MAPF）は、既知の環境内で多数のロボットの衝突のない経路を計画する問題ですが、既存の最先端アルゴリズムはロボットの運動力学的な制約や実行時の不確実性を考慮しない簡略化されたモデルに依存しています。本研究では、現実的な設定でMAPFプランナーを評価するためのスケーラブルなソフトウェアツールであるSMARTを提案します。SMARTは、物理エンジンに基づくシミュレータ、経路の実行状況を追跡し実行器と通信する実行モニタリング（EM）サーバ、およびロボットごとの実行器の3つの主要コンポーネントで構成されます。EMサーバは、Action Dependency Graph（ADG）という実行フレームワークを活用することで、簡略化されたモデルで生成された経路の堅牢な実行を支援します。SMARTは、ロボットの運動力学、衝突力学、通信遅延、実行時の不完全性、および時間的な不確実性といった現実世界の要因を組み込んでいます。ARGoS3やIsaac Simとの統合により、SMARTは数千台のロボット規模までスケールし、一貫した再現可能な結果を得ることが可能です。</p></section>
+<section class="secsum"><h3>II Background</h3><p>マルチエージェント経路計画（MAPF）問題は、2次元グリッドマップから構成される無向グラフにおいて、全ロボットが衝突を回避しながら始点から終点へ移動する経路を求めるもので、一般に移動時間の総和であるsum-of-costの最小化を目的とします。既存研究には、最適性や限定的な劣解を保証する手法、数千台規模のロボットを扱うスケーラビリティ重視の手法、および運動力学や遅延などの現実的な要因を考慮するために、高レベルの衝突回避と低レベルの個別制御を組み合わせた2レベル構成の手法が存在します。計画の実行においては、厳密な時刻同期は効率を低下させ、遅延のたびに再計画を行う手法は計算コストが高いため、Action Dependency Graph（ADG）のような実行フレームワークが有効です。ADGは、各ロボットの動作の連続性を保証するType-1エッジと、共有頂点におけるロボット間の通過順序を規定するType-2エッジを持つ有向グラフとして、動作間の依存関係を記述します。既存の評価ツールには物理エンジンを用いた高精度なシミュレータもありますが、ユーザー定義のマップや新しいプランナの統合に多大な工数を要することや、計算負荷の高いシミュレータに依存するため、扱えるロボット数が100台未満、あるいは10台程度までに制限されるといったスケーラビリティの課題があります。</p></section>
+<section class="secsum"><h3>III SMART Architecture</h3><p>SMARTは、シミュレータ、実行監視（EM）サーバ、および各ロボットの実行器（エグゼキュータ）の3つの主要モジュールで構成される、C++実装のマルチエージェント経路計画（MAPF）用テストベッドである。シミュレータは、障害物の配置やロボットの速度・加速度制限などの設定に基づき、大規模実験に適したARGoS3と高精度なIsaac Simの2種類のプラットフォームをサポートしている。EMサーバは、各ロボットの時刻付き位置のシーケンスとして記述された標準的なMAPF計画を解析し、アクション間の依存関係を示す有向非巡回グラフ（ADG）を構築して実行を管理する。ADGの構築において、従来のMAPF計画に存在するサイクル衝突によるデッドロックを防ぐため、連続する頂点の間に新たな頂点を追加することでグラフを非巡回化する手法を導入している。各エグゼキュータは、RPCを用いてサーバからアクションを受け取り、PID制御器を用いてシミュレータへ制御コマンドを送るが、高速走行を実現するために連続する同種のアクションを一つのアクションに統合して実行する。評価指標として、全ロボットの完了時間の平均、最大完了時間、およびアクションキューのサイズや速度を含むロボットの状態推移が提供される。</p></section>
+<section class="secsum"><h3>IV System Usage</h3><p>SMARTは、マルチエージェント経路計画の解を評価するためのプラットフォームであり、Webインターフェースによる利用とローカル環境への導入という2通りの方法を提供します。Web版はSoftware-as-a-Serviceとして提供され、MovingAI Benchmark形式のマップやシナリオファイルをアップロードし、ロボットの運動学的制約を設定することで、3Dビジュアライザを用いたシミュレーションを実行できます。ユーザーはシミュレーションの再生速度や時間ステップを制御できるほか、特定のロボットを選択してその経路や実行状態、ロボット間のType-2エッジを確認することが可能です。また、高度なカスタマイズが必要な場合はローカルでのコンパイルも可能であり、ヘッドレスモードでの実行や独自のパイプラインへの統合、実機ロボットとの連携といった用途に対応しています。</p></section>
+<section class="secsum"><h3>V System Evaluation</h3><p>本研究では、提案するテストベッドSMARTの性能を、高性能サーバーと低スペックなノートPCの2種類の計算機を用いて評価している。評価にはARGoS3とIsaac Simの2種類のシミュレータを使用し、MovingAIベンチマークやロボット競技会のマップを用いて、MAPF-LNS2、CBS、PBSといった多様なプランナーや、回転や運動力学を考慮した複数のロボットモデルとの互換性を検証した結果、すべての設定で実行成功率100%を達成した。ARGoS3を用いた実験では、最大2,000台のロボットをサポートし、大規模な倉庫環境でも実時間より約10倍速いシミュレーション速度を維持できる高いスケーラビリティと、ロボット数が増えても実行時間の変動が極めて小さい高い再現性を確認した。一方で、フォトリアルな描写が可能なIsaac Simは、複雑な要因をモデル化できる反面、計算リソースの消費が激しく、シミュレーション速度が実時間を下回るため、少数のロボットを用いた実験に適している。また、実機を用いた7台のJetBotによる検証では、無線通信や物理的な制約がある環境下でも、10回の試行すべてにおいて計画を完遂し、実世界への適用可能性が示された。</p></section>
+<section class="secsum"><h3>VI Conclusion</h3><p>本研究では、現実的な設定下でマルチエージェント経路計画（MAPF）のプランナーを評価するための、スケーラブルなテストベッドであるSMARTを提案している。SMARTは既存の2次元グリッドベースのベンチマークと互換性があり、簡略化されたモデルと実世界への展開との乖離を埋める設計となっている。ARGoS3およびIsaac Simの2つのシミュレータと統合されており、ARGoS3を使用することで、高いシミュレーション速度を維持しながら数千台規模のロボットを扱うことが可能である。モジュール式でプランナーに依存しない設計により、学術的なアルゴリズム比較から、倉庫や製造現場といった産業界の具体的なユースケースまで幅広く対応できる。今後の展望として、タスクが継続的に発生する生涯MAPFへの拡張、人間との協調を想定した高度な動的障害物モデルの統合、および代替的な実行フレームワークのサポートが挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-24
+  </footer>
+</div>
+</body>
+</html>

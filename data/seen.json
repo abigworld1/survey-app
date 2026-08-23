@@ -2765,6 +2765,35 @@
       "url": "http://arxiv.org/abs/2608.07458v1",
       "venue": ""
     },
+    "arxiv:2608.08944": {
+      "added": "2026-08-24",
+      "added_at": "2026-08-24T06:08:15.337088",
+      "arxiv_id": "2608.08944",
+      "authors": [
+        "Wenzhang Du"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-09",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.08944.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.08944v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの失敗原因を「情報の欠落」と「干渉」に分離して診断するPair-IDの提案は、デバッグの観点から非常に新規性が高く、実用的な洞察に富んでいる。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "What Would Fix This RAG Failure? Auditing Counterfactual Response with Paired Evidence Interventions",
+      "tldr": "RAGの失敗が情報の欠落か干渉によるものかを特定するため、根拠の追加と削除を交差させて反事実的な応答を測定する監査手法Pair-IDを提案し、失敗の性質が読者モデルに依存することを明らかにした。",
+      "url": "http://arxiv.org/abs/2608.08944v1",
+      "venue": ""
+    },
     "arxiv:2608.12335": {
       "added": "2026-08-15",
       "added_at": "2026-08-15T06:10:53.272986",
@@ -4086,6 +4115,39 @@
       "url": "http://arxiv.org/abs/2608.09331v1",
       "venue": ""
     },
+    "doi:10.48550/arxiv.2608.11922": {
+      "added": "2026-08-24",
+      "added_at": "2026-08-24T06:06:12.392627",
+      "arxiv_id": "2608.11922",
+      "authors": [
+        "Hung-Chun Hsu",
+        "Po-Jen Ko",
+        "Che-Cheng Wu",
+        "Li-Yang Chang",
+        "Chuan-Ju Wang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-12",
+      "doi": "10.48550/arxiv.2608.11922",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.11922.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.11922v2",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの脆弱性である「誤導的パッセージへの高い確信度」に対し、プロンプト操作（Polarizer）と強化学習（GRPO）でエントロピーを制御するという着眼点が非常に独創的で、実用性も高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "LODESTAR: Robust Entropy-Based Answer Selection in Retrieval-Augmented Generation for Question Answering -- Directing Frozen-LLM Entropy with a Reinforcement-Learned Prompt Polarizer under Misleading Passages",
+      "tldr": "検索拡張生成（RAG）において、誤導的なパッセージを読み込んだ際にモデルが誤答を高い確信度（低いエントロピー）で出力してしまう問題に対し、プロンプトへの短い文字列挿入によってエントロピーの挙動を制御するLODESTARを提案し、回答選択の精度を向上させた。",
+      "url": "http://arxiv.org/abs/2608.11922v2",
+      "venue": ""
+    },
     "doi:10.48550/arxiv.2608.12121": {
       "added": "2026-08-18",
       "added_at": "2026-08-18T06:06:48.060215",
@@ -5166,6 +5228,38 @@
       "tldr": "Lifelong Multi-Agent Path Finding (L-MAPF) において、一時保管用の「キャッシュ」グリッドと、ロック機構を備えた Task Assigner (TA) を導入することで、エージェントの移動効率とスループットを向上させる L-MAPF-CM を提案する。",
       "url": "http://arxiv.org/abs/2501.02803v1",
       "venue": ""
+    },
+    "arxiv:2501.17661": {
+      "added": "2026-08-24",
+      "added_at": "2026-08-24T06:03:31.288431",
+      "arxiv_id": "2501.17661",
+      "authors": [
+        "Scott Fredriksson",
+        "Yifan Bai",
+        "Akshit Saradagi",
+        "George Nikolakopoulos"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-01-29",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2501.17661.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2501.17661v1",
+      "reading_value": 4,
+      "reading_value_reason": "トポメトリックマップへの転換と衝突概念の再定義による新規性が高い。実機実験による検証も具体的で、実用的なMAPF研究として読む価値がある。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi-Agent Path Finding Using Conflict-Based Search and Structural-Semantic Topometric Maps",
+      "tldr": "従来のConflict-Based Search (CBS) が抱える計算負荷の高さと、グリッドベースのマップによる現実的でない移動仮定を解決するため、構造的・意味的なトポメトリックマップを用いた新しいマルチエージェント経路計画手法を提案する。これにより、計算プロセスの加速と連続的な時間軸での運用を可能にする。",
+      "url": "http://arxiv.org/abs/2501.17661v1",
+      "venue": "the 2025 IEEE International Conference on Robotics and Automation (ICRA), May 19-23, 2025, Atlanta, USA"
     },
     "arxiv:2503.02992": {
       "added": "2026-08-23",
@@ -7463,6 +7557,44 @@
       "tldr": "Lifelong Multi-Agent Pickup-and-Delivery (MAPD) におけるタスクスケジューリング問題を解決するため、Graph Neural Network (GNN) による強化学習を用いたグローバルなガイダンス、最小費用流によるリージョン間のリバランシング、および局所的な整数線形計画法 (ILP) によるタスク割り当てを組み合わせた階層的アルゴリズム「GRAND」を提案する。最大500エージェントの環境において、既存の優勝スケジューラと比較してスループットを最大10%向上させ、かつ1秒以内の計算予算でリアルタイム実行が可能であることを示した。",
       "url": "http://arxiv.org/abs/2512.03194v3",
       "venue": ""
+    },
+    "doi:10.1109/lra.2026.3688062": {
+      "added": "2026-08-24",
+      "added_at": "2026-08-24T06:02:31.363606",
+      "arxiv_id": "2503.04798",
+      "authors": [
+        "Jingtian Yan",
+        "Zhifei Li",
+        "William Kang",
+        "Kevin Zheng",
+        "Yulun Zhang",
+        "Zhe Chen",
+        "Yue Zhang",
+        "Daniel Harabor",
+        "Stephen F. Smith",
+        "Jiaoyang Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-03-03",
+      "doi": "10.1109/LRA.2026.3688062",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2503.04798.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2503.04798v3",
+      "reading_value": 4,
+      "reading_value_reason": "実世界の不確実性を考慮した大規模なMAPF評価基盤として、極めて実用性が高い。物理エンジンとの統合やADGによる実行管理、実機検証まで網羅しており、研究者が自身のアルゴリズムを検証する際に優先して参照すべきツールである。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Advancing MAPF Toward the Real World: A Scalable Multi-Agent Realistic Testbed (SMART)",
+      "tldr": "従来のマルチエージェント経路計画（MAPF）研究は簡略化されたモデルに依存しており、実世界の運動力学や不確実性を考慮できていない。本研究は、物理エンジンとアクション依存グラフを活用し、数千台規模のロボットまでスケーラブルに評価可能な現実的なテストベッドSMARTを提案する。",
+      "url": "http://arxiv.org/abs/2503.04798v3",
+      "venue": "IEEE Robot. Autom. Lett."
     },
     "doi:10.1109/tase.2026.3688563": {
       "added": "2026-08-19",
