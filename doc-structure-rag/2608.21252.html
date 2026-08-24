@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>EnSI-RAG: Entity-Structure-Indexed Retrieval-Augmented Generation for Long-Document Question Answering | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>EnSI-RAG: Entity-Structure-Indexed Retrieval-Augmented Generation for Long-Document Question Answering</h1>
+  <div class="meta">Xuanyu Meng, Jiashuo Sun, Jash Rajesh Parekh, Jiawei Han<br>採択先: 未取得 ・ 2026-08-21 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.21252v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.21252v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-08-21</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">固定長チャンクの限界に対し、エンティティ中心の構造化インデックスを検索ハンドルとする独創的な中間的アプローチを提案しており、実用性と新規性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 長文ドキュメントの質問応答において、固定長チャンク分割による情報の断片化や、複数エンティティにまたがる証拠の特定が困難であるという課題に対し、エンティティ中心の構造化インデックスを用いて証拠を特定するEnSI-RAGを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>長文ドキュメント群から質問に対する回答を生成するタスクを対象とする。従来のRAG手法は文書を固定長のチャンクに分割して埋め込み類似度で検索するため、チャンクの境界によってエンティティと根拠情報が分離したり、表の構造が失われたりする問題がある。また、複雑な推論を必要とする質問では、分散した証拠を統合することが困難である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>構造化レコードを検索のための手がかり（ハンドル）としてのみ利用し、回答生成の根拠は元のパッセージとして保持することで、構造化に伴う情報欠落を防ぐアプローチを提案している。これにより、従来のチャンクベースのRAGと、完全な構造化データを用いるQAシステムの中間的な役割を果たし、クエリに依存しない柔軟な検索を実現している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>オフラインの事前処理として、まず文書を特定のエンティティを中心とした意味的に完結したパッセージへと変換する。次に、各パッセージからエンティティ、その型、および属性、関係、側面といった意味的カテゴリと値の組み合わせを抽出し、構造化レコードを作成する。これらをエンティティ・ストラクチャ・インデックスとして構築し、各レコードから元のパッセージへリンクを保持させる。オンラインの検索時には、質問から導き出された検索要件に基づき、インデックスを用いて関連する元のパッセージを特定する。最終的に、特定された原文パッセージを大規模言語モデルに提供し、モデルがそれらを統合して回答を合成する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>LoongおよびOolongの2つのベンチマークを用い、金融、法務、学術などの多様なドメインで評価した。Loongにおいて平均精度78.24を達成し、参照されたベースラインと比較して6.62ポイント高い結果を得た。アブレーション研究では、金融ドキュメントにおいて表の各行を個別のパッセージとして扱うことが、表全体を一つのパッセージとするよりも精度向上に寄与することを示した。クエリあたりの平均コストは、LLMの呼び出し回数が34.35回、実行時間が494.30秒、入力トークン数が163,146個であった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>属性や関係性のラベルの粒度はドメインに依存し、金融や論文分野では抽象的なラベルが、法律分野では詳細なラベルが精度向上に寄与するというトレードオフが存在する。また、検索の深さについても、金融ドメインでは上位5件の取得が最適であり、それ以上増やしても精度は向上しない。本手法は、高コストなパッセージ構築や情報抽出をオフラインで行うことでオンラインの推論を軽量化しているが、事前のインデックス構築コストが前提となる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>EnSI-RAG: Entity-Structure-Indexed Retrieval-Augmented Generation for
+Long-Document Question Answering</h3><p>EnSI-RAGは、長い文書群から回答を生成する際、関連する証拠が複数のエンティティやその関係性に分散している問題に対処するためのフレームワークである。従来のRAG手法が文書を単純なチャンクとしてインデックス化し、埋め込みの類似度に基づき検索するのに対し、本手法はクエリに依存しないエンティティ中心のインデックスを構築する。各インデックスレコードは、エンティティ、その型、意味的なカテゴリ、および値で構成され、元のソースとなる一節へのリンクを保持している。検索時にはこれらのレコードが検索のハンドルとして機能し、大規模言語モデルが検索された一節を統合して最終的な回答を合成することで、証拠の特定と回答の生成を分離しつつ、追跡可能なソースを維持する。LoongおよびOolongデータセットを用いた実験では、平均精度78.24を達成し、参照されているベースラインのスコアと比較して6.62ポイント高い結果を示している。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>長文ドキュメントに対する質問応答において、従来のRAGは固定長チャンクによる分割を用いるため、エンティティと根拠となる情報の分離や、表の構造の欠落といった意味的な断片化が課題となっていた。提案手法であるEnSI-RAGは、ドキュメントを機械的な分割ではなく、特定のエンティティとその周辺文脈に焦点を当てた「エンティティ中心のパッセージ」として再定義することで、意味的な一貫性を保持する。さらに、エンティティの型、属性、関係、側面を記述した構造化レコードを構築し、これらを元のパッセージを指し示す検索ハンドルとして機能させる「エンティティ・ストラクチャ・インデックス」を導入することで、クエリに依存しない効率的な検索を実現する。本手法は、構造化データ上で推論を行うのではなく、構造を証拠の特定にのみ利用し、最終的な推論は元のドキュメントテキストに基づいてLLMが行うという、従来のRAGと完全構造化QAの中間的なアプローチをとる。LoongおよびOolongという2つのベンチマークを用いた評価では、金融、法務、学術といった多様なドメインにおいて、既存の強力な検索ベースラインと比較して競争力のある、あるいはそれ以上の性能を達成している。</p></section>
+<section class="secsum"><h3>Related Work</h3><p>従来のコーパス構造化には、転置インデックスや単語重み付きベクトルを用いる古典的な手法から、大規模言語モデルを用いて文書を階層的な要約や知識グラフ、テーブルへと変換する最新の手法までが存在する。しかし、構造化の過程で情報が失われる可能性があり、特定の質問用に設計されたスキーマは他の質問への転用が困難であるという課題がある。また、主流の検索拡張生成（RAG）は、固定サイズのチャンクを語彙的または密ベクトル的な類似度で順位付けするが、チャンクの境界によって文脈が分断されたり表の構造が崩れたりするため、長文ドキュメントには不向きである。グラフベースのRAGはエンティティや関係性の構造を構築することでこの問題に対処するが、主に短文のベンチマークや正規化されたエンティティを前提としており、長文で不均一なドメイン特化型ドキュメントでは前提が崩れることが多い。これに対し、提案手法であるEnSI-RAGは、構造化されたレコードを検索のための手がかりとしてのみ利用し、回答生成の根拠となる証拠は元のパッセージとして保持することで、情報の欠落を防いでいる。</p></section>
+<section class="secsum"><h3>EnSI-RAG</h3><p>EnSI-RAGは、長文ドキュメントの質問応答において、エンティティとその構造に基づいた検索を行うフレームワークである。オフラインの事前処理段階では、まず文書を特定のエンティティを中心とした意味的に完結したパッセージへと分割し、次に各パッセージからエンティティの型、属性、関係、側面を抽出して構造化レコードを作成する。これらのレコードは、エンティティやフィールドの値とパッセージ識別子を紐付けるエンティティ・構造インデックスとして構築され、検索のためのハンドルとして機能する。オンラインの検索段階では、ユーザーの質問を複数のステップからなる検索計画へと分解し、インデックス内の構造化されたキーと照合することで、関連する元のパッセージを特定する。この検索プロセスでは、エンティティや関係性といった記号的な制約と、テキストのセマンティックな一致の両方を組み合わせて照合が行われる。最終的な生成段階では、検索によって特定された元のパッセージが大規模言語モデルに提供され、モデルは構造化データではなく、根拠となる原文から直接回答を合成する。</p></section>
+<section class="secsum"><h3>Experiments</h3><p>EnSI-RAGの性能評価は、多文書推論を扱うLoongと大規模な情報集約を扱うOolongの2つのベンチマークを用いて行われました。アブレーション研究の結果、Loongの金融ドメインにおいて、表の各行を個別のパッセージとして扱う手法は、表全体を一つのパッセージとする手法よりも精度が向上し、不要な文脈を減らして検索と生成の精度を高めることが示されました。属性や関係性の粒度については、金融や論文分野では概念を抽象化した粗いラベルが精度を向上させる一方、詳細な区別が重要な法律分野では、原文に近い細かいラベルの方が精度が高いというドメイン依存の特性が明らかになりました。検索の深さに関しては、金融ドメインにおいて上位5件を検索する設定が最も高い精度を記録し、それ以上に検索数を増やしても精度は向上しませんでした。効率性の面では、パッセージ構築や情報抽出などの高コストな処理をオフラインで行い、オンラインの検索と生成プロセスを軽量化する設計となっており、クエリあたりの平均コストは、LLMの呼び出し回数が34.35回、実行時間が494.30秒、入力トークン数が163,146個となります。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本研究では、長文文書の質問応答を目的とした、エンティティと構造に基づくインデックスを活用するEnSI-RAGフレームワークを提案した。従来のRAGのように文書を固定サイズのチャンクとして扱うのではなく、意味的なまとまりを持つパッセージを構成し、質問に依存しない構造化されたインデックスを構築することで、根拠となるパッセージへのアクセス経路を実現している。この手法は、金融、法律、学術、および集約型の質問応答といった多様な設定において、非構造的なチャンクベースのRAGと、完全に構造化されたデータベース形式の推論の中間的な柔軟性を提供する。本手法は、証拠の特定と回答の合成を分離することで、インデックスが関連するパッセージへと誘導し、大規模言語モデルがそれらのパッセージを統合して最終的な回答を生成する構成をとっている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-25
+  </footer>
+</div>
+</body>
+</html>

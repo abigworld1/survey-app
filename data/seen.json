@@ -3172,6 +3172,71 @@
       "url": "http://arxiv.org/abs/2608.20097v1",
       "venue": ""
     },
+    "arxiv:2608.21095": {
+      "added": "2026-08-25",
+      "added_at": "2026-08-25T06:07:55.982266",
+      "arxiv_id": "2608.21095",
+      "authors": [
+        "Balkrishna Giri",
+        "Md Toufique Hasan",
+        "Jussi Rasku",
+        "Muhammad Waseem",
+        "Pekka Abrahamsson"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-21",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.21095.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.21095v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの知識汚染に対するオンライン防御という新規性が高く、実験も多角的な攻撃手法を用いて詳細に行われている。実用上の課題も明確で、研究価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Trustworthy RAG: An Evaluation Agent for Detecting Misinformation and Knowledge Poisoning in Generative AI Systems",
+      "tldr": "RAGシステムにおいて、検索された情報の関連性が必ずしも事実の正確性を保証しない「セキュリティ・信頼性のギャップ」を解消するため、生成前に文脈の毒性を検知するEvaluation Agentを提案する。本手法は、指示注入攻撃に対して高い検知性能を示す一方で、エンティティの入れ替えなどの微細な改変の検知には課題がある。",
+      "url": "http://arxiv.org/abs/2608.21095v1",
+      "venue": "publication in the Main Research Track of the Twenty-First International Conference on Software Engineering Advances (ICSEA 2026)"
+    },
+    "arxiv:2608.21252": {
+      "added": "2026-08-25",
+      "added_at": "2026-08-25T06:06:20.975976",
+      "arxiv_id": "2608.21252",
+      "authors": [
+        "Xuanyu Meng",
+        "Jiashuo Sun",
+        "Jash Rajesh Parekh",
+        "Jiawei Han"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-21",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.21252.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.21252v1",
+      "reading_value": 4,
+      "reading_value_reason": "固定長チャンクの限界に対し、エンティティ中心の構造化インデックスを検索ハンドルとする独創的な中間的アプローチを提案しており、実用性と新規性が高い。",
+      "relevance": 8,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "EnSI-RAG: Entity-Structure-Indexed Retrieval-Augmented Generation for Long-Document Question Answering",
+      "tldr": "長文ドキュメントの質問応答において、固定長チャンク分割による情報の断片化や、複数エンティティにまたがる証拠の特定が困難であるという課題に対し、エンティティ中心の構造化インデックスを用いて証拠を特定するEnSI-RAGを提案する。",
+      "url": "http://arxiv.org/abs/2608.21252v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -7697,6 +7762,37 @@
       "url": "http://arxiv.org/abs/2411.16506v2",
       "venue": ""
     },
+    "doi:10.1609/aaai.v39i14.33618": {
+      "added": "2026-08-25",
+      "added_at": "2026-08-25T06:04:30.107839",
+      "arxiv_id": "2412.11678",
+      "authors": [
+        "Shuai Zhou",
+        "Shizhe Zhao",
+        "Zhongqiang Ren"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-12-16",
+      "doi": "10.1609/AAAI.V39I14.33618",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2412.11678.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2412.11678v2",
+      "reading_value": 4,
+      "reading_value_reason": "非同期MAPFという難易度の高い設定に対し、PIBTとLSSを組み合わせた実用的なスケーラビリティ向上策を提案しており、1000エージェント規模の検証も具体的で価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Loosely Synchronized Rule-Based Planning for Multi-Agent Path Finding with Asynchronous Actions",
+      "tldr": "エージェントごとに移動時間が異なる非同期なマルチエージェント経路計画において、解の品質を犠牲にする代わりに、最大1000エージェント規模まで対応可能なスケーラビリティを実現するルールベースのプランニング手法を提案する。",
+      "url": "http://arxiv.org/abs/2412.11678v2",
+      "venue": "AAAI 2024"
+    },
     "doi:10.1609/aaai.v40i35.40238": {
       "added": "2026-08-16",
       "added_at": "2026-08-16T06:03:39.675086",
@@ -8153,6 +8249,38 @@
       "tldr": "自動倉庫における、相互に依存するタスクと実ロボットの複雑な動力学を考慮したLifelong Multi-Agent Path Finding (MAPF) 問題に対し、タスク割り当てと経路計画を交互に行う手法と、動的な障害物を回避しつつ経由地を巡回する軌道生成アルゴリズムを提案し、その有効性を実証する。",
       "url": "https://www.semanticscholar.org/paper/493ee4d4b6cc09219440ac7c4dae271b50a1499d",
       "venue": "European Conference on Artificial Intelligence"
+    },
+    "doi:10.48550/arxiv.2412.17993": {
+      "added": "2026-08-25",
+      "added_at": "2026-08-25T06:02:54.522872",
+      "arxiv_id": "2412.17993",
+      "authors": [
+        "Jinhao Liang",
+        "Jacob K. Christopher",
+        "Sven Koenig",
+        "Ferdinando Fioretto"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 10,
+      "date": "2024-12-23",
+      "doi": "10.48550/ARXIV.2412.17993",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2412.17993.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2412.17993v1",
+      "reading_value": 4,
+      "reading_value_reason": "拡散モデルのサンプリング過程に制約付き最適化を統合する手法は新規性が高く、拡張ラグランジュ法による計算量抑制も具体的。MAPF分野の研究者にとって有用。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi-Agent Path Finding in Continuous Spaces with Projected Diffusion Models",
+      "tldr": "連続空間におけるマルチエージェント経路計画において、拡散モデルのサンプリング過程に制約付き最適化を統合することで、衝突回避や運動学的制約を遵守した実行可能な軌道を直接生成する手法を提案する。",
+      "url": "http://arxiv.org/abs/2412.17993v1",
+      "venue": ""
     },
     "doi:10.48550/arxiv.2504.07841": {
       "added": "2026-08-22",

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-Agent Path Finding in Continuous Spaces with Projected Diffusion Models | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi-Agent Path Finding in Continuous Spaces with Projected Diffusion Models</h1>
+  <div class="meta">Jinhao Liang, Jacob K. Christopher, Sven Koenig, Ferdinando Fioretto<br>採択先: 未取得 ・ 2024-12-23 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2412.17993v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2412.17993v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/ARXIV.2412.17993" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2024-12-23</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 10</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">拡散モデルのサンプリング過程に制約付き最適化を統合する手法は新規性が高く、拡張ラグランジュ法による計算量抑制も具体的。MAPF分野の研究者にとって有用。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 連続空間におけるマルチエージェント経路計画において、拡散モデルのサンプリング過程に制約付き最適化を統合することで、衝突回避や運動学的制約を遵守した実行可能な軌道を直接生成する手法を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>共有環境内で複数のエージェントが衝突を避けながら目的地へ移動するマルチエージェント経路計画（MAPF）を対象とする。従来の離散的なグリッドベースの手法は、現実の連続的な環境や高次元な設定への適用が困難である。また、既存の拡散モデルを用いた手法は、エージェント間の衝突回避などの制約を満たす実行可能な軌道を直接生成できず、高コストな棄却サンプリングに頼らざるを得ないという課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>拡散モデルのサンプリング過程に射影メカニズムを組み込み、生成プロセスの中で制約を満たす解を導出する手法を提案した。これにより、マルチエージェント間の衝突回避や運動学的制約の遵守を、後処理なしで実現している。さらに、非凸な制約による計算負荷を抑えるための最適化手法を導入し、エージェント数が増加した際のスケーラビリティを向上させた。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法であるProjected Diffusion Models（PDM）は、スコアベースの拡散モデルによるノイズ除去の各ステップにおいて、生成された出力を実行可能領域へ投影する。具体的には、各ステップの更新後に、入力点から制約を満たす集合内の最も近い点へのユークリッド距離を最小化する射影演算子を適用する。エージェント間の衝突回避などの非凸な制約を扱うための計算負荷を軽減するため、拡張ラグランジュ法（ALM）を採用している。ALMは、非凸な制約をスラック変数を用いた等式制約へと書き換え、ペナルティ項を含むラグランジュ関数を用いることで、問題を緩和する。このプロセスを双対上昇法（DAM）によって反復的に解くことで、効率的な投影を実現する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>狭い通路、障害物密集、エージェント密集の3つのシナリオにおいて、標準的な拡散モデル（SDM）および誘導型拡散モデル（GDM）と比較評価を行った。評価指標は、制約違反率と全経路長である。狭い通路および障害物密集のシナリオにおいて、PDMは制約違反率0かつ最短の経路長を達成した。エージェント密集シナリオにおいても、PDMはSDMと比較して低い制約違反率（0.31および0.17）と短い経路長を実現した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>MAPFの実行可能領域は非凸かつ非線形な制約によって定義されるため、エージェント数や障害物の数が増大すると、投影プロセスの計算コストが高くなる。本手法では拡張ラグランジュ法によってこの問題を緩和しているが、動的な障害物が存在する環境における適用や、さらなる大規模なエージェント数への対応が今後の課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Multi-Agent Path Finding in Continuous Spaces with Projected Diffusion Models</h3><p>本研究は、連続空間におけるマルチエージェント経路計画（MAPF）において、拡散モデルと制約付き最適化を統合した新しい手法を提案している。従来のMAPF手法は、環境の離散化に依存する場合があり、高次元空間におけるスケーラビリティに課題がある。拡散モデルは単一エージェントの経路計画において複雑な軌道分布を捉え滑らかな経路を生成できるが、そのままマルチエージェントへ拡張しても、エージェント間の衝突回避などの制約を満たすことが困難である。そこで本手法は、拡散モデルに制約付き最適化を組み込むことで、衝突回避や運動学的制約を遵守した実行可能なマルチエージェント軌道を直接生成する。この手法の有効性は、次元数の異なる様々な複雑なシミュレーションシナリオを通じて検証されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路探索（MAPF）は、共有環境内で複数のエージェントが衝突を避けながら始点から目的地へ移動する経路を計算する問題であり、エージェント数の増加に伴う高次元な探索空間への対応とスケーラビリティの確保が大きな課題となっている。本研究では、連続空間におけるMAPFに対応するため、反復的なデノイジングによって高次元の確率分布を近似できる拡散モデルを活用する。既存の拡散モデルを用いた手法は、実行可能な経路を得るためにコストの高い棄却サンプリングに頼る傾向があるが、本手法はサンプリングの各ステップにおいて出力を実行可能領域へ投影する制約付き最適化問題として再定式化することで、この課題に取り組む。MAPFの実行可能領域は非凸かつ非線形な制約によって定義されるため、エージェント数や動的障害物が増えると投影プロセスの計算が困難になるが、本研究では拡張ラグランジュ法を用いてこれらの制約を緩和することで、計算負荷を軽減している。このアプローチにより、数十規模のエージェントや複雑な障害物が存在する環境においても、衝突のない軌道を生成することが可能となる。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>従来のマルチエージェント経路計画（MAPF）は、時間と環境を離散的なステップとグリッドとして扱うことで、数百規模のエージェントに対しても効率的な探索アルゴリズムを適用してきたが、これは現実世界の連続的な環境との間に乖離を生じさせている。連続空間への拡張として、確率的ロードマップや急速探索ランダムツリーを用いる手法、あるいは連続変数を扱う制約付き最適化問題として定式化し、逐次凸計画法や交互方向乗数法を用いる研究が存在するが、エージェントや障害物が多い場合に解を見つけられないという課題がある。生成モデルを用いた経路計画では、拡散モデルによる単一エージェントの経路生成や、条件付き変分オートエンコーダを用いた協調的なタイムロードマップの予測が行われているが、これらは出力の実行可能性を保証できず、衝突のない経路を直接生成することはできない。これに対し、提案手法は最適化技術を拡散モデルに統合することで、多数の障害物が存在する環境下でも、連続空間における実行可能なMAPF解を直接生成することを可能にしている。</p></section>
+<section class="secsum"><h3>3 Preliminaries</h3><p>拡散モデルは、単純なノイズ分布から複雑なデータ分布を生成する確率的生成モデルであり、データに段階的にノイズを加える順方向プロセスと、学習したニューラルネットワークを用いてノイズを逐次除去する逆方向プロセスの2つのマルコフ連鎖で構成されます。本研究では、データの密度が最も急激に増加する方向を示すスコア関数をニューラルネットワークで近似する、スコアベース拡散モデルに焦点を当てます。連続空間におけるマルチエージェント経路計画（MAPF）は、2次元平面上の複数のエージェントに対し、障害物やエージェント間の衝突を避けつつ、各エージェントを初期位置から目標位置まで移動させる衝突のない軌跡を求める問題です。各エージェントは半径を持つ球体としてモデル化され、移動には最大速度などの運動学的制約が課されます。この問題は、総移動時間やエネルギー消費などのコスト関数を最小化する制約付き最適化問題として定式化されますが、高次元な結合構成空間の扱いや、複数のエージェントを同時に調整する必要があるため、従来の計算手法ではスケーラビリティや連続空間への対応において困難が伴います。</p></section>
+<section class="secsum"><h3>4 Constrained Diffusion Models</h3><p>拡散モデルのサンプリング過程は、ガウスノイズから学習データの分布へと段階的に遷移するマルコフ過程であり、学習されたスコア関数を用いた確率的勾配ランジュバン動力学（SGLD）によって各ステップの更新が行われます。本セクションで提案するProjected Diffusion Models（PDM）は、生成された出力が事前に定義された実行可能領域内に収まることを保証するため、従来のスコアベースのサンプリングに制約付き最適化の概念を統合した手法です。PDMの更新ルールでは、スコアネットワークによる勾配ステップを実行した直後に、入力点から制約集合内の最も近い点へと移動させる射影演算子を適用することで、各反復において解の実行可能性を維持します。この射影演算子は、入力点と制約集合内の点との間のユークリッド距離を最小化する問題として定義されます。PDMは、データの負の対数尤度を最小化するという拡散モデル本来の目的関数を維持しつつ、明示的かつ検証可能な制約を課すことで、データ分布に沿ったサンプル生成と制約の遵守を同時に実現します。</p></section>
+<section class="secsum"><h3>5 Efficient Projections for MAPFs</h3><p>生成モデルによって生成されたサンプルを制約を満たすように修正する投影プロセスにおいて、非凸集合への投影は計算コストが非常に高いという課題がある。本手法では、この問題を解決するために拡張ラグランジュ法（ALM）を用いた効率的な投影メカニズムを提案する。MAPFにおける制約は、始点・終点の固定や最大速度制限といった凸制約と、エージェント同士や静止障害物との衝突回避といった非凸制約に分けられる。提案手法では、非凸な制約条件をスラック変数を用いた等式制約に書き換えた上で、ラグランジュ関数に制約残差に対するペナルティ項を加えた拡張ラグランジュ関数を定義し、元の非凸な二次制約付き二次計画問題を凸な問題へと緩和して扱う。この双対問題を、双対上昇法（DAM）を用いて反復的に解くことで、複雑なシナリオにおいても投影プロセスを高速化できる。</p></section>
+<section class="secsum"><h3>6 Experiments</h3><p>提案手法であるPDMの性能を、狭い通路、障害物密集、エージェント密集の3つのシナリオにおいて、標準的な拡散モデル（SDM）およびペナルティ項を用いてサンプリング過程を誘導するGDMと比較評価しています。評価指標には、生成された軌道の実現可能性を示す制約違反率と、軌道の効率性を示す全経路長を用い、学習データに含まれない未知の配置に対して検証を行っています。狭い通路および障害物密集のシナリオにおいて、PDMは制約違反率ゼロかつ最短の経路長を達成しており、SDMやGDMよりも優れた性能を示しています。エージェント密集シナリオでは、投影計算のコスト増大に対処するためにALM法を用いており、PDMはSDMと比較して低い制約違反率（0.31および0.17）と短い経路長を実現しています。これらの結果は、拡散モデルと制約付き最適化技術を組み合わせることが、複雑なマルチエージェント経路計画の解決に有効であることを示しています。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>本研究では、制約付き最適化手法と拡散モデルを組み合わせることで、連続空間におけるマルチエージェント経路計画のための衝突回避軌道を生成する手法を提案している。拡散プロセスに制約を直接組み込むことで、高コストな棄却サンプリングや後処理を必要とせず、エージェント間の衝突回避、運動学的限界、および始点・終点の遵守といった制約を満たす実行可能な解を直接生成できる。計算量の課題に対しては、増大ラグランジュ法を用いて制約付き最適化問題をペナルティ項とラグランジュ乗数を用いた一連の無制約問題へと変換することで、投影プロセスの効率化とスケーラビリティを実現している。実験では、狭い通路、障害物密集、およびエージェント密集といった困難なシナリオにおいて、提案手法であるPDMが、違反率を抑えつつ経路長を最適化する高い堅牢性と有効性を示すことが確認された。この手法は、確率的生成モデルと制約付き最適化を統合することで、複雑なマルチエージェント・ロボットシステムへの拡散モデルの適用に新たな道を開くものである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-25
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Trustworthy RAG: An Evaluation Agent for Detecting Misinformation and Knowledge Poisoning in Generative AI Systems | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Trustworthy RAG: An Evaluation Agent for Detecting Misinformation and Knowledge Poisoning in Generative AI Systems</h1>
+  <div class="meta">Balkrishna Giri, Md Toufique Hasan, Jussi Rasku, Muhammad Waseem, Pekka Abrahamsson<br>採択先: publication in the Main Research Track of the Twenty-First International Conference on Software Engineering Advances (ICSEA 2026) ・ 2026-08-21 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.21095v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.21095v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 publication in the Main Research Track of the Twenty-First International Conference on Software Engineering Advances (ICSEA 2026)</span><span class="chip">公開日 2026-08-21</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの知識汚染に対するオンライン防御という新規性が高く、実験も多角的な攻撃手法を用いて詳細に行われている。実用上の課題も明確で、研究価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGシステムにおいて、検索された情報の関連性が必ずしも事実の正確性を保証しない「セキュリティ・信頼性のギャップ」を解消するため、生成前に文脈の毒性を検知するEvaluation Agentを提案する。本手法は、指示注入攻撃に対して高い検知性能を示す一方で、エンティティの入れ替えなどの微細な改変の検知には課題がある。</div>
+<section class="qa"><h2>どんなもの？</h2><p>RAG（検索拡張生成）は外部知識を利用してハルシネーションを抑制するが、検索対象のコーパスに悪意のある文書が混入する知識汚染攻撃に対して脆弱である。既存の評価指標は、検索された文脈に対する回答の忠実度は測定できるものの、文脈自体の整合性や信頼性は考慮しておらず、高い関連性が真実性の代用とされる問題がある。本研究は、生成が行われる前に、検索された文書集合に含まれる毒性を検知し、文脈の信頼性を評価することを目的とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>検索器や生成器を修正することなく、オンラインで解釈可能な判定を下す防御用ミドルウェアを提案している点が新規である。従来のオフラインでのコーパス洗浄や検索器側での排除とは異なり、検索された文書群と生成回答を共同でスコアリングする。また、自然言語推論による事実検証、5つの信号に基づく毒性検知、および非線形減衰を用いる信頼指数を統合した構成により、既存の評価指標では困難だった文脈の整合性評価を実現している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、生成前に行う毒性検出と一貫性推定の第1段階と、生成後に自然言語推論を用いて検証する第2段階の2段階構成をとる。毒性検出では、言語パターン、構造的異常、文書内の整合性、文書間の矛盾、および埋め込み空間におけるセマンティックな外れ値という5つの信号を組み合わせ、検索の類似度で重み付けして算出する。信頼指数（Trust Index）は、自然言語推論による事実性、文書間の整合性、毒性検出信号の3要素を統合して算出される。毒性検出の確信度が高い場合には、信頼性スコアを非線形に減少させる減衰器を適用して判定を補正し、最終的なスコアを4段階の信頼レベルにマッピングする。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>TruthfulQA、FEVER、およびセキュアコーディングのルールセットを用いた実験では、Llama 3.3 70Bを用いた構成で精度91%、適合率100%を記録した。指示注入攻撃に対しては適合率100%、再現率100%を達成したが、矛盾の検知は再現率53.3%、微細な操作は20%に留まり、エンティティの入れ替えは再現率0%であった。ソフトウェアエンジニアリングのユースケースでは、指示注入をF1スコア92%でブロックできることを確認した。また、複数のLLMを用いた検証では、Trust IndexのROC-AUCが0.73から0.81の範囲で識別能を維持している。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>エンティティの入れ替えのような、テキスト上の痕跡を持たないインプレース編集攻撃の検知には、外部の構造化知識が必要であるというアーキテクチャ上の限界がある。また、自然言語推論によるスコアが生成モデルの回答スタイルに依存し、慎重な表現を含む場合にスコアが低下するというトレードオフが存在する。実用面では、1クエリあたり17秒の実行時間を要するため、非同期のチェックゲートとしての運用が想定される。今後の課題として、外部知識源の追加による検知精度の向上、GPUを用いた高速化、およびモデルごとの生成スタイルに依存するスコアを補正するためのキャリブレーションが挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Trustworthy RAG: An Evaluation Agent for Detecting Misinformation and Knowledge Poisoning in Generative AI Systems</h3><p>RAGシステムにおいて、検索された情報の意味的な関連性が必ずしも事実の正確性を保証しないという「セキュリティ・信頼性のギャップ」を解消するため、本研究ではEvaluation Agentというミドルウェアを提案している。このエージェントは、自然言語推論を用いた事実検証、関連性の重み付け集約を行う5つの信号に基づく毒性検知器、および高汚染環境下で非線形減衰を用いるTrust Index（信頼指数）を組み合わせた構成となっている。TruthfulQAを用いたLlama 3.3 70Bでの評価では、指示注入攻撃に対して精度100%、再現率100%を達成し、全体として精度91%を記録したが、エンティティの入れ替えのような微細な編集の検知には課題が残った。複数のLLMを用いた検証では、Trust IndexのROC-AUCが0.73から0.81の範囲で識別能を維持しており、モデルサイズよりも生成スタイルが検知に影響を与えることが示された。また、OWASP Top 10等のセキュリティガイドラインに基づくソフトウェアエンジニアリングのユースケースにおいて、安全でない助言の指示注入をF1スコア92%でブロックできることを確認したが、矛盾や微妙な意味の弱体化の検知には課題がある。本手法は、LLMが誤情報を採用したかどうかではなく、生成が行われる前に文脈に含まれる毒性を検知することを目的としている。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>RAG（検索拡張生成）は外部知識を利用して大規模言語モデルのハルシネーションを抑制しますが、検索対象のコーパスに悪意のある文書が混入する知識汚染攻撃に対して脆弱です。既存の評価指標は検索された文脈への忠実度は測定するものの、文脈自体の整合性は考慮しておらず、高い関連性が真実性の代用とされる「セキュリティと信頼性のギャップ」が生じています。本論文では、生成の前に検索された文脈を検証する防御用ミドルウェアとして、自然言語推論による事実検証、5つの信号に基づく汚染検知、および文書間の整合性推定を統合したEvaluation Agentを提案します。実験の結果、本エージェントは指示注入攻撃に対して100%の再現率、TruthfulQAの混合攻撃に対して91%の精度と100%の適合率を示し、明らかな汚染を効果的に検知できることが確認されました。一方で、エンティティの入れ替えや微妙な内容の弱体化といった、表面的な信号では捉えにくい巧妙な改変の検知には限界があることも明らかになりました。また、自然言語推論に基づく信頼性スコアは、モデルのサイズよりも生成スタイルの影響を強く受けることや、検索の深さには依存しないといった特性も示されています。</p></section>
+<section class="secsum"><h3>II Background and Related Work</h3><p>RAG（検索拡張生成）は、検索器、生成器、評価器を独立した構成要素として扱うモジュール型へと進化していますが、自己修正機能を持つ手法であっても、批判プロセスを操作する敵対的な入力に対して有効であるかは不明です。既存の評価指標は、検索の適合性を測るMRRなどの情報検索指標や、LLMを用いて忠実度を判定するRAGASなどがありますが、これらは検索対象となるコーパス自体の信頼性や、毒性のある文書の混入を評価することはできません。攻撃手法には、検索可能なコンテンツに悪意のある指示を埋め込む間接的プロンプト注入や、推論時に使用されるコーパスを汚染する知識ポイズニングがあり、これらは中立的で専門的な表現を用いることで従来の毒性分類器を回避する可能性があります。既存の防御策は、インデックス作成前にコーパスを洗浄するオフラインの手法や、検索器側で疑わしい文書を排除する手法が中心ですが、本研究で提案するエージェントは、検索された文書集合と生成された回答を共同でスコアリングし、検索器や生成器を修正することなく解釈可能な判定を下すオンライン型の防御手法です。さらに、LLMを用いたコーディング支援が不安全なコードを生成するリスクがあることから、組織のセキュリティガイドラインを対象とした知識ポイズニングへの対策として、ソフトウェア開発ライフサイクルにおける有効性を評価します。</p></section>
+<section class="secsum"><h3>III Proposed Approach</h3><p>提案手法は、検索対象の文書群に悪意のある文書を混入させる攻撃を想定し、生成AIの回答の信頼性を評価する防御用ミドルウェアであるEvaluation Agentを提案している。このエージェントは、生成前に行う毒性検出と一貫性推定による第1段階と、生成後に検索文書を前提、生成回答を仮説として自然言語推論を用いて検証する第2段階の2段階構成をとる。毒性検出では、言語パターン、構造的異常、文書内の整合性、文書間の矛盾、および埋め込み空間におけるセマンティックな外れ値という5つの独立した信号を組み合わせ、検索の類似度による重み付けを行って文書ごとの毒性確率を算出する。信頼性指標（Trust Index）は、自然言語推論による事実性、文書間の整合性、および毒性検出信号の3要素を重み付け合計して算出されるが、毒性検出の確信度が高い場合には、信頼性スコアを非線形に減少させる減衰器を適用することで、毒性のある文書が混入している場合の判定を補正する設計となっている。最終的なスコアは、HIGH、MEDIUM、LOW、VERY LOWの4段階の信頼レベルにマッピングされる。なお、自然言語推論による事実性スコアは生成モデルの回答スタイルに依存するため、回答に慎重な表現が含まれるとスコアが低下するという特性がある。</p></section>
+<section class="secsum"><h3>IV Experimental Design</h3><p>実験では、TruthfulQA、FEVER、およびOWASPやCWEに基づき著者らが構築したセキュアコーディングのルールセットの3つのデータセットを使用する。実験プロトコルは、50個のクリーンなクエリを用いるパートAと、30%の文書が汚染されたコーパスに対して同じクエリを用いるパートBの2部構成とし、1回の実行につき計100サンプルを評価する。汚染戦略には、矛盾の追加、指示注入、エンティティの入れ替え、および微妙な操作（誤った限定詞やぼかし表現の追加）の4種類を用いる。評価指標には、精度、適合率、再現率、F1スコアに加え、閾値に依存しない識別能を示す信頼スコア分離度を採用する。なお、汚染されたソース文書が検索結果に含まれなかった場合でも、エージェントがそれを見逃したとみなしてラベル付けを行うため、報告される再現率はエージェントの実際の性能に対する保守的な下限値となる。検索にはFAISSを用いたコサイン類似度によるtop-k検索が行われ、生成モデルにはllama3.3:70bやqwen3.5:35bが使用される。</p></section>
+<section class="secsum"><h3>V Results</h3><p>提案手法であるEvaluation Agentは、TruthfulQAを用いた実験において、Llama 3.3 70BとMiniLMを組み合わせた構成で、精度91%、適合率100%、再現率40%、F1スコア57.1%を達成し、単純なベースラインを7%上回りました。検知性能は攻撃手法によって異なり、指示注入は100%の再現率で確実に検知できる一方、矛盾の検知は53.3%、微細な操作は20%に留まり、エンティティの入れ替えは検知できませんでした。アブレーション解析の結果、事実性、一貫性、毒性の3つの信号を統合することで、毒性検知器単体よりも高い精度を維持しつつ、非線形なダンパーを用いることで再現率を向上させられることが示されました。LLMの選択は性能に大きく影響し、Qwenのように慎重で冗長な回答を行うモデルは、自然言語推論による含意スコアを低下させ誤検知を増やす傾向がありますが、LLMごとの閾値キャリブレーションを行うことで、Qwenの精度もベースラインと同等まで回復します。検索深度を増やしても検知性能は変化せず、検知の限界は検索量ではなく攻撃の難易度に依存します。また、セキュアコーディングのRAG環境における実験では、指示注入をほぼ完璧に防げる一方で、エンティティの入れ替えについては構造化された識別子の変更により一部検知可能になるものの、微細な意味的弱体化は依然として検知が困難であることが明らかになりました。</p></section>
+<section class="secsum"><h3>VI Discussion</h3><p>提案手法による検知性能の評価では、明示的な注入攻撃に対してはF1スコア96.8%、混合精度91%（適合率100%）という高い信頼性を示す一方、既存知識を書き換えるインプレース編集攻撃の検知は極めて困難であることが示された。自然言語推論（NLI）は偽陽性をゼロに抑える信頼性の基盤として機能し、毒性経路とダンパーの仕組みが再現率を補完する構成となっている。検知の限界はパラメータ調整の問題ではなく、テキスト上の痕跡を持たないエンティティ置換などの攻撃を検知するには外部の構造化知識が必要であるというアーキテクチャ上の制約に起因する。また、クリーンなクエリであっても毒性のある近傍文書を検索した場合に毒性確率が上昇するという偽陽性の波及問題があるが、関連性に基づいた集約によって緩和が可能である。実用面では、1クエリあたり17秒という実行時間を踏まえ、コードレビューや継続的インテグレーションにおける非同期のチェックゲートとしての運用が想定されている。今後の課題として、最適化されたより強力な毒性文書への対応や、生成プロセスを含めたエンドツーエンドの評価、およびモデルごとの生成スタイルに依存するNLIスコアを補正するためのキャリブレーションの必要性が挙げられる。</p></section>
+<section class="secsum"><h3>VII Conclusion and Future Work</h3><p>本研究では、自然言語推論による事実検証、多角的な信号を用いた毒性検知、および非線形減衰関数を組み込んだ信頼性指標（Trust Index）を統合することで、RAGシステムに信頼レイヤーを追加する評価エージェントを提案した。このエージェントは、指示注入攻撃に対して100%のリコールを達成し、TruthfulQAにおいて100%の適合率を示すなど、明らかな毒性注入を検知できることを示した。一方で、既存情報の書き換え（インプレース編集）の検知は困難であることや、自然言語推論による信頼性スコアリングが生成LLMに依存すること、さらにはデータセット固有のキャリブレーションが汎用性のために重要であるといった限界も明らかになった。今後の展望として、Wikidataのような外部知識源の追加によるエンティティ入れ替え攻撃への対策、GPUを用いた評価の高速化、および検知に留まらない攻撃成功率の測定が挙げられる。加えて、静的解析器を用いたコードレベルでの影響評価、継続的に更新される大規模な実世界RAGへの適用、およびデプロイ環境に応じた重みや閾値の最適化といった研究方向性が示されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-25
+  </footer>
+</div>
+</body>
+</html>

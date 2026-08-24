@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Loosely Synchronized Rule-Based Planning for Multi-Agent Path Finding with Asynchronous Actions | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Loosely Synchronized Rule-Based Planning for Multi-Agent Path Finding with Asynchronous Actions</h1>
+  <div class="meta">Shuai Zhou, Shizhe Zhao, Zhongqiang Ren<br>採択先: AAAI 2024 ・ 2024-12-16 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2412.11678v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2412.11678v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/AAAI.V39I14.33618" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 AAAI 2024</span><span class="chip">公開日 2024-12-16</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">非同期MAPFという難易度の高い設定に対し、PIBTとLSSを組み合わせた実用的なスケーラビリティ向上策を提案しており、1000エージェント規模の検証も具体的で価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> エージェントごとに移動時間が異なる非同期なマルチエージェント経路計画において、解の品質を犠牲にする代わりに、最大1000エージェント規模まで対応可能なスケーラビリティを実現するルールベースのプランニング手法を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のマルチエージェント経路計画（MAPF）は、全エージェントが同一の離散的なタイムステップで同期して行動することを前提としていた。しかし、エージェントごとに速度が異なる非同期な行動（MAPF-AA）を扱う場合、既存の最適解を求めるアルゴリズムは計算量が膨大になり、大規模なエージェント数を扱うことが困難である。本研究は、有限グラフ上でエージェントが異なる所要時間で移動し、頂点の占有時間が重なる持続時間衝突を回避しつつ、多数のエージェントに対して高速に劣最適解を求めることを目的とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>非同期行動を扱う探索手法であるLSSと、高速なルールベース手法であるPIBTを組み合わせた新しいプランニング手法LSRPを提案する。従来のPIBTが同期的な時刻を前提としていたのに対し、本手法はエージェントの到着時刻に応じて計画対象を動的に選択し、キャッシュ機構を用いて非同期な動作を管理する。さらに、エージェント同士が位置を入れ替える必要がある場合に、持続時間衝突を考慮しながらスワップ操作を行うLSRP-SWAPを導入することで、エージェントが互いに押し合い続けて停止する問題を改善している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LSRPは、エージェントの状態を「出発頂点、到着頂点、出発時刻、到着時刻」の4要素で定義し、時刻のリストと結合状態を管理しながら探索を行う。各反復において、次に計画すべき最小の時刻を特定し、その時刻に到着するエージェントの集合を抽出する。エージェントのアクションは、優先度に基づき、目標への距離が近い順に決定される。移動先が他のエージェントに占有されている場合は、そのエージェントを押し出す処理を行う。この際、非同期な動作を扱うため、計画されたアクションをキャッシュし、将来の時刻に再利用する。LSRP-SWAPでは、位置交換が必要な状況を判定する手続きを用い、シミュレーションによって交換が可能であることを確認した上で、移動先の探索順序を反転させてスワップを実行する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>3種類のマップとMAPFベンチマークを用い、エージェントの移動時間を1.0から5.0の間で変化させた設定で、30秒の実行時間制限下にて評価を行った。比較対象はCCBSおよびSIPPである。実験の結果、LSRPおよびLSRP-SWAPは、ベースラインと比較して完了時間（makespan）が約25%増加するものの、扱えるエージェント数を1桁程度増加させることが可能であり、特にLSRP-SWAPは最大1000エージェントまで対応した。非同期性を無視して計画した場合と比較すると、非同期性を考慮することで解のコストを30%から75%削減できることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法はスケーラビリティを優先しているため、全エージェントが目標に留まり続ける強い停止ではなく、特定のグラフ条件（c-graph）を満たす場合にのみ全エージェントが目標に到達する弱い停止を保証する。また、LSRP-SWAPは頂点の探索順序を変更するため、LSRPが持つ停止性の理論的保証を直接適用できない。解の品質が既存手法に比べて低下するというトレードオフが存在する。今後の課題として、制限時間内で解の質を反復的に向上させることができる、Anytimeプランナーへの拡張が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Loosely Synchronized Rule-Based Planning for Multi-Agent Path Finding with Asynchronous Actions</h3><p>本研究は、各エージェントの行動が一定の時間単位で同期しているという従来のマルチエージェント経路計画（MAPF）の仮定を拡張し、非同期な行動を扱うための新しいプランニング手法を提案している。提案手法であるLSRPは、非同期行動の処理に用いられる探索手法であるLSSと、ルールベースのプランニング手法であるPIBTを組み合わせたものである。この手法は、解の最適性を犠牲にする代わりに、多数のエージェントに対応するためのスケーラビリティを確保している。最大1000エージェントを含む様々なマップを用いた実験の結果、実行時間の制限下において、提案手法は既存のベースライン手法と比較して、完了時間（makespan）が約25%増加するものの、扱えるエージェント数を1桁程度増加させることが可能である。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路探索（MAPF）は、共有環境内で衝突を回避しながら複数のエージェントを目的地へ導く問題ですが、従来の多くの手法は全エージェントの行動時間が同一の離散的なタイムステップで同期していることを前提としています。しかし、エージェントごとに速度が異なる非同期な行動を扱う場合、既存の最適解を求めるアルゴリズムはスケーラビリティに欠け、数百規模のエージェントを扱うことが困難であるという課題があります。本研究では、スケーラビリティを重視し、解の完全性や最適性を犠牲にすることで、非同期な行動下でも大規模なエージェント数に対応可能なLoosely Synchronized Rule-based Planning（LSRP）を提案します。LSRPは、時間情報を組み込んだ状態空間において、高速なルールベース手法であるPriority Inheritance with Backtracking（PIBT）を活用し、開始時刻が近いエージェント間の行動をキャッシュ機構によって緩やかに同期させることで、非同期環境下での複雑な相互作用を制御します。実験では、MAPFベンチマークの様々なマップを用いてCCBSや優先度付き計画法と比較した結果、LSRPは既存手法よりも約1桁多いエージェント数を短い実行時間で解決可能であることを示しました。なお、LSRPの解は、非同期性を無視して計画した場合と比較して完了時間（makespan）が55%から90%の範囲に収まるより優れた解を生成しますが、既存手法と比較すると完了時間は約25%長くなります。</p></section>
+<section class="secsum"><h3>2 Problem Definition</h3><p>本研究が扱うMulti-Agent Path Finding with Asynchronous Actions (MAPF-AA)は、有限グラフ上の各エージェントが、エッジごとに異なる、あるいはエージェントごとに異なる所要時間をかけて移動する問題を定義している。エージェントがエッジを移動する際、移動開始時刻、終了時刻、およびその間の開区間における各頂点の占有状態が定義されており、2つのエージェントが同じ時刻に同じ頂点を占有することをduration conflict（持続時間衝突）と呼ぶ。エージェントの経路コストは、経路を構成する各エッジの所要時間の総和であり、MAPF-AAの目的は、全エージェントの経路コストの総和を最小化しつつ、duration conflictが発生しない結合経路を見つけることである。なお、すべてのエージェントとエッジにおいて所要時間が一定の定数であるMAPF-DCは、MAPF-AAの特殊なケースである。本研究では、多数のエージェントが存在するMAPF-AAのインスタンスに対し、制約のない劣最適解を高速に求めるアルゴリズムの開発を目指している。</p></section>
+<section class="secsum"><h3>3 Preliminaries</h3><p>PIBTは、各エージェントに動的な優先度を割り当て、目標への最短経路に基づいた行動をステップごとに計画する手法です。衝突が発生した際は、高優先度のエージェントが位置を確保し、押し出された低優先度のエージェントが押し出した側の優先度を継承して再帰的に計画を行うことで、各エージェントが最終的に目標に到達することを保証します。PIBTは高速で多人数へのスケーラビリティを持ちますが、グラフの各頂点においてサイクルが存在しない場合には、解を見つけられない不完全性があります。一方、LSSはエージェントの位置とアクションのタイムスタンプを状態に含めることで非同期アクションに対応する探索手法であり、タイムスタンプが最小のエージェントから順に状態を拡張します。LSSは最適解を保証する完全なアルゴリズムですが、扱えるエージェント数には制限があります。また、関連手法として、動的障害物を考慮して単一エージェントの経路を求めるSIPPや、高レベルの衝突検出とSIPPを用いた低レベルの制約解決を組み合わせることで最適解を保証するCCBSが挙げられます。</p></section>
+<section class="secsum"><h3>4 Method</h3><p>LSRPは、エージェントごとに異なるアクション実行時間を持つ非同期なマルチエージェント経路計画（MAPF-AA）を解決するための、深さ優先探索に基づくルールベースの手法です。各エージェントの状態は、出発頂点、到着頂点、出発時刻、到着時刻の4つの要素で定義され、これらを組み合わせた結合状態を探索します。アルゴリズムは、次に計画すべき時刻を決定し、その時刻に到着するエージェントの集合に対して、優先度に基づいた再帰的なアクション決定を行います。アクション決定の核となるRecursive Asynchronous Pushは、目標に近い頂点から順に移動可能性を検討し、移動先が他のエージェントによって占有されている場合は、そのエージェントを押し出すことで空きを作る再帰的な処理を行います。この際、押し出されたエージェントが移動を完了するまで元のエージェントが待機する必要があるため、待機アクションと移動アクションをセットで計画し、将来のアクションとしてキャッシュする仕組みを備えています。本手法は、全ての時刻が同期している前提のPIBTとは異なり、エージェントの到着時刻に応じて計画対象を動的に選択し、キャッシュを用いてアクションの継続性を管理することで、非同期な動作を扱います。</p></section>
+<section class="secsum"><h3>5 Analysis</h3><p>LSRPはスケーラビリティを優先するため、全エージェントが目標に留まり続ける強い停止ではなく、各エージェントが少なくとも一度は目標に到達する弱い停止のみを特定の条件下で保証する。グラフの隣接する全ての頂点ペアに対して長さcのサイクルが存在するグラフをc-graphと定義すると、この条件下ではLSRPによる全エージェントの目標到達が保証される。LSRPでは、目標に未到達のエージェントの優先度が各反復で増加し、最も高い優先度を持つエージェントは他のエージェントを押し退けて目標へ到達できる。c-graphにおいて、あるエージェントが目標に到達するまでの時間は、グラフの直径をD、エージェントの数とエッジの最大持続時間をT_maxとすると、D * T_maxの範囲内に収まる。エージェントが目標に到達するとその優先度は最小値にリセットされ、次に高い優先度を持つエージェントが目標を目指すプロセスが繰り返される。最終的に、全エージェントが目標に到達するまでの総時間は、エージェントの数N、グラフの直径D、および最大持続時間T_maxを用いて、N * D * T_maxの範囲内で完了する。</p></section>
+<section class="secsum"><h3>6 Extension with Swap Operation</h3><p>LSRPは、エージェントが互いの位置を押し出し合うことで、解が存在する場合でも終了しないという弱停止性の問題がある。この問題を解決するため、PIBTで用いられるスワップ操作に着想を得たLSRP-SWAPを提案する。LSRP-SWAPでは、あるエージェントが別のエージェントと位置を入れ替える必要があるかを確認する手続きを導入し、必要であれば後続の頂点を目標地点からの距離が遠い順に並べ替えて計画を行う。具体的には、エージェントが移動可能な範囲内で、相手が現在いる頂点へ移動するような動作を計画することで、位置の入れ替えを実現する。LSRP-SWAPは、PIBTのスワップ操作とは異なり、頂点やエッジの衝突だけでなく、エージェント間の動作時間の競合も考慮して計画を立てる点が特徴である。なお、頂点の順序を変更するため、LSRPの停止性を保証していた既存の定理はLSRP-SWAPには直接適用できない。</p></section>
+<section class="secsum"><h3>7 Experimental Results</h3><p>3種類のマップとMAPFベンチマークのインスタンスを用い、エージェントの移動時間が1.0から5.0の間で変化する非同期アクションの設定で実験が行われました。提案手法であるLSRPおよびLSRP-SWAPは、修正を加えたCCBSおよびSIPPをベースラインとして、30秒の実行時間制限のもとで比較評価されました。実験の結果、LSRPとLSRP-SWAPはベースラインよりも1桁以上多いエージェント数を、より短い実行時間で処理できる高いスケーラビリティを示し、特にLSRP-SWAPは最大1000エージェントまで対応可能です。一方で解の品質については、LSRPとLSRP-SWAPが求める解のコストは、ベースラインと比較して総コスト（SoC）で約4倍、メイクスパンで約1.25倍となり、スケーラビリティと引き換えに解のコストが増大する傾向が確認されました。また、すべてのエージェントの移動時間を5.0に固定して非同期アクションを無視した場合と比較して、非同期アクションを考慮することで得られる解のコストは30%から最大75%削減され、エージェント間で移動時間が大きく異なる状況における非同期性の考慮の重要性が示されました。</p></section>
+<section class="secsum"><h3>8 Conclusion and Future Work</h3><p>本研究では、非同期アクションを伴うマルチエージェント経路探索（MAPF-AA）に対し、PIBTとLSSを組み合わせたルールベースのプランナーを提案しました。実験の結果、提案手法は解の質を犠牲にするものの、多様なマップにおいて最大1,000エージェントまでの高いスケーラビリティを実現できることが確認されました。今後の課題として、実行時間制限内で解の質を向上させることができる、MAPF-AA向けのAnytimeプランナーの開発が挙げられます。具体的には、LSRPをLaCAMのPIBT版と同様のAnytime版へと拡張することで、制限時間内に解の質を反復的に最適化できる可能性があります。</p></section>
+<section class="secsum"><h3>Swap-Required-Possible</h3><p>Swap-Required-Possibleは、エージェントが目標頂点に近づくために他のエージェントとの位置交換（スワップ）が必要かどうかを判定する手続きです。まず、エージェントが既に目標頂点に到達している場合は、スワップの必要がないものとして終了します。次に、Occupantを用いてスワップの候補となるエージェントを探索し、見つかった場合には、一連のプル操作（引き寄せ操作）のみでそのエージェントと位置を交換できるかをSwap-Checkを用いて検証します。具体的には、エージェントの隣接する頂点を走査し、未計画のエージェントが占有している頂点を見つけた際、そのエージェントを「引き寄せる側」として、あるいは「引き寄せられる側」として、それぞれSwap-Checkを適用します。もし、どちらかのパターンでプル操作によるスワップが可能であると判定された場合、そのエージェントをスワップ対象として返し、手続きを終了します。</p></section>
+<section class="secsum"><h3>Swap-Check</h3><p>Swap-Checkは、一連のプル操作によってエージェントaとエージェントbの現在位置を入れ替えることが可能かどうかを判定する手続きです。この手続きでは、エージェントaがエージェントbを引く操作と、エージェントbが引かれる操作を交互に繰り返すシミュレーションを行います。シミュレーションにおいて、エージェントaがエージェントbの現在位置とは異なる隣接頂点へ移動できる場合は、追加の操作なしで入れ替えが可能であるため、入れ替え操作の必要性を示す判定としてfalseを返します。一方で、エージェントaにエージェントbの現在位置以外の隣接頂点がない場合や、エージェントbが目標地点に到達した際に、エージェントaの目標への最短経路上の頂点がエージェントbの現在位置と一致する場合、あるいはエージェントaがサイクルを形成して元の位置に戻ってしまう場合は、入れ替えを実現するために追加のプル操作が必要であるとしてtrueを返します。</p></section>
+<section class="secsum"><h3>Toy Example</h3><p>木構造のグラフにおいて、2つのエージェントの現在位置を入れ替える必要がある事例を用いてLSRP-SWAPの動作が示されている。エージェントが目標地点に最も近い頂点を占有している場合、Swap-Required-Possible手続きが呼び出され、Swap-Checkを用いて、エージェントが互いの位置を入れ替えられるかどうかを反復的な移動シミュレーションによって判定する。Swap-Checkでは、一方が移動した際に他方が移動可能な空き隣接頂点を持っているかを確認し、入れ替えが可能であると判断された場合は、計画された頂点の順序を反転させ、Push操作によってエージェントを押し退けながら入れ替えプロセスを開始する。具体例では、エージェントが移動先を確保するために、既存のエージェントを一時的に別の空き頂点へ押し退ける再帰的なPush操作が行われる。この一連のプロセスを通じて、エージェントは互いの位置を交換し、最終的にそれぞれの目標頂点へと到達する。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-25
+  </footer>
+</div>
+</body>
+</html>
