@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Evaluating Modern RAG: Textual, Multimodal, Dense, and Late Interaction Pipelines | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Evaluating Modern RAG: Textual, Multimodal, Dense, and Late Interaction Pipelines</h1>
+  <div class="meta">Emre Kuru, Mehmet Onur Keskin<br>採択先: 未取得 ・ 2026-08-24 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.23176v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.23176v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-24</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの精度だけでなく、メモリや遅延等のQoSを軸にマルチモーダルとLate Interactionを体系的に比較しており、実用的な設計指針として価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 従来のテキストベースのRAGは、文書のレイアウトや視覚的要素が失われる課題がある。本研究は、モダリティと検索アーキテクチャの2軸に基づき、検索性能と運用コストのトレードオフを定量的に評価することで、文書特性に応じた最適なパイプラインの選定手法を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>金融や医療などの知識集約型ドメインにおけるRAGシステムでは、OCRによるテキスト化の過程で表のレイアウトや図の参照といった構造的・空間的な情報が失われ、検索精度が低下する問題がある。従来のテキストベースの手法は、視覚情報の記号的な近似に留まるため、微細な空間関係の保持に限界がある。また、マルチモーダルな手法やLate Interaction型アーキテクチャは、精度向上の一方でメモリ消費や検索レイテンシの増大という課題を抱えている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存研究の多くは検索の有効性のみに焦点を当てていたが、本研究はインデックス作成、検索遅延、メモリ使用量といった実用化に不可欠なシステムレベルの指標（QoS）を包括的に評価している点に新規性がある。テキストと視覚の両モダリティにおいて、高密度なベクトル表現を用いる手法と、詳細な相互作用を行うLate Interaction型を体系的に比較・分析し、検索精度と運用コストのバランスに基づいたデプロイメント指向の選択指針を提供している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>入力モダリティ（テキストか視覚情報か）と検索アーキテクチャ（DenseかLate Interactionか）を組み合わせた4つのパイプラインを定義している。テキストベースの手法は、OCR、レイアウト解析、画像キャプション生成を経て作成されたテキストチャンクを言語モデルで埋め込む。マルチモーダルな手法は、視覚言語モデルを用いてページ画像全体を直接処理し、テキスト、視覚、空間情報を統合した埋め込みを生成する。検索メカニズムとして、情報を単一のベクトルに圧縮するDense方式と、トークンやパッチ単位の粒度を保持してクエリとの類似度を詳細に計算するLate Interaction方式を比較している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>REAL-MM-RAGベンチマークのFinReport（金融報告書）とTechReport（技術文書）を用い、NVIDIA H100 GPU環境で評価を行った。評価指標には、nDCG@5、MRR@5、Precision@5、Recall@5のランキング指標と、メモリ消費量、インデックス作成時間、検索レイテンシのQoS指標を用いている。比較対象は、BM25、Text-single（テキストDense）、Text-multi（テキストLate Interaction）、Visual-single（視覚Dense）、Visual-multi（視覚Late Interaction）である。結果として、Visual-multiが最高性能を示し、Visual-singleもテキストベースの手法を上回る性能を確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>Visual-multiは極めて高い検索性能を持つが、5GBを超えるメモリ消費や1クエリあたり20秒を超える遅延といった高い運用コストが課題となる。一方で、Visual-singleはテキストベースの手法を上回る精度を持ちつつ、効率性にも優れた実用的なバランスを実現している。テキストベースのLate Interaction手法は、メモリ使用量や遅延が大きく、精度面でも他の手法を下回る傾向がある。今後の課題として、非テキスト的な視覚的根拠に基づくより厳格な評価手法の開発や、文書の複雑さに応じて最適なパイプラインを使い分けるハイブリッドな検索戦略の探索が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Evaluating Modern RAG: Textual, Multimodal, Dense, and Late Interaction Pipelines</h3><p>本研究は、従来のテキストベースのRAGパイプラインが、レイアウトや表、視覚的要素に意味が含まれる文書の処理に苦慮するという課題に対し、文書コーパスの特性とリソース制約に基づいて最適なパイプラインを選択するための定量的かつデータ駆動型の選定手法を提案している。評価対象には、テキストのみを用いる手法に加え、視覚と言語の信号を共同でエンコードすることで検索品質を向上させる視覚言語モデルを用いたマルチモーダルな手法が含まれ、さらに高密度なベクトル表現を用いる手法や、検索時に詳細な相互作用を行うLate Interactionアーキテクチャも比較されている。本研究では、検索性能と計算コストおよびメモリ使用量のトレードオフを分析しており、実務者がシステムの効率性と精度のバランスを最適化するための具体的な指針を提供している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>RAG（検索拡張生成）システムは、金融や医療などの知識集約型ドメインにおいて大規模言語モデルを外部知識に接地させる強力な手法ですが、従来のテキストのみのパイプラインでは、OCRによるテキスト化の過程で表のレイアウトや図の参照といった構造的・空間的な情報が失われ、視覚的に複雑な文書の検索精度が低下するという課題があります。これに対し、レイアウト解析によるチャンク分割や画像キャプション生成を用いたテキストベースの拡張手法が存在しますが、これらは視覚情報の記号的な近似に留まり、微細な空間関係の保持には限界があります。そこで、視覚言語モデルを用いて文書画像を直接エンコードし、テキスト、空間レイアウト、視覚的特徴を単一の埋め込みで捉えるマルチモーダルなパイプラインが登場しましたが、メモリ消費や検索レイテンシの増大が課題となっています。また、検索アーキテクチャにおいても、情報を単一のベクトルに圧縮する従来の密な（dense）表現に対し、複数の部分表現を保持して検索時に高度な類似度計算を行う遅延相互作用（late interaction）型が提案されていますが、こちらは精度向上と引き換えにインデックスサイズや計算コストが増大します。本研究では、これら「モダリティ（テキスト対視覚）」と「アーキテクチャ（密な表現対遅延相互作用）」という2つの設計軸に基づき、多様な文書構造を持つ2つの実世界のデータセットを用いて、検索性能とQoS（サービス品質）指標の両面から最先端のRAGパイプラインを包括的に評価します。最終的に、文書コーパスの特性と計算資源の制約に応じて最適なパイプラインを選択するための、デプロイメント指向の選択手法を提案します。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>従来のRAGはOCRによるテキスト抽出を主としており、密なベクトル検索を用いる手法が提案されてきたが、文書のレイアウトや視覚的構造が失われることによる転記ミスや精度低下が課題であった。これに対し、構造を考慮したチャンク分割手法や、画像とテキストの埋め込みを併用する手法、ドキュメントのスクリーンショットを直接扱う手法、CLIPを用いた視覚・言語の共同表現による検索など、視覚情報を直接符号化するマルチモーダルなアプローチが発展してきた。特にColPaliは、パッチレベルの表現を保持したままクエリ時にトークン単位の類似度計算を行うLate Interaction（遅延相互作用）を用いることで、レイアウトに敏感なベンチマークにおいて高い検索性能を実現している。しかし、既存研究の多くは検索の有効性を示す指標に焦点を当てており、実用化において不可欠なインデックス作成や検索の遅延、メモリ使用量といったシステムレベルの指標に関する包括的な評価は不足している。本研究は、テキストおよび視覚の両モダリティにおいて、密な検索とLate Interactionの各手法を、検索精度と運用コストの両面から体系的に比較・分析するものである。</p></section>
+<section class="secsum"><h3>3 Proposed Approach</h3><p>本研究は、ドキュメントコーパスと計算資源の制約に基づき、最適なRAG検索パイプラインを選択するためのデータ駆動型手法を提案している。評価対象は、入力モダリティ（テキストか視覚情報か）と検索アーキテクチャ（高密度なベクトル表現か、遅延相互作用か）の2軸を組み合わせた4つのパイプラインである。テキストベースのパイプラインは、OCRによる文字抽出、レイアウト解析による領域分割、画像キャプション生成を経てテキストチャンクを作成し、これらを言語モデルで埋め込む。一方、マルチモーダルなパイプラインは、視覚言語モデルを用いてページ画像全体を直接処理し、テキスト、視覚、空間情報を統合した埋め込みを生成することで、OCRやチャンク分割の工程を省略している。検索メカニズムについては、クエリとドキュメントを単一のベクトルに圧縮して類似度を計算する効率的な高密度（Dense）方式と、トークンやパッチ単位の粒度を保持し、クエリの各トークンとドキュメントの全トークンとの最大類似度を合計するMaxSimなどの手法を用いる遅延相互作用（Late Interaction）方式を比較している。具体的には、Text-Dense、Text-Late Interaction、Visual-Dense、Visual-Late Interactionの4構成を定義している。</p></section>
+<section class="secsum"><h3>4 Evaluation</h3><p>本セクションでは、提案されたRAGパイプラインの検索性能を、nDCG@5、MRR@5、Precision@5、Recall@5の4つのランキング指標、およびメモリ消費量、インデックス作成時間、検索レイテンシのQoS指標を用いて評価しています。実験はNVIDIA H100 GPUを用い、複雑なレイアウトを持つスキャン文書を含むREAL-MM-RAGベンチマークの2つのサブセット、FinReportとTechReportを使用して実施されました。評価対象には、BM25、テキストベースの密な埋め込み（Text-single）とLate Interaction型（Text-multi）、さらにマルチモーダルな密な埋め込み（Visual-single）とLate Interaction型（Visual-multi）が含まれます。実験の結果、Visual-multiがすべての指標とクエリの言い換えレベルにおいて他の手法を大幅に上回り、Visual-singleもテキストベースのモデルより高い性能を示すことが確認されました。また、クエリの言い換えが進むにつれて全モデルで性能が低下しますが、Late Interaction型のアーキテクチャは、固定ベクトルを用いる密なモデルよりも、トークンレベルの微細な比較により意味的なニュアンスを捉えやすく、言い換えに対して高い堅牢性を示しました。さらに、OCRエラーの影響を受けるような視覚的要素が重要な文書において、テキストベースのモデルが失敗する一方で、画像から直接情報を読み取る視覚ベースのモデルが有効に機能することが示されました。</p></section>
+<section class="secsum"><h3>5 Discussion</h3><p>テキストとマルチモーダルなRAGパイプラインの評価により、アーキテクチャごとの性能とコストのトレードオフが明らかになった。テキストを用いたLate Interaction手法は、Text-denseよりもメモリ使用量と検索遅延が大きく、検索精度においてもText-singleやVisual-singleを下回る傾向にある。一方で、視覚情報をパッチレベルで詳細に扱うVisual-multi（Late Interaction）は、最も高い検索性能を示すものの、5GBを超えるメモリ消費や1クエリあたり20秒を超える遅延といった高い運用コストを伴う。これに対し、Visual-single（Dense）は、すべてのテキストベースの手法を上回る検索精度を実現しながら、インデックス作成のスループットやメモリ消費量において優れた効率性を示し、実用的なバランスに優れた手法として位置付けられる。また、処理のボトルネックについては、視覚パイプラインは主に埋め込みとベクトルデータベースへの登録フェーズが、テキストパイプラインはOCRやレイアウト解析、キャプション生成などの前処理フェーズが主因であることが確認された。</p></section>
+<section class="secsum"><h3>6 Future Work</h3><p>既存のマルチモーダルな検索ベンチマークは、画像内の表や図に含まれる情報であっても、実質的にはテキスト的な意味内容の検索に偏っているという課題がある。今後の展望として、画像内の埋め込みテキストの抽出に留まらず、真に非テキスト的で視覚的な根拠に基づく多様な情報の検索を対象とした、より厳格な評価手法とデータセットの開発が求められる。また、文書の構造や検索ニーズに応じて最適なインデックス作成パイプラインを割り当てる、ハイブリッドな検索戦略の探索も計画されている。具体的には、表や図を含む視覚的に複雑な文書には検索性能向上のためにLate Interaction型の視覚モデルを適用し、単純な文書には効率的なDenseパイプラインを用いるといった手法が考えられる。クエリ実行時には、全パイプラインから結果を取得して統合することで、検索品質を維持しつつメモリ使用量やレイテンシを削減することを目指す。本研究の知見は、モダリティやアーキテクチャ、検索の有効性とQoS指標のトレードオフを考慮し、特定の文書集合や運用制約に合わせたRAGシステムの構築に寄与するものである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-26
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Transient Multi-Agent Path Finding for Lifelong Navigation in Dense Environments | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Transient Multi-Agent Path Finding for Lifelong Navigation in Dense Environments</h1>
+  <div class="meta">Jonathan Morag, Noy Gabay, Daniel koyfman, Roni Stern<br>採択先: 未取得 ・ 2024-12-05 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2412.04256v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2412.04256v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/ARXIV.2412.04256" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2024-12-05</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">LMAPFにおける制約の不一致を解消する「Transient MAPF」という新しい問題定義が独創的。高密度環境でのスループット向上を実験で示しており、実用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> Lifelong Multi-Agent Path Finding (LMAPF) において、全エージェントが同時に目的地に到達しなければならないという従来のMAPFの制約が、解の存在を妨げる不一致を引き起こす問題を解決するため、目的地を一度でも通過すればよいとする Transient MAPF (TMAPF) を提案する。TMAPFを用いることで、ターゲットが限定された高密度な環境において、従来のMAPFを用いる手法よりも高いスループットを実現できる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>エージェントが目的地に到達するたびに新たな目的地が割り当てられる Lifelong Multi-Agent Path Finding (LMAPF) を対象とする。従来、LMAPFは各計画期間ごとに標準的な Multi-Agent Path Finding (MAPF) を繰り返し解くことで対応してきた。しかし、MAPFは全エージェントが同時に目的地に留まる構成を求めるため、エージェントの入れ替えが不可能なグラフ構造などでは解が見つからないという不完全性の問題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>各エージェントが目的地に留まる必要はなく、移動の過程で目的地を一度でも通過すればよいとする新しい問題定義である Transient MAPF (TMAPF) を提案する。これにより、LMAPFの要件と標準的なMAPFの制約との間の不一致を直接的に解消する。また、既存のA*などの探索アルゴリズムをTMAPFに適応させるための、目的地訪問の履歴を状態に組み込む新しい状態定義の手法を提示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>A*探索の状態定義に、その状態の祖先がエージェントの目的地を訪問したかを示す真偽値のフラグを導入する。このフラグは、現在の位置が目的地である場合、または親状態ですでにフラグが真である場合に真となり、子状態の生成時に引き継がれる。これにより、同じ時刻と位置であっても目的地訪問の有無が異なる状態を別個のものとして区別して探索する。ゴール状態の定義は、現在の位置が目的地であることではなく、このフラグが真であることへと変更する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>標準的なMAPFベンチマークおよび特殊なケースを用いて、提案手法（PrPt, CBSt, LNSt）を既存手法（PIBT, PrP, CBS, LNS）と比較した。ターゲットがグリッド全体に一様に分布する設定では差は顕著ではないが、ターゲット数が限られた高密度な設定では、500エージェント・20ターゲットの条件下でPrPtとLNStが543のスループットを記録し、PrPの491やLNSの492を上回った。また、500エージェント・30ターゲットの設定では、LNStおよびPrPtが594のスループットを達成したのに対し、MAPF手法であるLNSとPrPはそれぞれ361と352に留まった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>目的地が均一に分散している場合にはTMAPFの優位性は顕著ではないというトレードオフが存在する。今後の課題として、他のエージェントの妨げにならないような経路の終端地点を選択する手法の検討や、タスク完了のために目的地で一定時間滞在しなければならないケースへのTMAPFの一般化が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Transient Multi-Agent Path Finding for Lifelong Navigation in Dense Environments</h3><p>Lifelong Multi-Agent Path Finding (LMAPF)は、エージェントが現在の目的地に到達するたびに新たな目的地を受け取るオンライン形式の経路計画問題である。従来、LMAPFは一連の標準的なMAPF問題として扱い、全エージェントが同時に目的地に到達することを条件に定期的な再計画を行う手法が一般的であったが、これはLMAPFの性質に対して過度に制約が強いという欠点がある。本論文では、全エージェントが同時に目的地に到達する必要はなく、各エージェントが最終的に目的地を訪問することを目指すTransient MAPF (TMAPF) という新しい変種を提案する。著者らは既存のMAPFアルゴリズムをベースとした複数のTMAPFアルゴリズムを提案し、実験を通じて、LMAPFの枠組みで標準的なMAPFを用いるよりも、TMAPFアルゴリズムを用いることでシステムの処理能力を向上させられるケースがあることを示している。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>マルチエージェント経路計画（MAPF）は、複数のエージェントが衝突を避けながら初期状態から目標状態へ移動する経路を求める問題であり、自動倉庫などの実社会への応用が期待されています。エージェントが目標に到達すると新たな目標が割り当てられるLifelong MAPF（LMAPF）では、従来、各時点の目標を解決する一連のMAPF問題として扱われてきました。しかし、MAPFでは全エージェントが同時に目標に到達する構成を求める必要があるため、エージェント同士の入れ替えが不可能なグラフにおいて、LMAPFの解が存在してもMAPFとして解けないという不一致が生じます。これに対し、限定的な期間の計画や目標到達後のダミーパスの設定などの緩和策が提案されていますが、完全な解決には至っていません。本論文では、各エージェントが経路の途中で目標を通過することさえ満たせば、全エージェントが同時に目標に到達する必要はないとする、修正されたMAPF問題であるTransient MAPF（TMAPF）を提案します。小規模な実験の結果、スループットの観点でTMAPFが従来のMAPFを用いる手法よりも大幅に優位となるケースがあることが示されています。</p></section>
+<section class="secsum"><h3>Background</h3><p>マルチエージェント経路探索（MAPF）は、グラフ上の複数のエージェントに対し、各エージェントの始点から終点までの、互いに衝突しない経路を割り当てる問題である。衝突には、同じ時刻に同じ頂点に存在する頂点衝突と、隣接する頂点間を互いに入れ替わるスワップ衝突の2種類が定義されており、エージェントがその場に留まることを可能にする自己ループを持つグラフを想定する。経路の長さは経由する頂点数から1を引いた値で定義され、全エージェントの経路長の総和であるSum of Costs（SOC）や、最も長い経路の長さであるMakespanが一般的なコスト関数として用いられる。このMAPFを拡張したLifelong MAPF（LMAPF）は、エージェントが目的地に到着するたびに新たな目的地が割り当てられる設定であり、計画と実行を交互に繰り返すオンライン的な手法で解かれる。LMAPFの性能評価には、一定の時間ステップ内にエージェントが目的地に到達した回数を数えるスループットが用いられ、一般的なアプローチとして、各計画期間ごとにMAPFソルバーを繰り返し呼び出して各エージェントの経路を計算する手法がある。</p></section>
+<section class="secsum"><h3>MAPF-LMAPF Mismatch and Mitigations</h3><p>Lifelong Multi-Agent Path Finding (LMAPF) において、各計画期間ごとに標準的な Multi-Agent Path Finding (MAPF) を逐次的に解く手法は、エージェントの配置が特定の構成に依存する場合に解が見つからないという不完全性の課題がある。これに対し、目標到達時に全エージェントが即座に再計画を行う動的再計画や、事前に目標の順序を割り当てる手法、目標付近の混雑を避けるためにダミーの経路を辿らせる手法などが提案されているが、計算コストの増大や、依然として不完全性が残る、あるいは計画が困難になるといった限界がある。また、将来の衝突を一定のステップ数（planning horizon）までしか考慮しない Rolling Horizon Collision Resolution (RHCR) は、現在の最先端手法であるが、近視眼的な計画による非効率性やデッドロックを招く可能性がある。MAPFが解を返せなかった場合に備えた失敗ポリシーを用いることで、形式上は完全なLMAPFアルゴリズムと見なすことも可能だが、既存のポリシーはアドホックで非効率的である。本研究では、これらの間接的な緩和策とは異なり、各計画期間で解くべきMAPF問題自体の性質を直接変更することでこの不一致を解消する、Transient MAPF (TMAPF) という新しい問題定義を提案する。</p></section>
+<section class="secsum"><h3>A Transient Version of MAPF</h3><p>TMAPFは、各エージェントが最終的な目的地に留まる必要はなく、移動の過程で目的地を一度でも通過すればよいとする問題であり、目的地到達後に新たな目標を与えない点でLMAPFの特殊なケースと見なせます。既存のPIBTアルゴリズムは、目的地に到達したエージェントに最小の優先度を割り当てることでTMAPFへの適用が可能ですが、1ステップ先読みの制約により、自動倉庫のような狭い通路を含む複雑な環境では効果が限定的です。これに対し、より長い計画期間を考慮できるA*などのアルゴリズムをTMAPFに適用するため、状態定義に「その状態の祖先がエージェントの目的地を訪問したか」を示す真偽値のフラグを導入する手法を提案します。このフラグは、現在の位置が目的地であるか、あるいは親状態ですでにフラグが真である場合に真となり、子状態の生成時に適切に維持されます。この拡張により、同じ時刻と位置であっても目的地訪問の有無が異なる状態を別個のものとして区別して探索でき、ゴール状態の定義も「現在の位置が目的地であること」から「フラグが真であること」へと変更されます。本手法では、従来のMAPFを解くためのA*と、TMAPFを解くためのA*を区別して定義しています。</p></section>
+<section class="secsum"><h3>Experimental Results</h3><p>標準的なMAPFベンチマークおよび特殊なケースを用い、提案するTMAPFアルゴリズム（PrPt, CBSt, LNSt）の性能を、既存のMAPFアルゴリズム（PIBT, PrP, CBS, LNS）と比較評価しました。ターゲットがグリッド全体に一様に分布する標準的な設定では、計画ホライゾンの制限によりTMAPFとMAPFの差は顕著ではありませんでした。しかし、ターゲット数を10から40に制限した高密度な設定では、PrPtやLNStがMAPF版よりも高いスループットを達成しました。例えば、500エージェント・20ターゲットの条件下では、PrPtとLNStは543のスループットを記録し、PrPの491やLNSの492を上回りました。また、エージェントが互いにすれ違う際に待機してしまう病理的なケースにおいて、無限の計画ホライゾンを用いた場合、MAPF版はエージェントの飢餓状態を引き起こしスループットが低下しますが、TMAPF版はエージェントの動きを考慮することで高いスループットを維持できます。さらに、病理的ケースにおける実行時間においても、PrPtはPrPと比較してA*探索におけるノード展開回数および総実行時間の両面で優位性を示しました。</p></section>
+<section class="secsum"><h3>Conclusion and Future Work</h3><p>本研究では、エージェントが目的地に到着した後に留まる必要がない「Transient MAPF (TMAPF)」という一連のMAPF変種を解くことで、Lifelong MAPF問題を解決する手法を提案した。この手法は、Lifelong MAPFの要件と従来のMAPFとの間の不一致を解消するために必要であり、既存のMAPFアルゴリズムをTMAPFに適応させる方法を提示している。RHCRを用いた評価の結果、目的地が均一に分散している場合にはTMAPFの優位性は顕著ではないものの、目的地が限られた少数の場所に固定されている状況下では、TMAPFを用いることで従来のMAPFよりも高いシステムスループットを達成できることが示された。今後の課題として、他のエージェントの妨げにならないような経路の終端地点を選択する手法の検討や、エージェントがタスク完了のために目的地で一定時間滞在しなければならないケースへのTMAPFの一般化が挙げられる。</p></section>
+<section class="secsum"><h3>Supplementary Materials</h3><p>異なるマップにおけるスループットの比較実験では、PrP、PrPt、LNS、LNStのグループと、PIBT、LaCAM、LaCAMtのグループの2つの性能群に分かれ、どちらが優位かはマップやエージェント数に依存することが示された。例えば、maze-128-128-2のマップでは、エージェント数が200から900の範囲ではPrPグループが、1000のエージェント数ではLaCAMグループがより高いスループットを記録した。ターゲットの数が限られている条件下での実験では、TMAPFアルゴリズムは対応するMAPFアルゴリズムに対してスループットの面で顕著な優位性を持つことが確認された。具体的には、warehouse-20-40-10-2-1のマップにおいて、エージェント数500、ターゲット数30の設定では、LNStおよびPrPtが594という高いスループットを達成した一方で、対応するMAPF手法であるLNSとPrPのスループットはそれぞれ361と352であった。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-26
+  </footer>
+</div>
+</body>
+</html>

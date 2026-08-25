@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>GeoRisk-RAG: A Hierarchy-Aware Risk Framework for Improving RAG Reliability through Selective Answering | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>GeoRisk-RAG: A Hierarchy-Aware Risk Framework for Improving RAG Reliability through Selective Answering</h1>
+  <div class="meta">Meenu Ravi, Shailik Sarkar, Lulwah AlKulaib, Yordanos Tessema, Chang-Tien Lu<br>採択先: CIKM &#x27;26 conference 2026 ・ 2026-08-23 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.22634v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.22634v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 CIKM &#x27;26 conference 2026</span><span class="chip">公開日 2026-08-23</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">地理的階層構造をRAGに組み込み、選択的回答で信頼性を高める手法は新規性が高い。新ベンチマークの構築も評価に値する。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 自然災害管理のように地理的粒度が意思決定に直結する領域において、検索された情報の地理的妥当性を考慮せずに回答するリスクを解決するため、地理的階層構造に基づいた選択的回答を行うフレームワークを提案する。地理的な階層関係を明示的に扱うことで、誤った自信に基づく回答を抑制し、情報の適用範囲に応じた適切な警告や回答の拒否を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>自然災害に関する質疑応答において、検索された文脈がクエリの対象地域に適用可能かどうかを判別できないという課題がある。従来のRAG手法は、意味的な類似性や空間的な近接性には依存しているが、ある自治体で有効な規制や情報が、近接する別の自治体でも有効であるかという地理的な妥当性を区別できない。このため、トピックが関連していても対象地域には適用できない情報を、あたかも正しいかのように回答してしまうリスクがある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のRAGやGraphRAG、GeoRAGといった手法は、ドキュメント内の構造的関係や空間的な近接性は利用するものの、行政階層のような地理的な階層構造を利用していない。本研究は、地理的な適用可能性を明示的に推定し、情報の粒度に応じて回答を制御する選択的回答戦略を導入した点が新しい。また、地理的な粒度の違いを評価するために、山火事に関する449件のQAペアからなる新しいベンチマークデータセットを構築した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>Wikidataから抽出した行政階層構造を、有向非巡回グラフ（DAG）としてモデル化し、クエリの地点と文書の地点との間の階層的な距離を定義する。検索プロセスでは、意味的な関連性と地理的な整合性の両方を考慮したランキング最適化を行う。取得された情報の関係性を、対象地域と完全に一致する場合、より広範な行政単位の場合、より詳細な行政単位の場合、あるいは全く異なる管轄区域の場合の4種類に分類する。これに基づき、完全一致なら直接回答、広範または詳細な文脈なら警告を付与して回答、異なる場所の文脈なら回答を控えるという選択的回答を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>山火事に関する449組のQAペアからなるベンチマークデータセットを用い、標準的な意味的類似性、リランキング、粒度のみに基づく検索、キーワードマッチングの各手法と比較した。評価指標には、適切な意思決定が行われた割合を示すGood Decision Quality Rate（GDR）や、誤った自信を示す割合を用いた。実験の結果、標準的な手法が0.090の誤った自信率を示したのに対し、提案手法は0.009まで低下させた。また、人間による評価においても、有用性や地理的リスクの透明性の観点から、提案手法が最も好ましい回答として選ばれた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、Wikidataのような外部知識グラフの網羅性と正確性に強く依存しており、知識グラフに情報が欠落している場合の対応が課題である。現在のベンチマークは米国中心かつ小規模であるため、他国や他言語、あるいは他の自然災害ドメインへの拡張が必要である。また、地名の曖昧さを解消するための地名判別において、専門家のフィードバックや人間による介入を取り入れることも今後の課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>GeoRisk-RAG: A Hierarchy-Aware Risk Framework for Improving RAG Reliability through Selective Answering Conference: Proc</h3><p>GeoRisk-RAGは、自然災害管理のように地理的な粒度が意思決定に直結する領域において、大規模言語モデルの回答の信頼性を向上させるための階層認識型フレームワークである。従来のRAG手法は意味的な類似性や忠実性の測定には長けているが、ある自治体で有効な情報が別の自治体でも有効であるかという地理的な妥当性を区別できない課題がある。本手法は、回答生成の前に、有向非巡回グラフに基づく距離を用いてコンテキストの地理的な適用可能性を明示的に推定し、不確実な場合に回答を控える選択的回答を行う。新たに構築された山火事関連の質問応答データセットを用いた実験では、標準的な意味的類似性やリランキングに基づく手法が0.090の誤った自信率を示したのに対し、GeoRisk-RAGは0.009まで低下させた。さらに、人間による好みの評価においても一貫して高い整合性を示しており、地理空間ドメインにおける安全な意思決定を支援する包括的な評価手法を提供している。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>GeoRisk-RAGは、自然災害に関する質疑応答において、検索された情報の地理的な妥当性を考慮することで回答の信頼性を向上させるフレームワークである。従来のRAGは意味的な類似性や空間的な近接性に依存していたが、これではトピックが関連していても対象地域には適用できない情報を取得する可能性がある。本手法は、外部知識グラフであるWikidataから抽出した行政階層構造を、有向非巡回グラフ（DAG）としてモデル化することで、クエリの対象地点と取得された情報の地理的範囲との階層的な距離を測定する。取得された関係性は、完全一致、より広範な文脈、より詳細な文脈、あるいは異なる場所の文脈の4種類に分類される。これに基づき、完全一致の場合は直接回答し、広範または詳細な文脈の場合は警告を付与した上で回答し、異なる場所の場合は回答を控えるという選択的回答戦略をとる。本研究では、地理的な粒度の違いを評価するために、449件のQAペアからなる山火事に関する新しいベンチマークデータセットを構築し、意味的な類似性だけでなく地理的な妥当性を含めた評価を行っている。</p></section>
+<section class="secsum"><h3>2. Related Works</h3><p>RAGにおけるハルシネーション抑制の研究では、事前学習済みの知識と外部知識を組み合わせる手法や、動的なプロンプト最適化、生成文の自己比較、LLMの隠れ状態を用いた真実性の予測、強化学習を用いた人間介在型の手法などが提案されているが、これらは汎用的であり、検索された文脈がクエリに対して適用可能かを決定するドメイン固有の依存関係を明示的に考慮していない。知識グラフを活用するGraphRAGやGeoRAGなどの手法は、ドキュメント内の構造的関係や空間的な近接性を利用して信頼性を高めているが、地理的な階層構造を利用していないため、近接していても異なる規制や指針を持つ場所を区別することが困難である。自然災害分野では、科学文献などの実データに基づいたWildfireGPTなどのフレームワークにより情報の信頼性が向上しているが、既存のツールは専門家の意思決定を支援するためのものであり、一般市民向けのQAベンチマークは不足している。本研究は、災害関連のシナリオにおいて重要となる地理的な粒度の依存関係に起因する適用性のギャップに対処するため、地理的な適用可能性と選択的回答行動を評価するための新しい山火事関連のベンチマークデータセットを導入する。</p></section>
+<section class="secsum"><h3>3. Methodology</h3><p>本研究では、自然災害に関するRAG（検索拡張生成）の信頼性を向上させるため、地理的な階層構造を考慮したGeoRisk-RAGフレームワークを提案している。まず、評価用として、行政レベルの粒度、トピック、場所への依存性、および一般住民向けの情報の必要性の4つの次元で手動アノテーションされた、山火事関連のFAQに基づく449組のQAペアからなるベンチマークデータセットを構築した。知識ベースは、信頼性を確保するためにフィルタリングされた約2,000件のニュース記事と、30州の公式ガイドラインからなる異種混合のコーパスで構成されている。文書の分割には、隣接する文の埋め込み表現間のコサイン距離が、文書内の距離分布における上位5パーセンタイルを閾値として超えた場合に境界を設けるセマンティック・チャンキング戦略を用いている。地名抽出には、抽出精度と推論速度のトレードオフを考慮してFlairモデルを採用した。地理的な妥当性を検証するため、Wikidataの包含関係に基づく有向非巡回グラフを用いて、クエリの場所と文書内の場所の間の距離を、それらの最小共通祖先を介した階層的な距離として定義した。最終的な検索プロセスでは、まず地理的距離を最小化するように候補を並べ替え、次にセマンティックなコサイン類似度に基づいて順序付けを行う、二段階のランキング最適化手法を用いている。また、地名の曖昧さを解消するために、非行政的な地理的実体や地形、別名の処理、および文脈や人口に基づく地名曖昧性解消の優先順位付けルールを導入している。</p></section>
+<section class="secsum"><h3>4. Experimental Study</h3><p>本研究では、地理的情報の不整合が検索拡張生成（RAG）の信頼性を損なう問題に対処するため、提案手法であるGeoRisk-RAGの有効性を検証しています。比較対象として、意味的類似性に基づく標準的なRAG、再ランキングを用いた手法、地理的粒度のみに制限した検索、およびキーワードマッチングの4つのベースライン手法を設定し、複数の埋め込みモデルと生成モデルの組み合わせで評価を行いました。評価には、適切な意思決定が行われた割合を示すGood Decision Quality Rate（GDR）や、不適切な回答を避けるための適切な警告率、誤った自信を示す割合など、地理的な不確実性を考慮した6つの指標を採用し、LLMを評価者として用いて定量的評価を実施しています。実験の結果、GeoRisk-RAGはベースラインと比較して、地理的な文脈が不十分な場合に適切に回答を控えたり警告を出したりする能力に優れ、誤った自信による回答を大幅に抑制できることが示されました。また、地理的なエラーを、完全一致、地理情報不足、地理的不一致、粒度の粗さ、粒度の細かさの5つのタイプに分類して分析することで、地理的構造の整合性が回答の妥当性に与える影響を明らかにしています。さらに、2名の人間による定性的評価においても、GeoRisk-RAGの回答は有用性や地理的リスクの透明性の観点から高い支持を得ており、自然災害ドメインにおける回答の信頼性向上に寄与することが確認されました。</p></section>
+<section class="secsum"><h3>5. Results</h3><p>GeoRisk-RAGは、場所に関連するクエリにおいて高い地理的信頼度（GDR）を達成しており、地理的な推論が検索の信頼性向上に寄与することを示しています。特に場所依存の質問において、標準的な意味的類似度やリランキングを用いた手法と比較して、誤った自信を示す割合を減少させています。場所に関係のない一般的な山火事に関する質問に対しても、性能を低下させることなく競争力のあるGDRを維持しており、地理的な制約が汎用的な回答能力を損なわないことが確認されました。本フレームワークは、単に回答を控えるだけでなく、地理的に不適切な証拠を識別して適切な警告を発することで、高い事実正確性を保ちながら選択的な回答を実現しています。また、地理的な証拠が欠如している場合には適切に回答を控える傾向があり、地理的な根拠の重要性が示されました。一方で、クロスエンコーダーのような既存手法では、地理的な粒度が合わない証拠による誤回答を防ぐために、本手法のような選択的回答メカニズムが必要であることが示唆されています。</p></section>
+<section class="secsum"><h3>6. Case Study</h3><p>GeoRisk-RAGが場所固有の質問に対してどのように回答の信頼性を高めるかを検証するため、ニューメキシコ州アルバカーキにおける山火事検知技術の改善に関する事例研究が行われました。知識ベース内にアルバカーキに直接言及する関連文書が存在しない場合、既存のベースライン手法はすべて回答を拒否しますが、GeoRisk-RAGは階層構造を利用して上位概念であるニューメキシコ州レベルの文脈へと検索範囲を拡大します。システムは、取得した情報が州レベルのものであることをユーザーに明示的に警告した上で、文脈に関連する回答を生成します。このプロセスにより、GeoRisk-RAGは正解データと一致する回答を提供し、取得された情報源に基づいた適切な回答であることが手動検証によって確認されました。</p></section>
+<section class="secsum"><h3>7. Discussion and Conclusion</h3><p>本研究では、自然災害シナリオにおける位置情報を考慮した質問応答の信頼性を高めるため、階層構造を意識したフレームワークであるGeoRisk-RAGを提案している。この手法は、Wikidataから導出された有向非巡回グラフを用いることで、意味的な類似性と地理的な適用可能性を区別し、説明可能な選択的回答を行うことで意思決定の透明性を向上させている。449個のサンプルからなる新しい山火事に関する質問応答データセットを用いた実験の結果、GeoRisk-RAGは高い事実正確性を維持しつつ、標準的なベースラインや他のリランキング戦略と比較して、場所を特定するクエリに対する誤った自信を大幅に抑制した。また、ブラインド形式の人間による評価においても、他のベースラインより好ましい回答として選択されている。今後の課題として、現在のベンチマークが米国中心かつ小規模であるため、他国や他言語、他の自然災害への拡張が必要であること、および外部知識グラフの網羅性と正確性に依存しているため、知識の欠落を解決する手法や専門家のフィードバック、曖昧さ回避のための人間による介入を取り入れる必要があることが挙げられている。</p></section>
+<section class="secsum"><h3>9. GenAI Usage Disclosure</h3><p>本研究の実験手法の一部において、大規模言語モデルが活用されています。一方で、原稿の校閲に関してはChatGPT-5が使用されていますが、これは文法や誤字脱字の確認のみを目的としたものであり、技術的な内容の生成や本文の執筆には使用されていません。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-26
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Layered LA-MAPF: a decomposition of large agent MAPF instance to accelerate solving without compromising solvability | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Layered LA-MAPF: a decomposition of large agent MAPF instance to accelerate solving without compromising solvability</h1>
+  <div class="meta">Zhuo Yao<br>採択先: 未取得 ・ 2024-10-22 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2410.17160v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2410.17160v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/ARXIV.2410.17160" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2024-10-22</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 1</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">LA-MAPFという難易度の高い課題に対し、解の存在可能性を維持したまま階層的に問題を分解する新規性の高いアプローチを提案している。実験による成功率向上も顕著である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 幾何学的形状を持つ大規模エージェントの経路計画（LA-MAPF）において、解の存在可能性を維持したまま問題をクラスターとレベルに階層分解することで、計算時間の短縮と成功率の向上を実現する手法を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>複数のグリッドを同時に占有する幾何学的形状を持つ「大規模エージェント（Large Agent）」を対象としたマルチエージェント経路計画（LA-MAPF）を扱う。エージェントが点ではなく形状を持つため、衝突検知のオーバーヘッドが増大し、エージェント数の増加に伴って計算複雑性が増大するという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>問題を解く順序に制約がない「クラスター」と、解く順序に制約がある「レベル」という2種類のサブ問題に階層分解するフレームワークを提案する。既存の独立性検出（ID）などの手法とは異なり、解の順序を考慮した分解を行うことで、解の存在可能性を損なわずに問題を細分化できる点が新規性である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>エージェント間の関連性を示すグラフを用いて、インスタンスをクラスターへと分解する。クラスターの分解には、回避不能なエージェントの集合を特定し、二分割を繰り返すプロセスを用いる。次に、各クラスターをレベルへと分解する。レベルの分解では、あるエージェントの開始・目標地点が他のエージェントの経路に関連する場合に解決順序の制約を課し、強連結成分を抽出することで初期レベルを構成する。各サブ問題は独立して解かれ、他のサブ問題の解は動的障害物として扱われる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>6種類のマップを用い、円形および矩形の形状を持つエージェントを対象に評価を行った。既存手法であるLA-CBSに適用した結果、60秒以内の解の発見成功率は平均0.27から0.80へと向上し、計算時間は平均40秒から20秒へと短縮された。分解プロセス自体の計算コストは、100エージェントを超えるインスタンスでも平均1秒未満である。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>空きグリッドが少なくエージェントが密集している環境では、分解率が1に近づき、分解による効果が限定的になるという限界がある。また、問題を分割して解く性質上、元の手法と比較して最長経路長（makespan）や経路コストの総和（sum of costs）が大きくなるというトレードオフが存在する。今後の課題として、分解プロセスの最適化や、マルチスレッドを用いた並列処理への適用が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Layered LA-MAPF: a decomposition of large agent MAPF instance to accelerate solving without compromising solvability</h3><p>本研究は、複数のセルを同時に占有する幾何学的な形状を持つ「Large Agent」を対象としたマルチエージェント経路計画（LA-MAPF）において、計算複雑性を低減するためのLayered LA-MAPF手法を提案している。この手法は、LA-MAPFのインスタンスを、解の順序に制約のない「クラスター」へと分解し、さらに各クラスターを解の順序に制約を持つ「レベル」へと階層的に分解するものである。実験では、LA-CBSやLA-LaCAMといった既存手法の加速を検証しており、エージェント数が増加する様々なマップにおいて、60秒以内に解を見つける成功率が平均0.27から0.80へと向上し、計算時間も平均40秒から20秒へと短縮されることを示している。この階層的な分解アプローチにより、大規模な幾何学的エージェント問題の効率的な解決を目指している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、幾何学的な形状を持ち複数のグリッドを占有する「Large Agent」を対象としたマルチエージェント経路探索（LA-MAPF）において、計算コストを削減するための階層的な分解手法を提案している。従来のMAPFはエージェントを単一の点として扱うが、実世界のロボットのような形状を持つエージェントを扱うLA-MAPFは、衝突検知の複雑さや衝突確率の高さから計算負荷が極めて高い。提案手法であるLayered LA-MAPFは、元の問題を、解く順番に制約がない「クラスター」と、解く順番に制約がある「レベル」という2種類のサブ問題に分解する。具体的には、まずエージェントを独立して解けるクラスターに分割し、さらにそれらを解く順序を規定したレベルへと段階的に細分化する。各サブ問題を独立して解き、他のサブ問題の解を動的障害物として扱うことで、元の問題の解の存在性を損なわずに計算コストを削減するフレームワークを構築している。</p></section>
+<section class="secsum"><h3>2 Related works</h3><p>マルチエージェント経路計画（MAPF）を複数の小規模な問題に分割する既存手法として、Independence Detection (ID) がある。IDはエージェントを最小のグループに分割するが、グリッド単位の経路探索を繰り返すため計算コストが高い。Meta-Agent CBS (MA-CBS) は、衝突回数に応じてエージェントを統合するパラメータを導入することで、CBSとIDの中間的な挙動を実現している。Priority-Based Search (PBS) は、優先順位の木を構築して衝突を解消する効率的な手法だが、一般には完全性と最適性を保証しない。Prioritized Planning (PP) は、特定の条件下で優先順位に基づいた逐次的な解法を保証するが、始点や終点の配置に制約を必要とする。著者らが提案するLayered MAPFは、問題を複数のサブ問題に分解し、他のサブ問題の解を動的障害物として扱うことで、解の存在可能性を損なわずに計算コストを削減するフレームワークである。本論文では、このLayered MAPFを拡張し、大規模なエージェントへの対応や、レベルをさらに細かく分割する手法を新たに提案している。</p></section>
+<section class="secsum"><h3>3 Preliminaries</h3><p>本セクションでは、エージェントの形状や向きを考慮するLA-MAPFの基礎定義が述べられている。エージェントの状態は位置と向きの組として定義され、向きの変化に伴う衝突を考慮することで、より現実的な経路計画を可能にしている。衝突検知はエージェントの形状をグリッドに離散化して行い、計算コスト削減のために外接円と内接円を用いた距離に基づく最適化手法を導入している。エージェントごとに異なる形状に基づいた移動可能な状態遷移を表すサブグラフを定義し、同一時刻におけるグリッドの重なりである頂点衝突や、移動中のグリッドの重なりである転送衝突を衝突として扱う。大規模な問題を解くための手法として、エージェント集合を複数の部分問題に分割する分解を定義しており、各部分問題が他のエージェントの開始・目標状態を回避できる場合に、その分解は有効であるとみなされる。分解の質は、分割された部分問題のサイズのうち最大のものが全体に対して占める割合である分解率によって評価される。さらに、順序制約のないクラスターと、特定の順序で解く必要があるレベルという2種類の部分問題の概念を導入し、各エージェントの経路が他者の開始・目標状態に関連するノードを回避できるかという条件に基づいた解法可能性の定理を提示している。</p></section>
+<section class="secsum"><h3>4 Methodology</h3><p>本手法は、大規模なマルチエージェント経路計画（LA-MAPF）のインスタンスを、解の存在可能性を維持したまま、より小さなクラスターとレベルへと分解することで計算を高速化するものである。まず、エージェント間の関連性に基づき、インスタンスをクラスターへと分解する。クラスターの分解では、あるエージェントが常に他のエージェントと関連を持つ状態を示す「回避不能エージェント」の概念を用い、回避不能グラフの最大連結成分を「主要セット」として、残りのエージェントを分離・再統合する二分割プロセスを反復的に行うことで、クラスターの最小化を図る。次に、同一クラスター内のエージェントであっても、解決の順序を考慮することで、さらに小さな「レベル」へと分解する。解決順序グラフにおいて、あるエージェントの開始地点や目標地点が他方の関連する状態集合に含まれる場合に、解決の前後関係を向きのあるエッジとして定義し、その強連結成分を初期レベルとする。レベルの分解においてもクラスターと同様に、二分割プロセスを繰り返すことで、解決順序の制約を満たしつつ問題を細分化し、各レベルの独立した解決を可能にする。</p></section>
+<section class="secsum"><h3>5 Results</h3><p>本研究では、大規模なエージェントを伴うMAPF（Multi-Agent Path Finding）問題を、解の存在可能性を損なわずに高速化する分解手法「Layered LA-MAPF」の有効性を検証しています。実験では、既存のデータセットから選定した6種類のマップを用い、半径0.4から2.0の円形エージェントと、幅・長さ0.4から4.0の矩形エージェントを組み合わせて評価を行いました。分解プロセスは、初期クラスタリング、クラスタ分解、初期レベル割り当て、レベル分解の4段階で構成され、エージェントが疎な環境ではサブ問題の最大サイズを抑える効果が高い一方、エージェントが密集し空きグリッドが少ない環境では分解率が1に近づき、分解の効果が限定的になる特性があります。分解自体の計算コストは、ほとんどのマップで1秒未満に抑えられており、解決に30秒以上を要する場合があるLA-MAPFの計算負荷と比較して十分に小さいものです。提案手法をLA-CBSに適用した結果、エージェント数が増加しても計算時間の増加が緩やかになり、平均成功率は0.26から0.78へと向上しました。ただし、分解によって問題を小規模なサブ問題に分割するため、解の品質を示すmakespan（最長経路長）およびsum of costs（全経路長の総和）は、元の手法よりも大きくなる傾向があります。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、エージェント数の増加に伴い計算コストが指数関数的に増大する大規模エージェントMAPF（LA-MAPF）に対し、解の存在可能性を損なわずに問題を複数の小さな部分問題へ分解するLayered LA-MAPFを提案する。この手法は、各部分問題を独立して解きつつ、他の部分問題の解を障害物として考慮することで計算負荷を軽減するもので、100エージェントを超えるインスタンスでも分解にかかる時間は平均1秒未満である。実験において、LA-CBSやLA-LaCAMに本手法を適用した結果、標準的な手法と比較して計算時間を平均で半分（40秒から20秒）に短縮し、60秒の制限時間内における解の発見成功率を平均0.80に向上させた。解の品質については、両手法で同等であるが、25エージェントを超えるような標準手法が解を見つけられないケースにおいても、Layered LA-MAPFは解を見つけられる可能性がある。なお、エージェント数が多く密集したインスタンスでは効果が低下するという限界はあるが、最悪の場合でも標準的な手法を下回る性能にはならない。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-26
+  </footer>
+</div>
+</body>
+</html>

@@ -3237,6 +3237,69 @@
       "url": "http://arxiv.org/abs/2608.21252v1",
       "venue": ""
     },
+    "arxiv:2608.22634": {
+      "added": "2026-08-26",
+      "added_at": "2026-08-26T06:10:04.344912",
+      "arxiv_id": "2608.22634",
+      "authors": [
+        "Meenu Ravi",
+        "Shailik Sarkar",
+        "Lulwah AlKulaib",
+        "Yordanos Tessema",
+        "Chang-Tien Lu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-23",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.22634.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.22634v1",
+      "reading_value": 4,
+      "reading_value_reason": "地理的階層構造をRAGに組み込み、選択的回答で信頼性を高める手法は新規性が高い。新ベンチマークの構築も評価に値する。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "GeoRisk-RAG: A Hierarchy-Aware Risk Framework for Improving RAG Reliability through Selective Answering",
+      "tldr": "自然災害管理のように地理的粒度が意思決定に直結する領域において、検索された情報の地理的妥当性を考慮せずに回答するリスクを解決するため、地理的階層構造に基づいた選択的回答を行うフレームワークを提案する。地理的な階層関係を明示的に扱うことで、誤った自信に基づく回答を抑制し、情報の適用範囲に応じた適切な警告や回答の拒否を実現する。",
+      "url": "http://arxiv.org/abs/2608.22634v1",
+      "venue": "CIKM '26 conference 2026"
+    },
+    "arxiv:2608.23176": {
+      "added": "2026-08-26",
+      "added_at": "2026-08-26T06:06:51.957000",
+      "arxiv_id": "2608.23176",
+      "authors": [
+        "Emre Kuru",
+        "Mehmet Onur Keskin"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-24",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.23176.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.23176v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの精度だけでなく、メモリや遅延等のQoSを軸にマルチモーダルとLate Interactionを体系的に比較しており、実用的な設計指針として価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Evaluating Modern RAG: Textual, Multimodal, Dense, and Late Interaction Pipelines",
+      "tldr": "従来のテキストベースのRAGは、文書のレイアウトや視覚的要素が失われる課題がある。本研究は、モダリティと検索アーキテクチャの2軸に基づき、検索性能と運用コストのトレードオフを定量的に評価することで、文書特性に応じた最適なパイプラインの選定手法を提案する。",
+      "url": "http://arxiv.org/abs/2608.23176v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -8249,6 +8312,67 @@
       "tldr": "自動倉庫における、相互に依存するタスクと実ロボットの複雑な動力学を考慮したLifelong Multi-Agent Path Finding (MAPF) 問題に対し、タスク割り当てと経路計画を交互に行う手法と、動的な障害物を回避しつつ経由地を巡回する軌道生成アルゴリズムを提案し、その有効性を実証する。",
       "url": "https://www.semanticscholar.org/paper/493ee4d4b6cc09219440ac7c4dae271b50a1499d",
       "venue": "European Conference on Artificial Intelligence"
+    },
+    "doi:10.48550/arxiv.2410.17160": {
+      "added": "2026-08-26",
+      "added_at": "2026-08-26T06:03:54.431342",
+      "arxiv_id": "2410.17160",
+      "authors": [
+        "Zhuo Yao"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 1,
+      "date": "2024-10-22",
+      "doi": "10.48550/ARXIV.2410.17160",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2410.17160.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2410.17160v1",
+      "reading_value": 4,
+      "reading_value_reason": "LA-MAPFという難易度の高い課題に対し、解の存在可能性を維持したまま階層的に問題を分解する新規性の高いアプローチを提案している。実験による成功率向上も顕著である。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Layered LA-MAPF: a decomposition of large agent MAPF instance to accelerate solving without compromising solvability",
+      "tldr": "幾何学的形状を持つ大規模エージェントの経路計画（LA-MAPF）において、解の存在可能性を維持したまま問題をクラスターとレベルに階層分解することで、計算時間の短縮と成功率の向上を実現する手法を提案する。",
+      "url": "http://arxiv.org/abs/2410.17160v1",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2412.04256": {
+      "added": "2026-08-26",
+      "added_at": "2026-08-26T06:02:44.808754",
+      "arxiv_id": "2412.04256",
+      "authors": [
+        "Jonathan Morag",
+        "Noy Gabay",
+        "Daniel koyfman",
+        "Roni Stern"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-12-05",
+      "doi": "10.48550/ARXIV.2412.04256",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2412.04256.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2412.04256v1",
+      "reading_value": 4,
+      "reading_value_reason": "LMAPFにおける制約の不一致を解消する「Transient MAPF」という新しい問題定義が独創的。高密度環境でのスループット向上を実験で示しており、実用性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Transient Multi-Agent Path Finding for Lifelong Navigation in Dense Environments",
+      "tldr": "Lifelong Multi-Agent Path Finding (LMAPF) において、全エージェントが同時に目的地に到達しなければならないという従来のMAPFの制約が、解の存在を妨げる不一致を引き起こす問題を解決するため、目的地を一度でも通過すればよいとする Transient MAPF (TMAPF) を提案する。TMAPFを用いることで、ターゲットが限定された高密度な環境において、従来のMAPFを用いる手法よりも高いスループットを実現できる。",
+      "url": "http://arxiv.org/abs/2412.04256v1",
+      "venue": ""
     },
     "doi:10.48550/arxiv.2412.17993": {
       "added": "2026-08-25",
