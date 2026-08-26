@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Pivot-and-Station Multi-Agent Path Finding: Solvability, Complexity, and Algorithms | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Pivot-and-Station Multi-Agent Path Finding: Solvability, Complexity, and Algorithms</h1>
+  <div class="meta">Andrea Di Nezza, Mihir Patel, Fabio Fagnani, Sara Bernardini<br>採択先: 未取得 ・ 2026-08-25 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.24585v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.24585v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-25</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">新しいMAPFの変種を提案し、解の存在条件の特定やNP困難性の証明といった理論的貢献と、実用的な高速アルゴリズムの提示を両立しているため。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> タスクを持つエージェントが目的地（ステーション）に到達する前に、交換可能な中継点（ピボット）を必ず経由しなければならない新しいMAPFの変種、PS-MAPFを提案する。ピボットが一つ存在するだけで、最大完了時間（makespan）や完了時刻の総和（flowtime）の最小化がNP困難であることを示し、高速かつ高品質な経路計画アルゴリズムであるPPPを提示する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>連結かつ無向のグラフ上で、複数のエージェントを衝突なく移動させる問題を扱う。エージェントは、ピボットを訪問する必要があるタスク付きエージェントと、直接目的地へ向かえるタスクなしエージェントに分類される。最終的な目的地であるステーションは匿名的に割り当てられ、全エージェントがそれぞれ異なるステーションに停止する必要がある。従来のMAPFと比較して、中間リソースの訪問制約と終端位置の匿名性を組み合わせている点が特徴である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>2-辺連結グラフであれば常に解が存在することや、任意の連結グラフにおける解の存在条件が、空き頂点数に関連する構造的な有効距離によって決定されることを明らかにした。また、ピボットが一つのみの場合であっても、最大完了時間（makespan）や完了時刻の総和（flowtime）の最小化がNP困難であることを証明した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法であるPivot-Prioritized Planning (PPP) は、二段階の処理を行う。第一段階では、優先順位に基づきSpace-Time A*を用いてタスクエージェントをピボットへ移動させる。第二段階では、最大流問題を用いて全エージェントを目的地へ割り当てて移動させる。また、完全性を保証するBaseline Algorithm (BA) は、タスクエージェントを順番にピボットへ運び、移動後に状態を巻き戻す操作を経て、残りのプロセスを匿名MAPFとして解く。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>ベンチマーク実験において、PPPは74%から89%のインスタンスを解決し、BAと比較してmakespanおよびflowtimeを大幅に改善した。最適解ソルバーとの比較では、PPPは最適解とのmakespanの差を0.55から2.73ステップ以内に抑えつつ、非常に短い実行時間で動作した。エージェントの優先順位付けの評価では、最大衝突優先（MC）のヒューリスティックが、高密度なマップにおいて低い実行時間と高い成功率を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>PPPは完全性を欠いており、ピボット数が極端に少なくタスク割り当て率が高いボトルネック状況では、第一段階でのフロー飽和により失敗する可能性がある。また、エージェント密度が50%を超え、かつ全エージェントがタスクを持つような高密度環境では、SATベースの最適ソルバーの実行時間が急増する。今後の課題として、ピボットに基づく目的関数の検討や、特定のドメインに特化したソルバーの開発、最新のMAPF技術の適応が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Pivot-and-Station Multi-Agent Path Finding: Solvability, Complexity, and Algorithms</h3><p>本論文では、タスクを割り当てられたエージェントの一部が、交換可能な複数のピボット（ワークステーションなど）のいずれかを訪問した後、最終的に各エージェントが1つずつ匿名的なステーションに停止するという、Pivot-and-Station Multi-Agent Path Finding (PS-MAPF) という新しいMAPFの変種を提案している。グラフの構造に関する解の存在条件を特定しており、2-辺連結グラフであれば常に解が存在すること、および任意の連結グラフにおいては、空き頂点の数に対する構造的な有効距離の指標が解の必要十分条件であることを示している。ステーションにおける完了時刻の最大値であるmakespanや、完了時刻の総和であるflowtimeを最小化する問題は、ピボットが1つのみの場合であってもNP困難であることが証明されている。提案手法として、完全性を保証するベースライン、SATを用いた最適解ソルバー、およびPivot-Prioritized Planning (PPP) という3つのアルゴリズムを提示している。PPPはベンチマークにおいて74%から89%のインスタンスを解決し、ベースラインと比較してmakespanおよびflowtimeを大幅に改善する性能を示している。</p></section>
+<section class="secsum"><h3>1 Introduction and Related Work</h3><p>本論文では、高密度な自動倉庫システムをモデル化した、Pivot-and-Station Multi-Agent Path Finding (PS-MAPF) という新しいMAPFの変種を提案している。この問題は、グラフ上のエージェントのうち、タスクを持つ一部のエージェントが、最終的な終端位置であるステーションに到達する前に、機能的に交換可能な中間リソースであるピボットを少なくとも1つ訪問しなければならないという制約を持つ。タスクを持たないエージェントも空間を占有して他のエージェントと干渉するため、全エージェントがそれぞれ異なるステーションに収まる必要がある。既存のTAPFやMCPFといった手法と比較して、PS-MAPFは「タスクを持つエージェントが必ずいずれかのピボットを訪問する」という制約と、「全エージェントの終端位置を匿名的に割り当てる」という性質を組み合わせている点が特徴である。研究の貢献として、2-edge connectivityを用いた解の存在判定が多項式時間で可能であることや、単一のピボットであってもmakespanやflowtimeの最小化がNP-hardになるという複雑性の閾値を明らかにしている。アルゴリズム面では、SATへの帰着に基づく最適解ソルバーと、ピボットへの経路計画を優先し、ステーションへの割り当てをフローベースで行う高速なPivot-Prioritized Planning (PPP) を提案しており、PPPはベンチマークにおいてベースラインよりも数桁低いコストで74%から89%のインスタンスを解決している。</p></section>
+<section class="secsum"><h3>2 Problem Statement</h3><p>本研究では、連結かつ無向のグラフ上で、ピボット（中継点）、ステーション（目的地）、および複数のエージェントが移動するPivot-and-Station Multi-Agent Path Finding (PS-MAPF) という問題を定義している。エージェントは、目的地に到達する前にいずれかのピボットを経由しなければならないタスク付きエージェントと、直接目的地へ向かえるタスクなしエージェントに分類される。解となる経路集合は、エージェント同士が同じ時刻に同じ頂点を占有する頂点衝突や、同じエッジを逆方向に通過するスワップ衝突が発生しない、衝突のない経路の集合として定義される。タスク付きエージェントの成功条件は、ある時刻にピボットに到達し、その後、ある時刻にステーションに到達してそこから離れないことである。評価指標として、全エージェントがステーションに到着するまでの最大時刻を表すStation-Makespanと、全エージェントのステーション到着時刻の総和を表すStation-Flowtimeの2つのコスト関数が用いられる。</p></section>
+<section class="secsum"><h3>3 Solvability</h3><p>Pivot-and-Station Multi-Agent Path Finding (PS-MAPF) における解の存在条件を、グラフの構造とエージェント数に基づき分析しています。ピボット（特定の訪問必須地点）を必要としない状態では、グラフが連結であれば常に解が存在しますが、ピボットの制約がある場合、例えばパスグラフにおいてピボットが端点に位置し、エージェントの相対的な順序を入れ替えられない状況では解が存在しません。グリッドや倉庫のような2-辺連結グラフにおいては、各タスクエージェントの始点とピボットが2-辺連結であれば、エージェント数に関わらず常に解が存在します。これは、2-辺連結性を利用してエージェントを回転移動させることで、空きスペースを制御しながら目的の移動を実現できるためです。一般的な連結グラフにおいては、グラフを2-辺連結成分に分解し、それらを橋で結んだ2-辺凝縮木を用いて解の存在を判定できます。具体的には、空きスペースがピボット付近に集約された状態において、エージェントの始点からピボットまでの凝縮木上の経路における「有効距離」が、空きスペースの数 k 以下である場合に解が存在するという必要十分条件が導出されています。</p></section>
+<section class="secsum"><h3>4 Complexity Analysis</h3><p>本セクションでは、最小ステーション・メイクスパン（MSM）および最小ステーション・フロータイム（MSF）の決定問題がNP困難であることを証明している。3SAT問題からの帰着により、変数エージェントと節エージェントを含むグラフ構造を構築し、ピボットを戦略的に配置することで、各エージェントが特定のステーションへ向かうよう強制する手法を用いている。MSMについては、3SATの充足解が存在する場合、すべてのエージェントが待機なしで最短経路を通り、指定されたメイクスパン内でタスクを完了できることを示している。MSFについては、解が交差しない条件と、エージェントがピボットを通過する際の順序関係を解析することで、MSFの最適化が3SATの充足可能性と等価であることを導いている。これらの結果は、ピボットが存在しない場合の匿名MAPFは多項式時間で解けるのに対し、たとえ1つのピボット訪問が要求されるだけでも、問題の複雑さが劇的に増大することを明らかにしている。</p></section>
+<section class="secsum"><h3>5 Algorithms</h3><p>本セクションでは、Pivot-and-Station MAPF問題を解くための3つのアルゴリズム、Baseline Algorithm (BA)、Pivot-Prioritized Planning (PPP)、およびSATベースの最適ソルバーについて述べている。<br><br>BAは、解の存在に関する構成的な分析に基づいた完全なアルゴリズムであり、解が存在するすべてのインスタンスに対して解を導出できるが、解の品質は非常に低い。この手法は、まず各タスクエージェントを順番にピボットへ移動させるフェーズ1を行い、エージェントの移動後にシステムの状態を初期状態へと完全に巻き戻すために移動経路を逆方向に辿ることで、後続のエージェントが干渉を受けないように設計されている。その後、フェーズ2として、ピボット条件が満たされた状態での匿名MAPF問題として全エージェントを目的地へ移動させる。BAの計算量は、グラフの2辺連結縮約木の構築や、空きスペース（hole）を移動させる操作を含め、最悪計算量で O(n^4) となり、インスタンスサイズに対して多項式時間で動作する。<br><br>PPPは、BAよりも高い解の品質と高速な実行を目指した多項式時間アルゴリズムであるが、完全性は失われており、解が存在するインスタンスでも失敗する場合がある。フェーズ1では、優先順位に基づきSpace-Time A*を用いてタスクエージェントをピボットへ経路計画し、その経路を予約することで衝突を防ぐ。フェーズ2では、フェーズ1で予約されたノードやエッジを除外した時間拡張グラフ上で最大流問題を解くことで、全エージェントを目的地へ移動させる。PPPの最悪計算量は O(n^5) であり、これも多項式時間である。<br><br>最後に、SATベースの最適ソルバーは、高密度な環境において優れた性能を示すことが知られている従来のMAPFの還元手法を、本問題の制約に合わせて適用したものである。</p></section>
+<section class="secsum"><h3>6 Experimental Study</h3><p>本実験では、SATベースの最適解ソルバー、提案手法であるPPP、およびベースラインのBAを用いて、様々なパラメータ条件下での性能評価を行っています。最適解ソルバーを用いた解析により、エージェント密度が50%かつ全エージェントがタスクを持つ場合に実行時間が急増することや、ステーション密度が高まるほど問題の難易度が下がり、平均的なメイクスパンが線形に減少することが確認されました。PPPは、BAが制限時間内に解を見つけられない条件下でも、非常に短い実行時間で、最適解とのメイクスパンの差を0.55から2.73ステップ以内に抑えつつ高い成功率を維持しています。エージェントの優先順位付けに関する評価では、最短経路優先、最長経路優先、ランダム、最小衝突優先、最大衝突優先の各ヒューリスティックを比較した結果、最大衝突優先（MC）が全体として最も強力であり、特に高密度なマップで低い実行時間と高い成功率を示しました。PPPの失敗は、ピボット数が極端に少なくタスク割り当て率が非常に高いボトルネック状況に集中しており、これはフェーズ1におけるフローの飽和が原因で、フェーズ2において許容されるホライゾン内に全エージェントをルーティングできなくなるためです。</p></section>
+<section class="secsum"><h3>7 Conclusion and Future Work</h3><p>本研究では、各エージェントが最終目的地である匿名的なステーションに到達する前に、まず匿名的なピボットを経由しなければならないという、MAPFの新しい変種であるPS-MAPFを提案した。この問題において、ステーションへの到達における最大完了時間や、全エージェントのステーション到達時間の総和を最小化する問題は、ピボットが一つのみの場合でもNP困難であることを証明し、解の可否に関する完全な特性を明らかにした。提案手法として、解の完全性は保証するが品質は低いベースライン、SATソルバーを用いて最大完了時間を最適化する手法、および不完全ながらもベースラインより大幅に優れた解を高速に出力するPivot-Prioritized Planning（PPP）の3つのアルゴリズムを提示した。今後の展望として、ピボットに基づく新たな目的関数の検討や、特定のドメインに特化したソルバーの開発、および最新のMAPF技術をPS-MAPFへ適応させる研究が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-27
+  </footer>
+</div>
+</body>
+</html>

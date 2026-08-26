@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The RAT: A Unified Bayesian Model for RAG Evaluation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>The RAT: A Unified Bayesian Model for RAG Evaluation</h1>
+  <div class="meta">Pius von Däniken, Felix Matthias Saaro, Mark Cieliebak, Jan Deriu<br>採択先: 未取得 ・ 2026-08-25 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.24753v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.24753v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-25</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの評価におけるコンポーネント間の依存関係をベイズ統計でモデル化した新規性が高い。実験も多角的で、自動評価の限界にも触れており、実用上の示唆に富む。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGシステムの評価において、検索と生成の依存関係やエラーの伝播を捉えるため、検索の成否、回答の棄権、タスクの成功を条件付き確率として分解するベイズ統計に基づく統一的評価フレームワーク「RAT」を提案する。これにより、最終的な回答の正解性と、検索結果に応じた生成器の適切な振る舞い（ポリシー遵守）を区別して評価できる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>検索拡張生成（RAG）システムの評価では、エンドツーエンドの正解性のみを測定する手法や、検索と生成の各コンポーネントを個別に評価する手法が一般的である。しかし、従来の評価では検索と生成の間の統計的な依存関係を十分に捉えられず、特に検索失敗時に生成器が回答を控えるべきという「棄権」の振る舞いや、コンポーネント間の相互作用が最終的な結果に与える影響を評価することが困難である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存の評価フレームワークは、文脈の関連性や忠実性などの指標を独立したものとして扱っており、検索と生成の結果の間に存在する依存関係をモデル化できていない。本研究は、検索、棄権、および回答の正解性の間の依存関係を統合的に扱う単一の確率的フレームワークを提案することで、ポリシーの遵守と最終的なタスク成功を明確に区別することを可能にした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>検索の成功、回答の棄権、タスクの成功、および生成器の成功（ポリシー遵守）という4つの二値変数を用いたベイズモデルを構築する。このモデルは、検索から生成に至る情報の流れに従って同時分布を分解し、検索の質、検索結果に応じた棄権の決定、および検索状態に基づいた回答の正確性を条件付き確率として分離してモデル化する。生成器の成功は、検索失敗時に適切に棄権するか、あるいは検索成功時に正解を出力するかという決定論的な定義に基づいている。また、LLMによる自動評価をキャリブレーションされたノイズを含む観測値として組み込むための拡張モデルも導入しており、推論にはハミルトニアンモンテカルロ法を用いる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>KILTベンチマークの3つのデータセット（FEVER、HotpotQA、Natural Questions）を用い、3種類の検索戦略（Sparse、Dense、Hybrid）と3種類の生成モデル（Apertus 8B、Gemma3 12B、Qwen3.5 9B）を組み合わせた計27通りの構成で実験を行った。その結果、タスク成功率が同程度であっても、検索失敗時に回答を控えるポリシーの遵守状況が大きく異なるシステムを識別できることを示した。また、アノテーション予算の配分において、ポリシー遵守率の推定には検索成功の測定が、タスク成功率の推定にはタスク成功の測定が有効であることを示した。さらに、LLM評価者が高い偽陽性率を持つ場合、大量の自動評価を追加しても、少数の人間による評価ほど不確実性を低減できないことを明らかにした。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は全ての判定を二値スケールで扱うため、MAPやMRRのような連続的な指標による詳細な評価には対応していない。また、生成器の成功条件が「検索失敗時に回答を控えるか否か」という単一の固定的な方策に依存しており、柔軟な回答やアプリケーションごとに異なる棄権の閾値を考慮できていない。実験で使用したモデルやタスクの多様性、およびリランキングやクエリ再構成といった複雑なパイプラインの依存関係の欠如も課題である。さらに、マルチターン形式の会話におけるエラーの蓄積や、自由形式の生成における間接的な棄権の検出についても今後の課題として残されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>The RAT: A Unified Bayesian Model for RAG Evaluation</h3><p>本研究は、検索拡張生成（RAG）システムの評価において、エンドツーエンドの正解性だけでなく、検索と生成の各コンポーネント間の相互作用やエラーの伝播を捉えるための、ベイズ統計に基づく統一的な評価フレームワーク「RAT」を提案している。このモデルは、ユーザーが最終的に正しい回答を得られたかというタスクの成功と、検索結果の内容に対して生成器が適切に振る舞ったかという生成器の成功を区別し、パイプラインの情報フローに従ってこれらを条件付き確率として分解してモデル化する。3つのデータセット、3種類の検索器、3種類の生成器を用いた計27通りのRAG構成に対する実験では、単一の指標では区別できないシステム間でも、条件付き分解を用いることで挙動の顕著な違いを明らかにできることを示した。また、アノテーションの割り当てに関する分析を通じて、検索の成功に関する注釈は、タスクの成功に関する注釈よりも、生成器のポリシー遵守を推定する上でより情報量が多いことを情報理論的な観点から説明している。さらに、このモデルはLLMによる評価をキャリブレーションされたノイズを含む観測値として組み込むことが可能であり、限られた人間による判断と安価な自動評価を統一的な確率モデル内で統合できる。</p></section>
+<section class="secsum"><h3>1 The Introduction</h3><p>RAGシステムの評価では、各コンポーネントを個別に評価するか、エンドツーエンドのタスク成功度のみを測定する手法が一般的ですが、コンポーネント間の依存関係や、検索失敗時に回答を控えるべきという生成器の振る舞いを十分に捉えられない課題があります。本研究では、検索の成功、回答の棄権、タスクの成功という3つの変数の依存関係を明示的にモデル化する、ベイズ統計に基づく評価フレームワーク「RAT」を提案します。このモデルでは、検索の成否が棄権の決定とタスク成功の条件を規定し、生成器の成功はこれら全ての変数の決定論的な関数として定義されます。ベイズモデルを採用することで、一部のラベルのみが得られている不完全な観測データに対しても、未観測変数を周辺化することで不確実性を伝播させながら扱うことが可能です。さらに、LLMによる自動評価をノイズを含む観測値として扱うキャリブレーションモデルを導入することで、少量の人間によるラベルと大量の自動評価を統合して扱うことができます。27通りのRAG構成を用いた実験により、本手法はタスク成功度が同程度であっても、検索失敗時の振る舞いが異なるシステムを識別できることを示しています。</p></section>
+<section class="secsum"><h3>2 The Related Work</h3><p>RAG（検索拡張生成）は、検索システムによる出力を大規模言語モデルのコンテキストに組み込むプロセスであり、検索と生成の2つの要素で構成される。検索の評価では、正解データがある場合は平均逆順位や平均適合率などの指標が用いられ、正解がない場合はLLMを用いて文書から問題を生成する手法や、検索結果に基づき回答が可能かをLLMに判定させる手法が用いられる。生成の評価においては、検索結果が不適切な場合に回答を控える「棄権」の挙動を含めた評価の重要性が指摘されている。既存のRAGAsやARESといったパイプライン評価フレームワークは、文脈の関連性や忠実性などの多角的な指標を用いるが、各指標を独立したものとして扱い、検索と生成の結果の間にある統計的な依存関係をモデル化できていない。これに対し本研究は、検索、棄権、および回答の正解性の間の依存関係を統合的に扱う単一の確率的フレームワークを提案しており、これによりポリシーの遵守と最終タスクの成功の区別や、パイプライン全体を通じた不確実性の伝播を可能にしている。</p></section>
+<section class="secsum"><h3>3 The Model</h3><p>本研究では、RAGシステムの挙動を詳細に分析するため、検索の成功、回答の棄権、タスクの成功、および生成器の成功（ポリシー遵守）という4つの二値変数を用いたベイズモデルを提案している。このモデルは、検索から回答生成に至る情報の流れに従って同時分布を分解しており、検索の質、検索の成否に応じた棄権の振る舞い、および検索状態と回答の有無に基づいた回答の正確性を条件付き確率として分離して捉える。生成器の成功は、検索失敗時に適切に棄権するか、あるいは検索成功時に正解を出力するかという決定論的な定義に基づき、単なる出力の正誤ではなく、望ましいポリシーに従っているかを評価する。ベイズ枠組みを採用することで、不確実性の伝播や、一部のラベルのみが観測されている不完全なデータへの対応が可能となる。さらに、LLMによる評価を組み込むためにモデルを拡張し、自動判定の観測結果を条件付き分布として追加することで、より複雑な判断プロセスをモデル化している。推論にはStanを用い、ハミルトニアンモンテカルロ法によって事後分布を算出する。</p></section>
+<section class="secsum"><h3>4 The Retrievers, The Generators, and The Tasks</h3><p>本研究では、KILTベンチマークに含まれる3つのデータセットを用いて評価を行っています。具体的には、3つのラベルを持つ事実確認タスクのFEVER、複数段落にわたる推論を必要とするHotpotQA、およびGoogle検索のクエリに基づくNatural Questionsを使用し、各タスクからランダムに抽出された10,000件のクエリを対象としています。検索手法には、語彙の一致に基づくBM25を用いたSparse、多タスク埋め込みとHNSWグラフによる近似最近傍探索を用いたDense、およびこれらをReciprocal Rank Fusionで統合したHybridの3つの戦略を採用しています。生成モデルには、80億パラメータのApertus、120億パラメータのGemma3、および90億パラメータのQwen3.5の3つの大規模言語モデルを使用しています。なお、全タスクのクエリに関連する段落から構築された1,720,160個の段落からなる知識ベースは、完全なオープンドメインよりも制御された環境であるため、算出される検索成功率は実運用時と比較して楽観的な数値となる可能性があります。</p></section>
+<section class="secsum"><h3>5 The Experiments</h3><p>本実験では、提案されたベイズモデルを用いてRAG（検索拡張生成）システムの性能を多角的に評価しています。3つのデータセットを用いた調査の結果、生成モデルによって検索失敗時に回答を控える（abstention）というポリシーが大きく異なることが判明しました。具体的には、Gemma3やQwen3.5は検索の成否に応じて回答の有無を明確に使い分ける傾向がある一方、Apertusは検索の成否に関わらず回答を続ける傾向があります。次に、限られたアノテーション予算を「検索成功」と「タスク成功」のどちらの測定に割り当てるべきかという問題に対し、追加サンプルの配分戦略を比較しました。その結果、ポリシー遵守率の推定精度を高めるには検索成功の測定に、タスク成功率の推定にはタスク成功の測定に予算を投じるべきであるという非対称な特性が示されました。これは、ポリシー遵守の定義において、検索の成否が回答の有無を決定付ける重要な要素であるという情報理論的な構造に起因します。最後に、LLMを評価者として用いる自動評価の有効性を検証したところ、自動評価者が高い偽陽性率を持つ場合、大量の自動アノテーションを追加しても、人間による少数の正確なアノテーションほど推定の不確実性を低減できないことが明らかになりました。</p></section>
+<section class="secsum"><h3>6 The Conclusion</h3><p>本研究では、検索の成功、棄権、およびタスクの成功という要素をパイプラインの情報フローに従って分解する、RAGシステムのための統一的なベイズ評価フレームワークを提案した。このモデルは、ユーザーが正しい回答を得られたかというタスクの成功と、検索結果に対して生成器が適切に振る舞ったかという生成器の成功を明確に区別しており、27種類の構成を用いた実験では、タスクの成功率がほぼ同一であっても、ポリシーへの準拠性が大きく異なるケースを明示的に特定できることを示した。アノテーションの効率性に関する分析では、検索の成功を判定するアノテーションの方が、タスクの成功を判定するものよりも生成器の振る舞いを推定する上で情報量が多いことを明らかにし、これは検索結果の観測が生成器の成功状態をより多く決定できるという構造的理由に基づいている。また、LLMを評価者として用いる手法についても、評価者の偽陽性率が高い場合には、大量の自動アノテーションを行っても少数の人間による評価を上回る精度は得られないことを示し、キャリブレーションの重要性を強調した。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>本研究の主な限界として、まず全ての判定を成功か失敗かの二値スケールで扱う簡略化された仮定が挙げられ、情報検索で一般的なMAPやMRRのような連続的な指標による詳細な評価には対応していません。生成器の成功条件も、検索失敗時に回答を控えるか否かという単一の固定された決定論的な方策に依存しており、不完全な検索結果に対して部分的な回答を試みるような柔軟な方策や、アプリケーションごとに異なる棄権の閾値を考慮できていません。実験においても、予算の制約から3つのデータセットとパラメータ数が8から12B程度の比較的小規模なオープンウェイトモデルに限定されており、タスクやモデルの多様性が不足しています。また、現在のフレームワークは検索後に生成を行う最小限のパイプラインを想定しており、クエリの再構成やリランキング、チャンクのフィルタリングといった実用的なRAGシステムに含まれる複雑なコンポーネントや、それらが引き起こす依存関係を捉えきれていません。さらに、各クエリを独立した単一ターンのやり取りとして評価しているため、対話履歴に依存するマルチターン形式の会話型RAGにおけるエラーの蓄積を考慮できず、棄権の検出についても、自由形式の生成における間接的な棄権ではなく、規定された回答との完全一致に依存しているという課題があります。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-27
+  </footer>
+</div>
+</body>
+</html>

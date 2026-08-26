@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Dynamic Programming based Local Search approaches for Multi-Agent Path Finding problems on Directed Graphs | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Dynamic Programming based Local Search approaches for Multi-Agent Path Finding problems on Directed Graphs</h1>
+  <div class="meta">Irene Saccani, Stefano Ardizzoni, Luca Consolini, Marco Locatelli<br>採択先: 未取得 ・ 2024-10-10 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2410.07954v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2410.07954v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arXiv.2410.07954" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2024-10-10</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">MAPFの劣最適解を改善する局所探索にDPを適用する手法は、計算量制御の観点から興味深い。実験も具体的だが、既存のLNSの枠組みに近い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> ルールベース手法で得られた実行可能だが劣最適なマルチエージェント経路探索（MAPF）の解を、動的計画法を用いた局所探索によって改善する手法を提案する。近傍に制約を設けることで、エージェント数に対して多項式時間での探索を実現している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>有向グラフ上で、複数のエージェントが衝突を避けながら各々の目標ノードへ移動する経路を求めるMAPF問題を対象とする。既存のルールベース手法は、デッドロックを回避して実行可能解を確実に得られる一方で、得られる経路長が最短解に比べて非常に長くなるという課題がある。MAPFの最適化問題はNP困難であり、エージェント数の増加に伴い計算時間が指数関数的に増大するため、大規模な問題に対して迅速に実行可能解を求める必要がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>参照解からの距離を指標とした近傍を定義し、その範囲内で動的計画法を用いて解を改善する局所探索手法を提案した。従来の動的計画法をMAPFに適用すると、探索すべき状態数がエージェント数に対して指数関数的に増大するが、本手法は探索範囲に局所的な制約を課すことで、エージェント数に対して多項式時間での探索を可能にした。また、経路の物理的な距離に基づく指標と、変更されるエージェントの数に基づく指標という、異なる性質を持つ2種類の近傍定義を導入した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>ルールベース手法で得られた初期の実行可能解を基準とし、その近傍内で現在の解よりも短い経路が見つかる限り、動的計画法を用いて改善を繰り返す。近傍の定義には、グラフ上の最短経路長に基づくパス距離と、経路が異なるエージェントの数に基づくエージェント距離の2種類を用いる。動的計画法の状態には、経路の長さ、現在のエージェントの配置、および参照解との距離（または経路が異なるエージェントの集合）を持たせる。探索時には、より短い経路、あるいはより小さい距離を持つ状態が既存の状態を支配する場合に枝刈りを行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>強連結な有向グラフを用い、エージェント数2から18、ノード数20から100の範囲で評価を行った。初期解にはdiSCアルゴリズムを使用し、評価指標として初期解の経路長に対する最終解の経路長の比である削減率と実行時間を用いた。パス距離に基づく手法は、ノード数に対して計算時間がほぼ一定であり、混雑したグラフ（ノード数とエージェント数の差が小さい場合）で高い削減率を示す。エージェント距離に基づく手法は、ノード数が増えるにつれて計算時間が増加し、空きノードが多いシナリオでより効果的である。2種類の近傍を交互に適用する手法は、単独の手法と比較して優れた性能を発揮することを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>パス距離に基づく手法は、エージェント数が増えると削減率が低下し、実行時間が増加するという特性がある。エージェント距離に基づく手法は、ノード数が増えるにつれて削減率が低下する傾向がある。また、2種類の近傍を交互に探索する手法は、エージェント数が少ない単純な問題においては削減率が低くなるという特性を持つ。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Dynamic Programming based Local Search approaches for Multi-Agent Path Finding problems on Directed Graphs</h3><p>本研究は、マルチエージェント経路探索（MAPF）において、ルールベースの手法で得られた実行可能だが劣解な初期解を改善するための、動的計画法を用いた新しい局所探索手法を提案している。提案手法は、既存の解の近傍を探索してより短い経路が見つかる限りそのプロセスを繰り返すことで、解の品質を向上させる。局所探索のポリシーとして、エージェントの経路が初期解の経路の近傍に留まることを条件とする手法と、経路を変更できるエージェントの数に上限を設ける手法の2種類を提案しており、これらを交互に適用することも可能である。近傍の探索には動的計画法を用いるが、探索範囲に局所的な制約を課すことで、エージェント数に対して指数関数的に増大する状態数の問題を回避し、エージェント数に対して多項式時間で探索を実行できる。</p></section>
+<section class="secsum"><h3>1 INTRODUCTION</h3><p>本研究は、有向グラフ上のマルチエージェント経路探索（MAPF）問題において、既存の実行可能だが劣最適な解を短縮するための、動的計画法を用いた局所探索手法を提案している。MAPFは、複数のエージェントが衝突を避けながら各々の目標ノードへ移動する経路を求める問題であり、自動搬送車（AGV）の管理などの実応用が想定される。最適解の算出はNP困難であり、エージェント数が増えると計算時間が指数関数的に増大するため、大規模な問題では実行可能解を迅速に求める劣最適解アルゴリズムが重要となる。既存のルールベース手法は、デッドロックを防ぐ完全性を備える一方で、解の長さが最短解に比べて非常に長くなるという課題がある。これに対し、提案手法は大規模近傍探索（LNS）の考え方を取り入れ、参照解から「経路を変更するエージェントの数」を距離の指標として定義した近傍を探索する。具体的には、変更可能なエージェントの総数を固定しつつ、どのエージェントの組み合わせを選択するかを事前に決めずに、動的計画法を用いて近傍内のより良い解を探索する。この手法は、探索範囲に局所的な制約を設けることで、エージェント数に対して多項式時間での計算を可能にしている。</p></section>
+<section class="secsum"><h3>2 Problem definition</h3><p>有向グラフにおけるマルチエージェント経路探索（MAPF）問題は、複数のエージェントが初期配置から目標配置へと移動する計画を求める問題である。各エージェントは、現在の頂点に留まる「待機」または隣接する頂点へ移動する「移動」のいずれかの行動を各時刻に選択する。有効な配置とは、各頂点に最大1つのエージェントのみが存在する状態を指し、全エージェントの同時行動においては、複数のエージェントが同一の頂点を占有することや、エージェント同士が位置を入れ替えることが禁止される。本問題には、全エージェントが目標に到達するまでの最大ステップ数であるMakespanの最小化や、各エージェントが目標に到達するまでの時間の総和であるSum-of-costsの最小化といった最適化問題が存在するが、これらはNP困難である。提案手法は、ルールベースのアルゴリズムを用いてまず実行可能な計画を求め、その後、エージェント数やノード数に対して多項式サイズの近傍を探索する局所探索法を用いる。この局所探索は、現在の計画よりも短い実行可能な計画が見つかる限り反復され、最終的に定義された近傍における局所最適解を多項式時間で算出する。</p></section>
+<section class="secsum"><h3>3 Measuring the distance between plans</h3><p>本セクションでは、マルチエージェント経路探索（MAPF）において、参照となる計画と別の計画の間の距離を測る2つの手法を定義している。第一のグループであるパス距離は、グラフ上の最短経路の長さに基づいており、各時刻におけるエージェントの配置間の距離の最大値をとるmax-distanceや、その総和をとるsum-distanceが定義される。さらに、一方の計画が辿る全配置集合に対する他方の計画の配置の最小値を考慮したmax-min distanceやsum-min distanceも定義される。第二のグループであるエージェント距離は、計画間で異なる経路を辿るエージェントの数に着目しており、少なくとも1つの時刻で異なる位置にいるエージェントの総数を示すu-agents distanceや、各時刻における異なるエージェント数の最大値をとるmax-agents distanceが定義される。これらの距離を用いることで、既存の計画から一定の距離内に制限しつつ、より短い経路を持つ新しい計画を探索する、制約付き最適化MAPF問題を定義している。</p></section>
+<section class="secsum"><h3>4 Iterative local optimization for FSA</h3><p>本セクションでは、有限オートマトン（FSA）を用いたマルチエージェント経路探索における反復的な局所最適化手法を提案している。距離制約が文字列全体に依存するという課題に対し、状態、文字列の長さ、および参照解との距離（または差分となるエージェントの集合）に基づく等価類を定義することで、問題を動的計画法（DP）で解けるFSAの到達可能性問題へと変換する。提案手法は、初期の実行可能解から開始し、定義された近傍の中で現在の解よりも短い解をDPを用いて探索するプロセスを繰り返す。近傍のサイズについては、グラフの最大出次数をd、ノード数をn、エージェント数をm、近傍半径をrとしたとき、パス距離に基づく近傍のサイズは O(d^r * n^m) のオーダーであり、エージェント距離に基づく近傍のサイズは、半径rが固定されていればnとmの多項式となることを示している。具体的なDPアルゴリズムでは、状態に「長さ、現在の構成、参照解との距離（または差分集合）」の3つの要素を持たせ、より短い経路やより小さい距離を持つ状態が既存の状態を支配する場合に探索を枝刈りすることで、効率的な探索を実現している。</p></section>
+<section class="secsum"><h3>5 Experimental results</h3><p>提案手法である2種類の局所探索アルゴリズムを、強連結な有向グラフ上でエージェント数2から18、ノード数20から100の範囲で評価しています。初期解にはdiSCアルゴリズムを用い、評価指標として初期解の経路長に対する最終解の経路長の比である削減率と、実行時間を採用しています。経路距離に基づく手法は、グラフが混雑する（ノード数とエージェント数の差が小さい）ほど高い削減率を示す傾向がありますが、エージェント数が増えると削減率は低下し、実行時間は増加します。エージェント距離に基づく手法は、ノード数が増えるにつれて削減率が低下し、空きノードが少ない混雑したシナリオでは効率が悪くなります。これら2つの近傍を交互に探索する手法は、他の手法と比較して常に最短の経路を返し、多くのインスタンスで優れた性能を発揮しますが、エージェント数が少ない単純な問題では削減率が低くなる傾向があります。全体的な比較では、経路距離を用いる手法が最も高速ですが、エージェント数が多い混雑したグラフでは経路距離に基づく手法がエージェント距離に基づく手法よりも大幅に短い経路を返します。</p></section>
+<section class="secsum"><h3>6 Conclusion and future works</h3><p>本研究では、マルチエージェント経路探索（MAPF）問題における実行可能な解を改善するための、動的計画法を用いた局所探索手法を提案している。解の総コストを短縮するために動的計画法を用いて解空間を探索するが、探索状態数を削減して計算量を抑えるため、現在の解の近傍を反復的に定義して探索を行う。近傍の定義には、ノード間の最短経路長に基づく距離と、2つの解の間で経路が変化するエージェントの数に基づく距離という2種類の指標を用いている。提案手法は、エージェント数およびノード数に対して多項式時間で動作する。実験の結果、これら2種類の距離に基づく近傍を交互に切り替えて探索を行うことで、最適解に近い解を得られることが示された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-27
+  </footer>
+</div>
+</body>
+</html>

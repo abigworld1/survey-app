@@ -3300,6 +3300,76 @@
       "url": "http://arxiv.org/abs/2608.23176v1",
       "venue": ""
     },
+    "arxiv:2608.24214": {
+      "added": "2026-08-27",
+      "added_at": "2026-08-27T06:09:12.954979",
+      "arxiv_id": "2608.24214",
+      "authors": [
+        "Qiuyi Qi",
+        "Tian Liang",
+        "Jiamu Wang",
+        "Jinjian Zhang",
+        "Wei Zhou",
+        "Pengcheng Zhu",
+        "Linjian Mo",
+        "Ming Kong",
+        "Jie Liu",
+        "Qiang Zhu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-25",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.24214.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.24214v1",
+      "reading_value": 4,
+      "reading_value_reason": "Agentic RAGの核心的な課題である「検索継続か回答か」の意思決定を、外部判定器に頼らずモデル内部の信念（Belief）との整合性で解くアプローチに高い新規性と実用性がある。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "MetaRAG: Belief-Action Aligned Policy Optimization for Agentic RAG",
+      "tldr": "エージェント型RAGにおける検索継続か回答かの意思決定を、モデルの内部的な確信度と実際の行動を一致させる「信念と行動のアライメント」として定式化し、これを最適化する学習フレームワークMetaRAGを提案する。これにより、過剰な検索によるコスト増と、証拠不足による回答の信頼性低下の両方を抑制する。",
+      "url": "http://arxiv.org/abs/2608.24214v1",
+      "venue": ""
+    },
+    "arxiv:2608.24753": {
+      "added": "2026-08-27",
+      "added_at": "2026-08-27T06:07:35.666651",
+      "arxiv_id": "2608.24753",
+      "authors": [
+        "Pius von Däniken",
+        "Felix Matthias Saaro",
+        "Mark Cieliebak",
+        "Jan Deriu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-25",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.24753.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.24753v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの評価におけるコンポーネント間の依存関係をベイズ統計でモデル化した新規性が高い。実験も多角的で、自動評価の限界にも触れており、実用上の示唆に富む。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "The RAT: A Unified Bayesian Model for RAG Evaluation",
+      "tldr": "RAGシステムの評価において、検索と生成の依存関係やエラーの伝播を捉えるため、検索の成否、回答の棄権、タスクの成功を条件付き確率として分解するベイズ統計に基づく統一的評価フレームワーク「RAT」を提案する。これにより、最終的な回答の正解性と、検索結果に応じた生成器の適切な振る舞い（ポリシー遵守）を区別して評価できる。",
+      "url": "http://arxiv.org/abs/2608.24753v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -7372,6 +7442,38 @@
       "url": "http://arxiv.org/abs/2608.17928v1",
       "venue": ""
     },
+    "arxiv:2608.24585": {
+      "added": "2026-08-27",
+      "added_at": "2026-08-27T06:02:20.996032",
+      "arxiv_id": "2608.24585",
+      "authors": [
+        "Andrea Di Nezza",
+        "Mihir Patel",
+        "Fabio Fagnani",
+        "Sara Bernardini"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-25",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2608.24585.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.24585v1",
+      "reading_value": 4,
+      "reading_value_reason": "新しいMAPFの変種を提案し、解の存在条件の特定やNP困難性の証明といった理論的貢献と、実用的な高速アルゴリズムの提示を両立しているため。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Pivot-and-Station Multi-Agent Path Finding: Solvability, Complexity, and Algorithms",
+      "tldr": "タスクを持つエージェントが目的地（ステーション）に到達する前に、交換可能な中継点（ピボット）を必ず経由しなければならない新しいMAPFの変種、PS-MAPFを提案する。ピボットが一つ存在するだけで、最大完了時間（makespan）や完了時刻の総和（flowtime）の最小化がNP困難であることを示し、高速かつ高品質な経路計画アルゴリズムであるPPPを提示する。",
+      "url": "http://arxiv.org/abs/2608.24585v1",
+      "venue": ""
+    },
     "doi:10.1007/978-3-032-25029-2_15": {
       "added": "2026-08-17",
       "added_at": "2026-08-17T06:03:30.504873",
@@ -8312,6 +8414,38 @@
       "tldr": "自動倉庫における、相互に依存するタスクと実ロボットの複雑な動力学を考慮したLifelong Multi-Agent Path Finding (MAPF) 問題に対し、タスク割り当てと経路計画を交互に行う手法と、動的な障害物を回避しつつ経由地を巡回する軌道生成アルゴリズムを提案し、その有効性を実証する。",
       "url": "https://www.semanticscholar.org/paper/493ee4d4b6cc09219440ac7c4dae271b50a1499d",
       "venue": "European Conference on Artificial Intelligence"
+    },
+    "doi:10.48550/arxiv.2410.07954": {
+      "added": "2026-08-27",
+      "added_at": "2026-08-27T06:04:15.851037",
+      "arxiv_id": "2410.07954",
+      "authors": [
+        "Irene Saccani",
+        "Stefano Ardizzoni",
+        "Luca Consolini",
+        "Marco Locatelli"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-10-10",
+      "doi": "10.48550/arXiv.2410.07954",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2410.07954.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2410.07954v1",
+      "reading_value": 3,
+      "reading_value_reason": "MAPFの劣最適解を改善する局所探索にDPを適用する手法は、計算量制御の観点から興味深い。実験も具体的だが、既存のLNSの枠組みに近い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Dynamic Programming based Local Search approaches for Multi-Agent Path Finding problems on Directed Graphs",
+      "tldr": "ルールベース手法で得られた実行可能だが劣最適なマルチエージェント経路探索（MAPF）の解を、動的計画法を用いた局所探索によって改善する手法を提案する。近傍に制約を設けることで、エージェント数に対して多項式時間での探索を実現している。",
+      "url": "http://arxiv.org/abs/2410.07954v1",
+      "venue": ""
     },
     "doi:10.48550/arxiv.2410.17160": {
       "added": "2026-08-26",
