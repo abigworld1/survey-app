@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Windowed MAPF with Completeness Guarantees | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Windowed MAPF with Completeness Guarantees</h1>
+  <div class="meta">Rishi Veerapaneni, Muhammad Suhail Saleem, Jiaoyang Li, Maxim Likhachev<br>採択先: AAAI 2025 ・ 2024-10-02 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2410.01798v3" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2410.01798v3" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/aaai.v39i22.34499" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 AAAI 2025</span><span class="chip">公開日 2024-10-02</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">ウィンドウ方式のMAPFにおける「完全性の欠如」という長年の課題に対し、単一エージェントの知見を応用した理論的枠組みを提案しており、新規性と実用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 従来のウィンドウ方式のマルチエージェント経路計画（MAPF）は、計算コスト削減のために限定的な時間範囲のみを計画するが、デッドロックやライブロックにより完全性が失われる課題があった。本研究は、単一エージェントのリアルタイム探索の知見を応用し、解が存在する場合に必ず目標に到達できる完全性を保証するフレームワークWinC-MAPFを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路計画（MAPF）では、全エージェントの衝突のない全行程経路を計算するのに膨大な時間を要する場合がある。そのため、限定された時間窓（ウィンドウ）内の経路のみを計画するウィンドウ方式が用いられるが、近視眼的な計画が原因でデッドロックやライブロックが発生し、既存のウィンドウ型手法は解の存在を理論的に保証できない不完全性が問題となっている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>ウィンドウ化されたMAPFにおいて理論的な完全性を保証する初のフレームワークWinC-MAPFを提案した。単一エージェントのリアルタイム・ヒューリスティック探索におけるヒューリスティック更新の概念を、MAPFの持つエージェント間の半独立的な構造に適用することで、状態空間の爆発を抑えつつ局所解からの脱出を可能にした。また、この枠組みの具体的な実装として、ヒューリスティック衝突という概念を導入したSingle-Step Conflict Based Search（SS-CBS）を開発した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>WinC-MAPFは、全エージェントの結合構成空間を単一エージェントの探索問題として扱い、訪問済みの構成に対してヒューリスティック・ペナルティを適用する。状態空間の爆発を防ぐため、相互作用のあるエージェントの集合である分離されたエージェントグループに対してのみペナルティを更新する。SS-CBSは、次の一歩における合計コストを最小化するアクション生成器として機能する。SS-CBSでは、ペナルティを直接加算するのではなく、特定の構成を避けるための負の頂点制約、またはその構成に留まることを強制する正の頂点制約を組み合わせたヒューリスティック衝突という仕組みを用いることで、ペナルティを考慮した最適な次の一歩を算出する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>標準的なベンチマークマップおよび高混雑な小規模マップを用いて、SS-CBSの性能をWindowed CBS（wCBS）、CBS+、EECBSと比較した。標準的なマップでは、SS-CBSはwCBSと同程度の実行時間でありながら、wCBSがウィンドウサイズによって成功率や実行時間が大きく変動するのに対し、1ステップの計画のみで一貫して高い成功率を示した。高混雑なマップにおいても、SS-CBSは高度な最適化を備えたCBS+やEECBSが解決できないシナリオに対して高い成功率を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>SS-CBSの解のコストは、近視的な計画窓の影響により、wCBSと比較して約2%から8%高くなる。また、極端に混雑したシナリオでは解のコストが著しく増大する。実行時間については、混雑した反復において最大実行時間が大幅に増大するボトルネックが発生し、これが失敗の主な要因となる。今後の課題として、アクション生成器への近似手法や学習済みニューラルネットワークの導入、SS-CBSのより長い計画期間への拡張、およびヒューリスティック計算のオンライン学習への置き換えが挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Windowed MAPF with Completeness Guarantees</h3><p>従来のマルチエージェント経路計画（MAPF）は、全行程の衝突のない経路を計算することで完全性を保証するが、計算コストや環境変化への適応性の観点から、限定された時間範囲のみを計画するウィンドウ方式が有効である。しかし、既存のウィンドウ方式はデッドロックやライブロックに陥る可能性があり、完全性が失われているという課題がある。本研究では、単一エージェントのリアルタイム・ヒューリスティック探索の知見と、エージェント間の独立性の概念を組み合わせることで、完全性を実現するウィンドウ方式のフレームワークであるWinC-MAPFを提案する。このフレームワークの具体的な実装として、Conflict Based Search（CBS）を改良し、各ステップで計画とヒューリスティックの更新のみを行うSingle-Step Conflict Based Search（SS-CBS）を開発した。SS-CBSは、従来のウィンドウ方式では解決できなかった困難なシナリオにおいても、効果的に問題を解決できる。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路計画（MAPF）において、全行程の経路を計画する手法は解の存在を保証できる一方で、計算コストや環境変化への適応性に課題がある。これに対し、限定された時間窓（ウィンドウ）内の経路のみを計画するウィンドウ型手法は高速だが、近視眼的な計画が原因でデッドロックやライブロックを引き起こしやすく、理論的な完全性が欠如している。本研究では、単一エージェントのリアルタイム・ヒューリスティック探索の概念とMAPFの半独立的な構造を活用し、完全性を保証するフレームワークであるWinC-MAPFを提案する。WinC-MAPFは、膨大な状態空間を効率的に扱うため、ヒューリスティックの更新を互いに干渉しないエージェントのグループに限定して同時に行う。このフレームワークにおけるアクション生成器の具体例として、1ステップのみを計画するSingle-Step Conflict-Based Search（SS-CBS）を開発した。SS-CBSは、単純なヒューリスティック更新では失敗する問題を解決するために「ヒューリスティック衝突」という新たな概念と制約を導入しており、実験では、より大きな計画窓を持つウィンドウ型CBSを、小規模および大規模な問題の両方において上回る性能を示すことが確認されている。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>マルチエージェント経路探索（MAPF）は、複数のエージェントが衝突を回避しながら各々の目的地へ到達する経路を求める問題であり、頂点やエッジでの衝突を防ぎつつ、全エージェントの移動にかかる最大タイムステップを最小化することを目指す。計算時間の制約がある場合、一定の窓幅（ウィンドウサイズ）の範囲内のみで衝突を考慮して部分的な経路を計画するWindowed MAPFが用いられる。既存のWindowed MAPF手法には、優先度に基づく計画や、衝突を制約として扱うConflict Based Search（CBS）の派生形などがあるが、デッドロックの発生や、解が見つからない不完全性が課題となっており、完全性を保証するWindowed MAPFの解法は知られていない。本研究では、限られた時間内で部分的な経路を計画・実行する単一エージェントの「リアルタイム探索」の概念を応用する。リアルタイム探索では、訪問した状態のヒューリスティック値を更新することで、同じ状態を繰り返し訪問することを防ぎ、デッドロックやライブロックを回避して完全性を維持する。具体的には、現在の状態から新しい状態へ移動する際に、ベルマン更新式を用いてヒューリスティック値を更新することで、エージェントが最終的に目的地へ向かう最適な状態を選択できるように設計されている。</p></section>
+<section class="secsum"><h3>3 Windowed-MAPF with Guarantees</h3><p>WinC-MAPFは、窓付きマルチエージェント経路計画において完備性を保証するためのフレームワークである。本手法は、全エージェントの結合構成空間を単一エージェントの探索問題として捉え、訪問済みの構成に対してヒューリスティック値を更新することで、局所解からの脱出を可能にする。状態空間の爆発を回避するため、全構成に対してではなく、相互作用のあるエージェントの集合である「分離されたエージェントグループ」に対してのみヒューリスティック・ペナルティを適用する。具体的には、アクション生成器が構成遷移において互いに妨げ合っているエージェントのグループを特定し、そのグループの構成に対してベースのヒューリスティック値にペナルティを加算する。このプロセスにより、デッドロックやライブロックが発生している特定のグループに探索を集中させることができ、解が存在する場合に必ず目標に到達できる完備性が示されている。</p></section>
+<section class="secsum"><h3>4 Single-Step CBS</h3><p>本セクションでは、ヒューリスティック・ペナルティ（HP）を考慮しながら、次の一歩における合計コストを最小化するSingle-Step CBS（SS-CBS）を提案している。従来のCBSは、各エージェントの個別コストを最小化することで全体のコストを最小化できるという前提に基づいているが、複数のエージェントの組み合わせに対して設定されるHPは、この前提を崩す要因となる。HPを制約木（CT）のノードに直接加算したり、低レベルの経路計画に組み込んだりする単純な手法では、エージェント間の相互作用を事前に考慮できず、最適解を見逃す問題が生じる。これを解決するため、提案手法では「ヒューリスティック衝突」という概念を導入している。これは、エージェントの配置がHPの対象となる構成と一致した場合に、ペナルティを直接加算するのではなく、その構成を避けるための負の頂点制約、またはその構成に強制的に留まるための正の頂点制約を持つ子ノードを生成することで、最適解を探索する仕組みである。また、SS-CBSは解決された衝突に基づいて、相互作用のあるエージェントをまとめた分離されたエージェントグループを特定する機能も備えている。SS-CBSは、従来のWindowed CBS（wCBS）と比較して、理論的な完全性を持ちつつ、実証的にも優れた性能を示す。</p></section>
+<section class="secsum"><h3>5 Experiments</h3><p>提案手法であるSS-CBSの性能を、標準的なベンチマークマップおよび高混雑な小規模マップを用いて評価した。標準的なマップを用いた実験では、SS-CBSはwCBS（ウィンドウを用いたCBS）と比較して、実行時間の多くが同程度でありながら、デッドロックやライブロックを回避して一貫して高い成功率を示した。wCBSはウィンドウサイズによって性能が大きく変動し、サイズが小さいと失敗し、大きいと実行時間が膨大になる傾向があるが、SS-CBSは1ステップの計画のみでこれらを上回る。実行時間に関しては、混雑した反復において最大実行時間が中央値よりも大幅に増大するボトルネックが発生し、SS-CBSの失敗は主にこの実行時間制限に起因する。また、SS-CBSの解のコストは、近視的な計画窓の影響でwCBSより約2%から8%高くなる。高混雑なマップを用いた実験では、CBS+やEECBSなどの高度な最適化を含む手法が解決できない問題に対しても、SS-CBSはグループ化されたヒューリスティックなペナルティを活用することで高い成功率を達成した。ただし、極端に混雑したシナリオでは、SS-CBSの解のコストが非常に高くなるという限界も確認されている。</p></section>
+<section class="secsum"><h3>6 Conclusion and Future Work</h3><p>従来のMAPF研究は全期間の計画に焦点を当てており、期限が短い場合に計画期間を短縮する手法では、デッドロックや回避不能な混雑が発生するという課題がありました。本研究では、ウィンドウ化されたMAPFソルバーにおいて理論的な完全性を保証する初のフレームワークであるWinC-MAPFを提案しています。このフレームワークは、ヒューリスティックなペナルティを組み込み、エージェントを互いに影響しないグループに分割し、目的関数を最小化するアクション生成器を用いることで完全性を実現します。この枠組みに基づき、ヒューリスティックな衝突を導入して最適な次の一手を選択するSS-CBSを設計し、実験では様々なマップやウィンドウサイズにおいて、従来のウィンドウ化されたCBSを上回る性能を示すことを確認しました。今後の展望として、アクション生成器に近似的な手法や学習済みニューラルネットワークを導入すること、SS-CBSをより長い計画期間へ拡張すること、および単一エージェントのヒューリスティック計算をオンライン学習に置き換えることなどが挙げられています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-28
+  </footer>
+</div>
+</body>
+</html>

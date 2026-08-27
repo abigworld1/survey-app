@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PlanSightRAG: A Visual-First Multimodal RAG for Automating Question Answering and Compliance Checking for Civil Standard Plans | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>PlanSightRAG: A Visual-First Multimodal RAG for Automating Question Answering and Compliance Checking for Civil Standard Plans</h1>
+  <div class="meta">Nabaraj Subedi, Shuvo Dip Datta, Ahmed Abdelaty, Shivanand Venkanna Sheshappanavar<br>採択先: 未取得 ・ 2026-08-26 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.26091v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.26091v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-26</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">OCRによる情報損失を回避する視覚優先のRAGという設計が極めて実用的。ColPali等の最新技術を応用し、エージェントによる監査工程まで組み込んだ構成は新規性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 土木標準図面のコンプライアンス確認において、従来のOCRベースの手法は図面の幾何学的構造やレイアウト情報を喪失させる課題がある。本研究は、図面画像を直接インデックス化して推論を行う視覚優先のマルチモーダルRAGフレームワークPlanSightRAGを提案し、高い検索精度と適合性判定を実現した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、幾何学的な形状、配置、記号などの重要な情報が2次元の図面に暗黙的に記述されている土木標準図面である。従来のOCRを用いたテキストベースのRAGでは、テキスト抽出の過程で空間情報や図形的な意味が失われるため、設計情報の正確な検索や適合性確認が困難であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のルールベースやテキスト駆動型の手法とは異なり、図面を画像として直接扱うことで、OCRによる情報損失を回避する視覚優先の設計を採用している。先行研究のマルチモーダルRAGが画像をテキスト検索の補助として扱うのに対し、本手法はパッチレベルの視覚的インデックスによる検索と、エージェントによる監査パイプラインを統合している点が新規である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>PDFをラスタライズし、各ページをパッチのグリッドとして扱う。ColNomic-3Bを用いて、各パッチをマルチベクトル形式でエンコードし、空間的な局所性を保持した視覚インデックスを構築する。検索時には、クエリとパッチベクトル間のMaxSim（最大類似度）を用いた遅延相互作用スコアリングにより、図面内の特定領域を特定する。推論プロセスでは、Planner（計画）、Retriever（検索）、Auditor（監査）、Synthesizer（統合）からなるエージェント構成を採用し、検索、推論、根拠提示、監査の役割を分離して構造化された報告書を生成する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>5つの州運輸局の標準図面からなる4,056組のベンチマーク、ミシガン州のデータ、および合成図面を用いた実験を行った。検索性能において、提案手法はRecall@5で92.69%を記録し、BGE-M3 + OCRの36.79%やVisionRAG (Pyramid)の23.11%を上回った。適合性判定では、Qwen2.5-VL-72Bを用いたパイプラインが、事前に解決済みのルール閾値が与えられた条件下で100%の精度を達成した。また、タイルレベルの検索は、ページ全体での検索と比較してRecall@5で5.19ポイントの向上を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法には、構成要素と寸法の誤った紐付け、図面間の視覚的な推論ミス、記号の誤認、および空間的な推論エラーといった体系的な失敗パターンが存在する。また、高解像度画像に依存するため、低品質なスキャンに対して敏感であることや、エージェントの逐次的な呼び出しによる遅延が課題となる。モデルの規模については、単純な拡大よりも、質問の分解や批判的な自己修正を行うプロンプト戦略が重要である。今後の課題として、低品質な文書への堅牢性向上や、CADデータと照合可能な精密な注釈による説明性の強化、および異なる規制間の衝突を処理する能力の向上が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>PlanSightRAG: A Visual-First Multimodal RAG for Automating Question Answering and Compliance Checking for Civil Standard</h3><p>PlanSightRAGは、従来のOCRベースの手法では失われやすい図面の幾何学的構造やレイアウトを保持するため、図面画像を直接インデックス化して推論を行う、視覚優先のマルチモーダル検索拡張生成（RAG）フレームワークである。この手法は、ColNomic-3Bによるマルチベクトル検索、Planner、Retriever、Auditor、Synthesizerからなるエージェント型の構成、および根拠を示すためのMaxSimヒートマップを統合している。5つの州運輸局（DOT）の標準図面から構築された4,056組のベンチマークを用いた評価では、ゼロショット検索においてRecall@5で91.47%を達成し、ミシガン州DOTのデータにおいても91.40%を記録した。合成データを用いた適合性判定実験では、Qwen2.5-VL-72Bを用いたパイプラインが、事前に解決済みのルール閾値が与えられた条件下で100%の判定精度に達し、OCRベースの比較手法の76.4%を上回った。さらに、人間によるルールの提供なしに、仕様書から数値的な制限を直接抽出することで、自律的な視覚的ルール接地を実現している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>土木標準図面のコンプライアンス確認において、従来のOCRを用いたテキストベースのRAGは、図面の幾何学的特性や配置、記号の意味を失うため、設計情報の検索に失敗するという課題があります。本研究では、図面を直接画像としてインデックス化し、視覚情報を優先的に扱うマルチモーダルRAGフレームワークであるPlanSightRAGを提案します。この手法は、パッチレベルの視覚的インデックスによる検索、視覚言語モデルによる推論、およびエージェントによる監査パイプラインを統合した、OCRを必要としないエンドツーエンドのシステムです。提案手法は、プランナー、リトリーバー、オーディター、シンセサイザーからなるエージェント構成により、設計図面を検索された標準図面と照合し、根拠となる領域を明示しながら監査を行います。また、仕様書コーパスから該当する要件を自律的に検索・抽出して数値的な閾値を決定する機能も備えています。5つの州運輸局のデータセットを用いた評価では、パッチレベルの視覚的検索により、従来のテキストベース手法（Recall@5: 58.02%）やハイブリッドなVisionRAG（Recall@5: 45.99%）を上回る精度（Recall@5: 92.69%）を達成しています。</p></section>
+<section class="secsum"><h3>2 Literature Review</h3><p>従来の土木インフラにおける自動適合性確認は、規則を機械実行可能な論理として記述するルールベースやテキスト駆動型の手法に依存してきましたが、これらは情報が構造化データや線形テキストであることを前提としています。そのため、従来の2D標準図面に幾何学形状やレイアウト、記号を通じて暗黙的に記述されている要件を扱うことができず、手作業による目視検査が主流となっています。既存のOCRベースの文書QAやRAGシステムは、テキスト抽出の過程で空間情報を失うため、エンジニアリング分野の適合性確認タスクにおいて性能が低下することが指摘されています。最新の視覚言語モデル（VLM）は高解像度な文脈処理が可能ですが、精密な空間的接地や記号の解釈、多段階の視覚的推論を必要とするタスクでは限界があり、視覚情報とテキスト情報が矛盾する場合に幻覚を起こしやすいという課題もあります。また、既存のマルチモーダルRAGは画像をテキスト検索の補助として扱うものが多く、大規模な図面アーカイブに対してスケーラブルな検索や、図面間の構造的な関連付けを伴う適合性推論を支援する仕組みが不足しています。これらの限界を克服するため、本研究ではColPaliのような遅延相互作用（late-interaction）を用いた視覚的インデックス作成と、エージェント的なVLM推論を組み合わせ、図面間の横断的な検査を可能にする視覚優先のRAGフレームワークであるPlanSightRAGを提案します。</p></section>
+<section class="secsum"><h3>3 Methodology</h3><p>PlanSightRAGは、土木標準図面に対する質問回答と適合性確認を自動化するための、視覚情報を優先したマルチモーダルRAGフレームワークである。まず、ドキュメントの取り込み段階において、PDFを200または400 DPIでラスタライズし、高解像度を維持するために256ピクセルの重なりを持つスライディングウィンドウ方式でタイル分割を行う。次に、ColNomic-3Bを用いて、各タイルを動的な解像度のパッチグリッドに基づくマルチベクトル形式でエンコードし、空間的な局所性を保持した視覚インデックスを構築する。検索フェーズでは、クエリの各トークンとパッチベクトル間のMaxSim（最大類似度）を用いた遅延相互作用スコアリングにより、図面内の特定の領域を特定する。さらに、検索精度を高めるためのオプションとして、視覚言語モデルによる再ランキングや、BM25を用いたメタデータとのハイブリッド融合を適用できる。最終的なタスクとして、複数の視覚言語モデルを用いた視覚的質問回答と、プランナー、リトリーバー、オーディター、シンセサイザーからなるエージェント・パイプラインを用いた、構造化されたJSON形式の適合性報告書生成を行う。この設計は、検索、推論、根拠提示、監査の役割を厳密に分離することで、ハルシネーションを抑制し、視覚的な根拠に基づいた透明性の高い意思決定パスを実現している。</p></section>
+<section class="secsum"><h3>4 Evaluation Setup</h3><p>本研究では、土木標準図面に関する質問応答とコンプライアンス確認を自動化するための評価環境を構築している。評価用データセットは、5つの米国州運輸局の標準図面PDF計1,898ページからなる4,056組のベンチマーク、ミシガン州運輸局を用いたゼロショット転移評価用の93組、および判定パイプラインの検証用としてmatplotlibで生成した合成図面によるコンプライアンス試験セットで構成される。ベンチマーク構築には、視覚言語モデルを用いて図面画像に基づいた質問を作成し、検索結果の上位5件に目的のページが含まれない場合に図面IDや注釈などの情報を付与して質問を再構成する反復的な手法が用いられている。推論カテゴリは、数値抽出を伴う寸法精度、図形や記号を扱う視覚的解釈、複数情報の照合を行う論理的推論、および根拠の有無を確認するハルシネーション率の4つに分類される。評価指標には、検索層の有効性を測るRecall@5（正解ページが検索結果の上位5件に含まれる割合）と、検索から推論までの一連のプロセスを評価するJudge Accuracy（Qwen2.5-VL-72Bを判定器として用いた正解率）の2つを採用している。</p></section>
+<section class="secsum"><h3>5 Results</h3><p>本研究では、土木標準図面を対象とした視覚優先のマルチモーダルRAGであるPlanSightRAGの性能を評価した。検索性能の比較において、採用したColNomic-3BはRecall@5で92.69%を記録し、最強のテキストベース手法であるBGE-M3 + OCRの36.79%や、ハイブリッド手法であるVisionRAGの23.11%を大幅に上回った。この結果は、従来のOCRプロセスにおける情報損失に対し、パッチレベルの視覚的特徴を保持する手法が有効であることを示している。5,056件のペアを含むベンチマーク全体でのゼロショットRecall@5は91.47%に達し、寸法精度や論理推論といった図面のカテゴリを問わず高い精度を維持している。回答生成の検討では、Qwen2.5-VL-72Bを用いた批判的自己修正（Critic Self-Correction）が82.31%と最高精度を記録した一方、回答プロンプトに紛らわしいページを追加する手法は精度を低下させることが判明した。エージェントによるコンプライアンスチェックにおいても、合格判定における誤検知を回避しつつ、失敗判定において79.17%の真陽性率を達成し、事前に設定した閾値を満たした。</p></section>
+<section class="secsum"><h3>6 Sample Cases</h3><p>本セクションでは、提案手法の具体的な適用事例が示されている。成功事例として、生成モデルであるQwen2.5-VL-7BがWYDOT（ワイオミング州運輸局）の標準図面を正しく解釈し、高い評価スコアを得たケースが挙げられる。一方で、失敗事例としては、Vメッシュ端部ストリップの高さに関する構成要素と寸法の紐付けに誤りがあり、低い評価スコアとなったケースが示されている。この失敗事例は、後のセクションで詳述される失敗モードの分類を策定する動機となっている。</p></section>
+<section class="secsum"><h3>7 Failure Case Analysis</h3><p>PlanSightRAGの失敗事例の分析により、図面における視覚的・テキスト的な推論において5つの系統的なエラーパターンが特定された。具体的には、正しい数値を誤った構成要素に割り当てる結合ミス、指定された図面以外の箇所から値を推論するクロスビュー推論、用語を混同する意味的誤解、図面内の記号の意味を誤認する記号意味論、および図面の注記ではなく一般的な工学の経験則に頼ってしまう空間推論の誤りが挙げられる。高解像度タイリングの効果を検証するため、200 DPIのページ全体での検索と、400 DPIのタイルレベルでの検索を比較した結果、タイルレベルのRecall@5は82.08%となり、ページ全体の76.89%を5.19ポイント上回った。タイルレベルの検索は、近接する不要な注記を排除することで寸法の結合ミスを軽減できる一方で、注記と参照図面が異なるタイルに分断されることで文脈が失われるという新たな失敗モードも引き起こす。最終的に、タイルレベルの検索による評価精度（Judge accuracy）の向上は64.23%から68.77%への改善に留まり、事前に設定した20ポイント以上の改善という閾値を下回ったため、仮説H4は棄却された。</p></section>
+<section class="secsum"><h3>8 Discussion</h3><p>提案手法であるVisual-First Multimodal RAGは、OCRに依存する従来のパイプラインとは異なり、レイアウトや幾何学的関係、記号的な関係性を保持することで、5つの運輸局のデータセットにおいて、既存のパッチレベルの埋め込みを用いた際にRecall@5で91%以上という堅牢な検索性能を達成しています。推論層においては、モデルの規模が必ずしも一様に性能向上に寄与するわけではなく、ゼロショット設定では7Bモデルが72Bモデルと同等以上の精度を示しましたが、質問の分解や批判的な自己修正を行う構造化された推論プロセスを用いることで、72Bモデルは精度を向上させました。プロンプト戦略の影響も大きく、7Bクラスのモデルはゼロショットで十分ですが、70Bクラスの判定モデルは自己修正プロセスによって精度が大幅に改善されます。また、生成器は検索された複数のページを用いるよりも、最も関連性の高い単一のページのみをコンテキストとする方が、不要な情報の混入を防げるため高い性能を発揮します。本フレームワークのエージェント型アーキテクチャは、複雑なクエリを構造化された検証ステップに分解することで、MaxSimヒートマップによる根拠提示と併せて、規制や安全性が重視されるエンジニアリング分野に必要な透明性と監査可能性を提供します。さらに、事前学習済みの視覚エンコーダがドメインに依存しない構造パターンを捉えているため、小規模なデータセットでのLoRAによる微調整は効果が薄いか、むしろ有害になる可能性があり、計算リソースは検索器の調整よりも高度な推論やプロンプト戦略に集中させるべきであることが示唆されています。</p></section>
+<section class="secsum"><h3>9 Limitations</h3><p>本研究の評価に使用した4,056組のベンチマークは、免許を持つエンジニアによる直接的なアノテーションではなく、機械生成と自動検証に依存している。コンプライアンス試験用のデータセットはパラメータ化されたCAD生成物を用いており、視覚言語モデルの識別能力を分離して評価できる一方で、注釈の重なりやスキャンの汚れといった実世界の曖昧さを完全には再現できていない。実際の931ページに及ぶWYDOT標準コーパスを用いた検証では、数値項目のうち一部しか成功しておらず、高密度な標準図面からの自律的な閾値抽出には課題が残る。また、最適な検索が行われた場合でも、部品と寸法の誤った紐付けや記号の不一致といった体系的な推論エラーが時折発生する。さらに、高解像度の画像に依存するため低品質なスキャンに敏感であることや、エージェントによる逐次的な視覚言語モデルの呼び出しが遅延を引き起こすことが挙げられる。</p></section>
+<section class="secsum"><h3>10 Conclusion</h3><p>本研究では、OCRを用いたテキスト中心の手法では、2次元の設計図面に含まれるレイアウトや幾何学的情報、記号的な手がかりが失われるという課題に対し、図面画像を直接検索・推論する視覚優先のマルチモーダルRAGフレームワークであるPlanSightRAGを提案した。この手法は、パッチレベルの検索を行うColNomic-3B、エージェントによるPlanner、Auditor、Synthesizerからなるコンプライアンス・パイプライン、および透明性を確保するためのMaxSimグラウンディングで構成される。5-DOTベンチマークを用いた評価では、ColNomic-3Bによる検索がRecall@5で92.69%を達成し、既存のテキストベースの手法やハイブリッドな手法を大幅に上回る性能を示した。コンプライアンス判定においては、図面ごとに事前に解決されたルール閾値を与えることで、単一図面および複数図面を用いたテストセットの両方で判定精度100%を記録した。また、未知の機関の図面に対しても高いゼロショット性能を示す一方で、LoRAを用いた微調整や高解像度タイル化による性能向上は、特定の条件下において限定的であることが示された。以上の結果から、設計図面の自動レビューにおけるボトルネックは検索の網羅性ではなく、微細な視覚情報の読み取りやエンティティと寸法の紐付け、および判定器への適切なルール閾値の提供にあることが明らかになった。</p></section>
+<section class="secsum"><h3>11 Future Work</h3><p>今後の研究では、他の州の運輸局が保有する歴史的アーカイブや版管理された標準規格までインデックスを拡張し、年次ごとの比較や変更履歴の追跡を可能にすることを目指す。また、画像強調技術やマルチレゾリューション・インデックスの導入により、低品質なスキャンや手書きの旧式文書に対する認識の堅牢性を向上させる必要がある。視覚的なグラウンディングの拡張については、CADから導出された正解データと照合可能な、寸法とエンティティを紐付けるような精密で構造化された注釈を提供することで、説明性を強化する。さらに、エージェントによるコンプライアンス確認フレームワークを高度化し、異なる機関間の規制の衝突や版を考慮したチェック、および差異の文書化を自律的に処理できるようにすることが、大規模な実運用への展開において不可欠となる。</p></section>
+<section class="secsum"><h3>Declaration of Competing Interest</h3><p>著者らは、本論文で報告された研究に影響を及ぼす可能性のある、既知の競合する金銭的利益や個人的な関係が存在しないことを宣言している。</p></section>
+<section class="secsum"><h3>Data Availability</h3><p>本研究で使用されたソースコードおよびサンプルデータセットは、論文の出版後に公開される予定である。また、本研究の対象となった運輸局の標準図面一式は、各当局のウェブサイトを通じて一般に公開されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-28
+  </footer>
+</div>
+</body>
+</html>

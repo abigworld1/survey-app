@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Work Smarter Not Harder: Simple Imitation Learning with CS-PIBT Outperforms Large Scale Imitation Learning for MAPF | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Work Smarter Not Harder: Simple Imitation Learning with CS-PIBT Outperforms Large Scale Imitation Learning for MAPF</h1>
+  <div class="meta">Rishi Veerapaneni, Arthur Jakobsson, Kevin Ren, Samuel Kim, Jiaoyang Li, Maxim Likhachev<br>採択先: ICRA 2024 ・ 2024-09-22 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2409.14491v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2409.14491v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/ICRA55743.2025.11128836" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 ICRA 2024</span><span class="chip">公開日 2024-09-22</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">大規模な模倣学習の限界を指摘し、既存の衝突回避技術を後処理として組み合わせる実用的なアプローチを提案している。学習コストを劇的に下げつつ性能を向上させた点は、MAPF研究者にとって極めて有用な知見である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチエージェント経路探索（MAPF）において、大規模な模倣学習のみでは高密度環境での衝突解決が困難であるという課題に対し、単純な模倣学習に1ステップの衝突回避技術であるCS-PIBTを組み合わせる手法を提案する。これにより、極めて少ない学習データと短い学習時間で、既存の機械学習ベースの手法を上回る性能を達成できる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>複数のエージェントが共有空間内で衝突を避けながら目的地へ移動するマルチエージェント経路探索（MAPF）を対象とする。従来の強化学習を用いた分散型ポリシーは、学習時のエージェント密度が低いため、高密度な環境下では既存のヒューリスティック探索手法よりも性能が大幅に低下するという課題がある。また、従来の機械学習手法は、衝突時に行動を単に待機に置き換えるなどの単純な回避策を用いることが多く、1ステップの衝突解決が性能のボトルネックとなっていた。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>大規模な模倣学習単体では1ステップの衝突を解決できないという限界を明らかにし、代わりにCS-PIBTのようなスマートな衝突回避策を後処理として組み込むことの有効性を示した。これにより、従来の100分の1のデータ量かつ5分未満の学習時間で、既存の機械学習ベースのポリシーを上回る性能を実現できることを示した。また、CS-PIBTによって1ステップの衝突が解消されることで、学習モデルがターゲット間の競合解決といった、より長期的な意思決定に集中できることを示した点が新規である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>強力な中央集権型ヒューリスティック探索手法であるEECBSを用いて学習データを収集し、模倣学習によって分散型ポリシーを学習する。モデルはグラフニューラルネットワーク（GNN）構造を採用しており、エージェントをノード、視界内の近傍エージェントとの通信をエッジとして定義する。入力には、エージェントを中心とした半径5の視界内の障害物マップ、正規化されたBackward Dijkstraヒューリスティックのヒートマップ、エージェントの占有マップ、およびヒューリスティックを最小化する行動を示す5次元のバイナリベクトルを用いる。これらをCNNでエンコードした後、3層のSageConv層を経て、上下左右および待機の5つの行動の確率分布を出力する。実行時には、モデルの予測に対してCS-PIBTを後処理として適用し、1ステップの衝突を解消する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Moving AI ベンチマークの27マップを用い、EECBSによって生成された20から1000エージェントの経路データを学習に使用して検証した。評価の結果、提案手法（SSIL + CS-PIBT）は既存の強化学習手法であるEPHを大幅に上回り、一部のケースでは教師データであるEECBSの性能さえも超える結果を得た。また、1シーン分のデータを用いた4分程度の短い学習時間においても、高い成功率を達成できることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>現在の局所的な情報に基づく決定プロセスでは、目標地点に留まるエージェントが他のエージェントの通行を妨げる問題（ターゲット競合）といった、長期的な推論を必要とする問題の解決は困難である。今後の課題として、CS-PIBTのような衝突回避シールドを常に併用すること、およびモデルが単なる貪欲な振る舞いに陥っていないかを確認するためにPIBTを比較対象に含めることが挙げられる。また、再帰型モデルなどのより洗練されたアーキテクチャを用いることで、より長期的な振る舞いを学習できる可能性がある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Work Smarter Not Harder: Simple Imitation Learning with CS-PIBT Outperforms Large Scale Imitation Learning for MAPF</h3><p>本研究は、マルチエージェント経路探索（MAPF）において、高品質なヒューリスティック探索の結果を用いた大規模な模倣学習の有効性を検証しています。当初は、各事例に数百のエージェントを含む70万件のデータを用いた大規模な模倣学習が最先端の性能を示すことを目的としていましたが、単純な大規模模倣学習のみでは十分な成果が得られないことが判明しました。代わりに、モデルの予測後に1ステップの衝突を解消する後処理手法であるCS-PIBTを組み合わせることで、わずか数分間の学習で既存の機械学習ベースの手法を大幅に上回る性能を達成できることを示しました。この知見は、将来の機械学習によるMAPFポリシーにおいて、CS-PIBTのようなスマートな衝突回避策を常に組み込むこと、および貪欲な行動に基づく衝突回避策をベースラインとして含めることの重要性を示しています。また、1ステップの衝突は効率的に解決可能であるため、学習モデルはより長期的な計画や複雑な意思決定に集中すべきであると述べています。</p></section>
+<section class="secsum"><h3>I INTRODUCTION</h3><p>マルチエージェント経路探索（MAPF）において、従来の強化学習を用いた分散型ポリシーは、学習時のエージェント密度が低いため、高密度な環境下では既存のヒューリスティック探索手法よりも大幅に性能が低下するという課題がある。本研究では、強力なヒューリスティック探索ソルバーを用いて、数百のエージェントを含む70万件以上の事例からなる大規模なデータセットを構築し、模倣学習による大規模な学習の有効性を調査した。実験の結果、単に大規模な模倣学習を行うだけでは既存の探索手法に対して性能が低かったが、モデルの出力に対して1ステップの衝突回避技術であるCS-PIBTを後処理として適用することで、従来の100分の1のデータ量かつ5分未満の学習時間で、最先端の性能を持つML MAPFモデルを実現できることが示された。この結果は、将来のML MAPF手法において、CS-PIBTのようなスマートな衝突回避シールドを併用することが有効であり、それによってモデルが1ステップの衝突回避ではなく、ターゲット間の競合解決といったより長期的な推論に集中できることを示している。また、強力なソルバーを用いることで大規模な模倣学習自体は実現可能であり、将来的に洗練されたモデルアーキテクチャと組み合わせることで、長期的な振る舞いを学習できる可能性がある。</p></section>
+<section class="secsum"><h3>II BACKGROUND</h3><p>マルチエージェント経路計画（MAPF）は、複数のエージェントが衝突を避けながら各々の始点から終点へ移動する経路を求める問題であり、頂点やエッジでの衝突を回避しつつ、全エージェントの移動における最大タイムステップを最小化することを目指す。既存のヒューリスティック探索手法には、ECBSなどの近似解を求める手法や、局所探索を用いるMAPF-LNS、数千規模のエージェントに対応可能なLaCAMなどがあるが、これらは多くが中央集権的であり、実環境では通信のボトルネックとなる可能性がある。機械学習を用いた手法には、既存の探索手法を高速化するものと、単一ステップのポリシーを直接学習する分散型のものがあるが、従来の学習型手法は比較対象の弱さ、訓練環境の多様性の不足、およびエージェント密度が低い（成功率が維持できるのは約10%程度）といった課題がある。本研究では、現代的なヒューリスティック探索手法との比較、多様なマップを用いた学習、および40%を超える高いエージェント密度での成功を目指す。実行時の衝突回避策として、衝突を提案したエージェントを停止させる単純な手法や、優先度の低いエージェントが行動を再サンプリングする手法があるが、本研究では、優先度の継承とバックトラッキングを用いて混雑時でも移動を可能にするCS-PIBTを衝突シールドとして活用する。CS-PIBTは衝突が発生しているエージェント間のみの通信で済むため、分散型の特性を維持したまま、大規模なデータを用いずとも小規模な模倣学習で高い性能を実現できる。</p></section>
+<section class="secsum"><h3>III Method</h3><p>本手法は、既存の強力な中央集権型ヒューリスティック探索手法を用いて学習データを収集し、模倣学習によって分散型MAPF（マルチエージェント経路計画）ポリシーを学習することを目的としている。学習データの生成には、解の品質を制御可能な有界劣最適MAPFソルバーであるEECBSとSIPPSを用い、Moving AIデータセットに含まれる多様なマップを対象としている。提案する分散型ポリシーは、各エージェントの視界（FoV）内に存在する近傍エージェントとのみ通信を行うグラフニューラルネットワーク（GNN）構造を採用しており、エージェントをノード、通信をエッジとして定義している。モデルの入力には、エージェントを中心とした半径Rの視界内の障害物マップ、正規化されたBackward Dijkstraヒューリスティックのヒートマップ、エージェントの占有マップの3つの画像に加え、ヒューリスティックを最小化する行動を示す5次元のバイナリベクトルを使用する。これらの入力はCNNによってエンコードされた後、3層のSageConvグラフ畳み込み層を経て、最終的に上下左右および待機を表す5つの行動の確率分布を出力する。学習では、教師となるヒューリスティック探索手法から得られたラベルに基づき、標準的なクロスエントロピー誤差を最小化する。</p></section>
+<section class="secsum"><h3>IV EXPERIMENTS</h3><p>本研究では、Simple Imitation Learning (SSIL) に衝突回避手法である CS-PIBT を組み合わせた手法を提案し、大規模な模倣学習モデルと比較検証している。実験では、Moving AI ベンチマークの 27 マップを用い、EECBS アルゴリズムによって生成された 20 から 1000 エージェントの経路データを学習に使用した。評価の結果、提案手法は既存の強化学習手法である EPH を大幅に上回り、一部のケースでは教師データを提供した EECBS の性能さえも超えることが示された。特に、単純な衝突回避（CS-Naive）では性能が低迷するのに対し、CS-PIBT を用いることで、わずか 1 シーン分のデータかつ 4 分程度の短い学習時間で、PIBT や EECBS に匹敵する高い成功率を達成できることが明らかになった。一方で、目標地点に留まるエージェントが他のエージェントの通行を妨げる問題や、ボトルネック地点での混雑といった、長期的な推論を必要とする問題については、現在の局所的な情報に基づく決定プロセスでは解決が困難であるという限界も示されている。</p></section>
+<section class="secsum"><h3>V CONCLUSIONS</h3><p>本研究は、マルチエージェント経路計画（MAPF）における、シンプルかつスケーラブルな模倣学習の有効性を調査したものである。大規模な模倣学習単体では、提案されたモデル構成や入力を用いる限り、1ステップの衝突を解決できないという課題が残る。しかし、1ステップの衝突を解決する既存手法であるCS-PIBTと模倣学習を組み合わせることで、多様なマップにおいて、わずか数分間の学習で最先端のML-MAPF性能を達成できることが示された。この結果に基づき、今後の研究に向けて、CS-PIBTのような衝突回避シールドを活用すること、モデルが貪欲な振る舞いを学習するだけの単純な解に陥っていないかを確認するために常にPIBTと比較すること、CS-PIBTが局所的な衝突を解決するためMLモデルはより長期的な振る舞いの学習に注力できること、そして強力なヒューリスティック探索手法が存在する状況下では、スケーラブルな模倣学習は将来のML-MAPFモデルを訓練するための有望かつ容易な手法であることの4点を提言している。</p></section>
+<section class="secsum"><h3>A1 Quick Summary</h3><p>本研究は、分散型マルチエージェント経路探索（MAPF）において、単純かつスケーラブルな模倣学習と、高度な衝突回避手法であるCS-PIBTを組み合わせる有効性を提示している。従来の機械学習を用いたMAPF手法は、衝突時に予測された行動を単に待機行動に置き換える単純な衝突回避（CS-Naive）を用いることが多く、1ステップの衝突解決が性能のボトルネックとなっていた。これに対し、局所的な通信を伴うCS-PIBTを導入することで、大規模なデータセットを用いずとも、従来の100分の1のデータ量と数分程度の学習時間で最先端の性能を達成できる。CS-PIBTの使用は学習問題の本質を変化させ、モデルがターゲットの競合といったより長期的な計画に注力することを可能にする。実験では、70万件を超える大規模なデータセットを用いた学習が可能であることを示しており、CS-PIBTを使用する場合、データ量の増加は成功率よりもエージェントあたりの解のコストの改善に寄与することが確認された。今後の研究においては、CS-PIBTを用いた貪欲なヒューリスティックに基づくPIBTを比較対象として用いるべきであると提言している。</p></section>
+<section class="secsum"><h3>A2 Additional Information on Experiments</h3><p>Moving AI Benchmarkを用いて、各マップタイプがテストセットに含まれるようデータを分割し、EECBSを用いて収集した解を学習データとして使用しています。学習データは各タイムステップを独立した例として扱い、データセットの約50%を占める「待機」アクションについても、特別な重み付けや除去は行わずにそのまま使用しています。モデルアーキテクチャにはSageConvグラフニューラルネットワークを採用しており、ノードはエージェント、エッジは視界内の局所的な通信を表します。入力特徴量として、エージェントを中心とした障害物、正規化された後方ダイクストラ距離、エージェントの占有状態を示す3つの画像と、ダイクストラ距離を最小化する行動を示す5次元のバイナリベクトルを用います。これらをCNNと線形層で処理して128次元のノード埋め込みとメッセージベクトルを生成し、3層のSageConv層とLayer Norm、LeakyReluを経て、最終的に5つの行動の確率分布を出力します。実行時の計算コストについては、1000エージェントの処理において、実行時間の60%以上が入力特徴量の作成に費やされ、モデルの推論時間は全体の約20%に留まっています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-28
+  </footer>
+</div>
+</body>
+</html>

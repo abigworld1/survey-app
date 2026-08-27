@@ -3370,6 +3370,74 @@
       "url": "http://arxiv.org/abs/2608.24753v1",
       "venue": ""
     },
+    "arxiv:2608.25986": {
+      "added": "2026-08-28",
+      "added_at": "2026-08-28T06:09:35.878474",
+      "arxiv_id": "2608.25986",
+      "authors": [
+        "Zongyu Wu",
+        "Yilong Wang",
+        "Xiaochen Wang",
+        "Minhua Lin",
+        "Zhichao Xu",
+        "Fenglong Ma",
+        "Xiang Zhang",
+        "Suhang Wang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-26",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.25986.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.25986v1",
+      "reading_value": 4,
+      "reading_value_reason": "マルチモーダルRAGにおけるモダリティ間の意味的乖離という重要な課題に対し、多粒度な文脈注入という具体的かつ実用的な解決策を提案しており、研究の新規性と有用性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi-Granularity Context-Enhanced RAG over Multimodal Knowledge Graphs",
+      "tldr": "既存のマルチモーダル知識グラフ（MMKG）を用いたRAGは、視覚情報とテキストの文脈が十分に融合されず、意味的な乖離が生じる課題がある。本研究では、視覚要素に対して局所的および大域的なテキスト文脈を付与する文脈強化型MMKG（CEMMKG）構築フレームワークを提案し、RAGの性能を向上させる。",
+      "url": "http://arxiv.org/abs/2608.25986v1",
+      "venue": ""
+    },
+    "arxiv:2608.26091": {
+      "added": "2026-08-28",
+      "added_at": "2026-08-28T06:08:19.960326",
+      "arxiv_id": "2608.26091",
+      "authors": [
+        "Nabaraj Subedi",
+        "Shuvo Dip Datta",
+        "Ahmed Abdelaty",
+        "Shivanand Venkanna Sheshappanavar"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-26",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.26091.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.26091v1",
+      "reading_value": 4,
+      "reading_value_reason": "OCRによる情報損失を回避する視覚優先のRAGという設計が極めて実用的。ColPali等の最新技術を応用し、エージェントによる監査工程まで組み込んだ構成は新規性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "PlanSightRAG: A Visual-First Multimodal RAG for Automating Question Answering and Compliance Checking for Civil Standard Plans",
+      "tldr": "土木標準図面のコンプライアンス確認において、従来のOCRベースの手法は図面の幾何学的構造やレイアウト情報を喪失させる課題がある。本研究は、図面画像を直接インデックス化して推論を行う視覚優先のマルチモーダルRAGフレームワークPlanSightRAGを提案し、高い検索精度と適合性判定を実現した。",
+      "url": "http://arxiv.org/abs/2608.26091v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -7604,6 +7672,40 @@
       "url": "http://arxiv.org/abs/2508.06767v1",
       "venue": "GC Workshops"
     },
+    "doi:10.1109/icra55743.2025.11128836": {
+      "added": "2026-08-28",
+      "added_at": "2026-08-28T06:04:00.504974",
+      "arxiv_id": "2409.14491",
+      "authors": [
+        "Rishi Veerapaneni",
+        "Arthur Jakobsson",
+        "Kevin Ren",
+        "Samuel Kim",
+        "Jiaoyang Li",
+        "Maxim Likhachev"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-09-22",
+      "doi": "10.1109/ICRA55743.2025.11128836",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2409.14491.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2409.14491v1",
+      "reading_value": 4,
+      "reading_value_reason": "大規模な模倣学習の限界を指摘し、既存の衝突回避技術を後処理として組み合わせる実用的なアプローチを提案している。学習コストを劇的に下げつつ性能を向上させた点は、MAPF研究者にとって極めて有用な知見である。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Work Smarter Not Harder: Simple Imitation Learning with CS-PIBT Outperforms Large Scale Imitation Learning for MAPF",
+      "tldr": "マルチエージェント経路探索（MAPF）において、大規模な模倣学習のみでは高密度環境での衝突解決が困難であるという課題に対し、単純な模倣学習に1ステップの衝突回避技術であるCS-PIBTを組み合わせる手法を提案する。これにより、極めて少ない学習データと短い学習時間で、既存の機械学習ベースの手法を上回る性能を達成できる。",
+      "url": "http://arxiv.org/abs/2409.14491v1",
+      "venue": "ICRA 2024"
+    },
     "doi:10.1109/ijcnn64981.2025.11227551": {
       "added": "2026-08-18",
       "added_at": "2026-08-18T06:02:32.501565",
@@ -7957,6 +8059,38 @@
       "tldr": "エージェントごとに移動時間が異なる非同期なマルチエージェント経路計画において、解の品質を犠牲にする代わりに、最大1000エージェント規模まで対応可能なスケーラビリティを実現するルールベースのプランニング手法を提案する。",
       "url": "http://arxiv.org/abs/2412.11678v2",
       "venue": "AAAI 2024"
+    },
+    "doi:10.1609/aaai.v39i22.34499": {
+      "added": "2026-08-28",
+      "added_at": "2026-08-28T06:02:42.573257",
+      "arxiv_id": "2410.01798",
+      "authors": [
+        "Rishi Veerapaneni",
+        "Muhammad Suhail Saleem",
+        "Jiaoyang Li",
+        "Maxim Likhachev"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-10-02",
+      "doi": "10.1609/aaai.v39i22.34499",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2410.01798.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2410.01798v3",
+      "reading_value": 4,
+      "reading_value_reason": "ウィンドウ方式のMAPFにおける「完全性の欠如」という長年の課題に対し、単一エージェントの知見を応用した理論的枠組みを提案しており、新規性と実用性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Windowed MAPF with Completeness Guarantees",
+      "tldr": "従来のウィンドウ方式のマルチエージェント経路計画（MAPF）は、計算コスト削減のために限定的な時間範囲のみを計画するが、デッドロックやライブロックにより完全性が失われる課題があった。本研究は、単一エージェントのリアルタイム探索の知見を応用し、解が存在する場合に必ず目標に到達できる完全性を保証するフレームワークWinC-MAPFを提案する。",
+      "url": "http://arxiv.org/abs/2410.01798v3",
+      "venue": "AAAI 2025"
     },
     "doi:10.1609/aaai.v40i35.40238": {
       "added": "2026-08-16",
