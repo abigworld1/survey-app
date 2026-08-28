@@ -4547,6 +4547,71 @@
       "url": "http://arxiv.org/abs/2608.19526v1",
       "venue": ""
     },
+    "doi:10.48550/arxiv.2608.22688": {
+      "added": "2026-08-29",
+      "added_at": "2026-08-29T06:06:51.821949",
+      "arxiv_id": "2608.22688",
+      "authors": [
+        "Yujuan Ding",
+        "Linyin Luo",
+        "Shijie Wang",
+        "Xu Yuan",
+        "Yunshan Ma",
+        "Yi Bin",
+        "Wenqi Fan",
+        "Qing Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-24",
+      "doi": "10.48550/arxiv.2608.22688",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.22688.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.22688v1",
+      "reading_value": 3,
+      "reading_value_reason": "特定のドメイン（ファッション）に特化したKG構築と、ノイズ除去のための二段階再ランキング手法は、RAG研究において実用的な示唆を与える。ただし、手法の新規性は既存のKG-RAGの応用範囲内であり、汎用的な計算機科学的貢献としては限定的。",
+      "relevance": 8,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "FashionKG-RAG: Knowledge Graph-Enhanced Retrieval-Augmented Generation for Fashion Question Answering",
+      "tldr": "ファッション分野における大規模言語モデルのハルシネーションと専門知識不足を解決するため、権威ある教科書に基づく包括的な知識グラフFashionEcoKGと、クエリのノイズを排除して論理的検証を行う学習不要のフレームワークPG-RAGを提案する。",
+      "url": "http://arxiv.org/abs/2608.22688v1",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2608.25466": {
+      "added": "2026-08-29",
+      "added_at": "2026-08-29T06:08:20.533767",
+      "arxiv_id": "2608.25466",
+      "authors": [
+        "Azrin Sultana"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-26",
+      "doi": "10.48550/arxiv.2608.25466",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.25466.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.25466v1",
+      "reading_value": 4,
+      "reading_value_reason": "生物学的知識（相同性）をRAGの検索プロセスに明示的に組み込んだ点が非常に新規性が高く、ドメイン特化型RAGの設計指針として価値が高い。",
+      "relevance": 7,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Homo-RAG: Homology-Guided Retrieval-Augmented Generation for Cross-Species Gene Function Prediction",
+      "tldr": "非モデル生物の遺伝子機能予測における知識不足と誤情報の生成を解決するため、相同性をガイドとしたマルチホップ検索と、生物学的根拠に基づく再ランキングを統合したRAGフレームワークHomo-RAGを提案する。",
+      "url": "http://arxiv.org/abs/2608.25466v1",
+      "venue": ""
+    },
     "doi:10.5281/zenodo.21874580": {
       "added": "2026-08-21",
       "added_at": "2026-08-21T06:08:21.543969",
@@ -7541,6 +7606,70 @@
       "tldr": "タスクを持つエージェントが目的地（ステーション）に到達する前に、交換可能な中継点（ピボット）を必ず経由しなければならない新しいMAPFの変種、PS-MAPFを提案する。ピボットが一つ存在するだけで、最大完了時間（makespan）や完了時刻の総和（flowtime）の最小化がNP困難であることを示し、高速かつ高品質な経路計画アルゴリズムであるPPPを提示する。",
       "url": "http://arxiv.org/abs/2608.24585v1",
       "venue": ""
+    },
+    "arxiv:2608.26759": {
+      "added": "2026-08-29",
+      "added_at": "2026-08-29T06:04:17.781143",
+      "arxiv_id": "2608.26759",
+      "authors": [
+        "Taisei Hirayama",
+        "Kohei Yoshida",
+        "Hiroki Sakaji",
+        "Itsuki Noda"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-27",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2608.26759.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.26759v1",
+      "reading_value": 4,
+      "reading_value_reason": "高密度・複雑な倉庫環境での完遂性を理論的に保証する手法は実用的価値が高い。実験による堅牢性の証明と計算コストのトレードオフの明示も評価できる。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Fixed-Haven Reservation for Online Multi-Agent Pickup and Delivery in Dense Warehouses",
+      "tldr": "高密度な倉庫環境におけるオンラインのマルチエージェント・ピックアップ・アンド・デリバリー（MAPD）において、各エージェントが自身の開始地点を排他的な避難所（Safe Haven）として予約することで、すべてのタスクを有限時間内に完了させることを保証する手法SHARPを提案する。",
+      "url": "http://arxiv.org/abs/2608.26759v1",
+      "venue": "the 14th Workshop on Planning and Robotics (PlanRob), co-located with ICAPS 2026"
+    },
+    "arxiv:2608.26939": {
+      "added": "2026-08-29",
+      "added_at": "2026-08-29T06:03:03.108836",
+      "arxiv_id": "2608.26939",
+      "authors": [
+        "Taisei Hirayama",
+        "Kohei Yoshida",
+        "Hiroki Sakaji",
+        "Itsuki Noda"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-27",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2608.26939.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.26939v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPDにおける退避場所の動的選択という実用的な課題に対し、所有権移転の整合性を保つプロトコルを導入し、安全性と完了性を理論的に証明している点が非常に価値高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Dynamic Haven Selection for Multi-Agent Pickup and Delivery in Constrained Warehouses",
+      "tldr": "狭小な通路や行き止まりが多い倉庫環境でのマルチエージェント・ピックアップ・デリバリー（MAPD）において、退避場所（Haven）を動的に選択する手法A-sharpを提案する。これにより、エージェントが遠方の固定された退避先へ向かう無駄な移動を抑えつつ、衝突やデッドロックを回避して全タスクを確実に完了できる。",
+      "url": "http://arxiv.org/abs/2608.26939v1",
+      "venue": "the Joint Workshop on Planning for Complex Real-World Applications (CAIPI) and Bridging the Gap Between AI Planning and (Reinforcement) Learning (PRL), co-located with IJCAI-ECAI 2026"
     },
     "doi:10.1007/978-3-032-25029-2_15": {
       "added": "2026-08-17",

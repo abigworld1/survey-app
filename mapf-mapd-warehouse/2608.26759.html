@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Fixed-Haven Reservation for Online Multi-Agent Pickup and Delivery in Dense Warehouses | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Fixed-Haven Reservation for Online Multi-Agent Pickup and Delivery in Dense Warehouses</h1>
+  <div class="meta">Taisei Hirayama, Kohei Yoshida, Hiroki Sakaji, Itsuki Noda<br>採択先: the 14th Workshop on Planning and Robotics (PlanRob), co-located with ICAPS 2026 ・ 2026-08-27 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.26759v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.26759v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 the 14th Workshop on Planning and Robotics (PlanRob), co-located with ICAPS 2026</span><span class="chip">公開日 2026-08-27</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">高密度・複雑な倉庫環境での完遂性を理論的に保証する手法は実用的価値が高い。実験による堅牢性の証明と計算コストのトレードオフの明示も評価できる。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 高密度な倉庫環境におけるオンラインのマルチエージェント・ピックアップ・アンド・デリバリー（MAPD）において、各エージェントが自身の開始地点を排他的な避難所（Safe Haven）として予約することで、すべてのタスクを有限時間内に完了させることを保証する手法SHARPを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>タスクが時間経過とともに順次発生するオンラインのMAPD問題を対象とする。単一レーンの通路、行き止まり、木構造の経路を持つ高密度な環境では、待機中や移動中のエージェントが狭い通路を塞いでしまい、タスクの完遂が困難になる。既存手法の多くは、経路が回避できる追加の待機地点が存在することや、グラフが二連結であることを前提としているが、実際の倉庫レイアウトではこれらの条件が満たされない場合がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のToken Passing（TP）などの手法は、タスク地点自体が狭い通路にある場合に、それらを回避すべき終端地点として扱う必要がある。これに対し、本研究は共有の退避用プールを必要とせず、各エージェントに固定された排他的な避難所を割り当てる。タスクエリアが空になる静止状態への収束を通じて、有限のタスク放出下での完備性を理論的に証明した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>各エージェントに、自身のみが占有可能で他者は進入できない固定の避難所を割り当てる。エージェントは、タスク実行中、帰還中、待機の3状態を持つ。タスク実行中のエージェントは、現在地から未完了のタスク地点を経由して避難所に至る、衝突のない時空間予約経路を常に維持する。帰還中のエージェントが新しいタスクを受け取る際は、既存の帰還経路の末尾を、新しいタスクと避難所を結ぶ経路で上書きする。タスクの割り当ては、待機中または帰還中のエージェントの中から、未完了タスクへの最短距離に基づくルールで行い、Safe Interval Path Planning（SIPP）を用いて経路の妥当性を検証した上で確定させる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>倉庫を模した4種類のマップ（well-formed、narrow-bi、narrow-bi-dead、tree）を用い、TP、PIBT、PIBTTP-TAと比較した。木構造を含む複雑なレイアウトにおいて、SHARPはテストしたすべての構成で成功率100%を達成した。また、帰還中の経路上書きを無効にした変種との比較により、上書き機能を無効にすると、高負荷な木構造環境においてサービス時間が1.89倍、メイクスパンが1.53倍悪化することを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、中央集権的な管理者がグローバルな予約テーブルを保持し、経路実行を同期することを前提としている。木構造のレイアウトでは、SIPPによる経路探索の計算コストが大幅に増大するというトレードオフがある。理論的な保証には、避難所への到達可能性、タスクの滞留時間がゼロであること、タスク放出が有限であること、およびタスクの譲渡を行わないコミットメントモデルが必要である。今後の課題として、非ゼロの滞留時間や動的な避難所の再割り当て、連続的な自由空間での移動への対応が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Fixed-Haven Reservation for Online Multi-Agent Pickup and Delivery in Dense Warehouses</h3><p>高密度な倉庫環境におけるオンラインのマルチエージェント・ピックアップ・アンド・デリバリー（MAPD）において、各エージェントが自身の開始地点などの特定のセルを、自身のみが占有可能で他者が進入できない「Safe Haven（セーフ・ヘイブン）」として予約する手法を提案している。この手法は、単一レーンの通路や行き止まり、木構造の経路といった、エージェントの待機が他者の進行を妨げやすい環境に対応することを目的としている。提案手法であるSHARPは、稼働中または退避中のすべてのエージェントに対し、自身のヘイブンで終了する衝突のない予約済み経路を維持するプランナーである。実験において、Token Passing（TP）やPIBT系の手法と比較した結果、木構造のような経路を持つ環境において、SHARPはテストされたすべての構成で100%のタスク完了率を達成する堅牢性を示した。ただし、木構造のレイアウトでは中央集権的な計画コストが大幅に増加する。また、退避中の経路再割り当てを無効にしたバリエーションでは、高負荷な木構造条件下において、サービス時間（タスク発生から配送までの遅延）が1.89倍、メイクスパンが1.53倍悪化することが確認されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、タスクが時間経過とともに順次発生するオンラインのマルチエージェント・ピックアップ・アンド・デリバリー（MAPD）問題において、高密度な倉庫環境での完遂性を保証する手法を提案している。単一レーンの通路や行き止まり、樹状の経路を持つグラフ構造では、待機中や移動中のエージェントが狭い通路を塞ぎ、タスクの完遂を妨げる問題が生じる。これに対し、提案手法であるSHARPは、各エージェントに固定の避難所（Safe Haven）を割り当て、エージェントがタスク実行中または配送後に避難所へ戻るまでの経路を衝突のない予約として維持する契約モデルを導入している。具体的には、Safe Interval Path Planning（SIPP）を用いて経路の妥当性を検証し、避難所を所有者以外の進入から保護することで、避難所への到達可能性が満たされる限り、有限個のタスクが放出される設定において全てのタスクを有限時間内に完了させることを保証する。また、避難所への退避中に新しいタスクが割り当てられた場合でも、既存の退避経路の末尾を新しいタスクと避難所を結ぶ経路で上書きすることで、効率性を維持しつつ安全性を確保している。</p></section>
+<section class="secsum"><h3>2 Related Work and Positioning</h3><p>本研究は、タスクが時間経過とともに提示されるオンラインのマルチエージェント・ピックアップ＆デリバリー（MAPD）問題を対象としています。既存のToken Passing（TP）などの手法は、タスク地点や待機地点を他の経路が避けるべき終端点と定義する「well-formed」な環境下で完備性を保証しますが、この条件はタスク地点が狭い通路にある場合に制約が強くなる課題があります。これに対し、提案手法であるSHARPは、各エージェントの開始地点を排他的な退避場所であるHavenとして固定し、実行中のエージェントが常に自身のHavenへ戻れる経路を確保し続けるという不変条件を維持します。SHARPは共有の退避用プールを必要とせず、タスクエリアが空になる静止状態への収束を通じて完備性を証明する点が、既存の退避場所を利用する手法とは異なります。評価においては、TPの枠組みに固定の帰還地点を導入した対照的な手法を用いることで、タスクの入れ替えではなく、固定の帰還地点の有無が性能に与える影響を分離して検証します。</p></section>
+<section class="secsum"><h3>3 SHARP Coordination Framework</h3><p>SHARPは、高密度な倉庫環境におけるオンラインのマルチエージェント・ピックアップ＆デリバリー（MAPD）問題を解決するための、固定Haven（避難所）予約フレームワークである。各エージェントには開始地点をベースとした排他的なHavenが割り当てられ、他のエージェントはそのHavenを進入禁止領域として扱う。エージェントは、タスクを実行中のbusy、タスク終了後にHavenへ戻るretreating、Havenで待機するidleの3つの状態を持ち、SHARPはSIPPを用いて、現在の位置からタスク地点を経由してHavenに至るまでの衝突のない経路を時空間予約テーブルに記録する。タスク割り当てには、待機中または帰還中のエージェントの中から、未完了タスクへの最短距離に基づく近傍ピックアップ割り当てルールを採用しており、SIPPによる経路検証が成功した場合のみタスクをコミットする。この手法は、タスクの端点候補が接続された領域内にあり、かつ各Havenへその領域からアクセス可能であるというHaven-Reachability（Haven到達可能性）という静的な条件を満たす場合に、タスクの完了を保証する。1ステップあたりの計算量は、保留中のタスク数をT、SIPPの計算コストをCとしたとき、O(T * C)のオーダーで動作する。</p></section>
+<section class="secsum"><h3>4 Completeness Under Fixed Havens</h3><p>本セクションでは、提案手法であるSHARPが、有限個のタスクが放出された際にすべてのタスクを有限時間内に完了させる「有限放出完全性」を満たすことを理論的に証明している。まず、すべてのエージェントが自身のHaven（避難所）に位置し、将来の予約もそのHavenから出発しない状態を静止状態と定義する。SHARPのタスク割り当てルールは、静止状態において実行可能なエージェントとタスクのペアが存在する場合に少なくとも1つを割り当てる「割り当て進行特性」を満たし、さらにエージェントが予約された経路に従って確実にHavenへ戻る「経路実行進行条件」を満たす。Havenへの到達可能性の仮定に基づき、静止状態ではすべてのエージェントがすべての未完了タスクに対して、他のHavenを障害物として扱うことで衝突のない経路を確保できることが示される。SHARPが「安全なHaven予約不変量」を維持し、割り当てと実行の各進行条件を満たすことから、タスクの放出が終了した後はシステムが必ず静止状態へと収束し、すべてのタスクが完了することが導かれる。</p></section>
+<section class="secsum"><h3>5 Warehouse-Inspired Experiments</h3><p>本実験では、倉庫環境を模した4種類のマップ（well-formed、narrow-bi、narrow-bi-dead、tree）を用いて、提案手法であるSHARPの堅牢性とタスク性能を検証しています。エージェント数とタスク生成率を変化させたメインスイープの結果、狭い通路や行き止まり、木構造を持つ複雑なレイアウトにおいて、SHARPは全設定で成功率100%を達成し、比較手法に対して高い構造的堅牢性を示しました。タスク性能の評価では、成功した実行のみを対象に、完了時間（makespan）やサービス時間（タスク発生から配送までの遅延）を、最も優れた非SHARP手法に対する比率として算出しています。対照実験として、エージェントの開始地点を固定の帰還地点とするTP形式の検証を行った結果、SHARPは帰還経路の予約機能を維持しつつ、退避中の経路を新しいタスク経路で上書きできるため、固定帰還を強制する手法よりも効率的にタスクを処理できることが示されました。また、退避中の経路上書きを禁止した変種を用いた解析により、上書き機能がタスク効率の向上に寄与していることが確認されました。一方で、SHARPは木構造のマップにおいて、高い成功率と引き換えに、SIPP（Safe Interval Path Planning）に基づく経路探索の計算コスト（ノード展開数や検索回数）が大幅に増大するというトレードオフも明らかになっています。</p></section>
+<section class="secsum"><h3>6 Deployment Assumptions and Limitations</h3><p>SHARPは、グローバルな予約テーブルと同期された経路実行を行う中央集権的なフリートマネージャーの存在を前提としており、分散型手法との比較は主に構造的な適用性の観点から行われています。本手法の理論的な保証は、固定された排他的なHaven（避難所）の存在、積み下ろしに伴う滞留時間がゼロであること、有限のタスク放出、および固定Havenコミットメントモデルに基づいています。タスクの入れ替え、非ゼロの滞留時間、確率的な遅延、動的なHavenの再割り当て、あるいは安定したガイドパスグラフを伴わない自由空間移動などを扱うには、追加のメカニズムと証明が必要です。報告されている実行時間は平均値であり、ステップごとのテールレイテンシではないため、厳格な dispatch デッドラインが求められる運用では、テールレイテンシの測定とプランニングカーネルの最適化が必要となります。実験で使用したツリー状のレイアウトは、実際のフロアプランではなくツリー構造的な保管・回収の抽象化として捉えるべきであり、SHARPはエージェントごとのホームセルやドックが自然に存在し、中央集権的な計画が許容される環境において最も効果的です。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>SHARPは、固定された避難場所（Haven）への退避予約を維持することで、高密度な倉庫環境におけるオンラインのマルチエージェント・ピックアップ＆デリバリー（MAPD）問題を解決するフレームワークである。この手法は、避難場所への到達可能性や計画の進捗に関する特定の仮定の下で、有限のリリース完了性を保証する。実験では、代表的なTPやPIBT系の手法と比較して、テストされたすべてのレイアウトにおいて100%の成功率を達成した。分析の結果、ルート全体の検証を伴う固定の帰還契約が、テストされたツリー構造のケースにおいて堅牢性を確保するための中心的なメカニズムであることが示された。また、退避中の経路の上書きを行わない手法でも堅牢性は維持されるが、上書きを行うことでサービス時間やメイクスパンが大幅に改善されることが判明した。SHARPのアルゴリズム的な貢献は、この固定帰還契約をより効率的に活用することにあるが、同時に大きな集中計画コストが生じることも明らかになった。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-29
+  </footer>
+</div>
+</body>
+</html>

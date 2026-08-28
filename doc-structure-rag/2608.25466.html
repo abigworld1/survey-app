@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Homo-RAG: Homology-Guided Retrieval-Augmented Generation for Cross-Species Gene Function Prediction | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Homo-RAG: Homology-Guided Retrieval-Augmented Generation for Cross-Species Gene Function Prediction</h1>
+  <div class="meta">Azrin Sultana<br>採択先: 未取得 ・ 2026-08-26 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.25466v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.25466v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2608.25466" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-26</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 7</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">生物学的知識（相同性）をRAGの検索プロセスに明示的に組み込んだ点が非常に新規性が高く、ドメイン特化型RAGの設計指針として価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 非モデル生物の遺伝子機能予測における知識不足と誤情報の生成を解決するため、相同性をガイドとしたマルチホップ検索と、生物学的根拠に基づく再ランキングを統合したRAGフレームワークHomo-RAGを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>非モデル生物の遺伝子機能注釈では、配列の20%から70%において機能が未解明であるという課題がある。従来の配列類似性に基づく手法は計算コストが高く、高精度な類似性に強く依存する。また、大規模言語モデル（LLM）を用いた予測においても、外部知識の不足や誤情報の生成が問題となる。本研究は、ゼブラフィッシュとヒトのオーソログ（種を越えた相同遺伝子）の関係性を活用し、生物学的知識ベースから正確な証拠を取得・統合することを目的とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>オーソログの関係性を検索のガイドとして利用するマルチホップ検索を導入し、遺伝子、オーソログ、機能注釈、文献の間の関係性を活用した点が新規である。また、検索の関連性（Relevance）を補完するために、情報源の信頼性や生物学的な一致度を考慮したEvidence Confidence Scoring（ECS）という再ランキング手法を提案している。これにより、検索結果の質を生物学的な妥当性に基づいて精査することが可能となった。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>ZFIN、UniProt、PubMedの3つのソースからなるドキュメント群に対し、密ベクトル検索と語彙検索を組み合わせたハイブリッド検索を行う。ターゲット遺伝子のプロファイル特定から始まり、ヒトオーソログを介してUniProtの機能注釈へ、さらにPubMedの文献へと段階的に検索範囲を広げるマルチホップ構成をとる。各ステップでクエリの再構成を行い、取得した候補はECSによって再ランキングされる。ECSは、意味的類似度、遺伝子シンボルの完全一致、オーソログの含有、情報源の信頼性、および複数の検索ステップにわたる証拠の一貫性を、重み付け線形結合によって統合して算出する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>150件のクエリと7,200件の取得文書を用いて評価を行った。3段階のホップによる拡張により、Recall@10は0.73から0.94へ、NDCG@10は0.83から0.98へと向上した。ECSの重み付けパラメータを0.50に設定した場合、NDCG@10は0.9879、MRRは0.99に達し、99.33%のクエリで関連する証拠の取得に成功した。生成モデルの比較では、Phi-3.5-mini-InstructがBERTScore 0.87、Semantic Similarity 0.84を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、検索ステップ間の重複を約20%に抑えることで、コンテキストの希釈を防ぎつつ多様な証拠を確保できる。しかし、現在は証拠固有の特徴量のみを使用しており、グラフベースの特徴量を組み込んでいないため、スコア生成の信頼性に課題がある。また、証拠の重み付けを過剰に行うと、元の検索信号が損なわれ性能が低下するというトレードオフが存在する。今後の課題として、より多くの生物学的特徴を組み込んだ学習型ランキングモデルの開発や、主張レベルでの証拠の帰属メカニズムの構築が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Homo-RAG: Homology-Guided Retrieval-Augmented Generation for Cross-Species Gene Function Prediction</h3><p>Homo-RAGは、モデル生物ではない生物種の遺伝子機能注釈における課題を解決するため、相同性をガイドとしたマルチホップ検索と証拠に基づいたランキングを用いるRAGフレームワークである。本手法は、ゼブラフィッシュとヒトのオーソログ間の生物学的関係を利用し、ZFIN、UniProt、PubMedからハイブリッドな密ベクトル検索と語彙検索を組み合わせて証拠を取得する。取得した証拠の順位付けには、意味的な関連性、エンティティの一致、オーソログ情報、ソースの信頼性、および文献との関連信号を統合した証拠信頼度スコア（ECS）を用いる。150件のクエリと7,200件の取得文書を用いた評価では、証拠の重み付けを0.50に設定した際に、NDCG@10が0.9879、MRRが0.99に達する精度を示した。また、クエリの99.33%に対して関連する証拠を検索でき、取得文書の80%がクエリ固有の情報であったことから、証拠の質が検索の関連性を補完することが確認された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、種を越えた遺伝子機能予測において、大規模言語モデル（LLM）の知識不足やハルシネーションを解決するために、Homo-RAGという新しいフレームワークを提案している。従来の配列類似性に基づく手法やLLMのファインチューニングは、計算コストや情報の更新性の面で課題があるが、Homo-RAGは検索拡張生成（RAG）技術を活用し、外部知識ベースから動的に情報を取得することで、最新かつ正確な遺伝子情報の統合を可能にする。本手法の核心は、精査されたオーソログ（種を越えた相同遺伝子）の関係性を明示的な検索制約として利用する点にあり、クエリ遺伝子に対応するオーソログを特定した上で、UniProtからタンパク質の記述や機能注釈、パスウェイ情報などを取得する。さらに、取得した生物学的概念を用いて検索クエリを適応的に再構成するマルチホップ検索を採用しており、検索が進むにつれてより具体的な文献探索が可能となる仕組みを備えている。また、従来のRAGの限界を克服するため、意味的な関連性だけでなく、遺伝子の一致、オーソログの一致、情報源の信頼性、文献との関連性などの生物学的根拠に基づいたランキング手法であるEvidence Confidence Scoringを導入しており、候補集合から最も信頼性が高く関連性の強い証拠を絞り込んでLLMに提供する。</p></section>
+<section class="secsum"><h3>2 Literature review</h3><p>タンパク質機能予測における既存手法は、主に配列ベースの深層学習モデルと、複数の情報を統合するマルチモーダルなアプローチに大別される。配列ベースの手法では、CNNによる局所的なモチーフや空間的関係の抽出、RNNによるアミノ酸間の逐次的な依存関係の捕捉、そしてTransformerによる長距離依存関係の抽出がそれぞれ用いられてきた。情報の統合に関しては、タンパク質間相互作用ネットワークやドメイン情報、さらにはPubMedのテキストデータやGene Ontology（GO）のグラフ構造を組み合わせる手法が提案されており、NetGOシリーズやDeepGATGOなどがその代表例である。近年では、大規模言語モデル（LLM）の能力を拡張するために検索拡張生成（RAG）を活用する動きがあり、GeneRAGは最大マージナルリレバンス（MMR）アルゴリズムを用いることで、遺伝子に関する質問回答や細胞型アノテーションの精度を向上させている。また、RAGを動的なオーバーサンプリング戦略として用いて構造的コンテキストを組み込む手法や、複数の公開リソースから構築された遺伝子相互作用知識グラフからクエリに基づきサブグラフを動的に抽出するGIP-RAGなど、外部知識を活用して予測の精度を高める試みが進んでいる。</p></section>
+<section class="secsum"><h3>3 Methodology</h3><p>Homo-RAGは、非モデル生物の遺伝子機能予測において、相同性を活用したマルチホップ検索と生成を組み合わせたフレームワークである。本手法は、ZFIN（ゼブラフィッシュ遺伝子情報）、UniProt（ヒトタンパク質機能情報）、PubMed（文献情報）の3つの異なるソースから構成されるドキュメント群を構築し、遺伝子プロファイル、UniProt知識、PubMed文献の3つのドキュメントタイプに分類して管理する。検索プロセスでは、S-PubMedBERTを用いた密ベクトル検索とBM25による語彙検索を組み合わせたハイブリッド検索を採用しており、パラメータによって両者の寄与を調整する。最大の特徴は相同性を利用したマルチホップ検索であり、ターゲットとなるゼブラフィッシュ遺伝子から、そのヒトオーソログを介して、より豊富な機能注釈や文献情報へと検索対象を段階的に拡張するクエリ再構成を行う。さらに、検索された証拠の信頼性を評価するために、証拠信頼度スコア（ECS）を導入しており、これは密ベクトルによる意味的類似度、遺伝子シンボルの完全一致、オーソログの含有、およびソースの信頼性といった複数の特徴量を重み付け線形結合することで算出される。最終的に、これらのプロセスを経て選別された高精度な証拠がコンテキストとして言語モデルに提供され、生物学的に裏付けられた遺伝子機能の予測が行われる。</p></section>
+<section class="secsum"><h3>4 Result</h3><p>Homo-RAGフレームワークの評価実験では、遺伝子プロファイル、UniProt、PubMedの3段階の検索プロセスを用いるハイブリッド検索エンジンが、高い堅牢性と多様性を持つことが示されました。検索の精度は極めて高く、平均適合順位を示すMRRが0.980、上位3位以内に正解が含まれる割合を示すHit@3が99.3%に達しており、関連する証拠が極めて高い確率で上位に配置されます。検索候補数Kを増やしていく分析では、K=10の時点で再現率が飽和し、それ以上の候補追加はノイズを増やす傾向があることが判明しました。また、ソースの信頼性と意味的関連性を統合するECSにおいて、補間重みlambdaを0.30に設定することで、NDCG@10が0.9879、MRRが0.990という最高性能を達成しました。アブレーション研究により、遺伝子プロファイルが高精度な信号を、PubMedが候補の多様性を提供することで、3段階のプロセスが相乗的に機能していることが確認されました。生成モデルの比較では、Phi-3.5-mini-Instructが意味的類似度や言語的多様性の指標において最も高い性能を示したため、最終的な生成モデルとして選定されました。</p></section>
+<section class="secsum"><h3>5 Discussion</h3><p>Homo-RAGは、BM25による語彙検索とFAISSによる意味検索を組み合わせたハイブリッド検索により、NDCG@10で0.9805、Hit@10で0.9933という高いベースライン性能を達成しています。3段階のグラフ拡張（Gene Profile、UniProt、PubMed）は、各ステップ間の重複を20%に抑えることで、コンテキストウィンドウの希釈を防ぎつつ多様な証拠を提供しており、特にPubMedは候補の多様性を確保する上で不可欠な役割を担っています。証拠の信頼性を考慮した再ランキング機構は、補間重みを0.5に設定した際にPrecision@10を0.4186から0.8856へと大幅に向上させています。生成実験では、Phi-3.5-mini-InstructがBERTScore 0.87、Semantic Similarity 0.84という高い精度と多様性を示し、計算コストとのトレードオフを踏まえたモデルとして選定されています。本手法の限界として、現在は証拠固有の特徴量が限定的であることや、最先端のモデルではなくオープンソースのLLMを使用していることが挙げられます。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究は、非モデル生物における根拠に基づいた遺伝子機能予測のための新フレームワークであるHomo-RAGを提案している。この手法は、遺伝子プロファイルからUniProt、さらにPubMedへと段階的に証拠を拡張するホモロジーを考慮した3ホップの知識グラフを構築しており、これによりRecall@10が0.73から0.94へ、NDCG@10が0.83から0.98へと性能を向上させた。また、情報のソースの信頼性とホップ間の証拠の一貫性を統合して再ランキングを行うECSと、検索のたびにクエリを再構成して外部文書から正確な情報を抽出する設計を導入している。実験の結果、証拠に基づいたランキングは検索の関連性を補完するメカニズムとして最も効果的であり、証拠の重み付けを過剰に行うと性能が著しく低下するため、元の検索信号を主要なランキング要因として維持する必要があることが示された。現在の限界として、グラフベースの特徴量を用いず証拠の特徴量のみを使用しているため、スコア生成の信頼性に課題が残る点が挙げられる。</p></section>
+<section class="secsum"><h3>Conflict of interest</h3><p>著者らは、本論文で報告された研究に影響を及ぼす可能性のある、既知の競合する金銭的利益や個人的な関係が存在しないことを宣言している。</p></section>
+<section class="secsum"><h3>Ethics approval and consent to participate</h3><p>本研究は、公開されている生物学的データベースおよび科学文献のデータセットのみを使用しており、ヒトの被験者や動物、および個人データの収集は一切含まれていない。したがって、倫理委員会の承認や研究への参加に関する同意を得る必要はない。</p></section>
+<section class="secsum"><h3>Data availability</h3><p>本研究で使用されたデータセットは、Zebrafish Information Network (ZFIN)、UniProt、およびPubMedなどの公開リソースから取得されています。処理済みのデータセットおよび関連するデータ処理の手順については、元のデータソースの利用規約に従うことを条件として、合理的な要求があれば責任著者から入手可能です。</p></section>
+<section class="secsum"><h3>Code availability</h3><p>提案手法であるHomo-RAGフレームワークのソースコードおよび実装一式は、論文の受理後に公開リポジトリを通じて提供される予定である。これには、データの事前処理、ドキュメントの構築、埋め込み、検索、再ランキング、および評価の一連の手順が含まれる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-29
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Dynamic Haven Selection for Multi-Agent Pickup and Delivery in Constrained Warehouses | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Dynamic Haven Selection for Multi-Agent Pickup and Delivery in Constrained Warehouses</h1>
+  <div class="meta">Taisei Hirayama, Kohei Yoshida, Hiroki Sakaji, Itsuki Noda<br>採択先: the Joint Workshop on Planning for Complex Real-World Applications (CAIPI) and Bridging the Gap Between AI Planning and (Reinforcement) Learning (PRL), co-located with IJCAI-ECAI 2026 ・ 2026-08-27 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.26939v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.26939v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 the Joint Workshop on Planning for Complex Real-World Applications (CAIPI) and Bridging the Gap Between AI Planning and (Reinforcement) Learning (PRL), co-located with IJCAI-ECAI 2026</span><span class="chip">公開日 2026-08-27</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPDにおける退避場所の動的選択という実用的な課題に対し、所有権移転の整合性を保つプロトコルを導入し、安全性と完了性を理論的に証明している点が非常に価値高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 狭小な通路や行き止まりが多い倉庫環境でのマルチエージェント・ピックアップ・デリバリー（MAPD）において、退避場所（Haven）を動的に選択する手法A-sharpを提案する。これにより、エージェントが遠方の固定された退避先へ向かう無駄な移動を抑えつつ、衝突やデッドロックを回避して全タスクを確実に完了できる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>単一エージェント幅の通路や行き止まりのワークステーションを含む、制約の強いグラフ構造におけるMAPDを対象とする。エージェントはオンラインでタスクを受け取るが、狭い経路では待機場所が不足し、他のエージェントの進行を妨げるリスクがある。既存のSHARP手法では、各エージェントの退避先が初期位置に固定されているため、配送後に遠方の退避先まで移動しなければならないという非効率性が存在する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>タスク割り当て時に、エージェントの退避先を動的に変更可能にした点が新規である。単なる動的な切り替えではなく、退避先の所有権移転に伴う可用性テストと、旧退避先を離脱するまで保護し続ける保留解放ルールを導入した。これにより、所有権の状態と実際の実行状態の乖離を防ぎ、特定のグラフ構造とSIPP（Safe Interval Path Planning）の条件下で、安全性と全タスクの完了性を理論的に証明した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>タスク割り当て時に、現在の位置からピックアップ、配送、そして選択したHavenを経由する一連の経路をSIPPを用いて計算する。Havenの選択にあたっては、候補となる頂点が「他のエージェントによって排他的に所有されていないこと」および「他のエージェントの将来の経路予約と衝突しないこと」の2条件を満たすか判定する。また、エージェントが旧Havenから物理的に離脱するまで、その頂点の所有権を保持し続けることで、所有権の移転と実際の占有状態の不一致を防止する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>4種類のマップ（標準的な倉庫型、狭い二連結グラフ型、行き止まりを含む二連結グラフ型、ツリー構造型）を用い、14,400のケースに対して計72,000回の試行を行った。評価指標は成功率、メイクスパン（最終配送時刻）、および計算時間である。実験の結果、提案手法とSHARPはすべての設定で100%の成功率を達成した。メイクスパンにおいて、Havenがエージェント数より多い138の構成のうち107で提案手法が有意に優れており、ツリー構造のマップでは中央値で16.7%の削減を記録した。計算時間の中央値は、SHARPの0.81倍となった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、決定論的な離散時間実行と中央集権的な予約テーブルを前提としており、機械的な故障や位置推定誤差などの不確実性は考慮されていない。また、各エージェントに個別のHavenが存在することを前提としているため、高密度な運用でHavenを共有する必要がある状況には対応していない。さらに、近傍のHavenを優先する選択ルールは、特定の狭い二連結グラフにおいて局所的な混雑を招き、サービス時間を悪化させるトレードオフがある。今後の課題は、混雑を考慮したHaven選択アルゴリズムへの拡張である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Dynamic Haven Selection for Multi-Agent Pickup and Delivery in Constrained Warehouses</h3><p>狭小な通路や行き止まりのある倉庫環境におけるマルチエージェントのピックアップ・デリバリー問題に対し、退避場所であるHaven（ヘイブン）を動的に選択する手法であるAdaptive SHARP（A-sharp）を提案する。従来のSHARPは各エージェントに固定のHavenを割り当てていたが、A-sharpはタスク割り当て時に候補となるHavenの中から動的に退避先を選択することで、エージェントが遠方のHavenへ向かうことを防ぐ。この際、複数のエージェントが同じ場所を予約したり、既存の経路を妨害したりすることを避けるため、候補地の空き状況を確認するテストと、エージェントが実際に以前のHavenから出発するまでその場所を保護し続ける保留解放ルールを導入している。Safe Interval Path Planning（SIPP）を用いる条件下において、不変条件の維持と、有限の解放シーケンスにおけるすべてのタスクが配送されるという完全性を証明している。4つのマップを用いた実験の結果、A-sharpはSHARPと比較して、テストしたツリー構造のマップにおいて完了時間（makespan）の中央値を16.7%削減し、138の構成のうち107において有意に優れた性能を示した。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>自動倉庫におけるマルチエージェントのピックアップ・デリバリー（MAPD）問題では、狭い通路や行き止まりのある制約の強いグラフ構造において、エージェントの滞留がタスクの完了性を損なう課題がある。既存のSHARP手法は、タスク実行経路と初期位置への退避経路をペアで確保するが、退避先であるHavenが固定されているため、近隣に安全な待機場所があっても不要な移動が発生するという限界がある。本研究では、動的に退避先を選択するAdaptive SHARP（A）を提案する。Aはタスク割り当て時に、近隣の利用可能なHavenを選択し、ピックアップ、配送、および選択したHavenを経由する全経路を予約する。この際、他エージェントによる将来の経路予約や排他的占有権との整合性を保つため、エージェントが実際に離脱するまで旧Havenの占有を維持する保留ルールを含む、所有権移転プロトコルを用いる。実験では、14,400通りの設定を用いた72,000回の試行により、提案手法と固定退避先を用いるSHARPの両方が100%の成功率を達成することを確認した。さらに、Havenに余裕がある構成において、提案手法はSHARPと比較して、統計的な補正後も完了時間の著しい悪化を招くことなく、多くのケースで完了時間の短縮を実現した。</p></section>
+<section class="secsum"><h3>2 Background and Positioning</h3><p>本セクションでは、マルチエージェント・ピックアップ＆デリバリー（MAPD）における既存手法の分類と、提案手法（A）の立ち位置が述べられている。MAPDは、各タスクに回収地点、配送地点、およびタスク開始時刻が設定され、エージェントが回収後に配送を行う問題を扱う。既存の完了保証手法には、グラフ構造に依存するToken Passing（TP）や、二重連結グラフなどの構造を前提とするPIBT、および待機ノードを動的に選択する待機ベースのデッドロック回避（SBDA）などがある。これに対し、提案手法（A）は、予約テーブルに基づき、衝突回避のための退避先（Haven）の独占的な所有権を、既存の予約を維持したままアトミックに転送できる点が特徴である。従来のSHARP手法は、エージェントの初期位置を固定の退避先として予約するが、提案手法は、安全性と完了性を損なうことなく、オンラインで退避先の所有権を動的に変更するメカニズムを導入している。本研究の目的は、スループットの向上ではなく、予約に基づく退避計画において、退避先の所有権転送が可能かという制約条件に焦点を当てて検証することにある。</p></section>
+<section class="secsum"><h3>3 Problem Setting and Haven Conditions</h3><p>無向グラフ上の離散時間において、頂点衝突およびエッジの入れ替わりによる衝突を禁止した複数エージェントによるピックアップ・デリバリー問題を扱う。タスクは、ピックアップ地点、デリバリー地点、および解放時刻の組として定義され、一度割り当てられたタスクは完了まで中断や移譲が行われない。エージェントはタスク割り当て時に、候補となる頂点集合から動的にヘイブン（待機場所）を選択できる。各エージェントは、現在のヘイブンや移動中の旧ヘイブンを含む、自身専用の保護されたヘイブン集合を保持しており、他のエージェントに保護されていない頂点は、通常の頂点と同様に移動が可能である。ヘイブン構造の条件として、タスクを支援するコアとなる頂点集合が連結であること、各ヘイブンがコア内の少なくとも1つの隣接頂点を持つこと、およびすべてのタスクの端点がコア内に存在することが定義されている。これらの条件は、ヘイブンを除去した後もタスクエリアの連結性が保たれ、かつ各ヘイブンがそのエリアから進入可能であることを保証し、有限の解放時刻における解の存在を担保するための十分条件となる。</p></section>
+<section class="secsum"><h3>4 Why Naive Dynamic Haven Switching Fails</h3><p>動的なHaven（退避場所）の切り替えにおいて、単純な手法では実行の安全性、予約の排他性、および置換のセマンティクスの3点において失敗が生じる。第一の失敗は、エージェントが物理的に旧Havenに留まっているにもかかわらず、所有権のみに基づいて早期に解放してしまうことで、所有権の状態と実際の実行状態が乖離し、他エージェントとの衝突を招く問題である。第二の失敗は、候補となるHavenが現在は空であっても、他のエージェントの将来の経路予約に含まれている場合、所有権のみを確認して選択すると、将来の頂点と時間の衝突が発生する問題である。第三の失敗は、エージェントが新しいタスクを受け入れた際に、自身の古い退避経路の予約を適切に上書きできないことで、自身の新しい計画を妨害したり、後続のエージェントを不当にブロックしたりする問題である。これらの問題を解決するため、提案手法では、所有権と将来の経路予約の両方を検証する可用性判定を行い、かつエージェントが旧Havenを実際に離脱するまで解放を遅延させることで、安全な切り替えを実現している。</p></section>
+<section class="secsum"><h3>5 A : Dynamic Haven Retreat Planning</h3><p>本手法は、マルチエージェントのピックアップ・デリバリーにおいて、タスク完了後にエージェントが退避するための避難所（Haven）を動的に割り当てるものである。各エージェントは排他的な避難所集合を持ち、割り当てられた避難所は他のエージェントによる占有を防ぐために保護されるが、エージェントが以前の避難所を離脱した時点でその保護は解除される。新しいタスクの割り当て時、エージェントは現在の位置からピックアップ地点、デリバリー地点、そして利用可能な避難所へと至る一連の経路を、SIPPを用いて検証する。利用可能な避難所の判定は、他のエージェントによる排他的な占有や予約が行われていないことを条件とし、エージェント自身の将来の予約は、新しい経路への置き換えを可能にするために無視される。割り当ての決定プロセスは、未完了タスクの中でピックアップ距離が最短のものと、利用可能な避難所の中でデリバリー地点からの距離が最短のものを組み合わせた候補を評価する貪欲法に基づいている。計算量については、1回の割り当てループのパスにおいて、待機中のエージェント数 N と未完了タスク数 M に対して、各エージェントの候補評価に O(1)、SIPPによる経路探索に O(SIPP) のコストがかかり、1タイムステップあたりの最悪計算量は O(N * M * SIPP) となる。なお、トラフィックが激しい状況下では、スループット向上のためのヒューリスティックにより、各エージェントに対して1つのタスクと避難所のペアのみを評価するため、検証に失敗した場合には他の組み合わせが存在していても割り当てが遅延する場合がある。</p></section>
+<section class="secsum"><h3>6 Theoretical Guarantees</h3><p>本セクションでは、有限個のタスクが順次放出されるMAPD（Multi-Agent Pickup and Delivery）設定において、提案手法Aがすべてのタスクを有限時間内に完了することを理論的に保証している。この保証は、決定論的な離散時間実行、中央集権的な予約テーブル、エージェントごとに異なる初期Haven（避難所）、およびSIPP（Safe Interval Path Planning）の健全性と特定の条件下での完全性を前提としている。実行不変量として、エージェントとHavenの割り当てが単射であることや、各エージェントが最大1つの古いHavenの解放待ち状態のみを持つことが定義され、予約不変量として、頂点と時間の予約の重複回避や、エージェントが現在のHavenへ至る有限の経路予約を持つことが定義されている。証明の構成として、まずHavenの所有権更新が不変量を維持することを示し、次に、割り当て、実行、および解放後のクリーンアップという一連のステップを経ても不変量が維持されることを示す。さらに、システムが静止状態（すべてのエージェントが現在のHavenで待機し、移動予約が残っていない状態）に達したとき、利用可能なHavenに対して完全な経路計画が成功することを証明している。最終的に、タスクの放出が有限回であり、タスク実行中のエージェントが再割り当ての対象外となるルールに基づき、すべての放出されたタスクが有限時間内に配送されることが定理として示されている。なお、本理論は実行遅延や動的障害物、位置誤差などは考慮していない。</p></section>
+<section class="secsum"><h3>7 Experiments</h3><p>本実験では、提案手法であるAと、既存手法であるSHARP、および構造的仮定に基づく3つのベースライン手法を、特性の異なる4種類のマップを用いて比較評価しています。評価指標には、タスク完了の成功率、全タスク完了時刻を示すメイクスパン、タスク放出から完了までの平均時間であるサービス時間、およびステップあたりの計算時間を用い、100個のシードに基づく統計的検定を行っています。実験の結果、SHARPとAはすべての設定において100%の成功率を達成しており、動的なHaven選択が安全性を維持しつつ頑健であることを示しました。性能面では、標準的なマップでの改善はわずかですが、制約の強いtreeマップにおいて、Aはメイクスパンを20.4%、サービス時間を16.2%削減しており、Havenに余剰がある設定で顕著な優位性を示しています。ただし、narrow-biconnectedマップの特定の条件下では、近傍のHavenを貪欲に選択することが局所的な混雑を招き、SHARPの方がサービス時間が短くなるケースも確認されており、選択戦略におけるトレードオフが存在します。計算時間については、AはHavenの空き状況確認のオーバーヘッドがあるものの、退避経路の短縮によるシミュレーションステップ数の減少により、ステップあたりの計算時間の中央値はSHARPの0.83倍、完了までの総計算時間の中央値は0.81倍と、むしろ高速化される傾向にあります。</p></section>
+<section class="secsum"><h3>8 Discussion and Limitations</h3><p>本研究の制約付きマップにおけるタスク性能の評価結果は、商用製品の性能指標ではなく、シミュレーション上でのアルゴリズム間の相対的な比較として解釈されるべきである。実験では各構造カテゴリに対して1つのマップを使用し、100個のシード値によって初期のHaven割り当てとタスク順序を変化させているが、マップのトポロジー自体を変化させているわけではないため、結果はテストした4つのレイアウトと需要モデルに限定される。実行モデルは決定論的な離散時間実行と中央集権的な予約テーブルを前提としており、予期せぬ遅延や機械的故障、位置推定誤差などの不確実性は考慮されていない。また、現在のフレームワークは各Havenが個別に存在することを前提としており、ロボットの密度が高まり共有の駐車スペースやキューイングが必要になる状況には対応していない。タスク選択やHaven選択には、最も近いタスクや最も近いHavenを選ぶ単純なヒューリスティックを用いているが、これは安全性に直接関わるものではなく、混雑を考慮した選択手法への置き換えが可能である。狭い二連結グラフのような構成で見られるサービス時間の損失は、局所的に近いHavenを選択することで制約のあるエリアに交通を集中させてしまうことに起因しており、これは選択アルゴリズムの改善によって解決できる課題である。</p></section>
+<section class="secsum"><h3>9 Conclusion</h3><p>提案手法Aは、動的な退避先（Haven）の選択に伴い、将来の経路予約とHavenの所有権を同時に更新するという課題に対し、利用可能性の確認と保留中の解放ルールを用いた所有権移転プロトコルを導入することで解決している。この手法は、明示的なHaven構造とSIPP（Safe Interval Path Planning）の仮定の下で、所有権の独占性と予約の不変性を維持し、有限のタスク放出シーケンスにおいて全てのタスクを完了できることが証明されている。実験では、提案手法Aと既存のSHARPの両方が全ての構成で成功率100%を達成しており、動的な所有権移転がシステムの堅牢性を損なわないことが示された。完了時間（makespan）の比較においては、Havenに余剰がある138の構成のうち107においてAが大幅に優れており、ツリー状のマップでは中央値で最大16.7%の改善が見られた。以上の結果から、狭い通路や行き止まりの多いレイアウトにおいても、完了を重視した安全な退避計画を動的に運用可能であることが示された。</p></section>
+<section class="secsum"><h3>Declaration on Generative AI</h3><p>著者らは、本研究の準備過程において、文章の言い換え、記述スタイルの改善、および文法や綴りの校正を目的としてOpenAI Codexを利用しました。科学的な内容や議論については著者らが提供および検証を行っており、ツールによって生成されたすべての変更箇所についても、著者ら自身が確認と編集を行っています。本論文の掲載内容に関するすべての責任は、著者らが負うものとしています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-29
+  </footer>
+</div>
+</body>
+</html>
