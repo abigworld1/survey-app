@@ -4612,6 +4612,68 @@
       "url": "http://arxiv.org/abs/2608.25466v1",
       "venue": ""
     },
+    "doi:10.48550/arxiv.2608.26379": {
+      "added": "2026-08-30",
+      "added_at": "2026-08-30T06:07:59.032881",
+      "arxiv_id": "2608.26379",
+      "authors": [
+        "Utshab Kumar Ghosh",
+        "Debayan Mukhopadhyay",
+        "Shubham Chatterjee"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-26",
+      "doi": "10.48550/arxiv.2608.26379",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.26379.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.26379v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの評価指標と下流タスクの乖離を「妥当性の構成問題」として理論的に提起し、多角的な検証を行った点が非常に示唆に富む。実用上の注意点として極めて価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Assessing the Downstream Utility of Evidence-Aware Retrieval in RAG",
+      "tldr": "RAGにおける検索評価を、単なるトピックの関連性から回答の根拠（回答支持）へとシフトさせた際、その改善が検索器の学習、システム選択、回答品質の予測といった下流の意思決定に必ずしも正当な価値をもたらさないことを明らかにした。",
+      "url": "http://arxiv.org/abs/2608.26379v1",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2608.26385": {
+      "added": "2026-08-30",
+      "added_at": "2026-08-30T06:06:24.363510",
+      "arxiv_id": "2608.26385",
+      "authors": [
+        "Alden Do Rosario",
+        "Hussein Younes",
+        "Felipe Pires"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-26",
+      "doi": "10.48550/arxiv.2608.26385",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.26385.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.26385v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの評価における「回答拒否」の重要性を指摘し、知識欠如を突くカナリー質問と非対称ペナルティを用いた新手法は、実用上のハルシネーション対策として極めて示唆に富む。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Why RAGs Hallucinate: Penalty-Aware Evaluation of Retrieval-Augmented Generation Systems with Knowledge-Gap Canaries",
+      "tldr": "従来のRAG評価は正解率に偏っており、知識ベースに答えがない場合に無理に回答する挙動を正当に評価できていない。本研究は、知識の欠如を検証する質問群と、回答拒否を適切に扱う非対称なペナルティ付きスコアリングを用いた評価フレームワークを提案する。",
+      "url": "http://arxiv.org/abs/2608.26385v1",
+      "venue": ""
+    },
     "doi:10.5281/zenodo.21874580": {
       "added": "2026-08-21",
       "added_at": "2026-08-21T06:08:21.543969",
@@ -7835,6 +7897,36 @@
       "url": "http://arxiv.org/abs/2409.14491v1",
       "venue": "ICRA 2024"
     },
+    "doi:10.1109/ictai62512.2024.00105": {
+      "added": "2026-08-30",
+      "added_at": "2026-08-30T06:03:50.433893",
+      "arxiv_id": "2409.10680",
+      "authors": [
+        "Kristýna Janovská",
+        "Pavel Surynek"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-09-16",
+      "doi": "10.1109/ICTAI62512.2024.00105",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2409.10680.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2409.10680v1",
+      "reading_value": 4,
+      "reading_value_reason": "連続的な時空間におけるMAPFという難題に対し、CBSとRRT*を組み合わせた提案手法は新規性が高く、既存のSMT-CBSに対する優位性も示されており、実用的な価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi-agent Path Finding in Continuous Environment",
+      "tldr": "時間と空間が共に連続的な環境において、エージェントが滑らかな曲線経路を辿りながら衝突を回避する問題に対し、高レベルの探索にConflict-Based Search、低レベルの経路計画にRRT*を組み合わせたCE-CBSを提案した。",
+      "url": "http://arxiv.org/abs/2409.10680v1",
+      "venue": "ICTAI"
+    },
     "doi:10.1109/ijcnn64981.2025.11227551": {
       "added": "2026-08-18",
       "added_at": "2026-08-18T06:02:32.501565",
@@ -7868,6 +7960,37 @@
       "tldr": "大規模言語モデル（LLM）の空間把握能力を補うため、グラフニューラルネットワーク（GNN）を用いたニューラルアルゴリズム推論器（NAR）とクロスアテンション機構を統合したLLM-NARを提案する。これにより、言語的な計画能力とグラフ構造に基づく空間理解を融合させ、マルチエージェント経路探索（MAPF）における高い成功率と経路効率を実現する。",
       "url": "http://arxiv.org/abs/2508.17971v1",
       "venue": "IJCNN"
+    },
+    "doi:10.1109/iros58592.2024.10801571": {
+      "added": "2026-08-30",
+      "added_at": "2026-08-30T06:02:37.829312",
+      "arxiv_id": "2409.13065",
+      "authors": [
+        "Jake Olkin",
+        "Viraj Parimi",
+        "Brian Williams"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-09-19",
+      "doi": "10.1109/IROS58592.2024.10801571",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2409.13065.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2409.13065v1",
+      "reading_value": 4,
+      "reading_value_reason": "通信制約下でのPOMDPをMAPFの枠組みで緩和する手法が独創的。実世界シナリオでの検証も具体的で、情報駆動型計画の研究者にとって有用。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi-Agent Vulcan: An Information-Driven Multi-Agent Path Finding Approach",
+      "tldr": "限られた通信環境下で、複数の自律移動体が情報の獲得を最大化するように経路を計画する情報駆動型マルチエージェント経路計画手法を提案する。相互情報量の最大化という複雑な問題を、許容的なヒューリスティックを用いて単一エージェントの経路計画問題の集合へと緩和することで、効率的な探索を実現している。",
+      "url": "http://arxiv.org/abs/2409.13065v1",
+      "venue": "2024 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)"
     },
     "doi:10.1109/iros58592.2024.10802597": {
       "added": "2026-07-22",

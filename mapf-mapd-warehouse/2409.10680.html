@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-agent Path Finding in Continuous Environment | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi-agent Path Finding in Continuous Environment</h1>
+  <div class="meta">Kristýna Janovská, Pavel Surynek<br>採択先: ICTAI ・ 2024-09-16 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2409.10680v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2409.10680v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/ICTAI62512.2024.00105" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 ICTAI</span><span class="chip">公開日 2024-09-16</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">連続的な時空間におけるMAPFという難題に対し、CBSとRRT*を組み合わせた提案手法は新規性が高く、既存のSMT-CBSに対する優位性も示されており、実用的な価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 時間と空間が共に連続的な環境において、エージェントが滑らかな曲線経路を辿りながら衝突を回避する問題に対し、高レベルの探索にConflict-Based Search、低レベルの経路計画にRRT*を組み合わせたCE-CBSを提案した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>倉庫物流や自動運転のような実社会のシナリオを想定した、時間と空間が共に連続的な環境におけるマルチエージェント経路計画（SC-MAPF）を対象とする。エージェントは固定半径を持つ円形の剛体であり、各エージェントは開始位置から目標位置まで、運動学的制約を満たす滑らかな曲線に沿って移動しなければならない。従来の離散的なグラフに基づく手法では、連続的な移動や任意の時刻における衝突判定、および滑らかな経路の生成を同時に扱うことが困難であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のContinuous Conflict-Based Search（CCBS）を拡張し、低レベルの経路計画にRRT*を導入することで、連続的な空間・時間における解の完全性と経路の滑らかさを両立させた点が新規である。これにより、離散的な移動制約に縛られず、障害物のある環境下での時間的衝突を含む複雑なケースにおいても、既存のSMT-CBSなどの手法より短い非衝突経路を見つけることが可能となった。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>高レベルの探索ではConflict-Based Searchを用い、全エージェントの経路長の総和を最小化する衝突のない解を探索する。低レベルの探索では、静的な障害物と高レベルから与えられる動的な時間制約（特定の座標における進入禁止時間帯）の両方を回避するように修正されたRRT*を実行する。得られた経路はB-spline曲線を用いて平滑化される。平滑化後の経路が制約を満たさない場合は、平滑化パラメータの調整や、RRT*の最大サンプリングノード数を変更した再計画を繰り返すことで、有効な解を求める。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>RRT*の最大サンプリングノード数、経路セグメント間の最小角度、エージェントの半径が性能に与える影響を検証した。比較対象として、離散的なグリッド環境に基づくCBSおよびSMT-CBSを用い、経路長の総和を評価指標とした。実験の結果、CE-CBSはグリッド移動の制約を受けないため、標準的なCBSよりも総コストが低かった。また、SMT-CBSと比較しても、障害物のある環境下での時間的衝突を含むすべてのケースにおいて、より短い非衝突経路を生成できることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>RRT*の最大ノード数を増やすと経路の品質は向上するが、衝突の発生頻度が高まり、高レベルの探索における反復回数と計算時間が増大するというトレードオフが存在する。計算時間は衝突回避のための再計画回数に依存するが、衝突が発生することで探索空間が枝刈りされ、RRT*の探索効率に寄与する側面もある。今後の課題として、より広範で複雑な運動学的制約条件をモデルに組み込むことが挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Multi-agent Path Finding in Continuous Environment</h3><p>本研究では、エージェントが滑らかな曲線に沿って移動する連続環境におけるマルチエージェント経路探索（CE-MAPF）を扱う。エージェント間の衝突は、空間領域における回避によって解決される。提案手法であるCE-CBSは、高レベルの探索フレームワークとしてConflict-Based Search（CBS）を用い、低レベルの経路計画にはRRT*を組み合わせたアルゴリズムである。多様なCE-MAPFのインスタンスを用いた実験の結果、CE-CBSは連続的な時間を考慮する他の手法と比較して、競争力のある性能を示すことが確認された。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究は、倉庫物流や自動運転などの実社会のシナリオを反映させるため、時間と空間の両方が連続的な環境におけるマルチエージェント経路計画（MAPF）を対象としている。エージェントは剛体である円形の物体として定義され、衝突は任意の時刻において2つのエージェントが重なり合うことで発生する。提案手法であるCE-CBSは、既存のContinuous Conflict-Based Searchを拡張したものであり、各エージェントの経路生成にはRRT*アルゴリズムを用い、その出力をB-spline曲線によって平滑化することで、連続的な移動を実現する。この手法は、制約付きの単一エージェント経路計画、平滑化メカニズム、および連続環境におけるマルチエージェント経路計画アルゴリズムの複数の要素で構成される。実験では、提案モデルの性能に影響を与える複数の重要なパラメータを導入し、その影響を調査する。</p></section>
+<section class="secsum"><h3>II Related work</h3><p>連続的な空間と時間におけるマルチエージェント経路計画（MAPF）に関する既存研究として、まずSMT-CBS Rは、CBSアルゴリズムと充足可能性モジュロ理論（SMT）を組み合わせ、幾何学的なエージェントを用いたメイクスパン最適解を求める手法である。この手法は制約を遅延して導入することでモデルの完全な指定前に解を見つけることが可能であり、衝突時に分岐する代わりに論理モデルを更新することで、CCBSと同等の性能を実現している。次に、MA-RRT*はユークリッド空間の離散的な運動グラフ上で動作し、全エージェントの結合アクションを貪欲法で生成して衝突を確認する手法であり、大規模で疎な環境では結合状態空間におけるA*よりも効率的だが、解の質はわずかに低下する。ORRT-A*は、RRTとA*のヒューリスティックを最適化した後に3次スプラインを用いて経路を平滑化する手法であり、目標バイアス型RRTやRRT-A*と比較して経路の質を向上させている。また、MA-RRT*FNは、ツリー内のノード数を一定に制限し、目標到達の可能性が低いノードを削除することで、MA-RRT*と同等の経路品質を維持しつつメモリ使用量を削減している。分散型のアプローチとしては、優先順位に基づきエージェントを順次処理するMulti-RRT*があり、他エージェントの解を既知の時変障害物と見なして個別に軌道を計算することでパレート最適解を目指す。さらに、線形動力学を持つエージェントが複雑な環境や狭い通路を通過するために、キノダイナミックRRT*とスケジューリングシステムを用いて、衝突のない効率的な移動を実現する研究も存在する。</p></section>
+<section class="secsum"><h3>III Continuous-Environment MAPF</h3><p>本研究では、時間と環境の両方が連続的であるSmooth Continuous MAPF (SC-MAPF) という問題を定義している。この問題において、環境はグラフ構造で表され、各エッジは2つの頂点を結ぶ滑らかな曲線の集合として定義される。エージェントは各エッジから曲線を選択して一連のアクションを構成することで、開始地点から目標地点へと移動する。エージェントの軌跡は、時間から空間の座標への写像として定義され、滑らかな曲線であるとともに、経路のセグメント間の最小角度を指定する最小角度制約などの運動学的制約を満たす必要がある。エージェントの形状は固定半径を持つ円として定義され、衝突とは、ある時刻において2つのエージェントの体が重なり合う状態を指す。解として求められるのは、すべてのエージェントが設定された速度で移動し、運動学的制約を満たしながら、いかなる時刻においてもエージェント同士が重なり合わずに目標地点へ到達する一連のアクションの集合である。</p></section>
+<section class="secsum"><h3>IV Background</h3><p>本セクションでは、マルチエージェント経路探索（MAPF）における既存手法の背景が述べられている。まず、離散的なグラフ環境と時間ステップを扱うConflict-Based Search (CBS) は、高レベルでの衝突解決と低レベルでの単一エージェント経路計算の2層構造を持ち、全エージェントの経路コストの最大値であるメイクスパンの最小化を目的とする。これに対し、連続時間を扱うContinuous Time Conflict-Based Search (CCBS) は、特定の時刻における頂点の占有ではなく、開始時刻と動作のペアで定義される「時刻付き動作」の衝突を扱う。また、連続的なメトリック空間における経路計画手法として、確率的に完全であるが最適性を保証しないRRTと、A*のコスト関数を導入して最適解への収束を可能にしたRRT*が挙げられる。さらに、RRT*で生成された経路の急激な方向転換を抑制し、車両の運動学的制約などを考慮した滑らかな経路を得るための手法として、B-spline曲線を用いた平滑化が紹介されている。B-spline曲線は、制御点とノットベクトルに基づく基底関数の線形結合として定義される区分的多項式曲線であり、複雑な障害物環境においても制御点の配置に関わらず滑らかに接続される特性を持つ。</p></section>
+<section class="secsum"><h3>V Proposed Model</h3><p>本研究では、環境の離散化を最小限に抑えることを目的とした、連続時間・連続空間におけるマルチエージェント経路探索アルゴリズムであるContinuous Environment Conflict-Based Search (CE-CBS)を提案する。高レベルの探索では、全エージェントの経路長の総和を最小化する衝突のない解を求め、低レベルの探索では、RRT*アルゴリズムを用いて各エージェントの経路を計画する。衝突は、2つのエージェント、それぞれの到達時刻、および衝突座標の組み合わせによって定義され、経路の交差判定や、経路セグメント間の最短距離がエージェントの半径を下回るか、あるいはエージェントが特定の「安全でない時間間隔」内に衝突地点へ到達するかによって判定される。低レベルのRRT*は、静的な長方形の障害物と、CE-CBSから与えられる特定の時間帯のみ存在する動的な制約の両方を回避し、かつ隣接する経路セグメント間の角度が一定の最小値以上であるという運動学的制約を満たす必要がある。経路の平滑化にはB-spline曲線を用いた補間が行われるが、角度制約を満たさない場合は、共有頂点の削除や移動による修正を試みた後、サンプリングする最大ノード数を減らしてRRT*を再実行することで、制約を満たす経路を探索する。このモデルは、低レベルの確率的完全性と、有効な解が見つかるまで反復を続ける高レベルの性質により、解の完全性を備えている。</p></section>
+<section class="secsum"><h3>VI Experiments</h3><p>本実験では、提案手法であるCE-CBSの性能を、RRT*の最大サンプリングノード数、エージェントの半径、および既存手法との比較という観点から検証しています。RRT*の最大ノード数を増やすと、経路が最適解に近づくため総コストは減少しますが、一方で衝突が発生しやすくなり、CE-CBSの反復回数（探索ノード数）が増加し、結果のばらつきも大きくなる傾向があります。エージェントの半径を大きくした場合、エージェント同士の衝突を避けるためのより長い迂回が必要になるため、総コストは例外なく増加します。一方で、エージェントの体が大きくなることで、静止障害物との距離を保つために探索空間がより制限されるため、結果のばらつきはわずかに減少します。標準的なCBS（A*を使用）との比較では、グリッド移動の制約を受けないCE-CBSの方が、総コストにおいて低い値を示しました。また、SMT-CBSとの比較においても、CE-CBSは移動制約の緩和により、障害物のある環境下での時間的衝突を含むすべてのケースにおいて、より短い非衝突経路を見つけることができました。</p></section>
+<section class="secsum"><h3>VII Discussion</h3><p>実験の結果、提案モデルは多様な環境に適応可能であり、特定のシナリオに合わせてパラメータを調整できることが示されました。検討されたパラメータの中では、RRT*における最大ノード数が解の品質に最も大きな影響を与えます。計算時間はCE-CBSの反復回数に依存するため、計画中に衝突が頻発してRRT*の再計画が繰り返されるほど計算時間は増大します。一方で、衝突の発生は探索空間を枝刈りし、RRT*が制約のない領域をより広く探索することを可能にするため、衝突回数と計算時間の関係はある程度バランスが取れることが示されました。エージェントは、狭い通路や複数の衝突が発生しうる空間においても、最短経路を探索しながら衝突を回避してナビゲートできます。また、角度制約を満たしつつ、他のエージェントや静止障害物を避けながら滑らかな曲線を描いて移動することが可能です。</p></section>
+<section class="secsum"><h3>VIII Conclusion</h3><p>本研究は、連続的な環境においてエージェント間の衝突を回避する経路計画手法を提案している。提案手法であるCE-CBSは、既存のCCBSアルゴリズムとRRT*を基盤とし、経路を滑らかにするメカニズムを組み込んでいる。各エージェントはCE-CBSを通じて通信を行い、衝突のない経路を計画する。個別の経路計画には、CE-CBSによる制約と運動学的な制約の両方を考慮するように修正されたRRT*が用いられる。出力された経路は、Bスプライン曲線を用いて平滑化される。今後の課題として、より広範な運動学的な制約条件をモデルに組み込むことが挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-30
+  </footer>
+</div>
+</body>
+</html>

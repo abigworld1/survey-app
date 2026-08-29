@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-Agent Vulcan: An Information-Driven Multi-Agent Path Finding Approach | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi-Agent Vulcan: An Information-Driven Multi-Agent Path Finding Approach</h1>
+  <div class="meta">Jake Olkin, Viraj Parimi, Brian Williams<br>採択先: 2024 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) ・ 2024-09-19 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2409.13065v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2409.13065v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/IROS58592.2024.10801571" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 2024 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</span><span class="chip">公開日 2024-09-19</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">通信制約下でのPOMDPをMAPFの枠組みで緩和する手法が独創的。実世界シナリオでの検証も具体的で、情報駆動型計画の研究者にとって有用。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 限られた通信環境下で、複数の自律移動体が情報の獲得を最大化するように経路を計画する情報駆動型マルチエージェント経路計画手法を提案する。相互情報量の最大化という複雑な問題を、許容的なヒューリスティックを用いて単一エージェントの経路計画問題の集合へと緩和することで、効率的な探索を実現している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、限られたミッション時間内で対象となる現象の検出数を最大化することを目的としている。環境は離散的な地点の集合としてモデル化され、各地点における現象の有無はガウス過程を用いたマルコフ確率場によって記述される。エージェントの意思決定は、観測履歴や現象の確率関数を状態空間に持つ、有限ホライゾンの部分観測マルコフ決定過程（POMDP）として定式化される。通信範囲の制約がある中で、エージェント間の観測の重複を避けつつ、衝突を回避して協調的な経路計画を行うことが困難である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>エージェント間の観測の重複に依存する報酬関数の結合性を適切にモデル化し、計算負荷の高い報酬計算を回避するための許容的なヒューリスティックを導入した点が新規である。これにより、通信状態の変化に応じて、グループ全体での共同計画とサブグループごとの独立した計画を切り替える分散型システムを実現している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>各エージェントはマンハッタン距離を用いて通信範囲内の近傍を特定し、互いに通信可能な最小限の集合であるバブルを抽出する。バブル内のエージェントに対しては、観測履歴を結合した状態空間上で、期待相互情報量を最大化するためのA*探索を用いたマルチエージェント探索を実行する。通信範囲外のエージェントには単一エージェント探索を適用する。探索の効率化のため、各エージェントが独立に行動した場合の最大相互情報量利得の総和をヒューリスティック関数として用いる。この関数は、各エージェントの独立した利得の和として評価できるため、計算コストの高い結合報酬の代わりに、探索の優先順位付けと枝刈りに利用される。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>標準的なMAPFベンチマークの4種類のマップ、および水深データに基づくEast Boston HarborとGalveston Bayの2つの実世界シナリオを用いて評価を行った。比較手法として、個別に経路計画を行うSingle-Agent Vulcan、衝突回避機能を持つSA-V-CA、およびモンテカルロ木探索を用いるMA-MCTS-Vを用いた。実験の結果、提案手法は既存の適応的サンプリング戦略と比較して、発見できる固有の現象の数が最大200%増加し、各エージェントが最初の固有現象を発見するまでの時間が最大50%短縮された。また、エージェント数や現象の数が増加した場合のスケーラビリティも確認されている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>エージェント数の増加に伴い、マルチエージェントによる期待情報利得の厳密な計算負荷が非常に高くなるという課題が残っている。今後の課題として、厳密な計算の代わりにサンプルベースの手法を用いて期待情報利得を推定する効率的な推定器を構築し、計算速度を向上させることが挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Multi-Agent Vulcan: An Information-Driven Multi-Agent Path Finding Approach</h3><p>本研究は、限られた通信環境下で複数の自律移動体が情報の獲得を最大化するように経路を計画する、情報駆動型マルチエージェント経路計画（MAPF）手法を提案している。提案手法では、相互情報量の最大化という複雑な問題を、独立した単一エージェントの経路計画問題の集合として評価可能な加法的な関数へと緩和する、許容的なヒューリスティックを導入している。通信環境の変化に対しては、全エージェントが通信可能な場合はグループ全体で共同計画を行い、通信範囲外の個体が生じた場合は通信可能なサブグループごとに独立して計画を行う分散型システムを採用している。エージェント間の距離が離れるほど観測の重複が減る特性を利用することで、通信の断絶による情報獲得量の損失を抑え、完全な通信状態から部分的な通信状態へと円滑に移行できる。様々なシナリオを用いた評価実験では、既存の適応的サンプリング戦略と比較して、特定の条件下で発見できる固有の現象の数が最大200%増加し、各エージェントが最初の固有現象を発見するまでの時間が最大50%短縮されるという結果を得ている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、関心対象の現象を特定するために相互情報量の利得を報酬として最大化する、情報駆動型のマルチエージェント部分観測マルコフ決定過程（POMDP）に基づく適応的サンプリング手法を提案している。従来のマルチエージェント強化学習では報酬が決定論的であると仮定され、モンテカルロ木探索ではエージェント数の増加に伴う状態空間の指数関数的な増大や局所解の問題が生じるが、提案手法はエージェント間の観測の重複に依存する報酬関数の結合性を適切にモデル化できる。具体的には、マルチエージェント経路計画（MAPF）の考え方から着想を得た、計算負荷の高い報酬計算を回避するための許容的なヒューリスティックを導入することで、効率的な探索を実現している。また、通信範囲の制約下での分散動作も可能であり、エージェントが通信圏内に入った際に結合された計画問題を解き、それ以外では独立した単一エージェントの探索を行うことで、中央計算ノードなしでの協調行動を可能にしている。</p></section>
+<section class="secsum"><h3>2 Adaptive Search</h3><p>本手法は、限られたミッション時間内で対象となる現象の検出数を最大化することを目的とし、エージェント間の通信範囲に応じて独立動作と協調動作を切り替える適応的探索アプローチを提案している。環境は離散的な地点の集合としてモデル化され、各地点における現象の有無は、ガウス過程を用いたマルコフ確率場によって記述される。各エージェントの意思決定は、観測履歴、特徴量の確率関数、および現象の確率関数を状態空間に持つ、有限ホライゾンの部分観測マルコフ決定過程（POMDP）として定式化される。報酬関数は、情報の利得と現象の存在確率を組み合わせたものであり、エージェントが観測を通じて対象現象の所在に関する確信度を高めるような行動をとるよう設計されている。現象の確率関数には、観測値が閾値を超えた際の影響度を調整する2つのパラメータが含まれており、期待値の計算には5次のガウス・エルミート求積法が用いられる。</p></section>
+<section class="secsum"><h3>3 Methodology</h3><p>本手法は、分散型かつオンラインで実行されるマルチエージェント経路計画アルゴリズムである。各エージェントはマンハッタン距離を用いて通信範囲内の近傍エージェントを特定し、計算の重複を避けるために、互いに通信可能なエージェントの最小限の互いに素な集合であるバブルを抽出する。バブル内のエージェントに対しては、それらの観測履歴を結合した状態空間上で、情報利得を最大化するためのA*探索を用いたマルチエージェント探索を実行し、通信範囲外のエージェントには単一エージェント探索を適用する。マルチエージェント探索では、計画ホライゾンにおける対象現象とエージェントの結合観測分布との間の期待相互情報量を評価する。探索の効率化と最適性の確保のため、各エージェントが独立に行動した場合の最大相互情報量利得の総和をヒューリスティック関数として用いるが、これは対象現象が観測の共通原因である環境において許容的であることが証明されている。さらに、現在の最大利得を上回ることができないと判断された状態の展開をスキップする枝刈りを行うことで、計算コストを削減しながら最適な行動を導出する。</p></section>
+<section class="secsum"><h3>4 Experiments</h3><p>本研究では、提案手法であるMulti-Agent Vulcanの有効性を、関心対象となる現象の発見数、観測の冗長性の回避、および計算量の抑制という3つの観点から評価しています。比較対象として、各エージェントが個別に経路計画を行うSingle-Agent Vulcan（SA-V）、衝突回避機能を持つSA-V-CA、およびモンテカルロ木探索を用いて報酬を推定するMA-MCTS-Vを用いています。実験には、標準的なMAPFベンチマークの4種類のマップに加え、水深データに基づくEast Boston HarborとGalveston Bayの2つの実世界シナリオを使用しました。実験の結果、提案手法はMAPFベンチマークおよび実世界のデータセットの両方において、他の手法よりも多くのユニークな現象を発見し、各エージェントが最初の現象に到達するまでのステップ数も短縮できることが示されました。また、エージェント数や現象の数が増加するスケーラビリティの実験においても、提案手法の性能向上は維持されています。さらに、提案されたヒューリスティックを用いることで、生成および展開される探索状態の割合が最大可能状態に対して極めて小さくなり、複雑な結合報酬の計算を最小限に抑えて計算を効率化できることが確認されました。</p></section>
+<section class="secsum"><h3>5 Conclusion and Future Work</h3><p>本論文では、限られたミッション時間内に可能な限り多くの関心対象を特定することを目的とした、情報駆動型のマルチエージェント経路計画手法であるMulti-Agent Vulcanを提案している。この問題は、通信が制限された環境下における後退ホライゾン型のマルチエージェント部分観測マルコフ決定過程として定式化されている。マルチエージェントの探索を複数の単一エージェントの探索へと分離することで、報酬空間における許容的なヒューリスティックを定義し、A*のような情報に基づいた探索手法を用いて、衝突のない最適な経路を算出することを可能にしている。既存の適応的サンプリング手法と比較する実験では、複数の経路計画マップや水深データに基づく現実的なシナリオ、およびTurtlebotを用いた実機テストベッドにおいて、提案手法が性能向上を示すことを確認した。しかし、エージェント数の増加に伴い、マルチエージェントによる期待情報利得の計算負荷が非常に高くなるという課題が残っている。今後の展望として、厳密な計算の代わりにサンプルベースの手法を用いて期待情報利得を推定する効率的な推定器を構築し、計算速度の向上とより大規模なエージェント群への適用を目指している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-30
+  </footer>
+</div>
+</body>
+</html>

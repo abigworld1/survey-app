@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Why RAGs Hallucinate: Penalty-Aware Evaluation of Retrieval-Augmented Generation Systems with Knowledge-Gap Canaries | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Why RAGs Hallucinate: Penalty-Aware Evaluation of Retrieval-Augmented Generation Systems with Knowledge-Gap Canaries</h1>
+  <div class="meta">Alden Do Rosario, Hussein Younes, Felipe Pires<br>採択先: 未取得 ・ 2026-08-26 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.26385v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.26385v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2608.26385" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-26</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの評価における「回答拒否」の重要性を指摘し、知識欠如を突くカナリー質問と非対称ペナルティを用いた新手法は、実用上のハルシネーション対策として極めて示唆に富む。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 従来のRAG評価は正解率に偏っており、知識ベースに答えがない場合に無理に回答する挙動を正当に評価できていない。本研究は、知識の欠如を検証する質問群と、回答拒否を適切に扱う非対称なペナルティ付きスコアリングを用いた評価フレームワークを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>RAG（検索拡張生成）システムにおいて、知識ベースに回答が存在しない場合にモデルが自身の内部知識を用いて回答してしまう「パラメータ知識の漏洩」を評価することが困難である。従来の評価指標は回答の正解率のみに依存しており、回答不能な場合に「わからない」と答えるよりも、無理に推測して正解を当てる方がスコアが高くなるという、ハルシネーションを助長するインセンティブの問題を抱えている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>回答の正確性と、回答を控えるべき場面での適切な拒否能力を分離して測定する手法を提案している。知識ベースに回答が確実に存在しないことを検証済みの質問群（Knowledge-Gap Canaries）を導入することで、モデルの内部知識への依存度を直接的な違反率として測定可能にした。また、単一のLLMによる評価バイアスに対処するため、異なるモデルファミリーによる判定パネルを用いたブラインド評価を導入している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>評価には、正解時に+1、不正解時に-k、回答拒否（棄権）時に0点を与える非対称な品質スコアを用いる。このスコアリングにより、回答の自信度が一定の閾値以下の場合は棄権することが合理的となるように設計されている。知識ベースに回答が含まれないことが検証済みの質問群（Knowledge-Gap Canaries）に対し、回答が行われた場合はグラウンディング違反とみなす。評価パイプラインでは、まず軽量モデルが回答を「試行」か「棄権」かに分類し、試行に対しては3つの異なるモデルファミリーによる判定パネルが多数決で正誤を決定する。さらに、失敗の原因を検索の失敗、生成の失敗、あるいは判定上の問題へと分類する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>SimpleQA-Verifiedから抽出した1,000個の短文事実質問を用い、3つの商用RAG製品と検索なしのベースラインを比較した。回答を選択した場合の正解率は全システムで97.0%から98.0%と僅差であったが、カナリー質問に対する違反率は16.7%から98.1%と大きな差が見られた。ペナルティを考慮したスコアリングでは、従来の正解率に基づいたランキングが再編され、OpenAI RAGが最も高い性能を示した。この順位の逆転は、ペナルティの設定をk=1からk=9まで変化させても安定していた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の限界として、評価データが英語の短文形式に限定されており、多段階の推論や長文回答への適用性は不明である。また、商用システムは動的に更新されるため、結果は特定の時点のスナップショットである。RAGがプライベートな文書（契約書や医療記録など）に適用される際、内部知識に正解が存在しない状況では、現在の「回答を優先する」ポリシーが自信に満ちた虚偽の回答を招くリスクがある。そのため、評価においては回答の正確性だけでなく、知識の欠如を検知して棄権する能力を第一級の指標として報告すべきである。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Why RAGs Hallucinate: Penalty-Aware Evaluation of Retrieval-Augmented Generation Systems with Knowledge-Gap Canaries</h3><p>従来のRAG評価は回答の正解率のみに依存しており、知識ベースに答えがない場合に無理に回答してしまう「推測」を正当に評価できていないという課題がある。本研究は、正解、不正解、および回答拒否を非対称に評価するペナルティ認識型評価フレームワークを提案している。この手法では、知識ベースに答えが確実に存在しない質問群である「知識ギャップ・カナリー」を用い、これに対して回答した場合はパラメータメモリに基づく根拠のない生成とみなす。3つの商用RAGシステムと検索なしのベースラインを用いた実験の結果、回答時の正解率はどのシステムも97.0%から98.0%と僅差であったが、カナリー質問に対する違反率はシステム間で約6倍もの開きがあることが判明した。ペナルティを考慮したスコアリングを用いることで、回答量に基づく従来の順位は、回答の正確性と拒否の適切さを反映した順位へと再編され、OpenAIのRAGが様々なペナルティ設定において最も高い性能を示した。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>RAGシステムにおいて、従来の正解率に基づく評価では、根拠に基づかない推測と根拠に基づいた回答が同一視されるほか、回答不能な場合に「わからない」と答えるよりも推測を行う方がスコアが高くなるため、ハルシネーションを助長するインセンティブが生じる問題がある。本研究は、回答を控えることが合理的となる非対称なペナルティ付きスコアリング、知識ベースに回答が存在しないことを検証するためのナレッジギャップ・カナリー質問、および複数のLLMを用いたブラインド評価パネルからなる評価フレームワークを提案する。ナレッジギャップ・カナリー質問を用いることで、モデルが知識ベースにない情報を自身のパラメータ知識で補完してしまうパラメータ漏洩を直接測定可能にしている。SimpleQA-Verifiedデータセットを用いた3つの商用RAGシステムの比較実験では、回答を選択した場合の正解率は97.0%から98.0%と僅差であったが、棄権率には0.2%から11.1%という50倍以上の開きがあり、カナリー違反率においても16.7%から98.1%と大きな差が見られた。この結果は、RAGシステムの性能差は回答の正確性よりも、回答を控える挙動や知識ベース外の質問への対処能力に顕著に現れることを示している。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>生成モデルにおけるハルシネーションの研究では、模倣的な誤情報の生成や捏造された内容の検出を目的としたベンチマークが用いられてきたが、従来の二値評価ではモデルが回答を棄権する傾向を抑制してしまうという課題がある。事実性の評価については、敵対的に収集された単一回答形式の質問を用いるSimpleQAなどの手法が存在するが、本研究ではこれに質問ごとの知識ベースの網羅性を示すフラグを追加することで、知識の欠如を特定するカナリーの構築を可能にしている。RAGの評価フレームワークであるRAGASやARESなどは、忠実性や関連性などの要素に分解して評価を行うが、回答するか棄権するかというインセンティブ構造や、コーパス外の知識が漏洩する失敗モードを制御できていない。本研究は、これら既存手法とは異なり、商用製品をエンドツーエンドで評価し、パラメータ知識の漏洩を分離して特定することを目指している。また、LLMを評価者として用いる手法には、評価者が自身の生成結果を好む自己選好性が存在する懸念があるため、本研究では異なるモデルファミリーによるパネル評価や、決定的な投票の分析を用いることで、このバイアスに対処している。</p></section>
+<section class="secsum"><h3>3 Methodology</h3><p>本手法は、RAG（検索拡張生成）システムにおけるハルシネーションを、回答が誤っている事実誤認と、知識ベースの裏付けがないグラウンディング違反に区別して定義する。評価には、正解時に加点、不正解時に減点、回答拒否時に0点を与える非対称な品質スコアを用い、回答の自信度に基づき回答か拒否かを合理的に判断させるペナルティ比率を導入している。さらに、知識ベースに回答が含まれないことを事前に検証済みの質問群であるKnowledge-Gap Canariesを用いることで、モデルの内部知識に依存して回答してしまうパラメトリック・リークを特定し、グラウンディング違反を直接測定する。評価パイプラインでは、まず軽量モデルが回答を回答試行か拒否かに分類し、試行に対しては3つの異なるモデルファミリーからなる判定パネルによるブラインド判定を実施して、多数決で最終的な正誤を決定する。また、ペナルティを受けた回答に対して、検索された文脈に回答が存在しない検索失敗、回答は存在するが使用されない生成失敗、あるいは判定上の問題へと原因を分類する分析を行う。</p></section>
+<section class="secsum"><h3>4 Experimental Setup</h3><p>本実験では、SimpleQA-Verifiedから抽出された1,000個の短文事実質問を用いて、CustomGPT.ai、OpenAI、Googleの3つのRAG製品を評価しています。知識ベースは各質問に対応する1つのウェブ文書で構成され、そのうち982問は正解を含む一方、残りの18問は知識の欠如を確認するためのカナリーセットとして扱われます。評価対象のシステムは、各ベンダーが提供するチャンク分割、埋め込み、検索、生成のスタックをそのまま使用し、2026年7月に固定されたフラッグシップ級のバックボーンモデルを用いています。プロンプトの指示内容にはベンダー間の非対称性が存在しており、OpenAIとGoogleのシステムには知識ベースに基づいた回答と拒絶の指示が含まれる一方、CustomGPT.aiには拒絶の指示が含まれていません。評価には、質問、正解、匿名化された回答のみを入力とする決定論的な設定の3つのジャッジモデルと、gpt-5.4-nanoを用いた意図分類器が使用されます。最終的なキャンペーンは、4つのシステムに対して各質問を3回ずつ繰り返し実行するプロトコルに従い、結果に基づいた再実行を禁止することで、分散の推定と結果の信頼性を確保しています。</p></section>
+<section class="secsum"><h3>5 Results</h3><p>検索結果に情報が存在しないことを示す「Knowledge-Gap Canary」を用いた評価実験の結果、ペナルティを考慮したスコアではOpenAI RAGが最も高い性能を示しました。Gemini RAGは従来の正解率において最高値を記録しましたが、これは知識ベースに回答が存在しない質問に対しても自身の学習済み知識を用いて回答を試みる傾向によるものです。ペナルティを厳しく設定して信頼性の閾値を高めるほど、回答を拒否せずに無理に回答する方針のコストが増大するため、Gemini RAGの順位は低下します。一方で、回答を試みた場合の正解率は各システム間で大きな差は見られず、システム間の決定的な違いは回答を拒否する割合に現れています。実験の安定性については、複数回の試行間でランキングやスコアに大きな変動はなく、評価に使用した判定器の信頼性も高いことが確認されました。また、応答速度はすべてのRAGシステムで同程度でしたが、クエリあたりのコストには2桁の開きがあることが示されました。</p></section>
+<section class="secsum"><h3>6 Why RAG Systems Hallucinate</h3><p>RAGシステムのハルシネーションは、生成モデル自体の欠陥よりも、根拠となる情報が不足している際に「回答するか、棄権するか」を決定するシステムの設定ポリシーに起因しています。知識ギャップを用いたカナリア試験の結果、Geminiは検索結果が空であっても回答を試みる傾向があり、54題中53題で回答しましたが、CustomGPT.aiは検索結果が空の場合に回答を拒否するポリシーを持っており、棄権の大部分が引用なしの状態で発生していました。誤答の主なパターンは、検索によって質問を解決できない内容が提示されたにもかかわらず、生成プロセスが回答を構成してしまうケースであり、これは全回答の約2%で共通して見られます。また、パイロット分析では、検索結果に正解が含まれているにもかかわらず、過剰な慎重さから棄権したり誤答したりする生成側の失敗も確認されました。失敗の分類は、知識ギャップに対するパラメータ知識の漏洩、検索結果に基づいた誤答、利用可能な根拠があるにもかかわらず棄権する過剰な慎重さ、そして正しく棄権によって対処された検索ギャップの4つに整理されます。従来の精度指標は、信頼性を損なう誤答を許容しつつ、正当な棄権を誤りとみなすという逆転現象が起きていますが、提案するペナルティを考慮したスコアリングでは、誤答や知識漏洩を評価対象とし、正当な棄権は罰しない設計としています。</p></section>
+<section class="secsum"><h3>7 Discussion</h3><p>従来の精度のみに基づく評価では、根拠のない回答を最も多く生成するシステムが選ばれてしまうリスクがあります。特に、モデルの学習済み知識に正解が存在しないプライベートな文書を扱うRAGの運用においては、自信に満ちた虚偽の回答を招く恐れがあります。本研究のデータは、回答の正確性よりも、回答を棄権する能力や知識の欠如を検知するカナリー挙動の方が、製品間の差をより明確に分離できることを示しており、RAG製品の評価にはこれらを第一級の指標として含めるべきです。ベンチマーク設計においては、コーパスを制御することで回答に必要な情報が欠落している質問を特定し、学習済み知識の漏洩を測定可能な割合へと変換することが可能です。このペナルティを考慮したスコアリングは、既存の製品に対して事後的に適用できます。また、LLMを用いた評価においては、単一の判定者による評価は系統的な誤りを含む可能性があるため、異なるモデル群による多数決と合意形成の報告を組み合わせることが、低コストで有効な防御策となります。</p></section>
+<section class="secsum"><h3>8 Limitations and Conflict of Interest</h3><p>本研究の限界として、まず評価データセットが英語のみの短文形式の事実質問に限定されており、多段階の推論や長文回答を要するタスクにおける挙動は不明である。実験環境では、APIの利用制限によりGeminiの評価にFlashモデルを使用しており、上位モデルであるProとの品質差を排除できていない。評価者の一人がOpenAIのモデルと同一のモデルファミリーであるが、その評価者を排除しても全体のランキングや評価結果に変化がないことを確認済みである。手法の核となる知識ギャップ・カナリー（正解を含まない文書がソースに含まれていることが判明した質問）の数は限定的であり、結果の信頼区間は広くなるが、主要な比較における差は区間の幅よりも十分に大きい。また、商用システムは常に更新される動的な対象であるため、本結果は特定の構成を固定した時点のスナップショットに過ぎない。</p></section>
+<section class="secsum"><h3>9 Conclusion</h3><p>本研究では、知識の欠落を意図的に含んだ「knowledge-gap canaries」と、異なるモデル群を用いたクロスファミリー判定に基づく、ペナルティを考慮したRAG評価フレームワークを提案した。3つの商用製品と検索を行わないベースラインを用いた監査実験の結果、検索プロセスが評価に最も大きな影響を与えることが示された。RAGシステム間の回答精度は互いに近い値であったが、回答を控えるべき場面での判断基準に顕著な差が見られた。従来の精度指標では順位が逆転する製品であっても、ペナルティの設定を変化させてもその傾向は維持された。回答の棄権に対するペナルティを考慮しない評価は中立ではなく、RAGの導入目的である誤情報の防止に反する挙動を評価として報酬を与えてしまうリスクがある。本研究のフレームワーク、コード、および監査の全プロセスは、測定の再現や拡張を可能にするために公開されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-30
+  </footer>
+</div>
+</body>
+</html>
