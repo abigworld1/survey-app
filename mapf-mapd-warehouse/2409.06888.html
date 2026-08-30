@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>QD-MAPPER: A Quality Diversity Framework to Automatically Evaluate Multi-Agent Path Finding Algorithms in Diverse Maps | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>QD-MAPPER: A Quality Diversity Framework to Automatically Evaluate Multi-Agent Path Finding Algorithms in Diverse Maps</h1>
+  <div class="meta">Cheng Qian, Yulun Zhang, Varun Bhatt, Matthew Christopher Fontaine, Stefanos Nikolaidis, Jiaoyang Li<br>採択先: Proceedings of the 25th International Conference on Autonomous Agents and Multiagent Systems 2024 ・ 2024-09-10 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2409.06888v5" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2409.06888v5" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.65109/UZVN6052" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Proceedings of the 25th International Conference on Autonomous Agents and Multiagent Systems 2024</span><span class="chip">公開日 2024-09-10</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 1</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">QDとNCAを組み合わせたマップ自動生成による評価手法は新規性が高く、MAPFアルゴリズムの弱点を構造的に特定する実験も非常に具体的で、研究者にとって有用。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> Quality Diversity (QD) アルゴリズムとNeural Cellular Automata (NCA) を組み合わせ、多様なマップを自動生成することで、マルチエージェント経路探索 (MAPF) アルゴリズムの性能を包括的に評価するフレームワーク QD-MAPPER を提案する。これにより、従来の固定的なベンチマークでは見落とされていた、アルゴリズムごとの弱点となるマップパターンを特定できる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路探索 (MAPF) は、2Dグリッドマップ上で複数のエージェントが衝突を避けながら各々の目標地点へ移動する経路を求める問題である。従来の評価手法は、人間が設計した特定のベンチマークマップに依存しており、アルゴリズムが限定的なシナリオに過学習したり、特定のマップ構造における性能の長所や短所を十分に特定できなかったりするという課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>レイアウト最適化の知見を MAPF の評価に応用し、QD アルゴリズムを用いてアルゴリズムの性能差や弱点を引き出す多様なマップを自動生成する手法を確立した。単一アルゴリズムの困難なケースの特定だけでなく、2つのアルゴリズム間の性能差を最大化するマップを生成することで、既存のベンチマークでは困難だった公平かつ詳細な比較を可能にした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>連続的な探索領域に適した QD アルゴリズムである CMA-MAE を用い、NCA ジェネレータのパラメータを最適化することで多様なマップを生成する。NCA は畳み込みニューラルネットワークを用いて局所的なルールを表現し、複雑なマップ構造を生成する。生成されたマップは、空き領域の接続性と障害物数の制約を満たすよう、混合整数線形計画法 (MILP) ソルバーによって最小限の修正が加えられる。評価プロセスでは、生成されたマップ上で MAPF アルゴリズムを実行し、CPU 実行時間や正則化成功率 (RSR) を用いて、アルゴリズムの困難さやアルゴリズム間の性能差を最大化するようにアーカイブを更新する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>CBS、EECBS、PBS、LaCAM3、PIBT、LTF の 6 つのアルゴリズムを対象に、32×32 および 64×64 のマップサイズで検証を行った。評価指標には、CPU 実行時間、正則化成功率、障害物数、タイルパターンの KL ダイバージェンスを用いた。実験の結果、LaCAM3 は既存ベンチマークでは 99% の解決率を誇るが、長い廊下と狭い入り口を持つマップでは実行時間が不足することが判明した。また、PBS は特定のマップ構造において、単なる時間切れではなく解自体を見つけられない不完全性を示すことが確認された。アルゴリズム間の比較では、EECBS と PBS の優位性がマップの入り口構造によって入れ替わることや、障害物密度が 50% を超える環境では PIBT が LTF よりも平均で 5% から 10% 高い成功率を示すことが数値的に示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本フレームワークはモジュール構造であるため、目的関数や多様性指標をカスタマイズすることで、容易なマップの生成や複数アルゴリズムの順位付けへの拡張が可能である。今後の課題として、エージェント数、マップサイズ、開始・目標地点の構成を変化させた、より包括的な評価設定への拡張が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>QD-MAPPER: A Quality Diversity Framework to Automatically Evaluate Multi-Agent Path Finding Algorithms in Diverse Maps</h3><p>QD-MAPPERは、Quality Diversity (QD) アルゴリズムとNeural Cellular Automata (NCA) を組み合わせることで、多様なマップを自動生成し、マルチエージェント経路探索（MAPF）アルゴリズムを包括的に評価するフレームワークです。従来のMAPF評価は人間が設計した特定のマップセットに依存しており、アルゴリズムが限定的なシナリオに過学習する課題がありましたが、本手法はパターンの異なる多様なマップを生成することで、アルゴリズムの性能をより深く理解することを可能にします。このフレームワークを用いることで、探索ベース、優先度ベース、ルールベース、学習ベースといった異なる種類のMAPFアルゴリズム間において、実行時間や成功率の差異を検出し、公平な比較を行うことができます。実験を通じて、各アルゴリズムがどのようなマップパターンにおいて優れているか、あるいは実行時間や成功率にどのような違いがあるかを特定できるため、アルゴリズムの選択や設計における知見を提供します。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>本研究では、多様なマップを生成することでマルチエージェント経路探索（MAPF）アルゴリズムの性能を評価するフレームワークであるQD-MAPPERを提案する。従来の人間が設計した固定的なベンチマークマップでは、アルゴリズムの長所と短所を十分に特定できないという課題がある。これに対し、提案手法はQuality Diversity（QD）アルゴリズムを用いて、目的関数と多様性指標を最適化することで、高品質かつ多様なマップを生成する。具体的には、畳み込みニューラルネットワークを用いて局所的なルールを表現するニューラルセルオートマトン（NCA）をレイアウト最適化に応用し、複雑な構造を生成する。6つの代表的なMAPFアルゴリズムを用いた評価では、既存のベンチマークでは解決可能とされていたアルゴリズムが時間切れとなるマップや、アルゴリズムが解を見つけられない不完全性を示すマップを特定するなど、新たな知見を得ている。また、本フレームワークには、単一のアルゴリズムを評価する構成や、2つのアルゴリズムを比較する構成といった具体的な実現方法が示されている。</p></section>
+<section class="secsum"><h3>2. Preliminaries</h3><p>マルチエージェント経路探索（MAPF）は、連結された2Dグリッドマップ上で、複数のエージェントが衝突を避けながら各々の開始地点から目標地点まで移動する経路を求める問題であり、全エージェントの移動時間の総和であるsum-of-costの最小化を目的とする。既存のMAPFアルゴリズムは、探索ベースのCBSやEECBS、優先度ベースのPBS、ルールベースのPIBTやLaCAM3、学習ベースのLTFといった複数のカテゴリに分類される。従来の評価では固定されたベンチマークマップが用いられてきたが、これらはマップのパターンやサイズが限定的であるため、長い廊下や狭い入り口といった特定の条件下におけるアルゴリズムの特性を十分に明らかにできない課題がある。本研究では、Quality Diversity（QD）アルゴリズムを用いて、多様な難易度を持つマップを自動生成することで、アルゴリズムの性能を詳細に評価する。具体的には、連続的な探索領域に特化したQDアルゴリズムであるCMA-MAEを採用し、Neural Cellular Automata（NCA）を介してマップ生成器を最適化することで、多様で規則的なパターンを持つマップの生成を行う。</p></section>
+<section class="secsum"><h3>3. Map Generation Approach</h3><p>QD-MAPPERは、Quality Diversity（QD）の枠組みを用いて、マルチエージェント経路探索（MAPF）アルゴリズムを多様なマップ上で自動評価する手法です。CMA-MAEを用いて、畳み込みニューラルネットワークを用いたNCAジェネレータのパラメータを最適化することで、多様なマップを生成します。NCAが生成したマップは、空き領域の接続性と障害物数の範囲を保証するために混合整数線形計画法（MILP）ソルバーで修正され、その際、元のマップのパターンを維持するようハミング距離が最小化されます。評価プロセスでは、生成されたマップ上で複数のMAPFインスタンスを実行し、特定のアルゴリズムのCPU実行時間や正則化成功率（RSR）などの指標に基づき、アルゴリズムの困難さや二つのアルゴリズム間の性能差を最大化するように学習が進みます。多様性の指標には、マップの全体的な難易度に関連する障害物数や、局所的なパターンの多様性を示すタイルパターンのKLダイバージェンスが採用されています。</p></section>
+<section class="secsum"><h3>4. One Algorithm Analysis</h3><p>QD-MAPPERを用いて、CBS、EECBS、PBS、LaCAM3、PIBT、LTFの各マルチエージェント経路探索（MAPF）アルゴリズムに対し、多様かつ困難なマップを自動生成する実験を行いました。実験では、マップサイズを32×32に固定し、障害物密度をマップサイズの30%から70%の範囲で変化させ、各アルゴリズムの特性に応じてエージェント数を設定しています。マップの特徴量として、3つの障害物に囲まれた1マスの空きスペースであるone-entry spaceや、2つの通路を隔てる1マスの空きスペースであるone-tile entryを定義し、計算コストや成功率に基づいて評価しました。解析の結果、CBSやEECBS、PBSなどのアルゴリズムは、長い通路やone-tile entry、one-entry spaceを多く含むマップにおいて、計算時間の増大や解の不在といった困難な状況に直面することが示されました。また、PIBTやLTFは、障害物密度が高まることや、特定の入り口パターンを持つマップにおいて成功率が低下する傾向が確認されました。さらに、マップサイズを64×64に拡張した場合でも、32×32の時と同様の分布で困難なマップを生成できることが示されています。</p></section>
+<section class="secsum"><h3>5. Comparing Two Algorithms</h3><p>本研究では、あるアルゴリズムには容易だが別のアルゴリズムには困難なマップを生成するため、2つのアルゴリズム間の性能差を最大化する手法を用いて比較実験を行っています。EECBSとPBSの比較では、障害物が512個を超えるマップは両者にとって困難ですが、400個未満のマップでは、幅の広い長い廊下や入り口が一つしかない空間を持つマップにおいてEECBSが優位となり、一方で廊下の両端が開いているようなマップではPBSが優位となることが示されました。PIBTとLTFの比較では、障害物が50%未満のマップでは両者の成功率は同程度ですが、障害物が50%を超えるマップでは、入り口が一つしかない空間が多い場合にPIBTがLTFを平均で5%から10%上回る成功率を示します。200個のインスタンスを用いた検証の結果、特定のマップパターンにおいてPIBTがLTFを平均で14%上回るケースや、逆にLTFがPIBTを平均で20%上回るケースがあることが確認されました。これらの結果は、既存のベンチマークや人間が設計した倉庫マップを用いた先行研究の結論に対し、マップの構造によってアルゴリズムの優劣が異なることを示す、より包括的な比較を提供しています。</p></section>
+<section class="secsum"><h3>6. Discussion and Conclusion</h3><p>QD-MAPPERは、多様なマップを生成することでマルチエージェント経路探索（MAPF）アルゴリズムの性能を体系的に評価する、Quality Diversity（QD）アルゴリズムに基づくフレームワークである。単一アルゴリズムの評価においては、CPU実行時間の最大化や正則化成功率の最小化を目的関数とすることで、そのアルゴリズムが苦手とするマップを生成し、弱点を明らかにできる。実験の結果、PBSは長い廊下や入り口が限定的なマップにおいて、タイムアウトだけでなく解自体を返せない不完全性を示すことが判明した。また、LaCAM3も既存のベンチマークには少ない特定のパターンで苦戦し、PIBTとLTFの比較では、障害物密度が50%を超えるとPIBTが優位になる一方、密度が60%を超え複雑性が増すとLTFが優位になるという特性が示された。本手法は、インスタンス生成、アルゴリズム評価、QD最適化を分離したモジュール構造を持ち、目的関数や多様性指標をカスタマイズすることで、アルゴリズムにとって容易なマップの生成や、複数アルゴリズムの性能順位付けにも応用が可能である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-31
+  </footer>
+</div>
+</body>
+</html>

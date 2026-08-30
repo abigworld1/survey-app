@@ -3370,6 +3370,41 @@
       "url": "http://arxiv.org/abs/2608.24753v1",
       "venue": ""
     },
+    "arxiv:2608.25486": {
+      "added": "2026-08-31",
+      "added_at": "2026-08-31T06:08:48.976746",
+      "arxiv_id": "2608.25486",
+      "authors": [
+        "Rongchen Zhao",
+        "Yu Chen",
+        "Juyuan Wang",
+        "Zhouting Mo",
+        "Jianxing Yu",
+        "Wenqing Chen",
+        "Jingping Liu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-26",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.25486.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.25486v1",
+      "reading_value": 4,
+      "reading_value_reason": "「認知の島」という課題に対し、生物学的知見を応用した3層構造とハンガリー法による最適化を導入した点が独創的。長文物語推論で顕著な精度向上を示している。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "PonsRAG: A Pons-Inspired RAG Bridging Cognitive Islands for Coordinated Long Narrative Reasoning",
+      "tldr": "長大な物語の推論において、異なる知識層の間で情報が孤立する「認知の島」問題と、層を跨いだ証拠の断絶を解決するため、生物学的な橋渡し構造に着想を得た3層インデックス構成のRAGフレームワークを提案する。登場人物とプロットの情報を統合し、一貫した物語の文脈を構築することで、長文脈における推論精度を向上させる。",
+      "url": "http://arxiv.org/abs/2608.25486v1",
+      "venue": "EMNLP 2026 (Main Conference)"
+    },
     "arxiv:2608.25986": {
       "added": "2026-08-28",
       "added_at": "2026-08-28T06:09:35.878474",
@@ -4610,6 +4645,36 @@
       "title": "Homo-RAG: Homology-Guided Retrieval-Augmented Generation for Cross-Species Gene Function Prediction",
       "tldr": "非モデル生物の遺伝子機能予測における知識不足と誤情報の生成を解決するため、相同性をガイドとしたマルチホップ検索と、生物学的根拠に基づく再ランキングを統合したRAGフレームワークHomo-RAGを提案する。",
       "url": "http://arxiv.org/abs/2608.25466v1",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2608.25717": {
+      "added": "2026-08-31",
+      "added_at": "2026-08-31T06:06:52.404329",
+      "arxiv_id": "2608.25717",
+      "authors": [
+        "Abhinav Havaldar",
+        "Enrico Santus"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-26",
+      "doi": "10.48550/arxiv.2608.25717",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.25717.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.25717v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGが知識格差を解消せず、既存の偏りを増幅させる「条件付き増幅器」であるという指摘は、LLMの信頼性評価において極めて重要な視点であり、研究の新規性と実用的な示唆が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "When RAG Fails to Equalize: Geo-bias in Factual Question Answering over Public Companies",
+      "tldr": "検索拡張生成（RAG）は、大規模言語モデル（LLM）が持つ地理的な知識格差を均一に解消する手段にはならず、むしろモデルの既存知識量に依存してその効果が左右される。",
+      "url": "http://arxiv.org/abs/2608.25717v1",
       "venue": ""
     },
     "doi:10.48550/arxiv.2608.26379": {
@@ -7992,6 +8057,37 @@
       "url": "http://arxiv.org/abs/2409.13065v1",
       "venue": "2024 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)"
     },
+    "doi:10.1109/iros58592.2024.10802051": {
+      "added": "2026-08-31",
+      "added_at": "2026-08-31T06:04:15.406293",
+      "arxiv_id": "2409.03881",
+      "authors": [
+        "Han Zheng",
+        "Zhongxia Yan",
+        "Cathy Wu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 3,
+      "date": "2024-09-05",
+      "doi": "10.1109/IROS58592.2024.10802051",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2409.03881.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2409.03881v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFを混合自律走行に適用し、HDVの反応を予測モデルで組み込む手法は新規性が高い。実験も多角的に行われており、実用的な課題解決への貢献が期待できる。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi-agent Path Finding for Mixed Autonomy Traffic Coordination",
+      "tldr": "自動運転車（CAV）と手動運転車（HDV）が混在する環境において、HDVの反応を予測してCAVの経路を計画するBK-PBSを提案し、衝突回避と走行遅延の低減を実現した。",
+      "url": "http://arxiv.org/abs/2409.03881v1",
+      "venue": "IEEE/RJS International Conference on Intelligent RObots and Systems 2024"
+    },
     "doi:10.1109/iros58592.2024.10802597": {
       "added": "2026-07-22",
       "added_at": "2026-07-22T06:01:24.060666",
@@ -9411,6 +9507,40 @@
       "tldr": "動的な飛行禁止区域（NFZ）が存在する共有空域において、異種混合のUAVフリートによる大規模な事前飛行計画を、配送時間を考慮した優先順位付き計画と反復的な衝突解決によって実現する。",
       "url": "http://arxiv.org/abs/2602.12055v1",
       "venue": ""
+    },
+    "doi:10.65109/uzvn6052": {
+      "added": "2026-08-31",
+      "added_at": "2026-08-31T06:02:49.675854",
+      "arxiv_id": "2409.06888",
+      "authors": [
+        "Cheng Qian",
+        "Yulun Zhang",
+        "Varun Bhatt",
+        "Matthew Christopher Fontaine",
+        "Stefanos Nikolaidis",
+        "Jiaoyang Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 1,
+      "date": "2024-09-10",
+      "doi": "10.65109/UZVN6052",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2409.06888.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2409.06888v5",
+      "reading_value": 4,
+      "reading_value_reason": "QDとNCAを組み合わせたマップ自動生成による評価手法は新規性が高く、MAPFアルゴリズムの弱点を構造的に特定する実験も非常に具体的で、研究者にとって有用。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "QD-MAPPER: A Quality Diversity Framework to Automatically Evaluate Multi-Agent Path Finding Algorithms in Diverse Maps",
+      "tldr": "Quality Diversity (QD) アルゴリズムとNeural Cellular Automata (NCA) を組み合わせ、多様なマップを自動生成することで、マルチエージェント経路探索 (MAPF) アルゴリズムの性能を包括的に評価するフレームワーク QD-MAPPER を提案する。これにより、従来の固定的なベンチマークでは見落とされていた、アルゴリズムごとの弱点となるマップパターンを特定できる。",
+      "url": "http://arxiv.org/abs/2409.06888v5",
+      "venue": "Proceedings of the 25th International Conference on Autonomous Agents and Multiagent Systems 2024"
     },
     "title:efficient tsp based task group allocation for multi task multi agent pickup and delivery": {
       "added": "2026-07-17",

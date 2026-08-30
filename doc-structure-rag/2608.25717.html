@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>When RAG Fails to Equalize: Geo-bias in Factual Question Answering over Public Companies | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>When RAG Fails to Equalize: Geo-bias in Factual Question Answering over Public Companies</h1>
+  <div class="meta">Abhinav Havaldar, Enrico Santus<br>採択先: 未取得 ・ 2026-08-26 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.25717v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.25717v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2608.25717" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-26</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGが知識格差を解消せず、既存の偏りを増幅させる「条件付き増幅器」であるという指摘は、LLMの信頼性評価において極めて重要な視点であり、研究の新規性と実用的な示唆が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 検索拡張生成（RAG）は、大規模言語モデル（LLM）が持つ地理的な知識格差を均一に解消する手段にはならず、むしろモデルの既存知識量に依存してその効果が左右される。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究は、公開企業に関する事実に基づく質問応答において、LLMのパラメータ知識に存在する地理的な偏りと、RAGによる知識補完の有効性を対象としている。入力は、世界15の株式指数に含まれる約2,000社の企業に関する4つの属性（業種、設立年、本社所在地、主要人物）を問う質問と、それに関連するコンテキストである。従来の課題として、LLMの知識は市場や言語によって不均衡であり、外部情報の提供が必ずしもモデルの知識不足を補完するとは限らない点が挙げられる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の地理的知識に関する研究は国レベルの想起能力に留まっていたが、本研究はエンティティ（企業）レベルの事実質問応答へと対象を拡張した。RAGが知識の欠如を普遍的に補完する修正メカニズムではなく、モデルの内部表現や事前知識の強さに依存して機能する条件付きの増幅器であることを明らかにした点が新規である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>Wikipediaから抽出した2,135社の企業に基づき、15の主要な株式指数で層別化したベンチマークを構築した。質問は、企業名から属性を問う帰納的質問と、属性から企業名を特定する演繹的質問のペアで構成される。評価は、コンテキストなし、正しい情報を与える完全なコンテキスト、誤った情報を与える誤解を招くコンテキスト、無関係な情報を含む妨害コンテキストの4条件で行う。各条件における正解率に加え、コンテキストによる修正率、誤った情報を採用する誤解率、無関係な情報に惑わされる妨害率を算出する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>6つのLLMを用い、15の株式指数に基づく評価を行った。コンテキストなしの状態では、英語圏を中心とした大規模市場に比べ、新興市場などの小規模市場では正解率が著しく低かった。完全なコンテキストを与えた場合、正解率の向上幅は元のパラメトリックな知識量と相関しており、知識が豊富な市場ほど恩恵を受けるものの、市場間の格差は解消されなかった。また、誤解を招くコンテキスト下では、モデルが誤った情報をそのままコピーする体系的なエラーが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>RAGは、モデルが既に知識を持つ領域では精度を高めるが、知識が乏しい領域では恩恵が少なく、むしろ誤った情報に対して脆弱になるというトレードオフがある。モデルの規模を拡大しても、知識の地理的な不均衡やコンテキストへの脆さといった構造的な問題は解消されない。本研究の限界として、データソースがWikipediaに依存していること、誤解を招くコンテキストが合成的なものであること、および英語中心の評価体系であることが挙げられる。今後の課題は、非西洋圏のモデルへの拡張や、未知の事象に対して「わからない」と回答できるキャリブレーション機能の検討である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>When RAG Fails to Equalize: Geo-bias in Factual Question Answering over Public Companies</h3><p>本研究は、検索拡張生成（RAG）が大規模言語モデル（LLM）の知識不足を均一に補完できるかを、上場企業に関する事実に基づく質問回答を用いて検証しています。世界的な株式指数に含まれる2,000社を対象としたベンチマークを構築し、6つのLLMに対して、コンテキストなし、完全なコンテキスト、誤解を招くコンテキスト、および妨害となるコンテキストの4つの条件下で、4つの属性に関する精度を評価しました。実験の結果、コンテキストがない状態では地理的な格差が顕著であり、モデルのパラメータ知識が不均衡であることが示されました。完全なコンテキストの提供により精度は向上するものの、地理的な格差は解消されず、検索の有効性はモデルが元々持つ内部表現（ベースラインの精度）と相関していることが明らかになりました。また、誤った情報を含むコンテキストを与えた場合には、モデルが誤情報をそのままコピーする傾向が見られました。モデルの規模を大きくしても、これらの構造的な影響を排除するには至らないことが示されています。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、公開企業に関する事実に基づく質問応答において、検索拡張生成（RAG）が地理的な知識格差を解消できず、むしろ既存の偏りを強化する可能性を調査している。著者らはWikipediaを用い、世界15の株式指数に含まれる2,000社を対象としたベンチマークを構築し、6つの大規模言語モデルを用いて、業種、設立年、本社所在地、主要人物の4属性について評価を行った。実験では、モデルが持つ内部知識と外部情報の相互作用を分離するため、文脈なし、完全な文脈、誤解を招く文脈、および妨害となる文脈の4条件を設定し、エンティティから属性を問う帰納的な質問と、属性からエンティティを問う演繹的な質問のペアを用いて検証している。結果として、文脈なしの状態では市場間で正解率に大きな差があり、完全な文脈を与えても、検索による性能向上はモデルが元々持っている知識量に相関しており、市場間の格差を解消するには至らないことが示された。さらに、誤解を招く文脈ではモデルが誤った情報をそのままコピーする体系的なエラーが発生し、モデルの規模を大きくしても、これらの構造的な問題は解消されないことが明らかになった。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>事前学習済み言語モデルはパラメータ内に事実知識を保持しているが、その想起能力は言い換えやプロンプトの変化に弱く、出現頻度の低いエンティティに対しては低下するという課題がある。検索拡張生成（RAG）は、推論時に外部文書を参照することでこのパラメータメモリの限界を補う手法として提案され、密な検索システムなどの発展により知識集約的な質問応答の性能が向上してきた。しかし、既存研究では検索による平均的な性能向上は示されているものの、モデルが内部の事前知識と外部コンテキストの間で葛藤し、誤った証拠に従ったり矛盾するコンテキストに惑わされたりするといった、情報の利用における不確実性が指摘されている。また、自然言語処理におけるバイアスは社会・言語的側面で広く研究されており、近年ではモデルの事実想起能力が国や所得層によって系統的に異なるという地理的な歪みも報告されている。本研究は、これまでの国レベルの想起能力に関する議論をエンティティレベルの事実質問応答へと拡張し、地理的・市場的な不均衡がRAGによる知識補完の恩恵にどのような差を生じさせるかを、公開企業という構造化されたドメインを用いて調査する。</p></section>
+<section class="secsum"><h3>3 Research Questions and Hypotheses</h3><p>本研究は、グローバル市場における知識の不均衡を自然実験として捉え、検索がモデルの構造的なバイアスを補正する独立したメカニズムとして機能するか、あるいはモデルの知識に依存し続けるかを検証することを目的としています。具体的には、質問の方向性が難易度や誤答パターンに与える影響、検索コンテキストがない状態での地域や指数による事実回答精度の格差、完全なコンテキストを与えた際の精度向上がベースラインの性能に依存するかという検索の恩恵の不均一性、誤解を招く情報や注意を逸らす情報が系統的な誤りやコピー行動を誘発する度合い、そしてモデルの規模が有用な情報の活用や誤情報への耐性に、特に過小評価されている市場においてどのように寄与するかという5つの仮説を検証します。実験では、地理的・指数的な位置付けとモデルの規模がパラメータ知識の精度を形成し、コンテキストの性質（なし、完全、誤解を招く、注意を逸らす）および質問の方向性（帰納的、演繹的）といったプロンプト設定が、知識と証拠が回答精度へと変換される過程を調整する枠組みで分析を行います。</p></section>
+<section class="secsum"><h3>4 Methodology</h3><p>本研究では、Wikipediaから収集した2,135社の公開企業を対象に、北米、欧州、アジア、ラテンアメリカ、アフリカ、オセアニアの15の主要な株価指数に基づいた地理的に層別化されたベンチマークを構築しています。各企業に対し、本社所在地、設立年、業種、主要人物という4つの属性を抽出し、評価のノイズを防ぐために都市・国名形式や標準化された分類体系への正規化を行っています。問題構成は、属性から企業を特定する帰納的な質問と、企業から属性を特定する演繹的な質問のペアで設計されており、各質問には意味的に妥当だが事実とは異なる3つの選択肢が付与されます。コンテキスト条件として、モデルの内部知識のみを用いる「コンテキストなし」、正しい企業要約を用いる「完全なコンテキスト」、誤った企業の要約を対象企業名に置き換えた「誤解を招くコンテキスト」、および無関係な情報を含む「妨害コンテキスト」の4つの設定を用いています。評価にはGPT-5、Claude Sonnet 4、LLaMAなどの計6つのモデルを用い、コンテキストなしの正解率をパラメトリックな知識の代理指標とした上で、コンテキストによる正解率の変化（修正率、誤解率、妨害率）を算出することで、知識の方向性、地理的差異、事前知識への依存性、コンテキストによる誤り、およびモデルによる影響の5つの仮説を統計的に検証します。</p></section>
+<section class="secsum"><h3>5 Results</h3><p>質問の方向性が難易度に与える影響を分析した結果、帰納的な質問は直接的な事実検索に似ているため、演繹的な質問よりも一貫して容易であることが示された。演繹的な質問は、もっともらしい選択肢の中から正しい実体を特定する必要があるため、誤情報の干渉を受けやすく、識別的な知識をより厳格に問うものとなる。コンテキストを与えない状態での性能は、英語圏の主要な市場では高い一方で、規模の小さい市場では著しく低く、モデルの規模を大きくしてもこの地理的な知識格差は解消されない。正しい文脈を提供すると精度は向上するが、もともとのパラメトリック知識が高い市場ほど向上幅も大きくなるという、知識と証拠利用の結合が見られ、検索が市場間の格差を均一化するわけではないことが明らかになった。誤った文脈を与えた場合、モデルは自身の知識よりも誤った証拠を採用してしまう傾向があり、精度がパラメトリックな想起のみの場合よりも低下する現象が確認された。また、無関係な文脈による性能低下は、誤った文脈によるものよりは軽微であるが、モデルは依然として局所的に妥当な誤情報に対して脆弱である。総じて、モデルの規模拡大は絶対的な精度や頑健性を向上させるものの、市場間の知識分布の不均衡や、文脈への脆さといった質的な構造を変化させるには至っていない。</p></section>
+<section class="secsum"><h3>6 Discussion</h3><p>本研究の結果は、事実に基づく質問回答の性能が、モデルが持つパラメータ知識と検索された文脈情報の相互作用によって決まることを示しており、5つの仮説をすべて支持しています。具体的には、帰納的な質問は演繹的な質問よりも容易であり、文脈がない状態での正解率は指数によって大きく変動して知識の偏りを反映すること、正しい文脈は精度を向上させるものの知識の格差を埋めるには至らず、その向上幅はベースラインの知識量に依存すること、誤解を招く文脈は性能を低下させ誤った証拠への過度な依存を示すこと、そして大規模なモデルは性能と堅牢性を向上させるものの構造的な格差を解消するわけではないことが明らかになりました。これらの結果は、検索が知識の欠如を普遍的に補完する手段ではなく、モデルが既に強い領域では助けとなる一方で、知識が乏しい領域では恩恵が少なく脆弱性を高めるという、条件付きの増幅器として機能することを浮き彫りにしています。したがって、集計された正解率のみでは体系的な弱点を見逃す可能性があるため、評価は地理、エンティティの網羅性、および文脈の条件ごとに層別化して行うべきです。また、高リスクな領域においては、誤解を招く証拠に対する堅牢性を中核的な要件とし、検証レイヤーの導入や構造化データの統合、情報の出所を考慮した設計が求められます。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>本研究では、公開企業に関する事実に基づく質問応答において、地理経済的な不均一性を利用して大規模言語モデルの知識と検索能力を調査するためのベンチマークを提案した。実験の結果、市場によって回答精度に偏りがあることが判明し、検索によって適切な文脈を提示しても、精度向上の度合いがベースラインの精度に依存するため、市場間の格差は完全には解消されないことが示された。また、誤解を招く文脈を与えると系統的な誤りが生じるという失敗モードが確認され、これはモデルの規模を大きくしても解消されない。本ベンチマークはWikipedia由来の記述に基づいているため、実用的な検索環境とは異なり、対象も単一の事実に関する問いに限定されている。さらに、誤解を招く文脈の設定が合成的なものであることや、英語中心の評価であり米国・欧州のモデルに限定されていることも課題である。今後は、非西洋圏のモデルへの拡張や、未知の事象に対して「わからない」と回答できるキャリブレーション機能の評価などが検討される。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-31
+  </footer>
+</div>
+</body>
+</html>

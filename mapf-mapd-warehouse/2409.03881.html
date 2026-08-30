@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-agent Path Finding for Mixed Autonomy Traffic Coordination | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi-agent Path Finding for Mixed Autonomy Traffic Coordination</h1>
+  <div class="meta">Han Zheng, Zhongxia Yan, Cathy Wu<br>採択先: IEEE/RJS International Conference on Intelligent RObots and Systems 2024 ・ 2024-09-05 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2409.03881v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2409.03881v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/IROS58592.2024.10802051" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 IEEE/RJS International Conference on Intelligent RObots and Systems 2024</span><span class="chip">公開日 2024-09-05</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 3</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFを混合自律走行に適用し、HDVの反応を予測モデルで組み込む手法は新規性が高い。実験も多角的に行われており、実用的な課題解決への貢献が期待できる。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 自動運転車（CAV）と手動運転車（HDV）が混在する環境において、HDVの反応を予測してCAVの経路を計画するBK-PBSを提案し、衝突回避と走行遅延の低減を実現した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>制御可能なCAVと、周囲の車両に反応して動く制御不能なHDVが混在する高速道路の交通協調を対象とする。従来のマルチエージェント経路探索（MAPF）アルゴリズムは、すべてのエージェントの挙動を完全に制御できることを前提としており、予測不可能なHDVが存在する混合交通環境には適用できないという課題がある。本研究では、CAVが目標地点の集合に到達するまでの総走行遅延を最小化しつつ、衝突を回避する経路計画を目的とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>混合自律走行の研究において、従来のモデルベースの制御や強化学習とは異なり、探索ベースのプランニングにHDVの挙動予測を統合した点が新規である。HDVを単なる動的な障害物として扱うのではなく、CAVの動きに対するHDVの反応を予測する条件付き予測モデルを戦略的な意思決定プロセスに組み込むことで、混合交通におけるMAPFを実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>優先度に基づく探索（PBS）を拡張したBK-PBSを用いる。衝突が発生した場合、優先度ツリーを用いて車両間の優先順位を決定する。HDVに低い優先度を割り当てた場合は、グラフ畳み込みネットワーク（GCN）を用いた条件付き予測モデルにより、CAVの計画軌道に応じたHDVの将来の車線変更行動を予測し、制約として利用する。低レベルの経路計画には、自転車モデルに基づく運動学的制約を満たすため、加速、減減速、待機、車線変更、緊急ブレーキなどの動作プリミティブを用いた多段階A*探索（M-A*）を用いる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>高速道路の合流シナリオのシミュレーションにおいて、分散型計画のBK-M-A*、ルールベースのIDM+MOBIL、強化学習のRL-PPOと比較した。評価指標は、CAVが関与する衝突率（controllable collision rate）と、衝突せずに終端に到達した車両の平均走行遅延である。実験の結果、高密度な交通条件下において、BK-PBSはIDM+MOBILと比較して総走行遅延を15%から20%削減した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>予測モデルの精度において、合流路（ランプ）に比べ本線での車線変更予測に限界がある。また、極めて高密度な交通条件下では、頻繁な車線変更を避けるルールベース手法の方が衝突率が低くなる場合がある。今後の課題として、より高度な行動予測手法の統合、制御バリア関数による安全性の強化、大規模ネットワークへの適用拡大が挙げられる。また、衝突による連鎖反応を考慮した実環境での検証も必要である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Multi-agent Path Finding for Mixed Autonomy Traffic Coordination</h3><p>本研究では、制御不能な人間運転車両（HDV）と制御可能な自動運転車両（CAV）が混在する交通環境に対応するため、BK-PBS（Behavior Prediction Kinematic Priority Based Search）を提案している。この手法は、CAVの挙動に対するHDVの反応を予測する、オフライン学習済みの条件付き予測モデルを活用している。探索アルゴリズムには、優先度に基づく探索（PBS）を拡張した仕組みを採用しており、運動学的制約を考慮するために、動作プリミティブを用いたA*探索を行うことで車両の動きを考慮した経路計画を実現している。高速道路の合流シナリオを用いたシミュレーションにおいて、CAVの普及率や交通密度を変化させた条件下で評価を行った結果、ルールベースの車間距離モデルや強化学習を用いた手法と比較して、衝突率の低減およびシステム全体の走行遅延の改善において優れた性能を示した。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>自動運転車（CAV）と手動運転車（HDV）が混在する交通環境において、HDVの予測不可能な挙動に対応するための新手法であるBehavior Prediction Kinematic Priority Based Search（BK-PBS）を提案する。従来のPriority Based Search（PBS）は、エージェント間の優先順位を割り当てて衝突を回避する手法だが、すべてのエージェントを完全に制御できることを前提としており、制御不能なHDVが存在する混合交通には適さないという課題がある。BK-PBSは、まずオフラインでHDVがCAVの動きに対してどのように反応するかを予測する条件付き予測モデルを学習させ、CAVに高い優先順位が割り当てられた際に、その予測モデルを用いてHDVの将来の軌道を推定することで、CAVがHDVの反応を考慮した能動的な調整を行う。また、CAVの経路計画には、車両の現実的な動きを特徴付ける運動学的制約を考慮するため、モーションプリミティブを用いた低レベルのA*探索を組み込んでいる。高速道路の合流車線を用いたシミュレーション実験の結果、BK-PBSはCAVの普及率や交通密度が変化する条件下において、衝突率の低減およびシステム全体の走行遅延の抑制において、ベースライン手法を上回る性能を示した。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>混合自律走行環境における交通協調の研究は、自動運転車（CAV）と手動運転車（HDV）が混在する設定においては未だ限定的であり、既存手法はモデルベースの制御による車間距離維持や、衝突回避を明示的に考慮しない強化学習による制御に留まっている。本研究は、混合自律走行において探索ベースのプランニング手法を検討し、さらに周囲のHDVの挙動を既知の特性として扱うのではなく、その挙動予測を組み込んでいる点が特徴である。挙動予測の分野では深層学習を用いた将来位置の予測が主流であるが、本研究は予測モデル自体の設計ではなく、既存の予測モデルをCAV群の戦略的プランニングに統合し、動的な意思決定と安全性を両立させることに焦点を当てている。マルチエージェント経路探索（MAPF）は、離散グラフ上で衝突を回避する最短経路を求めるNP困難な問題であり、計算量の爆発を避けるためにA*探索などの単一エージェント用プランナーを繰り返し呼び出し、他者の経路を制約として扱う手法が一般的である。代表的なアルゴリズムとして、個別の最短経路を求めた後にバックトラッキングを用いて衝突を解消するConflict-based Search（CBS）や、エージェント間の優先順位を探索することでスケーラビリティを高めたPriority-based Search（PBS）が存在する。連続空間においては、サンプリングベースの手法とMAPFを組み合わせる、あるいは空間を離散化するアプローチが取られているが、混合自律走行環境にMAPFを適用した研究は、著者らの知る限り存在しない。</p></section>
+<section class="secsum"><h3>III Problem Formulation</h3><p>本研究では、高速道路における混合交通の調整問題を、エージェントの移動をグラフ上のノード遷移として扱うマルチエージェント経路探索（MAPF）の枠組みで定式化しています。制御対象となるCAV（接続自動運転車）に対し、HDV（手動運転車）は周囲の車両の状態に反応して動く非制御エージェントとして扱います。CAVの目標は単一の地点ではなく、走行車線や合流車線の状況に応じた一定距離以上の前方地点、あるいは合流ゾーン終了前の隣接車線上の地点を含む目標集合として定義されます。アクションには、加速や車線変更などの高レベルな操作を包含するモーションプリミティブを採用しており、CAVの次時刻の遷移は決定論的なモデルに従う一方、HDVの遷移は周囲の車両の速度や加速度などの状態に依存します。解の条件は、すべてのCAVが衝突を回避しながらそれぞれの目標集合に到達することであり、目的関数は、車両が他の車両を無視して最大速度で走行した場合の理想的な到着時刻と、計画後の実際の到着時刻の差である総遅延コストの最小化として定義されます。車両の運動学モデルには、計算効率と精度のバランスに優れた自転車モデルを採用しており、制御入力として加速度と前輪の操舵角を用います。</p></section>
+<section class="secsum"><h3>IV Method</h3><p>提案手法であるBK-PBSは、自動運転車（CAV）と手動運転車（HDV）が混在する交通環境において、優先度ベース探索（PBS）に学習済みの条件付き予測モデルを統合した集中型経路計画アルゴリズムである。低レベルの経路計画には、車両の運動学的制約を満たすために、加速、減速、停止、車線変更、緊急ブレーキといった動作プリミティブを用いる多段階A*探索（M-A*）を採用している。M-A*は、まず目標地点への最短経路を探索し、失敗した場合には安全な減速を優先する第2段階の探索を行うことで、計画の実現可能性を高めている。BK-PBSは優先度ツリーを深さ優先探索し、CAVとHDVの衝突が発生した場合、HDVに高い優先度を与えるか、あるいはCAVの動きに応じてHDVの挙動を予測し直すかという2つの分岐を行う。この予測にはグラフ畳み込みネットワーク（GCN）を用いた条件付き予測モデルが使用され、周囲の車両の状態と、より高い優先度を持つCAVの計画済み軌道をグラフ構造として入力することで、HDVの将来の車線変更行動を予測する。これにより、HDVの動きを単なる動的障害物として扱うだけでなく、CAVの動きに反応する主体として捉えた、先見的な協調制御を実現している。</p></section>
+<section class="secsum"><h3>V Experimental Setup</h3><p>HighwayEnvを拡張したシミュレーション環境を用い、自動運転車（CAV）と手動運転車（HDV）が混在する高速道路の交通をモデル化しています。HDVの挙動はIDMおよびMOBILモデルに基づき、ランプ路からの合流には確率的な合流モデルが適用されます。提案手法のBK-PBSおよびBK-M-A*で使用する予測モデルは、グラフ畳み込みネットワーク（GCN）と全結合層を用い、3万件のサンプルを用いてHDVの車線変更確率を予測するように教師あり学習で訓練されています。比較対象には、分散型計画アルゴリズムであるBK-M-A*、ルールベースのIDM+MOBIL、強化学習を用いたRL-PPO、およびBK-A*が設定されています。RL-PPOは、目標速度の維持と最大14台の周囲車両との衝突回避を報酬として、単一車両環境で1e8ステップの学習を経て訓練されます。評価指標には、衝突した車両数と、衝突せずに高速道路の終端に到達した車両の走行遅延が用いられます。</p></section>
+<section class="secsum"><h3>VI Experimental Results</h3><p>予測モデルのオフライン評価では、ランプと本線の2つのデータセット（各4000サンプル）を用いて、人間運転者（HDV）の車線変更の有無を二値で予測する精度を検証しており、全体として高い精度を得ているものの、本線における予測精度はランプと比較して限定的であることが示されている。制御可能な衝突率の評価では、自動運転車（CAV）が関与する衝突のみを対象としており、提案手法であるBK-PBSは、強化学習を用いたRL-PPOよりも低い衝突率を達成している。ルールベースのIDM+MOBILは交通密度に対する堅牢性を示す一方で、高密度条件下ではMOBILモデルによる車線変更の抑制により、最短経路を優先して頻繁に車線変更を行うBK-PBSよりも衝突率が低くなる傾向がある。また、BK-M-A*はCAV同士の衝突を解決できないため、BK-PBSと比較して衝突率が高く、CAVの普及率が高まるにつれて衝突率が上昇する。走行遅延の比較において、IDM+MOBILやBK-M-A*がBK-PBSより低い遅延を示すケースがあるが、これは衝突した車両がシナリオから除去されることで交通流が人工的に緩和される影響によるものである。衝突率が同程度であることを考慮して比較した場合、高密度な交通条件下では、BK-PBSはIDM+MOBILに対して総走行遅延を15%から20%削減しており、交通流を円滑化する有効性が確認されている。</p></section>
+<section class="secsum"><h3>VII Conclusions and Future Work</h3><p>本研究では、自動運転車（CAV）の行動に対する人間が運転する車両（HDV）の反応を予測するために、オフラインで学習された条件付き予測モデルを活用するBK-PBSという新しいフレームワークを提案している。この手法は、運動学的制約を考慮したモーションプリミティブを用いる多段階のA*探索を、優先度ベース探索（PBS）に統合したものである。高速道路の合流シナリオを用いたシミュレーション実験において、交通密度や自動運転車の普及率が異なる条件下で、BK-PBSは既存のルールベース手法や強化学習アルゴリズムよりも衝突回数と走行遅延を低減させた。今後の展望として、より高度な行動予測手法の統合や、制御バリア関数のような安全エンベロープを用いた安全性の強化、さらにはより大規模で一般的なネットワークへの適用拡大が挙げられる。また、衝突による連鎖反応への再計画を考慮するため、シミュレーション上の車両除去ではなく、物理的なテストベッドを用いた検証が実世界への適用に向けた重要な課題である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-31
+  </footer>
+</div>
+</body>
+</html>

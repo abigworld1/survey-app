@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PonsRAG: A Pons-Inspired RAG Bridging Cognitive Islands for Coordinated Long Narrative Reasoning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>PonsRAG: A Pons-Inspired RAG Bridging Cognitive Islands for Coordinated Long Narrative Reasoning</h1>
+  <div class="meta">Rongchen Zhao, Yu Chen, Juyuan Wang, Zhouting Mo, Jianxing Yu, Wenqing Chen, Jingping Liu<br>採択先: EMNLP 2026 (Main Conference) ・ 2026-08-26 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.25486v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.25486v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 EMNLP 2026 (Main Conference)</span><span class="chip">公開日 2026-08-26</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">「認知の島」という課題に対し、生物学的知見を応用した3層構造とハンガリー法による最適化を導入した点が独創的。長文物語推論で顕著な精度向上を示している。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 長大な物語の推論において、異なる知識層の間で情報が孤立する「認知の島」問題と、層を跨いだ証拠の断絶を解決するため、生物学的な橋渡し構造に着想を得た3層インデックス構成のRAGフレームワークを提案する。登場人物とプロットの情報を統合し、一貫した物語の文脈を構築することで、長文脈における推論精度を向上させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>長大な物語の推論（LNR）は、複数の登場人物やプロットにわたる文脈を維持しながら情報を統合する能力を必要とする。従来の単一層インデックスを用いたRAGは、単一の視点しか提供できない。また、既存の多層インデックス方式においても、インデックス構築時に層間で情報が孤立する「認知の島」問題や、推論時に各層が独立して検索されることで文脈が断片化・冗長化するという課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存手法が単層または独立した多層構造に留まっていたのに対し、登場人物、プロット、およびそれらを相互接続するPons層からなる3層のインデックス構造を導入した点が新規である。層を跨いだ証拠の伝播と選択を可能にする二部グラフ構造を実装することで、情報の断絶を解消している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>オフライン工程では、エンティティの記述と知識グラフからなるキャラクター層、イベントと要約を含むプロット層、および両層を接続するPons層を構築する。Pons層は、キャラクターの記述とイベント間の意味的類似度および出現頻度に基づく重みを用いて両層を結合する。オンライン工程では、まずクエリに基づき各層からアンカーノードを特定する。次に、Co-HITSアルゴリズムを用いてPons層を介した両層間の相互強化を行い、ハンガリー法を用いてキャラクターとプロットの最適な1対1のペアリングを決定する。最後に、抽出されたペアを時系列に並べ替え、LLMを用いてクエリの意図に合致する文脈のみを抽出して回答を生成する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>NarrativeQA、BENCH、NoChaの4つの長文物語ベンチマークを用い、F1スコア、完全一致（EM）、正解率（ACC）を指標として評価した。比較対象は、LLMによる直接処理、Naive RAG、およびRAPTORやComoRAGなどの構造化RAGである。実験の結果、多肢選択問題において最強のベースラインに対し、平均正解率で11.56%の相対的な向上を達成した。特に15万トークンを超える長文のBENCH（EN.MC）において、2番目に優れた手法を10%以上上回る顕著な改善が見られた。また、Pons層を欠くとEN.MCの正解率が10%以上低下することや、1対1の制約を緩和して多対多のペアリングを許容すると、ノイズが増加し精度が低下することも確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は長大な物語の推論に特化して設計されているため、現在の評価はLNRベンチマークに限定されている。マルチホップ質問応答や、より一般的な長文コンテキストタスクにおける有効性は未検証である。今後は、提案した協調的推論のパラダイムを、より幅広い推論タスクへと拡張することが課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>PonsRAG: A Pons-Inspired RAG Bridging Cognitive Islands for Coordinated Long Narrative Reasoning</h3><p>PonsRAGは、長大な物語の処理における認知的な孤立（cognitive islanding）と、層を跨いだ証拠の断絶という課題を解決するために提案された、生物学的な橋渡し構造（pons）に着想を得たRAGフレームワークである。本手法は、文書を連結された知識構造として整理することで認知的な孤立を解消する「3層インデックス作成」と、異なる層から証拠を検索し、それらを統合して単一の文脈を構築する「協調的推論」の2つの主要コンポーネントで構成される。4つの長文脈物語ベンチマークを用いた評価実験において、PonsRAGは既存の強力なベースラインを上回り、多肢選択問題の平均精度において相対的に11.56%の向上を達成した。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>長大な物語における推論（LNR）は、複数の登場人物やプロットにわたる文脈を維持しながら情報を統合する能力を指すが、既存の単一層インデックスを用いたRAGでは、単一の知識層に依存するため情報の断片的な視点しか得られないという課題がある。多層インデックス方式は複数の視点を提供できるものの、インデックス構築時に層間で情報が孤立する「認知の島（Cognitive Island）」問題や、推論時に各層が独立して検索されることで文脈が断片化・冗長化するという問題が存在する。本研究では、脳の領域間を繋ぐ役割を担う橋（Pons）に着想を得たPonsRAGを提案し、登場人物、プロット、およびこれらを繋ぐPons層からなる3層のインデックス構造を導入する。Pons層は異なる層のノード間を接続する二部グラフとして実装されており、層を跨いだ証拠の伝播と選択を可能にする。さらに、層全体で証拠を共同で検索、照合、フィルタリングする協調推論パイプラインを用いることで、断片的な情報を一貫した推論鎖へと統合する。4つの長文脈物語ベンチマークを用いた評価の結果、PonsRAGはすべてのベースラインを上回り、多肢選択問題において相対的な平均精度を11.56%向上させた。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>近年のRAG手法は、インデックス作成メカニズムに基づき、単層インデックス型と多層インデックス型の2つに分類される。単層インデックス型では、チャンクを再帰的にクラスタリングして意味的な要約ツリーを構築し、異なる粒度のイベントを捉えるRAPTORや、エンティティ中心のグラフを構築してPersonalized PageRankを用いて証拠を検索するHippoRAGv2、さらにドキュメントレベルのエンティティと関係性の知識グラフを構築し、局所的なグラフ証拠とコミュニティレベルの要約を組み合わせて検索を行うGraphRAGなどが存在する。一方、多層インデックス型は、知識を異なる階層に整理することで、フラットなインデックスを超えた構成をとる。具体的には、真実性、意味論、エピソード記憶の3層のインデックスを構築して一定の割合で証拠を検索するComoRAGや、局所からグローバルへと複数の知識層を構築し、高レベルの文脈を特定してから細粒度の証拠へと絞り込むHiRAG、そしてスキーマに従うエージェントを用いて4層の知識ツリーを構築し、複雑なクエリをスキーマに沿ったサブクエリに分解して検索を行うYoutu-GraphRAGなどが挙げられる。</p></section>
+<section class="secsum"><h3>3 Overview</h3><p>本研究では、長大な物語文書と特定の問いが与えられた際に、最適な回答を生成する問題を、回答の条件付き確率を最大化することとして定式化している。提案手法であるPonsRAGは、オフラインでの3層インデックス構築と、オンラインでの協調的推論の2段階で構成される。インデックス構築では、登場人物の特徴をモデル化するキャラクター層、物語の進行を原子的なイベントとして捉えるプロット層、そしてこれら分離した層を相互接続するポンス層を構築する。オンラインの推論プロセスでは、まず問いに基づいて両層から初期ノードを検索するクエリアンカーを行い、次にポンス層を介して層を跨ぐ潜在的なノードを探索するポンス覚醒、異なる層のノードを対応付けるポンスマッチ、そして対応したペアから時系列に沿ったプロットを再構成してノイズを除去するフローフィルタの4ステップを経て、最終的な文脈を抽出する。最後に、抽出された物語の連なりと問いを生成器に入力することで、回答を得る。</p></section>
+<section class="secsum"><h3>4 Methodology</h3><p>PonsRAGは、長大な物語の推論を支援するために、キャラクター層、プロット層、およびそれらを繋ぐPons層からなる3層のインデックス構造を提案している。キャラクター層は、各チャンクから抽出されたエンティティの記述と知識グラフで構成され、プロット層は、イベント、イベントタイプ、およびそれらをまとめたクラスター要約を含むメモリカード構造で構成される。Pons層は、キャラクターの記述とイベント間の意味的類似度と、キャラクターの出現頻度に基づく逆頻度重みを組み合わせた重み付きエッジを用いて、両層を結合する。推論プロセスでは、まずクエリに基づき、キャラクター層ではPersonalized PageRank、プロット層ではイベント・要約・チャンクの3つの粒度を考慮した多粒度スコアリングを用いてアンカーノードを特定する。次に、Co-HITSアルゴリズムを用いてPons層を介した両層間の相互強化を行い、活性化したノードから候補サブグラフを構築した後、ハンガリー法を用いてキャラクターとプロットの最適な1対1のペアリングを決定する。最終的に、抽出されたペアを時系列に並べ替え、LLMを用いたフィルタリングによってクエリの意図や時間的制約に合致する文脈のみを抽出することで、回答の根拠となる物語のシーケンスを生成する。</p></section>
+<section class="secsum"><h3>5 Experiment</h3><p>PonsRAGは、長大な物語の理解において、キャラクター情報とプロット情報の間に生じる情報の断絶を橋渡しする手法である。実験では、NarrativeQA、BENCH、NoChaといった、数万から20万トークンを超える長文の物語を含むデータセットを用い、質問回答および多肢選択タスクで評価を行った。評価指標にはF1スコア、完全一致、正解率を用い、LLMによる直接処理や、既存のNaive RAG、およびRAPTORやComoRAGなどの構造化RAGを比較対象とした。<br><br>実験の結果、PonsRAGはすべてのタスクにおいてベースラインを上回り、特に15万トークンを超える長文を扱うEN.MCタスクにおいて、最強のベースラインに対し正解率で11.56%の相対的な向上を示した。また、思考の連鎖（IRCoT）を用いた多段階の質問回答においても、既存の構造化RAGを凌駕する性能を発揮し、キャラクターとプロットの両方の情報を必要とする混合型の質問において最も顕著な優位性が確認された。アブレーション研究では、キャラクター層とプロット層を接続するPons層の重要性が示され、この層を欠くとEN.MCにおいて正解率が約20%低下することが判明した。さらに、キャラクターノードとプロットノード間の意味的な距離が大きくなるほど、PonsRAGの性能向上の幅が拡大することも明らかになり、情報の断絶が激しいほど本手法の橋渡し機能が有効に働くことが示された。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>長大な物語の推論において、情報が断片化して孤立する「認知の島（cognitive-island）」の問題を解決するため、本研究ではPonsRAGという3層構造の検索フレームワークを提案する。この手法は、登場人物、プロット、およびそれらを橋渡しするPonsという3つの層を連携させ、層をまたいだ証拠選択を調整する。4つのベンチマークを用いた評価の結果、PonsRAGは高い性能を示し、特に文書が長くなるほどその優位性が顕著になることが確認された。この結果は、長文コンテキストの設定において、構造化された層間検索が有効であることを示している。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>PonsRAGは長い物語の推論において高い性能を示す一方で、現在の評価はLNRベンチマークに限定されています。本フレームワークは長文コンテキスト向けに明示的に設計されているため、マルチホップ質問応答やより一般的な長文コンテキストタスクといった他の推論設定における有効性はまだ検証されていません。今後は、提案された協調的推論のパラダイムをより幅広い推論タスクへと拡張することが重要な課題となります。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-31
+  </footer>
+</div>
+</body>
+</html>
