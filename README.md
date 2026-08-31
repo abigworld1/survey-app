@@ -61,7 +61,7 @@ cd ~/survey-app
 
 ### 2. 読みたい論文を手動で追加（`add_paper`）
 
-日次更新とは独立に、**任意の論文を1枚だけ**要約・公開できます。
+日次更新とは独立に、任意の論文を1枚ずつ、または同じ分野のPDFをフォルダ単位で要約・公開できます。
 
 ```bash
 cd ~/survey-app
@@ -77,6 +77,13 @@ LLM_BASE_URL=http://localhost:8000/v1 LLM_API_KEY=dummy \
 LLM_BASE_URL=http://localhost:8000/v1 LLM_API_KEY=dummy \
   .venv/bin/python -m pipeline.add_paper --url https://example.org/paper.pdf
 
+# survey-app/incoming-mapf/ 配下の全PDFをMAPF分野へ一括追加
+# サブフォルダ内のPDFも処理する
+./add-pdfs.py --folder incoming-mapf --mapf
+
+# survey-app/incoming-rag/ 配下の全PDFをRAG分野へ一括追加
+./add-pdfs.py --folder incoming-rag --rag
+
 # 生成後に公開
 git add -A && git commit -m "add paper" && git push origin main
 ```
@@ -90,8 +97,13 @@ git add -A && git commit -m "add paper" && git push origin main
 | `--field <slug>` | 任意の分野スラッグ |
 
 補足:
-- 入力の指定（`--arxiv` / `--pdf` / `--url`）はいずれか1つ必須。追加先（`--mapf` / `--rag` / `--field`）は排他。
-- PDF からタイトルが取れないときは `--title` で指定（無指定なら PDF メタデータや先頭行から推定）。
+- 入力の指定（`--arxiv` / `--pdf` / `--url` / `--folder`）はいずれか1つ必須。追加先（`--mapf` / `--rag` / `--field`）は排他。
+- 一括追加では `--folder <repo内フォルダ>` を指定する。フォルダ内のPDFはすべて同じ追加先分野として扱う。
+- 一括追加はサブフォルダも再帰的に検索する。直下だけなら `--no-recursive`、先頭N件だけなら `--limit N` を付ける。
+- PDFメタデータ、先頭ページのタイトル、ファイル名の順でタイトルを推定し、arXiv IDやDOIがあれば書誌情報も補完する。
+- 登録済み論文はLLMを呼ぶ前にスキップする。個別のPDFで失敗しても残りを処理し、最後に追加・スキップ・失敗件数を表示する。
+- 入力PDFは `.gitignore` の対象であり公開しない。一括処理の最後に表示される `git add -- ...` を使い、生成物だけをcommitする。
+- 単一PDFでタイトルが取れないときは `--title` で指定できる。一括時はPDFメタデータ、先頭ページ、ファイル名から自動推定する。
 - `--pdf` / `--url` は **PyMuPDF** が必要（導入済み）。`--arxiv` は不要。
 - `reading` 分野は日次 cron が触らないので、勝手に論文が増えることはありません。
 
