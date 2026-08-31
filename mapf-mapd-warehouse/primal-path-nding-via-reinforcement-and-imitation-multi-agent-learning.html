@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PRIMAL: Pathﬁnding via Reinforcement and Imitation Multi-Agent Learning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>PRIMAL: Pathﬁnding via Reinforcement and Imitation Multi-Agent Learning</h1>
+  <div class="meta"><br>採択先: 未取得 ・  ・ source: pdf</div>
+  <div class="links"></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip">公開日 -</span><span class="chip">被引用 0</span><span class="chip">関連度 0</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RLと模倣学習を組み合わせ、通信なしで大規模なMAPFを実現する手法は実用的。スケーラビリティと低遅延が示されており、マルチエージェント研究者にとって価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+
+  <div class="tldr"><strong>一言で:</strong> 強化学習と模倣学習を組み合わせることで、明示的な通信なしにエージェント間の暗黙的な協調を実現する、分散型のマルチエージェント経路計画フレームワークである。</div>
+<section class="qa"><h2>どんなもの？</h2><p>エージェント数の増加に伴い計算複雑性が指数関数的に増大する、従来の集中型マルチエージェント経路探索（MAPF）の課題に対処する。対象は、限られた視野（FOV）しか持たない部分観測環境下で動作する複数のエージェントである。入力として自身の周囲のグリッド情報と目標への方向・距離を受け取り、出力として上下左右への移動または停止という離散的なアクションを行う。従来の分離型手法は解の完全性を欠き、結合型手法は大規模システムへの適用が困難であるという問題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>集中型エキスパートプランナーによるデモンストレーションを模倣学習に取り入れることで、通信なしに他者の動きがチーム全体に与える影響を考慮した協調行動を実現した。学習された単一のポリシーは、エージェント数や環境の次元に依存せず適用可能なスケーラビリティを持つ。また、自身の行動が他者の進行を妨げているかを予測する出力を学習に組み込むことで、従来の分散型手法では困難だった協調の質を向上させた。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>非同期アドバンテージ・アクター・クリティック（A3C）アルゴリズムを拡張し、強化学習と模倣学習をエピソードごとにランダムに切り替えて適用するハイブリッド方式を採用している。ネットワークは、畳み込み層と最大プーリング層で処理する局所的な観測情報と、目標への方向・距離情報を結合し、長短期記憶（LSTM）層へと渡す構造を持つ。報酬設計では、目標到達までの時間最小化、衝突回避に加え、他者の到達を10ステップ以上遅延させた場合に適用されるブロッキング・ペナルティを導入している。さらに、行動クローニングの損失関数と方策勾配法の損失関数を併用し、学習の安定化を図っている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>グリッドワールドにおいて、CBS、ODrM*、ORCAといった既存手法と比較評価を行った。環境条件は、ワールドサイズ10から160、障害物密度0%から50%、エージェント数4から1024の範囲で設定されている。実験の結果、障害物のない160×160の広大な環境では、100エージェントを超える規模でも高い成功率を維持し、集中型プランナーを上回った。障害物密度の低い中規模環境の512エージェント条件下では、60%以上の成功率を記録した。また、実機とシミュレーションが混在する工場モデルの実験では、エージェントあたりの計画時間がGPU使用時で0.1秒未満、CPU使用時でも0.2秒未満という低遅延を実現した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>障害物が非常に高密度な小規模環境においては、ODrM*などの既存手法に比べ成功率が低下する傾向がある。また、学習時に経験していない80以上の大きなワールドサイズでは成功率が著しく低下するが、ゴールまでの距離情報を一定値で制限することで改善が可能である。現在の手法は、エージェントが自身の行動によって他者の経路を明示的に調整するような、より高度な協調行動を学習させる余地が残されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>本文 (1/7)</h3><p>PRIMALは、強化学習と模倣学習を組み合わせることで、エージェントが明示的な通信を行わずに暗黙的な協調を行いながら、部分観測環境下でオンラインに経路を計画できる分散型ポリシーを学習するフレームワークである。従来の集中型マルチエージェント経路探索（MAPF）プランナーは、エージェント数の増加に伴い計算複雑性が指数関数的に増大するため、大規模なロボット運用や、ノイズや不確実性に対応するためのリアルタイムな再計算が困難であるという課題がある。本手法では、強化学習によって個々のエージェントの効率的な経路を学習させると同時に、集中型エキスパートプランナーによるデモンストレーションを模倣学習させることで、他者の位置がチーム全体に与える影響を考慮した動きを学習させる。学習された共通の単一エージェント用ポリシーは、エージェント数や環境の次元を問わず、任意の数のエージェントに適用できるスケーラビリティを持つ。実験では、最大1024エージェントが存在するランダムな環境において既存の最先端MAPFプランナーと比較して成功率を評価しており、さらに実機とシミュレーションを組み合わせた工場の模倣環境を用いた検証も行っている。</p></section>
+<section class="secsum"><h3>本文 (2/7)</h3><p>既存のマルチエージェント経路計画手法には、個々のエージェントの経路を優先順位に従って決定する分離型と、全エージェントの結合構成空間を探索する結合型の課題がある。分離型は低次元の探索空間を用いるため、解ける問題すべてを見つけ出す完全性を欠く一方、結合型は次元の呪いにより大規模なシステムへの適用が困難である。本研究では、エキスパートである中央集権型プランナーであるODrM*からの模倣学習を用いることで、明示的な通信を必要とせず、部分観測環境下でもエージェント間に協調行動を実現する手法を提案する。各エージェントの観測空間は、自身の周囲に限定された視野に基づくグリッド形式であり、障害物、近傍エージェント、近傍エージェントの目標地点、および自身の目標地点（視野内にある場合）をバイナリ行列のチャネルとして保持する。さらに、視野外にある目標地点の情報として、目標への方向を示す単位ベクトルとユークリッド距離を常に取得することで、部分観測による制約を補完している。エージェントの行動空間は、上下左右の4方向への移動または停止からなる離散的なアクションで構成される。</p></section>
+<section class="secsum"><h3>本文 (3/7)</h3><p>報酬設計では、エージェントが目標に到達するまでの時間を最小化させるため、目標上にいない状態での各ステップの移動に対して負の報酬を与え、移動よりも待機に対してより大きなペナルティを課すことで探索を促しています。エージェント同士の衝突には負の報酬を与え、全エージェントが同時に目標に到達した場合には正の報酬を与えます。学習の安定化のため、無効な行動を選択する対数尤度を最小化する損失関数を導入し、さらに学習中のエージェントが直前のステップと同じ位置に戻ることを防ぐことで、効率的な探索を支援しています。ネットワーク構成は、局所的な観測情報と目標への方向および距離の情報を個別に処理し、それらを結合した後に長短期記憶（LSTM）層へと渡す構造を採用しています。具体的には、観測情報は3x3のカーネルを用いた畳み込み層と最大プーリング層を組み合わせたネットワークで処理され、目標情報は全結合層で処理されます。このネットワークは、方策、価値、および他のエージェントの進行を妨げているかどうかを判定する「ブロッキング」特徴量の複数の出力を持ち、非同期アドバンテージ・アクター・クリティック（A3C）アルゴリズムに基づいて学習が行われます。</p></section>
+<section class="secsum"><h3>本文 (4/7)</h3><p>本手法は、強化学習（RL）と模倣学習（IL）を組み合わせたマルチエージェント学習により、協調的な経路探索を実現する。協調を促すため、あるエージェントが目標地点に留まることで他のエージェントの到達を10ステップ以上遅延させた場合に、報酬関数に大きなペナルティを課すブロッキング・ペナルティを導入している。学習プロセスでは、各エピソードの開始時にRLまたはILのどちらを用いるかをランダムに決定するハイブリッド方式を採用している。具体的には、エキスパートのデモンストレーションに基づく行動クローニングの損失関数と、標準的な方策勾配法による損失関数を併用することで、学習の安定化と高速化を図っている。また、エージェントが自身の行動がブロッキングに該当するかを予測する出力を学習させることで、ペナルティの理由を暗黙的に理解させる仕組みを備えている。環境設定においては、エージェント間の相互作用を増やすため、環境のサイズと障害物の密度を、より小さく密集した設定が選ばれやすい分布からサンプリングしている。</p></section>
+<section class="secsum"><h3>本文 (5/7)</h3><p>PRIMALの実験では、グリッドワールドにおいてCBS、ODrM*、ORCAといった既存のマルチエージェント経路計画手法との比較が行われました。環境設定として、ワールドサイズは10から160、障害物密度は0%から50%の範囲、エージェント数は4から1024まで多様な条件下で評価されています。学習時のパラメータとして、割引率0.95、エピソード長256、バッチサイズ128を用い、各エピソードの50%の確率でエキスパートによるデモンストレーションを提示しています。実験の結果、PRIMALは障害物密度が低い環境では非常に優れた性能を示しますが、共同行動が必要となる高密度な環境では既存のプランナーに劣る傾向があります。また、PRIMALは部分観測性を前提としているため、視野内のエージェント数が増加すると性能が低下する性質があります。さらに、学習時に経験していない80以上の大きなワールドサイズでは成功率が著しく低下しますが、エージェントの状態に含まれるゴールまでの距離を一定値で制限することで、大きな環境における成功率を大幅に改善できることが示されました。</p></section>
+<section class="secsum"><h3>本文 (6/7)</h3><p>PRIMALは、分散型強化学習と中央集権的なエキスパートプランナーからの模倣学習を組み合わせた、マルチエージェント経路計画手法である。障害物のない広大な環境における実験では、中央集権型プランナーがエージェント数の増加に伴う計算量の増大により困難に直面する一方で、PRIMALは1024エージェント規模でもほぼ完璧な成功率を維持し、高いスケーラビリティを示した。障害物密度の低い中規模環境においても、PRIMALは512エージェントの条件下で60%以上の成功率を維持し、他のプランナーを上回る性能を発揮した。一方で、障害物が非常に高密度な小規模環境では、ODrM*などの手法に比べ成功率が低下する傾向があるが、多くのエージェントを迅速に目標へ到達させる能力を持つ。実機とシミュレーションが混在する環境を用いた検証では、エージェントあたりの計画時間がGPU使用時で0.1秒未満、CPU使用時でも0.2秒未満という低いオンライン計算時間を実現した。</p></section>
+<section class="secsum"><h3>本文 (7/7)</h3><p>提供されたテキストには要約に必要な情報が含まれていません。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-31
+  </footer>
+</div>
+</body>
+</html>

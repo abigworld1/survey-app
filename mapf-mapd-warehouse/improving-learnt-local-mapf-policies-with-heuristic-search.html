@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Improving Learnt Local MAPF Policies with Heuristic Search | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Improving Learnt Local MAPF Policies with Heuristic Search</h1>
+  <div class="meta">Rishi Veerapaneni, Qian Wang, Kevin Ren, Arthur Jakobsson, Jiaoyang Li, Maxim Likhachev<br>採択先: ICAPS 2024 ・ 2024-03-29 ・ source: pdf</div>
+  <div class="links"><a href="https://arxiv.org/abs/2403.20300" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2403.20300" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/ICAPS.V34I1.31522" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip venue">採択先 ICAPS 2024</span><span class="chip">公開日 2024-03-29</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">学習済み方策と古典的な探索（PIBT/LaCAM）をモデル変更なしで統合する手法が極めて実用的。MAPFの課題である局所性とスケーラビリティを両立しており、研究価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 学習された局所的なマルチエージェント経路探索（MAPF）方策に対し、追加の学習なしでヒューリスティック探索を統合することで、デッドロックを解消し成功率とスケーラビリティを大幅に向上させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>複数のエージェントが衝突を避けながら各々の目標地点へ到達するマルチエージェント経路探索（MAPF）を対象とする。従来のヒューリスティック探索は、中央集権的な制御が必要なため、計算時間の制約下で大規模なエージェントを扱う際のスケーラビリティに課題がある。一方、機械学習を用いた分散型の方策はスケーラビリティに優れる可能性があるが、単一のタイムステップのみを予測する局所的な計画に留まるため、長期的な計画ができず、衝突やデッドロックが発生しやすい。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>学習済みモデルの構造を変更せずに適用できる、モデルに依存しない改善フレームワークを提案する。具体的には、学習済み方策の出力確率分布を優先順位や行動順序として利用する衝突回避手法（CS-PIBT）や、学習済み方策を構成生成器として組み込む探索手法（LaCAM）との統合を実現した。これにより、機械学習ベースの手法として、エージェント密度が20%に達する高混雑シナリオにおいてもスケーラビリティを達成した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、学習済み方策が予測する行動確率分布を、エージェントの優先順位や行動の選択順序として利用する。まず、衝突が発生しそうな場合に、エージェントを停止させるのではなく、PIBT（優先度に基づく逐次的な行動決定）を用いて、確率の高い行動から順に試行することで衝突を回避する衝突シールド（CS-PIBT）を構成する。次に、このCS-PIBTをLaCAMのフレームワークに組み込み、バックトラッキングを伴う探索を行うことで、全期間の計画と理論的な完全性を確保する。さらに、ヒューリスティック値のタイブレークに方策の確率を用いる手法や、ヒューリスティック値に方策の確率に基づく補正項を加算して探索のバランスを制御する手法を導入する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>最先端モデルであるMAGATおよび、通信構造を持たない単純な学習済みポリシーを用いて評価を行った。CS-PIBTの適用により、既存の衝突回避手法（CS-Naive）と比較して成功率とスケーラビリティが向上し、特に確率的なサンプリングを用いることで性能が改善することを示した。LaCAMとの統合により、単純なポリシーでも最大400エージェント規模まで成功率を向上させた。また、経路コストの観点では、方策の好みをタイブレークに利用する手法（Otie）が、LaCAM単体と比較してコストを改善する結果を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>強力な2Dヒューリスティックが存在する環境では、古典的な探索手法が機械学習ベースの手法を上回る可能性がある。また、LaCAMはヒューリスティックに誤差が含まれる場合、成功率は維持できても解のコストが極端に増大するという脆さを持つ。今後の課題は、不完全なヒューリスティックを用いる状況下において、機械学習手法がどのように探索手法を補完、あるいは凌駕できるかを明らかにすることである。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>マルチエージェント経路探索（MAPF）において、従来の古典的な手法はヒューリスティック探索を用いて数百規模のエージェントの衝突回避経路を解くが、中央集権的な制御を必要とするため、制限時間内でのスケーラビリティに課題がある。一方、各エージェントの方策を学習する機械学習アプローチは、分散型システムへの適用や高いスケーラビリティが期待されるが、既存の手法は単一のタイムステップのみを計画する「局所的」な方策に留まっており、成功率や拡張性が低い。本研究では、機械学習が生成する出力の確率分布に対してヒューリスティック探索を適用することで、デッドロックを解消し、目標到達までの全期間を考慮した計画を可能にする手法を提案する。この手法はモデルに依存しない複数の形式で提供され、エージェント密度が20%に達するような高混雑シナリオにおいても、機械学習ベースの手法として初めて高いスケーラビリティと成功率を達成した。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>マルチエージェント経路探索（MAPF）において、従来のヒューリスティック探索手法は計算時間と解の質のトレードオフや中央集権的な計画が必要という課題があります。一方、機械学習を用いた手法は分散型でスケーラビリティに優れるものの、長期的な計画や衝突・デッドロックの回避において精度が不足しています。本研究では、学習済みの方策が衝突を引き起こす際に、エージェントを停止させるのではなく、PIBTというヒューリスティック探索手法を「スマートな衝突シールド」として利用することで、追加の学習なしに成功率とスケーラビリティを向上させる手法を提案します。さらに、学習済みの方策とLaCAMという別のヒューリスティック探索手法を密接に統合する、ニューラルネットワークに依存しないフレームワークを構築し、長期的な計画における理論的な完全性と性能向上を実現しました。実験の結果、既存の学習済みモデルであるMAGATに対し、提案するPIBTベースの衝突シールドを適用することで、エージェント数が増加しても高い成功率を維持できることが示されています。また、強力な2Dヒューリスティックが存在する環境では古典的な探索手法が優位であるものの、不完全なヒューリスティックを用いる状況下では、機械学習手法が特定の探索手法を上回る可能性があることも明らかにしています。</p></section>
+<section class="secsum"><h3>Related Works</h3><p>マルチエージェント経路計画（MAPF）には、最適化、ヒューリスティック探索、機械学習の各アプローチが存在する。本研究が対象とする単発の2D MAPFは、各エージェントが障害物や他のエージェントとの衝突を避けつつ目標地点に到達して待機することを目指し、全エージェントの総移動時間であるflowtimeを最小化する問題である。ヒューリスティック探索では、Conflict-Based Searchのように最適性を保証する手法がある一方、エージェント数の増加に伴い計算コストが指数関数的に増大する課題がある。これに対し、PIBTは優先度に基づき各エージェントの次の一手を逐次的に決定する貪欲な手法であり、逆方向ダイクストラ法を用いて目標地点からの最適コストを推定することで高いスケーラビリティを実現しているが、解の品質に課題がある。LaCAMは、PIBTを構成生成器として深さ優先探索に組み込み、制約を遅延的に追加することで、PIBTでは回避困難な局所解を脱出可能にし、理論的な完全性と高い成功率を両立させている。機械学習アプローチでは、局所的な観測情報から行動確率分布を学習する手法が提案されており、衝突を回避するために学習された行動を修正する衝突シールドなどの仕組みが用いられるが、エージェントが目標地点で待機する際にデッドロックが発生しやすいという共通の課題がある。</p></section>
+<section class="secsum"><h3>Heuristic Search</h3><p>学習された1ステップのMAPF（マルチエージェント経路計画）方策は、将来の計画能力や理論的な完全性の保証を欠くため、エージェントの混雑時にデッドロックやライブロックに陥りやすい課題がある。従来の衝突回避手法は、衝突が予測されるエージェントを単に待機させることでデッドロックを招くが、提案するCS-PIBTは、エージェントの行動確率分布を優先順位に基づいた行動順序に変換してPIBTに適用することで、次善の策を考慮した衝突回避を実現し、待機を抑制する。このCS-PIBTを構成生成器としてLaCAMフレームワークに組み込むことで、バックトラッキングによる完全性を維持したまま、学習済み方策の利点を活かしたフルホライゾン（全期間）の計画が可能となる。さらに、学習済み方策とヒューリスティック関数を組み合わせる手法として、ヒューリスティック値のタイブレークに方策の確率を用いる方法や、両者の値を加算して評価する手法が提案されている。具体的には、ヒューリスティック値に、学習済み方策の確率の補数に重みRを乗じた値を加算したものを最小化する手法があり、Rの値によってヒューリスティック重視から学習済み方策重視まで挙動を制御できる。</p></section>
+<section class="secsum"><h3>Experimental Results</h3><p>本研究では、学習された局所的なマルチエージェント経路計画（MAPF）ポリシーの性能を、ヒューリスティック探索を用いて向上させる手法を評価しています。提案手法であるCS-PIBTは、従来の単純な衝突回避手法と比較して、エージェントが密集した状況や目標地点で停止しているエージェントを通り抜ける際の堅牢性が高く、最先端モデルであるMAGATおよび自作の単純なポリシーの両方において、エージェント数の増加に対するスケーラビリティを大幅に改善します。CS-PIBTにおいて、行動の優先順位付けに確率的なサンプリングを用いることは、決定論的な順序付けよりもライブロックを回避する上で極めて重要です。また、学習済みポリシーをLaCAMのフレームワークに統合することで、デッドロックを回避し、単純なポリシーであっても数百エージェント規模まで成功率を向上させることが可能です。さらに、ポリシーの行動確率とヒューリスティック情報を組み合わせる際、ポリシーの好みをタイブレークに利用する手法が、経路コストの削減において最も優れた結果を示しました。一方で、ヒューリスティックに誤差が含まれる場合、LaCAMは成功率は維持できるものの、解のコストが極端に増大する脆さを持つことも明らかにされています。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本研究では、学習された局所的なマルチエージェント経路計画（MAPF）のポリシーを、ヒューリスティック探索を用いて改善する、モデルに依存しない複数の手法を提案した。まず、PIBTを用いた衝突回避シールドであるCS-PIBTを導入し、学習済みモデルが出力する1ステップの確率分布を入力として、衝突のない有効なステップを出力することで、モデル自体を変更することなくスケーラビリティと成功率を向上させた。次に、学習済みモデルをLaCAMと組み合わせることで、理論的な完全性を備えた全ホライゾン計画を可能にし、実用面での成功率とスケーラビリティをさらに高める手法を示した。先行研究との比較において、探索を併用した学習済みMAPFポリシーが、古典的なヒューリスティック探索手法と同等の高いエージェント密度（20%以上）においてもスケールできることを初めて示した。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-31
+  </footer>
+</div>
+</body>
+</html>

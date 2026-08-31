@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Improved Heuristics for Multi-Agent Path Finding with Conﬂict-Based Search | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Improved Heuristics for Multi-Agent Path Finding with Conﬂict-Based Search</h1>
+  <div class="meta"><br>採択先: 未取得 ・  ・ source: pdf</div>
+  <div class="links"></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip">公開日 -</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">既存手法の理論的限界を証明した上で、依存関係に着目した強力な新ヒューリスティックを提案しており、MAPF研究者にとって極めて有用な知見である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> Conflict-Based Search (CBS) における既存の衝突グラフに基づくヒューリスティックの限界を証明し、エージェント間のペアごとの依存関係を考慮した2つの新しい許容的なヒューリスティックを提案することで、探索の成功率と実行速度を向上させた。</div>
+<section class="qa"><h2>どんなもの？</h2><p>グラフ上の複数エージェントが衝突を避けつつ、各エージェントの経路コストの総和を最小化する経路を求めるマルチエージェント経路探索（MAPF）を対象とする。代表的な手法であるCBSは、高レベルの制約ツリー探索と低レベルの経路再計画の2段階で構成されるが、高レベル探索を導く既存のCGヒューリスティックは、現在の解に含まれる特定の衝突（cardinal conflicts）のみに基づいているため、推定できるコストに限界がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のCGヒューリスティックは、単一の衝突解消によってコストが最大で1しか増加しないという理論的限界があることを示した。これに対し、エージェント間の将来的な回避不能な衝突を捉えるDGヒューリスティックと、依存関係に伴う追加コストの大きさまで考慮するWDGヒューリスティックを新たに導入した。これらはCGを厳密に支配するより強力な下界を提供する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>DGは、制約を満たすすべての最小コスト経路の組み合わせにおいて、対象となる2つのエージェントが必ず衝突する場合にエッジを張るペアワイズ依存グラフGDを構築し、その最小頂点被覆（MVC）のサイズをヒューリスティック値として利用する。WDGは、GDに2エージェント間の経路コストの差分を重みとして付与した重み付きペアワイズ依存グラフGWDを構築し、エッジ重み付き最小頂点被覆（EWMVC）問題を解くことで、より精緻なコスト推定を行う。計算負荷を抑えるため、ノードが探索対象として選ばれた際に計算を行う遅延計算手法や、MDD（Multi-Valued Decision Diagram）の結合結果を保存するメモ化技術を併用する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>20×20の小規模グリッドおよび192×192の大型マップを用いた実験により、CG、DG、WDGの性能を比較した。密集したマップや大型マップにおいて、WDGはCGと比較して成功率を向上させ、展開ノード数および実行時間を最大で50分の1まで削減した。また、長方形推論技術を組み合わせた手法においても、WDGは高い性能を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法はエージェント間のペアごとの依存関係に基づいているため、密集マップにおいてエージェント間の結合が非常に強い場合には、WDGの推定値が最適値に届かないという限界がある。今後の課題として、非最適解を許容するアルゴリズムへの適用、ICTSなどの他のMAPFアルゴリズムへの展開、およびエージェントの依存関係を3人以上のグループへと一般化することが挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>マルチエージェント経路探索において強力なアルゴリズムであるConflict-Based Search（CBS）では、高レベル探索を導くための許容的なヒューリスティックが提案されている。しかし、既存のヒューリスティックは座標軸に沿った成分による衝突のみに基づいているため、限界があることを本研究では証明している。これに対し、エージェント間のペアごとの依存関係を考慮することで、新たに2つの許容的なヒューリスティックを提案する。実験の結果、提案したいずれのヒューリスティックを用いたCBSも、既存のヒューリスティックを用いた場合と比較して成功率が大幅に向上した。さらに、展開されるノード数および実行時間を最大で50分の1まで削減できることを示している。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>マルチエージェント経路計画（MAPF）は、グラフ上で複数のエージェントに対して衝突のない経路集合を求める問題であり、その最適解の算出はNP困難である。代表的な手法であるConflict-Based Search（CBS）は、高レベルの探索で衝突を制約として追加し、低レベルの探索でその制約を満たす経路を計算する2段階の探索アルゴリズムである。本研究では、CBSの高レベル探索における許容的なヒューリスティックの改善を目的としており、既存のCGというヒューリスティックが提供できる情報には限界があることを証明している。これに対し、将来の解における潜在的な衝突やエージェント間のペアごとの依存関係を考慮した、DGおよびWDGという2つの新しい許容的なヒューリスティックを導入する。WDGはDGを、DGはCGをそれぞれ厳密に支配しており、実験の結果、WDGを用いることでCGと比較して展開ノード数と実行時間を最大で50分の1に削減し、成功率も大幅に向上させることが示されている。</p></section>
+<section class="secsum"><h3>Background</h3><p>マルチエージェント経路探索（MAPF）は、無向で重みのないグラフにおいて、k個のエージェントをそれぞれの始点から終点まで、衝突を避けつつ経路コストの総和を最小化するように移動させる問題である。衝突には、特定の時刻に複数のエージェントが同じ頂点に位置する頂点衝突と、エージェント同士が同じエッジを逆方向に通過するエッジ衝突の2種類が存在する。Conflict-Based Search（CBS）は、高レベルで制約ツリー（CT）を探索し、低レベルで各エージェントの経路を再計画する2層構造のアルゴリズムであり、衝突が発生するたびに制約を追加してツリーを分岐させることで最適性を保証する。Improved CBS（ICBS）は、衝突をコストへの影響度に基づき、両方の分岐でコストが増加するCardinal、片方の分岐のみコストが増加するSemi-cardinal、どちらの分岐でもコストが変わらないNon-cardinalの3種に分類し、Cardinalな衝突を優先的に解決することで探索効率を高める。ICBSでは、各エージェントの制約を満たす最小コスト経路を保持する多値決定図（MDD）を用いることで、衝突がCardinalであるかを判定する。さらにCBSHは、CTノードにおける許容的なヒューリスティックとして、Cardinalな衝突をエッジ、エージェントを頂点とする衝突グラフの最小頂点被覆（MVC）のサイズを利用するCGヒューリスティックを導入しており、高レベルの探索を加速させる。</p></section>
+<section class="secsum"><h3>Limitation of the CG Heuristic</h3><p>衝突グラフに基づくヒューリスティックにおいて、単一の衝突に対する許容可能な推定コストは最大で1であることが定理によって示されている。具体的には、ある時刻tでエージェントaiとajの間に衝突が発生し、その解消のためにそれぞれ異なる制約を課した2つの子ノードが共に解を持つ場合、子ノードのコストは親ノードのコストに対して、エージェントが既にゴールに到達しているか否かにかかわらず、高々1しか増加しない。この結果、衝突グラフから得られる最も優れた許容可能なヒューリスティックは、最大頂点彩色（MVC）のサイズに限定される。したがって、衝突グラフを用いた手法では、これ以上の精度を持つヒューリスティックを得ることは困難であり、より優れた評価関数を求めるには新たな探索方向が必要である。</p></section>
+<section class="secsum"><h3>The DG Heuristic</h3><p>DGヒューリスティックは、既存のCGヒューリスティックでは考慮できなかった、将来の解においても回避不能な衝突を捉えるために、エージェント間の依存関係を示すペアワイズ依存グラフGDを導入する手法である。GDの頂点は各エージェントに対応し、制約を満たす2つのエージェントのすべてのコスト最小経路が必ず衝突する場合に、そのペア間にエッジを張る。このグラフにおける最大クリーク（MVC）のサイズは、許容的なh値として利用できる。GDの構築では、衝突が基底的な場合は依存関係があるとみなし、非基底的な衝突については、2つのエージェントの決定性マルチディシジョンダイアグラム（MDD）を結合して、結合MDDが空になるかどうかで依存性を判定する。結合MDDは、各時刻におけるエージェントの組み合わせを走査し、衝突のない状態のみを保持することで構築される。この手法の計算量は、MVCのサイズをq、頂点数を|VD|とすると O(2q|VD|) であり、CGと比較してMDDの結合処理によるオーバーヘッドが発生するものの、より強力な下界を提供する。</p></section>
+<section class="secsum"><h3>The WDG Heuristic</h3><p>WDGヒューリスティックは、エージェント間の依存関係だけでなく、その依存関係が総コストに与える追加的なコストを考慮することで、従来のDGヒューリスティックを改善した手法である。具体的には、2つのエージェントが制約を満たしながら衝突を回避するために必要な最小コストの合計と、現在の解におけるコストの合計との差を重みとして持つ、重み付きペアワイズ依存グラフ（GWD）を構築する。このグラフにおいて、各頂点に非負の整数を割り当て、すべてのエッジの端点における値の和がそのエッジの重み以上となるように、割り当てた値の総和を最小化するエッジ重み付き最小頂点被覆（EWMVC）問題を解くことで、許容的なh値を得る。EWMVCの計算はNP困難であるが、グラフを連結成分に分割し、各成分に対して分枝限定法を適用することで計算を行う。GWDの構築にあたっては、各エッジの重みを求めるために、制約を満たす2エージェント間の経路探索問題を解く必要がある。実験において、2エージェント問題の解決にCBSHを用いることで、特定の衝突パターンにおいて計算速度が最大で1000倍向上することが示されている。</p></section>
+<section class="secsum"><h3>Runtime Reduction Techniques</h3><p>高コストなヒューリスティック計算のオーバーヘッドを削減するため、2つの手法を導入している。一つ目は、高精度だが計算負荷の高いヒューリスティックを即座に計算せず、まずは低コストで精度の低いヒューリスティックを用いてノードを優先度付きキューに追加し、そのノードが実際に探索対象として取り出された段階で高精度な値を計算する遅延計算手法である。この手法では、現在のノードのヒューリスティック値から特定の依存関係による減少分を差し引いた下界や、f値の単調増加性を利用した値を用いることで、計算負荷を抑えつつ許容性を維持している。二つ目は、メモ化を用いた最適化であり、多目的決定グラフの統合や二エージェント間の問題解決の結果をキャッシュすることで、計算の重複を避けている。CBSでは異なる探索枝において同じエージェントに同じ制約が課されることが多く、同じ入力に対して同じ結果が頻繁に得られるため、メモ化による計算時間の短縮が可能である。なお、キャッシュの管理に伴うメモリ消費および検索のオーバーヘッドは、実験的に無視できる程度であることが示されている。</p></section>
+<section class="secsum"><h3>Experimental Results</h3><p>本研究では、Conflict-Based Search（CBS）における新しいヒューリスティックであるCG、DG、およびWDGの性能を、20×20の小規模グリッド（障害物がないマップと障害物密度30%の密集マップ）および192×192の大型マップ（障害物密度51%）を用いて評価しています。実験の結果、空のマップでは計算オーバーヘッドの少ないDGが高速である一方、密集マップではWDGがより大きな根ノードのh値（推定コスト）を導き出し、ノード探索数を大幅に削減することでDGやCGを凌駕することが示されました。大型マップを用いた100エージェントの実験では、時間制限を延ばすほどWDGの優位性が顕著になり、CGと比較して成功率が向上し、実行時間は50倍高速化する場合があることが確認されました。また、既存の長方形推論技術を組み合わせたWDG+Rは、従来の最先端手法を上回る性能を示しました。一方で、密集マップにおいてはエージェント間の結合が強いため、WDGのh値が最適値であるh*に届かず、ペアワイズの依存関係の考慮だけでは不十分であるという特性も明らかになりました。</p></section>
+<section class="secsum"><h3>Conclusions and Future Work</h3><p>本研究では、マルチエージェント経路探索における最先端アルゴリズムであるConflict-Based Search（CBS）の高レベル探索を導くヒューリスティックの限界を分析しました。エージェント間のペアごとの依存関係を考慮することで、2つの新しい許容ヒューリスティックを提案しています。これらの手法は従来のヒューリスティックを常に上回り、ノードあたりの実行時間の増加もわずかです。実験の結果、CBSの成功率と計算速度を最大で50倍向上させることが確認されました。今後の課題として、非最適解を許容するCBSベースのアルゴリズムへの適用や、ICTSやMDD-SATといった他のマルチエージェント経路探索アルゴリズムへの展開、およびエージェントの依存関係をペアから3人以上のグループへと一般化することが挙げられます。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-31
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Learning to Resolve Conflicts for Multi-Agent Path Finding with Conflict-Based Search | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Learning to Resolve Conflicts for Multi-Agent Path Finding with Conflict-Based Search</h1>
+  <div class="meta">Taoan Huang, Sven Koenig, Bistra Dilkina<br>採択先: AAAI 2021 ・ 2021 ・ source: pdf</div>
+  <div class="links"><a href="https://doi.org/10.1609/aaai.v35i13.17341" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.1609/AAAI.V35I13.17341" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip venue">採択先 AAAI 2021</span><span class="chip">公開日 2021</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFの主要アルゴリズムCBSに対し、高コストなオラクルを模倣する機械学習を導入した点が新規かつ実用的。汎化性能の検証もなされており、関連研究として価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチエージェント経路探索のアルゴリズムであるConflict-Based Search（CBS）において、探索効率を左右する衝突選択の決定を、高精度だが計算負荷の高いオラクルの挙動を模倣する機械学習によって高速化する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>複数のエージェントが衝突を避けながら、全エージェントの移動コストの総和を最小化する経路を求めるマルチエージェント経路探索（MAPF）問題を対象とする。CBSは、高レベルでの制約ツリー探索と低レベルでの経路再計画を繰り返すが、ツリーを拡張する際にどの衝突を優先的に解決するかという衝突選択の戦略が、探索木のサイズや実行時間に影響を与える。従来の衝突分類に基づく手法では、探索効率を十分に高めることが困難であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のヒューリスティック手法に対し、高精度だが計算コストが高いオラクルの決定を教師あり学習によって模倣する、データ駆動型のランキング関数を導入した点が新規である。混合整数線形計画法（MILP）の変数選択の知見を応用し、衝突を特徴づける問題固有の詳細な情報を活用することで、従来のMILP向け機械学習手法よりも高度な衝突選択を実現している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、衝突解決後の子ノードにおける「コストと推定コストの和」の最小値をスコアとし、この値の下限を最大化する衝突を選択するオラクルを定義する。次に、衝突の種類、エージェントや頂点の統計量、重み付き依存グラフ（WDG）の性質などを含む67次元の特徴量を用いて、オラクルのランキングに基づき上位20%の衝突に正解ラベルを付与したデータセットを作成する。最後に、サポートベクターマシンを用いて、正解の順序が逆転するペアの割合を最小化するように線形ランキング関数を学習し、この関数を用いて衝突の優先順位を決定する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Warehouse、Room、Maze、Random、City、Gameの6種類のマップを用い、WDGヒューリスティックを用いたCBSH2を比較対象として評価した。評価指標には成功率、実行時間、制約ツリーのノード数、およびPAR10スコアを用いた。同一マップで学習する手法（ML-S）と未知のマップで学習する手法（ML-O）の両方において、共通して解けるインスタンスに対し、CBSH2と比較して実行時間で10.3%から68.2%（Cityマップの改善率を含む）、制約ツリーのサイズで11.6%から68.2%の改善を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、学習時と同じグラフだけでなく、未知のグラフやエージェント数が異なる環境に対しても汎化できることが示されている。一方で、同一マップで学習するML-Sは、未知のマップで学習するML-Oよりも実行時間において優れた結果を示す傾向がある。今後の課題として、学習対象となるより優れたオラクルの発見や、対称性の打破といった最新の技術を機械学習による衝突選択の枠組みに統合することが挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>マルチエージェント経路探索における最先端アルゴリズムであるConflict-Based Search（CBS）は、衝突を検出し、問題を2つの部分問題に分割することで解決を試みる手法である。従来手法では、衝突を3つのクラスに分類し、優先度の高いクラスから順に解決対象を選択していたが、本研究では探索木のサイズをより小さくするために、最適な衝突を選択するためのオラクルを提案している。このオラクルは計算に時間を要するという課題があるため、オラクルの決定を模倣し、線形ランキング関数を用いて迅速かつ正確に衝突を選択する機械学習フレームワークを導入している。ベンチマークマップを用いた実験の結果、提案するML-guided CBSは、既存の最先端のCBSソルバーと比較して、成功率、探索木のサイズ、および実行時間のすべてにおいて改善を示した。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>マルチエージェント経路探索（MAPF）において、総コストやメイクスパンを最小化する衝突のない経路を求める問題はNP困難であるが、Conflict-Based Search（CBS）は最適解を得るための主要なアルゴリズムの一つである。CBSは、高レベルでの制約ツリー（CT）に対する最良優先探索と、低レベルでの制約を考慮した経路再計画からなる二段階の探索構造を持ち、CTのノードを拡張する際にどの衝突を解消するかという衝突選択の戦略が、CTのサイズや実行時間に大きな影響を与える。本研究では、各衝突に対して1ステップ先読みのヒューリスティックを計算する、高精度だが計算コストの高い新しい衝突選択オラクルを提案する。このオラクルの計算負荷を軽減するため、混合整数線形計画法（MILP）の分岐における変数選択の知見を応用し、オラクルの決定を模倣するランキング関数を教師あり学習によって構築するデータ駆動型のフレームワークを提案する。この手法は、衝突を特徴づける問題固有の情報を活用することで、従来のMILP向け機械学習手法よりも詳細な情報を扱える点が特徴である。学習済みのランキング関数を用いることで、未知のインスタンスやグラフに対しても、探索時間とCTサイズの双方を削減しつつ高い成功率を実現する。</p></section>
+<section class="secsum"><h3>MAPF</h3><p>無向で重みのないグラフにおいて、複数のエージェントに対して衝突のない経路集合を求めるマルチエージェント経路探索（MAPF）問題を定義している。各エージェントには開始頂点と目標頂点が割り当てられ、時間は離散的なステップとして扱われ、各ステップでエージェントは隣接頂点への移動またはその場での待機を選択できる。エージェントのコストは、目標頂点に到達して移動が停止するまでのタイムステップ数として定義される。衝突には、特定の時刻に2つのエージェントが同じ頂点を占有する頂点衝突と、2つのエージェントが隣接する頂点間を逆方向に移動する際に発生するエッジ衝突の2種類が存在する。本研究の目的は、全エージェントのコストの総和を最小化する、衝突のない経路集合を見つけることである。</p></section>
+<section class="secsum"><h3>Background and Related Work</h3><p>Conflict-Based Search (CBS)は、高レベルの衝突ツリー（CT）探索と、低レベルの個別経路再計画からなる2段階のアルゴリズムです。各CTノードは、制約集合、制約を満たす各エージェントの最小コスト経路の集合、経路の総コスト、および経路間で発生する衝突の集合を保持します。衝突が発生した際、CBSは衝突するエージェントのいずれかに頂点制約またはエッジ制約を課した2つの子ノードを生成して探索を進めることで、完全性と最適性を保証します。関連手法として、ICBSは多値決定グラフ（MDD）を用いて衝突をカーディナル、セミカーディナル、ノンカーディナルの3種類に分類し、コストの増加が見込めるカーディナル衝突を優先することで効率化を図っています。また、CBSHやCBSH2は、衝突グラフや重み付きペアワイズ依存グラフを用いて、高レベル探索の指針となる下限コストをより厳密に推定するヒューリスティックを用います。提案手法は、これら既存のヒューリスティックの知見をラベルや特徴量として活用し、オフライン学習によって未知のインスタンスに対しても効率的な衝突選択戦略を適用できる機械学習モデルを構築するものです。</p></section>
+<section class="secsum"><h3>Oracles for Conflict Selection</h3><p>衝突選択オラクルとは、Conflict-Based Search（CBS）において、現在の制約木ノードに含まれる衝突集合に対し、各衝突のスコアに基づいて解決すべき優先順位を決定するランキング関数である。本研究では3つのオラクルを定義しており、一つ目のO0はMDDを用いて衝突を基数、半基数、非基数の順にランク付けし、同点の場合は最小の時間ステップを優先する。二つ目のO1は、衝突を解決して生成される2つの子ノードについて、それぞれのノードのコストとWDGヒューリスティックによる推定コストの和の、より小さい方の値をスコアとする。O1はスコアが大きい順にランク付けを行うことで、解のコストの下限を最大限に高めることを目的としている。三つ目のO2は、衝突解決後の子ノードに含まれる衝突数のうち、より少ない方の値をスコアとし、この値が小さい順にランク付けすることで、次世代の衝突数を最小化することを目指す。実験の結果、全体としてO1が最も優れた性能を示したため、本研究ではO1を模倣するランキング関数の学習に焦点を当てている。提案手法であるML-Sは、O1を用いたCBSH2よりも制約木のサイズは大きくなるものの、実行時間においては最も優れた結果を得ている。</p></section>
+<section class="secsum"><h3>Machine Learning Methodology</h3><p>本手法は、Conflict-Based Search (CBS) において解決すべき衝突を決定するためのランキング関数を学習するフレームワークである。プロセスは、オラクルによる衝突の順位付けから特徴量とラベルを取得するデータ収集、ペアワイズ損失を最小化するように線形ランキング関数を学習するモデル学習、そして学習済み関数をCBSの探索プロセスに組み込むML誘導探索の3段階で構成される。ラベル付けには、オラクルのスコアにおいて上位20%に含まれる衝突に1、それ以外に0を割り当てるバイナリ手法を採用しており、これにより低スコアの衝突の正確な順位付けという不要なタスクを避け、高ランクの衝突の識別に集中させている。特徴量は、衝突の種類、エージェントや頂点の統計量、MDD（Multi-Dimensional Disjunctive）やWDG（Weighted Dependency Graph）の性質など、計67次元のベクトルで構成される。モデルの学習には、正解ラベルの順序が逆転しているペアの割合を最小化するサポートベクターマシンを用いたアプローチが用いられる。実験では、学習時と同じグラフおよび未知のグラフの両方で評価が行われ、CBSH2+O0と比較して、探索ノード数や実行時間の面で優れた性能を示すことが示されている。</p></section>
+<section class="secsum"><h3>Experimental Results</h3><p>本研究では、Conflict-Based Search (CBS) における衝突選択の効率化を目的とした、機械学習に基づく2つの手法、ML-SおよびML-Oの有効性を検証しています。実験では、Warehouse、Room、Maze、Random、City、Gameの6種類の異なるマップを用い、WDGヒューリスティックを用いたCBSH2を比較対象として、成功率、実行時間、衝突ツリー（CT）のノード数、およびPAR10スコアを評価しました。ML-Sは同一マップのデータを用いて学習し、ML-Oは他のマップのデータを用いて学習する手法であり、実験の結果、ML-SとML-Oはほぼ全てのマップとエージェント数の設定においてCBSH2を上回る性能を示しました。全手法が共通して解けたインスタンスにおいて、ML-SおよびML-OはCBSH2と比較して、実行時間で10.3%から64.4%、CTサイズで13.0%から68.2%の改善を達成しました。ML-Oは学習時に未知のマップを使用しているにもかかわらず、ML-Sに匹敵する、あるいは一部のマップではML-Sを上回る高い汎用性を示しました。学習されたランキング関数の特徴量分析からは、重み付き依存グラフ（WDG）におけるエージェント間のエッジの重み、衝突のタイプ、および解決済みの衝突数などが重要な指標として特定されました。</p></section>
+<section class="secsum"><h3>Conclusions and Future Directions</h3><p>本研究では、Conflict-Based Search (CBS) における衝突選択を最適化するための、初の機械学習フレームワークを提案した。この手法は、子ノードにおいて最適コストの最小下界を最も厳しく制約する衝突を選択する、理想的な選択器であるオラクルの決定を模倣することを目的としている。実験の結果、学習されたランキング関数は、固定されたグラフだけでなく未知のグラフにおいても、エージェント数の変化に対して汎化できることが示された。今後の展望として、学習の対象となるより優れたオラクルの発見や、対称性の打破などの最新技術を、提案した機械学習による衝突選択の枠組みに統合することが挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-31
+  </footer>
+</div>
+</body>
+</html>

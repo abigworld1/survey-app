@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Adding Heuristics to Conflict-Based Search for Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Adding Heuristics to Conflict-Based Search for Multi-Agent Path Finding</h1>
+  <div class="meta">Ariel Felner, Jiaoyang Li, Eli Boyarski, Hang Ma, Liron Cohen, T. K. Satish Kumar, Sven Keonig<br>採択先: ICAPS 2018 ・ 2018 ・ source: pdf</div>
+  <div class="links"><a href="https://aaai.org/ocs/index.php/ICAPS/ICAPS18/paper/view/17735" target="_blank" rel="noopener">原典</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip venue">採択先 ICAPS 2018</span><span class="chip">公開日 2018</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">CBSにヒューリスティックを導入する独創的な提案であり、最大5倍の性能向上という具体的な成果も示されている。MAPF分野の研究者にとって重要な知見である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチエージェント経路計画におけるConflict-Based Search (CBS) は、将来の探索コストを推定するヒューリスティックを利用していない。本研究では、エージェント間の衝突をグラフ構造として集約し、許容的なヒューリスティック値を導入することで、探索効率を向上させる手法を提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>グラフ上の複数のエージェントが、各々の開始地点から目標地点まで衝突を避けつつ移動する経路を生成するマルチエージェント経路計画（MAPF）問題を対象とする。目的関数は全エージェントの経路コストの総和を最小化することであり、これはNP困難な問題である。既存のCBSやその改良版ICBSは、制約ツリーの各ノードにおいて現在の経路コストのみを優先度として用いており、将来の追加コストを予測して探索を効率化する仕組みを持たない。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>CBSの高レベル探索において、エージェント間の衝突関係をグラフとして集約し、それに基づいた許容的なヒューリスティック値を導入した点に新規性がある。従来のCBS系アルゴリズムが現在のコストのみに依存していたのに対し、将来的に発生しうる最小限の追加コストを事前に推定することで、探索の優先順位付けを高度化させた。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法ICBS-hは、衝突に関与するエージェントを頂点、衝突関係を辺とする衝突グラフを用いてヒューリスティック値を算出する。衝突が発生している場合、少なくとも1つのエージェントの経路長が1以上増加するという性質を利用する。具体的には、以下の4つのバリエーションを定義する。<br>- ICBS-h1: 衝突グラフにおけるマッチング（共通の頂点を持たない辺の集合）のサイズを、貪欲法によって算出する。<br>- ICBS-h2: 衝突グラフにおける最大マッチングのサイズを算出する。<br>- ICBS-h3: 衝突グラフにおける最小頂点被覆（すべての辺に接する頂点の集合）のサイズを、貪欲法によって算出する。<br>- ICBS-h4: 親ノードのヒューリスティック値を活用し、計算量を抑えつつ最小頂点被覆のサイズを算出する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>8×8のグリッド、倉庫型グリッド、およびゲームのマップを用いた実験において、5分間の実行時間制限内での成功率、実行時間、展開ノード数を評価した。ICBSと比較して、最も強いヒューリスティック値を用いるICBS-h4は、実行時間と展開ノード数を最大で5倍改善した。環境の混雑度が低い場合には改善幅は2〜3倍程度に留まるが、障害物やエージェントの密度が高まり問題の難易度が上がるほど、ICBS-hの有効性が高まることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>タイブレークの規則によっては、h値が0のノードが多数存在する場合に、ICBS-hがICBSよりも多くのノードを展開してしまう可能性がある。しかし、実験においてICBS-hがICBSより多くのノードを展開したケースは5%未満であり、実用上の影響は限定的である。今後の課題として、衝突するエージェントを一つのメタエージェントとして扱うMeta-Agent CBS (MA-CBS) への適用や、線形計画法を用いたより高度なヒューリスティック値の開発が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>マルチエージェント経路計画問題において強力なアルゴリズムであるConflict-Based Search (CBS) やその改良版は、将来の探索コストを推定するためのヒューリスティックを利用していないという課題がある。本論文では、エージェント間における基本的な衝突を集合化することで、CBSに適用可能な複数の許容的なヒューリスティックを提案している。実験の結果、これらのヒューリスティックを導入したCBSは、既存の最先端のCBSのバリエーションと比較して、最大で5倍の性能向上を達成した。</p></section>
+<section class="secsum"><h3>Introduction and Overview</h3><p>マルチエージェント経路計画（MAPF）問題は、グラフ G = (V, E) において、複数のエージェントが各々の開始地点から目標地点まで、隣接する空き地点への移動または待機を繰り返して経路を生成する問題である。本研究では、全エージェントの経路コストの総和を最小化する、NP困難な目的関数を対象とする。既存の最適解を求めるアルゴリズムであるConflict-Based Search (CBS) やその改良版であるImproved CBS (ICBS) は、制約ツリーの各ノードにおいて、現在の経路コストのみを用いて探索を行う。これに対し、本研究では、エージェント間の主要な衝突を統合して計算することで、制約ツリーのノードに許容的なヒューリスティック値を加算する手法を提案し、これをICBS-hと呼ぶ。この手法は、Dijkstra法をA*アルゴリズムへと発展させたのと同様の改善をCBSにもたらすものであり、実験の結果、CBSやICBSと比較して最大で5倍の性能向上を達成している。</p></section>
+<section class="secsum"><h3>Conflict-Based Search (CBS)</h3><p>Conflict-Based Search (CBS)は、高レベルと低レベルの2層構造を持つアルゴリズムである。高レベルでは制約ツリー（CT）に対して最良優先探索を行い、各ノードはエージェントへの制約集合、制約を満たす解、および全エージェントの経路コストの総和を保持する。低レベルでは、各エージェントに対して与えられた制約を満たす最短経路を個別に計算する。ノードの解に衝突がある場合、衝突しているエージェントのいずれかが特定の時刻に特定の頂点を占有することを禁止する制約をそれぞれの子ノードに付与してツリーを分岐させる。Improved CBS (ICBS) は、この探索効率を向上させるために2つの改善策を導入している。第一に、分岐後の両方のノードのコストが元のノードのコストよりも大きくなる「基数的な衝突（cardinal conflict）」を優先的に選択することで、探索空間の拡大を抑制する。第二に、分岐を行わずに、元の経路と同じコストを維持しつつ衝突を回避でき、かつ全体の衝突数が減少する代替経路が存在する場合、その経路で解を更新する「衝突のバイパス（bypassing conflicts）」を行う。</p></section>
+<section class="secsum"><h3>ICBS-h</h3><p>既存のConflict-Based Search（CBS）の派生手法では、高レベル探索の優先度としてノードのコストのみが用いられていますが、本研究では過大評価しない許容的なヒューリスティック値（h値）を導入したICBS-hを提案しています。h値の算出には、衝突に関与するエージェントを頂点、衝突関係を辺とする衝突グラフを用い、衝突が発生している場合は少なくとも1つのエージェントの経路長が1以上増加することを利用して、グラフの構造からh値を導出します。具体的な手法として、衝突グラフにおけるマッチングのサイズをh値とするICBS-h1（貪欲なマッチング）と、より大きなh値を得るために最大マッチングを求めるICBS-h2があります。また、最小頂点被覆のサイズをh値とする手法として、貪欲法を用いるICBS-h3と、親ノードのh値を利用して計算量を抑えつつ最小頂点被覆を求めるICBS-h4が提案されています。8×8のグリッドを用いた実験では、ICBS-h1やICBS-h4は、従来のCBSやICBSと比較して、展開ノード数および実行時間の両面で削減を実現しています。</p></section>
+<section class="secsum"><h3>Experimental Results</h3><p>CBS、ICBS、および4種類のICBS-hのバリエーションを用いて性能評価を行った。8×8のグリッド、倉庫型グリッド、およびゲームのマップを用いた実験では、5分間の実行時間制限内における成功率、実行時間、および展開ノード数を評価した。実験の結果、ヒューリスティック値が最も小さいICBS-h1よりも、最小頂点被覆問題を繰り返し解くことでより大きなヒューリスティック値を用いるICBS-h4の方が、ICBSと比較して実行時間と展開ノード数を最大5倍改善できることが示された。ただし、環境の混雑度が低い場合には、ICBS-h4による改善幅は2〜3倍程度に留まる傾向がある。また、障害物やエージェントの密度が高まり問題の難易度が上がるにつれて、上下左右方向の衝突であるcardinal conflictsの数が増え、それに伴いルートノードにおけるヒューリスティック値も大きくなるため、ICBS-hの有効性が高まることが確認された。</p></section>
+<section class="secsum"><h3>Possible Slowdown</h3><p>許容的なh値を用いるA*探索は、タイブレークの規則によっては、一部の非ゴールノードのh値が0である場合に、h値がすべて0の場合よりも多くのノードを展開することがあります。衝突ツリーにおいて、半基数的または非基数的衝突に基づいてノードが分割されると、コストが0のエッジが含まれることがあり、その結果、ゴールノードに接続された非ゴールノードの許容的なh値が0になる場合があります。このような状況下では、g値とh値の和が等しいノード間で、CBSは衝突の少ないノードを優先して展開することでゴールに早く到達しますが、ICBS-hは衝突の少なさやh値の小ささに基づく規則によって、より多くのノードを含む部分木を展開してしまう可能性があります。しかし、実験の結果、ICBS-hがICBSよりも多くのノードを展開したケースは全インスタンスの5%未満であり、平均展開ノード数への影響は限定的でした。また、8x8グリッドを用いた評価においても、ICBSがICBS-h4よりも少ない展開数で解けたケースは447インスタンス中わずか22件であり、ICBS-hの効率性が示されています。</p></section>
+<section class="secsum"><h3>Conclusions and Future Research</h3><p>本研究は、Conflict-Based Search (CBS) において許容的なヒューリスティック値を用いることが有効であるという最初の証拠を提示した。今後の研究の方向性として、まず、衝突するエージェントを一つのメタエージェントとして統合して扱うMeta-Agent CBS (MA-CBS) に対するヒューリスティック値の導出が挙げられる。MA-CBSはメタエージェントを単一の複合エージェントとして扱い、メタエージェント間の衝突のみを考慮するため、メタエージェントを構成する個々のエージェント間の衝突を集計することが困難であるという課題がある。次に、線形計画法に基づくヒューリスティック値のような、コスト最適化計画のための高度なヒューリスティック値を利用することで、CBSに対してより情報量の多いヒューリスティック値を開発できる可能性がある。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-31
+  </footer>
+</div>
+</body>
+</html>

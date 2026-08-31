@@ -7897,6 +7897,35 @@
       "url": "https://openalex.org/W7166797487",
       "venue": "Scientific Reports"
     },
+    "doi:10.1109/access.2024.3392305": {
+      "added": "2026-08-31",
+      "added_at": "2026-08-31T15:25:28.868835",
+      "arxiv_id": "",
+      "authors": [
+        "Jean-Marc Alkazzi",
+        "Keisuke Okumura 0001"
+      ],
+      "basis": "fulltext(pdf)",
+      "citations": 0,
+      "date": "2024",
+      "doi": "10.1109/ACCESS.2024.3392305",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/a-comprehensive-review-on-leveraging-machine-learning-for-multi-agent-path-findi.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding"
+      ],
+      "pdf_url": "",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFにおけるMLの適用範囲（表現・計画・実行）を網羅した最新の包括的サーベイであり、既存手法の課題や今後の展望も整理されており、研究の指針として価値が高い。",
+      "relevance": 1,
+      "selection": "manual",
+      "selection_label": "手動追加",
+      "source_quality": "fulltext",
+      "title": "A Comprehensive Review on Leveraging Machine Learning for Multi-Agent Path Finding",
+      "tldr": "マルチエージェント経路探索（MAPF）の計算複雑性を克服するため、機械学習（ML）を環境表現、経路計画、および実行の全プロセスに統合する最新の研究動向を包括的に調査する。",
+      "url": "https://doi.org/10.1109/ACCESS.2024.3392305",
+      "venue": "IEEE Access"
+    },
     "doi:10.1109/gcwkshps68340.2025.11590994": {
       "added": "2026-08-18",
       "added_at": "2026-08-18T06:03:31.212428",
@@ -8341,6 +8370,34 @@
       "url": "http://arxiv.org/abs/2607.04124v1",
       "venue": "IEEE/ASME Transactions on Mechatronics(TMECH) 2026"
     },
+    "doi:10.1609/aaai.v35i13.17341": {
+      "added": "2026-08-31",
+      "added_at": "2026-08-31T15:21:26.552941",
+      "arxiv_id": "",
+      "authors": [
+        "Taoan Huang, Sven Koenig, Bistra Dilkina"
+      ],
+      "basis": "fulltext(pdf)",
+      "citations": 0,
+      "date": "2021",
+      "doi": "10.1609/AAAI.V35I13.17341",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/learning-to-resolve-conflicts-for-multi-agent-path-finding-with-conflict-based-s.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding"
+      ],
+      "pdf_url": "",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFの主要アルゴリズムCBSに対し、高コストなオラクルを模倣する機械学習を導入した点が新規かつ実用的。汎化性能の検証もなされており、関連研究として価値が高い。",
+      "relevance": 1,
+      "selection": "manual",
+      "selection_label": "手動追加",
+      "source_quality": "fulltext",
+      "title": "Learning to Resolve Conflicts for Multi-Agent Path Finding with Conflict-Based Search",
+      "tldr": "マルチエージェント経路探索のアルゴリズムであるConflict-Based Search（CBS）において、探索効率を左右する衝突選択の決定を、高精度だが計算負荷の高いオラクルの挙動を模倣する機械学習によって高速化する。",
+      "url": "https://doi.org/10.1609/aaai.v35i13.17341",
+      "venue": "AAAI 2021"
+    },
     "doi:10.1609/aaai.v39i14.33614": {
       "added": "2026-06-26",
       "added_at": "2026-06-26T13:35:03.000000",
@@ -8473,6 +8530,40 @@
       "url": "http://arxiv.org/abs/2509.15381v1",
       "venue": "AAAI 2025"
     },
+    "doi:10.1609/icaps.v34i1.31522": {
+      "added": "2026-08-31",
+      "added_at": "2026-08-31T15:26:36.873536",
+      "arxiv_id": "2403.20300",
+      "authors": [
+        "Rishi Veerapaneni",
+        "Qian Wang",
+        "Kevin Ren",
+        "Arthur Jakobsson",
+        "Jiaoyang Li",
+        "Maxim Likhachev"
+      ],
+      "basis": "fulltext(pdf)",
+      "citations": 0,
+      "date": "2024-03-29",
+      "doi": "10.1609/ICAPS.V34I1.31522",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/improving-learnt-local-mapf-policies-with-heuristic-search.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2403.20300",
+      "reading_value": 4,
+      "reading_value_reason": "学習済み方策と古典的な探索（PIBT/LaCAM）をモデル変更なしで統合する手法が極めて実用的。MAPFの課題である局所性とスケーラビリティを両立しており、研究価値が高い。",
+      "relevance": 2,
+      "selection": "manual",
+      "selection_label": "手動追加",
+      "source_quality": "fulltext",
+      "title": "Improving Learnt Local MAPF Policies with Heuristic Search",
+      "tldr": "学習された局所的なマルチエージェント経路探索（MAPF）方策に対し、追加の学習なしでヒューリスティック探索を統合することで、デッドロックを解消し成功率とスケーラビリティを大幅に向上させる。",
+      "url": "https://arxiv.org/abs/2403.20300",
+      "venue": "ICAPS 2024"
+    },
     "doi:10.1609/icaps.v36i1.42860": {
       "added": "2026-08-12",
       "added_at": "2026-08-12T06:04:46.041882",
@@ -8538,6 +8629,34 @@
       "tldr": "離散的な移動を前提とする従来のMAPDアルゴリズムに対し、エージェントの運動学的制約を考慮した連続的な経路計画を可能にするTP-SIPPwRTを提案し、実環境に近い制約下でも安全なタスク遂行を実現する。",
       "url": "https://www.semanticscholar.org/paper/472dc04a2e24559d95fd85624c8e9284f176b408",
       "venue": "Symposium on Combinatorial Search"
+    },
+    "doi:10.1609/socs.v15i1.21769": {
+      "added": "2026-08-31",
+      "added_at": "2026-08-31T15:22:50.166967",
+      "arxiv_id": "",
+      "authors": [
+        "Shuyang Zhang, Jiaoyang Li, Taoan Huang, Sven Koenig, Bistra Dilkina"
+      ],
+      "basis": "fulltext(pdf)",
+      "citations": 0,
+      "date": "2022",
+      "doi": "10.1609/SOCS.V15I1.21769",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/learning-a-priority-ordering-for-prioritized-planning-in-multi-agent-path-findin.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding"
+      ],
+      "pdf_url": "",
+      "reading_value": 3,
+      "reading_value_reason": "MAPFの優先度付き計画法に機械学習を適用する着眼点は標準的だが、単純な線形ランキング関数で実用的な性能を得る構成は、実装の容易さの観点で興味深い。",
+      "relevance": 1,
+      "selection": "manual",
+      "selection_label": "手動追加",
+      "source_quality": "fulltext",
+      "title": "Learning a Priority Ordering for Prioritized Planning in Multi-Agent Path Finding",
+      "tldr": "マルチエージェント経路探索における優先度付き計画法（PP）において、エージェントの最適な優先順位を学習する機械学習フレームワークを提案し、小規模なマップにおいて既存のヒューリスティック手法を上回る成功率と解の品質を実現した。",
+      "url": "https://doi.org/10.1609/socs.v15i1.21769",
+      "venue": "SOCS 2022"
     },
     "doi:10.1609/socs.v16i1.27282": {
       "added": "2026-07-29",
@@ -8798,6 +8917,34 @@
       "tldr": "本論文は、マルチエージェント経路探索（MAPF）から派生した48種類の多様な問題設定（flavors）を体系的に整理・分類し、それらの定義的特徴や解決手法、問題間の関係性をマッピングしたサーベイである。",
       "url": "https://openalex.org/W7172505669",
       "venue": "Journal of Artificial Intelligence Research"
+    },
+    "doi:10.24963/ijcai.2023/28": {
+      "added": "2026-08-31",
+      "added_at": "2026-08-31T15:23:55.921412",
+      "arxiv_id": "2305.03632",
+      "authors": [
+        "Keisuke Okumura"
+      ],
+      "basis": "fulltext(pdf)",
+      "citations": 0,
+      "date": "2023-05-05",
+      "doi": "10.24963/IJCAI.2023/28",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/improving-lacam-for-scalable-eventually-optimal-multi-agent-pathfinding.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2305.03632",
+      "reading_value": 4,
+      "reading_value_reason": "既存のLaCAMの弱点（ライブロックと最適性）を、スワップ操作の導入とAnytimeアルゴリズム化により解決しており、大規模実験による検証も極めて具体的で有用。",
+      "relevance": 1,
+      "selection": "manual",
+      "selection_label": "手動追加",
+      "source_quality": "fulltext",
+      "title": "Improving LaCAM for Scalable Eventually Optimal Multi-Agent Pathfinding",
+      "tldr": "マルチエージェント経路探索において、解の質と計算速度のトレードオフを解消するため、最終的に最適解へ収束するAnytimeアルゴリズムLaCAM*と、スワップ操作を導入して構成生成を効率化した改良型PIBTを提案する。",
+      "url": "https://arxiv.org/abs/2305.03632",
+      "venue": "IJCAI 2023"
     },
     "doi:10.24963/ijcai.2024/35": {
       "added": "2026-07-10",
@@ -9542,6 +9689,34 @@
       "url": "http://arxiv.org/abs/2409.06888v5",
       "venue": "Proceedings of the 25th International Conference on Autonomous Agents and Multiagent Systems 2024"
     },
+    "title:adding heuristics to conflict based search for multi agent path finding": {
+      "added": "2026-08-31",
+      "added_at": "2026-08-31T15:17:32.992394",
+      "arxiv_id": "",
+      "authors": [
+        "Ariel Felner, Jiaoyang Li, Eli Boyarski, Hang Ma, Liron Cohen, T. K. Satish Kumar, Sven Keonig"
+      ],
+      "basis": "fulltext(pdf)",
+      "citations": 0,
+      "date": "2018",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/adding-heuristics-to-conflict-based-search-for-multi-agent-path-finding.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding"
+      ],
+      "pdf_url": "",
+      "reading_value": 4,
+      "reading_value_reason": "CBSにヒューリスティックを導入する独創的な提案であり、最大5倍の性能向上という具体的な成果も示されている。MAPF分野の研究者にとって重要な知見である。",
+      "relevance": 1,
+      "selection": "manual",
+      "selection_label": "手動追加",
+      "source_quality": "fulltext",
+      "title": "Adding Heuristics to Conflict-Based Search for Multi-Agent Path Finding",
+      "tldr": "マルチエージェント経路計画におけるConflict-Based Search (CBS) は、将来の探索コストを推定するヒューリスティックを利用していない。本研究では、エージェント間の衝突をグラフ構造として集約し、許容的なヒューリスティック値を導入することで、探索効率を向上させる手法を提案する。",
+      "url": "https://aaai.org/ocs/index.php/ICAPS/ICAPS18/paper/view/17735",
+      "venue": "ICAPS 2018"
+    },
     "title:efficient tsp based task group allocation for multi task multi agent pickup and delivery": {
       "added": "2026-07-17",
       "added_at": "2026-07-17T21:02:48.448222",
@@ -9565,6 +9740,56 @@
       "source_quality": "fulltext",
       "title": "Efficient TSP-Based Task Group Allocation for Multi-Task Multi-Agent Pickup and Delivery",
       "tldr": "マルチタスク・マルチエージェント・ピックアップ＆デリバリー（MT-MAPD）問題において、巡回セールスマン問題（TSP）を活用してタスクグループを効率的に割り当てる手法を提案し、既存手法と比較してサービス時間を31.1%以上削減した。",
+      "url": "",
+      "venue": ""
+    },
+    "title:improved heuristics for multi agent path finding with con ict based search": {
+      "added": "2026-08-31",
+      "added_at": "2026-08-31T15:18:58.407415",
+      "arxiv_id": "",
+      "authors": [],
+      "basis": "fulltext(pdf)",
+      "citations": 0,
+      "date": "",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/improved-heuristics-for-multi-agent-path-finding-with-con-ict-based-search.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding"
+      ],
+      "pdf_url": "",
+      "reading_value": 4,
+      "reading_value_reason": "既存手法の理論的限界を証明した上で、依存関係に着目した強力な新ヒューリスティックを提案しており、MAPF研究者にとって極めて有用な知見である。",
+      "relevance": 1,
+      "selection": "manual",
+      "selection_label": "手動追加",
+      "source_quality": "fulltext",
+      "title": "Improved Heuristics for Multi-Agent Path Finding with Conﬂict-Based Search",
+      "tldr": "Conflict-Based Search (CBS) における既存の衝突グラフに基づくヒューリスティックの限界を証明し、エージェント間のペアごとの依存関係を考慮した2つの新しい許容的なヒューリスティックを提案することで、探索の成功率と実行速度を向上させた。",
+      "url": "",
+      "venue": ""
+    },
+    "title:primal path nding via reinforcement and imitation multi agent learning": {
+      "added": "2026-08-31",
+      "added_at": "2026-08-31T15:20:14.493073",
+      "arxiv_id": "",
+      "authors": [],
+      "basis": "fulltext(pdf)",
+      "citations": 0,
+      "date": "",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/primal-path-nding-via-reinforcement-and-imitation-multi-agent-learning.html",
+      "matched_keywords": [],
+      "pdf_url": "",
+      "reading_value": 4,
+      "reading_value_reason": "RLと模倣学習を組み合わせ、通信なしで大規模なMAPFを実現する手法は実用的。スケーラビリティと低遅延が示されており、マルチエージェント研究者にとって価値が高い。",
+      "relevance": 0,
+      "selection": "manual",
+      "selection_label": "手動追加",
+      "source_quality": "fulltext",
+      "title": "PRIMAL: Pathﬁnding via Reinforcement and Imitation Multi-Agent Learning",
+      "tldr": "強化学習と模倣学習を組み合わせることで、明示的な通信なしにエージェント間の暗黙的な協調を実現する、分散型のマルチエージェント経路計画フレームワークである。",
       "url": "",
       "venue": ""
     }

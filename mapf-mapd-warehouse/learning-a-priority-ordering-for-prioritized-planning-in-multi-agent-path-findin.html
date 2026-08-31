@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Learning a Priority Ordering for Prioritized Planning in Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Learning a Priority Ordering for Prioritized Planning in Multi-Agent Path Finding</h1>
+  <div class="meta">Shuyang Zhang, Jiaoyang Li, Taoan Huang, Sven Koenig, Bistra Dilkina<br>採択先: SOCS 2022 ・ 2022 ・ source: pdf</div>
+  <div class="links"><a href="https://doi.org/10.1609/socs.v15i1.21769" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.1609/SOCS.V15I1.21769" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip venue">採択先 SOCS 2022</span><span class="chip">公開日 2022</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">MAPFの優先度付き計画法に機械学習を適用する着眼点は標準的だが、単純な線形ランキング関数で実用的な性能を得る構成は、実装の容易さの観点で興味深い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチエージェント経路探索における優先度付き計画法（PP）において、エージェントの最適な優先順位を学習する機械学習フレームワークを提案し、小規模なマップにおいて既存のヒューリスティック手法を上回る成功率と解の品質を実現した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>共有環境で複数のエージェントが衝突を回避しながら目的地へ向かうマルチエージェント経路探索（MAPF）を対象とする。PPはエージェントに優先順位を割り当て、高い順に経路を逐次計算する手法だが、解の品質や成功率は事前に決定される優先順位に強く依存する。従来は距離や選択肢の数に基づく手作業のヒューリスティックが用いられてきたが、これらは特定のシナリオに特化しており、あらゆる状況で優れた性能を発揮できるわけではないという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>手作業のヒューリスティックに依存せず、MAPFのインスタンスから抽出した特徴量に基づき、最適な優先順位をデータ駆動で学習するフレームワークを構築した点が新規である。全順序を学習するML-Tと、ペアごとの部分順序を学習するML-Pという2つのモデルを提示している。深層学習ではなく、単純な線形ランキング関数を採用することで、小規模から中規模の学習データでも良好な性能を発揮できる構造を実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>エージェントの開始・ゴール間距離、最短経路の集合（MDD）に基づく経路の選択肢、潜在的な衝突数など26種類の特徴量を用いて、エージェントごとのスコアを算出するランキング関数を学習する。学習プロセスは、データ収集、モデル学習、ML誘導探索の3段階で構成される。ML-Tは全順序から得られたラベルを用いてエージェントをグループ分けして学習し、ML-Pは優れた解をもたらした優先順位のペア関係を直接学習する。探索時には、算出されたスコアに基づき順序を決める決定論的ランキングと、スコアをソフトマックス関数で正規化して確率的に順序を選択する確率的ランキングの2種類を用いる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>6種類のマップ（small maps 4種、large maps 2種）を用い、既存のヒューリスティック手法（LH、SH、RND）と比較評価を行った。評価指標は、成功率、実行時間、合計コスト（sum-of-costs）、およびソリューションランクである。小規模なマップ、特にエージェント数が多く既存手法では解を見つけるのが困難なシナリオにおいて、提案手法は成功率、実行時間、解の品質のすべてでベースラインを上回った。大規模なマップにおいても、既存手法と同等の性能を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>大規模なマップや倉庫マップでは、既存のPPアルゴリズムの成功率が低く実行時間が長いため、高品質な学習データを収集することが困難であるという制約がある。また、ML-Pはエージェント数が増加した際の汎化性能に限界がある。今後の課題として、エージェント数を固定せずに学習することで異なるエージェント数への汎化性能を高めることや、マップのサイズや構造に関する特徴量を学習することで、異なるマップ間での汎化を実現することが挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>マルチエージェント経路探索における優先度付き計画法（PP）は、エージェントに割り当てる優先順位によって解の品質が大きく左右されるが、既存手法は貪欲法やランダムな割り当てに依存しており、成功率や総コストの観点で決定的な手法は確立されていない。本研究では、PPに適切な優先順位を学習するための機械学習フレームワークを提案する。具体的には、全エージェントの順序を学習するML-Tと、部分的な順序を学習するML-Pという2つのモデルを開発した。さらに、確率的なランキング付けやランダムな再試行を組み合わせることで、PPの有効性を高めている。実験の結果、提案手法は小規模なマップにおいて、既存のPPアルゴリズムよりも成功率、実行時間、および解の品質の面で上回る性能を示した。大規模なマップにおいても、学習データの収集が困難であるという制約はあるものの、既存手法に対して競争力のある性能を維持している。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>マルチエージェント経路探索（MAPF）は、共有環境において複数のエージェントが衝突を回避する経路を求める問題であり、全エージェントの到着時刻の総和であるsum-of-costsや、最大到着時刻であるmakespanの最小化を目的とする。優先度付き計画法（PP）は、各エージェントに一意の優先度を割り当て、優先度の高い順に他のエージェントや障害物を避ける最短経路を順次計算する手法であり、計算効率やスケーラビリティに優れる一方で、決定される優先順序によって解の品質や解の発見可否が大きく左右される。既存手法では、クエリ距離や選択肢の少なさに基づく手作業のヒューリスティックが用いられているが、これらは特定のシナリオ向けに開発されており、あらゆるケースで成功率や解の品質において他を圧倒するものではない。本研究では、MAPFインスタンスから特徴量を抽出し、優れた解をもたらした優先順序をラベルとして教師あり学習によりエージェントごとの優先度スコアを算出する機械学習フレームワークを提案する。このフレームワークには、全順序を学習するML-Tと部分順序を学習するML-Pという2つのモデルが含まれる。実験の結果、提案手法は小規模なマップ、特に既存手法では解を見つけることが極めて困難なエージェント数の多いシナリオにおいて、成功率、実行時間、およびsum-of-costsの指標で既存のPPアルゴリズムを大幅に上回る性能を示した。また、学習データの収集が困難な大規模マップにおいても、既存手法に対して競争力のある性能を維持している。</p></section>
+<section class="secsum"><h3>Problem Definition</h3><p>マルチエージェント経路探索（MAPF）は、重みなし無向グラフにおいて、複数のエージェントが衝突することなく、それぞれの開始地点から目標地点まで移動するための経路集合を求める問題である。各エージェントは、隣接する地点への移動またはその場での待機を繰り返して移動し、エージェントのコストは目標地点に到達して静止するまでのタイムステップ数として定義される。本研究では、全エージェントのコストの総和を最小化することを目的とし、グラフは4近傍のグリッド構造を想定している。衝突には、同一時刻に同じ地点に位置する頂点衝突と、同一時刻にエージェント同士が同じエッジを逆方向に通過するエッジ衝突の2種類が存在する。また、各エージェントの最短経路を網羅する有向非巡回グラフであるMDD（Multi-level Directed Acyclic Graph）を定義しており、ある時刻において、両エージェントのMDD内のノードがそれぞれ1つしかない場合に発生する衝突を、基数衝突（Cardinal conflicts）と呼ぶ。</p></section>
+<section class="secsum"><h3>Background and Related Work</h3><p>優先順位付き計画法（Prioritized Planning, PP）は、全エージェントに事前に定義された全順序の優先順位を割り当て、優先度の高い順に、上位エージェントの経路と衝突しない最短経路を逐次的に計算する、MAPFの分離型アプローチである。PPは計算効率と簡潔さに優れる一方で、完全性や最適性は保証されないため、いかに適切な優先順位を決定するかが重要な課題となる。既存のヒューリスティックには、始点と終点のグラフ距離に基づき優先度を決定するクエリ距離ヒューリスティックや、経路の選択肢が少ないエージェントを優先する最小選択肢ヒューリスティック、始点や終点での潜在的な衝突を考慮する始点・終点衝突ヒューリスティック、およびランダムな順序で解が見つからない場合に再試行するランダムリスタートが存在する。近年のMAPFにおける機械学習の研究は、最適なアルゴリズムの選択や既存アルゴリズムの高速化に焦点を当てている。本研究はそれらの知見を活用し、データ駆動型で優先順位を学習するフレームワークを提案する。提案手法は、深層学習を用いる手法と比較して構造と実装が単純であり、小規模から中規模の学習データセットで良好なテスト結果を得られる。</p></section>
+<section class="secsum"><h3>Machine-Learning Methodology</h3><p>本手法は、マルチエージェント経路探索（MAPF）における優先度付き計画法（PP）のための優先順位付けを学習する、教師あり学習のフレームワークを提案している。学習プロセスは、各エージェントの特徴量ベクトルとラベルから構成されるデータセットを用いて、エージェントごとにスコアを出力するランキング関数を訓練するものである。このパイプラインは、訓練用とテスト用のMAPFインスタンスからデータセットを構築するデータ収集フェーズ、スコアに基づく順序がラベルの順序に可能な限り近づくように関数を最適化するモデル学習フェーズ、そして学習済み関数を用いてテストインスタンスの優先順位を生成するML誘導探索フェーズの3段階で構成される。算出されたスコアに基づいてエージェントをランク付けすることで、MAPFを解くための全体的な優先順位付けを実現する。</p></section>
+<section class="secsum"><h3>Data Collection</h3><p>本研究では、マルチエージェント経路探索（MAPF）における優先順位付けを学習するためのデータセット構築手法を提案している。各エージェントの特徴量として、開始・ゴール地点間の距離、マルチダイアグラム（MDD）に基づく経路の選択肢に関する情報、他エージェントとの開始・ゴール地点における潜在的な衝突、および最短経路に基づく衝突の種類や潜在的な頂点衝突の数を含む計26次元のベクトルを用い、これらはMin-Max正規化によって0から1の範囲に収められる。教師ラベルとなる優先順位については、優先順位付き計画法（PP）を異なる順序で複数回実行し、コストの総和が最小となる順序を抽出する。ラベル生成には、単一の全順序を用いる方法と、コストの低い上位k個のサンプルから部分順序を構築する方法の2種類がある。後者の部分順序の構築では、A*探索中に衝突回避のために枝刈りされたノードを記録し、特定の順序関係が経路長を短縮する可能性がある場合にのみエージェント間の順序を確定させる。最終的な部分順序は、上位k個のサンプル内で頻繁に現れる順序関係を優先的に採用することで、単一の実行結果に依存しないラベルを生成している。</p></section>
+<section class="secsum"><h3>Model Learning</h3><p>本手法では、エージェントの特徴量ベクトルと重みパラメータの内積によってスコアを算出する、線形ランキング関数を学習する。学習プロセスでは、エージェント間の優先順位関係を向き付けられた非巡回グラフに変換し、フロイド・ワーシャル法を用いて全エージェント間の接続関係を特定した上で、正則化項を含む損失関数を最小化する。提案するモデルには2つの形式がある。ML-Tは、全エージェントの優先順位をm個のグループに分割して学習する手法であり、異なるグループに属するエージェント間で優先順位が逆転しているペアの割合を損失として用いる。一方、ML-Pは、ペアごとの部分的な優先順位関係を学習する手法であり、与えられた優先順位関係にあるペアのうち、予測スコアが逆転しているペアの割合を直接損失関数として定義する。</p></section>
+<section class="secsum"><h3>ML-Guided Search</h3><p>学習済みのランキング関数を用いて、テスト対象の各MAPFインスタンスにおけるエージェントの優先順位を決定する2つの手法を提案している。第一の手法である決定論的ランキングでは、各エージェントに対して予測されたスコアに基づき、スコアが高いエージェントほど優先順位が高くなるよう一意に順序付けを行う。第二の手法である確率的ランキングでは、予測スコアをソフトマックス関数を用いて正規化し、スコアに比例した確率分布を生成することで、優先順位の高いエージェントから順に確率的に選択していく。この正規化の際、スケーリングのためのハイパーパラメータであるベータが用いられ、正規化されたスコアが高いエージェントほど、より早い段階で優先順位が割り当てられる確率が高くなる。この確率的なアプローチにより、優先順位の順序にランダム性が導入され、機械学習を用いた優先順位付き計画法においてランダムリスタート戦略を活用することが可能となる。</p></section>
+<section class="secsum"><h3>Experimentation</h3><p>本研究では、マルチエージェント経路探索（MAPF）における優先順位付けを学習する2つの機械学習モデル、ML-T（順序分類・回帰用のSVMrankを使用）とML-P（大規模線形分類用のLIBLINEARを使用）を提案し、既存のヒューリスティック手法であるLH、SH、RNDと比較している。実験は、MAPFベンチマークから選定された6種類のマップを用い、エージェント数やマップの規模を変化させて実施された。評価指標には、制限時間内の成功率、最初の解を見つけるまでの実行時間、正規化された合計コスト、および解の品質を示すソリューションランクの4つを用いている。決定論的なランキングを用いた実験では、ML-Tは成功率においてベースラインと同等の結果を示し、ML-Pは成功率は低いものの、解が見つかった際のコスト品質が非常に高いことが示された。ランダムリスタートを組み合わせた確率的なランキングを用いた実験では、ML-TとML-Pの両方が、特にエージェント数が多い複雑なマップにおいて、成功率、実行時間、および最終的な解の品質のすべての面でベースラインを上回る結果を得た。一方で、warehouseマップや大規模なマップにおいては、学習データの収集の困難さやモデルの特性により、結果がベースラインと同等、あるいは成功率がわずかに低下する傾向も確認されている。</p></section>
+<section class="secsum"><h3>Conclusions and Future Directions</h3><p>本研究では、マルチエージェント経路探索（MAPF）における優先度付き計画法（PP）のための、優先順位付けを学習する初の機械学習フレームワークを提案した。提案手法には、全順序の優先順位を学習するモデルML-Tと、半順序の優先順位を学習するモデルML-Pの2種類がある。実験の結果、両モデルは小規模なマップ、特にエージェント数が多い困難なシナリオにおいて、既存のPPアルゴリズムを大幅に上回る性能を示した。また、高品質な学習データが不足している大規模マップにおいても、既存手法と同等の結果を得ている。今後の展望として、エージェント数を固定せずに学習を行うことで、異なるエージェント数への汎化性能を高めることや、マップのサイズや構造に関する特徴を学習することで、異なるマップ間での汎化を実現する新しいモデルの開発が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-31
+  </footer>
+</div>
+</body>
+</html>

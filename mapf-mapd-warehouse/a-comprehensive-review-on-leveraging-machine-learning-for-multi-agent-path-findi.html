@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A Comprehensive Review on Leveraging Machine Learning for Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>A Comprehensive Review on Leveraging Machine Learning for Multi-Agent Path Finding</h1>
+  <div class="meta">Jean-Marc Alkazzi, Keisuke Okumura 0001<br>採択先: IEEE Access ・ 2024 ・ source: pdf</div>
+  <div class="links"><a href="https://doi.org/10.1109/ACCESS.2024.3392305" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.1109/ACCESS.2024.3392305" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip venue">採択先 IEEE Access</span><span class="chip">公開日 2024</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFにおけるMLの適用範囲（表現・計画・実行）を網羅した最新の包括的サーベイであり、既存手法の課題や今後の展望も整理されており、研究の指針として価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチエージェント経路探索（MAPF）の計算複雑性を克服するため、機械学習（ML）を環境表現、経路計画、および実行の全プロセスに統合する最新の研究動向を包括的に調査する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>MAPFは、既知の環境において複数のエージェントが衝突を回避しながら、それぞれの出発地から目的地まで移動する経路を求める問題である。エージェントの作業空間はグラフとして表現され、各エージェントは頂点間の移動や待機を選択する。しかし、エージェント数が増加すると最適解の算出はNP困難となり、リアルタイム性やスケーラビリティの確保が困難になる。本研究は、環境のモデリング、行動シーケンスの合成、および不確実性を考慮した実行という、MAPFの全工程におけるMLの適用を対象とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のMAPF研究が主に古典的なアルゴリズムに焦点を当てていたのに対し、本論文はMLを統合することで、環境表現、経路計画、実行の各段階における相乗効果を体系化した。具体的には、グラフ生成の高度化、最適なアルゴリズムを選択するための予測、既存ソルバーの内部プロセスの強化、および分散型エージェント方策の学習という、多角的な進展を網羅している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MLを用いたアプローチは以下の4つの観点から構成される。<br>1. 環境表現の最適化：強化学習や生成モデルを用いて、障害物の配置やワークスペースの構造を調整し、ナビゲーションの効率を高める。<br>2. アルゴリズム選択：問題のインスタンス（エージェント数や障害物密度など）を画像や特徴量として入力し、ニューラルネットワークを用いて最適なアルゴリズムをポートフォリオから選択する。<br>3. 既存ソルバーの強化：Conflict-Based Searchにおける衝突解決のための分岐決定、Transformerを用いたヒューリスティック関数の学習、優先度付き計画法におけるエージェントの順位付けなど、既存アルゴリズムの構成要素をMLで置き換える。<br>4. 分散型方策の学習：模倣学習や強化学習を用い、エージェントが局所的な観測や通信に基づいて自律的に行動を決定する方策を構築する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価には、全エージェントの最大移動時間を示すmakespanや、全経路コストの総和であるflowtimeが用いられる。分散型手法では、主に成功率と経路長が指標となる。アルゴリズム選択の検証では、占有格子を画像として扱う手法が示されているが、エージェント密度が高い場合に経路の重なりによる識別が困難になることが指摘されている。また、分散型アプローチの学習においては、報酬設計（正、負、ゼロの割り当て）が効果的な方策の誘導に直結することが示されている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>環境表現においては、グラフの密度と解の可用性の間にトレードオフが存在する。グラフが密すぎると探索空間が拡大し計算コストが増大し、疎すぎると有効な解が見つからないリスクがある。アルゴリズム選択では、2D画像表現は時間情報の保持や高密度なエージェントの識別において限界があり、3D表現への拡張が検討されている。また、小規模な環境で学習した協調パターンを大規模なシステムへ転移させる手法の確立や、非グリッド環境における適切な表現手法の策定、分散型における通信の最適化などが今後の課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>本文 (1/8)</h3><p>マルチエージェント経路探索（MAPF）は、既知の環境において複数のエージェントが衝突を回避しながら、それぞれの出発地点から目的地まで移動するための経路を求める問題である。標準的な定式化では、エージェントの作業空間をグラフで表現し、各エージェントは同期して動作し、各タイムステップで隣接する頂点への移動または待機を選択する。解の評価指標には、全エージェントの経路のうち最も長い時間の長さを示すmakespanや、全エージェントの経路コストの総和であるflowtime（sum-of-costs）などが用いられる。MAPFにおいて最適解を求める問題は、グラフの構造が単純な場合や近似解を求める場合であってもNP困難であることが理論的に示されており、エージェント数が増大すると計算上の困難さが極めて高くなる。本レビュー論文は、この複雑な問題に対して機械学習（ML）を適用することで、環境表現、経路計画、および解の実行の全プロセスにおける効率性と有効性を向上させる手法について包括的に調査することを目的としている。</p></section>
+<section class="secsum"><h3>本文 (2/8)</h3><p>本サーベイ論文は、機械学習（ML）を活用したマルチエージェント経路探索（MAPF）の進展を、表現、計画、実行という3つの側面から体系的に整理することを目的としている。従来のMAPF研究はMLを用いない手法に焦点を当てたものが多かったが、本論文はワークスペースのモデリング、エージェントの行動シーケンスの合成、および不確実性を考慮した実世界での実行という全工程において、MLを統合することによる相乗効果を包括的に論じている。近年の進展として、MLを用いて数千のエージェントを数秒で管理する手法や、生成モデルによるグラフ生成の強化、アルゴリズム選択の予測、分散型ポリシーの学習などが挙げられる。一方で、連続空間での局所的な衝突回避を行うリアクティブな手法や、ターゲット割り当て問題そのものは、本論文の対象外としている。本稿は、実世界への展開における課題である運動学的制約や環境の不確実性に対し、MLがどのように貢献できるかという統合的な視点を提供する。</p></section>
+<section class="secsum"><h3>本文 (3/8)</h3><p>MAPFにおける表現の課題は、環境のグラフ密度と解の可用性の間でバランスを取ることにあります。グラフが密すぎると探索空間が拡大して計算コストが増大し、一方でグラフが疎すぎると有効な解が見つからないリスクが生じます。計画のための表現では、エージェントが移動可能な領域を頂点と辺からなるグラフとして定義しますが、格子状のグリッド表現や、サンプリングに基づく手法で構築されるロードマップ表現が一般的です。ロードマップの構築は、衝突のない構成空間からの頂点のサンプリング、頂点間を繋ぐ衝突のない辺の作成、そしてエージェントや環境の制約に合わせてグラフを精緻化するという手順で行われます。非機械学習的手法としては、最適化手法を用いてグラフを疎にしつつ移動コストを最適化する試みや、幾何学的制約を微分可能な形式に変換してメッシュを最適化する手法などが存在します。これらの研究は、学習プロセスを用いずに最適化技術のみを活用して、環境の表現と計画の効率性のトレードオフを解決しようとしています。</p></section>
+<section class="secsum"><h3>本文 (4/8)</h3><p>機械学習を用いたマルチエージェント経路探索（MAPF）の向上に関する研究として、機械学習によるアプローチ、環境の最適化、およびアルゴリズム選択の3つの観点が述べられている。機械学習によるアプローチでは、障害物回避の重要度を学習してサンプリングを加速させるACPRMや、条件付き変分オートエンコーダ（CVAE）を用いてエージェントの有望な次位置を予測し、グラフの疎性と解の質を両立させるCTRMといった手法が挙げられる。環境の最適化においては、物流施設のレイアウトを調整してMAPFの性能を高めることが重要であり、展開前に一度行うオフライン最適化と、エージェントの移動に合わせて動的に障害物を配置し直すオンライン最適化の2種類が存在する。これに対し、強化学習や畳み込みニューラルネットワーク、グラフニューラルネットワークを用いて障害物の配置を最適化する手法も提案されており、大規模な環境における組合せ爆発の課題に対して機械学習の活用が期待されている。また、問題の特性に応じて最適なアルゴリズムを選択するアルゴリズム選択の分野では、機械学習の特徴抽出能力を活用することで、個別の問題インスタンスに対して最も効率的な解法を選択できる可能性がある。</p></section>
+<section class="secsum"><h3>本文 (5/8)</h3><p>MAPFにおけるアルゴリズム選択は、入力インスタンスに対して解のコスト、例えば最大移動時間であるmakespanや合計移動時間であるflowtimeを最小化しつつ、計算速度も速い最適なアルゴリズムを予測する問題である。この実現にはインスタンスの適切な表現が不可欠であり、既存研究ではエージェントの開始点と目標地点を色付きの点で示した占有格子状の画像として表現し、画像分類用のニューラルネットワークを用いて最適なアルゴリズムを特定する手法が提案されている。しかし、2D画像表現ではエージェントの密度が高まると経路の重なりによって特徴抽出が困難になることや、時間的な情報を十分に伝達できないといった課題がある。これに対し、時間的なチェックポイントごとの空間構成をスライスとして扱う3D表現を用いることで、経路の交差と実際の衝突を区別できる可能性がある。また、現在の研究はグリッド環境に集中しており、非グリッド環境におけるMAPFの表現手法の確立も重要な未解決課題として挙げられている。</p></section>
+<section class="secsum"><h3>本文 (6/8)</h3><p>機械学習を用いて既存のMAPFソルバーを強化する手法は、手動で設計されたヒューリスティックや構成要素を、大規模なデータセットを用いて学習させた機械学習モデルに置き換えることを核としている。具体的には、Conflict-Based Search (CBS) において、高レベル探索での分岐決定の学習や、Transformerを用いたヒューリスティック関数の学習により探索を加速させる試みがある。優先度付き計画法においては、エージェントの計画順序が解の品質に大きく影響するため、SVMや遺伝的アルゴリズムを用いてエージェントの順位付けや優先度関数を学習する研究が行われている。また、Large Neighborhood Search (LNS) では、解の品質を最も向上させるエージェントのサブセットを学習済みの方策によって選択する手法が提案されている。これらの手法は、既存アルゴリズムの効率、スケーラビリティ、または適応性を向上させることを目的としている。一方で、小規模なインスタンスで学習した協調パターンを、より大規模で密な環境へどのように転移させるかという課題が残されている。</p></section>
+<section class="secsum"><h3>本文 (7/8)</h3><p>分散型MAPFにおける機械学習の活用では、エージェントが局所的な観測情報に基づき自律的に行動を決定する方策が検討されている。学習の枠組みとして、中央集権的なアルゴリズムの振る舞いを模倣する模倣学習や、衝突回避や目標到達を報酬として期待値を最大化する強化学習が用いられる。これらを組み合わせたハイブリッドな手法や、問題の難易度を段階的に高めて学習を安定させるカリキュラム学習も存在する。分散型アプローチでは、他エージェントの情報をどのように集約するかが重要であり、視野内の観測のみに頼る手法や、通信を前提とした手法がある。通信を用いる場合は、通信のタイミング、通信相手、および通信内容の決定が課題となる。具体的な事例であるPRIMALは、視野内の障害物、全エージェントの位置、近傍の目標、自身の目標、および目標へ向かう方向ベクトルを観測入力とし、上下左右への移動または待機という離散的な行動を選択する。この手法は明示的な通信は行わないが、他者の目標情報にアクセスできることを暗黙的に仮定している。</p></section>
+<section class="secsum"><h3>本文 (8/8)</h3><p>学習ベースの分散型アプローチには、通信を伴わない手法と、通信を前提とした手法が存在する。既存研究は、模倣学習、強化学習、カリキュラム学習、またはそれらの組み合わせを用いており、エージェント間の調整のために、暗黙的または明示的な通信を想定している。これらの手法は、通信の内容や対象、あるいは局所的な観測のみに依存する手法など、多様な構成をとる。対象とする問題は、一回限りの経路探索であるone-shot MAPFと、継続的に動作するlifelong MAPFのいずれか、あるいはその両方である。強化学習を用いた手法では、効果的な方策を誘導するための報酬設計が重要であり、正、負、またはゼロの報酬をどのように割り当てるかが検討されている。評価指標としては、主に成功率と経路長が用いられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-08-31
+  </footer>
+</div>
+</body>
+</html>
