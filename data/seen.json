@@ -3473,6 +3473,67 @@
       "url": "http://arxiv.org/abs/2608.26091v1",
       "venue": ""
     },
+    "arxiv:2608.27661": {
+      "added": "2026-09-01",
+      "added_at": "2026-09-01T06:07:49.751762",
+      "arxiv_id": "2608.27661",
+      "authors": [
+        "Syed Mahbubul Huq",
+        "Christopher Child",
+        "Tillman Weyde",
+        "Pranava Madhyastha"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-27",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.27661.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.27661v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの信頼性向上に向け、生成前の内部状態から「矛盾」を含む三値分類を行う新規性が高い。広範なモデルでの検証とメカニズム解析も詳細で、実用上の示唆も大きい。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Knowing Before Answering: Decoding Language Models for Reliable RAG",
+      "tldr": "RAGにおいて、検索された情報が「十分」「不足」「矛盾」のいずれの状態にあるかを、回答生成前の言語モデルの内部信号から判定する手法を提案する。この手法は、プロンプトによる指示に頼らず、軽量な線形モデルで内部状態をデコードすることで、誤回答率を大幅に抑制できる。",
+      "url": "http://arxiv.org/abs/2608.27661v1",
+      "venue": "the Third Conference on Language Modeling (COLM 2026)"
+    },
+    "arxiv:2608.27809": {
+      "added": "2026-09-01",
+      "added_at": "2026-09-01T06:06:35.194241",
+      "arxiv_id": "2608.27809",
+      "authors": [
+        "Akito Hattori"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-28",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.27809.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.27809v1",
+      "reading_value": 3,
+      "reading_value_reason": "会話履歴特有の検索課題に対し、要約と原文の併用やハイブリッド検索の有効性を示した点は実用的。ただし、単一ユーザーのケーススタディであり、汎化性や生成精度への影響評価に課題が残る。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "LINE Conversation History Retrieval for Personal Memory RAG: Evaluating Search Representations and Hybrid Retrieval",
+      "tldr": "個人のLINE会話履歴を外部メモリとして活用するPersonal Memory RAGに向け、検索表現と検索アルゴリズムの組み合わせを評価した。要約と原文の抜粋を組み合わせた表現を用いたハイブリッド検索により、単一の検索器よりも高い検索再現率を達成した。",
+      "url": "http://arxiv.org/abs/2608.27809v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -5617,6 +5678,38 @@
       "tldr": "Lifelong Multi-Agent Path Finding (MAPF) において、コンピュータアーキテクチャのキャッシュ概念を導入した Caching-Augmented Lifelong MAPF (CAL-MAPF) を提案する。アイテムの一時保管場所としての「キャッシュグリッド」と、競合を防ぐ「ロッキングメカニズム」、およびエージェントの状態を管理する Task Assigner (TA) を組み合わせることで、タスク完了後の移動効率を向上させる。",
       "url": "http://arxiv.org/abs/2403.13421v3",
       "venue": ""
+    },
+    "arxiv:2408.02960": {
+      "added": "2026-09-01",
+      "added_at": "2026-09-01T06:03:55.082270",
+      "arxiv_id": "2408.02960",
+      "authors": [
+        "Thomy Phan",
+        "Benran Zhang",
+        "Shao-Hung Chan",
+        "Sven Koenig"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-08-06",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2408.02960.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2408.02960v2",
+      "reading_value": 4,
+      "reading_value_reason": "MABを用いた適応的な近傍選択により、大規模MAPFの性能を大幅に改善しており、新規性と実用性のバランスが良い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Anytime Multi-Agent Path Finding with an Adaptive Delay-Based Heuristic",
+      "tldr": "大規模なマルチエージェント経路計画において、既存のLNS手法が抱えるヒューリスティック選択の探索コストと、固定的なルールによる性能限界を、適応的な単一破壊ヒューリスティックを用いることで解決する。",
+      "url": "http://arxiv.org/abs/2408.02960v2",
+      "venue": "AAAI 2025"
     },
     "arxiv:2410.21415": {
       "added": "2026-06-28",
@@ -8851,6 +8944,36 @@
       "tldr": "タスクが継続的に発生する環境において、目的地を持たない未割り当てエージェントを戦略的に活用するLMAPFUAフレームワークを提案し、エージェントの総数と同時実行タスク数のバランスを制御することでスループットを最大化する。",
       "url": "https://openalex.org/W7203493327",
       "venue": "Proceedings of the International Symposium on Combinatorial Search 2026"
+    },
+    "doi:10.1613/jair.1.16299": {
+      "added": "2026-09-01",
+      "added_at": "2026-09-01T06:02:52.229903",
+      "arxiv_id": "2408.05385",
+      "authors": [
+        "Teng Guo",
+        "Jingjin Yu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-08-09",
+      "doi": "10.1613/jair.1.16299",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2408.05385.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2408.05385v1",
+      "reading_value": 4,
+      "reading_value_reason": "高密度なMAPFに対し、グリッド再配置問題の知見を階層的に応用した新規性の高い提案。数万規模のスケールでも理論的最適性に近い解を低多項式時間で出す点は極めて実用的。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Expected $1.x$-Makespan-Optimal MAPF on Grids in Low-Poly Time",
+      "tldr": "高密度なグリッド環境におけるマルチエージェント経路探索（MAPF）に対し、グリッド再配置アルゴリズム（GRA）を応用することで、低多項式時間で漸近的なメイクスパン最適性を保証する階層的な手法を提案している。",
+      "url": "http://arxiv.org/abs/2408.05385v1",
+      "venue": "Journal of Artificial Intelligence Research, vol. 81, pages 443-479, 2024"
     },
     "doi:10.1613/jair.1.20611": {
       "added": "2026-06-26",

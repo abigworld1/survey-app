@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Expected $1.x$-Makespan-Optimal MAPF on Grids in Low-Poly Time | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Expected $1.x$-Makespan-Optimal MAPF on Grids in Low-Poly Time</h1>
+  <div class="meta">Teng Guo, Jingjin Yu<br>採択先: Journal of Artificial Intelligence Research, vol. 81, pages 443-479, 2024 ・ 2024-08-09 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2408.05385v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2408.05385v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1613/jair.1.16299" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Journal of Artificial Intelligence Research, vol. 81, pages 443-479, 2024</span><span class="chip">公開日 2024-08-09</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">高密度なMAPFに対し、グリッド再配置問題の知見を階層的に応用した新規性の高い提案。数万規模のスケールでも理論的最適性に近い解を低多項式時間で出す点は極めて実用的。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 高密度なグリッド環境におけるマルチエージェント経路探索（MAPF）に対し、グリッド再配置アルゴリズム（GRA）を応用することで、低多項式時間で漸近的なメイクスパン最適性を保証する階層的な手法を提案している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>2次元および3次元のグリッドグラフにおいて、多数のエージェントを衝突を避けながら各々の目標地点へ移動させるMAPFを対象としている。主な目的は、全エージェントの移動が完了する時刻であるメイクスパンの最小化である。従来、エージェントが高密度に存在する環境では、計算量と解の品質（メイクスパン）のトレードオフが困難であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>グリッドの行や列を入れ替える操作をシミュレートする階層的な構造を導入し、エージェント密度や次元数に応じて最適性を保証する複数のアルゴリズムを提案している。最大密度時には、ランダムな配置において理論的最小値に近い漸近的最適性を、低密度時でも多項式時間での解法を実現した。既存の高速ソルバーがメモリ不足に陥るような数万規模のエージェントが存在する大規模環境においても、高いスケーラビリティと安定した最適性を両立している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>高レベルのGrid Rearrangement Algorithm（GRA）と、その入れ替えを低レベルで実行する処理を組み合わせている。最大密度向けには、並列奇偶ソートの概念を用いたFast Line Shuffleにより、1行または1列の並べ替えを O(log n) ステップで実行するGRMを用いる。密度が1/3以下の場合は、エージェントを一旦「バランス状態」へ導くラベルなし再構成と、ハイウェイ・ヒューリスティックを用いたGRHを用いる。密度が1/2までの場合は、分割統治法に基づくLinear Mergeを用いたGRLMを用いる。3次元への拡張では、二部グラフの完全マッチングを用いて目標座標を軸ごとに分解し、2次元スライスを列とみなす操作とZ軸方向のシャッフルを組み合わせる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>2次元および3次元のグリッド環境において、EECBS、LaCAM、DDM、Push-and-Swapといった既存手法と比較評価を行った。評価指標には、計算時間の制限下における保守的な下界に基づくメイクスパン最適性比を用いている。実験の結果、GRHやGRLMは数万規模のエージェントが存在する設定でも、1.3から1.5程度の最適性比を維持し、LaCAMがメモリ不足となる条件下でも高いスケーラビリティを示した。また、LBA（線形ボトルネック割当）とパスの洗練手法を組み合わせることで、計算コストを抑えつつメイクスパンの品質を向上できることを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、エージェント数が少ない場合や、問題自体が容易なシナリオにおいては、他の専門的なアルゴリズムに比べて性能が劣るという限界がある。また、現在のシャッフルルーチンでは、障害物が不規則に配置されている場合に、シミュレートする行の数が不足すると対応できない可能性がある。今後の課題として、より多くの行を用いたルーチンの開発による障害物への対応、低密度時における最適性のさらなる改善、加速・減速や旋回を考慮した現実的なロボットモデルへの適応、および継続的なMAPFへの拡張が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Expected Makespan-Optimal Multi-Agent Path Finding on Grid Graphs in Low Polynomial Time</h3><p>本研究は、エージェントが高密度に存在する2次元および3次元のグリッドグラフにおけるマルチエージェント経路探索（MAPF）に対し、低多項式時間で漸近的なメイクスパン最適性を保証するアルゴリズムを提案している。提案手法は、行や列の入れ替えによって効率的な再構成を行う高レベルのGrid Rearrangement Algorithm（GRA）と、その入れ替えをシミュレートする低レベルの処理を階層的に統合した構造を持つ。2次元グリッドにおいてエージェント密度が最大の場合、GRMを用いることでメイクスパンの最悪ケースの境界を、グリッドの辺の数に比例するオーダーで抑えることができる。また、ランダムな配置に対してはGRHを用いることで、2次元および3次元のいずれにおいても、理論的な最小メイクスパンに対して1に近い漸近的最適性を高い確率で達成する。さらに、GRLMを用いることで、エージェント密度が変化する場合にも同様の最適性保証を適用できる。実験では、2次元で10,000を超えるエージェントが存在する設定など、大規模な環境においても理論的な予測に近いメイクスパンを維持しながら高いスケーラビリティを示すことが確認されている。加えて、線形ボトルネック割当（LBA）に基づくマッチング最適化や、経路を圧縮するパス洗練手法などのヒューリスティックを組み合わせることで、解の品質をさらに向上させている。</p></section>
+<section class="secsum"><h3>1 Preliminaries</h3><p>本セクションでは、グラフ上でのマルチエージェント経路探索（MAPF）と、格子状のアイテムを並べ替えるグリッド再配置問題（GRP）の定義が述べられている。MAPFは、各エージェントが開始地点から目標地点へ移動する経路の集合を求める問題であり、同一時刻に同じ頂点に存在することや、隣接する頂点間でエージェントが入れ替わる衝突を避ける必要がある。本研究では、全エージェントの移動が完了する時刻であるメイクスパンの最小化を主な目的とする。GRPは、格子の行または列内のアイテムを任意に並べ替えるシャッフル操作を用いて、アイテムを特定の配置へ移行させる問題である。これには、アイテムの色を揃える色付きGRPと、各アイテムに固有のラベルがあるラベル付きGRPの変種が存在する。アルゴリズムであるGRA2Dは、二部グラフの完全マッチングを利用して、まず行のシャッフルによって各列に特定の色のアイテムが一つずつ含まれる中間状態を作り、その後に列のシャッフルと追加の行のシャッフルを行うことで、色付きおよびラベル付きのGRPを解く。GRA2Dは、アイテム総数nに対して、期待時間または決定論的な時間で O(n) に近い低多項式時間で動作する。</p></section>
+<section class="secsum"><h3>2 Solving MAPF at Maximum Density Leveraging GRA2D</h3><p>本セクションでは、グリッド上のすべての頂点がエージェントで占有されている最大密度状態において、多項式時間で解を求めるMAPFアルゴリズムであるGRMを提案している。この手法は、GRA2Dの仕組みを活用し、2回の行シャッフルフェーズと1回の列シャッフルフェーズを組み合わせることで、全体のメイクスパンをO(n)に抑える。具体的には、並列奇偶ソートの概念を導入し、グリッドを小さな部分グリッドに分割してエージェントの入れ替えをシミュレートするFast Line Shuffleを用いることで、1行または1列の並べ替えをO(log n)ステップで実行可能にする。このアルゴリズムは、整数線形計画法を用いて事前に計算された、小規模なグリッドにおける最適な再構成パターンを基盤としている。ランダムに生成されたMAPFインスタンスに対して、この手法は高い確率で、理論的なメイクスパンの下界に対して1.x倍の近似比を達成する。</p></section>
+<section class="secsum"><h3>3 Near-Optimally Solving MAPF with up to One-Third and One-Half Agent Densities</h3><p>本セクションでは、グリッド上のマルチエージェント経路計画（MAPF）において、エージェント密度が1/3および1/2の場合の解法について述べている。<br><br>エージェント密度が1/3以下のランダムなインスタンスに対しては、GRH（Grid Rearrangement with Highways）という手法を用いる。この手法は、まずエージェントを区別しない「ラベルなし再構成」フェーズにより、各セルに最大3体のエージェントが含まれる「バランス状態」へと移動させ、次にハイウェイ・ヒューリスティックを用いた「グリッド再構成」フェーズによって、行や列のシャッフルを行い目標状態へと導く。理論的な解析により、エージェント密度が1/3以下であれば、この手法は多項式時間で計算可能であり、かつ期待されるメイクスパンが最適解に漸近する性能を高い確率で達成することが示されている。また、この手法は一定の規則的な障害物が存在する環境でも、パスの迂回が定数範囲に収まるため、同様の性能を維持できる。<br><br>エージェント密度が1/2までのケースに対しては、マージソートの概念を応用した「Linear Merge（線形マージ）」という新しいシャッフルルーチンを用いたGRLM（Grid Rearrangement with Linear Merge）を提案している。これは、グリッド上のエージェントを分割統治法によって段階的にソートしていく手法であり、各フェーズでエージェントが衝突することなく、特定のチャネルを使い分けることで移動を実現する。この手法を用いることで、密度1/2のランダムなインスタンスにおいても、多項式時間で最適解に近いメイクスパンを持つ解を高い確率で得られることが示されている。最後に、任意の初期配置を持つ密度1/3以下のインスタンスについても、ラベルなし再構成のコストを考慮することで、多項式時間での解法が保証されている。</p></section>
+<section class="secsum"><h3>4 Generalization to 3D</h3><p>本セクションでは、2次元のグリッド再配置問題を3次元の多エージェント経路計画（MAPF）問題へと拡張する手法、GRH3Dについて述べている。まず、ラベルなしMAPFを用いて、任意の初期・目標状態を、各2次元平面の各セルに最大1エージェントが含まれる「バランスの取れた中間構成」へと変換する。次に、MatchingXY、XY-Fitting、Z-Fittingという3つのフェーズを経て、エージェントを目標位置へ導く。具体的には、二部グラフの完全マッチングを用いて、各エージェントの目標とする3次元座標を軸ごとに分解し、XY平面上での「ワイドカラム・シャッフル（2次元スライスを1つの列とみなす操作）」とZ軸方向のシャッフルを組み合わせることで、段階的に目標位置へと配置する。計算量は、完全マッチングの計算とラベルなしMAPFの計算に支配される。理論的な性能として、ランダムな初期・目標配置において、GRH3DおよびGRLM3Dは漸近的なメイクスパン最適比1.5を、GRM3Dは1.0を達成することが示されている。さらに、この手法はd次元の立方体グリッドへも一般化可能であり、d次元におけるGRHおよびGRLMの漸近的なメイクスパン最適比は(d+1)/2、GRMは1.0となる。</p></section>
+<section class="secsum"><h3>5 Optimality-Boosting Heuristics</h3><p>Grid Rearrangement Algorithm (GRA)に基づく手法のMakespan（完了時間）を改善するため、2つのマッチング・ヒューリスティックとパスの洗練手法が提案されている。第一のヒューリスティックは整数計画法（IP）を用いたもので、エージェントを特定の行に割り当てる際のコストを最小化し、第1フェーズまたは第3フェーズのMakespanの下限を最適化するが、一般的にはNP困難な問題でありスケーラビリティに限界がある。第二のヒューリスティックは、線形ボトルネック割当（LBA）に基づいたもので、二部グラフの重み付きエッジを用いて各行のボトルネックコストを最小化する多項式時間の手法であり、計算量は O(n^3) である。さらに、GRAによるパスはフェーズの境界でエージェントが同期して待機してしまう課題があるため、Minimal Communication Policy (MCP) の原理を応用したパスの洗練手法が導入されている。この洗練手法は、頂点への訪問順序を維持したまま、エージェントがアイドル状態を回避して可能な限り早く次の移動を行えるよう調整するもので、デッドロックが発生しないことが保証されている。このパスの洗練の計算量は、エージェント数 n と頂点数 V に対して O(n * (n + V)) で抑えられている。</p></section>
+<section class="secsum"><h3>6 Simulation Experiments</h3><p>本セクションでは、提案手法であるGRAベースのアルゴリズム（GRM、GRLM、GRH）の性能を、既存の高速な近最適解ソルバーであるEECBS、LaCAM、DDM、および多項式時間アルゴリズムであるPush-and-Swapと比較評価しています。実験はIntel Core i7-6900K CPUを用い、20回以上のランダム生成インスタンスの平均値で評価されており、計算時間の制限を設けた上で、保守的な下界に基づくmakespan最適性比を指標としています。結果として、GRHやGRLMは、LaCAMがメモリ不足に陥るような数万規模のエージェント密度においても、1.3から1.5程度の最適性比を維持しながら極めて高いスケーラビリティを示すことが確認されました。また、LBA（Local Boundary Adjustment）とPR（Path Refinement）という2つのヒューリスティックを組み合わせることで、計算コストを抑えつつmakespanおよびSOC（Sum-of-Cost）の最適性を劇的に向上させられることが示されています。障害物のある環境や、アスペクト比が極端な長方形グリッド、さらに3Dグリッドの設定においても、提案手法は既存手法と比較して優れたスケーラビリティと安定した最適性を維持しています。</p></section>
+<section class="secsum"><h3>7 Conclusion and Discussion</h3><p>本研究では、グリッド上でのマルチエージェント経路計画（MAPF）を解くために、グリッド再配置（GRA）を応用した手法を提案しています。効率的な行シャッフルルーチンを備えたGRAの改良により、エージェント密度が最大の場合でも、多項式時間で動作し、かつ従来は達成不可能であった最良完了時間（makespan）の最適性を保証できます。さらに、GRAに高速道路ヒューリスティック（GRH）やマッチングヒューリスティックを組み合わせることで、障害物がある場合やエージェント密度が0.5以下の場合でも、高い確率で漸近的なmakespan最適性を実現する新しい多項式時間アルゴリズムが得られます。実用面では、2次元グラフにおいて数万の頂点とエージェントを持つ問題に対し、makespan最適な解を導出可能であり、3次元ではさらに優れたスケーラビリティを示します。一方で、本手法はエージェント数が少ない場合や、問題自体が容易なシナリオにおいては、他の専門的なアルゴリズムに比べて性能が劣るという限界があります。今後の展望として、より多くの行を用いたシャッフルルーチンの開発による障害物への対応力の向上、低密度時における最適性の改善、加速・減速や旋回を考慮した現実的なロボットモデルへの適応、そしてスループットの最適性を維持したまま継続的なMAPFへの拡張が挙げられます。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-01
+  </footer>
+</div>
+</body>
+</html>

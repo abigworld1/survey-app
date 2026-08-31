@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Knowing Before Answering: Decoding Language Models for Reliable RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Knowing Before Answering: Decoding Language Models for Reliable RAG</h1>
+  <div class="meta">Syed Mahbubul Huq, Christopher Child, Tillman Weyde, Pranava Madhyastha<br>採択先: the Third Conference on Language Modeling (COLM 2026) ・ 2026-08-27 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.27661v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.27661v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 the Third Conference on Language Modeling (COLM 2026)</span><span class="chip">公開日 2026-08-27</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの信頼性向上に向け、生成前の内部状態から「矛盾」を含む三値分類を行う新規性が高い。広範なモデルでの検証とメカニズム解析も詳細で、実用上の示唆も大きい。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGにおいて、検索された情報が「十分」「不足」「矛盾」のいずれの状態にあるかを、回答生成前の言語モデルの内部信号から判定する手法を提案する。この手法は、プロンプトによる指示に頼らず、軽量な線形モデルで内部状態をデコードすることで、誤回答率を大幅に抑制できる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>検索拡張生成（RAG）では、検索された文書に回答に必要な情報が欠落していたり、複数の文書間で内容が矛盾していたりする場合がある。従来のRAGシステムは、こうした不完全な情報に対しても、根拠のない回答を生成したり矛盾した回答を生成したりする課題がある。既存の対策は、モデルに回答の是非を問うプロンプトを用いる二値分類が主流であり、「証拠が矛盾している」という状態を区別できていない。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>生成プロセスにおける出力結果ではなく、生成前の内部表現から証拠の状態を直接読み取る「三値分類」の枠組みを導入した点に新規性がある。従来のプロンプトベースの手法や、生成後のハルシネーション検出とは異なり、モデルが内部的に「証拠の十分性や一貫性」を符号化していることを示し、それを軽量なルーターでデコード可能であることを明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>言語モデルの各層から、隠れ状態、MLP（多層パーセプトロン）の出力、およびアテンションの重みという3種類の内部特徴量を抽出する。これらを入力として、多項ロジスティック回帰を用いた軽量なトリアージ・ルーターを訓練する。評価には、モデルの事前知識による回答を防ぐため、エンティティを架空のものに置換した制御されたベンチマークを使用する。このデータセットでは、正解文書を含む「Answer」、正解文書を含まない「Refuse」、および正解文書と矛盾する文書を組み合わせた「Conflict」の3つのコンテキスト構成を作成している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>90Mから32Bパラメータに及ぶ16種類の言語モデルを用いて、精度、Macro-F1、および誤回答率（FAR）を指標に評価した。提案手法は、プロンプトベースの比較手法やSelf-RAG、Chat-QA-1.5などの専用RAGモデルをすべてのモデルで上回り、最大0.91の精度を達成した。また、最も強力なプロンプトベースの手法と比較して、誤回答率を最大75%削減した。解析により、最も情報量が多い信号は隠れ状態であり、その有効性はモデルの中間層でピークに達することが確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>プロンプトベースの手法には、小規模モデルが指示を無視して回答してしまう、あるいは大規模モデルが過剰に回答を拒絶するといった、モデル固有の振る舞いに起因する限界がある。提案手法のルーターは、微調整されたモデル間では高い転移性を示すが、ベースモデルへの転移は困難である。また、文脈が長くなるにつれて精度が低下する傾向や、プロンプト内での質問の配置順序に敏感であるといった課題も存在する。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Knowing Before Answering: Decoding Language Models for Reliable RAG</h3><p>本研究は、検索拡張生成（RAG）において、提供された情報が回答に十分か、不十分か、あるいは矛盾しているかを判断する三値分類問題を扱う。著者らは、架空の情報を用いてRAGの設定を再現した制御されたベンチマークデータセットを作成し、各事例を回答可能、不十分、矛盾のいずれかにラベル付けした。手法として、言語モデルの隠れ層の活性化状態やアテンションから導出された特徴量を入力とし、軽量な線形モデルを学習させることで、これら3つのクラスを識別する特徴量ベースのルーターを構築している。16種類の異なるアーキテクチャとサイズの言語モデルを用いた実験の結果、提案手法はプロンプトベースの比較手法や専用のRAGモデルの性能を一貫して上回った。分析により、分類に最も有用な信号はモデルの中間層に存在し、多くの場合においてアテンション値やMLPの特徴量よりも隠れ層の活性化状態の方が効果的であることが示された。これらの結果は、言語モデルが内部的に検索された証拠の十分性をエンコードしており、その信号をデコードすることでRAGのトリアージが可能であることを示している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>検索拡張生成（RAG）において、検索された文書に情報が不足していたり、内容が矛盾していたりする場合でも、言語モデルは根拠のない回答や矛盾した回答を生成してしまう課題があります。既存手法の多くは「回答するか、拒否するか」という二値的な分類に依存しており、証拠が矛盾しているという質的に異なる状態を考慮できていません。本研究では、証拠の状態を、十分かつ一貫した証拠がある「Answer」、証拠が不足している「Refuse」、証拠が矛盾している「Conflict」の3つに分類する三値のフレームワークを提案します。手法として、言語モデルの単一の隠れ層から抽出された活性化状態を利用し、ロジスティック回帰に基づく軽量なトリアージ・ルーターを訓練することで、内部表現から証拠の状態を予測します。90Mから32Bパラメータに及ぶ16種類のトランスフォーマー系モデルを用いた評価では、このルーターはプロンプトベースの手法を大幅に上回り、最大0.91の精度を達成するとともに、強力なプロンプトベースの比較対象に対して誤回答率を最大75%削減しました。また、層のプロービング実験により、証拠の状態に関する最も情報量の多い表現はモデルの中間層に一貫して現れること、および隠れ状態への介入が下流のモデルの振る舞いを確実に変化させることが示されました。</p></section>
+<section class="secsum"><h3>2 Methodology</h3><p>本研究では、検索された文書が質問に対して「回答可能（Answer）」「拒否すべき（Refuse）」「矛盾している（Conflict）」のいずれの状態であるかを、言語モデルが回答を生成する前に判定する手法を提案している。評価用データセットは、TriviaQA、HotpotQA、Natural Questionsから抽出した2,391の質問を基に構築されており、モデルの事前知識による回答を防ぐため、エンティティを反実仮想的なものに置換する処理が施されている。各質問に対し、正解文書を含むAnswerセット、正解文書を含まないRefuseセット、および矛盾する正解文書を含むConflictセットの3つの構成を作成し、BM25による検索結果を組み合わせた5文書のコンテキストとして提示する。提案手法の主要なルーターは、言語モデルの各層における最終トークンの隠れ状態およびMLPの出力値を特徴量として抽出し、多項ロジスティック回帰を用いて分類を行うものである。また、比較対象として、検索スコアとアテンションの整合性から算出される、アテンションの最大値やエントロピーなど7つのスカラー値を特徴量とするアテンション重みベースのルーターも検討されている。評価指標には、分類精度やMacro-F1のほかに、本来拒否や矛盾とすべき事例を誤って回答してしまう割合を示す信頼性指標であるFalse Answer Rate（FAR）が用いられる。</p></section>
+<section class="secsum"><h3>3 Results</h3><p>提案手法である活性化特徴量を用いたルーター（RA）は、検証した16種類のモデルすべてにおいて、精度、Macro-F1、および誤回答率（FAR）のすべての指標で、プロンプトベースの手法やRAG特化型のベースラインを上回りました。プロンプトベースの手法では、小規模または指示チューニングされていないモデルが拒絶や葛藤の指示を無視して回答してしまう傾向や、大規模な指示チューニング済みモデルが回答すべきケースまで拒絶してしまう過剰拒絶の傾向が確認され、これらはプロンプトエンジニアリングのみでは解決できないモデル固有のバイアスであることが示されました。コンテキストを与えない条件下での精度（NO_CTX）は、モデルの規模に関わらず0.24から0.36の範囲に留まっており、モデルがパラメータ知識のみから置換された回答を確実に復元できないことが示唆されました。層ごとの解析では、隠れ状態、MLP、アテンション重みの各特徴量を用いてルーターを訓練した結果、ほとんどのモデルにおいて中間層付近で最も高い検証精度が得られることが明らかになりました。</p></section>
+<section class="secsum"><h3>4 Mechanistic Analysis</h3><p>ルーティング信号の抽出源に関する分析では、ほとんどのモデルにおいて、アテンション重みやMLPの出力よりも、アテンションとMLPの両方の情報を統合した残差ストリームの表現である隠れ状態が最も強力な信号を提供することが示された。ただし、OLMo-2-1B baseにおいてはMLPによるルーティングが隠れ状態をわずかに上回るが、SFTやDPOなどの事後学習を経たバリアントでは隠れ状態が優位になる。層の深さに関する傾向としては、評価した16モデルの多くが、ネットワークの中層から中上層にかけて性能がピークに達する逆U字型の軌跡を描く。Falcon-H1-Tiny-90Mは、その小規模な構造とMambaとアテンションのハイブリッド設計により、他のモデルよりも早期にピークを迎える。OLMo-2ファミリーは事後学習を行っても最適な層の位置がほぼ変化せず、バックボーンのアーキテクチャが情報の所在を決定する主要因であることが示されている。一方で、Falcon3-7B-1.58bitでは低ビット量子化の影響でアテンション由来の信号が早期にピークを迎える傾向があり、Granite-3.1-8B-Instructでは、明示的なスケーリング項の使用、深い層構造、アテンション・ドロップアウトの採用、およびグループ化クエリアテンションといった要因により、層ごとの性能変動が激しく不規則な挙動を示す。</p></section>
+<section class="secsum"><h3>5 Ablation</h3><p>提案手法の頑健性を検証するため、複数のアブレーション実験が行われた。モデル間の転移性については、SFTやDPOなどの微調整済みモデル間ではルーターの性能が良好に維持される一方、ベースモデルとの間では転移が成立せず、微調整によって線形表現が導入されることが示された。プロンプトの頑健性に関しては、語彙の僅かな変化には強いが、質問を文頭に配置する順序の変化によって精度が低下し、スタイル変更の影響は大規模なモデルよりも小規模なモデルで顕著になることが確認された。隠れ状態のパッチング実験では、選択された中間層の隠れ状態を入れ替えることで、回答拒否や矛盾の判定といった下流のルーティング予測を大幅に変化させることができ、当該層が意思決定の機能的な制御点であることが示された。分類形式の比較では、矛盾を独立したクラスとして扱う3クラス分類が、2クラス分類と比較して全体の精度を維持しつつ、マクロF1スコアの向上と誤回答率の低下を実現した。長文コンテキストにおける特徴量抽出では、最終トークンの表現を用いる手法が単純なプーリング手法よりも優れていたが、文脈長が長くなるにつれて性能が低下する傾向が示された。</p></section>
+<section class="secsum"><h3>6 Related Work</h3><p>RAGの忠実性を向上させる従来の研究は、プロンプトの最適化や専用のRAGモデルの開発に重点を置いてきましたが、これらは追加のトークン消費や推論コスト、およびモデル間での汎用性の欠如といった課題があります。これに対し、モデルの内部状態である隠れ状態には意思決定の信号がエンコードされているという解釈可能性の研究が進んでおり、推論中の正誤判定やハルシネーションの検出、検索知識とパラメータ知識の相互作用の調査に活用されています。既存の内部状態を利用する手法には、生成中にさらなる検索の要否を二値で判断するProbing-RAGや、内部的な不確実性を用いて検索を導くSeaKR、生成後にハルシネーションを検出するRedeEPなどがあります。本研究は、これら既存手法が主に二値的な判断や生成後の分析に留まっているのに対し、生成開始前に「回答」「拒否」「矛盾」の3つの状態を予測するルーターを提案しており、検索されたソース間の不一致を捉える点に特徴があります。さらに、本研究は解釈可能性の研究を拡張し、RAGの証拠状態が内部活性化から線形にデコード可能であるかを調査しています。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>本研究は、言語モデルが回答を生成する前に、検索された文脈の証拠状態を内部的に表現しているかを検証した。実験の結果、単一の隠れ層の活性化値を用いた単純なロジスティック回帰モデルにより、多様なアーキテクチャや規模を持つ16の言語モデルにおいて、検索された証拠が回答に十分か、不十分か、あるいは矛盾しているかを判別できることが示された。プロンプトに基づく従来の手法は、小規模モデルが常に回答しようとする傾向や、大規模モデルが過剰に拒絶する傾向といったモデル固有の振る舞いのバイアスにより失敗しやすいが、提案手法は生成前の内部表現を用いることで、追加のトークンコストをかけずに誤回答率を最大75%削減し、最大0.91の精度を達成した。メカニズムの解析により、証拠の選別において最も有用な情報は、モデルのファミリーや学習段階によらず、一貫してネットワークの中間層に現れることが判明した。また、隠れ状態のパッチング実験を通じて、これらの中間層が重要な制御点であり、介入によって下流の振る舞いを制御できることが確認された。特に、モデルが矛盾する文書から自信を持って回答を生成してしまう「矛盾（Conflict）」の状態は実用上最も危険であるが、提案手法はこの状態も適切な層において線形にデコード可能であることを示した。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-01
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Anytime Multi-Agent Path Finding with an Adaptive Delay-Based Heuristic | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Anytime Multi-Agent Path Finding with an Adaptive Delay-Based Heuristic</h1>
+  <div class="meta">Thomy Phan, Benran Zhang, Shao-Hung Chan, Sven Koenig<br>採択先: AAAI 2025 ・ 2024-08-06 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2408.02960v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2408.02960v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 AAAI 2025</span><span class="chip">公開日 2024-08-06</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MABを用いた適応的な近傍選択により、大規模MAPFの性能を大幅に改善しており、新規性と実用性のバランスが良い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 大規模なマルチエージェント経路計画において、既存のLNS手法が抱えるヒューリスティック選択の探索コストと、固定的なルールによる性能限界を、適応的な単一破壊ヒューリスティックを用いることで解決する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>無向かつ重みなしのグラフ上で、複数のエージェントが衝突を避けながら各々の始点から終点へ移動する経路を求めるマルチエージェント経路計画（MAPF）を対象とする。目的は全エージェントの遅延の総和であるフロータイムを最小化することである。従来のAnytime MAPF手法であるMAPF-LNSは、複数の固定的な破壊ヒューリスティックから適応的に選択する仕組みを持つが、有望なヒューリスティックを特定するための探索に多大な時間を要し、かつヒューリスティック自体が非適応的であるため性能のボトルネックを解消できないという課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>複数のヒューリスティックを探索・選択するプロセスを排除し、単一の適応的な破壊ヒューリスティックを用いることでMAPF-LNSの手続きを簡略化した。マルチアームバンディットの考え方を導入し、解の改善の成否に基づく二値報酬を用いて、探索中にシードエージェントの選択を最適化できるオンライン学習を実現した。これにより、従来の固定的なルールや、事前の学習データ・特徴量エンジニアリングを必要とする機械学習ベースの手法との差分を示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>ADDRESSは、遅延が最も大きい上位K個のエージェントのみを対象とする制限付きトンプソンサンプリングを用いて、近傍生成の種となるシードエージェントを選択する。各エージェントをアームと見なし、解の改善に成功した回数と失敗した回数をベータ分布のパラメータとして保持することで、エージェントごとの改善期待値を推定する。選択されたシードエージェントの経路に基づき、ランダムウォークを用いて近傍となるエージェント群を特定し、経路の破壊と再計画を行う。新しい解のコストが改善された場合は成功、改善されなかった場合は失敗としてパラメータを更新し、継続的に学習を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>MAPFベンチマークセットの5種類のマップを用い、最大1000エージェント規模の大規模シナリオで評価を行った。比較対象はMAPF-LNS、MAPF-LNS2、BALANCE、およびLaCAM*である。評価指標として遅延の総和およびAUC（解の品質への到達速度）を用いた結果、大規模シナリオにおいて従来のMAPF-LNSや他の最先端手法と比較して、経路コストを少なくとも50%改善した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>Randomマップのような小規模なシナリオにおいては、エージェントのソートやトンプソンサンプリングに伴う計算オーバーヘッドが利点を上回り、既存手法に劣るというトレードオフが存在する。今後の課題として、エージェントの抽象化を行うことや、コスト寄与度に基づいて近傍を生成できるTSP、MILP、VRPといった他の問題クラスへの適用が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Anytime Multi-Agent Path Finding with an Adaptive Delay-Based Heuristic</h3><p>本研究では、大規模なマルチエージェント経路計画（MAPF）において、Large Neighborhood Search（LNS）を用いた既存手法の性能限界を改善する、ADDRESSという新しい単一破壊ヒューリスティック手法を提案している。従来のMAPF-LNSは複数の破壊ヒューリスティックを適応的に選択する仕組みを持つが、有望なヒューリスティックを特定するための探索に多大な時間を要する点や、ヒューリスティック自体が固定的なため性能のボトルネックを解消できないという課題があった。ADDRESSは、経路の遅延が最も大きいエージェントの集合に対して制限付きトムソンサンプリングを適用することで、適応的な近傍生成のためのシードエージェントを選択する。MAPFベンチマークの複数のマップを用いた評価実験では、最大1000エージェント規模の大規模シナリオにおいて、従来のMAPF-LNSや他の最先端手法と比較して、経路コストを少なくとも50%改善している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路探索（MAPF）において、総移動時間や完了時間の最小化を目指す最適解の算出はNP困難であり、大規模な問題へのスケーラビリティが課題となっている。既存のAnytime MAPF手法であるMAPF-LNSは、限られた時間内で高品質な解を得るために、複数の固定的な破壊ヒューリスティックから適応的に選択する仕組みを用いるが、有望なヒューリスティックを特定するために多大な探索時間を要するというボトルネックがある。本研究では、単一の適応的な破壊ヒューリスティックを用いる手法であるADDRESSを提案する。ADDRESSは、遅延が最も大きいエージェントの集合に対して制限付きトンプソンサンプリングを適用することで、近傍生成の種となるエージェントを選択する。MAPFベンチマークを用いた評価実験では、最大1000エージェント規模の大規模シナリオにおいて、従来のMAPF-LNSや他の最先端手法と比較してコストを少なくとも50%改善した。</p></section>
+<section class="secsum"><h3>2 Background</h3><p>MAPFは、無向かつ重みなしのグラフ上で、複数のエージェントが衝突を避けながら各々の始点から終点へ移動する経路を求める問題である。経路の遅延は、その経路の長さと最短経路の長さとの差として定義され、全エージェントの遅延の総和であるフロータイムを最小化することが目的となる。Anytime MAPFでは、与えられた時間予算内で解の質を逐次向上させることが求められ、最終的な解の質に到達する速さの指標としてAUCが用いられる。現在の主流手法であるMAPF-LNSは、優先度付き計画法を用いて初期解を得た後、近傍の経路を破壊して再計画するプロセスを繰り返すことで解を改善する。既存のLNSでは、エージェントのランダム選択、遅延の大きいエージェントを中心とするエージェントベース、および次数が2より大きい頂点周辺を対象とするマップベースの3種類の破壊ヒューリスティックが用いられるが、これらはルールやランダム性の度合いが固定されている。また、本研究の背景として、未知の報酬分布を持つ選択肢から期待報酬を最大化するマルチアームバンディット問題が挙げられ、探索と活用を両立させるThompson Samplingやepsilon-Greedyといったアルゴリズムが検討対象となる。</p></section>
+<section class="secsum"><h3>3 Related Work</h3><p>近年、マルチアームバンディット（MAB）は、巡回セールスマン問題や混合整数線形計画法などの最適化アルゴリズムにおける破壊ヒューリスティックの選択に利用されており、多くの場合、複数の重み付け項を持つ複雑な報酬関数を用いて学習が行われます。既存のMAPF-LNS手法であるBALANCEは、二段階のトンプソンサンプリングを用いて近傍サイズと破壊ヒューリスティックの両方を適応させますが、提案手法は単一の適応的な破壊ヒューリスティックを用いることで、MAPF-LNSの手続きを簡略化しています。この提案手法は、最も遅延しているエージェントの集合からシードとなるエージェントを選択するために、単純な二値報酬を用いた制限付きトンプソンサンプリングを活用しており、TSPやVRPなどの他の問題クラスへの適用も可能です。また、機械学習を用いた既存のMAPF-LNS手法は、事前に学習されたモデルを用いて固定的な近傍を選択するため、探索中の適応ができず、事前のデータ収集や特徴量エンジニアリングを必要とします。これに対し、提案手法はMABによるオンライン学習に焦点を当てており、解の品質が改善したか否かを示す二値の報酬信号に基づいて、探索中に即座に破壊ヒューリスティックを調整できます。</p></section>
+<section class="secsum"><h3>4 Adaptive Delay-Based MAPF-LNS</h3><p>ADDRESSは、マルチエージェント経路探索（MAPF）における大規模な問題に対し、適応的な破壊・修復手法を用いるLNS（Large Neighborhood Search）の改良版である。従来の、遅延が最大のエージェントを貪欲に選択する手法は、全エージェントを探索する必要があり大規模シナリオでボトルネックとなるが、ADDRESSではマルチアームバンディット（MAB）の考えを導入してこれを解決している。具体的には、各エージェントをアームと見なし、解の改善に成功した回数と失敗した回数をベータ分布のパラメータとして保持することで、エージェントごとの改善期待値を推定する。探索の効率化のため、遅延が大きい上位K個のエージェントのみを対象とする制限付きトンプソンサンプリングを採用しており、これらの中からサンプリング値が最大となるエージェントをシードとして選択する。選択されたシードエージェントの経路に基づき、ランダムウォークを用いて近傍となるエージェント群を特定し、破壊・修復操作を行う。このプロセスにおいて、新しい解のコストが改善された場合は成功としてパラメータを更新し、改善されなかった場合は失敗として更新することで、継続的に最適なシード選択を学習する。</p></section>
+<section class="secsum"><h3>5 Experiments 1 1 1 Code is provided at https://github.com/JimyZ13/ADDRESS .</h3><p>提案手法であるADDRESSを、異なる構造と規模を持つ5種類のマップを用いて評価した。ADDRESSは、多腕バンディットアルゴリズムとしてThompson Samplingまたはepsilon-Greedyを用い、LNS（Large Neighborhood Search）の近傍生成に最適なシードエージェントを選択する手法である。実験の結果、WarehouseやCityのような大規模なシナリオにおいて、ADDRESSはMAPF-LNS、MAPF-LNS2、BALANCE、LaCAM*といった既存手法と比較して、遅延の総和を大幅に削減できることが示された。ADDRESSは、効果の低い破壊ヒューリスティックの探索や全エージェントの走査を回避してシードエージェントの選択を直接最適化するため、計算資源を効率的に活用できる。一方で、Randomマップのような小規模なシナリオでは、エージェントのソートやThompson Samplingによる計算負荷が利点を上回り、既存手法に劣るという結果が得られた。また、ADDRESSをMAPF-LNSの破壊ヒューリスティックの一つとして組み込んだ場合でも、他の静的なヒューリスティックより迅速に優先的に選択されるほど高い有効性を示している。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、MAPF-LNSの単一破壊ヒューリスティック変種としてADDRESSを提案した。ADDRESSは、最も遅延が大きいエージェントの集合に対して制限付きトンプソンサンプリングを適用することで、適応的なLNS近傍生成のためのシードエージェントを選択し、複数の静的な破壊ヒューリスティックを探索する時間的コストを削減する。最大1,000エージェント規模の大規模シナリオにおける実験の結果、ADDRESSはMAPF-LNS、MAPF-LNS2、BALANCE、LaCAM*といった既存のAnytime MAPFアルゴリズムを大幅に上回る性能を示した。トンプソンサンプリングと遅延に基づくランキングを組み合わせることで、時間の経過とともに経路が短縮されたエージェントを効率的にフィルタリングし、有望な候補に集中して学習することが可能となる。また、epsilon-Greedyを用いた手法も既存手法を上回る性能を示しており、他の多腕バンディットアルゴリズムの適用可能性が示されている。今後の課題として、エージェントの抽象化や、コスト寄与度に基づいて近傍を生成できるTSP、MILP、VRPといった他の問題クラスへの適用が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-01
+  </footer>
+</div>
+</body>
+</html>
