@@ -3534,6 +3534,71 @@
       "url": "http://arxiv.org/abs/2608.27809v1",
       "venue": ""
     },
+    "arxiv:2608.29290": {
+      "added": "2026-09-02",
+      "added_at": "2026-09-02T06:09:24.748123",
+      "arxiv_id": "2608.29290",
+      "authors": [
+        "Shoei Inoue",
+        "Norihiro Yoshida",
+        "Erina Makihara",
+        "Shiyu Yang",
+        "Katsuro Inoue"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-29",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.29290.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.29290v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGのDB構成を最適化し、REST APIの仕様変更に伴う誤用修復率を大幅に向上させた点は実用的かつ新規性が高い。実験の具体性も十分である。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Database-Augmented RAG for Automated Repair of REST API Misuses",
+      "tldr": "REST APIの仕様変更に伴うクライアント実装の誤用を自動修復するため、API仕様書のデータベース構成を最適化したRAG（検索拡張生成）手法を提案し、高い修復率を達成した。",
+      "url": "http://arxiv.org/abs/2608.29290v1",
+      "venue": "the 26th International Conference on Software Quality, Reliability, and Security (QRS 2026)"
+    },
+    "arxiv:2608.29753": {
+      "added": "2026-09-02",
+      "added_at": "2026-09-02T06:06:32.676554",
+      "arxiv_id": "2608.29753",
+      "authors": [
+        "Haokun Deng",
+        "Xunkai Li",
+        "Hongchao Qin",
+        "Rong-Hua Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-30",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.29753.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.29753v1",
+      "reading_value": 4,
+      "reading_value_reason": "接続性と支持性の乖離という鋭い問題設定に対し、プラグインとして機能する汎用的なグラフ構築手法を提案しており、実験による改善効果も顕著で実用的。",
+      "relevance": 7,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "PAGE-RAG: Provenance-Aware Graph Evidence Promotion for Fixed-Budget Multi-hop Retrieval-Augmented Generation",
+      "tldr": "マルチホップな質問回答において、検索された候補同士が接続されていても必ずしも回答の根拠になるとは限らない「接続性と支持性の乖離」という問題に対し、クエリごとに構築する局所的なグラフを用いて、限られたコンテキスト予算内で真に回答を支える事実のみを抽出する手法を提案する。",
+      "url": "http://arxiv.org/abs/2608.29753v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -8881,6 +8946,38 @@
       "url": "http://arxiv.org/abs/2504.06091v2",
       "venue": "the International Symposium on Combinatorial Search 2025 (SoCS 2025)"
     },
+    "doi:10.1609/socs.v18i1.35996": {
+      "added": "2026-09-02",
+      "added_at": "2026-09-02T06:03:02.775743",
+      "arxiv_id": "2407.09451",
+      "authors": [
+        "Jiaqi Tan",
+        "Yudong Luo",
+        "Jiaoyang Li",
+        "Hang Ma"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-07-12",
+      "doi": "10.1609/SOCS.V18I1.35996",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2407.09451.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2407.09451v2",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFにおけるLNSの評価基準の不備を指摘し、統一フレームワークを構築した点は極めて重要。学習ベース手法の限界を実証しており、今後の研究指針として価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Reevaluation of Large Neighborhood Search for MAPF: Findings and Opportunities",
+      "tldr": "マルチエージェント経路計画における大規模近傍探索（LNS）の評価基準が不統一である問題を解決するため、統一的な評価フレームワークを構築して既存手法を再評価した。その結果、現在の学習ベースの手法は計算コストの高さから、単純なルールベースのヒューリスティックに対して明確な優位性を示せていないことが明らかになった。",
+      "url": "http://arxiv.org/abs/2407.09451v2",
+      "venue": "SOCS 2024"
+    },
     "doi:10.1609/socs.v18i1.35998": {
       "added": "2026-07-30",
       "added_at": "2026-07-30T06:16:32.590244",
@@ -9132,6 +9229,37 @@
       "tldr": "倉庫内でのピックアップおよび配送タスクにおいて、衝突のない経路を構築するMAPFアプローチと、環境状態から意思決定を学習するMARLアプローチの性能を比較し、エージェント数や動的な環境への適応性を評価した。",
       "url": "https://www.semanticscholar.org/paper/b0fbd6a075d0a80b431b794fa5c8d0653952ec04",
       "venue": "EAI Endorsed Transactions on AI and Robotics"
+    },
+    "doi:10.48550/arxiv.2406.10827": {
+      "added": "2026-09-02",
+      "added_at": "2026-09-02T06:04:07.877279",
+      "arxiv_id": "2406.10827",
+      "authors": [
+        "Carmel Shabalin",
+        "Omri Kaduri",
+        "Roni Stern"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 1,
+      "date": "2024-06-16",
+      "doi": "10.48550/ARXIV.2406.10827",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2406.10827.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2406.10827v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFにおけるアルゴリズム選択にグラフ埋め込みを導入し、未知の構造への汎用性を高めた点は新規性が高い。実験も多角的に検証されており、実用的な価値がある。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Algorithm Selection for Optimal Multi-Agent Path Finding via Graph Embedding",
+      "tldr": "マルチエージェント経路探索（MAPF）において、問題の特性に応じて最適なソルバーを選択するアルゴリズム選択（AS）手法を提案する。グラフ埋め込みアルゴリズムFEATHERを活用することで、未知のグラフ構造を持つ問題に対しても効果的なエンコーディングを実現する。",
+      "url": "http://arxiv.org/abs/2406.10827v1",
+      "venue": ""
     },
     "doi:10.48550/arxiv.2408.14527": {
       "added": "2026-07-29",

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Algorithm Selection for Optimal Multi-Agent Path Finding via Graph Embedding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Algorithm Selection for Optimal Multi-Agent Path Finding via Graph Embedding</h1>
+  <div class="meta">Carmel Shabalin, Omri Kaduri, Roni Stern<br>採択先: 未取得 ・ 2024-06-16 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2406.10827v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2406.10827v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/ARXIV.2406.10827" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2024-06-16</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 1</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFにおけるアルゴリズム選択にグラフ埋め込みを導入し、未知の構造への汎用性を高めた点は新規性が高い。実験も多角的に検証されており、実用的な価値がある。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチエージェント経路探索（MAPF）において、問題の特性に応じて最適なソルバーを選択するアルゴリズム選択（AS）手法を提案する。グラフ埋め込みアルゴリズムFEATHERを活用することで、未知のグラフ構造を持つ問題に対しても効果的なエンコーディングを実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>複数のエージェントが衝突を避けながら始点から目標地点へ移動する経路を求めるMAPFは、最適解の算出がNP困難な問題である。MAPFには多様な最適解アルゴリズムが存在するが、問題のインスタンスによって最適なソルバーが異なるため、適切な選択指針が必要となる。従来のアルゴリズム選択手法は、手動で設計された特徴量や画像表現によるエンコーディングに依存しており、未知のグラフ構造を持つ問題への汎用性に課題があった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>グラフ埋め込みを用いてMAPF問題をグラフとしてエンコードし、既存の特徴量と組み合わせる新しいアルゴリズム選択手法MAGを提案する。従来のグラフ埋め込み手法は、学習時に未知のグラフ構造を持つ問題への適用が困難であったが、本手法は事前学習を必要とせず、任意のグラフに対して即時的に埋め込みを生成できるFEATHERを採用している。これにより、未知のグラフ構造に対しても実用的なアルゴリズム選択を可能にした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MAGは、MAPF問題を2種類のグラフとして符号化し、FEATHERを用いてグラフ埋め込みベクトルを生成した後、既存のMAPF特有の特徴量と結合して多クラス教師あり学習を行う。グラフ符号化には、各エージェントの最短経路上のノードのみを抽出するG2Vと、グラフ全体を使用し、各エージェントの始点と終点の間に人工的なエッジを追加するFullG2Vを用いる。埋め込み生成時には、人工的なエッジによる差異を強調するため、FEATHERのプーリング手法に最大プーリングを使用する。最終的な特徴ベクトルは、これら2種類の埋め込みベクトルと、手動設計された特徴量を連結して構成される。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>7種類のグリッドタイプを含む標準的なMAPFベンチマークを用い、手動設計の特徴量のみを用いるKBSおよびG2Vエンコーディングを用いる手法と比較した。評価指標には、精度、制限時間内に解ける割合を示すカバー率、および理想的な手法（常に最短の実行時間で解く手法）と比較した実行時間の比率である後悔を用いた。実験の結果、MAGはすべての設定においてベースラインと同等以上の性能を示し、特に学習時と異なるグリッド構造を扱う設定において、平均後悔で20%以上の改善を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>学習時と全く異なるグラフ構造を扱うBetween-Grid設定は依然として困難であり、精度や後悔の数値が悪化する傾向がある。特に迷路のような、エージェントが衝突回避のために最短経路から大きく迂回する必要があるグリッドタイプでは、性能が低下する。今後の課題として、Between-Grid設定におけるさらなる改善や、画像ベースのアルゴリズム選択モデルとの統合が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Algorithm Selection for Optimal Multi-Agent Path Finding via Graph Embedding</h3><p>本研究は、衝突を回避しながら複数エージェントの経路を求めるマルチエージェント経路探索（MAPF）において、問題の特性に応じて最適なソルバーを選択するアルゴリズム選択（AS）手法を提案している。MAPFの最適解を求める問題はNP困難であり、問題ごとに最適なソルバーが異なるため、適切な選択指針が必要となるが、従来手法は手動で設計された特徴量や画像表現によるエンコーディングに依存していた。これに対し、提案手法であるMAG（MAPF Algorithm selection via Graph embedding）は、グラフ埋め込みアルゴリズムであるFEATHERを用いてMAPF問題をグラフベースでエンコードし、既存のエンコーディングと組み合わせることで、問題の構造を捉える。複数のアルゴリズム選択タスクを用いた実験評価の結果、MAGは既存手法と同等、あるいは大幅に優れた性能を示すことが確認された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路探索（MAPF）は、複数のエージェントが衝突を避けながら各々の始点から目標地点へ移動する経路を見つける問題であり、最適解の算出はNP困難であることが知られています。MAPFにはヒューリスティック探索や最適化手法、充足可能性問題への帰着など多様な最適解アルゴリズムが存在しますが、問題のインスタンスによって性能が大きく異なるため、最適なアルゴリズムを選択するアルゴリズム選択（AS）問題が重要となります。従来の研究では、手動で設計された特徴量ベクトルや画像形式によるエンコーディングが用いられてきましたが、未知のインスタンスへの対応に課題がありました。本研究では、各エージェントの始点と目標地点を示す人工的なエッジをグラフに追加し、グラフ埋め込みアルゴリズムであるFEATHERを用いてグラフ全体をベクトル化する新しいエンコーディング手法FG2Vを提案します。さらに、複数のエンコーディングをシームレスに統合して問題を包括的に表現する手法を導入し、これらを組み合わせたアルゴリズム選択手法をMAGと命名しました。標準的なベンチマークを用いた評価の結果、MAGは訓練時とテスト時のインスタンスの類似度が異なる3つのタスクにおいてベースライン手法よりも優れた性能を示し、MAPFにおけるグラフ埋め込みの有効性を実証しました。</p></section>
+<section class="secsum"><h3>2 Background</h3><p>マルチエージェント経路探索（MAPF）は、無向グラフ上で複数のエージェントが衝突を避けながら、各々の始点から終点へ移動する経路を求める問題であり、解のコスト指標には全エージェントの行動数の総和であるSOCや、最長経路の長さであるmakespanがある。最適なMAPFアルゴリズムには、ヒューリスティック探索を用いるものやSATソルバーを利用するものなど多様な手法が存在するが、問題の性質によって最適なアルゴリズムが異なるため、適切なソルバーを選択するアルゴリズム選択（AS）の重要性が高まっている。従来のMAPFにおけるAS研究は、問題を画像として捉えてCNNを用いる手法や、エージェント数と空きセル数の比率といった手作業で設計された特徴量を用いる手法が主流であった。また、グラフ埋め込みを用いた手法も提案されているが、学習時に未知のグラフ構造を持つ問題に対応できないという課題がある。グラフ埋め込みとは、グラフ全体を低次元の連続ベクトルに変換する手法であり、構造が類似したグラフ同士がユークリッド距離において近くなることが理想とされる。既存のGraph2Vecは、ノードの近傍を分析してグラフを埋め込むが、未知のグラフへの適用には再学習が必要である。一方でFEATHERは、ランダムウォークにおける各ノードへの到達確率に基づいた埋め込みを行う手法であり、最適化ステップを必要とせず単一のグラフに対しても適用可能で、グラフの同型性に対しても頑健であるという特性を持つ。</p></section>
+<section class="secsum"><h3>3 Method</h3><p>提案手法であるMAGは、MAPF問題をグラフとして符号化し、FEATHERを用いてグラフ埋め込みベクトルを生成した後、既存のMAPF特有の特徴量と結合して教師あり学習を行うアルゴリズム選択手法である。グラフ符号化には、各エージェントの始点から終点への最短経路上のノードのみを抽出するG2Vと、グラフ全体を使用し、かつ各エージェントの始点と終点の間に人工的なエッジを追加することで情報の欠落を防ぐFullG2Vの2種類を用いる。グラフ埋め込みには、事前学習を必要とせず未知のグラフにも適用可能なFEATHERを使用するが、平均プーリングでは人工的なエッジの影響が弱まり、同じグリッド上の問題が酷似したベクトルになるため、差異を強調できる最大プーリングを採用している。最終的な特徴ベクトルは、G2VとFullG2Vから得られた2つの埋め込みベクトル、および既存研究によるMAPF特有の特徴量を連結して構成される。学習プロセスは、各MAPF問題インスタンスをデータとし、アルゴリズムのポートフォリオの中でそのインスタンスに対して最も高速であったアルゴリズムをラベルとする多クラス教師あり学習である。</p></section>
+<section class="secsum"><h3>4 Experimental Results</h3><p>本研究では、グラフ埋め込みを用いたアルゴリズム選択手法であるMAGの性能を、7種類のグリッドタイプを含む標準的なMAPFベンチマークを用いて評価しています。実験では、手動設計の特徴量を用いるKBSおよびFEATHERによるグラフ埋め込みを用いるG2Vを比較対象とし、XGBoostを用いて最も高速なアルゴリズムを予測します。評価指標には、予測の正確さを示す精度、5分以内の制限時間内に解ける割合を示すカバー率、および常に最適なアルゴリズムを選択する理想的な手法と比較した実行時間の比率である後悔を用います。実験の結果、MAGは同一グリッド内、同一グリッドタイプ内、および異なるグリッドタイプ間のすべての設定において、ベースラインと同等以上の性能を示し、特に後悔の低減において顕著な優位性を確認しました。統計的検定の結果、MAGの精度とカバー率の向上は有意であることが示されました。ただし、学習時に含まれていないグリッドタイプを扱う設定では、他の設定と比較して精度や後悔の数値が悪化する傾向があります。また、迷路のような特定のグリッドタイプでは、エージェントが衝突回避のために最短経路から大きく外れる必要があるため、手法の性能が低下する傾向があることも分析されています。</p></section>
+<section class="secsum"><h3>5 Conclusion and Future Work</h3><p>本研究では、グラフ埋め込みを用いた最適マルチエージェント経路探索（MAPF）のための、初の実行可能なアルゴリズム選択手法であるMAGを提案した。MAGは、グラフ全体を符号化する手法と、最短経路およびその近傍のみを符号化する手法の2種類のグラフ符号化を利用しており、事前学習を必要としない最新のグラフ埋め込みアルゴリズムと、既存研究に基づくMAPF特有の手法による特徴量を組み合わせて使用する。標準的なベンチマークを用いた広範な実験の結果、MAGは既存のベースラインをほぼ常に上回る性能を示した。最も容易な設定であるIn-Gridでは優位性は限定的であったが、より困難なIn-Grid-TypeおよびBetween-Gridの設定では、平均後悔において20%以上の顕著な改善が見られた。今後の課題として、特に困難さが示されたBetween-Grid設定への注力や、画像ベースのアルゴリズム選択モデルとの統合が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-02
+  </footer>
+</div>
+</body>
+</html>

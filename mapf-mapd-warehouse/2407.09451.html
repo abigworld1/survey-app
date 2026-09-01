@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Reevaluation of Large Neighborhood Search for MAPF: Findings and Opportunities | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Reevaluation of Large Neighborhood Search for MAPF: Findings and Opportunities</h1>
+  <div class="meta">Jiaqi Tan, Yudong Luo, Jiaoyang Li, Hang Ma<br>採択先: SOCS 2024 ・ 2024-07-12 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2407.09451v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2407.09451v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/SOCS.V18I1.35996" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 SOCS 2024</span><span class="chip">公開日 2024-07-12</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFにおけるLNSの評価基準の不備を指摘し、統一フレームワークを構築した点は極めて重要。学習ベース手法の限界を実証しており、今後の研究指針として価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチエージェント経路計画における大規模近傍探索（LNS）の評価基準が不統一である問題を解決するため、統一的な評価フレームワークを構築して既存手法を再評価した。その結果、現在の学習ベースの手法は計算コストの高さから、単純なルールベースのヒューリスティックに対して明確な優位性を示せていないことが明らかになった。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路計画（MAPF）において、大規模な問題に対して制限時間内に準最適解を得るための手法として、大規模近傍探索（LNS）が用いられる。LNSは、初期解の一部（近傍）を破壊して再構築するプロセスを繰り返すが、既存研究ではベースラインの性能が不正確である、評価設定や指標が統一されていない、学習ベース手法の実行可能なモデルやコードが不足しているといった課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存研究における評価の不正確さや再現性の欠如を特定し、ベンチマーク、初期解、再計画ソルバー、および時間計測スキームを標準化した統一的な評価フレームワークを構築した。また、既存のルールベース手法であるRandomWalkの設計上の欠陥を修正した改良案であるRandomWalkProbを提案した。さらに、SVM-LNSやNeural-LNSといった学習ベースの手法を自前で実装・構築し、統一設定下での性能を再検証することで、学習ベース手法の真の能力と課題を明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>統一評価フレームワークでは、6種類のマップと各25のシナリオを用い、初期解生成にはLNS2やLaCAM2を、再計画ソルバーにはPPまたはPBSを採用する。改良手法のRandomWalkProbは、一度選択されたエージェントを再選択から除外する制約を廃止し、新しい探索を開始する際のエージェント選択を各エージェントの遅延量に比例した確率で行う。学習ベースの手法は、ルールベース戦略を用いて近傍候補を生成するプロセスと、それらの改善量を予測するプロセスの2段階で構成される。SVM-LNSは実行中に動的にデータを収集して順位付けを行い、Neural-LNSは検証セットでの性能が改善しなくなるまで学習を継続する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>6種類のマップと計150のシナリオを用い、Intel E5-2683 CPUおよびNVIDIA P100 GPU環境で評価を行った。評価指標には最終的な遅延量と、時間制限内における遅延対時間の曲線の下側面積（AUC）を用いている。実験の結果、ルールベースの手法は24ケース中20ケースで最終的な遅延の最小化において最良の結果を達成した。また、再計画ソルバーの比較では、PPは120ケース中87ケースでPBSを最終遅延で上回り、AUCにおいても120ケース中98ケースで優位性を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>学習ベースの手法は、近傍候補の提案と予測の両プロセスにおいて高い計算オーバーヘッドを伴い、特に再計画ソルバーが高速な場合には予測速度が全体のボトルネックとなる。また、現在の学習モデルは近傍の候補を独立同一分布として扱う傾向があり、LNSの逐次的な最適化プロセスにおける時間的な情報を十分に活用できていない。今後の研究機会として、遅延の大きいエージェントを標的とする戦略、文脈情報を活用してルールベースの手法を切り替えるコンテキスト付きバンディットの導入、再計画対象エージェントの優先順位の学習、および近傍サイズの動的な最適化などが挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Reevaluation of Large Neighborhood Search for MAPF: Findings and Opportunities</h3><p>本研究は、大規模近傍探索（LNS）を用いたマルチエージェント経路計画（MAPF）における既存手法の評価における課題を指摘し、統一的な評価フレームワークを提案している。既存の研究には、ベースラインの性能が実際よりも低く見積もられていることや、評価設定と基準が統一されていないこと、教師あり学習を用いた手法の実行可能なコードベースが不足しているといった問題が存在する。著者らが主要な手法を実装して広範な比較実験を行った結果、ルールベースのヒューリスティックが強力なベースラインとして機能する一方で、現在の学習ベースの手法は計算効率や改善能力において明確な優位性を示していないことが明らかになった。この分析に基づき、遅延の大きいエージェントへの対処、文脈に応じたアルゴリズムの適用、再計画の順序や近傍サイズの最適化といった、機械学習を統合する余地のある新たな研究機会が示されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路探索（MAPF）において、大規模な問題に対して制限時間内で準最適解を得る手法として、近傍探索（LNS）に基づくMAPF-LNSが注目されています。この手法は、初期解に対してエージェントのサブセットである近傍の経路を破壊し、再構築するプロセスを繰り返すことで解の質を向上させます。近傍選択の戦略には、定義済みのヒューリスティックを用いるルールベース手法と、機械学習を用いて最適な近傍を予測または選択する学習ベース手法の2種類が存在しますが、既存研究の評価には、報告された性能の不正確さ、初期解や再計画ソルバー、評価指標が統一されていない設定、および再現を困難にするコードやモデルの欠如といった問題があります。本研究は、ベンチマーク、ハイパーパラメータ、初期解、再計画ソルバー、および時間計測スキームを標準化した統一的な評価フレームワークを提案し、既存手法を再評価しました。その結果、時間効率と解の改善能力の両面において、ルールベースのヒューリスティックが学習ベースの手法と比較しても依然として強力なベースラインであることを明らかにしています。</p></section>
+<section class="secsum"><h3>2 Preliminaries</h3><p>マルチエージェント経路計画（MAPF）は、グラフ上の複数のエージェントが衝突を避けながら、各エージェントの最短経路長と実際の経路長の差である遅延の総和を最小化する経路集合を求める問題である。大規模近傍探索（LNS）は、現在の解の一部を破壊して近傍を形成し、残りの経路を固定した状態で再計画を行うことで解を改善する手法である。近傍選択戦略には、遅延の大きいエージェントや交差点を優先するルールベースの手法と、学習を用いて最適な近傍を予測する学習ベースの手法が存在する。既存のルールベース手法であるRandomWalkには、一度選択されたエージェントを次回の選択から除外するなどの設計上の課題があり、著者は遅延に基づいたサンプリングを行うRandomWalkProbという改良案を提案している。学習ベースの手法については、SVMやNeural-LNSが反復間の依存関係を考慮せず各試行を独立したものとして扱う点や、Bandit-LNSが文脈情報を考慮すべき問題に対して非文脈的なアルゴリズムを適用しているという理論的な不整合が指摘されている。</p></section>
+<section class="secsum"><h3>3 A Unified Setting for Evaluation</h3><p>MAPF-LNS（マルチエージェント経路計画における大規模近傍探索）の評価を標準化するため、本研究では統一的な実験設定を定義している。評価環境には、倉庫や空き部屋など異なるレイアウトを模した6種類の代表的なマップを用い、各マップにつき25個の異なるエージェントの開始・目標地点のシナリオを用いて比較を行う。初期解の生成には、全てのシナリオにおいて制限時間内に解を得ることを保証するため、LNS2またはLaCAM2を採用している。再計画（リプラン）ソルバーについては、1回の反復あたりの改善幅は大きいものの実行速度が遅いPBSよりも、高速に動作し制限時間内に多くの近傍を探索できるPPが適していると判断し、これを採用している。評価指標は、最終的な遅延と、指定された時間制限内における遅延対時間の曲線の下側面積（AUC）を用い、計算時間の測定は近傍の破壊と修復というコアプロセスに限定して精度を高めている。また、SVM-LNSやNeural-LNSのような学習ベースの手法については、既存研究の再現性を検証するためにモデルを自前で実装・構築しており、学習時と異なるパラメータ設定への汎化性能についても評価を行っている。</p></section>
+<section class="secsum"><h3>4 Findings and Future Directions</h3><p>統一された評価フレームワークを用いた再評価の結果、ルールベースの手法は時間効率の面で学習ベースの手法に対して強力な競合となることが示された。具体的には、ルールベースの手法は24ケース中20ケースにおいて、最終的な遅延の最小化において最良の結果を達成している。学習ベースの手法であるSVMやNNSは、近傍候補を生成する提案プロセスと、最適な近傍を予測する予測プロセスの両方で高い計算オーバーヘッドを伴う。特に再計画手法が高速な場合、学習モデルによる予測速度が全体のボトルネックとなる。また、教師あり学習による改善能力は限定的であり、学習済みモデルが正解の近傍を正確に選択できていない実態も明らかになった。一方で、初期解の品質は最終的な遅延に大きな影響を与えず、LaCAM2のような高速でスケーラブルなソルバーを用いた場合でも、LNSのプロセスを通じて十分な品質に到達できる。今後の展望として、遅延の大きいエージェントを標的とする手法の探求、文脈情報を活用してルールベースの手法を切り替えるコンテキスト付きバンディットの導入、および再計画対象エージェントの優先順位の学習が有望な方向性として示されている。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>本研究では、機械学習を活用した最新の手法を含む、マルチエージェント経路計画における大規模近傍探索手法の包括的な再評価を行った。既存手法の評価における複数の課題を特定し、それらに対処するための統一的な評価フレームワークを提案している。実験の結果、現在の学習ベースの手法は単純なルールベースのヒューリスティックに対して明確な優位性を示せなかった一方で、RandomWalkおよびその派生であるRandomWalkProbは、多様なシナリオにおいて一貫して堅牢な性能を発揮することが明らかになった。今後の研究の方向性として、遅延の大きいエージェントを標的とすること、戦略選択のための文脈依存的なアルゴリズムの採用、再計画を行うエージェント順序の学習、および適切な近傍サイズを動的に特定することなどが挙げられる。</p></section>
+<section class="secsum"><h3>6 Summary of Unified Evaluation and RandomWalkProb</h3><p>本研究では、マルチエージェント経路計画における統一的な評価フレームワークを提示しており、初期解、再計画ソルバー、近傍サイズ、および各マップにおけるエージェント数をまとめています。評価はIntel E5-2683 CPUと2GBのメモリ制限下で行われ、Neural-LNSのニューラルネットワーク実行にはNVIDIA P100 GPUが使用されています。提案手法であるRandomWalkProbは、既存のRandomWalkが抱える、一度選択された遅延エージェントを追跡セットによって再選択から除外してしまう点、および近傍サイズに達しない場合に次の開始エージェントをランダムに選ぶため遅延情報が活用されない点という2つの課題を改善しています。具体的には、追跡セットを廃止し、新しい探索を開始する際のエージェント選択を、各エージェントの遅延量に比例した確率で行うように変更しています。共通の探索関数であるrandom_walkは、エージェントの経路上のランダムな時刻を選択し、他のエージェントを無視してより短い経路へ向かえる頂点を収集した上で、条件を満たす頂点へ移動させ、衝突したエージェントを近傍に追加する処理を繰り返します。</p></section>
+<section class="secsum"><h3>7 SVM/Neural-LNS Training Details</h3><p>SVM-LNSとNeural-LNSの学習詳細について、既存手法の再現と統一設定下での再評価の両面から記述されています。SVM-LNSは、元の論文に従いマップごとに指定されたエージェント数を用い、5から16の間で一様に選択される近傍サイズと、RandomWalkおよびIntersectionを等確率で切り替える手法により20個の近傍候補を生成し、遅延の改善量に基づいて正解の順位付けを行います。SVM-LNSの学習は実行中に動的に行われ、各反復で16個の新しいデータポイントを収集しながら100反復継続し、検証セットにおける平均順位に基づき最良のモデルを選択します。Neural-LNSは、遅延が減少停止するまで25から50反復のデータ収集を行い、各反復で100個の近傍候補を提案して遅延の改善量で順位付けを行います。統一設定下のNeural-LNSでは、再計画ソルバーにPPを用いることで1つのシーンからより多くのデータを生成できるため、元の手法よりも少ないシーン数で同等のデータ量を確保しています。Neural-LNSの学習は、検証セットでの平均順位が改善しなくなるまで継続され、学習率を元の論文より小さく設定することで損失の安定的な減少を実現しています。</p></section>
+<section class="secsum"><h3>8 Additional Results</h3><p>再計画ソルバーとしてのPPとPBSの比較実験では、近傍選択にRandomWalk、近傍サイズを25に固定し、6種類のマップと5段階のエージェント数に基づく計120ケースを評価しています。最終的な遅延量においてPPは120ケース中87ケースでPBSを上回り、時間経過に伴う遅延の累積指標であるAUCにおいても120ケース中98ケースでPPが優位という結果になりました。PBSはランダムなマップにおいてPPより優れた結果を示すものの、最終的な遅延量やAUCの差は比較的小さいことが示されています。全体としてPPはPBSよりも大幅に高速に動作するため、制限時間内に探索できる近傍の数が実質的に多くなります。また、初期解生成アルゴリズムとしてLNS2、LaCAM2、および中規模エージェント数におけるEECBSを用いた場合についても、各種手法の最終遅延量やAUCの評価結果が示されています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-02
+  </footer>
+</div>
+</body>
+</html>

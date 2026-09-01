@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Database-Augmented RAG for Automated Repair of REST API Misuses | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Database-Augmented RAG for Automated Repair of REST API Misuses</h1>
+  <div class="meta">Shoei Inoue, Norihiro Yoshida, Erina Makihara, Shiyu Yang, Katsuro Inoue<br>採択先: the 26th International Conference on Software Quality, Reliability, and Security (QRS 2026) ・ 2026-08-29 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.29290v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.29290v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 the 26th International Conference on Software Quality, Reliability, and Security (QRS 2026)</span><span class="chip">公開日 2026-08-29</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGのDB構成を最適化し、REST APIの仕様変更に伴う誤用修復率を大幅に向上させた点は実用的かつ新規性が高い。実験の具体性も十分である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> REST APIの仕様変更に伴うクライアント実装の誤用を自動修復するため、API仕様書のデータベース構成を最適化したRAG（検索拡張生成）手法を提案し、高い修復率を達成した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>IoTサービスの開発において、REST APIの仕様変更（エンドポイントの変更や認証方式の更新など）にクライアント実装が追従できず、誤用が発生する問題がある。従来のLLMを用いた自動修復手法は、Java APIのようなメソッド呼び出しの修正には有効だが、外部仕様に依存するREST APIの修正には、最新の仕様情報を参照する必要がある。しかし、既存のRAG手法では、単一のデータベースに全ての情報を格納するため、古い仕様と最新の仕様、あるいはコードと自然言語が混在し、検索精度が低下するという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>API仕様書をバージョン（非推奨か最新か）およびコンテンツの種類（コードスニペットか自然言語テキストか）に基づいて複数のデータベースに分割して管理する、Database-Augmented RAGを提案した。これにより、検索時に時間的に矛盾した情報が混入することを防ぎ、修復に必要なコンテキストをより精密に制御できる点に新規性がある。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>API仕様書を「非推奨の仕様」と「最新の仕様」に分け、さらにそれぞれを「コードスニペット」と「自然言語テキスト」に分類して、計4つのデータベースに格納する。仕様書を2048トークンのサイズで分割し、ベクトル化して各データベースに保存する。修復時には、まず非推奨の仕様（コードとテキスト）を用いて対象プログラム内の誤用を特定する段階を経て、次に最新の仕様を参照して正しい実装を生成する。プロンプトには、検索によって得られた関連性の高いセグメントを注入する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>SwitchBotおよびFitbitのAPIに関する実世界の誤用事例21件（エンドポイントのみの誤用12件、リクエストヘッダーとエンドポイントの両方の誤用9件）を用いて評価した。比較対象は、ウェブ検索機能を利用するベースライン手法と、単一データベースを用いる標準的なRAG手法である。評価指標は、生成されたパッチが対象関数のすべての誤用を修正し、コンパイルに成功した割合とした。実験の結果、ベースラインの修復率が54.3%であったのに対し、4つのデータベースを用いる構成では最大88.6%の修復率を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の限界として、評価データセットが2つのサービスと21件の事例に限定されており、結果の汎用性が完全には示されていない。また、データベースの分離による改善が、情報の構造化によるものか、単に取得できるコンテキスト量の増加によるものかを分離できていない。失敗条件としては、複数の誤用が混在する場合に一度の修復プロセスでは不十分であること、およびベクトル検索が適切な文脈を回収できなかった場合に、存在しないAPI仕様を捏造する可能性があることが挙げられる。今後の課題は、コードと説明文を対として取得する検索メカニズムの設計、データセットの拡充、および評価の客観性を高めるための自動チェックの導入である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Database-Augmented RAG for Automated Repair of REST API Misuses</h3><p>本研究は、REST APIの誤用を自動修復するために、Retrieval-Augmented Generation (RAG) におけるAPI仕様書のデータベース構成が修復率に与える影響を調査しています。研究では、データベースの構造が異なる11種類のRAG構成を構築し、実世界のレポジトリから収集されたREST APIの誤用事例を用いて、ベースライン手法と比較評価を行いました。実験の結果、ベースライン手法の修復率が54.3%であったのに対し、4つのデータベースを用いたRAG手法は最大で88.6%の修復率を達成しました。この結果は、API仕様書をバージョンやコンテンツの種類に基づいて整理してデータベース化することが、RAGを用いたREST APIの誤用修復において有効な設計指針となり得ることを示しています。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>IoTデバイスの普及に伴い、異種デバイス間の連携を支えるREST APIの重要性が高まっていますが、API仕様の変更や複雑な通信環境により、クライアント実装における誤用が発生しやすくなっています。REST APIの修正には、正しいエンドポイント、リクエストヘッダー、リクエストボディといった外部仕様に基づく最新のコンテキストが必要であり、従来のJava APIを対象とした手法とは異なるアプローチが求められます。本研究では、この課題に対処するため、検索拡張生成（RAG）を活用してドメイン固有の情報をプロンプトに追加するDatabase-Augmented RAGを提案しています。SwitchBotおよびFitbitのREST APIにおける誤用事例を用い、最新仕様と旧仕様の分離、あるいはコードスニペットと自然言語テキストの分離といった、11種類の異なるデータベース構成が修正性能に与える影響を評価しました。その結果、APIのバージョンやコンテンツのタイプによって検索コンテキストを分離して管理することが、REST APIの誤用修正の性能向上に寄与することを示しています。</p></section>
+<section class="secsum"><h3>2 Background</h3><p>IoTデバイス開発で広く利用されるREST APIは、バージョンの更新に伴いエンドポイントやリクエストヘッダーの仕様が変更されることがあり、クライアントコードと最新仕様の不一致がAPIの誤用を招く。既存のLLMを用いた自動プログラム修正手法は、言語の汎用性や修正精度において従来のツールを上回るものの、API仕様書のような外部知識を必要とする修正には対応できない。また、パラメータ効率の高い微調整（PEFT）は計算資源を抑えつつ性能を維持できるが、ドメイン知識の更新には多大なメンテナンスコストがかかるという課題がある。これに対し、検索拡張生成（RAG）は事前学習に含まれない情報をプロンプトに注入できるが、従来の単一データベースに全文書を格納する手法では、古い仕様と最新の仕様、あるいは自然言語とコード断片が混在することで、検索結果に時間的に矛盾した情報が含まれ、修正精度が低下するリスクがある。本研究では、仕様書の内容をバージョンや情報の種類ごとに複数のデータベースへ分割して管理する、Database-Augmented RAGを提案しており、これにより検索の精度を高め、制御可能なプロンプトコンテキストを提供することを目指している。</p></section>
+<section class="secsum"><h3>3 Proposed Method</h3><p>本研究では、REST APIの誤用を自動修正するために、11種類のデータベース構成を用いたRAG（検索拡張生成）アーキテクチャの有効性を評価している。ベースライン手法（BL）はRAGを用いず、GPT-4oのウェブ検索機能を利用するためにAPI仕様書のリンクのみをプロンプトに含めるが、不適切なリンク選択や無関係な情報の取得が課題となる。標準的なRAG手法（DLm）では、GitHubから取得したAPI仕様書をLlamaIndexを用いて2048トークンのサイズで分割し、OpenAIのtext-embedding-3-largeを用いてベクトルデータベースに格納することで、意味的な検索を可能にしている。これに対し、提案するDatabase-Augmented RAG手法（DsLs）では、検索精度を向上させるため、非推奨と最新の仕様をそれぞれ「コードスニペット」と「自然言語テキスト」に分類し、計4つのデータベースに分離して管理する。DsLsでは、非推奨の情報を分析して誤用を特定した後、最新の情報を参照して修正コードを生成するという3段階のプロンプト設計を採用することで、推論エラーの低減を図っている。評価データセットは、SwitchBotおよびFitbitのAPIに関するGitHubのコミットやIssueから、仕様変更に直接対応する誤用事例を抽出した計21ケースで構成されており、生成されたパッチが既存研究のルールを満たし、かつ対象関数内のすべての誤用を修正してコンパイルに成功した割合を成功率として算出している。</p></section>
+<section class="secsum"><h3>4 Results</h3><p>2つのREST APIサービスにおける誤用事例を用いて提案手法を評価した結果、4つのデータベースを組み合わせた構成が88.6%という最高の修復率を達成した。修復失敗の主な要因として、エンドポイントとリクエストヘッダーの両方に誤りがある混合型の誤用に対し、一度の修正プロセスでは不十分であること、仕様の制約がプロンプトに明示されていないこと、およびベクトル検索が修復に必要な文脈を十分に取得できていないことが挙げられる。実験では、古い仕様のみをプロンプトに含めると修復率が低下する一方、最新の仕様からコードスニペットを取得する手法は、特に複雑な混合型の誤用において高い修復率を示した。また、仕様のバージョンごとにデータベースを分離して管理する構成や、自然言語による説明よりもコードスニペットを検索対象として優先する構成の方が、修復において効果的であることが示された。ただし、本研究の限界として、評価対象が2つのAPIサービスと21件の事例に限定されており、データセットが小さいため、構成間の差がわずかな事例数の違いに依存している可能性がある。加えて、データベースの分離による改善が、データベース構造の差によるものか、あるいは取得できる文脈量の増加によるものかを完全に分離できていない点も挙げられる。</p></section>
+<section class="secsum"><h3>5 Related Work</h3><p>既存の研究では、グラフ構造や制約を用いてJava APIの誤用を検知する手法が提案されているが、これらはプログラミング言語の構造的な誤用に焦点を当てており、REST API特有の誤用や自動修復には対応していない。REST APIに関する既存研究には、クラウドAPIの仕様に基づくファジングやプログラム解析による仕様適合性の検証があるが、いずれも自動修復は対象としていない。自動プログラム修復（APR）の分野では、従来のヒューリスティック、制約、テンプレートに基づく手法に対し、近年は大規模言語モデル（LLM）を用いた手法が普及しており、プロンプトエンジニアリングやRAG（検索拡張生成）を用いることで、追加学習なしで高精度な修復が可能であることが示されている。しかし、LLM単体では誤ったコードを生成する可能性があるため、静的解析ツールと組み合わせる手法も提案されているが、静的解析は内部コードのみを対象とするため、外部仕様に依存するREST APIの誤用修復には限界がある。これに対し、本研究はRAGを用いてREST API仕様書を直接参照することで、過去の修正履歴や学習データが更新によって古くなる問題や、内部コード解析では不可能な外部仕様への適合性を解決し、最新の仕様に基づいた自動修復を実現している。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、RAGにおけるデータベース設計がLLMを用いたREST APIの誤用自動修正に与える影響を調査し、仕様の種類や保存戦略が異なる11種類の構成とベースラインを比較した。ベースラインの修正成功率が54.3%であったのに対し、最適な構成では88.6%に達しており、最新の仕様を組み込むことが修正精度の向上に寄与することが示された。特に、バージョンやコンテンツタイプごとに証拠を分離する設計は、単一の関数内に存在する複数の誤用を修正する際に有効であった。今後の課題として、コードスニペットとその対応する説明文を同じ領域から同時に取得する検索メカニズムの設計や、データセットをより多様なAPIサービスや誤用タイプへと拡張し、結果の汎用性を検証することが挙げられる。さらに、評価の客観性を高めるため、明示的な判断基準と自動チェックを組み合わせることで、手動レビューの追跡可能性を維持しつつ評価者への依存度を低減させる計画である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-02
+  </footer>
+</div>
+</body>
+</html>
