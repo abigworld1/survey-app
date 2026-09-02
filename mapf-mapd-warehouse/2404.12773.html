@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>LayeredMAPF: a decomposition of MAPF instance to reduce solving costs | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>LayeredMAPF: a decomposition of MAPF instance to reduce solving costs</h1>
+  <div class="meta">Zhuo Yao, Wei Wang<br>採択先: Preprints.org ・ 2024-04-19 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2404.12773v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2404.12773v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.20944/preprints202503.0298.v1" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Preprints.org</span><span class="chip">公開日 2024-04-19</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">既存のMAPFアルゴリズムに適用可能な汎用フレームワークという点が強力。分解プロセスをアルゴリズムから分離し、解の存在可能性を維持しつつ計算量を削減する提案は実用的で価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> エージェント数の増加に伴い計算コストが指数関数的に増大するマルチエージェント経路計画（MAPF）に対し、問題を複数の小さなサブ問題に分解して計算負荷を軽減するLayeredMAPFを提案する。この手法は既存のあらゆるMAPFアルゴリズムに適用可能な汎用的なフレームワークであり、解の存在可能性を維持しつつ、メモリ使用量や計算時間を削減する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路計画（MAPF）は、複数のエージェントが衝突を避けながら各々の目的地へ到達する経路を計算する問題である。エージェント数が増加すると、計算量とメモリ使用量が指数関数的に増大するため、計算リソースが限られた環境では解の探索が困難になる。本研究は、多数のエージェントを含むMAPFインスタンスを、より少数のエージェントからなる独立したサブ問題へと分解し、効率的に解を得ることを目的とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存の独立性検出（ID）手法は、衝突回避のためにMAPFアルゴリズムを繰り返し実行する必要があり、エージェント密度が高い場合に無限ループに陥るリスクがある。これに対し、提案手法は分解プロセスがMAPFアルゴリズムから切り離されているため、計算効率において優位性を持つ。また、従来の優先度ベース探索（PBS）が各部分問題を単一のエージェントに分解するのに対し、提案手法は複数のエージェントを含む部分問題を扱えるため、解の存在可能性の喪失を抑えられる。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、依存関係に基づく3段階の分解プロセスで構成される。まず、エージェントの依存パス（一方のパスが他方の開始地点または目標地点を経由するかを示す経路）に基づき、関連性のあるエージェントをグループ化した初期クラスターを特定する。次に、クラスター内のエージェント間の不可避関係（あるエージェントのパスが他方の開始・目標地点を必ず通過しなければならない関係）を示す不可避グラフを用いて、クラスターを二部グラフ分割により細分化する。最後に、解決順序に制約のあるレベルへと分解・ソートを行う。各サブ問題は、他のサブ問題の解を動的障害物として扱うことで独立して解かれ、最終的にそれらを統合して衝突のない一つの解を生成する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>標準的なMAPFベンチマークを用いた実験により、分解プロセスは平均1秒以内に完了することが示された。7種類のMAPF手法に本フレームワークを適用した結果、特に逐次的な手法においてメモリ使用量や計算時間を大幅に削減できることが確認された。膨大な実験に基づくと、本手法によって元の問題の解の存在可能性が失われる確率は1%未満であると推定される。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、サブ問題の解法順序を考慮することで、従来の独立性検出よりも小さな部分問題への分解を可能にしている。しかし、分解の各ステップにおいて、生成された部分問題が解可能であるかの確認が必要となる。また、分解の質（部分問題のサイズ）を決定する際、どの程度まで細分化を進めるべきかという理論的な分析は本稿では行っていない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>マルチエージェント経路計画（MAPF）は、エージェント数の増加に伴い計算量とメモリ使用量が指数関数的に増大するため、計算リソースが限られた環境では解の探索が困難になる課題がある。本研究では、多数のエージェントを含むMAPFのインスタンスを、より少数のエージェントからなる複数の独立したサブ問題へと分解する手法を提案する。この手法は、既存のあらゆるMAPFアルゴリズムに適用可能なフレームワークであり、各サブ問題を独立して解いた後に、それらを衝突のない一つの最終的な解へと統合することで、解の存在可能性の損失を可能な限り回避する。標準的なMAPFベンチマークを用いた実験では、インスタンスの分解は平均1秒以内に完了し、7種類の最新MAPF手法に適用することで、特に逐次的な手法においてメモリ使用量や計算時間を大幅に削減できることが示された。また、膨大な実験に基づくと、本手法によって解の存在可能性が失われる確率は1%未満である。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路計画（MAPF）は、複数のエージェントが衝突を避けながら各々の目的地へ到達する経路を計算する問題であり、エージェント数の増加に伴い計算コストが指数関数的に増大するという課題がある。本研究では、MAPFのインスタンスを複数の小さな部分問題に分解し、各部分問題を独立して解くことで計算コストを削減する手法「LayeredMAPF」を提案する。この手法では、他の部分問題の解を動的障害物として扱うことで、各部分問題に複数のエージェントを含めており、エージェントごとに優先順位を割り当てて個別に解く優先度ベース探索（PBS）と比較して、解の存在可能性が失われるリスクを低減することを目指している。分解プロセスは逐次的な最適化問題として定式化されており、まず順序を制限せずに部分問題へと分解し、次にそれらを解く順序を限定したより小さな部分問題へと段階的に分割する。分解の各ステップにおいて、解の存在可能性を評価し、条件を満たす分解のみを許可することで、解の喪失の抑制と部分問題のサイズの最小化を両立させている。提案手法は、既存のMAPFアルゴリズムを独立して解き、それらの解を統合して元の問題の解を得るための汎用的なフレームワークである。</p></section>
+<section class="secsum"><h3>2 Related works</h3><p>マルチエージェント経路計画（MAPF）の計算コストを削減する既存手法は、エージェントの経路決定方法によって大きく2つのアプローチに分類される。第一のアプローチは、他のエージェントを静止状態に保ちながら、個々のエージェントの始点から終点までの経路を順次計画し、他者の経路との衝突を回避しようとするシリアルMAPF手法であり、CBS、HCA*、LNS、PBSなどがこれに該当する。第二のアプローチは、各時刻においてエージェント間の衝突を回避しながら、全エージェントの経路を同時に計画するパラレルMAPF手法であり、LaCAM、PIBT、Push and Swapなどがこれに含まれる。MAPFのインスタンスをどのように分解するかを検討する上で、これらシリアルとパラレルの区別は極めて重要となる。</p></section>
+<section class="secsum"><h3>2.1 Conflict based search</h3><p>Conflict-Based Search (CBS)は、高レベルの制約木と低レベルの単一エージェント探索を組み合わせた、完全性と最適性を保証する2段階のMAPFアルゴリズムです。高レベルではエージェント間の衝突を制約として木構造に保持し、低レベルではその制約を満たす新たな経路をヒューリスティック探索によって再計画することで、衝突のない解を逐次的に探索します。CBSの計算コストを削減するため、解の質を一定の範囲内に抑えるBounded CBSやEnhanced CBS、オンライン学習でノードのコストを推定するExplicit Estimation CBSといった、近似解を許容する手法が提案されています。また、制約木の分岐を避けて経路を修正するBypassing Conflictsや、衝突のコスト増加度合いに基づき解決順序を制御するPrioritizing Conflicts、対称的な経路による重複解決を防ぐSymmetry Reasoningといった、探索効率を高める技術も存在します。さらに、エージェント間の依存関係を重み付きグラフとしてモデル化し、その最小頂点被覆をヒューリスティックとして利用するWeighted Dependency Graph (WDG) を用いることで、制約木のサイズを抑制し実行時間を短縮することが可能です。</p></section>
+<section class="secsum"><h3>2.2 Large neighborhood search</h3><p>Large Neighborhood Search (LNS)は、離散最適化問題において優れた解を探索するための古典的なアルゴリズムであり、MAPFにおいてはMAPF-LNSとして提案されている。MAPF-LNSは、既存の解の一部を近傍として削除し、残りの経路を固定した状態で簡略化された問題を解くことで、反復的に解の品質を向上させる手法である。各反復において、LNSは一部のエージェントの集合を選択してその経路を更新するが、他のエージェントの経路は変更しないため、逐次的なMAPF解法として動作する。また、MAPF-LNS2は、既存の解の改善ではなく、MAPFインスタンスに対して効率的に解を見つけることを目的とした手法である。MAPF-LNS2は、まずMAPFアルゴリズムを用いて部分的な計画を取得し、経路が未定のエージェントに対しては、既存の経路との衝突を最小化するように経路を生成する。</p></section>
+<section class="secsum"><h3>2.3 Priority based search</h3><p>Priority-Based Search (PBS)は、優先順位付けに基づいた計画法を用いる不完全かつ非最適なアルゴリズムであり、高レベルでの深さ優先探索を通じて優先順位ツリーを動的に構築します。衝突が発生した際、PBSはどちらのエージェントに高い優先順位を与えるかを貪欲に決定し、現在の分岐で解が見つからない場合にのみバックトラックして別の分岐を探索することで、すべての衝突が解消されるまで単一の優先順位付けを逐次的に構築します。各エージェントに一意の優先順位が割り当てられた後は、既に計画済みの高優先度エージェントの経路と衝突しないように、優先順位に従って各エージェントの始点から終点までの最小コスト経路を計算する逐次的な手法として動作します。また、エージェントや障害物の密度が高い問題への対策として、衝突数や衝突ペア数をヒューリスティックとして利用し、衝突を最小化するように探索を導くGreedy PBS (GPBS) も提案されています。PBSは各部分問題を単一のエージェントに分解する手法ですが、提案手法は部分問題に複数のエージェントを含めることが可能であるため、解の存在可能性の損失を抑えられ、かつ既存の多様なMAPFアルゴリズムの補助コンポーネントとしても適用可能です。</p></section>
+<section class="secsum"><h3>2.4 PIBT and LaCAM</h3><p>PIBTは、各タイムステップで各エージェントに一意の優先度を割り当てる、不完全かつ劣最適解を許容する並列的なMAPF手法です。優先度の継承によって経路調整時の優先度逆転を効果的に処理し、バックトラッキングによってエージェントの停滞を防ぎます。PIBTでは各エージェントが目標地点までの距離を評価する必要がありますが、PIBT+では目標地点からの距離テーブルを事前に準備することで計算時間を削減しています。一方、LaCAMは、高レベルの構成探索と低レベルの制約探索を組み合わせた、完全かつ劣最適解を許容する2段階の並列MAPF手法です。LaCAMは、低レベルの探索によって次ステップの制約を生成し、高レベルの構成を遅延的に生成することで探索コストを大幅に削減しており、その構成生成器にはPIBTが用いられています。LaCAMの改良版であるLaCAM*は、遷移コストを累積させることで最終的に最適解に収束するAnytime特性を持ち、さらにスワップ動作を導入することで初期解の迅速な生成を可能にしています。</p></section>
+<section class="secsum"><h3>2.5 Independence detection</h3><p>独立性検出（ID）は、エージェントを可能な限り小さなグループに分割する手法であり、各エージェントを個別のグループとして開始し、衝突が発生した際にのみグループを統合していく。IDは衝突回避のために既存のMAPF手法を用いて代替経路を探索するが、あるグループが別のグループとの衝突を回避した後に、新たに別のグループとの間で衝突が生じるという現象が発生し、エージェント密度が高い場合には無限ループに陥るリスクがある。これに対し、提案手法であるLayeredMAPFは、サブ問題の解法順序を考慮することで、IDよりもMAPFインスタンスをより小さなサブ問題へと分解できる可能性を高めている。また、IDが衝突回避のためにMAPF手法を繰り返し実行する必要があるのに対し、提案手法は分解プロセスがMAPF手法から切り離されているため、計算時間の面で利点を持つ。実験結果において、提案手法はIDと比較して、サブ問題の最大サイズ、計算時間、および衝突のない解を見つける成功率の観点で優位性を示している。</p></section>
+<section class="secsum"><h3>2.6 SEQ(Sequence) and DSP(Delayed Shortest Path)</h3><p>オンラインMAPFにおける既存手法であるSEQとDSPは、エージェントに優先順位を割り当て、各エージェントの最短経路に対して衝突を回避するための遅延を導入することで、逐次的に経路を生成する。SEQは、先行するエージェントの最短経路長と同じだけの遅延を後続のエージェントに一律に与えるため、一度に一つのエージェントしか移動できない。これに対しDSPは、衝突を回避しつつも先行エージェントの経路長より短い遅延を設定できる「安全な遅延」を計算することで、SEQの効率を改善している。これらの手法では、最短経路優先（SH）、最長経路優先（LH）、ランダム（RND）、あるいは安全な遅延が最小となるものを優先する貪欲法（LD）といった優先順位付けが用いられる。提案手法は、これらと同様に優先順位に基づいた問題分解と遅延の導入を行うが、エージェントが開始地点や目標地点に留まることで他のエージェントの経路を塞ぐ可能性があるオフラインMAPFを対象としている点が、オンラインMAPFを扱うSEQやDSPとの決定的な違いである。</p></section>
+<section class="secsum"><h3>3.1 Basic definitions</h3><p>本セクションでは、次元に依存しない形式による多エージェント経路探索（MAPF）の基礎的な定義が示されている。空間はN次元の整数ユークリッド空間として定義され、各セルは通行可能または通行不可能のいずれかの状態を持つ。k個のエージェントはそれぞれ一意の開始セルと目標セルを持ち、各タイムステップにおいて隣接セルへの移動またはその場での待機が可能である。エージェントの経路は開始から目標に至るセルの列であり、そのコストは経路の長さ（タイムステップ数）で表される。衝突とは、複数のエージェントが同じセルに同時に存在するか、あるいは互いの位置を入れ替えることを指す。MAPFの解は、すべてのエージェントに対して衝突のない経路の集合であり、コストの総和（SOC）または最大経路長（makespan）の最小化が目的となる。本稿では、すべてのエージェントが通行不可能なセルを避けて開始から目標まで到達できる経路を見つけられる場合を、解が存在するための必要条件として検討している。</p></section>
+<section class="secsum"><h3>3.2 Decomposition of MAPF instance</h3><p>MAPF（マルチエージェント経路計画）の計算コストを削減するため、元の問題を複数のサブ問題に分割する手法を提案する。各サブ問題は、同じマップ上でより少ないエージェント数を持つように構成され、各サブ問題の解を順番に結合することで全体の解を得る。分割の正当性は、各サブ問題のエージェントが、先行するサブ問題の目標地点や後続のサブ問題の開始地点を通過しない経路を確保できるかという条件で判定される。サブ問題の分割形式には、解決順序に制約がないクラスターと、特定の順序で解く必要があるレベルの2種類がある。分割の最適性は、サブ問題のサイズを降順に並べた際、より小さいサイズがより早い段階で現れるかどうかで評価される。また、計算効率化のため、エージェントの開始・目標地点と、それらを経由せずに移動可能な自由セル群からなる接続グラフを構築し、このグラフ上での依存経路を用いてエージェント間の関係性を判定する。</p></section>
+<section class="secsum"><h3>4 Methodology</h3><p>本手法は、MAPF（マルチエージェント経路計画）のインスタンスを、計算コストを削減するために複数の部分問題へと分解する手法である。分解プロセスは、エージェント間の依存関係に基づく経路を特定して初期のクラスターを構築するステップ、クラスターをさらに分割可能な限り二部グラフ分割によって細分化するステップ、そしてクラスターを解決順序に制約のあるレベルへと分解・ソートするステップの3段階で構成される。ここで扱う部分問題には、解決順序に制約のないクラスターと、解決順序に制約を課すレベルの2種類が存在する。各分解ステップでは、生成された部分問題が解可能であるかどうかの確認を行いながら、段階的に問題を小さくしていく。最終的に、これらの部分問題を独立して解いた結果を組み合わせることで、元のインスタンスに対する衝突のない解を得る。</p></section>
+<section class="secsum"><h3>4.1 Decomposetion to clusters</h3><p>LayeredMAPFにおけるクラスタ分解の第一段階では、グリッド空間とエージェントから接続グラフを構築し、エージェント間の依存パスに基づいて初期クラスタを決定する。2つのエージェントが「関連している」とは、一方の依存パスが他方の開始地点または目標地点を含んでいる状態を指し、この関連性は利用可能なエージェントや回避すべきエージェントの集合によって動的に変化する。エージェントの関連性をノードとエッジで表した無向グラフにおいて、最大連結成分をクラスタ（独立エージェント集合）として定義する。初期クラスタは、各エージェントに対して通過するエージェント数が最小となる依存パスを選択することで生成されるが、これは必ずしも最小のクラスタ分割を保証しない。そこで、依存パスを更新して他のクラスタのエージェントを回避するように誘導することで、初期クラスタをさらに小さな部分問題へと二分割していく反復的な手法を提案する。このプロセスは、分割の正当性を維持しつつ、部分問題のサイズを最小化することを目指している。</p></section>
+<section class="secsum"><h3>4.2 Bipartition of clusters</h3><p>クラスターを2つの小さなクラスターに分割する手法として、Bipartition of clustersが提案されている。まず、あるエージェントの依存パスが必ず通過しなければならない他のエージェントを不可避なエージェントと定義し、エージェント間の不可避関係を無向グラフである不可避グラフとして表現する。この不可避グラフにおける最大の連結成分を主要集合、それ以外のエージェントを残り集合と呼ぶ。分割プロセスでは、まず主要集合を特定した後、残り集合のエージェントが主要集合のエージェントを通過する必要がある場合、または新しく主要集合に加わったエージェントが残り集合のエージェントを通過する必要がある場合に、それらを主要集合へ移動させる処理を繰り返す。この移動は、両方の集合が独立するか、あるいは残り集合が空になるまで継続される。最終的に、主要集合と残り集合の両方が、各エージェントの依存パスが他方の集合のエージェントの開始点や目標点を通過しないという合法性の要件を満たした場合に分割が完了する。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-03
+  </footer>
+</div>
+</body>
+</html>

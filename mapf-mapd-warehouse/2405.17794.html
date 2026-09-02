@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>LNS2+RL: Combining Multi-Agent Reinforcement Learning with Large Neighborhood Search in Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>LNS2+RL: Combining Multi-Agent Reinforcement Learning with Large Neighborhood Search in Multi-Agent Path Finding</h1>
+  <div class="meta">Yutong Wang, Tanishq Duhan, Jiaoyang Li, Guillaume Sartoretti<br>採択先: presentation at AAAI 2025 ・ 2024-05-28 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2405.17794v3" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2405.17794v3" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 presentation at AAAI 2025</span><span class="chip">公開日 2024-05-28</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">LNSとMARLを組み合わせ、計算効率と衝突回避を両立させた点が独創的。複雑な環境下での高い成功率とスケーラビリティが実験で示されており、実用性も高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 大規模近傍探索（LNS）の枠組みにマルチエージェント強化学習（MARL）を統合することで、複雑な環境下での高い衝突回避能力と計算効率の両立を実現したMAPFアルゴリズム。</div>
+<section class="qa"><h2>どんなもの？</h2><p>静的な障害物が存在する2次元グリッド環境において、多数のエージェントが互いに衝突することなく、それぞれの開始地点から目標地点へ到達する経路を計画する問題。従来の優先度付き計画法（PP）は高速だが、複雑なタスクでは衝突を回避できず解の品質が低下する。一方で、MARLを用いた手法は協調性に優れるものの、学習時と異なるエージェント数や環境では性能が低下しやすく、一部のエージェントが目標に到達できないだけで全体の成功率が著しく低下するという課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>LNSの反復的な再計画プロセスにおいて、解の品質を重視するMARLと、計算速度を重視するPPを適応的に切り替えるハイブリッドな枠組みを提案した。これにより、従来のLNS2と比較して、総コスト（SoC）を維持しながら残存する衝突ペア（CP）の数を大幅に削減した。また、再計画の対象となるエージェント数を学習環境に合わせた規模に固定することで、大規模なエージェント数に対しても高いスケーラビリティを実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LNSのフレームワークに基づき、反復的な再計画を行う。計画の初期段階では、協調的な意思決定が可能なMARLプランナーを用いて、衝突の多い経路を効果的に修正する。MARLは、過去と未来の情報、他エージェントの予測経路、セル利用率マップなどを観測として利用し、PPOを用いて学習されたモデルを使用する。再計画の規模は、MARLの学習時と同様の8エージェントに固定される。計画の後半段階では、残った少数の衝突を迅速に解消するために、高速なPP+SIPPSアルゴリズムへ適応的に切り替える。MARLが制限時間内に目標へ到達できない場合に備え、PP+SIPPSで経路を補完することで、最終的な解の完全性を確保する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>LNS2、EECBS、LaCAM、SCRIMPとの比較実験において、エージェント密度が高いタスクでLNS2と同等以上の成功率（SR）を達成した。特に、複雑な障害物構造を持つマップでは、LaCAM、EECBS、SCRIMPの成功率が0%に低下する中で、本手法はテストされたタスクの約半数で50%を超える成功率を記録した。また、LNS2と比較して、成功率を維持しつつ残存する衝突ペアの数を大幅に削減した。メモリ使用量についても、探索範囲の拡大に伴い急増する他の手法とは異なり、一定に保てることを確認した。実機ロボットを用いた倉庫環境のシミュレーションでは、Action Dependency Graphを用いて制御誤差を補正することで、衝突のない移動が可能であることを検証した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>再計画の規模を学習時の分布に合わせるために固定している。また、MARLプランナーの利点は反復回数の増加に伴い減少する傾向があり、PPによる補完とのバランスが重要となる。今後の課題として、タスクごとに異なる最適なハイパーパラメータ（近傍サイズや切り替えの閾値など）を自動的に決定する手法の検討が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>LNS2+RL: Combining Multi-Agent Reinforcement Learning with Large Neighborhood Search in Multi-Agent Path Finding</h3><p>LNS2+RLは、大規模近傍探索であるLNS2の特性とマルチエージェント強化学習（MARL）の特性を組み合わせた、マルチエージェント経路計画（MAPF）のための新しいアルゴリズムである。本手法は、計画の初期段階においてMARLを用いた低レベルの再計画を行うことで、優先度付き計画（PP）アルゴリズムよりも大幅に衝突を回避できる。このMARLベースのプランナーは、カリキュラム学習を通じて、エージェントが過去および未来の情報に基づいた協調的な意思決定を段階的に学習することを可能にする。計画の後半段階では、残存する衝突を迅速に解決するためにPPアルゴリズムへと適応的に切り替え、解の品質と計算効率のトレードオフを実現する。高密度なエージェント数、多様なチームサイズ、およびマップ構造を用いた実験において、LNS2+RLはLNS2、LaCAM、EECBS、SCRIMPを含む多くのMAPFアルゴリズムと比較して優れた性能を示した。特に複雑な構造を持つマップでは、他の手法の成功率が0%に低下する一方で、LNS2+RLはテストされたタスクの約半数において50%を超える成功率を達成している。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>本研究では、多数のエージェントの衝突のない最短経路を生成するMulti-Agent Path Finding (MAPF) において、Large Neighborhood Search (LNS) とマルチエージェント強化学習 (MARL) を組み合わせたLNS2+RLを提案する。LNS2+RLはLNSの反復的な再計画フレームワークに従い、再計画の初期段階における困難なタスクに対して、従来の高速だが衝突の多いPP+SIPPSに代わり、低速だが協調性の高いMARLベースのプランナーを適用する。MARLが制限時間内に目標に到達できない場合はSIPPSを用いて経路を修正することで、プランナーの完全性を確保し、既存の高品質な経路の活用を最大化する。再計画の規模をMARLの学習環境に近い8エージェントに固定することで、数千規模のエージェントに対しても学習時の分布に近い状態でスケーラビリティを維持できる。実験の結果、LNS2+RLはLNS2よりも成功率 (SR) において一貫して優れており、総コスト (SoC) を同程度に維持しながら、衝突ペア (CP) の数を大幅に削減した。さらに、既存の探索ベースの手法であるEECBSやMARLベースの手法であるSCRIMP、およびLaCAMと比較しても、特に障害物が複雑なマップにおいて高い成功率を示すことが確認された。</p></section>
+<section class="secsum"><h3>Prior Work</h3><p>マルチエージェント経路計画（MAPF）の既存手法は、解の最適性に基づき、最適、限定的な劣解、および非限定的な劣解の3つのカテゴリに分類される。Conflict-Based Search（CBS）やM*などの最適アルゴリズム、およびユーザーが指定した係数に基づき最適解の一定倍以内のコストを保証する限定的な劣解アルゴリズムは、高い解の品質を維持できる一方で、数千規模のエージェントを扱う際には計算時間やメモリ消費の面でスケーラビリティの課題がある。対照的に、優先度付き計画法などの非限定的な劣解アルゴリズムは、計算速度を優先することで大規模な問題に対応可能だが、複雑なタスクでは解の品質が著しく低下する場合があり、完全性も保証されない。近年では、強化学習や模倣学習を用いてプランナーを直接訓練する手法も登場しており、観測情報の拡充や報酬設計に非学習アルゴリズムを組み合わせる試みもあるが、これら学習ベースの手法も、LNS2のようなスケーラブルな非学習型劣解アルゴリズムの性能を同一の制限時間内で上回るには至っていない。また、手動で設計されたヒューリスティクスや構成要素を機械学習で置き換える手法も存在するが、これらは経路プランナーそのものを直接最適化するものではない。</p></section>
+<section class="secsum"><h3>Background</h3><p>マルチエージェント経路探索（MAPF）は、2次元の4近傍グリッド上で、複数のエージェントが静的な障害物を避けながら、各々の開始地点から目標地点へ到達する経路を求める問題である。本研究では、全エージェントが目標に到達するまでのタイムステップの総和を評価指標として採用している。既存手法であるLNS2は、大規模近傍探索を用いて衝突を含む経路集合から反復的に再計画を行うが、その内部の再計画ソルバーであるPP+SIPPSは、優先順位に基づいた計画を行うため、優先度の低いエージェントの衝突回避が困難になり、解の質が低下するという課題がある。この再計画タスクは、動かない障害物であるハード障害物と、経路が既知で移動可能な他のエージェントであるソフト障害物が混在する、混合動的障害物下での経路探索（PMDO）問題として定義される。PMDOの目的は、ハード障害物を完全に回避しつつ、ソフト障害物や他の選択されたエージェントとの衝突を最小化し、その上で経路長を最小化することである。</p></section>
+<section class="secsum"><h3>Method: LNS2+RL</h3><p>LNS2+RLは、高速だが複雑なタスクで衝突が発生しやすいPP+SIPPSと、低速だが衝突を抑えた経路生成に長けるMARLベースのプランナーを組み合わせた、大規模近傍探索（LNS）の枠組みに基づくアルゴリズムである。反復的な計画の初期段階では、解の品質を高めるためにMARLプランナーを適用し、その後、残った衝突を迅速に解消するためにPP+SIPPSへ適応的に切り替えることで、解の品質と計算速度の両立を図っている。MARLプランナーは、近傍サイズを8に固定し、PP+SIPPSによる参照経路や、他のエージェントの将来の予測経路、さらには混雑を回避するためのセル利用率マップなどの情報を観測として利用する。ネットワーク構造には、空間的・時間的な関係性を捉えるためにConvLSTMを採用しており、過去3ステップの観測を統合して処理することで環境の変化を理解させる。学習にはPPOを用い、報酬設計には目標への距離に基づく報酬整形や、無効な行動を抑制するための教師あり損失、さらには混雑エリアを避けるためのペナルティが含まれる。</p></section>
+<section class="secsum"><h3>Experiments</h3><p>提案手法であるLNS2+RLを、既存のLNS2、制約付き部分最適解を求めるEECBS、完全だが部分最適解となるLaCAM、および強化学習に基づくSCRIMPと比較評価しました。実験の結果、LNS2+RLは、エージェント密度が77.5%の空のマップを除き、ほとんどのタスクにおいてLNS2と同等以上の成功率（SR）を達成しており、特に衝突回数（CP）の削減において顕著な改善を示しました。複雑な障害物構造を持つマップにおいても、ランダムなマップで学習したモデルを用いることで、LaCAMなどの他手法を上回る高いSRを実現しています。コストの総和（SoC）に関しては、LNS2+RLはLNS2とほぼ同等の水準を維持しており、EECBSが最小のSoCを示す一方でSRが低いことや、LaCAMが特定の条件下でSRは高いもののSoCが大幅に悪化することと比較して、高い性能バランスを保っています。また、LNS2+RLとLNS2は、探索範囲の拡大や衝突の増加に伴いメモリ使用量が急増する他の手法とは異なり、メモリ使用量を一定に保てる利点があります。実機ロボットを用いた倉庫環境での実験では、Action Dependency Graphを用いて制御誤差を補正することで、衝突なく迅速に目標に到達できることが確認されました。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本論文は、マルチエージェント強化学習（MARL）と大規模近傍探索（LNS2）を組み合わせた新しいMAPFアルゴリズムであるLNS2+RLを提案している。この手法は、衝突を含む初期の経路集合から開始し、衝突が解消されるまでエージェントのサブセットに対して繰り返し経路の再計画を行うLNS2の枠組みに従う。反復の初期段階では、解の質が高く衝突をより効果的に削減できるMARLベースのプランナーを用いて困難な再計画タスクに対処し、反復が進むにつれて、残りの衝突を迅速に解決するために高速な優先度付き計画アルゴリズムへと適応的に切り替える。様々なマップ構造、チームサイズ、およびエージェント密度が高いタスクを用いた実験において、LNS2+RLは既存の最先端のMAPFアルゴリズムと比較して一貫して優れた性能を示した。さらに、ハイブリッドな倉庫のモックアップシミュレーションを通じて、提案手法の実用性が検証されている。</p></section>
+<section class="secsum"><h3>Additional Results</h3><p>LNS2+RLの性能に関する追加実験では、実行時間制限やエージェント密度、ハイパーパラメータが手法に与える影響を分析しています。実行時間制限の実験において、LNS2+RLはLNS2と比較して成功率と衝突ペアの削減の両面で優位性を維持しており、LaCAMやEECBSよりも高い時間閾値において成功率が安定する特性を持ちます。エージェント密度を下げてタスクの難易度を下げた実験では、タスクが困難になるほどLNS2+RLとLNS2が他の手法との性能差を広げることが示されました。ハイパーパラメータの影響については、近傍サイズや切り替え閾値などの設定が成功率に寄与するものの、最適な値はタスクごとに異なるため微調整が必要であることが示唆されています。また、MARLプランナーの不完全性を補完するためにSIPPS+PPを用いる重要性が示されており、MARLプランナー単体では反復回数の増加に伴い成功率が低下する一方で、SIPPS+PPを併用することで一部のエージェントが目標に到達できない場合でも解を補完できます。最後に、エージェント数が増加する条件下での比較において、LNS2+RLはLNSよりも少ない反復回数でMAPFタスクを解決できることが確認されました。</p></section>
+<section class="secsum"><h3>Hyperparameters</h3><p>LNS2+RLアルゴリズムの実装およびMARLモデルの訓練に使用されるハイパーパラメータは、MARLプランナーを全体フレームワークに組み込むための設定と、モデルの訓練自体に使用される設定に分けられます。訓練の第1段階におけるカリキュラム学習では、3つの異なるタスク難易度に対し、ワールドサイズに対するエージェント総数の割合、障害物の密度、模倣学習のタイムステップ、および最大反復回数の各値が設定されています。訓練の第2段階では、第1段階の設定を概ね踏襲していますが、エージェントの割合は60%、65%、70%の3段階、障害物の密度は15%、17.5%、20%の3段階で設定され、学習率は0.04、最大反復回数は100となっています。</p></section>
+<section class="secsum"><h3>Training Details</h3><p>学習は、4枚のNvidia GeForce RTX 3090 GPUと18コアのIntel Core i9-10980XE CPUを搭載したサーバー上で行われ、実際の学習プロセスでは1枚のGPUが使用されました。ニューラルネットワークの実装にはPyTorch 2.1.1を用い、Ray 3.00を活用して32のプロセスによる並列データ収集を行いました。学習は2つのステージに分かれており、各ステージの規定時間は7e7タイムステップで、それぞれ136時間を要しました。実際の収束は、ステージ1が4e7タイムステップ、ステージ2が5e7タイムステップ付近で確認されましたが、最適な性能を得るために学習時間を延長して実施されました。</p></section>
+<section class="secsum"><h3>Summary of Observation Channels</h3><p>提供されたセクションには、エージェントが観測する情報の具体的な内容やチャネルの詳細に関する記述が含まれていません。本文は、特定のタイムステップにおいてエージェントが観測する情報が表に示されているという言及のみにとどまっています。そのため、具体的な観測内容や手法の詳細を要約することはできません。</p></section>
+<section class="secsum"><h3>Map Visualization</h3><p>実験に使用されるマップは、紫色のセルで示される静的な障害物と、黄色のセルで示される空き領域で構成されています。迷路、部屋、倉庫のマップは障害物の配置が固定されていますが、ランダムなサイズを持つ3種類のマップについては、インスタンスごとに障害物の配置がランダムに再生成されます。各インスタンスにおいて、エージェントの開始地点と目標地点は、マップ内の同じ連結領域内にある空きセルからランダムに選択されます。テストされたタスクは、7種類のマップにおける最も困難なタスクの空き率が、それぞれ17.5%、17.5%、17.5%、20%、26.74%、25.48%、21.2%となるように設定されており、難易度の高いものとなっています。</p></section>
+<section class="secsum"><h3>Real World Experiment</h3><p>本実験では、90台の仮想ロボットと10台の実機ロボットを用いた倉庫環境での検証を行っています。実機ロボットはメカナムホイールを搭載した約0.3m四方のロボットであり、7m x 4.5mの範囲で動作します。LNS2+RLによって事前に全ロボットの経路集合を計画しますが、実機の位置誤差や制御遅延による衝突を防ぐため、Action Dependency Graph (ADG) を構築して実行します。ADGは、あるセルを占有するエージェント間に優先順位を導入するもので、先行するエージェントが移動を完了するまで後続のエージェントが待機することを保証し、実行誤差の伝播を抑制します。実行プロセスでは、各アクションをタスクとして定義し、ADGにおける依存タスクの完了に応じて、タスクの状態を準備中（STAGED）から実行待ち（ENQUEUED）へ、目標位置への到達に伴い完了（DONE）へと遷移させます。システムはROSを用いて構成されており、中央ノードがADGの生成・維持とタスクの配布を担い、各ロボットノードがタスクを受信してPID制御により目標へ移動し、到達後に中央ノードへ通知する仕組みとなっています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-03
+  </footer>
+</div>
+</body>
+</html>

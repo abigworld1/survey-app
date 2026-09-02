@@ -3599,6 +3599,36 @@
       "url": "http://arxiv.org/abs/2608.29753v1",
       "venue": ""
     },
+    "arxiv:2609.00689": {
+      "added": "2026-09-03",
+      "added_at": "2026-09-03T06:10:27.095730",
+      "arxiv_id": "2609.00689",
+      "authors": [
+        "Chaewon Kim",
+        "Seo Yeon Park"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-01",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2609.00689.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.00689v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGのノイズ耐性を、追加学習なしのニューロン編集で解決するアプローチが独創的。寄与度と変動性を組み合わせた指標も理論的で、実験結果も強力。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "SCoNE: Selective Context-aware Neuron Editing for Robust Retrieval-Augmented Generation",
+      "tldr": "検索拡張生成（RAG）における検索ノイズへの脆弱性を解決するため、追加学習や推論コストの増大なしに、文脈に敏感に反応する特定のニューロンを強化することで回答の堅牢性を高める手法を提案する。",
+      "url": "http://arxiv.org/abs/2609.00689v1",
+      "venue": "EMNLP 2026 Main Conference"
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -3765,6 +3795,39 @@
       "tldr": "RAGシステムにおける知識汚染攻撃に対し、複数の情報源から得られる文書の信頼性を動的なグラフ構造を用いて検証する、ビザンチン耐性を備えた協調型フレームワークSecureCollaRAGを提案する。これにより、悪意のあるソースが混在する環境下でも、ドメイン知識の完全性を維持しながら攻撃を効果的に阻止できる。",
       "url": "http://arxiv.org/abs/2608.04366v1",
       "venue": "Proceedings of the ACM Web Conference 2026, pages 2661-2672, 2026"
+    },
+    "doi:10.1145/3774904.3792960": {
+      "added": "2026-09-03",
+      "added_at": "2026-09-03T06:09:23.363850",
+      "arxiv_id": "2609.00761",
+      "authors": [
+        "Runsong Jia",
+        "Mengjia Wu",
+        "Ying Ding",
+        "Jie Lu",
+        "Yi Zhang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-01",
+      "doi": "10.1145/3774904.3792960",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2609.00761.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.00761v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの各工程（計画・拡張・検証）をエージェント化し、異種グラフの構造的特性に適合させた点が非常に新規性が高く、実用的な設計も評価できる。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Agent-Enhanced Heterogeneous Graph RAG for Academic Question Answering",
+      "tldr": "学術的な質問回答において、クエリの複雑さへの適応、証拠の十分性の評価、およびグラフの事実に基づく検証という課題を解決するため、RAGの各工程をエージェントによる意思決定プロセスへと変換した手法を提案している。",
+      "url": "http://arxiv.org/abs/2609.00761v1",
+      "venue": "WWW '26: The ACM Web Conference 2026"
     },
     "doi:10.1145/3788853.3801609": {
       "added": "2026-08-13",
@@ -5743,6 +5806,38 @@
       "tldr": "Lifelong Multi-Agent Path Finding (MAPF) において、コンピュータアーキテクチャのキャッシュ概念を導入した Caching-Augmented Lifelong MAPF (CAL-MAPF) を提案する。アイテムの一時保管場所としての「キャッシュグリッド」と、競合を防ぐ「ロッキングメカニズム」、およびエージェントの状態を管理する Task Assigner (TA) を組み合わせることで、タスク完了後の移動効率を向上させる。",
       "url": "http://arxiv.org/abs/2403.13421v3",
       "venue": ""
+    },
+    "arxiv:2405.17794": {
+      "added": "2026-09-03",
+      "added_at": "2026-09-03T06:04:09.861625",
+      "arxiv_id": "2405.17794",
+      "authors": [
+        "Yutong Wang",
+        "Tanishq Duhan",
+        "Jiaoyang Li",
+        "Guillaume Sartoretti"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-05-28",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2405.17794.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2405.17794v3",
+      "reading_value": 4,
+      "reading_value_reason": "LNSとMARLを組み合わせ、計算効率と衝突回避を両立させた点が独創的。複雑な環境下での高い成功率とスケーラビリティが実験で示されており、実用性も高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "LNS2+RL: Combining Multi-Agent Reinforcement Learning with Large Neighborhood Search in Multi-Agent Path Finding",
+      "tldr": "大規模近傍探索（LNS）の枠組みにマルチエージェント強化学習（MARL）を統合することで、複雑な環境下での高い衝突回避能力と計算効率の両立を実現したMAPFアルゴリズム。",
+      "url": "http://arxiv.org/abs/2405.17794v3",
+      "venue": "presentation at AAAI 2025"
     },
     "arxiv:2408.02960": {
       "added": "2026-09-01",
@@ -9137,6 +9232,36 @@
       "tldr": "本論文は、マルチエージェント経路探索（MAPF）から派生した48種類の多様な問題設定（flavors）を体系的に整理・分類し、それらの定義的特徴や解決手法、問題間の関係性をマッピングしたサーベイである。",
       "url": "https://openalex.org/W7172505669",
       "venue": "Journal of Artificial Intelligence Research"
+    },
+    "doi:10.20944/preprints202503.0298.v1": {
+      "added": "2026-09-03",
+      "added_at": "2026-09-03T06:06:01.959468",
+      "arxiv_id": "2404.12773",
+      "authors": [
+        "Zhuo Yao",
+        "Wei Wang"
+      ],
+      "basis": "fulltext(arxiv-pdf)",
+      "citations": 0,
+      "date": "2024-04-19",
+      "doi": "10.20944/preprints202503.0298.v1",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2404.12773.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2404.12773v2",
+      "reading_value": 4,
+      "reading_value_reason": "既存のMAPFアルゴリズムに適用可能な汎用フレームワークという点が強力。分解プロセスをアルゴリズムから分離し、解の存在可能性を維持しつつ計算量を削減する提案は実用的で価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "LayeredMAPF: a decomposition of MAPF instance to reduce solving costs",
+      "tldr": "エージェント数の増加に伴い計算コストが指数関数的に増大するマルチエージェント経路計画（MAPF）に対し、問題を複数の小さなサブ問題に分解して計算負荷を軽減するLayeredMAPFを提案する。この手法は既存のあらゆるMAPFアルゴリズムに適用可能な汎用的なフレームワークであり、解の存在可能性を維持しつつ、メモリ使用量や計算時間を削減する。",
+      "url": "http://arxiv.org/abs/2404.12773v2",
+      "venue": "Preprints.org"
     },
     "doi:10.24963/ijcai.2023/28": {
       "added": "2026-08-31",

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Agent-Enhanced Heterogeneous Graph RAG for Academic Question Answering | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Agent-Enhanced Heterogeneous Graph RAG for Academic Question Answering</h1>
+  <div class="meta">Runsong Jia, Mengjia Wu, Ying Ding, Jie Lu, Yi Zhang<br>採択先: WWW &#x27;26: The ACM Web Conference 2026 ・ 2026-09-01 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2609.00761v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2609.00761v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1145/3774904.3792960" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 WWW &#x27;26: The ACM Web Conference 2026</span><span class="chip">公開日 2026-09-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの各工程（計画・拡張・検証）をエージェント化し、異種グラフの構造的特性に適合させた点が非常に新規性が高く、実用的な設計も評価できる。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 学術的な質問回答において、クエリの複雑さへの適応、証拠の十分性の評価、およびグラフの事実に基づく検証という課題を解決するため、RAGの各工程をエージェントによる意思決定プロセスへと変換した手法を提案している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>著者、論文、掲載誌からなる異種グラフ構造を対象とした、学術的な質問回答（QA）を問題設定としている。従来のグラフ拡張型RAGでは、クエリの複雑さに応じて探索深度を調整できないこと、取得したサブグラフが回答に十分な証拠を含んでいるか判断できないこと、および生成された回答がグラフ上のエンティティ、関係、属性と整合しているかを構造的に検証する仕組みが欠如していることが困難となっている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のグラフRAG研究は、埋め込み学習や非構造化テキスト、あるいは単純な論理演算に焦点を当てており、クエリの構造に応じて検索を適応させる仕組みや、異種学術グラフの構造的事実に基づいた回答検証の手法は十分に確立されていない。本研究は、RAGの各工程を専門のエージェントに置き換え、クエリタイプに応じた検索計画の策定、証拠の網羅性に基づく適応的なサブグラフ拡張、およびグラフの事実に基づく回答の検証を統合した点に新規性がある。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、3つのエージェントによる意思決定プロセスで構成される。まず検索エージェントが、自然言語のクエリを属性、直接関係、集計、マルチホップの4つのカテゴリに分類し、開始ノードの型や探索ホップ数を含む検索計画を策定する。次に、グラフ検索と再ランキングを行うエージェントが、埋め込み類似度を用いてノードを特定し探索を行うが、抽出されたサブグラフの充足度スコア（エンティティの網羅性と意味的関連性の指標）が閾値を下回る場合には、最大2回まで近傍を適応的に拡張する。最後に、検証エージェントが、回答に含まれるエンティティの存在、関係の妥当性、属性の正確性をグラフの事実と照合する事実整合性スコアを用いて確認し、スコアが低い場合は最大2回まで回答の再生成を試みる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>OpenAlexおよびDBLPから構築された、著者、論文、掲載誌の3種類のノードを持つ異種グラフを用いて評価を行った。比較対象として、GPT-o3などのLLM、GraphRAGなどのグラフ拡張型RAG、およびAdaptiveRAGなどのエージェント型RAGを用いた。評価指標にはAccuracy、F1、Hit@1を用いた結果、OpenAlexで76.68%、DBLPで73.43%のAccuracyを達成した。アブレーション解析では、検索エージェントの欠如が最も大きな性能低下を招くこと、および各エージェントがそれぞれ精度向上に寄与していることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>計算コストとレイテンシを制御するため、グラフの拡張および回答の再生成はそれぞれ最大2回までに制限されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Agent-Enhanced Heterogeneous Graph RAG for Academic Question Answering</h3><p>学術的な質問回答において、著者、論文、会議などの多様なエンティティが絡み合う異種グラフ構造を扱うための、エージェント強化型異種グラフRAG手法を提案している。本手法は、クエリの複雑さに適応できない固定的な検索戦略、証拠の十分性評価の欠如、およびグラフの事実に基づく検証の不足という3つの課題を解決するため、RAGの各工程をエージェントによる意思決定プロセスへと変換している。具体的には、クエリのタイプを分析して適切なグラフ探索戦略を選択する検索エージェント、証拠の網羅性を評価して適応的にサブグラフを拡張する再ランキングエージェント、そして回答の最終決定前にエンティティ、関係性、属性の正確性をグラフの事実と照合する検証エージェントの3段階で構成される。OpenAlexおよびDBLPから構築された異種グラフを用いた実験の結果、提案手法は強力な大規模言語モデルやグラフ拡張型RAG、およびエージェントベースの比較手法を上回る性能を示している。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>学術的な質問回答（QA）において、従来のグラフ拡張型RAGは、クエリの複雑さに応じた探索深度の調整、取得したサブグラフの証拠としての十分性の制御、およびグラフ構造に基づいた回答の検証という3つの課題を抱えています。本研究では、これらを解決するためにRAGの各工程をエージェント化する手法を提案しており、まずクエリ認識エージェントが質問を属性、直接関係、集計、またはマルチホップの4つのタイプに分類して最適な検索計画を策定します。次に、証拠制御エージェントが取得したサブグラフがクエリの制約や集計信号を十分に満たしているかを評価し、必要に応じてグラフの近傍を適応的に拡張します。最後に、検証エージェントがエンティティの存在や関係の妥当性、属性の正確性をグラフに基づいて確認します。OpenAlexおよびDBLPから構築された異種グラフを用いた評価実験では、LLM単体や既存のグラフ拡張型RAG、エージェント型検索手法と比較して、提案手法が回答精度において一貫した向上を示すことが確認されました。</p></section>
+<section class="secsum"><h3>2. Related Works</h3><p>学術的な質問応答では、著者や論文、会議などの多様なエンティティとそれらの関係性からなる異種グラフの活用が進んでおり、ノードやエッジのタイプを考慮して情報を集約するグラフニューラルネットワークを用いた手法が存在します。検索拡張生成（RAG）の分野では、グラフ構造や知識グラフを検索パイプラインに組み込み、構造化された関係性を根拠として利用する手法や、サブグラフを抽出してテキストベースのグラフ理解を支援するシステムが提案されています。また、エージェント型LLMのパラダイムでは、推論と行動を交互に行う手法や、複数のエージェントを用いて検索結果をフィルタリングする仕組み、さらにはエージェントを用いて検索動作を制御する試みも行われています。既存の研究の多くは、埋め込み学習や論理演算の実行、あるいは非構造化テキストを中心とした設定に焦点を当てており、質問の構造や複雑さに応じて検索を適応させる仕組みや、異種学術グラフから得られる構造化された根拠に基づいて回答を検証する手法は十分に探索されていません。</p></section>
+<section class="secsum"><h3>3. Methodology</h3><p>本手法は、著者、論文、会議の3種類のノードと、著者・論文間および論文・会議間の関係性を持つ学術ヘテロジニアスグラフを用いた、3段階のエージェントによるRAGフレームワークを提案している。まず、Retrieval Agentが自然言語のクエリを解析し、クエリの構造的カテゴリ（属性、直接関係、集約、マルチホップ）、開始ノードの型、ホップ数の予算、および探索計画を決定する。次に、Graph Retrieval Agentが埋め込み類似度を用いて開始ノードを特定し、計画に基づいた探索を行うが、その際、抽出されたサブグラフが回答に十分であるかを、エンティティの網羅性と意味的関連性の両面から算出される充足度スコアによって評価する。充足度が閾値を下回る場合は、遅延を抑えるために最大2回までの制御されたグラフ拡張を行う。最後に、回答を生成するエージェントがサブグラフに基づき回答を作成し、Validation Agentが、回答に含まれるエンティティの存在、関係の妥当性、および属性の正確性を検証する事実整合性スコアを用いて、回答がグラフの事実と一致するかを確認する。整合性スコアが閾値を下回った場合は、計算コストを抑えるため最大2回までの再生成を試みる。</p></section>
+<section class="secsum"><h3>4. Experimental Setup</h3><p>本研究では、OpenAlexとDBLPから構築された、著者、論文、掲載誌の3種類のノードと、執筆および掲載という2種類の関係性を持つ異種グラフを用いて評価を行います。OpenAlexは76,569個のノードと105,290個のエッジ、DBLPは62,443個のノードと79,697個のエッジで構成され、属性、直接関係、集計、マルチホップの4つのクエリタイプごとに100個、計400個のクエリを各データセットに対して生成しています。エージェント制御および最終的な回答生成にはGPT-4-turboを使用し、エンティティの検索には意味的類似性に基づくsentence-transformersを用いた手法を採用しています。評価指標には、正解との完全一致を測るAccuracy、エンティティ単位の適合率と再現率から算出するF1、および予測された回答の最上位が正しいかを評価するHit@1の3つを用います。比較対象のベースラインとして、Qwen-2.5-7BやGPT-o3を含む純粋なLLM、Vanilla RAGやGraphRAGなどのグラフ拡張型RAG、そしてAdaptiveRAGやAgent-Gといったエージェント型または複雑性認識型RAGの3つのカテゴリを網羅しています。</p></section>
+<section class="secsum"><h3>5. Results</h3><p>提案手法は、OpenAlexおよびDBLPの2つのデータセットにおいて、GraphCoTやGraphRAG、KGRAGといったグラフ拡張手法、およびAdaptiveRAGやAgent-Gなどのエージェントベースの手法を上回り、OpenAlexで76.68%、DBLPで73.43%の精度を達成しています。特にHit@1の指標において顕著な改善が見られ、これはクエリに応じた計画策定と情報の十分性を考慮した検索が、より信頼性の高い回答選択に寄与していることを示しています。アブレーション解析の結果、検索エージェントを削除した際に最も大幅な性能低下が確認され、クエリ型の分析と探索ステップ数の計画の重要性が示されました。また、再ランキングエージェントは初期のサブグラフが不十分な場合に証拠を適応的に拡張する役割を果たし、検証エージェントは検索されたサブグラフに対してエンティティ、関係性、属性の正確性を確認することでF1スコアとHit@1を向上させています。これら3つのエージェントがそれぞれ意味のある貢献をしており、エージェントによる一連のパイプライン全体が最も堅牢な性能を実現しています。</p></section>
+<section class="secsum"><h3>6. Conclusion</h3><p>本研究では、学術的な質疑応答を目的とした、エージェント機能を備えた異種グラフRAG手法を提案している。この手法は、クエリに応じた検索計画、証拠の十分性を考慮した制御、およびグラフに基づいた回答の検証という3つの主要なステップをエージェント化することで、検索と検証のプロセスを学術的な異種グラフの構造に適合させている。OpenAlexおよびDBLPを用いた実験の結果、純粋な大規模言語モデルによるベースライン、グラフ拡張型RAG、およびエージェントベースの検索手法と比較して、一貫した性能向上を達成した。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-03
+  </footer>
+</div>
+</body>
+</html>
