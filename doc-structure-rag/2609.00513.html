@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ISO-RAG: Isoperimetric Noise Control for Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>ISO-RAG: Isoperimetric Noise Control for Retrieval-Augmented Generation</h1>
+  <div class="meta">Siyuan Zhang, Hanchen Wang, Dong Wen, Ying Zhang, Wenjie Zhang<br>採択先: 未取得 ・ 2026-09-01 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2609.00513v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2609.00513v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2609.00513" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-09-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">グラフ理論の等周定数（Cheeger比）をRAGのノイズ制御に応用する着眼点が非常に新規性が高く、双曲幾何学を用いた具体的な手法も計算機科学的に興味深い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチホップ質問回答におけるグラフベースRAGの課題である、無関係なノードへの確率拡散による意味的ドリフトと、グラフ全体探索に伴う高レイテンシを解決するため、幾何学的なトポロジー制御を用いたRAGフレームワークを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、複雑な推論経路を必要とするマルチホップ質問回答（QA）タスクにおけるグラフベースの検索拡張生成（RAG）である。従来のグラフベース手法では、Personalized PageRankなどの確率拡散を用いる際に、無関係なノードや汎用的なハブノードへと信号が漏れ出す意味的ドリフトが発生する。また、グラフ全体を探索対象とすることで、計算コストが増大し、オンラインでの応答レイテンシが高くなるという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>先行研究であるGraphRAGやHyperbolicRAGなどは、エッジの重み付けがヒューリスティックであったり、離散的な枝刈りなしに連続的な近傍集約を行ったりするため、トポロジカルなノイズを排除できず、意味的なドリフトを引き起こす。これに対し、本手法は学習を必要とせず、離散グラフ理論における局所的なCheeger比（トポロジー的な拡張率）を応用してノードごとの等周プロファイルを算出する点が新規である。これにより、組み合わせ爆発を招く不適切なショートカットエッジを明示的に特定して除去する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、クエリとの類似度に基づきシードノードを選出し、意味的・トポロジー的な近傍を統合して局所的な候補グラフを構築する。次に、テキスト埋め込みをポアンカレ球上の双曲空間へ写像し、各ノードの幾何学的な体積の近似値を用いて、局所的なチェーガー定数に由来する構造的枝刈りスコアを算出する。このスコアに基づき、不適切なエッジを明示的に特定して除去する。最後に、フィルタリング後のグラフに対し、シードノードを起点とした決定論的なPageRankをべき乗法で計算し、構造的スコアと初期の密度意味類似度を線形結合して最終的なランキングを得る。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>HotpotQA、2WikiMultihopQA、MuSiQueの3つのマルチホップQAデータセットを用いて評価を行った。既存の密ベクトル検索やグラフベースの手法と比較した結果、検索の再現率（Recall@5）で平均10.0%、下流タスクの完全一致率（Exact Match）で4.3%の絶対的な向上を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法において、等周制御によるエッジの除去が、推論に必要な経路まで誤って切断しないよう、幾何学的信号をグラフ構造に整合させることが重要である。また、検索精度が向上しても、LLM自体の推論能力がボトルネックとなり、生成エラーが発生する場合があることが示されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>ISO-RAG: Isoperimetric Noise Control for Retrieval-Augmented Generation</h3><p>ISO-RAGは、マルチホップ質問回答におけるグラフベースのRAGが抱える、意味的なドリフトやグローバルなグラフ探索による高レイテンシという課題を解決するための、学習を必要としないトポロジー駆動型のフレームワークです。本手法は、計算コストの高い連続的な幾何学的埋め込みを用いる代わりに、離散グラフ理論における局所的なCheeger比（トポロジー的な拡張率）を利用して、ノードごとの等周プロファイルを算出します。これにより、組み合わせ爆発を引き起こす不適切なショートカットエッジを特定して除去することで、探索空間を文脈的に安全な局所的サブグラフへと制限します。このトポロジー的な浄化プロセスは、検索時における決定論的なPersonalized PageRankの拡散を制御し、確率の漏出を防ぎながら、低レイテンシで正確な収束を実現します。実験の結果、マルチホップ質問回答のベンチマークにおいて、既存手法と比較して検索の再現率で平均10.0%、下流タスクの完全一致率で4.3%の絶対的な向上を達成し、グローバルな探索による遅延問題を排除することで、精度と効率の優れたトレードオフを実現しています。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>従来のグラフベースのRAGは、Personalized PageRankなどの手法を用いてグラフ上で確率を拡散させるが、無制限な拡散によって無関係なノイズや誤解を招く手がかりへと信号が漏れ出す「意味的ドリフト」が発生するという課題がある。特に、多段階の推論を必要とするマルチホップ質問回答において、既存手法は高密度なハブとなる汎用的なエンティティを介して誤った経路を辿ったり、ノイズを剪定できずに計算効率を低下させたりする限界がある。これに対し、提案手法であるISO-RAGは、クエリに関連するシードノードからなる候補サブグラフをポアンカレ球モデルを用いた双曲空間へ写像し、幾何学的な制約に基づいた局所的な拡散を行う。本手法の核心は、グラフのボトルネックを特定する等周定数の概念を応用した「等周制御メカニズム」にあり、拡散の前にノード単位のプロキシを用いて誤った接続を明示的に切断することで、推論に必要な経路のみを分離する。実験の結果、ISO-RAGは検索効率と回答精度のバランスに優れており、既存のベースラインと比較してRecall@5で約10%、Exact Matchで4.3%の平均絶対利得を達成している。</p></section>
+<section class="secsum"><h3>2 Related Works</h3><p>従来のBM25のような疎な手法やBi-encoderを用いた密な手法による検索は、平坦な探索空間で動作するため、中間的なエンティティ間の関係性を明示的にモデル化できません。そのため、HotpotQAやMuSiQueといった複雑なマルチホップ推論を必要とするデータセットにおいて、論理的に無関係なノイズが重要な証拠を覆い隠してしまう課題があります。これに対し、GraphRAGやLightRAG、HippoRAG2などのグラフベースのRAGは、知識をネットワーク構造として捉えることで依存関係を補足しますが、エッジの重み付けがヒューリスティックであったり、確率拡散が制約なしに行われたりするため、検索時に偽のサブグラフや誤ったエンティティを拾い上げるトポロジカルなノイズが発生します。また、知識グラフの階層構造を扱うために双曲幾何学を用いたHyperbolicRAGなどの研究も存在しますが、これらは双曲空間上で動作するものの、離散的な枝刈りなしに連続的な近傍集約を行うため、確率拡散が制約されず、トポロジカルなボトルネックを解消できずに意味的なドリフトを引き起こします。</p></section>
+<section class="secsum"><h3>3 Methodology</h3><p>ISO-RAGは、マルチホップ質問回答においてグラフ全体への拡散によるノイズを防ぐため、幾何学的な構造を利用して局所的なグラフ内での検索を行うフレームワークである。まず、クエリとのコサイン類似度に基づき上位のシードノードを選出し、それらを中心とした意味的な近傍とトポロジー的な近傍を統合することで、探索範囲を限定した局所的な候補グラフを構築する。次に、テキスト埋め込みをポアンカレ球上の双曲空間へ写像し、各ノードの幾何学的な体積の近似値を用いて、局所的なチェーガー定数に由来する構造的枝刈りスコアを算出する。このスコアにより、中心付近に位置し体積が極めて小さい一方で境界の体積が爆発的に大きい汎用的なハブノードと、周辺部に位置する具体的な事実ノードを繋ぐ不適切なエッジを、両端の構造的差異が閾値以内であるという条件で除去する。フィルタリング後のグラフに対し、シードノードをパーソナライズの起点とした決定論的なPageRankをべき乗法を用いて計算し、得られた構造的スコアと初期の密度意味類似度を線形結合することで、意味的な適合性と構造的な整合性を両立した最終的なランキングを実現する。</p></section>
+<section class="secsum"><h3>4 Experiments</h3><p>ISO-RAGの性能評価は、HotpotQA、2WikiMultihopQA、MuSiQueの3つのマルチホップQAデータセットを用いて、既存の密ベクトル検索手法やグラフベースの手法と比較して行われました。実験の結果、ISO-RAGはすべての設定において検索精度および最終的なQAの生成品質の両方で最良の結果を達成しており、特に複雑なトポロジーを持つ2WikiMultihopQAや、ノイズの多いMuSiQueにおいて、既存のグラフベース手法を大幅に上回る性能を示しました。効率性の面では、局所的な決定論的ルーティングを採用することでグローバルなグラフ探索を回避し、HippoRAG2に対して約8倍、HyperbolicRAGに対して25倍以上の高速化を実現しています。アブレーション研究では、等周信号を用いた幾何学的フィルタリングの重要性が示されており、学習された幾何学的信号をグラフ構造に整合させることで、無関係な領域への確率拡散を効果的に抑制できることが確認されました。定性的な分析では、ISO-RAGが意味的に類似しているものの質問とは無関係なハブノードへの確率漏洩を防ぎ、正確なマルチホップの推論経路を特定できることが示されています。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>本研究では、グラフベースの検索過程における不適切な拡散を抑制するために、厳格なトポロジー制御を導入した新しい検索拡張生成フレームワークであるISO-RAGを提案しています。この手法は、グラフを双曲空間へと写像し、幾何学的な特性を考慮したエンコーダを学習させることで、効率的かつ効果的な検索を可能にします。複数のベンチマークを用いた評価において、既存の強力なベースライン手法と比較して一貫した精度向上を達成しており、マルチホップ推論におけるトポロジーを考慮した制御の重要性が示されました。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-04
+  </footer>
+</div>
+</body>
+</html>

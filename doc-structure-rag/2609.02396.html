@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Improving Health Literacy through Lay Summarization of Radiological Reports: An Evaluation of BioNER and Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Improving Health Literacy through Lay Summarization of Radiological Reports: An Evaluation of BioNER and Retrieval-Augmented Generation</h1>
+  <div class="meta">Egecan Çelik Evgin, İlknur Karadeniz, Olcay Taner Yıldız<br>採択先: 未取得 ・ 2026-09-02 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2609.02396v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2609.02396v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-09-02</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGとBioNERの比較・統合という実用的な課題に対し、多角的な指標で体系的な評価を行っており、医療ドメインにおけるLLMの制御手法として示唆に富む。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 放射線科報告書を一般向けの平易な要約に変換する際、臨床用語を抽出する固有表現抽出（BioNER）と外部知識を利用する検索拡張生成（RAG）の有効性を比較した。実験の結果、BioNERは要約の読みやすさと品質を向上させるが、RAGは不適切な情報の混入によりハルシネーションを誘発するリスクがあることが示された。</div>
+<section class="qa"><h2>どんなもの？</h2><p>放射線科の報告書は専門的な医学用語で記述されているため、患者が内容を理解することが困難である。患者が理解を助けるために大規模言語モデル（LLM）を直接利用すると、事実に基づかない内容（ハルシネーション）が生成されるリスクがある。本研究は、報告書を患者向けの平易な要約に自動変換する際、生成の質を制御するための手法を対象としている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の研究では、RAGやNERといった戦略が個別に検討されることが多く、これらを統合した枠組みでの直接比較や、モデルの規模および学習設定（Few-shotかFine-tuningか）による影響の体系的な評価は行われていなかった。本研究は、汎用的な小型言語モデルと生物医学特化型の小型言語モデルを比較し、両戦略の組み合わせが要約の品質に与える影響を明らかにした点に新規性がある。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>汎用モデルのQwenと生物医学特化モデルのBioBARTを用い、少数の例示（Few-shot）またはLoRAによる微調整（Fine-tuning）のいずれかの設定で要約を行う。強化手法として、Stanzaの放射線科用モデルを用いて解剖学的部位や観察事項などの臨床用語を特定するBioNER、Wikipediaから用語定義を検索して文脈として提供するRAG、およびこれらを併用する手法を導入する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>PadChest、BIMCV-COVID19+、Open-i、MIMIC-CXRの4つのデータセットを統合したデータを用い、関連性（ROUGE、METEOR、BERTScore）、読みやすさ（FKGL、DCRS、SLE）、事実性（SummaC、FENICE、CheXbert-F1）の3側面、計9指標で評価した。結果、BioNERは両方の学習設定で読みやすさと全体的な品質を向上させた。一方、RAG単体では、関連性の低下やハルシネーションの導入が見られた。NERとの組み合わせは、Few-shot設定では性能を低下させたが、微調整設定では読みやすさを向上させた。最終的に、微調整したBioBARTにBioNERを適用した構成が、最も優れた全体性能を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>RAGにおいて、検索システムが同音異義語や無関係な用語の定義を返してしまうことで、報告書の内容とは無関係な情報が混入し、事実に基づかない内容が生成されるという限界がある。また、BioNERで抽出された複数の単語からなる医学用語が、外部の知識ベースと正確に一致しないことが、NERとRAGの併用による性能低下を招いている。今後の課題として、ドメイン特化型の知識ベースや生物医学知識グラフの活用、およびより堅牢なエンティティリンキング手法の検討が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Improving Health Literacy through Lay Summarization of Radiological Reports: An Evaluation of BioNER and Retrieval-Augme</h3><p>本研究は、専門用語が多く患者にとって解釈が困難な放射線科報告書を、一般向けに要約する手法の有効性を検証している。具体的には、命名实体認識（NER）による臨床的に重要な所見の抽出と、検索拡張生成（RAG）による文脈的な根拠付けを組み合わせたフレームワークを提案し、QwenおよびBioBARTのモデルを用いて、少数の例示を用いる手法（few-shot）と微調整（fine-tuning）の両方の設定で評価を行った。実験の結果、NERは要約の読みやすさと全体的な品質を継続的に向上させる一方で、RAG単体では効果が見られず、むしろ無関係な検索語によって事実に基づかない内容を生成する可能性があることが示された。RAGとNERの組み合わせについては、few-shot設定では性能を低下させるものの、微調整を行った場合には読みやすさを向上させる。最終的に、NERを用いた微調整済みのBioBARTが最も優れた全体性能を達成しており、患者に優しい要約を作成する上では、エンティティを意識した抽出が主要な要因であることが明らかになった。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>放射線科の報告書は専門的な医学用語や複雑な臨床言語で記述されているため、患者が自身の検査結果やその意味を正確に理解することが困難であるという課題がある。患者は情報の補完として大規模言語モデルを用いたチャットボットを利用することもあるが、不正確な内容やハルシネーションが発生するリスクがあり、報告書を一般向けに要約する手法の研究が求められている。本研究では、外部知識に基づき生成の事実的一貫性を高める検索拡張生成（RAG）と、臨床的に重要な用語を特定して生成を制御する固有表現抽出（NER）のアプローチを組み合わせ、その有効性を比較評価する。評価には、PadChest、BIMCV-COVID19+、Open-i、MIMIC-CXRという、異なる臨床設定や画像モダリティを含む4つの公開データセットを用いる。さらに、最先端の汎用大規模言語モデルと生物医学に特化した小型言語モデルの比較、およびファインチューニングされたモデルとfew-shotベースラインとの体系的な比較を行うフレームワークを提案している。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>放射線読影レポートの一般向け要約（Lay Summarization）に関する先行研究は、主にファインチューニング、プロンプティング、検索拡張生成（RAG）、および命名エンティティ認識（NER）を用いた手法に分類される。ファインチューニングを用いた手法では、T5-Largeをフル教師あり学習させたAEHRCが、LoRAやRAGを使用せずに高い性能を達成したほか、QwenシリーズにQLoRAと生成・フィードバック・洗練のパイプラインを組み合わせたKHU_LDIなどの研究がある。プロンプティング手法では、GPT-4.1にBERTの埋め込みを用いて選択した少数の例示を組み合わせた5cNLPが、クローズドトラックで2位となった。RAGを用いた手法では、医学用語の抽出に基づきWikipediaの定義を検索するCUTN_Bioや、RadGraphを用いて事実的に類似したレポート内容を検索するFactMM-RAGなどが提案されている。NERを活用する手法では、StanzaやBioBERTを用いて医学用語を特定し、UMLSの定義を組み込むことで可読性や事実性を向上させるISIKSummやLayForgeといった研究が存在する。しかし、既存研究の多くはRAGとNERの戦略を個別に検討しており、これら二つの戦略の有効性を統一的な枠組みで直接比較したり、モデルの規模や学習手法（few-shot対ファインチューニング）の違いを横断的に評価したりする研究は不足している。</p></section>
+<section class="secsum"><h3>3 Methodology</h3><p>本研究では、汎用的な小型言語モデルであるQwen3.5-0.8Bと、生物医学テキストに特化して事前学習されたBioBART-v2-largeの2つのモデルを用い、放射線科レポートの平易な要約の性能を比較している。データセットはPadChest、BIMCV-COVID19+、Open-i、MIMIC-CXRの4つの公開データセットを統合したもので、元の訓練セットをランダムに分割して、訓練用168,036件、検証用14,971件、テスト用5,000件、および3件のFew-shot用例からなる評価セットを構築している。評価指標は、単語の重なりや意味的類似度を測る関連性、文や単語の長さ、語彙の習熟度、モデルによる簡潔さを測る読みやすさ、そして文間の含意関係や主張の検証、臨床所見の一致を測る事実性の3つの観点から構成され、各指標は最小最大正規化によって比較可能な範囲に調整されている。ベースライン戦略として、0-shotから3-shotまでのFew-shotプロンプティングと、LoRAを用いた微調整の2種類を設定している。さらに、臨床的に重要な用語を抽出して生成を導くBioNER強化、用語定義を外部知識から取得して文脈として提供するRAG強化、およびこれらを組み合わせた手法の3つの強化戦略を、各モデルおよび学習設定に対して適用している。</p></section>
+<section class="secsum"><h3>4 Results</h3><p>放射線科レポートの平易な要約に関する実験において、生物医学的エンティティを抽出して提供するBioNER戦略は、Few-shotおよびFine-tuningの両設定で読みやすさや全体的な性能を向上させることが示された。一方で、外部知識を利用するRAG戦略は、検索システムが同音異義語や無関係な用語を返すことで不適切な背景情報を混入させ、ハルシネーションを引き起こす傾向があるため、必ずしも性能向上には繋がらなかった。BioNERとRAGを組み合わせた手法についても、抽出された多語構成のエンティティがWikipedia APIと一致しないなどの理由により、期待された相乗効果が得られず性能が低下した。モデル間の比較では、Few-shot設定では汎用的なQwenが優位であったが、Fine-tuningを行うとドメイン特化型のBioBARTが最も高い性能を示した。最終的に、Fine-tuning済みのBioBARTにBioNERを適用した構成が、多くの評価指標において最も優れた全体的な性能を達成した。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>本研究では、放射線科レポートの一般向け要約において、生物医学的固有表現抽出（BioNER）と検索拡張生成（RAG）を用いた戦略が、少数の学習データを用いた推論およびファインチューニングの設定で与える影響を調査しました。関連性、読みやすさ、事実性の3つの観点からなる9つの指標を用いて評価した結果、BioNER戦略はベースラインモデルの性能を、特に読みやすさの面で一貫して向上させ、関連性と事実性においても競争力のある水準を維持しました。一方で、RAG戦略は一貫した性能向上をもたらさず、BioNERとRAGを組み合わせても期待された利得は得られませんでした。この結果は、明示的な生物医学的エンティティ情報を提供することが、自動生成される要約の読みやすさを向上させるシンプルかつ効果的な手法であることを示しています。今後の課題として、検索エラーを減らすためのドメイン特化型の知識ベースや生物医学知識グラフ、より堅牢なエンティティリンキング手法を用いた検索コンポーネントの改善、および異なるBioNERモデルや検索戦略の検討が挙げられます。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-04
+  </footer>
+</div>
+</body>
+</html>

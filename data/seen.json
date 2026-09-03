@@ -3629,6 +3629,37 @@
       "url": "http://arxiv.org/abs/2609.00689v1",
       "venue": "EMNLP 2026 Main Conference"
     },
+    "arxiv:2609.02396": {
+      "added": "2026-09-04",
+      "added_at": "2026-09-04T06:09:12.964199",
+      "arxiv_id": "2609.02396",
+      "authors": [
+        "Egecan Çelik Evgin",
+        "İlknur Karadeniz",
+        "Olcay Taner Yıldız"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-02",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2609.02396.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.02396v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGとBioNERの比較・統合という実用的な課題に対し、多角的な指標で体系的な評価を行っており、医療ドメインにおけるLLMの制御手法として示唆に富む。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Improving Health Literacy through Lay Summarization of Radiological Reports: An Evaluation of BioNER and Retrieval-Augmented Generation",
+      "tldr": "放射線科報告書を一般向けの平易な要約に変換する際、臨床用語を抽出する固有表現抽出（BioNER）と外部知識を利用する検索拡張生成（RAG）の有効性を比較した。実験の結果、BioNERは要約の読みやすさと品質を向上させるが、RAGは不適切な情報の混入によりハルシネーションを誘発するリスクがあることが示された。",
+      "url": "http://arxiv.org/abs/2609.02396v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -4926,6 +4957,39 @@
       "title": "Why RAGs Hallucinate: Penalty-Aware Evaluation of Retrieval-Augmented Generation Systems with Knowledge-Gap Canaries",
       "tldr": "従来のRAG評価は正解率に偏っており、知識ベースに答えがない場合に無理に回答する挙動を正当に評価できていない。本研究は、知識の欠如を検証する質問群と、回答拒否を適切に扱う非対称なペナルティ付きスコアリングを用いた評価フレームワークを提案する。",
       "url": "http://arxiv.org/abs/2608.26385v1",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2609.00513": {
+      "added": "2026-09-04",
+      "added_at": "2026-09-04T06:07:43.025260",
+      "arxiv_id": "2609.00513",
+      "authors": [
+        "Siyuan Zhang",
+        "Hanchen Wang",
+        "Dong Wen",
+        "Ying Zhang",
+        "Wenjie Zhang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-01",
+      "doi": "10.48550/arxiv.2609.00513",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2609.00513.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.00513v1",
+      "reading_value": 4,
+      "reading_value_reason": "グラフ理論の等周定数（Cheeger比）をRAGのノイズ制御に応用する着眼点が非常に新規性が高く、双曲幾何学を用いた具体的な手法も計算機科学的に興味深い。",
+      "relevance": 8,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "ISO-RAG: Isoperimetric Noise Control for Retrieval-Augmented Generation",
+      "tldr": "マルチホップ質問回答におけるグラフベースRAGの課題である、無関係なノードへの確率拡散による意味的ドリフトと、グラフ全体探索に伴う高レイテンシを解決するため、幾何学的なトポロジー制御を用いたRAGフレームワークを提案する。",
+      "url": "http://arxiv.org/abs/2609.00513v1",
       "venue": ""
     },
     "doi:10.5281/zenodo.21874580": {
@@ -9354,6 +9418,75 @@
       "tldr": "倉庫内でのピックアップおよび配送タスクにおいて、衝突のない経路を構築するMAPFアプローチと、環境状態から意思決定を学習するMARLアプローチの性能を比較し、エージェント数や動的な環境への適応性を評価した。",
       "url": "https://www.semanticscholar.org/paper/b0fbd6a075d0a80b431b794fa5c8d0653952ec04",
       "venue": "EAI Endorsed Transactions on AI and Robotics"
+    },
+    "doi:10.48550/arxiv.2402.01961": {
+      "added": "2026-09-04",
+      "added_at": "2026-09-04T06:05:04.632447",
+      "arxiv_id": "2402.01961",
+      "authors": [
+        "Shao-Hung Chan",
+        "Zhe Chen",
+        "Dian-Lun Lin",
+        "Yue Zhang",
+        "Daniel Harabor",
+        "Tsung-Wei Huang",
+        "Sven Koenig",
+        "Thomy Phan"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 6,
+      "date": "2024-02-02",
+      "doi": "10.48550/arXiv.2402.01961",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2402.01961.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2402.01961v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFにおけるLNSの操作レベルでの並列化という新規性が高く、既存の最先端手法を上回る性能を実証しており、実用的なAnytimeアルゴリズムとして読む価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Anytime Multi-Agent Path Finding using Operation Parallelism in Large Neighborhood Search",
+      "tldr": "マルチエージェント経路探索（MAPF）において、破壊と修復の操作を並列に実行するDROP-LNSを提案する。非同期な解の更新により、同期による待機時間を抑えつつ、限られた時間内で探索空間を広範に探索し解の品質を向上させる。",
+      "url": "http://arxiv.org/abs/2402.01961v1",
+      "venue": "Adaptive Agents and Multi-Agent Systems"
+    },
+    "doi:10.48550/arxiv.2404.03554": {
+      "added": "2026-09-04",
+      "added_at": "2026-09-04T06:03:38.936211",
+      "arxiv_id": "2404.03554",
+      "authors": [
+        "Weizhe Chen",
+        "Zhihan Wang",
+        "Jiaoyang Li",
+        "Sven Koenig",
+        "Bistra Dilkina"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 1,
+      "date": "2024-04-04",
+      "doi": "10.48550/ARXIV.2404.03554",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2404.03554.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2404.03554v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFにおける実行時間と解の品質のトレードオフを扱う、実用性の高い研究。学習指標と目的関数の不一致を指摘する知見は、アルゴリズム選択を行う研究者にとって極めて重要。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "No Panacea in Planning: Algorithm Selection for Suboptimal Multi-Agent Path Finding",
+      "tldr": "劣最適解を許容するマルチエージェント経路探索（MAPF）において、実行時間と解の品質のトレードオフを考慮したアルゴリズム選択の課題を扱う。学習指標と最適化目的の不一致や、特徴量に応じた適切な前処理の重要性を明らかにした。",
+      "url": "http://arxiv.org/abs/2404.03554v1",
+      "venue": ""
     },
     "doi:10.48550/arxiv.2406.10827": {
       "added": "2026-09-02",

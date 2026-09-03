@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Anytime Multi-Agent Path Finding using Operation Parallelism in Large Neighborhood Search | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Anytime Multi-Agent Path Finding using Operation Parallelism in Large Neighborhood Search</h1>
+  <div class="meta">Shao-Hung Chan, Zhe Chen, Dian-Lun Lin, Yue Zhang, Daniel Harabor, Tsung-Wei Huang, Sven Koenig, Thomy Phan<br>採択先: Adaptive Agents and Multi-Agent Systems ・ 2024-02-02 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2402.01961v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2402.01961v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arXiv.2402.01961" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Adaptive Agents and Multi-Agent Systems</span><span class="chip">公開日 2024-02-02</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 6</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFにおけるLNSの操作レベルでの並列化という新規性が高く、既存の最先端手法を上回る性能を実証しており、実用的なAnytimeアルゴリズムとして読む価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチエージェント経路探索（MAPF）において、破壊と修復の操作を並列に実行するDROP-LNSを提案する。非同期な解の更新により、同期による待機時間を抑えつつ、限られた時間内で探索空間を広範に探索し解の品質を向上させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>共有環境内の複数エージェントが衝突を避けつつ、移動時間の総和（SOC）を最小化する経路を求めるMAPF問題を対象とする。MAPFの最適解算出はNP困難であり、エージェント数や環境規模が増大すると、従来の逐次的な大規模近傍探索（LNS）では経路の修復操作が計算のボトルネックとなり、制限時間内に十分な解の品質が得られない困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のタスク分割型並列化とは異なり、アルゴリズムの操作レベルでの並列化を実現した点が新規である。既存の独立したプロセスを並列実行する手法とは異なり、有望な解へ探索を集中させるための同期メカニズムを導入している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>メインスレッドが破壊操作と修復操作のペアを一つのタスクとしてタスクキューに格納し、複数のワーカースレッドがこれを並列に処理する。各スレッドは、共有されている最良解やヒューリスティックの重みを自身のプライベート変数にコピーして計算を行う。スレッドはルーレット選択によって破壊ヒューリスティックを選定して一部の経路を削除し、優先度付き計画法（PP）を用いて経路を再生成する。より良い解が見つかった際は、他のスレッドの完了を待たずに非同期で最良解と重みを更新する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>6種類のマップを用いた実験において、劣最適化比および収束速度を示すAUCを解の質として、操作回数（NPO）、解の改善頻度（DP）、探索比率（EXP）、メモリ使用量を評価した。結果として、DROP-LNSは同期を重視するSYNC-LNSや独立性を重視するDETA-LNSよりも高い解の質を示した。また、既存の最先端手法であるLaCAM*やMAPF-LNSと比較しても、優れたAUCと解の質を達成し、LaCAM*に対しては大幅に少ないメモリ使用量で動作した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>スレッド数が増加すると、メモリ帯域の制限により性能向上が鈍化する可能性がある。今後の課題として、より高度な同期メカニズムの開発や、GPUを用いた並列アルゴリズムへの拡張、およびAnytime境界劣最適アルゴリズムへの適用が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Anytime Multi-Agent Path Finding using Operation Parallelism in Large Neighborhood Search</h3><p>本研究は、複数のエージェントが共有環境内で衝突を避けつつ、総移動時間を最小化する経路を求めるマルチエージェント経路探索（MAPF）問題に対し、大規模近傍探索（LNS）を用いた新しい並列フレームワークであるDROP-LNSを提案している。MAPFの最適解を求めることはNP困難であるため、経路の一部を破壊して再構築する操作を繰り返すLNSに基づくanytimeアルゴリズムが有望視されている。DROP-LNSは、複数の破壊および修復操作を並列に実行することで、限られた時間内で探索空間のより広範な領域を探索することを可能にする。従来のMAPFアプローチとは異なり、並列化されたハードウェアを活用して解の品質を向上させられる点が特徴である。2種類の並列化バリエーションを定式化して実験評価を行った結果、DROP-LNSは既存の最先端手法および各バリエーションを大幅に上回る性能を示すことが確認されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路計画（MAPF）は、共有環境において複数のエージェントに衝突のない経路を割り当て、総移動時間を最小化する問題ですが、最適解の算出はNP困難であるため、大規模な問題へのスケーラビリティに課題があります。既存の最先端手法であるMAPF-LNSは、一部のエージェントを選択して経路を再計画する破壊と修復の操作を繰り返すLarge Neighborhood Search（LNS）に基づいています。しかし、エージェント数や環境規模が増大すると、修復操作における単一エージェントの経路探索がボトルネックとなり、解の品質が低下する可能性があります。本研究では、限られた時間内で探索空間をより広く探索するため、破壊と修復の操作をマルチスレッドで並行して実行するDROP-LNSを提案します。DROP-LNSは、解の更新を非同期に行うことで同期による待機時間を抑え、高い生産性を維持しつつ、各反復で解を同期させるSYNC-LNSや、スレッド間で解を一切同期させないDETA-LNSと比較して、生産性と同期のバランスを両立させています。MAPFベンチマークの6つのマップを用いた評価の結果、DROP-LNSは他の並列化手法や既存の最先端手法よりも、解の品質とスケーラビリティにおいて優れた性能を示すことが確認されました。</p></section>
+<section class="secsum"><h3>2 Preliminaries</h3><p>マルチエージェント経路探索（MAPF）問題は、無向かつ重みなしのグラフ上で、各エージェントが始点から終点へ衝突を避けながら移動する経路集合を求める問題であり、本研究ではエージェントの移動時間の総和であるSOCの最小化を目的とする。現在の最先端手法であるMAPF-LNSは、大規模なシナリオに対応可能なAnytimeアルゴリズムであり、まず高速なアルゴリズムで得られた実行可能な解から開始し、近傍として選択された一部のエージェントの経路を破壊して再計画することで、与えられた時間予算内で逐次的に解の品質を向上させる。MAPF-LNSにおける近傍選択には、ランダム、エージェント、マップに基づく3種類の破壊ヒューリスティックが用いられ、各ヒューリスティックの選択確率は重みに基づくルーレット選択によって決定され、解の改善度に応じて重みが更新される。比較対象となるLaCAMは、エージェントの結合状態空間を探索する手法であり、PIBTと呼ばれるルールベースのアルゴリズムをノード展開に利用することで、分岐数の爆発を抑えつつ効率的に解を生成する。さらに、LaCAMを拡張したLaCAM*は、最大移動時間であるメイクスパン、または未到達エージェント数である合計損失のいずれかを最小化しようとするAnytimeアルゴリズムである。</p></section>
+<section class="secsum"><h3>3 Related Work</h3><p>MAPFにおける並列化の研究は、主にタスクを部分問題に分割して並列処理を行う手法が中心ですが、これらはマップの構造やエージェント数に依存する傾向があります。既存のタスク分割型手法には、部分問題を並列に解いて統合する手法や、階層的にパス探索を行う手法がありますが、衝突回避を後回しにするものや、単一エージェントの探索を並列化するだけでエージェント間の衝突を考慮しないものも存在します。これに対し、本研究は逐次的な最適化を行うAnytimeなアプローチをとり、アルゴリズムの操作レベルでの並列化を提案しています。最も近い既存研究として、独立したスレッドで複数のMAPF-LNSプロセスを実行し、制限時間内に最良の解を選択する手法がありますが、これは有望な解に探索を集中させるための同期メカニズムを欠いており、独立した探索範囲の重複による無駄が生じます。本手法は、巡回セールスマン問題などで用いられるParallel Adaptive Large Neighborhood Search（PALNS）を簡略化した構成を採用しており、破壊操作と修復操作のペアを同時に実行します。具体的には、既存の破壊ヒューリスティックと、ランダムな優先度を用いたパス計画を修復操作として組み合わせますが、PALNSで用いられる焼きなまし法による解の採択判定は行わず、反復回数ではなく制限時間に基づくAnytimeな運用を行うことで、温度や反復回数といった共有変数の管理を不要にしています。</p></section>
+<section class="secsum"><h3>4 Parallelism for MAPF-LNS</h3><p>DROP-LNSは、破壊操作と修復操作のペアをタスクとしてまとめ、メインスレッドが作成したタスクキューを複数のワーカースレッドが並列に処理する手法です。各ワーカースレッドは、現在の最良解や各破壊ヒューリスティックの重み、タスクキューなどの共有変数にアクセスする際、ミューテックスを用いて同期を行います。タスク実行時、ワーカースレッドは共有変数のコピーを自身のプライベート変数に取得して計算を行い、破壊操作ではルーレット選択によってヒューリスティックを選定し、修復操作では経路計画を用いて経路を再生成します。修復に失敗した場合や、生成された経路の総コストの和であるSOCが悪化した場合、ワーカースレッドは重みを反応係数に基づいて減少させます。一方で、より良い解が見つかった場合には、他のスレッドの完了を待たずに随時最良解と重みを更新するため、高い生産性を維持しながら高品質な解の探索を促進できます。この手法は、各イテレーションごとに全スレッドの同期を待つSYNC-LNSや、時間予算終了時まで一切同期を行わないDETA-LNSと比較して、解の枝刈りと同期オーバーヘッドのバランスを最適化しています。</p></section>
+<section class="secsum"><h3>5 Empirical Evaluation</h3><p>本研究では、提案手法であるDROP-LNSの有効性を、MAPFベンチマークの6種類のマップを用いて評価しています。評価指標として、解の質を示すために、各エージェントの最短経路からの遅延の総和を最短経路距離の総和で割った劣最適化比、および解の収束速度を示すAUC（曲線下の面積）を用いています。また、アルゴリズムの効率性を測るため、破壊と修復操作のペア数であるNPO、最良解の更新頻度を示すDP、探索空間の広さを示すEXP、およびメモリ使用量を測定しています。実験の結果、DROP-LNSはSYNC-LNSやDETA-LNSと比較して、スレッド数が増加しても高い解の質を維持し、特に混雑した小規模なマップにおいて、既存手法であるLaCAM*やMAPF-LNSよりも優れたAUCと解の質を示しました。DROP-LNSは、同期のオーバーヘッドを抑えつつ、他のスレッドが見つけた最良解を逐次利用することで、生産性と解の質のバランスを最適化しています。一方で、Den520dやCityのような大規模マップでは、修復操作に時間がかかることやエージェントの混雑度が低いことから、並列化の効果が限定的になることが確認されています。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本論文では、限られた時間内で探索空間をより広く探索するために、複数の破壊および修復操作を並列に実行する並列フレームワークであるDROP-LNSを提案している。この手法は、各ワーカーのスレッドが現在得られている最良の解を非同期に更新することで、スレッドの待機時間を低く抑えつつ、有望な解に探索を集中させており、生産性と同期のトレードオフを考慮した設計となっている。MAPFベンチマークの6つのマップを用いた評価実験の結果、DROP-LNSは他の並列化手法に加え、MAPF-LNSやLaCAM*といった最先端のAnytimeアルゴリズムを上回る性能を示すことが確認された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-04
+  </footer>
+</div>
+</body>
+</html>

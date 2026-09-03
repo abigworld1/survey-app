@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>No Panacea in Planning: Algorithm Selection for Suboptimal Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>No Panacea in Planning: Algorithm Selection for Suboptimal Multi-Agent Path Finding</h1>
+  <div class="meta">Weizhe Chen, Zhihan Wang, Jiaoyang Li, Sven Koenig, Bistra Dilkina<br>採択先: 未取得 ・ 2024-04-04 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2404.03554v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2404.03554v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/ARXIV.2404.03554" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2024-04-04</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 1</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFにおける実行時間と解の品質のトレードオフを扱う、実用性の高い研究。学習指標と目的関数の不一致を指摘する知見は、アルゴリズム選択を行う研究者にとって極めて重要。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 劣最適解を許容するマルチエージェント経路探索（MAPF）において、実行時間と解の品質のトレードオフを考慮したアルゴリズム選択の課題を扱う。学習指標と最適化目的の不一致や、特徴量に応じた適切な前処理の重要性を明らかにした。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路探索（MAPF）は、複数のエージェントが衝突を避けながら、各エージェントの移動コスト（時間や距離）を最小化する経路を生成する問題である。従来のアルゴリズム選択研究は、主に実行時間の短縮や制限時間内の完了率にのみ焦点を当てており、解の品質（コスト）を同時に考慮する枠組みが不足していた。本研究では、異なるアルゴリズムの選択に加え、単一アルゴリズム内のハイパーパラメータ選択までを含む、広範なソルバー選択問題を対象とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>実行時間と解のコストのトレードオフを扱うため、複数の最適化目的とそれに対応する学習タスクのグループを導入した。従来の、単一の損失関数を複数の指標に対して適用する手法の不適切さを指摘し、目的関数に応じた学習タスクの使い分けを提案している。また、MAPF向けに設計された専用のネットワーク構造よりも、標準的なコンピュータビジョンモデルの方が性能面で劣らないことを示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MAPFのシナリオを、障害物の有無、エージェントの開始・ゴール地点、最短経路の訪問回数、および最短経路と1ステップ長い経路の衝突回数など、複数のチャネルを持つ画像形式に変換して入力とする。学習タスクとして、各ソルバーを選択する確率を予測する分類問題と、予測された確率を用いて期待スコアを算出する回帰問題の2種類を定義している。画像サイズを統一する際、チャネルの性質に応じて補間によるリサイズとパディングを使い分ける前処理を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>VGG16、ViT-Tiny、MAPFAST、MAPFASTER、ResNet-18の5種類のモデルを用いて、新たに構築した大規模なデータセットで評価した。評価指標には、予測の正解率と、仮想的な最良ソルバー（VBS）と単一の最良ソルバー（SBS）の性能差を示すVBS-SBS gapを用いた。実験の結果、正解率の最適化には交差エントロピー（CE）やバイナリ交差エントロピー（BCE）が適しているが、Gapの最適化には回帰を用いることが最も有望であることが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>予測の正解率を最適化することが、必ずしもVBS-SBS gapの最適化に繋がらず、むしろ逆の方向に進む可能性があるというトレードオフが存在する。全てのチャネルに一律の補間やパディングを適用することは不適切であり、特徴量の意味に応じた個別のスケーリングが必要である。また、カスタマイズされたネットワーク構造が標準的なモデルを凌駕するわけではないため、学習の容易さや速度を考慮したモデル選択が重要となる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>No Panacea in Planning: Algorithm Selection for Suboptimal Multi-Agent Path Finding</h3><p>マルチエージェント経路探索（MAPF）において、各アルゴリズムは異なる特性を持つため、特定の要件を満たす最適な手法を選択することは重要な課題である。本研究では、実行時間と解の品質のトレードオフを扱うため、劣最適解を許容する汎用的なソルバーを対象とし、複数の最適化目的と学習タスクのグループを提案している。実験の結果、最適化の目的グループごとに異なる損失関数を用いる必要があり、標準的なコンピュータビジョンモデルの性能は、MAPF向けにカスタマイズされたアーキテクチャと同等であることが示された。さらに、MAPFの学習には特徴に敏感な前処理が必要であることや、異なる学習指標が各学習タスクとどのように相関するかについても議論している。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>マルチエージェント経路計画（MAPF）は、各エージェントの始点と終点に基づき、移動時間や距離などの目的関数を最小化しつつ衝突のない経路を生成する問題であり、倉庫管理や自動運転への応用が期待されています。既存研究では機械学習を用いたアルゴリズム選択が提案されていますが、本研究では最適解を求めるアルゴリズムの実行時間のみに限定せず、劣最適解を許容する設定において、異なるアルゴリズムの選択だけでなく単一アルゴリズム内のハイパーパラメータ選択も含む広範な問題を扱います。本研究では、最適化の目的、学習指標、学習タスクの間に相関があることに着目し、単一の学習スキームを複数のタスクに適用するのではなく、異なる指標に対して個別の学習タスクを提案します。標準的なMAPFベンチマークに基づき構築した新しいデータセットを用いた実験の結果、全特徴量に対して一律に補間やパディングを行う手法や、常に同じ損失関数を使用する手法は、劣最適MAPFのアルゴリズム選択における特定の目的において性能を低下させることが示されました。また、カスタマイズされたニューラルネットワークは、ResNetやViTといった標準的なコンピュータビジョンモデルに対して優位性を持たないことを明らかにし、高速かつ学習が容易で高性能なモデルの選択指針について議論しています。</p></section>
+<section class="secsum"><h3>Related Work</h3><p>マルチエージェント経路探索（MAPF）のアルゴリズムは、最適解を保証するが実行時間が長くなる傾向がある最適アルゴリズムと、解の質は保証されないが高速な非最適アルゴリズムに大別されます。非最適アルゴリズムには、解の質が一定の範囲内に収まることを保証する漸近的最適アルゴリズムと、保証を持たないアルゴリズムの2種類が存在します。MAPFにおけるアルゴリズム選択の研究は初期段階にあり、先行研究ではAlexNetやVGGNet、XGBoost、あるいはエージェント間の最短経路情報を特徴量として追加したMAPFASTなどが、実行時間の予測に用いられてきました。しかし、従来の研究は実行時間の速さや、制限時間内に完了する確率であるカバレッジ率といった実行時間に関する指標に焦点を当てており、解のコスト（質）を同時に考慮できていません。本研究では、アルゴリズム選択を画像ベースの予測問題として定式化し、実行時間と解のコストの両方を考慮した評価を行うとともに、ResNetやVision Transformerなどの最新のニューラルネットワークアーキテクチャが予測に寄与するかを検証します。</p></section>
+<section class="secsum"><h3>Preliminaries</h3><p>マルチエージェント経路探索（MAPF）は、既知の環境において、各エージェントの移動時間の総和を最小化しつつ、衝突のない経路集合を求める問題である。本研究では、4連結のグリッドマップ上で、各エージェントが開始セルから目標セルへ移動するシナリオを対象とし、エージェントは隣接セルへの移動またはその場に留まることが可能である。アルゴリズム選択問題とは、与えられたシナリオに対して、異なるアルゴリズムの選択や、あらかじめ用意されたハイパーパラメータの組み合わせの中から最適なものを選ぶことを指し、本論文ではこれらをソルバーと呼ぶ。選択アルゴリズムの入力はMAPFソルバーが利用する情報と同一であり、シナリオ情報を適切な形式に変換した後、学習モデルを用いて最適なソルバーを出力する。本研究では、この問題をコンピュータビジョン技術を用いて解く画像入力ベースの予測問題として定式化しており、最新のコンピュータビジョンモデルを直接適用する手法を検討している。</p></section>
+<section class="secsum"><h3>Algorithm Selection for Suboptimal MAPF</h3><p>本研究では、マルチエージェント経路探索（MAPF）におけるアルゴリズム選択およびハイパーパラメータ選択のためのデータセット構築手法と学習タスクを提案している。データセットは、CBS、EECBS、PP、PPS、PIBT+といった標準的なアルゴリズム、およびEECBSの最適性境界（optimality gap）を対象としており、MAPFベンチマークを用いてエージェント数を段階的に増やしながら収集された。入力特徴量は、障害物の有無、開始・ゴール地点のインジケータ、最短経路に基づくセルの訪問回数や衝突回数など、計7つのチャネルを持つ画像形式で構成される。画像サイズを揃える際は、リサイズによる情報の歪みを避けるため、元の画像を中央に配置し、障害物に対応する値でパディングを行う手法を採用している。最適化指標には、実行時間と解のコストを正規化して重み付け加算する手法と、特定のコスト境界内で最短時間で解を得る手法の2種類を定義している。評価指標として、予測の正解率だけでなく、仮想的な最良ソルバー（VBS）と単一の最良ソルバー（SBS）の性能差を示すVBS-SBS gapを用いており、正解率が高くてもgapが悪化する場合があることを指摘している。学習タスクとしては、各ソルバーの選択確率を予測する分類問題と、期待スコアを回帰的に扱う手法の2つを検討している。</p></section>
+<section class="secsum"><h3>Experiments</h3><p>本実験では、VGG16、ViT-Tiny、MAPFAST、MAPFASTER、ResNet-18の5種類のコンピュータビジョンモデルを用い、マルチエージェント経路探索におけるアルゴリズム選択の性能を評価しています。評価指標には、従来の主流である正解率と、より一般的なアルゴリズム選択で用いられるVBS-SBS Gapの2つを採用しており、これら2つの指標を同時に最適化することは困難であることが示されています。特徴量のスケーリング手法については、補間によるリサイズとパディングを比較検討しており、開始地点、ゴール地点、障害物、および最短経路のヒートマップを表す特定のチャネルにパディングを適用し、それ以外にリサイズを適用する組み合わせが有効であることを明らかにしています。モデルの比較では、特定のアーキテクチャが全てのタスクで優位に立つことはなく、多くのタスクで高い性能を示したViTが推奨される一方で、MAPFASTERのように過度に圧縮された構造により、単純なソルバーであるSBSの性能を超えられないモデルも存在します。また、損失関数と評価指標の対応関係についても調査しており、正解率の最適化には交差エントロピーやバイナリ交差エントロピーが適している一方、Gapの最適化には回帰を用いることが最も有望であると結論付けています。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本研究では、劣最適解を許容するマルチエージェント経路探索（MAPF）ソルバーにおけるアルゴリズム選択を、実行時間と解のコストのトレードオフを制御可能な予測問題として定式化しました。深層学習モデルを用いて、多様な最適化目的関数と損失関数の組み合わせで学習を行った結果、ドメイン内の異なる評価指標間には整合性がなく、予測精度を最適化したモデルがVBS-SBSギャップの最適化とは逆の方向に進む可能性があることを示しました。また、特徴量ごとに個別のスケーリングを行う必要性や、カスタマイズされたニューラルネットワーク構造がコンピュータビジョン分野の標準的なモデルを一般的に凌駕することはないという知見を得ています。さらに、提案したフレームワークはハイパーパラメータの選択にも適用可能であることを示しました。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-04
+  </footer>
+</div>
+</body>
+</html>
