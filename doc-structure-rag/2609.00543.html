@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Feedback-Assisted Trust Propagation over Document Relation Graphs for Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Feedback-Assisted Trust Propagation over Document Relation Graphs for Retrieval-Augmented Generation</h1>
+  <div class="meta">Zhuoheng Li, Ying Chen<br>採択先: 未取得 ・ 2026-09-01 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2609.00543v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2609.00543v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2609.00543" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-09-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの信頼性向上に対し、グラフ伝播を用いた新規性の高いアプローチを提案している。実験も多角的なLLMやデータセットで検証されており、実用上の価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGにおける外部コーパスのノイズや矛盾による信頼性リスクに対し、文書間の関係グラフと少数のユーザーフィードバックを用いてコーパス全体の文書信頼性を推定するTrustPropRAGを提案する。これにより、検索精度の向上と信頼性を考慮した回答生成を同時に実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>RAG（検索拡張生成）システムは外部コーパスに依存するが、そこに含まれる誤情報、古い情報、あるいは知識の矛盾が回答の信頼性を損なうリスクがある。従来の文書関係を利用した手法では、直接比較された文書ペアの範囲内でのみ関係性が考慮されるため、広範なコーパス全体に対して信頼性の信号を伝播させることが困難であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>文書間の関係をグラフ構造として定義し、多段階の伝播（multi-hop propagation）を通じて、収集コストの高い少数のフィードバックをコーパス全体へ拡張する点に新規性がある。既存研究が検索された文書のサブセット内での矛盾検知や集約に留まっていたのに対し、本手法はモデルの微調整を必要とせず、グラフ構造を利用して大規模なコーパス全体の信頼度を推定できる。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>文書をノード、文書間の支持・矛盾・中立の関係をエッジとする文書関係グラフを構築する。次に、ペアごとの一貫性を保つ項とユーザーフィードバックを反映する項を組み合わせた最適化問題を定義し、投影勾配降下法を用いて全文書の信頼度スコアをオフラインで算出する。クエリ実行時には、リトリーバーによる類似度スコアと推定された信頼度スコアを、信頼度係数を用いて統合し、文書の再スコアリングを行う。さらに、選択された文書にそれぞれの信頼度スコアを付与してプロンプトに含める信頼度考慮型プロンプティングを行い、LLMが信頼性の高い文書を優先的に参照するように制御する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>MS MARCO、Natural Questions、TriviaQAの3つのデータセットを用い、BM25、Contriever、MiniLMの検索器と、GPT-4o-mini、Gemini 2.5 Flash、GPT-5を含む6つのLLMで評価した。評価指標には回答の正確性を示すExact Match（EM）と、上位5件に含まれる事実文書の割合を示すFP@5を用いた。実験の結果、FP@5においてベースラインの38%から57%程度に対し、提案手法は77%から96%へと改善した。また、EMにおいても0.03から0.11の絶対的な向上を達成し、フィードバックの精度が60%まで低下するノイズ環境下でも堅牢に動作することが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法はフィードバックを信頼か否かの二値ラベルとして扱うが、実際には存在する段階的な評価への対応が今後の課題である。また、評価実験では合成的に注入された矛盾データを使用しており、自然発生的な矛盾への適用については検討の余地がある。現在は短い事実に基づく質問応答に限定されており、長文生成やマルチホップ推論のように、信頼性が複雑な推論と相互作用するタスクへの適用が今後の課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Feedback-Assisted Trust Propagation over Document Relation Graphs for Retrieval-Augmented Generation</h3><p>RAG（検索拡張生成）システムにおける外部コーパスの信頼性リスクに対処するため、文書間の関係をグラフ構造として捉え、多段階の伝播を通じて各文書の信頼性を推定する手法であるTrustPropRAGを提案する。この手法は、人間による限定的な信頼性フィードバックを起点とし、文書関係グラフを通じてその信号をコーパス全体へと拡張する。具体的には、文書間のペアごとの関係性とユーザーからのフィードバックを同時に考慮する最適化問題を解くことで、各文書の信頼性スコアを算出する。このスコアを用いることで、信頼性の高い文書の選択と、信頼性を考慮した回答生成が可能になる。評価実験では、既存手法と比較して検索品質と完全一致率の両方を向上させており、フィードバックが疎である場合やノイズが含まれる場合でも堅牢に動作することが示されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>Retrieval-Augmented Generation (RAG)は外部知識を利用して大規模言語モデルの知識不足を補う手法ですが、外部コーパスに含まれるノイズや知識の矛盾が信頼性のリスクとなります。提案手法であるTrustPropRAGは、ドキュメント間の関係（ソースの共有、相互支持、矛盾など）をエッジとするドキュメント関係グラフを構築し、グラフ構造を通じてドキュメントの信頼性を伝播させるフレームワークです。ドキュメント間の関係自体は信頼性を直接示さないため、ユーザーからの明示的または暗黙的なフィードバックをアンカーとして利用し、半教師あり学習のラベル伝播のように、少数のフィードバックをグラフ全体に広げて各ドキュメントの信頼性スコアを推定します。このスコア推定は、ドキュメント間のペアワイズな関係とユーザーフィードバックの両方を同時に捉える二つの目的関数を持つ最適化問題として定式化され、オフラインで計算されます。クエリ実行時には、このスコアを用いて信頼性を考慮した再スコアリングによる検索精度の向上と、信頼性情報を言語モデルに伝える信頼性考慮プロンプティングによる回答精度の向上を実現します。評価実験では、3つのオープンドメイン質問応答ベンチマーク、3つの検索器、6つの大規模言語モデルを用いて、フィードバックが疎またはノイズを含む状況下での堅牢性を含めて検証されています。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>RAGの信頼性向上に関する既存研究では、検索された文脈のノイズ除去や、LLMの内部知識との比較による知識衝突の解決、あるいは文書間の合意や矛盾といった関係性を利用する手法が提案されている。これらには、文書ごとの回答を多数決で集約する手法や、文書間の類似性に基づくクラスタリングによる汚染文書の除去、文書間の矛盾を検知して一貫性のある文書集合を選択する手法などが存在するが、これらは直接比較された文書の範囲内に限定されており、関係性が伝播しないという課題がある。これに対し、文書間の関係をグラフ構造として捉え、多段階の関係性を活用するTrustPropRAGのようなアプローチが存在する。また、グラフを活用したRAGの研究として、エンティティ知識グラフによるコミュニティ要約の利用や、効率的なインデックス作成、異種グラフ構造の導入などが挙げられるが、これらは主に知識の整理や検索の誘導を目的としている。さらに、人間からのフィードバックを用いてLLMの振る舞いや出力を改善する研究も存在するが、本研究のTrustPropRAGは、モデルの微調整を行うことなく、限られたフィードバックを用いて、ノイズや矛盾を含む大規模なコーパス全体に対して文書の信頼性推定値をグラフ構造を通じて伝播させる点に特徴がある。</p></section>
+<section class="secsum"><h3>3 Methodology</h3><p>TrustPropRAGは、外部コーパスに含まれる誤情報や矛盾する主張の影響を抑え、RAGの回答精度を向上させる手法である。まず、文書をノード、文書間の関係（支持、矛盾、中立）をエッジとする文書関係グラフを構築し、各エッジに関係ラベルと信頼度重みを割り当てる。次に、ユーザーからのフィードバックと、文書間の関係に基づく一貫性を保つための損失関数を組み合わせた最適化問題を定義し、投影勾配降下法を用いて全文書の信頼度スコアをオフラインで推定する。このプロセスでは、フィードバックがグラフの距離に応じて多段的に伝播するため、少数のフィードバックからでも広範囲の文書の信頼度を推定できる。クエリ実行時には、リトリーバーによるクエリ関連度スコアと推定された信頼度スコアを統合したランキングスコアを用いて文書を再スコアリングし、上位の文書を選択する。さらに、選択された文書にそれぞれの信頼度スコアを付与してプロンプトに含め、信頼度の高い文書を優先的に参照するようLLMに指示する信頼度考慮型プロンプティングを行うことで、検索と生成の両段階で信頼性を活用する。</p></section>
+<section class="secsum"><h3>4 Evaluation</h3><p>本研究では、MS MARCO、Natural Questions、TriviaQAの3つのデータセットを用い、信頼できる文書と誤解を招く矛盾した文書が混在する環境下でTrustPropRAGの有効性を評価しています。評価にはBM25、Contriever、MiniLMといった疎な、あるいは密なリトリーバーを使用し、文書のソース情報や自然言語推論モデルによる意味的関係に基づいた文書関係グラフを構築しています。手法の核心は、一部の文書に付与された正負のフィードバックをグラフを通じて伝播させ、投影勾配降下法を用いて全文書の信頼度スコアを最適化し、そのスコアを用いてリトリーバル結果を再スコアリングする点にあります。実験の結果、TrustPropRAGは既存の複数のベースラインと比較して、回答の正確性を示すExact Matchと、上位5件に含まれる事実文書の割合を示すFP@5の両方において向上を達成しました。特にFP@5において、ベースラインが38%から57%程度であるのに対し、TrustPropRAGは77%から96%へと改善しており、これは信頼度スコアに基づく再スコアリングが、正しい回答を支持する文書を上位に押し上げていることを示しています。また、アブレーション研究により、信頼度スコアの最適化、再スコアリング、および信頼度を考慮したプロンプトの組み合わせが効果を持つこと、さらにフィードバックの精度が60%まで低下するノイズ環境下でも、グラフを通じた伝播によって堅牢に動作することが確認されました。</p></section>
+<section class="secsum"><h3>5 Conclusions</h3><p>TrustPropRAGは、ドキュメント間の関係グラフ上で疎な人間からのフィードバックを伝播させることで、検索拡張生成（RAG）の信頼性を向上させるフレームワークである。各ドキュメントの信頼度スコアは、ペアごとの一貫性損失とフィードバック損失を組み合わせた目的関数を最適化することによって推定される。算出された信頼度スコアは、より信頼性の高いドキュメントの選択や、信頼度を考慮した回答生成の指針として活用される。実験の結果、最も強力なベースラインと比較して、正確性を示すEM指標において0.03から0.11の絶対的な向上を達成しており、ノイズを含むフィードバックに対しても堅牢性を示すことが確認された。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>TrustPropRAGは、人間からのフィードバックを信頼できるか信頼できないかの二値ラベルとして取り入れていますが、実際には段階的な評価が存在し得るため、多段階のフィードバックへの対応は今後の課題です。評価においては、自然発生的な情報の矛盾ではなく、合成的に注入された矛盾を含む信頼できないコンテンツに焦点を当てています。また、本研究は短い事実に基づく回答を求めるオープンドメインの質問応答に限定されています。信頼性が構成的な推論と相互作用するような、長文生成やマルチホップ推論への適用は今後の研究課題として残されています。</p></section>
+<section class="secsum"><h3>Ethical Considerations</h3><p>本研究は、検索拡張生成における信頼性の低いコンテンツの問題に対処するものであり、実験では合成的に生成された矛盾データを使用しています。使用したMS MARCO、NQ、TriviaQAの各データセット、および検索器であるBM25、Contriever、all-MiniLM-L6-v2、自然言語推論モデルであるnli-deberta-v3-smallは、すべて研究目的で公開されているものです。これらのデータセットおよびモデルは、それぞれのライセンスに従い、意図された研究目的の範囲内で適切に使用されています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-05
+  </footer>
+</div>
+</body>
+</html>

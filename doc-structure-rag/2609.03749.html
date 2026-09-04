@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Rent-a-RAG: Embedding-Space Watermarks for Auditing Third-Party RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Rent-a-RAG: Embedding-Space Watermarks for Auditing Third-Party RAG</h1>
+  <div class="meta">Alexandr Goultiaev Tolstokorov, Kyriakos Mouratidis, Javad Dogani, Nikolaos Laoutaris<br>採択先: EMNLP 2026 Main Conference ・ 2026-09-03 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2609.03749v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2609.03749v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 EMNLP 2026 Main Conference</span><span class="chip">公開日 2026-09-03</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの著作権保護という実用的な課題に対し、埋め込み空間を利用した堅牢な監査手法を提案しており、新規性と実用性が高い。実験も多角的に行われている。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 第三者RAG環境において、データ提供者が自身の文書の不正な再利用を監査するためのフレームワークDirBucketを提案する。埋め込み空間に特定の方向への偏りを埋め込むことで、LLMによる言い換えや複数ソースの混在が発生するブラックボックスな回答から、文書単位の再利用を統計的に検知する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>RAG（検索拡張生成）のマーケットプレイスでは、データ提供者がライセンスした文書を、RAGオペレーターが報酬を支払わずにキャッシュや再利用するリスクがある。既存の電子透かし技術は、LLMによる回答の言い換えや、複数の提供者の情報が1つの回答に混在する状況、およびオペレーターが非協力的なブラックボックス環境下での監査に対応することが困難である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>生成時に信号を埋め込む従来手法とは異なり、文書の埋め込み空間に信号を配置することで、LLMによる言い換えやスタイルの変化、敵対的な洗浄（回答の再加工）に対して堅牢な監査を実現している。また、データセット全体の存在確認を行う既存の監査手法に対し、複数の提供者が混在する環境下でも、個別の文書単位での帰属特定を可能にする点が新規である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>プロバイダーは、監査キーから生成されるバケットごとの秘密の単位方向ベクトルを用い、文の意味を維持したままパラフレーズを行うことで、埋め込みベクトルをその方向へ微小に偏らせる。監査側は、ブラックボックスな回答を重複するウィンドウに分割し、各ウィンドウの埋め込みベクトルを計算する。検知の際は、ウィンドウを最も類似した参照用文書のバケットに紐付け、そのバケットに対応する秘密の方向へのスコアを算出する（アンカリング）。このプロセスにより、言い換えによる意味の漂流を防ぐ。最終的に、複数の回答から得られたスコアをプールし、Benjamini-Hochberg法を用いて偽発見率を制御しながら、統計的に有意な再利用を識別する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>FARADデータセットを用いた実験では、GPT-4o-miniによる回答生成に対し、23個の監査回答以内にターゲットの再利用を検知することに成功した。既存のKGWやSemStampといった手法と比較して、高い検知力と非ターゲットに対する誤検知の抑制を両立している。また、臨床、サイバー脅威インテリジェンス、法務の実際のコーパスを用いた検証でも検知精度が維持されることを確認した。さらに、検知を回避しようとする操作を試みても、回答の品質（意味の保持や自然さ）が著しく低下するという結果が得られた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、ソース文書の意味を保ったまま言い換えられることを前提としているため、契約書、法令、規制テキスト、ソースコードなど、文言の正確性が不可欠な文書には適さない。また、現在はテキストのみを対象としており、画像や音声などのマルチモーダルなコンテンツには対応していない。監査プロセスにおいては、監査者が監査キーやコーパスを安全に保持する必要があり、埋め込みベクトルの逆変換による情報漏洩のリスクを完全に排除することはできないため、今後の課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Rent-a-RAG: Embedding-Space Watermarks for Auditing Third-Party RAG</h3><p>第三者提供のRAG（検索拡張生成）環境において、データ提供者が自身の文書の不正な再利用を監査するためのフレームワークであるDirBucketを提案する。この手法は、文書の意味を維持したまま言い換えを行い、その埋め込みベクトルが提供者ごとに割り当てられた秘密の方向へと偏るように電子透かしを埋め込むことで、ブラックボックスな回答から文書レベルの再利用を検知する。複数の提供者が混在する環境下でのベンチマークにおいて、DirBucketは誤検知を発生させることなく、監査対象の回答から一貫して高い精度で非準拠を検知することに成功している。この電子透かしは、回答生成後の敵対的な洗浄処理に対しても耐性を持ち、検知を回避しようとする戦略は回答の品質を低下させる。さらに、臨床、サイバー脅威インテリジェンス、法務といった実世界のコーパスを用いた別のベンチマークにおいても、検知性能が維持されることが示されている。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>RAG（検索拡張生成）のマーケットプレイスでは、データ提供者がコンテンツの利用に応じた報酬を得る必要があるが、オペレーターが文書をキャッシュして無断で再利用するリスクが存在する。既存の電子透かし技術は、LLMによる言い換えや、複数の提供者の情報が混在する回答（クロスプロバイダー・ミキシング）に対して脆弱であるという課題がある。本研究では、埋め込み空間に透かしを埋め込む手法であるDirBucketを提案する。DirBucketは、オペレーターの内部実装に依存せず、クエリと回答のみをブラックボックスとして扱う監査を可能にし、方向性のある証拠を用いた帰属および検出手順を備えている。実験の結果、DirBucketは言い換えやスタイルの変化、敵対的な洗浄、複数プロバイダーの混在に対しても堅牢であり、23個の監査回答で検出閾値に達することが示された。また、架空のコーパスおよび臨床、サイバー脅威インテリジェンス、法務といった実ドメインのベンチマークにおいて、既存の手法よりも誤帰属を抑えつつ高い検出力を維持することが確認された。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>本研究は、第三者RAGシステムにおけるデータ利用の監査を目的としており、生成時に信号を埋め込む既存のLLMウォーターマーク手法とは異なるアプローチをとる。既存手法は生成器の制御やデコーディング・ポリシーの変更、あるいは出力の言い換えによって信号が消失する課題があるため、本研究では埋め込み空間を利用する。既存のRAG監査手法であるWARDはデータセット全体の存在確認を目的としているが、本研究は複数のソースが混在するマルチプロバイダー環境において、より粒度の細かいドキュメント単位の再利用と帰属特定を目指している。また、知識ベースに特定のテキストを挿入するRAG-WMとは異なり、本手法は埋め込み空間を活用する点で異なる。非ウォーターマーク手法については、語彙の重複や意味的類似性、含意関係に基づくヒューリスティックな手法を比較対象とするが、特定のクエリを必要とするカナリードキュメント方式や、プロンプトによって情報を引き出す敵対的プロンプト方式は、自然なワークロード下での利用やプロンプトへの依存性の高さから、本研究の監査設定には適さない。</p></section>
+<section class="secsum"><h3>3 Preliminaries and Approach Outline</h3><p>本手法は、第三者RAGオペレーターがプロバイダーの文書を無断で再利用、キャッシュ、または改変して回答を生成する場合を想定した、埋め込み空間における電子透かしを用いた監査フレームワークである。監査人はプロバイダーのソース文書と監査鍵へのアクセス権を持つが、オペレーターに対してはクエリと回答のみをやり取りするブラックボックスなAPI経由でのみ対話する。監査プロセスでは、まず回答を重複する単語ウィンドウに分割し、各ウィンドウの埋め込みベクトルを計算する。次に、各ウィンドウをプロバイダーごとの参照用ウィンドウ群とコサイン類似度で比較し、最も類似度が高いプロバイダーが、二番目に高い類似度を持つプロバイダーよりも十分に高いスコアを持ち、かつ絶対的な類似度も閾値を超えている場合にのみ、そのウィンドウを特定のプロバイダーに割り当てる。複数の回答から得られたプロバイダーごとの証拠をプールし、標準化された統計量を用いて、各プロバイダーの透かしの存在を検定する。この際、複数のプロバイダーを同時に監査するため、Benjamini-Hochberg法を用いて偽発見率を制御し、誤検知を抑えつつ、複数のプロバイダーの文書が混在する回答においても正確な帰属を可能にしている。</p></section>
+<section class="secsum"><h3>4 Directional Bucket Watermark</h3><p>Directional Bucket Watermark（DirBucket）は、プロバイダーが文書の埋め込みベクトルを特定の方向に微小に偏らせることで、第三者によるRAGの監査を可能にする手法である。プロバイダー側では、監査キーとバケットコードから決定論的に生成される、バケットごとに固有の秘密の単位方向ベクトルを用いて、文単位でパラフレーズによるウォーターマークの埋め込みを行う。山登り法を用いたパラフレーズ探索では、現在の文との意味の差が一定の閾値以下であり、かつ秘密の方向へのスコア、すなわち埋め込みベクトルと方向ベクトルの内積が一定量以上増加する候補のみを採用することで、意味を保持したまま方向性の偏りを蓄積する。監査側では、回答ウィンドウと照合された参照ウィンドウのバケットに基づき、回答の埋め込みベクトルがそのバケットに対応するプロバイダーの秘密の方向を向いているかを検証する。この際、回答自体のバケットではなく、一致した参照ソースのバケットにスコア計算を固定（アンカリング）することで、パラフレーズによる意味の漂流がバケット境界を越えた場合でも堅牢な検知が可能となる。最終的な検知は、アラインメントされたサポートセット全体でスコアをプールし、帰無仮説の下での分散に基づいた統計量を用いて、p値および偽発見率（FDR）制御を適用することで、特定のプロバイダーによるコンテンツの再利用を統計的に有意に識別する。</p></section>
+<section class="secsum"><h3>5 Experimental Evaluation</h3><p>本実験では、複数のプロバイダーが混在し、回答が言い換えられる現実的なRAG環境における、提案手法DirBucketの監査能力を評価しています。実験では、FARADデータセットを複数の仮想プロバイダーに分割して使用し、GPT-4o-miniを用いて回答を生成するブラックボックス監査モデルを構築しました。評価の結果、DirBucketは既存のKGWやSemStampといった手法と比較して、ターゲットプロバイダーに対する高い検知力と、非ターゲットプロバイダーに対する極めて低い誤検知率を両立しており、約100個の回答を監査することでほぼ確実にターゲットを特定できることが示されました。回答の改変に対する堅牢性試験では、GPT-4oによる積極的な言い換えや圧縮が行われても、信号が消失するのではなく、回答が短くなることで検知に必要な証拠が不足する「証拠の飢餓」状態になるのみであり、検知を回避しようとすると回答の品質が著しく低下するというトレードオフが確認されました。また、プロバイダー数が100から1000へと増加した場合や、臨床・サイバー脅威・法律といった実世界のドメインデータを用いた場合でも、高い検知精度と誤検知の抑制が維持されることが実証されました。さらに、水マークを付与しても、検索精度や回答の正確性、自然さは元のデータセットと遜色なく、実用的なユーティリティが保持されていることが、LLMによる評価および人間による評価の両面から確認されました。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、第三者提供のRAG（検索拡張生成）における文書の再利用を監査するための、プロバイダー側で適用可能なセマンティック・ウォーターマーキングおよびブラックボックス監査フレームワークであるDirBucketを提案する。複数のプロバイダーを用いたベンチマーク実験の結果、DirBucketは非ターゲットの誤検知を発生させることなく強力なターゲット検知を実現し、迅速に証拠を蓄積できることが示された。また、敵対的な洗浄攻撃に対する堅牢性を備えつつ、有用性の損失は無視できる程度に抑えられている。この検知能力は、実際の臨床、脅威インテリジェンス、および法務コーパスから構築されたプロバイダーに対しても同様に機能することから、第三者RAGにおける文書の再利用が統計的に監査可能であることを示している。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>提案手法であるDirBucketは、すべてのRAGコンテンツに適用可能な汎用的なウォーターマークではなく、プロバイダーがデプロイ前にソースコーパスを意味を保ったまま言い換えられることを前提としています。そのため、契約書や法令、安全に関わる指示書、引用文、あるいは文言の正確性が動作に影響するソースコードのように、改変が許されないドキュメントには適していません。また、本手法はテキストコーパスを対象としており、表、図、画像、音声、動画などのマルチモーダルなコンテンツには直接対応していません。信頼のモデルについても、RAGオペレーターの自己申告を信頼する必要はなくなりますが、監査用の鍵を安全に保持し、コーパスにアクセスして誠実に監査を行う権限を持つ監査者の存在を前提としています。監査者の権限を制限するために、プロバイダーが平文ではなくエンコードされたビューのみを開示する手法や、信頼実行環境の活用、統計情報の安全な集約といった方向性が考えられますが、埋め込みベクトルは逆変換に対して脆弱であるため、これらは情報の漏洩を完全に防ぐものではなく、軽減するにとどまります。</p></section>
+<section class="secsum"><h3>Ethics Statement</h3><p>本研究で提案する監査メカニズムは、データ提供者がライセンス契約の遵守を確認することを目的としています。この仕組みは原理的に他者が作成したコンテンツの追跡にも転用可能なため、自身が所有するコーパスに対してのみ適用すべきであり、監査結果は侵害の自動的な証明ではなく、人間による判断プロセスを支援するための統計的な証拠として扱う必要があります。人間による評価実験では、本研究に関与していないボランティアの注釈者が参加しており、参加の任意性や評価結果が集計データとして学術論文に使用されることについて事前に説明し、同意を得ています。実験において個人情報は収集しておらず、注釈者は割り当てられたコードのみで識別され、評価対象も個人情報を含まない公開テキストおよび合成テキストのみで構成されています。なお、注釈者が無報酬のボランティアである点は、研究の限界として挙げられます。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-05
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Scalable Mechanism Design for Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Scalable Mechanism Design for Multi-Agent Path Finding</h1>
+  <div class="meta">Paul Friedrich, Yulun Zhang, Michael Curry, Ludwig Dierks, Stephen McAleer, Jiaoyang Li, Tuomas Sandholm, Sven Seuken<br>採択先: IJCAI 2024 ・ 2024-01-30 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2401.17044v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2401.17044v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.24963/ijcai.2024/7" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 IJCAI 2024</span><span class="chip">公開日 2024-01-30</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFの計算複雑性とメカニズムデザインの戦略的整合性を両立させるMIRの導入が独創的。スケーラビリティと品質のトレードオフを実証しており、実用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> エージェントが自己利益のために経路コストを偽る戦略的行動を防ぎつつ、大規模なマルチエージェント経路計画（MAPF）に対応可能なメカニズムを提案する。範囲内最大（MIR）という性質を活用することで、近似的なMAPFアルゴリズムを用いても戦略的整合性を維持できることを示す。</div>
+<section class="qa"><h2>どんなもの？</h2><p>複数のエージェントが共有領域内で衝突を避けながら目的地へ到達する経路を決定するMAPFにおいて、エージェントが自身の利益のためにコストや価値の情報を偽る問題設定を扱う。従来のVCGメカニズムは、社会福祉を最大化する最適解の算出を前提とするが、MAPFにおいて最適解を求めることはNP困難であり、計算コストが極めて高い。本研究では、エージェントの開始点、目標点、および目標到達時の価値という情報を入力とし、戦略的整合性と個人合理性を満たす経路割り当てを出力とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のメカニズムデザイン研究は、衝突回避を考慮していなかったり、計算負荷をエージェント側に転嫁したりする課題があった。本研究は、入札の複雑さを「目的地への到着成功」と「所要時間」の評価へと簡略化することでこれらを改善している。また、特定の解集合の中から最適解を選択する範囲内最大（MIR）という性質を導入し、劣最適なMAPFアルゴリズムを用いてもVCG支払いの変種を組み合わせることで戦略的整合性を保証できることを示した。これにより、計算複雑性の高い従来のオークションベースの手法を回避しつつ、スケーラビリティと戦略的耐性を両立させている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、以下の3つのメカニズムで構成される。<br>1. PCBS: 最適な割り当てを求めるためにConflict-based Search (CBS) を用い、各エージェントを除外した状態でのCBSの結果を用いてVCG支払いを適用する。<br>2. EPBS: Priority-based Search (PBS) を拡張した手法である。エージェント間の優先順位に関する探索木を完全に展開して得られる、MIRの性質を満たす解の範囲内から、最も厚生の高い割り当てを選択する。<br>3. MCPP: 優先順位付き計画法 (PP) を用いる。全順序の集合からランダムにサンプリングした優先順位に基づいて計画を策定し、その範囲内で最も厚生の高い割り当てを選択する。<br>いずれの手法も、あるエージェントが他のエージェントの社会的厚生をどれだけ減少させたかという外部性を計算する支払いルールを用いる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>4種類の2Dマップを用いた標準的なMAPFベンチマークにより評価を行った。比較対象として、支払いを伴わず単一のランダムな優先順位で実行するFirst-Come-First-Serve (FCFS) をベースラインとして用いた。実験の結果、最適解を求めるPCBSは最も高い社会的厚生を実現するが、エージェント数が増加すると時間制限内に解を求められないことが示された。EPBSはPCBSと同様のスケール特性を示した。一方でMCPPは、サンプルサイズを調整することでスケーラビリティと解の品質をトレードオフでき、FCFSよりも高い社会的厚生を維持しつつ、PCBSやEPBSよりも極めて高いスケーラビリティを発揮した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>PCBSのような最適解を求める手法は、大規模なインスタンスにおいて計算時間が膨大になるというスケーラビリティの限界がある。MCPPは計算量と最適性のトレードオフが可能であるが、解の品質はサンプリング数に依存する。また、MCPPにおいてエージェントの経路が他のエージェントの経路を妨げないようにするため、低優先度のエージェントには空の経路を割り当てるなどの制約が必要となる。今後の課題として、MIRの性質を満たすよりスケーラブルなMAPFアルゴリズムの探索や、誤報告不可能なエージェントの情報を活用して割り当ての範囲を調整し、劣最適アルゴリズムの社会的厚生を向上させる手法の検討が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Scalable Mechanism Design for Multi-Agent Path Finding</h3><p>マルチエージェント経路計画（MAPF）は、複数のエージェントが共有領域内で衝突を避けながら目的地へ到達する経路を決定する問題であり、エージェント数が増大するにつれて計算量が膨大になるため、近似的な解を用いることが不可欠となる。エージェントが自身の利益のために目的地の情報を偽るような戦略的な行動をとる場合、既存のメカニズムデザインの手法では、近似解しか得られない状況下でインセンティブの整合性を保てない可能性がある。本研究では、MAPFにおけるスケーラブルなメカニズムデザインという問題を導入し、3つの戦略的耐性を持つメカニズムを提案する。このうち2つのメカニズムは、近似的なMAPFアルゴリズムを利用することを前提としている。数十から数百のエージェントが存在する現実的なドメインを用いた実験の結果、提案手法は単純なベースラインと比較して社会的厚生を向上させることが示された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路計画（MAPF）において、エージェントが自己の利益のために経路コストを偽って報告する戦略的行動を防ぎつつ、大規模な問題に対応可能なメカニズム設計を提案している。従来のVCGメカニズムは、社会福祉を最大化する最適解の算出を前提とするため、NP困難なMAPFにおいて計算コストが極めて高いという課題がある。本研究では、限定された固定の解集合の中から最適解を選択する「範囲内最大（MIR）」という性質を利用することで、劣最適なMAPFアルゴリズムを用いても、VCG支払いを組み合わせることで戦略的耐性を保証できることを示す。具体的には、制約木を構築するCBSにVCG支払いを適用したPCBS、優先順位の順序関係を網羅的に探索するEPBS、そしてランダムに抽出した優先順位に基づく計画の中から社会福祉を最大化するMCPPという3つのメカニズムを提案している。特にMCPPは、サンプリングする優先順位の数を調整することで、解の最適性と計算のスケーラビリティをトレードオフできる。実験の結果、提案手法は最適解を求める手法と比較して大幅な高速化を実現し、単純な戦略的耐性を持つベースラインよりも高いエージェント福祉を達成した。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>メカニズムデザインは、電力市場やワクチン配分など、自己利益を追求するエージェント間の資源配分に広く用いられており、適切な支払いルールを設計することで、他者の報告内容に関わらず各エージェントが真の好みを報告する支配戦略を持つことが可能になる。既存のライドシェアや道路課金に関する研究では、エージェントが個別に経路を選択するため衝突回避が考慮されておらず、無人航空機の交通管理に関する研究では、エージェントが事前に意図する経路を提出する必要があるため、計算負荷がエージェント側に転嫁されている。MAPF（マルチエージェント経路探索）を明示的に扱う研究では、非協調的なケースにおいてオークションを用いた手法が提案されているが、経路を頂点の集合として扱う反復的組合せオークションは、スケーラビリティに欠けるという課題がある。本研究は、入札の複雑さを、経路や優先順位の評価から、目的地への到着成功と所要時間に対する評価へと簡略化することで、この問題を改善する。さらに、スケーラブルなMAPFアルゴリズムを活用することで、既存のVCGオークションベースの手法が抱える高い計算複雑性を解決しつつ、戦略的整合性（strategyproofness）を維持している。本手法は、特定のグラフ構造を仮定せず、標準的なMAPFの定式化に基づいた割り当て問題を扱う。</p></section>
+<section class="secsum"><h3>3 Problem Setup</h3><p>本セクションでは、自己利益を追求するエージェントに対し、グラフ上での経路を割り当てるマルチエージェント経路探索（MAPF）のメカニズム設計問題を定義している。各エージェントは、開始点、目標点、および目標到達時の価値という非公開の情報を持ち、メカニズムに対してこれらを報告する。エージェントの効用は、割り当てられた経路による価値から移動コストと支払額を差し引いたものであり、メカニズムは報告された社会的厚生の総和を最大化することを目指す。同時に、エージェントが真の情報を報告することが支配戦略となる戦略的整合性（SP）と、参加によって効用が負にならないことを保証する個人合理性（IR）の両立を図る。<br><br>提案手法では、計算コストを抑えるために、割り当ての候補となる集合を限定する範囲内最大化（MIR）という性質を導入している。具体的には、EPBSやMCPPといった優先度ベースのアルゴリズムに対し、VCG支払いの変種であるVCGベースの支払いを適用することで、戦略的整合性を保証する。この支払いルールでは、あるエージェントの存在が他のエージェントの社会的厚生をどれだけ減少させたかという外部性を計算するが、計算量を削減するため、既に探索済みの範囲内にある割り当ての中から、当該エージェントの価値とコストを0と見なして厚生を最大化する割り当てを選択する。また、エージェントの厚生が負になる場合には、厚生を0として扱うことで個人合理性を担保している。</p></section>
+<section class="secsum"><h3>4 Mechanisms</h3><p>自己中心的なエージェントによるマルチエージェント経路計画（MAPF）問題を解決するため、戦略的整合性、個人合理性、および非負の支払いを満たす3つのメカニズムを提案している。最適ベンチマークであるPayment-CBS（PCBS）は、Conflict-based Search（CBS）を用いて社会的厚生を最大化する割り当てを求め、VCG支払いを適用する。PCBSは各エージェントを除外した状態でのCBSを個別に実行して支払額を算出するが、これらの実行は並列化が可能である。Exhaustive-PBS（EPBS）は、Priority-based Search（PBS）を拡張したもので、エージェント間の優先順位に関する探索木を完全に展開して、その範囲内の全ての衝突回避可能な割り当てを算出してから、最も厚生の高いものを選択する。EPBSの探索木の深さはエージェント数の2乗に比例し、最悪計算量はエージェント数に対して指数関数的に増大するが、一度の探索でVCG支払いに必要な全ての反事実的な割り当てが得られる。Monte-Carlo Prioritized Planning（MCPP）は、優先順位付き計画法（PP）を用い、エージェントの報告とは無関係に全順序の集合からサンプリングを行うことで、計算量と最適性のトレードオフを制御する。MCPPの計算複雑性はエージェント数とサンプル数に対して線形であり、サンプリングされた順序は独立しているため、並列処理によって実行時間を短縮できる。</p></section>
+<section class="secsum"><h3>5 Experiments</h3><p>提案手法であるPCBS、EPBS、およびMCPPを、標準的なMAPFベンチマークから選定された4種類の2Dマップを用いて評価しました。比較対象として、支払いを伴わず単一のランダムな優先順位で優先度付き計画を実行するFCFSを、社会的厚生と実行時間の下限値となるベースラインとして用いています。実験の結果、最適解を求めるPCBSは最も高い社会的厚生を実現しますが、大規模なインスタンスでは時間制限内に解を求められず、スケーラビリティに課題があることが示されました。一方でMCPPは、サンプルサイズを調整することでスケーラビリティと解の品質をトレードオフすることが可能であり、FCFSよりも高い社会的厚生を維持しつつ、探索ベースのPCBSやEPBSと比較して極めて高いスケーラビリティを発揮します。また、MCPPにおけるVCGに基づく支払額を調査したところ、支払いは非負であり、その大部分がゼロまたは非常に小さな値であったことから、この設定においてエージェントが他者に与える外部性が少ないことが確認されました。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、メカニズムデザインとマルチエージェント経路探索（MAPF）を橋渡しする新たな領域を定義し、エージェントが自己利益のためにコストや価値を誤って報告する可能性がある状況下での経路割り当てを扱った。提案手法であるPCBS、EPBS、MCPPの3つのメカニズムは、VCG型の支払いルールとMAPFの割り当てアルゴリズムを組み合わせることで、戦略的報告の防止、個別の合理性、および負の支払いの不在を保証している。特に、範囲内最大（MIR）という性質を利用することで、EPBSやMCPPのような劣最適解を生成するMAPFアルゴリズムであっても、戦略的報告を防止できることを示した。今後の研究として、MIRの性質を満たすよりスケーラブルなMAPFアルゴリズムの探索や、誤報告不可能なエージェントの情報を活用して割り当ての範囲を調整し、MIRを満たす劣最適アルゴリズムの社会的厚生を向上させる手法の検討が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-05
+  </footer>
+</div>
+</body>
+</html>

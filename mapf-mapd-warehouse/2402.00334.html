@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-agent Path Finding for Cooperative Autonomous Driving | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi-agent Path Finding for Cooperative Autonomous Driving</h1>
+  <div class="meta">Zhongxia Yan, Han Zheng, Cathy Wu<br>採択先: IEEE International Conference on Robotics and Automation 2024 ・ 2024-02-01 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2402.00334v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2402.00334v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/ICRA57147.2024.10611649" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 IEEE International Conference on Robotics and Automation 2024</span><span class="chip">公開日 2024-02-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 13</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFの知見を自動運転の交差点制御に適用した新規性が高い。部分順序を用いるOBSや、簡略モデルと複雑モデルを分離する設計は実用的で、実験も詳細である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 信号機のない交差点におけるコネクテッド自動運転車（CAV）の協調走行のため、マルチエージェント経路探索（MAPF）の知見を導入し、車両の通過順序を最適化する手法を提案する。車両の運動学的制約を考慮した到着時刻のスケジューリングと順序ベースの探索を組み合わせることで、車両の遅延を最小化する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>信号機のない交差点において、複数のCAVが衝突を回避しながら効率的に走行する問題。交差点は、一度に1台の車両しか占有できない16個の予約制サブゾーンに分割されており、車両は直進、左折、右折のいずれかの経路を通る。従来の、到着順に通過するFIFO戦略やモンテカルロ木探索（MCTS）を用いた手法では、車両の遅延を十分に抑えることが困難であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の優先度付き計画法（PP）やMCTSに対し、MAPFの知見を活用したOrder-based Search（OBS）を導入した点。OBSは全順序ではなく部分順序を扱うことで、既存手法よりも優れた解の質を実現する。また、簡略化された運動モデルに基づく順序決定と、複雑な運動学的自転車モデルに基づく軌道最適化を分離することで、モデル間の不一致に対する堅牢性を実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>車両の調整を、通過順序の最適化と軌道計算の2段階で行う。高レベルの探索では、交通構造に基づく枝刈りを行うPP、および部分的な順序関係を構築するOBSを用いる。低レベルの計画として、Kinematic Arrival Time Scheduling（KATS）を導入する。KATSは、各サブゾーンへの到着・出発時刻を、加速、定速走行、減速のプロセスを経て計算する。最後に、決定された順序に基づき、自転車モデルを用いた軌道最適化によって、先行車両やサブゾーンの時刻制約を満たす具体的な車両軌道を逐次的に算出する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>HighwayEnvを拡張したシミュレーション環境において、FIFO、MCTS、PPと比較検証を行った。評価指標は車両の平均遅延である。実験の結果、OBSは他の手法を上回る遅延低減を実現し、計算負荷が高い条件下でも、PPやMCTSよりも高いスループット（2160 veh/hr）を達成した。また、車線長、交差速度、再計画の間隔、および経路の種類（直進、右折、左折）を変化させた条件下でも、OBSの有効性が示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>車線長が短いなど問題の複雑さが低い場合には、他の手法との性能差が縮まる傾向がある。再計画の頻度については、頻度が低すぎると遅延が増加するため、最適な再計画間隔が存在する。また、KATS（簡略モデル）と軌道最適化（複雑モデル）の間のモデルの不一致が、再計画時に制約のズレを引き起こす可能性がある。今後の課題として、人間の運転行動の不確実性が存在する混合交通環境への拡張や、より大規模な交通シナリオへの適用が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Multi-agent Path Finding for Cooperative Autonomous Driving</h3><p>本研究は、信号機のない交差点におけるコネクテッド自動運転車（CAV）の協調的な走行を実現するため、マルチエージェント経路探索（MAPF）の知見と、車両の交差順序を最適化する構造およびヒューリスティックを融合させた手法を提案している。提案手法であるOrder-based Search with Kinematics Arrival Time Scheduling（OBS-KATS）は、車両の運動学的な制約を考慮した到着時刻のスケジューリングを伴う順序ベースの探索アルゴリズムであり、最適性と完全性を備えている。実験の結果、OBS-KATSは既存のアルゴリズムや固定的なヒューリスティック、およびKATSを用いた優先度付き計画と比較して高い性能を示した。この性能は、車両の到着率、車線の長さ、交差速度、および制御ホライゾンの異なる条件下においても維持される。本手法は、有向車線を持つ交通システムやマルチロボットのシナリオへ直接適用可能である。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>本研究は、信号機のない交差点におけるコネクテッド自動運転車（CAV）の協調制御を目的とし、マルチエージェント経路探索（MAPF）の知見を導入した手法を提案している。車両の調整プロセスは、交差点の通過順序の最適化と、その順序に基づいた車両軌道の計算という2つの逐次的なフェーズに分割される。順序決定においては、交差点を予約制のサブゾーンに分割し、低レベルのKinematic Arrival Time Scheduling（KATS）を用いて各サブゾーンへの到着・出発時刻を計画する。既存の先入れ先出し（FIFO）やモンテカルロ木探索を用いた手法に対し、MAPFに着想を得た高レベルの優先度付き計画およびOrder-based Search（OBS）を用いることで、より優れた解の質を実現している。また、A*探索やSIPPのような単一エージェントの経路計画ではなく、軌道最適化を用いることで、自転車モデルに基づく車両の運動学的な制約を考慮した軌道生成を可能にしている。実験の結果、OBS-KATSは多様な交差点設定において、ベースライン手法と比較して車両の遅延を改善することを実証しており、さらにこの手法が車両の通過順序を見つける上で健全性、完全性、および最適性を備えていることを証明している。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>信号機のない交差点における自動運転車の協調走行では、到着順に通過するFIFO戦略や、新しく到着した車両を既存の順序に挿入する動的再構成法、モンテカルロ木探索を用いて定期的に順序を再計画する手法などが提案されている。一方、古典的なマルチエージェント経路探索（MAPF）は、離散グラフ上で衝突を回避しつつ最短経路を求めるNP困難な問題であり、計算量を抑えるためにA*探索などの単一エージェント用プランナーを繰り返し呼び出す手法が一般的である。MAPFの代表的なアルゴリズムには、エージェントごとに優先順位を付けて順次計画を行う優先度付き計画法や、エージェント間の衝突をバックトラッキングによる木探索で解決する衝突ベース探索（CBS）、およびその拡張である優先度ベース探索（PBS）が存在する。また、連続的な時間や空間を扱う研究として、グラフ上のエッジを一定速度で進むような簡略化された運動学を用いる連続時間MAPFや、サンプリングベースの手法を用いたマルチロボット運動計画がある。本研究では、交通システムには明確に定義された車線が存在するため、連続的な2次元空間を扱うのではなく、MAPFの知見を活用したアプローチをとる。</p></section>
+<section class="secsum"><h3>III Problem Formulation</h3><p>本研究では、交差点における協調自動運転を、車両の経路に沿った1次元の縦方向位置に基づく問題として定式化しています。交差点は、車両の経路が交差する幾何学的形状に基づき、一度に1台の車両しか占有できない16個の予約サブゾーンに分割されており、左右折を行う4台の車両が同時に交差することを可能にしています。各車両は、経路上の位置、速度、加速度の状態を持ち、直進および旋回時の最大速度や加速度の制限を受けます。計画の目的は、他の車両が存在しない場合の最小走行時間と実際の走行時間の差である車両遅延の総和を最小化するように、車両の交差順序を決定することです。この順序付けは、同じ予約サブゾーンを通過する車両間でのみ先行関係を定義する部分順序として扱われます。また、経路上の1次元モデルで計画された制御入力は、車両の重心から前後輪までの距離、操舵角、車体方位角、スリップ角を考慮した運動学的自転車モデルへと変換され、実行されます。</p></section>
+<section class="secsum"><h3>IV Optimal Crossing Order Search with MAPF</h3><p>本セクションでは、マルチエージェント経路探索（MAPF）の観点から、交差点における車両の最適な通過順序を決定する手法を提案している。低レベルの計画として、各車両のサブゾーンへの到着および出発時刻を決定するKinematic Arrival Time Scheduling（KATS）を導入しており、これは定速走行を前提としたモデルを代理として用い、加速、最大速度での巡航、減速のプロセスを経て遅延を最小化する。高レベルの順序探索には、交通構造に基づく枝刈りを行うPrioritized Planning（PP）と、部分的な順序関係を構築しながら探索を行うOrder-based Search（OBS）がある。OBSは、探索予算を制限することで計算時間を制御しつつ、漸近的に最適な通過順序を見つけ出すことが可能である。決定された順序に基づき、各車両の軌道は、先行車両の軌道やサブゾーンの到着時刻制約を考慮した最適化問題として、逐次的に計算される。この手法は、KATSのような簡略化された運動モデルと、実際の複雑な運動モデルを用いた軌道最適化との間のモデルの不一致に対し、順序を固定することで、後続車両の計画が破綻するリスクを抑え、堅牢性を高める効果がある。</p></section>
+<section class="secsum"><h3>V Default Experimental Setup</h3><p>HighwayEnvをベースに、時間ステップを離散化してシミュレーションを行う実験設定が記述されている。交差点は一辺の長さが一定の正方形であり、車両は直進、左折、右折をそれぞれ60%、20%、20%の確率で行い、左折と右折にはそれぞれ異なる旋回半径が設定されている。車両の衝突判定は、車両のバウンディングボックスが重なったときに行われ、アルゴリズムの正確性を検証するために車両周囲への時間的または空間的な余白は設けられていない。実験では、ブートストラップサンプリングを用いて平均値の95%信頼区間を算出している。実装にはPythonが用いられ、軌道最適化にはCVXPYが使用されている。</p></section>
+<section class="secsum"><h3>VI Experimental Results</h3><p>提案手法であるOBSの有効性を、FIFO、MCTS、およびPPの各手法と比較して検証した結果、OBSは計算コストに対する車両の平均遅延の低減において、他の手法を大幅に上回る性能を示しました。1回の交差順序計算に10秒を要する極めて高い計算負荷を与えた場合でも、OBSの処理能力は2160台/時であり、PPの2080台/時やMCTSの2050台/時よりも高いスループットを達成しています。この性能差は、交通ヒューリスティクスの使用によるものではなく、全順序の探索ではなく部分順序を柔軟に扱うというOBSのアルゴリズム的な優位性によるものです。交差点の構成に関する頑健性の実験では、車線長が短い設定では手法間の差は小さいものの、問題の複雑さが増すにつれて手法間の差が拡大することが確認されました。また、再計画の間隔については、再計画の頻度が低すぎると遅延が増加する一方で、最適な再計画間隔が存在することが示されています。交差の幾何学的形状に関する分析では、OBSは直進、右折、左折のすべての経路で遅延を削減しますが、特に最も高い交差速度が可能な直進経路において顕著な遅延削減効果を発揮しています。</p></section>
+<section class="secsum"><h3>VII Conclusions</h3><p>本研究は、ロボティクス分野と制御および高度道路交通システム分野の間の隔たりを埋めることを目的としている。今後の展望として、交差順序の決定が有効に機能する他の交通状況やロボティクス環境の特定、および人間の運転行動に伴う不確実性に対処するための混合交通環境への提案アルゴリズムの拡張が挙げられる。また、大規模かつ一般的な交通シナリオにおけるコネクテッド自動運転車（CAV）の協調制御に向け、ロボティクス分野からの知見を取り入れることで、将来的なアルゴリズムの発展に寄与することを目指している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-05
+  </footer>
+</div>
+</body>
+</html>

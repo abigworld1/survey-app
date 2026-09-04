@@ -3660,6 +3660,38 @@
       "url": "http://arxiv.org/abs/2609.02396v1",
       "venue": ""
     },
+    "arxiv:2609.03749": {
+      "added": "2026-09-05",
+      "added_at": "2026-09-05T06:07:51.078960",
+      "arxiv_id": "2609.03749",
+      "authors": [
+        "Alexandr Goultiaev Tolstokorov",
+        "Kyriakos Mouratidis",
+        "Javad Dogani",
+        "Nikolaos Laoutaris"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-03",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2609.03749.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.03749v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの著作権保護という実用的な課題に対し、埋め込み空間を利用した堅牢な監査手法を提案しており、新規性と実用性が高い。実験も多角的に行われている。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Rent-a-RAG: Embedding-Space Watermarks for Auditing Third-Party RAG",
+      "tldr": "第三者RAG環境において、データ提供者が自身の文書の不正な再利用を監査するためのフレームワークDirBucketを提案する。埋め込み空間に特定の方向への偏りを埋め込むことで、LLMによる言い換えや複数ソースの混在が発生するブラックボックスな回答から、文書単位の再利用を統計的に検知する。",
+      "url": "http://arxiv.org/abs/2609.03749v1",
+      "venue": "EMNLP 2026 Main Conference"
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -4990,6 +5022,36 @@
       "title": "ISO-RAG: Isoperimetric Noise Control for Retrieval-Augmented Generation",
       "tldr": "マルチホップ質問回答におけるグラフベースRAGの課題である、無関係なノードへの確率拡散による意味的ドリフトと、グラフ全体探索に伴う高レイテンシを解決するため、幾何学的なトポロジー制御を用いたRAGフレームワークを提案する。",
       "url": "http://arxiv.org/abs/2609.00513v1",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2609.00543": {
+      "added": "2026-09-05",
+      "added_at": "2026-09-05T06:09:11.635026",
+      "arxiv_id": "2609.00543",
+      "authors": [
+        "Zhuoheng Li",
+        "Ying Chen"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-01",
+      "doi": "10.48550/arxiv.2609.00543",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2609.00543.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.00543v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの信頼性向上に対し、グラフ伝播を用いた新規性の高いアプローチを提案している。実験も多角的なLLMやデータセットで検証されており、実用上の価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Feedback-Assisted Trust Propagation over Document Relation Graphs for Retrieval-Augmented Generation",
+      "tldr": "RAGにおける外部コーパスのノイズや矛盾による信頼性リスクに対し、文書間の関係グラフと少数のユーザーフィードバックを用いてコーパス全体の文書信頼性を推定するTrustPropRAGを提案する。これにより、検索精度の向上と信頼性を考慮した回答生成を同時に実現する。",
+      "url": "http://arxiv.org/abs/2609.00543v1",
       "venue": ""
     },
     "doi:10.5281/zenodo.21874580": {
@@ -8308,6 +8370,37 @@
       "url": "http://arxiv.org/abs/2409.14491v1",
       "venue": "ICRA 2024"
     },
+    "doi:10.1109/icra57147.2024.10611649": {
+      "added": "2026-09-05",
+      "added_at": "2026-09-05T06:03:41.309220",
+      "arxiv_id": "2402.00334",
+      "authors": [
+        "Zhongxia Yan",
+        "Han Zheng",
+        "Cathy Wu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 13,
+      "date": "2024-02-01",
+      "doi": "10.1109/ICRA57147.2024.10611649",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2402.00334.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2402.00334v1",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFの知見を自動運転の交差点制御に適用した新規性が高い。部分順序を用いるOBSや、簡略モデルと複雑モデルを分離する設計は実用的で、実験も詳細である。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi-agent Path Finding for Cooperative Autonomous Driving",
+      "tldr": "信号機のない交差点におけるコネクテッド自動運転車（CAV）の協調走行のため、マルチエージェント経路探索（MAPF）の知見を導入し、車両の通過順序を最適化する手法を提案する。車両の運動学的制約を考慮した到着時刻のスケジューリングと順序ベースの探索を組み合わせることで、車両の遅延を最小化する。",
+      "url": "http://arxiv.org/abs/2402.00334v1",
+      "venue": "IEEE International Conference on Robotics and Automation 2024"
+    },
     "doi:10.1109/ictai62512.2024.00105": {
       "added": "2026-08-30",
       "added_at": "2026-08-30T06:03:50.433893",
@@ -9389,6 +9482,42 @@
       "tldr": "Lifelong Multi-Agent Path Finding (MAPF) において、エッジの重みを最適化する有向ガイダンスグラフを用いてスループットを向上させる Guidance Graph Optimization (GGO) を提案。ブラックボックス最適化の CMA-ES によるマップ固有の最適化と、交通情報から重みを更新するモデルを学習する Parameterized Iterative Update (PIU) を提示し、大規模マップへの転移可能性と既存アルゴリズムの性能向上を実証した。",
       "url": "http://arxiv.org/abs/2402.01446v2",
       "venue": "Proceedings of the AAAI Conference on Artificial Intelligence"
+    },
+    "doi:10.24963/ijcai.2024/7": {
+      "added": "2026-09-05",
+      "added_at": "2026-09-05T06:05:00.422478",
+      "arxiv_id": "2401.17044",
+      "authors": [
+        "Paul Friedrich",
+        "Yulun Zhang",
+        "Michael Curry",
+        "Ludwig Dierks",
+        "Stephen McAleer",
+        "Jiaoyang Li",
+        "Tuomas Sandholm",
+        "Sven Seuken"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-01-30",
+      "doi": "10.24963/ijcai.2024/7",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2401.17044.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2401.17044v2",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFの計算複雑性とメカニズムデザインの戦略的整合性を両立させるMIRの導入が独創的。スケーラビリティと品質のトレードオフを実証しており、実用性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Scalable Mechanism Design for Multi-Agent Path Finding",
+      "tldr": "エージェントが自己利益のために経路コストを偽る戦略的行動を防ぎつつ、大規模なマルチエージェント経路計画（MAPF）に対応可能なメカニズムを提案する。範囲内最大（MIR）という性質を活用することで、近似的なMAPFアルゴリズムを用いても戦略的整合性を維持できることを示す。",
+      "url": "http://arxiv.org/abs/2401.17044v2",
+      "venue": "IJCAI 2024"
     },
     "doi:10.4108/airo.3449": {
       "added": "2026-07-31",
