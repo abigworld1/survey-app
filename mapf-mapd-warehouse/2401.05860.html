@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Confidence-Based Curriculum Learning for Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Confidence-Based Curriculum Learning for Multi-Agent Path Finding</h1>
+  <div class="meta">Thomy Phan, Joseph Driscoll, Justin Romberg, Sven Koenig<br>採択先: AAMAS 2024 ・ 2024-01-11 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2401.05860v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2401.05860v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 AAMAS 2024</span><span class="chip">公開日 2024-01-11</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFにおける報酬の希薄さを、統計的信頼度に基づく軽量なリバース・カリキュラムで解決する提案は極めて実用的。既存手法の5%以下のパラメータ数で高い汎化性能を示す点は、計算資源の観点からも価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチエージェント経路探索（MAPF）における報酬の希薄さと調整の困難さを解決するため、統計的な信頼度に基づきタスクの難易度を段階的に高める軽量な逆カリキュラム学習手法CACTUSを提案する。本手法は、既存の最先端手法の5%未満のパラメータ数でありながら、優れた性能と汎化性能を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>個々のエージェントが衝突を避けながら、それぞれの開始地点から目的地へと移動するマルチエージェント経路探索（MAPF）問題を対象とする。従来の集中型ソルバーは、グローバルな情報を必要とするため、環境の変化に対するスケーラビリティや柔軟性に欠ける。一方、マルチエージェント強化学習（MARL）を用いるアプローチでは、報酬が目的地到達時のみに与えられる希薄なものであることや、エージェント間の動的な衝突回避といった制約が学習を困難にしている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>複雑なネットワーク構造や、報酬関数への詳細な設計、あるいは集中型ソルバーによるエキスパートデータへの依存を排除した、シンプルかつ汎用的なリバース・カリキュラム・スキームを提案する。既存のMARLを用いたMAPF手法と比較して、学習パラメータ数を60万個未満（既存手法の5%未満）に抑えつつ、学習時間やデータ効率を向上させた。また、性能推定の不確実性を考慮し、統計的な信頼度に基づいてカリキュラムを更新する仕組みを導入した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>エージェントの開始地点から目的地までの距離を規定する「割り当て半径」を段階的に拡大させるリバース・カリキュラムを採用する。学習には、中央集中型学習・分散実行（CTDE）の枠組みを用い、QMIXやQPLEXなどの価値分解演算子を組み合わせたアクター・クリティック法を適用する。カリキュラムの更新は、エージェントの平均完了率から標準偏差に係数を乗じた値を引いた値が、決定閾値を上回った場合に、割り当て半径を1ずつ増加させることで行われる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>マップのサイズ、障害物密度、エージェント数が異なる様々なグリッドマップを用いて評価を行った。比較対象として、強化学習ベースのPRIMAL、カリキュラムを用いない手法、および集中型ソルバーであるCBSHとMAPF-LNSを用いた。評価の結果、CACTUSはQMIXやQPLEXと組み合わせることで、PRIMALやカリキュラムなしの手法を上回る性能と汎化性能を示した。特に、QMIXを用いた場合、学習時よりも8倍から16倍多いエージェント数に対しても、標準的なMARLが失敗する中で良好な性能を維持した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>決定閾値を少なくとも0.5以上に設定することが、適切な難易度を維持するために重要である。信頼度レベルを高く設定しすぎると、カリキュラムの更新が遅くなり、エージェントが容易なタスクに過学習するトレードオフが存在する。本手法は、障害物密度が高い場合や、部屋と狭い通路で構成される構造的なマップ、および大規模なマップでは完了率が低下するという限界がある。また、分散型の意思決定を実現しているものの、スケーラビリティの観点から、集中型MAPFソルバーの性能には及ばない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Confidence-Based Curriculum Learning for Multi-Agent Path Finding</h3><p>本研究では、マルチエージェント経路探索（MAPF）問題を解くための軽量なマルチエージェント強化学習（MARL）手法として、Confidence-based Auto-Curriculum for Team Update Stability（CACTUS）を提案している。CACTUSは、各エージェントの目標地点をエージェントの開始位置を中心とした一定の半径内にランダムに配置する、シンプルな逆カリキュラム学習スキームを採用している。学習の進捗に応じて、この目標配置半径を段階的に拡大させていくが、その拡大のタイミングは、信頼度に基づく指標によって評価される。様々なマップサイズ、障害物密度、エージェント数を用いた評価実験の結果、CACTUSは既存の最先端MARL手法よりも優れた性能と汎化性能を示した。また、CACTUSの学習可能なパラメータ数は60万未満であり、これは既存のMAPF向けMARL手法のニューラルネットワークサイズの5%未満である。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>マルチエージェント経路探索（MAPF）は、複数のエージェントが個別の開始地点から目的地まで衝突を避けながら移動する経路を求める問題であり、その最適解の算出はNP困難である。従来の集中型ソルバーは、グローバルな情報を必要とするためスケーラビリティや部分観測環境への適応性に課題があるが、マルチエージェント強化学習（MARL）を用いることで、分散型ポリシーによる効率性、汎用性、および頑健性の向上が期待できる。しかし、MAPFをMARLで解く際には、報酬の希薄さ、衝突回避による動的な制約、およびエージェント間の調整といった課題が存在する。本研究では、これらを解決する軽量な手法としてCACTUSを提案する。CACTUSは、エージェントの開始地点から目的地までの割り当て半径を徐々に拡大していくリバース・カリキュラム・スキームを採用しており、平均完了率から算出される信頼度に基づき、平均完了率から標準偏差に係数を乗じた値が決定閾値を超えた場合に半径を1ずつ増加させる。実験の結果、CACTUSは既存のMARL手法と比較して優れた性能と汎用性を示し、かつ学習パラメータ数は既存手法の5%未満である60万個以下という極めて軽量なモデルを実現している。</p></section>
+<section class="secsum"><h3>2. Background</h3><p>マルチエージェント経路探索（MAPF）は、無向グラフ上で各エージェントに衝突のない経路を割り当てる問題であり、頂点やエッジでの衝突を回避しながら、全エージェントの移動時間の総和であるフロータイムを最小化することを目的とする。本研究では、協調的な目的を最大化する共同方策の学習を目指すため、マルチエージェント強化学習（MARL）を用いる。学習には、訓練時にグローバルな情報を利用できる一方で、実行時には各エージェントが自身の観測履歴のみに基づいて独立して行動できる、中央集中型学習・分散実行（CTDE）の枠組みを採用する。具体的には、MAPPOのようなアクター・クリティック手法や、共同価値関数を個別の効用関数に分解するQMIXのような手法が挙げられるが、後者は個別の最大化行動が全体の最大化と一致するというIGM条件を満たす必要がある。さらに、複雑なタスクを段階的に習得させるカリキュラム学習の概念を取り入れており、本研究ではエージェントと目標地点の期待距離を徐々に大きくしていくリバース・カリキュラム学習に焦点を当てている。</p></section>
+<section class="secsum"><h3>3. Related Work</h3><p>本研究は、ゴールに近い初期状態から学習を開始し、エージェントの性能向上に応じて開始地点とゴールの距離を広げていくリバース・カリキュラム生成の概念を、マルチエージェント経路探索（MAPF）に適用している。MAPFではインスタンスごとに複数のゴール状態が存在するが、本手法では性能推定の不確実性を考慮し、信頼度に基づいてカリキュラムを適応させる簡潔なアプローチを提案する。既存のマルチエージェント強化学習におけるカリキュラム学習は、自己対戦や集団ベースの学習など、複雑なアーキテクチャや仕組みを用いる手法が多く、多大な計算資源や調整を必要とする。また、MAPFにマルチエージェント強化学習を適用する先行研究であるPRIMALなどは、巨大なニューラルネットワークや報酬設計、模倣学習のための集中型ソルバーを用いるなど、非常に複雑で計算コストが高い。これに対し、本研究は複雑なアーキテクチャや報酬関数に依存せず、低コストでMAPFとマルチエージェント強化学習の融合を促進するための、シンプルかつ効率的なリバース・カリキュラム・スキームの提供を目指している。</p></section>
+<section class="secsum"><h3>4. MAPF as a Stochastic Game</h3><p>本研究では、マルチエージェント経路探索（MAPF）を離散的なグリッドワールド上の確率ゲームとして定式化しています。状態空間は全エージェントの結合された位置によって定義され、各エージェントの行動空間はマップの最大次数に待機アクションを加えたものとなります。状態遷移は決定論的であり、衝突や存在しないエッジへの移動試行は自動的に待機アクションとして処理されます。報酬は、エージェントが目標に到達した際に1、目標地点に留まっている場合に0、それ以外の場合に-1を与えます。割引率を0に設定した場合、各エージェントの報酬の負の期待値は、目標に到達した場合は開始時刻からの移動距離に、到達しない場合は時間制限までの距離に等しくなり、これはMAPFにおける期待フロータイムの最小化と等価になります。各エージェントは自身の周囲の局所的な視野を通じて状態を部分観測し、障害物、他者の目標、近傍エージェント、自身の目標、および目標へのマンハッタン距離と方向を含む5チャンネルの画像特徴量として観測を行います。衝突や待機に対する個別のペナルティを設けないシンプルな定式化により、標準的なマルチエージェント強化学習手法をブラックボックス的に適用可能にしていますが、報酬がスパースであるため学習の難易度は高まっています。</p></section>
+<section class="secsum"><h3>5. Confidence-based Curriculum</h3><p>本手法は、マルチエージェント経路探索（MAPF）において分散実行を前提とした協調的な局所方策を学習するため、集中学習（CTDE）フレームワークを採用している。学習にはQMIXやQPLEXなどの値分解演算子を用いたアクター・クリティック法を用い、各エージェントの移動距離の負の値を報酬として、マルチエージェント間のクレジット割り当てを考慮した最適化を行う。提案するCACTUSは、報酬の疎性や動的な制約に対処するための逆カリキュラム学習手法であり、エージェントの開始地点から目標地点を配置する際の割り当て半径を段階的に拡大させることでタスクの難易度を制御する。カリキュラムの更新は、エポックごとの平均完了率と標準偏差に基づき、完了率が設定された閾値を、偏差係数によって規定される信頼水準を満たして上回った場合にのみ半径を増加させる統計的な決定プロセスに従う。このアプローチは、ナビゲーションと衝突回避といったスキルを個別に学習させる必要がなく、複雑な報酬設計やエキスパートデータの収集を回避しながら、半径の拡大に伴うエージェント間の相互作用を通じて協調の必要性を自然に高めていくことができる。</p></section>
+<section class="secsum"><h3>6. Experimental Setup</h3><p>実験では、異なるサイズと障害物密度を持つランダム生成されたグリッドマップを訓練に使用し、公平な比較のために開始地点と目標地点を固定した100個のテストインスタンスを用いて評価を行います。提案手法であるCACTUSは、方策学習にPPO、価値関数学習（Critic）にQMIX、QPLEX、またはMAPPOを用いる構成をとっており、比較対象として強化学習ベースのPRIMAL、カリキュラム学習を用いないNo Curriculum、さらにMAPFソルバーであるCBSHとMAPF-LNSが設定されています。ネットワーク構成は、多チャンネルの画像としてエンコードされた観測値を平坦化し、多層パーセプトロン（MLP）に入力する形式で、隠れ層のユニット数は64または128、活性化関数にはELUを使用しています。CACTUSのカリキュラム制御には、閾値0.5と偏差係数0.1が用いられ、これは片側検定において約97%の信頼水準に相当します。すべてのアルゴリズムはパラメータ共有を採用しており、5000エポックの訓練を行い、全エージェントが目標に到達するか制限ステップ数に達した時点でエピソードが終了します。</p></section>
+<section class="secsum"><h3>7. Results</h3><p>提案手法であるCACTUSは、既存手法であるPRIMALと比較して、学習時間、学習データ量、訓練パラメータ数、および報酬関数の複雑さのほぼ全ての側面において5%以下の労力で済む、効率的なマルチエージェント強化学習アプローチです。CACTUSはCPUのみで動作し、中央集権的なソルバーによるエキスパートデータを必要とせず、目標に到達するまで各タイムステップでペナルティを与える単純な報酬関数を用います。QMIXやQPLEXと組み合わせたCACTUSは、学習の進捗およびエージェント数の増加に対する汎化性能において、PRIMALやカリキュラムを用いない学習を上回る性能を示しました。ハイパーパラメータの評価では、決定閾値や偏差係数の設定によって性能が変化し、特定の組み合わせにおいて高い学習効果が得られることが確認されています。一方で、迷路や部屋のような構造化されたマップを用いた評価では、全てのモデルの完了率が25%を下回る結果となりました。</p></section>
+<section class="secsum"><h3>8. Discussion</h3><p>本研究で提案されたCACTUSは、エージェントの目標地点を初期位置の周囲の一定半径内にランダムに配置し、エージェントの習熟度を信頼度に基づいた指標で評価してその半径を段階的に拡大していく、軽量な逆カリキュラム学習手法である。実験の結果、報酬が疎であり動的な制約が存在するMAPFの設定では、カリキュラムなしの標準的なMARLは学習に失敗するが、CACTUSはQMIXやQPLEXを用いた価値分解メカニズムを組み合わせることで、報酬設計やエキスパートデータに頼ることなく、既存手法であるPRIMALよりも95%少ない学習時間とパラメータ数で高い性能を達成した。カリキュラムの更新においては、決定閾値を少なくとも50%以上に設定することが重要であり、閾値が適切でないと学習の更新が遅くなるなどの影響がある。CACTUSは学習時よりも8倍から16倍多いエージェント数や異なるマップサイズに対しても良好な汎化性能を示すが、障害物密度が高い場合や、部屋と狭い通路で構成される構造的なマップ、および大規模なマップにおいては依然として課題が残る。また、分散型の意思決定が可能であるものの、スケーラビリティの限界から、中央集権的なMAPFソルバーの性能には及ばない。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-06
+  </footer>
+</div>
+</body>
+</html>

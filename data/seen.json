@@ -3599,6 +3599,39 @@
       "url": "http://arxiv.org/abs/2608.29753v1",
       "venue": ""
     },
+    "arxiv:2609.00427": {
+      "added": "2026-09-06",
+      "added_at": "2026-09-06T06:07:37.251009",
+      "arxiv_id": "2609.00427",
+      "authors": [
+        "Songwei Dong",
+        "Bingyan Lu",
+        "Makayla Kienlen",
+        "J. Nicholas Laneman",
+        "Cong Shen"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-31",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2609.00427.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.00427v1",
+      "reading_value": 4,
+      "reading_value_reason": "異種混合データ（テキスト・表・グラフ）に対し、データ構造に応じた検索手法を使い分けるマルチエージェントRAGの提案は、実用性と新規性が高い。専用ベンチマークの構築も評価に値する。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "SpecMind: Enabling Spectrum Intelligence via Multi-Agent Hybrid Retrieval-Augmented Generation",
+      "tldr": "無線スペクトル管理における、テキスト、表、グラフといった異種混合なデータソースを統合・解釈するため、データの構造に応じて検索手法を使い分けるマルチエージェント型RAGフレームワークSpecMindを提案する。これにより、複雑な推論を要するスペクトル関連タスクにおいて、従来の汎用RAGを上回る精度を実現する。",
+      "url": "http://arxiv.org/abs/2609.00427v1",
+      "venue": "IEEE GLOBECOM 2026"
+    },
     "arxiv:2609.00689": {
       "added": "2026-09-03",
       "added_at": "2026-09-03T06:10:27.095730",
@@ -3628,6 +3661,37 @@
       "tldr": "検索拡張生成（RAG）における検索ノイズへの脆弱性を解決するため、追加学習や推論コストの増大なしに、文脈に敏感に反応する特定のニューロンを強化することで回答の堅牢性を高める手法を提案する。",
       "url": "http://arxiv.org/abs/2609.00689v1",
       "venue": "EMNLP 2026 Main Conference"
+    },
+    "arxiv:2609.01658": {
+      "added": "2026-09-06",
+      "added_at": "2026-09-06T06:09:40.464516",
+      "arxiv_id": "2609.01658",
+      "authors": [
+        "MinKeon Kim",
+        "Namjun Lee",
+        "Jaekwang Kim"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-31",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2609.01658.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.01658v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGのマルチホップ推論における「偽の成功」を、論理と接地性の両面から評価するPRMで解決するアプローチは新規性が高く、実用上の重要性も大きい。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "PRO-Step: Step-level Process Reward Optimization for Retrieval-Augmented Generation",
+      "tldr": "検索拡張生成（RAG）のマルチホップ推論におけるエラー伝播を防ぐため、各ステップの論理的妥当性と検索根拠の両面を評価する生成的なプロセス報酬モデル（PRM）を導入し、ステップレベルの直接選好最適化（DPO）によって推論精度を向上させるPRO-Stepを提案する。",
+      "url": "http://arxiv.org/abs/2609.01658v1",
+      "venue": "EMNLP 2026"
     },
     "arxiv:2609.02396": {
       "added": "2026-09-04",
@@ -5897,6 +5961,38 @@
       "tldr": "本研究は、大規模なMulti-Agent Path Finding (MAPF) における混雑問題を解決するため、交通工学のTraffic Assignment Problem (TAP) の概念を応用し、エージェントに自由流の最短経路ではなく、予想される混雑を回避する「ガイドパス」を提示する手法を提案している。この手法をPIBTやLaCAM*に統合することで、lifelong MAPFにおけるスループットの向上と、one-shot MAPFにおける解の質の改善を、大規模なエージェント数（数千〜10,000規模）において実現した。",
       "url": "http://arxiv.org/abs/2308.11234v5",
       "venue": ""
+    },
+    "arxiv:2401.05860": {
+      "added": "2026-09-06",
+      "added_at": "2026-09-06T06:03:35.843769",
+      "arxiv_id": "2401.05860",
+      "authors": [
+        "Thomy Phan",
+        "Joseph Driscoll",
+        "Justin Romberg",
+        "Sven Koenig"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-01-11",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2401.05860.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2401.05860v2",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFにおける報酬の希薄さを、統計的信頼度に基づく軽量なリバース・カリキュラムで解決する提案は極めて実用的。既存手法の5%以下のパラメータ数で高い汎化性能を示す点は、計算資源の観点からも価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Confidence-Based Curriculum Learning for Multi-Agent Path Finding",
+      "tldr": "マルチエージェント経路探索（MAPF）における報酬の希薄さと調整の困難さを解決するため、統計的な信頼度に基づきタスクの難易度を段階的に高める軽量な逆カリキュラム学習手法CACTUSを提案する。本手法は、既存の最先端手法の5%未満のパラメータ数でありながら、優れた性能と汎化性能を実現する。",
+      "url": "http://arxiv.org/abs/2401.05860v2",
+      "venue": "AAMAS 2024"
     },
     "arxiv:2403.13421": {
       "added": "2026-07-12",
@@ -9547,6 +9643,37 @@
       "tldr": "倉庫内でのピックアップおよび配送タスクにおいて、衝突のない経路を構築するMAPFアプローチと、環境状態から意思決定を学習するMARLアプローチの性能を比較し、エージェント数や動的な環境への適応性を評価した。",
       "url": "https://www.semanticscholar.org/paper/b0fbd6a075d0a80b431b794fa5c8d0653952ec04",
       "venue": "EAI Endorsed Transactions on AI and Robotics"
+    },
+    "doi:10.48550/arxiv.2401.03630": {
+      "added": "2026-09-06",
+      "added_at": "2026-09-06T06:04:54.109939",
+      "arxiv_id": "2401.03630",
+      "authors": [
+        "Weizhe Chen",
+        "Sven Koenig",
+        "Bistra Dilkina"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 29,
+      "date": "2024-01-08",
+      "doi": "10.48550/ARXIV.2401.03630",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2401.03630.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2401.03630v2",
+      "reading_value": 4,
+      "reading_value_reason": "LLMをMAPFに適用する際の失敗要因を、推論・コンテキスト・空間理解の3点から体系的に分析しており、LLMを用いた計画立案の研究者にとって極めて示唆に富む。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Why Solving Multi-agent Path Finding with Large Language Model has not Succeeded Yet",
+      "tldr": "大規模言語モデル（LLM）を直接用いてマルチエージェント経路計画（MAPF）を解こうとする試みが、なぜ複雑な環境で失敗するのかを分析し、その主要な要因を特定した研究である。",
+      "url": "http://arxiv.org/abs/2401.03630v2",
+      "venue": ""
     },
     "doi:10.48550/arxiv.2402.01961": {
       "added": "2026-09-04",

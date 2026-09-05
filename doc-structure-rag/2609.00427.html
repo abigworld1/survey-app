@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SpecMind: Enabling Spectrum Intelligence via Multi-Agent Hybrid Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>SpecMind: Enabling Spectrum Intelligence via Multi-Agent Hybrid Retrieval-Augmented Generation</h1>
+  <div class="meta">Songwei Dong, Bingyan Lu, Makayla Kienlen, J. Nicholas Laneman, Cong Shen<br>採択先: IEEE GLOBECOM 2026 ・ 2026-08-31 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2609.00427v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2609.00427v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 IEEE GLOBECOM 2026</span><span class="chip">公開日 2026-08-31</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">異種混合データ（テキスト・表・グラフ）に対し、データ構造に応じた検索手法を使い分けるマルチエージェントRAGの提案は、実用性と新規性が高い。専用ベンチマークの構築も評価に値する。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 無線スペクトル管理における、テキスト、表、グラフといった異種混合なデータソースを統合・解釈するため、データの構造に応じて検索手法を使い分けるマルチエージェント型RAGフレームワークSpecMindを提案する。これにより、複雑な推論を要するスペクトル関連タスクにおいて、従来の汎用RAGを上回る精度を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>無線スペクトル管理では、周波数、時間、位置、規制要件などの複雑な制約を扱う必要があり、政策議事録、法的規制、ライセンスデータベースといった多種多様なデータが生成される。これらのデータは、数値を含む表形式、エンティティ間の関係性を示すグラフ構造、および非構造化テキストへと分断されており、従来のテキスト中心のRAG手法では、これらを適応的に統合して正確な推論を行うことが困難であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>データの構造（リレーショナル、グラフ、非構造化テキスト）に合わせて最適な検索メカニズムを動的に選択する、マルチエージェント型のハイブリッドRAGフレームワークを提案した。また、スペクトル領域の評価リソースの不足を解消するため、実世界のライセンス記録や議事録に基づく、450件のQ&amp;AペアからなるベンチマークSpecBenchを構築した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>Supervisor Agentがタスクの分解、専門エージェントの呼び出し、および結果の統合を管理する。Supervisor Agentは、思考、実行、観察のループを通じて、各エージェントが収集した証拠をグローバルなタスク状態に蓄積しながら回答を導出する。<br>データ種別ごとに以下の専門エージェントを配置する。<br>- 規制文書（非構造化テキスト）：チャンク分割を用いた密ベクトル検索と、再ランキングによる精度の向上を行う。<br>- 議事録（グラフ構造）：エンティティをノード、関係をエッジとするグラフ構造を用い、階層的な要約とGraphRAGによる多段階の推論を行う。<br>- ライセンスデータ（構造化データ）：LLMが自然言語からSQLを生成し、リレーショナルデータベースに対してスキーマ確認やクエリ実行を行う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>SpecBench（議事録31.1%、ライセンス31.1%、規制13.3%、複合問題14.4%、回答不能問題10.0%）を用い、Web-search RAGおよびSpectrumRAGと比較した。Qwen3-8BおよびGPT-5.2をバックボーンLLMとして使用し、成功率と勝率を評価指標とした。実験の結果、SpecMindはライセンスや複合クエリにおいて、ベースラインに対して80%を超える勝率を達成した。アブレーション研究では、ライセンスに対するSQL検索と、議事録に対するグラフ検索が、それぞれのデータ形式における性能向上に寄与することを示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>情報源がセマンティック検索に適した規制文書の場合、提案手法による改善幅は限定的であるという特性がある。また、以下の条件下では精度が低下する。<br>- グラフ構造において、エンティティと提出書類の作成関係が明示されていない場合の帰属特定。<br>- 出現頻度が低いエンティティに対するグラフ情報の不足。<br>- サービス種別などの識別子が欠落し、構造化クエリが曖昧になる場合。<br>今後の課題として、より詳細な証拠表現の構築や、クエリの曖昧さを解消するためのメカニズムの導入が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>SpecMind : Enabling Spectrum Intelligence via Multi-Agent Hybrid Retrieval-Augmented Generation Thanks: This work was su</h3><p>SpecMindは、スペクトル管理における多様かつ非構造的なデータソースである政策議事録、法的規制、ライセンスデータベースなどを統合・解釈するために提案された、マルチエージェント型の検索拡張生成（RAG）システムです。このシステムは、複数の専門特化したサブエージェントが協調して知識を検索・合成することで、テキストや表形式といった異種混合なデータに対する推論を可能にします。評価のために、実際のライセンス記録や政策議事録に基づいた、スペクトル領域に特化した質問応答データセットであるSpecBenchを新たに構築しました。実験の結果、SpecMindは従来の汎用的なRAGシステムと比較して、スペクトル関連のタスクにおいて80%を超える勝率を記録し、より正確な検索、優れた文脈推論、および多様なクエリに対する高いタスク完了能力を示しました。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>無線スペクトラム管理は、周波数や時間、規制要件などの複雑な制約に加え、データの規模と異質性の増大により、高度な解釈と意思決定支援が求められています。既存の検索拡張生成（RAG）手法は主にテキストベースの検索に依存しており、表形式やグラフ構造を含む多種多様なデータソースを適応的に統合する仕組みが不足しています。これに対し、提案手法であるSpecMindは、異種データに対応したマルチエージェント型のハイブリッドRAGフレームワークです。本手法は、リレーショナルなSQLデータベース形式のライセンス記録、エンティティ間の関係を保持するグラフ形式の審議文書、および埋め込みベクトルで索引付けされた規制テキストを統合的に扱います。専門的なツールとプロンプトを組み合わせたエージェントによるオーケストレーションにより、事実確認や複数ソースにわたる情報の合成、マルチホップ推論といった複雑なタスクを実行します。評価のために、450件の質問と回答のペアからなるSpecBenchというベンチマークを構築し、SpecMindが既存の強力なベースラインに対して80%以上の勝率を達成することを確認しました。</p></section>
+<section class="secsum"><h3>II Methodology</h3><p>SpecMindは、性質の異なる3種類のスペクトル領域データに対して、マルチエージェントによるハイブリッドな検索拡張生成（RAG）を行うフレームワークである。規制文書のような非構造化テキストには、固定長のチャンク分割を用いた密ベクトル検索と、再ランキングによる精度の向上を組み合わせた手法を適用する。大量のコメントを含むFCC手続き文書には、エンティティをノード、関係をエッジとするグラフ構造を用いたGraphRAGを採用し、手続きごとに独立したグラフデータベースを構築することで、階層的な要約と複雑な推論を可能にしている。数値属性が主となるライセンスデータに対しては、意味的類似性に基づく検索ではなく、LLMが自然言語からSQLを生成してリレーショナルデータベースを操作する手法を用いる。システム全体は、タスクの分解、エージェントの呼び出し、結果の統合を管理するSupervisor Agentを中心に、思考、実行、観察のループを通じて、各専門エージェントが収集した証拠をグローバルなタスク状態に蓄積しながら最終回答を導出する。</p></section>
+<section class="secsum"><h3>III SpecBench Dataset</h3><p>SpecBenchは、会議録、ライセンスデータベース、規制文書といった異種混合なスペクトル領域のデータソースを対象とした、RAGシステムの評価用ベンチマークデータセットである。評価能力として、ノイズを含む検索結果から正しい根拠を特定するノイズ耐性、複数のソースにわたる根拠を合成する情報統合能力、および根拠が不十分な場合に回答を控えて誤情報の生成を防ぐネガティブ拒絶能力の3点を定義している。評価の単位として、非構造化データの文書や構造化データのテーブルセルに相当する最小の検索要素を根拠ユニットと定義し、単一のユニットで回答可能な単一ソース問題と、それ以外のマルチソース問題に分類することで、各能力を制御して評価している。問題構成には、独立したソースから根拠を検索して最後に組み合わせる並列型の複合問題や、前の検索ステップの結果を次のクエリに利用する依存関係のある逐次型の複合問題、および根拠が存在しない回答不能な問題が含まれる。本データセットは、専門家へのインタビューに基づき、会議録（31.1%）、ライセンス（31.1%）、規制（13.3%）、複合問題（14.4%）、回答不能（10.0%）の計450件のQ&amp;Aペアで構築されている。</p></section>
+<section class="secsum"><h3>IV Experiments</h3><p>本実験では、提案手法であるSpecMindの有効性を検証するため、Google検索を利用するWeb-search RAGおよび、クエリ書き換えを行うSpectrumRAGを比較対象として、Qwen3-8BとGPT-5.2の2種類のバックボーンLLMを用いて評価を行っています。評価指標には、事実に基づいた回答や根拠がない場合の拒絶を正しく行えたかを測る成功率と、Gemini 3.1-Pro-Previewを評価者として回答の質を比較する勝率を用いています。実験結果として、SpecMindはライセンスや複合クエリにおいて、ベースラインを大幅に上回る勝率と高い成功率を記録しており、構造化された検索と複数ソースにわたる推論の有効性が示されました。アブレーション研究では、各専門エージェントを再ランキングを行わない単純なRAGに置き換えた際の性能低下を分析しており、特にライセンスに関するSQLベースの検索や、手続きに関するグラフベースの検索が、構造化データや複数文書の推論において極めて重要な役割を果たしていることが明らかになりました。一方で、規制に関するエージェントの寄与は、テキストベースの検索に対するプロンプト設計や再ランキングによるものが主であるため、他のエージェントと比較して影響は限定的でした。なお、回答不能な質問に対する拒絶能力については、すべての手法で高い成功率を示しており、これは検索フレームワークよりもバックボーンLLM自体の能力に依存しています。</p></section>
+<section class="secsum"><h3>V Qualitative Analysis</h3><p>SpecMindの動作例として、特定の周波数帯における衛星サービスの割り当て、特定の事業者の存在、および地上サービスとの周波数共有に関する立場を問う複合的なクエリを用いたケーススタディが示されている。監督エージェントは状態駆動型の逐次的なプロセスを実行し、まず規制エージェントを用いて対象となる周波数帯を特定して制約を確立し、次にライセンスエージェントがSQLクエリを用いて構造化データから該当する免許保持者を抽出する。最後に、手続きエージェントがグラフベースの検索を行うことで、各事業者の周波数共有に関する立場を比較し、一貫した対立関係を明らかにする。このプロセスでは、各ステップの中間結果がタスクの状態に組み込まれることで、監督エージェントが後続のアクションを適応的に洗練させ、ステップ間の依存関係を解決できる。一方で、失敗分析からは、グラフ内のエンティティと提出書類の関係が必ずしも作成者と参照者を明示していないことによる詳細な帰属特定の問題、出現頻度が低いエンティティに対するグラフ情報の希薄さ、およびサービス種別を欠いた構造化クエリにおける識別子の曖昧さという3つの課題が特定されている。これらはフレームワーク自体の系統的な限界というよりも、証拠の表現形式やクエリの指定に関する境界条件に起因するものである。</p></section>
+<section class="secsum"><h3>VI Conclusions</h3><p>本論文では、異種混合なスペクトルデータに対応するマルチエージェント型ハイブリッドRAGフレームワークであるSpecMindと、ライセンス、規制、議事録、およびソース横断タスクを網羅する450問のベンチマークSpecBenchを提案している。実験の結果、従来のセマンティック検索がデータの構造と適合しない場合にSpecMindが特に有効であることが示された。具体的には、ライセンス記録にはSQLベースの検索、複数の文書にわたる議事録にはグラフベースの検索が寄与しており、これらを連携させることで複合的なクエリにおいて大幅な精度向上が得られる。一方で、規制に関する質問では改善幅が小さかったことから、情報源がセマンティック検索に適している場合は従来のRAGでも競争力があることが示されている。本研究の知見は、単一の汎用的な検索パイプラインに依存するのではなく、証拠となるデータの構造に応じて検索メカニズムを選択・構成することの重要性を示している。今後の課題として、より詳細な証拠表現やクエリの曖昧さ回避の改善が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-06
+  </footer>
+</div>
+</body>
+</html>

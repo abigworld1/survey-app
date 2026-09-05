@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Why Solving Multi-agent Path Finding with Large Language Model has not Succeeded Yet | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Why Solving Multi-agent Path Finding with Large Language Model has not Succeeded Yet</h1>
+  <div class="meta">Weizhe Chen, Sven Koenig, Bistra Dilkina<br>採択先: 未取得 ・ 2024-01-08 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2401.03630v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2401.03630v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/ARXIV.2401.03630" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2024-01-08</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 29</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">LLMをMAPFに適用する際の失敗要因を、推論・コンテキスト・空間理解の3点から体系的に分析しており、LLMを用いた計画立案の研究者にとって極めて示唆に富む。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 大規模言語モデル（LLM）を直接用いてマルチエージェント経路計画（MAPF）を解こうとする試みが、なぜ複雑な環境で失敗するのかを分析し、その主要な要因を特定した研究である。</div>
+<section class="qa"><h2>どんなもの？</h2><p>複数のエージェントが衝突を避けながら、既知のグリッドマップ上で各々の開始地点から目標地点へ移動し、全エージェントが到着するまでの時間であるメイクスパンを最小化するMAPF問題を対象とする。従来のLLM活用では、追加学習や外部のヒューリスティックなガイダンスを用いず、シナリオ情報を与えて各ステップの行動を推奨させる手法が検討されている。しかし、障害物のない単純なマップでは成功するものの、標準的なベンチマークである障害物のある部屋や迷路のような複雑なマップでは、有効な解を生成できないという困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>LLMがMAPFにおいて直面する失敗の要因を、推論能力、コンテキスト長の制限、およびシナリオの理解不足という3つの観点から体系的に分析した点が新規である。単に性能を評価するだけでなく、プロンプト設計のバリエーションや、ステップバイステップ生成とワンショット生成の比較を通じて、LLM特有の課題を明らかにした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LLMにマップの形状、障害物の位置、各エージェントの現在地と目的地などのシナリオ情報を入力し、各タイムステップごとにエージェントの行動を選択させるステップバイステップ（SBS）生成を採用している。生成された計画の妥当性を検証するため、エージェント同士や障害物との衝突を検出するルールベースの衝突チェッカーを導入している。エラーが検出された場合には、その内容をエラーメッセージとしてLLMにフィードバックし、有効な解が得られるまで処理を反復させるワークフローを用いている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>GPT-4およびGPT-4 Turboを用い、障害物のないマップ、部屋状のマップ、迷路状のマップの3種類において、エージェント数を変化させた際の成功率を評価した。障害物のないマップではエージェント数が少ない場合に成功するが、エージェント数が増えると失敗する。ワンショット（OS）手法では、4エージェント以上のシナリオで成功しなかった。また、迷路状のマップでは2エージェントであっても完全に失敗し、失敗の77%は特定のエリアでの往復運動に起因することが示された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>LLMは、全エージェントの完了時間を最適化する戦略的な判断や、障害物の位置と経路計画を正確に統合する能力が不足している。エージェント数の増加に伴う入力トークン数の増大は、コンテキスト長の制限により過去の情報の忘却を招く可能性がある。また、画像やテキストによる地図表現を用いても、障害物の位置を正確に把握し、具体的な推論に結びつけることが困難である。今後の課題として、言語と画像を組み合わせた基盤モデルの活用、座標レベルの知識を含むデータの拡充、および推論速度（レイテンシ）の向上が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Why Solving Multi-agent Path Finding with Large Language Models has not Succeeded Yet</h3><p>本研究は、大規模言語モデル（LLM）を用いたマルチエージェント経路計画（MAPF）の解決が、なぜ現時点では成功していないのかを分析している。LLMは障害物のない空の部屋のような単純なマップでは成功を示すものの、標準的なMAPFベンチマークにおける障害物のある部屋や迷路のような複雑なマップでは計画に失敗することが示されている。マルチエージェント計画は、マルチエージェント間の調整と個別の経路計画の両方の困難さを併せ持つだけでなく、推論を補助するための外部ツールを活用することが難しいという特有の性質がある。著者らは、LLMを直接用いてMAPFを解くことが困難である理由について仮説を提示し、様々な実験を通じてその妥当性を検証している。最後に、この課題を解決するために、異なる背景を持つ研究者がそれぞれの視点からどのように貢献できるかについて議論している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>本研究は、複数のエージェントを衝突させることなく各々の開始地点から目標地点へ移動させるマルチエージェント経路計画（MAPF）問題に対し、大規模言語モデル（LLM）を直接適用する手法の有効性を検証しています。提案手法では、追加の学習や外部のヒューリスティックなガイダンスを用いず、シナリオ情報をLLMに与えて各タイムステップにおける各エージェントの行動を推奨させます。エージェント間や障害物との衝突を判定する高レベルなチェッカーが、違反が発生した際にエラーメッセージをLLMに提供することで、有効な解が得られるまで処理を反復します。標準的なベンチマークのマップを用いた評価の結果、シナリオが比較的容易な場合は解を生成できるものの、難易度が上がると解の質に関わらず有効な解を一切生成できないことが示されました。この失敗の要因として、シナリオを理解する能力、コンテキスト長の制限、および推論能力の3つの観点から、現在のLLMのワークフローにおける課題を分析しています。また、画像ベースかテキストのみか、あるいは単一ステップの観測情報を含めるかといった、様々なプロンプト設計のバリエーションを用いた実験を通じて、LLMがMAPFにおいて直面する課題を検討しています。</p></section>
+<section class="secsum"><h3>2 LLMs for Multi-agent Path Finding</h3><p>本研究では、大規模言語モデル（LLM）を用いてマルチエージェント経路探索（MAPF）を直接解く手法を検討している。MAPFは、既知のグリッドマップ上で複数のエージェントが衝突を避けながら目的地へ移動し、全エージェントが到着するまでの時間であるメイクスパンを最小化する問題である。提案手法は、LLMにマップの形状や障害物の位置、各エージェントの現在地と目的地などのシナリオ情報を与え、各ステップごとにエージェントの行動を選択させるステップバイステップ（SBS）生成を採用している。この際、LLMが生成した計画の妥当性を検証するために、エージェント同士の衝突や障害物への衝突を検出するルールベースの衝突チェッカーを導入しており、エラーが検出された場合はその内容をLLMにフィードバックして修正を促す。実験では、GPT-4を用い、障害物のないマップ、部屋状のマップ、迷路状のマップの3種類において、エージェント数を変化させた際の成功率を評価している。結果として、障害物のないマップではエージェント数が少ない場合に成功するものの、エージェント数が増えると失敗する。また、計画全体を一度に生成するワンショット（OS）手法は、各ステップでの失敗が累積するため、4エージェント以上のシナリオでは成功しなかった。さらに、障害物があるマップでは、エージェント数が極めて少ない場合でも成功率が低下し、特に迷路状のマップでは2エージェントであっても完全に失敗することが示された。</p></section>
+<section class="secsum"><h3>3 Cause of Failures</h3><p>マルチエージェント経路探索（MAPF）において、大規模言語モデル（LLM）が失敗する主な原因は、推論能力の欠如、コンテキスト長の制限、および障害物位置の理解不足の3点に集約される。まず推論面では、LLMは全エージェントの完了時間であるmakespanを最適化するための戦略的な判断が困難であり、失敗の77%は特定のエリアでの往復運動に起因している。また、LLMは外部ツールを用いずに座標のリストから重複を検出するような自己検証能力も低く、プロンプトの工夫による性能向上も確認されなかった。次にコンテキスト長の制限については、エージェント数の増加に伴い入力トークン数が非線形に増大するため、制限回避のための再起動が必要となるが、これが過去の移動履歴の忘却を招き、行き止まりでの往復運動を引き起こす。最後に地図情報の理解については、画像入力や障害物の座標リスト、テキストによる地図表現のいずれを用いても、LLMは障害物と経路の関係を正確に把握できず、複雑な環境では障害物の位置に関する直感と具体的な経路計画を統合できないことが示されている。</p></section>
+<section class="secsum"><h3>4 Discussion</h3><p>LLMを用いたマルチエージェント経路探索（MAPF）の現状の限界として、長文コンテキストへの対応、推論能力の不足、および抽象的な記述と具体的な座標情報の結びつきの弱さが挙げられる。本研究の目的は既存のソルバーを凌駕することではなく、プロンプティングのみで小規模な問題を解けることを示し、大規模問題における阻害要因を議論することにある。解決策として、言語と画像を組み合わせた基盤モデルや拡散モデルの活用、および座標レベルの知識を含むアノテーションデータの拡充が期待されるが、オープンソースモデルのコンテキスト長制限が課題となる。また、成功率だけでなく解の品質の向上も不可欠であり、エージェント間の衝突回避と固定障害物の回避を同様に扱う推論能力や、ヒューリスティックおよびツールの活用が今後の研究方向として示唆されている。実用化に向けた課題として、LLMの推論速度（レイテンシ）が挙げられ、API経由の利用では1ステップの完了に15秒から30秒を要する場合があり、リアルタイムな運用には不十分である。</p></section>
+<section class="secsum"><h3>5 Related Works</h3><p>LLMを用いた推論の研究では、思考の連鎖やコンテキスト内学習、自然言語によるフィードバックを用いた反復的な改善、さらに外部メモリやツールとの連携によって性能を向上させる手法が提案されている。マルチエージェントシステムにおけるLLMの活用は、エージェント数が増えるとコンテキスト長の制限に直面するため、社会行動のシミュレーションや対話ベースのゲーム、あるいは少数のエージェントを用いたマルチロボット制御などの研究が行われてきた。既存研究では、適切なツールを用いることでLLMがマルチエージェント強化学習アルゴリズムを上回る可能性も示されているが、本研究ではMAPF特有の課題に起因する失敗の原因を分析する。MAPFは、ヒューリスティック探索やルールベース、帰着に基づく古典的な手法に加え、推論速度や汎用性に優れた学習ベースのアプローチでも研究されている。本論文では、MAPF向けに特化して微調整されていないニューラルネットワークベースの手法としてLLMを用い、その失敗の要因を調査する。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究は、マルチエージェント経路探索（MAPF）問題に対する大規模言語モデル（LLM）の適用可能性を調査したものである。実験の結果、エージェント数が少なく障害物のない単純な環境ではLLMが機能する一方で、問題の難易度が上がると有効な解を安定して生成できなくなることが示された。この失敗の要因を分析した結果、モデルのコンテキスト長の制限、障害物の位置を理解し保持する能力、および計画立案能力という3つの課題に分解できることを明らかにした。広範な実験を通じてこれらの要因を裏付け、異なる専門分野の研究者がこれらの困難に対処するための議論を提供している。</p></section>
+<section class="secsum"><h3>7 Impact Statement</h3><p>本研究は、機械学習およびマルチエージェント経路探索の分野をどのように発展させるべきかという、著者らの見解を提示することを目的としています。本研究の成果が社会に与え得る潜在的な影響は多岐にわたる可能性がありますが、現時点で特に強調すべき特定の社会的帰結は存在しないと考えています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-06
+  </footer>
+</div>
+</body>
+</html>
