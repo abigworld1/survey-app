@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MAPF-GPT: Imitation Learning for Multi-Agent Pathfinding at Scale | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>MAPF-GPT: Imitation Learning for Multi-Agent Pathfinding at Scale</h1>
+  <div class="meta">Anton Andreychuk, Konstantin Yakovlev, Aleksandr Panov, Alexey Skrynnik<br>採択先: AAAI 2025 ・ 2025 ・ source: pdf</div>
+  <div class="links"><a href="https://doi.org/10.1609/aaai.v39i22.34477" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.1609/AAAI.V39I22.34477" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip venue">採択先 AAAI 2025</span><span class="chip">公開日 2025</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFにおける大規模データを用いたTransformer基盤モデルの提案は新規性が高く、10億件のデータセット構築やゼロショット性能の検証も具体的で、実用上の価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> エキスパートの解法を大規模な教師あり模倣学習によって学習する、TransformerベースのMAPF基盤モデルMAPF-GPTを提案する。追加の通信や計画ルーチンを介さず、未知の環境に対しても高い成功率と計算効率を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路探索（MAPF）は、共有環境内の複数のエージェントが衝突を回避しながら各々の目標へ到達する経路を求める問題である。最適解の算出はNP困難であり、実世界の自動倉庫や交通システムへの応用には効率的な解法が不可欠である。従来の学習ベースの手法は、性能向上のために単一エージェントの計画機能やエージェント間の通信モジュールを併用することが一般的であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>追加の通信やヒューリスティックに頼らず、大規模なエキスパートデータを用いた模倣学習のみで、既存の学習型ソルバーを凌駕する性能を実現した点が新規である。10億件の観測・行動ペアを含む、MAPFにおける最大規模のデータセットを構築した。これにより、学習データに含まれない未知のマップに対しても、追加学習なしで対応できるゼロショット学習能力を備えた基盤モデルを確立した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>エキスパートソルバーを用いて生成した膨大な経路解を、エージェントごとの局所的な観測と行動のペアに変換して学習する。入力はエージェントを中心とした11×11の範囲の情報をトークン化したものであり、目的地までのコスト、周囲のエージェントの現在地、目的地、過去の行動履歴、および次の一手となる貪欲な行動の情報を含む。モデルにはTransformerを採用し、パラメータ数は2M、6M、85Mのバリエーションがある。学習にはクロスエントロピー損失を用い、推論時には確率分布に基づくサンプリングによって行動を選択する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>迷路状およびランダムなマップから生成した計375万件のインスタンスを用いて学習を行い、DCC、SCRIMP、およびエキスパートであるLaCAMと比較した。評価指標として成功率と、LaCAMの解に対する移動コストの総和（Sum-Of-Costs）の比率を用いた。実験の結果、MAPF-GPTはRandomおよびMazesマップにおいてDCCとSCRIMPを上回る成功率を示し、コストの質においても優位性を確認した。また、実行時間はエージェント数に対して線形に増加し、128エージェントを超える大規模な設定ではDCCやSCRIMPよりも高速である。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>入力情報として目的地までのコストや貪欲な行動などの特定の情報をマスクすると性能が低下するという、情報の依存関係に関するトレードオフが存在する。一方で、特定のマップ設定においては目標情報がなくても一定の成功率を維持できることが示されている。今後の課題として、Lifelong MAPFにおけるさらなる性能向上や、より複雑な環境への適応能力の拡張が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>マルチエージェント経路探索（MAPF）は、共有環境において複数のエージェントが衝突を回避する経路を見つける問題であり、その最適解の算出はNP困難です。本研究では、エキスパートによるMAPF解の膨大なデータセットとTransformerベースのニューラルネットワークを用いた模倣学習により、MAPFの基盤モデルであるMAPF-GPTを提案します。このモデルは、単一エージェントの計画や通信、あるいは追加のヒューリスティックを用いることなく、直接アクションを生成できます。MAPF-GPTは、学習データに含まれていない未知の問題に対してもゼロショットでの解決能力を示します。実験の結果、多様な問題設定において既存の最先端の学習型MAPFソルバーを上回る性能を達成し、推論時における計算効率の高さも実証されました。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>マルチエージェント経路探索（MAPF）は、共有環境内の複数のエージェントが衝突を避けながら、各々の目標に可能な限り早く到達する経路を求める組合せ最適化問題であり、最適解の算出はNP困難である。本研究では、追加の計画ルーチンやエージェント間通信を用いず、エキスパートデータに対する大規模な教師あり学習のみで動作する、MAPF-GPTと名付けられた分散型ソルバーを提案する。この手法は、個々のエージェントが知覚する観測と実行する行動を記述するための独自のトークン化手法を導入し、既存のソルバーを用いて作成した10億個の観測・行動ペアを含む大規模なデータセットを用いて、Transformerベースの非自己回帰型ニューラルネットワークを模倣学習させている。実験の結果、MAPF-GPTは既存の学習ベースの分散型ソルバーを上回る性能を示し、特に学習時とは異なる環境での評価において、学習ベースの手法が直面しやすい課題を克服していることが示された。さらに、未知のマップに対するゼロショット学習能力や、Lifelong MAPFへの適用、および実行時の効率性の高さも示されている。</p></section>
+<section class="secsum"><h3>Related Works</h3><p>マルチエージェント経路探索（MAPF）の手法には、高速だがコストの保証がないルールベース、問題を最小フローや充足可能性問題（SAT）へ変換して既存のソルバーを用いる還元ベース、最適性や近似保証を持つ探索ベース、そして強化学習や通信モジュールを活用する学習ベースの複数のアプローチが存在する。本研究はこれらとは異なり、エキスパートのデータを用いた模倣学習に純粋に依存する。オフライン強化学習では、環境との相互作用なしに収集済みデータから方策を学習する手法が発展しており、報酬を条件として扱うDecision Transformer（DT）や、そのマルチエージェント版であるMADTなどが存在する。マルチエージェント模倣学習（MAIL）は、報酬関数の知識なしにエキスパートのデモンストレーションを模倣する手法であり、交通制御などの分野で活用されている。しかし、複雑な方策や大規模なエキスパート軌跡データセットの不足により、単一の基盤モデルの提案には至っていない。本研究は、MAPFをマルチエージェント設定におけるTransformer基盤モデルを調査するためのテストベッドとして位置づけ、学習に用いる大規模なデータセットを提供する。</p></section>
+<section class="secsum"><h3>Background</h3><p>マルチエージェント経路探索（MAPF）は、無向グラフ上のn個のエージェントに対し、各エージェントの開始地点から目標地点までの経路を、頂点やエッジでの衝突を避けつつ決定する問題である。評価指標には、全エージェントの移動コストの総和であるSum-Of-Costsや、全エージェントが目標に到達するまでの最大時間であるMakespanが用いられる。本研究では、エージェントが目標に到達した後もその場に留まり続けるという、より制約の強い設定を扱う。この問題を逐次的意思決定問題として捉えると、各エージェントの現在の位置から、全エージェントの行動の組み合わせを決定する方策の構築に帰着する。スケーラビリティ向上のため、各エージェントが他のエージェントの全状態ではなく、自身の周囲の局所的な観測情報のみに基づいて行動を選択する分散型の方策が検討される。学習手法としては模倣学習を採用しており、既存のMAPFソルバーによって生成されたエキスパートの軌跡データを用いて、エージェントの行動分布を決定する方策のパラメータを最適化する。離散的な行動空間の場合、損失関数にはクロスエントロピーが一般的に用いられる。</p></section>
+<section class="secsum"><h3>Method</h3><p>MAPF-GPTは、エキスパートによるマルチエージェント経路探索（MAPF）の解法を模倣学習する手法であり、シナリオ作成、正解データの生成、トークン化、学習ループの4段階で構成されます。学習データとして、POGEMAを用いて生成した1万個の迷路状マップと2500個のランダムマップに基づき、計375万件のインスタンスを作成しており、マップサイズは17×17から21×21、エージェント数は16、24、または32個に設定されています。本手法は各エージェントが局所的な観測に基づいて自律的に意思決定を行う分散型のポリシーを目指しているため、マップの大きさよりも、自由空間とエージェントが占有する空間の比率である密度を重視しており、調整が必要な困難なパターンを学習させるために中程度から高密度の設定を用いています。正解データの生成には、時間制限内で解を高速に探索・改善するLaCAMの派生手法を用い、1インスタンスあたり10秒の制限時間内で個々の計画を算出しています。得られた計画を追跡して各エージェントの局所的な観測と行動のペアを再構成することで、学習用のデータセットを構築しています。</p></section>
+<section class="secsum"><h3>...</h3><p>POGEMA Mapsの正解軌跡を用いて、10億件の観測と行動のペアを含む大規模なマルチエージェント経路探索（MAPF）のシナリオデータセットを構築しています。このデータセットは、エージェントの移動に関する膨大な学習サンプルを提供します。</p></section>
+<section class="secsum"><h3>85M</h3><p>実験に使用された問題インスタンスの構成について述べられています。評価では、10秒以内に解を生成する設定において、2500個のインスタンスが使用されました。データセットの構築にあたっては、エージェントの局所的な観測情報を生成し、そこから同一の観測内容を持つものや、目標地点に留まっている状態のフレームを除外するフィルタリング処理が行われています。</p></section>
+<section class="secsum"><h3>...</h3><p>MAPF-GPTは、エキスパートソルバーであるLaCAMを用いて生成した10億個の観測・行動ペアからなる大規模なデータセットを用いた模倣学習手法である。データセットは、難易度の高い迷路状のマップから9億個、ランダムなマップから1億個のペアで構成されており、学習時の不均衡を避けるためにゴールでの待機アクションの80%を削除している。モデルの入力は256トークンのシーケンスで、エージェントを中心とした11×11の範囲内の正規化された目的地までの最短経路コストと、周囲に存在する最大13名のエージェントに関する情報（現在地、目的地、過去の行動履歴、およびコストを減少させる貪欲な行動）をトークン化して含んでいる。語彙数は67トークンで、数値は-20から20の範囲で符号化され、範囲外の値は専用のトークンで処理される。モデルのバックボーンにはデコーダーのみのTransformerを採用しており、最大85Mパラメータのモデルをクロスエントロピー損失を用いて、AdamW最適化およびFlash Attentionを用いて学習している。推論時には、決定論的な最大確率の選択ではなく、分散型ポリシーの性質を考慮して多項分布サンプリングにより行動を選択する。</p></section>
+<section class="secsum"><h3>Experimental Evaluation</h3><p>MAPF-GPTの性能評価では、パラメータ数が異なる3つのモデルを、既存の学習型ソルバーであるDCCおよびSCRIMP、そしてデータ収集のエキスパートとして用いたLaCAMと比較しています。RandomおよびMazesマップにおいて、すべてのMAPF-GPTはDCCとSCRIMPを上回る成功率を示し、コストの総和（SoC）においてもLaCAMに対する相対的な優位性を示して、パラメータ数が多いほど性能が向上する傾向が確認されました。アブレーション研究では、目標情報、貪欲な行動、行動履歴、目的地までのコスト（cost-to-go）の各情報を欠いた場合の影響を調査しており、貪欲な行動や目的地までのコストの欠如は性能を低下させますが、Cities-tilesマップでは目標情報がなくても高い成功率を維持できることが示されました。また、エージェントが目標到達のたびに新しい目標を受け取るLife-Long MAPF設定においても、MAPF-GPT-6Mはゼロショットで既存手法と競合し、追加学習によってスループットが向上する汎用性が示されました。実行時間の比較では、すべてのMAPF-GPTモデルがエージェント数の増加に対して線形にスケールし、特にエージェント数が128を超える大規模な設定では、最大モデルであるMAPF-GPT-85MがDCCやSCRIMPよりも優れた実行速度を実現しています。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本研究では、マルチエージェント経路探索（MAPF）問題を逐次的な意思決定タスクとして捉え、エキスパートのデータを用いた教師あり模倣学習に基づく手法であるMAPF-GPTを提案した。この手法の学習プロセスでは、エキスパートによるMAPFの解を包括的なデータセットとして構築し、それらを観測と行動のペアに変換した上でトークン化を行い、パラメータ数の異なる複数のTransformerモデルに対して学習を行っている。実験の結果、200万程度の比較的控えめなパラメータ数であっても、MAPF-GPTは広範な設定において既存の学習可能なMAPF手法を大幅に上回る性能を示した。この成果は、模倣学習のみによって強力な学習型MAPFソルバーを構築できる可能性を実証するものである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-06
+  </footer>
+</div>
+</body>
+</html>
