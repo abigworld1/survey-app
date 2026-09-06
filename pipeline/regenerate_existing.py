@@ -177,11 +177,11 @@ def _from_openalex(item):
     )
 
 
-def _read_existing_html(info):
+def _read_existing_html(info, root=None):
     rel = info.get("file", "")
     if not rel:
         return ""
-    root_abs = os.path.abspath(ROOT)
+    root_abs = os.path.abspath(root or ROOT)
     path = os.path.abspath(os.path.join(root_abs, rel))
     if not (path == root_abs or path.startswith(root_abs + os.sep)):
         return ""
@@ -192,8 +192,8 @@ def _read_existing_html(info):
         return ""
 
 
-def _extract_followups(info):
-    text = _read_existing_html(info)
+def _extract_followups(info, root=None):
+    text = _read_existing_html(info, root=root)
     if not text:
         return ""
     start = text.find(FOLLOWUP_START)

@@ -15,8 +15,9 @@ import sys
 import yaml
 
 from . import render
-from .dedup import build_seen_aliases, load_seen, paper_is_seen, save_seen
+from .dedup import load_seen, paper_aliases, save_seen, seen_entry_aliases
 from .fulltext import _pdf_to_text, _sections_from_pdf, fetch_sections
+from .regenerate_existing import _extract_followups
 from .schema import Paper
 from .sources import arxiv as arxiv_src
 from .summarize import Summarizer
@@ -299,16 +300,39 @@ def _seen_record(paper, summary, basis, rel, matched_keywords, added_at):
     }
 
 
-def _add_prepared_paper(paper, sections, basis, uslug, sub, seen, summarizer):
+def _find_existing_entry(paper, entries):
+    aliases = set(paper_aliases(paper))
+    for key, info in entries.items():
+        if aliases.intersection(seen_entry_aliases(key, info)):
+            return key, info
+    return None
+
+
+def _add_prepared_paper(
+    paper, sections, basis, uslug, sub, seen, summarizer, skip_existing=False
+):
     useen = seen.setdefault(uslug, {})
-    aliases = build_seen_aliases(useen)
-    if paper_is_seen(paper, aliases):
+    existing = _find_existing_entry(paper, useen)
+    if existing and skip_existing:
         return {"status": "skipped", "title": paper.title, "reason": "既に登録済み"}
 
     paper = _fill_arxiv_metadata(paper)
     paper = enrich_venue(paper)
-    if paper_is_seen(paper, aliases):
+    existing = existing or _find_existing_entry(paper, useen)
+    if existing and skip_existing:
         return {"status": "skipped", "title": paper.title, "reason": "既に登録済み"}
+
+    existing_key, info = existing if existing else (None, {})
+    if existing:
+        print(f"  [update] 登録済み論文を再要約: {info.get('file', '')}")
+        for attr, name in (
+            ("published", "date"), ("venue", "venue"), ("authors", "authors"),
+            ("doi", "doi"), ("arxiv_id", "arxiv_id"),
+            ("url", "url"), ("pdf_url", "pdf_url"),
+        ):
+            if not getattr(paper, attr) and info.get(name):
+                setattr(paper, attr, info[name])
+        paper.citations = max(paper.citations, int(info.get("citations") or 0))
 
     print(f"  タイトル: {paper.title}")
     print(f"  セクション数: {len(sections)} / 根拠: {basis}")
@@ -323,15 +347,26 @@ def _add_prepared_paper(paper, sections, basis, uslug, sub, seen, summarizer):
     paper.reading_value = summary.get("_reading_value", "")
     paper.reading_value_reason = summary.get("_reading_value_reason", "")
 
-    rel = _unique_output_rel(uslug, paper)
+    rel = info.get("file") or _unique_output_rel(uslug, paper)
+    if existing:
+        summary["_followups_html"] = _extract_followups(info, root=ROOT)
+    html = render.render_paper_page(TPL, paper, summary)
     os.makedirs(os.path.join(ROOT, uslug), exist_ok=True)
     with open(os.path.join(ROOT, rel), "w", encoding="utf-8") as f:
-        f.write(render.render_paper_page(TPL, paper, summary))
+        f.write(html)
     added_at = datetime.datetime.now().isoformat(timespec="microseconds")
-    useen[paper.key()] = _seen_record(
+    record = dict(info)
+    record.update(_seen_record(
         paper, summary, basis, rel, matched_keywords, added_at
-    )
-    return {"status": "added", "title": paper.title, "file": rel}
+    ))
+    if existing:
+        record["regenerated"] = added_at[:10]
+    useen[existing_key or paper.key()] = record
+    return {
+        "status": "updated" if existing else "added",
+        "title": paper.title,
+        "file": rel,
+    }
 
 
 def _render_and_save(subs, seen, uslug, sub, label):
@@ -368,7 +403,7 @@ def _add_pdf_folder(args, uslug, sub, label, subs, seen, summarizer=None):
     print(f"対象フォルダ: {Path(args.pdf_dir)}")
     print(f"追加先: {uslug} / PDF {len(files)}件")
     print(f"要約エンジン: {summarizer.engine}")
-    added, skipped, failed = [], [], []
+    added, updated, skipped, failed = [], [], [], []
     for index, path in enumerate(files, 1):
         relative = path.resolve().relative_to(Path(ROOT).resolve()).as_posix()
         print(f"\n=== [{index}/{len(files)}] {relative} ===")
@@ -377,11 +412,12 @@ def _add_pdf_folder(args, uslug, sub, label, subs, seen, summarizer=None):
                 path.read_bytes(), filename=path.name
             )
             result = _add_prepared_paper(
-                paper, sections, basis, uslug, sub, seen, summarizer
+                paper, sections, basis, uslug, sub, seen, summarizer,
+                skip_existing=args.skip_existing,
             )
-            if result["status"] == "added":
-                added.append(result)
-                # 長時間処理が中断しても、完了分を次回重複処理しないよう記録する。
+            if result["status"] in {"added", "updated"}:
+                (updated if result["status"] == "updated" else added).append(result)
+                # 中断後も完了分が残り、--skip-existing で未処理分から再開できる。
                 save_seen(SEEN, seen)
                 print(f"  + {result['file']}")
             else:
@@ -393,14 +429,18 @@ def _add_pdf_folder(args, uslug, sub, label, subs, seen, summarizer=None):
             if args.fail_fast:
                 break
 
-    if added:
+    completed = added + updated
+    if completed:
         _render_and_save(subs, seen, uslug, sub, label)
     print("\n=== 一括追加結果 ===")
-    print(f"追加 {len(added)} / スキップ {len(skipped)} / 失敗 {len(failed)}")
+    print(
+        f"追加 {len(added)} / 更新 {len(updated)} / "
+        f"スキップ {len(skipped)} / 失敗 {len(failed)}"
+    )
     for item in failed:
         print(f"  失敗: {item['pdf']} ({item['reason']})")
-    if added:
-        _print_publish_command([item["file"] for item in added], uslug)
+    if completed:
+        _print_publish_command([item["file"] for item in completed], uslug)
     return 1 if failed else 0
 
 
@@ -431,6 +471,10 @@ def main(argv=None):
     ap.add_argument("--no-recursive", action="store_true", help="フォルダ直下のPDFだけを処理")
     ap.add_argument("--limit", type=int, default=0, help="一括処理する最大件数（0は全件）")
     ap.add_argument("--fail-fast", action="store_true", help="最初の失敗で一括処理を停止")
+    ap.add_argument(
+        "--skip-existing", action="store_true",
+        help="登録済み論文をスキップ（既定では再要約して既存ページを更新）",
+    )
     ap.add_argument("--stub", action="store_true", help="LLMを呼ばずスタブ要約で動作確認")
     args = ap.parse_args(argv)
     if args.pdf_dir and args.title:
@@ -462,7 +506,8 @@ def main(argv=None):
         summarizer = Summarizer(stub=args.stub)
         print(f"要約エンジン: {summarizer.engine}")
         result = _add_prepared_paper(
-            paper, sections, basis, uslug, sub, seen, summarizer
+            paper, sections, basis, uslug, sub, seen, summarizer,
+            skip_existing=args.skip_existing,
         )
     except Exception as exc:
         print(f"[error] {exc}")
@@ -477,7 +522,7 @@ def main(argv=None):
             f"  [note] '{uslug}' は subscriptions.yml に無いため、"
             "トップ一覧には出ません（ページは生成されます）。"
         )
-    print(f"生成: {result['file']}")
+    print(f"{'更新' if result['status'] == 'updated' else '生成'}: {result['file']}")
     _print_publish_command([result["file"]], uslug)
     return 0
 
