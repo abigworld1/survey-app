@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Jump Point Search with Temporal Obstacles | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Jump Point Search with Temporal Obstacles</h1>
+  <div class="meta">Shuli Hu, Daniel D. Harabor, Graeme Gange, Peter J. Stuckey, Nathan R. Sturtevant<br>採択先: ICAPS 2021 ・ 2021 ・ source: pdf</div>
+  <div class="links"><a href="https://ojs.aaai.org/index.php/ICAPS/article/view/15961" target="_blank" rel="noopener">原典</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip venue">採択先 ICAPS 2021</span><span class="chip">公開日 2021</span><span class="chip">被引用 0</span><span class="chip">関連度 0</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">動的障害物下での対称性打破という明確な課題に対し、JPSを時間軸へ拡張する新規性の高い手法を提案している。SIPPに対し大幅な高速化を示しており、経路計画の研究者にとって価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+
+  <div class="tldr"><strong>一言で:</strong> 時間経過とともに動く障害物が存在する4連結グリッドマップにおいて、経路の対称性による探索空間の膨大化を解決するため、新しい正規順序を用いて空間的・時間的な対称性を打破するTemporal Jump Point Search (JPST) を提案し、既存の標準的手法を大幅に上回る探索効率を実現した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>4連結グリッドマップにおいて、出現や消失を繰り返す動的な障害物を回避しながら、始点から終点までの総コスト（到着時刻）を最小化する最適経路を求める問題。時間軸の導入により探索空間が膨大になるだけでなく、移動順序が異なるだけでコストが同一となる「空間的対称性」や、待機アクションのタイミングが異なるだけの「時間的対称性」が多数存在するため、従来の探索手法では効率的な探索が困難である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存の標準的な手法であるSIPPが時間的な対称性の打破に留まっていたのに対し、JPSTは空間的・時間的な両方の対称性を同時に特定して排除する点に新規性がある。垂直・水平移動を優先し待機を遅らせる新しい正規順序を導入することで、同じコストを持つ重複した経路の展開を抑制し、中間ノードをスキップして時間的ジャンプポイントを直接特定することを可能にした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>Vertical-then-Horizontal-then-Wait (VHW) と呼ばれる、垂直移動、水平移動、待機の順に優先して実行する正規順序を導入する。ノード展開時には、この順序を維持できない隣接セルを枝刈りし、現在の移動方向とは異なる移動が強制される地点を時間的ジャンプポイントとして特定する。再帰的な探索プロセスにおいて、待機、水平、垂直の順で経路の連続性を確認し、中間ノードをOPENリストに追加することなくジャンプポイントのみを後続ノードとして生成する。また、ビットフィールドを用いた高速スキャンや、待機アクションを即座に展開してデッドエンドを判定する投機的待機などの最適化技術を用いる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>ゲームのマップを用いた移動障害物シナリオおよび制約条件下での経路探索実験において、SIPPや時間拡張A*と比較評価を行った。評価指標として実行時間を用い、マンハッタン距離やPerfect 2Dヒューリスティックを用いた結果、JPSTは多くのケースでSIPPに対し数倍から1桁以上の高速化を達成した。特に空間的な対称性が高い広大なマップにおいて顕著な性能向上を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>廊下のような空間的対称性が少ないマップでは、JPSTの優位性が減少する。また、エージェント間の衝突回避において、頂点だけでなくエッジ（移動経路）を中心とした制約管理を行うことで、エッジ衝突にも対応可能な枠組みへの拡張が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>4接続のグリッドベースの経路計画において、出現や消失を繰り返す時間的・移動的な障害物を考慮する問題は、ゲームやロボティクスなどの様々な場面で一般的ですが、解決が困難な場合があります。この困難さは、時間軸の導入によって探索空間が膨大になること、およびグリッド上の移動順序が異なるだけで経路として区別できない対称的な経路が多数存在することに起因します。本論文では、Jump Point Searchの形式を用いた新しい最適アルゴリズムを提案し、これらの対称性を特定して打破することで探索効率を向上させています。提案手法は、この分野の標準的な手法であるSIPPと比較して、複数の要因において1桁以上の性能向上を実現しています。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>本研究では、時間経過とともに移動する障害物が存在する4連結グリッドマップにおいて、時間最適経路を探索する問題を扱う。時間軸を導入した探索では、待機アクションの追加による分岐数の増加や、各セルに時間インデックスを付与することによる状態数の増大に加え、経路の順序のみが異なる空間的対称性および時間的対称性が課題となる。これに対し、提案手法であるTemporal Jump Point Search (JPS-T) は、垂直移動、水平移動、待機の順に優先して実行するVHWという新しい正規順序を導入することで、これらの対称性を打破する。この順序は、垂直・水平移動を可能な限り早期に行い、待機を可能な限り遅らせる経路を生成するものであり、展開されたノードごとに重複する対称的な経路を枝刈りすることで探索性能を向上させる。実験の結果、JPS-TはSIPPと比較して、ロボティクスやゲームのような幅広い設定において、数倍から10倍以上の高速化を実現している。</p></section>
+<section class="secsum"><h3>Preliminaries</h3><p>本研究では、2次元のグリッドマップを時間軸で拡張したタイムエクスパンデッド・グリッドを扱う。グリッドマップは、通行可能または通行不能な正方形のセルで構成され、上下左右の4方向への移動が可能で、各移動のコストは1である。タイムエクスパンデッド・グリッドでは、各移動が1タイムステップ分時間を進め、セルは座標と時間の組み合わせで表される。移動アクションには、4方向の移動に加えて、その場に留まり時間を1進める待機（WAIT）が含まれ、待機もコスト1である。経路とは、初期位置から目標位置まで、すべてのセルが通行可能であり、かつ各ステップが有効な移動によって接続されたセルの時系列列である。本研究の目的は、始点から終点までの経路において、恒久的な障害物および時間とともに変化する動的な障害物をすべて回避しつつ、総コスト、すなわち到着時刻 k を最小化する最適経路を見つけることである。</p></section>
+<section class="secsum"><h3>Idea</h3><p>本研究では、時間的に変化する障害物が存在する時間拡張グリッドマップに対応するため、Jump Point Searchを拡張したTemporal JPS（JPST）を提案している。この手法の核心は、Vertical-then-Horizontal-then-Wait（VHW）と呼ばれる新しい標準的な経路順序の導入にある。VHW順序では、垂直および水平方向の移動を可能な限り前倒しで行い、待機動作を可能な限り遅らせることで、探索における対称性を排除する。具体的には、垂直移動と水平移動の順序入れ替え、待機動作と移動動作の順序入れ替え、および移動動作を待機動作に置き換える操作によって、同じコストと到着時間を持つ別の有効な経路が生成されない状態を標準的であると定義する。ノード展開時には、現在の経路をこの標準的な順序に従って継続できる隣接位置のみを後続ノードとして考慮する。この性質により、時間拡張グリッドにおける任意の最適経路に対して、コストと到着時間が等しく、かつVHW順序に従う等価な経路が必ず存在することが保証されている。</p></section>
+<section class="secsum"><h3>Pruning Rules</h3><p>JPSTは、ノードを拡張する際に隣接セルの集合を削減するための枝刈り規則を適用します。空間的な枝刈りでは、垂直・水平・待機（VHW）の正規順序を維持できない隣接セルを除去することで、バックトラックを回避します。例えば、ある方向へ移動した際、垂直方向の移動をより早い段階で行うことで同等のコストで到達できる経路が存在する場合、それ以外の順序の経路は枝刈りの対象となりますが、障害物によって垂直移動が制限されている場合は、そのセルを生成することが強制されます。時間的な枝刈りでは、一時的な障害物が存在する状況において、障害物が消失するまで待機する動作や、障害物が消えるタイミングに合わせて特定のセルへ到達する動作を考慮します。待機動作の後は、通常、正規順序に基づき一つの隣接セルを除いて他のセルを枝刈りできます。定理によれば、任意の最適経路は、垂直方向の動作を優先し待機動作を後にするVHW正規順序へと組み替えることが可能であり、組み替えた後も経路の有効性とコストは維持されます。</p></section>
+<section class="secsum"><h3>Jumping Rules</h3><p>本手法は、A*探索の効率化のために、特定の優先順位（VHW順序）に基づく経路の連続性を再帰的に探索し、中間ノードをOPENリストに追加することなく「時間的ジャンプポイント」を直接特定する手法を提案している。時間的ジャンプポイントとは、目的地であるか、あるいは現在の移動方向とは異なる別の移動が強制される地点を指す。この強制される状態とは、優先順位の高い移動を試みた場合に経路が成立しない状況を意味する。再帰的な探索では、待機、水平移動、垂直移動の順に探索を行うことで、常にVHW順序に従った正規の経路のみを辿ることを保証している。また、障害物が消失した後の時刻において、待機行動が目的地への到達に寄与しない場合は、その枝をデッドエンドとして即座に切り捨てる。この再帰的な枝刈りにより、探索は中間ノードをスキップしてジャンプポイントのみを後続ノードとして生成でき、最適性を維持したまま探索を進めることが可能である。</p></section>
+<section class="secsum"><h3>Further Examples</h3><p>JPSTを用いた探索の具体例として、時間拡張されたグリッドにおける最適経路探索の複雑さが示されている。開始地点と目標地点が隣接していても、時間経過とともに直接的な経路が遮断される状況において、JPSTは待機や移動といった標準的な動作を選択しながら探索を行う。この過程では、障害物が消失した直後に強制的な移動が必要となる時間的ジャンプポイントを特定することで、探索空間を体系的に探索する。最適経路が空間的なサイクル、すなわち同じ場所を時間差で経由することを含むケースや、3次元空間での探索も示されており、特定の時間ステップで障害物が消失した際にのみ有効なジャンプポイントが生成される様子が記述されている。多くの探索枝は、強制的な移動が発生した後の行き止まり判定によって枝刈りされる。</p></section>
+<section class="secsum"><h3>Practical Considerations</h3><p>JPSTの実用的な運用に関する検討事項として、まず経路の具体化が挙げられる。隣接する時間ジャンプポイント間のx、y、t各次元の差分に基づき、垂直移動、水平移動、待機移動の順序で構成される標準的なサブパスを生成することで、最適かつ有効な経路を導出できる。探索効率向上のため、スキャン範囲を一定のステップ数に制限するジャンプ制限を導入しており、これにより不要な領域のスキャンを抑制する。また、ビットフィールド表現を用いて障害物の位置を管理することで、32ステップ単位の高速なスキャンを実現している。待機動作の最適化については、投機的待機という手法を提案しており、到達可能な待機後継者を即座に展開して強制隣接ノードを生成することで、探索リストへの不要なノード追加を防ぎ、探索を加速させる。さらに、時間軸の膨張によるメモリ消費を抑えるため、各座標における通行可能な時間区間を管理するセーフインターバルを利用し、時間的対称性を打破しつつ探索を高速化している。最後に、エージェント間の衝突回避への拡張として、頂点衝突だけでなく、エッジを中心とした制約管理を行うことで、エッジ衝突にも対応可能な枠組みが示されている。</p></section>
+<section class="secsum"><h3>Evaluation</h3><p>本研究では、提案手法であるJPSTと既存手法であるSIPPの性能を、移動障害物が存在する環境と制約条件下での経路探索の2つの設定で評価しています。移動障害物の実験では、ゲームのマップを用いた複数のシナリオにおいて、過去の最適解を障害物の軌跡として利用し、マンハッタン距離または事前計算されたPerfect 2Dヒューリスティックを用いて比較を行いました。その結果、JPSTは多くのケースでSIPPを上回り、特に空間的な対称性が高い広大なマップやマンハッタン距離を用いた場合に、数倍から1桁以上の高速化を実現しました。一方で、障害物の数が増えて時間的な制約が強まると、ジャンプ距離が短くなりノード展開が増えるため、JPSTの優位性は低下し、障害物が極端に多い場合は両手法とも時間拡張A*と同等の性能に収束します。制約条件下での実験においても、JPSTはSIPPや時間拡張A*に対して、数倍から数桁の実行時間の短縮を示しました。特に、高速スキャン（fast scanning）の最適化が性能向上に大きく寄与することが確認されています。また、Perfect 2Dヒューリスティックを用いた場合、JPSTの利点は強力な推定値によるものよりも、空間的な対称性を打破する能力に起因していることが示されました。</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>本研究では、時間的に変化する障害物が存在する4連結グリッドマップにおける経路探索のための新しいアルゴリズムであるTemporal Jump Point Search (JPST) を提案している。JPSTは、垂直、水平、待機の順で探索を行うVHWと呼ばれる新しい標準的な順序付けスキームを採用することで、空間的および時間的な対称性を打破しており、高速かつ最適で、完全にオンラインでの動作が可能である。既存の主要なプランナーであるSIPPと比較した実験では、時間的な制約が少ない場合から数万個に及ぶ場合まで幅広く検証が行われ、JPSTは数倍から1桁以上の高速化を実現することが示された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-06
+  </footer>
+</div>
+</body>
+</html>

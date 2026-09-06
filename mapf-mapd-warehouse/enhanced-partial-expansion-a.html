@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Enhanced Partial Expansion A* | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Enhanced Partial Expansion A*</h1>
+  <div class="meta">Meir Goldenberg, Ariel Felner, Roni Stern, Guni Sharon, Nathan R. Sturtevant, Robert C. Holte, Jonathan Schaeffer 0001<br>採択先: J. Artif. Intell. Res. ・ 2014 ・ source: pdf</div>
+  <div class="links"><a href="https://doi.org/10.1613/jair.4171" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.1613/JAIR.4171" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip venue">採択先 J. Artif. Intell. Res.</span><span class="chip">公開日 2014</span><span class="chip">被引用 0</span><span class="chip">関連度 0</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">分岐係数の大きい問題に対し、OSFを用いて不要なノード生成自体を回避する提案は極めて独創的。メモリと時間の両立を実現しており、探索アルゴリズムの研究者には価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+
+  <div class="tldr"><strong>一言で:</strong> 分岐係数が非常に大きい問題において、最適解のコストを超える「余剰ノード」の生成がメモリと計算時間を浪費する課題に対し、ドメイン知識を用いて必要な子ノードのみを特定・生成するEnhanced Partial Expansion A* (EPEA*) を提案する。これにより、先行研究のPEA*が抱えていた実行時間のオーバーヘッドを解消し、メモリ節約と高速化を両立する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>A*アルゴリズムは、現在のコストとヒューリスティックの和であるf値を用いて探索を行う。しかし、分岐数が多い問題では、最適解のコストを超えるf値を持つ「余剰ノード」を大量に生成してしまい、これがメモリ消費と計算時間の両面で大きな負荷となる。先行研究のPEA*は、f値が現在のノードの保存値と一致する子ノードのみをOPENリストに追加することでメモリ消費を抑えるが、一度すべての隣接ノードを生成してから不要なものを破棄するため、実行時間の面で大きなオーバーヘッドが生じる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>PEA*が全子ノードを生成した後に不要なものを破棄するのに対し、EPEA*はOperator Selection Function (OSF) を導入することで、現時点で必要とされる子ノードのみを直接生成する。これにより、PEA*における「余剰なノードの生成」と「再展開時の全子ノードの走査」という2つの実行時間オーバーヘッドを同時に回避している。また、PEA*においてメモリと時間のトレードオフを制御するために必要だったパラメータCを必要とせず、C=0の場合と同等のメモリ節約を実現する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>EPEA*は、ノードがOPENリストに登録されるまでのプロセスを「オペレータの発見と検証」「オペレータの適用（子ノードの生成）」「OPENリストへの挿入」の3段階に分離して扱う。中核となるOSFは、ドメインとヒューリスティックの知識に基づき、現在のノードの保存値と一致するf値を持つ子ノードの集合と、それを上回る最小のf値を持つ子ノードの情報を返す。具体的には、演算子を適用した際のヒューリスティック値の変化量に基づいて演算子をグループ化し、現在の保存値と一致する変化量を持つ演算子のみを選択的に実行することで、不要な子ノードの生成自体を回避する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>標準的なベンチマークを用いた実験により、EPEA*は実行時間とメモリ使用量の両面において、いくつかのアプリケーションで改善を示すことが確認された。また、IDA*への拡張であるEPEIDA*では、生成ノード数を従来のIDA*と比較して、平均分岐数bを用いて近似的にb分の1に削減できることが示されている。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>EPEA*は、ドメインやヒューリスティックに関する事前知識をOSFとして定義する必要があり、常に適用可能または実用的とは限らないという限界がある。OSFの構成には、すべてのオペレータを検査するフルチェック型、直接計算を行う直接計算型、およびその両方を組み合わせたハイブリッド型の分類が存在する。また、不整合なヒューリスティックを使用する場合のトレードオフについても検討が必要である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>従来のA*アルゴリズムは展開するノード数の最小化に焦点を当ててきたが、分岐係数が非常に大きい問題領域では、最適解のコストを超える膨大な数のノード（余剰ノード）が生成され、それが計算時間とメモリ消費の両面で大きな負荷となる。これに対し、ノード展開時にf値が現在のノードのf値と等しい子ノードのみをOPENリストに追加し、それ以外のノードは破棄した上で親ノードを再挿入することでメモリ消費を抑えるPartial Expansion A* (PEA*) が提案されている。本論文では、このPEA*の概念を拡張し、計算時間の側面にも対処するEnhanced Partial Expansion A* (EPEA*) を提案する。EPEA*は、ドメインやヒューリスティックに関する事前知識を利用することで、f値が現在のノードのf値と一致するノードのみを生成する。EPEA*は常に適用可能または実用的とは限らないという限界があるものの、IDA*への適用やパターンデータベースを用いるドメインへの応用など、複数のバリエーションを通じて幅広い領域での利用を可能にしている。標準的なベンチマークを用いた実験の結果、EPEA*は実行時間とメモリ使用量の両面において、いくつかのアプリケーションで大幅な改善を示すことが確認された。</p></section>
+<section class="secsum"><h3>1. Introduction</h3><p>A*アルゴリズムは、現在のコストとヒューリスティックの和であるf(n)を用いて探索を行うが、分岐数が多い問題では、最適解のコストを超えるf(n)を持つ「余剰ノード」を大量に生成し、実行時間やメモリを浪費する課題がある。先行研究のPartial Expansion A* (PEA*) は、f(n)が現在のノードと同じ値を持つ子ノードのみをOPENリストに追加することでメモリ消費を抑えるが、子ノードを一度生成した後に再度生成し直す必要があるため、実行時間の面で不利であった。本論文が提案するEnhanced Partial Expansion A* (EPEA*) は、ドメインとヒューリスティックに特化した知識を用いるOperator Selection Function (OSF) を導入することで、f(n)が現在のノードと同じ値を持つ子ノードのみを、他の子ノードを実際に生成することなく特定する。OSFは、f(nc) = f(n)を満たす子ノードの集合と、f(nc) &gt; f(n)を満たす最小のf値を持つ子ノードの情報を返す。これにより、EPEA*は余剰ノードの生成自体を回避できる。例えば、マンハッタン距離を用いるグリッド上の経路探索では、OSFを用いることで、特定の方向に移動した場合にf値が変化するかどうかを事前に判断し、必要な操作のみを選択的に実行することが可能となる。</p></section>
+<section class="secsum"><h3>2. Background Knowledge</h3><p>本セクションでは、提案手法であるEnhanced Partial Expansion A* (EPEA*) の基礎となるPartial Expansion A* (PEA*) について述べる。PEA* は、Collapsing Frontier Nodes (CFN) と呼ばれる技術の一般的な文脈において説明される。</p></section>
+<section class="secsum"><h3>2.1 Collapsing Frontier Nodes</h3><p>探索木の葉ノードの集合をフロンティアと呼び、最良優先探索アルゴリズムはフロンティアの中から最小コストのノードを選択して展開します。Collapsing Frontier Nodes (CFN) 手法は、あるノード n を共通の祖先として持つフロンティア内のノード集合 R を、ノード n 自体に置き換えることでフロンティアを縮小させる手法です。この際、ノード n のコストを集合 R に含まれるノードの最小コストへと更新しても、許容性の不変条件を維持したままコストを増大させることが可能です。この更新されたコストを格納値 F(n) と呼び、ノードの本来のコストである静的値 f(n) と区別します。格納値 F(n) が静的値 f(n) よりも大きい場合、そのノードは過去に展開済みであり、その時の最小コストのフロンティアノードの静的値が F(n) であったことを示します。なお、格納値はノードが折り畳まれるたびに更新されますが、その値が減少することはありません。</p></section>
+<section class="secsum"><h3>2.2 Partial Expansion A*</h3><p>Partial Expansion A* (PEA*)は、探索中に生成される余剰なノードをOPENリストに追加しないことで、A*のメモリ使用量を削減する手法である。一貫性のあるヒューリスティックを前提とし、各ノードは静的なf値と、collapse（崩壊）操作によって得られる格納値（stored value）の2つを保持する。ノードの展開時にはすべての隣接ノードが生成されるが、OPENリストに挿入されるのは、現在のノードの格納値と等しいf値を持つ「現在必要（currently needed）」な子ノードのみである。f値が現在の格納値より大きい「余剰の可能性がある（possibly surplus）」子ノードは、親ノードへとcollapseされ、親ノードの格納値はこれら余剰ノードの中で最小の静的f値へと更新された上で、親ノード自身が再びOPENリストへ挿入される。一方で、f値が現在の格納値より小さい子ノードは破棄される。</p></section>
+<section class="secsum"><h3>2.3 The Parameter C and Comparison of EPEA* with PEA*</h3><p>PEA*は、余剰なノードをOPENリストに追加しないことでメモリを節約する手法ですが、ノードを再展開するたびに子ノードの生成とf値の計算を繰り返すため、子ノードが持つ静的な値の種類が多い領域では実行時間のオーバーヘッドが大きくなります。PEA*では、メモリ節約量と実行時間のトレードオフを制御するためにパラメータCを導入しており、ノードのf値と子ノードのf値の差がC以下である場合にのみ、その子ノードをOPENに追加します。Cが0の場合はメモリ節約が最大となり、Cが無限大の場合はA*と等価になりますが、最適なCの値はドメインやインスタンスに依存するため、選択指針は報告されていません。これに対し、提案手法であるEPEA*は、C=0のPEA*と同等のメモリ節約を実現しつつ、実行時間のオーバーヘッドも削減しており、メモリと時間のトレードオフを必要としません。実験においては、EPEA*の性能を評価するため、常にC=0のPEA*と比較を行います。</p></section>
+<section class="secsum"><h3>3. Enhanced Partial Expansion A*</h3><p>本セクションでは、A*アルゴリズムの新しい変種であるEnhanced Partial Expansion A* (EPEA*) を提案しています。提示された記述は手法の導入部分に留まっており、具体的なアルゴリズムの動作原理や詳細な定義については含まれていません。</p></section>
+<section class="secsum"><h3>3.1 The Three Phases on the Way to OPEN</h3><p>EPEA*では、ノードが生成されてから探索候補集合であるOPENリストに登録されるまでに、3つの段階を経ることが重要な観測として示されています。第1段階はオペレータの発見と検証であり、適用可能なオペレータを特定した上で、そのオペレータを実際に適用すべきかどうかを判断するプロセスです。従来のA*やPEA*は、適用可能なすべてのオペレータに対して子ノードを生成しており、この「適用すべきかどうかの検証」というステップを区別していませんでしたが、これを独立した段階として扱うことがEPEA*の鍵となります。第2段階はオペレータの適用、すなわち子ノードの生成プロセスであり、A*においては親ノードのコピーを作成した後に実行されます。最終的な第3段階は、生成された新しいノードを探索の境界として管理するOPENリストへと挿入する工程です。</p></section>
+<section class="secsum"><h3>3.2 The Operator Selection Function (OSF)</h3><p>EPEA*における演算子選択関数（OSF）は、ノードの全子ノードを生成することなく、特定のf値を持つ子ノードの生成と、次に保存すべきf値の計算を同時に行うための仕組みである。OSFは、ドメインとヒューリスティックに依存する知識成分と、それを利用して目的を達成するアルゴリズム成分の2つで構成される。知識成分では、演算子を適用した際のヒューリスティック値の変化量であるデルタh(nc)や、f値の変化量であるデルタf(nc)に基づいて演算子をグループ化して管理する。具体的には、現在の保存値と静的なf値の差であるデルタF(n)に一致するデルタf(nc)を持つ演算子の行を特定することで、必要な子ノードのみを生成し、次の保存値であるFnext(n)を算出できる。既存のプランナで用いられる「優先演算子」の概念は、演算子を優先か否かの二値で分類するが、OSFはデルタfの値に基づいてより細粒度な分類を行う。これにより、EPEA*は不要な子ノードの生成を回避することが可能となる。</p></section>
+<section class="secsum"><h3>3.3 Definition of EPEA*</h3><p>EPEA*は、ノードをOPENリストへ追加・展開する順序や、余剰な子ノードを統合するプロセスにおいてPEA*と同様のフローを持ちますが、ドメインとヒューリスティックに特化した演算子選択関数（OSF）を用いる点が異なります。PEA*が全子ノードを生成した後に不要なものを破棄するのに対し、EPEA*はOSFを用いて現時点で必要とされる子ノードのみを生成します。また、PEA*は全子ノードを走査して次の保存値を計算しますが、EPEA*はOSFから直接その値を取得します。具体的な動作として、あるノードの評価値がF(n)であるとき、OSFは評価値の増加量（delta f）が0となる子ノードを生成し、それ以外の評価値が高い子ノードは、OSFが保持する次の最小増加量に基づいた値を用いて親ノードへと統合されます。例えば、ある演算子の適用によって評価値の増加量が1となる場合、次に必要とされる評価値は現在の値に1を加えたものとなり、それ以外のノードは統合の対象となります。</p></section>
+<section class="secsum"><h3>3.4 A High-Level Comparison of A*, PEA* and EPEA*</h3><p>A*、PEA*、EPEA*の3つのアルゴリズムをメモリ使用量と実行時間の観点から比較する。メモリ性能において、A*は生成したすべてのノードをOPENリストに保持するが、PEA*はパラメータCを用いて現在必要のないノードをOPENリストに含めないことでメモリを節約し、EPEA*はCが0の場合のPEA*と同等のメモリ節約を実現する。ノード展開数に関しては、A*は展開されるノード数において最適であるが、PEA*とEPEA*は一意なノード展開数において最適である。実行時間について、A*は余剰なノードの生成や、OPENリストの肥大化に伴う操作コストが課題となる。PEA*はA*よりメモリ使用量を抑えられる場合が多いが、同一ノードの再展開や、再展開のたびに全子ノードを生成するオーバーヘッドが生じる。EPEA*はPEA*と同様に再展開のコストはかかるものの、有用なノードの重複生成と余剰なノードの生成という2つのオーバーヘッドを回避できる。さらに、使用する演算子選択関数によっては、不要なノードに至る演算子のチェック自体を省略できる可能性がある。</p></section>
+<section class="secsum"><h3>4. Enhanced Partial Expansion IDA* (EPEIDA*)</h3><p>EPEIDA*は、IDA*が持つ「現在の閾値以下のノードのみを探索し、閾値を超えるノードを破棄する」という部分的な展開の性質を効率化した手法である。従来のIDA*は、各ノードの全子ノードを生成した後に閾値と比較して探索を継続するか判断するが、EPEIDA*はOSF（Ordered Successor Function）を用いることで、閾値以下の「現在必要とされる子ノード」のみを直接取得し、同時に閾値を超える子ノードの中での最小コストを特定して次回の閾値を更新する。この仕組みにより、EPEIDA*は探索中に閾値条件を個別に判定する必要がなくなる。ノード生成数に関しては、IDA*が最終反復において展開ノード数の約b倍（bは平均分岐数）のノードを生成するのに対し、EPEIDA*は展開ノード数に深さに関連する項を加えた程度に抑えられるため、生成ノード数を約b分の1に削減できる。本手法は、実質的にPEA*（Partial Expansion A*）の反復深化版として機能する。</p></section>
+<section class="secsum"><h3>5. Classification of OSFs</h3><p>本セクションでは、現在必要とされるオペレータのリストを取得する手法であるOSF（Operator Selection Function）を分類している。OSFには、現在不要なものを含むすべてのオペレータを検査してリストを得る「フルチェック型」と、直接的な計算によってリストを得る「直接計算型」の2つの純粋なクラスが存在する。さらに、特定のコスト変化量に対しては直接計算を行い、それ以外の値に対してはフルチェックを行うといった、両者の性質を併せ持つ「ハイブリッド型」のOSFも存在する。EPEA*は、展開中のノードのすべての子供を生成するPEA*とは異なり、現在必要とされるオペレータのみを適用して必要な子供のみを生成するという点で区別される。これらの分類は、SAPFドメインを例として、後の節で具体的な構成方法とともに詳述される。</p></section>
+<section class="secsum"><h3>5.1 Full-Checking OSFs</h3><p>SAPFにおけるFull-Checking OSFの知識コンポーネントは、現在のノードがゴールに対して位置する8通りの相対的な方向に対応した8つのテーブルで構成される。アルゴリズム部分は、ノードの位置に基づいて適切なテーブルを選択し、適用可能な各オペレータによって生じるh値（ゴールまでの推定距離）とf値（推定コストの総和）の変化を記録する。このOSFは、各オペレータを検証して現在必要とされる子ノードのみを特定して生成する。また、次に保持すべき値であるFnext(n)を算出するため、値を無限大で初期化した後、生成された子ノードncが余剰である、すなわちncのf値が現在のノードnのf値よりも大きいと判断されるたびに、Fnext(n)をこれまでの値とncのf値の最小値として更新する。マンハッタン距離をヒューリスティックとして用いる場合、例えばゴールがノードの北西にある状況では、東や南への移動はh値とf値をそれぞれ1と2増加させ、西や北への移動はh値を1減少させ、f値に変化を与えないといった具体的な変化がテーブルに定義されている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-06
+  </footer>
+</div>
+</body>
+</html>

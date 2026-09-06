@@ -6094,21 +6094,16 @@
       "venue": "AAAI 2025"
     },
     "arxiv:2410.21415": {
-      "added": "2026-06-28",
-      "added_at": "2026-06-28T06:00:03.000000",
+      "added": "2026-09-06",
+      "added_at": "2026-09-06T11:24:29.774155",
       "arxiv_id": "2410.21415",
       "authors": [
-        "He Jiang",
-        "Yutong Wang",
-        "Rishi Veerapaneni",
-        "Tanishq Duhan",
-        "Guillaume Sartoretti",
-        "Jiaoyang Li"
+        "He Jiang, Yutong Wang, Rishi Veerapaneni, Tanishq Harish Duhan, Guillaume Adrien Sartoretti, Jiaoyang Li"
       ],
-      "basis": "fulltext(arxiv)",
+      "basis": "fulltext(pdf)",
       "citations": 0,
-      "date": "2024-10-28",
-      "doi": "",
+      "date": "2025",
+      "doi": "10.1109/ICRA55743.2025.11127445",
       "engine": "llm:gemma-4-26b",
       "file": "mapf-mapd-warehouse/2410.21415.html",
       "matched_keywords": [
@@ -6116,16 +6111,17 @@
         "Lifelong Multi-Agent Path Finding"
       ],
       "pdf_url": "https://arxiv.org/pdf/2410.21415v2",
-      "reading_value": 4,
-      "reading_value_reason": "1万体規模のLMAPFという極めて困難な課題に対し、模倣学習と探索ベースの利点を融合させた点が非常に強力。実験も大規模かつ実機検証を含み、実用性が高い。",
-      "relevance": 8,
-      "selection": "fallback",
-      "selection_label": "補充候補",
+      "reading_value": 5,
+      "reading_value_reason": "1万体規模のLMAPFという極めて困難な課題に対し、模倣学習と空間的通信、ヒューリスティックを統合し、既存の探索手法を凌駕するスループットと高速推論を両立した点は非常に価値が高い。",
+      "regenerated": "2026-09-06",
+      "relevance": 2,
+      "selection": "manual",
+      "selection_label": "手動追加",
       "source_quality": "fulltext",
       "title": "Deploying Ten Thousand Robots: Scalable Imitation Learning for Lifelong Multi-Agent Path Finding",
-      "tldr": "Lifelong Multi-Agent Path Finding (LMAPF) において、最大10,000体のエージェントを1ステップあたり1秒未満で制御可能なスケーラブルな模倣学習フレームワーク SILLM を提案する。SILLM は、Spatially Sensitive Communication (SSC) モジュール、Collision Shield PIBT (CS-PIBT) による衝突回避、および3種類のグローバルガイダンスを統合することで、既存の学習ベースおよび探索ベースの手法を凌駕する高いスループットを実現している。",
-      "url": "http://arxiv.org/abs/2410.21415v2",
-      "venue": ""
+      "tldr": "最大10,000体のエージェントを扱うLifelong Multi-Agent Path Finding (LMAPF)において、探索ベース手法の高品質な解を模倣することで、大規模環境での高いスループットと高速な推論を両立するSILLMを提案する。",
+      "url": "https://doi.org/10.1109/ICRA55743.2025.11127445",
+      "venue": "ICRA 2025"
     },
     "arxiv:2501.02803": {
       "added": "2026-06-28",
@@ -6421,29 +6417,33 @@
       "venue": ""
     },
     "arxiv:2510.17382": {
-      "added": "2026-06-14",
-      "added_at": "2026-06-14T00:00:00.000001",
+      "added": "2026-09-06",
+      "added_at": "2026-09-06T11:27:59.674086",
+      "arxiv_id": "2510.17382",
       "authors": [
-        "Rishabh Jain",
-        "Keisuke Okumura",
-        "Michael Amir",
-        "Amanda Prorok"
+        "Rishabh Jain, Keisuke Okumura, Michael Amir, Amanda Prorok"
       ],
-      "basis": "fulltext(arxiv)",
+      "basis": "fulltext(pdf)",
       "citations": 0,
-      "date": "2025-10-20",
+      "date": "2026",
+      "doi": "10.1609/AAAI.V40I35.40192",
       "engine": "llm:gemma-4-26b",
       "file": "mapf-mapd-warehouse/graph-attention-guided-search-for-dense-multi-agent-pathfinding.html",
       "matched_keywords": [
         "MAPF"
       ],
+      "pdf_url": "https://arxiv.org/pdf/2510.17382",
       "reading_value": 4,
-      "reading_value_reason": "探索と学習のハイブリッド化により、高密度MAPFのパレート境界を突破した点が極めて新規性が高い。デッドロック検出による完全性の維持も実用的で、研究価値が高い。",
-      "regenerated": "2026-06-15",
+      "reading_value_reason": "探索と学習のハイブリッド手法により、既存の探索手法のパレート境界を更新した点は新規性が高い。高密度MAPFにおける実用的な貢献も大きい。",
+      "regenerated": "2026-09-06",
       "relevance": 1,
+      "selection": "manual",
+      "selection_label": "手動追加",
       "source_quality": "fulltext",
       "title": "Graph Attention-Guided Search for Dense Multi-Agent Pathfinding",
-      "tldr": "高密度なマルチエージェント経路探索（MAPF）において、グラフアテンションを用いたニューラル方策 $\\text{MAGAT}^+$ を探索アルゴリズム $\\text{LaCAM}$ に統合したハイブリッドフレームワーク $\\text{LaGAT}$ を提案する。事前学習とマップ特化型の微調整、およびデッドロック検出メカニズムを組み合わせることで、既存の探索ベース手法や学習ベース手法のパレート境界を突破し、高密度環境における解の質とリアルタイム性能を向上させている。"
+      "tldr": "高密度なマルチエージェント経路計画において、学習ベースのヒューリスティックを探索アルゴリズムに統合するハイブリッド手法LaGATを提案し、既存の探索手法や学習手法の限界を超える解の品質を実現する。",
+      "url": "https://arxiv.org/abs/2510.17382",
+      "venue": "AAAI 2026"
     },
     "arxiv:2511.07175": {
       "added": "2026-07-05",
@@ -6602,8 +6602,8 @@
       "venue": ""
     },
     "arxiv:2602.06733": {
-      "added": "2026-08-03",
-      "added_at": "2026-08-03T06:11:25.698959",
+      "added": "2026-09-06",
+      "added_at": "2026-09-06T11:26:20.612463",
       "arxiv_id": "2602.06733",
       "authors": [
         "Rishabh Jain",
@@ -6612,26 +6612,27 @@
         "Pietro Lio",
         "Amanda Prorok"
       ],
-      "basis": "fulltext(arxiv)",
-      "citations": 0,
+      "basis": "fulltext(pdf)",
+      "citations": 5,
       "date": "2026-02-06",
-      "doi": "",
+      "doi": "10.48550/arXiv.2602.06733",
       "engine": "llm:gemma-4-26b",
       "file": "mapf-mapd-warehouse/2602.06733.html",
       "matched_keywords": [
         "Multi-Agent Path Finding",
         "MAPF"
       ],
-      "pdf_url": "https://arxiv.org/pdf/2602.06733v2",
+      "pdf_url": "https://arxiv.org/pdf/2602.06733",
       "reading_value": 4,
-      "reading_value_reason": "ハイパーグラフ導入による帰納バイアスの強化が、パラメータ数とデータ量の劇的な削減と性能向上を両立しており、MAPF分野において極めて示唆に富む。",
+      "reading_value_reason": "ハイパーグラフ導入による帰納バイアスの強化が、大規模モデルを凌駕する性能と効率性を実現した点が極めて強力。MAPF研究者にとって必読級の知見。",
+      "regenerated": "2026-09-06",
       "relevance": 2,
-      "selection": "fallback",
-      "selection_label": "補充候補",
+      "selection": "manual",
+      "selection_label": "手動追加",
       "source_quality": "fulltext",
       "title": "Pairwise is Not Enough: Hypergraph Neural Networks for Multi-Agent Pathfinding",
-      "tldr": "マルチエージェント経路探索（MAPF）において、従来のペアワイズなグラフニューラルネットワーク（GNN）では高密度環境でのグループ単位の協調を捉えきれず、アテンションの希釈が生じるという課題がある。本研究では、有向ハイパーグラフ上のアテンション機構を用いることで、高次の相互作用を明示的にモデル化するHMAGATを提案し、少ないパラメータ数と訓練データで既存の最先端モデルを上回る性能を達成した。",
-      "url": "http://arxiv.org/abs/2602.06733v2",
+      "tldr": "マルチエージェント経路探索において、従来のペア単位の相互作用モデルでは高密度環境での集団的な調整が困難であるという問題を、有向ハイパーグラフを用いた注意機構により解決する。提案手法は、極めて少ないパラメータ数と学習データ量でありながら、既存の巨大なモデルを凌駕する性能を達成した。",
+      "url": "https://arxiv.org/abs/2602.06733",
       "venue": ""
     },
     "arxiv:2602.12024": {
@@ -8973,7 +8974,7 @@
     },
     "doi:10.1609/aaai.v39i22.34477": {
       "added": "2026-09-06",
-      "added_at": "2026-09-06T09:58:55.460460",
+      "added_at": "2026-09-06T11:23:26.889147",
       "arxiv_id": "",
       "authors": [
         "Anton Andreychuk, Konstantin Yakovlev, Aleksandr Panov, Alexey Skrynnik"
@@ -8989,13 +8990,14 @@
       ],
       "pdf_url": "",
       "reading_value": 4,
-      "reading_value_reason": "MAPFにおける大規模データを用いたTransformer基盤モデルの提案は新規性が高く、10億件のデータセット構築やゼロショット性能の検証も具体的で、実用上の価値が高い。",
+      "reading_value_reason": "MAPFにおける大規模な模倣学習とTransformerを用いた基盤モデルの提案は新規性が高く、10億件規模のデータセット構築やゼロショット性能の検証も極めて具体的で価値が高い。",
+      "regenerated": "2026-09-06",
       "relevance": 1,
       "selection": "manual",
       "selection_label": "手動追加",
       "source_quality": "fulltext",
       "title": "MAPF-GPT: Imitation Learning for Multi-Agent Pathfinding at Scale",
-      "tldr": "エキスパートの解法を大規模な教師あり模倣学習によって学習する、TransformerベースのMAPF基盤モデルMAPF-GPTを提案する。追加の通信や計画ルーチンを介さず、未知の環境に対しても高い成功率と計算効率を実現する。",
+      "tldr": "エキスパートの経路解を大規模に模倣学習することで、追加の通信や計画ルーチンを必要とせずに、未知の環境でも高精度な経路生成を可能にするMAPFの基盤モデルMAPF-GPTを提案する。",
       "url": "https://doi.org/10.1609/aaai.v39i22.34477",
       "venue": "AAAI 2025"
     },
@@ -9513,6 +9515,38 @@
       "tldr": "本論文は、マルチエージェント経路探索（MAPF）から派生した48種類の多様な問題設定（flavors）を体系的に整理・分類し、それらの定義的特徴や解決手法、問題間の関係性をマッピングしたサーベイである。",
       "url": "https://openalex.org/W7172505669",
       "venue": "Journal of Artificial Intelligence Research"
+    },
+    "doi:10.1613/jair.4171": {
+      "added": "2026-09-06",
+      "added_at": "2026-09-06T11:29:38.056603",
+      "arxiv_id": "",
+      "authors": [
+        "Meir Goldenberg",
+        "Ariel Felner",
+        "Roni Stern",
+        "Guni Sharon",
+        "Nathan R. Sturtevant",
+        "Robert C. Holte",
+        "Jonathan Schaeffer 0001"
+      ],
+      "basis": "fulltext(pdf)",
+      "citations": 0,
+      "date": "2014",
+      "doi": "10.1613/JAIR.4171",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/enhanced-partial-expansion-a.html",
+      "matched_keywords": [],
+      "pdf_url": "",
+      "reading_value": 4,
+      "reading_value_reason": "分岐係数の大きい問題に対し、OSFを用いて不要なノード生成自体を回避する提案は極めて独創的。メモリと時間の両立を実現しており、探索アルゴリズムの研究者には価値が高い。",
+      "relevance": 0,
+      "selection": "manual",
+      "selection_label": "手動追加",
+      "source_quality": "fulltext",
+      "title": "Enhanced Partial Expansion A*",
+      "tldr": "分岐係数が非常に大きい問題において、最適解のコストを超える「余剰ノード」の生成がメモリと計算時間を浪費する課題に対し、ドメイン知識を用いて必要な子ノードのみを特定・生成するEnhanced Partial Expansion A* (EPEA*) を提案する。これにより、先行研究のPEA*が抱えていた実行時間のオーバーヘッドを解消し、メモリ節約と高速化を両立する。",
+      "url": "https://doi.org/10.1613/jair.4171",
+      "venue": "J. Artif. Intell. Res."
     },
     "doi:10.20944/preprints202503.0298.v1": {
       "added": "2026-09-03",
@@ -10561,6 +10595,32 @@
       "tldr": "Conflict-Based Search (CBS) における既存の衝突グラフに基づくヒューリスティックの限界を証明し、エージェント間のペアごとの依存関係を考慮した2つの新しい許容的なヒューリスティックを提案することで、探索の成功率と実行速度を向上させた。",
       "url": "",
       "venue": ""
+    },
+    "title:jump point search with temporal obstacles": {
+      "added": "2026-09-06",
+      "added_at": "2026-09-06T11:30:55.494909",
+      "arxiv_id": "",
+      "authors": [
+        "Shuli Hu, Daniel D. Harabor, Graeme Gange, Peter J. Stuckey, Nathan R. Sturtevant"
+      ],
+      "basis": "fulltext(pdf)",
+      "citations": 0,
+      "date": "2021",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/jump-point-search-with-temporal-obstacles.html",
+      "matched_keywords": [],
+      "pdf_url": "",
+      "reading_value": 4,
+      "reading_value_reason": "動的障害物下での対称性打破という明確な課題に対し、JPSを時間軸へ拡張する新規性の高い手法を提案している。SIPPに対し大幅な高速化を示しており、経路計画の研究者にとって価値が高い。",
+      "relevance": 0,
+      "selection": "manual",
+      "selection_label": "手動追加",
+      "source_quality": "fulltext",
+      "title": "Jump Point Search with Temporal Obstacles",
+      "tldr": "時間経過とともに動く障害物が存在する4連結グリッドマップにおいて、経路の対称性による探索空間の膨大化を解決するため、新しい正規順序を用いて空間的・時間的な対称性を打破するTemporal Jump Point Search (JPST) を提案し、既存の標準的手法を大幅に上回る探索効率を実現した。",
+      "url": "https://ojs.aaai.org/index.php/ICAPS/article/view/15961",
+      "venue": "ICAPS 2021"
     },
     "title:primal path nding via reinforcement and imitation multi agent learning": {
       "added": "2026-08-31",
