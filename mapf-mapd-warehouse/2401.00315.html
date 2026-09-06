@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Bidirectional Temporal Plan Graph: Enabling Switchable Passing Orders for More Efficient Multi-Agent Path Finding Plan Execution | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Bidirectional Temporal Plan Graph: Enabling Switchable Passing Orders for More Efficient Multi-Agent Path Finding Plan Execution</h1>
+  <div class="meta">Yifan Su, Rishi Veerapaneni, Jiaoyang Li<br>採択先: AAAI 2023 ・ 2023-12-30 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2401.00315v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2401.00315v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/AAAI.V38I16.29706" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 AAAI 2023</span><span class="chip">公開日 2023-12-30</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFの実行時不確実性に対し、グラフ構造の柔軟性を高めることで再計画なしに効率化を図る提案は新規性が高い。実験も詳細で実用的。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチエージェント経路計画において、実行時の遅延による不要な待機時間を削減するため、エージェント間の通過順序を動的に切り替え可能なグラフ表現であるBidirectional Temporal Plan Graph (BTPG)を提案する。これにより、再計画なしで衝突やデッドロックを回避しつつ、実行効率を向上させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路計画（MAPF）では、通信遅延や物理的制約により、エージェントが計画された時刻に目的地へ到着できない不確実性が存在する。従来のTemporal Plan Graph (TPG)は、エージェント間の通過順序を固定された依存関係として定義するため、あるエージェントの遅延が他のエージェントの不要な待機を招き、全体の実行時間を増大させる。本研究は、MAPF-DPモデルにおける実行時の不確実性を対象とし、固定的な順序制約による効率低下を解決することを目的とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のTPGがエージェント間の通過順序を固定していたのに対し、実行時に「先着順」で順序を切り替えられる双方向の依存関係を導入した点が新規である。これにより、先行者が退出するのと同時に後続者が進入できる柔軟な実行が可能になる。また、計算資源に応じて性能を向上させられるanytimeアルゴリズムとして、BTPG-naïveとBTPG-optimizedの2種類を提案している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>BTPGは、衝突が発生する地点において、どちらのエージェントが先に進入するかを選択できる双方向のタイプ2エッジのペアを持つグラフ構造である。実行時には、ペアとなるエージェントのうち先に衝突地点に到着した方を優先し、もう一方のエッジを破棄する。構築アルゴリズムとして、深さ優先探索を用いてエッジを双方向ペアへ変換するBTPG-naïveと、特定の頂点を含むサイクルがデッドロックを招かないという性質を利用して、より広範な変換を許容するBTPG-optimizedがある。BTPG-optimizedは、探索パスに特定の頂点が含まれる場合にエッジをスキップする処理を行い、新しいペアが見つからなくなるまで変換プロセスを繰り返す。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>6種類のベンチマークマップと複数のエージェント数を用いた計3,900回のシミュレーションにより、エージェントが確率的に遅延する条件下での性能を評価した。比較対象は従来のTPGおよびBTPG-naïveであり、評価指標は平均実行タイムステップ数である。結果として、BTPG-optimizedはTPGと比較して実行タイムステップ数を8%から20%削減し、一貫して優れた性能を示した。BTPG-optimizedは、単独のタイプ2エッジの約50%を双方向ペアに変換しており、計算時間はBTPG-naïveより長いものの、制限時間内ではより多くのペアを発見し高い改善率を実現する。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>BTPGは、特定の遅延が発生する意図的な敵対的条件下においては、従来のTPGよりも実行時間が長くなるケースが存在するというトレードオフがある。また、BTPG-optimizedはBTPG-naïveよりも構築に多くの計算時間を要する。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Bidirectional Temporal Plan Graph: Enabling Switchable Passing Orders for More Efficient Multi-Agent Path Finding Plan E</h3><p>従来のマルチエージェント経路計画（MAPF）では、エージェントが特定の時刻に特定の地点へ到着することを前提とするが、現実の実行における不確実性は衝突やデッドロックを招く要因となる。既存手法であるTemporal Plan Graph（TPG）は、各地点での通過順序を固定することで整合性を保つが、この固定された順序が不要な待機時間を生じさせ、実行効率を低下させる課題がある。本研究では、実行中に通過順序を切り替えることを可能にするBidirectional Temporal Plan Graph（BTPG）という新しいグラフ表現を提案する。BTPGを構築するために、BTPG-naïveとBTPG-optimizedという2つのanytimeアルゴリズムを設計した。実験の結果、BTPGを用いることで、従来のTPGと比較して不要な待機時間を8%から20%削減できることが示された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路計画（MAPF）では、通信遅延や物理的制約によってエージェントが計画通りの時刻に目的地へ到着できない場合、衝突やデッドロックが発生する可能性がある。従来のTemporal Plan Graph（TPG）は、エージェント間の依存関係をグラフで定義することで、遅延が発生しても計画された通過順序を維持し、衝突やデッドロックを回避する手法である。しかし、TPGに基づく厳格な順序遵守は、あるエージェントが遅延した際に、他のエージェントが不要に待機することを強いる課題がある。本研究では、衝突やデッドロックを回避しつつ、通過順序を切り替え可能な依存関係として捉える新しいグラフ表現であるBidirectional Temporal Planning Graph（BTPG）を提案する。BTPGを用いることで、エージェントが実行時に「先着順」で場所を通過することを可能にし、不要な待機時間を最小化する。BTPGを構築する2つのanytimeアルゴリズム、BTPG-naïveおよびBTPG-optimizedを用いた実験では、BTPGに従うことが従来のTPGに従う場合よりも一貫して優れた性能を示し、不要な待機時間を8%から20%削減できることが示されている。</p></section>
+<section class="secsum"><h3>2 Preliminaries</h3><p>本セクションでは、マルチエージェント経路計画（MAPF）の定義と、その実行における依存関係を管理するTemporal Plan Graph（TPG）について述べている。MAPFは、無向グラフ上で各エージェントが衝突を避けながら始点から終点へ移動する経路の集合を求める問題であり、本研究では実行時の遅延を考慮したMAPF-DPモデルを扱う。従来のTPGは、エージェントの各状態を頂点とし、エージェント内の連続する移動を規定する型1エッジと、エージェント間の先行関係を規定する型2エッジを持つ有向非巡回グラフである。TPGの実行において、グラフに閉路が存在しないことは、衝突やデッドロックなしに全エージェントが目的地に到達できるための必要十分条件である。既存手法には、調整を最小化する計画生成や、遅延を考慮した保守的な計画、あるいは実行時の再計画などが存在するが、これらは計算コストや遅延の事前知識を必要とする。これに対し、提案手法は既存のMAPFプランナーで生成した計画に対し、計画段階で切り替え可能な依存関係を探索・後処理することで、実行時の追加計算を排除する。</p></section>
+<section class="secsum"><h3>3 TPG that Allows Following</h3><p>従来のTPGでは、後続のエージェントが先行するエージェントの目的地到達を待たなければならないという制約があったため、先行者が退出するのと同時に後続者が進入することが不可能であった。本研究では、後続による追従を許可するために、タイプ2エッジの定義を「後続のエージェントは、先行するエージェントが特定の地点に進入した時刻よりも前には進入できない」という形式に修正する。この修正により、3つ以上のエージェントが互いの位置を循環的に入れ替える「回転サイクル」が発生し得る。回転サイクルは、タイプ2エッジのみで構成され、エッジの数が2つを超えるサイクルとして定義され、デッドロックを引き起こさない。一方で、2つのエージェントのみによる循環はエッジの衝突を招きデッドロックとなるため、有効なTPGであるための条件として、回転サイクル以外のサイクルを含まないことを規定している。</p></section>
+<section class="secsum"><h3>4 Bidirectional TPG</h3><p>Bidirectional TPG（BTPG）は、衝突が発生する地点において、どちらのエージェントが先に進入するかを切り替えられるように設計された、双方向のタイプ2エッジのペアを持つ時間計画グラフである。従来のTPGではエージェントの通過順序が固定されていたが、BTPGでは「先着順」の実行ポリシーを採用しており、ペアとなるエージェントのうち先に衝突地点に到着した方のエージェントが優先的に通過できるエッジを選択し、もう一方のエッジは破棄する。この手法は、TPGにおける特定のタイプ2エッジに起因する不要な待機時間を削減することを目的としている。3,900回のシミュレーション実験では、BTPGの実行性能がTPGを下回ることはなかったが、特定の遅延が発生する意図的な敵対的条件下では、BTPGの方が実行時間が長くなるケースが存在することが示されている。</p></section>
+<section class="secsum"><h3>5 Construct BTPG from TPG</h3><p>BTPGの構築には、MAPFプランナーから得られた有効なTPGを基に、タイプ2エッジを双方向ペアへと変換するBTPG-n（naïve）とBTPG-o（optimized）の2つのアルゴリズムが提案されている。BTPG-nは、深さ優先探索を用いて、回転サイクルや自己サイクル以外の「NRNSサイクル」が含まれないことを確認しながら、エッジを一つずつ双方向ペアに変換する。一方、BTPG-oは、特定の頂点とエッジの組み合わせを含むサイクルはデッドロックを招かないという定理に基づき、BTPG-nではNRNSサイクルと判定されるケースも許容することで、より広範な変換を可能にしている。BTPG-oの深さ優先探索では、現在の探索パスに特定の頂点が含まれている場合にエッジをスキップする処理が追加されており、さらに双方向ペアが増えることで有効性の判定条件が緩和される性質を利用して、新しいペアが見つからなくなるまで変換プロセスを繰り返す。実験の結果、BTPG-oはBTPG-nよりも構築に時間を要するものの、約2倍の双方向ペアを見つけることができ、実行効率の面でより優れていることが示されている。</p></section>
+<section class="secsum"><h3>6 Empirical Evaluation</h3><p>本実験では、最適解を得るためのMAPFソルバーを用いて生成した計画を基に、提案手法であるBTPG-naiveおよびBTPG-optimizedの性能を、6種類のベンチマークマップと複数のエージェント数を用いた計3,900回のシミュレーションを通じて評価しています。エージェントの一部が確率的に遅延する条件下での評価において、BTPG-optimizedはBTPG-naiveおよび従来のTPGよりも一貫して平均実行タイムステップ数を短縮しており、TPGに対する改善率の中央値は8%から20%の範囲にあります。BTPG-optimizedは、単独のタイプ2エッジの約50%を双方向ペアへと変換しており、実際に使用されるペアの割合は全体の約10%と限定的ですが、これらが実行時間の短縮に大きく寄与しています。計算時間に関しては、BTPG-optimizedはBTPG-naiveよりも長い時間を要しますが、これはより多くの双方向ペアを見つけ出すことによるものであり、任意の制限時間内においてBTPG-optimizedはBTPG-naiveよりも多くの双方向ペアを発見し、より高い改善率を実現する特性を示しています。</p></section>
+<section class="secsum"><h3>7 Conclusion</h3><p>本研究では、双方向ペアという概念を導入し、マルチエージェント経路計画における通過順序を表現する新しいグラフ構造であるBTPGを提案した。従来のTPGとは異なり、BTPGは実行中にエージェントが特定の地点での通過順序を切り替えることを可能にする。BTPGを構築する手法としてBTPG-nとBTPG-oの2つのアルゴリズムを提案しており、これらは与えられた計算時間内で解を更新できるanytimeアルゴリズムの特性を持つ。実験の結果、エージェントに遅延が生じた際、BTPGを用いることでTPGを用いる場合と比較して実行効率が8%から20%向上することが示された。また、限られた計算時間内ではBTPG-oがBTPG-nよりも優れた性能を発揮する。以上のことから、計画における依存関係の切り替えを許容することで、再計画を行うことなく実行時間を改善できることが示された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-07
+  </footer>
+</div>
+</body>
+</html>

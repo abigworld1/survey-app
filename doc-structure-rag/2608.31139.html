@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Configurable Semantic Chunking for Biomedical Information Extraction in Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Configurable Semantic Chunking for Biomedical Information Extraction in Retrieval-Augmented Generation</h1>
+  <div class="meta">Riya Ahuja, Tim Kacprowski, Roya Shiasi Sardoabi<br>採択先: 未取得 ・ 2026-08-31 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.31139v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.31139v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2608.31139" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-31</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGにおけるチャンク分割の重要性に注目し、生物医学ドメイン特有の課題（エンティティ断片化）に対し、命題抽出やトリガー階層化を用いた具体的な解決策を提示している。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 生物医学文献のRAGにおいて、固定サイズのチャンク分割がエンティティや関係性を断片化させる問題を解決するため、設定変更可能なセマンティック・チャンキング・フレームワークを提案する。これにより、明示的な関係の手がかりを持つデータセットにおいて抽出精度を向上させる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>生物医学文献からの関係抽出（薬物と疾患の相互作用など）において、既存のRAG手法は文を固定の単語数で分割するため、重要な意味的証拠が断片化される課題がある。対象は、関係性が単一の文の中に記述される生物医学文献である。従来のドメインに依存しない分割手法では、固有表現の境界維持や、関係性を引き起こすトリガーの明示的なモデリングが困難であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>BioMedRAGの構成要素のうち、チャンク構築段階のみを置き換える、設定変更可能なフレームワークを提案している。エンティティの境界を尊重し、関係性のトリガーを階層的に扱うことで、生物医学的な意味論を反映した分割を実現した。これにより、関係の手がかりが明示的なデータセットにおいて、従来の固定サイズ分割を上回る性能を実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>候補チャンクの生成には、3つのソースを用いる。1つ目は、エンティティの境界を維持するスライディングウィンドウ、2つ目は、主語・トリガー・目的語の最小単位を抽出する命題優先抽出、3つ目は、補完用の固定長ウィンドウである。トリガー語は意味的な具体性に基づき3段階のティア（優先度）に分類され、命題抽出時の優先順位付けに利用される。一つの文に複数の関係が含まれる場合は、設定された関係階層に基づき、重要度の高い関係を優先して保持する。最終的な選択では、チャンクの埋め込みとターゲット関係のコサイン類似度によるランキングに加え、構造的に完全な命題ベースのチャンクを優先する命題バイアスを適用する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>GM-CIHT、DDI、ChemProt、ADEの4つのベンチマークで評価した。GM-CIHTではF1スコアが74.2%から82.6%へと8.4ポイント向上し、DDIでも1.0ポイント向上した。アブレーション解析では、関係階層解決がGM-CIHTにおいてF1スコアを3.9ポイント改善させることが示された。一方で、エンティティ密度が高いChemProtや、二値分類タスクであるADEでは、5単語の固定長チャンキングが同等以上の性能を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、明示的なトリガーを欠く関係の抽出、エンティティ密度が非常に高いコーパス、および広範な文脈を必要とする分類タスクにおいては、固定サイズ分割に劣る可能性がある。また、高いエンティティ密度による曖昧さや、微細な生化学的区別に必要な文脈の欠如が限界として挙げられる。今後の課題として、エンティティ密度に応じた適応的なチャンキング、自動的なトリガー誘導、および臨床ノートや薬ラベルへの拡張が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Configurable Semantic Chunking for Biomedical Information Extraction in Retrieval-Augmented Generation</h3><p>本研究は、従来の固定サイズによるチャンク分割が生物医学的な意味的証拠を断片化させてしまう問題を解決するため、設定変更が可能なセマンティック・チャンキング・フレームワークを提案している。この手法は、エンティティを保持するウィンドウ、トリガーを中心としたチャンキング、命題優先の抽出、階層的なトリガー優先順位付け、および階層的な関係解決を組み合わせることで構成される。提案手法は既存のBioMedRAGの構成要素のうちチャンク構築段階のみを置き換えるものであり、埋め込みモデルや学習済みチャンクスコアラー、生成器、評価プロトコルはそのまま維持される。生物医学的な関係抽出ベンチマークであるGM-CIHTを用いた実験では、提案するハイブリッド構成がF1スコア82.6%を達成し、固定サイズ分割の74.2%から8.4ポイント向上した。データセットごとの分析では、GM-CIHTやDDIのように明示的な関係の手がかりがあるデータセットではセマンティック・チャンキングが有効である一方、ChemProtやADEのような密な生化学的抽出や二値分類の設定では固定サイズ分割が同等以上の性能を示すことが示された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>生物医学文献の急増に伴い、薬物と疾患の相互作用などの構造化知識を抽出する技術が重要となっているが、既存のBioMedRAGは文を固定サイズの単語数で分割するため、関係性を表す表現が断片化され、検索精度や大規模言語モデルの推論に悪影響を及ぼす課題がある。本研究では、意味的な境界を維持する構成可能なセマンティック・チャンキング・フレームワークを提案する。このフレームワークは、固有表現の境界を尊重する分割を基盤とし、関係を示すトリガーの優先順位付け、階層的な関係の解決、および主語・トリガー・目的語の最小範囲を特定する命題優先の抽出を段階的に組み込んでいる。これらの要素は、トリガーの確信度、関係の特定性、文脈の整合性を調整する統合的なスコアリング機構を通じて、BioMedRAGの学習済みチャンクスコーラーと連携する。評価実験では、埋め込みモデルや生成器などの他の構成要素を固定した状態で、GM-CIHT、DDI、ChemProt、ADEの4つのベンチマークを用いてチャンク構築手法の影響を検証した。その結果、明示的な関係の手がかりが存在し、かつ固有表現の密度が中程度である抽出タスクにおいて、本手法が効果的であることが示された。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>検索拡張生成（RAG）は、外部から検索された根拠に基づいて生成を行うことで、大規模言語モデルの知識の陳腐化やハルシネーションを抑制する手法であり、知識ベースの補完や対話システムなど幅広いタスクに適用されています。テキストのチャンク分割戦略は検索品質に強く影響するため、固定サイズやスライディングウィンドウ、あるいは文や命題レベルの粒度での分割が検討されていますが、これらは主に複数文からなる文書を対象としており、15語から30語程度の単一文に関係性が記述される生物医学分野の関係抽出タスクには適していません。既存の文単位以下の細粒度な分割手法である命題ベースの分割や文脈を考慮した埋め込み手法は、ドメインに依存しない設計であるため、生物医学的なエンティティの保持や関係性を引き起こすトリガーの明示的なモデリングが行われていません。生物医学における関係抽出は、従来からCNNやLSTM、グラフニューラルネットワークを用いた手法が研究されており、先行研究であるBioMedRAGによって、検索されるエビデンスの質が抽出性能に決定的な影響を与えることが示されています。</p></section>
+<section class="secsum"><h3>3 Method</h3><p>本手法は、既存のBioMedRAGパイプラインにおいて、固定長の単語数で分割を行うことで生物医学的なエンティティや関係性が断片化してしまう問題を解決するための、設定可能な意味論的チャンキングフレームワークである。まず、候補チャンクを生成するために、エンティティの境界を維持するスライディングウィンドウ、最小単位の主語・トリガー・目的語のまとまりを抽出する命題優先抽出、および補完用の固定長ウィンドウの3つのソースを用いる。エンティティ考慮型スライディングウィンドウでは、パターンルールを用いて薬剤やタンパク質などの境界を検出し、ウィンドウの境界がエンティティを跨がないよう調整することで、ハイフンで繋がれた複合語などの分断を防ぐ。また、関係性を引き起こすトリガー語を検出し、その周囲に局所的なコンテキストウィンドウを形成するが、トリガー語は意味的な具体性に基づき3段階のティアに分類され、命題抽出時の優先順位付けに利用される。一つの文に複数の関係性が含まれる場合は、設定された関係階層に基づき、タスクへの重要度や意味的な具体性が高い関係を優先して保持する。最終的な選択段階では、チャンクの埋め込みとターゲットとなる関係定義とのコサイン類似度を用いてランキングを行い、上位候補の中に命題ベースのチャンクが含まれる場合はそれを優先的に昇格させる命題バイアスを適用することで、構造的に完全な関係性情報を生成モデルに提供する。</p></section>
+<section class="secsum"><h3>4 Experiments</h3><p>本研究では、GM-CIHT、DDI、ChemProt、ADEの4つの生物医学データセットを用いて、提案する構成可能な意味的チャンキング手法の有効性を評価しています。実験の結果、提案手法は多様な関係性を扱うGM-CIHTでF1スコアが8.4ポイント、DDIで1.0ポイント向上し、トリガーに基づく階層的な関係解決が曖昧さの解消に寄与することが示されました。一方で、エンティティ密度が高いChemProtや、文全体の文脈を必要とする二値分類タスクのADEでは、5単語の固定長チャンキングが同等以上の性能を示しています。アブレーション解析により、エンティティを考慮したウィンドウ設定、トリガーの階層化、および関係の階層定義が、それぞれF1スコアの段階的な向上に寄与することが確認されました。また、インコンテキスト学習においては、意味的に一貫したチャンクを用いることで、少ないデモンストレーション数でモデルの文脈的ニーズを充足できる可能性が示唆されています。手法の限界として、明示的なトリガーを欠く関係の抽出、高いエンティティ密度による曖昧さ、および微細な生化学的区別に必要な広範な文脈の欠如が挙げられています。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>本研究では、固定サイズでのチャンク分割がエンティティや関係性を断片化させ、RAGにおける情報抽出の精度を低下させる課題に対し、エンティティを考慮したスライディングウィンドウと命題優先の抽出を組み合わせた、設定変更可能なセマンティック・チャンキング・フレームワークを提案している。この手法は、関係性の信号を意味的な具体性に基づいて整理する階層的なトリガー優先順位付けと、タスク固有の優先度を符号化することで競合する解釈を解消する関係階層解決を備えており、これら全ての構成要素は設定ファイルによって外部化されているため、コードの変更なしに新しい生物医学ドメインへ適応可能である。実験の結果、GM-CIHTデータセットでF1スコアが8.4ポイント向上して82.6%に、DDIデータセットで1.0ポイント向上して79.2%に達するなど、抽出に特化したベンチマークで改善を示した。アブレーション研究では、関係階層解決がGM-CIHTにおいて最も大きな改善（F1で3.9ポイント）に寄与することや、命題へのバイアスが構造的スコアをコサイン類似度に混合する方法よりも優れていることが示された。本手法は、粗い粒度の関係性を持つデータセットや中程度のエンティティ密度を持つデータセットで最も効果的であるが、エンティティ密度が非常に高いコーパスや分類タスクにおいては、固定サイズ分割が依然として競争力を持つことが明らかになっている。</p></section>
+<section class="secsum"><h3>Code and Data Availability</h3><p>本研究で使用されるすべてのデータセットは、BioMedRAGベンチマークおよび各データセットの元ソースを通じて公開されています。再現性を確保するため、論文の公開時には、セマンティックチャンキングの実装、データセットの設定ファイル、前処理スクリプト、統一されたJSONL変換形式、および評価手順が公開される予定です。設定ファイルには、トリガーとなる語彙、階層の割り当て、関係の階層構造、否定のルール、文脈マーカー、およびチャンキングのパラメータが含まれます。これらのリソースは、本研究で報告された固定サイズチャンキングとセマンティックチャンキングの比較結果を、同一のBioMedRAGスコアラーおよびジェネレーターのパイプラインを用いて再現することを目的としています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-07
+  </footer>
+</div>
+</body>
+</html>

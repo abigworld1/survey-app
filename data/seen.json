@@ -5055,6 +5055,73 @@
       "url": "http://arxiv.org/abs/2608.26385v1",
       "venue": ""
     },
+    "doi:10.48550/arxiv.2608.30163": {
+      "added": "2026-09-07",
+      "added_at": "2026-09-07T06:08:35.627680",
+      "arxiv_id": "2608.30163",
+      "authors": [
+        "Ruofan Hu",
+        "Shengyang Xu",
+        "Minjie Hong",
+        "Xiaoda Yang",
+        "Sashuai Zhou",
+        "Ke Lei",
+        "Tao Jin",
+        "Zhou Zhao"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-31",
+      "doi": "10.48550/arxiv.2608.30163",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.30163.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.30163v1",
+      "reading_value": 4,
+      "reading_value_reason": "マルチモーダルRAGにおける冗長性と計算コストの課題に対し、質問に基づきトークンを動的に展開する「圧縮と展開」の戦略が極めて実用的。大規模なDocLongRAGの構築や強化学習を用いたセレクターの最適化など、手法の具体性と新規性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Doc-REFRAG: Rethinking Multimodal Document Retrieval-Augmented Generation",
+      "tldr": "大量の検索画像を含むマルチモーダルRAGにおいて、冗長な視覚トークンによる計算コストの増大と精度の低下を解決するため、質問に基づいて必要な情報のみを動的に展開するフレームワークDoc-REFRAGを提案する。",
+      "url": "http://arxiv.org/abs/2608.30163v1",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2608.31139": {
+      "added": "2026-09-07",
+      "added_at": "2026-09-07T06:07:12.686654",
+      "arxiv_id": "2608.31139",
+      "authors": [
+        "Riya Ahuja",
+        "Tim Kacprowski",
+        "Roya Shiasi Sardoabi"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-31",
+      "doi": "10.48550/arxiv.2608.31139",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.31139.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.31139v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGにおけるチャンク分割の重要性に注目し、生物医学ドメイン特有の課題（エンティティ断片化）に対し、命題抽出やトリガー階層化を用いた具体的な解決策を提示している。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Configurable Semantic Chunking for Biomedical Information Extraction in Retrieval-Augmented Generation",
+      "tldr": "生物医学文献のRAGにおいて、固定サイズのチャンク分割がエンティティや関係性を断片化させる問題を解決するため、設定変更可能なセマンティック・チャンキング・フレームワークを提案する。これにより、明示的な関係の手がかりを持つデータセットにおいて抽出精度を向上させる。",
+      "url": "http://arxiv.org/abs/2608.31139v1",
+      "venue": ""
+    },
     "doi:10.48550/arxiv.2609.00513": {
       "added": "2026-09-04",
       "added_at": "2026-09-04T06:07:43.025260",
@@ -5961,6 +6028,38 @@
       "tldr": "本研究は、大規模なMulti-Agent Path Finding (MAPF) における混雑問題を解決するため、交通工学のTraffic Assignment Problem (TAP) の概念を応用し、エージェントに自由流の最短経路ではなく、予想される混雑を回避する「ガイドパス」を提示する手法を提案している。この手法をPIBTやLaCAM*に統合することで、lifelong MAPFにおけるスループットの向上と、one-shot MAPFにおける解の質の改善を、大規模なエージェント数（数千〜10,000規模）において実現した。",
       "url": "http://arxiv.org/abs/2308.11234v5",
       "venue": ""
+    },
+    "arxiv:2312.16767": {
+      "added": "2026-09-07",
+      "added_at": "2026-09-07T06:04:14.282657",
+      "arxiv_id": "2312.16767",
+      "authors": [
+        "Thomy Phan",
+        "Taoan Huang",
+        "Bistra Dilkina",
+        "Sven Koenig"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2023-12-28",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2312.16767.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2312.16767v2",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFにおけるLNSの課題に対し、二段階MABを用いたオンライン適応という新規性の高いアプローチを提案している。既存手法を50%上回る実験結果も強力である。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Adaptive Anytime Multi-Agent Path Finding Using Bandit-Based Large Neighborhood Search",
+      "tldr": "大規模なマルチエージェント経路計画において、破壊ヒューリスティックの選択と近傍サイズをオンラインで動的に適応させる二段階のマルチアームバンディット手法BALANCEを提案し、既存の最先端手法を大幅に上回る性能を達成した。",
+      "url": "http://arxiv.org/abs/2312.16767v2",
+      "venue": "AAAI 2024"
     },
     "arxiv:2401.05860": {
       "added": "2026-09-06",
@@ -8904,6 +9003,37 @@
       "tldr": "マルチエージェント経路探索のアルゴリズムであるConflict-Based Search（CBS）において、探索効率を左右する衝突選択の決定を、高精度だが計算負荷の高いオラクルの挙動を模倣する機械学習によって高速化する。",
       "url": "https://doi.org/10.1609/aaai.v35i13.17341",
       "venue": "AAAI 2021"
+    },
+    "doi:10.1609/aaai.v38i16.29706": {
+      "added": "2026-09-07",
+      "added_at": "2026-09-07T06:03:12.068936",
+      "arxiv_id": "2401.00315",
+      "authors": [
+        "Yifan Su",
+        "Rishi Veerapaneni",
+        "Jiaoyang Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2023-12-30",
+      "doi": "10.1609/AAAI.V38I16.29706",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2401.00315.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2401.00315v2",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFの実行時不確実性に対し、グラフ構造の柔軟性を高めることで再計画なしに効率化を図る提案は新規性が高い。実験も詳細で実用的。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Bidirectional Temporal Plan Graph: Enabling Switchable Passing Orders for More Efficient Multi-Agent Path Finding Plan Execution",
+      "tldr": "マルチエージェント経路計画において、実行時の遅延による不要な待機時間を削減するため、エージェント間の通過順序を動的に切り替え可能なグラフ表現であるBidirectional Temporal Plan Graph (BTPG)を提案する。これにより、再計画なしで衝突やデッドロックを回避しつつ、実行効率を向上させる。",
+      "url": "http://arxiv.org/abs/2401.00315v2",
+      "venue": "AAAI 2023"
     },
     "doi:10.1609/aaai.v39i14.33614": {
       "added": "2026-06-26",

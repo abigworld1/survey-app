@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Adaptive Anytime Multi-Agent Path Finding Using Bandit-Based Large Neighborhood Search | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Adaptive Anytime Multi-Agent Path Finding Using Bandit-Based Large Neighborhood Search</h1>
+  <div class="meta">Thomy Phan, Taoan Huang, Bistra Dilkina, Sven Koenig<br>採択先: AAAI 2024 ・ 2023-12-28 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2312.16767v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2312.16767v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 AAAI 2024</span><span class="chip">公開日 2023-12-28</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFにおけるLNSの課題に対し、二段階MABを用いたオンライン適応という新規性の高いアプローチを提案している。既存手法を50%上回る実験結果も強力である。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 大規模なマルチエージェント経路計画において、破壊ヒューリスティックの選択と近傍サイズをオンラインで動的に適応させる二段階のマルチアームバンディット手法BALANCEを提案し、既存の最先端手法を大幅に上回る性能を達成した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>複数のエージェントに衝突のない経路を割り当てるマルチエージェント経路計画（MAPF）において、各エージェントの遅延の総和であるフロータイムを最小化することを目的とする。大規模な問題では、与えられた時間内で解を逐次改善するAnytime手法が重要となる。従来のLarge Neighborhood Search（LNS）に基づく手法は、近傍サイズが固定されているため探索の柔軟性に欠けることや、破壊手法の選択において探索不足により不適切な選択に収束しやすいという課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のLNS手法が固定的な近傍サイズや単純な選択アルゴリズムに依存していたのに対し、破壊ヒューリスティックの選択と近傍サイズの決定を同時に適応させる二段階のマルチアームバンディット・スキームを導入した。事前のデータ収集や複雑な特徴量エンジニアリング、ハイパーパラメータの調整を必要とせず、解のコスト改善量を報酬として直接学習を行うオンラインアプローチを実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>BALANCEは、階層的な二段階のマルチアームバンディット（MAB）構造を持つフレームワークである。まず、第1段階のMABが破壊ヒューリスティックを選択する。次に、選択されたヒューリスティックに対応する第2段階のMABが、近傍サイズの指数を決定する。報酬には、新しい解の総コストが以前の解と比較してどの程度改善したかを用いる。具体的な実装として、報酬の重みに基づくルーレット選択、探索ボーナスを導入したUCB1、および正規ガンマ分布を用いたベイズ的なアプローチであるThompson Samplingの3種類を用いる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>ランダム、倉庫、ゲーム、都市といった5種類のマップ構造と、各マップ25個のシナリオを用いて評価を行った。比較対象は、既存の最先端手法であるMAPF-LNSおよびMAPF-ML-LNS、ならびに複数のバンディットアルゴリズムのバリアントである。評価指標として遅延の総和を用い、大規模なシナリオにおいて既存手法と比較して少なくとも50%の性能向上を達成した。また、Thompson Samplingを用いた実装が、低予算時において他のバンディットアルゴリズムよりも優れた性能を示すことを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>近傍サイズの選択肢を増やすことは性能向上に寄与するが、再計画の負荷が増大し実行時間が伸びるというトレードオフが存在する。また、現在の手法は最適な選択が時間経過とともに変化する非定常な状況を想定しておらず、十分な探索が行われない可能性がある。今後の課題として、非定常なマルチアームバンディット手法の検討や、オンラインで学習可能な破壊ヒューリスティック自体の研究が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Adaptive Anytime Multi-Agent Path Finding Using Bandit-Based Large Neighborhood Search</h3><p>本研究では、大規模なマルチエージェント経路計画（MAPF）において、探索の柔軟性と解の質を向上させるためのオンライン学習手法であるBALANCEを提案している。従来のLNS（Large Neighborhood Search）に基づく手法は、固定された近傍サイズを用いた貪欲な最適化を行うため、探索の柔軟性に欠け、解の質が低下するという課題があった。BALANCEは、二段階のマルチアームドバンディット・スキームを用いることで、探索の実行中に破壊ヒューリスティックの選択と近傍サイズを動的に適応させる。MAPFベンチマークの複数のマップを用いた評価実験の結果、大規模なシナリオにおいて、既存の最先端のanytime MAPFと比較して少なくとも50%の性能向上を達成した。また、バンディットアルゴリズムの比較においては、Thompson Samplingが他の手法よりも特に優れた性能を示すことが明らかになった。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路計画（MAPF）は、複数のエージェントに対して衝突のない経路を割り当てる問題であり、最小総移動時間やメイクスパンの最適化はNP困難であるため、大規模な問題ではAnytime手法が重要となる。既存のLNS（Large Neighborhood Search）を用いた手法は、初期解の一部を破壊して再計画するプロセスを繰り返すが、近傍のサイズが固定されているため最適化の柔軟性に欠ける点や、破壊手法の選択にルーレット選択を用いると探索不足により不適切な選択に収束しやすいという課題がある。本論文では、これらの問題を解決するために、探索中に破壊手法と近傍サイズの両方を適応的に選択する、二段階のマルチアームドバンディットを用いた手法であるBALANCEを提案する。BALANCEには、ルーレット選択、UCB1、およびトンプソンサンプリングに基づく3つの具体的な実装がある。MAPFベンチマークを用いた実験では、大規模シナリオにおいて既存の最先端のAnytime MAPF手法と比較してコストを少なくとも50%改善することを示しており、特にトンプソンサンプリングを用いた実装が他のバンディットアルゴリズムと比較して優れた性能を発揮することが確認された。</p></section>
+<section class="secsum"><h3>2 Background</h3><p>マルチエージェント経路探索（MAPF）は、無向かつ重みなしのグラフ上で、各エージェントの開始地点から目標地点までの衝突のない経路集合を求める問題であり、本研究では頂点衝突とエッジ衝突を回避し、各エージェントの遅延の総和であるフロータイムを最小化することを目的とする。Anytime MAPFの最先端手法であるMAPF-LNSは、優先度付き計画法などで得られた初期解に対し、経路の一部を削除する破壊操作と、優先度付き計画法を用いて再計画する修復操作を繰り返すことで、与えられた時間内で解の品質を逐次改善する。MAPF-LNSでは、経路をランダムに選ぶ手法、最大遅延を持つエージェントとその周辺経路を選ぶエージェントベースの手法、および次数が2より大きい頂点を含む経路を選ぶマップベースの手法の3種類の破壊ヒューリスティックが用いられ、ルーレット選択などのアルゴリズムによってこれらが選択される。この選択プロセスにおいて、各ヒューリスティックの統計量を用いて最適な選択肢を決定する問題は、マルチアームバンディット（MAB）問題として定式化できる。MABの解決には、未知の報酬分布を正確に推定するための探索と、現在の推定値に基づき報酬を最大化する活用との間で、探索と活用のジレンマを制御する必要がある。</p></section>
+<section class="secsum"><h3>3 Related Work</h3><p>既存の局所探索法（LNS）における多腕バンディット（MAB）の活用は、混合整数計画法や車両経路問題などの固定された近傍サイズにおいて、破壊ヒューリスティックの選択にUCB1やエプシロン・グリーディ法を用いるのが一般的である。本研究では、MAPF（マルチエージェント経路探索）において、破壊ヒューリスティックの選択と近傍サイズの決定を適応させるための、二段階のMABスキームを提案する。提案手法は、複雑な重み付けやハイパーパラメータ調整を必要とする既存の報酬設計とは異なり、MAPFの目的関数における解のコスト改善量を報酬として用いる。また、単一エージェントのモンテカルロ木探索などで用いられるThompson Samplingを、anytime MAPFに適用している。機械学習を用いた既存のMAPF手法は、オフラインでのデータ収集や特徴量エンジニアリング、および学習後に固定される予測モデルに依存するが、提案するオンライン学習アプローチは、LNSから直接得られるスカラー報酬のみから学習を行うため、事前のデータ収集を必要とせず、手法の適用を簡略化できる。</p></section>
+<section class="secsum"><h3>4 Bandit-Based Adaptive MAPF-LNS</h3><p>BALANCEは、マルチエージェント経路探索（MAPF）における大規模近傍探索（LNS）を適応的に行うための、2段階のマルチアームバンディット（MAB）を用いたフレームワークです。第1段階のMABが破壊ヒューリスティックを選択し、その選択に基づいて第2段階のMABが近傍サイズを決定するための指数を選択するという階層構造を持ちます。報酬は、新しい解の総コストである遅延の総和が、以前の解と比較してどの程度改善したかによって定義され、各ステップで統計情報が逐次更新されます。実装可能なMABアルゴリズムには、報酬の重みに基づくルーレット選択、探索ボーナスを用いて選択回数を考慮するUCB1、および正規ガンマ分布を用いたベイズ的なアプローチであるトンプソンサンプリングの3種類があります。この2段階構成を採用することで、破壊ヒューリスティックと近傍サイズの組み合わせを直接探索する場合に生じる探索空間の増大を抑えつつ、計算負荷を低く保った適応的なパラメータ選択が可能となります。</p></section>
+<section class="secsum"><h3>5 Experiments</h3><p>本実験では、提案手法であるBALANCEを、ランダム、倉庫、ゲーム、都市といった異なる構造を持つ5種類のマップと、各マップ25個のシナリオを用いて評価しています。評価にはThompson Sampling、UCB1、ルーレット選択、およびランダムサンプリングを用いた複数のバリアントを用い、既存の最先端手法であるMAPF-LNSおよびMAPF-ML-LNSと比較しています。収束性の実験では、計算時間が増加するにつれて全てのバリアントが事前にグリッドサーチで求めた最適解に近い遅延の総和に収束し、特にThompson Samplingが低予算時において最も優れた性能を示しました。探索行動の実験では、Thompson Samplingが他の手法よりも、破壊ヒューリスティックや近傍サイズが最適となる領域をより重点的に探索できることが示されました。近傍サイズの選択肢の数に関する実験では、選択肢を増やすことで性能が向上し、特に探索能力の高いThompson Samplingやランダムサンプリングがその恩恵を大きく受けました。最先端手法との比較実験では、全てのBALANCEバリアントがMAPF-LNSおよびMAPF-ML-LNSを大幅に上回り、特にエージェント数が多い場合にその差が顕著になりました。これにより、提案する二段階のバンディット手法が、固定的な近傍サイズや探索不足といった既存手法の課題を効果的に解決できることが確認されました。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>本研究では、探索中に破壊ヒューリスティックの選択と近傍サイズを適応的に調整する、2段階のマルチアームバンディット・スキームを用いたLNSフレームワークであるBALANCEを提案した。実験の結果、BALANCEは近傍サイズの調整やデータの事前収集、特徴量エンジニアリングといった多大な事前準備を必要とせずに、既存の最先端のAnytime MAPF手法を大幅に上回る性能を示した。適応の余地を確保するためには、再計画の負荷増大による実行時間の増加というリスクを伴いつつも、近傍サイズの選択肢を十分に用意することが重要である。バンディットのアルゴリズムとしては、ランダム化された破壊ヒューリスティックが持つ固有の不確実性に対応し、有望な選択肢を探索できるThompson Samplingが多くのシナリオで有望であることが示された。今後の課題として、非定常なマルチアームバンディット手法の検討や、オンラインで学習可能な破壊ヒューリスティックの研究が挙げられている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-07
+  </footer>
+</div>
+</body>
+</html>

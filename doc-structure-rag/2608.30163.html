@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Doc-REFRAG: Rethinking Multimodal Document Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Doc-REFRAG: Rethinking Multimodal Document Retrieval-Augmented Generation</h1>
+  <div class="meta">Ruofan Hu, Shengyang Xu, Minjie Hong, Xiaoda Yang, Sashuai Zhou, Ke Lei, Tao Jin, Zhou Zhao<br>採択先: 未取得 ・ 2026-08-31 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.30163v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.30163v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2608.30163" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-31</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">マルチモーダルRAGにおける冗長性と計算コストの課題に対し、質問に基づきトークンを動的に展開する「圧縮と展開」の戦略が極めて実用的。大規模なDocLongRAGの構築や強化学習を用いたセレクターの最適化など、手法の具体性と新規性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 大量の検索画像を含むマルチモーダルRAGにおいて、冗長な視覚トークンによる計算コストの増大と精度の低下を解決するため、質問に基づいて必要な情報のみを動的に展開するフレームワークDoc-REFRAGを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>実世界のマルチモーダルRAGでは、検索された画像が多様かつ冗長で、時には矛盾を含むため、膨大な視覚トークンが計算負荷を増大させる。従来の圧縮手法は、視覚的な複雑さや顕著さに依存してトークンを削減するため、質問との関連性が低い領域を優先してしまう課題がある。本研究は、1つの質問に対して平均37.4枚の画像が紐付くような、ノイズが多く長距離な推論を必要とする文書理解タスクを対象とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の圧縮手法が質問の内容を考慮できていない点に対し、質問に基づいて視覚情報を選択的に復元する「圧縮と展開」の戦略を導入した。また、現実的なRAGのワークフローを模倣するため、困難な負例（hard negatives）や多様な文書形式を含む大規模データセットDocLongRAGを構築した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>視覚トークンを重なりのないチャンクに分割し、MLPを用いてデコーダーの埋め込み空間へ投影する。軽量な強化学習ベースのセレクターが、質問の内容に基づき、各チャンクを元の高解像度なトークンへと再展開するかどうかを二値で決定する。学習は、チャンクのセマンティクスを保持する単一画像再構成、混合シーケンスの処理を可能にするマルチイメージ継続事前学習、および回答精度を報酬としてセレクターを最適化する強化学習の3段階で行われる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>6つのベンチマークを用い、Jina-Embeddings-V4で取得した上位20枚の画像を入力として11のベースラインと比較した。Doc-REFRAGは、既存のマルチモーダルLLMや文書理解特化型モデルを上回る精度を達成した。また、リランカーを用いたパイプラインと比較して、精度を57.5%に向上させつつ、総推論時間を15.4秒から6.1秒へと短縮した。セレクターの展開予算を20%に設定した場合、精度と効率の最適なトレードオフが得られることを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>チャンクサイズが固定されているため、4,000文字を超えるような高密度なレイアウトの文書では精度が低下するという限界がある。また、強化学習の報酬が回答の正誤のみに基づいているため、どのチャンクが正解に寄与したかという詳細な情報が欠如しており、複雑な構造を持つ領域でのエラーが残っている。今後の課題として、文書の密度に応じた適応的なチャンクサイズの導入、より詳細な報酬設計、および英語以外の言語への対応が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Doc-REFRAG: Rethinking Multimodal Document Retrieval-Augmented Generation Thanks: Corresponding author.</h3><p>既存のマルチモーダルRAGモデルは、単一画像や限定的な文書設定を前提としており、現実的な複数画像が関わるシナリオでは精度が低下するという課題があります。また、大量に検索された画像に含まれる無関係な視覚トークンが、計算コストを増大させる問題も存在します。本研究では、現実的なRAGのワークフローを反映するため、1つの質問と回答のペアに対して平均37.4枚の検索画像が紐付けられた、34.3万件のペアからなる大規模データセットDocLongRAGを導入します。提案手法であるDoc-REFRAGは、質問に基づいて視覚トークンを粗いチャンクへと圧縮し、軽量な強化学習ベースのセレクターを用いて質問に関連するトークンのみを選択的に展開する質問誘導型フレームワークです。6つのベンチマークを用いた実験の結果、Doc-REFRAGは11の強力なベースラインを上回り、推論レイテンシを抑えつつ最先端の精度を達成しました。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチモーダル大規模言語モデルを用いた検索拡張生成（RAG）において、既存手法は、検索された画像が多様で冗長かつ矛盾を含むという実世界の分布変化への対応や、膨大な視覚トークンによる計算コストの増大という課題を抱えています。従来の圧縮手法は視覚的に複雑な領域を優先する傾向がありますが、RAGの場面ではそれらが質問に関係ない場合が多く、冗長なトークンの処理による推論の遅延を招いています。これに対し、本研究では、困難な負例を含む画像、平均37.4枚の画像からなる長距離推論、およびPDFやスライドなど幅広い形式をカバーする330万枚の画像を含む大規模データセットDocLongRAGを導入します。提案手法であるDoc-REFRAGは、視覚トークンを一度重なりのないチャンクに圧縮した後、質問に応じて最も関連性の高いチャンクのみをフル解像度のトークンへと再展開する「圧縮と拡張」戦略を採用しています。このフレームワークは、単一画像の再構成、混合シーケンス処理のための継続的な事前学習、および精度を報酬とした強化学習によるセレクターの学習という3段階のプロセスを通じて訓練されます。6つのベンチマークを用いた実験の結果、Doc-REFRAGは既存の11手法と比較して、精度と効率性のトレードオフにおいて優れた性能を示すことが確認されました。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>マルチモーダルなRAGにおける既存研究は、汎用的なマルチモーダル大規模言語モデルを生成器として用い、主に検索器の設計に焦点を当てています。従来の文書理解モデルは一貫性のある単一ソースの文書を主な対象としていますが、実世界のRAGでは多様なソースから断片化・矛盾した画像が検索されるため、現在のモデルでは対応が困難な分布の変化が生じます。また、大量の文書群を対象とした推論を行う研究もありますが、対話的な生成に必要な効率性が考慮されていません。一方で、複数画像の入力によるトークン数の増大を抑えるための視覚トークン圧縮技術には、学習を必要としない重要度ベースや冗長性ベースの手法と、軽量なコンポーネントを導入する学習を考慮した手法が存在します。しかし、これらの手法は視覚的に顕著な領域を優先する傾向があり、RAGにおいて重要な質問との関連性という観点では最適化されていません。</p></section>
+<section class="secsum"><h3>3 DocLongRAG</h3><p>DocLongRAGは、実用的なRAGにおける長文かつノイズが多く、時には矛盾を含む検索結果への対応力を養うために設計された、視覚的文書理解のための訓練用データセットである。データセットの構築にあたっては、Doc-750KやOpenDocVQAなどの既存コーパスを統合した上で、検索結果に依存せずとも回答可能な知識問題、外部検索を必要とする問題、文書内に根拠がない問題、および倫理的に問題のある内容の4カテゴリをフィルタリングにより除外し、回答が必ず提供された文書画像に根拠を持つよう制御している。訓練時のノイズをシミュレートするため、正解を含む関連画像に対し、文書認識リトリーバーを用いて取得した上位3件を除いた4位以降の画像をハードネガティブとして追加し、関連画像とこれらを交互に配置することで、1つの質問に対して平均37.4枚の画像を含む冗長で複雑なマルチモーダル文脈を構成している。アブレーション研究により、関連する文書画像をハードネガティブよりも前の位置に配置する順序付けが、モデルの長期的な依存関係の構築を助け、訓練時の性能向上に寄与することが示されている。既存のVDUデータセットと比較して、DocLongRAGは多様な文書形式をカバーしつつ、すべての回答が検索された画像に依存する設定となっており、より現実的で困難な訓練環境を提供している。</p></section>
+<section class="secsum"><h3>4 Doc-REFRAG</h3><p>Doc-REFRAGは、文書RAGにおける計算効率と意味的な忠実度の両立を目指す、質問主導型の圧縮戦略を用いたマルチモーダルアーキテクチャである。構成要素は、DocOwl2をベースとした文書特化型の視覚エンコーダ、チャンクを埋め込む2層のMLPプロジェクタ、動的なトークン復元を行う軽量な強化学習ベースのセレクタ、およびデコーダーのみの言語モデルからなる。具体的には、各画像の視覚トークンを2次元的な配置を維持したまま重なりのないチャンクに分割し、MLPを用いてデコーダーの埋め込み空間に投影したチャンク埋め込みとして扱いつつ、質問に関連する重要なチャンクのみをセレクタが識別して元の詳細なトークンへと拡張する。学習は、単一画像の再構成、マルチイメージの継続事前学習（CPT）、および強化学習によるセレクタの訓練という3段階のプロトコルで行われる。CPTでは、ColQwenの類似度スコアに基づく擬似ラベルを用いて、チャンクと詳細トークンが混在するハイブリッドなシーケンスを処理する能力を段階的に高める。セレクタの訓練には、GRPOスタイルの方策最適化フレームワークが用いられ、デコーダーの回答精度を報酬として、予算内で最適なチャンクを選択するように学習される。</p></section>
+<section class="secsum"><h3>5 Experiments</h3><p>Doc-REFRAGは、DocOwl2をバックボーンとして採用した、マルチモーダルな文書RAGのための手法です。6つのベンチマークを用いた評価では、Jina-Embeddings-V4により取得された上位20枚の画像を対象として、一般的なマルチモーダル大規模言語モデル（MLLM）や文書理解特化型モデルと比較を行っています。Doc-REFRAGは、ノイズの多い検索コンテキストを模したDocLongRAGでの学習と、質問に基づいてトークンを動的に削減する圧縮技術により、冗長な情報への耐性とアテンションの飽和防止を実現しています。強化学習を用いたセレクターは、ランダムな選択やパープレキシティに基づく手法よりも高い精度を達成し、かつ特定の高精度なリトリーバーよりも低遅延で関連するチャンクを特定できます。また、従来の「検索後にリランカーで絞り込む」パイプラインと比較して、高い精度を維持しながら推論時間を大幅に短縮することに成功しました。アブレーション研究の結果、単一画像の再構成タスク、カリキュラム学習、およびDocLongRAGデータセットの活用が、チャンク埋め込みの情報の忠実度とRAG環境における堅牢性を維持するために不可欠であることが示されました。</p></section>
+<section class="secsum"><h3>6 Conclusion</h3><p>Doc-REFRAGは、マルチモーダルな文書RAGにおける効率的なデコーディングフレームワークです。本手法は、質問に基づいた圧縮技術と3段階の学習パラダイムを採用しており、視覚トークンをチャンクへと圧縮した上で、強化学習を用いたセレクターによって必要な部分のみを選択的に展開します。6つのベンチマークを用いた実験では、11種類のベースライン手法を上回り、より低いレイテンシで最先端の精度を達成しました。さらに、提案した学習手法やDocLongRAGの役割、および文書の再ランキングへの転用可能性についても検証が行われています。本アプローチは、特にリソースが制限された環境において、RAGにおける大規模なコンテキスト推論を効率化することを可能にします。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>Doc-REFRAGには主に3つの限界が存在する。第一に、チャンクサイズが学習時のハイパーパラメータとして固定されており、推論時に動的に適応できない点である。現在の固定サイズは精度と効率のバランスにおいて最適だが、4,000文字を超える文書では精度指標であるANLSが約5%低下しており、高密度なレイアウトへの対応には適応的な粒度制御が求められる。ただし、複数のサイズをサポートするには追加のルーティング処理が必要となり、手法の目的である効率性が損なわれる懸念がある。第二に、強化学習を用いたセレクターの報酬信号が回答の正誤のみに依存しており、どのチャンクが正解に寄与したかという詳細な属性情報が欠如している。エラーの64%が密なテキスト領域や複雑な構造を持つ領域に集中していることから、報酬設計の高度化やチャンク単位の教師あり学習が精度向上に必要である。第三に、学習データのノイズが構築されたものであり、かつ英語のみに限定されている点である。構築パイプライン自体は言語に依存しないが、中国語・日本語・韓国語のような密度の高い言語では、より小さなチャンクサイズが有利に働く可能性がある。最後に、計算コストの制約から、提案手法およびベースラインの比較はすべて単一の学習実行に基づく結果となっている。</p></section>
+<section class="secsum"><h3>Ethics Statement</h3><p>Doc-REFRAGの構築には公開データセットと文書コーパスが使用されており、データ作成時には、文脈に依存しない質問やオンライン検索を前提としたクエリ、回答不能な事例、および個人情報や不適切な言語、機微な画像といった倫理的に問題のあるコンテンツを除去する4段階のフィルタリング工程が適用されています。高密度なテキスト評価に用いられる合成文書画像はプログラムによって生成されたものであり、実在するユーザーデータは含まれていません。本システムは文書理解ツールとして設計されており、推論の範囲を超えてユーザーの文書を保存または送信することはありません。検索された文書に基づいて回答を生成することで、パラメータのみに依存するモデルと比較してハルシネーションのリスクは軽減されますが、証拠が密集していたり、重複や矛盾があったりする文書においては依然として誤りが生じる可能性があります。そのため、重大な意思決定を伴う文脈での運用には人間の監視が必要であり、モデルの出力のみに依存すべきではありません。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-07
+  </footer>
+</div>
+</body>
+</html>
