@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Tree-MAPF: On the Complexity of Optimizing Multi Agent Path Finding on Tree Graphs | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Tree-MAPF: On the Complexity of Optimizing Multi Agent Path Finding on Tree Graphs</h1>
+  <div class="meta">Daniel Koyfman, Dor Atzmon, Shahaf Shperberg, Ariel Felner<br>採択先: Proceedings of the International Symposium on Combinatorial Search 2026 ・ 2026-08-14 ・ source: openalex</div>
+  <div class="links"><a href="https://openalex.org/W7203447596" target="_blank" rel="noopener">原典</a> ・ <a href="https://ojs.aaai.org/index.php/SOCS/article/download/43078/50638" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/socs.v19i1.43078" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Proceedings of the International Symposium on Combinatorial Search 2026</span><span class="chip">公開日 2026-08-14</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">木構造という制限された条件下でのMAPFの複雑性を理論的に解明しており、NP困難性の証明と多項式時間で解ける特殊ケースの特定という貢献が明確。実用的な枝刈りへの応用可能性も示唆されている。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 木構造におけるマルチエージェント経路探索（MAPF）において、燃料消費量（Fuel）およびコストの総和（Sum of Costs）の最適化がそれぞれNP困難であることを証明した。一方で、各エージェントの経路を個別の最短経路に限定し、待機アクションのみで衝突を回避できるかという実行可能性判定については、多項式時間で解けることを明らかにした。</div>
+<section class="qa"><h2>どんなもの？</h2><p>複数のエージェントを衝突させずに目的地へ移動させるMAPFにおいて、木構造のような制限されたグラフトポロジーにおける計算複雑性の境界を対象とする。入力は木グラフ、各エージェントの開始地点および目標地点であり、出力は衝突のない経路計画である。一般グラフでは、メイクスパン、燃料消費量、コストの総和の各最適化がNP困難であることが知られているが、木構造において燃料消費量やコストの総和の最適化がどの程度の複雑さを持つかは未解明であった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>先行研究では木構造上でのメイクスパンの最小化がNP困難であることが示されていたが、本研究は燃料消費量およびコストの総和の最適化についてもそれぞれNP困難であることを新たに証明し、理論的な空白を埋めた。また、エージェントの移動を最短経路のみに制限した場合、燃料消費量の最適性を維持したまま多項式時間で解ける特殊なケースを特定した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>燃料消費量の最適化については、E3-SAT問題からの帰着を用いる。変数、節、リテラル、フィラーの4種類のエージェントと、変数の割り当てを制御するWings and Tailガジェット、および節の充足条件を検証するCoat Hangerガジェットを木構造内に構築する。コストの総和の最適化については、2P1N-SAT問題からの帰着を用い、移動と待機に等しくコストがかかる性質を利用した遅延ガジェットを導入する。このガジェットには、特定の時間枠内でのみ通過を許すウィンドウモードと、通過可能なエージェント数を制限するキャパシティモードがある。最短経路に限定した問題については、エージェント間の依存関係を示す待機グラフを構築し、その閉路の有無を判定する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>燃料消費量の最適化問題では、E3-SATの変数数をn、節の数をmとしたとき、燃料コストの閾値を 4n + 42m と設定することで、問題の充足可能性と等価であることを示した。コストの総和の最適化問題では、構築されるグラフの頂点数およびエージェント数が O(n^2 + nm + m^2) となり、多項式時間で構成可能であることを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>木構造における最適化の困難さは、経路の選択肢の多さではなく、ボトルネックにおける衝突制約の解消に起因する。最短経路に限定した実行可能性判定は、CBSなどのソルバーにおいて、迂回なしでは解けない構成を迅速に排除する枝刈りヒューリスティックとして活用できる。今後の課題として、この判定手法を既存のソルバーへ統合することや、グラフの最大分岐度、直径、ボトルネックの数といったパラメータに基づくパラメータ化複雑性の解析が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>マルチエージェント経路探索（MAPF）は、一般的なグラフ構造において様々な最適化指標に対してNP困難であることが知られているが、木構造のような制限されたトポロジーにおける計算複雑性の境界を明らかにすることは重要な理論的課題である。本研究では、木構造におけるMAPFの複雑性を調査した。先行研究では木構造上でのメイクスパン（全エージェントの完了時間）の最小化がNP困難であることが示されているが、他の標準的な指標については未解明であった。本論文では、木構造においても燃料消費量（全移動距離の総和）およびコストの総和の最適化がそれぞれNP困難であることを証明した。一方で、各エージェントの経路を個別の最短経路に限定し、待機アクションのみを追加することで実行可能な解が存在するかを判定する問題については、燃料消費量の最適性を維持したまま多項式時間で解けることを特定した。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>マルチエージェント経路計画（MAPF）は、複数のエージェントを衝突させずに目的地へ移動させる問題であり、エージェント数の増加に伴い、全エージェントの完了時刻であるMakespan、全エージェントの移動コストの総和であるSum of Costs（SOC）、および待機を除いた総移動距離であるFuelの最適化は、一般グラフにおいてNP困難であることが知られています。木グラフはサイクルを持たず、任意の2頂点間に一意な経路が存在する構造ですが、狭い通路や高次数の分岐点といったボトルネックが存在するため、MAPFの複雑性を分析する上で重要な境界線となります。本研究では、木グラフにおけるMAPFの複雑性を解明することを目的とし、まずFuelの最小化が木グラフ上でNP困難であることを証明します。一方で、すべてのエージェントの移動を個別の最短経路のみに限定した場合、木グラフ上での衝突のないスケジュールの存在判定は多項式時間で決定可能であることを示し、Fuel最適化における扱いやすい部分集合を特定します。最後に、SOCの最小化についても木グラフ上でNP困難であることを証明し、これら主要な最適化指標に関する理論的な空白を埋めるものです。</p></section>
+<section class="secsum"><h3>Background</h3><p>本研究では、木構造のグラフにおけるマルチエージェント経路計画（MAPF）問題を扱う。MAPFは、k個のエージェントが、頂点と辺からなる無向グラフ上で、各々の開始地点から目標地点へ移動する計画を求める問題である。移動の際は、同一時刻に複数のエージェントが同じ頂点を占有する頂点衝突、およびエージェント同士が同じ辺を逆方向に渡るエッジ衝突の2種類の制約を回避しなければならない。グラフが木構造である場合、任意の2頂点間に唯一の単純パスが存在するため、サイクルを利用してエージェント同士が位置を入れ替えることができない。本研究では、最適化の指標として、全エージェントの目標到達時刻の総和であるSOC（Sum of Costs）と、待機動作を除いた全エージェントの総移動距離であるFuelの2つを対象とする。木構造におけるFuelの最適化は、エージェントを一度に1つずつ動かす逐次的なペブルモーション問題と等価になるが、その計算複雑性は未解明であった。本論文では、FuelおよびSOCの最適化を、与えられた整数境界以下で解が存在するかを判定する決定問題として定義し、その複雑性を分析する。</p></section>
+<section class="secsum"><h3>Optimizing TMAPFf</h3><p>木構造における燃料（Fuel）コストの最適化問題（TMAPFf）がNP困難であることを、E3-SAT問題への帰着を通じて証明している。この帰着では、変数を表すブロックエージェント、節を表す節エージェント、節のリテラルを表す節リテラルエージェント、およびリテラルの物理的な対応物となるフィラーエージェントの4種類のエージェントを用いる。グラフ構造には、変数の割り当てを分岐として表現するWings and Tail (WaT) ガジェットと、節の充足条件を検証するためにエージェントの迂回を強制するCoat Hanger (CH) ガジェットが用いられる。燃料コストの閾値を 4n + 42m（nは変数、mは節の数）に設定することで、このコスト以下で解が存在することは、元のE3-SAT式が充足可能であることと等価になる。さらに、すべてのエージェントの経路をそれぞれの最短経路に厳密に制限する場合、木構造においては待機グラフ（wait-graph）に閉路が存在するかどうかを判定するだけで、多項式時間で解の存在を確認できることが示されている。</p></section>
+<section class="secsum"><h3>Optimizing TMAPFs</h3><p>木構造におけるマルチエージェント経路探索（TMAPF）の最適化問題がNP困難であることを、2P1N-SAT問題からの帰着を用いて証明している。証明の核となるのは、移動と待機にそれぞれ1単位のコストがかかる性質を利用した遅延ガジェットの導入である。このガジェットは、特定の時間枠内でのみ外部エージェントの通過を許容するウィンドウモードと、通過可能なエージェントの総数を制限するキャパシティモードの2つの動作モードを持つ。これらを用いて、変数への割り当てをブロックエージェントの経路選択に、節の充足条件をリテラルエージェントが遅延なくガジェットを通過できるかどうかに対応させたグラフ構造を構築している。構築されるグラフの頂点数およびエージェント数は、元の問題の変数数nと節数mに対してO(n^2 + nm + m^2)となり、多項式時間で構成可能である。2P1N-SATが充足可能であれば、すべてのエージェントが遅延ペナルティを回避して目標に到達できる経路が存在し、総コストが特定の閾値以下になることが示されている。</p></section>
+<section class="secsum"><h3>Conclusion and Discussion</h3><p>本研究では、木構造グラフにおけるマルチエージェント経路探索（MAPF）において、燃料消費量とSOC（状態の充足度）を最適化する問題の計算複雑性を検討し、これらがNP困難であることを証明した。木構造はサイクルを持たない最も単純な連結グラフであるが、最適解の探索が困難な理由は、経路の選択肢の多さではなく、衝突制約の厳しさやボトルネックの解消にあることが示された。一方で、すべてのエージェントが最短経路のみを使用する場合に衝突のないスケジュールが存在するかを判定する問題は、多項式時間で解ける実行可能問題として特定された。この性質をCBSなどの状態空間探索ソルバーに組み込むことで、迂回なしでは解けない構成を迅速に排除し、待機アクションによって生成される膨大な探索空間を回避できる可能性がある。今後の展望として、この実行可能性判定を枝刈りヒューリスティックとして活用する手法や、分岐度やグラフの直径といった木構造のパラメータに基づくパラメータ化複雑性の解析が挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-08
+  </footer>
+</div>
+</body>
+</html>

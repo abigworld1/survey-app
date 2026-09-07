@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Compression Beyond the Uncompressed: A Two-Stage Training Recipe for Soft Context Compression in RAG | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Compression Beyond the Uncompressed: A Two-Stage Training Recipe for Soft Context Compression in RAG</h1>
+  <div class="meta">Shuyu Guo, Shuo Zhang, Zhaochun Ren<br>採択先: 未取得 ・ 2026-09-04 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2609.05152v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2609.05152v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-09-04</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGのコンテキスト圧縮において、蒸留の限界を強化学習による探索で突破する2段階学習は新規性が高い。実験も多角的な指標で検証されており、実用性も高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGにおけるソフトコンテキスト圧縮は、従来の蒸留手法では非圧縮モデルの性能を上回ることが困難でした。本研究は、信頼性の高い模倣と困難な事例への探索を分離した2段階の学習レシピDEX-Compを提案し、非圧縮RAGと同等以上の性能を維持しつつ、大幅な推論高速化を実現しました。</div>
+<section class="qa"><h2>どんなもの？</h2><p>検索拡張生成（RAG）では、検索された長いコンテキストが入力長を増大させ、推論の遅延やコンテキストウィンドウの制限を引き起こします。文書を連続的な埋め込みに変換するソフトコンテキスト圧縮は高い表現能力を持ちますが、既存手法の多くは非圧縮モデルの出力を模倣する蒸留によって学習されるため、圧縮表現に最適化された計算パターンを学習できず、元のモデルの性能に制約されるという課題があります。本研究は、クエリに依存せずオフラインで文書をエンコードする手法を対象としています。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のソフト圧縮研究は、模倣に基づく学習やグローバルな最適化に主眼を置いており、模倣と探索を相補的に活用する手法は提案されていませんでした。本研究の新規性は、信頼性の高い模倣を行う段階と、教師モデルが失敗した困難なケースに対して標的を絞った探索を行う段階を分離した、2段階の学習パラダイムを導入した点にあります。これにより、圧縮表現が持つ潜在的な表現能力を最大限に引き出し、非圧縮モデルの性能を突破することを可能にしました。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法DEX-Compは、文書に圧縮用トークンを付加してエンコードする圧縮器と、その埋め込みを用いて回答を生成するデコーダで構成されます。学習は以下の2段階で行われます。<br>第1段階のPure Distillationでは、非圧縮の教師モデルが正解を出力できた応答のみを用いて、教師と学生の出力分布の間のKLダイバージェンスを最小化します。これにより、教師の誤りを内面化することなく、適切な初期化を行います。<br>第2段階のHard Explorationでは、教師モデルが失敗したクエリに対してのみ、Group Relative Policy Optimizationを用いた強化学習を実施します。正解との一致度に基づく報酬を用いることで、単なる模倣を超え、圧縮された表現に対してより適した計算戦略の探索を促します。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>Natural Questions、TriviaQA、HotpotQA、ASQA、PopQAの5つのオープンドメインQAベンチマークを用い、Mistral-7Bをバックボーンとして評価しました。比較対象は、非圧縮RAGおよびLLMLingua-2、xRAG、ICAE、COCOM、PISCOです。評価指標にはContainment Exact MatchとLLM-as-judgeを用い、検索深度をtop-5からtop-30まで検証しました。結果として、あらゆる検索深度において非圧縮RAGを上回る性能を達成しました。また、top-30の設定では、非圧縮RAGと比較してピークGPUメモリを44%、計算コストを33%削減し、最初のトークン生成までの時間を25%高速化しました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、コーパスに対して事前に圧縮済み埋め込みを計算・保存するオフラインの圧縮を前提としています。そのため、頻繁に更新される超大規模なコーパスでは、再計算のコストが課題となります。また、圧縮による効果と強化学習による効果を厳密に分離して評価できていない点や、生成内容の忠実性、根拠の妥当性、敵対的な入力に対する堅牢性の検証が今後の課題です。なお、圧縮率と精度の間にはトレードオフが存在しますが、圧縮率が32であっても非圧縮RAGと同等の性能を維持できることが示されています。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Compression Beyond the Uncompressed: A Two-Stage Training Recipe for Soft Context Compression in RAG</h3><p>RAGにおけるコンテキスト圧縮は、ドキュメントを短い埋め込みシーケンスに符号化することで推論効率を高める手法ですが、既存手法の多くは非圧縮RAGの出力を蒸留する形式をとるため、元のモデルの性能を超えることが困難でした。本研究では、この限界を打破するためにDEX-Compという2段階の学習レシピを提案しています。第1段階のPure Distillationでは、非圧縮RAGが正解を出した応答のみを用いて圧縮モデルの初期学習を行い、第2段階のHard Explorationでは、非圧縮RAGが失敗したクエリに対してのみ強化学習を適用することで、圧縮表現に適した計算パターンの探索を促します。5つのオープンドメインQAベンチマークを用いた評価では、検索深度が上位5件から上位30件の範囲において、コンテキストを圧縮し推論を高速化しつつ、非圧縮RAGと同等以上の性能を達成しました。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>RAGにおけるコンテキスト圧縮は、推論の遅延やコンテキストウィンドウの制限を解決する手法として重要であり、特に連続的な埋め込みを用いるソフト圧縮は、離散的なトークンを用いるハード圧縮よりも高い表現能力を持つ。しかし、従来のソフト圧縮は非圧縮モデルの応答を蒸留する手法に依存しており、その学習プロセスが離散トークンを読み取る際の計算パターンに縛られ、圧縮された高密度な表現の能力を十分に引き出せていないという課題がある。本研究では、この問題を解決するためにDEX-Compという2段階の学習レシピを提案する。第1段階のPure Distillationでは、非圧縮モデルの正解のみを模倣することで、誤った振る舞いを内面化せずに適切な初期化を行う。第2段階のHard Explorationでは、非圧縮モデルが失敗したクエリに対してのみ強化学習を適用することで、模倣だけでは不十分なケースにおいて圧縮表現に適した新たな振る舞いを探索させ、非圧縮モデルを超える性能を目指す。5つのオープンドメインQAベンチマークを用いた実験では、入力サイズを大幅に削減し推論を高速化しつつ、検索深度がtop-5からtop-30の広範囲において、従来のソフト圧縮手法を上回り、非圧縮RAGと同等以上の性能を達成した。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>検索拡張生成（RAG）は、知識集約的なタスクにおいて言語モデルの性能を向上させる手法として、リトリーバーとの共同学習や自己反省メカニズムなどの有効性を高める研究が行われてきました。一方で、長い検索コンテキストの入力に伴う効率性の低下については、既存の取り組みと比較して十分に検討されていません。これに対し、推論時のKVキャッシュ圧縮や、入力テキスト自体を短縮するプリインファレンス・コンテキスト圧縮の研究が進んでいます。コンテキスト圧縮には、トークン抽出や要約を行うハード圧縮と、コンテキストを連続的な埋め込み表現に変換するソフト圧縮があり、後者は連続空間の柔軟性により既存のベンチマークで高い性能を示す傾向があります。本研究では、クエリに依存せずオフラインで文書をエンコードするクエリ非依存のソフト圧縮に焦点を当てており、既存手法には自己符号化やアテンションに基づく情報集約、あるいはテキスト再構成や蒸留を用いた学習パラダイムが存在します。しかし、これまでの研究は模倣に基づく手法やグローバルな最適化を主眼としており、模倣と探索の相補的な強みをソフト圧縮においてどのように活用するかについては明示的に研究されていません。本論文は、信頼性の高い模倣と困難なケースに対する標的を絞った探索を分離する、2段階の学習パラダイムを導入することでこの限界に対処します。</p></section>
+<section class="secsum"><h3>3 Method</h3><p>DEX-Compは、RAG（検索拡張生成）において文書のトークン列を連続的な埋め込み表現に置き換えることで、入力長を削減し推論効率を高める2段階の学習手法である。アーキテクチャは、文書に圧縮用トークンを付加してエンコードし、圧縮された埋め込みをキャッシュする圧縮器と、それを利用して回答を生成するデコーダで構成される。第1段階のPure Distillation（PD）では、教師モデルである非圧縮RAGが正解を出力できたデータのみを抽出し、教師の出力分布と学生モデルの出力分布の間のKLダイバージェンスを最小化することで、信頼性の高い初期化を行う。第2段階のHard Exploration（HE）では、教師モデルが失敗したデータに対してのみ、Group Relative Policy Optimization（GRPO）を用いた強化学習を行い、正解との一致度に基づく報酬を用いて、模倣を超えた最適な計算戦略を探索する。この手法は、圧縮された表現が持つ高い表現能力を活用することを目的としており、模倣による初期化と、教師の限界を超えるための探索を分離することで、非圧縮モデルと同等以上の性能を実現している。</p></section>
+<section class="secsum"><h3>4 Experimental Setup</h3><p>本実験では、事実に基づく回答、マルチホップ、曖昧な長文、ロングテール回答の各能力を評価するため、Natural Questions、TriviaQA、HotpotQA、ASQA、PopQAの5つのデータセットを使用し、検索コーパスには128トークン単位に分割されたWikipedia-KILTを用います。比較対象として、圧縮を行わないRAG、およびクエリに依存せずオフラインで文書をエンコードする手法であるLLMLingua-2、xRAG、ICAE、COCOM、PISCOを設定し、すべての手法でMistral-7Bをデコーダーのバックボーンとして共通利用します。評価指標には、正解が予測に含まれるかを確認するContainment Exact Matchと、Gemini 1.5 Flashを判定器として用いるLLM-as-judgeの2種類を採用し、検索深度をtop-5からtop-30まで広げて検証します。実装面では、Splade-v3をリトリーバー、DeBERTa-v3をリランカーとして用い、提案手法であるDEX-Compは圧縮器とデコーダーに同じバックボーンを用い、それぞれを個別のLoRAアダプタとして実装することで学習コストを抑えています。</p></section>
+<section class="secsum"><h3>5 Experimental Results</h3><p>DEX-Compは、Mistral-7Bを用いた評価において、あらゆるデータセットおよび検索深度（top-5からtop-30）で非圧縮のRAGベースラインを上回り、平均してCEM/LLMスコアで2ポイント以上の統計的に有意な向上を達成しました。特定の検索深度で学習した単一のモデルを他の深度に適用した場合でも、PopQAを除く全てのデータセットで非圧縮RAGを上回る高いクロス深度汎化性能を示しています。計算効率の面では、検索深度が増すほど利点が顕著になり、top-30の設定ではピークGPUメモリを44%、計算コストを33%削減し、最初のトークン生成までの時間（TTFT）を25%高速化しました。これらの効率化は、単一のRTX PRO 6000 Blackwell GPUを用いた実験で確認されており、高負荷な検索設定下での大幅な改善を実証しています。なお、DEX-Compはコーパスに対して一度だけオフラインで圧縮処理を行う必要があり、動的なコーパスに対しても更新された文書のみを増分的に再圧縮することで対応可能です。</p></section>
+<section class="secsum"><h3>6 Analysis</h3><p>DEX-Compの性能を評価するため、ノイズへの耐性を示すResilience Rateと、検索による回答改善の有効性を示すBoost Rateを用いて分析した結果、訓練時と推論時の検索深度が一致する場合において、非圧縮のRAGベースラインを両指標で上回ることが示された。特にResilience Rateの向上は、圧縮が暗黙的なデノイジングとして機能していることを示唆している。2段階の学習レシピに関する検証では、教師モデルの正解データを用いた蒸留（Stage I）と、困難な事例を用いた強化学習（Stage II）の両方が不可欠であり、これらが相補的に作用して性能向上に寄与していることが明らかになった。圧縮率（CR）については、CR = 16において非圧縮RAGを上回る最高性能を達成し、CR = 32でも同等の性能を維持できることから、精度と効率の柔軟なトレードオフが可能である。また、訓練時の検索深度を大きく設定することで、異なる検索深度への汎化性能が高まることが確認された。さらに、学習された圧縮埋め込みは、特定の文書領域に焦点を当てるものや、文書全体の情報を捉えるものなど、空間的な専門化を示しており、限られた容量を局所的および大域的な表現に割り当てていることが解析により示された。</p></section>
+<section class="secsum"><h3>7 Limitations</h3><p>DEX-Compは、クエリに依存しないオフラインの圧縮設定を前提としており、コーパスに対して圧縮済みの埋め込みを事前に計算して保存する必要があります。このコストはクエリごとに分散されますが、頻繁に更新されるコーパスや超大規模なコーパスでは、計算コストが大きくなる可能性があります。また、圧縮の効果とタスク固有の強化学習による効果を分離することは困難であるため、現在の実験設定ではこれらを厳密に切り離して評価できていません。評価については、質疑応答ベンチマークと回答の正確性に焦点を当てており、生成内容の忠実性や根拠の妥当性、あるいは敵対的な入力や長文生成の設定における堅牢性については検証の余地が残されています。</p></section>
+<section class="secsum"><h3>8 Conclusion</h3><p>本研究では、純粋な蒸留とハードな探索を組み合わせた、ソフトコンテキスト圧縮のための2段階学習レシピであるDEX-Compを提案しています。DEX-Compは、クエリに依存しないソフト圧縮手法として、複数の検索設定において非圧縮のRAGモデルの性能を上回ることを示した手法です。具体的には、上位30件の検索結果を用いた設定において、検索されたコンテキストを圧縮し、推論速度を10倍以上に加速させつつ、5つのベンチマークにおいて非圧縮のRAGと同等以上の性能を達成しています。詳細な分析により、学習の各段階が性能に寄与していることや、異なるバックボーンモデルやデータ分布に対しても汎用性を持つことが確認されました。本研究は、圧縮されたRAGシステムと非圧縮のシステムの性能差を縮小するための重要な一歩となります。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-08
+  </footer>
+</div>
+</body>
+</html>

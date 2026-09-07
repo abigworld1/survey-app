@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>LaCAM* Variants for Minimizing Makespan in Multi-Agent Path Finding (Extended Abstract) | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>LaCAM* Variants for Minimizing Makespan in Multi-Agent Path Finding (Extended Abstract)</h1>
+  <div class="meta">Omer Idgar, Dor Atzmon, Ariel Felner<br>採択先: Proceedings of the International Symposium on Combinatorial Search 2026 ・ 2026-08-14 ・ source: openalex</div>
+  <div class="links"><a href="https://openalex.org/W7203443052" target="_blank" rel="noopener">原典</a> ・ <a href="https://ojs.aaai.org/index.php/SOCS/article/download/43108/50668" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/socs.v19i1.43108" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Proceedings of the International Symposium on Combinatorial Search 2026</span><span class="chip">公開日 2026-08-14</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">MAPFにおけるMKS最小化に焦点を当て、IDA*導入やSUOの改良により大規模問題での最適解導出に成功しており、手法の新規性と実験の具体性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチエージェント経路探索において、メイクスパン（MKS）の最小化を目的としたLaCAM*の有効性を検証し、特にIDA*を組み合わせた改良版が大規模な問題で高い性能を達成することを示した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路探索（MAPF）では、全エージェントの経路コストの総和（SOC）または、最も長い経路の長さであるメイクスパン（MKS）を最小化することが求められる。既存のLaCAM*は、任意の解を求めた後に最適解へと収束するanytimeアルゴリズムであるが、SOCの最小化においては大規模な問題で最適解への収束速度が遅いという課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>MKSのヒューリスティック推定値が、大規模かつ疎なマップにおいて非常に正確であるという特性に着目し、LaCAM*をMKSの最適化に適用する有効性を明らかにした。これにより、SOCでは困難であった大規模問題においても、LaCAM*がMKSの最適解を迅速に導出できることを示した。また、探索メカニズムにIDA*を導入したバリアントを提案し、MKS特化型アルゴリズムであるCBSMを上回る性能を実現した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LaCAM*の探索メカニズムとして、深さ優先の分枝限定法（DFBnB）を用いる手法と、反復深化A*（IDA*）を用いる手法の2種類を検討している。LaCAM*2では、低レベルの探索においてエージェントを密集させず、より分散した配置を選択する空間利用最適化（SUO）を導入している。IDA*を用いたバリアントでは、最小の推定コストを持つノードのみを考慮するため、SUOによってエージェントが分散される一方で、コストが増大する探索を抑制する仕組みとなっている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>4種類のベンチマークマップ（Empty, Warehouse, Game, City）を用い、エージェント数を100から4,000まで変化させたインスタンスに対して、CBSM、LaCAM*-BnB、LaCAM*-IDA*、LaCAM*2-BnB、LaCAM*2-IDA*の5手法を比較した。1インスタンスあたり60秒の制限時間内で、成功率と平均実行時間を評価した。結果として、中規模のWarehouseやGameマップではLaCAM*2-IDA*が優れた性能を示し、大規模なCityマップではLaCAM*2-IDA*が3,500エージェントを含むインスタンスの最適解導出に成功した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>マップの密度によって最適な手法が異なる。小規模で密なマップではCBSMが適しており、中規模から大規模で疎なマップではLaCAM*2-IDA*が推奨される。ただし、非常に疎なマップにおいては、エージェントを分散させるSUOの機能が不要となるため、LaCAM*-IDA*の方が優れた性能を示すというトレードオフがある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Introduction and Background</h3><p>マルチエージェント経路探索（MAPF）では、全エージェントの経路コストの総和であるSOCと、最も長い経路の長さであるメイクスパン（MKS）の最小化が主要な目的関数となる。LaCAMは、エージェントの配置を状態として深さ優先探索を行い、低レベルの探索でPIBTなどの高速なアルゴリズムを用いて衝突のない次状態を生成する手法であり、その拡張であるLaCAM*は、深さ優先の分枝限定法を用いることで最適解への収束を保証する。エージェントの密集を防ぐために配置を分散させる空間利用最適化（SUO）を導入した改良版のLaCAM*2は、SOCの最適化において収束が非常に遅いという課題がある。本研究では、MKSのヒューリスティック推定値は特に大規模で疎なマップにおいて非常に正確であることを利用し、LaCAM*がMKSの最適化において有効であることを示す。実験の結果、疎なマップにおいてLaCAM*はMKS専用のCBSベースの手法であるCBSMを大幅に上回り、さらにIDA*を用いた探索を行うLaCAM*-IDA*は、分枝限定法を用いた手法やCBSMよりも優れた性能を示し、様々なベンチマークマップで最先端の性能を達成した。</p></section>
+<section class="secsum"><h3>Finding Optimal Solutions with LaCAM*</h3><p>LaCAM*は、深さ優先探索を用いて迅速に解を求めるLaCAMを拡張し、深さ優先枝刈り付き探索を用いることで、解の品質を繰り返し改善しながら最終的に最適解を証明することを目指したアルゴリズムです。先行研究では、MAPFベンチマークのインスタンスの99%に対して劣最適解を導出できるスケーラビリティが示された一方で、エージェント数が多い大規模な問題では最適解への収束速度が遅いという課題が報告されていました。本研究では、SOC（衝突回避）とMKS（メイクスパン最小化）における最適解探索の差異を、warehouse-20-40-10-2-1マップ上のエージェント数100から1,000までの50個のインスタンスを用いて実験的に検証しました。その結果、LaCAM*2-BnBはSOCのインスタンスでは最適解を一つも導出できませんでしたが、MKSにおいてはエージェント数が1,000の場合でも32個のインスタンスで最適解を導出しました。この結果は、LaCAM*をMKSにおける最適解探索アルゴリズムとして利用できる可能性を示しています。</p></section>
+<section class="secsum"><h3>Experimental Study</h3><p>Intel Core Ultra 9-185H CPUと16GB RAMの環境において、CBSM、LaCAM*-BnB、LaCAM*-IDA*、LaCAM*2-BnB、LaCAM*2-IDA*の5つの手法を、4種類のベンチマークマップを用いて比較実験した。MAPF-LNS2を用いてエージェント数を100から4,000まで変化させたインスタンスを対象とし、1インスタンスあたりの制限時間を60秒として成功率と平均実行時間を評価した。実験の結果、小規模なEmptyマップではCBSMがLaCAM*系を上回ったが、より大規模な3つのマップではLaCAM*系がCBSMを上回り、特にLaCAM*2-IDA*はCityマップにおいて3,500エージェントを含むインスタンスを最適解として解くことに初めて成功した。手法間の比較では、中規模のWarehouseおよびGameマップにおいて、LaCAM*2-IDA*はLaCAM*2-BnBやLaCAM*-IDA*よりも優れた性能を示した。これは、LaCAM*2の低レベル層がエージェントを疎な領域へ分散させる特性を持ちつつ、IDA*を用いることで最小のコスト値を持つノードを選択し、実行時間を抑制できるためである。一方で、非常に疎なCityマップでは、エージェントを分散させる必要性が低いため、LaCAM*-IDA*がLaCAM*2-IDA*を上回るケースも確認された。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-08
+  </footer>
+</div>
+</body>
+</html>

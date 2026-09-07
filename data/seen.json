@@ -3756,6 +3756,71 @@
       "url": "http://arxiv.org/abs/2609.03749v1",
       "venue": "EMNLP 2026 Main Conference"
     },
+    "arxiv:2609.04647": {
+      "added": "2026-09-08",
+      "added_at": "2026-09-08T06:07:48.707839",
+      "arxiv_id": "2609.04647",
+      "authors": [
+        "Tong Qi",
+        "Jingyu Wu",
+        "Youbing Yin",
+        "Spencer Hong",
+        "Daben Liu",
+        "Erin Babinsky"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-04",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2609.04647.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.04647v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGにおける「チャンク間の整合性」という独自の視点が新規であり、R-GCNを用いた具体的なグラフ構築・再重み付け手法も詳細。マルチホップQAでの有効性も示されている。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "CAGE: Coherence-Aware Graph Encoding for Retrieval-Augmented Generation",
+      "tldr": "従来のRAGは各パッセージを個別に評価するため、取得した集合としての論理的な整合性が欠ける課題がある。本研究は、パッセージ間の構造的な整合性をモデル化するリランキングフレームワークCAGEを提案し、検索精度と回答生成精度を向上させる。",
+      "url": "http://arxiv.org/abs/2609.04647v1",
+      "venue": ""
+    },
+    "arxiv:2609.05152": {
+      "added": "2026-09-08",
+      "added_at": "2026-09-08T06:06:14.674991",
+      "arxiv_id": "2609.05152",
+      "authors": [
+        "Shuyu Guo",
+        "Shuo Zhang",
+        "Zhaochun Ren"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-04",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2609.05152.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.05152v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGのコンテキスト圧縮において、蒸留の限界を強化学習による探索で突破する2段階学習は新規性が高い。実験も多角的な指標で検証されており、実用性も高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Compression Beyond the Uncompressed: A Two-Stage Training Recipe for Soft Context Compression in RAG",
+      "tldr": "RAGにおけるソフトコンテキスト圧縮は、従来の蒸留手法では非圧縮モデルの性能を上回ることが困難でした。本研究は、信頼性の高い模倣と困難な事例への探索を分離した2段階の学習レシピDEX-Compを提案し、非圧縮RAGと同等以上の性能を維持しつつ、大幅な推論高速化を実現しました。",
+      "url": "http://arxiv.org/abs/2609.05152v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -9518,6 +9583,38 @@
       "url": "https://www.semanticscholar.org/paper/a8e56a432d7394b0a2410ca5c3e3cb4704ebf9c1",
       "venue": "Proceedings of the International Symposium on Combinatorial Search"
     },
+    "doi:10.1609/socs.v19i1.43078": {
+      "added": "2026-09-08",
+      "added_at": "2026-09-08T06:03:35.186054",
+      "arxiv_id": "",
+      "authors": [
+        "Daniel Koyfman",
+        "Dor Atzmon",
+        "Shahaf Shperberg",
+        "Ariel Felner"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "2026-08-14",
+      "doi": "10.1609/socs.v19i1.43078",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/doi-9b30af3e1e56.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://ojs.aaai.org/index.php/SOCS/article/download/43078/50638",
+      "reading_value": 4,
+      "reading_value_reason": "木構造という制限された条件下でのMAPFの複雑性を理論的に解明しており、NP困難性の証明と多項式時間で解ける特殊ケースの特定という貢献が明確。実用的な枝刈りへの応用可能性も示唆されている。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Tree-MAPF: On the Complexity of Optimizing Multi Agent Path Finding on Tree Graphs",
+      "tldr": "木構造におけるマルチエージェント経路探索（MAPF）において、燃料消費量（Fuel）およびコストの総和（Sum of Costs）の最適化がそれぞれNP困難であることを証明した。一方で、各エージェントの経路を個別の最短経路に限定し、待機アクションのみで衝突を回避できるかという実行可能性判定については、多項式時間で解けることを明らかにした。",
+      "url": "https://openalex.org/W7203447596",
+      "venue": "Proceedings of the International Symposium on Combinatorial Search 2026"
+    },
     "doi:10.1609/socs.v19i1.43080": {
       "added": "2026-08-17",
       "added_at": "2026-08-17T06:01:42.168174",
@@ -9548,6 +9645,37 @@
       "title": "Maximizing Throughput in Lifelong Multi-Agent Path Finding with Unassigned Agents",
       "tldr": "タスクが継続的に発生する環境において、目的地を持たない未割り当てエージェントを戦略的に活用するLMAPFUAフレームワークを提案し、エージェントの総数と同時実行タスク数のバランスを制御することでスループットを最大化する。",
       "url": "https://openalex.org/W7203493327",
+      "venue": "Proceedings of the International Symposium on Combinatorial Search 2026"
+    },
+    "doi:10.1609/socs.v19i1.43108": {
+      "added": "2026-09-08",
+      "added_at": "2026-09-08T06:02:35.178283",
+      "arxiv_id": "",
+      "authors": [
+        "Omer Idgar",
+        "Dor Atzmon",
+        "Ariel Felner"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "2026-08-14",
+      "doi": "10.1609/socs.v19i1.43108",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/doi-747f3f1f42a9.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://ojs.aaai.org/index.php/SOCS/article/download/43108/50668",
+      "reading_value": 4,
+      "reading_value_reason": "MAPFにおけるMKS最小化に焦点を当て、IDA*導入やSUOの改良により大規模問題での最適解導出に成功しており、手法の新規性と実験の具体性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "LaCAM* Variants for Minimizing Makespan in Multi-Agent Path Finding (Extended Abstract)",
+      "tldr": "マルチエージェント経路探索において、メイクスパン（MKS）の最小化を目的としたLaCAM*の有効性を検証し、特にIDA*を組み合わせた改良版が大規模な問題で高い性能を達成することを示した。",
+      "url": "https://openalex.org/W7203443052",
       "venue": "Proceedings of the International Symposium on Combinatorial Search 2026"
     },
     "doi:10.1613/jair.1.16299": {
