@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Fast and Scalable Rule-Based Search for Deadline-Constrained Anonymous Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Fast and Scalable Rule-Based Search for Deadline-Constrained Anonymous Multi-Agent Path Finding</h1>
+  <div class="meta">Sahar Badri, Serafino Cicerone, Alessia Di Fonso<br>採択先: Proceedings of the International Symposium on Combinatorial Search 2026 ・ 2026-08-14 ・ source: openalex</div>
+  <div class="links"><a href="https://openalex.org/W7203451806" target="_blank" rel="noopener">原典</a> ・ <a href="https://ojs.aaai.org/index.php/SOCS/article/download/43068/50628" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/socs.v19i1.43068" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Proceedings of the International Symposium on Combinatorial Search 2026</span><span class="chip">公開日 2026-08-14</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">数千規模のMAPFに対し、線形に近い計算量で最適解に近い精度を出すスケーラビリティが極めて高く、実用的な貢献が大きい。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 期限制約のある匿名マルチエージェント経路計画（AMAPFwID）において、最大流計算を用いる従来手法は大規模問題で計算コストが膨大になる課題がある。本論文は、タスク割り当てとルールベースの反応型探索を組み合わせたフレームワークDARTを提案し、数千規模のエージェントに対しても高速かつ高精度な解を導出する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>エージェントと目標地点が区別されない匿名マルチエージェント経路計画において、各目標地点に到達期限が設定された問題を対象とする。無向グラフ上のエージェントが、隣接頂点への移動または待機を通じて、各目標地点に期限内に到達し、かつ継続的に占有する経路を求める。従来の最大流計算に基づく手法は、時間拡張ネットワークのサイズが作業領域の二乗で増大するため、数千規模のエージェントを扱う大規模な問題では計算が困難である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存の多項式時間最適解アルゴリズムに対し、数千のエージェントに対しても線形に近い計算量で数秒以内に解を導出できる高いスケーラビリティを実現した。タスク割り当てに、ボトルネック割当を伴うBACRと、衝突精緻化を伴うDACRという2種類の戦略を導入し、解の質と成功率のバランスを最適化している。また、余剰時間ヒューリスティックを用いた決定論的な7つの移動ルールにより、局所的な時空間衝突を効率的に解消する枠組みを構築した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>DARTは、タスク割り当てフェーズと反応型探索フェーズの2段階で構成される。割り当てフェーズでは、最大移動距離を最小化するBACR、またはハンガリアン法と局所探索を用いて移動総和と衝突を最小化するDACRを用いる。探索フェーズでは、各ステップにおいて、目標の期限までの残り時間から現在地からの最短距離を引いた「余剰時間」に基づき、余裕の少ないエージェントを優先して処理する。各ステップでは、ターゲットの入れ替え、代替経路の探索、循環待ちの解消、ターゲットへの移動、待機などの7つの決定論的なルールを優先順位に従って適用し、衝突を回避しながら期限内の到達を目指す。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>MovingAIベンチマークマップを用い、最小費用最大流アルゴリズム（OPT）と比較評価を行った。実験の結果、DARTはOPTと比較して実行時間を数桁削減し、エージェント数が数千に達しても実行時間はエージェント数に対してほぼ線形に増加する。解の品質については、移動コストの総和において最適解の約1.01倍から1.06倍という高い精度を維持している。また、DACRを用いた場合は高密度な環境でも93%以上の成功率を示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>DARTは局所的な決定ルールに基づいているため、極めて高密度な環境やデッドラインが非常に厳格な条件下では、解が存在する場合でも失敗する可能性がある（不完全性）。特にBACR戦略においては、複雑なグリッドや多数のエージェントが存在する際に衝突が増加し、解を見つけられないケースがある。今後の課題として、局所的な決定が実行可能性の回復を妨げるメカニズムの解明や、先読みの導入、割り当てと探索の両フェーズにおける衝突解決メカニズムの改善、および最大完了時間の最小化への適応が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Abstract</h3><p>個々のエージェントに期限が設定された匿名マルチエージェント経路計画（AMAPFwID）において、従来の最大流計算に基づく手法は、時間拡張ネットワークのサイズが作業領域の二乗で増大するため、数千規模のエージェントを扱う大規模な問題では計算が困難である。本論文では、スケーラビリティに優れたルールベースのフレームワークであるDARTを提案する。この手法は、コスト精緻化を伴うボトルネック割当（BACR）または衝突精緻化を伴う期限考慮型割当（DACR）を用いて初期のペアリングを行うタスク割当フェーズと、7つの決定論的な移動ルールを用いて局所的な時空間衝突を解消する反応型探索フェーズの2段階で構成される。探索においては、期限までの余裕時間に基づくExcess Timeヒューリスティックを用いてエージェントの優先順位を決定し、期限内に到達可能な構成へと探索を導く。標準的なベンチマークを用いた実験の結果、DARTは数千のエージェントを含むマップにも対応可能であり、最適解を求めるソルバーと比較して実行時間を数桁削減しつつ、移動コストの総和において最適解の約1.01倍という高い解の質を維持している。</p></section>
+<section class="secsum"><h3>Introduction</h3><p>本研究は、エージェントと目標が区別されない匿名マルチエージェント経路計画（AMAPF）において、各目標に到達期限が設定されたAMAPFwID問題を解くための、スケーラブルなルールベース探索フレームワークであるDARTを提案する。DARTは問題を2つのフェーズに分離しており、第1フェーズのタスク割り当てでは、最大移動距離を最小化しつつ総コストを改善するBACR戦略と、ハンガリアン法を用いて総移動距離の合計を最小化し局所探索で衝突を減らすDACR戦略の2種類を用いる。第2フェーズの反応的探索では、7つの決定論的な移動ルールを用いて時空間的な衝突を解消し、エージェントの時間の余裕度に基づき動的に優先順位を決定する余剰時間ヒューリスティックを活用して、期限内に到達可能な構成へと探索を導く。実験では、4連結グリッドを用いたベンチマークにおいて、既存の多項式時間最適解アルゴリズムと比較した結果、DARTは数桁高速であり、数千のエージェントに対しても線形に近い計算量で数秒以内に解を導出できることが示された。解の品質については、DACRを用いた場合に最適解との比率が1.06以下に抑えられ、BACRでは1.02から1.05の範囲に収まるなど、ほぼ最適に近い性能を維持している。ただし、複雑なグリッドや多数のエージェントが存在する条件下では、特にBACR戦略において衝突が増加し、解を見つけられない場合がある。</p></section>
+<section class="secsum"><h3>Problem Definition</h3><p>本セクションでは、デッドライン制約付きの匿名マルチエージェント経路計画（AMAPFwID）問題を、無向グラフ G = (V, E) 上の要素として定義している。問題は、エージェントの集合、各エージェントの初期位置を定める単射関数、目標地点の集合、および各目標のデッドラインを定める関数によって構成される。各エージェントは、隣接する頂点への移動またはその場での待機という2種類の離散的なアクションを通じて経路を形成する。計画における衝突には、複数のエージェントが同じ時刻に同一の頂点を占有する頂点衝突と、2つのエージェントが同じエッジを互いに逆方向に通過するエッジ衝突の2種類がある。本問題の解は、各目標地点においてデッドライン以降も常にいずれかのエージェントがその地点を占有し続ける、衝突のない経路集合を求めることである。この際、あるエージェントが目標地点を離れると同時に別のエージェントがその地点に到達するスワッピング動作が許容される。解の質を評価する指標には、全目標が確保されるまでの最初の時刻を示すmakespanと、全エージェントの移動距離の総和であるsum-of-movesがある。</p></section>
+<section class="secsum"><h3>The Algorithm</h3><p>DARTは、期限付きの匿名マルチエージェント経路探索問題を解くための、ルールベースのリアクティブな探索アルゴリズムです。まず外部モジュールによって初期のターゲット割り当てと経路が決定され、その後、離散的なタイムステップごとにエージェントが順次処理されます。エージェントの処理順序は、ターゲットの期限までの残り時間から現在地からターゲットまでの距離を引いた「余剰時間」に基づいて決定され、この値が小さい、つまり時間的余裕が少ないエージェントほど高い優先度を持ちます。<br><br>各ステップでは、7つのルールを優先順位に従って適用し、衝突回避やターゲットの入れ替え、デッドロックの解消を行います。具体的には、ターゲットに到達済みのエージェントと経路が重なる場合にターゲットを入れ替えるSwapTargets、優先度の高いエージェントが経路を塞いでいる場合に期限内に到達可能な範囲で代替経路を探索するDetour、循環待ちが発生した際にターゲットを回転させて解消するDeadlockなどのルールを用います。これらに加え、空いている経路へ移動するMoveToTargetや、ターゲットに留まるStayOnTarget、移動できない場合に待機するWaitといったルールによって、エージェントの動きが制御されます。最終的に、すべてのエージェントがターゲットに到達した際、各ターゲットがその期限内に獲得されていたかを確認し、条件を満たせば計画を返し、満たさなければ空の計画を返します。計算量は、最大期限をΓ、エージェント数を|A|、グラフの頂点数を|V|、辺の数を|E|とすると、O(Γ|A|(|V| + |E|))となります。</p></section>
+<section class="secsum"><h3>Target Assignment</h3><p>ターゲット割り当てには、解の質の異なる側面を重視する2つの戦略がある。一つ目のBACRは、まずエージェントとターゲット間の最大距離を最小化するボトルネック割り当て問題を解いてメイクスパンを抑え、次にそのボトルネック値を維持したまま移動総和を最小化する最小費用最大マッチングを行う二段階の手法であり、計算量は O(max(A(V + E), A^4)) である。二つ目のDACRは、移動総和の最小化と経路間の衝突回避を目的とした二段階の手法である。第一段階では、エージェントとターゲットの距離がターゲットの期限内である場合にのみ距離をコストとし、それ以外を無限大とする期限を考慮したコスト行列を用いて、ハンガリアン法により移動総和を最小化する割り当てを O(|A|^3) で求める。第二段階では、局所探索を用いて、最も多くの衝突を引き起こしている経路を特定し、最大k個の代替経路を計算することで、移動総和と経路間の衝突回数の合計を最小化するように経路を更新する。DACRの全体の計算量は O(A^3 + I k |A||V|(|V| + |E|)) であり、実験設定ではkと反復回数Iを定数とすることで、第二段階の効率性を確保している。</p></section>
+<section class="secsum"><h3>Experimental Evaluation</h3><p>提案手法であるDARTの性能を、最小移動コストを最適解として求める最小費用最大流アルゴリズム（OPT）と比較して評価しています。MovingAIベンチマークマップを用い、エージェントの数や密度を変化させた実験において、DARTはOPTと比較して数桁高速であり、実行時間は通常0.1秒未満と極めて低く抑えられています。解の品質については、DARTは最適解に近い移動コストを維持しつつ、衝突回避戦略の効果により、OPTよりも短い完了時間（makespan）を実現しています。割り当て戦略については、DACRがBACRよりも高い成功率を示し、高密度な環境でも93%以上の成功率を維持するなど、より優れた性能を発揮します。スケーラビリティの観点では、エージェント数が数千に達しても実行時間はエージェント数に対してほぼ線形に増加し、大規模な問題に対しても高い効率性を保っています。ただし、DARTは局所的な決定ルールに基づいているため、非常に高密度な環境でデッドラインが厳格な場合には、解が存在する場合でも失敗することがあります。</p></section>
+<section class="secsum"><h3>Conclusions</h3><p>本論文では、期限制のある匿名マルチエージェント経路探索問題に対して、高いスケーラビリティを持つルールベースのフレームワークであるDARTを提案した。本手法は理論的な限界として不完全性を抱えており、エージェント間の混雑によって各エージェントが利用可能な余裕時間が減少する極めて高密度な環境においてのみ、解を見つけられない失敗が発生する。今後の課題として、局所的な決定がいつ、なぜ実行可能なタイミングの回復を妨げるのかを解明するため、遅延が生じるダイナミクスの詳細な調査を計画している。具体的には、限定的な先読み、余裕時間を考慮したヒューリスティック、あるいは割り当てフェーズと反応型探索フェーズの両方における衝突解決メカニズムの改善により、期限に関連する失敗を削減できる可能性がある。また、DARTのフレームワークを、メイクスパンの最適化を目指す問題へと適応させることも有望な研究方向であり、反応型フェーズを維持したまま、適切な割り当てモジュールを導入することで実現可能である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-09
+  </footer>
+</div>
+</body>
+</html>

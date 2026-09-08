@@ -3534,6 +3534,37 @@
       "url": "http://arxiv.org/abs/2608.27809v1",
       "venue": ""
     },
+    "arxiv:2608.28766": {
+      "added": "2026-09-09",
+      "added_at": "2026-09-09T06:06:59.021306",
+      "arxiv_id": "2608.28766",
+      "authors": [
+        "Daniel Naiff",
+        "Ronnie Alves",
+        "Gustavo Pinto"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-28",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2608.28766.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.28766v1",
+      "reading_value": 3,
+      "reading_value_reason": "GraphRAGとベクトル検索のハイブリッド構成は有用な示唆を与えるが、評価データセットが22問と極めて小規模であり、実験の汎用性と信頼性に課題が残るため。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Beyond Vector Search: Comparing Classical RAG with Hybrid GraphRAG for Climate Science Q\\&A",
+      "tldr": "従来のベクトル検索に基づくRAGは、複雑な科学文献における概念間の階層的な関係や文書をまたぐ依存関係を捉えられない課題があります。本研究では、ベクトル検索とGraphRAGを統合したハイブリッド手法を提案し、気候科学の質問応答において文脈の関連性と再現率を向上させました。",
+      "url": "http://arxiv.org/abs/2608.28766v1",
+      "venue": "ENIAC 2026"
+    },
     "arxiv:2608.29290": {
       "added": "2026-09-02",
       "added_at": "2026-09-02T06:09:24.748123",
@@ -4700,6 +4731,36 @@
       "title": "HyCE-RAG: Hypergraph Chain-of- Evidence Retrieval -Augmented Generation for Explainable Multi-hop Question Answering",
       "tldr": "分散した証拠を繋ぎ合わせる必要があるマルチホップ質問回答に対し、ハイパーグラフを用いて構造的な証拠連鎖を構築するHyCE-RAGを提案する。ハイパーエッジによる高次な関連性のモデル化と信頼度伝播により、正確で説明可能な推論を実現する。",
       "url": "https://arxiv.org/abs/2607.22597",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2607.24748": {
+      "added": "2026-09-09",
+      "added_at": "2026-09-09T06:05:40.351266",
+      "arxiv_id": "2607.24748",
+      "authors": [
+        "Seonok Kim"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-05-21",
+      "doi": "10.48550/ARXIV.2607.24748",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2607.24748.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG",
+        "Evidence Retrieval"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.24748",
+      "reading_value": 4,
+      "reading_value_reason": "二重インデックスとエージェントによる反復検証という、RAGの精度向上に直結する具体的かつ新規性の高い手法を提案しており、実用上の重要度が高い。",
+      "relevance": 9,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "VLD-RAG: Agentic Vision-Language Retrieval-Augmented Generation for Long, Visually-Rich Multi-Page Documents",
+      "tldr": "視覚的に豊かな長大な複数ページ文書において、情報の分散やレイアウト情報の喪失による検索・生成精度の低下を解決するため、二重インデックスとエージェントによる反復検証を備えたVLD-RAGを提案する。これにより、視覚的特徴と正確な語彙情報の双方を保持し、複雑な文書構造下でも高精度な証拠取得と回答生成を実現する。",
+      "url": "https://arxiv.org/abs/2607.24748",
       "venue": ""
     },
     "doi:10.48550/arxiv.2608.00922": {
@@ -9583,6 +9644,37 @@
       "url": "https://www.semanticscholar.org/paper/a8e56a432d7394b0a2410ca5c3e3cb4704ebf9c1",
       "venue": "Proceedings of the International Symposium on Combinatorial Search"
     },
+    "doi:10.1609/socs.v19i1.43068": {
+      "added": "2026-09-09",
+      "added_at": "2026-09-09T06:03:20.118239",
+      "arxiv_id": "",
+      "authors": [
+        "Sahar Badri",
+        "Serafino Cicerone",
+        "Alessia Di Fonso"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "2026-08-14",
+      "doi": "10.1609/socs.v19i1.43068",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/doi-fb3e92fc8fe4.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://ojs.aaai.org/index.php/SOCS/article/download/43068/50628",
+      "reading_value": 4,
+      "reading_value_reason": "数千規模のMAPFに対し、線形に近い計算量で最適解に近い精度を出すスケーラビリティが極めて高く、実用的な貢献が大きい。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Fast and Scalable Rule-Based Search for Deadline-Constrained Anonymous Multi-Agent Path Finding",
+      "tldr": "期限制約のある匿名マルチエージェント経路計画（AMAPFwID）において、最大流計算を用いる従来手法は大規模問題で計算コストが膨大になる課題がある。本論文は、タスク割り当てとルールベースの反応型探索を組み合わせたフレームワークDARTを提案し、数千規模のエージェントに対しても高速かつ高精度な解を導出する。",
+      "url": "https://openalex.org/W7203451806",
+      "venue": "Proceedings of the International Symposium on Combinatorial Search 2026"
+    },
     "doi:10.1609/socs.v19i1.43078": {
       "added": "2026-09-08",
       "added_at": "2026-09-08T06:03:35.186054",
@@ -9645,6 +9737,36 @@
       "title": "Maximizing Throughput in Lifelong Multi-Agent Path Finding with Unassigned Agents",
       "tldr": "タスクが継続的に発生する環境において、目的地を持たない未割り当てエージェントを戦略的に活用するLMAPFUAフレームワークを提案し、エージェントの総数と同時実行タスク数のバランスを制御することでスループットを最大化する。",
       "url": "https://openalex.org/W7203493327",
+      "venue": "Proceedings of the International Symposium on Combinatorial Search 2026"
+    },
+    "doi:10.1609/socs.v19i1.43107": {
+      "added": "2026-09-09",
+      "added_at": "2026-09-09T06:03:59.043049",
+      "arxiv_id": "",
+      "authors": [
+        "Ariel Felner",
+        "Roni Stern"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "2026-08-14",
+      "doi": "10.1609/socs.v19i1.43107",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/doi-65e2a6aa6e4e.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://ojs.aaai.org/index.php/SOCS/article/download/43107/50667",
+      "reading_value": 3,
+      "reading_value_reason": "未割り当てエージェントを考慮する新問題設定の提案は新規性が高いが、本稿は拡張要旨であり、実験による検証や具体的なアルゴリズムの提示が欠けているため。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Multi-Agent Path Finding with Unassigned Agents (MAPFUA) (Extended Abstract)",
+      "tldr": "特定の目的地を持たない「未割り当てエージェント」が、割り当て済みエージェントの経路確保のために移動することを許容する新しい問題設定MAPFUAを提案する。",
+      "url": "https://openalex.org/W7203478450",
       "venue": "Proceedings of the International Symposium on Combinatorial Search 2026"
     },
     "doi:10.1609/socs.v19i1.43108": {

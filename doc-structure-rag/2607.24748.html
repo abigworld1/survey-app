@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>VLD-RAG: Agentic Vision-Language Retrieval-Augmented Generation for Long, Visually-Rich Multi-Page Documents | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>VLD-RAG: Agentic Vision-Language Retrieval-Augmented Generation for Long, Visually-Rich Multi-Page Documents</h1>
+  <div class="meta">Seonok Kim<br>採択先: 未取得 ・ 2026-05-21 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2607.24748" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2607.24748" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/ARXIV.2607.24748" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-05-21</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 9</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">二重インデックスとエージェントによる反復検証という、RAGの精度向上に直結する具体的かつ新規性の高い手法を提案しており、実用上の重要度が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span><span class="tag">Evidence Retrieval</span></div>
+  <div class="tldr"><strong>一言で:</strong> 視覚的に豊かな長大な複数ページ文書において、情報の分散やレイアウト情報の喪失による検索・生成精度の低下を解決するため、二重インデックスとエージェントによる反復検証を備えたVLD-RAGを提案する。これにより、視覚的特徴と正確な語彙情報の双方を保持し、複雑な文書構造下でも高精度な証拠取得と回答生成を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、表、図、複雑なレイアウトを含む視覚的に豊かな長大な複数ページ文書である。従来のRAG手法では、文書をプレーンテキストに変換する際にレイアウトや空間的関係、非テキスト的な手がかりが失われる課題がある。また、回答に必要な証拠が複数のページに分散している場合、単発の検索では適切な証拠を特定できず、検索と生成の両面で精度が低下する。入力はユーザーのクエリと文書画像であり、出力は根拠に基づいた回答である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存手法は、情報の分散に対応するための多段階の証拠発見プロセスや、テキストと画像の情報の不一致を扱う仕組みが不足している。本研究は、ページ画像の密な視覚埋め込みと、構造を保持したMarkdown形式のテキストインデックスを併用する二重インデックス構成を導入した点に新規性がある。さらに、検証器が証拠の不足や信頼性の低さを検知し、検索要求を動的に洗練させるエージェント的な検索ループを構築した点が、従来の視覚ベースの検索手法との差分である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>処理は、検索意図の生成、ハイブリッド検索、証拠に基づいた生成の3段階で行われる。まず、クエリから主要なエンティティや期待される証拠タイプ、視覚的なアンカーを含む検索意図を抽出する。次に、キーワードを用いた疎な語彙検索と、言語モデルが生成した「回答を含む理想的なページ」の仮説的な文書埋め込みを用いた密な検索を並行して実行する。これら2つのスコアは、モダリティ間の一貫性を考慮した制約付きの融合手法によって統合される。検索結果の信頼性が低い場合は、検証器が不足している証拠を特定し、新たなサブクエリを用いた再検索を行う。最終的に、ページ画像、特定の領域の切り出し、およびMarkdownから再構成された構造化テキストをコンテキストとして、視覚言語モデルが回答を生成し、その回答が証拠と整合しているかを検証する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>LongDocURLおよびMMLongBench-Docの2つのベンチマークを用いて評価した。比較対象は、M3DocRAG、MDocAgent、MoLoRAGなどの既存手法である。評価指標には、Recall@K、Precision@K、MRR@K、NDCG@Kを用いた。実験の結果、VLD-RAGはMMLongBench-DocおよびLongDocURLの両ベンチマークにおいて、Recall、NDCG、MRRの各指標で既存手法を上回った。特にLongDocURLにおいて、RecallおよびNDCGの顕著な向上が確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、証拠が複数のページにまたがる場合、エージェントによる検証とハイブリッド検索の組み合わせが有効であることを示している。一部のベースラインは特定の条件下でPrecisionにおいて高い値を示すが、VLD-RAGはRecallとランキング指標（NDCG、MRR）において優位性を保っており、回答生成に必要な証拠を漏れなく、かつ適切な順序で提示できる。今後の課題として、音声や動画などの他のモダリティへの拡張、クエリの特性に応じた適応的な融合戦略の検討、および大規模な文書コーパスに対するインデックス作成と検索の効率化が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>1 Introduction</h3><p>従来のRAG手法は、視覚的に豊かな文書をテキストに変換する際にレイアウトや空間的関係などの重要な情報を失う課題があり、特に複数ページにわたる情報の検索や生成において精度が低下します。提案手法であるVLD-RAGは、ページ画像を密な視覚言語埋め込みで表現する視覚インデックスと、構造化されたMarkdown形式でページを記述するテキストインデックスを併用する二重インデックス構成を採用することで、視覚的特徴と正確な語彙情報の双方を保持します。検索プロセスでは、クエリを分解して抽出意図を生成した後、疎な語彙検索と密なマルチモーダル検索を組み合わせ、モダリティ間で不一致がある候補の重みを下げるモダリティ整合型融合を行うことで、検索の堅牢性を高めています。さらに、検証器が証拠の不足や低信頼性を検知した場合には、更新された意図に基づいた反復的な検索を実行するエージェント的な検索ループを導入しており、複数ページに分散した証拠の発見を可能にします。LongDocURLやMMLongBench-Docといったベンチマークを用いた評価では、既存の視覚ベースの検索手法やハイブリッド手法と比較して、証拠の検索および最終的な質問回答タスクの両方において一貫した性能向上を示しています。</p></section>
+<section class="secsum"><h3>2 Related Work</h3><p>関連研究は、クロスモーダル知識ベース、マルチモーダル文書検索、マルチモーダル文書向けRAG、およびエージェントを活用した視覚言語RAGの4つの観点から整理されている。知識ベースの研究では、グラフ構造を用いた動的な知識グラフ構築や、マルチエージェントによる知識グラフの拡充、グラフを用いた知識検索と推論に関する手法が提案されている。文書検索の分野では、粗い粒度から細かい粒度へと遷移する意味モデリングや、高解像度圧縮によるOCRフリーな文書理解、長大な画像シーケンスの理解に関する研究が進められている。マルチモーダルRAGについては、視覚的に豊かな文書や長文、複数文書を対象とした、LoRAによる文脈適応や証拠に基づいたマルチイメージ推論、論理を考慮した検索などの手法が存在し、金融や医療などの特定ドメイン向けの評価用ベンチマークも開発されている。エージェントを用いた手法では、動的な反復推論や、文脈依存性を強化した検索、マルチエージェントによる包括的な文書分析などが研究されている。しかし、既存システムは情報が複数のページに分散している場合に信頼性の高い証拠検索を行うことが困難であり、クロスモーダルな一貫性のモデリングや、検索の堅牢性を高めるための検証器による洗練メカニズムを明示的に備えた手法は少ない。</p></section>
+<section class="secsum"><h3>3 Method</h3><p>VLD-RAGは、視覚的に豊かな多ページ文書から情報を抽出する、エージェント的な視覚・言語RAGフレームワークである。手法は、マルチモーダル処理による検索意図の生成、ハイブリッドな視覚・テキスト検索、および証拠に基づいた生成の3段階で構成される。文書表現には、レイアウトとテキスト意味論を統合した視覚エンコーダによるページ画像用の密な埋め込みと、表や図の構造を保持したMarkdown形式のテキストチャンクによるインデックスの二重空間を利用する。検索プロセスでは、キーワード抽出による疎な語彙検索と、言語モデルが生成した仮説的な文書埋め込みを用いた密な視覚・言語検索を並行して行い、両者のスコアをモダリティ間の一貫性制約に基づいて融合する。検索結果の信頼性が低い場合には、エージェント的なループを通じてサブクエリを生成し、再検索を行う反復的なプロセスを備えている。最終的な生成段階では、ページ画像、特定の領域のクロップ、およびMarkdownから再構成されたテキスト断片を証拠としてモデルに入力し、生成された回答が証拠に基づいているかを検証することで、根拠の正確性を担保している。</p></section>
+<section class="secsum"><h3>4 Experimentation</h3><p>本研究では、視覚的に豊かな長大なマルチページ文書の理解を目的としたVLD-RAGの有効性を、2つのベンチマークを用いて検証しています。評価には、理解・推論・位置特定タスクを含むLongDocURLと、視覚的構造が豊かな文書の質問応答に特化したMMLongBench-Docが用いられました。手法として、ColPaliを用いた視覚言語埋め込みによる密な検索と、キーワードに基づく疎な検索を組み合わせたハイブリッド検索を採用しており、さらにGemma3nを用いて質問に基づいた仮想的な文書を生成することで、質問と文書ページの間の意味的なギャップを埋めています。実験の結果、VLD-RAGは両ベンチマークにおいて、Recall（再現率）、NDCG（正規化累積利得）、MRR（平均逆順位）の各指標で既存手法を上回り、特にランキングの質において顕著な改善を示しました。一部のベースライン手法は中間的な設定でPrecision（適合率）において高い値を示すものの、VLD-RAGはより高いRecallとランキング性能を維持しており、包括的な証拠ページを漏れなく取得し、生成タスクに適した順序で提示できることが示されました。特に、より複雑な構造を持つLongDocURLにおいて性能差が拡大しており、提案するエージェントによる検証とハイブリッド検索の枠組みが、複雑なレイアウトや長大な文書において有効であることが示されました。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>本研究では、視覚的に豊かな長文マルチページ文書を対象とした、エージェント型の視覚言語検索拡張生成フレームワークであるVLD-RAGを提案した。この手法は、ページレベルの画像埋め込みと、解析されたMarkdown形式のテキストリソースからなる学習不要の二重インデックス構造を採用しており、視覚的なレイアウト情報の保持と精密な語彙一致の両立を実現している。検証器がガイドするエージェント型の反復的な検索ループにより、マルチページにわたる証拠の発見を可能にし、LongDocURLおよびMMLongBench-Docのベンチマークにおいて、Recall、NDCG、MRRといった指標でテキストのみや画像のみのベースラインを上回る性能を示した。疎な語彙検索と密な意味検索の強みを組み合わせたハイブリッド検索戦略と、モダリティ間の不一致を軽減する制約が、検索のランキング品質を向上させている。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-09
+  </footer>
+</div>
+</body>
+</html>

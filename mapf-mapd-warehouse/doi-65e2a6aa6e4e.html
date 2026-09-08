@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-Agent Path Finding with Unassigned Agents (MAPFUA) (Extended Abstract) | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi-Agent Path Finding with Unassigned Agents (MAPFUA) (Extended Abstract)</h1>
+  <div class="meta">Ariel Felner, Roni Stern<br>採択先: Proceedings of the International Symposium on Combinatorial Search 2026 ・ 2026-08-14 ・ source: openalex</div>
+  <div class="links"><a href="https://openalex.org/W7203478450" target="_blank" rel="noopener">原典</a> ・ <a href="https://ojs.aaai.org/index.php/SOCS/article/download/43107/50667" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/socs.v19i1.43107" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Proceedings of the International Symposium on Combinatorial Search 2026</span><span class="chip">公開日 2026-08-14</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">未割り当てエージェントを考慮する新問題設定の提案は新規性が高いが、本稿は拡張要旨であり、実験による検証や具体的なアルゴリズムの提示が欠けているため。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 特定の目的地を持たない「未割り当てエージェント」が、割り当て済みエージェントの経路確保のために移動することを許容する新しい問題設定MAPFUAを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のマルチエージェント経路探索（MAPF）は、すべてのエージェントに到達すべき目標地点が割り当てられていることを前提としている。しかし、自動倉庫のタスク待ちロボット、移動可能な荷物、駐車場の車両などの実世界では、特定の目的地を持たないエージェントが存在する。本研究は、グラフ上で目標を持つ「割り当て済みエージェント」と、目標を持たず任意の頂点へ移動可能な「未割り当てエージェント」が混在する環境における、衝突のない経路計画を対象とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>全エージェントに目的地を強制する従来のMAPFに対し、未割り当てエージェントが道を空けるために任意に移動することを許容するMAPFUAという問題定義を導入した点に新規性がある。また、システムの処理能力、エネルギー消費、および未割り当てエージェントの移動コストという、異なる運用目的に応じた3つのコスト関数を定義した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>割り当て済みエージェントには開始地点から目標地点への経路を、未割り当てエージェントには開始地点からグラフ上の任意の頂点への経路を割り当てる。未割り当てエージェントは、その場に留まることも、他のエージェントの経路を改善するために移動することも可能である。最適化の指標として、割り当て済みエージェントの目標到達までのタイムステップの総和を最小化するSST、全エージェントの総移動回数を最小化するFuel、および移動した未割り当てエージェントの数を最小化するNUAの3種類を用いる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>本論文は問題の定義と概念の提案を主目的としており、具体的な実験データ、比較アルゴリズム、および数値的な評価結果は示されていない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>未割り当てエージェントには目的地がないため、既存のA*やCBSといったアルゴリズムでは、許容的なヒューリスティックの再設計や衝突解決メカニズムの構築が必要となる。また、エージェント数と利用可能な場所の比率が高い密な環境では、未割り当てエージェントを静的な障害物として扱うことが困難になる。今後の課題として、各コスト関数における計算複雑性の解明、計算時間と解の質のトレードオフを考慮したアルゴリズムの開発、および環境のトポロジーが与える影響の調査が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Ariel Felner and Roni Stern</h3><p>提供されたセクションには、著者名、所属機関、および連絡先メールアドレスのみが記載されており、研究の内容、手法、実験、結果に関する情報は含まれていません。</p></section>
+<section class="secsum"><h3>Classic MAPF</h3><p>古典的なマルチエージェント経路探索（MAPF）は、各エージェントの開始地点から目標地点までの経路を、エージェント同士が衝突しないように見つけるタスクである。この問題は、倉庫や工場、デジタルエンターテインメント、交通制御、航空分野など、幅広い実用的な応用先を持つ。そのため、人工知能、ロボティクス、産業工学といった多様な領域の研究者から大きな関心を集めている。MAPFには、様々な設定や派生問題、コスト目的が提案されており、それらを解決するための数多くのアルゴリズムが開発されてきた。なお、この問題はNP困難であることが証明されている。</p></section>
+<section class="secsum"><h3>MAPF with Unassigned Agents</h3><p>従来のMAPFは全エージェントに目標地点が割り当てられていることを前提とするが、本研究では目標を持たないエージェントが存在するMAPF with Unassigned Agents (MAPFUA) という問題を定義する。グラフ G = (V, E) 上において、特定の目標地点へ到達すべき割り当て済みエージェントの集合 A と、目標を持たない未割り当てエージェントの集合 U が存在する。割り当て済みエージェントは開始地点から目標地点までの経路を辿る必要がある一方、未割り当てエージェントは開始地点からグラフ上の任意の頂点へ移動可能であり、他のエージェントの経路を確保するために移動して道を空けることが可能である。解は、すべてのエージェントの経路が互いに衝突しない状態として定義され、未割り当てエージェントは移動せずにその場に留まることもできる。この問題設定は、タスク待ちのロボットが存在する倉庫環境や、タスク完了後に次の指示を待つLifelong MAPF、さらには移動能力を持つ荷物自体がエージェントとして振る舞う自動化倉庫などの実世界のシナリオに適用できる。</p></section>
+<section class="secsum"><h3>Cost Functions of MAPFUA</h3><p>MAPFUAにおけるコスト関数は、割り当てられたエージェントを目標地点へ運ぶ従業員が、経路確保のために未割り当てのエージェントを移動させる駐車場での車両回収シナリオに基づき、3種類定義されている。1つ目のSum of Service Time (SST)は、各割り当て済みエージェントを目標地点へ移動させるために必要なタイムステップの総和であり、システムの処理能力の最大化に対応する。2つ目のFuelは、すべてのエージェントが行った移動回数の総計であり、待機時間はコストに含まれず、移動に必要なエネルギーコストの最小化に対応する。3つ目のNumber of Unassigned Agents that Move (NUA)は、経路の長さではなく、移動した未割り当てエージェントの個数を最小化することを目的とする。NUAの最小化は、未割り当て車両の所有者の不満や事故リスクの軽減、および従業員が新しい車両を操作する際の手間を減らすという観点に基づいている。</p></section>
+<section class="secsum"><h3>Challenges and Research Directions</h3><p>MAPFUA（割り当てられていないエージェントが存在するマルチエージェント経路探索）は、未割り当てのエージェントに特定の目的地がないという特性を持つため、既存のMAPFアルゴリズムには大幅な修正が必要となります。今後の研究課題として、まずMAPFUAの理論的な特性評価や、異なるコスト関数における計算複雑性の解明が挙げられます。アルゴリズム開発においては、A*やCBSといった既存手法をベースに、許容的なヒューリスティックの再設計や、割り当て済みエージェントと未割り当てエージェント間の衝突解決メカニズムの構築が求められます。また、実用性を考慮し、計算時間と解の質のトレードオフを行う有界劣最適アルゴリズムや、高速だが解の質に制約のない無界劣最適アルゴリズムの開発も重要です。さらに、エージェント数と利用可能な場所の総数の比率を示すalrが高い、密な環境下での動作が極めて重要となります。密な環境では未割り当てのエージェントを静的な障害物として扱うことが困難になるため、環境のトポロジーや、密な領域と疎な領域が混在する環境への対応についても研究が必要です。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-09
+  </footer>
+</div>
+</body>
+</html>

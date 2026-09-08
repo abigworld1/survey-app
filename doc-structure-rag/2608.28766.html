@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Beyond Vector Search: Comparing Classical RAG with Hybrid GraphRAG for Climate Science Q\&amp;A | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Beyond Vector Search: Comparing Classical RAG with Hybrid GraphRAG for Climate Science Q\&amp;A</h1>
+  <div class="meta">Daniel Naiff, Ronnie Alves, Gustavo Pinto<br>採択先: ENIAC 2026 ・ 2026-08-28 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.28766v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.28766v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 ENIAC 2026</span><span class="chip">公開日 2026-08-28</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">GraphRAGとベクトル検索のハイブリッド構成は有用な示唆を与えるが、評価データセットが22問と極めて小規模であり、実験の汎用性と信頼性に課題が残るため。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 従来のベクトル検索に基づくRAGは、複雑な科学文献における概念間の階層的な関係や文書をまたぐ依存関係を捉えられない課題があります。本研究では、ベクトル検索とGraphRAGを統合したハイブリッド手法を提案し、気候科学の質問応答において文脈の関連性と再現率を向上させました。</div>
+<section class="qa"><h2>どんなもの？</h2><p>気候学のような専門性の高い科学的コーパスを対象とした、質問応答システムを想定しています。従来のRAGは文書を個別のベクトルとして扱うため、概念間の階層的な繋がりや、複数の論文に分散した知識の依存関係をモデル化できず、関連知識の抽出が困難であるという問題があります。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>キーワードの幾何学的な類似性に依存する従来のRAGに対し、Leidenアルゴリズムによるコミュニティ検出と意味的な関係性を記述する知識グラフを統合したハイブリッドアーキテクチャを提案しています。これにより、局所的なテキスト断片の検索と、コーパス全体にわたるグローバルな構造の把握を両立させ、文書間の断絶を克服する手法を提示しました。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、ベクトル検索とGraphRAGを組み合わせたハイブリッド構成です。まず、PDFからメタデータを抽出し、テキストを一定の文字数と重複を持たせたチャンクに分割してベクトル化します。同時に、LLMを用いてエンティティと関係性を抽出し、知識グラフを構築します。このグラフに対し、Leidenアルゴリズムを用いて階層的なコミュニティを検出し、ボトムアップ方式でコミュニティごとの要約を生成します。検索時には、ベクトルデータベースによるチャンク検索と、グラフ内のコミュニティ要約に対する検索を並列に実行します。取得したチャンクにはソースとなる記事タイトルを付与して情報を強化し、それらを統合したリストに対してクロスエンコーダによる再ランキングを行うことで、最適なコンテキストを選択して回答を生成します。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>気候学の論文5報から作成された22個の質問と正解データセットを用い、gpt-oss-20bを推論モデルとして評価しました。評価にはDeepEvalフレームワークを用い、7種類のLLMを判定役として、正確性、回答の関連性、忠実性、文脈の関連性、文脈の再現性の5指標で測定しました。結果、提案手法は従来のRAGと比較して、文脈の関連性で160%、文脈の再現率で177%の向上を達成しました。また、判定役となるLLM間でのスコアのばらつきが抑制され、検索の予測可能性と信頼性が向上することも確認されました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>アマゾンの気候学という限定的な領域かつ、手動選定された小規模なデータセットに基づいているため、結果の汎用性には限界があります。また、判定役をLLMに依存する手法は、評価モデル自体のバイアスに影響を受けるため、今後は専門家による検証が必要です。さらに、コンテキストのチャンク数を増やすことで、情報の網羅性と回答の厳密な根拠との間にトレードオフが生じる可能性が示唆されており、正確性を高めるための事後的な事実検証メカニズムの検討が今後の課題です。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Beyond Vector Search: Comparing Classical RAG with Hybrid GraphRAG for Climate Science Q&amp;A</h3><p>従来のRAGシステムは文書を個別に扱うため、気候学のような複雑な科学的コーパスにおいて概念間の階層的な関係性を捉えられず、複数の論文にまたがる概念の依存関係を扱えないという課題があります。本研究では、ベクトル検索にGraphRAG、Leidenアルゴリズムによるコミュニティ検出、およびクロスエンコーダーを用いた再ランキングを統合したハイブリッドアーキテクチャを提案しています。この手法は、局所的な情報の検索とグローバルな構造の把握を統合することで、従来のRAGと比較して文脈の関連性で160%、文脈の再現率で177%の向上を達成しました。この結果は、テキスト断片を孤立させて扱う手法よりも、グラフ構造を活用して分散した科学文献を統合的に扱う方が、専門領域の質問応答において有効であることを示しています。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>アマゾンの気候バランスにおける重要性に伴い、関連する科学論文が急増しているが、分散した文書から関連知識を抽出することは質問応答システムにとって大きな課題となっている。従来のベクトル検索に基づくRAGは、文書を個別に扱うため概念間の階層的な関係性を捉えられないという限界がある。本研究では、エンティティや関係性、知識コミュニティを抽出するGraphRAGと、従来のRAGを比較検証している。実験では、特定の研究所が作成した科学論文のデータベースを用い、研究者が作成した22個の質問と期待される回答からなるデータセットを構築した。7種類の異なる規模やアーキテクチャを持つ大規模言語モデル（LLM）を用いて、回答の正確性、回答の関連性、および忠実度をLLM-as-a-Judgeの指標で評価した。その結果、GraphRAGを用いたハイブリッドなアプローチは、従来のベクトルRAGと比較して、文脈の関連性で160%、文脈の再現率で177%の向上を示した。</p></section>
+<section class="secsum"><h3>2 RAG and GraphRAG Architectures</h3><p>従来のRAGは、文書をベクトル埋め込みとしてインデックス化し、クエリに対して意味的に最も類似したチャンクをコンテキストとして抽出する手法ですが、概念間の明示的な関係性や孤立した文書間の繋がりをモデル化できないという課題があります。これに対しGraphRAGは、大規模言語モデルを用いてテキストからエンティティと関係性を抽出し、知識グラフを構築することでこの制限を克服しています。具体的には、Leidenアルゴリズムを適用して階層的なコミュニティを検出することで多層的な要約を生成し、コーパス全体に分散したグローバルな接続性を探索することを可能にしています。先行研究では、生データに対するゼロショットでの回答精度が16%に留まるのに対し、知識グラフに基づく意味層を導入することで精度が54%まで向上することが示されており、明示的な接続なしでは大規模言語モデルの推論能力が制限されることが示唆されています。したがって、横断的なトピックの相関が必要となる科学的なデータ解析においては、単なるキーワードの幾何学的な類似性ではなく、高精度な概念マップとして機能するグラフ構造を利用するGraphRAGの採用が有効です。</p></section>
+<section class="secsum"><h3>3 Proposed Architectures</h3><p>本研究では、気候科学の論文に関する質問応答に特化した2つのアーキテクチャを提案している。第1の構成（v1）は古典的なRAG手法に基づき、PDFからメタデータを抽出した後、再帰的な手法でテキストを1,000文字単位（重複100文字）に分割し、ポルトガル語へ翻訳してベクトル化を行う。検索時には、ユークリッド距離を用いたベクトル検索により上位10個のチャンクを抽出し、その後クロスエンコーダを用いて最も関連性の高い2個に絞り込んでから、LLMにより回答を生成する。第2の構成（v2）はGraphRAGを採用したハイブリッド手法であり、画像記述モデルによる図表のテキスト化や、チャンクサイズの拡大（1,350文字）、および新しい埋め込みモデルの導入を行っている。v2では、ベクトル化と並行してNeo4jを用いた知識グラフの構築が行われ、LLMによる情報の抽出、コサイン類似度0.90を閾値としたエンティティの正規化、Leidenアルゴリズムによる階層的なコミュニティ検出、およびボトムアップ方式の要約生成が実行される。検索フェーズでは、従来のベクトル検索と、グラフ内のコミュニティ要約に対するコサイン類似度検索を並列に実行し、取得したチャンクに記事タイトルを付与して情報を強化した上で、クロスエンコーダを用いて上位5個のコンテキストを選択し、最終的な回答を生成する。</p></section>
+<section class="secsum"><h3>4 Evaluation</h3><p>本評価実験では、気候科学の多様なトピックを扱う5つの論文から作成された計22個の質問と正解データを用いて、提案手法の性能を検証しています。推論には gpt-oss-20b モデルを使用し、生成された回答の評価には DeepEval フレームワークを用いた LLM-as-a-judge 手法を採用しており、qwen3、llama3.3、gemma3、mixtral などの計7種類のモデルが判定役を務めています。評価指標には、回答の正確性、回答の関連性、文脈への忠実性、文脈の関連性、および文脈から関連情報を抽出する能力を示す文脈の再現性の5つが用いられています。LLMの回答に固有の変動性を抑え、結果の統計的な堅牢性を確保するため、各シナリオにつき5回から10回の繰り返し実行を行っています。実験は、NVIDIA GeForce RTX 3090 GPUを搭載したローカル環境で実施され、データの取り込みから判定までの全工程には約7時間を要しました。</p></section>
+<section class="secsum"><h3>5 Results</h3><p>ベクトル検索を用いたRAG（V1）と、知識グラフおよび再ランキングを統合したハイブリッドなGraphRAG（V2）を比較した結果、V2は文脈の想起（Contextual Recall）と文脈の関連性（Contextual Relevancy）において顕著な改善を示し、知識の欠落を減らして生成の正確性（Correctness）を向上させた。評価指標のばらつきに着目すると、V1では評価モデル間でスコアの乖離が大きかったのに対し、V2ではスコアの分布が圧縮されており、特に文脈の想起において全モデルが0.75から0.95の間で中央値を一致させるなど、検索の予測可能性と信頼性が高まっている。個別の評価モデルの挙動では、Gemma 3:12bが厳格な基準を持ちつつもV2で高い想起スコアを示す一方、Llama 3.3 70bはV1において想起スコアの極端なばらつきを示すなど、モデルごとに特性が異なる。Mixtral 8x22bは忠実性（Faithfulness）において大きな変動を検出し、コンテキストのチャンク数を2から5に増やした際に、情報の完全性と厳密な根拠との間にトレードオフが生じる可能性を示している。一方で、文脈の想起が改善されたにもかかわらず、正解性の中央値はいずれのモデルでも0.40を下回る低水準に留まっている。</p></section>
+<section class="secsum"><h3>6 Limitations</h3><p>本研究の結果は、アマゾンの気候学という非常に限定的な領域に絞られ、かつ手動で選定された22問という小規模なデータセットに基づいているため、汎用性には限界がある。評価手法としてLLMを判定役とするLLM-as-a-judgeを採用していることから、評価モデル自体の品質や固有のバイアスに結果が直接依存しており、今後は専門家による検証が望まれる。また、実験はOllamaを用いたローカルかつ制御された環境で実施され、ハイパーパラメータの調整も経験則に基づいたものに留まっている。これらの計算資源および運用上の制約により、本研究の結果を実用環境や異なる文脈へ適用するには、さらなる検証が必要である。</p></section>
+<section class="secsum"><h3>7 Related Work</h3><p>Hanらによる研究では、ベクトル検索を用いたRAGとGraphRAGの変種を、Wikipediaやニュースなどの一般的なドメインで比較しており、局所的な事実に関する質問にはRAGが、複雑な推論にはGraphRAGが適しているという相補的な関係が示されている。本研究は、これらとは異なり、Leidenコミュニティ検出と意味的な三つ組を用いて分散した科学データを統合するハイブリッド構成を気候学ドメインに適用している。複数の長い文書の要約に関する研究では、高度なRAGシステムでも人間による洞察の網羅性に及ばないことが示されており、これは本研究におけるボトムアップなコミュニティ要約手法の選択を裏付けている。また、原子的な事実に基づいた自動評価手法に関する研究では、大規模言語モデルの判断と人間の専門家の判断に強い相関があることが示されている。さらに、金融ドメインにおける研究では、リランキングが複雑なテキストにおける従来の密ベクトル検索の限界を緩和することが示されており、本研究のハイブリッド構成においてクロスエンコーダによるリランキングを採用していることを支持している。</p></section>
+<section class="secsum"><h3>8 Concluding Remarks</h3><p>本研究では、従来のベクトル検索に基づくRAG手法と、グラフ構造を活用したハイブリッドなGraphRAG手法の比較検証を行った。22個の複雑な質問と複数の大規模言語モデルを用いて評価した結果、ハイブリッド手法は従来のベクトル検索手法を上回る性能を示した。具体的には、文脈の関連性において160%、文脈の再現率において177%の向上が確認された。この性能向上は、グラフが持つ局所的な詳細情報とグローバルな構造を統合することで、ドキュメント間の断絶を克服したことによるものである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-09
+  </footer>
+</div>
+</body>
+</html>
