@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Bridging the Semantic-Utility Gap in Multimodal RAG via Generator-in-the-Loop Alignment | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Bridging the Semantic-Utility Gap in Multimodal RAG via Generator-in-the-Loop Alignment</h1>
+  <div class="meta">Zhan-Lun Chang, Dong-Jun Han, Seyyedali Hosseinalipour, Mung Chiang, Christopher G. Brinton<br>採択先: 未取得 ・ 2026-09-08 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2609.08188v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2609.08188v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-09-08</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">マルチモーダルRAGにおける「意味的類似性と回答有用性の乖離」という重要な課題に対し、生成器を学習ループに組み込む具体的かつ新規性の高い手法を提案している。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> マルチモーダルRAGにおいて、検索器が意味的な類似性のみを最適化することで、生成器の回答有用性と乖離してしまう課題を解決するため、生成器を学習ループに組み込んだ2段階のアライメントフレームワークを提案する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチモーダルRAG（MM-RAG）において、検索器や再ランク（reranker）がクエリとの意味的な類似性のみを最適化対象とすると、生成器が正解を導くために必要な情報を備えた文書を選択できない「Preference Gap」が生じる。また、画像とテキストのモダリティ間のギャップにより、推論に必要な細かな視覚情報が欠落し、検索精度が低下する問題もある。本研究は、検索された文書が生成器の回答精度に寄与するかという「回答有用性」を指標とした検索の実現を目的とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>人間による文書レベルの関連性アノテーションを必要とせず、凍結された視覚言語モデル（VLM）を利用して、生成器の正解率に直結する好みのペアを自動的に抽出する手法を提案する。これにより、従来の「意味的な類似性」に基づく最適化から、生成器の振る舞いに最適化された「回答有用性」に基づく再ランクへと、検索の目的関数を転換した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は以下の2段階で構成される。<br>第1段階では、凍結されたVLMを用いて画像と質問のペアから仮説的なテキスト根拠を生成するHyDEを用い、これをテキスト検索のクエリとして利用することでモダリティ間のギャップを埋める。<br>第2段階では、LoRAを用いて軽量に調整されたクロスエンコーダ型の再ランクモデルを学習する。学習の教師信号として、候補文書をコンテキストとして与えた際に、凍結されたVLMが正解を出力できた文書を正例、できなかった文書を負例とするペアを抽出する。このプロセスでは、再ランクモデルの精度向上に合わせて、新たな好みのペアを定期的に構築し直す再マイニングメカニズムを導入している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>VQA-XおよびA-OKVQAデータセットを用い、Qwen3.5-2BおよびQwen3-VL-4B-Instructを生成器として評価した。提案手法は、再ランクモデルの現在の順位に基づく学習、ランダムなペア、および正解トークンの対数尤度を用いるREPLUGスタイルの手法と比較して、コントラスティブ（Triplet）損失、DPO、SFTのいずれの損失関数においても一貫して高い精度を達成した。また、定期的な再マイニングにより、A-OKVQAにおいて最大で2.58パーセントポイントの精度向上が確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、好みのマイニングに正解ラベル付きのデータセットを必要とする点や、候補文書ごとにVLMによる評価を行うため計算コストが増大する点が課題である。また、学習された再ランクモデルは特定の生成器の挙動に最適化されており、汎用的な文書の関連性を学習しているわけではない。さらに、候補群の中に有用な文書と不適切な文書の両方が含まれるクエリのみを学習に使用するため、有用な情報の多くを排除してしまうという限界がある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Bridging the Semantic-Utility Gap in Multimodal RAG via Generator-in-the-Loop Alignment</h3><p>マルチモーダルRAGにおいて、検索器が意味的な類似性のみを最適化することで、回答の有用性と乖離するという課題を解決するため、Generator-in-the-Loop Alignmentという2段階のフレームワークを提案しています。第1段階では、画像とクエリのペアから視覚言語モデル（VLM）が仮説的なテキスト文章を生成し、それを密なテキスト検索のクエリとして用いることで、画像とテキストのモダリティ間のギャップを埋めます。第2段階では、低ランク適応（LoRA）を用いたクロスエンコーダ型の再ランク（reranker）を、凍結されたVLMから抽出した回答に基づく選好ペアを用いて微調整します。具体的には、データセットの正解ラベルに対し、その文書をコンテキストとして与えた際にVLMが正解を導き出せれば正例、できなければ負例としてラベル付けを行います。この手法は、対照学習、直接選好最適化（DPO）、教師あり微調整（SFT）といった複数の損失関数に対応しており、再ランクの精度向上に合わせて選好ペアを定期的に更新することも可能です。VQA-XおよびA-OKVQAを用いた実験では、Qwen3.5-2BやQwen3-VL-4B-Instructなどのモデルにおいて、順位付けや尤度に基づくベースラインを上回る性能を示し、回答レベルのフィードバックが検索の最適化に有効であることを示しています。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>マルチモーダルRAG（MM-RAG）において、検索器が意味的な類似性のみを最適化し、生成器の正解率向上に寄与しない証拠を選択してしまう「Preference Gap」という課題を解決するため、2段階のGenerator-in-the-Loop Alignmentフレームワークを提案する。第1段階では、凍結された視覚言語モデル（VLM）を用いて画像と質問のペアから仮説的なテキスト根拠を生成し、それを元の質問と結合してSentence Transformerでエンコードすることで、FAISSを用いて広範な候補文書を検索する。第2段階では、各候補文書をコンテキストとしてVLMに与え、生成された回答が正解か否かに基づいて文書を正例または負例としてラベル付けすることで、人間による文書レベルの関連性アノテーションなしに、生成器の正解率に直結する好みのペアを構築する。この生成器由来の信号を用いて、LoRAを用いたクロスエンコーダの微調整を、対照学習、直接選好最適化（DPO）、および教師あり微調整（SFT）の3つの目的関数で実施する。さらに、リランカーの進化に合わせて好みのペアを動的に再構築する反復的な適合メカニズムを導入することで、固定されたペアを用いた学習よりも高い精度向上を実現する。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>RAG（検索拡張生成）は、大規模言語モデルのハルシネーションや知識の古さを補完する手法として、単純な検索と生成を行うNaive RAGから、クエリの書き換えや再ランキング等の最適化を行うAdvanced RAG、そして各工程を独立したモジュールとして構成するModular RAGへと進化してきた。しかし、従来の検索は主にクエリとの意味的な類似性に依存しており、検索された文書が実際に生成器の回答に役立つかという「回答有用性」が考慮されていない点が課題である。マルチモーダルRAGにおいても、画像とテキストを共通の空間に写像する際に、推論に必要な細かな視覚情報が欠落するという意味的な乖離が生じる。本研究では、まず凍結されたVLMを用いてマルチモーダルなクエリを仮説的なテキスト根拠へと変換することで、モダリティの差を解消する。その上で、生成器が特定の文書を用いて正解を出力できた場合にその文書を「有用」と判定し、この信号を軽量なクロスエンコーダに蒸留することで、生成器の振る舞いに最適化された再ランキングを実現する。</p></section>
+<section class="secsum"><h3>III Proposed Architecture</h3><p>本研究は、マルチモーダルRAGにおける候補文書のランキングと生成器の回答有用性の乖離を埋めるため、生成器を学習ループに組み込んだ2段階のアーキテクチャを提案している。第1段階では、凍結された生成器を画像からテキストへの橋渡しとして利用するHyDEを用い、画像と質問から仮説的な根拠を生成することで、テキストのみの検索空間への投影と密ベクトル検索を実現する。第2段階では、LoRAを用いて適応させたクロスエンコーダを訓練し、検索された候補文書が凍結された生成器の正解率を実際に向上させるかという回答有用性に基づいて再ランキングを行う。学習の教師信号は、人間による関連性ラベルではなく、生成器が文書をコンテキストとして用いた際に正解を出力できるかという二値の指標から自動的に抽出される。具体的には、再ランキング候補の中から正解を導く文書を好ましい文書、不正解となる文書を好ましくない文書としてペアを構成し、これを用いて学習を行う。このプロセスでは、学習が進むにつれて生成器の挙動に合わせて教師信号を更新するため、定期的な再マイニングが行われる。本手法は、A-OKVQAとVQA-Xの2つのデータセットを用いて、テキストベースの再ランキングのみでマルチモーダルな推論を支援する軽量な構成を実現している。</p></section>
+<section class="secsum"><h3>V Experiments</h3><p>本研究では、マルチモーダルRAGにおいて、生成器（VLM）が正解を出力できるかどうかに基づいてリランカーの学習信号を構築するGenerator-in-the-Loop Alignment手法を提案しています。VQA-XおよびA-OKVQAデータセットを用いた評価の結果、提案手法は、リランカー自身の順位に基づく学習、ランダムなペア、および正解トークンの対数尤度に基づくREPLUGスタイルの各手法と比較して、使用する損失関数や生成器の容量、データセットを問わず高い精度を達成しました。特に、正解トークンの尤度を用いる手法は、制約付き回答の正確性を必ずしも反映できないため、生成器による直接的な二値判定に基づく提案手法の方が、A-OKVQAなどのタスクでより高い精度を実現しています。また、第1段階の候補プールサイズに対する検証では、提案手法は候補数が少ない場合でも、より多くの候補を用いる既存手法を上回る安定性を示しました。さらに、学習中に好ましいペアを定期的に再抽出する再マイニングの効果を調査したところ、再マイニングは精度を向上させるものの、リランカーの安定化に伴いその恩恵は飽和する傾向にあります。したがって、精度と計算コストのバランスの観点からは、学習の開始時と中間で行う2回の再マイニングが有効であると示されました。</p></section>
+<section class="secsum"><h3>VI Limitations</h3><p>本研究の限界として、まず好みのマイニングが、候補ドキュメントが固定された生成器の正解導出に寄与するかを判断するために、回答ラベル付きの学習例に依存している点が挙げられる。次に、クエリごとに複数の候補ドキュメントを視覚言語モデルで評価し、リランカーの進化に合わせて定期的にマイニングを繰り返すため、計算コストが増大するという課題がある。また、学習されたリランカーは特定の生成器の挙動を最適化するように設計されており、汎用的なドキュメントの関連性を学習しているわけではない。最後に、現在のペアワイズな学習手順は、候補群の中に役立つドキュメントと役立たないドキュメントの両方が含まれるクエリのみを使用しており、候補群に含まれる有用性情報の多くを排除している。</p></section>
+<section class="secsum"><h3>VII Conclusion</h3><p>本研究は、マルチモーダルRAGにおける意味的類似性と回答の有用性の乖離を解消するため、生成器を学習ループに組み込んだアライメントフレームワークを提案している。この手法は2段階で構成され、第1段階では凍結された視覚言語モデルを用いてHyDE形式のテキストクエリを生成して高密度な検索を行い、第2段階では同じ凍結生成器を用いて抽出した回答に基づく好ましいペアを用いて、LoRAで適応させたクロスエンコーダ型の再ランクラーを学習させる。VQA-XおよびA-OKVQAデータセットを用いた実験では、生成器が導く好ましい順序を用いた学習が、順序付け、ランダム、あるいはREPLUG形式の尤度に基づくベースラインよりも、複数のアライメント損失において優れた性能を示すことが確認された。また、再ランクラーの変化に合わせて好ましいペアを定期的に更新する再採掘を行うことで精度が向上することも示されたが、更新頻度の追加的な価値はモデルやデータセットに依存する。以上の結果は、RAGの再ランキングにおいて最も有用な証拠とは、クエリに意味的に最も近い文書ではなく、実際に使用される生成器が正解を導く助けとなる文書であるという、生成器中心の視点を支持している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-10
+  </footer>
+</div>
+</body>
+</html>

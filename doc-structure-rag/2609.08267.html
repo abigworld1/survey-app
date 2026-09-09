@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Evidence-Aligned Entity Verification for Hallucination Detection in Retrieval-Augmented Generation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Evidence-Aligned Entity Verification for Hallucination Detection in Retrieval-Augmented Generation</h1>
+  <div class="meta">Runsong Jia, Zhen Fang, Mengjia Wu, Jie Lu, Yi Zhang<br>採択先: Findings of the Association for Computational Linguistics: ACL 2026 ・ 2026-09-08 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2609.08267v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2609.08267v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.18653/v1/2026.findings-acl.1477" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Findings of the Association for Computational Linguistics: ACL 2026</span><span class="chip">公開日 2026-09-08</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGのハルシネーションをエンティティ単位で精密に検知する新規な枠組みであり、反事実的分析による頑健性の確保も具体的で、実用性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 検索拡張生成（RAG）において、生成されたエンティティと検索された根拠の整合性を検証することで、ハルシネーションを精密に検知する手法EAEVを提案する。多角的なアライメント評価と反事実的な安定性分析を組み合わせることで、表面的なキーワードの一致による誤検出を防ぎ、高い検知性能を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>RAG環境において、大規模言語モデルが事実と異なる内容を生成するハルシネーションは、正確性が求められる分野で深刻なリスクとなる。従来の検出手法は、モデルの内部信号（不確実性など）や、回答・文単位といった粗い粒度での判定に依存することが多い。そのため、検索された根拠文脈が存在する場合でも、個別のエンティティ（固有名詞、日付、数値など）レベルでの詳細な事実誤認を特定したり、根拠との整合性を追跡したりすることが困難であるという課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来の回答・文単位の判定に対し、エンティティに焦点を当てた検証フレームワークを導入し、RAGにおけるハルシネーション検知をエンティティと根拠のアライメント問題として定式化した点が新規である。また、単なる語彙の一致による偽の相関を排除するため、根拠に摂動を加える反事実的安定性分析を組み込み、真の事実的裏付けと表面的な一致を区別可能にした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>生成された回答からエンティティ候補を抽出し、検索された根拠から関連する証拠ウィンドウを選択する。次に、以下の3つの次元でアライメントを評価する。<br>1. 同一性アライメント：語彙や別名による直接的な一致を確認する。<br>2. 意味アライメント：埋め込みベクトルを用いて、言い換えなどの意味的な保持を確認する。<br>3. 一貫性アライメント：数値の重複や、パターンに基づく矛盾の検出を行う。<br>これらに加え、根拠に制御された摂動を与えても整合性が維持されるかを検証する反事実的安定性分析を行い、頑健性を評価する。最後に、これらの信号を教師信号として用いてLLMをファインチューニングし、エンティティに検証タグを付与できる単一の検証器を構築する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>RAGTruth、HotpotQA、DelucionQAの3つのベンチマークを用い、Qwen2.5-7B、LLaMA2-7B、LLaMA2-13Bをバックボーンとして評価した。AUROC、Accuracy、F1スコアを指標とし、TSVを含む複数の手法と比較した結果、LLaMA2-13Bにおいて87.55%の平均AUROCを達成し、最強のベースラインであるTSVを3.34パーセントポイント上回った。アブレーション研究により、反事実的安定性分析が偽の相関を区別するために最も大きく貢献すること、および回答側のウィンドウサイズは30トークンで最適であることを確認した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は検索された文脈のみに依存する検証フレームワークであるため、検索される根拠情報の質や網羅性が低い場合には、検出性能が制限される。また、複雑な多段階推論を必要とするクエリでは、モデルの出力自体が不安定になる可能性がある。さらに、本研究はハルシネーションの検知に特化しており、生成プロセスそのものを抑制する手法には直接対処していない点が今後の課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Evidence-Aligned Entity Verification for Hallucination Detection in Retrieval-Augmented Generation</h3><p>本研究では、検索拡張生成（RAG）を用いてハルシネーションを検知するRAGベースのハルシネーション検知（RHD）という課題に対し、Evidence-Aligned Entity Verification（EAEV）という新しい手法を提案している。EAEVは、生成されたエンティティが検索された根拠となる文脈と整合しているかを検証することで、エンティティレベルのハルシネーションを検出する。具体的には、エンティティと根拠の整合性を3つの補完的な次元から評価し、さらに根拠となる情報に摂動を加えた際の変化を確認する反事実的安定性分析を導入することで、検知の堅牢性を確保している。複数のRAGベンチマークを用いた実験の結果、EAEVは既存手法と比較して一貫した性能向上を示し、高い汎化性能を持つことが示された。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>大規模言語モデルが事実と異なる内容を生成するハルシネーションは、医療や金融などの正確性が求められる領域において深刻なリスクとなります。既存の検出手法には、モデル内部の信号を利用する不確実性や一貫性に基づくものと、自然言語推論モデルやLLMを用いて提供されたテキストとの整合性を確認する根拠に基づく検証がありますが、RAG（検索拡張生成）環境においては、回答や文単位の粗い粒度での判定に留まることが多く、個別のエンティティ（実体）レベルでの詳細な根拠の追跡が困難であるという課題があります。本研究では、検索された文脈内のエンティティと根拠を直接照合する、Evidence-Aligned Entity Verification（EAEV）を提案します。EAEVは、エンティティの同一性、意味、および一貫性の多角的な整合性に加え、反事実的な安定性分析を組み合わせることで、表面的なキーワードの一致による誤った相関と、真の事実的裏付けを区別します。実験の結果、EAEVはLLaMA2-13Bにおいて87.89%のAUROCを達成し、複数のRAGベンチマークにおいて高い検出性能と汎用性を示すことが確認されました。</p></section>
+<section class="secsum"><h3>2 Learning Setups</h3><p>RAG（検索拡張生成）におけるハルシネーション検出は、生成された回答と検索された文脈との間の明示的な整合性を評価することを目指します。本研究では、事実誤認が主に固有名詞、時間表現、数値などのエンティティ（実体）レベルで発生するという洞察に基づき、エンティティ中心の検証フレームワークを構築しています。具体的には、生成された回答から候補となるメンションを抽出し、検索された文脈から関連性の高い証拠ウィンドウを選択した上で、表面的な一致を測る同一性整合、意味の保持を捉える意味整合、および数値的な一致や矛盾を評価する整合性の3つの観点から検証を行います。さらに、単なる相関関係と強固な証拠を区別するために、摂動セットを用いた反事実的安定性分析を適用します。最終的に、これらのメンションを正規化して集約することで、証拠の追跡可能性を備えた解釈可能な検証スコアを算出します。</p></section>
+<section class="secsum"><h3>3 Methodology</h3><p>EAEVは、検索拡張生成（RAG）におけるハルシネーションを、文単位ではなくエンティティ（固有名詞、日付、数値など）単位で精密に検出する手法である。本手法は、生成された回答内のエンティティ候補を抽出し、それらと検索された根拠文書との整合性を、同一性、意味、一貫性の3つの次元で評価する多次元アライメント評価を行う。同一性は語彙の重なりを、意味は埋め込みベクトルによる意味的類似度を、一貫性は数値の重複やパターンに基づく矛盾検知を測定し、エンティティの型に応じてこれらを重み付けして統合する。さらに、表面的なキーワードの一致による誤検出を防ぐため、根拠の削除や書式の変更といった制御された摂動を与えても整合性が維持されるかを検証する反事実的安定性分析を導入している。複数の言及があるエンティティに対しては、最も強い支持信号と最も強い矛盾信号を保守的に集約してエンティティレベルの判定を下す。最終的に、これらの詳細な検証信号を教師信号として用いて大規模言語モデルをファインチューニングすることで、エンティティに検証タグを付与しながら回答を生成できる、解釈性の高い単一の検証器を構築する。</p></section>
+<section class="secsum"><h3>4 Experiment</h3><p>提案手法であるEAEVの評価は、RAGTruth、HotpotQA、DelucionQAの3つのベンチマークを用い、Qwen2.5-7B、LLaMA2-7B、LLaMA2-13Bの3種類のLLMをバックボーンとして実施されました。評価指標にはAUROC、Accuracy、F1スコアが用いられ、TSVを含む多数のハルシネーション検出手法と比較されました。実験の結果、EAEVはQwen2.5-7Bで84.72%、LLaMA2-7Bで79.63%、LLaMA2-13Bで87.55%の平均AUROCを達成し、最強のベースラインであるTSVをそれぞれ2.29、2.59、3.34パーセントポイント上回りました。アブレーション研究では、反事実的な安定性分析が最も大きな貢献をしており、偽の相関と真の根拠による支持を区別するために不可欠であることが示されました。また、回答側のウィンドウサイズに関する感度分析では、30トークンのウィンドウサイズで最適な性能が得られ、25から35トークンの範囲内で安定した性能を維持することが確認されました。</p></section>
+<section class="secsum"><h3>5 Conclusion</h3><p>本研究では、検索拡張生成（RAG）システムにおける事実に基づいた信頼性を確保するため、エンティティ単位での検証を行うフレームワークであるEAEVを提案する。EAEVは、多角的な証拠との整合性確認と反事実的な安定性分析を用いることで、生成された内容が単なる偽の相関によるものか、あるいは真の事実的裏付けに基づいているかを区別する。実験の結果、EAEVは様々なベンチマークやモデルアーキテクチャにおいて、ハルシネーション検出能力を大幅に向上させることが示された。この手法は、検索されたコンテキスト内のみで動作し、解釈可能な検証信号を生成するため、実用的なRAGパイプラインへの導入に適している。以上の結果は、堅牢なエンティティレベルの検証が、証拠に基づいた生成システムにおけるハルシネーション検出を改善するための実用的かつ効果的な方向性であることを示している。</p></section>
+<section class="secsum"><h3>Limitations</h3><p>提案手法であるEAEVは、RAGにおけるハルシネーション検出において高い有効性を示すものの、いくつかの限界がある。第一に、大規模言語モデルの出力は実行ごとに不安定になることがあり、特に多段階の推論を必要とする複雑なクエリにおいてその傾向が顕著になる。第二に、本手法は検索された文脈のみに基づく検証フレームワークであるため、検索される根拠情報の質や網羅性に依存しており、情報の欠落や不完全さが検出性能を制限する可能性がある。最後に、本研究は正確かつ解釈可能なハルシネーション検出に焦点を当てており、生成プロセスにおけるハルシネーション自体の抑制には直接対処していない。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-10
+  </footer>
+</div>
+</body>
+</html>

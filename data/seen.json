@@ -3852,6 +3852,39 @@
       "url": "http://arxiv.org/abs/2609.05152v1",
       "venue": ""
     },
+    "arxiv:2609.08188": {
+      "added": "2026-09-10",
+      "added_at": "2026-09-10T06:06:55.674947",
+      "arxiv_id": "2609.08188",
+      "authors": [
+        "Zhan-Lun Chang",
+        "Dong-Jun Han",
+        "Seyyedali Hosseinalipour",
+        "Mung Chiang",
+        "Christopher G. Brinton"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-08",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2609.08188.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.08188v1",
+      "reading_value": 4,
+      "reading_value_reason": "マルチモーダルRAGにおける「意味的類似性と回答有用性の乖離」という重要な課題に対し、生成器を学習ループに組み込む具体的かつ新規性の高い手法を提案している。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Bridging the Semantic-Utility Gap in Multimodal RAG via Generator-in-the-Loop Alignment",
+      "tldr": "マルチモーダルRAGにおいて、検索器が意味的な類似性のみを最適化することで、生成器の回答有用性と乖離してしまう課題を解決するため、生成器を学習ループに組み込んだ2段階のアライメントフレームワークを提案する。",
+      "url": "http://arxiv.org/abs/2609.08188v1",
+      "venue": ""
+    },
     "doi:10.1038/s41598-026-50062-8": {
       "added": "2026-06-22",
       "added_at": "2026-06-22T06:00:03.000000",
@@ -4181,6 +4214,39 @@
       "tldr": "RAGシステムにおいて、視覚的再現性を優先するPDFの構造が、LLMへの取り込み時に文脈の喪失や意味的な劣化を引き起こす課題を調査し、既存の解析手法を分類・整理している。",
       "url": "https://www.semanticscholar.org/paper/579afdbff86315a55bc7418cb2c54ac1b1cd0723",
       "venue": "International Journal of Applied Mathematics"
+    },
+    "doi:10.18653/v1/2026.findings-acl.1477": {
+      "added": "2026-09-10",
+      "added_at": "2026-09-10T06:05:35.999622",
+      "arxiv_id": "2609.08267",
+      "authors": [
+        "Runsong Jia",
+        "Zhen Fang",
+        "Mengjia Wu",
+        "Jie Lu",
+        "Yi Zhang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-08",
+      "doi": "10.18653/v1/2026.findings-acl.1477",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2609.08267.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.08267v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGのハルシネーションをエンティティ単位で精密に検知する新規な枠組みであり、反事実的分析による頑健性の確保も具体的で、実用性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Evidence-Aligned Entity Verification for Hallucination Detection in Retrieval-Augmented Generation",
+      "tldr": "検索拡張生成（RAG）において、生成されたエンティティと検索された根拠の整合性を検証することで、ハルシネーションを精密に検知する手法EAEVを提案する。多角的なアライメント評価と反事実的な安定性分析を組み合わせることで、表面的なキーワードの一致による誤検出を防ぎ、高い検知性能を実現する。",
+      "url": "http://arxiv.org/abs/2609.08267v1",
+      "venue": "Findings of the Association for Computational Linguistics: ACL 2026"
     },
     "doi:10.26234/heal.ihu.365": {
       "added": "2026-07-19",
@@ -9737,6 +9803,66 @@
       "title": "Maximizing Throughput in Lifelong Multi-Agent Path Finding with Unassigned Agents",
       "tldr": "タスクが継続的に発生する環境において、目的地を持たない未割り当てエージェントを戦略的に活用するLMAPFUAフレームワークを提案し、エージェントの総数と同時実行タスク数のバランスを制御することでスループットを最大化する。",
       "url": "https://openalex.org/W7203493327",
+      "venue": "Proceedings of the International Symposium on Combinatorial Search 2026"
+    },
+    "doi:10.1609/socs.v19i1.43088": {
+      "added": "2026-09-10",
+      "added_at": "2026-09-10T06:03:00.141057",
+      "arxiv_id": "",
+      "authors": [
+        "Xuemian Wu",
+        "Shizhe Zhao",
+        "Zhongqiang Ren"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "2026-08-14",
+      "doi": "10.1609/socs.v19i1.43088",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/doi-98fb2c7375f5.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://ojs.aaai.org/index.php/SOCS/article/download/43088/50648",
+      "reading_value": 4,
+      "reading_value_reason": "非同期MAPFという実用的な課題に対し、境界値の分配と衝突強度の概念を導入した提案手法は新規性が高く、実験による大幅な性能改善も示されており、読む価値が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "BCBS-AA: Bounded Sub-Optimal Conflict-Based Search for Multi-Agent Path Finding with Asynchronous Actions",
+      "tldr": "非同期アクションを伴うマルチエージェント経路計画において、既存の有界劣最適アルゴリズムを適用すると探索効率が低下する課題に対し、非同期性を考慮した境界値の分配と衝突強度に基づくノード優先順位付けを導入することで、成功率と探索効率を改善するBCBS-AAを提案する。",
+      "url": "https://openalex.org/W7203482429",
+      "venue": "Proceedings of the International Symposium on Combinatorial Search 2026"
+    },
+    "doi:10.1609/socs.v19i1.43105": {
+      "added": "2026-09-10",
+      "added_at": "2026-09-10T06:03:36.883223",
+      "arxiv_id": "",
+      "authors": [
+        "Amit Bouzaglo"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "2026-08-14",
+      "doi": "10.1609/socs.v19i1.43105",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/doi-dcfa17e64089.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://ojs.aaai.org/index.php/SOCS/article/download/43105/50665",
+      "reading_value": 3,
+      "reading_value_reason": "kRMAPFという制約下でのスケーラビリティ向上を目指した提案であり、既存手法の拡張として新規性がある。ただし、コストのトレードオフが示されており、関連分野の研究者にとって検討価値がある。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Scalable Robust Multi-Agent Path Finding (Student Abstract)",
+      "tldr": "各エージェントに最大k回までの遅延を許容する頑健なマルチエージェント経路探索において、既存の最適解探索手法のスケーラビリティの課題を解決するため、LaCAM*を拡張したkRLaCAM*-CRを提案し、高い成功率を実現した。",
+      "url": "https://openalex.org/W7203489938",
       "venue": "Proceedings of the International Symposium on Combinatorial Search 2026"
     },
     "doi:10.1609/socs.v19i1.43107": {
