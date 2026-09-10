@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A Hierarchical Consistency Framework for Auditing Retrieval-Augmented Generation Systems | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>A Hierarchical Consistency Framework for Auditing Retrieval-Augmented Generation Systems</h1>
+  <div class="meta">Ramon Gonzalez, Antonio Diaz<br>採択先: 未取得 ・ 2026-09-07 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2609.07075v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2609.07075v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-09-07</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">RAGの評価を回答の正誤だけでなく、コーパス・検索・生成の階層的な整合性で捉える視点が非常に実用的。診断手法としての新規性と具体性が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> RAGシステムの信頼性を診断するため、知識コーパス、検索、生成の3つの階層で整合性を検証するHierarchical Consistency Framework (HCF) を提案する。これにより、最終回答の正誤だけでなく、プロセス内のどこに矛盾や劣化があるかを特定できる。</div>
+<section class="qa"><h2>どんなもの？</h2><p>検索拡張生成（RAG）システムは、外部知識を用いて回答を生成するが、出力が信頼できない原因がコーパスの品質、検索の不備、あるいは生成器の接地性の欠如のいずれにあるのかを特定することが困難である。従来の評価は最終回答の正誤に依存しており、回答が正解であっても、その根拠となる文脈に矛盾が含まれているケースを見逃すという課題がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>検索前に、ソースと紐付けられた原子的な事実の三つ組を用いて文書間の矛盾を定量化し、矛盾の原因となる文書を特定可能にする点に新規性がある。また、モデルの内部構造に依存しない事後的な監査手法として、コーパス、検索、回答の各段階を分離して評価し、回答の根拠となる文脈の矛盾を可視化する説明可能性を提供する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>HCFは以下の3つの階層で構成される。<br>1. コーパス整合性（CC）：文書の構造的品質を測る文書内指標と、エンティティ・関係・値の三つ組を用いて文書間の事実の不一致を検出する文書間指標を組み合わせる。<br>2. 検索整合性：クエリに対して選択された証拠の関連性と、検索スコアの分散（類似度のばらつき）を評価する。<br>3. 回答整合性（ACS）：生成された回答、検索された根拠、およびユーザーのクエリの三者の間の合致度を測定し、回答が根拠に基づいているかを評価する。ACSは、回答を支持する記述と矛盾する記述の両方を示す。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>5つのドメインにわたる100のクエリと、事実の矛盾や構造的劣化を制御した4種類のコーパスを用いて評価を行った。事実の矛盾を注入したコーパスにおいて、検索類似度の平均値が最も高い場合でも、ACSの平均値が最も低くなる現象が確認された。また、原子的な事実の抽出において、参照事実40件に対し85.0%の回収率を達成し、修正された文書内のレコードがクリーンな側のレコードと88.9%の割合で意味的に一致することを確認した。さらに、人間による正解との照合では一致しているが、ACSが検索文脈内の矛盾を検知した事例も確認された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は事実の真偽を証明するものではなく、証拠の整合性を検査可能にする補完的な診断フレームワークである。限界として、制御された小規模なコーパスによる実験であるため、大規模な実環境への汎用性は未確立である。また、生成と評価に同一のモデルファミリーを使用することによるバイアスの可能性や、抽出の網羅性が矛盾検知の精度に影響を与えるリスクがある。今後の課題として、プロンプトやチャンク分割などのパラメータを用いた詳細な解析や、大規模コーパスにおける劣化の統計的な伝播の検証が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>A Hierarchical Consistency Framework for Auditing Retrieval-Augmented Generation Systems</h3><p>本研究は、検索拡張生成（RAG）システムの評価において、最終的な回答の正誤だけでなく、プロセス全体の整合性を検証するHierarchical Consistency Framework (HCF) を提案している。HCFは、知識コーパス、検索されたコンテキスト、生成された回答という3つの異なる階層に対して、モデルに依存しない事後的な監査を行う手法である。具体的には、コーパス内の矛盾をソースに紐付けられた原子的な事実として表現し、回答の一貫性スコア（ACS）とともに、回答を支持または否定する文脈上の記述を説明として提示する。5つのドメインにわたる100のクエリとコーパスの組み合わせを用いた実験では、検索類似度が高いコーパスほど回答の一貫性スコアが低くなる現象や、コーパスの構造的劣化が各階層のスコアに与える影響の違いが示された。特に、回答自体は正解と一致していても、検索された証拠の中に矛盾が含まれているケースを特定できる点が本手法の重要な利点である。HCFは事実の真偽を保証するものではないが、回答を支持・反論する証拠を検査可能にし、その根拠を特定することを可能にする。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>Retrieval-Augmented Generation (RAG)は、外部コーパスから関連情報を取得して生成を補強することで、大規模言語モデルの知識の静止性や事実誤認に対処する手法ですが、出力の信頼性を診断することは困難です。RAGの出力が信頼できない原因は、コーパス内の文書の構造的な劣化や事実の不一致、検索器による曖昧または矛盾した証拠の提示、あるいは生成器が取得した文脈に基づいた回答を行えないことのいずれかに起因します。本論文では、これらの原因を階層的に分類するHierarchical Consistency Framework (HCF) を提案します。このフレームワークは、コーパスの一貫性 (Corpus Consistency)、検索の一貫性 (Retrieval Consistency)、回答の一貫性 (Answer Consistency) の3つのレベルで構成され、各レベルにおいてモデルに依存しない事後的な診断を可能にします。評価実験では、文書内の劣化や文書間の矛盾を系統的に変化させた制御されたコーパスを用い、検索レベルの指標および回答の一貫性スコア (ACS) が、RAGパイプラインのどこに失敗があるかを特定する説明可能なAI (XAI) の層として機能することを検証しています。</p></section>
+<section class="secsum"><h3>II Related Work</h3><p>本研究で提案するHCFは、RAG（検索拡張生成）の評価、コーパスの品質、矛盾する証拠、および説明可能なAI（XAI）に関する既存研究に関連している。RAGの失敗要因としてコーパスの品質が重要視されており、データ中心のAIアプローチに基づき、文書の正確性や一貫性などの次元から自動的な診断を行う。既存のIndexRAGがインデックス作成時に知識単位を抽出するのに対し、HCFは検索前にソースと紐付けられた原子的な事実の三つ組を用いて文書間の矛盾を定量化する。また、既存の指示ベースの文脈検証手法とは異なり、HCFはソースに紐付いたコーパスの分解を用いる。さらに、HCFはモデルの内部構造に依存しない事後的な説明可能性を提供し、コーパス診断、検索スコアの分散、およびテキストによる根拠を伴う回答スコアを通じて失敗箇所を特定することで、プロセスの透明性を高めている。</p></section>
+<section class="secsum"><h3>III Methodology</h3><p>本研究では、RAG（検索拡張生成）システムの監査を目的とした、実装に依存しない階層的整合性フレームワーク（HCF）を提案する。このフレームワークは、知識コーパス、検索、生成の3つの階層で構成され、各段階における劣化箇所を特定する。第1階層のコーパス整合性（CC）は、文書の構造的品質を評価する文書内正規化整合性（IaDNI）と、文書間での事実の不一致を測定する文書間整合性度（IeDCD）を組み合わせた指標である。IeDCDは、文書からエンティティ、関係、値の組み合わせである原子的事実トリプルを抽出し、同一のエンティティと関係に対して異なる値が複数の文書で主張されている場合に不一致と判定する。第2階層の検索整合性は、クエリに対する検索結果の関連性とスコアの分散を、最大類似度、平均類似度、および類似度の分散という3つの指標で評価する。第3階層の回答整合性（ACS）は、生成された回答、検索された根拠、およびユーザーのクエリの間の合致度を評価する。ACSは情報の真偽を判定するものではなく、RAGパイプライン内における接地性を測定するものである。</p></section>
+<section class="secsum"><h3>IV Experimental Design</h3><p>本実験では、Mentomyプラットフォーム上で、Mistral Small 4を文書品質評価、事実抽出、回答生成、および回答の一貫性判定の各オペレータとして用いたRAGシステムの評価を行う。検索プロセスでは、Microsoftのmultilingual-e5-largeを用いて1,024次元のベクトルを作成し、Pineconeのコサイン類似度を用いた検索後に、BAAI/bge-reranker-v2-m3による再ランキングを経て上位10件を抽出する構成をとる。実験用の制御コーパスは、物理学や医学など5つのドメインにわたる4つの条件で構成されており、クリーンな文書のみのCorpus A、事実の矛盾を注入したCorpus B、構造的な劣化を加えたCorpus C、およびこれらを組み合わせたCorpus Dが用意されている。この設計により、事実の矛盾（IeDCD）と構造的劣化（IaDNI）という2つの変数を独立して制御し、回答の一貫性スコア（ACS）の低下原因を特定することが可能となる。評価には、操作された値の特定、制御用、および複数情報の統合を目的とする25種類のクエリを4つのコーパス条件それぞれに適用した計100のインスタンスを使用する。さらに、生成された回答が正解データと一致するかを判定するため、人間による参照回答評価も併せて実施している。</p></section>
+<section class="secsum"><h3>V Results</h3><p>提案された階層的整合性フレームワーク（HCF）の評価実験では、データの取り込み、事実抽出、エンティティ・関係（ER）ペアの対応、およびクエリレベルの回答整合性の4段階で検証が行われた。取り込み段階の診断では、構造を維持しつつ値のみを変更したコーパスBにおいて、整合性指標（CC）が整合性の低下を捉えられることが示された。事実抽出段階では、コーパスAの参照事実40件に対し85.0%の回収率を達成したが、地理学や生物学では完全な回収が見られた一方、歴史学では回収漏れが生じるなど、ドメインによって性能に偏りがあることが確認された。ERペアの対応分析では、修正された文書内のレコードがクリーンな側のレコードと88.9%の割合で意味的に一致することを確認し、値の不一致を比較可能な状態にできることを示した。クエリレベルの評価では、回答整合性スコア（ACS）の平均値がコーパスBで0.8780と最も低く、検索された情報の意味的な関連性が高い場合でも、根拠となる文脈が事実として矛盾していればACSが低下することが示された。これにより、人間が正解と判断した回答であっても、検索された文脈内に矛盾する記述が存在する場合にACSが低くなることが確認され、本フレームワークが矛盾の原因となる具体的な記述を特定できる有用な診断ツールであることが実証された。</p></section>
+<section class="secsum"><h3>VI Discussion</h3><p>本研究の主要な貢献は、回答の正誤判定だけでなく、回答とその根拠となる証拠との整合性を区別して評価できる点にあります。提案手法であるACS（Answer-Correspondence Score）を用いることで、回答が正解であっても検索された文言との不一致を特定し、その理由を説明できるため、問題の所在を具体的に診断することが可能です。検証プロセスを段階的に構成することで、コーパスの構造的な完全性やインデックスの乖離、抽出および対応関係の分析を分離しており、失敗の原因が回答生成器にあるのか、あるいはデータの欠落や表現の違いにあるのかを明確に区別できます。また、検索結果の関連度スコアが高くても、証拠となる内容が互いに矛盾する場合があるため、関連度統計は検索内容を記述するものであり、意味的な一貫性を保証するものではないと指摘しています。なお、本研究では独立したラベル付きのキャリブレーションセットを使用していないため、特定のACS閾値における偽陽性率や偽陰性率を確定させるまでには至っていません。</p></section>
+<section class="secsum"><h3>VII Conclusions</h3><p>HCFは、コーパスの整合性と事実の乖離、最終的なコンテキストの検索統計、および回答とコンテキストの一貫性の3つの観点からRAGの監査を階層的に構成するフレームワークです。特定のモデルに依存しない定式化と、情報のソースに紐付けられた記録保持により、証拠の限界がどこで発生しているかを調査するための共通構造を提供します。制御実験の結果、抽出の網羅性と意味的な対応関係における有用性が示されるとともに、正しい回答が矛盾する検索証拠と共存し得るという重要な区別が明らかになりました。また、類似度の分散やコーパスレベルの一貫性は、回答の一貫性を決定付ける要因にはならないことも示されています。したがって、HCFは事実検証の代替や独立した正解確率の指標ではなく、補完的な診断フレームワークとして位置付けられます。</p></section>
+<section class="secsum"><h3>VIII Limitations and Future Research</h3><p>本研究の実験は、5つのドメインにおける20種類の文書バリエーションと4つの構成に基づく40の文書配置を対象としているが、構築された小規模なコレクションであるため、実際の企業知識ベースへの汎用性を確立するには至っていない。評価においては、1つの質問と条件につき1回の実行のみを保持しており、単一の人間による評価はベンチマークとの一致を支持するものの、提案手法であるACSの独立した検証にはなっていない。手法の特性として、生成と評価に同一のモデルファミリーを使用することで共通のバイアスが生じる可能性や、抽出の網羅性や正規化に依存することで、多言語表現や多値関係、時間的修飾子の欠如が候補間の乖離カウントを歪めるリスクがある。今後の課題として、プロンプトやチャンク分割、権限設定などのパラメータを独立して変化させた制御されたアブレーション解析や、既存の参照なし評価指標との比較が必要である。さらに、一貫性の勾配を制御した大規模なコーパスを用いて、上流の劣化が下流のスコアに統計的に伝播するかどうかを検証することも求められる。</p></section>
+<section class="secsum"><h3>Data and Code Availability</h3><p>付録Aで詳述されているデータセットには、コーパスAからDを構成する文書群、25個のクエリ、およびそれらに対する正解の応答が含まれています。ただし、Mentomyプラットフォーム自体は含まれていません。また、本文中に記載されている抽出されたレコードや回答の抜粋は、読みやすさを向上させるために翻訳または要約されたものが用いられています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-11
+  </footer>
+</div>
+</body>
+</html>

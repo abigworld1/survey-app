@@ -3852,6 +3852,36 @@
       "url": "http://arxiv.org/abs/2609.05152v1",
       "venue": ""
     },
+    "arxiv:2609.07075": {
+      "added": "2026-09-11",
+      "added_at": "2026-09-11T06:08:36.630880",
+      "arxiv_id": "2609.07075",
+      "authors": [
+        "Ramon Gonzalez",
+        "Antonio Diaz"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-07",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2609.07075.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.07075v1",
+      "reading_value": 4,
+      "reading_value_reason": "RAGの評価を回答の正誤だけでなく、コーパス・検索・生成の階層的な整合性で捉える視点が非常に実用的。診断手法としての新規性と具体性が高い。",
+      "relevance": 5,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "A Hierarchical Consistency Framework for Auditing Retrieval-Augmented Generation Systems",
+      "tldr": "RAGシステムの信頼性を診断するため、知識コーパス、検索、生成の3つの階層で整合性を検証するHierarchical Consistency Framework (HCF) を提案する。これにより、最終回答の正誤だけでなく、プロセス内のどこに矛盾や劣化があるかを特定できる。",
+      "url": "http://arxiv.org/abs/2609.07075v1",
+      "venue": ""
+    },
     "arxiv:2609.08188": {
       "added": "2026-09-10",
       "added_at": "2026-09-10T06:06:55.674947",
@@ -3883,6 +3913,35 @@
       "title": "Bridging the Semantic-Utility Gap in Multimodal RAG via Generator-in-the-Loop Alignment",
       "tldr": "マルチモーダルRAGにおいて、検索器が意味的な類似性のみを最適化することで、生成器の回答有用性と乖離してしまう課題を解決するため、生成器を学習ループに組み込んだ2段階のアライメントフレームワークを提案する。",
       "url": "http://arxiv.org/abs/2609.08188v1",
+      "venue": ""
+    },
+    "arxiv:2609.09243": {
+      "added": "2026-09-11",
+      "added_at": "2026-09-11T06:06:14.828889",
+      "arxiv_id": "2609.09243",
+      "authors": [
+        "Iliano Fasolino"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-08",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "doc-structure-rag/2609.09243.html",
+      "matched_keywords": [
+        "Retrieval-Augmented Generation",
+        "RAG"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.09243v1",
+      "reading_value": 3,
+      "reading_value_reason": "RAGの脆弱性を具体的な攻撃シナリオで定量化した点は有用。ただし、小規模量子化モデルとルールベースの攻撃に限定されており、実用上の一般化には注意を要する。",
+      "relevance": 8,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "In RAG We Trust? Measuring Robustness of Retrieval-Augmented Generation Under Document Poisoning",
+      "tldr": "検索拡張生成（RAG）において、検索された文書の一部が改ざんされた際に、小規模な量子化モデルの性能がどのように低下するかを調査し、汚染の手法や割合による脆弱性の違いを明らかにしました。",
+      "url": "http://arxiv.org/abs/2609.09243v1",
       "venue": ""
     },
     "doi:10.1038/s41598-026-50062-8": {
@@ -6705,6 +6764,38 @@
       "title": "Sequence Pathfinder for Multi-Agent Pickup and Delivery in the Warehouse",
       "tldr": "Transformerを活用してMAPD（Multi-Agent Pickup and Delivery）問題をシーケンスモデリングとして定式化する「SePar (Sequential Pathfinder)」を提案する手法。エージェント間の暗黙的な情報交換を自己回帰的な方策で実現し、計算複雑度を $O(n)$ に抑えつつ、大規模なエージェント数や未知のマップに対しても高いスケーラビリティと汎化性能を発揮する。",
       "url": "http://arxiv.org/abs/2509.23778v2",
+      "venue": ""
+    },
+    "arxiv:2510.09469": {
+      "added": "2026-09-11",
+      "added_at": "2026-09-11T06:04:52.720439",
+      "arxiv_id": "2510.09469",
+      "authors": [
+        "Bharath Muppasani",
+        "Ritirupa Dey",
+        "Biplav Srivastava",
+        "Vignesh Narayanan"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-10-10",
+      "doi": "",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2510.09469.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2510.09469v2",
+      "reading_value": 4,
+      "reading_value_reason": "情報使用量を定量化するIUの導入が新規であり、通信負荷を劇的に抑えつつ高密度環境での成功率を維持するハイブリッド手法は、実機応用を考える研究者にとって極めて価値が高い。",
+      "relevance": 4,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Towards Information-Optimized Multi-Agent Path Finding: A Hybrid Framework with Reduced Inter-Agent Information Sharing",
+      "tldr": "エージェント間の情報共有を最小限に抑えつつ、衝突を回避して実行可能な経路を生成するマルチエージェント経路計画（MAPF）に対し、分散型強化学習と軽量な中央コーディネーターを組み合わせたハイブリッドフレームワークIO-MAPFを提案する。衝突が発生した際にのみ限定的な情報を動的に共有することで、高い成功率を維持しながら通信負荷を2倍から23倍削減する。",
+      "url": "http://arxiv.org/abs/2510.09469v2",
       "venue": ""
     },
     "arxiv:2510.17382": {
@@ -10951,6 +11042,34 @@
       "tldr": "異なる領域を管理する複数のサブシステムが、容量制限のある共有バッファを介して荷物を交換するMS-MAPD-BHS問題を定式化し、ドック予約とバッファ占有率の予測を用いるオンライン制御器HARRを提案することで、スループットの向上とバックログの削減を実現した。",
       "url": "http://arxiv.org/abs/2607.17724v1",
       "venue": "arXiv (Cornell University)"
+    },
+    "doi:10.48550/arxiv.2608.28658": {
+      "added": "2026-09-11",
+      "added_at": "2026-09-11T06:03:30.649653",
+      "arxiv_id": "2608.28658",
+      "authors": [
+        "Hang Ma"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-08-21",
+      "doi": "10.48550/arxiv.2608.28658",
+      "engine": "llm:gemma-4-26b",
+      "file": "mapf-mapd-warehouse/2608.28658.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2608.28658v1",
+      "reading_value": 4,
+      "reading_value_reason": "AMAPFにおける「ゴール滞在」が計算複雑性を変える境界であることをNP困難性の証明により明確に示した点は、理論的に非常に価値が高い。",
+      "relevance": 4,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Goal Staying Makes Sum-of-Costs Anonymous Multi-Agent Path Finding NP-Hard",
+      "tldr": "エージェントが目標地点に到達した後にその場に留まり続ける設定の匿名マルチエージェント経路探索（AMAPF）において、総コスト（SoC）の最小化問題がNP困難であることを証明した。",
+      "url": "http://arxiv.org/abs/2608.28658v1",
+      "venue": ""
     },
     "doi:10.65109/kpwj5508": {
       "added": "2026-08-02",

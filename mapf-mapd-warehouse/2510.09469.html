@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Towards Information-Optimized Multi-Agent Path Finding: A Hybrid Framework with Reduced Inter-Agent Information Sharing | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Towards Information-Optimized Multi-Agent Path Finding: A Hybrid Framework with Reduced Inter-Agent Information Sharing</h1>
+  <div class="meta">Bharath Muppasani, Ritirupa Dey, Biplav Srivastava, Vignesh Narayanan<br>採択先: 未取得 ・ 2025-10-10 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2510.09469v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2510.09469v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2025-10-10</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">情報使用量を定量化するIUの導入が新規であり、通信負荷を劇的に抑えつつ高密度環境での成功率を維持するハイブリッド手法は、実機応用を考える研究者にとって極めて価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> エージェント間の情報共有を最小限に抑えつつ、衝突を回避して実行可能な経路を生成するマルチエージェント経路計画（MAPF）に対し、分散型強化学習と軽量な中央コーディネーターを組み合わせたハイブリッドフレームワークIO-MAPFを提案する。衝突が発生した際にのみ限定的な情報を動的に共有することで、高い成功率を維持しながら通信負荷を2倍から23倍削減する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>共有環境内で複数のエージェントが衝突を避けながら目的地へ移動するマルチエージェント経路計画（MAPF）を対象とする。従来の集中型アルゴリズムは、全エージェントの状態や目標を共有するため、エージェント数の増加に伴う計算量の爆発、通信帯域の圧迫、プライバシー保護の観点から情報の共有制限が課題となる。一方、学習ベースの分散型手法はスケーラビリティに優れるものの、局所的な情報のみに依存するため、解の質が低下したり衝突を解決できなかったりする困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>MAPFを情報の観点から定式化し、情報の使用量を定量化する指標であるInformation Units (IU) を導入した点が新規である。従来のハイブリッド手法が抱える通信やセンシングのオーバーヘッドを回避するため、衝突が予見される場合にのみ特定の情報を動的に共有する、アラート駆動型の選択的な介入メカニズムを実現している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、分散型計画、中央集中型衝突検出、衝突制御、段階的な再計画の4段階からなるハイブリッドフレームワークである。まず各エージェントが環境情報と自己情報のみを用いて、強化学習に基づく方策により独立に経路を計画する。中央コーディネーターは全エージェントの計画を監視して衝突を検出し、衝突の性質に応じて、待避、静的再計画、動的再計画、局所的な共同計画という4つの階層的な戦略から制約を選択してエージェントに通知する。エージェントの観測には、静的障害物、自己位置、目標位置に加え、中央から送られる衝突アラートを示すマスク情報が含まれる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>ランダムグリッドおよび倉庫などの構造化マップを用い、エージェント数を8から128の範囲で設定して、CBS、DCC、SCRIMP、EPHといった既存手法と比較した。評価指標には、成功率（SR）、メイクスパン（MS）、および情報使用量を表すInformation Units (IU) を用いている。実験の結果、32x32のランダムマップにおいて、IO-MAPFは80エージェントまで高い成功率を維持し、IUを既存の学習ベース手法より1桁から2桁程度抑制した。また、倉庫マップでは128エージェントまでの全インスタンスを解決し、EPHやDCCよりも大幅に少ない情報量で同等の成功率を達成した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>衝突が頻発する極めて高密度な環境下では、性能が低下する可能性がある。また、再計画の階層的な戦略の選択が手動で設計されている点が限界である。今後の課題として、階層選択ポリシーを自動的に適応させる学習ベースの手法の探索や、IUの使用量を最小化しつつ性能を最適化するための強化学習によるアプローチが挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Towards Information-Optimized Multi-Agent Path Finding: A Hybrid Framework with Reduced Inter-Agent Information Sharing</h3><p>本研究は、エージェント間の情報共有を最小限に抑えつつ、実行可能な経路を生成するマルチエージェント経路計画（MAPF）の課題に取り組んでいる。提案手法であるIO-MAPFは、強化学習を用いた分散型の経路計画と、軽量な中央コーディネーターを組み合わせたハイブリッドフレームワークである。中央コーディネーターは、衝突が発生する可能性のあるセルを示す静的な指標や、短い衝突軌跡といった、必要最小限かつ標的を絞った信号を動的にエージェントへ提供する。情報使用量を定量化するためにInformation Units（IU）という指標を導入しており、実験の結果、提案手法は既存の最先端アルゴリズムと比較して、高い成功率を維持しながら情報共有量を削減できることを示した。これにより、通信帯域の制限やプライバシー保護が求められる条件下においても、信頼性の高いMAPFが実現可能であることを示している。</p></section>
+<section class="secsum"><h3>1 Introduction</h3><p>マルチエージェント経路計画（MAPF）は、共有環境内で複数のエージェントが衝突を回避する経路を計算する問題であり、エージェント数や環境の複雑さが増すと計算量が膨大になるNP困難な問題である。従来の集中型手法は全エージェントの状態を把握して計算を行うが、計算コストの増大やプライバシー保護の観点から情報の共有制限が課題となる。一方、分散型手法はスケーラビリティに優れるものの、情報の不足により解の質が低下したり衝突を解決できなかったりする場合がある。本研究では、情報の観点からMAPFを定式化し、分散型の強化学習ベースのプランナーと軽量な集中型コーディネーターを組み合わせたハイブリッドフレームワークであるIC–MAPFを提案する。この手法では、エージェントは自身の位置座標などの局所的な観測情報に基づいて計画を行い、コーディネーターは衝突が予測される場合にのみ、特定の情報を動的に共有して局所的な再計画を促す選択的な介入を行う。評価においては、各エージェントが計画中に利用可能な情報を定量化する新しい指標であるInformation Units (IU) を導入し、提案手法が既存の通信効率の高いアルゴリズムと比較して、解の実行可能性を維持しつつ情報負荷を削減できることを示す。</p></section>
+<section class="secsum"><h3>2 Background and Literature Review</h3><p>マルチエージェント経路探索（MAPF）は、グラフ上の複数のエージェントが衝突を避けながら各々の始点から終点へ移動する問題であり、本研究ではエージェントが目的地到着後もその場に留まり続ける設定を採用している。既存の手法は、全状態を把握し一括制御する集中型、エージェント間で情報を明示的に交換する分散型、通信を行わず個別に動作する非集中型に分類され、これらを組み合わせたハイブリッド型も存在する。探索ベースの手法は、制約に基づき衝突を解消するCBSや、部分的な経路修正を行うLNSなどがあるが、エージェント数の増加に伴うスケーラビリティに課題がある。学習ベースの手法は、中央集中型の訓練と分散型の実行を組み合わせることで部分観測下での動作を可能にするが、センサー負荷や通信コスト、解の品質保証の面で限界がある。ハイブリッド手法は両者の利点を組み合わせようと試みているが、依然として複雑な統合や特定の情報依存を必要とする。本研究が提案するIC-MAPFは、実現可能性を維持しつつエージェント間の情報共有を削減することで、従来のハイブリッド手法が抱える通信やセンシングのオーバーヘッドを回避することを目指している。</p></section>
+<section class="secsum"><h3>3 Methodology</h3><p>本手法は、エージェント間の情報共有を最小限に抑えつつ、衝突回避の整合性を保つためのハイブリッドな4段階フレームワークを提案している。まず、各エージェントが環境情報のみを用いて独立に経路を計画する分散型計画（S1）を行い、次に中央モジュールが全エージェントの計画を照合して衝突を検出する中央集中型衝突検出（S2）を行う。衝突が検出されると、中央制御モジュール（S3）が衝突を解消するための制約を決定し、対象となるエージェントに対して段階的な再計画（S4）を指示する。再計画は、近傍の空きスペースを利用する待避（S4.0）、衝突箇所を静的障害物として扱う静的再計画（S4.1）、他者の経路を動的障害物として扱う動的再計画（S4.2）、そして少数のエージェントを対象とした局所的な共同計画（S4.3）の順に、情報の詳細度を段階的に高めながら試行される。さらに、解決困難なデッドロックに対処するため、一部のエージェントを一時的に除外して他のエージェントの移動を優先させる保留メカニズムを備えている。エージェントの意思決定には強化学習を用いた方策が用いられ、観測情報として静的障害物、自己位置、目標位置に加え、中央から送られる衝突アラートのマスク情報が統合される。</p></section>
+<section class="secsum"><h3>4 Experimental Setup</h3><p>第1段階のナビゲーション方策の学習には、優先度付き経験再生とε-greedy法を用いたDouble DQNが採用されており、静止および動的障害物を回避しながら目標に到達するよう訓練されます。学習の難易度は、動的障害物の数を段階的に増やすカリキュラム学習によって制御され、観測値の正規化や有効な行動のみを選択するためのバリディティマスク、Adam最適化アルゴリズムなどが用いられます。評価にはMoving AI Labのデータセットに含まれるランダムグリッドや構造化マップが使用され、エージェント数は8から128の範囲で設定され、CBS、DCC、SCRIMP、EPHといった探索ベースおよび学習ベースの既存手法と比較されます。性能指標として、制限時間内に解を得られた割合を示す成功率（SR）、全エージェントが目標に到達するまでの時間であるメイクスパン（MS）、および通信負荷を定量化した情報ユニット（IU）が用いられます。IUは、学習ベースの手法では各ステップで視野内に入った他エージェントの数として、提案手法であるIC-MAPFでは再計画時に発行されるセルレベルの制約として定義され、アルゴリズム間の情報共有量の直接的な比較を可能にします。さらに、5台のTurtleBot4を用いた実機実験では、ROS 2の同期チャネルを介して、回転と前進の動作を全ロボット間で厳密にロックステップで実行する設定で行われます。</p></section>
+<section class="secsum"><h3>5 Results and Discussion</h3><p>提案手法であるIC-MAPFは、衝突が発生した際にのみ限定的な情報を共有するハイブリッドな情報モデルを採用することで、高い成功率（SR）と低い情報使用量（IU）の両立を実現しています。実験の結果、エージェントが他者の情報を一切持たない完全分散型の設定では衝突の解決が困難である一方、IC-MAPFのように衝突イベントに応じてエージェントの経路断片を共有する手法であれば、学習ベースの手法（DCC、SCRIMP、EPH）と比較して、情報使用量を1桁から2桁程度抑制しつつ高い成功率を維持できることが示されました。例えば、32x32のランダムマップにおいて、IC-MAPFは80エージェントまで高い成功率を維持し、IUは3.6から214.2の範囲でしたが、SCRIMPやEPHはこれより大幅に大きな情報量を消費しました。また、倉庫マップのベンチマークでは、IC-MAPFは8から128エージェントの全インスタンスを解決し、IUを0.8から139.1の範囲に抑えた一方で、EPHやDCCは同等の成功率を得るために数倍から十数倍の情報量を必要としました。探索ベースの手法であるCBSは、中央集権的な推論により最適性は高いものの、問題規模の拡大に伴い制限時間内に解決できずスケーラビリティに欠けることが確認されました。結論として、IC-MAPFは中央集権的なプランナーと完全分散型の学習ベースの手法の間に位置し、イベント駆動型の情報共有によって、性能と通信複雑性の間で優れたトレードオフを提供しています。</p></section>
+<section class="secsum"><h3>6 Conclusions</h3><p>本研究では、エージェント間の情報共有を最小限に抑えつつ協調を実現する情報中心のマルチエージェント経路計画（Information-centric MAPF）という問題を定義し、ハイブリッドフレームワークであるIC–MAPFを提案した。計画中に消費される他エージェントに関する情報の量を定量化するため、Information Units（IU）という指標を導入している。多様なベンチマークを用いた実験の結果、IC–MAPFは既存の通信効率化手法と比較して、IUの使用量を削減しながら高い成功率を達成した。この成果は、疎でイベント駆動型の情報交換のみでマルチエージェントの協調が可能であることを示しており、帯域幅の節約やプライバシー保護が求められる自律システムへの応用が期待される。一方で、衝突が頻発する極めて高密度な環境下での課題や、階層的な戦略の設計が手動で行われているという限界がある。今後の課題として、階層選択ポリシーを自動適応させる学習ベースの手法の探索や、IUの使用量を最小化しつつ性能を最適化するための強化学習によるアプローチが挙げられる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-11
+  </footer>
+</div>
+</body>
+</html>

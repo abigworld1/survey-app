@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Goal Staying Makes Sum-of-Costs Anonymous Multi-Agent Path Finding NP-Hard | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Goal Staying Makes Sum-of-Costs Anonymous Multi-Agent Path Finding NP-Hard</h1>
+  <div class="meta">Hang Ma<br>採択先: 未取得 ・ 2026-08-21 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2608.28658v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.28658v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2608.28658" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 2026-08-21</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">AMAPFにおける「ゴール滞在」が計算複雑性を変える境界であることをNP困難性の証明により明確に示した点は、理論的に非常に価値が高い。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> エージェントが目標地点に到達した後にその場に留まり続ける設定の匿名マルチエージェント経路探索（AMAPF）において、総コスト（SoC）の最小化問題がNP困難であることを証明した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>匿名マルチエージェント経路探索（AMAPF）は、無向グラフ上で複数のエージェントを衝突を回避しながら、任意の目標地点へ一対一で割り当てる問題である。エージェントが目標到達後にグラフから消滅する設定では、総コスト（各エージェントの完了時刻の総和）の最小化はネットワークフローを用いて多項式時間で解ける。しかし、標準的な設定である「目標に留まり続ける（ゴール滞在）」条件では、目標への到達がその後の全エージェントの動きと結合するため、計算の困難さが変化する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>エージェントの挙動の違いが、問題の計算複雑性の境界を決定づけることを明らかにした。目標滞在を伴うAMAPFにおける総コスト最小化がNP困難であることを、3-SAT問題からの帰着を用いて証明した。また、目標への永続的な占有制約を導入した整数計画問題の線形計画緩和が、整数解を持たないこと、および整数性のギャップが2に達する場合があることを示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>目標地点への滞在をモデル化するため、特定の時刻以降に目標地点が最終的な占有者によって永続的に占有されることを示す定着変数を導入した整数計画式を定式化した。NP困難性の証明には、3-SAT問題からの帰着を用いている。具体的には、各変数に対して2つのリテラルゲートと共有ボトルネック、セレクターエージェントを含む変数ガジェットを構成し、各節に対して節エージェントを含む節ガジェットを導入した。各エージェントが目標に到達するまでの各ステップでポテンシャル関数が1ずつ増加する場合にのみ、コストの総和が理論的な下限値に達するという性質を利用している。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>6つの頂点を持つ木構造のグラフを用いた検証により、整数計画問題の性質を評価した。この検証において、整数解による最小の総コストが10であるのに対し、線形計画緩和ではフローを分数的に分割して目標に定着させることで、総コストを7.5まで下げられることが示された。これにより、目標への定着条件が単一商品フローの整数性を破壊することを数値的に示した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の困難さの根源は、目的地での永続的な占有制約が、時間拡張フロー定式化における整数性を破壊することにある。今後の課題として、変数の出現回数が制限されたSATを用いることで、節やセレクターの経路長を定数に抑え、平面グラフや2Dグリッド上での困難性を証明すること、あるいはMax-SATを用いた近似困難性の証明へと拡張することが挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>Goal Staying Makes Sum-of-Costs Anonymous Multi-Agent Path Finding NP-Hard</h3><p>エージェントがゴールに到達した後に消滅する設定の匿名マルチエージェント経路探索（AMAPF）では、総コストの最小化がネットワークフローを用いて多項式時間で解ける。これに対し、エージェントがゴールに留まり続ける標準的な設定では、問題の性質が根本的に異なることを示している。著者らは、標準的な時間拡張フローモデルにゴールへの定着制約を加えることで総コスト最小化問題を定式化し、その線形計画緩和が整数解にならないことを明らかにした。さらに、3-SAT問題からの帰着を用いることで、ゴールに留まる設定のAMAPFにおける総コスト最小化がNP困難であることを証明している。この結果は、完了したエージェントがゴールに留まるか否かという条件が、問題の計算複雑性の境界を決定づけることを示している。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>マルチエージェント経路計画（MAPF）において、エージェントがどの目標地点に到達してもよいとする匿名MAPF（AMAPF）は、各エージェントの目標が固定されている標準的なMAPFよりも計算複雑性が低い。AMAPFにおいて、最大完了時間の最小化や、エージェントが目標到達後にグラフから消滅する設定での総コスト（SoC）の最小化は、時間拡張ネットワークを用いた最大流問題として多項式時間で解くことが可能である。しかし、エージェントが目標地点に留まり続ける「目標滞在」の設定では、目標への到達がその後の全エージェントの動きと結合するため、既存の最適化手法は指数関数的な計算時間を要する。本論文は、目標滞在を伴うAMAPFにおけるSoCの最小化がNP困難であることを証明し、目標到達後のエージェントの挙動の違いが複雑性の境界を決定づけることを明らかにした。具体的には、目標地点の恒久的な占有を明示的にモデル化した整数計画式を定式化し、その自然な線形計画緩和が整数解を持たないこと、および特定の事例において整数性のギャップが 2 に達することを指摘している。</p></section>
+<section class="secsum"><h3>II Related Work: Complexity of MAPF Variants</h3><p>マルチエージェント経路計画（MAPF）において、エージェントが区別できない匿名（Anonymous）な設定では、エージェントが目的地に到着した後に消滅する場合の総コスト（SoC）最小化は、最小費用最大流問題を用いることで多項式時間で解けます。しかし、エージェントが目的地に留まり続けるゴール滞在型の匿名MAPFにおけるSoC最小化は、既存の最適アルゴリズムの最悪計算量が指数時間となっていました。本研究は、ゴール滞在型の匿名MAPFにおけるSoC最小化がNP困難であることを証明することで、この計算量のギャップを埋めています。エージェントの入れ替え可能性の観点では、チーム数が1つの完全な匿名設定から2つのチームへと増えるだけで、最長完了時間（Makespan）やSoCの最適化はNP困難になります。このように、本研究は完全な匿名性を持つ設定内において、エージェントが目的地に到着した後の挙動が、多項式時間で解けるかNP困難かを分ける境界となることを明らかにしています。</p></section>
+<section class="secsum"><h3>III Problem Formulation</h3><p>匿名マルチエージェント経路探索（AMAPF）は、無向グラフにおいて、開始地点の集合と目標地点の集合が与えられた際、各エージェントを目標地点へ一対一で割り当て、衝突を回避しながら移動させる問題である。エージェントは各ステップで隣接する頂点へ移動するか、あるいはその場に留まることができ、衝突とは、同じ時刻に複数のエージェントが同一の頂点を占有すること、または同じ時刻にエージェント同士が逆方向に同じエッジを通過することを指す。解の条件として、各エージェントは割り当てられた目標地点に最終的に到達し、その後は永続的にその地点に留まり続けなければならない。なお、開始地点が目標地点と一致しているエージェントであっても、その地点に割り当てられるとは限らず、一度離脱することも許容される。本研究が扱うAMAPF-SoC問題は、各エージェントが割り当てられた目標地点に到達するまでの時刻の総和、すなわち合計コストを最小化する解を求めるものである。</p></section>
+<section class="secsum"><h3>IV Flow Formulation and Loss of Integrality</h3><p>目標地点への滞在を伴う匿名マルチエージェント経路探索（AMAPF）において、コストの総和（SoC）を最小化する問題の定式化と、その線形計画緩和における整数性の喪失について述べている。エージェントが目標到達後に消滅するモデルでは最小費用最大流問題として定式化できるが、目標への滞在を考慮する場合、ある目標地点が特定の時刻以降、最終的な占有者によって永続的に占有されることを示す定着変数を導入する必要がある。この定着条件を組み込んだ整数計画問題（IP-SoC）は、各エージェントの完了時刻の総和を最小化する。しかし、この定着条件の導入により、単一商品フローが持つ整数性、すなわち線形計画緩和の解が整数解となる性質が失われる。具体例として、6つの頂点を持つ木構造のグラフを用いた検証では、整数解の最小SoCが10であるのに対し、線形計画緩和ではフローを分数的に分割して目標に定着させることでSoCを7.5まで下げることができ、整数性のギャップが生じることが示されている。この結果は、目標への永続的な占有が、標準的なネットワークフローの枠組みを超えた組合せ論的な選択を導入していることを示唆している。</p></section>
+<section class="secsum"><h3>V NP-Hardness of Optimal AMAPF-SoC</h3><p>本セクションでは、コストの総和を最小化するマルチエージェント経路探索（AMAPF-SoC）がNP困難であることを、3-SAT問題への帰着を用いて証明している。まず、各エージェントが目標に到達するまでの各ステップにおいて、ポテンシャル関数（各ノードに割り当てられた値）が正確に1ずつ増加する場合にのみ、コストの総和が理論的な下限値に達するという性質を定義している。変数ガジェットでは、各変数に対して2つのリテラルゲート、共有のボトルネック、およびセレクターエージェントを導入しており、コストの下限を達成するためには、2つのリテラルゲートのうち一方のみが空席になり、セレクターがその空いたゲートへ移動しなければならないという制約を課している。節ガジェットでは、各節に対して節エージェントを導入し、その節に含まれる真のリテラルに対応するゲートを経由して、ポテンシャルが2の目標へ到達する経路を構成している。この構成により、元の3-SAT式が充足可能であることと、構築されたAMAPFインスタンスにおいてコストの総和が特定の閾値以下となることが同値であることが示されている。したがって、最小のコストの総和を求める問題はNP困難であると結論付けている。</p></section>
+<section class="secsum"><h3>VI Discussion and Conclusion</h3><p>本研究は、エージェントが目的地に到着した後に留まり続ける制約を持つ、標準的なゴール滞在型Sum-of-Costs（SoC）マルチエージェント経路計画問題（AMAPF）がNP困難であることを証明し、多項式時間で解けるフローベースの変種との複雑性の差を明確にした。この困難さの根源は、目的地での永続的な占有制約が、時間拡張フロー定式化における整数性を破壊することにある。提案された帰着手法は、タイトなポテンシャル下界、二者択一を強制する共有ボトルネック、および節エージェントに選択を伝える永続的なリテラルゴールという要素で構成されており、変数の出現回数に制限がないSATにも適用可能な柔軟性を持つ。変数の出現回数が制限されたSATを用いることで、節やセレクターの経路長を定数に抑えられる可能性があり、これにより平面グラフや2Dグリッド上での困難性、あるいはMax-SATを用いた近似困難性の証明へと拡張できる可能性がある。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-11
+  </footer>
+</div>
+</body>
+</html>

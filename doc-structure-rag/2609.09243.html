@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>In RAG We Trust? Measuring Robustness of Retrieval-Augmented Generation Under Document Poisoning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>In RAG We Trust? Measuring Robustness of Retrieval-Augmented Generation Under Document Poisoning</h1>
+  <div class="meta">Iliano Fasolino<br>採択先: 未取得 ・ 2026-09-08 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2609.09243v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2609.09243v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-09-08</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 3/5</span><div class="rating-reason">RAGの脆弱性を具体的な攻撃シナリオで定量化した点は有用。ただし、小規模量子化モデルとルールベースの攻撃に限定されており、実用上の一般化には注意を要する。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Retrieval-Augmented Generation</span><span class="tag">RAG</span></div>
+  <div class="tldr"><strong>一言で:</strong> 検索拡張生成（RAG）において、検索された文書の一部が改ざんされた際に、小規模な量子化モデルの性能がどのように低下するかを調査し、汚染の手法や割合による脆弱性の違いを明らかにしました。</div>
+<section class="qa"><h2>どんなもの？</h2><p>RAGシステムは外部知識をプロンプトに注入することで正確性を向上させますが、検索された文書が改ざんされると、モデルが誤情報を繰り返すリスクが生じます。本研究は、検索された文脈の一部が書き換えられた場合に、Llama 3.1 8Bのような量子化されたモデルが受ける影響を対象としています。具体的には、事実確認タスクにおいて、検索されたパッセージの正確性が損なわれた際のモデルの挙動を問題としています。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>先行研究が主に無関係な文脈による混乱を扱ってきたのに対し、本研究は「トピックには合致しているが内容が誤っている」という攻撃シナリオにおける脆弱性を定量化しました。4ビット量子化モデルとFAISSを用いたテストベッドを構築し、汚染の戦略やレベルが、正解率、誤誘導率、棄権率、および根拠のない生成の指標に与える影響を詳細に分類・特定した点が新規性です。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>all-MiniLM-L6-v2を用いて質問と文書をベクトル化し、FAISSの内部積インデックスを用いてコサイン類似度に基づき上位3つのパッセージを検索します。生成には4ビット量子化されたLlama 3.1 8B Instructを用い、温度0.1で動作させます。汚染戦略として、固有名詞を同種の別名に置き換えるEntity swap、数値を近傍の誤った値に変えるNumber swap、否定語を挿入して真偽を反転させるNegationの3種類を定義しています。これらを、検索された3つのパッセージのうち0個から3個の範囲でランダムに適用し、正解率、正解から誤答へ転じた割合を示す誤誘導率、回答を拒否する棄権率、および回答内容と検索文書の語彙の重なりが30%未満である状態を示す根拠のない生成の4指標で評価します。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>FEVERデータセットに基づく49件のクエリを用い、3つの戦略と4段階の汚染レベルを組み合わせた計588回の試行を実施しました。クリーンな文脈での正解率は77.9%でしたが、すべてのパッセージが汚染されると43.5%まで低下しました。Entity swapは最も高い誤誘導率を示し、正解を誤答へ導く主要因となりました。Number swapによる誤誘導率は、汚染されたパッセージが過半数（2つ以上）に達した際に上昇するパターンを示しました。また、モデルは誤情報を採用するよりも、矛盾に対して回答を拒否する棄権を選択する傾向があり、汚染が進むほど棄権率は上昇しました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の脅威モデルは、検索プロセス直前に文書ストアやキャッシュが改ざんされるシナリオを想定しています。モデルが矛盾に対して回答を拒否する性質を利用し、棄権率の異常な上昇を文書ストアへの攻撃を検知する早期警戒信号として活用できる可能性があります。一方で、本研究は小規模な量子化モデルとルールベースの汚染、およびキーワード一致による評価を用いている点が限界です。今後は、より大規模なモデルやモデル生成による敵対的な文章を用いた検証、人間による評価、および回答を原子的な主張へと分解して詳細に分析する手法が必要です。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>In RAG We Trust? Measuring Robustness of Retrieval-Augmented Generation Under Document Poisoning</h3><p>本研究は、検索拡張生成（RAG）において、検索された文脈の一部が改ざんされた場合に、Llama 3.1 8Bのような比較的小規模な量子化モデルの性能がどの程度低下するかを調査しています。FEVERデータセットを用いた事実確認タスクにおいて、エンティティの入れ替え、数値の入れ替え、否定文への書き換えという3つの汚染戦略を、検索された3つのパッセージのうち0個から3個に適用して評価しました。実験の結果、クリーンな文脈での正解率が77.9%であったのに対し、すべてのパッセージが汚染されると43.5%まで低下することが示されました。特にエンティティの入れ替えは、クリーンな状態では正解していた回答を最も多く誤答へと導く要因となっています。数値の入れ替えによる汚染は、汚染されたパッセージが少数である間は正解率に大きな影響を与えない一方、汚染されたパッセージが過半数を超えると正解率が急上昇する傾向が見られました。モデルの挙動としては、新たな虚偽を捏造するよりも回答を控える反応が支配的であり、根拠のない生成を示す指標である語彙的重複の割合は、攻撃を受けて上昇するのではなくむしろ低下しました。</p></section>
+<section class="secsum"><h3>I Introduction</h3><p>RAG（検索拡張生成）は、クエリ時に外部知識をプロンプトに注入することで大規模言語モデルの知識の鮮度と正確性を向上させる手法ですが、検索された文書が攻撃者によって改ざんされた場合、誤情報の伝播経路となる脆弱性があります。本研究では、4ビット量子化されたLlama 3.1 8Bモデル、MiniLMリトリーバー、および約2万件のFEVER証拠文からなるFAISSインデックスを用いた、再現可能な毒入れテストベッドを構築しました。実験では、3種類の改ざん戦略と4段階の毒入れレベルを組み合わせた全要因実験を行い、正解率、誤誘導率、棄権率、および根拠のない生成の指標となる語彙的重複度を評価しています。分析の結果、エンティティの改ざんが最も回答を反転させやすく、数値の改ざんは文脈の過半数に達した時点で影響が急増すること、そして矛盾に対してモデルは事実を捏造するよりも棄権を選択する傾向があることを明らかにしました。</p></section>
+<section class="secsum"><h3>II Method</h3><p>本研究では、検索拡張生成（RAG）の堅牢性を評価するため、検索された文書を書き換えて誤情報を混入させるドキュメント・ポイズニング手法を用いた実験を行っている。パイプラインは、all-MiniLM-L6-v2を用いて質問と文書を384次元のベクトルに変換し、FAISSの内部積インデックスを用いてコサイン類似度に基づき上位3つの文書を検索した後、4ビット量子化されたLlama 3.1 8B Instructを用いて回答を生成する構成である。ポイズニング戦略には、固有名詞を同種の別名に置き換えるEntity swap、数値を近傍の誤った値に変えるNumber swap、および否定語を挿入して真偽を反転させるNegationの3種類があり、これらを検索された3つの文書のうち0個から3個の範囲でランダムに適用する。評価指標として、回答に正解キーワードが含まれるかを確認するAccuracy、クリーンな回答が正解であった場合にポイズニングによって誤りに転じた割合を示すFooled rate、回答を拒否した割合を示すAbstention rate、および回答の語彙と検索文書の語彙の重なりが30%未満の場合に発生するUnsupported generationの4つを用いる。実験では、49個の事実確認クエリと10個の補足文書を用い、3つの戦略と4つのポイズニングレベルを組み合わせた計378回の試行を通じて、クリーンな回答とポイズニングされた回答の比較を行う。</p></section>
+<section class="secsum"><h3>III Experiments and Results</h3><p>FEVERデータセットの証拠文と10個の追加パッセージを用い、MiniLMリトリーバーと量子化されたLlama 3.1 8Bを組み合わせたRAGシステムの堅牢性を、エンティティ置換、数値置換、否定の3つの攻撃手法で評価しました。実験の結果、汚染されるパッセージの数が増えるにつれて精度は低下し、特にエンティティ置換は最も高い誤誘導率と最も低い精度を示しました。数値置換については、汚染されるパッセージが1つでは誤誘導率に大きな変化は見られませんが、汚染されたパッセージが過半数となる2つ以上になると誤誘導率が急激に上昇する、多数決に依存する特有のパターンが確認されました。モデルの失敗モードを分析すると、誤った情報を信じて回答する誤誘導よりも、情報の矛盾を検知して回答を拒否する棄権が支配的な傾向にあり、汚染が進むほど棄権率が上昇することが示されました。なお、否定を用いた攻撃は他の手法に比べて耐性が高く、元の正解を維持しやすい傾向があります。また、脆弱性は攻撃手法だけでなくクエリの内容にも依存し、置換可能なエンティティを多く含む伝記やランドマークに関する質問が最も影響を受けやすいことが明らかになりました。</p></section>
+<section class="secsum"><h3>IV Threat Model and Discussion</h3><p>本研究の脅威モデルでは、攻撃者は検索された文書の内容を生成プロセス直前に改ざんできるが、モデルの再学習や検索器自体の変更は行えないと想定しており、これは文書ストアの侵害や、検索対象となるウェブソースへの毒入れ、あるいは検索からプロンプト作成までの間のキャッシュ改ざんといった現実的なシナリオに対応している。攻撃者は類似度検索を欺く必要はなく、既に取得されたコンテンツを編集するだけで十分である。この条件下では、モデルが検証できない数値情報の改ざんが極めて有害になるため、独立したソースとの照合や、複数の文書間での数値の不一致を検知する仕組みが重要となる。冗長性は一定の防御効果を持つが、改ざんされた文書が多数派を占めるとその効果は弱まるため、ソースの多様性を高めずに文書数だけを増やすことは実質的な保護にならない。最後に、モデルが回答を拒否する頻度が高まった場合は、矛盾する証拠に反応している可能性があるため、回答拒否率を監視することで文書ストアへの攻撃を検知する早期警戒信号として活用できる。</p></section>
+<section class="secsum"><h3>V Conclusion</h3><p>4ビット量子化されたLlama 3.1 8Bモデルを対象に、3種類の汚染戦略と4段階の汚染レベルを用いて、検索されたコンテキストが汚染された際の挙動を588回の試行で評価しました。実験の結果、汚染がない状態での正解率77.9%は、完全な汚染状態では43.5%まで低下し、特にエンティティの入れ替えが最も多くの回答を誤らせることが示されました。数値の汚染については、3つの文章のうち2つが汚染されると正解率が急増する傾向が見られましたが、その変化の幅には大きな不確実性が残っています。モデルの主な反応は誤った回答を生成することではなく回答を控えることであり、根拠のない生成の指標として用いた語彙の重複度は、汚染によって上昇するのではなくむしろ低下しました。本研究は、小規模な量子化モデルとルールベースの汚染、およびキーワード一致による評価という限界があるため、今後はより大規模なモデルやモデル生成による敵対的な文章を用いた検証、さらには人間による評価や回答を原子的な主張へと分解する手法を用いた詳細な分析を行う必要があります。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: llm:gemma-4-26b ・ 生成日: 2026-09-11
+  </footer>
+</div>
+</body>
+</html>
