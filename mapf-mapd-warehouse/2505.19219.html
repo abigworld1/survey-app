@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Where Paths Collide: A Comprehensive Survey of Classic and Learning-Based Multi - Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Where Paths Collide: A Comprehensive Survey of Classic and Learning-Based Multi - Agent Pathfinding</h1>
+<p class="meta">経路が衝突する場所：古典的および学習ベースのマルチエージェント経路探索に関する包括的サーベイ</p>
+  <div class="meta">Shiyue Wang, Haozheng Xu, Yuhan Zhang, Jingran Lin, Changhong Lu, Xiangfeng Wang, Wenhao Li<br>採択先: 未取得 ・ 2025-07-31 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2505.19219" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2505.19219" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2025-07-31</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、共有環境で複数エージェントの衝突しない経路を求めるMAPFについて、探索型、コンパイル型、学習ベース手法を統一的に整理するサーベイである。200本以上の研究を分析し、古典的手法と学習ベース手法では評価規模や実験方法に大きな差があるため、標準化されたベンチマークと両者の統合が重要だと論じている。</div>
+<section class="qa"><h2>どんなもの？</h2><p>MAPFは、共有環境内で複数のエージェントをそれぞれの開始位置から指定された目標位置まで移動させ、エージェント間の衝突を避ける経路を求める問題である。環境は通常、移動可能な場所を頂点、許可された遷移を辺とする無向グラフとして表され、離散時間の格子上で扱われることが多いが、連続空間や連続時間の軌道も対象となる。入力は環境、エージェントの開始位置と目標位置、移動可能な遷移や障害物などであり、出力は衝突のない複数エージェントの経路または行動系列である。代表的な目的は、全エージェントの完了までに要する最長時間、または各エージェントの経路コストの合計を小さくすることである。エージェント数や環境規模が増えると組合せ的な探索空間が拡大し、最適性、衝突回避、計算時間、動的環境や部分観測への対応を同時に満たすことが難しくなる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文の新規性は、従来分断されがちだった古典的アルゴリズムと学習ベース手法を、問題設定、解法パラダイム、学習の利用形態、評価方法を含む統一的な枠組みで整理した点にある。探索型では衝突に基づく探索、優先順位に基づく探索、大近傍探索を扱い、コンパイル型ではSAT、SMT、制約充足、回答集合プログラミング、混合整数計画への定式化を横断的に位置づけている。さらに、強化学習、教師あり学習、古典的ソルバの一部を学習で拡張する手法を同じ分野の流れとして整理している。200本以上の研究における評価実践を分析し、評価指標、環境、問題規模、ベースライン選択の不均一性を明確にした。将来方向として、異なる目的を持つエージェントを扱う混合動機MAPF、言語に基づく計画、大規模言語モデル、古典的手法の厳密性と深層学習の柔軟性を組み合わせるニューラルソルバを示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>本論文は新しいMAPFアルゴリズムを提案する研究ではなく、既存研究を問題定式化、解法の原理、学習の利用方法、実験評価の観点から体系化するサーベイである。まず、ワンショット型と継続型、集中制御と分散制御、離散環境と連続環境など、主要な問題バリエーションを整理する。次に、古典的手法を、衝突を検出して制約を追加しながら探索する方式、エージェントの優先順位に基づき経路を構築する方式、既存解の一部を破壊して再最適化する方式、問題を一般目的ソルバが扱える形式へ変換する方式として整理する。学習ベース手法については、衝突選択や探索ノードの優先順位など特定モジュールを学習で支援する方式、強化学習で分散的な方策を獲得する方式、教師あり学習や木探索などの予測・探索方式を扱う。最後に、環境種別、地図サイズ、エージェント数、成功率、安全性、経路品質、完了時間、計算時間などの評価観点を比較し、研究間の比較可能性を検討する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>検証対象は、MAPFに関する200本以上の研究で報告された実験方法と評価実践である。対象となる解法群には、衝突に基づく探索などの古典的手法、SATやSMTなどのコンパイル型手法、強化学習や教師あり学習などの学習ベース手法が含まれる。評価指標として、解の成功率、衝突回避や安全性、全エージェントの完了時間、経路コストの合計、実行時間、問題規模への拡張性などが整理されている。古典的手法は最大で200×200の格子と1000体を超えるエージェントを含む大規模問題で評価される一方、学習ベース手法は主に10から100体のエージェントを対象としていた。取得した本文では、全手法を同一データセット、同一計算資源、同一目的関数で再評価した統一実験の総合数値は確認できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>古典的手法は探索の透明性、理論的な厳密性、解の品質や最適性に関する保証を持ちやすい一方、動的環境、部分観測、厳しいリアルタイム制約では計算負荷が問題になり得る。学習ベース手法は分散意思決定や適応的な協調行動を扱える可能性があるが、訓練データ、報酬設計、一般化性能、安全性の保証、再現性に依存する。学習手法が高い拡張性を示す場合でも、古典的手法より小さい問題規模で評価されることが多いため、両者の単純な性能比較には注意が必要である。実世界では、環境変化、動的障害物、連続運動、異質なエージェント、通信制約、エージェントごとに異なる目的を同時に扱う必要がある。今後は、標準化された評価プロトコル、オンライン学習、動的障害物の予測、ゲーム理論を含む混合動機設定、検証可能なニューラルソルバが課題となる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFはロボティクスと人工知能の基礎問題として発展し、倉庫の自動搬送車、都市交通、物流、複数ロボットの協調などへの応用が広がっている。本文では、MAPFおよび関連語を含む研究数が2015年以降増加し、特に2020年以降に研究関心が拡大したと述べている。従来は探索や数理最適化に基づく古典的研究が中心だったが、近年は強化学習やその他のデータ駆動型手法が、部分観測や分散意思決定に対応する方法として発展している。応用環境の複雑化に伴い、理論的な解の品質、計算規模、適応性、安全性を同時に捉える分野横断的な整理が必要になっている。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>MAPF研究は衝突のない経路計画という共通問題を扱う一方、環境表現、最適化目標、制御方式、動的要素、エージェントの異質性、実験規模が大きく異なる。古典的手法は大規模で比較的静的な問題に強い一方、動的環境や部分観測への対応が難しい場合がある。学習ベース手法は適応的な協調を獲得できる可能性があるが、評価されるエージェント数が小さく、古典的手法との比較条件も統一されていない。したがって、個別アルゴリズムの性能だけでなく、どの問題条件でどの解法パラダイムが有効かを比較できる評価枠組みが必要である。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>探索型手法には、衝突を検出し、その衝突を避ける制約を追加しながら個別経路を再計画する方式、エージェントの優先順位に従って経路を構築する方式、既存解の一部を再最適化する方式がある。コンパイル型手法は、エージェントの位置、時間、遷移、衝突回避などの条件を論理式、制約式、整数計画の条件に変換し、汎用ソルバに解かせる。強化学習では、エージェントが観測から行動方策を学び、報酬を通じて目標到達と衝突回避を両立させる。学習拡張型手法では、古典ソルバ全体を置き換えず、衝突の選択、探索ノードの優先順位、再最適化する近傍の選択など限定された判断を学習で支援する。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験環境として、都市地図、ゲーム由来の地図、障害物のない格子、ランダム地図、迷路、部屋構造、倉庫環境などが利用されている。地図サイズは8×8の小規模格子から、数百セル以上の都市・ゲーム地図まで幅があり、開放空間、狭い通路、複雑な障害物配置など異なる構造を含む。実験上の主要なスケーリング要因は、エージェント数、地図サイズ、タスク数、環境が静的か動的か、集中制御か分散制御かである。比較では、成功率、衝突の有無、最長完了時間、経路コストの合計、実行時間などが組み合わせて用いられるが、研究ごとに環境、指標、ベースラインの選択が異なる。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>200本以上の研究を横断した分析から、古典的手法と学習ベース手法の評価規模に明確な差があることが示された。古典的手法は最大で200×200の格子上に1000体を超えるエージェントを置く問題まで評価される一方、学習ベース手法は主に10から100体のエージェントを対象としていた。本文の結論では、衝突に基づく探索を含む古典的手法は、ヒューリスティック、対称性処理、相互排他の伝播、制約分割などの改良により、数千体規模でも最適性に関する保証を維持し得ると整理されている。学習ベース手法は、古典的計画器が見つけにくい協調行動や適応的方策を発見する可能性を持つが、本文では統一条件下での手法間の勝敗を示す総合的な数値は確認できない。主要な横断的結果は、評価方法の不均衡とベンチマークの非標準化である。</p></section>
+<section class="secsum"><h3>結論</h3><p>MAPFは理論的な経路計画問題から、複数ロボット協調を支える実応用上の基盤へと発展している。古典的手法は大規模問題、解の品質、理論的保証で強みを持ち、学習ベース手法は適応性、分散協調、複雑な状況への対応で可能性を持つ。本文は、両者のどちらか一方を選ぶのではなく、学習を古典的ソルバの特定部分に組み込むことで、保証と柔軟性を組み合わせる方向を重視している。今後の進展には、実世界に近い標準ベンチマークと、規模、安全性、計算時間、一般化性能を同時に測定できる評価体系が必要である。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>取得した本文はサーベイの要旨と主要節の抜粋であり、個々の研究の完全な実験条件、統計的検定、再現手順、全ベースラインの詳細は確認できない。学習ベース手法と古典的手法を同一環境、同一計算資源、同一目的関数で直接比較した総合的な数値も、取得した本文では確認できない。研究数の集計は評価慣行の差を示すが、各手法の優劣やその因果関係を証明するものではない。連続環境、動的環境、異質なエージェント、混合動機の問題については将来課題としての整理が中心であり、確立した解法や性能保証が提示されたとは確認できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本論文の重要性は、MAPF研究をアルゴリズムの一覧ではなく、問題設定、解法原理、学習の役割、評価方法のつながりとして捉え直せる点にある。特に、学習ベース手法が小規模な実験に偏り、古典的手法と単純比較しにくいという指摘は、今後の研究設計と結果解釈に直接関係する。理論保証を重視する研究と実環境への適応性を重視する研究の間で、共通の評価軸を設計するための基礎資料として有用である。実運用を目指す場合には、性能だけでなく衝突安全性、リアルタイム性、環境変化への頑健性を併せて検討すべきだという示唆を与える。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>MAPFの研究動向、古典的ソルバ、SATやSMTによる定式化、強化学習、学習拡張型ソルバを一度に概観したい研究者に適している。特に、研究テーマの選定、関連研究の分類、実験ベンチマークや評価指標の設計を行う大学院生や新規参入者に有用である。倉庫ロボット、物流、都市交通、複数ロボット協調などでMAPFを導入しようとする実務者にも、手法選択時の保証と適応性のトレードオフを把握する資料となる。ただし、特定環境に最適な実装や厳密な性能比較を決めるには、個別手法の原論文とその実験結果を追加で確認する必要がある。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-14
+  </footer>
+</div>
+</body>
+</html>
