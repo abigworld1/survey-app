@@ -15,9 +15,9 @@ ARXIV_HTML = "https://arxiv.org/html/"
 AR5IV_HTML = "https://ar5iv.labs.arxiv.org/html/"
 ARXIV_PDF = "https://arxiv.org/pdf/"
 ARXIV_EXPORT_PDF = "https://export.arxiv.org/pdf/"
-SKIP_TAGS = {"script", "style", "noscript"}
-# 32k コンテキストに対する入力上限（おおよそ 1.4万〜1.6万トークン相当）。環境変数で調整可。
-MAX_CHARS = int(os.environ.get("FULLTEXT_MAX_CHARS", "50000"))
+SKIP_TAGS = {"script", "style", "noscript", "nav", "footer", "header"}
+# 抽出時の安全上限。LLM入力の構造別抜粋・文字/バイト制限は evidence.py で適用。
+MAX_CHARS = int(os.environ.get("FULLTEXT_MAX_CHARS", "1000000"))
 
 
 class _TextExtractor(HTMLParser):
@@ -45,10 +45,8 @@ class _TextExtractor(HTMLParser):
 
 def _strip_references(text):
     """末尾の参考文献（References/Bibliography）以降を落として本文に集中させる。"""
-    idx = text.lower().rfind("references")
-    if idx > len(text) * 0.5:
-        return text[:idx]
-    return text
+    match = re.search(r"(?im)^\s*(?:[0-9IVX]+[.\s]+)?(?:references|bibliography|acknowledg(?:e)?ments?)\s*$", text)
+    return text[:match.start()] if match else text
 
 
 def fetch_arxiv_fulltext(arxiv_id, title=""):
@@ -139,11 +137,11 @@ def fetch_fulltext(paper):
     return "", "abstract"
 
 
-# ---- セクション単位の本文取得（多段要約用） ----
+# ---- セクション単位の本文取得（構造を保った抜粋用） ----
 
 # 主要セクションだけで分割する（h3以下の定義/証明/補題は親セクションに含める）
 SPLIT_HEADING_TAGS = {"h1", "h2"}
-SECTION_SKIP_TAGS = {"script", "style", "noscript", "math", "table"}
+SECTION_SKIP_TAGS = SKIP_TAGS | {"math"}
 # 本文でない見出し（参考文献・謝辞・arXivのUI・前文等）は落とす
 _DENY_HEADINGS = (
     "reference", "bibliography", "acknowledg", "instructions for reporting",
@@ -162,7 +160,6 @@ _ARTICLE_HEADINGS = (
     "discussion", "conclusion",
 )
 PER_SECTION_MAX = int(os.environ.get("SECTION_MAX_CHARS", "14000"))
-MAX_SECTIONS = int(os.environ.get("MAX_SECTIONS", "14"))
 MIN_SECTION_CHARS = 150
 
 # arXiv HTML 変換が、論文ではなく同梱された投稿テンプレートを本文として
@@ -261,9 +258,7 @@ def _clean_sections(sections):
             continue
         if len(text) < MIN_SECTION_CHARS:
             continue
-        out.append((heading[:120], text[:PER_SECTION_MAX]))
-        if len(out) >= MAX_SECTIONS:
-            break
+        out.append((heading[:120], text))
     return out
 
 
@@ -301,7 +296,8 @@ def fetch_arxiv_sections(arxiv_id, title=""):
         return []
     try:
         html = http_get(ARXIV_HTML + arxiv_id, timeout=40, min_interval=3.0, expect="text")
-    except Exception:
+    except Exception as exc:
+        print(f"      [warn] HTML取得失敗 ({arxiv_id}): {exc!r}")
         return []
     parser = _SectionParser()
     try:
@@ -322,7 +318,8 @@ def fetch_ar5iv_sections(arxiv_id, title=""):
         return []
     try:
         html = http_get(AR5IV_HTML + arxiv_id, timeout=60, min_interval=1.0, expect="text")
-    except Exception:
+    except Exception as exc:
+        print(f"      [warn] HTML取得失敗 ({arxiv_id}): {exc!r}")
         return []
     parser = _SectionParser()
     try:
@@ -367,7 +364,7 @@ def _sections_from_text(text):
     if not text:
         return []
     size = max(3000, PER_SECTION_MAX // 2)  # 1チャンク約7000字
-    chunks = [text[i:i + size] for i in range(0, len(text), size)][:MAX_SECTIONS]
+    chunks = [text[i:i + size] for i in range(0, len(text), size)]
     n = len(chunks)
     return [(f"本文 ({i + 1}/{n})", c) for i, c in enumerate(chunks)]
 
@@ -378,9 +375,13 @@ def _download_pdf(url, min_interval=0.5):
         return None
     try:
         data = http_get(url, timeout=60, min_interval=min_interval, expect="bytes")
-    except Exception:
+    except Exception as exc:
+        print(f"      [warn] PDF取得失敗 {url}: {exc!r}")
         return None
-    return data if data[:5].startswith(b"%PDF") else None
+    if not data.startswith(b"%PDF"):
+        print(f"      [warn] PDFではない応答: {url}")
+        return None
+    return data
 
 
 def _arxiv_pdf_urls(arxiv_id):
@@ -537,9 +538,7 @@ def _build_sections(lines, title=""):
         body = re.sub(r"[ \t]{2,}", " ", " ".join(parts)).strip()
         if len(body) < 40:  # ほぼ空（著者行など）だけ捨てる
             continue
-        out.append((heading[:120], body[:PER_SECTION_MAX]))
-        if len(out) >= MAX_SECTIONS:
-            break
+        out.append((heading[:120], body))
     return out
 
 

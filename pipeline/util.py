@@ -1,6 +1,9 @@
 """HTTP・スラッグ化・安定IDなどの小道具（標準ライブラリのみ）。"""
 import hashlib
 import json
+import os
+from pathlib import Path
+import tempfile
 import re
 import time
 import urllib.error
@@ -43,18 +46,6 @@ def http_get(url, headers=None, timeout=30, min_interval=0.0, expect="json"):
     return raw.decode("utf-8", "replace")
 
 
-def http_post_json(url, payload, headers=None, timeout=120):
-    """JSON を POST して JSON を受け取る。"""
-    h = {"User-Agent": USER_AGENT, "Content-Type": "application/json"}
-    if headers:
-        h.update(headers)
-    req = urllib.request.Request(
-        url, data=json.dumps(payload).encode("utf-8"), headers=h, method="POST"
-    )
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return json.loads(r.read().decode("utf-8"))
-
-
 _slug_re = re.compile(r"[^A-Za-z0-9._-]+")
 
 
@@ -70,3 +61,20 @@ def slugify(text, maxlen=80, fallback="item"):
 
 def sha1(s):
     return hashlib.sha1(s.encode("utf-8")).hexdigest()
+
+
+def atomic_write(path, text):
+    """Replace a UTF-8 file only after its complete contents are on disk."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent, delete=False) as stream:
+            temporary = Path(stream.name)
+            stream.write(text)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)

@@ -7,13 +7,19 @@ import datetime
 import html
 import os
 import re
+from urllib.parse import urlsplit
 
 from .summarize import SECTIONS
+from .util import atomic_write
 from .venue import venue_with_year
 
 
 def _esc(s):
     return html.escape(str(s or ""))
+
+
+def _safe_url(url):
+    return url if urlsplit(url or "").scheme in {"http", "https"} else ""
 
 
 def _multiline(s):
@@ -287,7 +293,7 @@ def render_paper_page(tpl_dir, paper, summary):
             f'<section class="qa"><h2>{_esc(heading)}</h2>'
             f"<p>{_multiline(summary.get(key, ''))}</p></section>\n"
         )
-    # セクション別の詳細要約（多段要約のときのみ）
+    # 詳細項目も1回の生成と1回の検証でまとめて作成する。
     secsum = summary.get("sections") or []
     detail_html = ""
     if secsum:
@@ -298,9 +304,9 @@ def render_paper_page(tpl_dir, paper, summary):
                 f"<p>{_multiline(s.get('summary', ''))}</p></section>\n"
             )
     links = []
-    if paper.url:
+    if _safe_url(paper.url):
         links.append(f'<a href="{_esc(paper.url)}" target="_blank" rel="noopener">原典</a>')
-    if paper.pdf_url:
+    if _safe_url(paper.pdf_url):
         links.append(f'<a href="{_esc(paper.pdf_url)}" target="_blank" rel="noopener">PDF</a>')
     if paper.doi:
         links.append(
@@ -308,6 +314,7 @@ def render_paper_page(tpl_dir, paper, summary):
         )
     ctx = {
         "title": _esc(paper.title),
+        "title_ja": f'<p class="meta">{_esc(summary["title_ja"])}</p>' if summary.get("title_ja") else "",
         "tldr": _multiline(summary.get("tldr", "")),
         "authors": _esc(", ".join(paper.authors[:12])),
         "venue": _esc(_venue_label(paper.venue, published=paper.published)),
@@ -395,8 +402,7 @@ def render_user_index(tpl_dir, root, uslug, username, useen, keywords=None):
     }
     out = render_template(_read(os.path.join(tpl_dir, "user_index.html")), ctx)
     os.makedirs(os.path.join(root, uslug), exist_ok=True)
-    with open(os.path.join(root, uslug, "index.html"), "w", encoding="utf-8") as f:
-        f.write(out)
+    atomic_write(os.path.join(root, uslug, "index.html"), out)
 
 
 def render_global_index(tpl_dir, root, subs, seen, slugify):
@@ -408,17 +414,20 @@ def render_global_index(tpl_dir, root, subs, seen, slugify):
         uslug = slugify(username, fallback="user")
         display = sub.get("label") or username
         useen = seen.get(uslug, {})
-        if not sub.get("manual"):
+        if not sub.get("manual") and not sub.get("archived"):
             latest = _latest_added(useen.values())
             if latest:
                 latest_auto_dates.append(latest)
+        if sub.get("archived"):
+            display += "（過去記事・更新終了）"
         kw = ", ".join(sub.get("keywords", []))
         meta = (f"キーワード: {_esc(kw)} ・ {len(useen)}本" if kw else f"{len(useen)}本")
         cards += (
             f'<div class="card"><h3><a href="{_esc(uslug)}/index.html">{_esc(display)}</a></h3>'
             f'<div class="meta">{meta}</div></div>\n'
         )
-        recent.extend(_entry_with_keywords(v, sub.get("keywords", [])) for v in useen.values())
+        if not sub.get("archived"):
+            recent.extend(_entry_with_keywords(v, sub.get("keywords", [])) for v in useen.values())
     recent.sort(key=_entry_sort_key, reverse=True)
     latest_auto_added = max(latest_auto_dates) if latest_auto_dates else ""
     ctx = {
@@ -433,5 +442,4 @@ def render_global_index(tpl_dir, root, subs, seen, slugify):
         "generated": _today(),
     }
     out = render_template(_read(os.path.join(tpl_dir, "index.html")), ctx)
-    with open(os.path.join(root, "index.html"), "w", encoding="utf-8") as f:
-        f.write(out)
+    atomic_write(os.path.join(root, "index.html"), out)

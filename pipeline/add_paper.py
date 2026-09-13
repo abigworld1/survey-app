@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""任意の論文PDFを手動でHTML化する（日次cronとは独立）。
+"""任意の論文PDFを手動でHTML化する（日次Actionsとは独立）。
 
 単一PDFだけでなく、リポジトリ配下のフォルダに置いた複数PDFを同じ分野へ
 まとめて追加できる。入力PDF自体は公開せず、生成HTMLだけをリンクする。
@@ -21,13 +21,13 @@ from .regenerate_existing import _extract_followups
 from .schema import Paper
 from .sources import arxiv as arxiv_src
 from .summarize import Summarizer
-from .util import http_get, sha1, slugify
+from .util import atomic_write, http_get, sha1, slugify
 from .venue import enrich_venue
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TPL = os.path.join(ROOT, "templates")
 SEEN = os.path.join(ROOT, "data", "seen.json")
-DEFAULT_FIELD = "reading"
+DEFAULT_FIELD = "mapf-mapd-warehouse"
 
 
 def _load_subs():
@@ -313,14 +313,14 @@ def _add_prepared_paper(
 ):
     useen = seen.setdefault(uslug, {})
     existing = _find_existing_entry(paper, useen)
-    if existing and skip_existing:
-        return {"status": "skipped", "title": paper.title, "reason": "既に登録済み"}
+    if skip_existing and any(_find_existing_entry(paper, entries) for entries in seen.values()):
+        return {"status": "skipped", "title": paper.title, "reason": "既に登録済み（全分野照合）"}
 
     paper = _fill_arxiv_metadata(paper)
     paper = enrich_venue(paper)
     existing = existing or _find_existing_entry(paper, useen)
-    if existing and skip_existing:
-        return {"status": "skipped", "title": paper.title, "reason": "既に登録済み"}
+    if skip_existing and any(_find_existing_entry(paper, entries) for entries in seen.values()):
+        return {"status": "skipped", "title": paper.title, "reason": "既に登録済み（全分野照合）"}
 
     existing_key, info = existing if existing else (None, {})
     if existing:
@@ -336,6 +336,14 @@ def _add_prepared_paper(
 
     print(f"  タイトル: {paper.title}")
     print(f"  セクション数: {len(sections)} / 根拠: {basis}")
+    if uslug == DEFAULT_FIELD:
+        from .run import _domain_context_issue
+        matched = _matched_keywords(paper, sub.get("keywords", []))
+        if not matched or _domain_context_issue(
+            paper, matched, sub.get("ambiguous_keywords"), sub.get("context_keywords"),
+            sub.get("ambiguous_context_groups"),
+        ):
+            return {"status": "skipped", "title": paper.title, "reason": "MAPF/MAPDとの関連性を確認できない"}
     summary = summarizer.summarize(paper, sections=sections, basis=basis)
     matched_keywords = _matched_keywords(paper, sub.get("keywords", []))
     paper.matched_keywords = matched_keywords
@@ -352,8 +360,7 @@ def _add_prepared_paper(
         summary["_followups_html"] = _extract_followups(info, root=ROOT)
     html = render.render_paper_page(TPL, paper, summary)
     os.makedirs(os.path.join(ROOT, uslug), exist_ok=True)
-    with open(os.path.join(ROOT, rel), "w", encoding="utf-8") as f:
-        f.write(html)
+    atomic_write(os.path.join(ROOT, rel), html)
     added_at = datetime.datetime.now().isoformat(timespec="microseconds")
     record = dict(info)
     record.update(_seen_record(
@@ -461,19 +468,15 @@ def main(argv=None):
         help="MAPF/MAPD/倉庫 分野に追加",
     )
     dest.add_argument(
-        "--rag", dest="field", action="store_const", const="doc-structure-rag",
-        help="文書構造解析/RAG 分野に追加",
-    )
-    dest.add_argument(
-        "--field", default=None,
-        help="任意のフィールドスラッグ（既定: reading）",
+        "--field", default=None, choices=[DEFAULT_FIELD],
+        help="追加先（既定: mapf-mapd-warehouse）",
     )
     ap.add_argument("--no-recursive", action="store_true", help="フォルダ直下のPDFだけを処理")
     ap.add_argument("--limit", type=int, default=0, help="一括処理する最大件数（0は全件）")
     ap.add_argument("--fail-fast", action="store_true", help="最初の失敗で一括処理を停止")
     ap.add_argument(
-        "--skip-existing", action="store_true",
-        help="登録済み論文をスキップ（既定では再要約して既存ページを更新）",
+        "--skip-existing", action="store_true", default=True,
+        help="登録済み論文をスキップ（常に有効）",
     )
     ap.add_argument("--stub", action="store_true", help="LLMを呼ばずスタブ要約で動作確認")
     args = ap.parse_args(argv)

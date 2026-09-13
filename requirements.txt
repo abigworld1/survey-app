@@ -1,4 +1,3 @@
-# パイプラインは標準ライブラリ中心。
-PyYAML>=6.0
-# Phase 2: 非arXiv の OA 論文を PDF から本文化するのに使用（任意。未導入でも abstract で動作）。
-PyMuPDF>=1.24
+# GitHub Actions: YAML configuration and open-access PDF text extraction.
+PyYAML>=6.0,<7
+PyMuPDF>=1.24,<2

@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-"""生成済み論文HTMLに、Gemmaへの追加質問と回答を対話形式で追記する。
+"""生成済み論文HTMLに、Copilot CLIへの追加質問と回答を対話形式で追記する。
 
 例:
-  LLM_BASE_URL=http://localhost:8000/v1 LLM_API_KEY=dummy \
     python -m pipeline.ask_paper --mapf --slug 2606.04746 \
     --question "実機実験の設定はどこまで一般化できる？"
 
@@ -547,7 +546,7 @@ def _clear_followups(text):
 
 def _ask_llm(summarizer, title, source_body, question, basis, history):
     if summarizer.stub:
-        return "（スタブ回答）LLM未接続のため、実運用ではGemmaがこの質問に回答します。"
+        return "（スタブ回答）LLM未接続のため、実運用ではCopilot CLIがこの質問に回答します。"
     system = HTML_FALLBACK_SYSTEM if basis == "generated-html" else QA_SYSTEM
     history_part = (
         f"\n\n会話履歴（文脈用。根拠は元論文本文を優先）:\n{history[-6000:]}"
@@ -569,10 +568,9 @@ def _ask_llm(summarizer, title, source_body, question, basis, history):
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description="生成済み論文HTMLに追加質問とGemma回答を追記")
+    ap = argparse.ArgumentParser(description="生成済み論文HTMLに追加質問とCopilot CLI回答を追記")
     dest = ap.add_mutually_exclusive_group()
     dest.add_argument("--mapf", dest="field", action="store_const", const="mapf-mapd-warehouse")
-    dest.add_argument("--rag", dest="field", action="store_const", const="doc-structure-rag")
     dest.add_argument("--reading", dest="field", action="store_const", const="reading")
     dest.add_argument("--field", default=None, help="分野スラッグ（既定 reading）")
     ap.add_argument("--slug", help="対象論文のHTMLファイル名slug、seenキー、またはタイトルslug")
@@ -580,7 +578,7 @@ def main(argv=None):
     ap.add_argument("--question", action="append", required=True, help="追記する質問。複数指定可")
     ap.add_argument("--arxiv-id", help="本文取得に使うarXiv IDを明示指定する")
     ap.add_argument("--pdf-url", help="本文取得に使うPDF URLを明示指定する")
-    ap.add_argument("--context-chars", type=int, default=60000, help="Gemmaに渡す元論文本文の最大文字数")
+    ap.add_argument("--context-chars", type=int, default=24000, help="Copilot CLIに渡す元論文本文の最大文字数")
     ap.add_argument("--replace-followups", action="store_true", help="既存の追加質問を消してから追記する")
     ap.add_argument(
         "--allow-html-fallback",
@@ -592,6 +590,8 @@ def main(argv=None):
     args = ap.parse_args(argv)
 
     path = _resolve_path(args)
+    if os.path.relpath(path, ROOT).split(os.sep)[0] == "doc-structure-rag":
+        ap.error("RAGは過去記事アーカイブです。新規の本文取得・LLM処理は停止しています。")
     text = _read(path)
     title = _page_title(text)
     body = _page_text(text)

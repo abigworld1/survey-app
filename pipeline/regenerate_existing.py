@@ -366,8 +366,8 @@ def _safe_path(rel):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description="既存HTMLを再取得・LLM再要約で作り直す")
-    ap.add_argument("--field", help="対象分野スラッグ。省略時は全分野")
-    ap.add_argument("--slug", help="対象論文のHTMLファイル名slugまたはseenキー")
+    ap.add_argument("--field", default="mapf-mapd-warehouse", choices=["mapf-mapd-warehouse"], help="MAPFのみ")
+    ap.add_argument("--slug", required=True, help="対象論文のHTMLファイル名slugまたはseenキー")
     ap.add_argument("--limit", type=int, default=0, help="処理件数上限。0なら無制限")
     ap.add_argument("--dry-run", action="store_true", help="取得可能性だけ確認し、要約・書き換えしない")
     ap.add_argument("--require-fulltext", action="store_true", help="本文が取れない論文は上書きしない")

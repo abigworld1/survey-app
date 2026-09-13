@@ -1,261 +1,156 @@
-# survey-app
+# Paper Survey — MAPF
 
-[私](https://abigworld1.github.io/)の研究に関連する論文を、**毎日自動で**／**任意のタイミングで手動で**、
-日本語で要約して静的サイトに公開するツールです。論文をセクション単位で精読する**多段要約**を行い、
-落合フォーマット＋セクション別の詳細要約を生成します。数式は MathJax で組版されます。
+[論文サーベイサイト](https://abigworld1.github.io/survey-app/)
 
-公開先: **https://abigworld1.github.io/survey-app/**
+GitHub Actionsで毎日 **06:00 JST** にMAPF論文を検索し、未処理の論文を **最大2本**、GitHub Copilot CLIで日本語要約してGitHub Pagesへ公開します。自前サーバ、vLLM、OpenAI API、OpenAI API key、長期PATは不要です。追加の有料APIやクラウドへのフォールバックはありません。
 
+## Architecture
+
+```text
+GitHub Actions (06:00 JST / 21:00 UTC)
+    |
+    +-- MAPF paper discovery (arXiv / Semantic Scholar / OpenAlex)
+    |      +-- data/seen.json: DOI / arXiv ID / title deduplication
+    |      +-- up to 2 unprocessed papers
+    |
+    +-- paper text extraction (arXiv HTML / ar5iv / OA PDF)
+    |
+    +-- GitHub Copilot CLI
+    |      +-- Japanese article JSON
+    |      +-- factual review and corrected article JSON
+    |
+    +-- existing HTML templates + atomic history checkpoint
+    |
+    +-- validated recovery artifact
+    |
+    +-- commit / push articles and metadata to main
+    |
+    +-- static site generation
+    |
+    +-- GitHub Pages (official Pages Actions)
 ```
-取得(arXiv/Semantic Scholar/OpenAlex) → 名寄せ → 重要論文1本＋新着論文1本を採用 → 本文取得(arXiv HTML/OA PDF)
-  → セクション分割 → 要約・本文照合 → 落合フォーマット合成 → 読みやすさ推敲 → 全文による最終事実確認
-  → HTML生成 → git push → GitHub Pages
-```
 
-要約エンジンは研究室サーバー（sankaku01, LAN内）の **vLLM（Gemma 4 26B-A4B FP8, OpenAI互換）** を
-`http://localhost:8000/v1` で直接呼びます。要約のみを公開し、論文全文は転載しません。
+検索・本文抽出・名寄せ・落合フォーマット・ダークテーマ・ブラウザの既読/あとで/お気に入り機能・既存URLを引き継いでいます。新規取得はMAPFと、従来の検索設定に含まれるMAPD/lifelong MAPFのみです。一般的なrobotics、LLM、RAG、multi-agent reinforcement learningへ対象を広げません。
 
----
+`doc-structure-rag/` の過去記事は保持します。subscriptionは `archived: true` とし、検索語と取得元を削除しました。トップには更新終了のアーカイブとして表示し、新着一覧から除外します。`reading/` の既存記事も保持します。
 
-## 使い方
+## GitHubで最初に設定すること
 
-### 1. 毎日の自動更新（cron）
+1. この変更を `main` へ反映してください。定期実行はデフォルトブランチのworkflowが対象です。このworkflowの公開対象は `main` です。
+2. **Settings → Pages → Build and deployment → Source → GitHub Actions** を選択してください。以前の `Deploy from a branch / main / root` から変更します。URLは `https://abigworld1.github.io/survey-app/` のままです。
+3. **Settings → Actions → General** でActionsと公式 `actions/*` の利用を許可してください。workflowの `contents: write` がポリシーで禁止されていないこと、`main` の保護ルールが `github-actions[bot]` による記事commitを許すことを確認してください。保護ルールはこのコードから変更しません。
+4. リポジトリ所有者のCopilotが有効で、CLIと選択モデルを利用できる必要があります。個人所有リポジトリでは組み込み `GITHUB_TOKEN` による利用分が所有者のCopilot枠へ計上されます。組織へ移す場合は **Allow use of Copilot CLI billed to the organization** ポリシーも確認してください。[GitHub公式の認証・課金説明](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/copilot-cli-in-github-actions)
+5. `github-pages` environmentに承認やブランチ制限を設定している場合は、その設定に従って初回deployを許可してください。
 
-`subscriptions.yml` の各分野について、毎日 *k* 本の関連論文を要約して公開します。
-既定の `k: 2` では、被引用数を主指標にした重要論文を1本、投稿日が新しい新着論文を1本採用します。
-sankaku01 では user cron に登録済みで、追加操作は不要です（毎朝 6:00）。
+**SecretsへのAPIキー/PAT登録は不要**です。要約ステップには `GITHUB_TOKEN: ${{ github.token }}` を渡します。[公式のActions設定例](https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli-in-actions)
 
-手動で1回まわす場合:
-```bash
-cd ~/survey-app
-./deploy/run-daily.sh
-```
+古いサーバのcronやsystemd timerは、このGit変更だけでは停止できません。二重更新を避けるため、旧環境の `survey-app/deploy/run-daily.sh` を呼ぶcron、または `survey.timer` が残っていれば、Actionsへの切替時にそのジョブだけを停止してください。新構成から旧サーバへ接続する処理はありません。
 
-このスクリプトは開始時とpush前に `main` をrebaseで同期し、Git通信を既定で3回再試行します。
-別端末から更新した翌日や、前回のpushだけが失敗した場合も、残ったcommitを統合して公開します。
-日次生成される一覧HTMLだけが競合した場合は、`data/seen.json` から一覧を再生成してrebaseを自動継続します。
+## 初回実行・手動実行
 
-主なオプション:
-| オプション | 意味 |
-|---|---|
-| （なし） | 本番。各分野で新着 *k* 本を要約・生成 |
-| `--reset` | 既存ページと `seen` を消してから作り直す（分野やキーワードを変えた後の再構築） |
-| `--offline` | ネット/LLM 不要。サンプル＋スタブ要約で動作確認 |
-| `--stub` | 論文は実際に取得し、要約だけスタブ |
-| `--dry-run` | 取得・要約はするが、ファイル生成と `seen` 更新をしない |
-| `--render-indexes-only` | 取得・要約をせず、既存の `seen` から一覧HTMLだけ再生成 |
-| `--refresh-candidate-cache` | 要約・ページ追加をせず、障害時に使う未使用候補キャッシュだけ更新 |
-| `--limit N` | 今回生成する総ページ数の上限 |
+Actions → **Daily MAPF survey** → **Run workflow** → branch `main`:
 
-品質管理:
-- 自動更新では、関連キーワードが弱い候補、本文が取れずアブストラクトのみの候補、要約が短すぎる候補、不明項目が多い候補は公開せず、次候補を試します。
-- 各セクションの初稿を元セクション本文と照合してから使用し、全体要約の完成後にも「読みやすさの推敲」と「元論文全文による最終事実確認」を別々のLLM呼び出しで行います。最終校閲に失敗した初稿は公開しません。
-- 数式は原則として文章で説明します。必要な場合もTeXは使わず、`G = (V, E)` や `O(n log n)` のような短いプレーンテキストだけを使用します。
-- 採択先が空の場合は、arXivの明示的な採択コメント、Crossref、DBLP、OpenAlex、Semantic Scholarを照合します。投稿中・査読中の記述は採択先として扱いません。会議名に年が無ければ、論文の公開年を補って `AAMAS 2026` のように表示します。
-- arXiv Atom APIが空応答や一時エラーを返した場合は、arXiv公式検索HTMLへ自動的に切り替えます。MAPF分野はSemantic Scholar/OpenAlexも代替取得元として使います。
-- 正常取得時の未使用候補を `data/cache/` に保持し、API不調時はキャッシュ候補も品質判定した上で利用します（キャッシュはGit管理外）。
-- `MAPF` / `MAPD` の略称だけが一致する候補は、`path finding` / `pickup + delivery` の分野語も確認し、別分野で同じ略称を使う論文を除外します。
-- 日次処理が2件に届かなければ15分間隔で最大3回実行します。同日追加数を記録しているため、再試行では不足分だけを生成します。
-- 実行ごとに `data/runs/YYYY-MM-DD.json` と `data/runs/YYYY-MM-DD.html` に、追加・スキップ・取得失敗・LLM失敗の概要を残します。
-- 一覧ページでは、本文/アブストラクトの区別、被引用数、関連度、読む価値、選定枠（重要論文/新着論文）を表示します。ブラウザ上だけで「既読」「あとで」「お気に入り」「非表示」も管理できます。
+- 初回確認: `dry_run=true`（既定）、`publish_only=false`。候補検索と本文取得を行い、対象タイトル・原典URL・本文量をログ表示します。Copilot呼び出し、記事保存、commit、Pages更新はありません。
+- 既存サイトだけを先に公開: `dry_run=false`、`publish_only=true`。LLM・論文検索なしで一覧を生成し、既存記事をPagesへ公開します。
+- 本番: `dry_run=false`、`publish_only=false`。検索→要約→履歴commit→Pages deployを実行します。
 
-### 2. 読みたい論文を手動で追加（`add_paper`）
+以後は `0 21 * * *` UTC（毎日06:00 JST）で動きます。GitHubの混雑で開始が遅れる場合があります。成功済みの記事は同日再実行でも要約せず、不足分だけを処理します。適切な未処理論文や本文がない日は0〜1本で正常終了できます。取得元がすべて障害の場合やLLM失敗はログ・終了状態で明示します。
 
-日次更新とは独立に、任意の論文を1枚ずつ、または同じ分野のPDFをフォルダ単位で要約・公開できます。
+CLIでも手動起動できます（`gh` に通常のリポジトリ操作用ログインがある場合）:
 
 ```bash
-cd ~/survey-app
-# arXiv ID（最も手軽。HTML本文を使うので PyMuPDF 不要）
-LLM_BASE_URL=http://localhost:8000/v1 LLM_API_KEY=dummy \
-  .venv/bin/python -m pipeline.add_paper --arxiv 2606.12345
-
-# 手元の PDF（PyMuPDF で本文抽出）
-LLM_BASE_URL=http://localhost:8000/v1 LLM_API_KEY=dummy \
-  .venv/bin/python -m pipeline.add_paper --pdf ~/papers/foo.pdf --title "論文タイトル"
-
-# PDF の URL
-LLM_BASE_URL=http://localhost:8000/v1 LLM_API_KEY=dummy \
-  .venv/bin/python -m pipeline.add_paper --url https://example.org/paper.pdf
-
-# survey-app/incoming-mapf/ 配下の全PDFをMAPF分野へ一括追加
-# サブフォルダ内のPDFも処理する
-./add-pdfs.py --folder incoming-mapf --mapf
-
-# survey-app/incoming-rag/ 配下の全PDFをRAG分野へ一括追加
-./add-pdfs.py --folder incoming-rag --rag
-
-# 生成後に公開
-git add -A && git commit -m "add paper" && git push origin main
+gh workflow run daily.yml --ref main -f dry_run=true -f publish_only=false
+gh run list --workflow daily.yml
 ```
 
-**追加先の分野**（指定しなければ「個別に読んだ論文」）:
-| 指定 | 追加先 |
-|---|---|
-| （なし） | `reading`（個別に読んだ論文） |
-| `--mapf` | 自動倉庫の MAPF/MAPD 分野（`mapf-mapd-warehouse`） |
-| `--rag` | 文書構造解析・RAG 分野（`doc-structure-rag`） |
-| `--field <slug>` | 任意の分野スラッグ |
+## Copilot呼び出しと利用枠
 
-補足:
-- 入力の指定（`--arxiv` / `--pdf` / `--url` / `--folder`）はいずれか1つ必須。追加先（`--mapf` / `--rag` / `--field`）は排他。
-- 一括追加では `--folder <repo内フォルダ>` を指定する。フォルダ内のPDFはすべて同じ追加先分野として扱う。
-- 一括追加はサブフォルダも再帰的に検索する。直下だけなら `--no-recursive`、先頭N件だけなら `--limit N` を付ける。
-- PDFメタデータ、先頭ページのタイトル、ファイル名の順でタイトルを推定し、arXiv IDやDOIがあれば書誌情報も補完する。
-- 手動追加では登録済み論文も再要約する。同じ追加先分野の既存ページを更新し、URLと追加質問は保持する。追加日時を今回の日時に更新するため、追加順の一覧では上に表示される（日次自動取得の重複スキップは従来通り）。
-- 登録済み論文をスキップしたい場合や一括処理を途中再開する場合は `--skip-existing` を付ける。個別のPDFで失敗しても残りを処理し、最後に追加・更新・スキップ・失敗件数を表示する。
-- 入力PDFは `.gitignore` の対象であり公開しない。一括処理の最後に表示される `git add -- ...` を使い、生成物だけをcommitする。
-- 単一PDFでタイトルが取れないときは `--title` で指定できる。一括時はPDFメタデータ、先頭ページ、ファイル名から自動推定する。
-- `--pdf` / `--url` は **PyMuPDF** が必要（導入済み）。`--arxiv` は不要。
-- `reading` 分野は日次 cron が触らないので、勝手に論文が増えることはありません。
+`npm install -g @github/copilot` で各本番実行時に最新版を導入します。Pythonの `CopilotLLM.generate()` がlist形式の引数でsubprocessを呼び出し、UTF-8のstdoutを解析します。検証時の最新版は **1.0.83** でした。主な引数:
 
-### 3. 生成済みページに追加質問を追記（`ask_paper`）
+```text
+copilot -p PROMPT -s --no-color --no-ask-user
+  --available-tools= --deny-tool=* --disable-builtin-mcps
+  --no-custom-instructions --no-auto-update --no-bash-env
+  --no-remote --no-remote-export
+```
 
-生成済みHTMLから対象論文を特定し、arXiv/PDF本文を再取得してGemmaに読ませます。
-追加質問への回答は、ページ末尾の「追加質問」欄に対話形式で追記できます。
+`--available-tools=` でツールを非公開にし、許可フラグを使いません。リポジトリ外の一時cwdと一時 `COPILOT_HOME` を使い、保存済みの設定・会話や他社API用環境変数を引き継ぎません。論文内の命令に従わないことをプロンプトに明記しています。[公式CLIリファレンス](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference)
+
+- 1回目: 日本語タイトル、TLDR、落合5項目、背景・課題・技術・実験・結果・結論・限界・重要性・推奨読者をJSONでまとめて生成。
+- 2回目: 同じ原文抜粋と初稿を照合し、数値、手法名、ベンチマーク、条件、断定、結論との矛盾を修正。全項目を再検証してから公開。
+- 読む価値スコアはPythonの既存ヒューリスティックで計算。追加のLLM呼び出しはありません。
+- 通常は **1本2回、1回の実行で最大4回** のCLI起動です。失敗候補にも上限を適用し、JSON修復ループや日次スクリプト全体の自動再試行はありません。
+- CLI起動数とGitHub側の課金単位/AI creditsは同じとは限りません。毎日2本を月末まで処理できるとFree枠で保証するものではありません。所有者の利用状況・モデル・現行プランに依存します。GitHubのCopilot使用状況と支出上限を確認し、追加利用を購入しない設定で運用してください。
+
+**利用枠不足・認証拒否・network failure・timeout時は、その実行のCopilot処理を停止**します。不正JSONも再試行せず、その論文を未処理のまま残します。途中までの要約や事実確認に失敗した初稿は公開しません。先に正常完了した記事は保存・公開し、Actionsには失敗を表示します。他社APIやリモートLLMへ切り替えません。
+
+## 長文・本文品質
+
+既存のarXiv HTML → ar5iv → arXiv PDF → OA PDF取得を再利用します。日次公開は本文が取れた論文だけに限定し、abstractしかない場合はCopilotを呼ばず次候補を探します。
+
+`pipeline/evidence.py` で参考文献・謝辞・ナビゲーション・フッター・HTMLタグ・重複文を除去し、method/experiments/results/conclusionを優先してセクションごとに抜粋します。長い節では冒頭だけでなく数値・結果・限界と末尾も残します。既定24,000文字、証拠全体60,000 UTF-8バイト、CLIプロンプト110,000バイトの上限を持ちます。要約の根拠は選択した本文抜粋であり、全文すべての事実確認ではありません。
+
+JSONはコードフェンス付きでも読み取れます。欠損項目・不正型・過大出力・内容重複・品質不足はPythonで拒否します。生成テキストは既存rendererでHTMLエスケープします。原典URLはモデル出力から採用せず、取得済みメタデータから生成します。
+
+## 履歴・公開・障害復旧
+
+永続データは従来どおり `data/seen.json` と記事HTMLです。DOI、バージョンを除いたarXiv ID、正規化タイトルを全分野の履歴と照合します。上位2本を切り出す前に既処理を除き、深い候補プールから選びます。本文取得は1実行で最大12候補、日次ステップは30分で打ち切り、完了済みcheckpointの保存を試みます。新着1本＋重要1本という既存の選定を維持します。関連候補内では本文リンクのある論文を優先し、取得不能な高適合候補だけで待ち続けないようにします。1日あたりの件数はJSTの日付で数えます。
+
+記事とseenはatomic writeし、検証済み記事ごとにcheckpointを保存します。過去のseenレコードと記事の削除・上書き、RAG新規記事、スタブ公開、1日2本超過を公開前に拒否します。
+
+workflowは権限を3ジョブに分けています:
+
+| ジョブ | 権限 | 処理 |
+| --- | --- | --- |
+| generate | `contents: read`, `copilot-requests: write` | 取得・要約・検証・復旧artifact作成 |
+| publish | `contents: write` | 生成ファイルの検証・commit/push・静的サイトbuild・Pages artifact upload |
+| deploy | `pages: write`, `id-token: write` | 同じworkflow内で公式 `actions/deploy-pages` を実行 |
+
+`actions/upload-pages-artifact` に渡すのは公開HTMLと実行レポートだけです。ソースコード、入力PDF、seen、CLI設定・ログ、tokenはPages artifactに含めません。`concurrency` により日次実行と手動実行の重複を防ぎます。後続workflowがbotのpushで起動することには依存しません。[GitHub Pages公式workflow説明](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)
+
+Git pushは最大3回、fetch/rebaseして通常pushします。競合を自動で片側採用せず、rebaseを中止してPages更新も停止します。復旧用 **survey-results** artifactを30日保持するため、競合時に推論し直す必要はありません。記事が未pushの場合は全workflowを再実行する前にこのartifactを復旧してください。
+
+復旧時はartifactの `manifest.json` にある `base_sha` を専用の作業ブランチにcheckoutし、artifactをリポジトリ外へ展開して次を実行します:
 
 ```bash
-cd ~/survey-app
-
-./ask.py \
-  --paper "Priority Inheritance with Backtracking for Iterative Multi-agent Path Finding" \
-  --question "PIBTはどの条件で完全性を保証している？"
+python -m pipeline.publish apply /path/to/survey-results
+python -m pipeline.publish push /path/to/survey-results
 ```
 
-`ask.py` は `LLM_BASE_URL=http://localhost:8000/v1` と `LLM_API_KEY=dummy` を既定で使い、対象HTMLを更新した後に
-`git add` / `git commit` / `git push origin main` まで自動で行います。
+競合は内容を確認して手動で解消し、保存後 `publish_only=true` でPagesだけを公開できます。force pushは使いません。30日を過ぎると未push生成物の復旧artifactは削除されるため、失敗した実行は放置しないでください。
 
-主な指定:
-| 指定 | 意味 |
-|---|---|
-| `--paper "<title>"` | 論文タイトルで検索して対象HTMLを選ぶ |
-| `--mapf` / `--rag` / `--reading` | 対象分野 |
-| `--field <slug>` | 任意の分野スラッグ |
-| `--question "..."` | 追記する質問。複数指定可 |
-| `--arxiv-id <id>` | 本文取得に使うarXiv IDを明示指定 |
-| `--pdf-url <url>` | 本文取得に使うPDF URLを明示指定 |
-| `--context-chars N` | Gemmaに渡す元論文本文の最大文字数（既定60000） |
-| `--replace-followups` | 既存の追加質問を消してから追記する |
-| `--allow-html-fallback` | arXiv/PDF本文を取得できない場合のみ生成済みHTMLで回答する |
-| `--dry-run` | 回答だけ表示し、HTMLを書き換えない |
-| `--stub` | LLMを呼ばずスタブ回答で動作確認 |
-| `--no-push` | commitまで行い、pushしない |
-| `--message "..."` | commit messageを指定 |
-
-回答は再取得した元論文本文を主根拠にします。
-ただし、MAPD や RAG などの標準的な研究用語・周辺概念の定義や比較は、一般知識で補足します。
-本文にない論文固有の主張・実験結果は推測しません。
-本文を取得できない場合は追記せず停止します。
-必要なときだけ `--allow-html-fallback` を付けると、従来通り生成済みHTMLを根拠に回答できます。
-細かく対象を指定したい場合は、従来通り `python -m pipeline.ask_paper --file ...` も使えます。
-
-### 4. 分野・キーワードの設定（`subscriptions.yml`）
-
-自分専用なので直接編集します。`username` が公開URLのスラッグ、`label` が表示名です。
-```yaml
-subscriptions:
-  - username: mapf-mapd-warehouse          # /survey-app/<username>/ になる（ASCII・PII不可）
-    label: 自動倉庫におけるマルチエージェント計画・タスク形成最適化   # 画面に出る分野名
-    keywords:                              # OR 検索 ＋ 関連度判定に使う
-      - "Multi-Agent Path Finding"
-      - "MAPF"
-      - "Multi-Agent Pickup and Delivery"
-    search_queries:                        # 任意。取得用検索語を keywords と分けたい時に使う
-      - "Multi-Agent Path Finding"
-      - "Multi-Agent Pathfinding"
-      - "Multi-Agent Pickup and Delivery"
-    ambiguous_keywords: ["MAPF", "MAPD"] # 他分野でも使われる曖昧な略語
-    ambiguous_context_groups:              # 内側AND・外側OR
-      MAPF: [["path", "finding"], ["pathfinding"]]
-      MAPD: [["pickup", "delivery"]]
-    context_keywords:                      # 略語だけの一致時に必須とする分野文脈
-      - "Multi-Agent"
-      - "Path Finding"
-      - "Pickup-and-Delivery"
-      - "Warehouse"
-    k: 2                                   # 1日あたり最大ページ数（上限20）
-    sources: [arxiv, openalex]
-
-  - username: reading                      # 手動追加専用（add_paper の既定の置き場）
-    label: 個別に読んだ論文
-    manual: true                           # 日次 cron はこの分野を自動取得しない
-```
-分野やキーワードを変えたら `--reset` で作り直すと綺麗です。
-
-### 5. ローカルでの動作確認（ネット/LLM 不要）
+## ローカル検証
 
 ```bash
 python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
-.venv/bin/python -m pipeline.run --offline   # サンプル＋スタブで HTML を生成 → ブラウザで確認
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m compileall -q pipeline tests ask.py add-pdfs.py
+python -m unittest discover -s tests -q
+python -m pipeline.run --dry-run
+python -m pipeline.run --render-indexes-only
+python -m pipeline.publish build /tmp/survey-pages-preview
 ```
 
----
+最後の出力先は空ディレクトリを指定します。テストは一時ディレクトリとmockを使い、論文履歴やCopilot枠を変更しません。`--render-indexes-only` は既存の一覧HTMLを更新します。`--offline` / `--stub` は開発用で、生成物は公開バリデータが拒否します。本番作業ディレクトリではdry runを使ってください。
 
-## 仕組み（要約の流れ）
+日次以外のPDF追加・追加質問ユーティリティも同じCopilotアダプターを使います。Actionsの外で使う場合は適切なCopilot認証が別途必要ですが、アダプターは `GITHUB_TOKEN` 以外へフォールバックしません。日次運用には不要です。`add_paper` の追加先はMAPFのみ、既存記事は既定でスキップします。`regenerate_existing` は明示的なMAPF記事1件を指定する保守用で、日次から呼びません。
 
-1. **取得**: 各 `sources` から候補を集める。`search_queries` があれば取得にはそちらを使い、無ければ `keywords` を使う。
-2. **名寄せ**: DOI / arXiv ID / 正規化タイトルで重複排除（`pipeline/dedup.py`）。
-3. **採用**: `k: 2` では重要論文1本＋新着論文1本を採用。
-   重要論文は `関連度 → 本文の取りやすさ → 被引用数 → 新しさ` の順、新着論文は `関連度 → 本文の取りやすさ → 新しさ` の順。
-   関連度＝キーワードのタイトル一致(×3)＋アブストラクト一致(×1)。略語は単語境界判定（`RAG`が`storage`に誤マッチしない）。
-   適合0の論文は除外する。`ambiguous_keywords` だけで一致した候補は `context_keywords` の分野文脈も確認し、
-   `ambiguous_context_groups` があれば略語ごとの必須語も検査し、条件を満たさない場合は次候補を試す。
-4. **採択先照合**: arXivコメント、Crossref、DBLP、OpenAlex、Semantic Scholarをタイトル・DOIで照合する。
-5. **本文取得**: arXiv HTML を優先（`arxiv.org/html/<id>`）。無ければ OA PDF（Unpaywall/OpenAlex → PyMuPDF）。取れなければ abstract。
-   自動更新では abstract のみの候補も低品質ページ防止のため公開せず、次候補を試す。
-6. **多段要約**: セクションごとに初稿を作り、同じセクション本文との照合・修正を行う。
-7. **最終校閲**: 落合フォーマットを合成後、読みやすさを推敲し、最後に元論文本文との事実確認を行う。
-8. **品質判定・読む価値評価**: 要約後に短すぎる要約や「提供された情報からは不明」が多い要約を除外し、LLMで読む価値（1〜5）を評価。
-9. **生成**: 各ページに「落合5項目＋セクション別の詳細要約＋選定理由＋情報源・原典リンク・AI自動生成の注記」を出力する。
+## 設定
 
----
+| 設定 | 既定 | 用途 |
+| --- | --- | --- |
+| `subscriptions.yml` のMAPF `k` | `2` | 日次最大件数。コード上も最大2 |
+| repository variable `COPILOT_MODEL` | 空 | Copilotの既定モデル。指定時は所有者が利用可能なモデル名 |
+| `COPILOT_CONTEXT_CHARS` | `24000` | 原文抜粋の文字予算（4,000〜32,000） |
+| `COPILOT_TIMEOUT_SECONDS` | `300` | CLI呼び出しのtimeout秒 |
+| `GITHUB_TOKEN` | Actions組み込み | `copilot-requests: write` 付き短期token |
 
-## 環境変数
+Python依存はPyYAMLとPyMuPDFのみです。検索元の無料・無鍵アクセスが制限された場合は警告して利用できる取得元を継続します。追加キーや課金サービスは自動導入しません。
 
-| 変数 | 既定 | 用途 |
-|---|---|---|
-| `LLM_BASE_URL` | `http://vllm:8000/v1` | vLLM の OpenAI互換エンドポイント（sankaku01 は `http://localhost:8000/v1`） |
-| `LLM_API_KEY` | `dummy` | vLLM 用（LAN内なのでダミー可） |
-| `LLM_MODEL` | （未設定） | 指定すれば最優先。未設定なら `/models` の先頭 id を自動採用、それも無ければ `RedHatAI/gemma-4-26B-A4B-it-FP8-Dynamic` |
-| `SUMMARY_REVIEW_CONTEXT_CHARS` | `48000` | 最終事実確認でGemmaに渡す元論文本文の最大文字数 |
-| `S2_API_KEY` | （未設定） | 任意。Semantic Scholar のレート制限(429)緩和 |
+## 移行前の構成と変更点
 
-秘密情報は `.env`（gitignore 済み）に置きます。`deploy/run-daily.sh` が起動時に読み込みます:
-```bash
-# ~/survey-app/.env （コミットされない）
-S2_API_KEY=xxxxxxxx
-```
-
----
-
-## デプロイ / 運用（sankaku01）
-
-Docker も sudo も使いません（vLLM はサーバー上で稼働中、`localhost:8000` で到達可能）。
-
-1. **GitHub Pages**: `abigworld1/survey-app` の Settings → Pages → *Deploy from branch* → `main` / root。
-   Jekyll を無効化する `.nojekyll` をコミット済み。
-2. **venv**: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt`（依存は PyYAML と PyMuPDF）。
-3. **push 認証**: fine-grained PAT（survey-app のみ / Contents: Read and write）。初回 `git push` 時に
-   ユーザー名 `abigworld1`／パスワードに PAT を入力（`git config credential.helper store` で以後は非対話）。
-4. **日次自動化（user cron, sudo不要）**:
-   ```bash
-   crontab -e
-   # 毎日 06:00（サーバーTZ）:
-   0 6 * * * /bin/bash /home/hirayama/survey-app/deploy/run-daily.sh >> /home/hirayama/survey-app/cron.log 2>&1
-   ```
-   `deploy/run-daily.sh` が「多重起動防止 → `main`同期 → `.env`読込 → `pipeline.run` → commit → 再同期・push」を行います。
-5. `abigworld1.github.io` の `research.html` に survey-app へのリンクを設置済み。
-
-> `deploy/` 配下の Docker/systemd 用ファイルは未使用（参考用）。実運用は上記の venv＋user cron です。
-
----
-
-## 安全設計（要点）
-
-- **秘密情報は静的サイトに出さない**（LLM は LAN内 localhost、PAT は `.env`/認証ストアのみ）。
-- 出力ファイル名は **安定ID**（arXiv ID / DOIハッシュ / タイトルスラッグ）。`username`/ID は slugify 済みでパストラバーサル不可。
-- 論文の本文/キーワードは **信頼できないデータ**として扱い（プロンプトインジェクション対策）、出力は HTML エスケープ。
-- 各ページに **「AI自動生成・要約（誤りの可能性あり）」＋ 原典リンク** を明記。
-- 暴走/肥大化防止の上限: `MAX_K=20`, `FETCH_CAP=40`, `MAX_PAGES_PER_RUN=100`（`pipeline/run.py`）。
-- **要約のみを掲載し、論文全文は転載しない**（著作権）。ペイウォールはバイパスしない（arXiv・OA・購読範囲のみ）。
-</content>
+- エントリーポイントは `deploy/run-daily.sh` → `pipeline.run`。実運用はリモートサーバ上のvenv＋06:00 user cron、Pagesは `main / root` のbranch公開でした。既存Actions workflowはありませんでした。
+- `pipeline/summarize.py` がOpenAI互換 `/models` と `/chat/completions` を使い、ローカルモデルへ接続していました。接続コードと `LLM_BASE_URL` / `LLM_API_KEY` / `LLM_MODEL`、多段の追加推論を撤去しました。
+- Docker/compose/systemd参考設定と旧publishスクリプトを削除しました。`run-daily.sh` はPython呼び出しのみになり、サーバのパス、`.env`、PAT、リモートLLM、cron再試行に依存しません。
+- RAG取得設定を撤去し、履歴はアーカイブとして保持。既存検索・PDF/HTML抽出・名寄せ・renderer・記事URLを再利用しています。

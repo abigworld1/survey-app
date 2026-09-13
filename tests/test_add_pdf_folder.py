@@ -21,7 +21,7 @@ class PdfFolderTests(unittest.TestCase):
             found = add_paper._discover_pdf_files("incoming", root=root)
 
             self.assertEqual(
-                [path.relative_to(root).as_posix() for path in found],
+                [path.relative_to(Path(root).resolve()).as_posix() for path in found],
                 ["incoming/b.PDF", "incoming/nested/a.pdf"],
             )
 
@@ -275,7 +275,7 @@ class ManualReadditionTests(unittest.TestCase):
         self.assertIn("追加 0 / 更新 1 / スキップ 0 / 失敗 0", output.getvalue())
         self.assertIn(f"git add -- data/seen.json index.html reading/index.html {self.rel}", output.getvalue())
 
-    def test_single_arxiv_cli_updates_by_default_and_can_skip(self):
+    def test_single_arxiv_cli_skips_existing_by_default_and_with_flag(self):
         for skip in (False, True):
             with self.subTest(skip=skip):
                 self.summarizer.reset_mock()
@@ -291,7 +291,7 @@ class ManualReadditionTests(unittest.TestCase):
                         + (["--skip-existing"] if skip else [])
                     )
                 self.assertEqual(rc, 0)
-                self.assertEqual(self.summarizer.summarize.call_count, 0 if skip else 1)
+                self.assertEqual(self.summarizer.summarize.call_count, 0)
 
 
 if __name__ == "__main__":

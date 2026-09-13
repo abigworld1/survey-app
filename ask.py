@@ -103,17 +103,16 @@ def _git_has_staged_changes():
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description="Ask Gemma a follow-up question and push the updated paper HTML")
+    ap = argparse.ArgumentParser(description="Ask Copilot CLI a follow-up question and push the updated paper HTML")
     ap.add_argument("--paper", required=True, help="論文タイトル")
     ap.add_argument("--question", action="append", required=True, help="質問。複数指定可")
     ap.add_argument("--field", help="分野スラッグで絞り込み")
     ap.add_argument("--mapf", dest="field", action="store_const", const="mapf-mapd-warehouse", help="MAPF/MAPD分野に絞り込み")
-    ap.add_argument("--rag", dest="field", action="store_const", const="doc-structure-rag", help="RAG分野に絞り込み")
     ap.add_argument("--reading", dest="field", action="store_const", const="reading", help="reading分野に絞り込み")
     ap.add_argument("--message", help="commit message")
     ap.add_argument("--arxiv-id", help="本文取得に使うarXiv IDを明示指定する")
     ap.add_argument("--pdf-url", help="本文取得に使うPDF URLを明示指定する")
-    ap.add_argument("--context-chars", type=int, default=60000, help="Gemmaに渡す元論文本文の最大文字数")
+    ap.add_argument("--context-chars", type=int, default=24000, help="Copilot CLIに渡す元論文本文の最大文字数")
     ap.add_argument("--replace-followups", action="store_true", help="既存の追加質問を消してから追記する")
     ap.add_argument(
         "--allow-html-fallback",
@@ -124,9 +123,6 @@ def main(argv=None):
     ap.add_argument("--stub", action="store_true", help="LLMを呼ばずスタブ回答で動作確認")
     ap.add_argument("--no-push", action="store_true", help="commitまで行い、pushしない")
     args = ap.parse_args(argv)
-
-    os.environ.setdefault("LLM_BASE_URL", "http://localhost:8000/v1")
-    os.environ.setdefault("LLM_API_KEY", "dummy")
 
     if not args.dry_run:
         _run(["git", "pull", "--rebase", "origin", "main"])

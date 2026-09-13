@@ -4,6 +4,7 @@ import os
 import re
 
 from .schema import normalize_title
+from .util import atomic_write
 
 
 def _normalize_doi(value):
@@ -14,7 +15,7 @@ def _normalize_doi(value):
 
 def _normalize_arxiv_id(value):
     value = str(value or "").strip().lower()
-    value = re.sub(r"^https?://(?:www\.)?arxiv\.org/(?:abs|pdf)/", "", value)
+    value = re.sub(r"^https?://(?:www\.)?arxiv\.org/(?:abs|pdf|html)/", "", value)
     value = value.removeprefix("arxiv:").removesuffix(".pdf")
     return re.sub(r"v\d+$", "", value).strip()
 
@@ -246,5 +247,4 @@ def load_seen(path):
 
 def save_seen(path, data):
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2, sort_keys=True)
+    atomic_write(path, json.dumps(data, ensure_ascii=False, indent=2, sort_keys=True))

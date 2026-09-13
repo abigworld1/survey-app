@@ -4,10 +4,10 @@
   取得(sources) -> 名寄せ(dedup) -> 既出除外(seen) -> 要約(LLM) -> HTML生成 -> seen更新
 
 実行（repo ルートから）:
-  python -m pipeline.run            # 実運用（vLLMで要約）
+  python -m pipeline.run            # 実運用（Copilot CLIで要約）
   python -m pipeline.run --offline  # ネット未使用・サンプル＋スタブで動作確認
   python -m pipeline.run --stub     # 論文は取得するが要約はスタブ
-  python -m pipeline.run --dry-run  # 生成も seen 更新もしない
+  python -m pipeline.run --dry-run  # 候補・本文だけを確認（LLM/生成/seen更新なし）
 """
 import argparse
 import datetime
@@ -17,7 +17,6 @@ import html
 import json
 import os
 import re
-import shutil
 import sys
 
 import yaml
@@ -25,17 +24,18 @@ import yaml
 from . import render, sources
 from .dedup import (
     build_seen_aliases,
-    collapse_seen_duplicates,
     dedup,
     load_seen,
     paper_is_seen,
+    paper_aliases,
     save_seen,
 )
 from .fulltext import fetch_sections
 from .schema import Paper, normalize_title
 from .sources import arxiv as arxiv_src
 from .summarize import Summarizer
-from .util import slugify
+from .copilot import CopilotError
+from .util import atomic_write, slugify
 from .venue import enrich_venue
 
 
@@ -205,16 +205,16 @@ def _important_quota(k):
 
 
 def _rank_recent(papers, patterns):
-    """新着枠: 関連度 → 本文の取りやすさ → 新しさ。"""
+    """関連候補内で、本文の取りやすさ → 関連度 → 新しさ。"""
     return sorted(
         papers,
-        key=lambda p: (_relevance(p, patterns), _fulltext_score(p), p.published or ""),
+        key=lambda p: (_fulltext_score(p), _relevance(p, patterns), p.published or ""),
         reverse=True,
     )
 
 
 def _rank_important(papers, patterns):
-    """重要枠: 関連度 → 本文の取りやすさ → 被引用数 → 新しさ。
+    """関連候補内で、本文の取りやすさ → 関連度 → 被引用数 → 新しさ。
 
     品質フィルタで本文未取得の論文を落とすため、abstract だけの高被引用候補より
     arXiv/PDF で本文を取れる候補を先に試す。
@@ -222,8 +222,8 @@ def _rank_important(papers, patterns):
     return sorted(
         papers,
         key=lambda p: (
-            _relevance(p, patterns),
             _fulltext_score(p),
+            _relevance(p, patterns),
             _citations(p),
             p.published or "",
         ),
@@ -260,18 +260,19 @@ RUNS = os.path.join(DATA, "runs")
 CANDIDATE_CACHE = os.path.join(DATA, "cache", "candidates")
 
 # 安全上限（暴走・肥大化の防止）
-MAX_K = 20                  # 1購読あたり1日に生成する最大ページ数
+MAX_K = 2                  # MAPFで1日に生成する最大ページ数
 FETCH_CAP = 40              # 未指定ソースの取得上限
 ARXIV_RECENT_LIMIT = 200
 ARXIV_IMPORTANT_LIMIT = 200
 OPENALEX_PER_QUERY = 25
 SEMANTIC_SCHOLAR_LIMIT = 100
-MAX_PAGES_PER_RUN = 100     # 1回の実行で生成する総ページ数の上限
+MAX_PAGES_PER_RUN = 2     # 1回の実行で生成する総ページ数の上限
 MIN_RELEVANCE = 1           # 自動採用に必要な最低キーワード適合度
 MIN_TLDR_CHARS = 40         # 短すぎる要約を落とす
 MIN_SUMMARY_CHARS = 260
 MAX_UNKNOWN_PHRASES = 1
 MIN_READING_VALUE = 2        # 1/5 は誤本文・内容不一致の可能性が高いため自動公開しない
+MAX_FULLTEXT_CANDIDATES = 12 # 本文を取得できない日の実行時間を制限
 CANDIDATE_CACHE_LIMIT = 500   # 分野・選定モードごとの未使用候補キャッシュ上限
 
 
@@ -366,8 +367,7 @@ def _write_run_report(report):
     date = report.get("date") or datetime.date.today().isoformat()
     json_path = os.path.join(RUNS, f"{date}.json")
     html_path = os.path.join(RUNS, f"{date}.html")
-    with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(report, f, ensure_ascii=False, indent=2, sort_keys=True)
+    atomic_write(json_path, json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
 
     rows = []
     for field in report.get("fields", []):
@@ -436,8 +436,7 @@ li {{ margin:6px 0; }}
 {body}
 </div></body></html>
 """
-    with open(html_path, "w", encoding="utf-8") as f:
-        f.write(page)
+    atomic_write(html_path, page)
     return json_path, html_path
 
 
@@ -674,8 +673,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description="survey-app daily pipeline")
     ap.add_argument("--offline", action="store_true", help="ネット未使用・サンプル＋スタブ要約")
     ap.add_argument("--stub", action="store_true", help="論文は取得するが要約はスタブ")
-    ap.add_argument("--dry-run", action="store_true", help="生成・seen更新を行わない")
-    ap.add_argument("--reset", action="store_true", help="既存ページとseenを消してから再生成（本文版へ作り直し）")
+    ap.add_argument("--dry-run", action="store_true", help="候補と本文だけ取得し、LLM・生成・seen更新を行わない")
     ap.add_argument("--render-indexes-only", action="store_true", help="取得・要約をせず既存seenから一覧HTMLだけ再生成")
     ap.add_argument(
         "--refresh-candidate-cache",
@@ -691,11 +689,6 @@ def main(argv=None):
         return 1
 
     seen = load_seen(SEEN)
-    duplicate_records = collapse_seen_duplicates(seen)
-    if duplicate_records:
-        print(f"既出管理の重複を統合: {len(duplicate_records)} 件")
-        if not args.dry_run:
-            save_seen(SEEN, seen)
     if args.render_indexes_only:
         for sub in subs:
             user = (sub.get("username") or "").strip()
@@ -710,19 +703,12 @@ def main(argv=None):
         print("完了: 一覧HTMLを再生成")
         return 0
 
-    summarizer = Summarizer(stub=args.offline or args.stub or args.refresh_candidate_cache)
+    summarizer = Summarizer(stub=args.offline or args.stub or args.dry_run or args.refresh_candidate_cache)
     print(f"要約エンジン: {summarizer.engine}")
 
-    if args.reset:
-        if not args.dry_run:
-            for sub in subs:
-                d = os.path.join(ROOT, slugify(sub.get("username", ""), fallback="user"))
-                if os.path.isdir(d):
-                    shutil.rmtree(d)
-        seen = {}
-        print("reset: seen を初期化" + ("" if args.dry_run else " ＋ 既存ページ削除"))
-    today = datetime.date.today().isoformat()
-    now = datetime.datetime.now().isoformat(timespec="seconds")
+    jst = datetime.timezone(datetime.timedelta(hours=9))
+    today = datetime.datetime.now(jst).date().isoformat()
+    now = datetime.datetime.now(jst).isoformat(timespec="seconds")
     report = {
         "date": today,
         "generated_at": now,
@@ -731,6 +717,8 @@ def main(argv=None):
         "fields": [],
     }
     produced = 0
+    run_failed = False
+    args.limit = max(0, min(args.limit, MAX_PAGES_PER_RUN))
 
     for sub in subs:
         user = (sub.get("username") or "").strip()
@@ -740,10 +728,11 @@ def main(argv=None):
         uslug = slugify(user, fallback="user")
         display = sub.get("label") or user
         # manual フィールド（手動追加 add_paper 用）は自動取得しない。indexだけ更新。
-        if sub.get("manual"):
-            print(f"\n=== {display} (slug={uslug}) [manual] ===")
+        if sub.get("manual") or sub.get("archived") or uslug != "mapf-mapd-warehouse":
+            mode = "archive: 取得・要約停止" if sub.get("archived") else "manual: 日次取得なし"
+            print(f"\n=== {display} (slug={uslug}) [{mode}] ===")
             seen.setdefault(uslug, {})
-            if not args.dry_run and not args.refresh_candidate_cache:
+            if not args.dry_run and not args.refresh_candidate_cache and not sub.get("archived"):
                 render.render_user_index(TPL, ROOT, uslug, display, seen[uslug], sub.get("keywords", []))
             continue
         k = max(1, min(int(sub.get("k", 5)), MAX_K))
@@ -790,7 +779,7 @@ def main(argv=None):
         # OpenAlex/S2とタイトル名寄せされれば、本文リンクと被引用数を両立できる。
         important_papers = dedup(important_raw + recent_papers + cached_important)
         papers = dedup(important_papers + recent_papers)
-        seen_aliases = build_seen_aliases(useen)
+        seen_aliases = set().union(*(build_seen_aliases(entries) for entries in seen.values()))
         fresh_recent = [p for p in recent_papers if not paper_is_seen(p, seen_aliases)]
         fresh_important = [p for p in important_papers if not paper_is_seen(p, seen_aliases)]
         fresh_all = [p for p in papers if not paper_is_seen(p, seen_aliases)]
@@ -910,15 +899,24 @@ def main(argv=None):
             f"採用 {len(picked)} (今回の重要枠 {important_quota}, 新着枠 {recent_quota})"
         )
 
+        if not papers and any(isinstance(v, dict) and v.get("error") for v in {**recent_counts, **important_counts}.values()):
+            run_failed = True
         produced_for_sub = 0
+        attempted_summaries = 0
+        fulltext_attempts = 0
         for p in candidate_queue:
             if produced >= args.limit:
                 print("  [stop] 総ページ上限に到達")
                 break
-            if produced_for_sub >= remaining_k:
+            if produced_for_sub >= remaining_k or attempted_summaries >= remaining_k:
                 break
+            if paper_is_seen(p, seen_aliases):
+                continue
             pid = slugify(p.paper_id(), fallback="paper")
             rel = f"{uslug}/{pid}.html"
+            if os.path.exists(os.path.join(ROOT, rel)):
+                print(f"      [skip] 既存URLを保護（再要約なし）: {rel}")
+                continue
             relevance_score = _relevance(p, kw_pats)
             matched_keywords = _matched_keywords(p, keywords)
             p.matched_keywords = matched_keywords
@@ -948,14 +946,25 @@ def main(argv=None):
                 )
                 print(f"      [skip] {context_issue}")
                 continue
-            if not args.offline:
-                p = enrich_venue(p)
-                p = _enrich_fulltext_source(p)
-            # 本文をセクション分割して多段要約（取れなければ abstract にフォールバック）
-            if args.offline:
-                fsections, basis = [], "abstract"
-            else:
-                fsections, basis = fetch_sections(p)
+            if fulltext_attempts >= MAX_FULLTEXT_CANDIDATES:
+                print("      [stop] 本文取得候補の上限に到達")
+                break
+            fulltext_attempts += 1
+            try:
+                if not args.offline:
+                    p = enrich_venue(p)
+                    p = _enrich_fulltext_source(p)
+                # Metadata enrichment may reveal an already processed identifier.
+                if paper_is_seen(p, seen_aliases):
+                    continue
+                if args.offline:
+                    fsections, basis = [], "abstract"
+                else:
+                    fsections, basis = fetch_sections(p)
+            except Exception as exc:
+                print(f"      [warn] 本文・メタデータ取得失敗 ({pid}): {exc!r}")
+                field_report["skipped"].append({"title": p.title, "reasons": [f"本文取得失敗: {exc!r}"]})
+                continue
             print(
                 f"    {pid}: {_selection_label(kind)} / 関連度{relevance_score} / "
                 f"被引用{_citations(p)} / {len(fsections)}セクション / 根拠 {basis}"
@@ -979,9 +988,22 @@ def main(argv=None):
                 )
                 print(f"      [skip] {'、'.join(pre_issues)}")
                 continue
+            if args.dry_run:
+                print(f"      [dry-run] 対象: {p.title} / {p.url or p.pdf_url} / 本文 {sum(len(t) for _, t in fsections)}字")
+                produced += 1
+                produced_for_sub += 1
+                seen_aliases.update(paper_aliases(p))
+                continue
+            attempted_summaries += 1
             try:
                 summary = summarizer.summarize(p, sections=fsections, basis=basis)
+            except CopilotError as exc:
+                run_failed = True
+                field_report["skipped"].append({"title": p.title, "reasons": [str(exc)]})
+                print(f"      [stop] {exc}")
+                break
             except Exception as e:
+                run_failed = True
                 reasons = [f"LLM要約失敗: {e!r}"]
                 field_report["skipped"].append(
                     _report_paper(p, pid, kind, relevance_score, basis, {"reasons": reasons})
@@ -990,6 +1012,7 @@ def main(argv=None):
                 continue
             post_issues = _post_quality_issues(summary, strict_summary=not (args.offline or args.stub))
             if post_issues:
+                run_failed = True
                 field_report["skipped"].append(
                     _report_paper(p, pid, kind, relevance_score, basis, {"reasons": post_issues})
                 )
@@ -1024,8 +1047,7 @@ def main(argv=None):
             p.reading_value_reason = summary.get("_reading_value_reason", "")
             if not args.dry_run:
                 os.makedirs(os.path.join(ROOT, uslug), exist_ok=True)
-                with open(os.path.join(ROOT, rel), "w", encoding="utf-8") as f:
-                    f.write(render.render_paper_page(TPL, p, summary))
+                atomic_write(os.path.join(ROOT, rel), render.render_paper_page(TPL, p, summary))
             added_at = datetime.datetime.now().isoformat(timespec="microseconds")
             useen[p.key()] = {
                 "title": p.title,
@@ -1053,6 +1075,8 @@ def main(argv=None):
                 "reading_value": summary.get("_reading_value", ""),
                 "reading_value_reason": summary.get("_reading_value_reason", ""),
             }
+            seen_aliases.update(paper_aliases(p))
+            save_seen(SEEN, seen)  # Checkpoint each verified article before the next CLI call.
             field_report["added"].append(
                 _report_paper(
                     p,
@@ -1116,16 +1140,14 @@ def main(argv=None):
         return 0
 
     shortfalls = [field for field in report["fields"] if field.get("shortfall", 0) > 0]
-    print(f"\n完了: {produced} ページ生成 (dry-run={args.dry_run})")
+    result_label = "対象の本文確認（LLM・保存なし）" if args.dry_run else "ページ生成"
+    print(f"\n完了: {produced} 件 {result_label}")
     if shortfalls:
         labels = ", ".join(
             f"{field.get('slug')}={field.get('shortfall')}本不足" for field in shortfalls
         )
-        level = "warn" if args.offline or args.dry_run else "error"
-        print(f"[{level}] 日次目標未達: {labels}")
-        if not (args.offline or args.dry_run):
-            return 2
-    return 0
+        print(f"[warn] 最大2本に届かない日も関連性・品質を優先: {labels}")
+    return 2 if run_failed else 0
 
 
 if __name__ == "__main__":
