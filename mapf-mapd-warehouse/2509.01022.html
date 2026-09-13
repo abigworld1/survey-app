@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Symbolic Planning and Multi-Agent Path Finding in Extremely Dense Environments with Unassigned Agents | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Symbolic Planning and Multi-Agent Path Finding in Extremely Dense Environments with Unassigned Agents</h1>
+<p class="meta">未割当エージェントを含む極めて高密度な環境における記号計画とマルチエージェント経路探索</p>
+  <div class="meta">Bo Fu, Zhe Chen, Rahul Chandan, Alex Barbosa, Michael Caldara, Joey Durham, Federico Pecora<br>採択先: Proceedings of the AAAI Conference on Artificial Intelligence 2026 ・ 2026-01-08 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2509.01022" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2509.01022" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/aaai.v40i35.40183" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip venue">採択先 Proceedings of the AAAI Conference on Artificial Intelligence 2026</span><span class="chip">公開日 2026-01-08</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 1</span><span class="chip">関連度 3</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、密集した倉庫グリッドで、目標を持つブロックを他のブロックや障害物に妨げられず再配置するブロック再配置問題（BRaP）を形式化する。五つの探索手法を比較し、BR-LaCAMと経路の阻害を抑えるヒューリスティック手法が、大規模グリッドでも高い成功率と短い初期解探索時間を示した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>BRaPは、倉庫の格子状保管領域にある割当済みブロックを、指定された目標頂点の集合へ移動し、最終的に割当済みブロックを完了状態にする問題である。入力は、隣接関係を持つグラフ状のグリッド、割当済みブロック、目標を持たない未割当ブロック、空き頂点、障害物、目標頂点であり、出力は全割当済みブロックを目標へ移動させる衝突のない計画である。計画には割当済みブロックの移動だけでなく、経路を空けるための未割当ブロックの移動も含まれる。頂点の同時占有、同一辺の同時利用、直前に別のブロックがいた頂点への移動を避ける必要がある。ブロック数が増えると可能な配置と行動の組合せが指数的に増え、深く埋もれたブロックの取り出しが困難になる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究は、密集倉庫におけるブロック再配置を、状態、行動、衝突制約、完了条件を明示したグラフ探索問題として正式に定義する。BRaPとスライディングパズル、Rush Hour、ブロック移動問題、Sokoban、駐車場再配置、MAPFなどとの構造的な類似点と相違点を整理する。構成空間探索、PDDLによる計画、優先度付き構成空間探索、BR-LaCAM、経路阻害を抑えるヒューリスティック手法という五つの解法を、同じ問題設定に適用する基盤を提示する。未割当ブロック、追従衝突、複数ブロックの並列移動を扱う点で、通常のMAPF手法をそのまま適用する場合との差異を明確にした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>構成空間探索では、時刻、割当済みブロックの位置、空き頂点、完了済みブロックを状態として表し、各行動によって状態を遷移させる。基本形では一時刻に一つの行動だけを許し、ダイクストラ法やA探索によって、初期状態から割当済みブロックがなくなる完了状態までの低コスト経路を探索する。この定式化をPDDLでも表現し、グリッドの頂点、ブロックの位置、移動条件、完了条件を記号的な問題として計画器に与える。優先度付き探索では、目標への近さに基づいてブロックの順序を定め、先に計画したブロックを制約として扱いながら、各時刻に複数ブロックを並列に動かす。BR-LaCAMは高レベルで構成を探索し、低レベルで衝突しない移動の組合せを列挙することで到達可能な構成を調べ、初期解を得た後もより低コストの解を探索する。ヒューリスティック手法は、各ブロックについて他のブロックへの阻害が少ない目標までの経路を生成し、高レベル探索、構成生成、低レベル制約を組み合わせて探索量を抑える。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価には、4×10、6×10、8×10、10×10、20×20、40×40、80×80のグリッドを用いた13,860件のテストケースを用いた。割当済みブロック数は少なくとも1で、通常はグリッド頂点数の12.5パーセントまで、空き頂点数は最大で25パーセントまでとした。目標は境界頂点を用いる条件と、選択制約の異なる二種類のランダム目標条件を設定し、障害物はグリッド長の5分の1に相当する正方形として右下に配置した。五手法について、成功率、複合行動コスト比、計画全体の完了時間比、最初の解を得るまでの時間を比較した。各ケースの制限時間は10秒で、評価はAMD EPYC 7R13を搭載した単一マシン上で行い、PDDLの実行にはFast Downwardを使用した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>グリッドが大きくなるほど、また割当済みブロックが増えるほど、探索空間の増大によって失敗率が上がる。目標の選択が厳しい条件では、同じグリッド規模でも解を見つけにくくなる。基本の構成空間探索は一時刻一行動に制限されるため分岐を抑えられる一方、複数ブロックの同時移動による計画時間短縮を十分に表現できない。既存のMAPFソルバの多くが追従衝突を無視するため、BRaPに適用するには追加の制約処理が必要である。今後は、異なる終端状態、同時行動数の制限、追加目的関数、運用上の優先度、目標選択と行動選好の改善を扱う必要がある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>大規模なロボット倉庫では、保管密度を高めるためにブロックを格子状に配置し、ロボットがブロックを持ち上げて移動させる。注文対象のブロックが他のブロックの下や奥にある場合、周囲のブロックを一時的に移動して搬出経路を確保しなければならない。この状況は、複数の移動体の衝突回避、空間の一時的な解放、目標への搬送を同時に要求するため、通常の単一エージェント経路探索より複雑である。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>障害物を含むグラフ上で、割当済みブロックを目標頂点へ移動させ、必要に応じて未割当ブロックを退避させる衝突のない計画を求める。目的関数には、割当済みブロックの移動数、未割当ブロックの移動数、各行動コストの合計、計画全体が完了するまでの時間などを設定できる。完了条件は割当済みブロック集合を空にすることであり、ブロック数が増えると実行可能な配置と行動の組合せが急増するため、解の品質と大規模事例へのスケーラビリティの両立が課題になる。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>BRaPでは、割当済みブロックと未割当ブロックについて、移動、待機、完了の行動とそれぞれのコストを設定できる。衝突は、同じ頂点を同時に使う場合、同じ辺を同時に使う場合、前時刻に別のブロックがいた頂点へ移動する場合に分類される。基本の構成空間探索は一時刻一行動であるのに対し、優先度付き探索はブロックごとに一行動を許して並列性を導入する。BR-LaCAMは高レベル探索と低レベルの移動組合せ探索を組み合わせ、有限な探索空間を網羅することで、解が存在するBRaPに対する完全性が主張されている。初期解のコストを上限として探索を続けるため、実行可能解の発見後に解を改善する anytime 性も持つ。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験では、七種類のグリッドサイズ、異なる割当済みブロック数、空き頂点数、三種類の目標生成条件を組み合わせた。右下に固定した正方形障害物を含む各パラメータ条件から、ランダムに10ケースを生成した。五つの提案手法を、成功率、複合コスト、計画完了時間、初期解到達時間で比較した。成功率が20パーセント未満の条件では、複合コスト比と完了時間比を報告していない。実行は単一のAMD EPYC 7R13マシン上で行い、1ケースあたり10秒を上限とした。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>BR-LaCAMの成功率は、4×10から80×80までのグリッドを含む評価全体で99パーセント、ヒューリスティック手法では93パーセントだった。全条件の集計では、優先度付き探索、構成空間探索、PDDLの成功率はそれぞれ48パーセント、39パーセント、37パーセントで、BR-LaCAMとヒューリスティック手法を下回った。BR-LaCAMとヒューリスティック手法は、テストケースの半数超で1ミリ秒以内に初期解を発見し、BR-LaCAMは90パーセント超のケースで1秒以内に初期解を得た。解が得られたケースでは、この二手法が複合コストと計画完了時間の両方で概して良好だった。複合コスト比は、多くのケースで最良手法に対しておおむね1から10の範囲に分布した。</p></section>
+<section class="secsum"><h3>結論</h3><p>本研究は、密集倉庫で深く埋もれたブロックを取り出す問題を、未割当ブロックと複数の衝突制約を含むBRaPとして定式化した。13,860件の評価から、BR-LaCAMとヒューリスティック手法が、他の三手法より大規模事例で高い成功率と短い初期解探索時間を示した。これらの結果は、BRaPを研究・比較するための基盤を提供し、今後はBR-LaCAMの解品質とスケーラビリティを改善することが有望な方向であることを示す。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>本文で確認できる限界として、グリッドの大型化、割当済みブロック数の増加、厳しい目標選択に伴う成功率低下がある。基本の構成空間探索は一時刻一行動に制限され、待機行動も禁止されるため、実システムの並列動作を完全には表現しない。実験では障害物の形状と位置、目標生成法、計算機環境、10秒の時間制限が限定されており、動的障害物、通信遅延、ロボット性能差、実運用上の優先度は検証されていない。取得した本文では、実機での実証や、すべての条件に対する厳密な最適性の網羅的比較は確認できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究の重要性は、倉庫自動化で生じる、目的ブロックが他のブロックに埋もれている状況を、MAPFと記号計画の双方から扱える問題として整理した点にある。目標を持たないブロックが通路確保を担う設定と追従衝突の扱いにより、通常のMAPFでは表しにくい倉庫特有の制約を明示している。多数の合成テストケースで五手法を比較したため、高密度なブロック再配置研究における成功率、解品質、初期解速度の基準として利用できると解釈できる。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>高密度倉庫のロボット再配置、未割当エージェントを含むMAPF、記号計画とPDDL、スライディングパズル型の組合せ探索に関心を持つ研究者に適している。複数ロボットの衝突回避だけでなく、通路を空ける補助ブロックの計画まで扱いたい場合に特に有用である。BR-LaCAMやヒューリスティック探索を大規模グリッドで評価する際の初期ベースラインとしても利用できるが、実機性能、動的障害物、現実的な同時行動制約を重視する読者は、本文の評価範囲を超える追加検証が必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-13
+  </footer>
+</div>
+</body>
+</html>

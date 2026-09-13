@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SIGMA: Sheaf-Informed Geometric Multi - Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>SIGMA: Sheaf-Informed Geometric Multi - Agent Pathfinding</h1>
+<p class="meta">SIGMA：シーフ理論に基づく幾何学的マルチエージェント経路探索</p>
+  <div class="meta">Shuhao Liao, Weihang Xia, Yuhong Cao, Weiheng Dai, Chengyang He, Wenjun Wu, Guillaume Sartoretti<br>採択先: presentation at the 2025 IEEE International Conference on Robotics and Automation (ICRA) Journal ref: 2025 IEEE International Conference on Robotics and Automation ICRA pp ・ 2025-08-22 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2502.06440" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2502.06440" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 presentation at the 2025 IEEE International Conference on Robotics and Automation (ICRA) Journal ref: 2025 IEEE International Conference on Robotics and Automation ICRA pp</span><span class="chip">公開日 2025-08-22</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> SIGMAは、限られた視野で行動する複数エージェントが、シーフ理論に基づく潜在表現の整合性を学習し、局所観測からチーム全体の合意を形成するMAPF計画器である。シミュレーションでは、特に大規模で複雑な環境において、既存の学習ベース計画器より高い成功率を示し、40×40マップの128エージェントで69％、60×60マップで80％の成功率を達成した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、既知の障害物環境で、複数エージェントを異なる開始地点から指定された目標地点へ衝突なく移動させるマルチエージェント経路探索問題である。環境は頂点と辺からなるグラフとして表され、各エージェントは各時刻に隣接する頂点へ移動するか、現在位置で待機する。解は全エージェントの衝突のない経路集合であり、通常は全エージェントの到着時間の合計を短くすることが望ましい。衝突には、同じ時刻に同じ頂点を占有する頂点衝突と、同じ辺を反対方向へ同時に通過する辺衝突がある。学習ベースの分散計画では、各エージェントが限られた視野しか持たないため、遠方の状況や将来の混雑を考慮しにくく、密集環境で短視眼的な行動、非効率な協調、膠着が生じやすい。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の新規性は、シーフ理論を分散型深層強化学習に組み込み、局所観測からエージェント間の幾何学的な相互依存関係を学習する枠組みを示した点にある。シーフ理論が局所データの整合性から大域的合意へ移行する条件を与えることに着目し、MAPFにおける合意を潜在空間で近似的にモデル化する。従来研究が専門家経路、通信学習、局所グラフ集約、またはグローバル地図表現を追加していたのに対し、SIGMAはエージェントごとの潜在特徴とエージェント間の関係写像をシーフ構造として扱う。さらに、その構造に対応する大域的整合性を学習へ導入し、合意に基づく特徴を経路選択と衝突回避に利用する点が先行研究との差分である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>各エージェントは、限られた視野内の観測をエンコーダで潜在特徴へ変換し、その特徴をエージェントに対応するデータ空間として扱う。互いの視野内に存在するエージェントの間に動的な関係を構成し、エージェント間の潜在特徴を対応付ける写像を学習する。これらの特徴と関係写像により、局所観測が互いに整合するような合意表現を形成する。合意表現は行動価値の評価に組み込まれ、通常のMAPF観測特徴とともに、上下左右への移動または待機の選択に使われる。シーフの大域的な整合条件に対応する損失をネットワーク更新へ加え、潜在特徴が関係構造に沿うように学習する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>訓練では、サイズが10から40の範囲で一様に選ばれる構造化環境を用い、エージェント数を5に固定した。テストではサイズ20、40、60の環境を用い、エージェント数を4から128まで変化させた。SIGMAを、PRIMAL、MAPPER、DHC、DCC、SCRIMP、ALPHAの6種類の学習ベース計画器と、限定最適性を持つ集中型探索計画器ODrM*と比較した。各計画器は同じ200個のランダム生成環境で評価され、指標にはエピソード長、到着率、成功率を用いた。SIGMAの成功率は40×40マップで128エージェントの場合に69％、60×60マップの場合に80％であった。20×20マップでは成功率は高かったが、到着率は同じ程度には高くなかった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>SIGMAは視野そのものを広げるのではなく、視野内の情報とエージェント間の関係を潜在空間で整合させるため、その合意表現の品質は観測可能な情報と動的な関係構造に依存する。小規模な20×20環境では、全エージェントが到達したエピソードの割合は高くても、個々のエージェントの到達割合は同程度に高くなく、完全成功と部分的な進展の差が残る。アブレーションでは、観測特徴をデータ空間として符号化するだけではベースラインと同程度で、関係写像単独の改善も限定的であり、各要素の効果は一様ではない。実ロボット実験では仮想的な障害物を扱っており、現実の物理障害物による遮蔽や、光学追跡を妨げる条件は評価されていない。今後は、より複雑なエージェント関係グラフと、その依存関係を扱い解釈できるモデルが課題となる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>大規模物流、空港管理、倉庫自動化、ロボット群運用では、多数のロボットが共有空間を移動するため、衝突を避けながら効率的に経路を計画する必要がある。MAPFはエージェント数の増加に伴って複雑性が指数的に増大するNP困難問題であり、規模拡大と計算効率の両立が難しい。分散型マルチエージェント強化学習は、局所観測に基づいて高速かつスケーラブルに行動できる可能性がある。先行する学習ベース手法は、通信、専門家経路、グローバル地図表現などで情報不足を補ってきたが、学習ベースの解と集中型最適化手法の間には性能差が残っていた。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>評価環境は二次元の4近傍グリッドであり、各エージェントは空いている隣接セルへの移動または待機を選択する。入力には限られた視野内の環境情報に加え、各セルから目標へ近づく方向を示すヒューリスティックなチャネルが含まれる。出力は各時刻の離散行動で、障害物や他エージェントとの衝突に関係する無効行動が生じた場合は、衝突がなくなるまで関係するエージェントを以前の状態へ戻す。エピソードは全エージェントが目標に到達した時点、または設定された最大時間に達した時点で終了する。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>エージェント同士が互いの視野内にある場合に動的な関係を作り、移動に伴って変化する可視性と近接性を協調の構造として表す。エージェントに対応するデータ空間は観測から得た高次元特徴を保持し、関係写像は異なるエージェントの特徴間の対応を表す。学習された関係は、行動価値を状態価値と行動ごとの差分評価に分けた評価機構へ組み込まれる。大域的整合性の損失は、個々の潜在特徴がシーフ構造の整合条件を満たすようネットワークを更新するために使われる。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>主実験では、訓練時の環境サイズ10から40、エージェント数5という条件から、テスト時にサイズ20、40、60、エージェント数4から128へ規模を変えた。比較対象はPRIMAL、MAPPER、DHC、DCC、SCRIMP、ALPHA、ODrM*であり、同一の200環境を使って比較した。構成要素の検証では、観測特徴の符号化だけを残す条件、整合性損失を除く条件、行動評価から関係写像を除く条件を調べた。さらに、シミュレーションと実ロボットで検証し、実環境では一辺0.3メートルのセル、メカナムホイール付きの3台のロボット、OptiTrackモーションキャプチャを用いた。実ロボットの寸法は約0.23メートル×0.20メートルで、開始位置と目標位置はランダムに設定された。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>SIGMAは、評価された全課題で他の学習ベース計画器より一貫して高い成功率を示し、エージェント数が増えるほどベースラインとの差が大きくなった。40×40マップで128エージェントの場合、SIGMAの成功率は69％であり、多くの学習ベース手法が解決に苦しむ条件でも動作した。60×60マップでは成功率が80％に達した。アブレーションでは、観測特徴の符号化だけではベースラインと同程度で、関係写像の導入による改善は小さかった。抜粋された本文では、エピソード長、到着率、各比較手法の個別値、および実ロボット実験の成功率は確認できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>SIGMAは、シーフ理論を用いて局所観測からエージェント間の整合した潜在表現を学習するMAPF計画器である。大規模で複雑な構造化環境において、既存の学習ベース計画器を上回り、本文で示された比較では限定最適性を持つ集中型計画器とも多くの条件で比較された。研究の結論は、局所情報から大域的な協調を得る方法を、単純な情報集約ではなく、エージェント間の関係と整合性を学習する問題として扱えるという点にある。著者らは今後、より複雑なエージェント関係を持つグラフ上で合意を形成できるモデルの検討を予定している。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>評価の中心は構造化された二次元グリッド環境であり、訓練時のエージェント数は5に固定されているため、非構造的な地形や別の訓練分布への一般化は取得した本文では確認できない。実ロボット実験では障害物が仮想的に扱われ、OptiTrackの視線を遮る物理障害物がなかったため、現実の遮蔽、センサ誤差、追跡失敗への頑健性は確認できない。20×20環境では成功率に比べて到着率が十分に高くないという差が残る。詳細なエピソード長、各ベースラインの数値、通信や計算コスト、実ロボットの定量的な成功率は、取得した本文抜粋では確認できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>考察として、本研究は、限られた視野を持つ分散エージェントの協調を、近傍情報の単純な集約ではなく、潜在特徴間の整合性と関係構造として設計する方向を示している。これは、混雑、過密、相互ブロックが問題となる大規模MAPFで、個々のエージェントの局所的な判断をチーム全体の協調へ結び付ける研究上の視点を提供する。特に、環境サイズとエージェント数が増えた条件で成功率の優位性が示されたことは、分散型学習計画器のスケーラビリティを検討するうえで重要である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>考察に基づく解釈として、限られた視野で動作するマルチエージェント強化学習型MAPF、エージェント間通信、グラフニューラルネットワーク、局所情報から大域的な協調構造を推定する計画に関心のある研究者に適している。大規模な倉庫やロボット群において、完全な集中計画を使わずに混雑時の成功率を高めたい場合にも参考になる。シーフ理論の詳細な代数的定式化、非構造環境、物理障害物、通信遅延や通信欠損への性能を評価したい読者には、取得した本文抜粋だけでは情報が不足している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-13
+  </footer>
+</div>
+</body>
+</html>
