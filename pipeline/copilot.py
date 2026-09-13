@@ -38,7 +38,8 @@ class CopilotLLM:
             raise ValueError("Copilot prompt exceeds the bounded input budget")
         command = [
             self.executable, "-p", prompt, "-s", "--no-color", "--no-ask-user",
-            "--available-tools=", "--deny-tool=*", "--disable-builtin-mcps",
+            "--available-tools=", "--deny-tool=shell", "--deny-tool=write",
+            "--deny-tool=url", "--disable-builtin-mcps",
             "--no-custom-instructions", "--no-auto-update", "--no-bash-env",
             "--no-remote", "--no-remote-export",
         ]

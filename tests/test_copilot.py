@@ -43,7 +43,9 @@ class CopilotAdapterTests(unittest.TestCase):
         opts = run.call_args.kwargs
         self.assertEqual(command[2], 'paper $(touch nope) `whoami`')
         self.assertIn("--available-tools=", command)
-        self.assertIn("--deny-tool=*", command)
+        for kind in ("shell", "write", "url"):
+            self.assertIn(f"--deny-tool={kind}", command)
+        self.assertNotIn("--deny-tool=*", command)
         self.assertNotIn("--allow-all", command)
         self.assertFalse(opts.get("shell", False))
         self.assertEqual(opts["encoding"], "utf-8")

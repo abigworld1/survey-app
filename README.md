@@ -69,7 +69,7 @@ gh run list --workflow daily.yml
 
 ```text
 copilot -p PROMPT -s --no-color --no-ask-user
-  --available-tools= --deny-tool=* --disable-builtin-mcps
+  --available-tools= --deny-tool=shell --deny-tool=write --deny-tool=url --disable-builtin-mcps
   --no-custom-instructions --no-auto-update --no-bash-env
   --no-remote --no-remote-export
 ```
