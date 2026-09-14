@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Hybrid Quantum-Classical Multi - Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Hybrid Quantum-Classical Multi - Agent Pathfinding</h1>
+<p class="meta">ハイブリッド量子・古典マルチエージェント経路探索</p>
+  <div class="meta">Thore Gerlach, Loong Kuan Lee, Frédéric Barbaresco, Nico Piatkowski<br>採択先: ICML 2025 ・ 2025-07-09 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2501.14568" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2501.14568" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip venue">採択先 ICML 2025</span><span class="chip">公開日 2025-07-09</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、共有空間で複数エージェントの衝突しない最適経路を求めるMAPFに対し、Branch-and-Price-and-CutとQUBOを組み合わせた二つの量子・古典ハイブリッド手法を提案する。経路と衝突制約を段階的に追加することで、理想的な量子計算では最適性を保証し、実量子ハードウェアではハードウェアを意識した疎なQUBO設計が実行可能解の得やすさに影響することを示した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>MAPFは、共有環境を移動する複数エージェントについて、各出発地点から指定された目的地点までの衝突しない経路を同時に求める問題である。入力はエージェント集合、障害物や遷移可能性を含む重み付き無向グラフ、各エージェントの出発地点と目的地点であり、出力は各エージェントが選択する経路の集合である。経路は頂点への同時到達や、同じ辺を反対向きに使う交換衝突を避け、経路コストなどの目的を最適化する必要がある。最適MAPFはNP困難で、エージェント数や時間地平が増えると候補経路が指数的に増えるため、大規模な実用シナリオで最適解を求めることが難しい。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究は、MAPF向けのBranch-and-Price-and-Cutを量子・古典ハイブリッド計算へ拡張し、QUBOを用いて制限付き整数計画問題を反復的に解くQUBO-and-PriceとQUBO-and-Cut-and-Priceを提案する。全候補経路と全衝突制約を一度に量子ビットへ対応させるのではなく、必要な経路と制約を段階的に追加する点が、従来の大規模なQUBO定式化との差分である。経路追加を停止できる価格付け基準をMAPFに適用可能な形へ一般化し、その最適性に関する証明を与えた。さらに、衝突グラフを用いてQUBOを疎にし、量子ハードウェア上で独立な部分問題へ分解できる設計を導入した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、各エージェントの初期経路を生成し、その一部だけを変数として制限付きマスタ問題を構成する。外側の反復では、現在の経路選択に含まれる頂点衝突や辺の交換衝突を検出し、違反した制約を追加する。内側の反復では、衝突制約の影響をラグランジュ緩和で評価し、削減コストが改善する新しい経路を探索して経路集合へ加える。制限付き問題の経路選択や新しい経路の探索をQUBOとして表し、量子アニーリングまたはシミュレーテッドアニーリングで解く。追加すべき経路がないことを価格付け基準で確認し、かつ選択経路に衝突がなくなった時点で終了する。QUBO-and-Priceは主に経路追加を反復し、QUBO-and-Cut-and-Priceは衝突制約の追加も反復する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>比較対象は、最適法のBCP、準最適法のEECBS、anytime法のLaCAM*とLNS2である。実験は標準的な複数のMAPF環境とシナリオで行い、総経路コストの平均と標準偏差、実行可能解の得られやすさを評価した。QPとQCPの初期経路は優先順位付き経路計画で生成し、エージェントの順序は特別な優先順位ヒューリスティックを使わずランダムに選んだ。制限付きマスタ問題の分枝限定解、D-Waveのシミュレーテッドアニーリング、D-Wave Advantage System 5.4の実量子アニーラを比較した。提示された抜粋では、時間制限、試行回数、各環境における総コストの具体的な数値は確認できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>理想的な断熱量子プロセッサが各QUBOを大域最適に解くなら、提案手法は最適なMAPF解を構成できる。実際のQUBOソルバーは近似解を返すため、特にQUBO-and-Cut-and-Priceについては、各段階のQUBOを最適に解く場合に限って最適な経路集合を生成する保証がある。制約を強く満たすためにペナルティ重みを大きくすると、QUBO係数のダイナミックレンジが広がり、スペクトルギャップが小さくなって解の品質やアニーリング効率を損なう。量子ビット数、接続性、ノイズの制約から実験規模は限定されており、ペナルティ重みの調整、大規模化、より多くの反復を実機で扱うことが今後の課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>道路容量の割り当て、倉庫管理、自律走行車の調整、都市上空を飛行するUAVの交通管理などでは、多数の主体の移動を同時に計画する必要がある。将来の都市型UAV配送では数千の飛行経路を扱う可能性があり、MAPFのスケーラビリティは実用上重要である。最適MAPFソルバーはNP困難性のため大規模化に弱く、実務では準最適法やanytime法が用いられることが多い。量子計算は組合せ最適化への応用が期待される一方、現行量子ハードウェアは計算能力、量子ビット数、接続性、誤り耐性に制約がある。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>経路ベース定式化で全エージェントの全候補経路を二値変数として扱うと、時間地平やエージェント数に応じて変数数が指数的に増える。衝突制約も多数になるため、これらをすべてQUBOへ組み込むと、現在の量子ハードウェアでは扱いにくい規模と密度になる。既存の反復的な経路追加手法には、最適な経路集合がそろったことを判定する理論的基準がないものがあり、補助変数やラグランジュ係数の調整も問題になる。本研究は、量子計算に適した制限付き問題を使いながら、経路と衝突制約の追加を最適性基準に基づいて進めることを課題とする。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>マスタ問題では、各エージェントがちょうど一つの経路を選び、頂点衝突と辺の交換衝突を禁止する。制限付きマスタ問題は、全候補の一部の経路と一部の衝突制約だけを含み、経路追加を価格付け問題、制約追加を分離問題として扱う。価格付けではラグランジュ緩和による削減コストを用いて新しい経路の価値を判定し、十分に改善する経路がなくなったかを確認する。この停止基準は古典的な列生成の条件を一般化したもので、QUBOが最適に解かれる場合に最適な経路集合の生成を支える。QUBOの制約表現としてSlack、Half、Conflictを比較し、Conflictでは衝突グラフの疎性を利用して独立部分問題へ分解する。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験では複数の標準MAPF環境を用い、QUBO-and-PriceとQUBO-and-Cut-and-PriceをBCP、EECBS、LaCAM*、LNS2と比較した。全ソルバーはIntel Xeon Silver 4216の単一CPUコアで実行されたが、抜粋では共通の最大実行時間の具体的な値は確認できない。初期経路は、エージェントを順次計画し、既に計画された経路の辺や頂点を避ける方法で生成した。価格付け反復には上限を設け、各反復のラグランジュパラメータは古典的な線形計画で計算した。量子部分では、制限付き整数計画を分枝限定法で解く場合と、D-Waveのシミュレーテッドアニーリングおよび実量子アニーラを比較した。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>抜粋の要約では、提案手法が従来のQUBO定式化および既存のMAPFソルバーより優れた結果を示したと報告されている。実量子ハードウェアでは、Conflict形式がHalf形式より疎で独立部分問題へ分解できるため、QPで実行可能解を得やすかった。QUBO-and-Priceは、QUBOソルバーが必ずしも最適でなくても、停止基準に必要な経路を生成する性質を持つと説明されている。QUBO-and-Cut-and-Priceでは、実機は一部の条件でHalf形式やSlack形式より多くの実行可能解を得たが、分離反復が少ない条件での観察であり、規模や制約数を増やすとSlack形式は解きにくくなる。環境ごとのコスト、平均、標準偏差、成功率の具体的数値は取得した本文では確認できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>本研究は、経路と衝突制約を必要に応じて追加するBranch-and-Price-and-Cutを、QUBOを利用する量子・古典ハイブリッドMAPFへ組み込んだ。全経路と全制約を一つの巨大なQUBOへ変換せず、量子ハードウェアが扱える制限付き問題を古典的な反復処理と組み合わせる構成である。理想的な量子計算では最適性を保証でき、実量子ハードウェアではQUBOの疎性と分解可能性が実行可能解の品質に影響した。著者らは、量子ハードウェアを意識したQUBO設計により、近い将来の量子デバイスでもMAPFへの利点が得られる可能性を示している。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>提示された本文は実験結果の数値や一部の方法詳細が欠落しており、ベンチマークごとの性能差、統計的有意性、実行時間、成功率を確認できない。実験は量子ビット容量とハードウェア接続性に制限され、多数エージェントやより大きな環境へのスケールアップは行われていない。実量子アニーラではノイズと接続制約のため、物理量子ビット数全体を有効利用できず、実用上は数百程度の論理量子ビットに制限される。QUBO-and-Cut-and-Priceの最適性保証は各QUBOを最適に解くことを前提とし、近似的な実機解に同じ保証があるとは限らない。初期経路の生成では高度な優先順位ヒューリスティックを使わず、ペナルティ重みの特別な調整も将来課題として残されている。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>考察に基づく本研究の重要性は、MAPF全体を一つの巨大なQUBOへ押し込むのではなく、古典的な列・行生成と小規模な量子最適化を組み合わせた点にある。最適性判定の理論と、衝突グラフの疎性や独立部分問題を利用するハードウェア対応設計を同時に扱っている。これは、現行量子デバイスの規模不足を前提に、組合せ最適化を量子計算へ段階的に分解して適用するための理論的・アルゴリズム的な基盤になる。ただし、現時点で大規模な実用MAPFへの優位性が数値によって十分に確認されたかは、取得した本文では判断できない。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>考察に基づく推奨対象は、MAPF、マルチエージェント経路計画、Branch-and-Price-and-Cut、列生成、衝突グラフに関心を持つ研究者である。量子アニーリングやQUBOを古典的最適化アルゴリズムと組み合わせる方法を研究する読者にも適している。特に、理論上の最適性保証と、量子ハードウェアの疎性、接続性、ノイズ、ペナルティ重みの影響を同時に検討したい場合に有用である。一方、数千エージェント規模の実用性能や詳細な数値比較を必要とする読者には、提示された抜粋だけでは十分な根拠がない。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-15
+  </footer>
+</div>
+</body>
+</html>

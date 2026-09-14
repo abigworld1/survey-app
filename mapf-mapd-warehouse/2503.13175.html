@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Prioritized Planning for Continuous-time Lifelong Multi - agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Prioritized Planning for Continuous-time Lifelong Multi - agent Pathfinding</h1>
+<p class="meta">連続時間・生涯マルチエージェント経路探索のための優先度付き計画</p>
+  <div class="meta">Alvin Combrink, Sabino Francesco Roselli, Martin Fabian<br>採択先: International Conference on Control, Decision and Information Technologies 2025 ・ 2025-06-02 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2503.13175" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2503.13175" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/CoDIT66093.2025.11321711" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 International Conference on Control, Decision and Information Technologies 2025</span><span class="chip">公開日 2025-06-02</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 2</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、連続時間で移動する体積エージェントが、時間とともに到着するタスクを衝突なく処理する生涯マルチエージェント経路探索を扱う。提案手法CPLPは、厳密最適性を目指さず、CCBS系とSIPP系の計画を組み合わせることで、計画時間に制約がある場合でも衝突回避を維持するオンライン計画を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、二次元空間内のグラフを移動する、同じ一定速度と同じ半径を持つ円形エージェントである。入力はグラフ、各エージェントの開始頂点、目標頂点と解放時刻を持つタスク集合、およびエージェントと開始頂点の対応であり、出力は各エージェントの移動行動と待機行動からなる時系列計画である。タスクは解放時刻以降に指定頂点へエージェントが到達すると完了し、エージェントの形状が重なる移動は衝突とみなされる。標準的なMAPFが離散時間、点エージェント、単位長の辺を仮定するのに対し、連続時間、体積エージェント、継続的なタスク到着を同時に扱うことが従来の困難である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>連続時間MAPFと生涯MAPFを、体積を持つエージェントのオンライン計画として統合的に扱った点が新規性である。論文は、この設定に対する高速で非最適な計画器としてContinuous-time Prioritized Lifelong Planner、略称CPLPを提案する。既存の連続時間計画と生涯型計画が個別に発展してきた状況に対し、動的タスク割当と衝突回避計画を一体化した。さらに、計画計算が設定された時間予算を超えた場合にも、既存計画を利用して衝突のない移動を維持する実用上の頑健性を示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>各エージェントの計画を空の状態から開始し、新しいタスクが入るたびに、既存計画の末尾へ将来の行動を追加する。既に計画された行動は削除せず、計画が現在の計画時点より前に終わるエージェントには、最後の頂点で待機する行動を追加する。未完了タスクに優先度を付け、最も優先度の高いタスクと担当エージェントについて、他のエージェントを移動させながら目標へ到達する計画を先に求める。この優先度付き計画にはCCBSを基礎とする経路計画を用い、残りのエージェントにはSIPPを基礎とする短い先読み計画を割り当てる。短い計画が通常の探索で得られない場合はエージェントの順序を無作為に変更して再探索し、必要な計画がまだ求められない場合は次に計画を要求すべき時刻を返す。円形エージェントの移動に関する辺と頂点、辺と辺の危険時間区間はグラフごとに事前計算し、オンライン時の幾何学的な衝突判定を軽減する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験はPython 3.11、Apple M1搭載の2020年MacBook Air、メモリ16GB、macOS Sequoia 15.3で実施された。二次元平面上に一様に生成した点から、ボロノイ領域の隣接関係を利用して辺を作り、追加の交差辺を加え、連結性を保つグラフを構成した。エージェント数とエージェントあたりの頂点数を変え、開始頂点を衝突しないように選び、有限の時間窓内でタスクをランダムに解放した。評価指標は、CPLP呼び出しごとの平均計算時間と最大計算時間、解放タスクに対する完了タスクの割合、グラフの事前計算時間である。取得した本文では、具体的な競合手法との数値比較は確認できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>計画をどの程度前倒しで呼び出すかは、計算時間の余裕と新しいタスクへの応答性のトレードオフを決める。前倒し時間を長くすると計画を完了しやすくなる一方、タスクの到着から対応開始までの遅延が増えるため、計算時間を観測して調整する必要がある。優先度付き計画が制限時間内に経路を見つけられない場合の無作為な順序変更は実験上機能したが、常に成功する保証はなく、実行不能な問題では再試行が無期限に続く可能性がある。CCBSの終了性や最適性に関するトレードオフは、CPLPに理論的保証を与える際の課題である。さらに、現在のタスク定義は一般的な集荷・配送を直接表現しておらず、複数地点を順に訪れる業務への拡張が今後の課題として残る。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、複数エージェントを開始位置から目標位置まで衝突なく移動させる計画問題である。標準設定では時間を離散化し、エージェントを点として扱い、すべてのエージェントが同期して移動する。連続時間MAPFでは辺の長さが異なり、エージェントは任意の実数時刻に移動でき、体積による衝突を考慮する必要がある。生涯MAPFでは、固定された一回限りの目標ではなく、実行中に新しいタスクが連続的に到着する。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>問題は、連結かつ有向のグラフ上で、各エージェントが一定速度で辺を直線的に移動しながら、解放時刻以降にすべてのタスクを完了する計画を求めることである。タスクは目標頂点と解放時刻を持ち、解放時刻になるまで計画器にはその情報が与えられない。計画は移動と待機の行動列で構成され、エージェント同士の形状が重なる時刻がないことが必要である。解の評価には単位時間あたりの完了タスク数が使われるが、オンライン運用では計画計算が次の行動開始までに終わることも重要になる。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>CPLPは全エージェントを毎回最初から再計画せず、既存計画の末尾を将来へ延長する。優先度の高いタスクを担当するエージェントには目標到達を目指す計画を与え、その他のエージェントには短い先読み計画を与えることで、計算量と継続的な移動の両立を図る。SIPPに基づく探索では、頂点や辺が障害物に占有される時間帯を避け、安全な時間区間を利用する。固定グラフと共通のエージェント半径・速度を仮定し、幾何学的な危険時間区間を事前計算する。既に計画されたエージェントの最終位置と後続の軌跡が交差しないよう、候補状態からそのような移動も除外する。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>グラフは二次元平面上のランダムな点、近隣関係、追加の交差辺から生成され、生成後も連結性が確保された。エージェントの開始位置は互いに衝突しないように選ばれ、半径と速度は実験中で共通に設定された。タスクは有限の解放時間窓内でランダムな頂点と時刻に生成され、エージェントあたりの解放率によって負荷を調整した。CPLPの呼び出しに関する前倒し時間、優先度付き計画の時間制限、短い計画の先読み時間を設定して複数条件を評価した。取得した抜粋では、これらの設定値の多く、実行したインスタンス数、個別条件ごとの完全な結果表は確認できない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>実験では最大800エージェント、最大12,000頂点のグラフまで扱われ、CPLPの最大計画時間は利用可能な時間予算を超えなかったと報告されている。計画呼び出しの前倒し時間を適切に選ぶことで、最大規模の条件でも計画を継続して生成できる実用性が示された。解放タスクに対する完了割合はおおむね高い水準にあり、試験した負荷より高いスループットを維持できる可能性が示唆された。グラフ事前計算時間は、評価した頂点数の範囲ではほぼ線形に見え、最大規模のグラフで平均約数分だった。正確な平均計算時間、最大計算時間、完了割合、タスク負荷の数値は、提供された抜粋では確認できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>CPLPは、連続時間、体積エージェント、生涯タスクという条件を同時に扱う、実用志向の非最適計画器である。CCBS系の到達計画とSIPP系の短い計画を役割分担させ、オンラインで計画を延長する。実験は、最大800エージェントと最大12,000頂点のグラフにおいて、計画時間が実用的な時間予算内に収まる場合があることを示した。計画計算が遅れた場合にも衝突のない既存移動を維持できる性質から、動的タスク割当を伴う自律移動への適用可能性が示されている。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>CPLPは高速性を重視した非最適手法であり、最適解やスループットの理論的保証は本文の抜粋では確認できない。無作為なエージェント順序変更は、経路が見つからない場合の一般的な解決を保証せず、実行不能なインスタンスでは無期限の再試行につながり得る。手法は、エージェントの形状と速度が共通であること、固定グラフの事前計算を再利用できることに依存する。集荷・配送のような複数地点の順序制約への適応、およびCCBSに依存しない理論保証の確立は未解決である。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究は、個別に研究されてきた連続時間MAPFと生涯MAPFを、体積エージェントのオンライン運用という統合条件で検討した点に意義がある。計画計算が時間予算を超えた場合にも衝突回避を維持する設計は、最適性より安全性と継続稼働を重視するシステムに適している。数百規模のエージェントと数千規模の頂点を対象に、スループットだけでなく計画時間を評価したことは、実時間システムの設計上有用である。ただし、実際の倉庫や車両群での導入効果は、取得した本文では確認できない。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>連続時間MAPF、体積エージェント、生涯タスク処理、優先度付き計画を研究する人に適している。特に、厳密最適性よりもオンライン計算時間、衝突回避、計画遅延への頑健性を重視する研究者や、SIPPとCCBSを組み合わせた拡張を検討する人に有用である。倉庫ロボットや自律車両群など、動的なタスク割当と連続的な安全移動を必要とする応用研究にも参考になる。厳密最適解、強い理論保証、集荷・配送の複雑な制約を主目的とする場合は、本論文だけでは不十分であり、追加の手法と評価が必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-15
+  </footer>
+</div>
+</body>
+</html>
