@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Empirical Hardness in Multi-Agent Pathfinding: Research Challenges and Opportunities | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Empirical Hardness in Multi-Agent Pathfinding: Research Challenges and Opportunities</h1>
+<p class="meta">マルチエージェント経路探索における経験的困難性：研究課題と機会</p>
+  <div class="meta">Jingyao Ren, Eric Ewing, T. K. Satish Kumar, Sven Koenig, Nora Ayanian<br>採択先: Proceedings of the 24th International Conference on Autonomous Agents and Multiagent Systems, 2025, Pages 2885-2889 ・ 2025-12-10 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2512.10078v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2512.10078v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip venue">採択先 Proceedings of the 24th International Conference on Autonomous Agents and Multiagent Systems, 2025, Pages 2885-2889</span><span class="chip">公開日 2025-12-10</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> MAPFは理論上NP困難であるが、実際の解きやすさはインスタンスごとに大きく異なる。本論文は、この差を理解して活用するため、アルゴリズム選択、困難性を生む特徴の解明、困難なインスタンスと多様なベンチマークの生成という三つの研究課題を整理する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>MAPFは、共有環境内で複数エージェントをそれぞれの開始位置から目標位置へ移動させ、エージェント間の衝突を避ける経路を求める問題である。入力は地図や障害物の配置、各エージェントの開始位置と目標位置であり、出力は全エージェントの衝突しない経路である。最適化対象として、全エージェントが目標へ到達するまでの時間や、個々の経路コストの合計が扱われる。最適MAPFは平面グラフや格子状環境でもNP困難だが、同じ規模やエージェント数のインスタンスでも実行時間には大きな差がある。従来研究は主にソルバやヒューリスティックの改良に重点を置いており、インスタンスごとの難しさやアルゴリズムの適性を説明する理解は不十分である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文は、MAPFの経験的困難性を独立した研究領域として整理し、三つの研究課題を体系的に提示する。第一に、インスタンスごとに最も適したアルゴリズムやパラメータ設定を選ぶ問題を、アルゴリズム選択・構成として位置づける。第二に、地図トポロジーやエージェント分布だけでなく、相転移、バックボーン、バックドアのような構造的概念を、MAPFの困難性を説明する候補として示す。第三に、困難性に関する知識を、難しいインスタンスや多様なベンチマークデータセットの生成へ結び付ける方向を示す。これらを通じて、理論的な計算量と個別インスタンスの実際の難しさの隔たりを埋める研究基盤を提案している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>本論文は新しいMAPFソルバの性能を実験的に競うものではなく、既存研究と例示的な観察を基に研究課題を分析する。アルゴリズム選択については、MAPFインスタンスを画像として表現し最速アルゴリズムを予測する方法、障害物密度や目標までの距離などの特徴量を用いる方法、手作業の特徴とグラフ表現を組み合わせる方法を整理する。さらに、同じソルバでもヒューリスティックの設定により性能が変わるため、インスタンスに応じて設定を調整するアルゴリズム構成を課題として扱う。困難性の説明では、地図の接続性、障害物配置、エージェント分布、開始位置と目標位置の対応、相転移、解に共通する構造や問題を容易にする部分構造を検討対象とする。生成については、エージェント間の衝突を促す報酬、接続性を制御する品質多様性、他の組合せ問題からの事例移送などを研究方向として示す。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>提示された本文では、対象論文が独自に提案した手法を大規模実験で検証した結果は確認できない。本文で示される観察は、複数のMAPFアルゴリズムについて、地図タイプごとに最速または制限時間内に完了したインスタンス数を比較するもの、同じ地図とエージェント数でも実行時間が異なる事例を比較するもの、同じ障害物数と開始・目標位置でも実行時間が異なる事例を比較するものから成る。経験的困難性の主な指標は実行時間であり、補助的な指標としてメモリ使用量、動的計画法の呼び出し回数、探索ノード展開数が挙げられる。既存研究の知見として、地図の媒介中心性、接続性の低さ、障害物密度、エージェントの疎密、目標までの距離などとの相関が紹介される。対象論文自身の具体的なインスタンス数、制限時間、ハードウェア条件、統計的有意性、改善率は取得した本文では確認できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>アルゴリズム選択では、予測の正確さだけでなく、インスタンスを表現するための計算コストや、選択を誤った場合の損失も考慮する必要がある。画像表現で開始位置と目標位置を匿名化すると、異なる対応関係を持つインスタンスを区別できない可能性があり、単一エージェントの最短経路を追加しても困難性を完全に表せる保証はない。手作業の特徴量は地図トポロジーなどを取りこぼす恐れがあり、既存の学習表現も問題の複雑さを十分に捉えられるとは限らない。相転移、バックボーン、バックドアについては、MAPF固有の形式的定義や、エージェント分布に依存しない理論が未確立である。難しい事例の生成では、特定のアルゴリズムには難しいが別のアルゴリズムには容易な事例や、現実的な分布と意図的に難化した分布の違いをどう扱うかが課題として残る。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、自動倉庫、無人航空機の軌道計画、群ロボット制御など、多数の自律エージェントを協調させる応用の基盤問題である。最悪時の計算量は問題の理論的な難しさを示すが、現実の地図やエージェント配置に対するソルバの挙動を十分には説明しない。SAT、巡回セールスマン問題、組合せオークションなどでは、問題特徴と実行困難性の関係を調べる経験的困難性研究が進められてきた。MAPFでも同様の視点を導入することで、ソルバ選択、性能予測、ベンチマーク設計を改善できる可能性がある。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>MAPFでは、エージェント数、障害物数、地図サイズが同じでも、地図の接続構造や開始・目標の割当てによって探索量と実行時間が大きく変化する。異なるアルゴリズムは異なるインスタンスで強みを持つため、全事例に対して一貫して最良のソルバを選ぶことはできない。必要なのは、実行困難性の差を生む特徴を説明し、未知のインスタンスに対するアルゴリズム選択や構成に結び付けることである。さらに、その知識を使って、性能評価に適した難しい事例や多様なベンチマークを体系的に作る方法も不足している。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>アルゴリズム選択では、地図、障害物、開始位置、目標位置などを画像として表現し、学習モデルで最速アルゴリズムを分類する方法がある。別の方法では、障害物密度、エージェントの疎密、目標までの距離などを特徴量として予測器に入力し、近年は手作業の特徴とグラフ表現も組み合わせる。アルゴリズム構成では、同じソルバのヒューリスティックやパラメータをインスタンスごとに調整する。困難性の分析では、地図トポロジー、エージェント分布、相転移、バックボーン、バックドアを候補要因として調べ、生成では衝突、接続性、構造的な閾値を利用する。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>対象論文の中心は、既存研究の整理と、既存アルゴリズムの実行時間差を示す例示的比較であり、独自の統一実験ではない。本文では、複数の地図タイプ上で複数アルゴリズムの最速事例数または制限時間内の完了事例数を比較する設定が示される。また、同一地図・同一エージェント数の事例、同一障害物数・同一開始目標位置の事例、同一ソルバで異なるヒューリスティック設定を用いた事例の実行時間差が扱われる。使用された具体的なインスタンス数、制限時間、計算機環境、完全な比較アルゴリズム一覧は取得した本文では確認できない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>主要な観察は、MAPFアルゴリズムの性能順位がインスタンスや地図タイプによって変わり、単一のアルゴリズムが常に最良ではないことである。同じ地図や同じ規模のインスタンスでも、実行時間が大きく異なる場合がある。既存研究の結果として、地図の媒介中心性や接続性が経験的困難性と関連し、接続性の低い地図では難しい事例が増え得ることが紹介される。SATではパラメータの変化に伴う容易・困難・容易の相転移が知られているが、MAPFで同じ現象が現れる閾値や、三つの研究課題による性能改善の具体的数値は取得した本文では確認できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>MAPFの実用的な計算困難性を理解するには、問題サイズや最悪計算量だけでなく、個々のインスタンスの構造を分析する必要がある。本論文は、インスタンスごとのアルゴリズム選択と構成、困難性を説明する構造的特徴の理論化、難しい事例と多様なベンチマークの生成を中核課題としてまとめる。これらの課題を進めることは、状況に適応するソルバの設計と、より厳密な性能評価に役立つ可能性がある。最終的な目標は、理論的なNP困難性と、実際のソルバが経験するインスタンス単位の難しさとの関係を明らかにすることである。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>取得した本文は研究課題と将来方向を中心とする展望的論文であり、提案された方向を検証する新規実験や統一データセットによる比較を含まない。相転移、バックボーン、バックドアのMAPF固有の定義は今後の課題として残されている。困難性が地図構造とエージェント分布のどちらにどの程度依存するかも一般化されていない。したがって、本文だけから特定の特徴が実行時間を因果的に決めることや、提示された生成法が既存ベンチマークより優れることは判断できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>MAPFでは平均性能だけでなく、どの状況でソルバが急激に遅くなったり制限時間内に解けなくなったりするかを把握することが、倉庫や群ロボットの信頼性に関係する。経験的困難性を体系化できれば、インスタンスに応じたソルバ選択、説明可能なヒューリスティック設計、偏りを抑えたベンチマーク作成につながる可能性がある。本論文の重要性は、個別アルゴリズムの改良とは異なる観点から、MAPFの評価方法と理論的理解を結び付ける未解決課題を明確にした点にある。これは本文が示す応用上の必要性と研究上の空白に基づく解釈である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>MAPFのソルバ選択、インスタンス表現、機械学習による性能予測、ヒューリスティック構成に関心がある研究者に適している。相転移、SATなどの組合せ問題との比較、バックボーンやバックドアの理論、品質多様性を用いたベンチマーク生成を研究する人にも有用である。特に、平均的な性能ではなく、インスタンスごとの難しさやアルゴリズムの得意不得意を分析したい大学院生や研究者に向く。一方、完成した新規アルゴリズム、再現可能な実験手順、具体的な数値ベンチマークを求める読者には、取得した本文だけでは情報が不足している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-16
+  </footer>
+</div>
+</body>
+</html>
