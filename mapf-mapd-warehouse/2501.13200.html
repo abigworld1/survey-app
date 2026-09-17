@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SRMT: Shared Memory for Multi-agent Lifelong Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>SRMT: Shared Memory for Multi-agent Lifelong Pathfinding</h1>
+<p class="meta">SRMT：マルチエージェント生涯経路探索のための共有メモリ</p>
+  <div class="meta">Alsu Sagirova, Yuri Kuratov, Mikhail Burtsev<br>採択先: 未取得 ・ 2026-08-24 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2501.13200" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2501.13200" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arXiv.2501.13200" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-08-24</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 11</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 部分観測下のマルチエージェント経路探索では、局所観測だけで衝突を避け、狭い通路で通行順を調整する必要がある。Shared Recurrent Memory Transformer（SRMT）は、各エージェントの再帰メモリを共有ワークスペースで参照可能にし、明示的なメッセージ設計なしで分散協調を学習する。交渉が必要なボトルネック課題では、特に疎な報酬条件で既存の通信型・メモリ型手法を上回った。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、部分観測マルチエージェント経路探索である。複数の同種エージェントが二次元グリッド上で、それぞれの開始地点から目標地点へ移動し、各時刻に停止または隣接セルへの移動を選択する。各エージェントは他のエージェントを局所的にしか観測できず、出力は各エージェントの行動列である。同じ時刻に同じセルを占有することや、同じ辺を同時に利用することは衝突とみなされる。従来は、通信メッセージの設計、通信帯域、他エージェントの意図推定、集中制御の規模拡大、配置時のエージェント数や環境変化への汎化が困難だった。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>SRMTは、エージェントが保持する学習済みの作業メモリ表現を共有グローバルワークスペースへ置き、他エージェントがそれを参照する構成を導入した。固定されたメッセージ空間やドメイン固有の通信内容を事前に設計せず、分散訓練と分散実行を維持したまま協調できる点が新規性である。従来のメモリ手法が履歴を主に個別保存するのに対し、SRMTは共有メモリをエージェント間協調の媒体として扱う。通信型、集中訓練型、私的メモリ型の方式を、学習された連続表現によって補完する位置付けを示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>各エージェントは、現在の局所観測、過去の観測履歴、自身の前時刻のメモリを入力として処理する。まず自己注意機構で個別の履歴と現在観測を統合し、次に交差注意機構で共有メモリから他エージェントの表現を取得する。得られた表現は、次時刻へ渡す再帰メモリの更新と、行動の選択および価値の推定に使われる。エージェント間ではネットワーク重みを共有し、アクター・クリティック構成を近接方策最適化で学習する。実行時には、各エージェントが局所観測と共有ワークスペースの情報から自律的に行動する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、POGEMAフレームワーク上のボトルネック課題、複数の生涯経路探索課題、古典的経路探索課題で行われた。比較対象には、集中訓練型のMAMBAとQPLEX、メモリ型のATM、RATE、RRNN、共有を行わないRMT、さらに集中型・分散型の経路計画手法が含まれる。ボトルネック課題では、目標方向への進行を評価する報酬、移動に負の報酬を与える設定、目標到達時だけ報酬を与える疎報酬を用い、複数の乱数種で評価した。本文で示された結果では、SRMTは方向報酬と疎報酬で完全な成功率を達成し、移動負報酬でも成功率は0.8、ISRは0.4だった。MAMBAとQPLEXは全報酬設定で成功率0であり、方向報酬ではSRMTの成功率1.0に対してRMTは0.7、移動負報酬ではRMTは0.3だった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>SRMTの評価は、同種エージェントが共有メモリを利用できることを前提としている。共有メモリは通信内容の人手設計を不要にする一方、512エージェント以上では必要なメモリ量が増加し、集団規模と資源使用量の間にトレードオフがある。本文の抜粋からは、通信遅延や通信欠損、異質なエージェント、実ロボット環境での性能は確認できない。未知の環境構造や訓練分布から大きく外れた条件での失敗条件も十分には特定されていない。今後は、より大規模な集団、通信制約、異質な能力や目標を持つエージェントを含む検証が必要である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、倉庫管理や群ロボット制御など、複数主体を同時に移動させる応用に関係する。集中型計画器は全体情報を利用できるが、エージェント数が増えた場合や集中制御を配置できない場合には適用しにくい。完全分散型では集中制御の負荷を避けられる一方、局所観測だけでは他者の意図を推定しにくく、協調に失敗して準最適な行動へ陥ることがある。集中訓練・分散実行はその中間に位置するが、配置時の集団規模や環境特性の変化に弱いことが課題とされている。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>中心的な問題は、各エージェントが全体状態を直接把握できないまま、衝突を避け、目標への進行を維持し、他者との行動順序を調整することである。特にボトルネックのような狭い通路では、どのエージェントが先に進み、どのエージェントが待機するかという暗黙の交渉が必要になる。途中報酬がない場合、目標への局所的な接近だけでは協調行動を学習しにくい。したがって、明示的な通信プロトコルや集中コントローラに依存せず、協調に必要な情報を継続的に共有する方法が求められる。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>SRMTが共有するのは自然言語や離散メッセージではなく、各エージェントが更新する連続的な再帰メモリ表現である。自己注意は個別の観測履歴と現在観測を統合し、交差注意は共有ワークスペースから意思決定に必要な情報を取り込む。最終表現から行動と価値を推定し、その表現の一部を次時刻のメモリとして保持する。共有なしのRMTを比較対象にすることで、単なる履歴保持ではなく、エージェント間のメモリ参照が協調に寄与するかを検討している。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験の中心は、狭い通路で複数エージェントの通行交渉を必要とする人工的なボトルネック環境である。さらに、迷路、MovingAI、パズル、ランダム、倉庫型を含むPOGEMA環境で、地図規模やエージェント数を変えた評価が行われた。比較対象は、集中訓練型の協調手法、個別メモリ型の手法、通信・協調型の手法、集中型および分散型の経路計画手法である。報告値は複数の乱数種に基づく平均で、95パーセント信頼区間を報告する方針が採用されている。SRMTの推論コストは共有メモリの有無で比較され、学習コストはボトルネック課題でMAMBAと比較された。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>ボトルネック課題では、SRMTは方向報酬と疎報酬で完全な成功率を示し、協調型および私的メモリ型の一部のベースラインを上回った。MAMBAとQPLEXは、本文で示された全報酬条件において成功率0だった。SRMTは、訓練時に見ていない、より長い通路にも一般化した。POGEMAでは、エージェント数と地図サイズの増加に対してスケールし、近年のMARL、ハイブリッド、計画ベース手法と競争的な性能を示した。共有メモリの追加は推論時間に大きな影響を与えず、推論時間はエージェント数に対してほぼ線形に増加した。ボトルネック課題で20Mステップを学習したSRMTは99分、MAMBAは200kステップで325分を要したが、最大学習メモリはSRMTが4131MB、MAMBAが2801MBだった。</p></section>
+<section class="secsum"><h3>結論</h3><p>共有された再帰メモリを備えたトランスフォーマーは、部分観測下の分散協調を学習する有力な構成として示された。SRMTは、報酬による協調の指示が弱い、または目標到達時だけ報酬が与えられる条件でも、エージェント間の情報交換と行動調整を実現した。ボトルネック課題では既存の通信型・メモリ型手法を上回り、異なる環境規模やエージェント数への一般化も示した。POGEMAでは、MARL、ハイブリッド、計画ベースの手法に対して競争的な性能を達成した。本文の結論は、この仕組みがMAPF以外の分散マルチエージェントシステムにも応用できる可能性を示している。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>取得した本文は抜粋であるため、各環境の全数値、信頼区間、学習曲線、モデルサイズ、ハイパーパラメータの詳細は確認できない。評価は主にPOGEMAとボトルネック課題に基づいており、実ロボット、通信遅延、通信欠損、安全制約を含む現実条件の結果は示されていない。共有メモリは大規模集団でメモリ消費が増えるため、性能と資源使用量の両立が課題になる。異質なエージェントや訓練分布から大きく外れた環境での失敗条件は、取得した本文では十分に特定されていない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究の重要性は、通信内容を人手で設計する方法と、全体を集中制御する方法の間に、学習された共有表現を用いる設計点を示したことにある。MAPFで必要となる混雑回避や狭い通路での交渉を、ドメイン固有のメッセージ規則やヒューリスティックに全面的に依存せず学習できる可能性がある。これは本文の実験結果と拡張性に関する主張に基づく解釈であり、実運用での有効性が確立したことを意味しない。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>部分観測MAPF、分散MARL、学習ベースの衝突回避、マルチエージェント通信を研究する読者に適している。特に、明示的なメッセージ設計を避けながら協調表現を学習したい研究者や、集中訓練・分散実行と分散型方式を比較したい研究者に有用である。共有メモリと個別メモリの差、疎報酬下の通行交渉、エージェント数増加時の計算資源を調べる実験の出発点にもなる。実ロボットへの導入を検討する場合は、通信障害、安全保証、リアルタイム制約について追加検証が必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-18
+  </footer>
+</div>
+</body>
+</html>

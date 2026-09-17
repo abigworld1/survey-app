@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-Group Pipe Routing under Permanent Geometric Occupancy: Problem, Benchmark, and Classical Baselines | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi-Group Pipe Routing under Permanent Geometric Occupancy: Problem, Benchmark, and Classical Baselines</h1>
+<p class="meta">恒久的な幾何占有下における多グループ配管経路計画：問題、ベンチマーク、古典的ベースライン</p>
+  <div class="meta">Deng Quan<br>採択先: 未取得 ・ 2026-08-27 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2608.28697" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2608.28697" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2608.28697" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-08-27</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、配置済みの配管が空間を恒久的に占有し、後続の配管がそれを回避する必要がある三次元の多グループ配管経路計画を定式化する。構成的に実行可能な証人を備えたベンチマークで比較した結果、幾何学的衝突に対して局所的に分岐するCBSが、特に難しいPlaneSlice条件でPBSと優先順位計画を大きく上回った。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、静的障害物を含む有界な三次元領域内で、複数グループの端子を中心軸や共有マニホールドへ接続する配管配置問題である。入力は三次元格子、静的障害物、グループ分けされた端子、配管半径、およびグループ内の接続トポロジーであり、出力は全接続要求を満たし、グループ間で幾何学的干渉を起こさない配管経路である。同一グループ内では、あらかじめ定めたトポロジーに従う共有や分岐が認められる。古典的MAPFのようにエージェントが移動後に空間を解放するのではなく、配置された配管が恒久的な障害物になるため、端子、障害物、配管間クリアランス、配置順序が組合せ的に絡み合う。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、恒久的な幾何占有、多端子グループ、グループ間の配管干渉を含む問題を定式化し、配管同士の幾何学的な衝突を、関係する経路への制約分岐によって扱える形に整理した。第二に、二種類の通路生成器と二種類の障害物生成器を組み合わせ、既知の実行可能な証人を付与した再現可能な三次元ベンチマークを構築した。第三に、CBS、PBS、優先順位計画をこの問題設定へ適応し、固定時間予算内の成功率を共通条件で比較した。新しい最適MAPFアルゴリズムや産業用CADシステムとの同等性を主張するのではなく、問題定義、評価スイート、古典的ベースラインを提供する点が本研究の新規性である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>設計領域を規則的な三次元格子へ離散化し、配管中心線の周囲を指定半径で膨張した管状占有領域として扱う。各グループでは、端子を結ぶ純粋なユークリッド最小全域木に基づく接続トポロジーを固定し、個々の接続要求を26近傍の格子探索で解く。CBSは幾何学的衝突を検出すると、衝突に関係する二つの経路のいずれかに負の制約を追加して分岐する。PBSはグループ間の優先関係を分岐・修正し、優先順位計画はグループの全順序を探索して、先に配置された配管を後続グループの硬い障害物として扱う。すべての経路が恒久占有を反映した複合格子上で計画され、制限時間内に全接続を構築できた場合を成功とする。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価対象は、AxisRayまたはPlaneSliceで通路を生成し、PillarFieldまたはCorridorRackで障害物を追加した四種類のデータセットである。各データセットにはeasy、middle、hardの難易度があり、生成された太い証人通路を侵食しないよう障害物を配置することで、少なくとも一つの実行可能な構成を保証している。全手法で純粋な最小全域木トポロジー、26近傍探索、マンハッタン距離を共有し、主指標を難易度ごとの固定壁時計予算内の成功率とした。補助的に、成功時の実行時間、時間に対する成功数の推移、タイムアウトと解なしの失敗理由、成功例の構成的な経路長を調べた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>問題の難しさは一様ではなく、AxisRayのeasyとmiddleでは三手法ともほぼ全件を解けるため、手法差を測る条件としては弱い。難しい条件では、先行配管を固定障害物とする優先順位型の探索が初期の順序に拘束されやすい一方、CBSは衝突箇所で局所的に選択肢を分けられる。PlaneSliceでの手法差は、PillarFieldとCorridorRackの違いよりも、通路配置とグループ数を含む問題構造に強く依存すると解釈されている。今後は、離散格子上の配置を製造可能な連続形状へ精密化し、より強力な幾何学的探索や製造制約と結合する必要がある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>積層造形では、従来の交差穴加工に依存せず、短く滑らかな自由形状の内部流路を設計できるため、圧力損失や部品サイズの低減が期待される。代表的な応用文脈として、複数の外部端子群が中心軸付近で接続される回転式ダイレクトドライブサーボバルブが挙げられている。しかし、多数の端子、構造障害物、グループ間クリアランスを同時に扱う必要があり、設計は三次元の組合せ的な経路計画になる。従来のMAPFにおける一時的なエージェント占有モデルは、配置後も残り続ける配管を直接表現できない。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>領域内にはハウジング、固定具、封止領域、中心軸の禁止領域などの静的障害物が存在し、端子は複数のグループに分割される。各グループの配管は中心軸へ向かう共有マニホールドや分岐を形成できるが、異なるグループの太い配管領域は交差も接触もできない。配置された配管はその後も空間を占有し続けるため、後続グループの経路は過去の経路選択と配置順序に依存する。したがって、単純な始点・終点間の探索ではなく、トポロジー、恒久占有、幾何学的クリアランス、グループ間の相互作用を同時に満たす必要がある。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>配管は中心線だけでなく、指定半径で膨張した管状近傍として格子上に占有される。衝突は、同一時刻の頂点衝突や辺衝突ではなく、二つの経路の恒久占有領域が重なることによって定義される。CBSは衝突に関係する二経路のどちらかを禁止する制約分岐を使うのに対し、PBSは優先関係の構造を探索する。優先順位計画はグループの全順序を探索するが、衝突ごとの二重分岐は行わない。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>ベンチマークは、AxisRayとPlaneSliceという通路生成器、およびPillarFieldとCorridorRackという障害物生成器の組合せで構成される。難易度はeasy、middle、hardに分けられ、各インスタンスには証人経路、障害物、端子などの情報が含まれる。CBS、PBS、PPを同じトポロジー固定条件と低位探索条件で実行し、難易度ごとの固定時間予算の下でバッチ成功率を測定した。ベンチマーク、実行スクリプト、結果要約は公開リポジトリで再現可能な形で提供されている。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>AxisRayのhardでは、CBSの成功率はPillarFieldで99%、CorridorRackで100%だったのに対し、PBSは81%と77%、PPは71%と64%だった。PlaneSliceのhardでは、CBSはPillarFieldで56%、CorridorRackで66%を達成したが、PBSは7%と11%、PPは両方とも0%だった。PlaneSliceのmiddleでも、PillarFieldではCBS、PBS、PPが98%、90%、75%、CorridorRackでは100%、96%、80%となり、難易度がhardになる前から差が現れた。成功時間の分析では、PlaneSlice hardのCBSは時間の経過とともに成功数を増やした一方、PBSは低い水準で頭打ちとなり、PPは成功に至らなかった。</p></section>
+<section class="secsum"><h3>結論</h3><p>恒久的な配管占有を伴う多グループ三次元経路計画は、時間発展する古典的MAPFとは異なる問題として扱う必要がある。本研究は、実行可能性証人を備えた四種類のデータセットと、CBS、PBS、PPを共通条件で評価するプロトコルを提示した。固定時間予算の実験では、幾何学的衝突に対する局所的な制約分岐を持つCBSが、通路構造が厳しい条件で最も高い成功率を示した。提示されたベンチマークと結果は、より高度な設計時プランナや製造を考慮した形状精密化を評価するための出発点である。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>インスタンスは合成された三次元格子であり、実際のB-rep形状、複数の配管半径、曲げ半径制限、支持構造、その他の製造可能性条件は評価していない。構成的な証人は生成器が実行可能な解を持つことを保証するが、証人の経路長や成功例の経路長は最適性の上界・下界を意味しない。比較対象はCBS、PBS、PPという三つのベースラインに限られ、商用CADルータ、連続形状最適化、産業規模の実部品との比較は本文で確認できない。実験は純粋な最小全域木トポロジーと一つの格子探索設定に固定されているため、トポロジー探索や異なる低位探索の影響は未検証である。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究は、MAPFの衝突回避という考え方を、エージェントが移動後に消える問題ではなく、配置物が残り続ける配管設計へ移す際の概念的な差を明確にしている。既知の実行可能性証人を備えたベンチマークにより、探索の失敗を問題自体の不可能性と混同せず、時間予算内の探索性能として比較できる。したがって、恒久占有、グループ構造、幾何学的衝突を含むMAPF系問題を再現可能な条件で研究する基盤として重要である。これは産業応用での直接的な性能保証ではなく、問題定義とベースライン評価の標準化に関する意義である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>三次元配管経路計画、積層造形向け流路設計、MAPFから静的な配置設計へのモデル移転を研究する人に適している。CBS、PBS、優先順位計画の探索特性を、恒久占有と複数端子グループの条件で比較したい研究者にも有用である。ベンチマーク生成、実行可能性証人、固定時間予算による成功率評価を設計したい人にも向いている。一方、連続幾何最適化、商用CADとの直接比較、製造制約を含む実用解を求める読者には、取得した本文では十分な検証を確認できない。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-18
+  </footer>
+</div>
+</body>
+</html>
