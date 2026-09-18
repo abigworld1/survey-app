@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi - Agent Pathfinding Under Team-Connected Communication Constraint via Adaptive Path Expansion and Dynamic Leading | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Multi - Agent Pathfinding Under Team-Connected Communication Constraint via Adaptive Path Expansion and Dynamic Leading</h1>
+<p class="meta">適応的経路拡張と動的リーディングによるチーム接続通信制約下のマルチエージェント経路探索</p>
+  <div class="meta">Hoang-Dung Bui, Erion Plaku, Gregoy J. Stein<br>採択先: 未取得 ・ 2026-02-03 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2501.02770" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2501.02770" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-02-03</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、全エージェントが移動中を通じて通信ネットワークとして接続され続けるチーム接続通信制約付きMAPFを扱う。適応的経路拡張と動的リーディングを組み合わせたAPEDLにより、障害物の多い環境で、従来手法が失敗しやすい配置にも対応する実用的な計画性能を示す。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、既知の障害物環境に配置された複数エージェントが、それぞれの初期位置から指定された目標位置へ移動するチーム接続通信制約付きMAPFである。各エージェントは障害物のない隣接領域へ移動し、目標に到達した後はその位置に停止する。最後のエージェントが目標に到達するまで、通信可能なエージェント間の関係がチーム全体を接続する必要があり、目標で停止したエージェントとの衝突や通信制約も判定対象となる。通信は、エージェント間のユークリッド距離が上限以内である場合、または障害物に遮られず互いを見通せる場合に成立する。初期配置と目標配置で近隣関係が変化すること、エージェントが近接するため衝突と通信制約が頻発すること、固定された計画順序やリーダーが障害物環境で停滞することが従来の困難である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>チーム接続通信制約を扱う二層型計画枠組みAPEDLを提案した点が新規性である。第一の差分は、経路を初期位置から目標まで一度に確定せず、複数段階で拡張・修正する適応的経路拡張を導入したことである。第二の差分は、経路拡張が進まないときにリーダーを再選択する動的リーディングを導入し、固定リーダーに依存する計画の停滞を緩和したことである。さらに、チーム通信木を用いて部分的に拡張された経路と、目標到達済みエージェントを含む通信関係を計画状態として管理する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>高位層はチーム通信木から拡張対象の状態を選び、既存の部分経路を利用しながらエージェントの経路を段階的に目標方向へ伸ばす。拡張が途中で停止した場合は、その状態を直ちに最終失敗として捨てず、別の状態や後続の拡張段階で計画を継続できるようにする。低位層は、衝突がなく通信制約を満たす単一エージェント経路を順次探索し、現在のリーダーによる拡張でチームが進めない場合には別のエージェントをリーダーとして選び直す。目標到達済みのエージェントも通信および衝突判定に残るため、後続エージェントの移動中もチーム通信木の維持に関与する。探索状態には、同じ状態ばかりが選ばれることを避けるためのペナルティが付与される。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価には、Random Forest、Office、Waves、Rings、Mazeという五種類の障害物環境を用い、合計12,000インスタンスを作成した。自由領域から構成したグラフはおよそ12,700頂点と51,000辺を含み、エージェントには上下左右と四つの斜め方向を含む八種類の移動行動を与えた。比較対象は、複合状態を用いる集中型手法、プラトーニング型リーダー・フォロワー法、通信制約向けに変更したOD-ID、PIBT、PBSであり、待機行動を含むAPEDLの変種も比較した。評価指標は成功率、実行時間、エージェントごとの移動距離で、限定通信範囲では通信距離15メートルを設定した。限定通信範囲では、APEDLは五環境を対象に最大25エージェントを扱い、ベースラインが繰り返し失敗する条件で90パーセントを超える成功率を示した。見通し通信について本文の抜粋は、OfficeとRingsで11から12エージェント、Random Forest、Waves、Mazeで4から6エージェントを扱えたと述べる一方、結論部では環境により3から10エージェント、または11から12エージェントを5秒以内に計画できたと報告している。各ベースラインの成功率、実行時間、移動距離の詳細な数値内訳は、取得した本文では確認できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>APEDLは完全性を持たず、妥当なチーム経路が存在しても計画に失敗しうる。低位層が最初に見つけた妥当な単一エージェント経路を貪欲に採用するため、チーム全体の解により長い経路や別の経路選択が必要な場合、その代替を十分に探索できないことがある。長く狭い通路や障害物の多い環境では、リーダーが目標へ向かうことで追従側との見通し通信を意図せず切断する場合がある。通信木の状態選択に通信コストや目標到達後の通信切断をより適切に反映するヒューリスティックは、計算量とのトレードオフを伴う。今後の課題として、完全性を持つ計画器、通信木の選択改善、連続行動空間と運動学的制約への拡張が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>災害時の物資配送や敵対的環境の監視では、複数ロボットが相互通信可能な状態を保つことが、環境変化への再計画やチームの頑健性に関係する。通常のMAPFでは主に衝突回避を扱うが、この問題では移動中の通信接続も同時に維持しなければならない。複合状態型探索は理論上適用できるものの、エージェント数の増加に伴う共同状態空間の指数的な増大が問題となる。優先順位型、リーダー・フォロワー型、衝突時に状態を結合する手法も、エージェント同士が近接し、初期配置と目標配置で近隣関係が変わる状況では難しくなる。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>入力は、エージェント集合、障害物を含む既知の地図、各エージェントの初期位置、各エージェントの目標位置である。出力は、各エージェントが初期位置から目標位置へ移動する時系列の経路であり、目標到達後はその位置に留まる。経路は障害物および他エージェントとの衝突を避け、最後のエージェントが目標に到達するまでチーム全体の通信接続を維持しなければならない。行動は隣接領域への離散的な移動として選ばれるが、移動時間、行動中の位置、エージェント間の通信判定は連続的に扱われる。目的は、これらの制約を満たす経路を求めながら、計画時間と移動距離を抑えることである。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>APEDLは、複数段階の経路拡張を管理する高位層と、動的にリーダーを切り替えながら単一エージェント経路を探索する低位層から構成される。高位層ではチーム通信木の状態を選択し、部分経路を再利用しながら経路を拡張または修正する。低位層では、候補経路が衝突回避と通信制約を同時に満たすかを確認し、現在のリーダーで進行できない場合に別のエージェントへ役割を移す。目標到達済みのエージェントも通信および衝突判定に含めるため、後続エージェントの経路計画に影響する。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>五種類の障害物環境で、限定通信範囲と見通し通信の二つの通信条件を評価した。比較には、集中型複合状態法、プラトーニング型リーダー・フォロワー法、通信制約に対応させたOD-ID、PIBT、PBSを用いた。APEDLについては待機行動を許す構成と許さない構成を比較し、エージェント数、実行時間、目標配置、環境の難しさによる性能変化も調べた。評価指標は成功率、実行時間、エージェントごとの移動距離である。限定通信範囲ではエージェント間距離15メートルを上限とし、見通し通信では障害物に遮られない視線を通信条件とした。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>限定通信範囲では、APEDLは五種類の環境を対象に最大25エージェントまで計画でき、ベースラインが失敗する条件でも90パーセントを超える成功率を示した。見通し通信では、本文の実験結果抜粋においてOfficeとRingsで11から12エージェント、Random Forest、Waves、Mazeで4から6エージェントの経路を計画できたとされる。結論部では、見通し通信下で環境に応じて3から10エージェント、または11から12エージェントを5秒以内に計画できたと整理されている。提示された抜粋からは、比較手法ごとの成功率、実行時間、移動距離の詳細な内訳や、待機行動の有無による差の数値は確認できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>論文は、チーム接続通信制約付きMAPFに対して、適応的経路拡張と動的リーディングを統合したAPEDLを提示した。適応的経路拡張は、初期配置と目標配置で通信近傍が異なる場合にも経路を一度に固定せず、複数段階で成長させる。動的リーディングは、固定リーダーが障害物や目標方向の不一致によって停滞する場合に、別のエージェントへ役割を移す。実験では、限定通信範囲と見通し通信の双方で、障害物の多い環境を対象に既存手法を上回る実用的な計画能力が報告された。ただし、成果は完全性を保証する解法ではなく、高速で実用的な計画を優先したものである。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>本文で明示された主要な限界は、APEDLが不完全であり、解が存在しても貪欲な低位層の経路選択によって失敗しうることである。特に、チーム全体の解に単一エージェントの最短経路とは異なる、より長い経路が必要な場合に失敗する可能性がある。通信木の状態選択に用いるヒューリスティックが通信コストや目標到達後の通信切断を十分に考慮できない場合もある。見通し通信では、長い通路、狭い通路、障害物の多い場所でリーダーと追従側の視線が切れやすい。連続行動や運動学的制約を持つ実ロボットへの直接的な適用性能は、取得した本文では確認できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究の重要性は、衝突回避だけでなく、移動中のチーム全体の通信接続を維持するMAPFを、実用的な計画時間で扱う設計を示した点にある。初期配置と目標配置で通信関係が変化する状況に対し、部分経路の段階的拡張とリーダー交代を組み合わせたことは、固定された計画順序に依存する手法を補完する。災害対応や協調監視のように通信維持が任務の継続性に関わる応用では、完全性よりも高速な実行可能解を重視する場合に有用と考えられる。この解釈は、本文がAPEDLを高速で実用的な計画器として位置づけていることに基づく。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>通信範囲または見通し通信を維持する必要があるマルチロボット経路計画、MAPF、MAPD、災害対応ロボット、協調監視の研究者に適している。特に、障害物環境でのチーム接続維持、動的なリーダー選択、部分経路の再利用を研究する読者に参考になる。完全性証明や厳密最適性を主目的とする場合は、APEDLが不完全である点に注意が必要である。連続時間の行動、速度・運動学的制約、実機での性能を重視する読者については、提示された本文が将来課題として扱っているため、追加検証が必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-19
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Polynomial-time Configuration Generator for Connected Unlabeled Multi - Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Polynomial-time Configuration Generator for Connected Unlabeled Multi - Agent Pathfinding</h1>
+<p class="meta">連結無標識マルチエージェント経路探索のための多項式時間構成生成器</p>
+  <div class="meta">Takahiro Suzuki, Keisuke Okumura<br>採択先: Proceedings of the International Conference on Automated Planning and Scheduling 2026 ・ 2026-03-10 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2510.19567" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2510.19567" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/icaps.v36i1.42842" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip venue">採択先 Proceedings of the International Conference on Automated Planning and Scheduling 2026</span><span class="chip">公開日 2026-03-10</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、互換可能なエージェント群が移動中も常に連結している必要がある連結無標識マルチエージェント経路探索を扱う。最適解を求める整数線形計画法は大規模問題で計算負荷が高いため、著者らは連結性を保ちながら目標へ進む次配置を生成する完全な規則ベース手法PULLを提案し、数百エージェント規模での実用性を評価した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、個体を区別しない複数エージェントが、連結グラフ上の初期頂点集合から同数の目標頂点集合へ移動する問題である。入力はグラフ、初期配置、目標配置であり、出力は各時刻における配置の系列である。各エージェントは隣接頂点または現在の頂点に留まることができ、頂点衝突と二つのエージェントが辺を交換する衝突を避けなければならない。さらに、全エージェントが占有する頂点から誘導される部分グラフを、計画の全時刻で連結に保つ必要がある。エージェントが無標識であるため、目標への割当ても経路計画と同時に決める必要があり、連結性を加えると、二次元の空グリッドでも完了時刻の最適化がNP困難になる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、連結性制約を含む連結無標識マルチエージェント経路探索を整数線形計画法へ帰着し、完了時刻が最適な計画を求める定式化を示した。第二に、現在配置と目標頂点集合から次の配置を生成する、完全だが必ずしも最適ではない手法PULLを提案した。PULLは連結性を維持しつつ目標方向へエージェントを進める軽量な構成生成器であり、従来の単純な方法より効率的な解を経験的に生成する。第三に、PULLが有限ステップで目標配置へ到達することと、二次元グリッドで一ステップをO(n^2)時間で処理できることを示した。ここでnはエージェント数である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>整数線形計画法では、各時刻にエージェントが各頂点を占有しているか、辺に沿って移動しているかを表す変数を用いる。初期配置と目標配置、隣接頂点への移動、頂点衝突の回避、交換衝突の回避を制約として表し、各時刻の占有頂点集合が連結になる条件を追加する。連結性は、各時刻に選んだ占有頂点を根として、他の占有頂点へ流量を届ける単一商品のフロー構造で表現する。無標識の計画から個体ごとの対応を復元するため、完全マッチングを用いる。PULLは現在配置と目標集合を受け取り、目標にまだ入っていないエージェントを目標方向へ進める経路を調べる。ある移動だけでは連結性が壊れる場合、別のエージェントを順に移動させて配置を連結に戻し、互いに交わらない複数の経路を利用できる場合はそれらをまとめて適用する。現在配置と目標配置が重なることで移動を妨げるエージェントがある場合は、拘束された部分を考慮した補助的な移動を行う。この一ステップ生成を初期配置から繰り返すことで、連結性と衝突回避を保ちながら目標へ到達する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価では、整数線形計画法による最適手法、PULL、目標方向へ単純にエージェントを移動させる方法を比較した。実験はPythonで実装され、Intel Core i9-13900H 2.6GHzと32GB RAMを備えたMini PCで実行された。地図にはMAPFベンチマーク由来の空の8×8地図、ランダムな32×32、48×48、64×64の地図、倉庫型地図が含まれ、ランダム地図の一部では障害物率を20パーセントとした。評価指標は実行時間、完了時刻、完了時刻を下界で割った値であり、平均値と四分位範囲を調べた。空の8×8地図では整数線形計画法が小規模問題を1秒以内に最適化できた一方、ランダムな32×32地図では規模の増加に伴って解を得られない事例と平均計算時間が増加した。PULLは整数線形計画法では扱えない数百エージェント規模のランダム問題を処理し、500エージェントの32×32地図では単純な方法に対して350パーセントの改善が報告された。エージェント密度が低い場合には完了時刻と下界の比が小さくなり、障害物率はPULLの実行時間に比較的小さい影響しか与えなかった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>PULLは有限時間で解を生成する完全性を持つが、完了時刻の最適性や一定の近似率は保証しない。本文では、PULLの理論上の完了時刻上界が達成可能なほど厳密である例に加え、最適解が2ステップでもPULLが大幅に長い計画を返す例が示されているが、抜粋では上界やその例の具体的な完了時刻は確認できない。整数線形計画法は最適解を求められる反面、変数と制約の増大により大規模問題やリアルタイム処理には不向きである。再帰的な実装やフロー型問題への帰着によるPULLの高速化は検討されたものの、連結性を効率的に扱うことが難しく、顕著な高速化には至っていない。PULLを構成生成器として探索型MAPF手法と組み合わせ、最終的に最適解へ収束させるanytime手法もあるが、大規模問題では改善効果がほとんどなく、より洗練された方式が今後の課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>複数ロボットの協調では、宇宙での共同作業、災害現場の探索、自律的な隊列走行、群ロボットの移動、プログラマブルマターなど、集団が分断されないことが重要になる。標準的なマルチエージェント経路探索は主に衝突回避を扱うため、個々のロボットが衝突しなくても集団全体が分離する状況を直接防げない。連結無標識マルチエージェント経路探索は、エージェントが互換可能である設定に、配置全体の幾何学的連結性を常時維持する制約を加えた問題である。無標識経路探索には多項式時間の最適解法が知られているが、連結性の追加によって問題の計算困難性と実装上の負担が増す。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>与えられた初期頂点集合と目標頂点集合について、各エージェントが隣接頂点へ移動しながら、頂点衝突と交換衝突を避け、全時刻で配置の連結性を維持する計画を求める。エージェントには固有の目標が指定されないため、どのエージェントをどの目標へ到達させるかも計画の一部となる。主な最適化対象は、初期配置から目標配置に至るまでの完了時刻である。連結性を伴う完了時刻最適化は、単純な二次元空グリッドでもNP困難であり、通常の無標識MAPF向け手法や標識付きMAPF向け手法をそのまま適用できない。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>連結性の表現には、各時刻に選ばれた占有頂点の一つを根とし、根から他の占有頂点へ流量を送る構造を用いる。PULLは幅優先探索により目標までの距離や目標方向の親頂点を調べ、深さ優先探索により切断点など連結性に関係する構造を扱う。二次元グリッドでは一ステップの計算量がエージェント数nに対してO(n^2)であり、目標までの距離は事前計算できる。基本原理は、少なくとも一部のエージェントを目標方向へ進め、連結性を壊す移動が必要な場合に別のエージェントの移動で支えることである。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験は、最適性を持つ整数線形計画法とPULLの実行時間比較、およびPULLと単純な構成生成方法の性能比較から成る。空の小規模グリッド、複数サイズのランダム地図、障害物を含むランダム地図、倉庫型地図を用い、エージェント数を変化させた。ランダム地図の一部では障害物率を20パーセントに固定し、実行時間、完了時刻、完了時刻と下界の比を測定した。抜粋では、全インスタンス数、各条件の反復回数、正確な制限時間、各条件の完全な数値表は確認できない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>整数線形計画法は空の8×8地図の小規模問題では1秒以内に最適解を得たが、ランダムな32×32地図ではエージェント数の増加に伴い失敗事例と平均計算時間が増加した。PULLは整数線形計画法では扱えない数百エージェント規模のランダム問題を高速に処理した。500エージェントの32×32地図では、単純な方法に対して350パーセントの改善が報告された。エージェント密度が低いほど完了時刻と下界の比は小さく、障害物率はPULLの実行時間に小さい影響しか与えなかった。PULLの最悪例では最適解との差が大きくなり得るが、抜粋ではその具体的な完了時刻は確認できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>連結無標識マルチエージェント経路探索では、衝突を避けるだけでなく、計画全体を通じてエージェント配置の連結性を維持する必要がある。著者らは、連結性を含む計画を整数線形計画法で最適化できることを示す一方、大規模問題では計算負荷が高くなることを確認した。PULLは最適性を犠牲にして、連結性を保つ次配置を多項式時間で生成し、数百エージェント規模の問題に適用できる実用的な代替手段を提供する。研究全体として、最適化を重視する手法と、規模拡張性を重視する手法の両方を提示している。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>PULLは完全性を持つが、完了時刻最適性や一定の近似率を保証しない。本文には、最適解が2ステップでもPULLが大幅に長い計画を返す敵対的な例があり、解の品質がインスタンス構造に依存する可能性がある。整数線形計画法は最適性を提供する反面、変数と制約の増大によって大規模地図や多数エージェントでは実用性が低下する。抜粋では、実機ロボットでの検証、異なる運動・通信モデルへの適用、完全な近似性能保証、すべての地図形状に対する包括的な評価は確認できない。anytime手法も大規模問題では改善効果がほとんどなく、実用的な最適化手法としては未解決の課題が残る。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究の重要性は、群ロボット応用で重要な集団の連結性を、無標識MAPFの計画制約として明示的に扱った点にある。最適解を表現する整数線形計画法と、大規模問題を対象にした軽量なPULLを同じ枠組みで示したことで、最適性と計算可能性の比較を行える。PULLが数百エージェント規模で動作した結果は、自己再構成、隊列移動、群ロボット探索など、分断を許容できない応用に向けた基礎的な可能性を示す。ただし、これは本文の問題設定とシミュレーション結果に基づく解釈であり、実環境での有効性が実証されたことを意味しない。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>連結性制約付きMAPF、無標識MAPF、群ロボットの自己再構成や隊列移動を研究する読者に適している。最適化モデルによって連結性を厳密に表現する方法と、完全性を保ちながら高速に配置を生成する規則ベース手法を比較したい場合に有用である。大規模グリッド上の計画生成、MAPFへの追加制約、構成生成器を利用したanytime探索を検討する研究者にも参考になる。実機性能や厳密な近似保証を必要とする読者は、本文で確認できない評価範囲を補う追加研究と併読すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-19
+  </footer>
+</div>
+</body>
+</html>
