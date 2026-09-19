@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>An Analysis of Constraint-Based Multi - Agent Pathfinding Algorithms | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>An Analysis of Constraint-Based Multi - Agent Pathfinding Algorithms</h1>
+<p class="meta">制約ベースのマルチエージェント経路探索アルゴリズムの分析</p>
+  <div class="meta">Hannah Lee, James D. Motes, Marco Morales, Nancy M. Amato<br>採択先: 未取得 ・ 2025-11-23 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2511.18604" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2511.18604" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2025-11-23</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、制約ベースのMAPFにおいて、保守的なモーション制約と積極的な優先度制約が探索の成功率、計画効率、解品質に与える影響を、CBSとCBSw/Pの比較によって分析する。エージェント数や表現解像度が増えると積極的制約はより多くの問題を解く傾向があり、両手法が解ける場合の解品質は保守的制約の方が良い傾向を示す。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、複数エージェントが環境障害物や他エージェントとの衝突を避けながら、それぞれの開始位置から目標位置まで移動する古典的なMAPFである。入力はエージェント集合、各エージェントの開始位置と目標位置、および有効な位置と移動関係を表す無向グラフであり、出力は全エージェントの衝突しない経路である。評価上の目的関数は、各エージェントが目標へ到達するまでの時間を合計した値である。エージェント数の増加に伴う状態空間の指数的拡大、経路間の衝突、狭い通路や開けた領域などの環境構造、表現解像度やトポロジーの違いが、効率的で完全な探索を困難にする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>制約ベース探索の制約を、競合を個別かつ保守的に解消するモーション制約と、優先順位によって探索をより積極的に絞り込む優先度制約に分類して比較した点が新規性である。高レベル探索を同じ最良優先探索に固定し、探索戦略の違いではなく制約定式化の違いに焦点を当てて、vanilla CBSとCBSw/Pの挙動を分析した。問題規模、解像度、環境トポロジー、完全性や計算効率への要求を考慮して制約方式を選ぶための初期判断指針を整理した。さらに、その観点をMAPFだけでなくMRMPの表現設計や手法選択にも関連付けた。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>分析では、CBSを保守的なモーション制約の代表、CBSw/Pを積極的な優先度制約の代表として扱う。CBSは検出した競合に関係するエージェントの動きを制約し、競合を系統的に解消しながら探索する。CBSw/Pはエージェント間の優先順位を利用して競合解消の方向を定め、同じ競合を繰り返し高レベルで展開する負荷を抑える。環境は、通常のグリッドに近い低解像度表現から、同じ空間範囲をより細かく分割したグリッド・ロードマップ表現まで構成し、4近傍移動とロボット形状を考慮した経路上の衝突判定を用いる。さらに、開けた領域や狭い連結部などのトポロジー特徴を、エージェント間の協調要求と制約方式の選択に結び付けて分析する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価では、複数の環境グループとランダム生成されたシナリオを用い、CBSとCBSw/Pを同一の高レベル探索条件で比較した。グリッド・ロードマップの解像度は1、2、4とし、エージェント数は4体ずつ増加させた。実行時間の評価では、15分以内に解けた問題インスタンス数を数え、シナリオ難易度の違いによる平均値の偏りを避けた。成功率は解けたシナリオ数を可能な総シナリオ数で割って求め、解品質は両手法が成功したシナリオに限定してCBSw/PとCBSの移動時間総和を比較した。提供された本文抜粋には、環境ごとの成功率、実行時間、コスト比を網羅した具体的な集計値は含まれていない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>積極的制約は、計算資源が限られる場合や完全性の保証が必須でない場合に、計画時間とスケーラビリティを優先できる。一方、協調要求が高く、解を見つけられることの保証が重要で、より長い計画時間を許容できる場合は、保守的制約が適する。本文では、両手法が成功した場合の解品質の差は通常大きくないため、選択では品質よりも計算効率と完全性のバランスを重視すべきだと論じている。結論はvanilla CBSとCBSw/P、固定された最良優先探索、指定された表現と評価手順に限定され、別の高レベル探索や現代的な改良を用いるとトレードオフが変わり得る。ノイズや不確実性、中心性以外のトポロジー特徴、最新手法との要因分離比較は今後の課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、組立、避難、編隊制御、位置推定、物体搬送など、多数の移動体を安全に協調させる応用を持つ。代表的な解法には、SATや制約充足問題への変換、移動規則に基づく手法、A*系探索、CBS系探索、局所近傍探索がある。MRMPでは確率的ロードマップや探索木のようなサンプリング表現も利用されるが、接続の疎密や人工的な接続によって、本来の環境トポロジーが見えにくくなる場合がある。狭い通路や開けた領域を明示しやすい表現として、障害物との距離に基づく分割や可視性に基づくグラフも挙げられている。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>制約ベースのMAPFでは、どの制約を追加するかが探索負荷、完全性、計画時間、解ける問題規模を左右する。保守的な制約は競合を体系的に扱って解の保証を保ちやすい一方、探索の計算負荷が増える。積極的な制約は競合の反復的な展開を抑えて高速化や大規模化に有利になり得るが、完全性とのトレードオフを伴う。環境トポロジー、エージェント数、表現解像度、要求される解の保証を同時に考慮して制約方式を選ぶための知見が必要である。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>グリッド・ロードマップ表現では、解像度を上げると同じ空間範囲内の頂点密度と状態数が増え、エージェントの位置や相互作用をより細かく表現できる。解像度1では通常のグリッドに近い移動と衝突判定になるが、高い解像度ではロードマップ上でロボット形状を考慮した衝突判定を行う。開放領域、狭い通路、重要な連結部などのトポロジー特徴は、エージェント間の協調要求と制約方式の有効性を変化させる。研究では環境のトポロジーを把握する指標として、頂点間の通過の中心性も利用している。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験は複数のベンチマーク環境をグループ化し、ランダム生成した異なる難易度のシナリオを用いて行われた。CBSとCBSw/Pの高レベル探索を最良優先探索に揃え、解像度1、2、4とエージェント数の増加を組み合わせた。評価には15分の制限時間、制限時間内に解けたインスタンス数、成功率、両手法が解けた場合の移動時間総和の比率を用いた。シナリオを平均化することで、特定の問題難易度だけに依存しない比較を試みた。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>エージェント数または表現解像度が増えるほど、積極的な優先度制約を使うCBSw/Pがより多くのインスタンスを解く傾向が確認された。大規模化した設定では、CBSw/Pが競合の反復的な展開を減らし、計画時間とスケーラビリティで有利になると整理されている。両手法が同じ問題を解けた場合には、保守的なモーション制約を使うCBSの方が移動時間総和の解品質で強い傾向を示した。協調要求が高い環境ではCBS、協調要求が比較的低い環境ではCBSw/Pが有利になりやすいという判断が示された。個別マップの成功率やコスト比の具体的数値は、取得した本文抜粋では確認できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>制約の選択は、エージェント数や解像度だけでなく、環境トポロジー、完全性の必要性、許容できる計算時間を併せて決めるべきである。本研究の判断指針は、MAPFおよびMRMPで制約方式を初期設定するための第一段階のヒューリスティックとして位置付けられている。普遍的に最適なMAPFアルゴリズムを設計するには、対象環境、問題規模、表現の粒度、解品質と効率のトレードオフを同時に考慮する必要がある。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>対象はvanilla CBSとCBSw/P、および固定した最良優先の高レベル探索に限定されている。最新の高レベル探索、ヒューリスティック、CBS改良版、その他の制約方式との影響分離は、取得した本文では十分に確認できない。トポロジーの特徴付けは主にグリッド・ロードマップと中心性に依存し、ノイズ、不確実性、複雑な高次元ロボットの運動制約は扱われていない。抜粋だけでは、各マップの具体的な数値結果、全シナリオ数、統計的有意性、失敗例の詳細は確認できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>MAPFの性能を単なるアルゴリズム名の比較ではなく、制約の性質、表現の粒度、環境トポロジー、完全性要求の組合せとして評価する点に意義がある。両制約方式の解品質差が通常大きくないという整理に基づき、実務上の選択軸を計画速度、スケーラビリティ、解の保証へ明確化できる。これは、MAPFソルバの初期設定やMRMP表現の設計方針を検討する際の補助的な判断材料になる。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>CBS系手法の選択、MAPFベンチマークの設計、グリッドやロードマップ表現の影響を検討する研究者に適している。MRMPで環境トポロジーと制約設計の関係を整理したい場合にも参考になる。対象外の手法や不確実な実環境へ直接一般化する際には、個別のロボット形状、運動学、探索戦略を用いた追加検証が必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-20
+  </footer>
+</div>
+</body>
+</html>

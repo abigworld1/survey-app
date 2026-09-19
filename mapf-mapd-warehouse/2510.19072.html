@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Local Guidance for Configuration-Based Multi - Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Local Guidance for Configuration-Based Multi - Agent Pathfinding</h1>
+<p class="meta">構成ベース多エージェント経路探索のための局所ガイダンス</p>
+  <div class="meta">Tomoki Arita, Keisuke Okumura<br>採択先: 未取得 ・ 2025-11-15 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2510.19072" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2510.19072" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2025-11-15</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、各エージェントの周辺で時空間的な混雑を推定する局所ガイダンスを導入し、構成ベースMAPFソルバーLaCAMの初期解品質を改善する。再計算による実行時間の増加を伴うが、グローバルガイダンスより低コストの解を得られる場合が多く、極端な条件では元のLaCAMに対して解コストを50%削減した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、離散時間で全エージェントが同期的に動作する古典的なワンショットMAPFである。入力はグラフ、エージェントごとの開始頂点と割り当てられた目標頂点であり、出力は各エージェントを目標へ移動させる有限長の衝突回避行動列である。各時刻にエージェントは現在頂点に留まるか隣接頂点へ移動できるが、同一頂点への同時滞在と、1ステップ中の頂点交換は禁止される。解品質は、各エージェントが目標に到達して停止するまでの時間を全エージェントについて合計したフロータイムで測る。最適解の計算は困難であり、高密度環境では衝突を避けるだけでなく、混雑した領域で発生する待機時間を抑える必要がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>従来のガイダンスが環境全体とエージェント全体を考慮するグローバル情報を主に用いていたのに対し、本研究は各エージェントの近傍で再計算する局所ガイダンスを提案する。局所的な時空間情報をLaCAMの構成生成時の選好に組み込み、特定の頂点や通路への過度な集中を抑える設計を示した。提案方式は、窓付きの分離型経路計画という既存のMAPF技術を利用し、オフラインのデータ収集を必要としない。局所ガイダンスはグローバルガイダンスと併用でき、構成ベース探索における初期解の改善が厳しい時間制限下の最終性能にもつながることを実証した。これにより、リアルタイム性を保ちながら混雑緩和を強化する新たな設計上の選択肢を示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LaCAMが構成を生成するたびに、現在の構成から目標構成へ向かう各エージェントの短い経路を、限定された時間窓の中で計画する。経路はエージェントごとに順番に生成し、目標への進行と他の経路との衝突数を辞書式に評価して、混雑の少ない候補を選ぶ。時間窓は通常5から20ステップ程度であり、得られた経路情報をLaCAMの次の構成生成に対する局所的な選好として利用する。直前のガイダンスを次の計画の初期値として再利用し、毎回すべての経路を最初から反復計画する負担を抑える。エージェント順序による計画上の不公平を緩和するための反復も用いるが、初期化によってこの反復を省略できる場合がある。狭い通路で位置交換が必要な状況では、既存の交換用選好を優先し、局所ガイダンスの項を使わない。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価にはMAPFベンチマークのランダムシナリオを用い、32種類のグリッドと五つのエージェント規模から合計644インスタンスを抽出した。抜粋には、各マップとエージェント数の設定について25例を用いて平均を計算したという記述もあり、全インスタンス数との対応関係は取得した本文だけでは完全には確認できない。比較対象は、ガイダンスなしのLaCAM、空間利用最適化に基づくグローバルガイダンスを使うLaCAM、局所ガイダンス、両者の併用、代表的な非最適MAPF法LNS2である。さらに、グローバルガイダンスと大規模近傍探索を組み合わせた高度なanytimeソルバーlacam3とも比較した。評価指標はフロータイム、フロータイムと下界の比、実行時間、制限時間内の解決成否であり、LaCAM系手法は全インスタンスを解決した一方、LNS2は少なくともden312dの一部条件で失敗した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>局所ガイダンスは構成生成のたびに周辺経路を再計算するため、事前計算型のグローバルガイダンスより実行時間のオーバーヘッドが大きい。本文では、多くの条件で追加時間が数秒程度に収まり、解コストの改善に見合うトレードオフだと解釈している。効果は地図構造、エージェント数、時間窓、衝突ペナルティに依存し、倉庫型マップではlacam3に対する優位性が一貫しない。より良い初期解と後段の解精密化に計算資源をどう配分するか、また局所情報だけで長距離の混雑をどこまで予測できるかは今後の課題である。本文は、LaCAM以外の手法やPIBTを基盤とする生涯MAPFへの応用可能性にも言及している。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFでは、最適解の計算困難性を背景に、数百エージェントを扱えるリアルタイムの非最適手法が発展してきた。PIBTやLaCAMは高密度環境でも高速に実行可能解を生成できるが、エージェントが特定の時空間領域に集中すると、多数のエージェントが待機し、フロータイムが悪化する。近年のガイダンス研究は、衝突のない経路を直接生成するのではなく、プランナが混雑を避けるよう候補の選好を補助する。これまでのガイダンスは、チーム全体と作業空間全体を考慮するグローバルな構成が中心だった。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>LaCAMは、エージェント数に対して指数的に増える後続構成を一度にすべて調べず、必要な構成を遅延生成することで大規模問題を高速に処理する。一方で、実行可能な解を素早く得る能力に比べ、得られる解は大きく非最適になりやすい。PIBTのような貪欲で局所的な選好も、状況によってはデッドロック、ライブロック、混雑を生む。本研究が扱う中心課題は、許容可能な計算負担でより良い初期解を生成することであり、最適解への後段の改善を高速化することではない。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>局所ガイダンスの経路計画には、時間を展開したグラフ上の空間時間Aスターを用い、動的な他経路との干渉を考慮する。コストは、目標への進行と他経路との衝突数を優先順位付きで扱う。窓幅を限定することで計算量を抑え、前回のガイダンスを初期値として再利用することで計画反復の負担を削減する。本文では、エージェント数、窓幅、グラフ規模、計画反復回数に依存するオーバーヘッドが生じると説明しているが、抜粋では計算量の具体的な式や全パラメータの数値を確認できない。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験はIntel Ultra 9 185Hを搭載したノートパソコンで実施されたが、メモリ容量は取得した本文では確認できない。評価対象には、empty、random、den312d、maze、ost、lak、Boston、Paris、warehouseなど、規模と構造の異なるグリッドが含まれる。エージェント数を複数段階に変化させ、通常の性能比較に加えて、制約の強いmaze環境で頂点利用の集中を調べ、warehouse環境で大規模スケーラビリティを評価した。衝突コストと時間窓の影響も調べ、lacam3とは初期解と時間制限後の最終解の傾向を比較した。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>maze-128-128-10の1,000エージェント条件では、LaCAMを基準にしたコスト改善率が、グローバルガイダンスで16.9%、局所ガイダンスで38.1%、両者の併用で38.4%だった。本文の総括では、最も極端な条件で局所ガイダンスが元のLaCAMに対して解コストを50%削減したと報告している。局所ガイダンスはグローバルガイダンスより実行時間を要したが、多くの条件で追加時間は数秒程度に収まった。局所ガイダンスは大規模問題でも有効で、lacam3との比較では倉庫型マップを除く多くの条件で初期解が優れ、最終解も同等または優位になる場合があった。</p></section>
+<section class="secsum"><h3>結論</h3><p>局所ガイダンスは、LaCAMの構成生成時に近傍の時空間混雑を考慮させることで、実行可能性を維持しながらフロータイムを改善した。再計算に伴う負担は無視できないが、得られる解品質の向上を考慮すれば実用的な交換条件と評価されている。窓付きの分離型計画に基づくため、既存のMAPFソルバーへ導入しやすい。特に、多くのエージェントが共有するボトルネックで待機が発生するリアルタイムMAPFにおいて、グローバル情報を補完する有望な方向性を示した。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>取得した本文は数値と結果の抜粋を含むが、全マップ、全エージェント規模、各条件の平均値や分散を完全には確認できない。評価は主としてベンチマーク上のワンショットMAPFであり、実世界のセンサ不確実性、オンラインでのエージェント到着、動的障害物に対する検証は本文抜粋では確認できない。局所ガイダンスは構成生成ごとの再計算を必要とするため、計算資源が限られる環境やさらに大規模な問題では時間負担が問題になり得る。倉庫型マップではlacam3に対する優位性が一貫せず、窓幅や衝突コストの一般的な最適設定も本文からは確定できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究の重要性は、リアルタイムMAPFで別々に扱われがちだった高速な実行可能解生成と、混雑を避けた良質な初期解を、局所的な追加情報で同時に改善しようとした点にある。全体計画を大幅に作り直すのではなく、各エージェント周辺の短い経路を再計画するため、既存の構成ベースソルバーへ組み込みやすい。狭い通路や共有ボトルネックを持つ搬送・倉庫環境では、衝突回避だけでなく待機時間の削減が重要であり、設計上の実践的な示唆を与える。ただし、この重要性の評価は本文で報告されたベンチマーク結果に基づくもので、実運用での汎用性は追加検証を要する。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>MAPF、構成ベース探索、LaCAM、PIBT、リアルタイム非最適経路計画を研究する読者に適している。グローバルガイダンスと局所ガイダンスの違い、窓付き単一エージェント計画による混雑緩和、初期解品質と時間制限下の最終性能の関係を調べたい場合に有用である。搬送ロボットや倉庫内エージェントのように、狭い通路での待機や集中が主要なボトルネックとなる応用にも参考になる。一方、最適性保証、完全なオンラインMAPF、実世界のセンサ不確実性を主題とする読者には、取得した本文だけでは十分な評価材料がないため、関連研究との併読が必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-20
+  </footer>
+</div>
+</body>
+</html>
