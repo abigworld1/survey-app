@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Efficient Multi-Agent Coordination via Dynamic Joint-State Graph Construction | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Efficient Multi-Agent Coordination via Dynamic Joint-State Graph Construction</h1>
+<p class="meta">動的な合同状態グラフ構築による効率的なマルチエージェント協調</p>
+  <div class="meta">Yanlin Zhou, Manshi Limbu, Xuesu Xiao<br>採択先: 未取得 ・ 2025-09-08 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2509.07234" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2509.07234" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arXiv.2509.07234" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2025-09-08</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、危険な辺を通過するロボットを別のロボットが支援し、チーム全体の移動コストを下げる協調型経路計画問題を扱う。問題のNP困難性を示した上で、同質ロボットの冗長な状態を削減するDynamic-HJSGを提案し、従来の合同状態グラフ法や全探索法より高い実行効率と完了率を示した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、同質な複数ロボットが無向グラフ上の始点から目標ノードへ移動するTeam Coordination on Graphs with Risky Edgesである。各辺には移動コストがあり、一部の危険辺では、別のロボットが対応する支援ノードに位置して支援することで、受援ロボットの通過コストが低下する。入力はグラフ、辺のコスト、危険辺と支援ノードの関係、各ロボットの始点と目標であり、出力は移動と協調の時系列計画である。各時刻にロボットは移動または待機でき、協調には一組の受援ロボットと支援ロボットだけが参加する。全ロボットを目標へ到達させる総コストを最小化する必要があり、ロボット数の増加による組合せ爆発と、協調の順序に依存して変化するコストが主要な困難になる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究は、ロボット対、支援対、協調の時間順序を対応付ける遷移依存3次元マッチングとして、TCGREを体系的に定式化する。Minimum 3D Matchingからの帰着により、この問題がNP困難であることを示す。先行研究で提案された合同状態グラフ、協調割当の全探索、有限ホライズン計画という三系統の方法を、3次元マッチングを二つの2次元マッチングへ分解する見方から整理する。さらに、同質ロボットの対称性を利用して冗長な合同状態を除き、動的に必要な状態だけを構築するDynamic-HJSGを提案する。本文では、重要な場合に状態数と計算量の増加を指数的挙動から多項式的挙動へ抑えつつ、最適性を維持できることを理論的に論じている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、危険辺の端点や支援ノードなど、協調に関係する重要ノードを残し、それ以外の中間経路を簡約する。重要ノード間の移動は、元のグラフでの最短経路コストを持つ超辺として表す。ある合同状態から次の状態へのコストは、危険辺を移動するロボット群と支援ノードに留まるロボット群の間に二部グラフを作り、同時に成立する支援割当の最小コストをマッチングで求めて計算する。探索では、全ての合同状態を事前に列挙せず、現在状態から到達可能な限定された近傍を必要に応じて生成する。ロボットが目標へ到達した場合は、残りのロボットに関係する状態へ探索対象を段階的に縮小し、全体の目標状態が確定した時点で最短経路探索を終了する。この局所遷移の十分性と支援効果のペア単位の独立性を利用することで、動的な状態生成でも最適な協調計画を保持する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価対象は、ノード数が6、9、12、15のグラフで、ランダムグラフ、完全格子、ボロノイ型グラフを含む。危険辺の割合は20パーセント、各危険辺に対応する支援ノード数は1、ロボット数は2から6に固定された範囲で変化させ、各設定を異なる3種類のランダム生成グラフで実行した。Mac M1上で実験し、実行時間が60秒を超えた試行は打ち切った。Dynamic-HJSG、同質性を利用した改良版全探索法、元の合同状態グラフ法、元の協調全探索法を、完了率、成功時平均実行時間、制限時間内の完了率、完了確率、中央値などで比較した。成功試行の完了率と平均時間は、Dynamic-HJSGが98パーセントと120ミリ秒、改良版全探索法が85パーセントと450ミリ秒、元の合同状態グラフ法が65パーセントと1.2秒、元の全探索法が40パーセントと3.8秒だった。別の集計では、30秒以内の完了率は順に92、75、40、25パーセント、60秒以内では98、85、65、40パーセントであり、完了確率分析で示されたDynamic-HJSGの中央値は8.2秒だった。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>最適性の維持は、局所的な合同状態遷移が将来の最適解に必要な協調を十分に表現できること、また協調による利得がロボット対ごとに扱えることに依存する。同質ロボットを前提とするため、速度、移動コスト、支援能力などがロボットごとに異なる場合、対称性に基づく状態削減や最適性の議論をそのまま適用できるとは限らない。支援ノードや協調候補が増えるとマッチングと状態生成の負荷が大きくなり、グラフ構造によってはDynamic-HJSGも高コストになり得る。実験は小規模なグラフ、固定された危険辺割合、単一支援ノード、最大6ロボットに限定されており、現実的な大規模環境への一般化は本文抜粋だけでは確認できない。RHOCA*はロボットがグラフ上に分散した場合に性能が悪いとして評価から除外されているため、全ての関連手法を同一条件で比較した結果ではない。通信遅延、故障、動的障害物、不確実な移動時間、異質性、詳細な衝突制約との統合は今後の課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、共有空間上で複数エージェントを衝突させずに始点から目標へ移動させる問題であり、倉庫ロボット、ドローン群、公共交通の計画などに応用される。従来のMAPFでは衝突回避が中心だが、実際のチーム作業では、あるエージェントが別のエージェントを支援してチーム全体の性能を高める協調も重要になる。危険な経路を他のロボットの支援で安く通過する状況は、単純な衝突禁止だけでは十分に表現できない。既存の最適MAPF手法は一般にエージェント数に対して指数的な計算量を持つため、協調行動を追加すると探索空間はさらに拡大する。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>グラフのノードはロボットが滞在できる場所、辺は移動可能な接続を表し、辺ごとに長さ、交通量、障害物などに応じたコストが設定される。危険辺では、受援ロボットが通過する際に支援ロボットが対応する支援ノードにいれば、通過コストが低下する。各時刻に各ロボットは高々一つの協調行動に参加し、一つの協調行動には一組のロボットだけが関与する。始点と目標、隣接ノードへの移動または待機、不要な停止の禁止を満たしながら、全ロボットと全時刻のコストを最小化する。協調候補とその実行順序が相互依存するため、ロボットごとに単独最短路を求めるだけでは解決できない。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>TCGREは、ロボット対、支援対、協調の時間順序という三要素を選ぶ遷移依存3次元マッチングとして解釈できる。危険辺と支援ノードに関係しない移動を超辺へ集約することで、協調に本質的な部分だけを合同状態探索に残す。合同辺のコストは、現在位置と次位置が与えられたロボット群について、支援可能なロボットと危険辺を移動するロボットの二部マッチングを解くことで求める。Dynamic-HJSGでは、状態を静的に全列挙する代わりに、探索で必要になった近傍を動的に生成し、目標へ到達したロボットに応じて目標状態を更新する。本文では、これにより完全な合同状態グラフより計算負荷を抑えられ、疎な環境や目標指向のナビゲーションでは訪問状態数が実質的に多項式的になり得ると説明している。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験では、グラフの規模と構造、ロボット数を変えながら、ランダム、完全格子、ボロノイ型という異なる環境を用いた。危険辺の割合と支援ノード数は固定し、協調候補数が増えた場合の全探索法の悪化を避ける設定が採用された。元の合同状態グラフ法は簡約グラフ、動的状態生成、限定近傍、段階的な目標確定を使わない構成として比較された。同質性を利用した全探索法は、経路コストを事前計算して各探索反復の計算を減らす改良版として評価された。RHOCA*は、ロボットが分散した配置で性能が悪いという理由から、この比較には含まれていない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>Dynamic-HJSGは、チーム規模が増えた場合でも、比較された手法の中で完了率が最も高く、成功試行の平均実行時間も最短だった。改良版全探索法は元の全探索法より改善したが、ロボット数が増えるとタイムアウトが増加した。元の合同状態グラフ法と元の全探索法では、ロボット数の増加に伴って実行時間とタイムアウト率が大きく悪化した。完了確率の分析でも、Dynamic-HJSGは時間制限内に解を返す信頼性が比較的高く、従来法は特に大きなチームで不安定になった。したがって、提示された条件では、動的な状態削減と同質性の利用が探索のスケーラビリティに有効だったと解釈できる。</p></section>
+<section class="secsum"><h3>結論</h3><p>本研究は、支援によって危険辺の移動コストを下げるチーム協調問題を遷移依存3次元マッチングとして分析し、そのNP困難性を示した。Dynamic-HJSGは、簡約グラフ、局所的な合同状態遷移、二部マッチング、段階的な目標確定を組み合わせ、最適性を保った探索の効率化を目指す。実験結果は、提示された小規模なグラフと同質ロボットの条件で、動的な合同状態構築が既存の合同状態グラフ法や全探索法より高い完了率と短い実行時間につながることを示した。著者らは、この考え方をMAPFの協調的な後処理や、抽象化された大規模計画の完全な解法へ統合できる可能性があると位置付けている。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>本文で確認できる限界は、ロボットが同質であること、協調が一組の受援・支援ロボットに限定されること、危険辺の割合と支援ノード数を固定していることである。評価されたグラフとロボット数は限定的で、各条件の生成グラフ数も少ないため、より大規模または実環境における一般化は十分に確認できない。RHOCA*が評価対象から外れているため、比較結果には手法選択による範囲の制約がある。本文抜粋では、通信失敗、ロボット故障、動的障害物、異質な移動性能、現実的な衝突や通信制約の影響は確認できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究の重要性は、MAPFを衝突回避だけでなく、支援によって移動コストを下げる協調最適化として扱う枠組みを示した点にある。NP困難性を明確にした上で、最適性を維持しながら同質エージェントの冗長な状態を削減する設計は、協調型MAPFや群ロボット計画の探索空間を分析する基盤になる。特に、3次元マッチングの構造を合同状態グラフと動的な状態生成へ結び付けた点は、危険辺、混雑、時間制約などの協調効果を扱う研究に応用可能な示唆を与える。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>MAPF、マルチロボット経路計画、協調探索、合同状態グラフ、組合せ最適化を研究する読者に適している。特に、衝突回避に加えて、支援、危険経路のコスト低減、混雑緩和などの協調効果をモデル化したい研究者に有用である。3次元マッチングによる問題分析、最適性を保つ状態圧縮、同質エージェントの対称性利用に関心がある場合に推奨できる。実運用へ直接適用する前には、異質ロボット、通信制約、故障、動的環境、より大規模なグラフで追加検証する必要がある。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-21
+  </footer>
+</div>
+</body>
+</html>
