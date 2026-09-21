@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>LF: Online Multi-Robot Path Planning Meets Optimal Trajectory Control | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>LF: Online Multi-Robot Path Planning Meets Optimal Trajectory Control</h1>
+<p class="meta">LF：オンライン多ロボット経路計画と最適軌道制御の融合</p>
+  <div class="meta">Ajay Shankar, Keisuke Okumura, Amanda Prorok<br>採択先: 未取得 ・ 2025-07-15 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2507.11464" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2507.11464" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2025-07-15</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> LFは、全ロボットの長期的な協調を担う高速な集中型MAPFと、各ロボットの動力学を考慮した最適軌道制御を、高頻度かつ非同期に連携させる枠組みである。LaCAMとFreyjaを組み合わせ、動的障害物や運用中の目標更新に対応しながら、最大32台のシミュレーションと15台の実マルチロータ実験で継続的なナビゲーションを実証した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、環境の地図とロボット状態を取得できるホロノミックなロボット群である。各ロボットは外部のタスク割当者から目的地を受け取り、運用中に目的地が同期的、非同期的、または断続的に更新される。入力は環境情報、現在のロボット状態、各ロボットの目標位置であり、出力は目的地へ向かう経路と、その経路を実行するためのロボット制御である。課題は、衝突、デッドロック、ライブロックを避けながら、長期的なチーム協調、迅速な応答、個々の機体に適合した運動を同時に実現することである。連続空間で全ロボットを結合して計画すると計算負荷が大きく、分離型の手法では短期的な効率と引き換えに、将来の混雑や行き止まりをチーム全体で避けにくい。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>新規性は、離散的で結合されたチームレベルのMAPFと、連続的で分離されたロボット単位の最適軌道制御を、一つのオンライン制御枠組みとして統合した点にある。従来のオフライン軌道計画は動的環境や運用中の目標変更に対応しにくく、短い計画地平線を持つ閉ループ手法は長期的な協調を十分に扱いにくかった。LFは、長い地平線で全体を協調させる集中型計画と、個別ロボットを実時間で追従させる制御を両立する設計を提示する。実装ではLaCAMとFreyjaを用いるが、この階層構造は他の十分に高速なMAPFソルバや軌道制御器にも置き換え可能とされている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LFは、現在のシステム状態と目標位置を参照し、高位の協調計画と低位の軌道制御を非同期に繰り返す。高位側ではLaCAMが、離散化した幾何グラフ上で全ロボットの経路を集中探索し、ウェイポイント列を生成する。LaCAMは後続状態を一括列挙せず、制約を満たす候補を順番に遅延生成することで探索負荷を抑え、まず実行可能な解を得た後に時間の許す範囲で解を改善する。低位側ではFreyjaが最新のウェイポイント列を連続軌道として処理し、状態推定、軌道追従、機体通信を通じて各ロボットを独立に制御する。マルチロータでは位置だけでなく速度と加速度を伴う軌道上の参照点を補間し、線形化された制御量を推力と姿勢を含む非線形な操作へ変換する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、M3 Max搭載Apple MacBook上の計算と、モーションキャプチャ環境での実機実験を組み合わせて行われた。主な実機対象はオフ・ザ・シェルフのマルチロータであり、比較には集中型だがロボットごとに分離して最適化するAMSwarmを用いた。評価対象は、意図した軌道と実軌道の追従誤差、制限時間内の実行可能解の発見、計画解の改善、動的環境での継続運用である。比較シナリオには5台のエージェントと5個の障害物が含まれ、別の実験では4個の移動障害物と10台のマルチロータを扱った。さらに、歩行者が作業空間を通過する中で15台の実マルチロータを運用した。追従誤差の平均値や分散、計画周期、実験時間、RAM容量、モーションキャプチャ領域の具体的数値は、取得した本文抜粋では確認できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>LFは、MAPF側で単一積分器に近い動力学表現を用いるため、急激な姿勢変化や高い加速度を必要とする俊敏な運動を十分に計画できない。計画器と制御器で速度や加速度の形状を直接扱わないことは、長期協調とスケーラビリティを得る一方、運動の滑らかさや俊敏性を制限する。速度・加速度を状態空間に追加すれば機体への適合性は高まるが、探索空間が拡大し、計画速度と扱えるロボット数を損なう可能性がある。また、集中型の結合計画は完全な環境知識を必要とするため、部分観測環境への適用は未解決であり、今後はデータ駆動手法を含む対応が課題となる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>多ロボット運用では、目的地への到達だけでなく、混雑した空間で衝突、停止、デッドロック、ライブロックを避け、目標変更や人の移動にも反応する必要がある。連続状態で全ロボットを同時に最適化する方法は、結合された状態空間の大きさによって計算負荷が高い。一方、局所観測や通信に基づく分離・分散型手法は短期的な協調には有効だが、チーム全体の長期的な混雑回避を扱いにくい。MAPFは離散表現で多数のエージェントを扱うための有力な計画基盤だが、実ロボットの低位軌道制御との統合には技術的な隔たりがあった。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>研究対象は、各ロボットが個別の目的地へ移動し続ける点対点ナビゲーションであり、任務中に目的地が更新される長寿命の運用も含む。全ロボットの経路には、密集状況での衝突回避だけでなく、将来の混雑や行き止まりを避ける長期的な協調が求められる。同時に、実際のロボットは計画された経路を動力学に従って追従する必要があり、計画と制御を単一の連続最適化問題として扱うと計算量が増大する。反対に、単純な分離型制御だけでは、全体としての協調を十分に維持できない。この表現の差を、オンラインで実用的に接続することが中心的な問題である。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>LaCAMは、全エージェントの組合せ状態を探索する際、候補となる後続状態を遅延生成し、生成順序に制約を設けることで探索負荷を削減する。初期の実行可能解を得た後、残り時間で解を改善する anytime 型の運用により、継続的な再計画に対応する。Freyjaは、状態推定、指定軌道に対する状態調整、機体通信を担う制御スタックであり、マルチロータではカルマンフィルタとフィードフォワード線形化を用いる。制約が多い場合には、二次計画法ソルバと接続したモデル予測制御も利用できる。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験には、全ロボットが目標へ到達するたびに新しい目標を与える同期的な反復ミッションが含まれる。再計画は、同期または非同期、固定周期、あるいは目標割当、追従状況、障害物検出を契機とするイベント駆動で実行できる。5台のエージェントと5個の障害物を含む比較では、少数のロボットだけが回避すればよい状況と、複数ロボットの強い協調が必要な状況を扱った。別の試験では、位置がゆっくり変化する4個の障害物の中で10台を運用し、各目標を2次元円内からランダムに選んだ。地上ロボットでは、手動操作されるロボットを4台が円形に追従し、静的障害物と相互衝突を避けた。最後に、15台のマルチロータへランダムな目標を連続的に与え、歩行者が群れの中を通過する条件を試験した。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>LFは、本文の記述上、衝突、デッドロック、ライブロックのない実行可能な経路を生成し、動的障害物によって現在の計画を全面的に変更する場合にも再計画を継続した。オンライン再計画を用いた場合、単一回だけ計画して実行する方式と比べ、頻繁な高位計画更新にもかかわらず追従性能がわずかに改善した。複数ロボットの協調が強く必要な比較シナリオでは、LFはすべてのケースで成功した一方、AMSwarmは分離最適化のため実行不能な局所解に陥ることがあった。シミュレーションでは密集した最大32台のチームを継続的に再計画でき、実機では10台と移動障害物の試験、および歩行者を含む15台の安全な運用が示された。追従誤差や計画時間の詳細な数値分布は、取得した本文抜粋では確認できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>LFは、高速なMAPFによるチーム全体の協調と、ロボットごとの最適軌道制御を組み合わせることで、長期的な経路協調と実時間の運動追従を同一枠組みで扱う。LaCAMとFreyjaの接続により、同期・非同期の目標更新、動的障害物、マルチロータと地上ロボットを含む複数の運用形態が実証された。実装はC++とROS2で構築されている。ただし、本文抜粋からは厳密な最適性保証や、すべての条件での定量的な性能保証までは確認できない。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>完全な環境情報を前提とする集中型計画であるため、未知の障害物や部分観測環境に対する適用範囲は限定される。MAPFで用いる単純化された動力学表現は、俊敏な運動や速度・加速度の形状を十分に計画へ反映できない。より詳細な状態表現を導入すると実機適合性は向上しうるが、組合せ探索の規模が増え、実時間性やスケーラビリティとのトレードオフが生じる。取得した本文抜粋では、部分観測下、広範なセンサノイズ条件、非ホロノミック車両についての定量的検証は確認できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究の意義は、離散MAPFで得られる長期的な全体協調を、実ロボットの高帯域な軌道制御と運用中の再計画へ接続する実装上の橋渡しを示した点にある。分離型制御の短期的な応答性を保ちながら、集中型計画で混雑や行き止まりをチーム全体として扱う設計は、MAPFやMAPDの実用化を考える際の参考になる。もっとも、完全観測とホロノミック性に依存するため、現実の部分観測環境や非ホロノミック系へそのまま一般化できるとは限らない。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>多ロボット経路計画、オンラインMAPF、MAPD、群ロボット制御、マルチロータの実時間軌道追従を研究する読者に適している。離散的な全体計画と連続的な個別制御を階層的に統合する設計や、LaCAMとFreyjaを用いたROS2実装に関心がある場合に特に有用である。理論的最適性、部分観測下の性能保証、非ホロノミック車両の動力学計画を主題とする読者は、本文で示された前提と限界を踏まえて参照すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-22
+  </footer>
+</div>
+</body>
+</html>

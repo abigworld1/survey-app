@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Advancing Learnable Multi - Agent Pathfinding Solvers with Active Fine-Tuning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <h1>Advancing Learnable Multi - Agent Pathfinding Solvers with Active Fine-Tuning</h1>
+<p class="meta">アクティブなファインチューニングによる学習可能なマルチエージェント経路探索ソルバーの高度化</p>
+  <div class="meta">Anton Andreychuk, Konstantin Yakovlev, Aleksandr Panov, Alexey Skrynnik<br>採択先: 未取得 ・ 2025-06-30 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2506.23793" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2506.23793" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2025-06-30</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、模倣学習型MAPFソルバーMAPF-GPTで生じる分布シフトを、方策が特に性能を落とす状態に専門家データを追加するDelta Data Generationで緩和する。提案モデルMAPF-GPT-DDGは、多様な評価条件で既存の学習型ソルバーを上回る解品質を示し、単一環境で最大1,048,576エージェントを処理した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、共有グラフ上で多数の同種エージェントが同期的に移動し、同じ頂点や辺を同じ時刻に使用する衝突を避けながら、それぞれの目標へ到達するマルチエージェント経路探索である。入力はグラフ環境、各エージェントの開始位置と目標であり、出力は各エージェントが各時刻に実行する移動または待機の計画である。本研究では、全体状態ではなく、障害物や近傍エージェントなどを含む各エージェントの局所観測から、すべてのエージェントに共通する個別方策が次の行動を決める。最適なMAPFはNP困難であり、エージェント数が増えると最適ソルバーの拡張が難しい。さらに模倣学習では、専門家が生成した訓練状態と、学習方策が実行時に自ら到達する状態の分布が異なるため、誤りが連鎖する困難がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存のMAPF-GPTを基盤として、中央集権型専門家データを用いるアクティブなファインチューニング手法Delta Data Generationを提案した。DAggerを単純に適用するのではなく、方策の性能が特に悪化する状態を選択し、その状態を修正した専門家データに学習資源を集中する点が新規性である。強化学習や報酬設計を導入せず、純粋な模倣学習の枠組みで分布シフトへの適応を行う。提案モデルは2M規模のMAPF-GPTを追加学習したものであり、場合によっては50倍のパラメータを持つMAPF-GPT-85Mと同等以上の性能を示した。さらに、学習型MAPFソルバーで最大1,048,576エージェントを単一環境で扱える規模を実証した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>現在の方策を実行して新しいMAPF軌跡を生成し、軌跡中から一定間隔で状態を抽出する。各候補状態について、現在の方策が続けて得る解と、より正確な中央集権型ソルバーでその状態から計画した解を比較する。連続する解のコスト差が最大となる状態を、方策が最も大きく性能を落とした状態として選ぶ。その状態から専門家ソルバーで得た改善軌跡の先頭部分を使い、局所観測と専門家行動の組を追加データとして生成する。追加データで方策を複数回更新する際には、元の専門家データも学習に含め、既存能力の壊滅的忘却を抑える。このデータ生成と方策改善を反復して、実行時に現れる状態分布へ適応させる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価にはPOGEMAベンチマークを用い、Random、Mazes、Warehouse、Cities Tilesの4種類の地図で、MAPF-GPT、SCRIMP、DCC、EPHなどと比較した。RandomとMazesは学習に使った地図種別に対応し、WarehouseとCities Tilesは訓練時と異なるトポロジーを持つ分布外の評価条件である。指標は、目標へ到達できたエピソードの割合である成功率と、中央集権型LaCAM*の解コストを基準にした解コスト比である。通常評価では最大エージェント数は地図種別により64、192、256で、エピソード長はCities Tiles以外が128ステップ、Cities Tilesが256ステップに制限された。学習用の追加データは32エージェントの新規インスタンスから生成し、MAPF-GPTの2Mモデルを340,000反復追加学習した。学習には4基のNVIDIA H100と48 CPUコアを備えたサーバで77時間を要した。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>MAPF-GPT-DDGはMazesとWarehouseでMAPF-GPT-85Mを上回り、RandomとCities Tilesでは同程度の性能だった。SCRIMPはWarehouseでは最良だった一方、MazesとRandomでは提案手法より大きく劣り、地図の種類によって相対的な性能が変化した。提案手法はCities Tilesで256エージェントを扱うような高密度条件に苦戦しており、局所観測に基づく分散方策の限界が残る。データ収集とファインチューニングの非同期化で学習時間をほぼ半減できる可能性は示されたが、これは実測された短縮結果ではない。大規模実験の成功にはトークン化などの中核処理をC++で再実装したことも関係しており、手法単独の効果と実装最適化の効果を完全には分離できない。専門家ソルバーの計算負荷、未評価の地図構造、さらに高密度な配置への一般化は今後の課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、自動倉庫、無人搬送、捜索救難、道路上の自動運転など、多数の移動ロボットを共有環境で動かす問題の抽象化である。時間を離散化し、エージェントをグラフ上で同期的に移動させることで、連続空間や非同期動作などの複雑さを簡略化しつつ、衝突のない計画を研究する。最適解の探索はNP困難であるため、大規模な問題では厳密最適性を緩めた手法や学習型ソルバーが重要になる。MAPF-GPTは約10億の観測・行動対を用いる純粋な教師あり模倣学習モデルで、通信、中央集権的な衝突解決、オンライン探索による誘導を使わずに高い拡張性を示した。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>中央集権型ソルバーが生成した軌跡から、各エージェントの局所観測に基づいて次の行動を選ぶ同一方策を学習する。専門家が経験する状態分布と学習方策が実行中に訪れる状態分布は、分散化、探索手続きの欠如、全体状態から局所観測への縮約、予測誤差によって一致しない。訓練データに少ない状態へ方策が入ると誤った行動が新たな状態分布のずれを生み、成功率や解コストが悪化する。本研究の課題は、強化学習の報酬設計に頼らず、方策が実際に失敗する状態を効率よく特定して追加学習することである。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>MAPF-GPTは、局所地図、近傍セルから目標までの距離情報、他エージェントの位置と目標、行動履歴をトークン列として入力する非自己回帰型Transformerで、次の行動トークンを予測する。語彙は67種類、入力文脈は256トークンである。Delta Data Generationは、方策が連続して得る解と専門家による修正解のコスト差を失敗の強さとして評価し、差が最大の状態から追加例を作る。元の専門家データを併用して追加学習することで、失敗状態への適応と既存能力の保持を同時に図る。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>通常規模の比較では、4種類の地図と複数のエージェント数を用い、学習分布内と分布外の地図で性能を評価した。比較対象は提案モデルと同じ2M規模のMAPF-GPT、85M規模のMAPF-GPT、SCRIMP、DCC、EPHである。別の大規模評価では、エージェント数を8,192から1,048,576まで増加させ、成功率、エピソード長、総決定時間、決定処理時間を測定した。大規模実験では、トークン化など一部の処理をC++で再実装している。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>MazesとWarehouseではMAPF-GPT-DDGがMAPF-GPT-85Mを上回り、RandomとCities TilesではMAPF-GPT-85Mと同程度の成功率だった。LaCAM*に対する解コスト比でも、提案モデルはMAPF-GPT-85Mに近いかやや良く、他の比較手法を上回った。ただし、Cities Tilesで256エージェントを扱う高密度条件では性能が低下した。大規模評価では8,192から524,288エージェントまで成功率100パーセント、1,048,576エージェントで99.9パーセントだった。決定処理時間はエージェント数に依存せず約161から163秒で、最大規模ではエピソード長512、総決定時間87,778.4秒だった。</p></section>
+<section class="secsum"><h3>結論</h3><p>Delta Data Generationは、模倣学習方策が実行時に遭遇する分布シフトを、性能低下が大きい状態への選択的な追加学習として扱う。これで訓練したMAPF-GPT-DDGは、複数の地図種別とエージェント数で、成功率および解コストの面から既存の学習型ソルバーと競争的、またはそれ以上の結果を示した。特定の条件では、2Mモデルが85Mモデルを上回った。さらに、最大1,048,576エージェントの単一環境を処理できることから、学習型分散MAPFソルバーのスケーラビリティを示した。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>本文で確認できる限界は、高密度なCities Tiles環境などで性能が低下することである。追加学習には中央集権型の専門家ソルバーが必要であり、データ生成の計算負荷や専門家の適用範囲が制約になり得る。学習時間77時間という実測値も大きく、非同期化による短縮は可能性として述べられているにとどまる。取得した本文では、連続時間の物理環境、通信障害、観測ノイズ、異種エージェントに対する詳細な検証は確認できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究の重要性は、モデルを大型化するだけでなく、方策が失敗する状態を選択して専門家データを追加することで性能を高めた点にある。2M規模のモデルで85M規模のモデルと競争でき、最大約105万エージェントを扱った結果は、学習型分散MAPFの計算資源と規模の設計に示唆を与える。強化学習を使わず専門家軌跡を再利用する構成は、報酬設計が難しい大規模な経路計画研究でも参考になる。ここでの重要性は、本文の実験結果と示されたスケーラビリティに基づく解釈であり、実運用での有効性そのものを保証するものではない。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>大規模倉庫、搬送ロボット群、群ロボットシミュレーションで、厳密最適性より衝突回避、到達率、解コスト、処理規模を重視する研究者に適している。MAPF-GPT、模倣学習、DAgger、分布シフト対策、専門家データの能動的収集を研究する人にも有益である。局所観測による分散制御とモデル規模のトレードオフを検討したい場合に参考になる。一方、厳密最適解、異種エージェント、連続時間の物理制約、通信制約を中心課題とする場合は、取得した本文だけでは十分な評価材料を確認できない。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
+    正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-22
+  </footer>
+</div>
+</body>
+</html>
