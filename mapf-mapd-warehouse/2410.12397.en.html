@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-Agent Corridor Generating Algorithm | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2410.12397.html" lang="ja">日本語</a></nav>
+  <h1>Multi-Agent Corridor Generating Algorithm</h1>
+
+  <div class="meta">Arseniy Pertzovsky, Roni Stern, Roie Zivan, Ariel Felner<br>Venue: Unknown ・ 2025-05-22 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2410.12397" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2410.12397" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">Recent paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2025-05-22</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 1</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper introduces MACGA, a polynomial-time rule-based approach to dense multi-agent pathfinding that builds corridors toward agents&#x27; goals and evacuates other agents from those corridors. MACGA and its PIBT-integrated variant achieve strong success rates, especially on narrow maps, while MACGA alone often produces larger makespans than the baselines.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>Multi-agent pathfinding (MAPF) asks for a set of paths that moves multiple agents from start vertices to goal vertices without collisions. Time is discrete: an agent can wait at its current vertex or move to an adjacent vertex at each step. The paper considers both vertex conflicts, in which two agents occupy the same vertex at the same time, and swapping conflicts, in which agents exchange positions across an edge. Complete and optimal solvers can become difficult to scale on large, dense instances, whereas scalable methods may sacrifice optimality or even completeness. The work therefore targets practical, high-density MAPF with a polynomial-time rule-based strategy rather than exact optimization.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The main contribution is the Multi-Agent Corridor Generating Algorithm, or MACGA. For an agent being planned, MACGA constructs a connected sequence of vertices leading from its current location toward its goal, then tries to evacuate other agents from that corridor so that the advancing agent does not encounter collisions or deadlocks. The paper also introduces MACGA+PIBT, which incorporates the rule-based PIBT procedure into the MACGA planning process with the goal of improving runtime and solution quality. Both methods are presented as polynomial-time algorithms with a reachability property: each agent is guaranteed eventually to reach its goal under the stated theoretical framework. This property does not mean that all agents reach their goals simultaneously, nor does it establish finite-time global completion in every instance; the authors explicitly characterize the algorithms as suboptimal and incomplete.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>MACGA maintains an order over the agents and assigns each agent an active plan, meaning a sequence of one or more actions. At every step, agents execute the first action of their active plans, while the planning phase chooses a corridor for the agent currently being handled, searches for ways to evacuate agents that obstruct it, and then assigns a plan through the corridor. The ordering is updated so that every agent eventually has an opportunity to become first in the order. The construction uses graph structure involving separating vertices, defined as vertices whose removal increases the number of connected components, and non-separating vertices. In MACGA+PIBT, when PIBT selects a non-separating vertex, the movement can be represented as a trivial corridor of size two; otherwise the regular MACGA planning procedure is used. According to the excerpt, MACGA can also be activated online while agents physically execute their moves.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation compares MACGA and MACGA+PIBT with Prioritized Planning (PrP), LNS2, PIBT, LaCAM, and LaCAM*. The experiments use six MAPF benchmark grids: empty-32-32, random-32-32-10, random-32-32-20, room-32-32-4, maze-32-32-2, and maze-32-32-4. The number of agents ranges from 100 to 700, and 20 random instances are run for every combination of map, agent count, and algorithm. Each instance has a 30-second time limit; success rate is the ratio solved within that limit. Runtime and makespan are also reported. All implementations are in Python and run on a MacBook Air with an Apple M1 chip and 8 GB of RAM. The paper warns that implementation languages and hardware differ from prior work, so the results should not be blindly compared with numbers published elsewhere.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>Across the evaluated settings, MACGA and MACGA+PIBT solve a majority of the tested problems more often than the compared algorithms. Their relative advantage is strongest on maps with narrow spaces, such as room-32-32-4 and maze-32-32-2. In the maze-32-32-2 example, the proposed methods solve most instances up to 450 agents, while none of the baseline algorithms solves any of those instances according to the supplied excerpt. MACGA+PIBT has a higher success rate than MACGA on almost all maps and is substantially faster than MACGA. The trade-off is solution cost: MACGA often returns substantially larger makespans, whereas MACGA+PIBT usually keeps makespans closer to those of the baselines. The evidence supports a practical advantage in throughput and solvability, not optimality.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>MAPF appears in robotics, automated warehouses, digital entertainment, and other multi-agent applications. The literature contains complete and optimal solvers, as well as scalable suboptimal methods such as Prioritized Planning, PIBT, LNS2, LaCAM, and LaCAM*. Search-based methods such as CBS and LaCAM-family approaches can require heavy computation on large instances. The paper positions MACGA as a tractable alternative that uses local, structured movement and evacuation rather than extensive global search.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>An instance is defined over an undirected graph with a number of agents, a start-vertex mapping, and a goal-vertex mapping. A solution consists of one applicable action sequence per agent, starting at its start vertex and ending at its goal, with no vertex or swapping conflicts. The classical objective requires all agents to eventually be at their goals, but the proposed algorithms do not guarantee optimal cost or complete solution finding for every solvable instance. The focus is on dense instances where narrow passages and agent interactions make conventional planning difficult.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>A corridor is a sequence of connected vertices used as a temporary route for an agent moving toward its goal. Evacuation is central: agents that interfere with the selected corridor are moved away before the main agent is assigned a plan through it. Separating vertices provide a graph-theoretic way to reason about bottlenecks and corridor structure. The theoretical section discusses the runtime of components such as corridor creation, evacuation, and pushing, along with conditions for finding evacuation vertices and reachability. However, the supplied excerpt omits several displayed complexity expressions and the full statements and proofs of some theorems, so it does not establish the exact polynomial degree or every condition of applicability.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The benchmark suite contains six 32-by-32 grid maps with different degrees of openness, randomness, rooms, and maze-like structure. Agent counts range from 100 through 700, with 20 random instances per map, count, and algorithm, and a 30-second limit per instance. The baselines are PrP, LNS2, PIBT, LaCAM, and LaCAM*, with PrP and LNS2 implemented using SIPPS. Other rule-based algorithms such as PS and PR are excluded because the paper cites prior evidence that they are significantly inferior to PIBT. The experiments use Python on an Apple M1 MacBook Air with 8 GB of RAM, which limits direct comparability with studies using different implementations or machines.</p></section>
+<section class="secsum"><h3>Results</h3><p>The proposed methods generally achieve the strongest success-rate behavior among the evaluated algorithms. The clearest advantage appears on narrow maps, where MACGA and MACGA+PIBT retain solvability at high agent counts. In maze-32-32-2, the excerpt reports that the proposed methods solve most instances with 450 agents, while every listed baseline fails to solve them. MACGA+PIBT is faster than MACGA on all grids in the reported runtime comparison and usually has lower makespan than MACGA. MACGA itself is often slower and returns considerably higher makespans than the baselines, so its success-rate advantage comes with a clear quality trade-off.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The paper presents MACGA and MACGA+PIBT as incomplete, rule-based MAPF algorithms based on corridor generation and evacuation. Their claimed theoretical advantages are polynomial-time operation and reachability, while the experiments show strong success rates on several dense benchmark domains. The PIBT integration is the more balanced variant in the reported results because it improves runtime and usually keeps makespan near the baselines. The authors identify adapting the methods to lifelong MAPF and to multi-agent path planning in continuous spaces as future directions.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>Neither algorithm guarantees an optimal solution, and the reachability claim should not be confused with simultaneous arrival of all agents or guaranteed completion within a fixed finite time. The excerpt states that there is no global runtime guarantee for MACGA, even though its procedures are analyzed as polynomial-time components. The empirical study covers six benchmark maps, a specific Python implementation, one hardware platform, and a 30-second cutoff, so broader generalization is not established. The supplied evidence does not provide the full numerical curves, exact runtime values, detailed failure analyses, or the complete assumptions behind every theorem.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work is important as a design for dense MAPF in which the main challenge is not merely choosing priorities, but actively clearing a route through a congested graph. By treating a route as a corridor and evacuating obstructing agents, MACGA addresses bottlenecks and deadlock risks with a structured local policy. Its results suggest that sacrificing optimality can yield a substantial solvability advantage on narrow maps. The MACGA+PIBT combination further illustrates how complementary rule-based mechanisms can balance throughput, speed, and solution cost.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is a good fit for researchers studying dense MAPF, narrow passages, online rule-based coordination, or scalable alternatives to computationally heavy search. It is especially relevant when success rate and runtime matter more than optimal makespan. Readers whose primary interest is optimality proofs, complete solving, or directly comparable benchmark numbers should treat the claims cautiously because the methods are incomplete and the implementation environment differs from prior studies. The paper is also useful as a starting point for work on lifelong MAPF and continuous-space extensions.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-09-23
+  </footer>
+</div>
+</body>
+</html>

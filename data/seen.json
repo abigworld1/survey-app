@@ -6476,6 +6476,41 @@
       "url": "https://arxiv.org/abs/2408.03063",
       "venue": ""
     },
+    "arxiv:2410.12397": {
+      "added": "2026-09-23",
+      "added_at": "2026-09-23T08:31:13.511277",
+      "arxiv_id": "2410.12397",
+      "authors": [
+        "Arseniy Pertzovsky",
+        "Roni Stern",
+        "Roie Zivan",
+        "Ariel Felner"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-05-22",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2410.12397.html",
+      "file_en": "mapf-mapd-warehouse/2410.12397.en.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2410.12397",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 1,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Multi-Agent Corridor Generating Algorithm",
+      "title_en": "Multi-Agent Corridor Generating Algorithm",
+      "title_ja": "マルチエージェント・コリドー生成アルゴリズム",
+      "tldr": "本論文は、高密度なマルチエージェント経路探索（MAPF）に対し、エージェントの目標へ向かう通路を生成し、その通路上の他エージェントを退避させるMACGAを提案する。MACGAとPIBTを組み合わせたMACGA+PIBTは、多様なベンチマークで高い解決率を示し、特に狭い空間を含む地図で有効だったが、MACGA単体の解のメイクスパンは大きくなりやすい。",
+      "tldr_en": "This paper introduces MACGA, a polynomial-time rule-based approach to dense multi-agent pathfinding that builds corridors toward agents' goals and evacuates other agents from those corridors. MACGA and its PIBT-integrated variant achieve strong success rates, especially on narrow maps, while MACGA alone often produces larger makespans than the baselines.",
+      "url": "https://arxiv.org/abs/2410.12397",
+      "venue": ""
+    },
     "arxiv:2410.21415": {
       "added": "2026-09-06",
       "added_at": "2026-09-06T11:24:29.774155",
@@ -9032,6 +9067,39 @@
       "title": "A traffic management system for large and heterogeneous vehicles in narrow industrial environments",
       "tldr": "本論文は、狭い双方向通路や不規則なレイアウトを持つ工場で、大型かつ異種のAGV群を協調走行させる交通管理システムを提案する。NURBS曲線に基づくロードマップ、L-MAPF、拡張型CBS、実行時の安全制御、デッドロック処理を統合し、実際の産業環境で比較方式に対して最大11パーセントのスループット向上を報告した。",
       "url": "https://arxiv.org/abs/2609.10400",
+      "venue": ""
+    },
+    "arxiv:2609.23137": {
+      "added": "2026-09-23",
+      "added_at": "2026-09-23T08:29:47.523561",
+      "arxiv_id": "2609.23137",
+      "authors": [
+        "Siddhant Erande",
+        "Anuj Tiwari"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-19",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2609.23137.html",
+      "file_en": "mapf-mapd-warehouse/2609.23137.en.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.23137",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 1,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "TRACS: A Geometry-Aware Framework for Scalable Multi - Agent Path Finding in Warehouses",
+      "title_en": "TRACS: A Geometry-Aware Framework for Scalable Multi-Agent Path Finding in Warehouses",
+      "title_ja": "TRACS：倉庫におけるスケーラブルなマルチエージェント経路探索のための幾何認識型フレームワーク",
+      "tldr": "TRACSは、倉庫の通路形状と一方向交通を経路表現に組み込み、正面衝突やエッジ交換衝突を設計段階で排除しながら、空間経路計画と時間的な交通調整を分離するMAPFフレームワークである。提示された評価では、10分の計画予算内で最大5120台を100%の経験的成功率で経路計画し、固定シーンでも代表的手法より計画のスケーラビリティを改善したと報告されている。",
+      "tldr_en": "TRACS is a warehouse-oriented MAPF framework that embeds aisle geometry and one-way traffic into the routing representation, eliminating head-on and edge-swap conflicts by construction while separating spatial routing from temporal coordination. In the supplied evaluation, it maintains a 100% empirical success rate while routing up to 5,120 robots under a ten-minute planning budget and substantially reducing planning time on fixed scenes.",
+      "url": "https://arxiv.org/abs/2609.23137",
       "venue": ""
     },
     "doi:10.1007/978-3-032-25029-2_15": {

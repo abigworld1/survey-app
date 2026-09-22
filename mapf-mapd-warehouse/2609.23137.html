@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TRACS: A Geometry-Aware Framework for Scalable Multi - Agent Path Finding in Warehouses | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2609.23137.en.html" lang="en">English</a></nav>
+  <h1>TRACS: A Geometry-Aware Framework for Scalable Multi - Agent Path Finding in Warehouses</h1>
+<p class="meta">TRACS：倉庫におけるスケーラブルなマルチエージェント経路探索のための幾何認識型フレームワーク</p>
+  <div class="meta">Siddhant Erande, Anuj Tiwari<br>採択先: 未取得 ・ 2026-09-19 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2609.23137" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2609.23137" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-09-19</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> TRACSは、倉庫の通路形状と一方向交通を経路表現に組み込み、正面衝突やエッジ交換衝突を設計段階で排除しながら、空間経路計画と時間的な交通調整を分離するMAPFフレームワークである。提示された評価では、10分の計画予算内で最大5120台を100%の経験的成功率で経路計画し、固定シーンでも代表的手法より計画のスケーラビリティを改善したと報告されている。</div>
+<section class="qa"><h2>どんなもの？</h2><p>本研究が扱うのは、保管場所と作業ステーションの間で在庫を搬送する、数百から数千台規模の移動ロボットを対象としたマルチエージェント経路探索である。共有環境で複数ロボットの衝突を避けるMAPFでは、従来、衝突の検出・解消を高度化することでスケーラビリティを高める方向が重視されてきた。一方、倉庫には規則的な平行通路や既存の一方向交通方針があり、それらを一般的なナビゲーション・グラフに抽象化すると、利用できる幾何構造や交通パターンが失われる可能性がある。TRACSは、これらを計画問題の表現そのものに組み込む。提示された抜粋だけでは、実際の倉庫への導入結果や、あらゆる倉庫レイアウトへの一般化性能は確定していない。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>中心的な貢献は、既存のMAPF競合解決器を別のものに置き換えるのではなく、倉庫の幾何構造と交通方向を利用する計画フレームワークを提示したことである。平行通路に交互の一方向を割り当てた有向ルーティング・グラフにより、正面衝突とエッジ交換衝突を構成的に排除する。これにより、空間的な経路生成を時間的な交通調整から切り離せる。さらに、各ロボットが独立に行うハイブリッドなグラフ・グリッド経路計画と、軽量なエッジベース・スケジューラを組み合わせ、共同の空間時間探索を避ける。提示資料は、既存手法に対する形式的な最適性保証や一般的な近似保証までは示していない。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>TRACSは三段階で構成される。第一に、倉庫レイアウトを有向ルーティング・グラフへ変換し、水平および垂直の平行通路に交互の走行方向を割り当てる。有向エッジのコストは幾何的な通行長に比例し、具体的にはエッジに属する通行可能セル数に基づくため、隣接する通路へ交通が自然に分散されると説明されている。第二に、各ロボットが、近傍の進入・退出エッジを経由する局所グリッド探索と有向グラフ探索を組み合わせ、最小コストの空間経路を独立に計算する。第三に、実行時のエッジベース・スケジューラが、容量制約とヘッドウェイ制約の下でエッジ、セル、交差点の予約を管理する。したがって、オンライン調整は大域的な共同探索ではなく、局所的な資源管理に限定される。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価では、TRACSをPrioritized Planning、PIBT2、LaCAM、MAPF-LNS2と比較している。これらは優先度ベース、局所探索、反復修復などを代表するMAPFプランナであり、同一の倉庫レイアウト、ロボット設定、開始・目標割当を使ったと記載されている。固定シーン実験では、同時稼働ロボット数を100台から1000台まで変化させ、計画時間と解の品質を測定した。別のストレステストでは、二つの大規模倉庫で10台から開始し、成功するたびに台数を倍増させ、10分以内に計画できた最大 fleet size を記録した。指標は、目標到達ロボットの割合である成功率、グラフ前処理を除く計画時間、実行経路長と対応する最短経路長の比である経路品質、平均エッジ占有率と交通分布からなる交通効率である。提示抜粋には、全個別インスタンスの数値、分散、統計的有意性検定は示されていない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>報告結果は、規則的な倉庫構造を利用すれば、競合解決をますます複雑にするだけでなく、計画表現の段階でスケーラビリティを改善できることを支持している。最大1000台の固定シーンでは、TRACSは計画時間を最大14.7倍短縮し、競争力のあるメイクスパン、より低いフロータイム、ほぼ最適な経路品質を維持したと報告されている。一方向交通は特に短距離移動で経路長をわずかに増やすが、移動距離が長くなるとそのオーバーヘッドは急速に小さくなるとされ、長距離搬送に適すると説明されている。局所的な競合イベント数はベースラインより速く増える場合があるが、論文では、これは未解決衝突ではなく、スケジューラが処理する交差点待ち行列や追従イベントであり、通路利用率の上昇を反映すると解釈している。将来課題として、動的タスク割当、異種ロボット群、適応的交通政策、エッジ故障後の再計画、動的障害物と実行不確実性を含む実倉庫への展開が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>自律ロボット型モバイル・フルフィルメント・システムでは、移動ロボットが保管場所と作業ステーションの間で在庫を運ぶ。 fleet size の増加に伴い、安全で効率的な協調が大きな計算上のボトルネックとなり、MAPFは共有環境で複数エージェントの衝突のない経路を求める標準的な枠組みになっている。導入部では、CBS、ICTS、M*、SATベース手法、優先度付き計画、学習ベース協調、反復修復、PIBT2、LaCAMなどの研究動向に対してTRACSを位置付けている。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>一般的なグラフ表現では、倉庫に既に存在する規則的なトポロジーや一方向交通方針を十分に利用できない可能性がある。ロボット数が増えると、共同の空間時間探索、反復的な修復、広範な競合解消によって計画コストが増大し得る。TRACSは、通路の走行方向をルーティング表現へ組み込み、重要な競合を経路計画前に除外することでこの問題に対処する。残る時間的相互作用は、実行時の局所的な資源予約として処理される。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>交互に割り当てた一方向通路は、正面衝突とエッジ交換衝突を構成的に排除する。有向エッジのコストは幾何的な通行長に比例し、ハイブリッド・プランナは局所グリッド探索と、有向グラフ上で進入・退出エッジを結ぶ探索を組み合わせる。スケジューラは、容量制約とヘッドウェイ制約の下でエッジ、セル、交差点の予約を管理する。中心的な設計原理は、独立した空間経路生成と軽量な時間的交通調整を分離することである。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験は、Intel Core i9-14900 CPU、64GBメモリ、Ubuntu 22.04 LTSを備えたマシンで実施されたと記載されている。固定シーンのプロトコルでは100台から1000台までを比較し、予算制約ストレステストでは二つの大規模倉庫と10分の計画上限を用いた。比較対象はPrioritized Planning、PIBT2、LaCAM、MAPF-LNS2であり、同一のレイアウトと開始・目標割当を使ったとされる。計画時間の指標にはグラフ前処理が含まれない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>提示された固定シーンの一条件では、TRACSの成功率は100%、計画時間は42.7秒、メイクスパンは182、フロータイムは73,635と報告されている。同じ条件でLaCAMは77.5秒、Prioritized Planningは629.8秒、MAPF-LNS2は439.3秒であり、PIBT2の成功率は67%、計画時間は93.5秒と記載されている。固定シーン全体については、TRACSが計画時間を最大14.7倍短縮したと報告されている。10分の予算では、TRACSは最大5120台を経路計画し、最も強いベースラインのおよそ2倍の fleet size に達しながら、100%の成功率を維持したとされる。</p></section>
+<section class="secsum"><h3>結論</h3><p>TRACSは、倉庫の幾何構造と方向付き交通をルーティング・グラフに組み込むことで、倉庫MAPFを一般的な競合解決問題としてのみ扱わない設計を示した。これにより、主要な競合を排除し、経路生成と実行時調整を分離し、報告された大規模 fleet へ拡張している。提示された証拠は、指定されたベンチマークと条件での経験的成功を示すものであり、任意の環境や実運用に対する普遍的な保証ではない。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>一方向交通は、特に短距離の移動で経路長を増加させる可能性がある。抜粋からは、非規則的な環境、頻繁な障害物、閉塞した通路、事前に固定できない交通パターンへどの程度適用できるかは分からない。動的タスク割当、異種ロボット、故障後の再計画、実行不確実性、実環境への展開は今後の課題として挙げられており、完了した評価ではない。大域的な経路最適性やスループットに関する形式的保証も、提示資料では示されていない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本論文は、独立経路を作った後ですべての競合を解消するのではなく、表現レベルでドメイン構造を利用して競合を防ぐというMAPF設計原理を示している。これにより、経路生成の主要な計算コストを抑え、オンライン協調を比較的局所的なスケジューリングへ委ねられる。数千台規模の fleet を計画できるという報告は、倉庫ロボティクスにおけるこの表現上のトレードオフを実用的な研究課題としている。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>構造化された倉庫での大規模MAPF、倉庫内の交通方針、計画時間・フロータイム・メイクスパン・経路長のトレードオフを研究する読者に適している。優先度付き計画、局所探索、反復修復、幾何認識型ルーティングを比較したい研究者にも有用である。非構造的環境、実運用、形式的最適性についての証拠を求める読者は、提示されたベンチマーク結果だけでは不十分であり、追加評価が必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-23
+  </footer>
+</div>
+</body>
+</html>

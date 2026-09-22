@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TRACS: A Geometry-Aware Framework for Scalable Multi - Agent Path Finding in Warehouses | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2609.23137.html" lang="ja">日本語</a></nav>
+  <h1>TRACS: A Geometry-Aware Framework for Scalable Multi - Agent Path Finding in Warehouses</h1>
+<p class="meta">TRACS: A Geometry-Aware Framework for Scalable Multi-Agent Path Finding in Warehouses</p>
+  <div class="meta">Siddhant Erande, Anuj Tiwari<br>Venue: Unknown ・ 2026-09-19 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2609.23137" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2609.23137" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">Influential paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2026-09-19</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 1</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> TRACS is a warehouse-oriented MAPF framework that embeds aisle geometry and one-way traffic into the routing representation, eliminating head-on and edge-swap conflicts by construction while separating spatial routing from temporal coordination. In the supplied evaluation, it maintains a 100% empirical success rate while routing up to 5,120 robots under a ten-minute planning budget and substantially reducing planning time on fixed scenes.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The paper addresses multi-agent path finding for fleets of hundreds or thousands of mobile robots that transport inventory between storage locations and workstations. In conventional MAPF, scalability is often pursued by making conflict detection and resolution more sophisticated, while the warehouse may still be represented as a generic navigation graph. That abstraction can discard regular aisle geometry, established one-way traffic policies, and predictable traffic patterns. TRACS instead treats those properties as part of the planning representation. The supplied excerpt does not establish performance in deployed warehouses or generalization to every warehouse layout.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The main contribution is a geometry-aware planning framework rather than another conflict-resolution algorithm. TRACS assigns alternating one-way directions to parallel aisles in a directed routing graph, eliminating head-on and edge-swap conflicts by construction. This allows spatial route generation to be decoupled from temporal traffic coordination. The framework combines independent hybrid graph-grid routing with a lightweight edge-based scheduler, avoiding joint space-time search. The supplied material does not establish a formal optimality guarantee or a general approximation bound against prior methods.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>TRACS has three stages. First, it converts the warehouse layout into a directed routing graph whose parallel horizontal and vertical aisles receive alternating travel directions. Edge costs are proportional to geometric traversal length, represented by the number of traversable cells on an edge, and the paper states that this naturally distributes traffic across neighboring corridors. Second, each robot independently computes a lowest-cost spatial route by combining local grid search with directed-graph search through nearby entry and exit edges. Third, an online edge-based scheduler manages reservations for edges, cells, and junctions under capacity and headway constraints. Because routes are generated independently, online coordination is limited to local resource management rather than global joint space-time search.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation compares TRACS with Prioritized Planning, PIBT2, LaCAM, and MAPF-LNS2, representing priority-based, local-search, and iterative-repair MAPF planning approaches. The methods are reported to use identical warehouse layouts, robot configurations, and start-goal assignments. A fixed-scene study varies the number of simultaneously active robots from 100 to 1,000 and measures planning time and solution quality. A complementary stress test starts with 10 robots and doubles the fleet after each successful run on two larger warehouses, recording the largest fleet solved within a ten-minute limit. Metrics are success rate, planning time excluding graph preprocessing, path quality as executed length divided by the corresponding shortest-path length, and traffic efficiency based on average edge occupancy and spatial traffic distribution. The excerpt does not provide every individual benchmark value, variance estimate, or statistical significance test.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The reported evidence supports the claim that exploiting regular warehouse structure can improve scalability without relying only on increasingly elaborate conflict resolution. On fixed scenes with up to 1,000 robots, TRACS is reported to reduce planning time by up to 14.7 times while retaining competitive makespan, lower flowtime, and near-optimal path quality. The directional policy imposes a modest path-length overhead on very short trips, but the paper states that this overhead rapidly diminishes as travel distance increases, making the approach suitable for long-distance transport. Local contention events may grow faster than for the baselines; the paper interprets these as junction queues and following events handled by the scheduler rather than unresolved collisions, reflecting increasing aisle utilization. Future work includes dynamic task allocation, heterogeneous fleets, adaptive traffic policies, replanning after edge failures, and deployment with dynamic obstacles and execution uncertainty.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Autonomous robotic mobile fulfillment systems use mobile robots to move inventory between storage locations and workstations. As fleet sizes grow, collision-free coordination becomes a major computational bottleneck, and MAPF provides the standard formulation for finding safe paths in shared environments. The introduction situates TRACS against search-based methods such as CBS, ICTS, M*, and SAT-based planning, as well as prioritized, learning-based, iterative-repair, and scalable local-search approaches including PIBT2 and LaCAM.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>A generic graph representation may fail to exploit the regular topology and one-way policies already present in warehouses. As the number of robots increases, joint space-time search, repeated repair, or extensive conflict resolution can make planning increasingly expensive. TRACS addresses this by changing the routing representation so that important conflicts are excluded before route planning begins. The remaining temporal interactions are handled as local resource reservations during execution.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>Alternating one-way aisle directions remove head-on and edge-swap conflicts by construction. Edge costs are proportional to geometric traversal length, and the hybrid planner combines local grid search with directed-graph search around aisle entry and exit edges. The scheduler manages edge, cell, and junction reservations subject to capacity and headway constraints. The central architectural property is the separation of independent spatial routing from lightweight temporal coordination.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The reported experiments ran on a machine with an Intel Core i9-14900 CPU, 64 GB of RAM, and Ubuntu 22.04 LTS. The fixed-scene protocol varied fleet size from 100 to 1,000 robots, while the budget stress test used two larger warehouses and a ten-minute planning ceiling. The baselines were Prioritized Planning, PIBT2, LaCAM, and MAPF-LNS2, evaluated with the same layouts and start-goal assignments. Planning time excluded graph preprocessing according to the stated metric definition.</p></section>
+<section class="secsum"><h3>Results</h3><p>For one reported fixed-scene condition, TRACS is listed with a 100% success rate, 42.7 seconds of planning time, a makespan of 182, and flowtime of 73,635. Under the same reported condition, LaCAM is listed at 77.5 seconds, Prioritized Planning at 629.8 seconds, and MAPF-LNS2 at 439.3 seconds; PIBT2 is listed with a 67% success rate and 93.5 seconds of planning time. Across the fixed-scene study, the paper reports up to a 14.7-fold planning-time reduction for TRACS. Under the ten-minute budget, TRACS routes up to 5,120 robots, approximately twice the largest fleet reached by the strongest baselines, while sustaining a 100% success rate.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>TRACS demonstrates a domain-specific alternative to treating warehouse MAPF only as a generic conflict-resolution problem. By embedding directional traffic and aisle geometry into the routing graph, it eliminates major conflict classes, separates route generation from execution coordination, and scales to the large reported fleets. The evidence is benchmark-specific: it shows empirical success under the supplied conditions, not a universal guarantee for arbitrary environments or deployments.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>One-way routing can increase path length, especially for short trips. The excerpt does not establish how well the approach transfers to irregular environments, frequent obstacles, blocked aisles, or traffic patterns that cannot be fixed in advance. Dynamic task assignment, heterogeneous robots, replanning after failures, execution uncertainty, and real-world deployment are identified as future work rather than completed evaluations. The supplied material also does not state formal guarantees for global path optimality or throughput.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The paper illustrates a useful MAPF design principle: domain structure can be used to prevent conflicts at the representation level instead of resolving every conflict after independent routes have been proposed. This can reduce the dominant route-generation cost and leave online coordination to comparatively local scheduling. For warehouse robotics, the reported ability to plan fleets of thousands of robots makes this representation-level trade-off practically relevant.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is most relevant to researchers studying scalable MAPF in structured warehouses, warehouse traffic policies, and trade-offs among planning time, flowtime, makespan, and path length. It is also useful for readers comparing prioritized planning, local search, iterative repair, and geometry-aware routing. Readers seeking evidence for unstructured environments, real deployments, or formal optimality should treat the benchmark results as insufficient for those purposes and seek additional evaluation.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-09-23
+  </footer>
+</div>
+</body>
+</html>
