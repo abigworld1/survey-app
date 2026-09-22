@@ -260,13 +260,13 @@ RUNS = os.path.join(DATA, "runs")
 CANDIDATE_CACHE = os.path.join(DATA, "cache", "candidates")
 
 # 安全上限（暴走・肥大化の防止）
-MAX_K = 2                  # MAPFで1日に生成する最大ページ数
+MAX_K = 2                  # MAPFで1日に選ぶ最大論文数（各論文に日英2ページ）
 FETCH_CAP = 40              # 未指定ソースの取得上限
 ARXIV_RECENT_LIMIT = 200
 ARXIV_IMPORTANT_LIMIT = 200
 OPENALEX_PER_QUERY = 25
 SEMANTIC_SCHOLAR_LIMIT = 100
-MAX_PAGES_PER_RUN = 2     # 1回の実行で生成する総ページ数の上限
+MAX_PAPERS_PER_RUN = 2     # 1回の実行で処理する総論文数の上限
 MIN_RELEVANCE = 1           # 自動採用に必要な最低キーワード適合度
 MIN_TLDR_CHARS = 40         # 短すぎる要約を落とす
 MIN_SUMMARY_CHARS = 260
@@ -670,7 +670,7 @@ def gather(sub, offline, mode="recent"):
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description="survey-app daily pipeline")
+    ap = argparse.ArgumentParser(description="survey-mapf daily pipeline")
     ap.add_argument("--offline", action="store_true", help="ネット未使用・サンプル＋スタブ要約")
     ap.add_argument("--stub", action="store_true", help="論文は取得するが要約はスタブ")
     ap.add_argument("--dry-run", action="store_true", help="候補と本文だけ取得し、LLM・生成・seen更新を行わない")
@@ -680,7 +680,7 @@ def main(argv=None):
         action="store_true",
         help="論文候補だけを取得して障害時用キャッシュを更新",
     )
-    ap.add_argument("--limit", type=int, default=MAX_PAGES_PER_RUN, help="今回の総生成ページ上限")
+    ap.add_argument("--limit", type=int, default=MAX_PAPERS_PER_RUN, help="今回の総処理論文数上限")
     args = ap.parse_args(argv)
 
     subs = load_subscriptions()
@@ -718,7 +718,7 @@ def main(argv=None):
     }
     produced = 0
     run_failed = False
-    args.limit = max(0, min(args.limit, MAX_PAGES_PER_RUN))
+    args.limit = max(0, min(args.limit, MAX_PAPERS_PER_RUN))
 
     for sub in subs:
         user = (sub.get("username") or "").strip()
@@ -906,7 +906,7 @@ def main(argv=None):
         fulltext_attempts = 0
         for p in candidate_queue:
             if produced >= args.limit:
-                print("  [stop] 総ページ上限に到達")
+                print("  [stop] 総論文数上限に到達")
                 break
             if produced_for_sub >= remaining_k or attempted_summaries >= remaining_k:
                 break
@@ -914,8 +914,12 @@ def main(argv=None):
                 continue
             pid = slugify(p.paper_id(), fallback="paper")
             rel = f"{uslug}/{pid}.html"
+            rel_en = f"{uslug}/{pid}.en.html"
             if os.path.exists(os.path.join(ROOT, rel)):
                 print(f"      [skip] 既存URLを保護（再要約なし）: {rel}")
+                continue
+            if os.path.exists(os.path.join(ROOT, rel_en)):
+                print(f"      [skip] 既存英語URLを保護（再要約なし）: {rel_en}")
                 continue
             relevance_score = _relevance(p, kw_pats)
             matched_keywords = _matched_keywords(p, keywords)
@@ -996,7 +1000,11 @@ def main(argv=None):
                 continue
             attempted_summaries += 1
             try:
-                summary = summarizer.summarize(p, sections=fsections, basis=basis)
+                bilingual = summarizer.summarize_bilingual(
+                    p, sections=fsections, basis=basis
+                )
+                summary = bilingual["ja"]
+                summary_en = bilingual["en"]
             except CopilotError as exc:
                 run_failed = True
                 field_report["skipped"].append({"title": p.title, "reasons": [str(exc)]})
@@ -1010,7 +1018,15 @@ def main(argv=None):
                 )
                 print(f"      [skip] {reasons[0]}")
                 continue
-            post_issues = _post_quality_issues(summary, strict_summary=not (args.offline or args.stub))
+            post_issues = _post_quality_issues(
+                summary, strict_summary=not (args.offline or args.stub)
+            )
+            post_issues += [
+                "English: " + issue
+                for issue in _post_quality_issues(
+                    summary_en, strict_summary=not (args.offline or args.stub)
+                )
+            ]
             if post_issues:
                 run_failed = True
                 field_report["skipped"].append(
@@ -1018,7 +1034,14 @@ def main(argv=None):
                 )
                 print(f"      [skip] {'、'.join(post_issues)}")
                 continue
-            summary.update(summarizer.rate_reading_value(p, summary, basis))
+            rating = summarizer.rate_reading_value(p, summary, basis)
+            summary.update(rating)
+            summary_en.update(rating)
+            if summary_en.get("_reading_value_reason"):
+                summary_en["_reading_value_reason"] = (
+                    "Provisional rating estimated from citation count, full-text "
+                    "availability, and summary depth."
+                )
             value_issues = _reading_value_issues(
                 summary, strict_summary=not (args.offline or args.stub)
             )
@@ -1047,11 +1070,23 @@ def main(argv=None):
             p.reading_value_reason = summary.get("_reading_value_reason", "")
             if not args.dry_run:
                 os.makedirs(os.path.join(ROOT, uslug), exist_ok=True)
-                atomic_write(os.path.join(ROOT, rel), render.render_paper_page(TPL, p, summary))
+                atomic_write(
+                    os.path.join(ROOT, rel),
+                    render.render_paper_page(
+                        TPL, p, summary, language="ja", alternate_file=os.path.basename(rel_en)
+                    ),
+                )
+                atomic_write(
+                    os.path.join(ROOT, rel_en),
+                    render.render_paper_page(
+                        TPL, p, summary_en, language="en", alternate_file=os.path.basename(rel)
+                    ),
+                )
             added_at = datetime.datetime.now().isoformat(timespec="microseconds")
             useen[p.key()] = {
                 "title": p.title,
                 "file": rel,
+                "file_en": rel_en,
                 "date": p.published,
                 "venue": render._venue_label(
                     p.venue, missing="", published=p.published
@@ -1064,6 +1099,9 @@ def main(argv=None):
                 "added_at": added_at,
                 "authors": p.authors,
                 "tldr": summary.get("tldr", ""),
+                "tldr_en": summary_en.get("tldr", ""),
+                "title_ja": summary.get("title", ""),
+                "title_en": summary_en.get("title", ""),
                 "engine": summary.get("_engine", ""),
                 "basis": summary.get("_basis", ""),
                 "matched_keywords": matched_keywords,
@@ -1086,6 +1124,7 @@ def main(argv=None):
                     summary.get("_basis", basis),
                     {
                         "file": rel,
+                        "file_en": rel_en,
                         "reading_value": summary.get("_reading_value", ""),
                         "reading_value_reason": summary.get("_reading_value_reason", ""),
                     },
@@ -1093,10 +1132,10 @@ def main(argv=None):
             )
             produced += 1
             produced_for_sub += 1
-            print(f"  + {rel}")
+            print(f"  + {rel} / {rel_en}")
         daily_total = len(existing_added) + produced_for_sub
         if produced < args.limit and daily_total < k:
-            print(f"  [warn] 本日の生成可能な候補が不足: {daily_total}/{k} ページ")
+            print(f"  [warn] 本日の生成可能な候補が不足: {daily_total}/{k} 論文")
         field_report["shortfall"] = max(0, k - daily_total)
 
         if not (args.offline or args.dry_run):
@@ -1140,8 +1179,8 @@ def main(argv=None):
         return 0
 
     shortfalls = [field for field in report["fields"] if field.get("shortfall", 0) > 0]
-    result_label = "対象の本文確認（LLM・保存なし）" if args.dry_run else "ページ生成"
-    print(f"\n完了: {produced} 件 {result_label}")
+    result_label = "対象の本文確認（LLM・保存なし）" if args.dry_run else "論文の日英ページ生成"
+    print(f"\n完了: {produced} 論文 {result_label}")
     if shortfalls:
         labels = ", ".join(
             f"{field.get('slug')}={field.get('shortfall')}本不足" for field in shortfalls

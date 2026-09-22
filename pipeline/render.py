@@ -14,6 +14,65 @@ from .util import atomic_write
 from .venue import venue_with_year
 
 
+_PAPER_SECTION_HEADINGS = {
+    "ja": dict(SECTIONS),
+    "en": {
+        "what": "What is this paper about?",
+        "contribution": "What is new compared with prior work?",
+        "method": "What is the key technical idea?",
+        "validation": "How was it validated?",
+        "discussion": "What are the limitations and open questions?",
+    },
+}
+
+_PAPER_UI = {
+    "ja": {
+        "field_index": "← この分野の一覧",
+        "home": "Paper Survey トップ",
+        "venue": "採択先",
+        "source": "source",
+        "tldr": "一言で:",
+        "details": "セクション別の詳細要約",
+        "original": "原典",
+        "pdf": "PDF",
+        "published": "公開日",
+        "keyword_matches": "キーワード一致",
+        "citations": "被引用",
+        "relevance": "関連度",
+        "reading_value": "読む価値",
+        "fulltext_notice": "本文取得済み: {basis}を根拠に要約しています。",
+        "abstract_notice": "本文未取得: アブストラクトのみを根拠にしています。詳細確認には原典を参照してください。",
+        "alternate": "English",
+        "ai_notice": "⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。",
+        "information_source": "情報源",
+        "engine": "要約エンジン",
+        "generated": "生成日",
+    },
+    "en": {
+        "field_index": "← All papers in this topic",
+        "home": "Paper Survey home",
+        "venue": "Venue",
+        "source": "source",
+        "tldr": "In short:",
+        "details": "Detailed section summary",
+        "original": "Original",
+        "pdf": "PDF",
+        "published": "Published",
+        "keyword_matches": "Keyword matches",
+        "citations": "Citations",
+        "relevance": "Relevance",
+        "reading_value": "Reading value",
+        "fulltext_notice": "Full text retrieved: this summary is based on {basis}.",
+        "abstract_notice": "Full text unavailable: this summary is based only on the abstract. Consult the original paper for details.",
+        "alternate": "日本語",
+        "ai_notice": "⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.",
+        "information_source": "Evidence",
+        "engine": "Summary engine",
+        "generated": "Generated",
+    },
+}
+
+
 def _esc(s):
     return html.escape(str(s or ""))
 
@@ -39,8 +98,8 @@ def _today():
     return datetime.date.today().isoformat()
 
 
-def _basis_label(basis):
-    return {
+def _basis_label(basis, language="ja"):
+    labels = {
         "fulltext(arxiv)": "本文(arXiv)",
         "fulltext(arxiv-text)": "本文(arXiv)",
         "fulltext(ar5iv)": "本文(ar5iv)",
@@ -49,16 +108,36 @@ def _basis_label(basis):
         "fulltext(arxiv-pdf)": "本文(arXiv PDF)",
         "fulltext(pdf)": "本文(PDF)",
         "fulltext": "本文",
-    }.get(basis, "アブストラクト")
+    }
+    if language == "en":
+        labels = {
+            "fulltext(arxiv)": "full text (arXiv)",
+            "fulltext(arxiv-text)": "full text (arXiv)",
+            "fulltext(ar5iv)": "full text (ar5iv)",
+            "fulltext(ar5iv-text)": "full text (ar5iv)",
+            "fulltext(oa-pdf)": "full text (open-access PDF)",
+            "fulltext(arxiv-pdf)": "full text (arXiv PDF)",
+            "fulltext(pdf)": "full text (PDF)",
+            "fulltext": "full text",
+        }
+    return labels.get(basis, "abstract" if language == "en" else "アブストラクト")
 
 
-def _selection_label(kind, fallback=""):
-    return {
+def _selection_label(kind, fallback="", language="ja"):
+    labels = {
         "important": "重要論文",
         "recent": "新着論文",
         "fallback": "補充候補",
         "manual": "手動追加",
-    }.get(kind or "", fallback or "")
+    }
+    if language == "en":
+        labels = {
+            "important": "Influential paper",
+            "recent": "Recent paper",
+            "fallback": "Additional candidate",
+            "manual": "Manually added",
+        }
+    return labels.get(kind or "", fallback or "")
 
 
 def _basis_quality(basis):
@@ -155,32 +234,36 @@ def _entry_reason_chips(entry, keywords=None):
     return '<div class="reason-chips">' + "".join(chips) + "</div>"
 
 
-def _paper_facts(paper, summary):
+def _paper_facts(paper, summary, language="ja"):
+    ui = _PAPER_UI[language]
     chips = []
-    selection = getattr(paper, "selection_label", "") or _selection_label(
-        getattr(paper, "selection_type", "")
+    selection = _selection_label(
+        getattr(paper, "selection_type", ""),
+        getattr(paper, "selection_label", ""),
+        language,
     )
     if selection:
         chips.append(_chip(selection, f"selection-{_class_token(getattr(paper, 'selection_type', ''))}"))
     venue = _venue_label(
         getattr(paper, "venue", ""),
-        missing="",
+        missing="Unknown" if language == "en" else "",
         published=getattr(paper, "published", ""),
     )
     if venue:
-        chips.append(_chip(f"採択先 {venue}", "venue"))
-    chips.append(_chip(f"公開日 {paper.published or '-'}"))
+        chips.append(_chip(f"{ui['venue']} {venue}", "venue"))
+    chips.append(_chip(f"{ui['published']} {paper.published or '-'}"))
     kw_count = len([k for k in (getattr(paper, "matched_keywords", []) or []) if str(k).strip()])
     if kw_count:
-        chips.append(_chip(f"キーワード一致 {kw_count}", "keyword-match"))
+        chips.append(_chip(f"{ui['keyword_matches']} {kw_count}", "keyword-match"))
     if getattr(paper, "citations_known", True):
-        chips.append(_chip(f"被引用 {_as_int(getattr(paper, 'citations', 0))}"))
+        chips.append(_chip(f"{ui['citations']} {_as_int(getattr(paper, 'citations', 0))}"))
     relevance = getattr(paper, "relevance_score", None)
     if relevance is not None:
-        chips.append(_chip(f"関連度 {_as_int(relevance)}"))
+        chips.append(_chip(f"{ui['relevance']} {_as_int(relevance)}"))
     basis = summary.get("_basis", "")
-    chips.append(_chip(_basis_label(basis), f"basis-{_basis_quality(basis)}"))
-    rv = _reading_value_label(summary.get("_reading_value"))
+    chips.append(_chip(_basis_label(basis, language), f"basis-{_basis_quality(basis)}"))
+    score = _as_int(summary.get("_reading_value"), 0)
+    rv = f"{ui['reading_value']} {score}/5" if score else ""
     if rv:
         chips.append(_chip(rv, "reading-value"))
     reason = (summary.get("_reading_value_reason") or "").strip()
@@ -188,18 +271,19 @@ def _paper_facts(paper, summary):
     return '<div class="paper-facts">' + "".join(chips) + reason_html + "</div>"
 
 
-def _source_notice(summary):
+def _source_notice(summary, language="ja"):
+    ui = _PAPER_UI[language]
     basis = summary.get("_basis", "")
     if _basis_quality(basis) == "fulltext":
         return (
             '<div class="source-notice fulltext">'
-            f"本文取得済み: {_basis_label(basis)}を根拠に要約しています。"
-            "</div>"
+            + _esc(ui["fulltext_notice"].format(basis=_basis_label(basis, language)))
+            + "</div>"
         )
     return (
         '<div class="source-notice abstract">'
-        "本文未取得: アブストラクトのみを根拠にしています。詳細確認には原典を参照してください。"
-        "</div>"
+        + _esc(ui["abstract_notice"])
+        + "</div>"
     )
 
 
@@ -286,9 +370,12 @@ def _entry_venue(entry, root=None):
     )
 
 
-def render_paper_page(tpl_dir, paper, summary):
+def render_paper_page(tpl_dir, paper, summary, language="ja", alternate_file=""):
+    if language not in _PAPER_UI:
+        raise ValueError(f"Unsupported language: {language}")
+    ui = _PAPER_UI[language]
     sections_html = ""
-    for key, heading in SECTIONS:
+    for key, heading in _PAPER_SECTION_HEADINGS[language].items():
         sections_html += (
             f'<section class="qa"><h2>{_esc(heading)}</h2>'
             f"<p>{_multiline(summary.get(key, ''))}</p></section>\n"
@@ -297,7 +384,7 @@ def render_paper_page(tpl_dir, paper, summary):
     secsum = summary.get("sections") or []
     detail_html = ""
     if secsum:
-        detail_html = '<h2 class="secs-title">セクション別の詳細要約</h2>\n'
+        detail_html = f'<h2 class="secs-title">{_esc(ui["details"])}</h2>\n'
         for s in secsum:
             detail_html += (
                 f'<section class="secsum"><h3>{_esc(s.get("heading", ""))}</h3>'
@@ -305,31 +392,56 @@ def render_paper_page(tpl_dir, paper, summary):
             )
     links = []
     if _safe_url(paper.url):
-        links.append(f'<a href="{_esc(paper.url)}" target="_blank" rel="noopener">原典</a>')
+        links.append(f'<a href="{_esc(paper.url)}" target="_blank" rel="noopener">{_esc(ui["original"])}</a>')
     if _safe_url(paper.pdf_url):
-        links.append(f'<a href="{_esc(paper.pdf_url)}" target="_blank" rel="noopener">PDF</a>')
+        links.append(f'<a href="{_esc(paper.pdf_url)}" target="_blank" rel="noopener">{_esc(ui["pdf"])}</a>')
     if paper.doi:
         links.append(
             f'<a href="https://doi.org/{_esc(paper.doi)}" target="_blank" rel="noopener">DOI</a>'
         )
+    localized_title = summary.get("title") or summary.get("title_ja", "")
+    translated_title = (
+        f'<p class="meta">{_esc(localized_title)}</p>'
+        if localized_title and localized_title != paper.title else ""
+    )
+    language_switch = (
+        f' ・ <a href="{_esc(alternate_file)}" lang="{"en" if language == "ja" else "ja"}">'
+        f'{_esc(ui["alternate"])}</a>'
+        if alternate_file else ""
+    )
     ctx = {
+        "language": language,
         "title": _esc(paper.title),
-        "title_ja": f'<p class="meta">{_esc(summary["title_ja"])}</p>' if summary.get("title_ja") else "",
+        "title_localized": translated_title,
         "tldr": _multiline(summary.get("tldr", "")),
         "authors": _esc(", ".join(paper.authors[:12])),
-        "venue": _esc(_venue_label(paper.venue, published=paper.published)),
+        "venue": _esc(_venue_label(
+            paper.venue,
+            missing="Unknown" if language == "en" else "未取得",
+            published=paper.published,
+        )),
         "published": _esc(paper.published),
         "source": _esc(paper.source),
         "links": " ・ ".join(links),
         "keyword_tags": _keyword_tags(getattr(paper, "matched_keywords", [])),
-        "paper_facts": _paper_facts(paper, summary),
-        "source_notice": _source_notice(summary),
+        "paper_facts": _paper_facts(paper, summary, language),
+        "source_notice": _source_notice(summary, language),
         "sections": sections_html,
         "sections_detail": detail_html,
         "followups": summary.get("_followups_html", ""),
         "engine": _esc(summary.get("_engine", "")),
-        "basis": _basis_label(summary.get("_basis", "")),
+        "basis": _basis_label(summary.get("_basis", ""), language),
         "generated": _today(),
+        "field_index_label": _esc(ui["field_index"]),
+        "home_label": _esc(ui["home"]),
+        "venue_label": _esc(ui["venue"]),
+        "source_label": _esc(ui["source"]),
+        "tldr_label": _esc(ui["tldr"]),
+        "language_switch": language_switch,
+        "ai_notice": ui["ai_notice"],
+        "information_source_label": _esc(ui["information_source"]),
+        "engine_label": _esc(ui["engine"]),
+        "generated_label": _esc(ui["generated"]),
     }
     return render_template(_read(os.path.join(tpl_dir, "paper.html")), ctx)
 
@@ -341,6 +453,13 @@ def _list_items(entries, link_basename=False, highlight_added="", keywords=None,
         authors = _entry_authors(it, root)
         venue = _entry_venue(it, root)
         href = os.path.basename(it["file"]) if link_basename else it["file"]
+        english_href = it.get("file_en", "")
+        if english_href and link_basename:
+            english_href = os.path.basename(english_href)
+        english_link = (
+            f' <span class="language-link">・ <a href="{_esc(english_href)}" lang="en">English</a></span>'
+            if english_href else ""
+        )
         latest = bool(highlight_added and it.get("added") == highlight_added)
         klass = ' class="latest"' if latest else ""
         badge = '<span class="badge-latest">New</span>' if latest else ""
@@ -370,6 +489,7 @@ def _list_items(entries, link_basename=False, highlight_added="", keywords=None,
             f'data-title="{_esc(title_sort)}" data-search="{_esc(search_text)}" '
             f'data-original="{idx}">'
             f'{badge}<a href="{_esc(href)}">{_esc(it["title"])}</a>'
+            f"{english_link}"
             f"{author_html}"
             f"{venue_html}"
             f"{reason_html}"

@@ -12,7 +12,7 @@ from pipeline.copilot import CopilotError
 from pipeline.dedup import load_seen
 from pipeline.schema import Paper
 from pipeline.summarize import Summarizer
-from test_copilot import article
+from test_copilot import bilingual_article
 
 FIELD = "mapf-mapd-warehouse"
 
@@ -42,15 +42,26 @@ class DailyPipelineTests(unittest.TestCase):
         self.fetch = self.stack.enter_context(mock.patch.object(run, "fetch_sections", return_value=([("Method", "MAPF method source.")], "fulltext(arxiv)")))
         self.gather = self.stack.enter_context(mock.patch.object(run, "gather", return_value=([paper(i) for i in range(1, 8)], {})))
         self.llm = mock.Mock(model=None)
-        self.llm.generate.return_value = json.dumps(article(), ensure_ascii=False)
+        self.llm.generate.return_value = json.dumps(bilingual_article(), ensure_ascii=False)
         self.summarizer = Summarizer(llm=self.llm)
         self.stack.enter_context(mock.patch.object(run, "Summarizer", return_value=self.summarizer))
         self.stack.enter_context(mock.patch("sys.stdout", new=io.StringIO()))
 
     def test_mapf_only_max_two_and_same_day_rerun_is_free(self):
+        self.assertEqual([sub["username"] for sub in self.subs], [FIELD])
         self.assertEqual(run.main(["--limit", "100"]), 0)
         self.assertEqual(len(load_seen(self.seen)[FIELD]), 2)
         self.assertEqual(self.llm.generate.call_count, 4)
+        for info in load_seen(self.seen)[FIELD].values():
+            self.assertTrue((self.root / info["file"]).is_file())
+            self.assertTrue((self.root / info["file_en"]).is_file())
+            japanese_html = (self.root / info["file"]).read_text()
+            english_html = (self.root / info["file_en"]).read_text()
+            self.assertIn('lang="ja"', japanese_html)
+            self.assertIn('lang="en"', english_html)
+            self.assertIn(Path(info["file_en"]).name, japanese_html)
+            self.assertIn(Path(info["file"]).name, english_html)
+            self.assertNotIn("{{", japanese_html + english_html)
         for call in self.gather.call_args_list:
             self.assertEqual(call.args[0]["username"], FIELD)
         self.assertEqual(run.main([]), 0)
@@ -80,14 +91,18 @@ class DailyPipelineTests(unittest.TestCase):
         self.assertEqual(len(load_seen(self.seen)[FIELD]), 3)
 
     def test_quota_stops_without_marking_failed_paper(self):
-        self.llm.generate.side_effect = [json.dumps(article()), CopilotError("quota exceeded")]
+        self.llm.generate.side_effect = [json.dumps(bilingual_article()), CopilotError("quota exceeded")]
         self.assertEqual(run.main([]), 2)
         self.assertEqual(load_seen(self.seen)[FIELD], {})
         self.assertEqual(self.llm.generate.call_count, 2)
         self.assertEqual(list((self.root / FIELD).glob("*.html")), [self.root / FIELD / "index.html"])
 
     def test_second_failure_keeps_first_verified_article(self):
-        self.llm.generate.side_effect = [json.dumps(article()), json.dumps(article()), CopilotError("network down")]
+        self.llm.generate.side_effect = [
+            json.dumps(bilingual_article()),
+            json.dumps(bilingual_article()),
+            CopilotError("network down"),
+        ]
         self.assertEqual(run.main([]), 2)
         self.assertEqual(len(load_seen(self.seen)[FIELD]), 1)
         record = next(iter(load_seen(self.seen)[FIELD].values()))

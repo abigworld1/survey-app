@@ -17,6 +17,7 @@ from pipeline.schema import normalize_title
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SEEN = os.path.join(ROOT, "data", "seen.json")
+DEFAULT_FIELD = "mapf-mapd-warehouse"
 
 
 def _run(cmd, *, check=True):
@@ -46,7 +47,7 @@ def _score(query, title):
     return max(raw_score, norm_score)
 
 
-def _all_entries(field=None):
+def _all_entries(field=DEFAULT_FIELD):
     seen = load_seen(SEEN)
     rows = []
     for uslug, useen in seen.items():
@@ -58,7 +59,7 @@ def _all_entries(field=None):
     return rows
 
 
-def _resolve_paper(query, field=None):
+def _resolve_paper(query, field=DEFAULT_FIELD):
     rows = _all_entries(field=field)
     scored = sorted(
         ((row, _score(query, _display_title(row))) for row in rows),
@@ -106,9 +107,8 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description="Ask Copilot CLI a follow-up question and push the updated paper HTML")
     ap.add_argument("--paper", required=True, help="論文タイトル")
     ap.add_argument("--question", action="append", required=True, help="質問。複数指定可")
-    ap.add_argument("--field", help="分野スラッグで絞り込み")
+    ap.add_argument("--field", choices=[DEFAULT_FIELD], default=DEFAULT_FIELD, help="分野スラッグ")
     ap.add_argument("--mapf", dest="field", action="store_const", const="mapf-mapd-warehouse", help="MAPF/MAPD分野に絞り込み")
-    ap.add_argument("--reading", dest="field", action="store_const", const="reading", help="reading分野に絞り込み")
     ap.add_argument("--message", help="commit message")
     ap.add_argument("--arxiv-id", help="本文取得に使うarXiv IDを明示指定する")
     ap.add_argument("--pdf-url", help="本文取得に使うPDF URLを明示指定する")

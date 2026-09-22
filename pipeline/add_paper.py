@@ -241,7 +241,7 @@ def _discover_pdf_files(folder, recursive=True, root=None):
     try:
         folder_path.relative_to(root_path)
     except ValueError as exc:
-        raise ValueError("--folder は survey-app リポジトリ配下を指定してください") from exc
+        raise ValueError("--folder は survey-mapf リポジトリ配下を指定してください") from exc
     if not folder_path.is_dir():
         raise ValueError(f"フォルダがありません: {folder_path}")
     iterator = folder_path.rglob("*") if recursive else folder_path.glob("*")
@@ -258,7 +258,7 @@ def _discover_pdf_files(folder, recursive=True, root=None):
 
 
 def _destination(field, subs):
-    uslug = slugify(field, fallback="reading")
+    uslug = slugify(field, fallback=DEFAULT_FIELD)
     sub = next((s for s in subs if slugify(s.get("username", "")) == uslug), {})
     label = sub.get("label") or field
     return uslug, sub, label
@@ -459,7 +459,7 @@ def main(argv=None):
     src.add_argument("--url", help="PDFのURL")
     src.add_argument(
         "--pdf-dir", "--folder", dest="pdf_dir",
-        help="survey-app配下のPDFフォルダ（一括・既定は再帰検索）",
+        help="survey-mapf配下のPDFフォルダ（一括・既定は再帰検索）",
     )
     ap.add_argument("--title", default="", help="単一PDFのタイトル（通常は自動取得）")
     dest = ap.add_mutually_exclusive_group()

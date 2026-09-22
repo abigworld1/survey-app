@@ -23,7 +23,7 @@ from .util import slugify
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SEEN = os.path.join(ROOT, "data", "seen.json")
-DEFAULT_FIELD = "reading"
+DEFAULT_FIELD = "mapf-mapd-warehouse"
 
 FOLLOWUP_START = "<!-- followup-qa:start -->"
 FOLLOWUP_END = "<!-- followup-qa:end -->"
@@ -59,7 +59,7 @@ QA_SYSTEM = (
     "あなたは計算機科学の研究者を補助する論文読解アシスタントです。"
     "与えられた元論文本文を主根拠に、ユーザーの追加質問へ日本語で答えてください。"
     "論文固有の主張・実験結果・提案手法の詳細は本文に書かれている範囲に限定してください。"
-    "一方で、MAPF、Lifelong MAPF、MAPD、RAGなど、その分野で標準的な一般用語や周辺概念の"
+    "一方で、MAPF、Lifelong MAPF、MAPDなど、その分野で標準的な一般用語や周辺概念の"
     "定義・比較は、一般的な研究知識で補って構いません。"
     "その場合は『一般的には』や『標準的なMAPDでは』のように、本文由来ではない補足だと分かる形で書いてください。"
     "本文に根拠がない論文固有事項は推測せず、何が不明かを明確に述べてください。"
@@ -571,8 +571,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description="生成済み論文HTMLに追加質問とCopilot CLI回答を追記")
     dest = ap.add_mutually_exclusive_group()
     dest.add_argument("--mapf", dest="field", action="store_const", const="mapf-mapd-warehouse")
-    dest.add_argument("--reading", dest="field", action="store_const", const="reading")
-    dest.add_argument("--field", default=None, help="分野スラッグ（既定 reading）")
+    dest.add_argument("--field", default=None, choices=[DEFAULT_FIELD], help="分野スラッグ（既定: mapf-mapd-warehouse）")
     ap.add_argument("--slug", help="対象論文のHTMLファイル名slug、seenキー、またはタイトルslug")
     ap.add_argument("--file", help="対象HTMLファイルのパス（--slug の代わり）")
     ap.add_argument("--question", action="append", required=True, help="追記する質問。複数指定可")
@@ -590,8 +589,8 @@ def main(argv=None):
     args = ap.parse_args(argv)
 
     path = _resolve_path(args)
-    if os.path.relpath(path, ROOT).split(os.sep)[0] == "doc-structure-rag":
-        ap.error("RAGは過去記事アーカイブです。新規の本文取得・LLM処理は停止しています。")
+    if os.path.relpath(path, ROOT).split(os.sep)[0] != DEFAULT_FIELD:
+        ap.error("追加質問はMAPF記事だけが対象です。")
     text = _read(path)
     title = _page_title(text)
     body = _page_text(text)

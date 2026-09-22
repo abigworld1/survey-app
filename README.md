@@ -1,8 +1,8 @@
-# Paper Survey — MAPF
+# survey-mapf — MAPF Paper Survey
 
-[論文サーベイサイト](https://abigworld1.github.io/survey-app/)
+[論文サーベイサイト](https://abigworld1.github.io/survey-mapf/)
 
-GitHub Actionsで毎日 **06:00 JST** にMAPF論文を検索し、未処理の論文を **最大2本**、GitHub Copilot CLIで日本語要約してGitHub Pagesへ公開します。自前サーバ、vLLM、OpenAI API、OpenAI API key、長期PATは不要です。追加の有料APIやクラウドへのフォールバックはありません。
+GitHub Actionsで毎日 **06:00 JST** にMAPF論文を検索し、未処理の論文を **最大2本**選びます。各論文についてGitHub Copilot CLIで日本語版と英語版を同時に要約し、**日本語2ページ＋英語2ページの最大4ページ**をGitHub Pagesへ公開します。自前サーバ、vLLM、OpenAI API、OpenAI API key、長期PATは不要です。追加の有料APIやクラウドへのフォールバックはありません。
 
 ## Architecture
 
@@ -16,8 +16,8 @@ GitHub Actions (06:00 JST / 21:00 UTC)
     +-- paper text extraction (arXiv HTML / ar5iv / OA PDF)
     |
     +-- GitHub Copilot CLI
-    |      +-- Japanese article JSON
-    |      +-- factual review and corrected article JSON
+    |      +-- Japanese + English article JSON
+    |      +-- bilingual factual review and corrected JSON
     |
     +-- existing HTML templates + atomic history checkpoint
     |
@@ -30,21 +30,21 @@ GitHub Actions (06:00 JST / 21:00 UTC)
     +-- GitHub Pages (official Pages Actions)
 ```
 
-検索・本文抽出・名寄せ・落合フォーマット・ダークテーマ・ブラウザの既読/あとで/お気に入り機能・既存URLを引き継いでいます。新規取得はMAPFと、従来の検索設定に含まれるMAPD/lifelong MAPFのみです。一般的なrobotics、LLM、RAG、multi-agent reinforcement learningへ対象を広げません。
+検索・本文抽出・名寄せ・落合フォーマット・ダークテーマ・ブラウザの既読/あとで/お気に入り機能・既存の日本語記事URLを引き継いでいます。新規取得はMAPFと、従来の検索設定に含まれるMAPD/lifelong MAPFのみです。一般的なrobotics、LLM、RAG、multi-agent reinforcement learningへ対象を広げません。
 
-`doc-structure-rag/` の過去記事は保持します。subscriptionは `archived: true` とし、検索語と取得元を削除しました。トップには更新終了のアーカイブとして表示し、新着一覧から除外します。`reading/` の既存記事も保持します。
+トップ画面と購読設定はMAPF分野だけです。旧 `doc-structure-rag/` と `reading/` はナビゲーション・自動取得・新着一覧から削除済みです。ただし、過去に共有した直リンクを壊さないため、既存の静的HTMLだけは互換コンテンツとしてPages artifactへ残します。
 
 ## GitHubで最初に設定すること
 
 1. この変更を `main` へ反映してください。定期実行はデフォルトブランチのworkflowが対象です。このworkflowの公開対象は `main` です。
-2. **Settings → Pages → Build and deployment → Source → GitHub Actions** を選択してください。以前の `Deploy from a branch / main / root` から変更します。URLは `https://abigworld1.github.io/survey-app/` のままです。
+2. **Settings → Pages → Build and deployment → Source → GitHub Actions** を選択してください。以前の `Deploy from a branch / main / root` から変更します。URLは `https://abigworld1.github.io/survey-mapf/` です。
 3. **Settings → Actions → General** でActionsと公式 `actions/*` の利用を許可してください。workflowの `contents: write` がポリシーで禁止されていないこと、`main` の保護ルールが `github-actions[bot]` による記事commitを許すことを確認してください。保護ルールはこのコードから変更しません。
 4. リポジトリ所有者のCopilotが有効で、CLIと選択モデルを利用できる必要があります。個人所有リポジトリでは組み込み `GITHUB_TOKEN` による利用分が所有者のCopilot枠へ計上されます。組織へ移す場合は **Allow use of Copilot CLI billed to the organization** ポリシーも確認してください。[GitHub公式の認証・課金説明](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/copilot-cli-in-github-actions)
 5. `github-pages` environmentに承認やブランチ制限を設定している場合は、その設定に従って初回deployを許可してください。
 
 **SecretsへのAPIキー/PAT登録は不要**です。要約ステップには `GITHUB_TOKEN: ${{ github.token }}` を渡します。[公式のActions設定例](https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli-in-actions)
 
-古いサーバのcronやsystemd timerは、このGit変更だけでは停止できません。二重更新を避けるため、旧環境の `survey-app/deploy/run-daily.sh` を呼ぶcron、または `survey.timer` が残っていれば、Actionsへの切替時にそのジョブだけを停止してください。新構成から旧サーバへ接続する処理はありません。
+古いサーバのcronやsystemd timerは、このGit変更だけでは停止できません。二重更新を避けるため、旧環境の `survey-mapf/deploy/run-daily.sh` を呼ぶcron、または `survey.timer` が残っていれば、Actionsへの切替時にそのジョブだけを停止してください。新構成から旧サーバへ接続する処理はありません。
 
 ## 初回実行・手動実行
 
@@ -76,10 +76,10 @@ copilot -p PROMPT -s --no-color --no-ask-user
 
 `--available-tools=` でツールを非公開にし、許可フラグを使いません。リポジトリ外の一時cwdと一時 `COPILOT_HOME` を使い、保存済みの設定・会話や他社API用環境変数を引き継ぎません。論文内の命令に従わないことをプロンプトに明記しています。[公式CLIリファレンス](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference)
 
-- 1回目: 日本語タイトル、TLDR、落合5項目、背景・課題・技術・実験・結果・結論・限界・重要性・推奨読者をJSONでまとめて生成。
-- 2回目: 同じ原文抜粋と初稿を照合し、数値、手法名、ベンチマーク、条件、断定、結論との矛盾を修正。全項目を再検証してから公開。
+- 1回目: 日本語・英語それぞれのタイトル、TLDR、落合5項目、背景・課題・技術・実験・結果・結論・限界・重要性・推奨読者を1つのJSONでまとめて生成。
+- 2回目: 同じ原文抜粋と日英の初稿を照合し、数値、手法名、ベンチマーク、条件、断定、結論との矛盾と翻訳間の不一致を修正。両言語の全項目を再検証してから公開。
 - 読む価値スコアはPythonの既存ヒューリスティックで計算。追加のLLM呼び出しはありません。
-- 通常は **1本2回、1回の実行で最大4回** のCLI起動です。失敗候補にも上限を適用し、JSON修復ループや日次スクリプト全体の自動再試行はありません。
+- 日英を別々に推論しないため、従来どおり **1論文2回、1回の実行で最大4回** のCLI起動です。過去記事を一括翻訳する処理はありません。失敗候補にも上限を適用し、JSON修復ループや日次スクリプト全体の自動再試行はありません。
 - CLI起動数とGitHub側の課金単位/AI creditsは同じとは限りません。毎日2本を月末まで処理できるとFree枠で保証するものではありません。所有者の利用状況・モデル・現行プランに依存します。GitHubのCopilot使用状況と支出上限を確認し、追加利用を購入しない設定で運用してください。
 
 **利用枠不足・認証拒否・network failure・timeout時は、その実行のCopilot処理を停止**します。不正JSONも再試行せず、その論文を未処理のまま残します。途中までの要約や事実確認に失敗した初稿は公開しません。先に正常完了した記事は保存・公開し、Actionsには失敗を表示します。他社APIやリモートLLMへ切り替えません。
@@ -96,7 +96,7 @@ JSONはコードフェンス付きでも読み取れます。欠損項目・不�
 
 永続データは従来どおり `data/seen.json` と記事HTMLです。DOI、バージョンを除いたarXiv ID、正規化タイトルを全分野の履歴と照合します。上位2本を切り出す前に既処理を除き、深い候補プールから選びます。本文取得は1実行で最大12候補、日次ステップは30分で打ち切り、完了済みcheckpointの保存を試みます。新着1本＋重要1本という既存の選定を維持します。関連候補内では本文リンクのある論文を優先し、取得不能な高適合候補だけで待ち続けないようにします。1日あたりの件数はJSTの日付で数えます。
 
-記事とseenはatomic writeし、検証済み記事ごとにcheckpointを保存します。過去のseenレコードと記事の削除・上書き、RAG新規記事、スタブ公開、1日2本超過を公開前に拒否します。
+日本語記事・英語記事・seenはatomic writeし、検証済みの1論文分が揃ってからcheckpointを保存します。過去のseenレコードと記事の削除・上書き、英語版の欠落、旧カテゴリへの新規記事、スタブ公開、1日2論文超過を公開前に拒否します。
 
 workflowは権限を3ジョブに分けています:
 
@@ -140,7 +140,7 @@ python -m pipeline.publish build /tmp/survey-pages-preview
 
 | 設定 | 既定 | 用途 |
 | --- | --- | --- |
-| `subscriptions.yml` のMAPF `k` | `2` | 日次最大件数。コード上も最大2 |
+| `subscriptions.yml` のMAPF `k` | `2` | 日次最大論文数。各論文の日英2ページを作るため最大4ページ |
 | repository variable `COPILOT_MODEL` | 空 | Copilotの既定モデル。指定時は所有者が利用可能なモデル名 |
 | `COPILOT_CONTEXT_CHARS` | `24000` | 原文抜粋の文字予算（4,000〜32,000） |
 | `COPILOT_TIMEOUT_SECONDS` | `300` | CLI呼び出しのtimeout秒 |
@@ -153,4 +153,4 @@ Python依存はPyYAMLとPyMuPDFのみです。検索元の無料・無鍵アク�
 - エントリーポイントは `deploy/run-daily.sh` → `pipeline.run`。実運用はリモートサーバ上のvenv＋06:00 user cron、Pagesは `main / root` のbranch公開でした。既存Actions workflowはありませんでした。
 - `pipeline/summarize.py` がOpenAI互換 `/models` と `/chat/completions` を使い、ローカルモデルへ接続していました。接続コードと `LLM_BASE_URL` / `LLM_API_KEY` / `LLM_MODEL`、多段の追加推論を撤去しました。
 - Docker/compose/systemd参考設定と旧publishスクリプトを削除しました。`run-daily.sh` はPython呼び出しのみになり、サーバのパス、`.env`、PAT、リモートLLM、cron再試行に依存しません。
-- RAG取得設定を撤去し、履歴はアーカイブとして保持。既存検索・PDF/HTML抽出・名寄せ・renderer・記事URLを再利用しています。
+- RAGと個別読書カテゴリを購読・画面から撤去し、直リンク互換用の既存HTMLだけを公開対象に保持。既存検索・PDF/HTML抽出・名寄せ・renderer・MAPF記事URLを再利用しています。

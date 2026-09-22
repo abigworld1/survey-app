@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja">
+<html lang="{{language}}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -83,22 +83,21 @@
 </head>
 <body>
 <div class="wrap">
-  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a></nav>
+  <nav><a href="index.html">{{field_index_label}}</a> ・ <a href="../index.html">{{home_label}}</a>{{language_switch}}</nav>
   <h1>{{title}}</h1>
-{{title_ja}}
-  <div class="meta">{{authors}}<br>採択先: {{venue}} ・ {{published}} ・ source: {{source}}</div>
+{{title_localized}}
+  <div class="meta">{{authors}}<br>{{venue_label}}: {{venue}} ・ {{published}} ・ {{source_label}}: {{source}}</div>
   <div class="links">{{links}}</div>
   {{paper_facts}}
   {{source_notice}}
 {{keyword_tags}}
-  <div class="tldr"><strong>一言で:</strong> {{tldr}}</div>
+  <div class="tldr"><strong>{{tldr_label}}</strong> {{tldr}}</div>
 {{sections}}
 {{sections_detail}}
 {{followups}}
   <footer>
-    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。
-    正確な内容は必ず原典をご確認ください。<br>
-    情報源: {{basis}} ・ 要約エンジン: {{engine}} ・ 生成日: {{generated}}
+    {{ai_notice}}<br>
+    {{information_source_label}}: {{basis}} ・ {{engine_label}}: {{engine}} ・ {{generated_label}}: {{generated}}
   </footer>
 </div>
 </body>

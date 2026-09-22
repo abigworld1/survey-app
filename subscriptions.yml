@@ -1,9 +1,9 @@
 # 分野設定（自分専用）。分野ごとに username(URLスラッグ) / label(表示名) / keywords / k / sources を指定。
-#  - username: 公開URL（/survey-app/<username>/）になる ASCII スラッグ。実名・PIIは入れない。
+#  - username: 公開URL（/survey-mapf/<username>/）になる ASCII スラッグ。実名・PIIは入れない。
 #  - label:    トップや一覧に表示される日本語の分野名。
 #  - keywords: ソース横断の検索語（OR検索）。
 #  - search_queries: 取得用の検索語。指定すると keywords ではなくこちらで検索する。
-#  - k:        1日に生成するページ数の上限（最大 2）。
+#  - k:        1日に選ぶ論文数の上限（最大2、各論文の日英2ページを生成）。
 #  - sources:  arxiv / openalex / semanticscholar / dblp から選択。
 subscriptions:
   - username: mapf-mapd-warehouse
@@ -52,12 +52,3 @@ subscriptions:
       - "Warehouse"
     k: 2
     sources: [arxiv, semanticscholar, openalex]
-
-  - username: doc-structure-rag
-    label: 文書構造解析に基づく検索・質問応答・RAG
-    archived: true  # 過去のURLと履歴だけ保持。取得・要約しない。
-
-  # 以前の手動追加記事を保持（日次取得なし。現在の新規追加先はMAPFのみ）。
-  - username: reading
-    label: 個別に読んだ論文
-    manual: true

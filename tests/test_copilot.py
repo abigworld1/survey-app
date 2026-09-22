@@ -32,6 +32,16 @@ def article():
     }
 
 
+def bilingual_article():
+    japanese = article()
+    japanese["title"] = japanese.pop("title_ja")
+    english = {
+        key: ("Conflict-Based Search for Multi-Agent Path Finding" if key == "title" else f"English version: {value}")
+        for key, value in japanese.items()
+    }
+    return {"ja": japanese, "en": english}
+
+
 class CopilotAdapterTests(unittest.TestCase):
     @mock.patch.dict(os.environ, {"GITHUB_TOKEN": "test-secret", "OPENAI_API_KEY": "must-not-inherit", "NODE_OPTIONS": "unsafe"})
     @mock.patch("pipeline.copilot.subprocess.run")
@@ -116,6 +126,18 @@ class TwoCallSummaryTests(unittest.TestCase):
         with self.assertRaises(CopilotError):
             self.summarizer.summarize(self.paper, self.sections)
         self.assertEqual(self.llm.generate.call_count, 2)
+
+    def test_bilingual_article_uses_two_calls_for_both_languages(self):
+        self.llm.generate.return_value = json.dumps(bilingual_article(), ensure_ascii=False)
+
+        summaries = self.summarizer.summarize_bilingual(self.paper, self.sections)
+
+        self.assertEqual(self.llm.generate.call_count, 2)
+        self.assertEqual(set(summaries), {"ja", "en"})
+        self.assertEqual(summaries["ja"]["_language"], "ja")
+        self.assertEqual(summaries["en"]["_language"], "en")
+        self.assertEqual(len(summaries["ja"]["sections"]), 9)
+        self.assertEqual(len(summaries["en"]["sections"]), 9)
 
     def test_bad_json_and_missing_fields_do_not_retry(self):
         for content in ["not json", "[]", '{"tldr":"short"}']:

@@ -41,7 +41,7 @@ class PdfFolderTests(unittest.TestCase):
 
     def test_rejects_folder_outside_repository(self):
         with tempfile.TemporaryDirectory() as root, tempfile.TemporaryDirectory() as outside:
-            with self.assertRaisesRegex(ValueError, "survey-app"):
+            with self.assertRaisesRegex(ValueError, "survey-mapf"):
                 add_paper._discover_pdf_files(outside, root=root)
 
     def test_extracts_only_explicit_doi_and_arxiv_identifiers(self):

@@ -13,7 +13,11 @@ from .copilot import safe_diagnostic
 from .util import atomic_write
 
 ROOT = Path(__file__).resolve().parents[1]
-FIELDS = ("mapf-mapd-warehouse", "doc-structure-rag", "reading")
+ACTIVE_FIELD = "mapf-mapd-warehouse"
+# These categories are no longer part of the app or navigation. Their static
+# files remain in the Pages artifact solely so historical direct URLs keep working.
+LEGACY_PUBLIC_FIELDS = ("doc-structure-rag", "reading")
+PUBLIC_FIELDS = (ACTIVE_FIELD, *LEGACY_PUBLIC_FIELDS)
 
 
 def git(*args, root=ROOT, check=True):
@@ -23,8 +27,8 @@ def git(*args, root=ROOT, check=True):
 
 def generated_path(rel):
     return bool(
-        rel in {"index.html", "data/seen.json", *(f"{field}/index.html" for field in FIELDS)}
-        or re.fullmatch(r"mapf-mapd-warehouse/[a-z0-9][a-z0-9._-]*\.html", rel)
+        rel in {"index.html", "data/seen.json", *(f"{field}/index.html" for field in PUBLIC_FIELDS)}
+        or re.fullmatch(rf"{ACTIVE_FIELD}/[a-z0-9][a-z0-9._-]*\.html", rel)
         or re.fullmatch(r"data/runs/\d{4}-\d{2}-\d{2}\.(?:json|html)", rel)
     )
 
@@ -55,10 +59,20 @@ def validate_history(root=ROOT, baseline=None):
                 raise ValueError(f"Missing/incomplete article: {rel}")
             if key in baseline.get(field, {}):
                 continue
-            if field != FIELDS[0] or not info.get("engine", "").startswith("copilot-cli:"):
+            if field != ACTIVE_FIELD or not info.get("engine", "").startswith("copilot-cli:"):
                 raise ValueError(f"Unexpected field or unverified/stub article: {rel}")
             if not info.get("basis", "").startswith("fulltext") or len(info.get("tldr", "")) < 40:
                 raise ValueError(f"Insufficient source/summary: {rel}")
+            if info.get("selection") != "manual":
+                rel_en = info.get("file_en", "")
+                path_en = safe_file(root, rel_en)
+                if (
+                    not rel_en
+                    or not path_en.is_file()
+                    or not path_en.read_text(encoding="utf-8").rstrip().endswith("</html>")
+                    or len(info.get("tldr_en", "")) < 40
+                ):
+                    raise ValueError(f"Missing/incomplete English article: {rel_en or rel}")
             new_aliases = set(seen_entry_aliases(key, info))
             if aliases & new_aliases:
                 raise ValueError(f"Duplicate article: {rel}")
@@ -68,7 +82,7 @@ def validate_history(root=ROOT, baseline=None):
         raise ValueError("More than two new articles")
     for day in {info.get("added") for info in added}:
         count = sum(info.get("added") == day and info.get("selection") != "manual"
-                    for info in seen.get(FIELDS[0], {}).values())
+                    for info in seen.get(ACTIVE_FIELD, {}).values())
         if count > 2:
             raise ValueError(f"Daily two-paper limit exceeded: {day}")
     return seen
@@ -80,12 +94,18 @@ def stage(destination, root=ROOT):
     changed = git("diff", "--name-only", "HEAD", root=root).stdout.splitlines()
     changed += git("ls-files", "--others", "--exclude-standard", root=root).stdout.splitlines()
     files = sorted({rel for rel in changed if generated_path(rel)})
-    seen_files = {info["file"] for entries in load_seen(root / "data/seen.json").values() for info in entries.values()}
+    seen_files = {
+        rel
+        for entries in load_seen(root / "data/seen.json").values()
+        for info in entries.values()
+        for rel in (info.get("file"), info.get("file_en"))
+        if rel
+    }
     for rel in files:
         path = safe_file(root, rel)
         if not path.is_file():
             raise ValueError(f"Generated history deletion is forbidden: {rel}")
-        if rel.startswith(FIELDS[0] + "/") and not rel.endswith("/index.html"):
+        if rel.startswith(ACTIVE_FIELD + "/") and not rel.endswith("/index.html"):
             if rel not in seen_files:
                 raise ValueError(f"Article was not checkpointed: {rel}")
             previous = git("cat-file", "-e", f"HEAD:{rel}", root=root, check=False)
@@ -123,7 +143,7 @@ def build(destination, root=ROOT):
     # Completeness check also works after committing, with no Git dependency.
     validate_history(root, baseline=load_seen(root / "data/seen.json"))
     files = [root / "index.html", root / ".nojekyll"]
-    for field in FIELDS:
+    for field in PUBLIC_FIELDS:
         files += sorted((root / field).glob("*.html"))
     files += sorted((root / "data/runs").glob("*.html"))
     files += sorted((root / "data/runs").glob("*.json"))

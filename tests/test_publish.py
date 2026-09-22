@@ -31,9 +31,13 @@ class PublishTests(unittest.TestCase):
         path = self.root / field / f"2609.{number:05d}.html"
         path.parent.mkdir(exist_ok=True)
         path.write_text("<html>verified summary</html>")
+        path_en = self.root / field / f"2609.{number:05d}.en.html"
+        path_en.write_text("<html lang=\"en\">verified English summary</html>")
         seen.setdefault(field, {})[f"arxiv:2609.{number:05d}"] = {
             "title": f"MAPF paper {number}", "file": path.relative_to(self.root).as_posix(),
+            "file_en": path_en.relative_to(self.root).as_posix(),
             "engine": engine, "basis": "fulltext(arxiv)", "tldr": "詳細な日本語の要約。" * 10,
+            "tldr_en": "A detailed English summary of the selected MAPF research paper. " * 2,
             "added": "2026-09-13", "selection": "recent",
         }
         (self.root / "data/seen.json").write_text(json.dumps(seen))
@@ -55,6 +59,7 @@ class PublishTests(unittest.TestCase):
         site = Path(self.tmp.name) / "site"
         publish.build(site, clone)
         self.assertTrue((site / "mapf-mapd-warehouse/2609.00001.html").is_file())
+        self.assertTrue((site / "mapf-mapd-warehouse/2609.00001.en.html").is_file())
         self.assertFalse((site / "data/seen.json").exists())
         self.assertFalse((site / ".env").exists())
         self.assertFalse((site / "papers").exists())
@@ -71,6 +76,15 @@ class PublishTests(unittest.TestCase):
         for number in range(1, 4):
             self.add_article(number)
         with self.assertRaisesRegex(ValueError, "two new"):
+            publish.validate_history(self.root)
+
+    def test_daily_article_requires_english_counterpart(self):
+        self.add_article()
+        seen = json.loads((self.root / "data/seen.json").read_text())
+        info = next(iter(seen["mapf-mapd-warehouse"].values()))
+        (self.root / info["file_en"]).unlink()
+
+        with self.assertRaisesRegex(ValueError, "English article"):
             publish.validate_history(self.root)
 
     def test_history_loss_and_incomplete_html_rejected(self):

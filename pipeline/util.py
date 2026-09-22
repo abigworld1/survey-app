@@ -12,7 +12,7 @@ import urllib.request
 
 # 各APIの作法に合わせて、誰からのアクセスか分かる User-Agent を必ず付ける
 USER_AGENT = (
-    "survey-app/0.1 (+https://abigworld1.github.io/survey-app/; "
+    "survey-mapf/0.1 (+https://abigworld1.github.io/survey-mapf/; "
     "mailto:hirayama.h77@gmail.com)"
 )
 
