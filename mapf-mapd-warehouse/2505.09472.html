@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Streaming Multi - agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2505.09472.en.html" lang="en">English</a></nav>
+  <h1>Streaming Multi - agent Pathfinding</h1>
+<p class="meta">ストリーミング・マルチエージェント経路探索</p>
+  <div class="meta">Mingkai Tang, Lu Gan, Kaichen Zhang<br>採択先: IJCAI2025 ・ 2025-05-14 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2505.09472" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2505.09472" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 IJCAI2025</span><span class="chip">公開日 2025-05-14</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、組立ラインのように長時間にわたり周期的に現れるエージェント群を対象とするストリーミングMAPF（S-MAPF）を定式化し、Agent Stream Conflict-Based Search（ASCBS）を提案する。実験結果は、長い稼働時間においてASCBSが従来のCBSより実行時間で有利になり、解品質の差も小さいことを示している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>通常のMAPFは、有限個のエージェントをそれぞれの開始地点から目標地点へ移動させる問題として定式化される。しかし組立ラインでは、部品搬送が長時間継続し、同じ役割のエージェントが周期的に投入されるため、単一の有限時間計画だけでは運用を直接表しにくい。本論文のS-MAPFでは、同じエージェントストリームに属するエージェントが一定周期で開始地点に現れ、同じ行動列、したがって同じ経路を共有すると仮定する。エージェントは目標に到達すると環境から消える。目的は、継続的な出現を考慮して、すべてのストリームについて衝突のない経路を求めることである。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一の貢献は、周期的な開始時刻と共有行動列を持つエージェントストリームを用いて、組立ライン向けのS-MAPFを形式化したことである。第二に、周期性によって繰り返し発生する衝突を扱うため、Agent Stream Conflict-Based Search（ASCBS）を導入した。ASCBSは、異なるストリーム間だけでなく、同一ストリームに属する異なる出現エージェント間の衝突も対象にする。第三に、通常分割と分離分割を組み合わせた複数の実装を比較し、長い稼働時間における従来CBSとの計算効率と解品質を評価した。さらに、環境内に留まるエージェントやストリームごとに異なる周期時間など、基本仮定を緩和する拡張も示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>ASCBSは、競合ベース探索の二層構造をS-MAPF向けに変更したアルゴリズムである。高レベルでは制約木を探索し、各ノードが制約集合と各エージェントストリームの経路を保持する。低レベルでは、各ストリームについてA*などを用いて、制約を満たす最短経路を計画する。高レベル探索は最小コストのノードを選び、検出した最良の衝突を解消する制約を子ノードに追加する。周期性を表すため、ある出現だけでなく周期を隔てた出現にも適用される循環頂点制約と循環辺制約を用いる。頂点衝突は異なる時刻の出現が同一頂点にいる場合、辺衝突は同じ辺を反対方向に横断する場合として、周期的な条件で検出される。論文は、低レベルにA*を用いるASCBSがS-MAPFに対して最適かつ完全であると主張しているが、提示された抜粋には証明の詳細は含まれていない。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験にはMAPF Benchmark Setから選んだempty-8-8、random-64-64-10、Paris_1_256という三つの格子状グラフが使われた。各グラフには25個のシナリオファイルがあり、各設定についてシナリオごとに4インスタンスを生成し、ストリームの初期開始時刻をランダムに割り当てたと説明されている。比較対象は、A*またはIDA*を低レベルソルバーに使い、分離分割を使うかどうかを変えたASCBSの四つの実装である。さらに、ASCBS-A-NDをCBSと比較し、実行時間、成功率、相対的な解品質を評価した。実行時間が60秒を超えるインスタンスは失敗として扱い、実行時間を60秒に設定したとされる。抜粋には個々の設定における数値、平均値、相対誤差の具体的な値は記載されていない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>結果の傾向は、分離分割の有効性が地図の大きさや低レベルソルバーに依存することを示す。empty-8-8とrandom-64-64-10ではASCBS-A-DがASCBS-A-NDを上回った一方、Paris_1_256ではASCBS-A-NDが上回った。IDA*を使う構成では、制約の影響を受けるIDA*の計算時間が大きく、分離分割を使わない構成が有利だった。長い稼働時間では、ASCBSの一つの周期的な解をすべての時間地平に適用できるため、実行時間が安定するのに対し、CBSは考慮するエージェント数の増加に伴って遅くなる。ASCBSのCBSに対する相対的な解品質差は非常に小さく、時間地平が長くなるほど縮小したと報告されている。ただし、抜粋だけでは、どの条件で最適性が実用上失われるか、ストリーム数や周期時間の限界がどこにあるかは確定できない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、倉庫、交通制御、配管設計など、複数の移動体を衝突なく誘導する応用で研究されてきた。組立ラインでは、固定経路のコンベヤに代わってロボットが部品を搬送できるが、ロボット同士の衝突回避が必要になる。関連研究には、遅延確率、大型エージェント、組立作業の先行制約、連続空間での周期的マルチエージェント計画などがある。著者らは、S-MAPFは周期的なストリームと離散グラフを組み合わせる点で、これらとは異なる問題設定だと位置づけている。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>S-MAPFの入力は、単位長の辺を持つ無向グラフ、全ストリームで共有する周期時間、エージェントストリームの集合から成る。各ストリームには開始頂点、目標頂点、初期開始時刻があり、指定時刻ごとに新しいエージェントが開始頂点に現れる。エージェントは隣接頂点への移動または待機を行い、目標に到達すると消える。同一ストリーム内のエージェントは同一の行動列を使うため、同じ経路を繰り返し実行する。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>周期頂点衝突と周期辺衝突は、二つの出現エージェントの時刻差が周期の整数倍になる可能性を調べることで、無限に続く運用を有限の制約として扱う。衝突するストリームは必ず異なるとは限らず、同一ストリーム内の出現同士でも衝突し得る。高レベルの制約木は、通常の頂点・辺制約または循環頂点・辺制約を子ノードに追加して展開される。論文は、同じストリーム内の衝突を低レベルだけで処理するより、高レベル探索で解決する方が有効だと実験結果から述べている。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験環境はUbuntu 20.04、Intel Core i7-8700 3.2GHz、メモリ32GBと記載されている。三つのベンチマーク地図と25シナリオを用い、各設定で100インスタンスを作成した。ASCBSのA*・IDA*、分離分割の有無を比較し、さらにCBSとの比較を行った。抜粋はコードが公開されているURLを示しているが、再現に必要な全パラメータや乱数の詳細までは確定していない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>小規模なempty-8-8とrandom-64-64-10では、A*と分離分割を組み合わせたASCBS-A-Dが非分離版より有利だった。大規模なParis_1_256では、ASCBS-A-NDがASCBS-A-Dを上回った。IDA*構成では、IDA*自体の制約依存の計算時間が大きく、非分離版が有利だった。長い時間地平ではASCBSがCBSより高速で、解品質はわずかに低いか同等であり、その差は時間地平が長いほど小さくなったと報告されている。</p></section>
+<section class="secsum"><h3>結論</h3><p>本論文は、周期的に投入されるエージェント群を扱うS-MAPFという問題設定と、循環制約を備えたASCBSを提示した。A*を低レベルに用いるASCBSは、論文の主張によればS-MAPFに対して最適かつ完全である。実験は、長時間の組立ライン運用では、周期解を再利用するASCBSがCBSより実行時間の面で適していることを支持する。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>基本S-MAPFは、同一ストリーム内で周期時間と行動列が共有され、エージェントが目標到達後に消えるという強い仮定に依存する。現実の遅延、故障、異なる行動列、容量制約、動的な作業要求がどの程度扱えるかは、提示された実験からは分からない。著者らは環境内に留まる場合と非一様周期時間を拡張として挙げているが、それらの詳細な評価結果は抜粋にない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>S-MAPFは、有限数のエージェントを一度だけ動かすMAPFを、繰り返し運用される搬送ラインへつなぐ抽象化である。周期的な経路を一度求めて再利用することで、長い時間地平を個々のエージェントの巨大な計画問題として扱わずに済む可能性がある。したがって、周期運用と衝突回避を統合したいMAPF・MAPD研究者にとって、問題定式化とCBS拡張の基礎例として重要である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>組立ライン、倉庫搬送、周期的なエージェント投入など、離散環境で同一パターンを繰り返す計画を研究する読者に適している。CBS、制約木探索、分離分割、周期的な衝突制約を比較したいMAPF研究者にも有用である。実運用の不確実性や大規模性については、本文全体と追加実験を確認してから適用すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-24
+  </footer>
+</div>
+</body>
+</html>

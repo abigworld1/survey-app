@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lightweight and Effective Preference Construction in PIBT for Large-Scale Multi - Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2505.12623.html" lang="ja">日本語</a></nav>
+  <h1>Lightweight and Effective Preference Construction in PIBT for Large-Scale Multi - Agent Pathfinding</h1>
+<p class="meta">Lightweight and Effective Preference Construction in PIBT for Large-Scale Multi-Agent Pathfinding</p>
+  <div class="meta">Keisuke Okumura, Hiroki Nagai<br>Venue: Unknown ・ 2025-05-18 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2505.12623" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2505.12623" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">Influential paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2025-05-18</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 1</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper improves the tie-breaking used by PIBT, a lightweight successor-generation scheme widely used in large-scale MAPF. It proposes Hindrance, which anticipates whether a dodge will obstruct progress at the next timestep, and Regret learning, which learns the losses imposed on other agents across multiple PIBT runs; the methods improve one-shot solution cost and lifelong throughput with little additional computation.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The setting is multi-agent pathfinding on a discrete graph, where many agents move synchronously. At every timestep an agent may stay at its current vertex or move to a neighboring vertex, while vertex conflicts and swaps along an edge are forbidden. In one-shot MAPF, each agent must reach an assigned goal from a given start, whereas in lifelong MAPF a new goal is assigned immediately after an agent completes a task. PIBT constructs the next collision-free locations through priority inheritance and backtracking, but its usual greedy preference ordering must choose among several equally short actions, and those local choices can strongly affect global performance.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The first contribution is the Hindrance tie-breaker, which evaluates whether a lower-priority agent’s avoidance move will also interfere with the higher-priority agent’s progress at the next timestep. The second is Regret learning, which records the cost gap between the best action available to another agent and the action it actually receives after priority inheritance, then uses this information to order future alternatives. Both techniques modify preference construction rather than PIBT’s core collision-resolution mechanism. Consequently, the paper states that the completeness guarantees of the original PIBT, and of LaCAM when it uses PIBT for successor generation, are preserved. The empirical study shows that this small intervention can improve solution quality while retaining PIBT’s computational advantage.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>PIBT processes agents in a prescribed order and examines a preference-sorted list containing each agent’s current vertex and neighboring vertices. If a desired location is occupied, priority is inherited by the blocking agent, which is recursively reconsidered; backtracking allows PIBT to continue when a tentative assignment is invalid. Hindrance provides a local lookahead for a dodge: it checks whether the neighboring higher-priority agent is moving toward a goal and whether the candidate avoidance action would obstruct that progress in the following timestep. Regret measures how much another agent loses when it receives its actual action rather than its best candidate, and propagates this information through the priority-inheritance interaction so that high-priority agents choose less damaging ties. The paper evaluates Hindrance, Regret, their combinations such as HR and RH, and existing alternatives including vacancy preference and Monte Carlo sampling.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation covers both one-shot and lifelong MAPF. It compares Original vanilla preference construction, Monte Carlo sampling, Vacancy, Hindrance, Regret, and combined variants on four-connected random, room, warehouse, and sortation grid maps. For each map and agent-count setting, 100 randomized test cases were prepared, with starts and goals randomized. One-shot metrics are success within a time limit, wall-clock time to obtain a solution, and Sum-of-Costs for successful cases; lifelong metrics are throughput and response time. The supplied excerpt omits some exact time limits, agent counts, hardware memory details, and complete result tables, so those particulars cannot be established from the evidence provided.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The results indicate that tie-breaking is a substantive design issue rather than a minor implementation detail. In dense one-shot cases, the combined proposed tie-breakers reduce Sum-of-Costs by approximately 10–20 percent relative to Original, and HR achieves an approximately 20 percent reduction in a reported warehouse setting. In an especially dense sortation setting, Hindrance retains a success rate above 90 percent, comparable to Original, while improving LaCAM’s solution quality under a strict time limit. The benefits are map-dependent, and neither Regret nor Monte Carlo is uniformly best. The authors therefore recommend the combined HR-style preference in the tested settings, while identifying adaptive strategy selection and low-latency learned preferences as future directions.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>MAPF assigns collision-free paths to multiple agents on a discrete workspace and is relevant to logistics automation with hundreds or thousands of robots. Optimal coordination is computationally difficult, which motivates suboptimal methods that produce plausible solutions under tight time constraints. PIBT has become a common underlying component because it is simple, scalable, and able to generate collision-free next locations quickly. It supports search-based, lifelong, and machine-learning MAPF systems, so improving its local preference construction can affect several classes of planners.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>Vanilla PIBT generally prefers actions that greedily reduce distance to the assigned goal. Graph shortest paths are often non-unique, so a random or purely local tie-break can cause unnecessary detours, future blocking, or chains of priority inheritance. A lower-priority agent may have multiple legal dodge directions, only some of which preserve the next-step progress of the agent it avoids. Likewise, a high-priority agent may choose among tied actions without accounting for the regret imposed on agents that inherit its consequences. The challenge is to use this additional information without turning PIBT into a computationally heavy planner.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>Hindrance adds a short-horizon test of whether an avoidance action blocks the other agent’s goal-directed motion in the next timestep. Its per-agent computation is local and depends on the maximum graph degree, so the paper characterizes the total overhead as small. Regret learning estimates the cost gap created for other agents and propagates that loss through priority-inheritance interactions. It requires several PIBT runs, but the paper describes this as the time complexity of PIBT itself and reports that configuration generation remains practically sub-millisecond even with thousands of agents. Since the modifications are only tie-breaks, they do not remove the original feasibility or completeness behavior claimed for PIBT and LaCAM.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The experiments use four-connected grid maps representing random obstacles, rooms, warehouses, and sortation layouts. One-shot tests place the tie-breaking methods in a vanilla LaCAM implementation whose successor generation is based on PIBT, so the isolated effect of preference construction can be assessed. The study measures planning success, runtime, and Sum-of-Costs, with cost also reported relative to a lower bound in the described evaluation. Lifelong tests measure average throughput and response time under continuously assigned goals. The compared methods are Original, Monte Carlo, Vacancy, Hindrance, Regret, HR, and RH, and the implementation is stated to be available in C++.</p></section>
+<section class="secsum"><h3>Results</h3><p>Both proposed tie-breakers improve the planning ability of LaCAM in dense and difficult one-shot cases involving hundreds to thousands of agents, with little computational overhead according to the paper. HR provides consistently strong solution quality across the reported one-shot and lifelong settings while adding only a small runtime cost to Original. Monte Carlo is particularly promising for lifelong MAPF but is not stable in all one-shot cases, and the quality of each strategy varies across maps. The evidence supplied here does not establish every per-map numerical value, a statistical significance analysis, or a complete ranking under all conditions.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The paper concludes that PIBT’s action tie-breaking has a significant effect on large-scale MAPF performance. Hindrance and Regret learning offer simple ways to improve one-shot Sum-of-Costs and lifelong throughput without substantially sacrificing PIBT’s speed. The combined HR preference is presented as the most attractive choice among the tested strategies. Future work should adapt the preference strategy during planning, tune weights online, or develop learned policies whose inference cost is low enough for real-time large-scale MAPF.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The reported evidence comes from several grid-map families and randomized test cases, so it does not establish generalization to continuous spaces, heterogeneous robots, communication delays, or dynamic obstacles. Hindrance is a one-step lookahead and may miss longer interaction chains. Regret requires additional PIBT runs, creating a time-quality trade-off when the available planning budget is extremely tight. The excerpt does not provide the full parameter-sensitivity analysis, statistical tests, or a systematic taxonomy of failure cases. It also does not establish that HR is optimal outside the tested benchmark and implementation conditions.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>Large-scale MAPF can accumulate substantial cost from many individually legal but poorly coordinated local moves. This work shows that improving the ordering of existing PIBT actions can produce measurable global gains without replacing the planner with a large search procedure or a slow neural policy. Because PIBT underlies multiple modern MAPF approaches, the proposed heuristics may be reusable across search-based, lifelong, and learning-assisted systems. The work is especially relevant where high congestion and strict response-time requirements make both efficiency and solution quality important.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is suitable for researchers studying PIBT, LaCAM, or MAPF systems with hundreds to thousands of agents. It is particularly useful for readers who want to reduce one-shot Sum-of-Costs or improve lifelong throughput through lightweight heuristic changes rather than a new global planner. It also provides concrete examples of how priority inheritance and local tie-breaking interact in congested environments. Readers considering deployment beyond the reported grids should consult the full paper and perform additional evaluations, because the supplied excerpt does not establish real-world generalization.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-09-24
+  </footer>
+</div>
+</body>
+</html>

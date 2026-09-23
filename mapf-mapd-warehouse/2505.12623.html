@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lightweight and Effective Preference Construction in PIBT for Large-Scale Multi - Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2505.12623.en.html" lang="en">English</a></nav>
+  <h1>Lightweight and Effective Preference Construction in PIBT for Large-Scale Multi - Agent Pathfinding</h1>
+<p class="meta">大規模マルチエージェント経路探索におけるPIBTの軽量で効果的な選好構築</p>
+  <div class="meta">Keisuke Okumura, Hiroki Nagai<br>採択先: 未取得 ・ 2025-05-18 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2505.12623" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2505.12623" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2025-05-18</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、大規模MAPFで広く使われるPIBTについて、複数の同等な行動候補を選ぶタイブレークを改善する。衝突回避が次の時刻の進行をどれだけ妨げるかを考えるHindranceと、他エージェントに生じる後悔を複数回のPIBT実行から学ぶRegretを提案し、計算量を大きく増やさず、ワンショットMAPFの解コストとライフロングMAPFのスループットを改善した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、離散グラフ上で多数のエージェントを同期的に動かすマルチエージェント経路探索である。各エージェントは現在の頂点に留まるか隣接頂点へ移動し、同時刻の頂点衝突と、1ステップ内での位置交換を避けなければならない。ワンショットMAPFでは開始位置から割り当てられた目標まで移動し、ライフロングMAPFでは目標到達後に外部のタスク割当器から新しい目標を受け取り続ける。PIBTは、優先度継承とバックトラッキングによって次の衝突のない位置を軽量に生成するが、通常は最短路上の複数の同等行動を局所的かつ貪欲に選ぶため、選択方法が全体の品質を左右する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文の第一の貢献は、低優先度エージェントが高優先度エージェントを避ける際、次の時刻にもその回避が進行を妨げるかを評価するHindranceタイブレークである。第二の貢献は、優先度継承によって他エージェントが本来の最良行動を取れなくなった損失をRegretとして記録し、複数回のPIBT実行を通じてその情報を選好構築に反映するRegret learningである。両手法はPIBTの中核的な衝突回避機構を変更せず、行動候補の順序付けだけを調整するため、元の完全性保証を維持できると説明されている。実験では、特に密な状況で、従来の選好構築に比べて解品質を改善しながら、PIBTの軽量性をおおむね保っている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>PIBTは、あらかじめ定めた順序でエージェントを処理し、各エージェントの現在位置と隣接位置からなる候補を選好順に調べる。候補が他エージェントに占有される場合、PIBTはそのエージェントに優先度を継承させ、再帰的な再割当てとバックトラッキングで実行可能な選択を探す。Hindranceは、低優先度エージェントが退避する候補ごとに、その移動が高優先度エージェントの次の進行方向を妨げるかを局所的に推定する。Regretは、他エージェントが最良候補ではなく実際に選ばれた候補を使うことで生じるコスト差を蓄積し、その損失が小さくなるように高優先度エージェントの同率候補を並べ替える。両者を組み合わせたHR、および順序を逆にしたRHなどが比較され、Hindranceの計算はグラフの最大次数に依存する局所的な追加処理として扱われる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価はワンショットMAPFとライフロングMAPFの両方で行われ、Original、ランダムなPIBTを複数回実行して最良状態を選ぶMonte Carlo、空き頂点を優先するVacancy、Hindrance、Regret、およびその組合せが比較された。ベンチマークには、障害物を含むランダム地図、部屋型地図、倉庫型地図、仕分け施設型地図という四連結グリッドが用いられ、各地図とエージェント数の組合せについて100個のテストケースが作成され、開始位置と目標位置がランダム化された。ワンショットでは制限時間内の計画成功率、解を得るまでの実時間、成功例のSum-of-Costsを評価し、ライフロングではスループットと応答時間を評価した。抜粋では、一部の具体的な制限時間、エージェント数、メモリ量、図表の全数値が欠落しているため、それらを網羅的には確認できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>結果は、タイブレークが単なる実装上の細部ではなく、大規模MAPFの性能を左右することを示している。密なワンショット事例では、提案手法の組合せがOriginalよりSum-of-Costsをおよそ10から20パーセント削減し、倉庫型事例の特定条件ではHRが約20パーセントの削減を達成したと報告されている。仕分け型の極端に密な条件では、HindranceがOriginalと同程度に90パーセント超の成功率を保ちながら、解品質を改善したとされる。一方、手法の有効性は地図によって変化し、RegretやMonte Carloが常に最良とは限らない。将来課題は、探索中に戦略や重みを適応的に選ぶこと、ならびにニューラル方策を検討しつつ、推論遅延を抑えることである。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、離散的な作業空間上で複数エージェントの衝突しない経路を計画する問題であり、物流自動化などで多数のロボットを扱う基盤技術と位置付けられる。最適な協調は計算的に難しいため、数百から数千エージェントを短時間で処理できる非最適手法が重要である。PIBTは、その単純さ、スケーラビリティ、次の衝突のない配置を高速に生成する性質から、検索型、ライフロング型、機械学習型のMAPF手法で広く利用されている。既存研究はPIBTを基盤として利用してきたが、同等の最短行動が複数ある場合の選択を本論文は中心課題に据える。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>PIBTの標準的な選好は、割り当てられた目標への距離を貪欲に減らす候補を優先する。しかしグラフ上の最短路は一意とは限らず、ランダムなタイブレークや局所的な選択が、後続時刻の渋滞や不要な移動を引き起こしうる。低優先度エージェントの退避方向と、高優先度エージェントが同率候補から選ぶ方向は、優先度継承が連鎖する混雑状況で特に重要になる。したがって、PIBTの速度と衝突回避を維持しつつ、局所選択を全体の進行に適合させる必要がある。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>Hindranceは、退避行動そのものだけでなく、次の時刻に相手の目標方向を塞ぐかどうかを見るため、短期的な先読みを導入する。Regretは、ある行動が他エージェントに強いる最良行動との差を測り、その影響を優先度継承の連鎖に沿って伝播させる。Regret learningは追加のPIBT実行を必要とするが、抜粋ではそのオーバーヘッドはPIBT自体を数回実行する時間であり、数千エージェントでも構成生成は実用上サブミリ秒級と説明されている。提案された調整はタイブレークに限定されるため、元のPIBTおよびPIBTを後継生成に使うLaCAMの完全性保証が維持されるとされる。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験は、四種類の四連結グリッド地図とランダム化された100テストケースを用いて実施された。ワンショット評価では、PIBTを後継生成に用いるバニラLaCAM上で、成功率、実行時間、下限で正規化したSum-of-Costsが測定された。ライフロング評価では、継続的なタスク割当ての下でスループットと応答時間が測定された。比較対象にはOriginal、Monte Carlo、Vacancy、Hindrance、Regret、HR、RHが含まれ、実装はC++で公開されていると記載されている。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>HindranceとRegretの双方が、密で困難な数百から数千エージェント規模のワンショット事例でLaCAMの計画能力を改善し、追加計算は小さいと報告されている。HRはワンショットとライフロングの双方で、テストされた戦略の中で一貫して優れた解品質を示し、Originalへの実行時間の追加は小さかった。Monte CarloはライフロングMAPFでは有望だが、ワンショットMAPFでは安定しない場合があり、地図ごとに品質の差も見られた。抜粋からは、すべての条件における個別の数値や統計的有意性までは確定できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>PIBTの行動候補に対するタイブレークは、全体のMAPF性能に大きな影響を与える。HindranceとRegret learningは、PIBTの軽量な性質を大幅に損なわず、ワンショットのコストとライフロングの処理量を改善する実用的な選択肢として示された。著者らは、現時点では両手法を組み合わせたHR型の選好を推奨している。今後は、計画中の適応的な選択と、低遅延の学習ベース選好構築が課題となる。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>評価結果は複数のグリッド地図とランダム化テストケースに基づくため、実世界の連続空間、異種ロボット、通信遅延、動的障害物への一般化は抜粋からは確立されていない。Hindranceは局所的な次時刻の推定であり、より長期の相互作用を完全には表現しない可能性がある。Regretは複数回のPIBT実行を必要とし、厳しい時間予算ではその追加費用と品質向上の釣合いが問題になりうる。抜粋では、パラメータ感度の全結果、統計的検定、失敗事例の体系的分類は示されていない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>大規模MAPFでは、探索アルゴリズム全体を変更しなくても、各時刻の行動選択を改善するだけで累積的な移動コストやタスク処理量を変えられる。PIBTが多くの検索型、ライフロング型、学習型手法の基盤として使われているため、軽量な選好改善は複数のシステムへ波及しうる。特に、厳しい時間制約と高い混雑度が同時に存在する物流用途に対して、速度と品質の妥協を小さくする設計として意義がある。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>数百から数千エージェント規模のMAPF、特にPIBTまたはPIBTを後継生成に使う手法を研究する読者に適している。ワンショットのSum-of-Costsとライフロングのスループットを、検索や大規模な学習器を追加せず改善したい場合に有用である。タイブレーク、優先度継承、局所的な混雑回避の関係を理解したいMAPF研究者にも勧められる。ただし、実世界条件への適用可能性を判断するには、抜粋に含まれない詳細な実験設定と追加評価が必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-24
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Streaming Multi - agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2505.09472.html" lang="ja">日本語</a></nav>
+  <h1>Streaming Multi - agent Pathfinding</h1>
+<p class="meta">Streaming Multi-Agent Pathfinding</p>
+  <div class="meta">Mingkai Tang, Lu Gan, Kaichen Zhang<br>Venue: IJCAI2025 ・ 2025-05-14 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2505.09472" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2505.09472" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">Recent paper</span><span class="chip venue">Venue IJCAI2025</span><span class="chip">Published 2025-05-14</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 1</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper formalizes Streaming Multi-Agent Pathfinding (S-MAPF) for assembly-line settings in which agents appear periodically and agents in one stream repeat a common action sequence. It proposes Agent Stream Conflict-Based Search (ASCBS), and the reported experiments indicate that it offers a runtime advantage over conventional CBS during long working horizons while preserving nearly comparable solution quality.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>Standard Multi-Agent Pathfinding (MAPF) sends a finite set of agents from start locations to goal locations while avoiding collisions. That formulation does not directly capture an assembly line operating for a long time, where robots or workpiece carriers can be introduced repeatedly according to a production cycle. S-MAPF models this situation with agent streams: agents belonging to the same stream appear periodically at the same start vertex and use the same action sequence, and therefore the same path. An agent disappears after reaching its goal. The objective is to find a collision-free path for every stream whose repeated executions remain safe over the continuing operation.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The first contribution is a formal problem definition for S-MAPF, tailored to periodic transportation in assembly-like environments. The second is Agent Stream Conflict-Based Search, or ASCBS, a conflict-based search variant that represents conflicts caused by periodic repetitions. Its conflict handling covers both agents from different streams and repeated agents belonging to the same stream. The paper also investigates the use of disjoint splitting inside ASCBS and compares variants using A* or IDA* as the low-level solver. Finally, it introduces extensions that relax assumptions of the basic model, including agents that remain in the environment and streams with non-uniform cycle times.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>ASCBS has the two-level structure familiar from Conflict-Based Search. At the high level, it builds a constraint tree whose nodes contain a set of constraints and one path for each agent stream. At the low level, it plans a shortest path for an individual stream using A* in the main optimality claim, with IDA* also evaluated experimentally. The root is obtained by planning each stream without conflicts; the high-level search repeatedly selects a minimum-cost node, detects a best conflict, and creates child nodes by adding constraints that resolve it. Because a path is executed repeatedly, ordinary one-time vertex and edge constraints are supplemented by cyclic vertex and cyclic edge constraints. A cyclic vertex conflict occurs when periodic appearances of agents occupy the same vertex at corresponding times separated by an integer number of cycles. A cyclic edge conflict captures the analogous repeated traversal of the same edge, including an opposing traversal. The paper states that ASCBS with A* as its low-level solver is optimal and complete for S-MAPF, although the supplied excerpt does not include the proof details.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The experiments use three grid-like maps from the MAPF Benchmark Set: empty-8-8, random-64-64-10, and Paris_1_256. Each map is associated with 25 scenario files, and the paper says that four instances are generated per scenario and setting, with random initial stream start times, giving 100 instances for each setting. The ASCBS variants differ in their low-level solver and in whether they use disjoint splitting: A* or IDA*, each with or without that strategy. ASCBS-A-ND is also compared with conventional CBS in both computational efficiency and solution quality. Average runtime and success rate are used for one evaluation, with runs exceeding 60 seconds treated as unsuccessful and assigned a runtime of 60 seconds. The supplied evidence does not provide the individual numeric averages, success percentages, relative errors, or all parameter values for every setting.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The findings show that the value of disjoint splitting depends on map scale and on the low-level algorithm. On empty-8-8 and random-64-64-10, ASCBS-A-D is reported to outperform ASCBS-A-ND, with the difference more visible on smaller maps. On the larger Paris_1_256 map, the non-disjoint ASCBS-A-ND variant performs better. The paper explains the IDA* result differently: the runtime of IDA* is a substantial part of total computation and is strongly affected by constraints, so ASCBS-IDA-ND outperforms ASCBS-IDA-D. For long working horizons, a periodic ASCBS solution can be applied across all horizons, keeping its runtime consistent, whereas CBS becomes slower as it must consider more agents. The reported relative solution-quality error of ASCBS compared with CBS is very small and decreases as the horizon grows. Nevertheless, the excerpt does not establish the exact scalability boundary, the precise trade-off at every stream count, or how the method behaves under operational uncertainty.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Assembly lines move workpieces between workstations for partial and final assembly, and are used in industries such as automobiles, aircraft, and consumer electronics. Conveyors offer fixed routes but are difficult to adjust, motivating the use of teams of robots for flexible transport. Collision-free robot navigation creates a MAPF problem, a problem family also used in warehouses, traffic control, and pipe design. Related variants address probabilistic delays or agents occupying multiple vertices. Other nearby formulations focus on precedence-constrained assembly planning or periodic appearances in continuous space, whereas this paper targets periodic streams on a discrete graph and adapts conflict-based search to that setting.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>An S-MAPF instance contains an undirected graph with unit-length edges, a cycle time shared by the streams in the basic model, and a set of agent streams. Each stream has a start vertex, a goal vertex, and an initial start time. At its scheduled times, a new agent appears at the stream’s start vertex; at every step it can move to a neighboring vertex or wait. All appearances from one stream share an action sequence and thus a path, and an appearance leaves the environment after reaching its goal. A solution must prevent both vertex and edge collisions across the repeated operation.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>The key technical issue is that a conflict may occur between appearances whose absolute times differ by one or more complete cycles. Cyclic constraints encode these recurring conflicts without expanding the plan into an explicitly infinite time horizon. The two streams in a cyclic conflict need not be distinct, because different appearances of the same stream may collide with one another. High-level branching can add ordinary vertex or edge constraints, or their cyclic counterparts, depending on the detected conflict. The conclusion also states that resolving same-stream conflicts in the high-level solver is more effective than attempting to handle them only in the low-level solver.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The reported hardware and software environment is Ubuntu 20.04 on an Intel Core i7-8700 CPU at 3.2 GHz with 32 GB of memory. The study uses the three benchmark maps and 25 scenarios per map, generating 100 instances per setting as described in the excerpt. It compares four ASCBS configurations: A* versus IDA*, crossed with disjoint versus non-disjoint splitting, and separately compares ASCBS-A-ND with CBS. Runtime, success rate, and relative solution quality are the stated evaluation measures. The excerpt says that implementation code is publicly available, but it does not establish all random seeds, complete parameter schedules, or every experimental condition needed for exact reproduction.</p></section>
+<section class="secsum"><h3>Results</h3><p>For the two smaller maps, the A*-based disjoint-splitting variant ASCBS-A-D is reported to be faster than ASCBS-A-ND. On the larger Paris_1_256 map, ASCBS-A-ND is reported to be faster than its disjoint-splitting counterpart. Among the IDA* variants, the non-disjoint version performs better because constraint-sensitive IDA* computation contributes substantially to total runtime. In the long-horizon comparison, ASCBS keeps a stable runtime because one periodic solution applies across horizons, while CBS runtime grows with the number of agents considered. ASCBS has slightly lower or equal solution quality than CBS according to the conclusion, with a very small relative error that decreases as the horizon becomes longer.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The paper introduces S-MAPF as a discrete, periodic extension of MAPF for continuing streams of agents and proposes ASCBS with cyclic vertex and edge constraints. It claims that the A*-based ASCBS is an optimal and complete solver for the basic problem. The experiments support the practical conclusion that ASCBS is more computationally suitable than CBS for long working hours while retaining nearly the same solution quality. They also indicate that the best splitting strategy depends on map size and on the low-level search method.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The basic formulation relies on strong assumptions: agents in one stream share a cycle time and action sequence, all streams in the basic version use a common cycle time, and agents disappear at their goals. The supplied evidence does not show how delays, failures, changing tasks, different paths within one stream, capacity limits, or dynamic production demands are handled. The paper presents extensions for agents that stay in the environment and for non-uniform cycle times, but the excerpt does not provide their detailed algorithms or empirical results. It also does not provide enough numeric data to determine exact runtime thresholds or the largest reliably solved instances.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>S-MAPF connects one-shot MAPF planning with the repeated operation of a production or transport system. Representing a stream by a reusable periodic path can avoid treating every future appearance as an unrelated agent and can make long-horizon planning more stable. The cyclic-conflict formulation is therefore a useful conceptual and 提案手順c basis for MAPF and MAPD researchers studying recurring traffic patterns. Its results also illustrate that search enhancements cannot be evaluated independently of map scale and the selected low-level solver.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is recommended for researchers studying assembly-line transport, warehouse flows, or other discrete environments with recurring agent arrivals. It is especially relevant to readers interested in CBS, constraint-tree search, disjoint splitting, and finite representations of periodic conflicts. Readers applying it to real systems should consult the complete paper and additional experiments before assuming robustness to uncertainty, heterogeneous behavior, or very large instances.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-09-24
+  </footer>
+</div>
+</body>
+</html>
