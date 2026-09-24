@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PRISM: Complete Online Decentralized Multi - Agent Pathfinding with Rapid Information Sharing using Motion Constraints | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2505.08025.html" lang="ja">日本語</a></nav>
+  <h1>PRISM: Complete Online Decentralized Multi - Agent Pathfinding with Rapid Information Sharing using Motion Constraints</h1>
+<p class="meta">PRISM: Complete Online Decentralized Multi-Agent Pathfinding with Rapid Information Sharing Using Motion Constraints</p>
+  <div class="meta">Hannah Lee, Zachary Serlin, James Motes, Brendan Long, Marco Morales, Nancy M. Amato<br>Venue: Unknown ・ 2025-05-12 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2505.08025" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2505.08025" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">Influential paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2025-05-12</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 1</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> PRISM is a decentralized framework for multi-task multi-agent pathfinding that shares motion constraints through rapidly propagated information packets and performs local constraint-based replanning under limited communication. The paper argues that PRISM is complete for solvable cases and resolves deadlocks when possible, while experiments against CBS and TPTS report strong scalability and solution quality in narrow passages and low-connectivity settings.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The paper studies multi-task multi-agent pathfinding, in which several autonomous agents share an environment and must complete individual or assigned tasks without collisions. Agents know the environment but initially do not know the locations, objectives, or paths of other agents, and direct communication is limited by range. Multi-hop communication is possible within a connected component, so the entire team need not form one continuously connected network. The objective is to produce a collision-free team plan while minimizing sum-of-costs, the total cost accumulated by all agents.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>PRISM contributes a framework that combines decentralized task management, online replanning, and constraint-based pathfinding for MT-MAPF. Its central communication contribution is an information-packet mechanism that carries motion-constraint information beyond the current direct communication neighborhood. These packets are incorporated into local Modified Conflict-Based Search, where relevant information can be treated similarly to virtual agents when resolving conflicts. The paper also presents a theoretical argument that PRISM is complete and can resolve solvable deadlock situations. Finally, it evaluates PRISM in five environments and 25 random scenarios against centralized CBS and decentralized Token Passing with Task Swaps, or TPTS.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>PRISM uses a three-phase planning scheme together with a Modified CBS procedure for planning within local networks. Each agent maintains an identifier, its current task, a planned path, active motion constraints, and a collection of information packets, and it replans when relevant paths, tasks, or communication conditions change. A task allocator assigns valid tasks and may reassign tasks that have not started, while a mission task becomes locked to its agent once execution begins. Information packets communicate constraint adjustments to relevant agents, including agents that later move out of communication range. A regular flushing process removes stale or incorrect information so that replanning does not rely indefinitely on obsolete constraints. Local search then resolves conflicts involving relevant agents and branches over constraint alternatives until a collision-free plan is found or the search proves that no plan exists under the considered conditions.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The empirical evaluation uses environments and scenarios drawn from an established MAPF benchmark database and compares PRISM with CBS and TPTS. Communication conditions include a minimum viable range, ranges corresponding to 0.1, 0.15, and 0.2 of the environment’s longer dimension, and a full range that creates one fully connected network. The reported evaluation considers scalability, solution quality, computation time, robustness, and behavior under different connectivity conditions. A physical validation uses ROS, TurtleBots running on Raspberry Pis, motion capture for localization, and point-stabilization control for navigation. The supplied excerpt does not provide complete per-environment tables, all statistical details, or every experimental condition, so it does not establish an independently reproducible breakdown of every reported comparison.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>PRISM’s main trade-off is between stronger coordination and the overhead of maintaining and processing distributed constraint information. The reported advantages are most pronounced in narrow passages, dense task allocations, and low-connectivity networks, where agents must coordinate closely and stale local knowledge can otherwise cause conflicts or deadlocks. In open environments with fewer coordination demands, the simpler TPTS method can have lower computational overhead, faster runtimes, and better scalability. PRISM also depends on assumptions about task allocation, communication, movement, and safe resting at goals, and the excerpt does not reproduce the full list of theoretical assumptions. The paper suggests adapting resting behavior through predefined parking positions or dynamically sampled locations for domains such as warehouses and search-and-rescue.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Multi-agent pathfinding coordinates autonomous agents that move through shared spaces while avoiding conflicts and pursuing efficiency objectives. It is relevant to assembly, evacuation, formation, localization, and object transportation, among other applications. Centralized solvers can use global state information to coordinate agents effectively, but their state space and interaction complexity grow rapidly, and they are often less suitable for online adaptation. Decentralized solvers distribute computation and can be more resilient to changing conditions, but they must coordinate using incomplete and local information.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>In MT-MAPF, agents navigate a shared environment to complete a set of tasks, with some tasks potentially unassigned initially. Vertex conflicts occur when two agents occupy the same vertex at the same time, while edge conflicts occur when they traverse the same edge at the same time. The system seeks a collision-free plan that completes the tasks efficiently according to a sum-of-costs objective. The excerpt refers to several formal assumptions and definitions used in the proof, but it does not reproduce all of them, so the precise boundary of the formal guarantee cannot be determined from the supplied material alone.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>The key technical device is the information packet, which preserves and disseminates motion constraints when agents leave one another’s communication range. PRISM performs local Modified CBS rather than requiring one central search over the entire team. Unstarted tasks may be reassigned, whereas a task already started as a mission is fixed to its current agent. The theoretical discussion uses temporarily bounded constraints and finite conflict-resolution branches to argue that, whenever a valid solution exists, the search can eventually reach a valid collision-free plan.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The described environments include random-32-32-20, ht_chantry, maze-32-32-2, room-64-64-8, and warehouse-10-20, with proximity and line-of-sight communication examples. A robustness experiment uses random-64-64-20, where randomly scattered obstacles occupy 20 percent of the space. The proposed method is compared with centralized CBS and decentralized TPTS. The physical setup uses ROS, Raspberry Pi-based TurtleBots, motion capture localization, and point stabilization, but the excerpt does not state the full robot count, trial count, or complete protocol for those experiments.</p></section>
+<section class="secsum"><h3>Results</h3><p>The abstract reports that PRISM supports 3.4 times more agents than CBS and handles up to 2.5 times more tasks than TPTS in narrow-passage environments. It reportedly matches CBS in solution quality while requiring less computation time, including under low-connectivity conditions. The introduction also states that PRISM maintains high solution quality with up to 30 agents and 575 tasks. The supplied evidence does not specify the full mapping between these numbers and individual environments, communication ranges, aggregation procedures, or statistical summaries.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>PRISM is presented as a way to adapt constraint-based search to decentralized, online multi-agent planning through selective communication. The theoretical analysis claims completeness and deadlock avoidance for solvable cases under the paper’s assumptions. The experiments support its usefulness in difficult coordination settings, including narrow passages, dense task distributions, and limited connectivity. The conclusion does not claim universal superiority: TPTS may be preferable in spacious, lightly coupled environments because of its lower computational overhead, while PRISM’s performance still degrades as the team grows.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>PRISM develops performance bottlenecks as the number of agents increases, even though the reported growth is less severe than for centralized solvers. Its operation relies on a task allocator and on assumptions concerning communication, motion, and goal locations that prevent permanent obstruction. The supplied excerpt omits the complete theorem assumptions, detailed proof steps, full experimental tables, failure rates, and sufficient replication information. Consequently, the exact scope and generalizability of the reported advantages cannot be assessed from the excerpt alone.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work is important because it combines decentralized execution, online replanning, selective communication, and a completeness claim within one MT-MAPF framework. Information packets provide a way to retain constraints that would otherwise disappear when agents lose direct connectivity. This is relevant to settings such as search-and-rescue and warehouse operations, where communication may be intermittent and task demands may change. It also clarifies that algorithm choice should depend on coordination density and environment topology rather than on agent count alone.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is well suited to researchers studying decentralized MT-MAPF, communication-limited coordination, distributed variants of CBS, and deadlock resolution. It is particularly relevant for work on narrow passages, dense task allocation, and mechanisms that propagate local constraints through intermittent networks. Readers who need to verify the formal guarantee or reproduce every experimental comparison should consult the complete paper, because those details are not all present in the supplied excerpt.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-09-25
+  </footer>
+</div>
+</body>
+</html>

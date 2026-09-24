@@ -6802,6 +6802,43 @@
       "url": "http://arxiv.org/abs/2504.15130v1",
       "venue": ""
     },
+    "arxiv:2505.08025": {
+      "added": "2026-09-25",
+      "added_at": "2026-09-25T08:46:59.996300",
+      "arxiv_id": "2505.08025",
+      "authors": [
+        "Hannah Lee",
+        "Zachary Serlin",
+        "James Motes",
+        "Brendan Long",
+        "Marco Morales",
+        "Nancy M. Amato"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-05-12",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2505.08025.html",
+      "file_en": "mapf-mapd-warehouse/2505.08025.en.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2505.08025",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 1,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "PRISM: Complete Online Decentralized Multi - Agent Pathfinding with Rapid Information Sharing using Motion Constraints",
+      "title_en": "PRISM: Complete Online Decentralized Multi-Agent Pathfinding with Rapid Information Sharing Using Motion Constraints",
+      "title_ja": "PRISM：動作制約を用いた迅速な情報共有による完全オンライン分散マルチエージェント経路計画",
+      "tldr": "PRISMは、複数タスクを扱う分散型マルチエージェント経路計画（MT-MAPF）のために、通信範囲が限られたエージェント間で動作制約を情報パケットとして共有し、局所的な制約探索を繰り返す手法である。論文は、解が存在する場合の完全性とデッドロック解消能力を理論的に主張し、CBSおよびTPTSとの実験で、狭い通路や低接続性の環境における拡張性と解品質を示している。",
+      "tldr_en": "PRISM is a decentralized framework for multi-task multi-agent pathfinding that shares motion constraints through rapidly propagated information packets and performs local constraint-based replanning under limited communication. The paper argues that PRISM is complete for solvable cases and resolves deadlocks when possible, while experiments against CBS and TPTS report strong scalability and solution quality in narrow passages and low-connectivity settings.",
+      "url": "https://arxiv.org/abs/2505.08025",
+      "venue": ""
+    },
     "arxiv:2505.09472": {
       "added": "2026-09-24",
       "added_at": "2026-09-24T08:28:24.444129",
@@ -9612,6 +9649,44 @@
       "tldr": "部分観測環境下における分散型マルチエージェント経路探索（MAPF）において、高密度な環境でのデッドロックや観測情報の冗長性による性能低下を解決するため、パーソナライズ強化通信、群衆知覚、および領域ベースのデッドロック解消を統合したPC2Pを提案する。",
       "url": "http://arxiv.org/abs/2601.03301v1",
       "venue": ""
+    },
+    "doi:10.1109/jiot.2026.3663569": {
+      "added": "2026-09-25",
+      "added_at": "2026-09-25T08:48:09.627105",
+      "arxiv_id": "2503.20324",
+      "authors": [
+        "Junkai Jiang",
+        "Ruochen Li",
+        "Yibin Yang",
+        "Yihe Chen",
+        "Yuning Wang",
+        "Shaobing Xu",
+        "Jianqiang Wang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 3,
+      "date": "2025-03-26",
+      "doi": "10.1109/jiot.2026.3663569",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2503.20324.html",
+      "file_en": "mapf-mapd-warehouse/2503.20324.en.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2503.20324",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 1,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "CTS-CBS: A New Approach for Multi-Agent Collaborative Task Sequencing and Path Finding",
+      "title_en": "CTS-CBS: A New Approach to Collaborative Task Sequencing and Multi-Agent Path Finding",
+      "title_ja": "CTS-CBS：複数エージェントの協調的タスク順序付けと経路探索の新手法",
+      "tldr": "本論文は、複数エージェントが衝突を避けながら中間タスクを所定の順序で訪問し、最終目的地へ到達するCTS-MAPF問題を扱う。提案手法CTS-CBSは、協調的なタスク順序探索と制約付き経路探索を二層構造で統合し、MG-MAPF向け適応版について、成功率と実行時間でベースラインを大きく上回ったと報告されている。",
+      "tldr_en": "This paper studies Collaborative Task Sequencing Multi-Agent Path Finding, in which agents must visit ordered intermediate tasks, avoid collisions, and then reach their destinations. Its CTS-CBS method combines collaborative task-sequence search with constrained path planning, and the reported experiments show large success-rate and runtime gains for its MG-MAPF adaptations, with a limited loss in solution quality.",
+      "url": "https://arxiv.org/abs/2503.20324",
+      "venue": "IEEE Internet of Things Journal"
     },
     "doi:10.1109/lra.2021.3062803": {
       "added": "2026-09-14",

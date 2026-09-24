@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PRISM: Complete Online Decentralized Multi - Agent Pathfinding with Rapid Information Sharing using Motion Constraints | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2505.08025.en.html" lang="en">English</a></nav>
+  <h1>PRISM: Complete Online Decentralized Multi - Agent Pathfinding with Rapid Information Sharing using Motion Constraints</h1>
+<p class="meta">PRISM：動作制約を用いた迅速な情報共有による完全オンライン分散マルチエージェント経路計画</p>
+  <div class="meta">Hannah Lee, Zachary Serlin, James Motes, Brendan Long, Marco Morales, Nancy M. Amato<br>採択先: 未取得 ・ 2025-05-12 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2505.08025" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2505.08025" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2025-05-12</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> PRISMは、複数タスクを扱う分散型マルチエージェント経路計画（MT-MAPF）のために、通信範囲が限られたエージェント間で動作制約を情報パケットとして共有し、局所的な制約探索を繰り返す手法である。論文は、解が存在する場合の完全性とデッドロック解消能力を理論的に主張し、CBSおよびTPTSとの実験で、狭い通路や低接続性の環境における拡張性と解品質を示している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、共有環境内で複数のエージェントがそれぞれのタスクを遂行するMT-MAPFである。エージェントは環境の構造を完全に知っているが、他のエージェントの位置、目的、経路は初めから知らず、直接通信できる範囲も限られる。通信可能なエージェントは多段通信によって局所ネットワークを形成するため、全体が常時接続されているとは限らない。目的は、頂点の同時占有や同一辺の同時通過を避けながら全タスクを完了し、チームの総コストを小さくすることである。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一の貢献は、タスク割当て、オンライン再計画、制約ベースの経路探索を分散的に統合したPRISMという枠組みである。第二に、通信範囲外へ移動したエージェントにも過去の制約を伝える情報パケットを導入し、それらを局所的なCBS探索で仮想エージェントのように扱う。第三に、論文はPRISMが解の存在するデッドロック状況を解消でき、最終的に衝突のない計画を見つける完全なアルゴリズムであると理論的に示す。さらに、五つの環境と25個のランダムシナリオを用いて、集中型CBSおよび分散型TPTSと比較する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>PRISMは三段階の計画スキームと、局所ネットワーク向けに変更したCBSを組み合わせる。各エージェントは識別子、現在のタスク、計画経路、適用中の動作制約、情報パケット集合を保持し、経路計算や通信状態の変化に応じて再計画する。タスク割当て器は有効なタスクを割り当て、開始前のタスクは状況に応じて再割当てできるが、ミッションを開始したタスクはそのエージェントに固定される。情報パケットは制約の調整を関連エージェントへ伝え、定期的なフラッシュ処理によって古くなった情報や不正確な情報を除去する。局所探索では、通信範囲によって関係のあるエージェントとの衝突を解消し、必要に応じて共有された制約を考慮した枝を探索する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、MAPFベンチマークデータベース由来の多様な地形と25個のランダムシナリオを用いて行われ、CBSとTPTSが比較対象となる。通信条件には、最小範囲、環境長辺の0.1、0.15、0.2倍、および全体接続に相当するfullが含まれる。論文は、エージェント数、タスク数、解品質、計算時間、頑健性、拡張性を中心に比較し、さらにROS、Raspberry Pi搭載TurtleBot、モーションキャプチャ、点安定化制御を使った物理システム検証も報告する。抜粋には個々の環境・条件ごとの完全な数値表や統計的検定の詳細は示されていないため、すべての比較差を独立に再現できる情報までは確立されていない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>PRISMの強みは、全体を単一の中央計画器に集約せず、通信可能な関係に絞って再計画する点にある。特に狭い通路、タスク密度の高い状況、低接続性のネットワークでは、単純な分散手法より高い調整能力を発揮すると報告されている。一方、エージェント数が増えるとPRISMにも性能ボトルネックが生じ、広く開けた環境や調整要求の少ない状況では、計算負荷の低いTPTSがより高速で拡張しやすい場合がある。エージェントがゴールで待機しても他のゴールを恒久的に塞がないこと、タスク割当て器が存在すること、通信と移動に関する論文の仮定が成立することが適用条件となる。将来の適応先として、固定駐車位置や動的にサンプリングした待機位置を導入する可能性が述べられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、複数の自律エージェントを安全かつ効率的に共有空間で移動させる研究領域であり、組立、避難、編隊、位置推定、物体搬送などへの応用が想定される。エージェント数が増えると相互作用の組合せが急増するため、全エージェントを一つの計画器で扱う集中型手法は計算量とオンライン適応性に課題を持つ。分散型手法は計算を各エージェントへ配分できるが、局所情報だけで衝突やデッドロックを扱う必要がある。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>MT-MAPFでは、エージェントが共有環境で複数のタスクを完了し、総コストを最小化する衝突のないチーム計画を求める。通信は近傍に制限されるが、接続成分内では多段通信が可能である。衝突には同時刻の同一頂点占有と、同時刻の同一辺通過が含まれる。抜粋では理論証明に用いた個々の仮定と定義の全文は提示されていないため、適用範囲の細部は確定できない。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>PRISMは、局所ネットワークで変更版CBSを実行し、動作制約を情報パケットとして伝播させる。情報パケットは、通信範囲外へ離れたエージェントの過去の計画情報を再計画に利用するための仕組みである。タスクは未開始なら再割当て可能だが、開始済みのミッションタスクは固定される。理論面では、有限な衝突解消分岐と制約の一時的な制限に基づき、解があれば有効な衝突なし計画へ到達すると論じる。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>シミュレーションでは、random-32-32-20、ht_chantry、maze-32-32-2、room-64-64-8、warehouse-10-20などの地形が示され、通信範囲と見通し型通信が扱われる。頑健性の実験には、空間の20パーセントをランダム障害物が占めるrandom-64-64-20が使われる。比較対象は集中型CBSと、タスク交換を伴う分散型Token Passing with Task Swaps（TPTS）である。物理実験の機器構成は示されているが、抜粋だけでは試行回数や各条件の全結果は分からない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>要約によれば、PRISMはCBSの約3.4倍のエージェント数を扱い、狭い通路ではTPTSの最大2.5倍のタスクを処理した。CBSと同等の解品質を保ちながら、低接続性の条件を含めてより短い計算時間を達成したと報告されている。導入部の記述では、最大30エージェントおよび575タスクで高い解品質を維持したとされる。これらの数値がどの環境、通信条件、集計方法に対応するかの完全な内訳は抜粋からは確定できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>PRISMは、制約ベース探索と選択的な情報共有を分散システムへ適用する枠組みとして提示される。理論的には、解が存在する場合にデッドロックを解消し、衝突のない計画を得る完全性が主張される。実験結果は、狭い通路、密なタスク配置、低接続性など、強い協調を必要とする条件での有効性を支持する。広い環境ではTPTSの低い計算負荷が有利であり、PRISMが常に最速だとは結論づけられていない。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>エージェント数の増加に伴う性能ボトルネックは残り、集中型手法ほどではないものの無視できない。タスク割当て器の存在、通信モデル、ゴールでの待機が他の資源を塞がないことなど、実運用上の前提に依存する。抜粋には理論証明の全仮定、完全な実験表、失敗率、再現手順、物理実験の規模が含まれていない。したがって、報告された優位性の範囲や一般化可能性をこの資料だけで詳細に判定することはできない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究の重要性は、分散性、オンライン再計画、解品質、完全性を同じMT-MAPF枠組みで扱おうとした点にある。通信が不完全な状況でも、情報パケットにより局所的な観測だけでは失われる制約を共有できる。これは、捜索救難や倉庫のように、混雑、通信断、動的タスクが同時に生じる用途に関連する。実際の適用では、環境の接続性と協調要求に応じてPRISMとより単純な手法を選ぶ必要がある。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>分散MT-MAPF、通信制約下の協調経路計画、CBSの分散化、デッドロック解消を研究する読者に適している。狭い通路や密なタスク配置でのアルゴリズム設計と、局所情報を共有する仕組みに関心がある場合にも有用である。完全な実験条件や証明仮定の検証を必要とする読者は、提示された抜粋だけでなく論文全体を確認すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-25
+  </footer>
+</div>
+</body>
+</html>

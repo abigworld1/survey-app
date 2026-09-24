@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CTS-CBS: A New Approach for Multi-Agent Collaborative Task Sequencing and Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2503.20324.html" lang="ja">日本語</a></nav>
+  <h1>CTS-CBS: A New Approach for Multi-Agent Collaborative Task Sequencing and Path Finding</h1>
+<p class="meta">CTS-CBS: A New Approach to Collaborative Task Sequencing and Multi-Agent Path Finding</p>
+  <div class="meta">Junkai Jiang, Ruochen Li, Yibin Yang, Yihe Chen, Yuning Wang, Shaobing Xu, Jianqiang Wang<br>Venue: IEEE Internet of Things Journal ・ 2025-03-26 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2503.20324" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2503.20324" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/jiot.2026.3663569" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">Recent paper</span><span class="chip venue">Venue IEEE Internet of Things Journal</span><span class="chip">Published 2025-03-26</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 3</span><span class="chip">Relevance 1</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper studies Collaborative Task Sequencing Multi-Agent Path Finding, in which agents must visit ordered intermediate tasks, avoid collisions, and then reach their destinations. Its CTS-CBS method combines collaborative task-sequence search with constrained path planning, and the reported experiments show large success-rate and runtime gains for its MG-MAPF adaptations, with a limited loss in solution quality.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>Standard Multi-Agent Path Finding asks multiple agents to move from specified starts to specified goals without collisions in a shared environment. The paper considers a generalization called CTS-MAPF, where agents must also visit intermediate task locations in a prescribed order before reaching their final destinations. The task order and assignment are collaborative because the sequence selected for one agent can affect the planning results of the others. The optimization objective is to minimize an overall movement cost, such as total time or distance, including waiting actions, while satisfying collision, assignment, ordering, and destination requirements.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The main contribution is Collaborative Task Sequencing Conflict-Based Search, or CTS-CBS, a method designed for CTS-MAPF. It extends the conflict-based-search perspective from fixed goals to joint task sequencing and path planning. At the high level, it builds a search forest whose trees correspond to joint task sequences derived from a jTSP solution; at the low level, it computes constrained paths for individual agents. The paper states theoretical guarantees of completeness and optimality in the exact setting, and bounded suboptimality when a bounded parameter is used. It also introduces two evaluation datasets, CTS-MAPF and MG-MAPF, and evaluates the method in simulation and on physical robots.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>CTS-CBS uses a two-level search architecture. The high level maintains multiple search trees, each associated with a candidate joint task sequence, rather than committing to one sequence in advance; new root nodes can be generated when necessary. The low level plans a path for each agent subject to the selected task sequence and the current collision constraints, then returns a joint-path cost to guide the high-level search. When a conflict is detected, the search branches by imposing a constraint on one side or the other of the conflict and replans under the new constraints. This makes task-order decisions and collision resolution interact within the same search process. The implementation uses SIPP for low-level planning, although the paper notes that A*-like methods could also be used.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The experiments adapt Moving AI MAPF benchmarks because, according to the supplied excerpt, no public dataset specifically designed for CTS-MAPF was available. Each map provides 50 scenarios with about 100 pieces of agent data; the first 20 are used as agent data and the remaining start positions are converted into task data. The implementation is in C++, with a three-minute limit per instance, on a Linux computer with an Intel Core i7-12700KF CPU, an NVIDIA GeForce RTX 3080 GPU, and 32 GB of RAM. The evaluation compares CTS-CBS adaptations with several baselines; the excerpt explicitly names HCBS and MGCBS but does not identify every baseline. It measures success rate, runtime, and solution quality, studies the effect of the suboptimality parameter, and includes physical-robot demonstrations.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>For MG-MAPF, the paper reports that CTS-CBS adaptations substantially outperform the baselines: success rate is up to 20 times larger and runtime up to 100 times faster, with less than a 10 percent sacrifice in solution quality. These are maximum improvements reported in the supplied excerpt, not complete per-map or per-setting results; the excerpt does not provide the underlying values, variability, statistical tests, or the full list of baseline names. The adjustable suboptimality bound provides an operational trade-off between solution quality and computational efficiency, which may be useful when applications impose different latency requirements. The stated experiments and robot tests support practical applicability, but the method is evaluated primarily under static, discrete-motion assumptions. The paper identifies dynamic and lifelong scenarios, agent kinematic constraints, and further efficiency strategies as future work, while the excerpt does not establish how computation scales in every larger or more difficult regime.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>MAPF is a foundational problem in which multiple agents must obtain collision-free paths in a shared workspace, with applications in robotics, warehouses, and autonomous vehicles. Simple methods such as prioritized planning, PUSH AND SWAP, and Hierarchical Cooperative A* are described as easy to deploy but generally non-complete and non-optimal. Conflict-Based Search is presented as a complete and optimal MAPF framework based on high-level conflict constraints and low-level single-agent planning. CTS-MAPF adds collaborative intermediate-task sequencing to that setting.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>A CTS-MAPF instance includes agents moving on an undirected workspace graph with vertices, edges, positive edge costs, static obstacles, starts, destinations, and task positions. Each agent may wait or move one step in one of the four cardinal directions, must visit its assigned tasks in the required order, and must then reach its destination. The cost of waiting must be included in the objective. A feasible solution must avoid conflicts and satisfy task assignment, ordering, movement, and arrival constraints while minimizing the total cost.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>The high level organizes a search forest around joint task sequences obtained from a jTSP solver. The low level replans single-agent paths under both sequence requirements and collision constraints, using SIPP in the reported implementation. A necessity check for new root nodes and a tunable suboptimality parameter are key components when bounded suboptimal solutions are preferred. The parameter allows users to exchange solution quality for efficiency, while the paper claims exact behavior in the non-bounded setting.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The authors create CTS-MAPF and MG-MAPF datasets, although the supplied excerpt does not give the complete construction procedure or all dataset statistics. Their adaptation of MAPF benchmarks contains 50 scenarios per map; the first 20 agent records are used as agents and the remaining starts as task locations. Each instance has a three-minute cutoff, and the study compares against existing methods, examines the suboptimality-parameter effect, and deploys the algorithm on physical robots. The excerpt names HCBS and MGCBS among the baselines but does not list every comparator or every experimental condition.</p></section>
+<section class="secsum"><h3>Results</h3><p>The reported MG-MAPF adaptations achieve up to a 20-fold improvement in success rate and up to a 100-fold improvement in runtime relative to the baselines. The reported reduction in solution quality is below 10 percent. Physical robots successfully navigate along their designated paths, which the paper uses as evidence of real-world applicability. The supplied evidence does not establish the exact values for individual maps, agent counts, task counts, or parameter settings.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>CTS-CBS integrates collaborative task sequencing with collision-free multi-agent path planning instead of treating sequencing as an independent preliminary step. The paper claims completeness and optimality in its exact setting and bounded suboptimality when a bound parameter is supplied. Its simulation results and physical-robot demonstrations indicate practical benefits, especially for MG-MAPF, in success rate and runtime.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The excerpt does not provide the algorithm&#x27;s detailed complexity analysis, complete baseline list, map names, per-condition measurements, variance, or statistical significance. The described model is centered on static environments and discrete actions, so continuous kinematics, dynamic obstacles, and lifelong streams of tasks remain outside the demonstrated scope. The reported gains concern MG-MAPF adaptations and should not be assumed to transfer unchanged to every MAPF formulation. The excerpt also does not establish the failure modes or scalability limits of the search forest as the number of agents and tasks grows.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work is important because it treats task assignment, task order, and path conflicts as coupled decisions. Its search structure offers a principled way to reuse conflict-based reasoning when agents have multiple intermediate obligations rather than only one goal. The adjustable quality-efficiency trade-off may be useful in warehouse and multi-robot systems where exact optimality and response time have different operational priorities.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is suitable for researchers studying MAPF, multi-robot coordination, integrated task assignment and path planning, or extensions of Conflict-Based Search. It is also relevant to readers interested in joint traveling-salesperson formulations and physical-robot validation. Readers whose primary focus is dynamic environments, continuous control, or rigorous benchmark statistics should consult the full paper because those details are not established by the supplied excerpt.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-09-25
+  </footer>
+</div>
+</body>
+</html>
