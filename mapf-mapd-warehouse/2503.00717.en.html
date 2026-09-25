@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>LLMDR: LLM-Driven Deadlock Detection and Resolution in Multi - Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2503.00717.html" lang="ja">日本語</a></nav>
+  <h1>LLMDR: LLM-Driven Deadlock Detection and Resolution in Multi - Agent Pathfinding</h1>
+<p class="meta">LLMDR: LLM-Driven Deadlock Detection and Resolution in Multi-Agent Pathfinding</p>
+  <div class="meta">Seungbae Seo, Junghwan Kim, Minjeong Shin, Bongwon Suh<br>Venue: Unknown ・ 2025-03-01 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2503.00717" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2503.00717" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2503.00717" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">Influential paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2025-03-01</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 1</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> LLMDR monitors executions of learned MAPF models with a large language model, detects deadlocks, and generates intervention strategies that are executed through prioritized planning and PIBT. On standard benchmark maps, it improves the success of several learned solvers, especially in settings with many agents and frequent deadlocks.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The paper addresses multi-agent pathfinding (MAPF), in which multiple agents must move on a graph from individual start locations to individual goals without collisions. Agents operate in discrete time and may either wait or move to an adjacent location. The overall difficulty increases with the number of agents and the complexity of the environment, and learned policies may enter deadlocks involving several agents. A deadlock can be difficult to recognize from the behavior of a learned policy, while random or simple corrective actions may not resolve the interactions among the involved agents.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The central contribution is to use an LLM as a high-level monitoring and intervention component rather than as a low-level planner for every agent and time step. LLMDR combines LLM-based deadlock detection and strategy generation with learned MAPF policies and prioritized planning. The LLM supplies agent priorities and preferred actions, while Priority Inheritance with Backtracking (PIBT) converts those preferences into collision-free one-step actions. This division is intended to exploit LLM reasoning for diagnosis and decision making without relying on the LLM for detailed spatial motion planning. The experiments also evaluate the same intervention framework with multiple learned MAPF base models and different agent counts.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>LLMDR repeatedly examines a fixed-length window of action logs produced by a base model. The detection prompt classifies agents showing no movement or wandering as deadlocked, while agents that have always arrived, have arrived and remain stationary, or show consistent movement are not classified as deadlocked under the stated rules. Detected agents are grouped when they are within Manhattan distance two of one another; a nearby arrived agent can also be included in a group. The proposed strategy is the leader method for independently deadlocked agents or groups containing an agent whose goal is more than eight Manhattan units away. The radiation method is used when all agents in a group are less than eight Manhattan units from their goals and are likely to experience repeated deadlocks. The resulting priorities and action preferences are passed to PIBT, which uses reservations and recursive conflict handling to produce collision-free actions for an execution-plan interval. After that interval, the system starts another detection loop even if a deadlock remains.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation uses four standard MAPF benchmark maps: random32, random64, den312d, and warehouse. The tested agent counts are 4, 8, 16, 32, and 64; the maximum episode length is 256 steps on random32, random64, and den312d, and 512 steps on warehouse. The primary metrics are success rate, defined as the proportion of instances solved within the maximum step limit, and average episode length, defined as the mean number of steps used to solve the test instances. LLMDR is combined with the learned models DCC, DHC, and EPH, and the language-model experiments use gpt-3.5-turbo and gpt-4o. The first experiment contains 300 test instances, while the second and third contain 100 each; unless otherwise specified for hyperparameter analysis, the detection window is four and the execution-plan length is sixteen.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The reported warehouse results show especially large gains at high agent counts. With 64 agents, adding LLMDR raises DHC success rate from 1% to 83%, DCC from 14% to 74%, and the EPH base model without its original inference strategies and ensemble from 6% to 68%. With four agents, DHC and the EPH base model reach 100% success when combined with LLMDR, although the excerpt does not establish that every metric improves in every condition. The hyperparameter observations suggest that increasing the detection window beyond four does not provide significant additional benefit in the reported scenarios, possibly because many of those deadlocks are stagnation rather than oscillation or wandering. An execution-plan length of sixteen is described as a balance between giving the intervention enough steps and avoiding inefficiency from an unnecessarily long intervention. The supplied excerpt does not establish complete results for every map, solver, language model, or configuration, nor does it report statistical significance, the number of LLM calls, or real-time latency.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>MAPF research includes systematic search solvers, such as Conflict-Based Search, and learning-based policies trained with reinforcement learning or related techniques. Conflict-Based Search can face poor scalability because of its exponential worst-case time complexity in difficult instances. Learning-based methods such as PRIMAL, DHC, and DCC seek generalization, decentralized pathfinding, and agent communication through learning, imitation, or graph-based mechanisms. Prior work has also combined learned action distributions with prioritized methods such as PIBT or LaCAM, while rule-based approaches have attempted to detect deadlocks from recent actions.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>A learned MAPF policy can fail in ways that are not easy to identify from individual actions. When several agents block one another, a locally reasonable move or a random change may preserve the deadlock or create another conflict. Ordinary prioritized planning can encourage cooperation by letting higher-priority agents act first, but its priorities can also cause other agents to become stuck. LLMDR therefore targets the intermediate problem of recognizing when execution has entered a deadlock and selecting a coordinated corrective intervention.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>PIBT extends prioritized planning with priority inheritance, backtracking, reservations, and recursive conflict resolution to generate a collision-free action for one step. LLMDR does not ask the LLM to construct all low-level paths; it uses the model to decide which agents and actions should receive priority. The default detection window is four actions and the default execution-plan length is sixteen steps. The intervention cycle proceeds for that plan length and then returns to detection, whether or not all deadlock symptoms have disappeared.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The first experiment compares base learned solvers and their LLMDR-augmented versions across maps and agent counts. The second studies the effect of the language model, and the third examines hyperparameters. In the warehouse setting with 64 agents, the reported hyperparameter tests compare detection-window lengths of 2 and 4, and execution-plan lengths of 8, 16, and 32. The excerpt states that 16 offered the observed balance between intervention capability and the risk of unnecessary intervention, but it does not provide all numerical values from those comparisons.</p></section>
+<section class="secsum"><h3>Results</h3><p>The supplied warehouse data indicate that LLMDR improves success rates for DHC, DCC, and the EPH base model, with the largest reported gains at 64 agents. The corresponding success-rate changes are 1% to 83% for DHC, 14% to 74% for DCC, and 6% to 68% for the EPH base model. Average episode length is lower in many of the listed augmented conditions, but the excerpt does not justify a claim of improvement for every solver, map, agent count, or language model. The abstract and conclusion characterize the overall result as improved scalability and performance, particularly in deadlock-prone scenarios.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>LLMDR is a hybrid architecture that uses an LLM to inspect execution traces and propose high-level deadlock resolutions, while learned MAPF policies and PIBT handle low-level movement and collision avoidance. The reported experiments support the claim that this architecture can improve several learned MAPF models across increasing agent counts. Its main value is not replacing a MAPF solver, but adding a targeted recovery mechanism for situations in which the solver becomes stuck.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The paper explicitly identifies the computational cost of LLM inference as a limitation for resource-constrained and real-time applications. LLMs also have known difficulties with multi-agent coordination and spatial reasoning; assigning low-level planning to the learned model and PIBT is intended to reduce, rather than eliminate, that risk. The supplied excerpt does not establish inference latency, monetary cost, robustness to prompt or model changes, or a complete catalog of failure cases. It also does not provide enough evidence to determine how the method compares with every non-LLM deadlock detector under matched computational budgets.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work presents a practical hybrid pattern for learned MAPF: retain a fast learned policy for ordinary execution and invoke an LLM-based supervisor when behavior suggests a deadlock. The reported gains on crowded warehouse instances indicate that such selective intervention may improve the scalability of learning-based solvers without making the LLM responsible for all spatial decisions. This makes the paper relevant to research on MAPF recovery, learned multi-robot coordination, and high-level use of language models in planning.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is suitable for researchers studying learning-based MAPF, deadlock detection and recovery, prioritized planning, PIBT, or LLM-assisted robot planning. It is particularly relevant to readers interested in augmenting an existing learned solver with an intervention layer for high-agent-count or deadlock-prone scenarios. Readers seeking detailed latency, cost, statistical testing, or exhaustive ablation evidence should treat those aspects as unresolved by the supplied excerpt.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-09-26
+  </footer>
+</div>
+</body>
+</html>

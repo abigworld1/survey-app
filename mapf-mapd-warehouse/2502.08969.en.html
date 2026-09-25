@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SkyRover: A Modular Simulator for Cross-Domain Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2502.08969.html" lang="ja">日本語</a></nav>
+  <h1>SkyRover: A Modular Simulator for Cross-Domain Pathfinding</h1>
+
+  <div class="meta">Wenhui Ma, Wenhao Li, Bo Jin, Changhong Lu, Xiangfeng Wang<br>Venue: Unknown ・ 2025-02-13 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2502.08969" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2502.08969" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.24963/ijcai.2025/1268" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">Recent paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2025-02-13</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 1</span><span class="chip">Relevance 1</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> SkyRover is a modular simulator for three-dimensional multi-agent path finding involving unmanned aerial vehicles and automated guided vehicles. It combines realistic Gazebo worlds, discrete 3D occupancy grids, classical and learning-based solvers, and low-level control, while preliminary experiments demonstrate its usefulness as a common testbed rather than proving broad superiority over existing platforms.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The paper addresses cooperative operation between UAVs, which move through three-dimensional or restricted airspaces, and AGVs, which follow terrestrial routes. Such cooperation is relevant to logistics, surveillance, inspection, search and rescue, precision agriculture, and related applications. When their operating areas are shared or intersect, the problem involves not only collision avoidance but also different motion characteristics, control systems, and task procedures. SkyRover is intended to represent these cross-domain conditions in one simulator and to connect path planning with robot control.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The main contribution is a unified toolkit intended to support collaborative UAV-AGV MAPF in one modular environment. Its architecture includes the Sim World Zoo for Gazebo worlds and vehicle models, a 3D Grid Generator, a Unified Algorithm Wrapper, a Plan Executor, and a System Interface. External solvers and learning methods can be connected through common interfaces, providing a shared basis for algorithm design, testing, and benchmarking. The authors emphasize that the system combines detailed physical environments, three-dimensional occupancy representations, visualization, and external robotics-software integration, rather than focusing only on 2D grids, simplified 3D representations, or one vehicle domain. The paper positions SkyRover as the first environment to natively support UAV-AGV MAPF, but the supplied excerpt does not include a comprehensive comparative survey establishing that claim.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>SkyRover begins with its Sim World Zoo, which manages multiple Gazebo simulation worlds and 3D models for UAVs and AGVs. Its 3D Grid Generator extracts a point cloud from a Gazebo environment and converts it into a discrete three-dimensional occupancy grid: cells containing point-cloud particles are obstacles marked as 1, while free cells are marked as 0. The generated grid is published to RViz for visualization and can be used by MAPF algorithms. Through an initialization interface in the Unified Algorithm Wrapper, the experiments load 3D-A*, 3D-CBS, and a three-dimensional version of the learning-based method DCC. For DCC, the original two-dimensional convolution layers are changed to three-dimensional layers, and curriculum learning is conducted on episodes from random grids. The simulator also supports low-level control: PX4 executes drone commands and Navigation2 governs a TurtleBot, allowing planned paths to be passed to more realistic motion execution.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation uses two Gazebo worlds, a warehouse and a park. The warehouse contains multiple Holybro X500 drones and delivery AGVs, while the park represents a relatively open setting for UAV operation. Two interaction tasks are described. In inventory scanning, an AGV carries cargo to point A, a UAV hovers above it to scan and inventory the cargo, and the AGV then continues to point B. In aerial cargo transfer, an AGV carries cargo to point A, a UAV arrives and hovers to receive the cargo, and the UAV transports it to an elevated point B. The reported software environment is Ubuntu 24.04, ROS 2 Jazzy, Gazebo Harmonic, and the main branch of PX4, running on a computer with an Intel i7 CPU and 32 GB of RAM. The reported metrics are computation time before the first move and the percentage of agents that reach their targets without collision in one run. The excerpt does not establish the number of repeated trials, random seeds, all map dimensions, complete algorithm settings, or a complete list of comparison simulators.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The results show that SkyRover can demonstrate discrete 3D MAPF and low-level motion control in the same environment, but they do not establish comprehensive superiority over existing simulators. In the preliminary warehouse comparison with twenty-two total agents, 3D-A*, 3D-CBS, and well-trained 3D-DCC all have a reported success rate of 100 percent, with computation times of 54.7, 92.4, and 0.6 seconds, respectively. This comparison is tied to the stated warehouse condition and does not guarantee the same speed or reliability across worlds, scales, or hardware. The main trade-offs are that greater physical fidelity increases computational cost, while the flexibility of learning-based methods comes with training-data and hyperparameter-tuning costs. The simulator therefore appears most valuable as an integration and benchmarking platform, while broader claims require broader evaluation.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Multi-agent path finding seeks routes for multiple autonomous agents so that they reach their assigned goals without collisions while using shared resources efficiently. AGVs are widely used in large warehouses, while UAVs are increasingly used for package delivery, low-altitude tourism, and urban air mobility. Because UAVs and AGVs can perform complementary transport, scanning, and cargo-transfer actions, their cooperation is relevant to logistics, rescue, precision agriculture, and infrastructure inspection. Their different movement spaces, dynamics, and control software make a unified evaluation environment difficult to construct.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>Prior MAPF research and simulation infrastructure have tended to focus on either ground vehicles or aerial vehicles. Two-dimensional grids and simplified three-dimensional representations make it difficult to evaluate detailed environment geometry, aerial-ground interaction, and realistic vehicle motion. A researcher who wants to evaluate a solver on a discrete map and then execute its output through robot-level control may need to connect several separate tools. SkyRover addresses this fragmentation with one modular framework for cross-domain pathfinding and execution.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>The stated architecture has five main modules: the Sim World Zoo, the 3D Grid Generator, the Unified Algorithm Wrapper, the Plan Executor, and the System Interface. Detailed Gazebo worlds are converted through point-cloud processing into a discrete occupancy representation for MAPF and are visualized in RViz. PX4 and Navigation2 connect abstract path evaluation to low-level control of a drone and a ground robot. The supplied excerpt omits the exact physical size of each grid cell, so its resolution cannot be stated reliably.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The experiments use a warehouse containing multiple Holybro X500 drones and delivery AGVs and a park with relatively open UAV operating space. Inventory scanning and aerial cargo transfer represent different forms of cooperation, including AGV transport, UAV hovering, scanning, and cargo handoff. The planning demonstrations load 3D-A*, 3D-CBS, and 3D-DCC, and compare movement toward randomly assigned goals. The excerpt does not specify the number of evaluation repetitions, random seeds, all map dimensions, detailed settings for each method, or a complete list of comparison simulators.</p></section>
+<section class="secsum"><h3>Results</h3><p>The 3D-DCC model is trained with curriculum learning on random grids and is reported to reach success under test conditions with sixteen agents. In the preliminary warehouse comparison with twenty-two total agents, the reported computation times are 54.7 seconds for 3D-A*, 92.4 seconds for 3D-CBS, and 0.6 seconds for well-trained 3D-DCC. Each of the three methods has a reported success rate of 100 percent. These values show that multiple planning methods can be measured in a common SkyRover format, but the supplied evidence does not report variance, statistical significance, scaling curves, or results on other hardware, so the values should not be treated as a general performance ranking.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>SkyRover combines realistic Gazebo worlds, automatic three-dimensional occupancy-grid generation, unified wrappers for classical and learning-based solvers, plan execution, and external robotics-software integration. The warehouse and park demonstrations show that the same environment can support abstract path planning and lower-level control through PX4 and Navigation2. The authors position it as a common platform for designing, testing, and benchmarking UAV-AGV MAPF methods. The excerpt states that the project is available through its project website, but it does not establish detailed access conditions or reproduction procedures.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The current simulator only partially models real-world effects such as weather and sensor noise. Large-scale simulation can be computationally expensive, while learning-based methods require substantial training data and potentially time-consuming hyperparameter optimization. The paper identifies future work including wind perturbations, complex friction, sensors such as LiDAR and radar, and dynamic obstacles. The supplied preliminary results do not establish behavior with much larger teams, different hardware, real-world transfer, or statistically repeated evaluations.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>SkyRover is important because it connects ground and aerial MAPF research through a shared three-dimensional environment and software interface. Researchers can combine classical solvers, learning methods, and near-hardware control in the same scenario, making it possible to examine how abstract plans are reflected in heterogeneous robot behavior. Its modular structure may also make it easier to compare planning approaches without rebuilding the surrounding simulation infrastructure. If the proposed extensions are implemented, the platform could support more complex studies of aerial corridors, dynamic obstacles, sensing, and distributed learning.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>The paper is suitable for researchers working on UAV-AGV coordination, three-dimensional MAPF, robotic simulation, and path-planning benchmarks. It is especially relevant to users who want to combine discrete solvers with Gazebo, PX4, and Navigation2 in one experimental workflow. It can also serve as an entry point to learning-based multi-agent planning, although the supplied excerpt lacks enough training and evaluation detail to reproduce a complete study. Readers seeking definitive claims about scalability, real-world transfer, or superiority of a particular method should treat the reported results as preliminary and conduct additional experiments.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-09-26
+  </footer>
+</div>
+</body>
+</html>

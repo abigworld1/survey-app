@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>LLMDR: LLM-Driven Deadlock Detection and Resolution in Multi - Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2503.00717.en.html" lang="en">English</a></nav>
+  <h1>LLMDR: LLM-Driven Deadlock Detection and Resolution in Multi - Agent Pathfinding</h1>
+<p class="meta">LLMDR：マルチエージェント経路探索における大規模言語モデル駆動のデッドロック検出と解消</p>
+  <div class="meta">Seungbae Seo, Junghwan Kim, Minjeong Shin, Bongwon Suh<br>採択先: 未取得 ・ 2025-03-01 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2503.00717" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2503.00717" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2503.00717" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2025-03-01</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> LLMDRは、学習ベースのMAPFモデルの実行履歴を大規模言語モデル（LLM）で分析し、デッドロックを検出して解消戦略を生成するハイブリッド枠組みである。標準ベンチマークでは、特にエージェント数が多くデッドロックが起こりやすい条件で、複数の学習ベースモデルの成功率を改善したことが報告されている。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、複数のエージェントをグラフ上で移動させ、それぞれの開始地点から個別の目標地点へ、衝突なく到達させるマルチエージェント経路探索（MAPF）である。エージェントは離散時間で隣接地点へ移動するか待機し、他のエージェントとの相互作用を考慮して行動する必要がある。エージェント数や環境の複雑さが増すとMAPFは難しくなり、学習方策が複数エージェントを含むデッドロックに陥ることが問題になる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の中心的な新規性は、LLMを各エージェントの低レベル経路を毎時刻直接計画するものではなく、学習ベースMAPFモデルの実行を監視し介入する高レベル機構として使う点にある。LLMDRは、LLMによるデッドロック検出と解決戦略の生成を、学習モデルおよび優先度付き計画と組み合わせる。LLMが提案するエージェントの優先度や行動方針をPIBTに渡し、PIBTが衝突のない1ステップの行動へ変換することで、LLMに詳細な低レベル空間計画を委ねない設計を採用する。複数の学習ベースモデル、マップ、エージェント数を用いた評価により、この介入枠組みの適用可能性を検討した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LLMDRは、基礎モデルが生成したエージェントの行動ログを一定長の検出窓でLLMに入力し、デッドロックの有無を分類する。提示された検出規則では、動かない状態や同じ付近を巡回する状態はデッドロック候補とされる一方、常に到達済みである状態、到達後に停止している状態、一貫して移動している状態はデッドロックとみなされない。検出されたエージェントは、互いにマンハッタン距離2以内であればグループ化され、近くにいる到達済みエージェントが同じグループへ含められる場合もある。独立したデッドロック、またはグループ内に目標までの距離が8より大きいエージェントがある場合にはリーダー方式を使い、グループ内の全エージェントが目標から8未満の距離にあり、デッドロックを繰り返しそうな場合には放射方式を使う。生成された優先度と行動の好みはPIBTに組み込まれ、PIBTは予約と再帰的な競合処理によって、指定された実行計画長の間、衝突を避ける行動を生成する。その区間が終わると、デッドロックが残っていても次の検出ループへ進む。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価には、random32、random64、den312d、warehouseという4種類の標準MAPFベンチマークマップが使われた。エージェント数は4、8、16、32、64とし、最大時間ステップはrandom32、random64、den312dでは256、warehouseでは512に設定された。指標は、最大時間内に解決できたインスタンスの割合である成功率と、解決までに要した時間ステップの平均である平均エピソード長である。LLMDRはDCC、DHC、EPHの学習モデルと組み合わせて評価され、基礎言語モデルとしてgpt-3.5-turboとgpt-4oが試された。第1実験は300個のテストインスタンス、第2および第3実験はそれぞれ100個であり、ハイパーパラメータ分析を除く既定設定では検出窓長を4、実行計画長を16とした。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提示されたwarehouseの結果では、64エージェントの場合、DHCにLLMDRを加えると成功率が1%から83%へ、DCCでは14%から74%へ、EPHの元の推論戦略とアンサンブルを除いた基礎版では6%から68%へ上昇した。4エージェントの場合、DHCとEPHの基礎版はいずれもLLMDR併用時に成功率100%となったが、抜粋だけから全条件で全指標が改善したとはいえない。ハイパーパラメータの観察では、報告された条件で検出窓を4より長くしても大きな性能向上はなく、対象シナリオの多くのデッドロックは振動や巡回よりも停滞に起因する可能性が示された。実行計画長16は、解消に十分な介入ステップを与えつつ、介入が不必要に長くなることによる効率低下を抑えるバランスとして観察された。ただし、抜粋は全マップ、全モデル、全LLM設定の詳細結果、統計的有意性、LLM呼び出し回数、実時間の遅延を確立していない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFには、Conflict-Based Searchのような体系的探索法と、強化学習や模倣学習などを用いる学習ベース手法がある。Conflict-Based Searchは、困難な大規模インスタンスで指数的な最悪時計算量が問題になりうる。PRIMAL、DHC、DCCなどの学習ベース手法は、一般化、分散経路探索、エージェント間通信を学習によって改善してきた。先行研究には、学習モデルの行動確率分布をPIBTやLaCAMのような優先度付き手法と組み合わせるものや、過去の行動を規則で分析してデッドロックを検出するものもある。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>学習ベースのMAPF方策は、個々の行動だけからは原因を特定しにくい形で失敗することがある。複数のエージェントが互いに進路を塞ぐ場合、局所的に妥当に見える行動やランダムな変更では、デッドロックが維持されたり別の競合が生じたりする。優先度付き計画は高優先度のエージェントを先に動かすことで協調を促せる一方、優先度の偏りによって他のエージェントが取り残される可能性もある。したがってLLMDRは、実行がデッドロックに入ったことを認識し、複数エージェントを対象とする訂正介入を選ぶ中間的な問題を扱う。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>PIBTは優先度付き計画を拡張し、優先度継承、バックトラッキング、予約、再帰的な競合解決を用いて、1ステップ分の衝突のない行動を生成する。LLMDRはLLMにすべての低レベル経路を構築させず、どのエージェントや行動を優先すべきかを決めるためにLLMを使う。既定の検出窓長は4行動、既定の実行計画長は16ステップである。介入はその計画長だけ進み、その後、デッドロックの兆候がすべて消えていなくても検出へ戻る。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>第1実験では、複数のマップとエージェント数において、基礎となる学習ソルバとLLMDRを追加したソルバを比較した。第2実験では言語モデルの影響を調べ、第3実験では検出窓長や実行計画長などのハイパーパラメータを調べた。warehouseの64エージェント条件では、検出窓長2および4、実行計画長8、16、32が比較された。抜粋は、実行計画長16が介入能力と不必要な介入による効率低下の間で観察上のバランスを示したと述べるが、これらの比較の全数値は示していない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>提示されたwarehouseのデータでは、LLMDRはDHC、DCC、EPHの基礎版の成功率を、特に64エージェントの条件で改善した。具体的な成功率の変化は、DHCが1%から83%、DCCが14%から74%、EPHの基礎版が6%から68%である。平均エピソード長も掲載された多くの併用条件で短くなっているが、すべてのソルバ、マップ、エージェント数、LLMについて改善したとは抜粋から断定できない。要旨と結論は、全体として、デッドロックが起こりやすい条件で性能と学習ベースMAPFのスケーラビリティが向上したとまとめている。</p></section>
+<section class="secsum"><h3>結論</h3><p>LLMDRは、LLMで実行履歴を調べて高レベルのデッドロック解消方策を提案し、学習ベースのMAPF方策とPIBTに低レベルの移動および衝突回避を担わせるハイブリッド構成である。報告された実験は、この構成がエージェント数の増加を含む条件で複数の学習ベースMAPFモデルを改善できることを支持している。その価値はMAPFソルバを置き換えることではなく、ソルバが停止した局面に対して対象を絞った回復機構を追加する点にある。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>論文は、LLM推論の計算コストが資源制約のある環境やリアルタイム用途への適用を制限することを明示している。LLMにはマルチエージェント協調や空間推論の難しさもあり、低レベル計画を学習モデルとPIBTに任せる設計はそのリスクを軽減しようとするが、完全に消すものではない。提供された抜粋からは、推論遅延、金銭的コスト、プロンプトやLLM変更への頑健性、失敗事例の完全な一覧は確認できない。また、計算資源を揃えた条件で、すべての非LLM型デッドロック検出器とどのように比較されるかも判断できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究は、通常時には高速な学習方策を使い、挙動がデッドロックを示したときだけLLMベースの監督機構を呼び出す、学習ベースMAPF向けのハイブリッド設計パターンを示している。混雑したwarehouse条件で報告された改善は、すべての空間判断をLLMに任せず、選択的介入によって学習ベースソルバのスケーラビリティを補える可能性を示す。この点で、MAPFの回復処理、学習ベースのマルチロボット協調、計画におけるLLMの高レベル利用を研究するうえで重要である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>学習ベースMAPF、デッドロック検出と回復、優先度付き計画、PIBT、LLM支援ロボット計画を研究する読者に適している。特に、エージェント数が多い条件やデッドロックが起こりやすい条件で成功率が低下する既存の学習ソルバへ、介入層を追加したい研究者に参考になる。遅延、費用、統計的検定、網羅的なアブレーション結果を詳しく知りたい読者は、それらが提供された抜粋では未確立である点に注意すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-26
+  </footer>
+</div>
+</body>
+</html>

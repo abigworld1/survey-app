@@ -10988,6 +10988,42 @@
       "url": "http://arxiv.org/abs/2401.17044v2",
       "venue": "IJCAI 2024"
     },
+    "doi:10.24963/ijcai.2025/1268": {
+      "added": "2026-09-26",
+      "added_at": "2026-09-26T08:50:50.173299",
+      "arxiv_id": "2502.08969",
+      "authors": [
+        "Wenhui Ma",
+        "Wenhao Li",
+        "Bo Jin",
+        "Changhong Lu",
+        "Xiangfeng Wang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 1,
+      "date": "2025-02-13",
+      "doi": "10.24963/ijcai.2025/1268",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2502.08969.html",
+      "file_en": "mapf-mapd-warehouse/2502.08969.en.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2502.08969",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 1,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "SkyRover: A Modular Simulator for Cross-Domain Pathfinding",
+      "title_en": "SkyRover: A Modular Simulator for Cross-Domain Pathfinding",
+      "title_ja": "SkyRover：異分野経路計画のためのモジュール型シミュレータ",
+      "tldr": "SkyRoverは、無人航空機（UAV）と自動搬送車（AGV）が協調する3次元マルチエージェント経路計画（MAPF）を研究するためのモジュール型シミュレータである。現実的なGazebo環境、3次元占有グリッド、古典的・学習ベースの計画法、低レベル制御を統合し、予備実験によって共通の評価基盤としての利用可能性を示す。",
+      "tldr_en": "SkyRover is a modular simulator for three-dimensional multi-agent path finding involving unmanned aerial vehicles and automated guided vehicles. It combines realistic Gazebo worlds, discrete 3D occupancy grids, classical and learning-based solvers, and low-level control, while preliminary experiments demonstrate its usefulness as a common testbed rather than proving broad superiority over existing platforms.",
+      "url": "https://arxiv.org/abs/2502.08969",
+      "venue": ""
+    },
     "doi:10.4108/airo.3449": {
       "added": "2026-07-31",
       "added_at": "2026-07-31T06:27:25.367000",
@@ -11335,6 +11371,41 @@
       "title": "SRMT: Shared Memory for Multi-agent Lifelong Pathfinding",
       "tldr": "部分観測下のマルチエージェント経路探索では、局所観測だけで衝突を避け、狭い通路で通行順を調整する必要がある。Shared Recurrent Memory Transformer（SRMT）は、各エージェントの再帰メモリを共有ワークスペースで参照可能にし、明示的なメッセージ設計なしで分散協調を学習する。交渉が必要なボトルネック課題では、特に疎な報酬条件で既存の通信型・メモリ型手法を上回った。",
       "url": "https://arxiv.org/abs/2501.13200",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2503.00717": {
+      "added": "2026-09-26",
+      "added_at": "2026-09-26T08:49:09.057781",
+      "arxiv_id": "2503.00717",
+      "authors": [
+        "Seungbae Seo",
+        "Junghwan Kim",
+        "Minjeong Shin",
+        "Bongwon Suh"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-03-01",
+      "doi": "10.48550/arxiv.2503.00717",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2503.00717.html",
+      "file_en": "mapf-mapd-warehouse/2503.00717.en.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2503.00717",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 1,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "LLMDR: LLM-Driven Deadlock Detection and Resolution in Multi - Agent Pathfinding",
+      "title_en": "LLMDR: LLM-Driven Deadlock Detection and Resolution in Multi-Agent Pathfinding",
+      "title_ja": "LLMDR：マルチエージェント経路探索における大規模言語モデル駆動のデッドロック検出と解消",
+      "tldr": "LLMDRは、学習ベースのMAPFモデルの実行履歴を大規模言語モデル（LLM）で分析し、デッドロックを検出して解消戦略を生成するハイブリッド枠組みである。標準ベンチマークでは、特にエージェント数が多くデッドロックが起こりやすい条件で、複数の学習ベースモデルの成功率を改善したことが報告されている。",
+      "tldr_en": "LLMDR monitors executions of learned MAPF models with a large language model, detects deadlocks, and generates intervention strategies that are executed through prioritized planning and PIBT. On standard benchmark maps, it improves the success of several learned solvers, especially in settings with many agents and frequent deadlocks.",
+      "url": "https://arxiv.org/abs/2503.00717",
       "venue": ""
     },
     "doi:10.48550/arxiv.2504.07841": {

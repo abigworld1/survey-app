@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SkyRover: A Modular Simulator for Cross-Domain Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2502.08969.en.html" lang="en">English</a></nav>
+  <h1>SkyRover: A Modular Simulator for Cross-Domain Pathfinding</h1>
+<p class="meta">SkyRover：異分野経路計画のためのモジュール型シミュレータ</p>
+  <div class="meta">Wenhui Ma, Wenhao Li, Bo Jin, Changhong Lu, Xiangfeng Wang<br>採択先: 未取得 ・ 2025-02-13 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2502.08969" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2502.08969" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.24963/ijcai.2025/1268" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2025-02-13</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 1</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> SkyRoverは、無人航空機（UAV）と自動搬送車（AGV）が協調する3次元マルチエージェント経路計画（MAPF）を研究するためのモジュール型シミュレータである。現実的なGazebo環境、3次元占有グリッド、古典的・学習ベースの計画法、低レベル制御を統合し、予備実験によって共通の評価基盤としての利用可能性を示す。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、地上経路を走行するAGVと、3次元空間または制限された空域を移動するUAVが、物流、監視、点検、救助、農業などで協調する状況である。両者の運用領域が共有または交差すると、衝突回避だけでなく、異なる運動特性、制御系、作業手順を同時に扱う必要がある。従来のシミュレータは地上または空中の単一領域に集中することが多く、UAVとAGVの協調を本来の機能として提供するものは少ない。SkyRoverは、空中と地上のエージェントを同じ3次元環境で扱い、経路計画からロボット制御までを接続することを目指す。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>主な貢献は、UAV・AGV協調MAPFを単一のモジュール型環境で扱う統合ツールキットを提示したことである。構成要素は、Gazeboワールドと機体モデルを収めるSim World Zoo、3D Grid Generator、Unified Algorithm Wrapper、Plan Executor、System Interfaceである。外部ソルバや学習手法を統一されたインターフェースから接続できるため、アルゴリズム設計、テスト、ベンチマークの共通基盤として使える。著者らは、2次元グリッドや簡略化された3次元表現に対し、詳細な物理環境、3次元占有表現、可視化、外部ロボットソフトウェア連携をまとめた点を強調する。論文は、これをUAV・AGV MAPFをネイティブに支援する最初の環境だと位置付けているが、抜粋にはその主張を網羅的に検証する比較調査は示されていない。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>SkyRoverのSim World Zooは、複数のGazeboシミュレーションワールドとUAV・AGVの3次元モデルを管理する。3D Grid GeneratorはGazebo環境から点群を抽出し、点群を含むセルを障害物として1、空いているセルを0とする離散的な3次元占有グリッドへ変換する。生成されたグリッドはRVizに公開され、MAPFアルゴリズムの入力とリアルタイム可視化に利用できる。Unified Algorithm Wrapperの初期化インターフェースから、3D-A*、3D-CBS、3次元化した学習ベース手法DCCを読み込む。DCCでは元の2次元畳み込み層を3次元に変更し、ランダムグリッド上のエピソードでカリキュラム学習を行う。抽象的な位置更新に加え、PX4でドローンを、Navigation2でTurtleBotを制御し、計画結果を低レベルの動作へ渡すこともできる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価では、倉庫と公園という二つのGazeboワールドを用いた。倉庫には複数のHolybro X500ドローンと配送AGVを配置し、公園はUAVがより開けた空間を使えるシナリオとして扱う。在庫走査タスクでは、AGVが貨物を点Aへ運び、UAVがAGVの上空で貨物を走査した後、AGVが点Bへ進む。空中貨物移送タスクでは、AGVが点Aへ貨物を運び、UAVが到着して貨物を受け取り、それを高い位置の点Bへ運ぶ。実験環境はUbuntu 24.04、ROS 2 Jazzy、Gazebo Harmonic、PX4のメインブランチで、Intel i7 CPUと32 GB RAMを備えたPCを使用した。報告された指標は、最初の移動前に計画または推論を終える計算時間と、1回の実行で衝突せず目標に到達したエージェントの割合である。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>結果は、SkyRoverが離散的な3次元MAPFと低レベルのモーション制御を同じ環境で実演できることを示すが、既存シミュレータに対する総合的な優位性までは確立していない。倉庫の合計22エージェントの予備比較では、3D-A*、3D-CBS、十分に訓練された3D-DCCがいずれも100％の成功率を示し、計算時間はそれぞれ54.7秒、92.4秒、0.6秒だった。この比較は記載された倉庫条件に基づく初期結果であり、異なるワールド、規模、ハードウェアでも同じ速度や信頼性が得られることを保証しない。主要なトレードオフは、物理的忠実度を高めるほど計算負荷が増えることと、学習ベース手法の柔軟性が訓練データやハイパーパラメータ調整のコストを伴うことである。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、複数の自律エージェントを衝突させず、共有資源を効率的に使いながら、それぞれの目標へ導く問題である。AGVは大規模倉庫で利用され、UAVは貨物配送、低空観光、都市空中移動などで利用範囲を広げている。UAVとAGVは相補的な輸送、走査、貨物受け渡しを担えるため、協調システムは物流、救助、精密農業、インフラ点検に関係する。両者は運動可能な空間、動力学、制御ソフトウェアが異なるため、統一された評価環境の構築が難しい。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>既存のMAPF研究とシミュレータは、地上車両または航空機の単一領域を扱う傾向がある。2次元グリッドや簡略化された3次元表現だけでは、詳細な環境形状、空地間の相互作用、現実的な機体運動を十分に検証できない。計画アルゴリズムを離散地図で評価し、その結果をロボットレベルの制御で実行したい研究者は、複数のツールを接続しなければならない場合がある。SkyRoverは、異種エージェントの経路計画と実行を一つのモジュール型枠組みで扱うことで、この分断に対処する。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>アーキテクチャは、Sim World Zoo、3D Grid Generator、Unified Algorithm Wrapper、Plan Executor、System Interfaceという五つの主要モジュールからなる。Gazeboの詳細なワールドは点群処理を通じてMAPF用の離散的な占有表現へ変換され、RVizで可視化される。PX4とNavigation2によって、抽象的な経路評価からドローンと地上ロボットの低レベル制御までを同じシステムで試せる。供給された抜粋では、グリッドセルの正確な物理寸法は欠落しているため、その解像度は確定できない。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験シナリオは、複数のHolybro X500ドローンと配送AGVを含む倉庫、およびUAVの運用空間が比較的開けた公園である。在庫走査と空中貨物移送によって、AGVの搬送、UAVのホバリング、走査、貨物の受け渡しという異なる協調関係を表した。計画例では3D-A*、3D-CBS、3D-DCCを読み込み、ランダムに割り当てた目標へ向かう構成を比較した。抜粋は、評価の反復回数、乱数種、全マップ寸法、各手法の詳細設定、比較対象シミュレータの完全な一覧を確定的には述べていない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>ランダムグリッド上でカリキュラム学習を行った3D-DCCモデルは、テスト条件で16エージェントの成功に到達したと報告されている。倉庫の合計22エージェントによる予備比較では、3D-A*の計算時間は54.7秒、3D-CBSは92.4秒、十分に訓練された3D-DCCは0.6秒で、三者の成功率はいずれも100％だった。これらの値はSkyRover上で複数の計画法を共通形式で測れることを示す。抜粋には分散、統計的有意性、規模に対する曲線、別ハードウェアでの結果は示されていないため、一般的な性能順位とは解釈できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>SkyRoverは、Gazeboの現実的なワールド、3次元占有グリッド生成、古典的・学習ベースのソルバ用統一ラッパー、計画実行、外部ロボットソフトウェア連携を組み合わせたUAV・AGV用MAPFシミュレータである。倉庫と公園の実演は、抽象的な経路計画からPX4およびNavigation2による低レベル制御までを同じ環境で扱える柔軟性を示す。著者らは、これをUAV・AGV協調MAPFの設計、テスト、ベンチマークに用いる共通基盤として位置付ける。プロジェクトがウェブサイトで公開されていると記載されているが、提供された抜粋から利用条件や再現手順の詳細までは確認できない。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>現状では、天候やセンサノイズなどの現実世界の効果が部分的にしかモデル化されていない。大規模シミュレーションには計算負荷があり、学習ベース手法には大量の訓練データと時間のかかるハイパーパラメータ最適化が必要になる。今後の課題として、風の摂動、複雑な摩擦、LiDARやレーダーなどのセンサ、動的障害物への対応が挙げられている。より大きなエージェント集団、異なるハードウェア、現実環境への一般化、反復試行による統計的評価は、抜粋の予備結果からは確立されていない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究の意義は、地上と空中を別々に扱いがちなMAPF研究を、共通の3次元環境とソフトウェアインターフェースで接続する点にある。研究者は、古典的ソルバ、学習法、実機に近い制御を同じシナリオで組み合わせ、抽象的な計画が異種ロボットの動作へどう反映されるかを調べられる。モジュール構成は、周辺のシミュレーション基盤を作り直さずに、異なる計画手法を比較する助けになる可能性がある。将来の空中回廊、動的障害物、センサ、分散学習への拡張が実現すれば、より複雑な協調研究を支援できる。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>UAV・AGV協調、3次元MAPF、ロボットシミュレーション、経路計画ベンチマークを研究する人に適している。特に、離散的なソルバとGazebo、PX4、Navigation2を一つの実験ワークフローに組み込みたい研究者に有用である。学習ベースのマルチエージェント計画を始める入口にもなるが、供給された抜粋だけでは完全な研究を再現するための訓練・評価条件は不足している。スケーラビリティ、実環境移行、特定手法の優位性について確定的な結論を求める読者は、報告された予備評価に加えて追加実験を行う必要がある。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-26
+  </footer>
+</div>
+</body>
+</html>
